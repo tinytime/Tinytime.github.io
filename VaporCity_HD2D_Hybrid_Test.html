@@ -8302,54 +8302,6 @@ const CIV={
  usher:{sc:1,body:'#2a1a3a',trim:'#ff2fa8',pants:'#14102a',hat:'cap',hair:'#1a1410'}
 };
 const CIV_FANC=['#ff2fa8','#27e0ff','#ffd23a','#9b5cff','#58ffb0','#ff7a1a'];
-/* Updated top-down civilian sprite renderer. It uses each NPC's existing CIV profile,
-   so names, dialogue, jobs, clothing identity and story roles remain unchanged. */
-function owCivTop(dir,n,tm,moving){
-  const kind=n.civ,P=Object.assign({},CIV[kind]||CIV.fan);
-  if(n.hb)Object.assign(P,HB_CIV[kind]||HB_CIV.fan);
-  if(kind==='fan'&&n.hb){P.body=HB_FANC[((n.x*7+n.y*3)|0)%HB_FANC.length];P.pants=['#26333C','#2b3036','#1f2a30'][(n.x+n.y)%3]}
-  else if(kind==='fan'){P.body=CIV_FANC[((n.x*7+n.y*3)|0)%CIV_FANC.length];P.pants=['#1a2433','#241a2e','#10202a'][(n.x+n.y)%3]}
-  const U=OWT/38*P.sc,sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
-  const skin=['#e6b48a','#c98a62','#8a5a3a','#f0c8a0'][((n.x*5+n.y)|0)%4];
-  const step=moving?Math.sin(tm*10+(n.x+n.y)*2):0,bob=moving?Math.abs(step)*.65:Math.sin(tm*1.8+n.x)*.18;
-  const g=og;g.save();g.translate(sx,sy);g.fillStyle='rgba(0,0,0,.32)';g.beginPath();g.ellipse(0,1.5*U,8.8*U,3.1*U,0,0,Math.PI*2);g.fill();
-  g.translate(0,-bob*U);
-  const ang=dir==='d'?Math.PI:dir==='l'?-Math.PI/2:dir==='r'?Math.PI/2:0;
-  g.rotate(ang);
-  // Back-mounted items remain visible from above.
-  if(P.pack){g.fillStyle=P.pack;g.beginPath();g.roundRect(-4.2*U,-1*U,8.4*U,8.5*U,2*U);g.fill();g.strokeStyle='rgba(255,255,255,.22)';g.lineWidth=.8*U;g.stroke()}
-  // Legs and shoes, with a restrained two-frame walking stride.
-  g.fillStyle=P.pants;g.beginPath();g.roundRect(-4.8*U,4.4*U+step*1.1*U,3.7*U,6.4*U,1.5*U);g.roundRect(1.1*U,4.4*U-step*1.1*U,3.7*U,6.4*U,1.5*U);g.fill();
-  g.fillStyle='#17191c';g.beginPath();g.roundRect(-5*U,9.3*U+step*1.1*U,4.1*U,2.5*U,1*U);g.roundRect(.9*U,9.3*U-step*1.1*U,4.1*U,2.5*U,1*U);g.fill();
-  // Torso: rounded shoulders and a tapered coat/shirt silhouette.
-  g.fillStyle=P.body;g.beginPath();g.moveTo(-6.8*U,-5*U);g.quadraticCurveTo(-7.2*U,-8*U,-3.8*U,-8.2*U);g.lineTo(3.8*U,-8.2*U);g.quadraticCurveTo(7.2*U,-8*U,6.8*U,-5*U);g.lineTo(5.6*U,5.7*U);g.quadraticCurveTo(0,7.4*U,-5.6*U,5.7*U);g.closePath();g.fill();
-  g.strokeStyle='rgba(255,255,255,.22)';g.lineWidth=.8*U;g.beginPath();g.moveTo(-4.8*U,-5.8*U);g.lineTo(-3.8*U,4.5*U);g.stroke();
-  g.fillStyle='rgba(0,0,0,.2)';g.fillRect(-5.2*U,3.8*U,10.4*U,1.8*U);
-  if(P.stripes){g.fillStyle=P.stripes;g.fillRect(-4.6*U,-5.5*U,1.5*U,9.3*U);g.fillRect(3.1*U,-5.5*U,1.5*U,9.3*U)}
-  if(P.apron){g.fillStyle=P.apron;g.beginPath();g.roundRect(-3.5*U,-3.8*U,7*U,8.4*U,1*U);g.fill();g.strokeStyle=P.trim;g.lineWidth=.7*U;g.stroke()}
-  if(P.scarf){g.fillStyle=P.trim;g.beginPath();g.roundRect(-4.2*U,-7.4*U,8.4*U,2.1*U,1*U);g.fill()}
-  if(P.wide||P.helm){g.fillStyle=P.trim;g.beginPath();g.ellipse(-5.7*U,-5.7*U,2.2*U,3.2*U,0,0,7);g.ellipse(5.7*U,-5.7*U,2.2*U,3.2*U,0,0,7);g.fill()}
-  // Arms and hands read clearly from the overhead camera.
-  g.fillStyle=P.body;g.beginPath();g.roundRect(-8.1*U,-5.2*U,2.8*U,8.5*U,1.3*U);g.roundRect(5.3*U,-5.2*U,2.8*U,8.5*U,1.3*U);g.fill();
-  g.fillStyle=skin;g.beginPath();g.arc(-6.7*U,3.3*U,1.45*U,0,7);g.arc(6.7*U,3.3*U,1.45*U,0,7);g.fill();
-  // Head, hair and signature accessories preserve each CIV character's read.
-  g.fillStyle=skin;g.beginPath();g.ellipse(0,-10.2*U,5.1*U,5.4*U,0,0,7);g.fill();
-  g.fillStyle=P.hair||'#201b1b';g.beginPath();g.arc(0,-11.4*U,5.25*U,Math.PI,Math.PI*2);g.fill();
-  if(dir==='d'){g.fillStyle='#28201c';g.beginPath();g.arc(-1.7*U,-9.7*U,.65*U,0,7);g.arc(1.7*U,-9.7*U,.65*U,0,7);g.fill()}
-  if(P.hood){g.strokeStyle=P.trim||P.body;g.lineWidth=2.1*U;g.beginPath();g.arc(0,-10.1*U,5.8*U,Math.PI*1.05,Math.PI*1.95);g.stroke()}
-  if(P.hat==='cap'||P.helm){g.fillStyle=P.body;g.beginPath();g.ellipse(0,-13.1*U,5.8*U,3.3*U,0,0,7);g.fill();g.fillStyle=P.trim;g.beginPath();g.ellipse(0,-10.5*U,3.3*U,1.7*U,0,0,7);g.fill()}
-  else if(P.hat==='beanie'){g.fillStyle=P.trim;g.beginPath();g.arc(0,-11.5*U,5.4*U,Math.PI,0);g.fill();g.fillRect(-5.2*U,-11.8*U,10.4*U,1.8*U)}
-  else if(P.hat==='wide'){g.fillStyle='#35313a';g.beginPath();g.ellipse(0,-12.4*U,8*U,2.8*U,0,0,7);g.fill();g.beginPath();g.ellipse(0,-13.1*U,4.4*U,3.1*U,0,0,7);g.fill()}
-  if(P.bun){g.fillStyle=P.hair;g.beginPath();g.arc(0,-16*U,2.5*U,0,7);g.fill()}
-  if(P.band){g.fillStyle=P.band;g.fillRect(-5*U,-12.5*U,10*U,1.5*U)}
-  if(P.ears){g.fillStyle=P.body;g.beginPath();g.arc(-4.5*U,-16*U,2*U,0,7);g.arc(4.5*U,-16*U,2*U,0,7);g.fill()}
-  // Signature props stay tied to their original character profiles.
-  if(P.umb){g.strokeStyle=P.umb;g.lineWidth=1.5*U;g.beginPath();g.arc(0,-13*U,11*U,Math.PI,Math.PI*2);g.stroke();g.beginPath();g.moveTo(0,-13*U);g.lineTo(0,3*U);g.stroke()}
-  if(P.keys){g.fillStyle='#111820';g.beginPath();g.roundRect(-8*U,3*U,16*U,4*U,1*U);g.fill();g.fillStyle=P.trim;g.fillRect(-6.5*U,4*U,13*U,.8*U)}
-  if(P.bowl){g.fillStyle='#d7e1e5';g.beginPath();g.ellipse(8.5*U,3.8*U,3.2*U,2*U,0,0,7);g.fill()}
-  if(P.baton){g.strokeStyle=P.trim;g.lineWidth=1.7*U;g.beginPath();g.moveTo(7*U,-1*U);g.lineTo(10*U,7*U);g.stroke()}
-  g.restore();
-}
 function owCiv(x,y,dir,moving,n,tm,ph){
   const kind=n.civ,P=Object.assign({},CIV[kind]||CIV.fan);
   if(n.hb)Object.assign(P,HB_CIV[kind]||HB_CIV.fan);
@@ -8596,7 +8548,7 @@ function owFrame(dt){
       if(n.pw&&!(SAVE.pw||[]).includes(n.pw)){og.fillStyle='rgba(255,210,60,'+(.5+.4*Math.sin(tm*4))+')';og.beginPath();const sx=(n.rx!=null?n.rx:n.x)*OT+OT/2,sy=(n.ry!=null?n.ry:n.y)*OT-OT*.9;og.moveTo(sx,sy+8);og.lineTo(sx-7,sy-4);og.lineTo(sx+7,sy-4);og.fill()}
       const crewCol=(M.id==='crew1'||M.id==='crew2'||M.id==='crew3'||M.id==='arena')?(OWB.find(q=>q.id===M.id)||{}).col:(n.id==='mate1'?'#27e0ff':null);
       if(crewCol&&!n.civ){const rx=(n.rx!=null?n.rx:n.x)*OT+OT/2,ry=(n.ry!=null?n.ry:n.y)*OT+OT*.9;og.save();og.strokeStyle=crewCol;og.lineWidth=2;og.globalAlpha=.55+.2*Math.sin(tm*3);og.shadowColor=crewCol;og.shadowBlur=8;og.beginPath();og.ellipse(rx,ry,OT*.46,OT*.17,0,0,7);og.stroke();og.restore();og.shadowColor=crewCol;og.shadowBlur=7}
-      if(n.civ){owCivTop(n.d,n,tm,n.patrol&&n.mv<1)}else owFig(n.rx!=null?n.rx:n.x,n.ry!=null?n.ry:n.y,n.d,n.patrol&&n.mv<1,e.uni,e.look,n.num||(n.num=((n.x*13+n.y*7)%88)+3),0);og.shadowBlur=0}
+      if(n.civ){if(!pxPerson(n,tm))owCiv(0,0,n.d,n.patrol&&n.mv<1,n,tm,0)}else owFig(n.rx!=null?n.rx:n.x,n.ry!=null?n.ry:n.y,n.d,n.patrol&&n.mv<1,e.uni,e.look,n.num||(n.num=((n.x*13+n.y*7)%88)+3),0);og.shadowBlur=0}
   }
   if(M.fg){{const sg=og.createLinearGradient(54.3*OT,0,59.3*OT,0);sg.addColorStop(0,'rgba(0,0,0,0)');sg.addColorStop(.1,'rgba(0,0,8,.46)');sg.addColorStop(.9,'rgba(0,0,8,.46)');sg.addColorStop(1,'rgba(0,0,0,0)');og.fillStyle=sg;og.fillRect(54.3*OT,4.4*OT,5*OT,6.8*OT)}og.drawImage(M.fg.c,0,0,M.fg.c.width,M.fg.c.height,M.fg.x*OT,M.fg.y*OT,M.fg.c.width*k,M.fg.c.height*k)}
   if(M.fg&&!OW.sleep&&OW.px>M.fg.x-1&&OW.px<M.fg.x+M.fg.w){og.save();{const rs=Math.min(1.8,.8/z);og.strokeStyle='rgba(120,235,255,.85)';og.lineWidth=2/z*.7;og.beginPath();og.ellipse(OW.px*OT+OT/2,OW.py*OT+OT*.92,OT*.42*rs,OT*.15*rs,0,0,7);og.stroke()}og.shadowColor='rgba(120,235,255,.75)';og.shadowBlur=7;owFig(OW.px+OWDIR[OW.ld][0]*OW.la,OW.py+OWDIR[OW.ld][1]*OW.la,OW.d,OW.mv,SAVE.uni,lookOf(SAVE.starters.QB),7,OW.ph);og.restore()}
