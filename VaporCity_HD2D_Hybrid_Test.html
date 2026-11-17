@@ -8430,6 +8430,44 @@ function owFrame(dt){
   cx=fitX?(mw-W)/2:clamp(cx,0,mw-W);cy=fitY?(mh-H)/2:clamp(cy,0,mh-H);
   og.fillStyle='#05040c';og.fillRect(0,0,W,H);
   og.save();og.translate(-cx,-cy);
+  /* HYBRID DEPTH PASS: draw restrained building extrusion beneath the original
+     baked artwork. The original artwork then covers each footprint, leaving
+     only the dimensional side faces and cast shadows visible. */
+  if(M.id==='street'&&owc.classList.contains('hybrid-preview')){
+    const dx=OT*.28,dy=OT*.40;
+    for(const b of OWB){
+      const x=b.x*OT,y=b.y*OT,w=b.w*OT,h=b.h*OT;
+      const right=og.createLinearGradient(x+w,y,x+w+dx,y+h+dy);
+      right.addColorStop(0,'rgba(8,13,27,.94)');
+      right.addColorStop(.55,'rgba(13,17,35,.96)');
+      right.addColorStop(1,'rgba(4,8,19,.98)');
+      const front=og.createLinearGradient(x,y+h,x+dx,y+h+dy);
+      front.addColorStop(0,'rgba(17,22,39,.96)');
+      front.addColorStop(1,'rgba(5,9,20,.99)');
+      og.save();
+      og.shadowColor='rgba(0,0,0,.68)';og.shadowBlur=OT*.22;
+      og.shadowOffsetX=dx*.45;og.shadowOffsetY=dy*.45;
+      og.fillStyle='rgba(0,0,0,.5)';
+      og.beginPath();og.moveTo(x+w,y);og.lineTo(x+w+dx,y+dy);
+      og.lineTo(x+w+dx,y+h+dy);og.lineTo(x+w,y+h);og.closePath();og.fill();
+      og.beginPath();og.moveTo(x,y+h);og.lineTo(x+w,y+h);
+      og.lineTo(x+w+dx,y+h+dy);og.lineTo(x+dx,y+h+dy);og.closePath();og.fill();
+      og.restore();
+      og.fillStyle=right;og.beginPath();og.moveTo(x+w,y);og.lineTo(x+w+dx,y+dy);
+      og.lineTo(x+w+dx,y+h+dy);og.lineTo(x+w,y+h);og.closePath();og.fill();
+      og.fillStyle=front;og.beginPath();og.moveTo(x,y+h);og.lineTo(x+w,y+h);
+      og.lineTo(x+w+dx,y+h+dy);og.lineTo(x+dx,y+h+dy);og.closePath();og.fill();
+      og.strokeStyle=b.col;og.globalAlpha=.42;og.lineWidth=Math.max(1,OT*.025);
+      og.beginPath();og.moveTo(x+w,y+h);og.lineTo(x+w+dx,y+h+dy);
+      og.lineTo(x+dx,y+h+dy);og.stroke();
+      og.globalAlpha=.18;og.strokeStyle='#b8d8ff';og.lineWidth=1;
+      for(let i=1;i<4;i++){
+        const yy=y+h+dy*i/4;
+        og.beginPath();og.moveTo(x+w+dx*.12,yy);og.lineTo(x+w+dx*.9,yy+dy*.08);og.stroke();
+      }
+      og.globalAlpha=1;
+    }
+  }
   if(fitX||fitY)og.drawImage(M.baked,0,0,M.baked.width,M.baked.height,0,0,mw,mh);
   else og.drawImage(M.baked,cx/k,cy/k,W/k,H/k,cx,cy,W,H);
   const tm=performance.now()/1000;
