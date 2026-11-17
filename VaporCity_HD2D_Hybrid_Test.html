@@ -8434,7 +8434,7 @@ function owFrame(dt){
      baked artwork. The original artwork then covers each footprint, leaving
      only the dimensional side faces and cast shadows visible. */
   if(M.id==='street'&&owc.classList.contains('hybrid-preview')){
-    const dx=OT*.28,dy=OT*.40;
+    const dx=OT*.22,dy=OT*.22;
     for(const b of OWB){
       const x=b.x*OT,y=b.y*OT,w=b.w*OT,h=b.h*OT;
       const right=og.createLinearGradient(x+w,y,x+w+dx,y+h+dy);
@@ -8465,43 +8465,11 @@ function owFrame(dt){
   }
   if(fitX||fitY)og.drawImage(M.baked,0,0,M.baked.width,M.baked.height,0,0,mw,mh);
   else og.drawImage(M.baked,cx/k,cy/k,W/k,H/k,cx,cy,W,H);
-  /* HYBRID FACADE DETAIL PASS: restrained recessed bays on the exposed
-     lower building plane make the extrusion read as architecture, not a stripe. */
-  if(M.id==='street'&&owc.classList.contains('hybrid-preview')){
-    const dx=OT*.28,dy=OT*.40;
-    for(const b of OWB){
-      const x=b.x*OT,y=b.y*OT,w=b.w*OT,h=b.h*OT;
-      const bays=Math.max(2,Math.min(7,Math.floor(b.w*.62)));
-      og.save();
-      // A dark floor seam gives the exposed plane a clear change in level.
-      og.strokeStyle='rgba(2,5,15,.72)';
-      og.lineWidth=Math.max(1,OT*.035);
-      og.beginPath();
-      og.moveTo(x+dx*.08,y+h+dy*.53);
-      og.lineTo(x+w+dx*.08,y+h+dy*.53);
-      og.stroke();
-      for(let j=0;j<bays;j++){
-        const u=(j+.5)/bays,uw=Math.min(.105,.58/bays);
-        const u0=u-uw/2,u1=u+uw/2,v0=.15,v1=.43;
-        const pt=(a,v)=>[x+a*w+v*dx,y+h+v*dy];
-        const a=pt(u0,v0),c=pt(u1,v0),d=pt(u1,v1),e=pt(u0,v1);
-        og.beginPath();og.moveTo(a[0],a[1]);og.lineTo(c[0],c[1]);og.lineTo(d[0],d[1]);og.lineTo(e[0],e[1]);og.closePath();
-        og.fillStyle='rgba(2,6,16,.88)';og.fill();
-        og.strokeStyle='rgba(0,0,0,.72)';og.lineWidth=Math.max(1,OT*.025);og.stroke();
-        // Dim colored inner pane, deliberately much darker than the original signs.
-        const q1=pt(u0+.012,v0+.025),q2=pt(u1-.012,v0+.025),q3=pt(u1-.012,v1-.025),q4=pt(u0+.012,v1-.025);
-        og.beginPath();og.moveTo(q1[0],q1[1]);og.lineTo(q2[0],q2[1]);og.lineTo(q3[0],q3[1]);og.lineTo(q4[0],q4[1]);og.closePath();
-        og.fillStyle=j%2?'rgba(39,224,255,.12)':'rgba(255,47,168,.10)';og.fill();
-        og.strokeStyle='rgba(115,145,190,.16)';og.lineWidth=1;og.stroke();
-      }
-      og.restore();
-    }
-  }
   /* HYBRID CAST-SHADOW PASS: a soft ground-plane shadow extends beyond the
      extruded faces, separating building bases from nearby streets without
      repainting or moving the original map artwork. */
   if(M.id==='street'&&owc.classList.contains('hybrid-preview')){
-    const sx=OT*.28,sy=OT*.40;
+    const sx=OT*.22,sy=OT*.22;
     for(const b of OWB){
       const x=b.x*OT,y=b.y*OT,w=b.w*OT,h=b.h*OT;
       og.save();
