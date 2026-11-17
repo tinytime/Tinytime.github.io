@@ -8482,7 +8482,7 @@ function applyShading(baseHex){
   const channels=[(base>>16)&255,(base>>8)&255,base&255];
   const hex=values=>'#'+values.map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');
   return {
-    highlight:hex(channels.map(v=>v+(255-v)*.20)),
+    highlight:hex(channels.map(v=>Math.min(255,v*1.20))),
     base:hex(channels),
     shadow:hex(channels.map(v=>v*.80))
   };
