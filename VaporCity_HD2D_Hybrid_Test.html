@@ -8808,7 +8808,7 @@ function muClose(){clearInterval(MU.tm);clearTimeout(MU.auto);MU.on=false;MU.el.
    - Pixel art is drawn with no smoothing at a whole number of screen pixels per art pixel (1 art pixel = 1 point; 3 phone pixels).
    - MENU: TOWN ART: NEW / OLD (kept on this device). If the atlas fails to load, or anything here throws, the old art is drawn.
    - Nothing else changes: no dialogue, no save data, no NPC moves; only the truck's 8 tiles become solid while NEW is on. */
-var PXS={on:true,ok:false,err:'',img:null,f:null,lt:0,ms:0,frames:0,anim:0,ents:null};
+var PXS={on:true,ok:false,err:'',img:null,f:null,lt:0,ms:0,frames:0,anim:0,ents:null,truckCanvas:null};
 try{if(localStorage.getItem('cf_px')==='0')PXS.on=false}catch(e){}
 function pxUse(){return !!(PXS&&PXS.on&&PXS.ok&&!PXS.err)}
 function pxRebake(){try{const m=OWMAPS.street;if(m)m.baked=null}catch(e){}}
@@ -8839,6 +8839,62 @@ function pxStatic(og_,OT,tm){
     // hologram ads float in the two projector beams (the baked projector skips its old idol while NEW is on)
     for(const [k,x,y,ph] of [['holo_pizza',11,12,0],['holo_dug',20,13,2.1]]){const fl=.72+.18*Math.sin(tm*3.1+ph)+(Math.sin(tm*17+ph*5)>.96?-.35:0),gx=Math.sin(tm*23+ph)>.985?2:0;pxBlit(k,0,(x+.5)*OT+gx,(y+.45)*OT,false,Math.max(.25,fl));PXS.anim++}
   }catch(e){pxFail(e)}PXS.ms=PXS.ms*.95+(performance.now()-t0)*.05}
+/* Draw a replacement truck sprite in native pixel-art coordinates.
+   The old pack sprite was a flat side elevation. This version is drawn as a
+   three-quarter view: roof, cab/front face, long serving side and both wheels
+   are visible. It keeps the original hot-dog stand's pink/yellow identity. */
+function pxTruckBlit(wx,wy){
+  if(!PXS.truckCanvas){
+    const c=document.createElement('canvas');c.width=132;c.height=93;
+    const g=c.getContext('2d');g.imageSmoothingEnabled=false;
+    const poly=(p,fill,stroke='#24172c',lw=3)=>{
+      g.beginPath();g.moveTo(p[0][0],p[0][1]);for(let i=1;i<p.length;i++)g.lineTo(p[i][0],p[i][1]);
+      g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='miter';g.stroke()}
+    };
+    const px=(x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(x,y,w,h)};
+    // Wheels sit behind the body and follow the truck's diagonal footprint.
+    px(38,57,15,23,'#17131d');px(41,60,9,17,'#77717c');px(43,62,5,12,'#d5c5c4');
+    px(83,39,16,24,'#17131d');px(86,42,10,18,'#77717c');px(88,44,6,12,'#d5c5c4');
+    px(101,48,13,21,'#17131d');px(104,51,8,15,'#77717c');px(106,53,4,9,'#d5c5c4');
+    // Lower chassis and the two visible body planes.
+    poly([[24,30],[57,49],[57,80],[24,61]],'#72254f');
+    poly([[57,49],[115,25],[115,56],[57,80]],'#a52e68');
+    poly([[24,30],[57,49],[115,25],[83,7]],'#f2b6ce');
+    // Front cab: windshield, bumper and headlamps.
+    poly([[29,34],[49,46],[49,58],[29,47]],'#27364a','#24172c',2);
+    poly([[32,36],[46,44],[46,50],[32,42]],'#9ce7e9','#24172c',1);
+    px(25,53,7,4,'#ffd34e');px(48,66,10,4,'#f4d05b');
+    poly([[23,59],[56,78],[56,83],[22,64]],'#e8a8c1','#24172c',2);
+    // Long serving side, with a bright awning and service window.
+    poly([[62,53],[108,34],[108,48],[62,67]],'#311d3b','#24172c',2);
+    poly([[65,54],[104,38],[104,45],[65,61]],'#8fe3e5','#24172c',1);
+    poly([[62,49],[108,30],[112,35],[65,55]],'#ffe08a','#24172c',2);
+    // Counter opening and menu panels on the visible side.
+    poly([[70,58],[97,47],[97,57],[70,68]],'#f7d7b5','#24172c',1);
+    px(74,59,4,5,'#ed5b42');px(81,56,4,5,'#f5bf42');px(88,53,4,5,'#ed5b42');
+    poly([[101,45],[108,42],[108,51],[101,54]],'#f7c64d','#24172c',1);
+    // Roof rim and roof equipment make the top plane unmistakable.
+    poly([[27,29],[82,5],[119,26],[62,51]],'#fff0d5','#24172c',3);
+    poly([[34,29],[82,9],[111,26],[62,46]],'#e7a4c3','#8a315e',2);
+    // Hot-dog roof sign, echoing the original atlas artwork.
+    poly([[51,20],[76,10],[91,18],[66,29]],'#4b2049','#24172c',2);
+    poly([[56,18],[77,10],[85,14],[64,23]],'#ffd44d','#a34b36',1);
+    poly([[60,17],[79,11],[83,14],[64,20]],'#e84b38','#9d2637',1);
+    px(59,22,25,2,'#fff0c6');
+    // Small roof vent and side lettering.
+    poly([[91,20],[101,16],[108,20],[98,24]],'#9b416e','#24172c',1);
+    px(75,70,19,2,'#ffe08a');px(78,73,13,2,'#fff0d5');
+    // Pixel highlights and dark underbody give the vehicle volume.
+    poly([[57,79],[115,55],[115,60],[57,85]],'#3b1b38','#24172c',2);
+    px(31,48,3,5,'#fff0b5');px(108,31,4,3,'#fff0b5');
+    PXS.truckCanvas=c;
+  }
+  const t=og.getTransform(),scale=Math.max(1,Math.round(t.a)),dx=Math.round(t.a*wx+t.e),dy=Math.round(t.d*wy+t.f);
+  if(dx+132*scale<-40||dx-132*scale>og.canvas.width+40||dy<-40||dy-93*scale>og.canvas.height+40)return true;
+  og.save();og.setTransform(1,0,0,1,0,0);og.imageSmoothingEnabled=false;
+  og.drawImage(PXS.truckCanvas,dx-66*scale,dy-93*scale,132*scale,93*scale);
+  og.restore();PXS.frames++;return true;
+}
 /* ---- moving things: animals and the truck, sorted with the people ---- */
 function pxMakeEnts(){const R=Math.random,E=[];
   E.push({k:'rat',x:11.2,y:16,x0:10.9,x1:12.6,st:'idle',t:1+R()*2,dir:1,sd:R()*9},{k:'rat',x:19.5,y:16,x0:18.6,x1:19.8,st:'idle',t:2+R()*2,dir:-1,sd:R()*9});
@@ -8885,7 +8941,7 @@ function pxDrawEnt(a,tm){const OT=OWT,t0=performance.now();
         og.beginPath();og.ellipse(fx+OT*wx,fy-OT*.015,OT*.22,OT*.09,0,0,Math.PI*2);og.fill();
       }
       og.restore();
-      pxBlit('truck',0,fx,fy+3);
+      pxTruckBlit(fx,fy+3);
     }
     else if(a.k==='rat'){pxShadow(fx,fy,7,2);const w=a.st==='walk';pxBlit(w?'rat_w':'rat_i',pxFi(w?'rat_w':'rat_i',tm,a.sd),fx,fy,a.dir<0);PXS.anim++}
     else if(a.k==='dog'){pxShadow(fx,fy,13,3);const w=a.st==='walk';pxBlit(w?'dog_w':'dog_i',pxFi(w?'dog_w':'dog_i',tm,a.sd),fx,fy,a.dir<0);PXS.anim++}
