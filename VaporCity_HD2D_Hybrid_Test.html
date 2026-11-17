@@ -8431,28 +8431,47 @@ function owFrame(dt){
   cx=fitX?(mw-W)/2:clamp(cx,0,mw-W);cy=fitY?(mh-H)/2:clamp(cy,0,mh-H);
   og.fillStyle='#05040c';og.fillRect(0,0,W,H);
   og.save();og.translate(-cx,-cy);
-  /* HYBRID DEPTH PASS: draw restrained building extrusion beneath the original
-     baked artwork. The original artwork then covers each footprint, leaving
-     only the dimensional side faces and cast shadows visible. */
+  /* HYBRID DEPTH PASS: give each original building a connected right wall
+     and front wall beneath its unchanged baked artwork. The two faces share
+     one projected depth vector so the corner reads as a solid structure. */
   if(M.id==='street'&&owc.classList.contains('hybrid-preview')){
-    const dx=OT*.22,dy=OT*.22;
+    const dx=OT*.46,dy=OT*.46;
     for(const b of OWB){
       const x=b.x*OT,y=b.y*OT,w=b.w*OT,h=b.h*OT;
       const right=og.createLinearGradient(x+w,y,x+w+dx,y+h+dy);
-      right.addColorStop(0,'rgba(8,13,27,.94)');
-      right.addColorStop(.55,'rgba(13,17,35,.96)');
-      right.addColorStop(1,'rgba(4,8,19,.98)');
-      // Only expose the building's right-side wall. Do not draw a lower
-      // front/base plane: that polygon reads as a platform beneath the art.
+      right.addColorStop(0,'rgba(15,22,39,.98)');
+      right.addColorStop(.48,'rgba(11,17,32,.99)');
+      right.addColorStop(1,'rgba(5,9,20,1)');
+      const front=og.createLinearGradient(x,y+h,x+dx,y+h+dy);
+      front.addColorStop(0,'rgba(22,29,45,.99)');
+      front.addColorStop(.52,'rgba(13,19,34,.99)');
+      front.addColorStop(1,'rgba(6,10,21,1)');
+      // One soft cast shadow for the connected side-and-front silhouette.
       og.save();
-      og.shadowColor='rgba(0,0,0,.42)';og.shadowBlur=OT*.12;
-      og.shadowOffsetX=dx*.28;og.shadowOffsetY=dy*.18;
-      og.fillStyle='rgba(0,0,0,.34)';
+      og.shadowColor='rgba(0,0,0,.48)';og.shadowBlur=OT*.18;
+      og.shadowOffsetX=dx*.22;og.shadowOffsetY=dy*.24;
+      og.fillStyle='rgba(0,0,0,.42)';
       og.beginPath();og.moveTo(x+w,y);og.lineTo(x+w+dx,y+dy);
-      og.lineTo(x+w+dx,y+h+dy);og.lineTo(x+w,y+h);og.closePath();og.fill();
+      og.lineTo(x+w+dx,y+h+dy);og.lineTo(x+dx,y+h+dy);
+      og.lineTo(x,y+h);og.lineTo(x+w,y+h);og.closePath();og.fill();
       og.restore();
-      og.fillStyle=right;og.beginPath();og.moveTo(x+w,y);og.lineTo(x+w+dx,y+dy);
-      og.lineTo(x+w+dx,y+h+dy);og.lineTo(x+w,y+h);og.closePath();og.fill();
+      // Right side wall.
+      og.fillStyle=right;og.beginPath();og.moveTo(x+w,y);
+      og.lineTo(x+w+dx,y+dy);og.lineTo(x+w+dx,y+h+dy);
+      og.lineTo(x+w,y+h);og.closePath();og.fill();
+      // Front wall, joined to the side at the outside corner.
+      og.fillStyle=front;og.beginPath();og.moveTo(x,y+h);
+      og.lineTo(x+w,y+h);og.lineTo(x+w+dx,y+h+dy);
+      og.lineTo(x+dx,y+h+dy);og.closePath();og.fill();
+      // Restrained colored light catches the exposed top edges without
+      // outlining the whole building or changing its original facade.
+      og.save();og.globalAlpha=.24;og.strokeStyle=b.col;
+      og.lineWidth=Math.max(1,OT*.025);og.beginPath();
+      og.moveTo(x,y+h);og.lineTo(x+w,y+h);
+      og.lineTo(x+w+dx,y+h+dy);og.stroke();
+      og.globalAlpha=.16;og.beginPath();
+      og.moveTo(x+w+dx,y+dy);og.lineTo(x+w+dx,y+h+dy);og.stroke();
+      og.restore();
     }
   }
   if(fitX||fitY)og.drawImage(M.baked,0,0,M.baked.width,M.baked.height,0,0,mw,mh);
