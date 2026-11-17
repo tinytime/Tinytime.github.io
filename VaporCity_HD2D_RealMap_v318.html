@@ -182,13 +182,22 @@ function build(){
   gg.fillStyle='#202d45';gg.fillRect(14*P,0,4*P,1280);gg.fillRect(0,20*P,32*P,3*P);
   gg.fillStyle='rgba(255,210,65,.62)';for(let y=1;y<40;y+=1.25)gg.fillRect(16*P-2,y*P,4, P*.55);
   gg.fillStyle='rgba(80,210,240,.35)';for(let x=1;x<32;x+=1.1)gg.fillRect(x*P,21.35*P,P*.5,3);
-  // Wet patches and neon-coloured reflections.
-  for(let i=0;i<42;i++){const x=rnd()*1024,y=rnd()*1280,rx=18+rnd()*48,ry=3+rnd()*8;const sheen=gg.createRadialGradient(x,y,1,x,y,rx);sheen.addColorStop(0,i%3===0?'rgba(91,145,205,.13)':'rgba(83,103,169,.12)');sheen.addColorStop(.65,'rgba(74,91,150,.055)');sheen.addColorStop(1,'rgba(74,91,150,0)');gg.save();gg.translate(x,y);gg.scale(1,Math.max(.12,ry/rx));gg.fillStyle=sheen;gg.beginPath();gg.arc(0,0,rx,0,Math.PI*2);gg.fill();gg.restore()}for(let i=0;i<14;i++){const x=rnd()*1024,y=rnd()*1280;gg.strokeStyle=i%2?'rgba(91,190,220,.09)':'rgba(194,120,190,.07)';gg.lineWidth=2+rnd()*2;gg.beginPath();gg.moveTo(x-18-rnd()*18,y);gg.lineTo(x+24+rnd()*32,y+1+rnd()*2);gg.stroke()}
+  // Smooth, restrained amber reflections beneath the six streetlights.
+  // These are broad gradients rather than scattered texture marks or puddle decals.
+  for(const [lx,lz] of [[-2,-8],[1,-8],[-2,3],[1,3],[-2,11],[1,11]]){
+    const x=(lx+16)*P,y=(lz+20)*P,rx=15,ry=76;
+    const sheen=gg.createRadialGradient(x,y,2,x,y,ry);
+    sheen.addColorStop(0,'rgba(255,190,105,.16)');
+    sheen.addColorStop(.28,'rgba(235,171,112,.095)');
+    sheen.addColorStop(.68,'rgba(111,132,178,.035)');
+    sheen.addColorStop(1,'rgba(111,132,178,0)');
+    gg.save();gg.translate(x,y);gg.scale(1,ry/rx);gg.fillStyle=sheen;
+    gg.beginPath();gg.arc(0,0,rx,0,Math.PI*2);gg.fill();gg.restore();
+  }
   const gtex=sRGB(new THREE.CanvasTexture(gc));gtex.anisotropy=8;
   const ground=new THREE.Mesh(new THREE.PlaneGeometry(32,40),std(0xffffff,{map:gtex,roughness:.72,metalness:.10,emissive:0x1c2b50,emissiveIntensity:.39}));ground.rotation.x=-Math.PI/2;ground.position.set(0,0,0);ground.receiveShadow=true;S.add(ground);
   streetBuild();
-  // Restore scattered puddle decals from the original sprite atlas on the wet roadway.
-  for(const [key,x,z,sc] of [['pud_l',-1.05,7.8,1.45],['pud_m',.85,5.1,1.7],['pud_s',-1.1,-2.8,2.1],['pud_l',.95,-9.2,1.25],['pud_m',-.75,13.2,1.5],['pud_s',1.05,-15.4,1.8],['pud_m',-.45,2.7,1.25]]){const p=spriteMesh(key,0,false,{scale:sc,glow:.12,shadow:false,face:false});p.rotation.x=-Math.PI/2;p.position.set(x,.035,z);p.scale.multiplyScalar(.55);p.material.transparent=true;p.material.opacity=.42;p.material.alphaTest=.01;p.customDepthMaterial.alphaTest=.01;p.material.depthWrite=false;if(p.material.map){p.material.map.magFilter=THREE.LinearFilter;p.material.map.minFilter=THREE.LinearFilter;p.material.map.generateMipmaps=false;p.material.map.needsUpdate=true;}if(p.material.color)p.material.color.set(0x789dff);if(p.material.emissive)p.material.emissive.set(0x17284a);S.add(p)}
+  // Scattered atlas puddle decals removed; the road uses smooth lamp reflections above.
   // Atmosphere stays faithful to the original: blue-violet night, pink/cyan neon, amber accents.
   S.add(new THREE.HemisphereLight(0x5965ad,0x211a38,.66));
   const moon=new THREE.DirectionalLight(0x8397d8,.58);moon.position.set(-8,22,8);moon.castShadow=true;moon.shadow.mapSize.set(1024,1024);Object.assign(moon.shadow.camera,{left:-20,right:20,top:24,bottom:-24,near:1,far:70});moon.shadow.bias=-.001;S.add(moon);
