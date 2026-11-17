@@ -8315,104 +8315,113 @@ function makeGrannyPixelLayers(dir,frame,hairFrame){
   if(grannyPixelCache.has(key))return grannyPixelCache.get(key);
   const make=()=>{const c=document.createElement('canvas');c.width=64;c.height=96;const x=c.getContext('2d');x.imageSmoothingEnabled=false;return [c,x]};
   const [body,b]=make(),[jacket,j]=make(),[hair,h]=make(),[umbrella,u]=make();
-  const px=(g,x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(x,y,w,h)};
+  const px=(g,x,y,w,hh,col)=>{g.fillStyle=col;g.fillRect(x,y,w,hh)};
   const ink='#141622',warm='#FF9A3D',cool='#29F2E8';
   const purShadow='#54285E',purBase='#8F4C91',purHi='#C17BC1',pink='#FFD0EE';
   const skinShadow='#985D53',skinBase='#D6A17F',skinHi='#F1C3A1';
   const hairShadow='#6C7184',hairBase='#BFC5D3',hairHi='#F3F4F7';
-  const breath=[0,1,0,-1][frame],hairLag=[0,1,0,-1][hairFrame];
-  const side=dir==='l'||dir==='r',back=dir==='u',flip=dir==='l';
-  // BODY LAYER — 28px legs, outlined shoes and hands.
-  // skirt/leg silhouette is carried by jacket layer; legs remain 28px tall.
-  px(b,25,56,6,25,ink);px(b,33,56,6,25,ink);
-  px(b,26,57,4,23,'#27263A');px(b,34,57,4,23,'#27263A');
-  px(b,26,59,1,16,'#45415B');px(b,34,59,1,16,'#45415B');
-  px(b,25,80,7,5,ink);px(b,33,80,7,5,ink);
-  px(b,26,81,5,3,'#282335');px(b,34,81,5,3,'#282335');
-  px(b,26,81,2,1,'#77718A');px(b,34,81,2,1,'#77718A');
-  // One-pixel city rim on the outer leg/shoe silhouette.
-  px(b,25,59,1,20,warm);px(b,38,59,1,20,cool);px(b,25,81,1,2,warm);px(b,38,81,1,2,cool);
-  // Arms/hand base; jacket sleeves overlap them in the next layer.
-  px(b,19,37,4,14,ink);px(b,41,37,4,14,ink);
-  px(b,20,38,2,11,skinBase);px(b,42,38,2,11,skinBase);
-  px(b,20,39,1,5,skinHi);px(b,43,39,1,5,skinHi);
-  px(b,19,49,4,4,ink);px(b,20,50,2,2,skinBase);
-  px(b,42,49,4,4,ink);px(b,43,50,2,2,skinBase);
-  // JACKET LAYER — exactly 20x24px base torso, with three cel-shade tones.
-  const jy=32+breath;
-  px(j,21,jy-1,22,26,ink);
-  px(j,22,jy,20,24,purBase);
-  px(j,22,jy,3,24,purShadow);px(j,39,jy,3,24,purShadow);
-  px(j,25,jy+1,14,5,purHi);
-  px(j,25,jy+6,12,13,purBase);px(j,37,jy+6,2,13,purShadow);
-  px(j,24,jy+19,16,4,purShadow);
-  px(j,25,jy+19,12,1,purHi);
-  // collar and cardigan front opening
-  px(j,27,jy,4,3,pink);px(j,33,jy,4,3,pink);
-  px(j,30,jy+3,4,18,ink);px(j,31,jy+4,2,16,purShadow);
-  px(j,31,jy+4,1,13,purHi);
-  // pocket, buttons and stitching
+  const torsoBob=[0,1,0,-1][frame],lag=[0,1,0,-1][hairFrame];
+  const back=dir==='u',side=dir==='l'||dir==='r',flip=dir==='l';
+  // Feet, thighs and calves are offset to give the silhouette a relaxed three-quarter stance.
+  px(b,24,77,9,8,ink);px(b,25,78,7,5,'#282335');px(b,26,78,3,1,'#77718A');
+  px(b,34,79,9,7,ink);px(b,35,80,7,4,'#282335');px(b,36,80,3,1,'#77718A');
+  // Near leg: broad thigh, pinched knee, tapered calf.
+  px(b,25,53,9,12,ink);px(b,26,54,7,10,'#343148');px(b,26,55,3,7,'#55506A');
+  px(b,26,64,7,5,ink);px(b,27,65,5,4,'#27263A');px(b,27,66,2,2,'#4A465F');
+  // Far leg sits slightly behind and to the right.
+  px(b,34,54,8,10,ink);px(b,35,55,6,9,'#27263A');px(b,36,56,2,6,'#45415B');
+  px(b,35,64,7,6,ink);px(b,36,65,5,4,'#343047');
+  // Knees and trouser folds add volume.
+  px(b,26,63,2,2,'#77718A');px(b,37,64,2,2,'#171A2B');
+  // Bent arms: upper arm, elbow and forearm are separate angled masses.
+  px(b,17,35,7,12,ink);px(b,18,36,5,9,'#54285E');px(b,18,37,2,6,'#C17BC1');
+  px(b,17,45,6,6,ink);px(b,18,46,4,4,skinBase);px(b,18,46,2,2,skinHi);
+  px(b,41,36,7,11,ink);px(b,42,37,5,8,'#54285E');px(b,45,38,2,5,'#8F4C91');
+  px(b,43,45,6,6,ink);px(b,44,46,4,4,skinBase);px(b,44,46,2,2,skinHi);
+  // Face, neck and shoulder silhouette, offset one pixel for a 3/4 turn.
+  px(b,28,24,9,8,ink);px(b,29,25,7,6,skinBase);px(b,29,26,3,4,skinHi);
+  px(b,31,31,5,5,ink);px(b,32,32,3,4,skinBase);
+  // Jacket torso: asymmetrical shoulder line, tapered waist and flared hem.
+  const jy=33+torsoBob;
+  px(j,22,jy+1,23,23,ink);
+  px(j,23,jy+2,21,20,purBase);
+  px(j,23,jy+2,4,19,purHi);                 // lamp-facing plane
+  px(j,39,jy+3,4,18,purShadow);             // away-from-light shadow
+  px(j,27,jy+3,12,4,'#A963A8');
+  px(j,26,jy+7,13,10,purBase);
+  px(j,27,jy+9,2,8,'#A963A8');
+  px(j,37,jy+8,3,10,purShadow);
+  // angled waist and jacket tails, with their own delayed hem movement
+  const hemLag=[0,1,0,-1][(frame+3)%4];
+  px(j,23,jy+19+hemLag,21,7,ink);
+  px(j,24,jy+20+hemLag,19,5,purBase);
+  px(j,24,jy+20+hemLag,4,4,purHi);px(j,39,jy+21+hemLag,3,3,purShadow);
+  px(j,25,jy+24+hemLag,17,1,pink);
+  // cardigan opening, collar, pocket and buttons
+  px(j,28,jy+1,4,4,pink);px(j,34,jy+1,4,4,'#E7A7D7');
+  px(j,31,jy+5,4,16,ink);px(j,32,jy+6,2,14,purShadow);px(j,32,jy+6,1,11,purHi);
   px(j,25,jy+12,5,5,ink);px(j,26,jy+13,3,3,purShadow);px(j,26,jy+13,2,1,purHi);
-  px(j,33,jy+8,1,1,pink);px(j,33,jy+13,1,1,pink);px(j,33,jy+18,1,1,pink);
-  // sleeves with highlight planes and cuff pixels
-  px(j,18,jy+5,5,13,ink);px(j,19,jy+6,3,10,purBase);px(j,19,jy+7,1,7,purHi);px(j,19,jy+16,3,2,pink);
-  px(j,41,jy+5,5,13,ink);px(j,42,jy+6,3,10,purBase);px(j,44,jy+7,1,7,purShadow);px(j,42,jy+16,3,2,pink);
-  // flared skirt, its own shaded plane
-  px(j,22,jy+22,20,5,ink);px(j,23,jy+23,18,3,purBase);px(j,24,jy+23,3,2,purHi);px(j,37,jy+23,3,2,purShadow);
-  px(j,23,jy+25,18,1,pink);
-  // one-pixel rim on jacket/skirt silhouette
-  px(j,21,jy+1,1,23,warm);px(j,42,jy+1,1,23,cool);px(j,22,jy+25,1,1,warm);px(j,41,jy+25,1,1,cool);
-  // HEAD + HAIR LAYER — face is 16x16px; silver bun and swept hair.
-  const hy=13+hairLag;
-  px(h,23,hy-2,18,20,ink);
-  px(h,24,hy,16,16,skinBase);
-  px(h,24,hy,3,14,skinShadow);px(h,25,hy+1,2,10,skinHi);
-  if(!back){
-    if(side){px(h,35,hy+6,2,2,ink);px(h,37,hy+9,2,1,skinShadow)}
-    else{px(h,27,hy+7,2,2,ink);px(h,35,hy+7,2,2,ink);px(h,30,hy+12,4,1,skinShadow)}
-  }
-  // silver cap and signature bun
-  px(h,23,hy-3,18,5,ink);px(h,24,hy-3,16,4,hairBase);
-  px(h,25,hy-4,11,2,hairHi);px(h,24,hy,3,11,hairShadow);px(h,37,hy,3,10,hairBase);
-  px(h,24,hy+9,3,4,hairBase);px(h,37,hy+8,3,5,hairShadow);
-  px(h,20,hy-7,9,8,ink);px(h,21,hy-6,7,6,hairBase);px(h,22,hy-7,5,2,hairHi);
+  px(j,35,jy+9,1,1,pink);px(j,35,jy+14,1,1,pink);px(j,35,jy+18,1,1,pink);
+  // sleeves follow the bent arm silhouette; highlights and shadow planes remain pixel crisp.
+  px(j,18,jy+4,7,13,ink);px(j,19,jy+5,5,10,purBase);px(j,19,jy+6,2,7,purHi);px(j,20,jy+14,3,2,pink);
+  px(j,40,jy+4,7,13,ink);px(j,41,jy+5,5,10,purBase);px(j,45,jy+6,1,7,purShadow);px(j,42,jy+14,3,2,'#6B386F');
+  // warm and cool one-pixel silhouette rims
+  px(j,22,jy+2,1,20,warm);px(j,45,jy+4,1,17,cool);
+  // head and swept silver hair; offset bun creates a turned, not flat, face.
+  const hy=13+lag;
+  px(h,23,hy-2,19,20,ink);
+  px(h,24,hy,16,16,skinBase);px(h,24,hy+1,3,13,skinShadow);px(h,26,hy+1,3,10,skinHi);
+  if(!back){px(h,34,hy+7,2,2,ink);px(h,36,hy+9,1,1,skinShadow);px(h,31,hy+12,3,1,skinShadow)}
+  px(h,23,hy-4,19,6,ink);px(h,24,hy-3,17,4,hairBase);
+  px(h,25,hy-4,10,2,hairHi);px(h,24,hy,3,11,hairShadow);
+  px(h,36,hy,4,10,hairBase);px(h,37,hy+2,2,7,hairHi);
+  px(h,24,hy+9,3,5,hairBase);px(h,38,hy+8,3,5,hairShadow);
+  px(h,19,hy-7,10,8,ink);px(h,20,hy-6,8,6,hairBase);px(h,21,hy-7,5,2,hairHi);
   px(h,20,hy-1,2,3,hairShadow);
-  // Hair silhouette rim
-  px(h,23,hy-2,1,17,warm);px(h,40,hy-2,1,17,cool);px(h,21,hy-6,1,5,warm);
-  // UMBRELLA LAYER — lowered canopy, held shaft, and cast shade.
-  // The canopy overlaps the top of the hair; the handle reaches her right hand.
-  px(u,14,8,36,2,ink);px(u,17,6,30,2,ink);px(u,21,5,22,1,ink);
-  px(u,15,9,34,2,'#27243D');px(u,18,7,28,2,'#FF2FA8');px(u,22,6,20,1,'#FF75C9');
-  px(u,15,11,5,2,'#FF2FA8');px(u,20,11,8,2,'#C92B91');px(u,28,11,8,2,'#FF2FA8');px(u,36,11,8,2,'#C92B91');px(u,44,11,5,2,'#FF2FA8');
-  px(u,17,13,6,2,'#C92B91');px(u,23,13,7,2,'#FF2FA8');px(u,30,13,8,2,'#C92B91');px(u,38,13,7,2,'#FF2FA8');px(u,45,13,3,2,'#C92B91');
-  px(u,19,15,7,1,ink);px(u,26,15,12,1,'#FF2FA8');px(u,38,15,7,1,ink);
-  // umbrella edge rim lighting
-  px(u,15,9,1,5,warm);px(u,49,9,1,5,cool);px(u,21,6,1,1,warm);px(u,42,6,1,1,cool);
-  // shaft and curved grip; positioned into her hand rather than floating
-  px(u,32,15,2,22,ink);px(u,33,16,1,19,'#D8C7A8');px(u,34,34,5,2,ink);px(u,37,34,2,4,'#D8C7A8');
-  // Umbrella shadow falls across the crown and upper face.
-  px(u,25,15,14,2,'rgba(20,22,34,.38)');px(u,26,17,12,2,'rgba(20,22,34,.32)');
-  px(u,27,19,10,1,'rgba(20,22,34,.22)');
+  px(h,23,hy-2,1,18,warm);px(h,41,hy-2,1,17,cool);px(h,20,hy-6,1,5,warm);
+  // Domed umbrella canopy: curved crown, scalloped lower edge and 3 visible ribs.
+  px(u,25,3,12,2,ink);px(u,20,5,22,2,ink);px(u,15,7,32,2,ink);
+  px(u,11,9,40,3,ink);px(u,9,12,44,3,ink);px(u,11,15,40,3,ink);
+  px(u,14,18,7,2,ink);px(u,23,19,8,2,ink);px(u,34,19,8,2,ink);px(u,43,18,7,2,ink);
+  px(u,26,5,10,1,'#FF75C9');px(u,21,7,20,2,'#FF75C9');
+  px(u,16,9,30,2,'#FF2FA8');px(u,12,12,38,2,'#FF2FA8');
+  px(u,14,14,34,2,'#D72C98');px(u,18,16,26,2,'#FF2FA8');
+  // canopy panels and rib seams radiate from the ferrule to the scalloped rim
+  px(u,30,7,1,10,'#FFD0EE');px(u,21,9,1,8,'#B51F7F');px(u,40,9,1,8,'#B51F7F');
+  px(u,15,11,1,5,warm);px(u,28,10,1,7,'#FF9BD6');px(u,43,11,1,5,'#FF9BD6');
+  px(u,9,12,1,5,warm);px(u,52,12,1,5,cool);
+  // shaft descends diagonally to the hand; hooked crook is visibly held.
+  px(u,39,17,2,24,ink);px(u,40,18,1,20,'#D8C7A8');
+  px(u,39,39,5,2,ink);px(u,42,40,3,4,'#D8C7A8');px(u,44,42,2,2,ink);
+  // translucent pixel shadow from canopy over hair and forehead
+  px(u,26,17,13,2,'rgba(20,22,34,.38)');px(u,27,19,11,2,'rgba(20,22,34,.32)');px(u,29,21,8,1,'rgba(20,22,34,.22)');
   const layers={body,jacket,hair,umbrella};
-  if(flip){for(const cv of Object.values(layers)){const cx=cv.getContext('2d');const tmp=document.createElement('canvas');tmp.width=64;tmp.height=96;const tx=tmp.getContext('2d');tx.imageSmoothingEnabled=false;tx.translate(64,0);tx.scale(-1,1);tx.drawImage(cv,0,0);cx.clearRect(0,0,64,96);cx.drawImage(tmp,0,0)};px(b,25,59,1,20,warm);px(b,38,59,1,20,cool);px(j,21,33,1,23,warm);px(j,42,33,1,23,cool);px(h,23,11,1,17,warm);px(h,40,11,1,17,cool);px(u,15,9,1,5,warm);px(u,49,9,1,5,cool)}
-  const result={layers,breath,hairLag};
+  if(flip){
+    for(const cv of Object.values(layers)){const cx=cv.getContext('2d'),tmp=document.createElement('canvas');tmp.width=64;tmp.height=96;const tx=tmp.getContext('2d');tx.imageSmoothingEnabled=false;tx.translate(64,0);tx.scale(-1,1);tx.drawImage(cv,0,0);cx.clearRect(0,0,64,96);cx.drawImage(tmp,0,0)}
+    // Re-establish warm light on the screen-left silhouette after facing-left mirroring.
+    px(b,23,55,1,29,warm);px(j,22,jy+2,1,20,warm);px(h,23,hy-2,1,18,warm);px(u,9,12,1,5,warm);
+    px(b,40,55,1,29,cool);px(j,45,jy+4,1,17,cool);px(h,41,hy-2,1,17,cool);px(u,52,12,1,5,cool);
+  }
+  const result={layers,torsoBob,hemLag,hairLag:lag};
   grannyPixelCache.set(key,result);return result;
 }
 function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   const g=og,ps=OWT/36*.44,sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
-  const frame=moving?0:Math.floor(tm*6)%4,hairFrame=(frame+3)%4;
+  // Four-frame cycle runs for both idle and walking; walking simply advances faster.
+  const rate=moving?8:3.5,frame=Math.floor(tm*rate+(ph||0))%4,hairFrame=(frame+3)%4;
   const sprite=makeGrannyPixelLayers(dir,frame,hairFrame);
   g.save();g.imageSmoothingEnabled=false;
-  // Contact shadow stays fixed to the ground while torso and hair animate.
-  g.fillStyle='rgba(0,0,0,.34)';g.beginPath();g.ellipse(sx,sy+1,9.5*ps,3.1*ps,0,0,7);g.fill();
-  const dx=sx-32*ps,dy=sy-96*ps;
-  g.drawImage(sprite.layers.body,dx,dy,64*ps,96*ps);
-  g.drawImage(sprite.layers.jacket,dx,dy,64*ps,96*ps);
-  g.drawImage(sprite.layers.hair,dx,dy,64*ps,96*ps);
-  g.drawImage(sprite.layers.umbrella,dx,dy,64*ps,96*ps);
+  // Soft radial contact shadow, detached from the animated body.
+  const shadow=g.createRadialGradient(sx,sy+1,1*ps,sx,sy+1,12*ps);
+  shadow.addColorStop(0,'rgba(0,0,0,.35)');shadow.addColorStop(1,'rgba(0,0,0,0)');
+  g.fillStyle=shadow;g.beginPath();g.ellipse(sx,sy+1,12*ps,4.5*ps,0,0,Math.PI*2);g.fill();
+  const dx=sx-32*ps,dy=sy-96*ps,bob=[0,-1,0,1][frame]*ps;
+  g.drawImage(sprite.layers.body,dx,dy+bob,64*ps,96*ps);
+  g.drawImage(sprite.layers.jacket,dx,dy+bob,64*ps,96*ps);
+  g.drawImage(sprite.layers.hair,dx,dy+bob,64*ps,96*ps);
+  g.drawImage(sprite.layers.umbrella,dx,dy+bob,64*ps,96*ps);
   g.restore();
 }
-
 function owCiv(x,y,dir,moving,n,tm,ph){
   const kind=n.civ;if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph);return}const P=Object.assign({},CIV[kind]||CIV.fan);
   if(n.hb)Object.assign(P,HB_CIV[kind]||HB_CIV.fan);
