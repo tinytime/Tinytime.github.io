@@ -8309,7 +8309,7 @@ const CIV_FANC=['#ff2fa8','#27e0ff','#ffd23a','#9b5cff','#58ffb0','#ff7a1a'];
 class SpriteAnimator {
   constructor(){this.lastFrame=0;this.phase=0}
   update(tm,moving,seed=0){
-    const fps=moving?10:6,cycle=moving?.6:1;
+    const fps=moving?10:6,cycle=moving ? 0.6 : 1;
     this.phase=(tm+seed)*Math.PI*2/cycle;
     this.lastFrame=Math.floor((tm+seed)*fps)%6;
     return {phase:this.phase,step:Math.sin(this.phase),bob:moving?Math.abs(Math.sin(this.phase))*1.05:Math.sin(tm*2.4+seed)*.32};
