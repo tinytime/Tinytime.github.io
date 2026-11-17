@@ -36,6 +36,15 @@ function facadeTex(wu,hu,o){ // wu,hu in world units; 64 px per unit
   (o.doors||[]).forEach(d=>{const x=d.x*P,y=c.height-d.h*P,w=d.w*P,h=d.h*P;g.fillStyle='#05050c';g.fillRect(x-6,y-6,w+12,h+6);
     const gr=g.createLinearGradient(0,y,0,y+h);gr.addColorStop(0,d.col);gr.addColorStop(1,'#fff6ae');g.fillStyle=gr;g.fillRect(x,y,w,h);ge.fillStyle=d.col;ge.fillRect(x,y,w,h);
     g.fillStyle='rgba(0,0,0,.5)';g.fillRect(x+w/2-2,y,4,h);ge.fillStyle='#000';ge.fillRect(x+w/2-2,y,4,h)});
+  // Subtle reflected neon washes add facade depth without flattening the nighttime palette.
+  if(o.wash&&o.wash.length){const toRGB=v=>{const n=parseInt(String(v).replace('#',''),16);return [(n>>16)&255,(n>>8)&255,n&255]};
+    o.wash.slice(0,2).forEach((col,i)=>{const [r,ggg,b]=toRGB(col),cx=c.width*(i===0?.22:.78),cy=c.height*.67,rad=Math.max(P*2,c.width*.42);
+      const halo=g.createRadialGradient(cx,cy,0,cx,cy,rad);halo.addColorStop(0,`rgba(${r},${ggg},${b},.15)`);halo.addColorStop(.48,`rgba(${r},${ggg},${b},.055)`);halo.addColorStop(1,`rgba(${r},${ggg},${b},0)`);
+      g.save();g.globalCompositeOperation='screen';g.fillStyle=halo;g.fillRect(0,0,c.width,c.height);g.restore();
+      const eh=ge.createRadialGradient(cx,cy,0,cx,cy,rad*.8);eh.addColorStop(0,`rgba(${r},${ggg},${b},.13)`);eh.addColorStop(1,`rgba(${r},${ggg},${b},0)`);
+      ge.save();ge.globalCompositeOperation='screen';ge.fillStyle=eh;ge.fillRect(0,0,c.width,c.height);ge.restore();
+    });
+  }
   (o.after||(()=>{}))(g,ge,P,c);
   return {map:sRGB(new THREE.CanvasTexture(c)),em:sRGB(new THREE.CanvasTexture(e))};
 }
@@ -109,11 +118,22 @@ function streetBuild(){
 }
 const [pc,pg]=cv(128,128),pgr=pg.createRadialGradient(64,64,0,64,64,64);pgr.addColorStop(0,'rgba(255,255,255,.9)');pgr.addColorStop(.4,'rgba(255,255,255,.28)');pgr.addColorStop(1,'rgba(255,255,255,0)');pg.fillStyle=pgr;pg.fillRect(0,0,128,128);const poolTex=new THREE.CanvasTexture(pc);poolTex.colorSpace=THREE.SRGBColorSpace;
 const LIGHT_REQUESTS=[];const ACTIVE_LIGHTS=[];const MAX_REAL_LIGHTS=8;
-function plight(c,i,x,y,z,dist=7,sh=false){LIGHT_REQUESTS.push({c,i,x,y,z,dist});return null}
-function activateLights(){const targets=[[-.5,1.5,-5.5],[-5,1.2,-8],[4,1.2,-7],[0,10.5,-10]];const chosen=[];const used=new Set();for(const [x,y,z] of targets){let best=-1,bd=Infinity;LIGHT_REQUESTS.forEach((q,i)=>{if(used.has(i))return;const d=(q.x-x)**2+(q.y-y)**2+(q.z-z)**2;if(d<bd){bd=d;best=i}});if(best>=0){used.add(best);chosen.push(LIGHT_REQUESTS[best])}}const rest=LIGHT_REQUESTS.map((q,i)=>({q,i})).filter(v=>!used.has(v.i)).sort((a,b)=>b.q.i-a.q.i);for(const v of rest){if(chosen.length>=MAX_REAL_LIGHTS)break;chosen.push(v.q)}for(const q of chosen){const l=new THREE.PointLight(q.c,q.i,q.dist,1.6);l.position.set(q.x,q.y,q.z);l.castShadow=false;S.add(l);ACTIVE_LIGHTS.push(l)}}
+function plight(c,i,x,y,z,dist=7,sh=false,priority=0){LIGHT_REQUESTS.push({c,i,x,y,z,dist,priority});return null}
+function activateLights(){
+  const targets=[[-.5,1.5,-5.5],[-5,1.2,-8],[4,1.2,-7],[0,10.5,-10]];
+  const chosen=[],used=new Set();
+  for(const [x,y,z] of targets){let best=-1,bd=Infinity;
+    LIGHT_REQUESTS.forEach((q,i)=>{if(used.has(i))return;const d=(q.x-x)**2+(q.y-y)**2+(q.z-z)**2;if(d<bd){bd=d;best=i}});
+    if(best>=0&&bd<=16){used.add(best);chosen.push(LIGHT_REQUESTS[best])}
+  }
+  const rest=LIGHT_REQUESTS.map((q,i)=>({q,i})).filter(v=>!used.has(v.i))
+    .sort((a,b)=>(b.q.priority||0)-(a.q.priority||0)||b.q.i-a.q.i||b.q.dist-a.q.dist);
+  for(const v of rest){if(chosen.length>=MAX_REAL_LIGHTS)break;chosen.push(v.q)}
+  for(const q of chosen){const l=new THREE.PointLight(q.c,q.i,q.dist,1.6);l.position.set(q.x,q.y,q.z);l.castShadow=false;S.add(l);ACTIVE_LIGHTS.push(l)}
+}
 function building(x0,x1,z0,z1,h,o){const w=x1-x0,d=z1-z0,cx=(x0+x1)/2,cz=(z0+z1)/2;const f=facadeTex(w,h,o);
   const front=std(0xffffff,{map:f.map,emissive:0xffffff,emissiveMap:f.em,emissiveIntensity:o.ei||2.2,roughness:.7});
-  const sideT=facadeTex(d,h,{base:o.base,win:o.sideWin||[],panel:40});const side=std(0xffffff,{map:sideT.map,emissive:0xffffff,emissiveMap:sideT.em,emissiveIntensity:1.6,roughness:.75});
+  const sideT=facadeTex(d,h,{base:o.base,win:o.sideWin||[],panel:40,wash:o.wash||[]});const side=std(0xffffff,{map:sideT.map,emissive:0xffffff,emissiveMap:sideT.em,emissiveIntensity:1.6,roughness:.75});
   const roof=std(o.roof||0x1b1a2e,{roughness:.9});
   box(w,h,d,[side,side,roof,roof,front,front],cx,0,cz);
   box(w+.3,.25,d+.3,std(0x34334f,{roughness:.62}),cx,h,cz); // parapet cap
@@ -128,8 +148,8 @@ function building(x0,x1,z0,z1,h,o){const w=x1-x0,d=z1-z0,cx=(x0+x1)/2,cz=(z0+z1)
   if(o.awn){box(o.awn[1]-o.awn[0],.08,.7,std(o.awnCol,{roughness:.5,emissive:new THREE.Color(o.awnCol),emissiveIntensity:.08}),(o.awn[0]+o.awn[1])/2,o.awnY,z1+.35)}
   const pipe=new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,h,8),std(0x4a5068,{metalness:.7,roughness:.35}));pipe.position.set(x0+.15,h/2,z1+.08);S.add(pipe);
   return {front,cx,cz,z1}}
-function neonSign(tex,w,h,x,y,z,col,int=3.5,lightI=14){const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:tex,transparent:true,color:new THREE.Color(1,1,1).multiplyScalar(int),depthWrite:false}));m.position.set(x,y,z);S.add(m);
-  const back=new THREE.Mesh(new THREE.PlaneGeometry(w*1.04,h*1.1),std(0x07060f));back.position.set(x,y,z-.02);S.add(back);plight(col,lightI,x,y,z+1.2,9);return m}
+function neonSign(tex,w,h,x,y,z,col,int=3.5,lightI=14,priority=0){const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:tex,transparent:true,color:new THREE.Color(1,1,1).multiplyScalar(int),depthWrite:false}));m.position.set(x,y,z);S.add(m);
+  const back=new THREE.Mesh(new THREE.PlaneGeometry(w*1.04,h*1.1),std(0x07060f));back.position.set(x,y,z-.02);S.add(back);plight(col,lightI,x,y,z+1.2,9,false,priority);return m}
 function pool(x,z,col,r,i=1){const m=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:poolTex,color:new THREE.Color(col).multiplyScalar(i),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));m.rotation.x=-Math.PI/2;m.scale.set(r*2,r*2,1);m.position.set(x,groundY(x,z)+.04,z);S.add(m);return m}
 function lamp(x,z,h=3.2,col=0xffc070){const pole=std(0x232538,{metalness:.6,roughness:.4});
   const p=new THREE.Mesh(new THREE.CylinderGeometry(.06,.08,h,8),pole);p.position.set(x,h/2,z);p.castShadow=false;S.add(p);
@@ -138,7 +158,7 @@ function lamp(x,z,h=3.2,col=0xffc070){const pole=std(0x232538,{metalness:.6,roug
   pool(x+.45,z,col,2.4,.8);const cone=new THREE.Mesh(new THREE.ConeGeometry(1.1,h-.1,24,1,true),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.012,blending:THREE.AdditiveBlending,depthWrite:false}));cone.position.set(x+.45,(h-.1)/2,z);S.add(cone)}
 function holo(key,x,z,col){const base=box(.6,.15,.6,std(0x22253c,{metalness:.6}),x,0,z);const ring=new THREE.Mesh(new THREE.TorusGeometry(.26,.03,6,24),glowM(col,4));ring.rotation.x=Math.PI/2;ring.position.set(x,.17,z);S.add(ring);
   const sp=spriteMesh(key,0,false,{scale:1.05,glow:2.2,shadow:false});sp.material.transparent=true;sp.material.opacity=.85;sp.material.alphaTest=.1;sp.material.blending=THREE.AdditiveBlending;sp.material.depthWrite=false;place(sp,x,z,.25);
-  const beam=new THREE.Mesh(new THREE.CylinderGeometry(.6,.25,1.5,20,1,true),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.06,blending:THREE.AdditiveBlending,depthWrite:false}));beam.position.set(x,1.15,z);S.add(beam);pool(x,z,col,2.1,1.15);plight(col,10,x,1.2,z+.4,6)}
+  const beam=new THREE.Mesh(new THREE.CylinderGeometry(.6,.25,1.5,20,1,true),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.06,blending:THREE.AdditiveBlending,depthWrite:false}));beam.position.set(x,1.15,z);S.add(beam);pool(x,z,col,2.1,1.15);plight(col,10,x,1.2,z+.4,6,false,95)}
 function streak(x,z,col,len=2.6,w=.35){ // neon reflection on the wet ground
   const [c,g]=cv(32,256);const gr=g.createLinearGradient(0,0,0,256);gr.addColorStop(0,'rgba(255,255,255,.9)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;
   for(let y=0;y<256;y+=3){const ww=12+Math.sin(y*.3)*6+rnd()*6;g.fillRect(16-ww/2,y,ww,2)}
@@ -161,12 +181,12 @@ function build(){
   gg.fillStyle='rgba(255,210,65,.62)';for(let y=1;y<40;y+=1.25)gg.fillRect(16*P-2,y*P,4, P*.55);
   gg.fillStyle='rgba(80,210,240,.35)';for(let x=1;x<32;x+=1.1)gg.fillRect(x*P,21.35*P,P*.5,3);
   // Wet patches and neon-coloured reflections.
-  for(let i=0;i<210;i++){const x=rnd()*1024,y=rnd()*1280,rx=5+rnd()*28,ry=2+rnd()*8;gg.fillStyle='rgba(3,7,16,.65)';gg.beginPath();gg.ellipse(x,y,rx,ry,0,0,7);gg.fill();gg.strokeStyle=['rgba(230,51,106,.22)','rgba(91,236,241,.22)','rgba(255,129,66,.18)','rgba(139,114,222,.22)'][i%4];gg.beginPath();gg.ellipse(x,y,rx*.65,ry*.6,0,0,7);gg.stroke()}
+  for(let i=0;i<210;i++){const x=rnd()*1024,y=rnd()*1280,rx=5+rnd()*28,ry=2+rnd()*8;gg.fillStyle='rgba(3,7,16,.65)';gg.beginPath();gg.ellipse(x,y,rx,ry,0,0,7);gg.fill();gg.strokeStyle=['rgba(230,51,106,.22)','rgba(91,236,241,.22)','rgba(255,129,66,.18)','rgba(139,114,222,.22)'][i%4];gg.beginPath();gg.ellipse(x,y,rx*.65,ry*.6,0,0,7);gg.stroke();if(i%3===0){gg.strokeStyle=i%2?'rgba(91,236,241,.20)':'rgba(230,51,106,.18)';gg.lineWidth=1;gg.beginPath();gg.moveTo(x-rx*.22,y);gg.lineTo(x+rx*.3,y+ry*.12);gg.stroke()}}
   const gtex=sRGB(new THREE.CanvasTexture(gc));gtex.anisotropy=8;
-  const ground=new THREE.Mesh(new THREE.PlaneGeometry(32,40),std(0xffffff,{map:gtex,roughness:.48,metalness:.3}));ground.rotation.x=-Math.PI/2;ground.position.set(0,0,0);ground.receiveShadow=true;S.add(ground);
+  const ground=new THREE.Mesh(new THREE.PlaneGeometry(32,40),std(0xffffff,{map:gtex,roughness:.58,metalness:.22}));ground.rotation.x=-Math.PI/2;ground.position.set(0,0,0);ground.receiveShadow=true;S.add(ground);
   streetBuild();
   // Restore scattered puddle decals from the original sprite atlas on the wet roadway.
-  for(const [key,x,z,sc] of [['pud_l',-1.05,7.8,1.45],['pud_m',.85,5.1,1.7],['pud_s',-1.1,-2.8,2.1],['pud_l',.95,-9.2,1.25],['pud_m',-.75,13.2,1.5],['pud_s',1.05,-15.4,1.8],['pud_m',-.45,2.7,1.25]]){const p=spriteMesh(key,0,false,{scale:sc,glow:.12,shadow:false,face:false});p.rotation.x=-Math.PI/2;p.position.set(x,.035,z);p.scale.multiplyScalar(.55);p.material.transparent=true;p.material.opacity=.42;p.material.alphaTest=.01;p.customDepthMaterial.alphaTest=.01;p.material.depthWrite=false;if(p.material.map)p.material.map.magFilter=THREE.LinearFilter;if(p.material.color)p.material.color.set(0x789dff);if(p.material.emissive)p.material.emissive.set(0x17284a);S.add(p)}
+  for(const [key,x,z,sc] of [['pud_l',-1.05,7.8,1.45],['pud_m',.85,5.1,1.7],['pud_s',-1.1,-2.8,2.1],['pud_l',.95,-9.2,1.25],['pud_m',-.75,13.2,1.5],['pud_s',1.05,-15.4,1.8],['pud_m',-.45,2.7,1.25]]){const p=spriteMesh(key,0,false,{scale:sc,glow:.12,shadow:false,face:false});p.rotation.x=-Math.PI/2;p.position.set(x,.035,z);p.scale.multiplyScalar(.55);p.material.transparent=true;p.material.opacity=.42;p.material.alphaTest=.01;p.customDepthMaterial.alphaTest=.01;p.material.depthWrite=false;if(p.material.map){p.material.map.magFilter=THREE.LinearFilter;p.material.map.minFilter=THREE.LinearFilter;p.material.map.generateMipmaps=false;p.material.map.needsUpdate=true;}if(p.material.color)p.material.color.set(0x789dff);if(p.material.emissive)p.material.emissive.set(0x17284a);S.add(p)}
   // Atmosphere stays faithful to the original: blue-violet night, pink/cyan neon, amber accents.
   S.add(new THREE.HemisphereLight(0x454b91,0x100b1d,.46));
   const moon=new THREE.DirectionalLight(0x8397d8,.62);moon.position.set(-8,22,8);moon.castShadow=true;moon.shadow.mapSize.set(1024,1024);Object.assign(moon.shadow.camera,{left:-20,right:20,top:24,bottom:-24,near:1,far:70});moon.shadow.bias=-.001;S.add(moon);
@@ -175,7 +195,8 @@ function build(){
   for(const b of defs){const [base,trim,accent,h]=palette[b.id];const doors=b.doors.map(d=>({x:d[0]-b.x+.14,w:.72,h:1.65,col:trim}));
     const winCols=[trim,accent,'#8b72de','#3dabea','#ffb347','#ffd27a'];
     const win=[{x0:.35,x1:Math.max(.7,b.w-.35),y0:2.05,y1:Math.max(2.3,h-.65),w:.48,h:.42,gx:.26,gy:.32,cols:winCols,lit:.32}];
-    building(wx(b.x),wx(b.x+b.w),wz(b.y),wz(b.y+b.h),h,{base,trim,win,doors,panel:48,ei:1.65,roof:0x15172a,
+    const signPriority=({arena:100,den:82,arcade:78,pawn:76,bar:72,crew1:68,crew2:68,crew3:68,club:64,home:60,pharma:60})[b.id]||50;
+    building(wx(b.x),wx(b.x+b.w),wz(b.y),wz(b.y+b.h),h,{base,trim,win,doors,wash:[trim,accent],panel:48,ei:1.65,roof:0x15172a,
       sideWin:[{x0:.35,x1:Math.max(.7,b.h-.35),y0:2.05,y1:h-.4,w:.42,h:.4,gx:.3,gy:.3,cols:winCols,lit:.28}]});
     // Oversized rooftop marquee: keep the windowed facade clear and put the
     // building name above the roofline, like a classic neon city landmark.
@@ -183,7 +204,7 @@ function build(){
     const sw=Math.min(12,Math.max(3.4,b.w*.8));
     const signH=sw/4;
     const st=signTex(b.sign,(b.sub&&b.sub!==b.sign)?b.sub:null,trim,accent,1024,256);
-    neonSign(st,sw,signH,sx,h+signH*.65,sz,trim,3.0,10);
+    neonSign(st,sw,signH,sx,h+signH*.65,sz,trim,3.0,10,signPriority);
     for(const dx of [-sw*.43,sw*.43])box(.10,signH*.9,.12,std(0x68718a,{metalness:.65,roughness:.35}),sx+dx,h+.12,sz+.03,false);
     box(sw*1.04,.09,.16,std(0x68718a,{metalness:.65,roughness:.35}),sx,h+.12,sz+.03,false);
     streak(sx,sz+1.0,trim,4.5,.75);
@@ -208,7 +229,7 @@ function build(){
   place(spriteMesh('dog_i',1,true,{scale:1.08,shadow:false}),wx(8.3),wz(19));place(spriteMesh('crow_i',1,false,{shadow:false}),wx(9.55),wz(7.35),1.5);place(spriteMesh('crow_i',2,true,{shadow:false}),wx(21.7),wz(7.35),1.5);
   place(spriteMesh('rat_i',0),wx(11.2),wz(16));place(spriteMesh('rat_w',2,true),wx(19.2),wz(16));
   // Eli starts at the plaza test location (15,14), matching the TEST jump location.
-  const eli=imgSprite(window.ELI,1.1,{bb:[48,105,76,146]});eli.castShadow=false;place(eli,wx(15.5),wz(14.5));pool(wx(15.5),wz(14.5),0xffe6d2,1.5,.55);plight(0xffe6d2,3.2,wx(15.5),1.5,wz(14.5),2.8);
+  const eli=imgSprite(window.ELI,1.1,{bb:[48,105,76,146]});eli.castShadow=false;place(eli,wx(15.5),wz(14.5));pool(wx(15.5),wz(14.5),0xffe6d2,1.5,.55);plight(0xffe6d2,3.2,wx(15.5),1.5,wz(14.5),2.8,false,110);
   // Rain streaks and ground splashes; intentionally softer than the mock so the city stays legible.
   const N=1450,pos=new Float32Array(N*6);for(let i=0;i<N;i++){const x=(rnd()-.5)*34,y=rnd()*18,z=-21+rnd()*42;pos.set([x,y,z,x-.045,y-.5,z+.035],i*6)}
   const rainG=new THREE.BufferGeometry();rainG.setAttribute('position',new THREE.BufferAttribute(pos,3));S.add(new THREE.LineSegments(rainG,new THREE.LineBasicMaterial({color:0x9aaddb,transparent:true,opacity:.17})));
