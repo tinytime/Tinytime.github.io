@@ -8312,15 +8312,31 @@ function owCiv(x,y,dir,moving,n,tm,ph){
   g.save();g.translate(sx,sy);
   g.fillStyle='rgba(0,0,0,.35)';g.beginPath();g.ellipse(0,1,9*U,3*U,0,0,7);g.fill();
   const legH=n.sit?5*U:P.long?6*U:11*U,bodyH=P.long?21*U:15*U,bw=(P.wide?17:side?10:13)*U;
-  // legs
-  g.fillStyle=P.pants;if(side){g.fillRect(-3*U+sw*3*U*f,-legH,4*U,legH);g.fillRect(0-sw*3*U*f,-legH,4*U,legH)}else{g.fillRect(-4.5*U,-legH+sw*U,4*U,legH);g.fillRect(.5*U,-legH-sw*U,4*U,legH)}
-  g.fillStyle='#0a0c12';g.fillRect(-5*U,-2*U,10*U,2.4*U);
+  // Legs: tapered, softly rounded forms instead of rectangular columns.
+  g.save();g.lineCap='round';g.lineJoin='round';g.strokeStyle=P.pants;g.lineWidth=3.7*U;
+  if(side){g.beginPath();g.moveTo(-1.8*U,-legH+1*U);g.quadraticCurveTo(-2.4*U,-legH*.48+sw*1.5*U*f,-3.2*U+sw*2.4*U*f,-2.5*U);g.moveTo(1.8*U,-legH+1*U);g.quadraticCurveTo(2.4*U,-legH*.48-sw*1.5*U*f,2.8*U-sw*2.4*U*f,-2.5*U);g.stroke()}
+  else{g.beginPath();g.moveTo(-2.7*U,-legH+1*U);g.quadraticCurveTo(-3.8*U,-legH*.48+sw*U,-3.4*U+sw*1.7*U,-2.5*U);g.moveTo(2.7*U,-legH+1*U);g.quadraticCurveTo(3.8*U,-legH*.48-sw*U,3.4*U-sw*1.7*U,-2.5*U);g.stroke()}
+  g.restore();
+  g.fillStyle='#0a0c12';g.beginPath();g.ellipse(0,-1.1*U,4.8*U,1.5*U,0,0,7);g.fill();
   g.translate(0,-bob);
   const top=-legH-bodyH;
   // pack on the back for the courier, keyboard for the busker drawn later
   if(P.pack&&(back||side)){g.fillStyle=P.pack;g.shadowColor=P.pack;g.shadowBlur=6;g.fillRect(side?-f*bw/2-5*U*(f>0?1:0)-(f<0?0:0):-5*U,top+2*U,side?5*U:10*U,10*U);g.shadowBlur=0}
-  // body
-  g.fillStyle=P.body;g.beginPath();g.moveTo(-bw/2,top+3*U);g.quadraticCurveTo(-bw/2,top,-bw/2+3*U,top);g.lineTo(bw/2-3*U,top);g.quadraticCurveTo(bw/2,top,bw/2,top+3*U);g.lineTo(P.long?bw/2+2*U:bw/2-1*U,top+bodyH);g.lineTo(P.long?-bw/2-2*U:-bw/2+1*U,top+bodyH);g.closePath();g.fill();
+  // Body: shaped shoulders, tapered waist and softly varied hips create a
+  // more natural illustrated figure while preserving each NPC's scale/style.
+  const shoulder=bw*(P.wide?.52:.46),waist=bw*(P.wide?.39:.34),hip=bw*(P.wide?.49:.43);
+  g.fillStyle=P.body;g.beginPath();
+  g.moveTo(-shoulder,top+3.2*U);
+  g.quadraticCurveTo(-shoulder,top-.5*U,-shoulder*.62,top);
+  g.quadraticCurveTo(-shoulder*.25,top-1.1*U,0,top);
+  g.quadraticCurveTo(shoulder*.25,top-1.1*U,shoulder*.62,top);
+  g.quadraticCurveTo(shoulder,top-.5*U,shoulder,top+3.2*U);
+  g.quadraticCurveTo(shoulder*.94,top+bodyH*.38,waist,top+bodyH*.58);
+  g.quadraticCurveTo(waist*.92,top+bodyH*.78,hip,top+bodyH-2.5*U);
+  g.quadraticCurveTo(0,top+bodyH+1.2*U,-hip,top+bodyH-2.5*U);
+  g.quadraticCurveTo(-waist*.92,top+bodyH*.78,-waist,top+bodyH*.58);
+  g.quadraticCurveTo(-shoulder*.94,top+bodyH*.38,-shoulder,top+3.2*U);
+  g.closePath();g.fill();
   if(P.stripes){g.fillStyle=P.stripes;for(let sx=-bw/2+1.6*U;sx<bw/2-1*U;sx+=4.4*U)g.fillRect(sx,top+1*U,2.4*U,bodyH-1*U)}g.fillStyle='rgba(255,255,255,.14)';g.fillRect(f>0?bw/2-3*U:-bw/2,top+2*U,3*U,bodyH-4*U);   // rim light from the neon
   g.fillStyle='rgba(0,0,0,.25)';g.fillRect(-bw/2,top+bodyH-3*U,bw,3*U);
   if(P.apron&&!back&&!side){g.fillStyle=P.apron;g.fillRect(-4.5*U,top+5*U,9*U,bodyH-5*U)}
@@ -8332,9 +8348,14 @@ function owCiv(x,y,dir,moving,n,tm,ph){
    else if(cv===1&&!P.pack){g.fillStyle='#10161e';if(back)g.fillRect(-5*U,top+1*U,10*U,11*U);else if(side)g.fillRect(-f*bw/2-(f>0?4:0)*U-(f<0?-1:0)*U,top+2*U,4*U,10*U);else{g.fillRect(-bw/2+1*U,top+1*U,2*U,9*U);g.fillRect(bw/2-3*U,top+1*U,2*U,9*U)}}   // backpack
    else if(cv===2){g.fillStyle=P.trim||'#556';g.fillRect(-bw/2-1*U,top-2*U,bw+2*U,3.5*U)}   // high collar
    else if(cv===3&&!P.long){g.fillStyle=P.body;g.beginPath();g.moveTo(-bw/2,top+bodyH-4*U);g.lineTo(-bw/2-3*U,top+bodyH+1*U);g.lineTo(bw/2+3*U,top+bodyH+1*U);g.lineTo(bw/2,top+bodyH-4*U);g.fill()}}   // flared coat hem
-  // arms
-  g.fillStyle=P.body;if(!side){g.fillRect(-bw/2-3*U,top+3*U,3*U,9*U);g.fillRect(bw/2,top+3*U,3*U,9*U)}else g.fillRect(-1.5*U,top+3*U,3.5*U,9*U);
-  g.fillStyle=skin;if(!side){g.fillRect(-bw/2-3*U,top+11*U,3*U,2.5*U);g.fillRect(bw/2,top+11*U,3*U,2.5*U)}else g.fillRect(-1.5*U,top+11*U,3.5*U,2.5*U);
+  // Arms: tapered sleeves with rounded elbows and visible hands.
+  g.save();g.lineCap='round';g.lineJoin='round';
+  g.strokeStyle=P.body;g.lineWidth=3.2*U;g.beginPath();
+  if(!side){g.moveTo(-shoulder+1*U,top+4*U);g.quadraticCurveTo(-shoulder-3.5*U,top+8*U,-shoulder-2.7*U,top+12*U);g.moveTo(shoulder-1*U,top+4*U);g.quadraticCurveTo(shoulder+3.5*U,top+8*U,shoulder+2.7*U,top+12*U)}
+  else{g.moveTo(f*shoulder*.55,top+4*U);g.quadraticCurveTo(f*(shoulder*.8+2*U),top+8*U,f*(shoulder*.72+2.5*U),top+12*U)}g.stroke();
+  g.strokeStyle=skin;g.lineWidth=2.5*U;g.beginPath();
+  if(!side){g.moveTo(-shoulder-2.7*U,top+11*U);g.lineTo(-shoulder-2.5*U,top+14*U);g.moveTo(shoulder+2.7*U,top+11*U);g.lineTo(shoulder+2.5*U,top+14*U)}
+  else{g.moveTo(f*(shoulder*.72+2.5*U),top+11*U);g.lineTo(f*(shoulder*.72+2.5*U),top+14*U)}g.stroke();g.restore();
   // head
   const hy=top-6*U;
   g.fillStyle=skin;g.beginPath();g.arc(side?f*1*U:0,hy,6*U,0,7);g.fill();
