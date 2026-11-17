@@ -8496,13 +8496,22 @@ function owCiv(x,y,dir,moving,n,tm,ph){
   const px=(a,b,w,h,c)=>{g.fillStyle=c;g.fillRect(Math.round(a),Math.round(b),w,h)};
   // Keep the same soft contact-shadow footprint used by the town renderer.
   g.fillStyle='rgba(0,0,0,.32)';g.beginPath();g.ellipse(0,.8,8.5,2.2,0,0,7);g.fill();
-  // Feet and tapered trousers: each leg is a two-pixel-wide pixel cluster.
+  // Two-pixel trouser columns connect the jacket to the shoes; each has
+  // a one-pixel outline, shadow edge and restrained highlight.
+  const legTop=n.sit?-5:-12;
   if(!n.sit){
     const swing=Math.round(step*.8);
-    px(-4,-3+swing,3,3,pantShade);px(-3,-3+swing,2,3,pant);
-    px(2,-3-swing,3,3,pantShade);px(2,-3-swing,2,3,pant);
-    px(-5,-1+swing,4,1,ink);px(2,-1-swing,4,1,ink);
-    px(-5,-1+swing,3,1,'#20202a');px(2,-1-swing,3,1,'#20202a');
+    for(let yy=legTop;yy<=-3;yy++){
+      px(-5,yy,4,1,ink);px(-4,yy,2,1,pant);
+      px(-4,yy,1,1,pantLight);
+      px(1,yy,4,1,ink);px(2,yy,2,1,pant);
+      px(2,yy,1,1,pantShade);
+    }
+    px(-5,-4+Math.max(0,swing),4,2,ink);px(-4,-4+Math.max(0,swing),3,1,'#24232e');
+    px(1,-4-Math.min(0,swing),4,2,ink);px(2,-4-Math.min(0,swing),3,1,'#24232e');
+  }else{
+    px(-5,-5,4,3,ink);px(-4,-5,3,2,pant);
+    px(1,-5,4,3,ink);px(2,-5,3,2,pant);
   }
   // Jacket/torso silhouette. Every row is a deliberate pixel cluster.
   const top=-27-(P.long?2:0),bodyRows=P.long?rows.concat([[ -4,4],[-4,4]]):rows;
