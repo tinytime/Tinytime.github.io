@@ -4,10 +4,10 @@
 <script>
 // HD-2D mockup: Vapor City plaza as a lit 3D block, with the pack pixel sprites standing in it.
 // 1 world unit = 1 game tile. Not part of the game.
-const Q=new URLSearchParams(location.search), DPR=+(Q.get('dpr')||2), W=innerWidth, H=innerHeight;
+const Q=new URLSearchParams(location.search), DPR=+(Q.get('dpr')||Math.min(window.devicePixelRatio||2,2.5)), W=innerWidth, H=innerHeight;
 const R=new THREE.WebGLRenderer({antialias:false});R.setPixelRatio(DPR);R.setSize(W,H);document.body.appendChild(R.domElement);
 R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
-const S=new THREE.Scene();S.background=new THREE.Color(0x070b19);S.fog=new THREE.FogExp2(0x10142a,+(Q.get("fog")||0.014));
+const S=new THREE.Scene();S.background=new THREE.Color(0x070b19);S.fog=new THREE.FogExp2(0x17152e,+(Q.get("fog")||0.009));
 const CAM=new THREE.PerspectiveCamera(+(Q.get('fov')||28),W/H,1,200);
 const EL=+(Q.get('el')||39)*Math.PI/180, DIST=+(Q.get('d')||51), TGT=new THREE.Vector3(+(Q.get('tx')||-.5),0,+(Q.get('tz')||-5.5));
 CAM.position.set(0,TGT.y+DIST*Math.sin(EL),TGT.z+DIST*Math.cos(EL));CAM.lookAt(TGT);
@@ -24,8 +24,8 @@ function facadeTex(wu,hu,o){ // wu,hu in world units; 64 px per unit
   for(let y=0;y<c.height;y+=P){g.fillStyle='rgba(0,0,0,.3)';g.fillRect(0,y,c.width,2)}
   // grime streaks
   for(let i=0;i<wu*3;i++){const x=rnd()*c.width,y=rnd()*c.height*.6;const gr=g.createLinearGradient(0,y,0,y+90);gr.addColorStop(0,'rgba(0,0,0,.35)');gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.fillRect(x,y,3+rnd()*6,90)}
-  (o.win||[]).forEach(r=>{for(let y=r.y0*P;y+r.h*P<=r.y1*P+1;y+=(r.h+r.gy)*P)for(let x=r.x0*P;x+r.w*P<=r.x1*P+1;x+=(r.w+r.gx)*P){
-    const lit=rnd()<(r.lit||.55),col=pick(r.cols);
+  (o.win||[]).forEach(r=>{for(let y=Math.max(r.y0,2.05)*P;y+r.h*P<=r.y1*P+1;y+=(r.h+r.gy)*P)for(let x=r.x0*P;x+r.w*P<=r.x1*P+1;x+=(r.w+r.gx)*P){
+    const lit=rnd()<(r.lit||.32),warm=lit&&rnd()<.22,col=warm?pick(['#ffb347','#ffd27a','#ff9f52']):pick(r.cols);
     g.fillStyle='#07070f';g.fillRect(x-3,y-3,r.w*P+6,r.h*P+6);
     if(lit){g.fillStyle=col;g.fillRect(x,y,r.w*P,r.h*P);ge.fillStyle=col;ge.globalAlpha=.55+rnd()*.45;ge.fillRect(x,y,r.w*P,r.h*P);ge.globalAlpha=1;
       // blinds / silhouettes
@@ -60,7 +60,7 @@ function groundTex(){const P=32,N=48,[c,g]=cv(N*P,N*P),[r,gr]=cv(N*P,N*P);
   for(let i=0;i<20;i++){g.fillStyle='rgba(0,0,0,.4)';g.beginPath();g.arc(rnd()*c.width,rnd()*c.height,4,0,7);g.fill()}
   const t=sRGB(new THREE.CanvasTexture(c)),rt=new THREE.CanvasTexture(r);[t,rt].forEach(x=>x.anisotropy=8);return [t,rt]}
 // ---------- atlas sprites ----------
-const PXW=0.034; // slightly larger sprite scale for clearer, grounded characters
+const PXW=0.047; // larger pixel sprites for phone-size readability
 let ATL,META;const sprites=[];
 function spriteMesh(key,fi=0,flip=false,o={}){const e=META[key];const tex=ATL.clone();tex.needsUpdate=true;
   tex.magFilter=tex.minFilter=THREE.NearestFilter;tex.generateMipmaps=false;sRGB(tex);
@@ -112,7 +112,10 @@ function building(x0,x1,z0,z1,h,o){const w=x1-x0,d=z1-z0,cx=(x0+x1)/2,cz=(z0+z1)
   const sideT=facadeTex(d,h,{base:o.base,win:o.sideWin||[],panel:40});const side=std(0xffffff,{map:sideT.map,emissive:0xffffff,emissiveMap:sideT.em,emissiveIntensity:1.6,roughness:.75});
   const roof=std(o.roof||0x1b1a2e,{roughness:.9});
   box(w,h,d,[side,side,roof,roof,front,front],cx,0,cz);
-  box(w+.3,.25,d+.3,std(0x2a2c48,{roughness:.6}),cx,h,cz); // parapet cap
+  box(w+.3,.25,d+.3,std(0x34334f,{roughness:.62}),cx,h,cz); // parapet cap
+  box(w*.82,.42,d*.78,std(0x201f36,{roughness:.82}),cx,h+.25,cz-.02,false); // shallow rooftop setback mass
+  box(w+.38,.08,.09,glowM(o.trim||'#5becf1',1.5),cx,h+.24,z1+.19,false); // readable front roof edge
+  box(w+.12,.34,.18,std(0x171827,{roughness:.88}),cx,.02,z1+.04,false); // dark storefront plinth
   box(w+.3,.06,.06,glowM(o.trim||'#5becf1',2.5),cx,h+.22,z1+.15,false); // neon trim on the roof edge
   // roof clutter
   for(let i=0;i<Math.max(2,w*d/9);i++){const bw=.4+rnd()*.9,bd=.4+rnd()*.8,bh=.2+rnd()*.6;box(bw,bh,bd,std(pick([0x3a3d5c,0x2c2f4a,0x46496a]),{metalness:.5,roughness:.5}),x0+.4+rnd()*(w-.8),h+.25,z0+.4+rnd()*(d-.8))}
@@ -166,17 +169,21 @@ function build(){
   const palette={arena:['#1d1433','#e6336a','#27e0ff',8.5],crew1:['#1b1530','#9b5cff','#ff2fa8',4.2],crew2:['#241a16','#f2b632','#ff7a1a',4.0],crew3:['#102a2a','#2fe0a8','#27e0ff',5.0],club:['#101d30','#27e0ff','#9b5cff',4.6],home:['#211725','#ffd23a','#ff2fa8',3.4],pharma:['#11232b','#27e0ff','#58ffb0',3.4],bar:['#1c1636','#9b5cff','#ff2fa8',3.8],den:['#102a27','#58ffb0','#27e0ff',3.8],arcade:['#211725','#ffd23a','#ff2fa8',3.2],pawn:['#24180f','#ff7a1a','#9b5cff',3.2]};
   const defs=OWB_REAL;
   for(const b of defs){const [base,trim,accent,h]=palette[b.id];const doors=b.doors.map(d=>({x:d[0]-b.x+.14,w:.72,h:1.65,col:trim}));
-    const winCols=[trim,accent,'#8b72de','#3dabea','#27334d'];
-    const win=[{x0:.35,x1:Math.max(.7,b.w-.35),y0:.65,y1:Math.max(1.4,h-.65),w:.48,h:.42,gx:.26,gy:.32,cols:winCols,lit:.58}];
+    const winCols=[trim,accent,'#8b72de','#3dabea','#ffb347','#ffd27a'];
+    const win=[{x0:.35,x1:Math.max(.7,b.w-.35),y0:2.05,y1:Math.max(2.3,h-.65),w:.48,h:.42,gx:.26,gy:.32,cols:winCols,lit:.32}];
     building(wx(b.x),wx(b.x+b.w),wz(b.y),wz(b.y+b.h),h,{base,trim,win,doors,panel:48,ei:1.65,roof:0x15172a,
-      sideWin:[{x0:.35,x1:Math.max(.7,b.h-.35),y0:.6,y1:h-.4,w:.42,h:.4,gx:.3,gy:.3,cols:winCols,lit:.38}]});
+      sideWin:[{x0:.35,x1:Math.max(.7,b.h-.35),y0:2.05,y1:h-.4,w:.42,h:.4,gx:.3,gy:.3,cols:winCols,lit:.28}]});
     // Oversized rooftop marquee: keep the windowed facade clear and put the
     // building name above the roofline, like a classic neon city landmark.
     const sx=wx(b.x+b.w/2), sz=wz(b.y+b.h)+.18;
-    const sw=Math.min(b.w+.35,Math.max(2.8,b.sign.length*.31));
-    const st=signTex(b.sign,b.sub||null,trim,accent,1024,256);
-    neonSign(st,sw,1.05,sx,h+1.05,sz,trim,2.25,12);
-    plight(trim,7,sx,h+.55,sz+.7,Math.max(4,b.w));
+    const sw=Math.min(12,Math.max(3.4,b.w*.8));
+    const signH=sw/4;
+    const st=signTex(b.sign,(b.sub&&b.sub!==b.sign)?b.sub:null,trim,accent,1024,256);
+    neonSign(st,sw,signH,sx,h+signH*.65,sz,trim,3.0,10);
+    for(const dx of [-sw*.43,sw*.43])box(.10,signH*.9,.12,std(0x68718a,{metalness:.65,roughness:.35}),sx+dx,h+.12,sz+.03,false);
+    box(sw*1.04,.09,.16,std(0x68718a,{metalness:.65,roughness:.35}),sx,h+.12,sz+.03,false);
+    plight(trim,4,sx,1.8,sz+1.0,9);
+    streak(sx,sz+1.0,trim,4.5,.75);
     // Doorway light and short neon spill on the wet pavement.
     for(const d of b.doors){const dx=wx(d[0]+.5),dz=wz(b.y+b.h)+.1;plight(trim,2.6,dx,1.2,dz+.8,3.5);streak(dx,dz+.8,trim,1.5,.22)}
   }
@@ -234,11 +241,11 @@ const comp=sh(`uniform sampler2D sc,b0,b1,b2,df;uniform float fy,fw,ex;varying v
   void main(){vec3 c=texture2D(sc,vUv).rgb;float k=smoothstep(fw,fw+.22,abs(vUv.y-fy));c=mix(c,texture2D(df,vUv).rgb,k);
     vec3 bl=texture2D(b0,vUv).rgb*.6+texture2D(b1,vUv).rgb*.8+texture2D(b2,vUv).rgb*1.0;c+=bl*.27;
     c*=ex;c=aces(c);c=pow(c,vec3(1./2.2));
-    c=mix(c,c*vec3(1.04,.96,1.1),.5);float v=distance(vUv,vec2(.5,.52));c*=smoothstep(.95,.35,v);
-    gl_FragColor=vec4(c,1.);}`,{sc:{value:null},b0:{value:null},b1:{value:null},b2:{value:null},df:{value:null},fy:{value:+(Q.get('fy')||.52)},fw:{value:+(Q.get('fw')||.27)},ex:{value:+(Q.get('ex')||.9)}});
+    c=mix(c,c*vec3(1.04,.96,1.1),.5);float v=distance(vUv,vec2(.5,.52));c*=mix(.78,1.0,1.0-smoothstep(.35,1.0,v));
+    gl_FragColor=vec4(c,1.);}`,{sc:{value:null},b0:{value:null},b1:{value:null},b2:{value:null},df:{value:null},fy:{value:+(Q.get('fy')||.52)},fw:{value:+(Q.get('fw')||.42)},ex:{value:+(Q.get('ex')||1.0)}});
 function pass(mat,rt){QM.material=mat;R.setRenderTarget(rt);R.render(QS,QC)}
 function blurInto(src,pair,steps=2){let a=src;for(let i=0;i<steps;i++){blur.uniforms.t.value=a;blur.uniforms.d.value.set(1/pair[0].width,0);pass(blur,pair[1]);blur.uniforms.t.value=pair[1].texture;blur.uniforms.d.value.set(0,1/pair[0].height);pass(blur,pair[0]);a=pair[0].texture}}
-function frame(){sprites.forEach(s=>s.quaternion.copy(CAM.quaternion));
+function frame(){sprites.forEach(s=>{s.rotation.set(0,Math.atan2(CAM.position.x-s.position.x,CAM.position.z-s.position.z),0)});
   R.setRenderTarget(rtScene);R.render(S,CAM);
   bright.uniforms.t.value=rtScene.texture;pass(bright,B[0][0]);blurInto(B[0][0].texture,B[0]);
   copy.uniforms.t.value=B[0][0].texture;pass(copy,B[1][0]);blurInto(B[1][0].texture,B[1]);copy.uniforms.t.value=B[1][0].texture;pass(copy,B[2][0]);blurInto(B[2][0].texture,B[2],3);
