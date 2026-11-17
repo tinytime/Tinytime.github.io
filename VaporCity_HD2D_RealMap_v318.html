@@ -37,7 +37,7 @@ function facadeTex(wu,hu,o){ // wu,hu in world units; 64 px per unit
     const gr=g.createLinearGradient(0,y,0,y+h);gr.addColorStop(0,d.col);gr.addColorStop(1,'#fff6ae');g.fillStyle=gr;g.fillRect(x,y,w,h);ge.fillStyle=d.col;ge.fillRect(x,y,w,h);
     g.fillStyle='rgba(0,0,0,.5)';g.fillRect(x+w/2-2,y,4,h);ge.fillStyle='#000';ge.fillRect(x+w/2-2,y,4,h)});
   // Broad, low-level environmental bounce keeps facade surfaces readable between neon accents.
-  const ambient=g.createLinearGradient(0,0,0,c.height);ambient.addColorStop(0,'rgba(76,91,158,.13)');ambient.addColorStop(.55,'rgba(62,73,137,.10)');ambient.addColorStop(1,'rgba(35,43,91,.08)');g.save();g.globalCompositeOperation='screen';g.fillStyle=ambient;g.fillRect(0,0,c.width,c.height);g.restore();
+  const ambient=g.createLinearGradient(0,0,0,c.height);ambient.addColorStop(0,'rgba(76,91,158,.14)');ambient.addColorStop(.55,'rgba(62,73,137,.13)');ambient.addColorStop(1,'rgba(45,55,112,.12)');g.save();g.globalCompositeOperation='screen';g.fillStyle=ambient;g.fillRect(0,0,c.width,c.height);g.restore();
   // Subtle reflected neon washes add facade depth without flattening the nighttime palette.
   if(o.wash&&o.wash.length){const toRGB=v=>{const n=parseInt(String(v).replace('#',''),16);return [(n>>16)&255,(n>>8)&255,n&255]};
     o.wash.slice(0,2).forEach((col,i)=>{const [r,ggg,b]=toRGB(col),cx=c.width*(i===0?.22:.78),cy=c.height*.67,rad=Math.max(P*2,c.width*.42);
@@ -60,7 +60,7 @@ function groundTex(){const P=32,N=48,[c,g]=cv(N*P,N*P),[r,gr]=cv(N*P,N*P);
   tile(0,0,c.width,c.height,P/2,'#25223f','#211e38');               // sidewalks
   tile(U(-8),U(-12),U(8),U(-4),P,'#2a1f45','#1f1736');              // plaza checker
   g.fillStyle='#14131f';g.fillRect(U(-1.9),U(-4),3.8*P,c.height);g.fillRect(0,U(2.6),c.width,4.4*P); // asphalt
-  for(let i=0;i<9000;i++){g.fillStyle=`rgba(${rnd()*60},${rnd()*60},${80+rnd()*60},.12)`;g.fillRect(rnd()*c.width,rnd()*c.height,2,2)}
+  for(let i=0;i<2600;i++){g.fillStyle=`rgba(${rnd()*34},${rnd()*38},${72+rnd()*34},.055)`;g.fillRect(rnd()*c.width,rnd()*c.height,1.4,1.4)}
   g.fillStyle='#f4b03c';for(let y=U(-3.6);y<c.height;y+=P*1.1)if(y<U(2.6)||y>U(7))g.fillRect(U(-.06),y,.12*P,.6*P);
   g.fillStyle='#8babbf';for(let x=0;x<c.width;x+=P*1.2)g.fillRect(x,U(4.75),.6*P,.08*P);
   g.fillStyle='rgba(205,226,225,.75)';for(let x=U(-1.7);x<U(1.7);x+=.45*P){g.fillRect(x,U(1.9),.25*P,.6*P);g.fillRect(x,U(7.2),.25*P,.6*P)}
@@ -96,7 +96,7 @@ const std=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughn
 const glowM=(c,i=3)=>new THREE.MeshBasicMaterial({color:new THREE.Color(c).multiplyScalar(i)});
 function streetBuild(){
   // Raised, tiled sidewalks flank the central avenue; thin curb caps make the road edge readable.
-  const walkMat=std(0x343550,{roughness:.94,metalness:.02,emissive:0x10172d,emissiveIntensity:.22}),curbMat=std(0x68718a,{roughness:.72,metalness:.12});
+  const walkMat=std(0x3b3b59,{roughness:.96,metalness:.01,emissive:0x151d39,emissiveIntensity:.27}),curbMat=std(0x68718a,{roughness:.72,metalness:.12});
   for(const side of [-1,1]){
     box(1.65,.13,39.5,walkMat,side*3.05,0,0,false);
     box(.16,.19,39.5,curbMat,side*2.18,0,0,false);
@@ -141,7 +141,7 @@ function building(x0,x1,z0,z1,h,o){const w=x1-x0,d=z1-z0,cx=(x0+x1)/2,cz=(z0+z1)
   box(w+.3,.25,d+.3,std(0x34334f,{roughness:.62}),cx,h,cz); // parapet cap
   box(w*.82,.42,d*.78,std(0x201f36,{roughness:.82}),cx,h+.25,cz-.02,false); // shallow rooftop setback mass
   box(w+.38,.08,.09,glowM(o.trim||'#5becf1',1.5),cx,h+.24,z1+.19,false); // readable front roof edge
-  box(w+.12,.34,.18,std(0x171827,{roughness:.88}),cx,.02,z1+.04,false); // dark storefront plinth
+  box(w+.12,.34,.18,std(0x24263b,{roughness:.92}),cx,.02,z1+.04,false); // dark storefront plinth
   box(w+.3,.06,.06,glowM(o.trim||'#5becf1',2.5),cx,h+.22,z1+.15,false); // neon trim on the roof edge
   // roof clutter
   for(let i=0;i<Math.max(2,w*d/9);i++){const bw=.4+rnd()*.9,bd=.4+rnd()*.8,bh=.2+rnd()*.6;box(bw,bh,bd,std(pick([0x3a3d5c,0x2c2f4a,0x46496a]),{metalness:.5,roughness:.5}),x0+.4+rnd()*(w-.8),h+.25,z0+.4+rnd()*(d-.8))}
@@ -171,21 +171,21 @@ function build(){
   // Real Vapor City street coordinates from the TEST game's OWB building table.
   // Game tile (x,y) maps to world (x-16, y-20). The gameplay map itself is unchanged.
   const wx=x=>x-16, wz=y=>y-20;
-  const [gc,gg]=cv(1024,1280);gg.fillStyle='#121b2b';gg.fillRect(0,0,1024,1280);
+  const [gc,gg]=cv(1024,1280);gg.fillStyle='#172238';gg.fillRect(0,0,1024,1280);
   const P=32, tile=(x,y,col)=>{gg.fillStyle=col;gg.fillRect(x*P,y*P,P-1,P-1)};
   // Road and sidewalk layout based on the actual 32x40 Vapor City map.
   for(let y=0;y<40;y++)for(let x=0;x<32;x++){
     const near=OWB_REAL.some(b=>x>=b.x-1&&x<=b.x+b.w&&y>=b.y-1&&y<=b.y+b.h);
-    tile(x,y,near?'#292943':'#19263a');
+    tile(x,y,near?'#30314f':'#202d44');
   }
   // Central avenue, cross streets, and curb seams.
-  gg.fillStyle='#151f30';gg.fillRect(14*P,0,4*P,1280);gg.fillRect(0,20*P,32*P,3*P);
+  gg.fillStyle='#202d45';gg.fillRect(14*P,0,4*P,1280);gg.fillRect(0,20*P,32*P,3*P);
   gg.fillStyle='rgba(255,210,65,.62)';for(let y=1;y<40;y+=1.25)gg.fillRect(16*P-2,y*P,4, P*.55);
   gg.fillStyle='rgba(80,210,240,.35)';for(let x=1;x<32;x+=1.1)gg.fillRect(x*P,21.35*P,P*.5,3);
   // Wet patches and neon-coloured reflections.
-  for(let i=0;i<105;i++){const x=rnd()*1024,y=rnd()*1280,rx=9+rnd()*34,ry=3+rnd()*10;gg.fillStyle='rgba(8,13,27,.24)';gg.beginPath();gg.ellipse(x,y,rx,ry,0,0,7);gg.fill();gg.strokeStyle=['rgba(230,51,106,.11)','rgba(91,236,241,.12)','rgba(255,129,66,.09)','rgba(139,114,222,.12)'][i%4];gg.beginPath();gg.ellipse(x,y,rx*.65,ry*.6,0,0,7);gg.stroke();if(i%3===0){gg.strokeStyle=i%2?'rgba(91,236,241,.20)':'rgba(230,51,106,.18)';gg.lineWidth=1;gg.beginPath();gg.moveTo(x-rx*.22,y);gg.lineTo(x+rx*.3,y+ry*.12);gg.stroke()}}
+  for(let i=0;i<42;i++){const x=rnd()*1024,y=rnd()*1280,rx=18+rnd()*48,ry=3+rnd()*8;const sheen=gg.createRadialGradient(x,y,1,x,y,rx);sheen.addColorStop(0,i%3===0?'rgba(91,145,205,.13)':'rgba(83,103,169,.12)');sheen.addColorStop(.65,'rgba(74,91,150,.055)');sheen.addColorStop(1,'rgba(74,91,150,0)');gg.save();gg.translate(x,y);gg.scale(1,Math.max(.12,ry/rx));gg.fillStyle=sheen;gg.beginPath();gg.arc(0,0,rx,0,Math.PI*2);gg.fill();gg.restore()}for(let i=0;i<14;i++){const x=rnd()*1024,y=rnd()*1280;gg.strokeStyle=i%2?'rgba(91,190,220,.09)':'rgba(194,120,190,.07)';gg.lineWidth=2+rnd()*2;gg.beginPath();gg.moveTo(x-18-rnd()*18,y);gg.lineTo(x+24+rnd()*32,y+1+rnd()*2);gg.stroke()}
   const gtex=sRGB(new THREE.CanvasTexture(gc));gtex.anisotropy=8;
-  const ground=new THREE.Mesh(new THREE.PlaneGeometry(32,40),std(0xffffff,{map:gtex,roughness:.64,metalness:.16,emissive:0x172342,emissiveIntensity:.34}));ground.rotation.x=-Math.PI/2;ground.position.set(0,0,0);ground.receiveShadow=true;S.add(ground);
+  const ground=new THREE.Mesh(new THREE.PlaneGeometry(32,40),std(0xffffff,{map:gtex,roughness:.72,metalness:.10,emissive:0x1c2b50,emissiveIntensity:.39}));ground.rotation.x=-Math.PI/2;ground.position.set(0,0,0);ground.receiveShadow=true;S.add(ground);
   streetBuild();
   // Restore scattered puddle decals from the original sprite atlas on the wet roadway.
   for(const [key,x,z,sc] of [['pud_l',-1.05,7.8,1.45],['pud_m',.85,5.1,1.7],['pud_s',-1.1,-2.8,2.1],['pud_l',.95,-9.2,1.25],['pud_m',-.75,13.2,1.5],['pud_s',1.05,-15.4,1.8],['pud_m',-.45,2.7,1.25]]){const p=spriteMesh(key,0,false,{scale:sc,glow:.12,shadow:false,face:false});p.rotation.x=-Math.PI/2;p.position.set(x,.035,z);p.scale.multiplyScalar(.55);p.material.transparent=true;p.material.opacity=.42;p.material.alphaTest=.01;p.customDepthMaterial.alphaTest=.01;p.material.depthWrite=false;if(p.material.map){p.material.map.magFilter=THREE.LinearFilter;p.material.map.minFilter=THREE.LinearFilter;p.material.map.generateMipmaps=false;p.material.map.needsUpdate=true;}if(p.material.color)p.material.color.set(0x789dff);if(p.material.emissive)p.material.emissive.set(0x17284a);S.add(p)}
