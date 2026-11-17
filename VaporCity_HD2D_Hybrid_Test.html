@@ -8865,7 +8865,28 @@ function pxEnts(){if(typeof PXS!=="object"||!PXS||!M||M.id!=="street"||!pxUse())
     return PXS.ents.filter(a=>a.st!=='gone').map(a=>({y:a.y,a}))}catch(e){pxFail(e);return[]}}
 function pxDrawEnt(a,tm){const OT=OWT,t0=performance.now();
   try{const fx=a.x*OT+(a.k==='truck'?0:OT/2),fy=a.y*OT+OT-6;
-    if(a.k==='truck'){og.fillStyle='rgba(0,0,0,.42)';og.fillRect(fx-OT*1.95,fy-OT*.12,OT*3.9,OT*.3);pxBlit('truck',0,fx,fy+3)}
+    if(a.k==='truck'){
+      // A footprint-shaped cast shadow follows the street grid instead of
+      // the oversized flat rectangle that made the truck read like a sticker.
+      og.save();
+      og.shadowColor='rgba(0,0,0,.48)';og.shadowBlur=OT*.14;
+      og.fillStyle='rgba(0,0,0,.38)';
+      og.beginPath();
+      og.moveTo(fx-OT*1.48,fy-OT*.22);
+      og.lineTo(fx+OT*1.48,fy-OT*.22);
+      og.lineTo(fx+OT*1.64,fy+OT*.30);
+      og.lineTo(fx-OT*1.64,fy+OT*.30);
+      og.closePath();og.fill();
+      og.restore();
+      // Tight contact beneath the chassis and at the wheel positions.
+      og.save();og.fillStyle='rgba(0,0,0,.42)';
+      og.fillRect(fx-OT*1.20,fy-OT*.07,OT*2.40,OT*.13);
+      for(const wx of [-1.08,1.08]){
+        og.beginPath();og.ellipse(fx+OT*wx,fy-OT*.015,OT*.22,OT*.09,0,0,Math.PI*2);og.fill();
+      }
+      og.restore();
+      pxBlit('truck',0,fx,fy+3);
+    }
     else if(a.k==='rat'){pxShadow(fx,fy,7,2);const w=a.st==='walk';pxBlit(w?'rat_w':'rat_i',pxFi(w?'rat_w':'rat_i',tm,a.sd),fx,fy,a.dir<0);PXS.anim++}
     else if(a.k==='dog'){pxShadow(fx,fy,13,3);const w=a.st==='walk';pxBlit(w?'dog_w':'dog_i',pxFi(w?'dog_w':'dog_i',tm,a.sd),fx,fy,a.dir<0);PXS.anim++}
     else if(a.k==='pig'){const fly=a.st==='fly',y=fy-a.lift*OT;if(!fly)pxShadow(fx,fy,6,2,.3*a.al);pxBlit(fly?'pig_f':'pig_i',pxFi(fly?'pig_f':'pig_i',tm,a.sd),fx,y,a.dir<0,a.al);PXS.anim++}
