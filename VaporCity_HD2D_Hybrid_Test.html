@@ -8465,159 +8465,102 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   glow.addColorStop(0,'rgba(41,242,232,.26)');glow.addColorStop(.48,'rgba(255,47,168,.12)');glow.addColorStop(1,'rgba(41,242,232,0)');
   g.fillStyle=glow;g.beginPath();g.ellipse(sx,sy-OWT*.025,OWT*.34,OWT*.17,0,0,7);g.fill();g.restore();
 }
+/* Vapor City pixel-precision NPC engine.
+   Granny Volt is the approved art benchmark. All ordinary NPCs share this
+   logical 1px grid, 1px silhouette edge, 2px limbs and 3-tone material ramps. */
+function owPixelTone(hex,delta){
+  const m=/^#([0-9a-f]{6})$/i.exec(hex||'');
+  if(!m)return hex||'#777777';
+  const n=parseInt(m[1],16),c=[(n>>16)&255,(n>>8)&255,n&255].map(v=>Math.max(0,Math.min(255,v+delta)));
+  return '#'+c.map(v=>v.toString(16).padStart(2,'0')).join('');
+}
 function owCiv(x,y,dir,moving,n,tm,ph){
-  const kind=n.civ;if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph);return}const P=Object.assign({},CIV[kind]||CIV.fan);
+  const kind=n.civ;
+  if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph);return}
+  const P=Object.assign({},CIV[kind]||CIV.fan);
   if(n.hb)Object.assign(P,HB_CIV[kind]||HB_CIV.fan);
-  if(kind==='fan'&&n.hb){P.body=HB_FANC[((n.x*7+n.y*3)|0)%HB_FANC.length];P.pants=['#26333C','#2b3036','#1f2a30'][(n.x+n.y)%3]}else if(kind==='fan'){P.body=CIV_FANC[((n.x*7+n.y*3)|0)%CIV_FANC.length];P.pants=['#1a2433','#241a2e','#10202a'][(n.x+n.y)%3]}
-  const g=og,U=OWT/36*P.sc*[.95,1,1.07,.98,1.04][((n.x*3+n.y*5)|0)%5],sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6,side=dir==='l'||dir==='r',back=dir==='u',f=dir==='l'?-1:1;
+  if(kind==='fan'&&n.hb){P.body=HB_FANC[((n.x*7+n.y*3)|0)%HB_FANC.length];P.pants=['#26333C','#2b3036','#1f2a30'][(n.x+n.y)%3]}
+  else if(kind==='fan'){P.body=CIV_FANC[((n.x*7+n.y*3)|0)%CIV_FANC.length];P.pants=['#1a2433','#241a2e','#10202a'][(n.x+n.y)%3]}
+  const g=og,U=OWT/36*P.sc*[.95,1,1.07,.98,1.04][((n.x*3+n.y*5)|0)%5];
+  const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
+  const side=dir==='l'||dir==='r',back=dir==='u',f=dir==='l'?-1:1;
   const skin=['#e6b48a','#c98a62','#8a5a3a','#f0c8a0'][((n.x*5+n.y)|0)%4];
-  const sw=moving?Math.sin(tm*11+ph*6):0,bob=moving?Math.abs(sw)*1.2*U:Math.sin(tm*2+n.x)*.4*U;
-  g.save();g.translate(sx,sy);
-  g.fillStyle='rgba(0,0,0,.35)';g.beginPath();g.ellipse(0,1,9*U,3*U,0,0,7);g.fill();
-  const legH=n.sit?5*U:P.long?6*U:11*U,bodyH=P.long?21*U:15*U,bw=(P.wide?17:side?10:13)*U;
-  // Legs: tapered, softly rounded forms instead of rectangular columns.
-  g.save();g.lineCap='round';g.lineJoin='round';g.strokeStyle=P.pants;g.lineWidth=3.7*U;
-  if(side){g.beginPath();g.moveTo(-1.8*U,-legH+1*U);g.quadraticCurveTo(-2.4*U,-legH*.48+sw*1.5*U*f,-3.2*U+sw*2.4*U*f,-2.5*U);g.moveTo(1.8*U,-legH+1*U);g.quadraticCurveTo(2.4*U,-legH*.48-sw*1.5*U*f,2.8*U-sw*2.4*U*f,-2.5*U);g.stroke()}
-  else{g.beginPath();g.moveTo(-2.7*U,-legH+1*U);g.quadraticCurveTo(-3.8*U,-legH*.48+sw*U,-3.4*U+sw*1.7*U,-2.5*U);g.moveTo(2.7*U,-legH+1*U);g.quadraticCurveTo(3.8*U,-legH*.48-sw*U,3.4*U-sw*1.7*U,-2.5*U);g.stroke()}
-  g.restore();
-  g.fillStyle='#0a0c12';g.beginPath();g.ellipse(0,-1.1*U,4.8*U,1.5*U,0,0,7);g.fill();
-  g.translate(0,-bob);
-  const top=-legH-bodyH;
-  // pack on the back for the courier, keyboard for the busker drawn later
-  if(P.pack&&(back||side)){g.fillStyle=P.pack;g.shadowColor=P.pack;g.shadowBlur=6;g.fillRect(side?-f*bw/2-5*U*(f>0?1:0)-(f<0?0:0):-5*U,top+2*U,side?5*U:10*U,10*U);g.shadowBlur=0}
-  // Body: shaped shoulders, tapered waist and softly varied hips create a
-  // more natural illustrated figure while preserving each NPC's scale/style.
-  const shoulder=bw*(P.wide?.52:.46),waist=bw*(P.wide?.39:.34),hip=bw*(P.wide?.49:.43);
-  g.fillStyle=P.body;g.beginPath();
-  g.moveTo(-shoulder,top+3.2*U);
-  g.quadraticCurveTo(-shoulder,top-.5*U,-shoulder*.62,top);
-  g.quadraticCurveTo(-shoulder*.25,top-1.1*U,0,top);
-  g.quadraticCurveTo(shoulder*.25,top-1.1*U,shoulder*.62,top);
-  g.quadraticCurveTo(shoulder,top-.5*U,shoulder,top+3.2*U);
-  g.quadraticCurveTo(shoulder*.94,top+bodyH*.38,waist,top+bodyH*.58);
-  g.quadraticCurveTo(waist*.92,top+bodyH*.78,hip,top+bodyH-2.5*U);
-  g.quadraticCurveTo(0,top+bodyH+1.2*U,-hip,top+bodyH-2.5*U);
-  g.quadraticCurveTo(-waist*.92,top+bodyH*.78,-waist,top+bodyH*.58);
-  g.quadraticCurveTo(-shoulder*.94,top+bodyH*.38,-shoulder,top+3.2*U);
-  g.closePath();g.fill();
-  if(P.stripes){g.fillStyle=P.stripes;for(let sx=-bw/2+1.6*U;sx<bw/2-1*U;sx+=4.4*U)g.fillRect(sx,top+1*U,2.4*U,bodyH-1*U)}g.fillStyle='rgba(255,255,255,.14)';g.fillRect(f>0?bw/2-3*U:-bw/2,top+2*U,3*U,bodyH-4*U);   // rim light from the neon
-  g.fillStyle='rgba(0,0,0,.25)';g.fillRect(-bw/2,top+bodyH-3*U,bw,3*U);
-  if(P.apron&&!back&&!side){g.fillStyle=P.apron;g.fillRect(-4.5*U,top+5*U,9*U,bodyH-5*U)}
-  if(P.apron&&side){g.fillStyle=P.apron;g.fillRect(f>0?0:-5*U,top+5*U,5*U,bodyH-5*U)}
-  // Build clothing as layered garments: a raised collar, overlapping front panels,
-  // shaped pocket, cuff/hem edges and soft folds give fabric its own volume.
-  if(!back&&!P.helm&&!P.hood&&!P.apron){
-    g.fillStyle='rgba(0,0,0,.16)';g.beginPath();g.moveTo(-bw*.34,top+3.2*U);g.lineTo(-bw*.08,top+8.5*U);g.lineTo(-bw*.18,top+bodyH*.52);g.lineTo(-bw*.39,top+bodyH*.43);g.closePath();g.fill();
-    g.beginPath();g.moveTo(bw*.34,top+3.2*U);g.lineTo(bw*.08,top+8.5*U);g.lineTo(bw*.18,top+bodyH*.52);g.lineTo(bw*.39,top+bodyH*.43);g.closePath();g.fill();
-    g.fillStyle=P.trim||'#d8d8d8';g.globalAlpha=.82;g.beginPath();g.moveTo(-bw*.3,top+1.2*U);g.lineTo(-bw*.06,top+5.6*U);g.lineTo(0,top+3.7*U);g.lineTo(bw*.06,top+5.6*U);g.lineTo(bw*.3,top+1.2*U);g.lineTo(bw*.12,top+7.2*U);g.lineTo(0,top+5.2*U);g.lineTo(-bw*.12,top+7.2*U);g.closePath();g.fill();g.globalAlpha=1;
-    if(!side){
-      g.strokeStyle='rgba(255,255,255,.25)';g.lineWidth=.65*U;g.beginPath();g.moveTo(-bw*.34,top+bodyH*.72);g.quadraticCurveTo(-bw*.2,top+bodyH*.67,-bw*.08,top+bodyH*.73);g.stroke();
-      g.fillStyle='rgba(8,12,20,.22)';g.fillRect(bw*.12,top+bodyH*.55,bw*.22,bodyH*.17);
-      g.strokeStyle='rgba(255,255,255,.28)';g.lineWidth=.65*U;g.strokeRect(bw*.12,top+bodyH*.55,bw*.22,bodyH*.17);
-    }
+  const ink='#171421',body=P.body||'#777777',shade=owPixelTone(body,-34),light=owPixelTone(body,32);
+  const pant=P.pants||'#252535',pantShade=owPixelTone(pant,-28),pantLight=owPixelTone(pant,24);
+  const hair=P.hair||'#211a22',hairLight=owPixelTone(hair,34);
+  const trim=P.trim||'#d8d8d8',trimShade=owPixelTone(trim,-32);
+  const step=moving?Math.sin(tm*11+ph*6):0,bob=moving?Math.abs(step)*.65:Math.sin(tm*2+n.x)*.18;
+  const rows=[[-5,5],[-7,7],[-7,7],[-7,7],[-6,6],[-6,6],[-6,6],[-5,5],[-5,5],[-5,5],[-5,5],[-6,6],[-6,6],[-6,6],[-5,5],[-4,4]];
+  const legRows=[[-4,-2],[2,4]];
+  g.save();g.translate(sx,sy-bob);g.scale(U,U);
+  const px=(a,b,w,h,c)=>{g.fillStyle=c;g.fillRect(Math.round(a),Math.round(b),w,h)};
+  // Keep the same soft contact-shadow footprint used by the town renderer.
+  g.fillStyle='rgba(0,0,0,.32)';g.beginPath();g.ellipse(0,.8,8.5,2.2,0,0,7);g.fill();
+  // Feet and tapered trousers: each leg is a two-pixel-wide pixel cluster.
+  if(!n.sit){
+    const swing=Math.round(step*.8);
+    px(-4,-3+swing,3,3,pantShade);px(-3,-3+swing,2,3,pant);
+    px(2,-3-swing,3,3,pantShade);px(2,-3-swing,2,3,pant);
+    px(-5,-1+swing,4,1,ink);px(2,-1-swing,4,1,ink);
+    px(-5,-1+swing,3,1,'#20202a');px(2,-1-swing,3,1,'#20202a');
   }
-  // A curved lower seam and restrained fabric folds break up the flat color fill.
-  g.strokeStyle='rgba(7,10,18,.34)';g.lineWidth=.8*U;g.beginPath();
-  g.moveTo(-hip*.88,top+bodyH-2.8*U);g.quadraticCurveTo(0,top+bodyH-1.2*U,hip*.88,top+bodyH-2.8*U);g.stroke();
-  g.strokeStyle='rgba(255,255,255,.16)';g.lineWidth=.7*U;g.beginPath();
-  g.moveTo(-bw*.27,top+bodyH*.38);g.quadraticCurveTo(-bw*.1,top+bodyH*.46,-bw*.2,top+bodyH*.55);
-  g.moveTo(bw*.27,top+bodyH*.4);g.quadraticCurveTo(bw*.12,top+bodyH*.48,bw*.22,top+bodyH*.58);g.stroke();
-  if(P.helm||P.wide){g.fillStyle=P.trim;g.fillRect(-bw/2-1*U,top,3*U,4*U);g.fillRect(bw/2-2*U,top,3*U,4*U);g.fillStyle='rgba(39,224,255,.8)';g.fillRect(-bw/2+3*U,top+7*U,bw-6*U,1.6*U)}   // armor shoulder + chest light strip
-  if(P.scarf&&!back){g.fillStyle=P.trim;g.fillRect(-4*U,top-1*U,8*U,3*U)}
-  {const cv=((n.x*11+n.y*5+kind.length)|0)%5;   // per-person silhouette extras so no two civilians read the same
-   if(cv===0&&!P.pack){g.strokeStyle=P.trim||'#888';g.lineWidth=1.6*U;g.beginPath();g.moveTo(-bw/2+1*U,top+2*U);g.lineTo(bw/2-1*U,top+bodyH-4*U);g.stroke();g.fillStyle='#10161e';g.fillRect(side?-f*bw/2-2*U:bw/2-5*U,top+bodyH-8*U,7*U,6*U)}   // shoulder bag
-   else if(cv===1&&!P.pack){g.fillStyle='#10161e';if(back)g.fillRect(-5*U,top+1*U,10*U,11*U);else if(side)g.fillRect(-f*bw/2-(f>0?4:0)*U-(f<0?-1:0)*U,top+2*U,4*U,10*U);else{g.fillRect(-bw/2+1*U,top+1*U,2*U,9*U);g.fillRect(bw/2-3*U,top+1*U,2*U,9*U)}}   // backpack
-   else if(cv===2){g.fillStyle=P.trim||'#556';g.fillRect(-bw/2-1*U,top-2*U,bw+2*U,3.5*U)}   // high collar
-   else if(cv===3&&!P.long){g.fillStyle=P.body;g.beginPath();g.moveTo(-bw/2,top+bodyH-4*U);g.lineTo(-bw/2-3*U,top+bodyH+1*U);g.lineTo(bw/2+3*U,top+bodyH+1*U);g.lineTo(bw/2,top+bodyH-4*U);g.fill()}}   // flared coat hem
-  // Arms: separate shoulder pivots create a relaxed, alternating walking swing.
-  const armSwing=n.sit?0:(moving?Math.sin(tm*11+ph*6+Math.PI)*.34:Math.sin(tm*1.7+ph)*.035);
-  const drawSleeve=(ax,sgn,phase)=>{
-    g.save();g.translate(ax,top+4*U);g.rotate(armSwing*phase);
-    g.lineCap='round';g.lineJoin='round';
-    g.strokeStyle='rgba(0,0,0,.22)';g.lineWidth=3.9*U;g.beginPath();g.moveTo(0,0);g.quadraticCurveTo(sgn*3.2*U,4.4*U,sgn*2.5*U,8.8*U);g.stroke();
-    g.strokeStyle=P.body;g.lineWidth=3.25*U;g.beginPath();g.moveTo(0,-.2*U);g.quadraticCurveTo(sgn*3.1*U,4.1*U,sgn*2.5*U,8.8*U);g.stroke();
-    g.strokeStyle='rgba(255,255,255,.27)';g.lineWidth=.72*U;g.beginPath();g.moveTo(sgn*.45*U,.8*U);g.quadraticCurveTo(sgn*2.4*U,4.1*U,sgn*1.8*U,7.2*U);g.stroke();
-    g.strokeStyle=P.trim||'rgba(20,20,30,.55)';g.lineWidth=1.15*U;g.beginPath();g.moveTo(sgn*2.35*U,7.2*U);g.lineTo(sgn*2.5*U,8.7*U);g.stroke();
-    g.fillStyle=skin;g.beginPath();g.ellipse(sgn*2.5*U,10.1*U,1.35*U,2.05*U,sgn*.12,0,7);g.fill();
-    g.restore();
+  // Jacket/torso silhouette. Every row is a deliberate pixel cluster.
+  const top=-27-(P.long?2:0),bodyRows=P.long?rows.concat([[ -4,4],[-4,4]]):rows;
+  for(let r=0;r<bodyRows.length;r++){
+    const [l,h]=bodyRows[r],yy=top+r;
+    px(l-1,yy,h-l+2,1,ink);
+    px(l,yy,h-l+1,1,body);
+    if(r>1&&r<bodyRows.length-2)px(l,yy,1,1,shade);
+    if(r>2&&r<bodyRows.length-3)px(h-1,yy,1,1,light);
+  }
+  // Three-tone clothing panels and a restrained pixel hem.
+  for(let r=3;r<bodyRows.length-1;r++){
+    const [l,h]=bodyRows[r],yy=top+r;
+    if(r%4===0)px(-1,yy,2,1,light);
+    if(r>bodyRows.length-5)px(l,yy,h-l+1,1,shade);
+  }
+  if(P.apron&&!back){px(-4,top+5,8,bodyRows.length-6,ink);px(-3,top+5,6,bodyRows.length-7,P.apron);px(-3,top+6,1,bodyRows.length-8,owPixelTone(P.apron,28));px(-2,top+bodyRows.length-7,4,2,trimShade)}
+  if(P.stripes&&!back){for(let xx=-4;xx<=3;xx+=4)px(xx,top+2,2,bodyRows.length-4,P.stripes)}
+  if(P.pack&&(back||side)){px(side?-9:-5,top+3,4,9,ink);px(side?-8:-4,top+4,3,7,P.pack);px(side?-8:-4,top+4,1,5,owPixelTone(P.pack,28))}
+  // Arms are independent 2px-wide limbs, with 1px outline and highlight.
+  const armY=top+4,armSwing=n.sit?0:Math.round(step*.55);
+  const arm=(ax,sgn,phase)=>{
+    const elbowY=armY+5+armSwing*phase,handY=armY+10+armSwing*phase;
+    px(ax-1,armY,4,2,ink);px(ax,armY,2,2,body);px(ax,armY,1,2,light);
+    px(ax+sgn,armY+2,2,4,ink);px(ax+sgn+1,armY+2,1,4,body);
+    px(ax+sgn,elbowY,3,2,ink);px(ax+sgn+1,elbowY,1,2,shade);
+    px(ax+sgn,handY,3,2,ink);px(ax+sgn+1,handY,1,2,skin);
   };
-  if(!side){drawSleeve(-shoulder+1*U,-1,1);drawSleeve(shoulder-1*U,1,-1)}
-  else drawSleeve(f*shoulder*.55,f,-f);
-  // head
-  const hy=top-6*U;
-  g.fillStyle=skin;g.beginPath();g.arc(side?f*1*U:0,hy,6*U,0,7);g.fill();
-  if(!back){g.fillStyle='#14110f';if(side){g.fillRect(f*4*U-1*U,hy-1.5*U,2*U,2*U)}else{g.fillRect(-3*U,hy-1*U,2*U,2*U);g.fillRect(1.2*U,hy-1*U,2*U,2*U)}}
-  // hair / hood / hats
-  const hairC=P.hair;g.fillStyle=hairC;
-  if(P.hood){g.fillStyle=P.body;g.beginPath();g.arc(side?f*.5*U:0,hy-.5*U,7*U,Math.PI*1.05,Math.PI*1.95+(back?3.1:0));g.fill();if(back){g.beginPath();g.arc(0,hy,7*U,0,7);g.fill()}else{g.fillRect(-7*U,hy-1*U,2*U,6*U);g.fillRect(5*U,hy-1*U,2*U,6*U)}
-    if(P.ears){g.beginPath();g.arc(-5*U,hy-7*U,2.6*U,0,7);g.arc(5*U,hy-7*U,2.6*U,0,7);g.fill()}}
-  else if(P.helm){g.fillStyle='#10161e';g.beginPath();g.arc(side?f*1*U:0,hy-.5*U,6.8*U,Math.PI,0);g.fill();g.fillRect(-6.8*U+(side?f*1*U:0),hy-.5*U,13.6*U,back?6*U:2.2*U);if(!back){g.fillStyle='rgba(39,224,255,.9)';g.shadowColor='#27e0ff';g.shadowBlur=5;g.fillRect(-5*U+(side?f*1.5*U:0),hy-.2*U,10*U,2*U);g.shadowBlur=0}}
-  else if(P.hat==='wide'){g.fillStyle='#2b2b3a';g.beginPath();g.ellipse(side?f*1*U:0,hy-3*U,10*U,3*U,0,0,7);g.fill();g.beginPath();g.arc(side?f*1*U:0,hy-4*U,5.5*U,Math.PI,0);g.fill()}
-  else if(P.hat==='beanie'){g.fillStyle=P.trim;g.beginPath();g.arc(side?f*1*U:0,hy-1*U,6.4*U,Math.PI,0);g.fill();g.fillRect(-6.4*U+(side?f*1*U:0),hy-2*U,12.8*U,2.5*U)}
-  else if(P.hat==='cap'){g.fillStyle=P.body;g.beginPath();g.arc(side?f*1*U:0,hy-1*U,6.3*U,Math.PI,0);g.fill();if(!back){g.fillStyle=P.trim;g.fillRect(side?(f>0?0:-9*U):-6*U,hy-1.6*U,side?9*U:12*U,2*U)}}
-  else{g.beginPath();g.arc(side?f*.6*U:0,hy-1.4*U,6.2*U,Math.PI*.95,Math.PI*2.05);g.fill();if(back){g.beginPath();g.arc(0,hy,6.2*U,0,7);g.fill()}}
-  if(P.bun){g.fillStyle=hairC;g.beginPath();g.arc(side?-f*5*U:0,hy-6*U,3*U,0,7);g.fill()}
-  if(P.band){g.fillStyle=P.band;g.fillRect(-6*U,hy-3*U,12*U,2*U)}
-  // props: umbrella dome, keyboard, bowl, baton
-  if(P.umb){g.fillStyle='rgba(10,8,24,.92)';g.beginPath();g.arc(0,hy-9*U,13*U,Math.PI,0);g.fill();g.strokeStyle=P.umb;g.shadowColor=P.umb;g.shadowBlur=8;g.lineWidth=2;g.beginPath();g.arc(0,hy-9*U,13*U,Math.PI,0);g.stroke();g.shadowBlur=0;g.strokeStyle='#05030a';g.lineWidth=2;g.beginPath();g.moveTo(0,hy-9*U);g.lineTo(0,top+8*U);g.stroke()}
-  if(P.keys){g.fillStyle='#0a0c12';g.fillRect(-9*U,top+bodyH-6*U,18*U,5*U);g.fillStyle='#ff7a1a';g.shadowColor='#ff7a1a';g.shadowBlur=6;g.fillRect(-8*U,top+bodyH-5.5*U,16*U,1.5*U);g.shadowBlur=0}
-  if(P.bowl&&!back){g.fillStyle='#e8e8f0';g.beginPath();g.ellipse(f*8*U,top+bodyH-3*U,4*U,2*U,0,0,7);g.fill();g.fillStyle='rgba(255,255,255,.18)';for(let k=0;k<2;k++){const q=((tm*.8+k*.5)%1);g.beginPath();g.arc(f*8*U+Math.sin(q*6)*2*U,top+bodyH-5*U-q*10*U,(1.5+q)*U,0,7);g.fill()}}
-  if(P.baton){g.strokeStyle='#27e0ff';g.shadowColor='#27e0ff';g.shadowBlur=5;g.lineWidth=2*U;g.beginPath();g.moveTo(bw/2+2*U,top+10*U);g.lineTo(bw/2+4*U,top+bodyH);g.stroke();g.shadowBlur=0}
-  // HD-2D character-detail pass: richer materials and readable identity cues,
-  // while keeping the existing rounded, illustrated silhouettes (not pixel art).
-  g.save();g.lineCap='round';g.lineJoin='round';
-  const seam='rgba(8,12,20,.42)',shine='rgba(255,255,255,.25)',detail=P.trim||'#d8d8d8';
-  // Tailored garment panels, piping and a soft fabric highlight.
+  if(!back){if(!side){arm(-7,-1,1);arm(5,1,-1)}else arm(f*5,f,-f)}
+  else{px(-7,top+4,2,7,ink);px(-6,top+4,1,6,shade);px(5,top+4,2,7,ink);px(5,top+4,1,6,body)}
+  // Head: stepped silhouette with clean one-pixel outline and restrained face.
+  const hy=top-7,headRows=[[-3,3],[-5,5],[-6,6],[-6,6],[-6,6],[-5,5],[-4,4],[-2,2]];
+  for(let r=0;r<headRows.length;r++){const [l,h]=headRows[r];px(l-1,hy+r,h-l+2,1,ink);px(l,hy+r,h-l+1,1,skin);if(r===2||r===3)px(h-1,hy+r,1,1,owPixelTone(skin,18))}
   if(!back){
-    g.strokeStyle=seam;g.lineWidth=.85*U;g.beginPath();
-    if(side){g.moveTo(f*2*U,top+3*U);g.lineTo(f*2*U,top+bodyH-2*U)}
-    else{g.moveTo(0,top+3*U);g.lineTo(0,top+bodyH-2*U)}
-    g.stroke();
-    g.strokeStyle=shine;g.lineWidth=.7*U;g.beginPath();
-    g.moveTo(f*(bw/2-2.2*U),top+4*U);g.quadraticCurveTo(f*(bw/2-1.2*U),top+bodyH*.48,f*(bw/2-2.5*U),top+bodyH-4*U);g.stroke();
-    if(!P.apron&&!P.helm&&!P.hood){
-      g.strokeStyle=detail;g.globalAlpha=.7;g.lineWidth=1.05*U;g.beginPath();
-      g.moveTo(-bw*.32,top+4*U);g.lineTo(-bw*.12,top+7*U);g.lineTo(0,top+4*U);g.lineTo(bw*.12,top+7*U);g.lineTo(bw*.32,top+4*U);g.stroke();g.globalAlpha=1;
-    }
-    // Small buttons and a pocket give coats and shirts a more finished read.
-    if(!P.apron&&kind!=='guard'&&kind!=='hacker'){
-      g.fillStyle=detail;for(let by=top+8*U;by<top+bodyH-5*U;by+=4.2*U){g.beginPath();g.arc(side?f*2.3*U:0,by,.62*U,0,7);g.fill()}
-      g.strokeStyle=shine;g.lineWidth=.65*U;g.strokeRect(side?f*2.8*U:2.1*U,top+7*U,3.2*U,3.1*U);
-    }
+    if(side){px(f*3,hy+3,1,1,ink);px(f*5,hy+4,1,1,owPixelTone(skin,-12))}
+    else{px(-3,hy+3,1,1,ink);px(2,hy+3,1,1,ink);px(-1,hy+5,2,1,owPixelTone(skin,-22))}
   }
-  // Waistline, trouser creases and shoes catch the street lighting.
-  g.strokeStyle='rgba(0,0,0,.38)';g.lineWidth=.8*U;g.beginPath();
-  if(!n.sit){g.moveTo(-4*U,-legH+2*U);g.lineTo(-1.5*U,-2.8*U);g.moveTo(4*U,-legH+2*U);g.lineTo(1.5*U,-2.8*U)}g.stroke();
-  g.fillStyle='rgba(255,255,255,.2)';g.fillRect(-5*U,-1.7*U,3.1*U,.8*U);g.fillRect(1.8*U,-1.7*U,3.1*U,.8*U);
-  // Face: subtle nose, mouth and brow shapes instead of featureless dots.
-  if(!back){
-    g.fillStyle='rgba(35,20,18,.48)';
-    if(side){g.beginPath();g.moveTo(f*5.1*U,hy+1*U);g.lineTo(f*7.1*U,hy+2*U);g.lineTo(f*5.1*U,hy+2.8*U);g.fill()}
-    else{g.fillRect(-3.2*U,hy-2.5*U,2.2*U,.65*U);g.fillRect(1*U,hy-2.5*U,2.2*U,.65*U);g.fillStyle='rgba(255,220,190,.45)';g.fillRect(-.55*U,hy,1.1*U,1.8*U);g.strokeStyle='rgba(65,28,30,.65)';g.lineWidth=.7*U;g.beginPath();g.moveTo(-1.5*U,hy+3.4*U);g.quadraticCurveTo(0,hy+4.2*U,1.5*U,hy+3.4*U);g.stroke()}
+  // Hair and headwear retain archetype identity without breaking the pixel grid.
+  if(!P.hood&&!P.helm){
+    px(-6,hy-1,12,2,ink);px(-5,hy-1,10,2,hair);px(-5,hy-1,4,1,hairLight);
+    if(back){px(-6,hy+1,2,5,ink);px(4,hy+1,2,5,ink);px(-5,hy+1,1,4,hair);px(5,hy+1,1,4,hair)}
+    if(P.bun){px(-1,hy-5,4,4,ink);px(0,hy-5,3,3,hair);px(0,hy-5,2,1,hairLight)}
   }
-  // Hair gets layered highlights; signature accessories remain attached to their character.
-  if(P.bun||kind==='granny'||kind==='coach'||P.hair){
-    g.strokeStyle=shine;g.lineWidth=.8*U;g.beginPath();
-    if(P.bun){g.arc(side?-f*5*U:0,hy-6*U,2.1*U,3.4,5.8)}
-    else if(!P.hood&&!P.helm){g.arc(side?f*1*U:0,hy-1.4*U,5.1*U,3.5,5.7)}
-    g.stroke();
-  }
-  if(kind==='granny'&&!back){
-    // Granny's cardigan edging and brooch reinforce her familiar silhouette.
-    g.strokeStyle='#ffd0ee';g.lineWidth=1.25*U;g.beginPath();g.moveTo(-bw*.38,top+4*U);g.lineTo(-bw*.3,top+bodyH-3*U);g.moveTo(bw*.38,top+4*U);g.lineTo(bw*.3,top+bodyH-3*U);g.stroke();
-    g.fillStyle='#ffd0ee';g.beginPath();g.arc(-2.4*U,top+7*U,1.25*U,0,7);g.fill();
-  }else if(kind==='coach'&&!back){
-    // Old Coach's cap badge, jacket lapels and whistle are small but distinctive.
-    g.fillStyle='#ffd23a';g.beginPath();g.arc(side?f*2.5*U:0,hy-3.8*U,1.35*U,0,7);g.fill();
-    g.strokeStyle='#ffd23a';g.lineWidth=.9*U;g.beginPath();g.moveTo(-bw*.34,top+3*U);g.lineTo(-bw*.08,top+8*U);g.lineTo(0,top+5*U);g.lineTo(bw*.08,top+8*U);g.lineTo(bw*.34,top+3*U);g.stroke();
-    g.strokeStyle='#d8c08a';g.lineWidth=.8*U;g.beginPath();g.moveTo(0,top+8*U);g.lineTo(0,top+bodyH*.62);g.stroke();
-    g.fillStyle='#ffd23a';g.fillRect(f*2.5*U,top+bodyH*.56,1.8*U,2.5*U);
-  }
-  if(P.apron&&!back){
-    g.strokeStyle='rgba(255,255,255,.45)';g.lineWidth=.8*U;g.beginPath();g.moveTo(-3.7*U,top+7*U);g.lineTo(-3.7*U,top+bodyH-2*U);g.moveTo(3.7*U,top+7*U);g.lineTo(3.7*U,top+bodyH-2*U);g.stroke();
-    g.strokeStyle=seam;g.strokeRect(-2.6*U,top+bodyH-7*U,5.2*U,3.4*U);
-  }
-  g.restore();
+  if(P.hood){px(-7,hy-2,14,3,ink);px(-6,hy-2,12,2,body);if(P.ears){px(-7,hy-5,3,4,ink);px(5,hy-5,3,4,ink)}}
+  if(P.helm){px(-7,hy-3,14,5,ink);px(-6,hy-3,12,3,'#10161e');px(-5,hy-2,10,1,trim);if(!back)px(-5,hy+1,10,1,'#27e0ff')}
+  if(P.hat==='cap'){px(-7,hy-3,14,3,ink);px(-6,hy-3,12,2,body);px(f>0?1:-7,hy-1,7,1,trim)}
+  else if(P.hat==='beanie'){px(-7,hy-3,14,4,ink);px(-6,hy-3,12,3,trim);px(-5,hy-3,5,1,owPixelTone(trim,28))}
+  else if(P.hat==='wide'){px(-10,hy-2,20,2,ink);px(-6,hy-5,12,3,ink);px(-5,hy-5,10,2,'#2b2b3a');px(-8,hy-1,16,1,trim)}
+  if(P.band){px(-6,hy+1,12,1, P.band)}
+  // Character-specific prop silhouettes stay pixel-aligned.
+  if(P.umb){px(7,hy-9,1,18,ink);px(8,hy-9,1,18,P.umb);px(-1,hy-12,12,2,ink);px(0,hy-11,10,1,P.umb)}
+  if(P.keys){px(-8,top+bodyRows.length-6,16,3,ink);px(-7,top+bodyRows.length-5,14,1,'#ff7a1a')}
+  if(P.baton){px(8,top+7,1,bodyRows.length-7,ink);px(9,top+7,1,bodyRows.length-7,'#27e0ff')}
+  if(P.bowl&&!back){px(6,top+bodyRows.length-5,6,2,ink);px(7,top+bodyRows.length-5,4,1,'#e8e8f0')}
+  if(P.scarf&&!back){px(-5,top+3,10,2,trim);px(3,top+4,2,4,trimShade)}
+  if(P.long){px(-5,top+bodyRows.length-2,10,1,shade)}
+  // Directional 1px neon edge and trouser highlights, restrained like Granny.
+  if(!back){px(f>0?6:-7,top+3,1,bodyRows.length-6,'rgba(255,255,255,.5)');px(f>0?3:-4,-7,1,4,pantLight)}
   g.restore();
 }
 function owCat(x,y,d,tm,pal){
