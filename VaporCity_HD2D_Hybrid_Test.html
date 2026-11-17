@@ -8532,19 +8532,19 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Legs are tapered, jointed polygons: four logical pixels across including
   // the #141622 outline, leaving a two-pixel material core at every segment.
   if(!n.sit){
-    const leg=(hip,knee,ankle,phase)=>{
-      const kY=-8+phase,footY=-2+phase,travel=swing*.45*phase;
-      // Pixel-stepped outer and inner edges keep the legs discrete.
-      limb([[hip-2,-14],[hip+2,-14],[hip+2,kY-2],[knee+2,kY],[knee+2,footY-1],[ankle+2+travel,footY],[ankle+2+travel,0],[ankle-2+travel,0],[ankle-2+travel,footY],[knee-2,footY-1],[knee-2,kY],[hip-2,kY-2]],pants);
-      // Narrow inset highlight and knee shadow follow the bent anatomy.
-      line([[hip-1,-14],[hip-1,kY-2],[knee-1,kY]],pants.highlight,1);
-      line([[knee+1,kY+1],[knee+1,footY-1]],pants.shadow,1);
-      line([[ankle-1+travel,footY+1],[ankle-1+travel,-2]],pants.base,1);
-      polygon([[ankle-3+travel,-1],[ankle+3+travel,-1],[ankle+3+travel,1],[ankle-3+travel,1]],{highlight:'#292638',base:'#292638',shadow:'#171725'},ink,1);
+    const leg=(x,kneeShift,ankleShift,phase)=>{
+      const kY=-8+phase,footY=-2+phase,travel=swing*.35*phase;
+      // Each leg is its own narrow two-pixel silhouette; the center pixel stays transparent.
+      const left=x<0;
+      const kneeX=x+kneeShift,ankleX=x+ankleShift+travel;
+      limb([[x,-14],[x+2,-14],[x+2,kY-1],[kneeX+2,kY],[kneeX+2,footY-1],[ankleX+2,footY],[ankleX+2,0],[ankleX,0],[ankleX,footY],[kneeX,footY-1],[kneeX,kY],[x,kY-1]],pants);
+      line([[x+.5,-13],[x+.5,kY-1],[kneeX+.5,kY]],pants.highlight,1);
+      line([[kneeX+1.5,kY+1],[kneeX+1.5,footY-1]],pants.shadow,1);
+      polygon([[ankleX-1,-1],[ankleX+3,-1],[ankleX+3,1],[ankleX-1,1]],{highlight:'#292638',base:'#292638',shadow:'#171725'},ink,1);
     };
-    // Hips begin one pixel beyond the narrow waist, then separate into an A-stance.
-    leg(-3,-4+swing,-7+swing,1);
-    leg(3,4-swing,7-swing,-1);
+    // Two distinct legs with a one-pixel transparent channel and outward-set stance.
+    leg(-2,-.5,-.5,1);
+    leg(1,.5,.5,-1);
   }else{
     limb([[-6,-6],[-2,-6],[-2,-2],[-6,-2]],pants);
     limb([[1,-6],[5,-6],[5,-2],[1,-2]],pants);
@@ -8580,9 +8580,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const outward=shoulder<0?-2:2,s=shoulder+torsoShift+outward;
     const elbowX=elbow+torsoShift+outward+(elbow<0?1:0),wristX=wrist+torsoShift+outward;
     if(bent){
-      limb([[s-2,armY],[s+2,armY],[s+2,ey-1],[elbowX+2,ey],[elbowX+2,ey+2],[elbowX-2,ey+2],[elbowX-2,ey],[s-2,ey-1]],body);
+      // Upper arm reaches the outside edge of the torso and ends at a defined elbow.
+      limb([[s-2,armY],[s+2,armY],[s+2,ey-1],[elbowX+2,ey],[elbowX+2,ey+2],[elbowX,ey+2],[elbowX,ey],[s-2,ey-1]],body);
+      // Forearm starts one pixel inward from the elbow, creating a visible angled return.
       const forearmX=elbowX-1,handX=wristX-1;
-      limb([[forearmX-2,ey+1],[forearmX+2,ey+1],[handX+2,wy],[handX+2,wy+1],[handX-2,wy+1],[forearmX-2,ey+3]],body);
+      limb([[forearmX-1,ey+2],[forearmX+1,ey+2],[handX+1,wy],[handX+1,wy+1],[handX-1,wy+1],[forearmX-1,ey+4]],body);
       line([[s-1,armY+1],[s-1,ey-1]],body.highlight,1);
       line([[forearmX+1,ey+3],[handX+1,wy]],body.shadow,1);
       px(handX-1,wy+1,2,2,skinTone.base);
@@ -8646,7 +8648,6 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(!back){line([[-8,top+3],[-9,top+9]],'#FF9A3D',1);line([[7,top+4],[8,top+10]],'#29F2E8',1);line([[-6,hy+1],[-6,hy+3]],'#FF9A3D',1);line([[7,hy+2],[7,hy+4]],'#29F2E8',1)}
   else{line([[-8,top+3],[-8,top+8]],'#FF9A3D',1);line([[7,top+4],[7,top+9]],'#29F2E8',1)}
   line([[-6,-8],[-6,-5]],'#FF9A3D',1);line([[5,-7],[5,-4]],'#29F2E8',1);
-  if(!n.sit)g.clearRect(-.5,-14,1,14);
   g.restore();
 }
 function bodyRowsLength(P){return P.long?18:16}
