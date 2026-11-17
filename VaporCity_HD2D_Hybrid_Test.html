@@ -2819,8 +2819,8 @@ function sideRegion(){if(!LAND||camMode()==='side')return null;const k=sideRegio
 const a2=()=>cam.y+120;
 let camLive=0,WALLY=113,sideVis=[1,1];   // how visible the left/right sideline is: only when the carrier is within ~10 yards of it
 /* CAMERA SETTINGS (all tunable, also from the console as CAMCFG): horizon = screen row of the horizon (0-1 of height); focus = row the ball carrier sits on; depth = perspective strength (smaller = stronger, a lower camera); xscale = how wide a yard is on screen at the focus row (smaller = more field visible across); zoomMax / zoomIn = the biggest push-in and the push-in used once a run opens up; minZoom = the furthest it will pull back to keep a crowd on screen; look = seconds of look-ahead in the carrier's direction; lookY = look-ahead up the field. The viewing angle follows from horizon + depth: about 37 degrees down at the defaults. */
-const CAMCFG=window.CAMCFG={horizon:.2,focus:.66,depth:30,xscale:.047,zoomIn:1.0,minZoom:.93,look:.55,lookY:.35};
-const CAMCFGL=window.CAMCFGL={across:44,acrossK:16.6,back:5,horizon:.12,focus:.861,depth:16.6,xscale:.047,wallRow:.27,hPct:.108,sizeDepth:.2,artDepth:1,artHp:.2285,margin:.05};   // across = yards of field visible across the screen at the line of scrimmage; hPct = a player's height as a share of screen height at the carrier's depth; sizeDepth = how much of the perspective shrink players actually get (0 = none); margin = clear space kept around the carrier's group   // the same settings for landscape: scale = how many screen-heights wide a 'screen width' of the portrait camera is
+const CAMCFG=window.CAMCFG={horizon:.17,focus:.66,depth:30,xscale:.047,zoomIn:1.0,minZoom:.93,look:.55,lookY:.35};
+const CAMCFGL=window.CAMCFGL={across:44,acrossK:16.6,back:5,horizon:.09,focus:.861,depth:16.6,xscale:.047,wallRow:.27,hPct:.108,sizeDepth:.2,artDepth:1,artHp:.2285,margin:.05};   // across = yards of field visible across the screen at the line of scrimmage; hPct = a player's height as a share of screen height at the carrier's depth; sizeDepth = how much of the perspective shrink players actually get (0 = none); margin = clear space kept around the carrier's group   // the same settings for landscape: scale = how many screen-heights wide a 'screen width' of the portrait camera is
 let D2=30,U0F=.047,MY=.0153,HORF=.2,FOCF=.66,LAND=false,WU=390;
 const CAMPC=window.CAMPC={horizon:-.55,focus:.60,depth:80,acrossK:24,ty:-4};   // TUNE: the play-call camera (landscape): a higher, flatter-looking angle zoomed out so both lines and the backfield show; it eases into the play camera when the play is called
 let CAMB=0,PCS=1,CAMR=0,CAMP=0;const PASSCFG=window.PASSCFG={on:true,horizon:.15,focus:.9,depth:16.6,acrossK:18};   // v3.16KK1 TUNE (F7): the pocket camera while the QB holds the ball on a pass play (landscape): a lower angle behind him (horizon .12 to .15, QB a little lower on screen: focus .861 to .9) and a little wider (16.6 to 18 yd across per screen height)
@@ -2915,7 +2915,11 @@ function neonTube(txt,x,y,size,col,fl,seed){
 function drawBld(m,Lw,h,b,tone,uMin,acc,hz){
   const q=(u0,v0,u1,v1,col)=>{u0=Math.max(u0,uMin);if(u1<=u0)return;const a=m(u0,v0),bb=m(u1,v0),c=m(u1,v1),d=m(u0,v1);ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(bb.x,bb.y);ctx.lineTo(c.x,c.y);ctx.lineTo(d.x,d.y);ctx.closePath();ctx.fill()};
   const NE=STAD.neon,nc=NE[b.s%5],nc2=NE[(b.s>>3)%5];
-  q(0,0,Lw,h,shade(b.col,tone));
+  // A restrained dark footing and contact seam anchor the facade to the street plane.
+  // Keep it inside the wall footprint: no detached shadow slab or extra geometry below the building.
+  q(0,0,Lw,.52,shade(b.col,-.30));
+  q(0,.52,Lw,.68,shade(b.col,-.16));
+  q(0,.68,Lw,h,shade(b.col,tone));
   // metal panel seams
   ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1;ctx.beginPath();for(let v=2.4;v<h;v+=2.4){const a=m(Math.max(0,uMin),v),c=m(Lw,v);ctx.moveTo(a.x,a.y);ctx.lineTo(c.x,c.y)}ctx.stroke();
   // lit neon roof edge + a faint wash of its colour on the wall below
