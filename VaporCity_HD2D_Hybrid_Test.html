@@ -8356,8 +8356,8 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   // Rounded dome canopy with a distinct pointed crown, raised three pixels.
   g.save();g.translate(3,-3);
   g.beginPath();g.moveTo(47,2);
-  g.quadraticCurveTo(31,2,20,9);
-  g.quadraticCurveTo(13,15,12,23);
+  g.quadraticCurveTo(31,2,21,8);
+  g.bezierCurveTo(15,12,12,17,12,23);
   g.quadraticCurveTo(18,20,24,25);
   g.quadraticCurveTo(30,21,36,25);
   g.quadraticCurveTo(42,21,48,25);
@@ -8390,20 +8390,20 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   g.fillStyle=grad(37,22,61,38,[[0,'#F0C09D'],[.45,skin],[1,'#996052']]);g.fill();
   g.strokeStyle=ink;g.lineWidth=1.8;g.stroke();
   if(!back){
-    g.fillStyle='#392B35';
-    g.fillRect(49,29,1.8,1.8);g.fillRect(55,29,1.8,1.8);
-    g.fillStyle='#996052';g.fillRect(54,33,1.2,1.2);
-    line([[51,40],[56,40]],'#8D554E',1.15);
+    // Clean one-pixel dark blue-black glasses/eye line and a restrained mouth mark.
+    line([[48,29],[57,29]],'#202A3A',1);
+    line([[52,40],[55,40]],'#8D554E',1);
   }
   // Silver hair cap and side sweep. Keep the existing one-frame hair lag.
   g.save();g.translate(0,(prevBob-bob)/scale);
   g.beginPath();g.moveTo(36,31);g.quadraticCurveTo(32,11,48,10);
   g.quadraticCurveTo(68,8,66,28);g.lineTo(61,42);
   g.quadraticCurveTo(57,35,57,26);g.quadraticCurveTo(48,33,36,31);g.closePath();
-  g.fillStyle=grad(35,12,65,35,[[0,'#F5F4F6'],[.35,'#C6CAD5'],[.72,'#85899D'],[1,'#55576B']]);g.fill();
+  g.fillStyle=grad(35,12,65,35,[[0,'#D9DCE3'],[.35,'#C6CAD5'],[.72,'#85899D'],[1,'#55576B']]);g.fill();
   g.strokeStyle=ink;g.lineWidth=2;g.stroke();
-  line([[39,19],[49,14],[59,17]],'#FFFFFF',2);
-  g.beginPath();g.ellipse(36,23,8,7,-.4,0,Math.PI*2);g.fillStyle='#B9BECD';g.fill();g.strokeStyle=ink;g.stroke();
+  // Muted silver-gray hair sheen follows the cap's curve without a bright block.
+  line([[39,19],[45,16],[50,15],[56,16]],'#AEB4C2',1.2);
+  g.beginPath();g.ellipse(36,23,7.5,6.5,-.4,0,Math.PI*2);g.fillStyle='#AEB4C2';g.fill();g.strokeStyle=ink;g.lineWidth=1.5;g.stroke();
   g.restore();
   g.restore(); // end one-pixel head/grip shift
 
@@ -8422,8 +8422,9 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   line([[36,57],[39,74],[37,87]],'#E3A2D9',1.8);
   line([[62,60],[60,77],[64,87]],'#33223F',2);
   line([[40,94],[51,96],[64,93]],'#E7A8DA',1.5);
-  // Dark purple one-pixel contact shadow where the jacket meets the skirt.
-  line([[34,96],[45,97],[56,97],[66,95]],'#2A1335',1/scale);
+  // Softened jacket-to-skirt transition: lighter shadow with a one-pixel feather.
+  line([[34,96],[45,97],[56,97],[66,95]],'#70477D',1/scale);
+  line([[35,97],[45,98],[56,98],[65,96]],'rgba(190,116,184,.48)',.8/scale);
   line([[31,113],[42,114],[55,114],[66,112]],'#2A1335',1/scale);
   line([[32,111],[43,113],[55,113],[66,111]],'rgba(255,47,168,.42)',1.15/scale);
   path([[42,49],[49,56],[54,49],[58,53],[52,62],[46,59]],'#F0B5E0',ink,1.4);
@@ -8436,6 +8437,8 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   // Separate the resting arm from the jacket with a dark inner edge and light outer rim.
   line([[31,59],[30,70],[30,80]],'#392448',1);
   line([[29,61],[28,72],[29,80]],'#DFA0DA',1);
+  // One-pixel sleeve-to-hand crease makes the resting hand read cleanly.
+  line([[30,80],[32,80]],'#392448',1);
   g.fillStyle=skin;g.fillRect(30,81,2,2);
   g.strokeStyle=ink;g.lineWidth=1;g.strokeRect(30,81,2,2);
   // Right arm (viewer-right) rises from shoulder, bends at elbow, and joins the grip.
