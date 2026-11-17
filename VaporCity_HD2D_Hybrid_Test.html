@@ -8302,8 +8302,100 @@ const CIV={
  usher:{sc:1,body:'#2a1a3a',trim:'#ff2fa8',pants:'#14102a',hat:'cap',hair:'#1a1410'}
 };
 const CIV_FANC=['#ff2fa8','#27e0ff','#ffd23a','#9b5cff','#58ffb0','#ff7a1a'];
+
+/* Layered civilian prototype: Granny Volt.
+   Town characters are painted into the existing Canvas 2D overworld, not the
+   football Three.js scene. Keep that renderer and its camera/controls intact. */
+class SpriteAnimator {
+  constructor(){this.lastFrame=0;this.phase=0}
+  update(tm,moving,seed=0){
+    const fps=moving?10:6,cycle=moving?.6:1;
+    this.phase=(tm+seed)*Math.PI*2/cycle;
+    this.lastFrame=Math.floor((tm+seed)*fps)%6;
+    return {phase:this.phase,step:Math.sin(this.phase),bob:moving?Math.abs(Math.sin(this.phase))*1.05:Math.sin(tm*2.4+seed)*.32};
+  }
+}
+class CharacterSprite {
+  constructor(layers){this.layers=layers.slice().sort((a,b)=>a.order-b.order)}
+  draw(ctx,state){for(const layer of this.layers)layer.draw(ctx,state)}
+}
+const grannyVoltAnimator=new SpriteAnimator();
+function drawGrannyVoltSprite(n,dir,moving,tm,ph){
+  const g=og,U=OWT/36*.94,sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
+  const side=dir==='l'||dir==='r',back=dir==='u',f=dir==='l'?-1:1;
+  const a=grannyVoltAnimator.update(tm,moving,(n.x*7+n.y*3)%11/11);
+  const walk=moving?a.step:0,bob=n.sit?0:a.bob;
+  const skin='#d6a17f',card='#8f4c91',cardLight='#b66aaf',trim='#ffd0ee',skirt='#3b263e',hair='#d9dce4',hairShade='#9299ad',shoe='#171622';
+  const headX=side?f*.8*U:0,headY=-31*U-bob;
+  const shoulder=side?5.8*U:7.2*U;
+  const arm=(sgn,phase)=>{g.save();g.translate(sgn*shoulder,-22.5*U-bob);g.rotate((moving?walk*.22:Math.sin(tm*1.4+ph)*.025)*phase);
+    g.lineCap='round';g.lineJoin='round';
+    g.strokeStyle='rgba(20,12,28,.35)';g.lineWidth=4.5*U;g.beginPath();g.moveTo(0,0);g.quadraticCurveTo(sgn*2.7*U,4.5*U,sgn*2.2*U,9.2*U);g.stroke();
+    g.strokeStyle=card;g.lineWidth=3.7*U;g.beginPath();g.moveTo(0,-.3*U);g.quadraticCurveTo(sgn*2.5*U,4.2*U,sgn*2.2*U,8.8*U);g.stroke();
+    g.strokeStyle='rgba(255,220,242,.55)';g.lineWidth=.8*U;g.beginPath();g.moveTo(sgn*.5*U,1*U);g.quadraticCurveTo(sgn*1.8*U,4*U,sgn*1.7*U,7*U);g.stroke();
+    g.strokeStyle=trim;g.lineWidth=1.3*U;g.beginPath();g.moveTo(sgn*2.05*U,7.5*U);g.lineTo(sgn*2.2*U,9*U);g.stroke();
+    g.fillStyle=skin;g.beginPath();g.ellipse(sgn*2.2*U,10.1*U,1.5*U,2*U,0,0,Math.PI*2);g.fill();g.restore()};
+  const layers=[
+    {order:0,draw(c){
+      // Umbrella canopy sits behind Granny; its shaft remains visible beside her.
+      c.save();c.translate(side?f*11*U:0,-39*U-bob);
+      c.fillStyle='rgba(24,15,35,.82)';c.beginPath();c.moveTo(-13*U,0);c.quadraticCurveTo(-10*U,-8*U,0,-8.5*U);c.quadraticCurveTo(10*U,-8*U,13*U,0);c.quadraticCurveTo(9*U,-2*U,6*U,0);c.quadraticCurveTo(3*U,-2*U,0,0);c.quadraticCurveTo(-3*U,-2*U,-6*U,0);c.quadraticCurveTo(-10*U,-2*U,-13*U,0);c.fill();
+      c.strokeStyle='#ff45ad';c.lineWidth=1.5*U;c.shadowColor='#ff2fa8';c.shadowBlur=5*U;c.beginPath();c.arc(0,0,12.7*U,Math.PI,0);c.stroke();c.shadowBlur=0;
+      c.strokeStyle='#242033';c.lineWidth=1.6*U;c.beginPath();c.moveTo(0,-1*U);c.lineTo(side?-f*3*U:0,22*U);c.stroke();
+      c.restore();
+    }},
+    {order:1,draw(c){
+      // Short, softly shaped legs and shoes; stride stays anchored at the feet.
+      const swing=moving?walk*1.25:0;
+      c.lineCap='round';c.lineWidth=3.4*U;c.strokeStyle=skirt;
+      c.beginPath();c.moveTo(-2.4*U,-8*U-bob);c.lineTo(-2.8*U+swing*1.25*U,-2.5*U);c.moveTo(2.4*U,-8*U-bob);c.lineTo(2.8*U-swing*1.25*U,-2.5*U);c.stroke();
+      c.fillStyle=shoe;c.beginPath();c.ellipse(-3.2*U+swing*1.25*U,-1.3*U,2.6*U,1.25*U,0,0,7);c.ellipse(2.5*U-swing*1.25*U,-1.3*U,2.6*U,1.25*U,0,0,7);c.fill();
+    }},
+    {order:2,draw(c){
+      // Rounded cardigan and a flared skirt silhouette, with separate hem panel.
+      c.fillStyle=skirt;c.beginPath();c.moveTo(-5.5*U,-19*U-bob);c.quadraticCurveTo(-7.2*U,-13*U,-8.3*U,-7*U);c.quadraticCurveTo(0,-5.5*U,8.3*U,-7*U);c.quadraticCurveTo(7.2*U,-13*U,5.5*U,-19*U-bob);c.closePath();c.fill();
+      c.fillStyle=card;c.beginPath();c.moveTo(-5.9*U,-30*U-bob);c.quadraticCurveTo(-7.4*U,-29*U,-7.6*U,-24*U);c.lineTo(-6.2*U,-15*U-bob);c.quadraticCurveTo(0,-13.5*U,6.2*U,-15*U-bob);c.lineTo(7.6*U,-24*U);c.quadraticCurveTo(7.4*U,-29*U,5.9*U,-30*U-bob);c.quadraticCurveTo(0,-32*U-bob,-5.9*U,-30*U-bob);c.fill();
+      c.strokeStyle='rgba(255,220,242,.32)';c.lineWidth=.8*U;c.beginPath();c.moveTo(-5.6*U,-17*U-bob);c.quadraticCurveTo(0,-15.7*U-bob,5.6*U,-17*U-bob);c.stroke();
+      c.fillStyle=cardLight;c.beginPath();c.moveTo(-4.2*U,-29.5*U-bob);c.lineTo(-1.1*U,-24.5*U-bob);c.lineTo(-2.1*U,-16*U-bob);c.lineTo(-5.1*U,-17*U-bob);c.closePath();c.fill();
+      c.beginPath();c.moveTo(4.2*U,-29.5*U-bob);c.lineTo(1.1*U,-24.5*U-bob);c.lineTo(2.1*U,-16*U-bob);c.lineTo(5.1*U,-17*U-bob);c.closePath();c.fill();
+      c.strokeStyle=trim;c.lineWidth=.9*U;c.beginPath();c.moveTo(-5.4*U,-16.4*U-bob);c.quadraticCurveTo(0,-14.8*U-bob,5.4*U,-16.4*U-bob);c.stroke();
+    }},
+    {order:3,draw(c){
+      if(back){arm(-1,1);arm(1,-1)}else if(side){arm(f,-f)}else{arm(-1,1);arm(1,-1)}
+    }},
+    {order:4,draw(c){
+      // Head, silver hair and signature bun form a recognisable older silhouette.
+      c.fillStyle=skin;c.beginPath();c.ellipse(headX,headY,5.35*U,6.1*U,0,0,7);c.fill();
+      c.fillStyle=hairShade;c.beginPath();c.arc(side?headX-f*3.8*U:headX-4.3*U,headY-3.2*U,3.2*U,0,7);c.fill();
+      c.fillStyle=hair;c.beginPath();c.arc(side?headX-f*3.8*U:headX-4.3*U,headY-3.7*U,2.8*U,0,7);c.arc(headX+4.3*U,headY-3.8*U,3.1*U,0,7);c.arc(headX,headY-5.5*U,5.4*U,Math.PI,Math.PI*2);c.fill();
+      c.fillStyle=hairShade;c.beginPath();c.arc(side?headX-f*4.2*U:headX,headY-8.2*U,2.9*U,0,7);c.fill();
+      c.fillStyle=hair;c.beginPath();c.arc(side?headX-f*4.2*U:headX,headY-8.8*U,2.5*U,0,7);c.fill();
+      if(!back){
+        c.fillStyle='#30202a';
+        if(side){c.beginPath();c.ellipse(headX+f*2.4*U,headY-.4*U,.72*U,.9*U,0,0,7);c.fill();c.fillStyle='rgba(70,35,40,.7)';c.beginPath();c.moveTo(headX+f*4.6*U,headY+1.2*U);c.lineTo(headX+f*6.1*U,headY+2*U);c.lineTo(headX+f*4.6*U,headY+2.7*U);c.fill()}
+        else{c.beginPath();c.arc(headX-1.9*U,headY-.2*U,.58*U,0,7);c.arc(headX+1.9*U,headY-.2*U,.58*U,0,7);c.fill();c.strokeStyle='rgba(90,42,48,.75)';c.lineWidth=.65*U;c.beginPath();c.moveTo(headX-1.1*U,headY+2.8*U);c.quadraticCurveTo(headX,headY+3.3*U,headX+1.1*U,headY+2.8*U);c.stroke()}
+      }
+    }},
+    {order:5,draw(c){
+      // Cardigan edging, buttons, and the small pink brooch stay on the front layer.
+      if(!back){
+        c.strokeStyle=trim;c.lineWidth=1.05*U;c.beginPath();c.moveTo(-4.5*U,-29*U-bob);c.lineTo(-3.8*U,-16.5*U-bob);c.moveTo(4.5*U,-29*U-bob);c.lineTo(3.8*U,-16.5*U-bob);c.stroke();
+        c.fillStyle='#ffe5f4';for(let q=0;q<3;q++){c.beginPath();c.arc(side?f*2.3*U:0,-25*U+q*3.2*U-bob,.58*U,0,7);c.fill()}
+        c.fillStyle='#ffd0ee';c.beginPath();c.arc(side?f*3.4*U:-2.4*U,-26.5*U-bob,1.2*U,0,7);c.fill();
+        c.fillStyle='rgba(255,255,255,.5)';c.beginPath();c.arc(side?f*3.1*U:-2.7*U,-27*U-bob,.38*U,0,7);c.fill();
+      }
+    }}
+  ];
+  const sprite=new CharacterSprite(layers);
+  g.save();g.translate(sx,sy);
+  // Contact shadow is independent of the breathing/walking offset.
+  g.fillStyle='rgba(0,0,0,.34)';g.beginPath();g.ellipse(0,1,9.4*U,3.1*U,0,0,7);g.fill();
+  sprite.draw(g,{n,dir,moving,tm,ph,walk,bob,side,back,f,U,skin,card,trim});
+  g.restore();
+}
+
 function owCiv(x,y,dir,moving,n,tm,ph){
-  const kind=n.civ,P=Object.assign({},CIV[kind]||CIV.fan);
+  const kind=n.civ;if(kind==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph);return}const P=Object.assign({},CIV[kind]||CIV.fan);
   if(n.hb)Object.assign(P,HB_CIV[kind]||HB_CIV.fan);
   if(kind==='fan'&&n.hb){P.body=HB_FANC[((n.x*7+n.y*3)|0)%HB_FANC.length];P.pants=['#26333C','#2b3036','#1f2a30'][(n.x+n.y)%3]}else if(kind==='fan'){P.body=CIV_FANC[((n.x*7+n.y*3)|0)%CIV_FANC.length];P.pants=['#1a2433','#241a2e','#10202a'][(n.x+n.y)%3]}
   const g=og,U=OWT/36*P.sc*[.95,1,1.07,.98,1.04][((n.x*3+n.y*5)|0)%5],sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6,side=dir==='l'||dir==='r',back=dir==='u',f=dir==='l'?-1:1;
