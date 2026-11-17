@@ -8343,6 +8343,8 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   path([[37,93],[41,93],[40,105],[37,117],[36,130],[32,130],[33,117],[36,105]],grad(35,98,42,124,[[0,'#A69AAF'],[.55,'#51475E'],[1,'#262538']]),ink,1);
   path([[58,93],[62,94],[64,105],[69,116],[71,129],[67,130],[65,117],[60,106]],grad(58,98,69,124,[[0,'#B8ACBF'],[.45,'#70647C'],[1,'#302A3C']]),ink,1);
   // One-pixel dark-brown ankle breaks separate trousers from the shoes.
+  // One-pixel knee creases define the transition from thigh to calf.
+  g.fillStyle='#30283A';g.fillRect(36,111,1,1);g.fillRect(66,111,1,1);
   line([[33,129],[36,129]],'#39251F',1);line([[68,129],[71,129]],'#39251F',1);
   // Three-pixel dark shoe blocks, each nudged forward for the three-quarter stance.
   path([[29,130],[35,130],[38,133],[38,136],[29,136],[27,134]],'#292638',ink,1);
@@ -8373,6 +8375,8 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   line([[14,22],[20,11],[31,5]],'#FF9A3D',1.4);
   line([[64,6],[75,15],[79,23]],'#29F2E8',1.4);
   g.restore();
+  // Shift the head and umbrella grip one pixel right; canopy remains untouched.
+  g.save();g.translate(1,0);
   // Shaft descends beside the viewer-right cheek to the raised gripping hand.
   line([[65,18],[64,38]],'#D7C5AA',1);
   // Hand is a crisp 2x2 skin-colored grip at cheek/chin height.
@@ -8401,9 +8405,10 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   line([[39,19],[49,14],[59,17]],'#FFFFFF',2);
   g.beginPath();g.ellipse(36,23,8,7,-.4,0,Math.PI*2);g.fillStyle='#B9BECD';g.fill();g.strokeStyle=ink;g.stroke();
   g.restore();
+  g.restore(); // end one-pixel head/grip shift
 
-  // Shift the jacket/hip mass one pixel left for a relaxed weight-bearing stance.
-  g.save();g.translate(-1,0);
+  // Shift the jacket/hip mass one pixel right; skirt and legs stay centered.
+  g.save();g.translate(1,0);
   // Jacket and skirt volume: deep umbrella cast shadow on the hairline/face,
   // plus the requested left-side purple highlight.
   path([[35,49],[45,46],[59,48],[68,56],[70,83],[65,97],[34,96],[29,83],[30,60]],grad(30,49,68,88,[[0,'#C27CC0'],[.28,'#98539F'],[.62,'#75417F'],[1,'#43294F']]));
@@ -8417,6 +8422,8 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   line([[36,57],[39,74],[37,87]],'#E3A2D9',1.8);
   line([[62,60],[60,77],[64,87]],'#33223F',2);
   line([[40,94],[51,96],[64,93]],'#E7A8DA',1.5);
+  // Dark purple one-pixel contact shadow where the jacket meets the skirt.
+  line([[34,96],[45,97],[56,97],[66,95]],'#2A1335',1/scale);
   line([[31,113],[42,114],[55,114],[66,112]],'#2A1335',1/scale);
   line([[32,111],[43,113],[55,113],[66,111]],'rgba(255,47,168,.42)',1.15/scale);
   path([[42,49],[49,56],[54,49],[58,53],[52,62],[46,59]],'#F0B5E0',ink,1.4);
@@ -8426,10 +8433,13 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
 
   // Left arm (viewer-left) hangs naturally at the side: narrow sleeve and 2x2 hand.
   path([[34,55],[38,57],[35,68],[34,81],[30,81],[31,67]],grad(30,56,38,79,[[0,'#B66FC0'],[.55,'#75417F'],[1,'#43294F']]),ink,1);
+  // Separate the resting arm from the jacket with a dark inner edge and light outer rim.
+  line([[31,59],[30,70],[30,80]],'#392448',1);
+  line([[29,61],[28,72],[29,80]],'#DFA0DA',1);
   g.fillStyle=skin;g.fillRect(30,81,2,2);
   g.strokeStyle=ink;g.lineWidth=1;g.strokeRect(30,81,2,2);
   // Right arm (viewer-right) rises from shoulder, bends at elbow, and joins the grip.
-  path([[61,53],[65,53],[70,47],[69,43],[65,41],[62,45],[65,47],[63,50]],grad(61,42,70,53,[[0,'#D09AD5'],[.5,'#85498F'],[1,'#4B2C5C']]),ink,1);
+  path([[61,53],[65,53],[69,47],[68,43],[65,41],[62,45],[65,47],[63,50]],grad(61,42,70,53,[[0,'#D09AD5'],[.5,'#85498F'],[1,'#4B2C5C']]),ink,1);
   // Short forearm segment closes the connection into the gripping hand.
   path([[63,44],[66,45],[65,38],[62,37],[61,41]],grad(61,38,66,45,[[0,'#D09AD5'],[1,'#4B2C5C']]),ink,1);
   g.restore(); // end one-pixel hip/jacket shift
