@@ -8312,9 +8312,10 @@ const CIV_FANC=['#ff2fa8','#27e0ff','#ffd23a','#9b5cff','#58ffb0','#ff7a1a'];
 const grannyPixelCache=new Map();
 function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   const g=og,scale=OWT/36*.28,sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
-  const frame=Math.floor(tm*(moving?8:3.5)+(ph||0))%4,bob=[0,-1,0,1][frame];
+  // Six-frame-per-second idle cycle. Feet stay pinned; only the upper body breathes.
+  const frame=Math.floor(tm*(moving?8:6)+(ph||0))%4,bob=[0,-1,0,1][frame],prevBob=[0,-1,0,1][(frame+3)%4];
   const left=dir==='l',right=dir==='r',back=dir==='u';
-  g.save();g.translate(sx,sy+bob);g.scale(scale,scale);g.translate(-50,-140);
+  g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-137);
   const ink='#171725',purple='#92539B',deep='#482B59',light='#D18BCB',skin='#D6A17F';
   const path=(pts,fill,stroke=ink,lw=2)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='round';g.stroke()}};
   const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);for(const [p,c] of stops)z.addColorStop(p,c);return z};
@@ -8328,8 +8329,10 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   path([[31,127],[39,127],[43,133],[41,137],[27,137],[25,134]],'#292638');
   path([[64,125],[72,125],[79,130],[80,135],[66,136],[62,132]],'#292638');
   line([[28,133],[40,133]],'#9A8EA1',1.5);line([[66,132],[77,132]],'#9A8EA1',1.5);
+  // Upper body group bobs exactly one screen pixel; umbrella follows the torso.
+  g.save();g.translate(0,bob/scale);
   // Umbrella is behind the head/body; its canopy sits against the shoulder.
-  g.save();g.translate(3,0);g.beginPath();g.moveTo(12,29);g.quadraticCurveTo(14,5,39,7);g.quadraticCurveTo(67,5,78,29);g.quadraticCurveTo(70,25,64,31);g.quadraticCurveTo(57,25,50,31);g.quadraticCurveTo(43,25,36,31);g.quadraticCurveTo(27,25,20,31);g.closePath();
+  g.save();g.translate(3,0);g.beginPath();g.moveTo(12,29);g.quadraticCurveTo(14,3,39,5);g.quadraticCurveTo(67,3,78,29);g.quadraticCurveTo(70,25,64,31);g.quadraticCurveTo(57,25,50,31);g.quadraticCurveTo(43,25,36,31);g.quadraticCurveTo(27,25,20,31);g.closePath();
   g.fillStyle=grad(20,8,67,31,[[0,'#FF8ACB'],[.36,'#E72D9D'],[.72,'#A91D77'],[1,'#661C59']]);g.fill();g.strokeStyle=ink;g.lineWidth=2.2;g.stroke();
   line([[39,8],[39,28]],'#FFD2ED',1.4);line([[23,13],[32,28]],'#FFB3DF',1.4);line([[55,12],[47,28]],'#B51E78',1.5);
   line([[14,27],[22,30],[29,27],[37,30],[45,27],[53,30],[62,27],[71,30],[78,27]],'#FF9FD8',1.5);
@@ -8348,11 +8351,14 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   path([[43,38],[56,38],[58,48],[44,49]],'#B97966');
   g.beginPath();g.ellipse(49,30,13,16,-.12,0,Math.PI*2);g.fillStyle=grad(37,22,61,38,[[0,'#F0C09D'],[.45,skin],[1,'#996052']]);g.fill();g.strokeStyle=ink;g.lineWidth=2;g.stroke();
   if(!back){g.fillStyle='#392B35';g.beginPath();g.ellipse(54,30,1.5,2,0,0,7);g.fill();path([[59,32],[63,34],[59,36]],'#C98D78',ink,1);line([[53,41],[59,40]],'#8D554E',1.2)}
+  // Hair trails the torso by one animation frame for a little secondary motion.
+  g.save();g.translate(0,(prevBob-bob)/scale);
   // Silver hair cap and side sweep, with dark underside and cool lit planes.
   g.beginPath();g.moveTo(36,31);g.quadraticCurveTo(32,11,48,10);g.quadraticCurveTo(68,8,66,28);g.lineTo(61,42);g.quadraticCurveTo(57,35,57,26);g.quadraticCurveTo(48,33,36,31);g.closePath();
   g.fillStyle=grad(35,12,65,35,[[0,'#F5F4F6'],[.35,'#C6CAD5'],[.72,'#85899D'],[1,'#55576B']]);g.fill();g.strokeStyle=ink;g.lineWidth=2;g.stroke();
   line([[39,19],[49,14],[59,17]],'#FFFFFF',2);line([[38,25],[48,22],[56,23]],'#E9ECF4',1.4);
   g.beginPath();g.ellipse(36,23,8,7,-.4,0,Math.PI*2);g.fillStyle='#B9BECD';g.fill();g.strokeStyle=ink;g.stroke();
+  g.restore();
   // Skirt and torso: rounded, tapered 3/4 silhouette with a strong shadow plane.
   path([[35,49],[45,46],[59,48],[68,56],[70,83],[65,97],[34,96],[29,83],[30,60]],grad(30,49,68,88,[[0,'#C27CC0'],[.28,'#98539F'],[.62,'#75417F'],[1,'#43294F']]));
   path([[34,91],[67,91],[73,111],[66,116],[31,113],[27,108]],grad(30,96,70,112,[[0,'#A66AAB'],[.45,'#74427F'],[1,'#382643']]));
@@ -8372,15 +8378,24 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   line([[66,86],[67,89]],'#F1C3A1',1);
   // Shoulder seam and soft fold accents echo the football player's shirt rendering.
   line([[35,54],[42,51],[47,53]],'#E5A0D9',1.4);line([[58,54],[64,58],[67,65]],'#382344',1.5);
-  // Reassert warm and cool rim highlights along the full outer silhouette.
-  line([[31,54],[28,62],[29,69]],'#FF9A3D',1.8);line([[31,94],[28,107],[29,113],[34,127]],'#FF9A3D',1.8);
-  line([[68,55],[73,65],[72,76]],'#29F2E8',1.8);line([[68,96],[72,108],[75,122],[77,129]],'#29F2E8',1.8);
+  // Stronger baked sodium/cyan edge light, kept crisp at the in-game scale.
+  g.save();g.globalAlpha=.98;g.shadowBlur=2.5;g.shadowColor='#FF9A3D';
+  line([[31,54],[28,62],[29,69]],'#FF9A3D',2.6);line([[31,94],[28,107],[29,113],[34,127]],'#FF9A3D',2.6);
+  g.shadowColor='#29F2E8';line([[68,55],[73,65],[72,76]],'#29F2E8',2.6);line([[68,96],[72,108],[75,122],[77,129]],'#29F2E8',2.6);
+  g.restore();
   // Hand around the shaft is drawn again in front of the forearm/handle.
   g.beginPath();g.ellipse(47,59,4,3,-.35,0,7);g.fillStyle=skin;g.fill();g.strokeStyle=ink;g.lineWidth=1.2;g.stroke();
   line([[45,58],[48,57],[49,59]],'#F1C3A1',1.2);
-  // soft cast shadow under enlarged feet
+  // Close the upper-body bob group, then the character transform (feet at pivot).
   g.restore();
-  g.save();const sh=g.createRadialGradient(sx,sy,1,sx,sy,OWT*.30);sh.addColorStop(0,'rgba(0,0,0,.34)');sh.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=sh;g.beginPath();g.ellipse(sx,sy,OWT*.30,OWT*.085,0,0,7);g.fill();g.restore();
+  g.restore();
+  // Football-player-style soft, dark oval contact shadow, centered on the foot pivot.
+  g.save();g.globalAlpha=.92;const sh=g.createRadialGradient(sx,sy-1,1,sx,sy,OWT*.24);sh.addColorStop(0,'rgba(0,0,0,.72)');sh.addColorStop(.55,'rgba(0,0,0,.48)');sh.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=sh;g.beginPath();g.ellipse(sx,sy,OWT*.24,OWT*.075,0,0,7);g.fill();g.restore();
+  // Very subtle additive bounce from the cyan street grid and nearby pink neon.
+  g.save();g.globalCompositeOperation='lighter';g.globalAlpha=.16;
+  let glow=g.createRadialGradient(sx,sy-OWT*.025,1,sx,sy-OWT*.025,OWT*.34);
+  glow.addColorStop(0,'rgba(41,242,232,.26)');glow.addColorStop(.48,'rgba(255,47,168,.12)');glow.addColorStop(1,'rgba(41,242,232,0)');
+  g.fillStyle=glow;g.beginPath();g.ellipse(sx,sy-OWT*.025,OWT*.34,OWT*.17,0,0,7);g.fill();g.restore();
 }
 function owCiv(x,y,dir,moving,n,tm,ph){
   const kind=n.civ;if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph);return}const P=Object.assign({},CIV[kind]||CIV.fan);
