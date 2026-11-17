@@ -8484,13 +8484,13 @@ function applyShading(baseHex){
   return {
     highlight:hex(channels.map(v=>Math.min(255,v*1.20))),
     base:hex(channels),
-    shadow:hex(channels.map(v=>v*.70))
+    shadow:hex(channels.map(v=>v*.60))
   };
 }
 function owPixelTone(hex,delta){
   const ramp=applyShading(hex);
   if(delta===20)return ramp.highlight;
-  if(delta===-30)return ramp.shadow;
+  if(delta===-40||delta===-30)return ramp.shadow;
   const m=/^#([0-9a-f]{6})$/i.exec(hex||'');
   if(!m)return hex||'#777777';
   const n=parseInt(m[1],16),v=[(n>>16)&255,(n>>8)&255,n&255];
@@ -8586,7 +8586,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const armY=top+4,armSwing=n.sit?0:Math.round(step*.5);
   const arm=(shoulder,elbow,wrist,phase,bent=false)=>{
     const ey=armY+(bent?7:6)+armSwing*phase,wy=bent?top+bodyRowsLength(P)-1:armY+11+armSwing*phase;
-    const s=shoulder+torsoShift,e=elbow+torsoShift+(elbow<0?1:-1),w=wrist+torsoShift;
+    const outward=shoulder<0?-2:2;
+    const s=shoulder+torsoShift+outward,e=elbow+torsoShift+outward+(elbow<0?1:0),w=wrist+torsoShift+outward+(bent?1:0);
     limb(bent?[[s-2,armY],[s+2,armY],[s+2,ey-1],[e+2,ey],[e+2,wy-1],[w+2,wy],[w+2,wy+2],[w-2,wy+2],[w-2,wy],[e-2,wy-1],[e-2,ey],[s-2,ey-1]]:[[s-2,armY],[s+2,armY],[s+2,wy],[w+2,wy+1],[w+2,wy+3],[w-2,wy+3],[w-2,wy+1],[s-2,wy]],body);
     line([[s-1,armY+1],[s-1,ey-1],[e-1,ey+1]],body.highlight,1);
     line([[s+2,armY+2],[s+2,wy-1]],ink,1);
@@ -8594,13 +8595,13 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     polygon([[w-2,wy+1],[w+2,wy+1],[w+2,wy+4],[w-2,wy+4]],skinTone,ink,1);
     px(w-1,wy+1,1,1,skinTone.highlight);
   };
-  if(!back){if(side)arm(f*5,f*4,f*6,-f);else{arm(-6,-6,-7,1,false);arm(6,9,7,-1,true)}}
-  else{arm(-6,-6,-7,1,false);arm(6,9,7,-1,true)}
+  if(!back){if(side)arm(f*7,f*6,f*8,-f);else{arm(-8,-8,-9,1,false);arm(8,10,9,-1,true)}}
+  else{arm(-8,-8,-9,1,false);arm(8,10,9,-1,true)}
 
   // Head offset follows the torso. Head is a compact sculpted silhouette,
   // with consistent one-pixel eyes/mouth and a distinct chin-to-neck shadow.
   g.save();g.translate(1,0);
-  polygon([[-2,hy],[-4,hy],[-5,hy+2],[-6,hy+4],[-6,hy+9],[-4,hy+12],[-2,hy+14],[2,hy+14],[4,hy+12],[6,hy+9],[6,hy+4],[5,hy+2],[4,hy],[2,hy]],skinTone,ink,1);
+  polygon([[-3,hy],[-2,hy],[2,hy],[3,hy],[5,hy+2],[6,hy+5],[6,hy+9],[4,hy+12],[2,hy+14],[-2,hy+14],[-4,hy+12],[-6,hy+9],[-6,hy+5],[-5,hy+2]],skinTone,ink,1);
   polygon([[-2,hy+13],[3,hy+13],[3,hy+16],[-2,hy+16]],applyShading('#b97966'),ink,1);
   if(!back){
     if(side){px(f*3,hy+5,1,1,'#202A3A');px(f*4,hy+7,1,1,skinTone.shadow)}
@@ -8624,6 +8625,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   g.restore();
   // Separate shirt from trousers and carve a collar shadow into every outfit.
   line([[-5+torsoShift,top+4],[5+torsoShift,top+4]],body.shadow,1);
+  // Dark ink seams keep both arms visibly detached from the chest silhouette.
+  line([[-6+torsoShift,top+5],[-6+torsoShift,top+bodyRowsLength(P)-1]],ink,1);
+  line([[6+torsoShift,top+5],[6+torsoShift,top+bodyRowsLength(P)-1]],ink,1);
+  // Jacket opening: the courier wears a split front with a dark collar break.
+  if(P.jacket||kind==='courier'){line([[torsoShift,top+5],[torsoShift,top+bodyRowsLength(P)-2]],body.shadow,1);line([[-3+torsoShift,top+4],[torsoShift,top+6],[3+torsoShift,top+4]],ink,1);}
   line([[-5+torsoShift,top+bodyRowsLength(P)],[5+torsoShift,top+bodyRowsLength(P)]],ink,1);
   line([[-4+torsoShift,top+bodyRowsLength(P)+1],[4+torsoShift,top+bodyRowsLength(P)+1]],pants.shadow,1);
 
