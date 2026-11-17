@@ -8355,6 +8355,61 @@ function owCiv(x,y,dir,moving,n,tm,ph){
   if(P.keys){g.fillStyle='#0a0c12';g.fillRect(-9*U,top+bodyH-6*U,18*U,5*U);g.fillStyle='#ff7a1a';g.shadowColor='#ff7a1a';g.shadowBlur=6;g.fillRect(-8*U,top+bodyH-5.5*U,16*U,1.5*U);g.shadowBlur=0}
   if(P.bowl&&!back){g.fillStyle='#e8e8f0';g.beginPath();g.ellipse(f*8*U,top+bodyH-3*U,4*U,2*U,0,0,7);g.fill();g.fillStyle='rgba(255,255,255,.18)';for(let k=0;k<2;k++){const q=((tm*.8+k*.5)%1);g.beginPath();g.arc(f*8*U+Math.sin(q*6)*2*U,top+bodyH-5*U-q*10*U,(1.5+q)*U,0,7);g.fill()}}
   if(P.baton){g.strokeStyle='#27e0ff';g.shadowColor='#27e0ff';g.shadowBlur=5;g.lineWidth=2*U;g.beginPath();g.moveTo(bw/2+2*U,top+10*U);g.lineTo(bw/2+4*U,top+bodyH);g.stroke();g.shadowBlur=0}
+  // HD-2D character-detail pass: richer materials and readable identity cues,
+  // while keeping the existing rounded, illustrated silhouettes (not pixel art).
+  g.save();g.lineCap='round';g.lineJoin='round';
+  const seam='rgba(8,12,20,.42)',shine='rgba(255,255,255,.25)',detail=P.trim||'#d8d8d8';
+  // Tailored garment panels, piping and a soft fabric highlight.
+  if(!back){
+    g.strokeStyle=seam;g.lineWidth=.85*U;g.beginPath();
+    if(side){g.moveTo(f*2*U,top+3*U);g.lineTo(f*2*U,top+bodyH-2*U)}
+    else{g.moveTo(0,top+3*U);g.lineTo(0,top+bodyH-2*U)}
+    g.stroke();
+    g.strokeStyle=shine;g.lineWidth=.7*U;g.beginPath();
+    g.moveTo(f*(bw/2-2.2*U),top+4*U);g.quadraticCurveTo(f*(bw/2-1.2*U),top+bodyH*.48,f*(bw/2-2.5*U),top+bodyH-4*U);g.stroke();
+    if(!P.apron&&!P.helm&&!P.hood){
+      g.strokeStyle=detail;g.globalAlpha=.7;g.lineWidth=1.05*U;g.beginPath();
+      g.moveTo(-bw*.32,top+4*U);g.lineTo(-bw*.12,top+7*U);g.lineTo(0,top+4*U);g.lineTo(bw*.12,top+7*U);g.lineTo(bw*.32,top+4*U);g.stroke();g.globalAlpha=1;
+    }
+    // Small buttons and a pocket give coats and shirts a more finished read.
+    if(!P.apron&&kind!=='guard'&&kind!=='hacker'){
+      g.fillStyle=detail;for(let by=top+8*U;by<top+bodyH-5*U;by+=4.2*U){g.beginPath();g.arc(side?f*2.3*U:0,by,.62*U,0,7);g.fill()}
+      g.strokeStyle=shine;g.lineWidth=.65*U;g.strokeRect(side?f*2.8*U:2.1*U,top+7*U,3.2*U,3.1*U);
+    }
+  }
+  // Waistline, trouser creases and shoes catch the street lighting.
+  g.strokeStyle='rgba(0,0,0,.38)';g.lineWidth=.8*U;g.beginPath();
+  if(!n.sit){g.moveTo(-4*U,-legH+2*U);g.lineTo(-1.5*U,-2.8*U);g.moveTo(4*U,-legH+2*U);g.lineTo(1.5*U,-2.8*U)}g.stroke();
+  g.fillStyle='rgba(255,255,255,.2)';g.fillRect(-5*U,-1.7*U,3.1*U,.8*U);g.fillRect(1.8*U,-1.7*U,3.1*U,.8*U);
+  // Face: subtle nose, mouth and brow shapes instead of featureless dots.
+  if(!back){
+    g.fillStyle='rgba(35,20,18,.48)';
+    if(side){g.beginPath();g.moveTo(f*5.1*U,hy+1*U);g.lineTo(f*7.1*U,hy+2*U);g.lineTo(f*5.1*U,hy+2.8*U);g.fill()}
+    else{g.fillRect(-3.2*U,hy-2.5*U,2.2*U,.65*U);g.fillRect(1*U,hy-2.5*U,2.2*U,.65*U);g.fillStyle='rgba(255,220,190,.45)';g.fillRect(-.55*U,hy,1.1*U,1.8*U);g.strokeStyle='rgba(65,28,30,.65)';g.lineWidth=.7*U;g.beginPath();g.moveTo(-1.5*U,hy+3.4*U);g.quadraticCurveTo(0,hy+4.2*U,1.5*U,hy+3.4*U);g.stroke()}
+  }
+  // Hair gets layered highlights; signature accessories remain attached to their character.
+  if(P.bun||kind==='granny'||kind==='coach'||P.hair){
+    g.strokeStyle=shine;g.lineWidth=.8*U;g.beginPath();
+    if(P.bun){g.arc(side?-f*5*U:0,hy-6*U,2.1*U,3.4,5.8)}
+    else if(!P.hood&&!P.helm){g.arc(side?f*1*U:0,hy-1.4*U,5.1*U,3.5,5.7)}
+    g.stroke();
+  }
+  if(kind==='granny'&&!back){
+    // Granny's cardigan edging and brooch reinforce her familiar silhouette.
+    g.strokeStyle='#ffd0ee';g.lineWidth=1.25*U;g.beginPath();g.moveTo(-bw*.38,top+4*U);g.lineTo(-bw*.3,top+bodyH-3*U);g.moveTo(bw*.38,top+4*U);g.lineTo(bw*.3,top+bodyH-3*U);g.stroke();
+    g.fillStyle='#ffd0ee';g.beginPath();g.arc(-2.4*U,top+7*U,1.25*U,0,7);g.fill();
+  }else if(kind==='coach'&&!back){
+    // Old Coach's cap badge, jacket lapels and whistle are small but distinctive.
+    g.fillStyle='#ffd23a';g.beginPath();g.arc(side?f*2.5*U:0,hy-3.8*U,1.35*U,0,7);g.fill();
+    g.strokeStyle='#ffd23a';g.lineWidth=.9*U;g.beginPath();g.moveTo(-bw*.34,top+3*U);g.lineTo(-bw*.08,top+8*U);g.lineTo(0,top+5*U);g.lineTo(bw*.08,top+8*U);g.lineTo(bw*.34,top+3*U);g.stroke();
+    g.strokeStyle='#d8c08a';g.lineWidth=.8*U;g.beginPath();g.moveTo(0,top+8*U);g.lineTo(0,top+bodyH*.62);g.stroke();
+    g.fillStyle='#ffd23a';g.fillRect(f*2.5*U,top+bodyH*.56,1.8*U,2.5*U);
+  }
+  if(P.apron&&!back){
+    g.strokeStyle='rgba(255,255,255,.45)';g.lineWidth=.8*U;g.beginPath();g.moveTo(-3.7*U,top+7*U);g.lineTo(-3.7*U,top+bodyH-2*U);g.moveTo(3.7*U,top+7*U);g.lineTo(3.7*U,top+bodyH-2*U);g.stroke();
+    g.strokeStyle=seam;g.strokeRect(-2.6*U,top+bodyH-7*U,5.2*U,3.4*U);
+  }
+  g.restore();
   g.restore();
 }
 function owCat(x,y,d,tm,pal){
