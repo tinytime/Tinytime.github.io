@@ -8311,10 +8311,10 @@ const CIV_FANC=['#ff2fa8','#27e0ff','#ffd23a','#9b5cff','#58ffb0','#ff7a1a'];
    rounded silhouettes, directional gradients, edge definition and limb volume. */
 const grannyPixelCache=new Map();
 function drawGrannyVoltSprite(n,dir,moving,tm,ph){
-  const g=og,scale=OWT/36*.62,sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
+  const g=og,scale=OWT/36*.28,sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
   const frame=Math.floor(tm*(moving?8:3.5)+(ph||0))%4,bob=[0,-1,0,1][frame];
   const left=dir==='l',right=dir==='r',back=dir==='u';
-  g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-140+bob);
+  g.save();g.translate(sx,sy+bob);g.scale(scale,scale);g.translate(-50,-140);
   const ink='#171725',purple='#92539B',deep='#482B59',light='#D18BCB',skin='#D6A17F';
   const path=(pts,fill,stroke=ink,lw=2)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='round';g.stroke()}};
   const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);for(const [p,c] of stops)z.addColorStop(p,c);return z};
@@ -8380,7 +8380,7 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   line([[45,58],[48,57],[49,59]],'#F1C3A1',1.2);
   // soft cast shadow under enlarged feet
   g.restore();
-  g.save();const sh=g.createRadialGradient(sx,sy,1,sx,sy,18*scale);sh.addColorStop(0,'rgba(0,0,0,.34)');sh.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=sh;g.beginPath();g.ellipse(sx,sy,18*scale,5*scale,0,0,7);g.fill();g.restore();
+  g.save();const sh=g.createRadialGradient(sx,sy,1,sx,sy,OWT*.30);sh.addColorStop(0,'rgba(0,0,0,.34)');sh.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=sh;g.beginPath();g.ellipse(sx,sy,OWT*.30,OWT*.085,0,0,7);g.fill();g.restore();
 }
 function owCiv(x,y,dir,moving,n,tm,ph){
   const kind=n.civ;if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph);return}const P=Object.assign({},CIV[kind]||CIV.fan);
