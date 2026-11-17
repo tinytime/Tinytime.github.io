@@ -107,6 +107,7 @@ function streetBuild(){
     for(let k=-2;k<=2;k++){box(.025,.008,.27,std(0x687087,{metalness:.5}),x+k*.065,.03,z,false)}
   }
 }
+const [pc,pg]=cv(128,128),pgr=pg.createRadialGradient(64,64,0,64,64,64);pgr.addColorStop(0,'rgba(255,255,255,.9)');pgr.addColorStop(.4,'rgba(255,255,255,.28)');pgr.addColorStop(1,'rgba(255,255,255,0)');pg.fillStyle=pgr;pg.fillRect(0,0,128,128);const poolTex=new THREE.CanvasTexture(pc);poolTex.colorSpace=THREE.SRGBColorSpace;
 const LIGHT_REQUESTS=[];const ACTIVE_LIGHTS=[];const MAX_REAL_LIGHTS=8;
 function plight(c,i,x,y,z,dist=7,sh=false){LIGHT_REQUESTS.push({c,i,x,y,z,dist});return null}
 function activateLights(){const targets=[[-.5,1.5,-5.5],[-5,1.2,-8],[4,1.2,-7],[0,10.5,-10]];const chosen=[];const used=new Set();for(const [x,y,z] of targets){let best=-1,bd=Infinity;LIGHT_REQUESTS.forEach((q,i)=>{if(used.has(i))return;const d=(q.x-x)**2+(q.y-y)**2+(q.z-z)**2;if(d<bd){bd=d;best=i}});if(best>=0){used.add(best);chosen.push(LIGHT_REQUESTS[best])}}const rest=LIGHT_REQUESTS.map((q,i)=>({q,i})).filter(v=>!used.has(v.i)).sort((a,b)=>b.q.i-a.q.i);for(const v of rest){if(chosen.length>=MAX_REAL_LIGHTS)break;chosen.push(v.q)}for(const q of chosen){const l=new THREE.PointLight(q.c,q.i,q.dist,1.6);l.position.set(q.x,q.y,q.z);l.castShadow=false;S.add(l);ACTIVE_LIGHTS.push(l)}}
@@ -198,7 +199,6 @@ function build(){
   holo('holo_pizza',wx(11),wz(12),0x5becf1);holo('holo_dug',wx(20),wz(13),0xe633a6);
   for(const [key,x,y] of [['pole_sport',13.62,12.55],['pole_strong',17.38,12.55]]){const ad=spriteMesh(key,0,false,{scale:.9,glow:1.35,face:false});ad.position.set(wx(x),1.15,wz(y));S.add(ad)}
   // Steam rises from the map's six original vents.
-  const [pc,pg]=cv(128,128),pgr=pg.createRadialGradient(64,64,0,64,64,64);pgr.addColorStop(0,'rgba(255,255,255,.9)');pgr.addColorStop(.4,'rgba(255,255,255,.28)');pgr.addColorStop(1,'rgba(255,255,255,0)');pg.fillStyle=pgr;pg.fillRect(0,0,128,128);const poolTex=new THREE.CanvasTexture(pc);poolTex.colorSpace=THREE.SRGBColorSpace;
   const [sc,sg]=cv(64,64),rg=sg.createRadialGradient(32,32,2,32,32,32);rg.addColorStop(0,'rgba(225,235,255,.52)');rg.addColorStop(1,'rgba(225,235,255,0)');sg.fillStyle=rg;sg.fillRect(0,0,64,64);const steamT=new THREE.CanvasTexture(sc);
   for(const [x,y] of [[12,22],[19,22],[7,32],[24,32],[10,10],[21,10]])for(let i=0;i<4;i++){const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:steamT,color:0xb9c6ee,transparent:true,opacity:.075,depthWrite:false}));sp.scale.set(.75+i*.22,.8+i*.3,1);sp.position.set(wx(x)+Math.sin(i*2)*.14,.35+i*.42,wz(y));S.add(sp)}
   // Civilians use the existing Craftpix atlas and the same tile positions as the live map.
