@@ -8590,7 +8590,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const rightArm=shoulder>0;
     const ey=armY+(rightArm?4:(bent?7:6))+armSwing*phase,wy=bent?top+bodyRowsLength(P)-1:armY+11+armSwing*phase;
     const outward=shoulder<0?-2:2,s=shoulder+torsoShift+outward;
-    const elbowX=elbow+torsoShift+outward+(elbow<0?1:0),wristX=wrist+torsoShift+outward;
+    const elbowX=rightArm?s:elbow+torsoShift+outward+(elbow<0?1:0),wristX=wrist+torsoShift+outward;
     if(bent){
       // Upper arm reaches the outside edge of the torso and ends at a defined elbow.
       limb([[s+(shoulder<0?-3:-2),armY],[s+(shoulder<0?2:3),armY],[s+(shoulder<0?2:3),ey-1],[elbowX+(shoulder<0?2:3),ey],[elbowX+(shoulder<0?2:3),ey+2],[elbowX,ey+2],[elbowX,ey],[s+(shoulder<0?-3:-2),ey-1]],body);
