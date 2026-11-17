@@ -8307,120 +8307,80 @@ const CIV_FANC=['#ff2fa8','#27e0ff','#ffd23a','#9b5cff','#58ffb0','#ff7a1a'];
    Town characters are painted into the existing Canvas 2D overworld, not the
    football Three.js scene. Keep that renderer and its camera/controls intact. */
 
-/* Granny Volt: native 64x96 pixel-art layers, composited with nearest-neighbour scaling. */
+/* Granny Volt: enlarged, layered illustrated sprite tuned to the football player's
+   rounded silhouettes, directional gradients, edge definition and limb volume. */
 const grannyPixelCache=new Map();
-const grannyIdleFrames=[0,1,2,1];
-function makeGrannyPixelLayers(dir,frame,hairFrame){
-  const key=dir+':'+frame+':'+hairFrame;
-  if(grannyPixelCache.has(key))return grannyPixelCache.get(key);
-  const make=()=>{const c=document.createElement('canvas');c.width=64;c.height=96;const x=c.getContext('2d');x.imageSmoothingEnabled=false;return [c,x]};
-  const [body,b]=make(),[jacket,j]=make(),[hair,h]=make(),[umbrella,u]=make();
-  const px=(g,x,y,w,hh,col)=>{g.fillStyle=col;g.fillRect(x,y,w,hh)};
-  const ink='#141622',warm='#FF9A3D',cool='#29F2E8';
-  const purShadow='#54285E',purBase='#8F4C91',purHi='#C17BC1',pink='#FFD0EE';
-  const skinShadow='#985D53',skinBase='#D6A17F',skinHi='#F1C3A1';
-  const hairShadow='#6C7184',hairBase='#BFC5D3',hairHi='#F3F4F7';
-  const torsoBob=[0,1,0,-1][frame],lag=[0,1,0,-1][hairFrame];
-  const back=dir==='u',side=dir==='l'||dir==='r',flip=dir==='l';
-  // Feet, thighs and calves are offset to give the silhouette a relaxed three-quarter stance.
-  px(b,24,77,9,8,ink);px(b,25,78,7,5,'#282335');px(b,26,78,3,1,'#77718A');
-  px(b,34,79,9,7,ink);px(b,35,80,7,4,'#282335');px(b,36,80,3,1,'#77718A');
-  // Near leg: broad thigh, pinched knee, tapered calf.
-  px(b,25,53,9,12,ink);px(b,26,54,7,10,'#343148');px(b,26,55,3,7,'#55506A');
-  px(b,26,64,7,5,ink);px(b,27,65,5,4,'#27263A');px(b,27,66,2,2,'#4A465F');
-  // Far leg sits slightly behind and to the right.
-  px(b,34,54,8,10,ink);px(b,35,55,6,9,'#27263A');px(b,36,56,2,6,'#45415B');
-  px(b,35,64,7,6,ink);px(b,36,65,5,4,'#343047');
-  // Knees and trouser folds add volume.
-  px(b,26,63,2,2,'#77718A');px(b,37,64,2,2,'#171A2B');
-  // Bent arms: upper arm, elbow and forearm are separate angled masses.
-  px(b,17,35,7,12,ink);px(b,18,36,5,9,'#54285E');px(b,18,37,2,6,'#C17BC1');
-  px(b,17,45,6,6,ink);px(b,18,46,4,4,skinBase);px(b,18,46,2,2,skinHi);
-  px(b,41,36,7,11,ink);px(b,42,37,5,8,'#54285E');px(b,45,38,2,5,'#8F4C91');
-  px(b,43,45,6,6,ink);px(b,44,46,4,4,skinBase);px(b,44,46,2,2,skinHi);
-  // Face, neck and shoulder silhouette, offset one pixel for a 3/4 turn.
-  px(b,28,24,9,8,ink);px(b,29,25,7,6,skinBase);px(b,29,26,3,4,skinHi);
-  px(b,31,31,5,5,ink);px(b,32,32,3,4,skinBase);
-  // Jacket torso: asymmetrical shoulder line, tapered waist and flared hem.
-  const jy=33;
-  px(j,22,jy+1,23,23,ink);
-  px(j,23,jy+2,21,20,purBase);
-  px(j,23,jy+2,4,19,purHi);                 // lamp-facing plane
-  px(j,39,jy+3,4,18,purShadow);             // away-from-light shadow
-  px(j,27,jy+3,12,4,'#A963A8');
-  px(j,26,jy+7,13,10,purBase);
-  px(j,27,jy+9,2,8,'#A963A8');
-  px(j,37,jy+8,3,10,purShadow);
-  // angled waist and jacket tails, with their own delayed hem movement
-  const hemLag=[0,1,0,-1][(frame+3)%4];
-  px(j,23,jy+19+hemLag,21,7,ink);
-  px(j,24,jy+20+hemLag,19,5,purBase);
-  px(j,24,jy+20+hemLag,4,4,purHi);px(j,39,jy+21+hemLag,3,3,purShadow);
-  px(j,25,jy+24+hemLag,17,1,pink);
-  // cardigan opening, collar, pocket and buttons
-  px(j,28,jy+1,4,4,pink);px(j,34,jy+1,4,4,'#E7A7D7');
-  px(j,31,jy+5,4,16,ink);px(j,32,jy+6,2,14,purShadow);px(j,32,jy+6,1,11,purHi);
-  px(j,25,jy+12,5,5,ink);px(j,26,jy+13,3,3,purShadow);px(j,26,jy+13,2,1,purHi);
-  px(j,35,jy+9,1,1,pink);px(j,35,jy+14,1,1,pink);px(j,35,jy+18,1,1,pink);
-  // sleeves follow the bent arm silhouette; highlights and shadow planes remain pixel crisp.
-  px(j,18,jy+4,7,13,ink);px(j,19,jy+5,5,10,purBase);px(j,19,jy+6,2,7,purHi);px(j,20,jy+14,3,2,pink);
-  px(j,40,jy+4,7,13,ink);px(j,41,jy+5,5,10,purBase);px(j,45,jy+6,1,7,purShadow);px(j,42,jy+14,3,2,'#6B386F');
-  // warm and cool one-pixel silhouette rims
-  px(j,22,jy+2,1,20,warm);px(j,45,jy+4,1,17,cool);
-  // head and swept silver hair; offset bun creates a turned, not flat, face.
-  const hy=13+lag;
-  px(h,23,hy-2,19,20,ink);
-  px(h,24,hy,16,16,skinBase);px(h,24,hy+1,3,13,skinShadow);px(h,26,hy+1,3,10,skinHi);
-  if(!back){px(h,34,hy+7,2,2,ink);px(h,36,hy+9,1,1,skinShadow);px(h,31,hy+12,3,1,skinShadow)}
-  px(h,23,hy-4,19,6,ink);px(h,24,hy-3,17,4,hairBase);
-  px(h,25,hy-4,10,2,hairHi);px(h,24,hy,3,11,hairShadow);
-  px(h,36,hy,4,10,hairBase);px(h,37,hy+2,2,7,hairHi);
-  px(h,24,hy+9,3,5,hairBase);px(h,38,hy+8,3,5,hairShadow);
-  px(h,19,hy-7,10,8,ink);px(h,20,hy-6,8,6,hairBase);px(h,21,hy-7,5,2,hairHi);
-  px(h,20,hy-1,2,3,hairShadow);
-  px(h,23,hy-2,1,18,warm);px(h,41,hy-2,1,17,cool);px(h,20,hy-6,1,5,warm);
-  // Domed umbrella canopy: curved crown, scalloped lower edge and 3 visible ribs.
-  px(u,25,3,12,2,ink);px(u,20,5,22,2,ink);px(u,15,7,32,2,ink);
-  px(u,11,9,40,3,ink);px(u,9,12,44,3,ink);px(u,11,15,40,3,ink);
-  px(u,14,18,7,2,ink);px(u,23,19,8,2,ink);px(u,34,19,8,2,ink);px(u,43,18,7,2,ink);
-  px(u,26,5,10,1,'#FF75C9');px(u,21,7,20,2,'#FF75C9');
-  px(u,16,9,30,2,'#FF2FA8');px(u,12,12,38,2,'#FF2FA8');
-  px(u,14,14,34,2,'#D72C98');px(u,18,16,26,2,'#FF2FA8');
-  // canopy panels and rib seams radiate from the ferrule to the scalloped rim
-  px(u,30,7,1,10,'#FFD0EE');px(u,21,9,1,8,'#B51F7F');px(u,40,9,1,8,'#B51F7F');
-  px(u,15,11,1,5,warm);px(u,28,10,1,7,'#FF9BD6');px(u,43,11,1,5,'#FF9BD6');
-  px(u,9,12,1,5,warm);px(u,52,12,1,5,cool);
-  // shaft descends diagonally to the hand; hooked crook is visibly held.
-  px(u,39,17,2,24,ink);px(u,40,18,1,20,'#D8C7A8');
-  px(u,39,39,5,2,ink);px(u,42,40,3,4,'#D8C7A8');px(u,44,42,2,2,ink);
-  // translucent pixel shadow from canopy over hair and forehead
-  px(u,26,17,13,2,'rgba(20,22,34,.38)');px(u,27,19,11,2,'rgba(20,22,34,.32)');px(u,29,21,8,1,'rgba(20,22,34,.22)');
-  const layers={body,jacket,hair,umbrella};
-  if(flip){
-    for(const cv of Object.values(layers)){const cx=cv.getContext('2d'),tmp=document.createElement('canvas');tmp.width=64;tmp.height=96;const tx=tmp.getContext('2d');tx.imageSmoothingEnabled=false;tx.translate(64,0);tx.scale(-1,1);tx.drawImage(cv,0,0);cx.clearRect(0,0,64,96);cx.drawImage(tmp,0,0)}
-    // Re-establish warm light on the screen-left silhouette after facing-left mirroring.
-    px(b,23,55,1,29,warm);px(j,22,jy+2,1,20,warm);px(h,23,hy-2,1,18,warm);px(u,9,12,1,5,warm);
-    px(b,40,55,1,29,cool);px(j,45,jy+4,1,17,cool);px(h,41,hy-2,1,17,cool);px(u,52,12,1,5,cool);
-  }
-  const result={layers,torsoBob,hemLag,hairLag:lag};
-  grannyPixelCache.set(key,result);return result;
-}
 function drawGrannyVoltSprite(n,dir,moving,tm,ph){
-  const g=og,ps=OWT/36*.44,sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
-  // Four-frame cycle runs for both idle and walking; walking simply advances faster.
-  const rate=moving?8:3.5,frame=Math.floor(tm*rate+(ph||0))%4,hairFrame=(frame+3)%4;
-  const sprite=makeGrannyPixelLayers(dir,frame,hairFrame);
-  g.save();g.imageSmoothingEnabled=false;
-  // Soft radial contact shadow, detached from the animated body.
-  const shadow=g.createRadialGradient(sx,sy+1,1*ps,sx,sy+1,12*ps);
-  shadow.addColorStop(0,'rgba(0,0,0,.35)');shadow.addColorStop(1,'rgba(0,0,0,0)');
-  g.fillStyle=shadow;g.beginPath();g.ellipse(sx,sy+1,12*ps,4.5*ps,0,0,Math.PI*2);g.fill();
-  const dx=sx-32*ps,dy=sy-96*ps,bob=[0,-1,0,1][frame]*ps;
-  g.drawImage(sprite.layers.body,dx,dy+bob,64*ps,96*ps);
-  g.drawImage(sprite.layers.jacket,dx,dy+bob,64*ps,96*ps);
-  g.drawImage(sprite.layers.hair,dx,dy+bob,64*ps,96*ps);
-  g.drawImage(sprite.layers.umbrella,dx,dy+bob,64*ps,96*ps);
+  const g=og,scale=OWT/36*.62,sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
+  const frame=Math.floor(tm*(moving?8:3.5)+(ph||0))%4,bob=[0,-1,0,1][frame];
+  const left=dir==='l',right=dir==='r',back=dir==='u';
+  g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-140+bob);
+  const ink='#171725',purple='#92539B',deep='#482B59',light='#D18BCB',skin='#D6A17F';
+  const path=(pts,fill,stroke=ink,lw=2)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='round';g.stroke()}};
+  const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);for(const [p,c] of stops)z.addColorStop(p,c);return z};
+  const line=(pts,color,width=3)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.strokeStyle=color;g.lineWidth=width;g.lineCap='round';g.lineJoin='round';g.stroke()};
+  // Back leg is set behind the skirt; forward leg steps toward the viewer.
+  line([[43,91],[41,107],[38,121],[37,130]],ink,11);
+  line([[43,92],[41,107],[39,121],[38,129]],grad(36,100,46,122,[[0,'#82728B'],[.55,'#40364E'],[1,'#262538']]),7);
+  line([[58,91],[61,106],[67,117],[69,128]],ink,12);
+  line([[58,92],[61,106],[66,117],[68,127]],grad(56,98,70,124,[[0,'#A69AB0'],[.45,'#62566E'],[1,'#302A3C']]),8);
+  // Shoes and forward heel.
+  path([[31,127],[39,127],[43,133],[41,137],[27,137],[25,134]],'#292638');
+  path([[64,125],[72,125],[79,130],[80,135],[66,136],[62,132]],'#292638');
+  line([[28,133],[40,133]],'#9A8EA1',1.5);line([[66,132],[77,132]],'#9A8EA1',1.5);
+  // Umbrella is behind the head/body; its canopy sits against the shoulder.
+  g.save();g.translate(3,0);g.beginPath();g.moveTo(12,29);g.quadraticCurveTo(14,5,39,7);g.quadraticCurveTo(67,5,78,29);g.quadraticCurveTo(70,25,64,31);g.quadraticCurveTo(57,25,50,31);g.quadraticCurveTo(43,25,36,31);g.quadraticCurveTo(27,25,20,31);g.closePath();
+  g.fillStyle=grad(20,8,67,31,[[0,'#FF8ACB'],[.36,'#E72D9D'],[.72,'#A91D77'],[1,'#661C59']]);g.fill();g.strokeStyle=ink;g.lineWidth=2.2;g.stroke();
+  line([[39,8],[39,28]],'#FFD2ED',1.4);line([[23,13],[32,28]],'#FFB3DF',1.4);line([[55,12],[47,28]],'#B51E78',1.5);
+  line([[14,27],[22,30],[29,27],[37,30],[45,27],[53,30],[62,27],[71,30],[78,27]],'#FF9FD8',1.5);
+  // Warm left edge and cool right edge on the canopy.
+  line([[13,27],[18,15],[28,9]],'#FF9A3D',1.4);line([[67,10],[75,19],[78,27]],'#29F2E8',1.4);
+  // shaft runs down to the shoulder-side gripping hand, not floating above her.
+  line([[43,25],[46,43],[48,58]],ink,4);line([[43,25],[46,43],[48,58]],'#D7C5AA',2);
+  line([[48,57],[44,60],[42,57]],ink,3);line([[48,57],[44,60]],'#D7C5AA',1.5);
   g.restore();
+  // Far arm bends up to grip the umbrella shaft: upper arm, elbow, forearm, hand.
+  line([[35,53],[28,59],[30,68],[43,62]],ink,10);
+  line([[35,53],[29,60],[31,67],[43,62]],grad(27,54,40,67,[[0,'#B77AC0'],[.55,'#74417F'],[1,deep]]),6.5);
+  g.beginPath();g.ellipse(44,60,5,4,-.45,0,Math.PI*2);g.fillStyle=skin;g.fill();g.strokeStyle=ink;g.lineWidth=1.8;g.stroke();
+  line([[44,59],[46,57],[48,59]],'#F1C3A1',1.4);
+  // Neck and turned face; offset features and nose establish three-quarter view.
+  path([[43,38],[56,38],[58,48],[44,49]],'#B97966');
+  g.beginPath();g.ellipse(49,30,13,16,-.12,0,Math.PI*2);g.fillStyle=grad(37,22,61,38,[[0,'#F0C09D'],[.45,skin],[1,'#996052']]);g.fill();g.strokeStyle=ink;g.lineWidth=2;g.stroke();
+  if(!back){g.fillStyle='#392B35';g.beginPath();g.ellipse(54,30,1.5,2,0,0,7);g.fill();path([[59,32],[63,34],[59,36]],'#C98D78',ink,1);line([[53,41],[59,40]],'#8D554E',1.2)}
+  // Silver hair cap and side sweep, with dark underside and cool lit planes.
+  g.beginPath();g.moveTo(36,31);g.quadraticCurveTo(32,11,48,10);g.quadraticCurveTo(68,8,66,28);g.lineTo(61,42);g.quadraticCurveTo(57,35,57,26);g.quadraticCurveTo(48,33,36,31);g.closePath();
+  g.fillStyle=grad(35,12,65,35,[[0,'#F5F4F6'],[.35,'#C6CAD5'],[.72,'#85899D'],[1,'#55576B']]);g.fill();g.strokeStyle=ink;g.lineWidth=2;g.stroke();
+  line([[39,19],[49,14],[59,17]],'#FFFFFF',2);line([[38,25],[48,22],[56,23]],'#E9ECF4',1.4);
+  g.beginPath();g.ellipse(36,23,8,7,-.4,0,Math.PI*2);g.fillStyle='#B9BECD';g.fill();g.strokeStyle=ink;g.stroke();
+  // Skirt and torso: rounded, tapered 3/4 silhouette with a strong shadow plane.
+  path([[35,49],[45,46],[59,48],[68,56],[70,83],[65,97],[34,96],[29,83],[30,60]],grad(30,49,68,88,[[0,'#C27CC0'],[.28,'#98539F'],[.62,'#75417F'],[1,'#43294F']]));
+  path([[34,91],[67,91],[73,111],[66,116],[31,113],[27,108]],grad(30,96,70,112,[[0,'#A66AAB'],[.45,'#74427F'],[1,'#382643']]));
+  // Lamp-facing jacket highlight and far-side purple shadow, plus tailored folds.
+  path([[33,53],[43,49],[47,53],[45,88],[38,94],[31,87]],'#C985C7',null);
+  path([[59,50],[67,56],[69,83],[63,93],[57,88],[60,67]],'#4D2D60',null);
+  line([[36,57],[39,74],[37,87]],'#E3A2D9',1.8);line([[62,60],[60,77],[64,87]],'#33223F',2);
+  line([[40,94],[51,96],[64,93]],'#E7A8DA',1.5);
+  // Collar, lapel, buttons and brooch details.
+  path([[42,49],[49,56],[54,49],[58,53],[52,62],[46,59]],'#F0B5E0',ink,1.4);
+  line([[50,60],[49,88]],'#4A2C58',1.6);[66,74,82].forEach(y=>{g.beginPath();g.arc(50,y,1.2,0,7);g.fillStyle='#FFE1F4';g.fill()});
+  g.beginPath();g.arc(40,70,3,0,7);g.fillStyle='#FFD15B';g.fill();g.strokeStyle=ink;g.lineWidth=1;g.stroke();
+  // Near arm rests naturally at her side, with elbow bend and visible hand.
+  line([[64,55],[73,65],[71,76],[67,84]],ink,10);
+  line([[64,55],[72,65],[70,76],[67,83]],grad(64,57,74,80,[[0,'#B77AC0'],[.5,'#85498F'],[1,'#4B2C5C']]),6.5);
+  g.beginPath();g.ellipse(66,87,4,6,-.25,0,7);g.fillStyle=skin;g.fill();g.strokeStyle=ink;g.lineWidth=1.5;g.stroke();
+  line([[66,86],[67,89]],'#F1C3A1',1);
+  // Shoulder seam and soft fold accents echo the football player's shirt rendering.
+  line([[35,54],[42,51],[47,53]],'#E5A0D9',1.4);line([[58,54],[64,58],[67,65]],'#382344',1.5);
+  // Reassert warm and cool rim highlights along the full outer silhouette.
+  line([[31,54],[28,62],[29,69]],'#FF9A3D',1.8);line([[31,94],[28,107],[29,113],[34,127]],'#FF9A3D',1.8);
+  line([[68,55],[73,65],[72,76]],'#29F2E8',1.8);line([[68,96],[72,108],[75,122],[77,129]],'#29F2E8',1.8);
+  // Hand around the shaft is drawn again in front of the forearm/handle.
+  g.beginPath();g.ellipse(47,59,4,3,-.35,0,7);g.fillStyle=skin;g.fill();g.strokeStyle=ink;g.lineWidth=1.2;g.stroke();
+  line([[45,58],[48,57],[49,59]],'#F1C3A1',1.2);
+  // soft cast shadow under enlarged feet
+  g.restore();
+  g.save();const sh=g.createRadialGradient(sx,sy,1,sx,sy,18*scale);sh.addColorStop(0,'rgba(0,0,0,.34)');sh.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=sh;g.beginPath();g.ellipse(sx,sy,18*scale,5*scale,0,0,7);g.fill();g.restore();
 }
 function owCiv(x,y,dir,moving,n,tm,ph){
   const kind=n.civ;if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph);return}const P=Object.assign({},CIV[kind]||CIV.fan);
