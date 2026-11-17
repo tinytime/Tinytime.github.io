@@ -18,7 +18,7 @@ const NEON=['#e6336a','#5becf1','#8b72de','#ff8142','#ffda45','#45b8b3'];
 // ---------- textures ----------
 function facadeTex(wu,hu,o){ // wu,hu in world units; 64 px per unit
   const P=64,[c,g]=cv(wu*P,hu*P),[e,ge]=cv(wu*P,hu*P);
-  g.fillStyle=o.base;g.fillRect(0,0,c.width,c.height);ge.fillStyle='#000';ge.fillRect(0,0,c.width,c.height);
+  g.fillStyle=o.base;g.fillRect(0,0,c.width,c.height);ge.fillStyle='#0b1228';ge.fillRect(0,0,c.width,c.height);
   for(let i=0;i<c.width*c.height/90;i++){g.fillStyle=`rgba(${rnd()<.5?0:255},${rnd()<.5?0:255},255,${rnd()*.05})`;g.fillRect(rnd()*c.width,rnd()*c.height,2+rnd()*6,2+rnd()*6)}
   for(let x=0;x<c.width;x+=o.panel||48){g.fillStyle='rgba(0,0,0,.35)';g.fillRect(x,0,3,c.height);g.fillStyle='rgba(255,255,255,.04)';g.fillRect(x+3,0,1,c.height)}
   for(let y=0;y<c.height;y+=P){g.fillStyle='rgba(0,0,0,.3)';g.fillRect(0,y,c.width,2)}
@@ -36,6 +36,8 @@ function facadeTex(wu,hu,o){ // wu,hu in world units; 64 px per unit
   (o.doors||[]).forEach(d=>{const x=d.x*P,y=c.height-d.h*P,w=d.w*P,h=d.h*P;g.fillStyle='#05050c';g.fillRect(x-6,y-6,w+12,h+6);
     const gr=g.createLinearGradient(0,y,0,y+h);gr.addColorStop(0,d.col);gr.addColorStop(1,'#fff6ae');g.fillStyle=gr;g.fillRect(x,y,w,h);ge.fillStyle=d.col;ge.fillRect(x,y,w,h);
     g.fillStyle='rgba(0,0,0,.5)';g.fillRect(x+w/2-2,y,4,h);ge.fillStyle='#000';ge.fillRect(x+w/2-2,y,4,h)});
+  // Broad, low-level environmental bounce keeps facade surfaces readable between neon accents.
+  const ambient=g.createLinearGradient(0,0,0,c.height);ambient.addColorStop(0,'rgba(76,91,158,.13)');ambient.addColorStop(.55,'rgba(62,73,137,.10)');ambient.addColorStop(1,'rgba(35,43,91,.08)');g.save();g.globalCompositeOperation='screen';g.fillStyle=ambient;g.fillRect(0,0,c.width,c.height);g.restore();
   // Subtle reflected neon washes add facade depth without flattening the nighttime palette.
   if(o.wash&&o.wash.length){const toRGB=v=>{const n=parseInt(String(v).replace('#',''),16);return [(n>>16)&255,(n>>8)&255,n&255]};
     o.wash.slice(0,2).forEach((col,i)=>{const [r,ggg,b]=toRGB(col),cx=c.width*(i===0?.22:.78),cy=c.height*.67,rad=Math.max(P*2,c.width*.42);
@@ -94,7 +96,7 @@ const std=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughn
 const glowM=(c,i=3)=>new THREE.MeshBasicMaterial({color:new THREE.Color(c).multiplyScalar(i)});
 function streetBuild(){
   // Raised, tiled sidewalks flank the central avenue; thin curb caps make the road edge readable.
-  const walkMat=std(0x29283d,{roughness:.94,metalness:.02}),curbMat=std(0x68718a,{roughness:.72,metalness:.12});
+  const walkMat=std(0x343550,{roughness:.94,metalness:.02,emissive:0x10172d,emissiveIntensity:.22}),curbMat=std(0x68718a,{roughness:.72,metalness:.12});
   for(const side of [-1,1]){
     box(1.65,.13,39.5,walkMat,side*3.05,0,0,false);
     box(.16,.19,39.5,curbMat,side*2.18,0,0,false);
@@ -181,9 +183,9 @@ function build(){
   gg.fillStyle='rgba(255,210,65,.62)';for(let y=1;y<40;y+=1.25)gg.fillRect(16*P-2,y*P,4, P*.55);
   gg.fillStyle='rgba(80,210,240,.35)';for(let x=1;x<32;x+=1.1)gg.fillRect(x*P,21.35*P,P*.5,3);
   // Wet patches and neon-coloured reflections.
-  for(let i=0;i<210;i++){const x=rnd()*1024,y=rnd()*1280,rx=5+rnd()*28,ry=2+rnd()*8;gg.fillStyle='rgba(8,13,27,.38)';gg.beginPath();gg.ellipse(x,y,rx,ry,0,0,7);gg.fill();gg.strokeStyle=['rgba(230,51,106,.22)','rgba(91,236,241,.22)','rgba(255,129,66,.18)','rgba(139,114,222,.22)'][i%4];gg.beginPath();gg.ellipse(x,y,rx*.65,ry*.6,0,0,7);gg.stroke();if(i%3===0){gg.strokeStyle=i%2?'rgba(91,236,241,.20)':'rgba(230,51,106,.18)';gg.lineWidth=1;gg.beginPath();gg.moveTo(x-rx*.22,y);gg.lineTo(x+rx*.3,y+ry*.12);gg.stroke()}}
+  for(let i=0;i<105;i++){const x=rnd()*1024,y=rnd()*1280,rx=9+rnd()*34,ry=3+rnd()*10;gg.fillStyle='rgba(8,13,27,.24)';gg.beginPath();gg.ellipse(x,y,rx,ry,0,0,7);gg.fill();gg.strokeStyle=['rgba(230,51,106,.11)','rgba(91,236,241,.12)','rgba(255,129,66,.09)','rgba(139,114,222,.12)'][i%4];gg.beginPath();gg.ellipse(x,y,rx*.65,ry*.6,0,0,7);gg.stroke();if(i%3===0){gg.strokeStyle=i%2?'rgba(91,236,241,.20)':'rgba(230,51,106,.18)';gg.lineWidth=1;gg.beginPath();gg.moveTo(x-rx*.22,y);gg.lineTo(x+rx*.3,y+ry*.12);gg.stroke()}}
   const gtex=sRGB(new THREE.CanvasTexture(gc));gtex.anisotropy=8;
-  const ground=new THREE.Mesh(new THREE.PlaneGeometry(32,40),std(0xffffff,{map:gtex,roughness:.58,metalness:.22}));ground.rotation.x=-Math.PI/2;ground.position.set(0,0,0);ground.receiveShadow=true;S.add(ground);
+  const ground=new THREE.Mesh(new THREE.PlaneGeometry(32,40),std(0xffffff,{map:gtex,roughness:.64,metalness:.16,emissive:0x172342,emissiveIntensity:.34}));ground.rotation.x=-Math.PI/2;ground.position.set(0,0,0);ground.receiveShadow=true;S.add(ground);
   streetBuild();
   // Restore scattered puddle decals from the original sprite atlas on the wet roadway.
   for(const [key,x,z,sc] of [['pud_l',-1.05,7.8,1.45],['pud_m',.85,5.1,1.7],['pud_s',-1.1,-2.8,2.1],['pud_l',.95,-9.2,1.25],['pud_m',-.75,13.2,1.5],['pud_s',1.05,-15.4,1.8],['pud_m',-.45,2.7,1.25]]){const p=spriteMesh(key,0,false,{scale:sc,glow:.12,shadow:false,face:false});p.rotation.x=-Math.PI/2;p.position.set(x,.035,z);p.scale.multiplyScalar(.55);p.material.transparent=true;p.material.opacity=.42;p.material.alphaTest=.01;p.customDepthMaterial.alphaTest=.01;p.material.depthWrite=false;if(p.material.map){p.material.map.magFilter=THREE.LinearFilter;p.material.map.minFilter=THREE.LinearFilter;p.material.map.generateMipmaps=false;p.material.map.needsUpdate=true;}if(p.material.color)p.material.color.set(0x789dff);if(p.material.emissive)p.material.emissive.set(0x17284a);S.add(p)}
