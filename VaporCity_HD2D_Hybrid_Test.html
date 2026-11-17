@@ -8534,12 +8534,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(!n.sit){
     const leg=(hip,knee,ankle,phase)=>{
       const kY=-8+phase,footY=-2+phase,travel=swing*.45*phase;
-      limb([
-        [hip-2,-16],[hip+2,-16],[hip+2,kY-2],
-        [knee+2,kY],[knee+2,footY-1],[ankle+2+travel,footY],
-        [ankle+2+travel,0],[ankle-2+travel,0],[ankle-2+travel,footY],
-        [knee-2,footY-1],[knee-2,kY],[hip-2,kY-2]
-      ],pants);
+      // Pixel-stepped outer and inner edges keep the legs discrete.
+      limb([[hip-2,-14],[hip+2,-14],[hip+2,kY-2],[knee+2,kY],[knee+2,footY-1],[ankle+2+travel,footY],[ankle+2+travel,0],[ankle-2+travel,0],[ankle-2+travel,footY],[knee-2,footY-1],[knee-2,kY],[hip-2,kY-2]],pants);
       // Narrow inset highlight and knee shadow follow the bent anatomy.
       line([[hip-1,-14],[hip-1,kY-2],[knee-1,kY]],pants.highlight,1);
       line([[knee+1,kY+1],[knee+1,footY-1]],pants.shadow,1);
@@ -8547,30 +8543,28 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       polygon([[ankle-3+travel,-1],[ankle+3+travel,-1],[ankle+3+travel,1],[ankle-3+travel,1]],{highlight:'#292638',base:'#292638',shadow:'#171725'},ink,1);
     };
     // Hips begin one pixel beyond the narrow waist, then separate into an A-stance.
-    leg(-3,-5+swing,-7+swing,1);
-    leg(3,5-swing,7-swing,-1);
+    leg(-3,-4+swing,-7+swing,1);
+    leg(3,4-swing,7-swing,-1);
   }else{
     limb([[-6,-6],[-2,-6],[-2,-2],[-6,-2]],pants);
     limb([[1,-6],[5,-6],[5,-2],[1,-2]],pants);
   }
 
-  // Distinct overlapping chest and waist masses; never a single body block.
+  // A stepped pixel silhouette: six-pixel chest, four-pixel waist, then six-pixel hips.
   const top=-29-(P.long?2:0),torsoShift=1,hy=top-8;
   const waistY=top+bodyRowsLength(P);
-  const chest=[[-3+torsoShift,top+1],[3+torsoShift,top+1],[4+torsoShift,top+4],[3+torsoShift,top+9],[2+torsoShift,top+12],[-2+torsoShift,top+12],[-3+torsoShift,top+9],[-4+torsoShift,top+4]];
-  polygon(chest,body,ink,1.2);
-  const waist=[[-2+torsoShift,top+10],[2+torsoShift,top+10],[2+torsoShift,waistY],[-2+torsoShift,waistY]];
-  polygon(waist,{highlight:body.shadow,base:body.shadow,shadow:body.shadow},ink,1);
-  g.save();g.beginPath();g.moveTo(chest[0][0],chest[0][1]);chest.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.clip();
+  const torso=[[-3+torsoShift,top+1],[3+torsoShift,top+1],[3+torsoShift,top+7],[2+torsoShift,top+8],[2+torsoShift,top+13],[3+torsoShift,top+14],[3+torsoShift,waistY],[-3+torsoShift,waistY],[-3+torsoShift,top+14],[-2+torsoShift,top+13],[-2+torsoShift,top+8],[-3+torsoShift,top+7]];
+  polygon(torso,body,ink,1.15);
+  // Three-tone fill is clipped to the stepped silhouette, not a bounding box.
+  g.save();g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.clip();
   const torsoGrad=g.createLinearGradient(-3+torsoShift,0,3+torsoShift,0);
   torsoGrad.addColorStop(0,body.highlight);torsoGrad.addColorStop(.49,body.highlight);torsoGrad.addColorStop(.50,body.base);torsoGrad.addColorStop(.51,body.shadow);torsoGrad.addColorStop(1,body.shadow);
-  g.fillStyle=torsoGrad;g.fillRect(-3+torsoShift,top,7,bodyRowsLength(P)+2);g.restore();
-  line([[-3+torsoShift,top+5],[-2+torsoShift,top+9]],body.highlight,1);
-  line([[3+torsoShift,top+5],[2+torsoShift,top+9]],body.shadow,1);
-  line([[-2+torsoShift,top+12],[2+torsoShift,top+12]],body.shadow,1);
-  line([[-2+torsoShift,top+10],[2+torsoShift,top+10]],ink,1);
-  // Viewer-right waist plane remains fully shadowed.
-  line([[torsoShift+1,top+11],[torsoShift+1,waistY-1]],body.shadow,2);
+  g.fillStyle=torsoGrad;g.fillRect(-4+torsoShift,top,8,bodyRowsLength(P)+2);g.restore();
+  // The waist is a separate four-pixel shadow plane, inset on both sides.
+  polygon([[-2+torsoShift,top+8],[2+torsoShift,top+8],[2+torsoShift,top+13],[-2+torsoShift,top+13]],{highlight:body.shadow,base:body.shadow,shadow:body.shadow},null,0);
+  line([[-2+torsoShift,top+8],[2+torsoShift,top+8]],ink,1);
+  line([[-3+torsoShift,top+4],[-3+torsoShift,top+7],[-2+torsoShift,top+8]],body.highlight,1);
+  line([[torsoShift+1,top+9],[torsoShift+1,top+12]],body.shadow,1);
   if(P.apron&&!back){
     polygon([[-4+torsoShift,top+5],[4+torsoShift,top+5],[4+torsoShift,top+bodyRowsLength(P)-2],[-4+torsoShift,top+bodyRowsLength(P)-2]],applyShading(P.apron),ink,1);
     line([[-2+torsoShift,top+7],[-2+torsoShift,top+bodyRowsLength(P)-4]],applyShading(P.apron).highlight,1);
@@ -8583,17 +8577,25 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const armY=top+4,armSwing=n.sit?0:Math.round(step*.5);
   const arm=(shoulder,elbow,wrist,phase,bent=false)=>{
     const ey=armY+(bent?7:6)+armSwing*phase,wy=bent?top+bodyRowsLength(P)-1:armY+11+armSwing*phase;
-    const outward=shoulder<0?-2:2;
-    const s=shoulder+torsoShift+outward;
-    const elbowBase=elbow+torsoShift+outward+(elbow<0?1:0);
-    const wristBase=wrist+torsoShift+outward;
-    const e=elbowBase+(bent?-1:0),w=wristBase+(bent?-1:0);
-    limb(bent?[[s-2,armY],[s+2,armY],[s+2,ey-1],[e+2,ey],[e+2,wy-1],[w+2,wy],[w+2,wy+2],[w-2,wy+2],[w-2,wy],[e-2,wy-1],[e-2,ey],[s-2,ey-1]]:[[s-2,armY],[s+2,armY],[s+2,wy],[w+2,wy+1],[w+2,wy+3],[w-2,wy+3],[w-2,wy+1],[s-2,wy]],body);
-    line([[s-1,armY+1],[s-1,ey-1],[e-1,ey+1]],body.highlight,1);
-    line([[s+2,armY+2],[s+2,wy-1]],ink,1);
-    line([[e+1,ey+1],[e+1,wy-1]],body.shadow,1);
-    polygon([[w-1,wy+1],[w+1,wy+1],[w+1,wy+3],[w-1,wy+3]],skinTone,ink,1);
-    px(w-1,wy+1,1,1,skinTone.highlight);
+    const outward=shoulder<0?-2:2,s=shoulder+torsoShift+outward;
+    const elbowX=elbow+torsoShift+outward+(elbow<0?1:0),wristX=wrist+torsoShift+outward;
+    if(bent){
+      limb([[s-2,armY],[s+2,armY],[s+2,ey-1],[elbowX+2,ey],[elbowX+2,ey+2],[elbowX-2,ey+2],[elbowX-2,ey],[s-2,ey-1]],body);
+      const forearmX=elbowX-1,handX=wristX-1;
+      limb([[forearmX-2,ey+1],[forearmX+2,ey+1],[handX+2,wy],[handX+2,wy+1],[handX-2,wy+1],[forearmX-2,ey+3]],body);
+      line([[s-1,armY+1],[s-1,ey-1]],body.highlight,1);
+      line([[forearmX+1,ey+3],[handX+1,wy]],body.shadow,1);
+      px(handX-1,wy+1,2,2,skinTone.base);
+      line([[handX-1,wy+1],[handX+1,wy+1],[handX+1,wy+3],[handX-1,wy+3],[handX-1,wy+1]],ink,1);
+      px(handX-1,wy+1,1,1,skinTone.highlight);
+    }else{
+      limb([[s-2,armY],[s+2,armY],[s+2,wy],[s+2,wy+1],[s-2,wy+1],[s-2,armY]],body);
+      line([[s-1,armY+1],[s-1,wy]],body.highlight,1);
+      line([[s-2,armY+2],[s-2,wy-1]],body.highlight,1);
+      px(wristX-1,wy+1,2,2,skinTone.base);
+      line([[wristX-1,wy+1],[wristX+1,wy+1],[wristX+1,wy+3],[wristX-1,wy+3],[wristX-1,wy+1]],ink,1);
+      px(wristX-1,wy+1,1,1,skinTone.highlight);
+    }
   };
   if(!back){if(side)arm(f*5,f*4,f*5,-f);else{arm(-3,-3,-3,1,false);arm(3,4,3,-1,true)}}
   else{arm(-3,-3,-3,1,false);arm(3,4,3,-1,true)}
@@ -8606,6 +8608,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     polygon([[-3,hy+1],[-3,hy],[-2,hy-1],[0,hy-2],[2,hy-1],[3,hy+1],[2,hy+2],[1,hy+1],[-2,hy+1]],hair,ink,1);
     line([[-2,hy-1],[0,hy-2],[2,hy-1]],hair.highlight,1);
     line([[-3,hy+2],[-3,hy+5]],hair.shadow,1);
+    px(-4,hy+3,1,2,hair.base);
     if(P.bun)polygon([[-1,hy-3],[2,hy-3],[3,hy-1],[0,hy]],hair,ink,1);
   }
   if(P.hood)polygon([[-4,hy+1],[-3,hy-2],[3,hy-2],[4,hy+1],[3,hy+5],[-3,hy+5]],body,ink,1);
@@ -8643,6 +8646,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(!back){line([[-8,top+3],[-9,top+9]],'#FF9A3D',1);line([[7,top+4],[8,top+10]],'#29F2E8',1);line([[-6,hy+1],[-6,hy+3]],'#FF9A3D',1);line([[7,hy+2],[7,hy+4]],'#29F2E8',1)}
   else{line([[-8,top+3],[-8,top+8]],'#FF9A3D',1);line([[7,top+4],[7,top+9]],'#29F2E8',1)}
   line([[-6,-8],[-6,-5]],'#FF9A3D',1);line([[5,-7],[5,-4]],'#29F2E8',1);
+  if(!n.sit)g.clearRect(-.5,-14,1,14);
   g.restore();
 }
 function bodyRowsLength(P){return P.long?18:16}
