@@ -8377,15 +8377,15 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   line([[14,22],[20,11],[31,5]],'#FF9A3D',1.4);
   line([[64,6],[75,15],[79,23]],'#29F2E8',1.4);
   // A crisp, one-pixel shaft runs from the canopy to the grip.
-  line([[47,2],[47,56]],ink,3);
-  line([[47,2],[47,56]],'#D7C5AA',1.25);
+  line([[47,2],[47,56]],'#D7C5AA',1.5);
   g.restore();
 
   // Umbrella-side arm: visibly thick upper arm, one-pixel elbow turn and forearm.
-  line([[35,53],[27,59],[29,68],[43,61]],ink,12);
-  line([[35,53],[28,60],[30,67],[43,61]],grad(27,54,40,67,[[0,'#D09AD5'],[.55,'#875093'],[1,deep]]),9);
-  // 2x2-pixel hand closes around the shaft/handle.
-  path([[49,55],[51,55],[52,57],[50,58],[48,57]],skin,ink,1);
+  line([[35,53],[27,59],[29,68],[49,56]],ink,12);
+  line([[35,53],[28,60],[30,67],[49,56]],grad(27,54,40,67,[[0,'#D09AD5'],[.55,'#875093'],[1,deep]]),9);
+  // A crisp 2x2 hand visibly wraps the single-pixel shaft.
+  g.fillStyle=skin;g.fillRect(49,55,2,2);
+  g.strokeStyle=ink;g.lineWidth=1;g.strokeRect(49,55,2,2);
   g.fillStyle='#F1C3A1';g.fillRect(49,55,1,1);
 
   // Neck, face and hair: reduced facial noise, with only two eye pixels.
@@ -8425,7 +8425,7 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   line([[36,57],[39,74],[37,87]],'#E3A2D9',1.8);
   line([[62,60],[60,77],[64,87]],'#33223F',2);
   line([[40,94],[51,96],[64,93]],'#E7A8DA',1.5);
-  line([[31,113],[42,114],[55,114],[66,112]],'#2A1335',2/scale);
+  line([[31,113],[42,114],[55,114],[66,112]],'#2A1335',1/scale);
   line([[32,111],[43,113],[55,113],[66,111]],'rgba(255,47,168,.42)',1.15/scale);
   path([[42,49],[49,56],[54,49],[58,53],[52,62],[46,59]],'#F0B5E0',ink,1.4);
   line([[50,60],[49,88]],'#4A2C58',1.6);
