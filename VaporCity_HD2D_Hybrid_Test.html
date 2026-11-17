@@ -8340,14 +8340,14 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
 
   // Narrow two-pixel trouser legs with a deliberately asymmetric stance.
   // Each leg is a compact polygon rather than a thick round-ended stroke.
-  path([[36,93],[40,93],[39,105],[36,117],[35,130],[31,130],[32,117],[35,105]],grad(34,98,41,124,[[0,'#A69AAF'],[.55,'#51475E'],[1,'#262538']]),ink,1);
-  path([[59,93],[63,94],[65,105],[70,116],[72,129],[68,130],[66,117],[61,106]],grad(59,98,70,124,[[0,'#B8ACBF'],[.45,'#70647C'],[1,'#302A3C']]),ink,1);
+  path([[37,93],[41,93],[40,105],[37,117],[36,130],[32,130],[33,117],[36,105]],grad(35,98,42,124,[[0,'#A69AAF'],[.55,'#51475E'],[1,'#262538']]),ink,1);
+  path([[58,93],[62,94],[64,105],[69,116],[71,129],[67,130],[65,117],[60,106]],grad(58,98,69,124,[[0,'#B8ACBF'],[.45,'#70647C'],[1,'#302A3C']]),ink,1);
   // One-pixel dark-brown ankle breaks separate trousers from the shoes.
-  line([[32,129],[36,129]],'#39251F',1);line([[69,129],[72,129]],'#39251F',1);
-  // Compact dark shoes, offset slightly forward for the three-quarter stance.
-  path([[29,130],[36,130],[39,133],[39,136],[29,136],[27,134]],'#292638',ink,1);
-  path([[67,130],[73,130],[77,133],[78,136],[68,136],[65,133]],'#292638',ink,1);
-  line([[29,135],[38,135]],'#141622',1);line([[68,135],[77,135]],'#141622',1);
+  line([[33,129],[36,129]],'#39251F',1);line([[68,129],[71,129]],'#39251F',1);
+  // Three-pixel dark shoe blocks, each nudged forward for the three-quarter stance.
+  path([[29,130],[35,130],[38,133],[38,136],[29,136],[27,134]],'#292638',ink,1);
+  path([[68,130],[74,130],[77,133],[78,136],[69,136],[66,133]],'#292638',ink,1);
+  line([[29,135],[37,135]],'#141622',1);line([[69,135],[77,135]],'#141622',1);
 
   // Upper body bobs; umbrella is behind the head and jacket.
   g.save();g.translate(0,bob/scale);
