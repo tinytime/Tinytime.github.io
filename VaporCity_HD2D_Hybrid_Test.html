@@ -8538,6 +8538,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   };
   if(!back){if(side)arm(f*5,f*4,f*6,-f);else{arm(-6,-5,-7,1);arm(6,5,7,-1)}}
   else{arm(-6,-5,-7,1);arm(6,5,7,-1)}
+  g.save();g.translate(1,0); // universal one-pixel head offset for the relaxed base pose
   const hy=top-8,headRows=[[-3,3],[-5,5],[-6,6],[-6,6],[-6,6],[-5,5],[-4,4],[-2,2]];
   for(let r=0;r<headRows.length;r++){const [l,h]=headRows[r];px(l,hy+r,h-l+1,1,ink);px(l+1,hy+r,h-l-1,1,skin);if(r===2)px(-4,hy+r,2,1,owPixelTone(skin,20))}
   // Face follows Granny's compact two-pixel eye and one-pixel mouth language.
@@ -8551,6 +8552,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   else if(P.hat==='beanie'){px(-7,hy-3,14,4,ink);px(-6,hy-3,12,3,trim);px(-5,hy-3,5,1,owPixelTone(trim,28))}
   else if(P.hat==='wide'){px(-10,hy-2,20,2,ink);px(-6,hy-5,12,3,ink);px(-5,hy-5,10,2,'#2b2b3a');px(-8,hy-1,16,1,trim)}
   if(P.band)px(-6,hy+1,12,1,P.band);
+  g.restore();
   if(P.umb){px(7,hy-9,1,18,ink);px(8,hy-9,1,18,P.umb);px(-1,hy-12,12,2,ink);px(0,hy-11,10,1,P.umb)}
   if(P.keys){px(-8,top+bodyRows.length-6,16,3,ink);px(-7,top+bodyRows.length-5,14,1,'#ff7a1a')}
   if(P.baton){px(8,top+7,2,bodyRows.length-7,ink);px(9,top+7,1,bodyRows.length-7,'#27e0ff')}
