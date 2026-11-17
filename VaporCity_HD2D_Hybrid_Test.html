@@ -8586,7 +8586,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       const inward=shoulder>0?-1:1;const forearmX=elbowX+inward,handX=wristX+inward;
       limb([[forearmX-1,ey+2],[forearmX+2,ey+2],[handX+2,wy],[handX+2,wy+1],[handX-1,wy+1],[forearmX-1,ey+4]],body);
       line([[s-1,armY+1],[s-1,ey-1]],body.highlight,1);
-      line([[forearmX+1,ey+3],[handX+1,wy]],body.shadow,1);\n      // One-pixel elbow crease makes the change of direction read at native scale.\n      px(elbowX,ey+1,1,1,body.shadow);
+      line([[forearmX+1,ey+3],[handX+1,wy]],body.shadow,1);
+      // One-pixel elbow crease makes the change of direction read at native scale.
+      px(elbowX,ey+1,1,1,body.shadow);
       px(handX-1,wy+1,2,2,skinTone.base);
       line([[handX-1,wy+1],[handX+1,wy+1],[handX+1,wy+3],[handX-1,wy+3],[handX-1,wy+1]],ink,1);
       px(handX-1,wy+1,1,1,skinTone.highlight);
