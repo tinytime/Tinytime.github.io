@@ -8484,7 +8484,7 @@ function applyShading(baseHex){
   return {
     highlight:hex(channels.map(v=>Math.min(255,v*1.30))),
     base:hex(channels),
-    shadow:hex(channels.map(v=>v*.60))
+    shadow:hex(channels.map(v=>v*.50))
   };
 }
 function owPixelTone(hex,delta){
@@ -8537,14 +8537,14 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       // Each leg is its own narrow two-pixel silhouette; the center pixel stays transparent.
       const left=x<0;
       const kneeX=x+kneeShift,ankleX=x+ankleShift+travel;
-      limb([[x,-14],[x+2,-14],[x+2,kY-1],[kneeX+2,kY],[kneeX+2,footY-1],[ankleX+2,footY],[ankleX+2,0],[ankleX,0],[ankleX,footY],[kneeX,footY-1],[kneeX,kY],[x,kY-1]],pants);
+      limb([[left?x-1:x,-14],[left?x+2:x+3,-14],[left?x+2:x+3,kY-1],[left?kneeX+2:kneeX+3,kY],[left?kneeX+2:kneeX+3,footY-1],[left?ankleX+2:ankleX+3,footY],[left?ankleX+2:ankleX+3,0],[ankleX,0],[ankleX,footY],[kneeX,footY-1],[kneeX,kY],[left?x-1:x,kY-1]],pants);
       line([[x+.5,-13],[x+.5,kY-1],[kneeX+.5,kY]],pants.highlight,1);
       line([[kneeX+1.5,kY+1],[kneeX+1.5,footY-1]],pants.shadow,1);
       polygon([[ankleX-1,-1],[ankleX+3,-1],[ankleX+3,1],[ankleX-1,1]],{highlight:'#292638',base:'#292638',shadow:'#171725'},ink,1);
     };
     // Two distinct legs with a one-pixel transparent channel and outward-set stance.
     leg(-2,-.5,-.5,1);
-    leg(1,.5,.5,-1);
+    leg(2,.5,.5,-1);
   }else{
     limb([[-6,-6],[-2,-6],[-2,-2],[-6,-2]],pants);
     limb([[1,-6],[5,-6],[5,-2],[1,-2]],pants);
@@ -8581,10 +8581,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const elbowX=elbow+torsoShift+outward+(elbow<0?1:0),wristX=wrist+torsoShift+outward;
     if(bent){
       // Upper arm reaches the outside edge of the torso and ends at a defined elbow.
-      limb([[s-2,armY],[s+2,armY],[s+2,ey-1],[elbowX+2,ey],[elbowX+2,ey+2],[elbowX,ey+2],[elbowX,ey],[s-2,ey-1]],body);
+      limb([[s+(shoulder<0?-3:-2),armY],[s+(shoulder<0?2:3),armY],[s+(shoulder<0?2:3),ey-1],[elbowX+(shoulder<0?2:3),ey],[elbowX+(shoulder<0?2:3),ey+2],[elbowX,ey+2],[elbowX,ey],[s+(shoulder<0?-3:-2),ey-1]],body);
       // Forearm starts one pixel inward from the elbow, creating a visible angled return.
       const forearmX=elbowX-1,handX=wristX-1;
-      limb([[forearmX-1,ey+2],[forearmX+1,ey+2],[handX+1,wy],[handX+1,wy+1],[handX-1,wy+1],[forearmX-1,ey+4]],body);
+      limb([[forearmX-1,ey+2],[forearmX+2,ey+2],[handX+2,wy],[handX+2,wy+1],[handX-1,wy+1],[forearmX-1,ey+4]],body);
       line([[s-1,armY+1],[s-1,ey-1]],body.highlight,1);
       line([[forearmX+1,ey+3],[handX+1,wy]],body.shadow,1);
       px(handX-1,wy+1,2,2,skinTone.base);
@@ -8599,8 +8599,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       px(wristX-1,wy+1,1,1,skinTone.highlight);
     }
   };
-  if(!back){if(side)arm(f*5,f*4,f*5,-f);else{arm(-3,-3,-3,1,false);arm(3,4,3,-1,true)}}
-  else{arm(-3,-3,-3,1,false);arm(3,4,3,-1,true)}
+  if(!back){if(side)arm(f*5,f*4,f*5,-f,true);else{arm(-3,-4,-3,1,true);arm(3,4,3,-1,true)}}
+  else{arm(-3,-4,-3,1,true);arm(3,4,3,-1,true)}
 
   // Six-by-six face tile with all four corner pixels removed.
   g.save();g.translate(1,0);
