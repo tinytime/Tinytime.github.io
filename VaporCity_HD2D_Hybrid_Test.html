@@ -8439,9 +8439,10 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   g.fillStyle=skin;g.fillRect(30,81,2,2);
   g.strokeStyle=ink;g.lineWidth=1;g.strokeRect(30,81,2,2);
   // Right arm (viewer-right) rises from shoulder, bends at elbow, and joins the grip.
-  path([[61,53],[65,53],[69,47],[68,43],[65,41],[62,45],[65,47],[63,50]],grad(61,42,70,53,[[0,'#D09AD5'],[.5,'#85498F'],[1,'#4B2C5C']]),ink,1);
-  // Short forearm segment closes the connection into the gripping hand.
-  path([[63,44],[66,45],[65,38],[62,37],[61,41]],grad(61,38,66,45,[[0,'#D09AD5'],[1,'#4B2C5C']]),ink,1);
+  // Elbow moves one pixel left in screen space while the shoulder follows the torso.
+  path([[61,53],[65,53],[67,47],[66,43],[65,41],[62,45],[65,47],[63,50]],grad(61,42,70,53,[[0,'#D09AD5'],[.5,'#85498F'],[1,'#4B2C5C']]),ink,1);
+  // Forearm shifts one pixel less than the torso so it meets the right-shifted grip.
+  path([[62,44],[65,45],[64,38],[61,37],[60,41]],grad(60,38,65,45,[[0,'#D09AD5'],[1,'#4B2C5C']]),ink,1);
   g.restore(); // end one-pixel hip/jacket shift
 
   // Preserve the existing rim-light pass exactly; do not alter its color, width or placement.
