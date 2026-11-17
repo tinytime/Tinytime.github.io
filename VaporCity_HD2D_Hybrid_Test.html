@@ -8551,7 +8551,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       line([[x+.5,-13],[x+.5,kY-1],[kneeX+.5,kY]],pants.highlight,1);
       line([[kneeX+1.5,kY+1],[kneeX+1.5,footY-1]],pants.shadow,1);
       polygon([[ankleX-1,-1],[ankleX+3,-1],[ankleX+3,1],[ankleX-1,1]],{highlight:'#292638',base:'#292638',shadow:'#171725'},ink,1);
-      line([[ankleX-1,1],[ankleX+3,1]],'#080a12',1);
+      line([[ankleX-1,1],[ankleX+3,1]],ink,1);
     };
     // Two distinct legs with a one-pixel transparent channel and outward-set stance.
     leg(-2,-.5,-.5,1);
@@ -8597,7 +8597,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       // Forearm starts one pixel inward from the elbow, creating a visible angled return.
       const inward=rightArm?-1:1;const forearmX=elbowX+inward,handX=wristX+inward;
       limb([[forearmX-1,ey+2],[forearmX+2,ey+2],[handX+2,wy],[handX+2,wy+1],[handX-1,wy+1],[forearmX-1,ey+4]],body);
-      line([[s-1,armY+1],[s-1,ey-1]],body.highlight,1);
+      const outerX=rightArm?s+2:s-2;
+      line([[outerX,armY+1],[outerX,ey-1]],body.highlight,1);
       line([[forearmX+1,ey+3],[handX+1,wy]],body.shadow,1);
       // One-pixel elbow crease makes the change of direction read at native scale.
       px(elbowX,ey+1,1,1,body.shadow);
@@ -8624,7 +8625,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     polygon([[-3,hy+1],[-3,hy],[-2,hy-1],[0,hy-2],[2,hy-1],[3,hy+1],[2,hy+2],[1,hy+1],[-2,hy+1]],hair,ink,1);
     line([[-2,hy-1],[0,hy-2],[2,hy-1]],hair.highlight,1);
     line([[-3,hy+2],[-3,hy+5]],hair.shadow,1);
-    px(-4,hy+3,1,2,hair.base);
+    px(-4,hy+3,1,3,hair.base);
     if(P.bun)polygon([[-1,hy-3],[2,hy-3],[3,hy-1],[0,hy]],hair,ink,1);
   }
   if(P.hood)polygon([[-4,hy+1],[-3,hy-2],[3,hy-2],[4,hy+1],[3,hy+5],[-3,hy+5]],body,ink,1);
@@ -8646,9 +8647,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   g.restore();
   // Separate shirt from trousers and carve a collar shadow into every outfit.
   line([[-5+torsoShift,top+4],[5+torsoShift,top+4]],ink,1);
-  // Dark ink seams keep both arms visibly detached from the chest silhouette.
-  line([[-6+torsoShift,top+5],[-6+torsoShift,top+bodyRowsLength(P)-1]],ink,1);
-  line([[6+torsoShift,top+5],[6+torsoShift,top+bodyRowsLength(P)-1]],ink,1);
+  // One-pixel ink seams sit on the inner arm edges, separating each arm from the chest.
+  line([[-3+torsoShift,armY+1],[-3+torsoShift,top+bodyRowsLength(P)-1]],ink,1);
+  line([[3+torsoShift,armY+1],[3+torsoShift,top+bodyRowsLength(P)-1]],ink,1);
   // Jacket opening: the courier wears a split front with a dark collar break.
   if(P.jacket||kind==='courier'){line([[torsoShift,top+5],[torsoShift,top+bodyRowsLength(P)-2]],body.shadow,1);line([[-3+torsoShift,top+4],[torsoShift,top+6],[3+torsoShift,top+4]],ink,1);}
   line([[-2+torsoShift,top+bodyRowsLength(P)],[2+torsoShift,top+bodyRowsLength(P)]],ink,1);
