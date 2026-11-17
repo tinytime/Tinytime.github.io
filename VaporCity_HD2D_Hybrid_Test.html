@@ -8441,52 +8441,21 @@ function owFrame(dt){
       right.addColorStop(0,'rgba(8,13,27,.94)');
       right.addColorStop(.55,'rgba(13,17,35,.96)');
       right.addColorStop(1,'rgba(4,8,19,.98)');
-      const front=og.createLinearGradient(x,y+h,x+dx,y+h+dy);
-      front.addColorStop(0,'rgba(17,22,39,.96)');
-      front.addColorStop(1,'rgba(5,9,20,.99)');
+      // Only expose the building's right-side wall. Do not draw a lower
+      // front/base plane: that polygon reads as a platform beneath the art.
       og.save();
-      og.shadowColor='rgba(0,0,0,.68)';og.shadowBlur=OT*.22;
-      og.shadowOffsetX=dx*.45;og.shadowOffsetY=dy*.45;
-      og.fillStyle='rgba(0,0,0,.5)';
+      og.shadowColor='rgba(0,0,0,.42)';og.shadowBlur=OT*.12;
+      og.shadowOffsetX=dx*.28;og.shadowOffsetY=dy*.18;
+      og.fillStyle='rgba(0,0,0,.34)';
       og.beginPath();og.moveTo(x+w,y);og.lineTo(x+w+dx,y+dy);
       og.lineTo(x+w+dx,y+h+dy);og.lineTo(x+w,y+h);og.closePath();og.fill();
-      og.beginPath();og.moveTo(x,y+h);og.lineTo(x+w,y+h);
-      og.lineTo(x+w+dx,y+h+dy);og.lineTo(x+dx,y+h+dy);og.closePath();og.fill();
       og.restore();
       og.fillStyle=right;og.beginPath();og.moveTo(x+w,y);og.lineTo(x+w+dx,y+dy);
       og.lineTo(x+w+dx,y+h+dy);og.lineTo(x+w,y+h);og.closePath();og.fill();
-      og.fillStyle=front;og.beginPath();og.moveTo(x,y+h);og.lineTo(x+w,y+h);
-      og.lineTo(x+w+dx,y+h+dy);og.lineTo(x+dx,y+h+dy);og.closePath();og.fill();
-      og.strokeStyle=b.col;og.globalAlpha=.42;og.lineWidth=Math.max(1,OT*.025);
-      og.beginPath();og.moveTo(x+w,y+h);og.lineTo(x+w+dx,y+h+dy);
-      og.lineTo(x+dx,y+h+dy);og.stroke();
-      og.globalAlpha=1;
     }
   }
   if(fitX||fitY)og.drawImage(M.baked,0,0,M.baked.width,M.baked.height,0,0,mw,mh);
   else og.drawImage(M.baked,cx/k,cy/k,W/k,H/k,cx,cy,W,H);
-  /* HYBRID CAST-SHADOW PASS: a soft ground-plane shadow extends beyond the
-     extruded faces, separating building bases from nearby streets without
-     repainting or moving the original map artwork. */
-  if(M.id==='street'&&owc.classList.contains('hybrid-preview')){
-    const sx=OT*.22,sy=OT*.22;
-    for(const b of OWB){
-      const x=b.x*OT,y=b.y*OT,w=b.w*OT,h=b.h*OT;
-      og.save();
-      og.globalAlpha=.22;
-      og.shadowColor='rgba(1,3,12,.8)';
-      og.shadowBlur=OT*.32;
-      og.fillStyle='rgba(3,6,17,.72)';
-      og.beginPath();
-      og.moveTo(x+sx,y+h+sy);
-      og.lineTo(x+w+sx,y+h+sy);
-      og.lineTo(x+w+sx*1.55,y+h+sy*1.55);
-      og.lineTo(x+sx*1.55,y+h+sy*1.55);
-      og.closePath();
-      og.fill();
-      og.restore();
-    }
-  }
   /* HYBRID ROOFTOP PASS: restrained raised roof equipment and parapet
      highlights add a readable upper plane without repainting the source art. */
   if(M.id==='street'&&owc.classList.contains('hybrid-preview')){
