@@ -4791,6 +4791,15 @@ function artDraw(g,o){if(o.tcx!==undefined&&!o.hasBall&&!o.preview&&!o.lying){  
   const sm=g.imageSmoothingEnabled;g.imageSmoothingEnabled=true;g.imageSmoothingQuality='high';
   const snap=(v,m,e)=>(Math.round(v*m+e)-e)/m;
   const bx=(rot||lean||tilt)?dxf:snap(dxf,k,M.e),by=(rot||lean||tilt)?dyf:snap(dyf,M.d||k,M.f);
+  // At rest, split the lower legs by a single screen pixel: a planted, slightly staggered athletic stance.
+  const drawPlayerBitmap=im=>{
+    if(still&&!o.lying&&!o.preview){
+      const iw=im.width,ih=im.height,cut=ih*.72,mid=iw*.5,px=1/(M.a||1),py=1/(M.d||1),topH=hh*(cut/ih),legH=hh-topH;
+      g.drawImage(im,0,0,iw,cut,bx,by,w,topH);
+      g.save();g.translate(-px*.55,py);g.drawImage(im,0,cut,mid,ih-cut,bx,by+topH,w*.5,legH);g.restore();
+      g.save();g.translate(px*.55,0);g.drawImage(im,mid,cut,iw-mid,ih-cut,bx+w*.5,by+topH,w*.5,legH);g.restore();
+    }else g.drawImage(im,0,0,im.width,im.height,bx,by,w,hh);
+  };
   let ballDone=false,frontBall=null;
   const bpf0=(o.hasBall&&rf&&!rf.thr&&!rf.sty)?(rf.m.ball||(ART.run.meta[SD?(o.sprint?'sCt':'sC'):(((o.ballSide||1)>0?'cL':'cR')+(o.sprint?'t':''))]||[])[rf.fi]?.ball):null;
   let bpf=bpf0;if(bpf0&&TWN>0&&rf&&rf.fr>.04&&rf.m.ball){const nb=(ART.run.meta[rf.vk]||[])[(rf.fi+1)&7],nbb=nb&&nb.ball;if(nbb){const f2=Math.min(1,rf.fr*TWN);bpf=[bpf0[0]+(nbb[0]-bpf0[0])*f2,bpf0[1]+(nbb[1]-bpf0[1])*f2]}}   // the ball follows the same in-between pose as the body
@@ -4806,8 +4815,14 @@ function artDraw(g,o){if(o.tcx!==undefined&&!o.hasBall&&!o.preview&&!o.lying){  
   if(pre0&&tb)ballShape(g,bx+tb.x*s*ws,by+tb.y*s,h*BSZ,tb.r,true);
   if(!window.__shadowOnly){const e2=(TWN>0&&rf&&!rf.thr&&rf.s!==undefined&&rf.fr>.04)?ART.run.sp.get(runKey(pal.key,rf.vk,(rf.fi+1)&7)):null,t2=e2&&e2[rf.s];
     if(t2&&t2.c.width===sp.c.width&&t2.c.height===sp.c.height){const tc=ART._tw||(ART._tw=document.createElement('canvas'));if(tc.width!==sp.c.width||tc.height!==sp.c.height){tc.width=sp.c.width;tc.height=sp.c.height}const tg=tc.getContext('2d'),f2=Math.min(1,rf.fr*TWN);   // in-between pose: the two neighbouring baked frames cross-faded (premultiplied add, so the overlap stays solid)
-      tg.globalCompositeOperation='source-over';tg.clearRect(0,0,tc.width,tc.height);tg.globalAlpha=1-f2;tg.drawImage(sp.c,0,0);tg.globalCompositeOperation='lighter';tg.globalAlpha=f2;tg.drawImage(t2.c,0,0);tg.globalAlpha=1;g.drawImage(tc,0,0,tc.width,tc.height,bx,by,w,hh)}
-    else g.drawImage(sp.c,0,0,sp.c.width,sp.c.height,bx,by,w,hh)}
+      tg.globalCompositeOperation='source-over';tg.clearRect(0,0,tc.width,tc.height);tg.globalAlpha=1-f2;tg.drawImage(sp.c,0,0);tg.globalCompositeOperation='lighter';tg.globalAlpha=f2;tg.drawImage(t2.c,0,0);tg.globalAlpha=1;drawPlayerBitmap(tc)}
+    else drawPlayerBitmap(sp.c);
+    // Low-opacity pink road bounce on the lower trouser legs, kept inside the sprite footprint.
+    g.save();g.globalCompositeOperation='screen';g.globalAlpha=.095;
+    const pantsGlow=g.createLinearGradient(0,by+hh*.78,0,by+hh*.96);
+    pantsGlow.addColorStop(0,'rgba(255,47,168,0)');pantsGlow.addColorStop(.72,'rgba(255,47,168,.30)');pantsGlow.addColorStop(1,'rgba(255,47,168,0)');
+    g.fillStyle=pantsGlow;g.fillRect(bx,by+hh*.76,w,hh*.21);g.restore();
+  }
   if(rf&&rf.thr&&!rf.m.hold){const r4=ART.run.meta[rf.vk][4].thrBall;if(r4)ART.hand={sx:bx+r4.x*s*ws,sy:by+r4.y*s,sd:SD,x,y,k:performance.now()};   // where the ball is on the release frame
     if(tb&&o.heldBall)ballShape(g,bx+tb.x*s*ws,by+tb.y*s,h*BSZ,tb.r,true)}
   if(o.hasBall&&!ballDone&&!fdone&&!(rf&&rf.thr)){const a=ART.CARRY[(o.ballSide||1)>0?0:1],side=(o.ballSide||1)>0?0:1,bxp=bx+a[0]*s*wsc,byp=by+a[1]*s;ballShape(g,bxp,byp,h*BSZ,side?.5:-.5,true)}   // static art: 30% of the sprite height long, goes on after the arm and before the number
@@ -8315,8 +8330,8 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   // Six-frame-per-second idle cycle. Feet stay pinned; only the upper body breathes.
   const frame=Math.floor(tm*(moving?8:6)+(ph||0))%4,bob=[0,-1,0,1][frame],prevBob=[0,-1,0,1][(frame+3)%4];
   const left=dir==='l',right=dir==='r',back=dir==='u';
-  // Ground contact is rendered first so the shoes remain cleanly in front of it.
-  g.save();g.globalAlpha=.92;const sh=g.createRadialGradient(sx,sy-1,1,sx,sy,OWT*.24);sh.addColorStop(0,'rgba(0,0,0,.72)');sh.addColorStop(.55,'rgba(0,0,0,.48)');sh.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=sh;g.beginPath();g.ellipse(sx,sy,OWT*.24,OWT*.075,0,0,7);g.fill();g.restore();
+  // Use the football renderer's exact soft radial shadow treatment, centered on the foot pivot.
+  artShadow(g,sx,sy,OWT*.24,OWT*.075,.75,2);
   g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-137);
   const ink='#171725',purple='#92539B',deep='#482B59',light='#D18BCB',skin='#D6A17F';
   const path=(pts,fill,stroke=ink,lw=2)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='round';g.stroke()}};
@@ -8331,6 +8346,9 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   path([[31,127],[39,127],[43,133],[41,137],[27,137],[25,134]],'#292638');
   path([[64,125],[72,125],[79,130],[80,135],[66,136],[62,132]],'#292638');
   line([[28,133],[40,133]],'#9A8EA1',1.5);line([[66,132],[77,132]],'#9A8EA1',1.5);
+  // Tight 1.5-screen-pixel ambient-occlusion seam where each boot meets the road.
+  g.save();g.strokeStyle='#141622';g.lineWidth=1.5/scale;g.lineCap='round';
+  line([[27,136.2],[40,136.2]],'#141622',1.5/scale);line([[65,135.2],[78,135.2]],'#141622',1.5/scale);g.restore();
   // Upper body group bobs exactly one screen pixel; umbrella follows the torso.
   g.save();g.translate(0,bob/scale);
   // Umbrella is behind the head/body; its canopy sits against the shoulder.
@@ -8369,6 +8387,8 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   path([[59,50],[67,56],[69,83],[63,93],[57,88],[60,67]],'#4D2D60',null);
   line([[36,57],[39,74],[37,87]],'#E3A2D9',1.8);line([[62,60],[60,77],[64,87]],'#33223F',2);
   line([[40,94],[51,96],[64,93]],'#E7A8DA',1.5);
+  // Restrained neon bounce just along the lower skirt hem.
+  line([[32,111],[43,113],[55,113],[66,111]],'rgba(255,47,168,.42)',1.15/scale);
   // Collar, lapel, buttons and brooch details.
   path([[42,49],[49,56],[54,49],[58,53],[52,62],[46,59]],'#F0B5E0',ink,1.4);
   line([[50,60],[49,88]],'#4A2C58',1.6);[66,74,82].forEach(y=>{g.beginPath();g.arc(50,y,1.2,0,7);g.fillStyle='#FFE1F4';g.fill()});
@@ -8380,10 +8400,13 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   line([[66,86],[67,89]],'#F1C3A1',1);
   // Shoulder seam and soft fold accents echo the football player's shirt rendering.
   line([[35,54],[42,51],[47,53]],'#E5A0D9',1.4);line([[58,54],[64,58],[67,65]],'#382344',1.5);
-  // Stronger baked sodium/cyan edge light, kept crisp at the in-game scale.
-  g.save();g.globalAlpha=.98;g.shadowBlur=2.5;g.shadowColor='#FF9A3D';
-  line([[31,54],[28,62],[29,69]],'#FF9A3D',2.6);line([[31,94],[28,107],[29,113],[34,127]],'#FF9A3D',2.6);
-  g.shadowColor='#29F2E8';line([[68,55],[73,65],[72,76]],'#29F2E8',2.6);line([[68,96],[72,108],[75,122],[77,129]],'#29F2E8',2.6);
+  // One-screen-pixel rim accents, broken into directional top/side hits rather than a full outline.
+  g.save();g.globalAlpha=.62;g.shadowBlur=.65/scale;g.shadowColor='rgba(255,154,61,.38)';
+  line([[36,53],[39,49],[45,47]],'rgba(255,177,104,.86)',1/scale);
+  line([[31,57],[28,64],[29,69]],'rgba(255,154,61,.78)',1/scale);
+  g.shadowColor='rgba(41,242,232,.34)';
+  line([[57,49],[64,51],[68,56]],'rgba(113,245,229,.82)',1/scale);
+  line([[68,57],[72,65],[72,71]],'rgba(41,210,211,.76)',1/scale);
   g.restore();
   // Hand around the shaft is drawn again in front of the forearm/handle.
   g.beginPath();g.ellipse(47,59,4,3,-.35,0,7);g.fillStyle=skin;g.fill();g.strokeStyle=ink;g.lineWidth=1.2;g.stroke();
