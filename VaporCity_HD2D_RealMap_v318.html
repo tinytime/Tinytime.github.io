@@ -75,12 +75,37 @@ function imgSprite(img,h,o={}){const tex=sRGB(new THREE.Texture(img));tex.needsU
   const geo=new THREE.PlaneGeometry((bb[2]-bb[0])*sc,(bb[3]-bb[1])*sc);geo.translate(0,(bb[3]-bb[1])*sc/2,0);
   const m=new THREE.MeshStandardMaterial({map:tex,alphaTest:.4,roughness:1,emissive:0xffffff,emissiveMap:tex,emissiveIntensity:.2,side:THREE.DoubleSide});
   const me=new THREE.Mesh(geo,m);me.castShadow=true;me.customDepthMaterial=new THREE.MeshDepthMaterial({depthPacking:THREE.RGBADepthPacking,map:tex,alphaTest:.4});sprites.push(me);return me}
-const shadowCanvas=document.createElement('canvas');shadowCanvas.width=shadowCanvas.height=128;const shadowCtx=shadowCanvas.getContext('2d');const shadowGrad=shadowCtx.createRadialGradient(64,64,5,64,64,62);shadowGrad.addColorStop(0,'rgba(0,0,0,.58)');shadowGrad.addColorStop(.48,'rgba(0,0,0,.28)');shadowGrad.addColorStop(1,'rgba(0,0,0,0)');shadowCtx.fillStyle=shadowGrad;shadowCtx.fillRect(0,0,128,128);const shadowTex=new THREE.CanvasTexture(shadowCanvas);\nfunction blob(x,z,r=.42){const m=new THREE.Mesh(new THREE.CircleGeometry(r,28),new THREE.MeshBasicMaterial({map:shadowTex,transparent:true,opacity:.9,depthWrite:false}));m.rotation.x=-Math.PI/2;m.scale.y=.62;m.position.set(x,.022,z);S.add(m)}
+const shadowCanvas=document.createElement('canvas');shadowCanvas.width=shadowCanvas.height=128;const shadowCtx=shadowCanvas.getContext('2d');const shadowGrad=shadowCtx.createRadialGradient(64,64,5,64,64,62);shadowGrad.addColorStop(0,'rgba(0,0,0,.58)');shadowGrad.addColorStop(.48,'rgba(0,0,0,.28)');shadowGrad.addColorStop(1,'rgba(0,0,0,0)');shadowCtx.fillStyle=shadowGrad;shadowCtx.fillRect(0,0,128,128);const shadowTex=new THREE.CanvasTexture(shadowCanvas);
+function blob(x,z,r=.42){const m=new THREE.Mesh(new THREE.CircleGeometry(r,28),new THREE.MeshBasicMaterial({map:shadowTex,transparent:true,opacity:.9,depthWrite:false}));m.rotation.x=-Math.PI/2;m.scale.y=.62;m.position.set(x,.022,z);S.add(m)}
 function place(me,x,z,y=0){me.position.set(x,y,z);S.add(me);if(y<.05){blob(x,z,.42);if(me.material&&me.material.map&&me.geometry&&me.geometry.parameters){const gp=me.geometry.parameters;const refl=new THREE.Mesh(new THREE.PlaneGeometry(gp.width*.78,gp.height*.24),new THREE.MeshBasicMaterial({map:me.material.map,color:0x9bbcff,transparent:true,opacity:.13,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));refl.rotation.x=-Math.PI/2;refl.position.set(x,.028,z+.22);S.add(refl)}}return me}
 // ---------- builders ----------
 const box=(w,h,d,mat,x,y,z,cs=true)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(x,y+h/2,z);m.castShadow=cs;m.receiveShadow=true;S.add(m);return m};
 const std=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.8,metalness:.1},o));
-const glowM=(c,i=3)=>new THREE.MeshBasicMaterial({color:new THREE.Color(c).multiplyScalar(i)});\nfunction streetBuild(){\n  // Raised, tiled sidewalks flank the central avenue; thin curb caps make the road edge readable.\n  const walkMat=std(0x29283d,{roughness:.94,metalness:.02}),curbMat=std(0x68718a,{roughness:.72,metalness:.12});\n  for(const side of [-1,1]){\n    box(1.65,.13,39.5,walkMat,side*3.05,0,0,false);\n    box(.16,.19,39.5,curbMat,side*2.18,0,0,false);\n    for(let z=-18;z<19;z+=2){box(1.5,.012,.035,std(0x45435e,{roughness:1}),side*3.05,.14,z,false)}\n  }\n  // Crosswalk at the central intersection, with raised corner landings.\n  for(let i=0;i<7;i++){const z=1.05+i*.34;box(3.55,.018,.19,std(0xb9c5d5,{roughness:.85}),0,.025,z,false)}\n  for(const x of [-2.85,2.85]){box(.95,.14,1.35,walkMat,x,0,1.45,false);box(.95,.025,1.35,std(0x44445f,{roughness:1}),x,.15,1.45,false)}\n  // Two compact hazard barriers echo the original Vapor City street dressing.\n  for(const x of [-1.45,1.45]){\n    box(1.05,.13,.13,std(0x292b3c,{metalness:.35}),x,.18,3.55);\n    box(.92,.28,.09,std(0xf0a83c,{roughness:.65}),x,.36,3.55);\n    for(let k=-1;k<=1;k++){const stripe=box(.13,.29,.105,std(0x25283b,{roughness:.8}),x+k*.28,.36,3.49,false);stripe.rotation.z=-.35}\n  }\n  // Manholes and drain grates give the road a readable surface at phone scale.\n  for(const [x,z] of [[-.95,5.8],[.9,-1.8],[-.8,-11],[.95,13]]){\n    const ring=new THREE.Mesh(new THREE.RingGeometry(.22,.29,24),std(0x687087,{metalness:.55,roughness:.55}));ring.rotation.x=-Math.PI/2;ring.position.set(x,.025,z);S.add(ring);\n    const lid=new THREE.Mesh(new THREE.CircleGeometry(.22,24),std(0x202438,{metalness:.45,roughness:.75}));lid.rotation.x=-Math.PI/2;lid.position.set(x,.026,z);S.add(lid);\n    for(let k=-2;k<=2;k++){box(.025,.008,.27,std(0x687087,{metalness:.5}),x+k*.065,.03,z,false)}\n  }\n}
+const glowM=(c,i=3)=>new THREE.MeshBasicMaterial({color:new THREE.Color(c).multiplyScalar(i)});
+function streetBuild(){
+  // Raised, tiled sidewalks flank the central avenue; thin curb caps make the road edge readable.
+  const walkMat=std(0x29283d,{roughness:.94,metalness:.02}),curbMat=std(0x68718a,{roughness:.72,metalness:.12});
+  for(const side of [-1,1]){
+    box(1.65,.13,39.5,walkMat,side*3.05,0,0,false);
+    box(.16,.19,39.5,curbMat,side*2.18,0,0,false);
+    for(let z=-18;z<19;z+=2){box(1.5,.012,.035,std(0x45435e,{roughness:1}),side*3.05,.14,z,false)}
+  }
+  // Crosswalk at the central intersection, with raised corner landings.
+  for(let i=0;i<7;i++){const z=1.05+i*.34;box(3.55,.018,.19,std(0xb9c5d5,{roughness:.85}),0,.025,z,false)}
+  for(const x of [-2.85,2.85]){box(.95,.14,1.35,walkMat,x,0,1.45,false);box(.95,.025,1.35,std(0x44445f,{roughness:1}),x,.15,1.45,false)}
+  // Two compact hazard barriers echo the original Vapor City street dressing.
+  for(const x of [-1.45,1.45]){
+    box(1.05,.13,.13,std(0x292b3c,{metalness:.35}),x,.18,3.55);
+    box(.92,.28,.09,std(0xf0a83c,{roughness:.65}),x,.36,3.55);
+    for(let k=-1;k<=1;k++){const stripe=box(.13,.29,.105,std(0x25283b,{roughness:.8}),x+k*.28,.36,3.49,false);stripe.rotation.z=-.35}
+  }
+  // Manholes and drain grates give the road a readable surface at phone scale.
+  for(const [x,z] of [[-.95,5.8],[.9,-1.8],[-.8,-11],[.95,13]]){
+    const ring=new THREE.Mesh(new THREE.RingGeometry(.22,.29,24),std(0x687087,{metalness:.55,roughness:.55}));ring.rotation.x=-Math.PI/2;ring.position.set(x,.025,z);S.add(ring);
+    const lid=new THREE.Mesh(new THREE.CircleGeometry(.22,24),std(0x202438,{metalness:.45,roughness:.75}));lid.rotation.x=-Math.PI/2;lid.position.set(x,.026,z);S.add(lid);
+    for(let k=-2;k<=2;k++){box(.025,.008,.27,std(0x687087,{metalness:.5}),x+k*.065,.03,z,false)}
+  }
+}
 function plight(c,i,x,y,z,dist=7,sh=false){const l=new THREE.PointLight(c,i,dist,1.6);l.position.set(x,y,z);if(sh){l.castShadow=true;l.shadow.mapSize.set(512,512);l.shadow.bias=-.004}S.add(l);return l}
 function building(x0,x1,z0,z1,h,o){const w=x1-x0,d=z1-z0,cx=(x0+x1)/2,cz=(z0+z1)/2;const f=facadeTex(w,h,o);
   const front=std(0xffffff,{map:f.map,emissive:0xffffff,emissiveMap:f.em,emissiveIntensity:o.ei||2.2,roughness:.7});
@@ -131,7 +156,10 @@ function build(){
   // Wet patches and neon-coloured reflections.
   for(let i=0;i<210;i++){const x=rnd()*1024,y=rnd()*1280,rx=5+rnd()*28,ry=2+rnd()*8;gg.fillStyle='rgba(3,7,16,.65)';gg.beginPath();gg.ellipse(x,y,rx,ry,0,0,7);gg.fill();gg.strokeStyle=['rgba(230,51,106,.22)','rgba(91,236,241,.22)','rgba(255,129,66,.18)','rgba(139,114,222,.22)'][i%4];gg.beginPath();gg.ellipse(x,y,rx*.65,ry*.6,0,0,7);gg.stroke()}
   const gtex=sRGB(new THREE.CanvasTexture(gc));gtex.anisotropy=8;
-  const ground=new THREE.Mesh(new THREE.PlaneGeometry(32,40),std(0xffffff,{map:gtex,roughness:.48,metalness:.3}));ground.rotation.x=-Math.PI/2;ground.position.set(0,0,0);ground.receiveShadow=true;S.add(ground);\n  streetBuild();\n  // Restore scattered puddle decals from the original sprite atlas on the wet roadway.\n  for(const [key,x,z,sc] of [['pud_l',-1.05,7.8,1.45],['pud_m',.85,5.1,1.7],['pud_s',-1.1,-2.8,2.1],['pud_l',.95,-9.2,1.25],['pud_m',-.75,13.2,1.5],['pud_s',1.05,-15.4,1.8],['pud_m',-.45,2.7,1.25]]){const p=spriteMesh(key,0,false,{scale:sc,glow:.12,shadow:false,face:false});p.rotation.x=-Math.PI/2;p.position.set(x,.035,z);p.material.transparent=true;p.material.opacity=.48;p.material.depthWrite=false;S.add(p)}
+  const ground=new THREE.Mesh(new THREE.PlaneGeometry(32,40),std(0xffffff,{map:gtex,roughness:.48,metalness:.3}));ground.rotation.x=-Math.PI/2;ground.position.set(0,0,0);ground.receiveShadow=true;S.add(ground);
+  streetBuild();
+  // Restore scattered puddle decals from the original sprite atlas on the wet roadway.
+  for(const [key,x,z,sc] of [['pud_l',-1.05,7.8,1.45],['pud_m',.85,5.1,1.7],['pud_s',-1.1,-2.8,2.1],['pud_l',.95,-9.2,1.25],['pud_m',-.75,13.2,1.5],['pud_s',1.05,-15.4,1.8],['pud_m',-.45,2.7,1.25]]){const p=spriteMesh(key,0,false,{scale:sc,glow:.12,shadow:false,face:false});p.rotation.x=-Math.PI/2;p.position.set(x,.035,z);p.material.transparent=true;p.material.opacity=.48;p.material.depthWrite=false;S.add(p)}
   // Atmosphere stays faithful to the original: blue-violet night, pink/cyan neon, amber accents.
   S.add(new THREE.HemisphereLight(0x454b91,0x100b1d,.46));
   const moon=new THREE.DirectionalLight(0x8397d8,.62);moon.position.set(-8,22,8);moon.castShadow=true;moon.shadow.mapSize.set(2048,2048);Object.assign(moon.shadow.camera,{left:-20,right:20,top:24,bottom:-24,near:1,far:70});moon.shadow.bias=-.001;S.add(moon);
