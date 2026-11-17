@@ -373,9 +373,9 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
 
 /* HYBRID TEST: optional perspective treatment on the original overworld canvas.
    The original renderer, artwork, map, effects, characters and controls remain intact. */
-#owc{transform-origin:50% 56%;transition:transform .28s ease,filter .28s ease}
+#owc{transform-origin:50% 60%;transition:transform .28s ease,filter .28s ease}
 #owc.hybrid-preview{
-  transform:perspective(1250px) rotateX(7deg) scale(1.025);
+  transform:perspective(1100px) rotateX(12deg) scale(1.035);
   filter:drop-shadow(0 18px 24px rgba(0,0,0,.62)) saturate(1.06) contrast(1.035);
 }
 #owHybridToggle{
@@ -8460,11 +8460,6 @@ function owFrame(dt){
       og.strokeStyle=b.col;og.globalAlpha=.42;og.lineWidth=Math.max(1,OT*.025);
       og.beginPath();og.moveTo(x+w,y+h);og.lineTo(x+w+dx,y+h+dy);
       og.lineTo(x+dx,y+h+dy);og.stroke();
-      og.globalAlpha=.18;og.strokeStyle='#b8d8ff';og.lineWidth=1;
-      for(let i=1;i<4;i++){
-        const yy=y+h+dy*i/4;
-        og.beginPath();og.moveTo(x+w+dx*.12,yy);og.lineTo(x+w+dx*.9,yy+dy*.08);og.stroke();
-      }
       og.globalAlpha=1;
     }
   }
@@ -8489,14 +8484,6 @@ function owFrame(dt){
       og.lineTo(x+sx*1.55,y+h+sy*1.55);
       og.closePath();
       og.fill();
-      og.globalAlpha=.10;
-      og.shadowBlur=0;
-      og.strokeStyle='rgba(125,157,205,.8)';
-      og.lineWidth=Math.max(1,OT*.035);
-      og.beginPath();
-      og.moveTo(x+sx,y+h+sy);
-      og.lineTo(x+w+sx,y+h+sy);
-      og.stroke();
       og.restore();
     }
   }
@@ -8507,14 +8494,7 @@ function owFrame(dt){
       const b=OWB[bi],x=b.x*OT,y=b.y*OT,w=b.w*OT,h=b.h*OT;
       const inset=Math.max(3,OT*.12),topH=Math.min(h*.27,OT*1.35);
       og.save();
-      og.lineWidth=Math.max(1,OT*.035);
-      og.strokeStyle='rgba(185,205,235,.20)';
-      og.strokeRect(x+inset,y+inset,w-inset*2,h-inset*2);
-      og.strokeStyle=b.col;og.globalAlpha=.30;
-      og.beginPath();og.moveTo(x+inset,y+inset);og.lineTo(x+w-inset,y+inset);og.stroke();
-      og.globalAlpha=.16;og.strokeStyle='#d9eaff';
-      og.beginPath();og.moveTo(x+inset,y+inset+topH);og.lineTo(x+w-inset,y+inset+topH);og.stroke();
-      // A small raised service unit, positioned deterministically per building.
+      // Keep roof equipment, but omit perimeter strokes that read as white outlines.\n      // A small raised service unit, positioned deterministically per building.
       const unitW=Math.max(OT*.38,Math.min(w*.22,OT*1.15));
       const ux=x+inset+(bi%2? w*.58:w*.18),uy=y+inset+topH*.32;
       const uh=Math.max(OT*.20,topH*.34);
