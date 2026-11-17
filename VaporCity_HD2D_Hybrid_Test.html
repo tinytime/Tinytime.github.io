@@ -8478,14 +8478,24 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride){
    asymmetric stance, three-tone materials, compact face and directional rim light. */
 function applyShading(baseHex){
   const m=/^#([0-9a-f]{6})$/i.exec(baseHex||'');
-  const base=m?parseInt(m[1],16):0x777777;
-  const channels=[(base>>16)&255,(base>>8)&255,base&255];
-  const hex=values=>'#'+values.map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');
-  return {
-    highlight:hex(channels.map(v=>Math.min(255,v*1.20))),
-    base:hex(channels),
-    shadow:hex(channels.map(v=>v*.60))
+  const rgb=m?[(parseInt(m[1].slice(0,2),16))/255,(parseInt(m[1].slice(2,4),16))/255,(parseInt(m[1].slice(4,6),16))/255]:[.47,.47,.47];
+  const max=Math.max(...rgb),min=Math.min(...rgb),delta=max-min;
+  let h=0,sat=0,l=(max+min)/2;
+  if(delta){
+    sat=delta/(1-Math.abs(2*l-1));
+    if(max===rgb[0])h=((rgb[1]-rgb[2])/delta)%6;
+    else if(max===rgb[1])h=(rgb[2]-rgb[0])/delta+2;
+    else h=(rgb[0]-rgb[1])/delta+4;
+    h*=60;if(h<0)h+=360;
+  }
+  const toHex=L=>{
+    L=Math.max(0,Math.min(1,L));
+    const c=(1-Math.abs(2*L-1))*sat,x=c*(1-Math.abs((h/60)%2-1)),q=L-c/2;
+    let v=h<60?[c,x,0]:h<120?[x,c,0]:h<180?[0,c,x]:h<240?[0,x,c]:h<300?[x,0,c]:[c,0,x];
+    return '#'+v.map(n=>Math.round((n+q)*255).toString(16).padStart(2,'0')).join('');
   };
+  const base=m?baseHex:'#777777';
+  return {highlight:toHex(l*1.20),base,shadow:toHex(l*.60)};
 }
 function owPixelTone(hex,delta){
   const ramp=applyShading(hex);
@@ -8541,6 +8551,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       line([[x+.5,-13],[x+.5,kY-1],[kneeX+.5,kY]],pants.highlight,1);
       line([[kneeX+1.5,kY+1],[kneeX+1.5,footY-1]],pants.shadow,1);
       polygon([[ankleX-1,-1],[ankleX+3,-1],[ankleX+3,1],[ankleX-1,1]],{highlight:'#292638',base:'#292638',shadow:'#171725'},ink,1);
+      line([[ankleX-1,1],[ankleX+3,1]],'#080a12',1);
     };
     // Two distinct legs with a one-pixel transparent channel and outward-set stance.
     leg(-2,-.5,-.5,1);
@@ -8576,14 +8587,15 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // four pixels wide (two-pixel interior), with a one-pixel inward elbow bend.
   const armY=top+4,armSwing=n.sit?0:Math.round(step*.5);
   const arm=(shoulder,elbow,wrist,phase,bent=false)=>{
-    const ey=armY+(bent?7:6)+armSwing*phase,wy=bent?top+bodyRowsLength(P)-1:armY+11+armSwing*phase;
+    const rightArm=shoulder>0;
+    const ey=armY+(rightArm?4:(bent?7:6))+armSwing*phase,wy=bent?top+bodyRowsLength(P)-1:armY+11+armSwing*phase;
     const outward=shoulder<0?-2:2,s=shoulder+torsoShift+outward;
     const elbowX=elbow+torsoShift+outward+(elbow<0?1:0),wristX=wrist+torsoShift+outward;
     if(bent){
       // Upper arm reaches the outside edge of the torso and ends at a defined elbow.
       limb([[s+(shoulder<0?-3:-2),armY],[s+(shoulder<0?2:3),armY],[s+(shoulder<0?2:3),ey-1],[elbowX+(shoulder<0?2:3),ey],[elbowX+(shoulder<0?2:3),ey+2],[elbowX,ey+2],[elbowX,ey],[s+(shoulder<0?-3:-2),ey-1]],body);
       // Forearm starts one pixel inward from the elbow, creating a visible angled return.
-      const inward=shoulder>0?-1:1;const forearmX=elbowX+inward,handX=wristX+inward;
+      const inward=rightArm?-1:1;const forearmX=elbowX+inward,handX=wristX+inward;
       limb([[forearmX-1,ey+2],[forearmX+2,ey+2],[handX+2,wy],[handX+2,wy+1],[handX-1,wy+1],[forearmX-1,ey+4]],body);
       line([[s-1,armY+1],[s-1,ey-1]],body.highlight,1);
       line([[forearmX+1,ey+3],[handX+1,wy]],body.shadow,1);
@@ -8623,7 +8635,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(P.band)line([[-3,hy+1],[3,hy+1]],P.band,1);
   if(P.glasses)line([[-3,hy+2],[3,hy+2]],P.glasses===true?ink:P.glasses,1);
   // Face pixels are deliberately drawn after hair so they remain visible.
-  if(!back&&!P.helm&&!P.hood){px(-2,hy+2,1,1,'#101018');px(1,hy+2,1,1,'#101018');px(-1,hy+4,1,1,'#101018')}
+  if(!back&&!P.helm&&!P.hood){
+    if(kind==='runner'){px(-1,hy+2,1,1,'#101018');px(1,hy+2,1,1,'#101018');}
+    else{px(-2,hy+2,1,1,'#101018');px(1,hy+2,1,1,'#101018');px(-1,hy+4,1,1,'#101018')}
+    if(kind==='runner')px(-3,hy+1,1,5,hair.shadow);
+  }
   else if(!back){px(-2,hy+2,1,1,ink);px(1,hy+2,1,1,ink)}
   // Single-pixel shadow directly beneath the hairline and a shaded chin.
   px(-1,hy+1,3,1,skinTone.shadow);px(0,hy+8,2,1,skinTone.shadow);
