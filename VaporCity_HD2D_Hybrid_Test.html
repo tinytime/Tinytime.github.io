@@ -8327,79 +8327,113 @@ const CIV_FANC=['#ff2fa8','#27e0ff','#ffd23a','#9b5cff','#58ffb0','#ff7a1a'];
 const grannyPixelCache=new Map();
 function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   const g=og,scale=OWT/36*.28,sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
-  // Six-frame-per-second idle cycle. Feet stay pinned; only the upper body breathes.
+  // Feet remain pinned; the upper body keeps the existing one-pixel idle breath.
   const frame=Math.floor(tm*(moving?8:6)+(ph||0))%4,bob=[0,-1,0,1][frame],prevBob=[0,-1,0,1][(frame+3)%4];
-  const left=dir==='l',right=dir==='r',back=dir==='u';
-  // Use the football renderer's exact soft radial shadow treatment, centered on the foot pivot.
+  const back=dir==='u';
+  // Preserve the football renderer's exact soft radial contact shadow.
   artShadow(g,sx,sy,OWT*.24,OWT*.075,.75,2);
   g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-137);
-  const ink='#171725',purple='#92539B',deep='#482B59',light='#D18BCB',skin='#D6A17F';
+  const ink='#171725',deep='#482B59',skin='#D6A17F';
   const path=(pts,fill,stroke=ink,lw=2)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='round';g.stroke()}};
   const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);for(const [p,c] of stops)z.addColorStop(p,c);return z};
   const line=(pts,color,width=3)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.strokeStyle=color;g.lineWidth=width;g.lineCap='round';g.lineJoin='round';g.stroke()};
-  // Back leg is set behind the skirt; forward leg steps toward the viewer.
-  line([[43,91],[41,107],[38,121],[37,130]],ink,11);
-  line([[43,92],[41,107],[39,121],[38,129]],grad(36,100,46,122,[[0,'#82728B'],[.55,'#40364E'],[1,'#262538']]),7);
-  line([[58,91],[61,106],[67,117],[69,128]],ink,12);
-  line([[58,92],[61,106],[66,117],[68,127]],grad(56,98,70,124,[[0,'#A69AB0'],[.45,'#62566E'],[1,'#302A3C']]),8);
+
+  // Back leg sits one pixel farther back; both legs have two-pixel visual weight
+  // and a small knee change so the stance reads planted rather than stick-like.
+  line([[40,92],[39,105],[36,119],[35,130]],ink,10);
+  line([[40,92],[39,105],[37,119],[36,129]],grad(35,98,45,123,[[0,'#82728B'],[.55,'#40364E'],[1,'#262538']]),7.5);
+  line([[59,92],[62,104],[66,116],[69,128]],ink,10.5);
+  line([[59,92],[62,104],[65,116],[68,127]],grad(57,98,71,124,[[0,'#A69AB0'],[.45,'#62566E'],[1,'#302A3C']]),7.5);
   // Shoes and forward heel.
-  path([[31,127],[39,127],[43,133],[41,137],[27,137],[25,134]],'#292638');
+  path([[29,127],[37,127],[41,133],[39,137],[25,137],[23,134]],'#292638');
   path([[64,125],[72,125],[79,130],[80,135],[66,136],[62,132]],'#292638');
-  line([[28,133],[40,133]],'#9A8EA1',1.5);line([[66,132],[77,132]],'#9A8EA1',1.5);
-  // Tight 1.5-screen-pixel ambient-occlusion seam where each boot meets the road.
+  line([[26,133],[38,133]],'#9A8EA1',1.5);line([[66,132],[77,132]],'#9A8EA1',1.5);
+  // Preserve the existing shoe-to-ground occlusion seam.
   g.save();g.strokeStyle='#141622';g.lineWidth=1.5/scale;g.lineCap='round';
-  line([[27,136.2],[40,136.2]],'#141622',1.5/scale);line([[65,135.2],[78,135.2]],'#141622',1.5/scale);g.restore();
-  // Upper body group bobs exactly one screen pixel; umbrella follows the torso.
+  line([[25,136.2],[38,136.2]],'#141622',1.5/scale);line([[65,135.2],[78,135.2]],'#141622',1.5/scale);g.restore();
+
+  // Upper body bobs; umbrella is behind the head and jacket.
   g.save();g.translate(0,bob/scale);
-  // Umbrella is behind the head/body; its canopy sits against the shoulder.
-  g.save();g.translate(3,0);g.beginPath();g.moveTo(12,29);g.quadraticCurveTo(14,3,39,5);g.quadraticCurveTo(67,3,78,29);g.quadraticCurveTo(70,25,64,31);g.quadraticCurveTo(57,25,50,31);g.quadraticCurveTo(43,25,36,31);g.quadraticCurveTo(27,25,20,31);g.closePath();
-  g.fillStyle=grad(20,8,67,31,[[0,'#FF8ACB'],[.36,'#E72D9D'],[.72,'#A91D77'],[1,'#661C59']]);g.fill();g.strokeStyle=ink;g.lineWidth=2.2;g.stroke();
-  line([[39,8],[39,28]],'#FFD2ED',1.4);line([[23,13],[32,28]],'#FFB3DF',1.4);line([[55,12],[47,28]],'#B51E78',1.5);
-  line([[14,27],[22,30],[29,27],[37,30],[45,27],[53,30],[62,27],[71,30],[78,27]],'#FF9FD8',1.5);
-  // Warm left edge and cool right edge on the canopy.
-  line([[13,27],[18,15],[28,9]],'#FF9A3D',1.4);line([[67,10],[75,19],[78,27]],'#29F2E8',1.4);
-  // shaft runs down to the shoulder-side gripping hand, not floating above her.
-  line([[43,25],[46,43],[48,58]],ink,4);line([[43,25],[46,43],[48,58]],'#D7C5AA',2);
-  line([[48,57],[44,60],[42,57]],ink,3);line([[48,57],[44,60]],'#D7C5AA',1.5);
+  // Rounded dome canopy with a distinct pointed crown. Raised three drawing
+  // pixels from the previous position to leave a clear strip of silver hair.
+  g.save();g.translate(3,0);
+  g.beginPath();g.moveTo(47,2);
+  g.quadraticCurveTo(31,2,20,9);
+  g.quadraticCurveTo(13,15,12,23);
+  g.quadraticCurveTo(18,20,24,25);
+  g.quadraticCurveTo(30,21,36,25);
+  g.quadraticCurveTo(42,21,48,25);
+  g.quadraticCurveTo(55,21,61,25);
+  g.quadraticCurveTo(68,20,79,23);
+  g.quadraticCurveTo(76,12,65,7);
+  g.quadraticCurveTo(56,2,47,2);g.closePath();
+  g.fillStyle=grad(18,4,72,25,[[0,'#FF8ACB'],[.36,'#E72D9D'],[.72,'#A91D77'],[1,'#661C59']]);g.fill();
+  g.strokeStyle=ink;g.lineWidth=2.2;g.stroke();
+  // Subtle canopy panels; keep the silhouette clean rather than stripy.
+  line([[47,4],[47,23]],'#FFD2ED',1.2);
+  line([[22,10],[32,22]],'#FFB3DF',1.15);
+  line([[69,10],[59,22]],'#B51E78',1.15);
+  line([[14,22],[23,24],[30,22],[37,24],[48,22],[59,24],[68,22],[78,23]],'#FF9FD8',1.25);
+  line([[14,22],[20,11],[31,5]],'#FF9A3D',1.4);
+  line([[64,6],[75,15],[79,23]],'#29F2E8',1.4);
+  // A crisp, one-pixel shaft runs from the canopy to the grip.
+  line([[47,4],[47,58]],ink,2.5);
+  line([[47,4],[47,58]],'#D7C5AA',1.15);
   g.restore();
-  // Far arm bends up to grip the umbrella shaft: upper arm, elbow, forearm, hand.
-  line([[35,53],[28,59],[30,68],[43,62]],ink,10);
-  line([[35,53],[29,60],[31,67],[43,62]],grad(27,54,40,67,[[0,'#B77AC0'],[.55,'#74417F'],[1,deep]]),6.5);
-  g.beginPath();g.ellipse(44,60,5,4,-.45,0,Math.PI*2);g.fillStyle=skin;g.fill();g.strokeStyle=ink;g.lineWidth=1.8;g.stroke();
-  line([[44,59],[46,57],[48,59]],'#F1C3A1',1.4);
-  // Neck and turned face; offset features and nose establish three-quarter view.
-  path([[43,38],[56,38],[58,48],[44,49]],'#B97966');
-  g.beginPath();g.ellipse(49,30,13,16,-.12,0,Math.PI*2);g.fillStyle=grad(37,22,61,38,[[0,'#F0C09D'],[.45,skin],[1,'#996052']]);g.fill();g.strokeStyle=ink;g.lineWidth=2;g.stroke();
-  if(!back){g.fillStyle='#392B35';g.beginPath();g.ellipse(54,30,1.5,2,0,0,7);g.fill();path([[59,32],[63,34],[59,36]],'#C98D78',ink,1);line([[53,41],[59,40]],'#8D554E',1.2)}
-  // Hair trails the torso by one animation frame for a little secondary motion.
+
+  // Umbrella-side arm: visibly thick upper arm, one-pixel elbow turn and forearm.
+  line([[35,53],[28,59],[30,67],[43,61]],ink,9);
+  line([[35,53],[29,60],[31,66],[43,61]],grad(27,54,40,67,[[0,'#B77AC0'],[.55,'#74417F'],[1,deep]]),6.5);
+  // 2x2-pixel hand closes around the shaft/handle.
+  path([[44,56],[48,56],[49,60],[45,61]],skin,ink,1.1);
+  line([[45,58],[48,58]],'#F1C3A1',1);
+
+  // Neck, face and hair: reduced facial noise, with only two eye pixels.
+  path([[43,38],[55,38],[57,48],[44,49]],'#B97966');
+  g.beginPath();g.ellipse(49,30,13,16,-.12,0,Math.PI*2);
+  g.fillStyle=grad(37,22,61,38,[[0,'#F0C09D'],[.45,skin],[1,'#996052']]);g.fill();
+  g.strokeStyle=ink;g.lineWidth=1.8;g.stroke();
+  if(!back){
+    g.fillStyle='#392B35';
+    g.fillRect(49,29,1.8,1.8);g.fillRect(55,29,1.8,1.8);
+    g.fillStyle='#996052';g.fillRect(54,33,1.2,1.2);
+    line([[51,40],[56,40]],'#8D554E',1.15);
+  }
+  // Silver hair cap and side sweep. Keep the existing one-frame hair lag.
   g.save();g.translate(0,(prevBob-bob)/scale);
-  // Silver hair cap and side sweep, with dark underside and cool lit planes.
-  g.beginPath();g.moveTo(36,31);g.quadraticCurveTo(32,11,48,10);g.quadraticCurveTo(68,8,66,28);g.lineTo(61,42);g.quadraticCurveTo(57,35,57,26);g.quadraticCurveTo(48,33,36,31);g.closePath();
-  g.fillStyle=grad(35,12,65,35,[[0,'#F5F4F6'],[.35,'#C6CAD5'],[.72,'#85899D'],[1,'#55576B']]);g.fill();g.strokeStyle=ink;g.lineWidth=2;g.stroke();
-  line([[39,19],[49,14],[59,17]],'#FFFFFF',2);line([[38,25],[48,22],[56,23]],'#E9ECF4',1.4);
+  g.beginPath();g.moveTo(36,31);g.quadraticCurveTo(32,11,48,10);
+  g.quadraticCurveTo(68,8,66,28);g.lineTo(61,42);
+  g.quadraticCurveTo(57,35,57,26);g.quadraticCurveTo(48,33,36,31);g.closePath();
+  g.fillStyle=grad(35,12,65,35,[[0,'#F5F4F6'],[.35,'#C6CAD5'],[.72,'#85899D'],[1,'#55576B']]);g.fill();
+  g.strokeStyle=ink;g.lineWidth=2;g.stroke();
+  line([[39,19],[49,14],[59,17]],'#FFFFFF',2);
   g.beginPath();g.ellipse(36,23,8,7,-.4,0,Math.PI*2);g.fillStyle='#B9BECD';g.fill();g.strokeStyle=ink;g.stroke();
   g.restore();
-  // Skirt and torso: rounded, tapered 3/4 silhouette with a strong shadow plane.
+
+  // Jacket and skirt volume: deep umbrella cast shadow on the hairline/face,
+  // plus the requested left-side purple highlight.
   path([[35,49],[45,46],[59,48],[68,56],[70,83],[65,97],[34,96],[29,83],[30,60]],grad(30,49,68,88,[[0,'#C27CC0'],[.28,'#98539F'],[.62,'#75417F'],[1,'#43294F']]));
   path([[34,91],[67,91],[73,111],[66,116],[31,113],[27,108]],grad(30,96,70,112,[[0,'#A66AAB'],[.45,'#74427F'],[1,'#382643']]));
-  // Lamp-facing jacket highlight and far-side purple shadow, plus tailored folds.
-  path([[33,53],[43,49],[47,53],[45,88],[38,94],[31,87]],'#C985C7',null);
+  // Umbrella's underside shadow sits over the fringe/temple, not over the face.
+  path([[38,19],[47,17],[58,19],[63,25],[58,27],[48,24],[40,26]],'#2A1335',null);
+  path([[33,53],[43,49],[47,53],[45,88],[38,94],[31,87]],'#B35BCE',null);
   path([[59,50],[67,56],[69,83],[63,93],[57,88],[60,67]],'#4D2D60',null);
-  line([[36,57],[39,74],[37,87]],'#E3A2D9',1.8);line([[62,60],[60,77],[64,87]],'#33223F',2);
+  line([[36,57],[39,74],[37,87]],'#E3A2D9',1.8);
+  line([[62,60],[60,77],[64,87]],'#33223F',2);
   line([[40,94],[51,96],[64,93]],'#E7A8DA',1.5);
-  // Restrained neon bounce just along the lower skirt hem.
   line([[32,111],[43,113],[55,113],[66,111]],'rgba(255,47,168,.42)',1.15/scale);
-  // Collar, lapel, buttons and brooch details.
   path([[42,49],[49,56],[54,49],[58,53],[52,62],[46,59]],'#F0B5E0',ink,1.4);
-  line([[50,60],[49,88]],'#4A2C58',1.6);[66,74,82].forEach(y=>{g.beginPath();g.arc(50,y,1.2,0,7);g.fillStyle='#FFE1F4';g.fill()});
+  line([[50,60],[49,88]],'#4A2C58',1.6);
+  [66,74,82].forEach(y=>{g.beginPath();g.arc(50,y,1.2,0,7);g.fillStyle='#FFE1F4';g.fill()});
   g.beginPath();g.arc(40,70,3,0,7);g.fillStyle='#FFD15B';g.fill();g.strokeStyle=ink;g.lineWidth=1;g.stroke();
-  // Near arm rests naturally at her side, with elbow bend and visible hand.
-  line([[64,55],[73,65],[71,76],[67,84]],ink,10);
+
+  // Near arm is two-pixel wide with a natural elbow and visible hand.
+  line([[64,55],[73,65],[71,76],[67,84]],ink,9);
   line([[64,55],[72,65],[70,76],[67,83]],grad(64,57,74,80,[[0,'#B77AC0'],[.5,'#85498F'],[1,'#4B2C5C']]),6.5);
-  g.beginPath();g.ellipse(66,87,4,6,-.25,0,7);g.fillStyle=skin;g.fill();g.strokeStyle=ink;g.lineWidth=1.5;g.stroke();
+  g.beginPath();g.ellipse(66,87,4,5,-.25,0,7);g.fillStyle=skin;g.fill();g.strokeStyle=ink;g.lineWidth=1.5;g.stroke();
   line([[66,86],[67,89]],'#F1C3A1',1);
-  // Shoulder seam and soft fold accents echo the football player's shirt rendering.
-  line([[35,54],[42,51],[47,53]],'#E5A0D9',1.4);line([[58,54],[64,58],[67,65]],'#382344',1.5);
+
+  // Preserve the existing rim-light pass exactly; do not alter its color, width or placement.
   // One-screen-pixel rim accents, broken into directional top/side hits rather than a full outline.
   g.save();g.globalAlpha=.62;g.shadowBlur=.65/scale;g.shadowColor='rgba(255,154,61,.38)';
   line([[36,53],[39,49],[45,47]],'rgba(255,177,104,.86)',1/scale);
@@ -8408,13 +8442,9 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
   line([[57,49],[64,51],[68,56]],'rgba(113,245,229,.82)',1/scale);
   line([[68,57],[72,65],[72,71]],'rgba(41,210,211,.76)',1/scale);
   g.restore();
-  // Hand around the shaft is drawn again in front of the forearm/handle.
-  g.beginPath();g.ellipse(47,59,4,3,-.35,0,7);g.fillStyle=skin;g.fill();g.strokeStyle=ink;g.lineWidth=1.2;g.stroke();
-  line([[45,58],[48,57],[49,59]],'#F1C3A1',1.2);
-  // Close the upper-body bob group, then the character transform (feet at pivot).
-  g.restore();
-  g.restore();
-  // Very subtle additive bounce from the cyan street grid and nearby pink neon.
+  // Close the upper-body bob group and character transform.
+  g.restore();g.restore();
+  // Preserve the existing subtle additive bounce around the planted feet.
   g.save();g.globalCompositeOperation='lighter';g.globalAlpha=.16;
   let glow=g.createRadialGradient(sx,sy-OWT*.025,1,sx,sy-OWT*.025,OWT*.34);
   glow.addColorStop(0,'rgba(41,242,232,.26)');glow.addColorStop(.48,'rgba(255,47,168,.12)');glow.addColorStop(1,'rgba(41,242,232,0)');
