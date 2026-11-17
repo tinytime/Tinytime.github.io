@@ -462,6 +462,7 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
 
   <div id="world" class="screen" hidden>
     <canvas id="owc"></canvas>
+    <button id="owHybridToggle" type="button" aria-pressed="true">HD-2D PREVIEW: ON</button>
     <div id="owBlack" hidden style="position:absolute;inset:0;background:#000;z-index:2"></div>
     <div id="owTop"><b id="owTown">VAPOR CITY</b><span id="owObj"></span></div>
     <button id="owMenu">MENU</button>
@@ -8813,19 +8814,18 @@ setTimeout(()=>{const ro=document.getElementById('mRO');if(!ro||document.getElem
   if(window.CF_TEST){for(const [id,txt,o] of [['mPXgo','TEST: GO TO VAPOR PLAZA',{map:'street',x:15,y:14,d:'u',gates:1,ret:null}],['mPXback','TEST: BACK TO FERRY DOCK',{map:'harbor',x:35,y:39,d:'d',gates:1,ret:null}]]){
     const c=document.createElement('button');c.className='btn';c.id=id;c.textContent=txt;c.onclick=()=>{try{SAVE.ow=Object.assign({},o);persist();owShow()}catch(e){console.error(e)}};row.appendChild(c)}}},0);
 
-window.SG={eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;const miss=[];for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))miss.push(pal.key.slice(0,12)+'|'+vk);let am=0;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))am++;return {mode:G.mode,on:R.on,inited:R.inited,need:R.need.length,n0:R.need.n0,miss:miss.slice(0,8),nmiss:miss.length,artMissing:am,artReady:artReady(),carryReady:carryReady(),jobs:R.jobs.length,q:R.q.len
+window.SG={eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;const miss=[];for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))miss.push(pal.key.slice(0,12)+'|'+vk);let am=0;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))am++;return {mode:G.mode,on:R.on,inited:R.inited,need:R.need.length,n0:R.need.n0,miss:miss.slice(0,8),nmiss:miss.length,artMissing:am,artReady:artReady(),carryReady:carryReady(),jobs:R.jobs.length,q:R.q.length,busy:R.busy.size,fail:R.fail}},WSEG,CLUSTERS,camfix:o=>{window.__camFix=o},enterPlaycall:()=>enterPlaycall(),cam:()=>cam,LogoRenderer,LOGOS,LOGO_ORDER,registerLogo,logoId,logoSVG,LOGO_GLYPH,muState:()=>MU,lf:()=>ART.lf||[],SIDER:SIDER,RIGF,RIG,runInit,artDraw:(g,o)=>artDraw(g,o),uniFor:p=>uniFor(p),lookOf:d=>lookOf(d),playerPx:(...a)=>playerPx(...a),ART,artNumber:(...a)=>artNumber(...a),say:(a,b,c,d)=>say(a,b,c,d),setX:v=>{bannerExtra=v},popup:(a,b,c,d)=>popup(a,b,c,d),WALLY:()=>WALLY,sideVis:()=>sideVis,setPS:v=>{PSCALE=v;SPR.clear()},owLeave,owHide,P:(x,y)=>P(x,y),SND,OW,owShow,M:()=>M,owPlace,owTalk,owGot,owSay,renderPerson,lookOf,callPlay,endGame,get G(){return G},get F(){return F},get PLAY(){return PLAY},input,SAVE:()=>SAVE,startMatch,CREWS,PLAYS,throwTo,doJuke,doStiff,doStyle,startPlay,setSpeed:v=>{SPEED=v},resetSave:()=>{SAVE=freshSave();persist()},renderTeam,openGear,renderSquad,screens,renderMenu};
+})();
+</script>
+
+
+
 <script>
-/* HYBRID TEST CONTROL — toggles only a subtle perspective treatment on the original map canvas. */
+/* HYBRID TEST CONTROL — toggles a subtle perspective treatment on the original map canvas. */
 (function(){
   const canvas=document.getElementById('owc');
-  const world=document.getElementById('world');
-  if(!canvas||!world)return;
-  const button=document.createElement('button');
-  button.id='owHybridToggle';
-  button.type='button';
-  button.setAttribute('aria-pressed','true');
-  button.textContent='HD-2D PREVIEW: ON';
-  world.appendChild(button);
+  const button=document.getElementById('owHybridToggle');
+  if(!canvas||!button)return;
   const apply=on=>{
     canvas.classList.toggle('hybrid-preview',on);
     button.setAttribute('aria-pressed',String(on));
@@ -8835,9 +8835,4 @@ window.SG={eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;con
   apply(true);
 })();
 </script>
-gth,busy:R.busy.size,fail:R.fail}},WSEG,CLUSTERS,camfix:o=>{window.__camFix=o},enterPlaycall:()=>enterPlaycall(),cam:()=>cam,LogoRenderer,LOGOS,LOGO_ORDER,registerLogo,logoId,logoSVG,LOGO_GLYPH,muState:()=>MU,lf:()=>ART.lf||[],SIDER:SIDER,RIGF,RIG,runInit,artDraw:(g,o)=>artDraw(g,o),uniFor:p=>uniFor(p),lookOf:d=>lookOf(d),playerPx:(...a)=>playerPx(...a),ART,artNumber:(...a)=>artNumber(...a),say:(a,b,c,d)=>say(a,b,c,d),setX:v=>{bannerExtra=v},popup:(a,b,c,d)=>popup(a,b,c,d),WALLY:()=>WALLY,sideVis:()=>sideVis,setPS:v=>{PSCALE=v;SPR.clear()},owLeave,owHide,P:(x,y)=>P(x,y),SND,OW,owShow,M:()=>M,owPlace,owTalk,owGot,owSay,renderPerson,lookOf,callPlay,endGame,get G(){return G},get F(){return F},get PLAY(){return PLAY},input,SAVE:()=>SAVE,startMatch,CREWS,PLAYS,throwTo,doJuke,doStiff,doStyle,startPlay,setSpeed:v=>{SPEED=v},resetSave:()=>{SAVE=freshSave();persist()},renderTeam,openGear,renderSquad,screens,renderMenu};
-})();
-</script>
-
-
 </body></html>
