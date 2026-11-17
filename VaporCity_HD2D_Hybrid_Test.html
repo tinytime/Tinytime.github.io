@@ -470,7 +470,7 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
     <canvas id="owc"></canvas>
     <button id="owHybridToggle" type="button" aria-pressed="true">HD-2D PREVIEW: ON</button>
     <button id="owNpcGalleryToggle" type="button" aria-expanded="false">NPC STYLE GALLERY</button>
-    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — GRANNY VOLT BENCHMARK</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><canvas id="owNpcGalleryCanvas" width="720" height="150"></canvas><div class="npcGalleryNote">Five existing archetypes · front view · shared renderer · no map NPCs added</div></div>
+    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — GRANNY VOLT BENCHMARK</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><canvas id="owNpcGalleryCanvas" width="720" height="150"></canvas><div class="npcGalleryNote">Five civilian archetypes plus Granny Volt · front view · shared renderer · no map NPCs added</div></div>
     <div id="owBlack" hidden style="position:absolute;inset:0;background:#000;z-index:2"></div>
     <div id="owTop"><b id="owTown">VAPOR CITY</b><span id="owObj"></span></div>
     <button id="owMenu">MENU</button>
@@ -8479,8 +8479,8 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride){
 function owPixelTone(hex,delta){
   const m=/^#([0-9a-f]{6})$/i.exec(hex||'');
   if(!m)return hex||'#777777';
-  const n=parseInt(m[1],16),v=[(n>>16)&255,(n>>8)&255,n&255],t=delta<0?0:255,a=Math.min(.48,Math.abs(delta)/100);
-  return '#'+v.map(c=>Math.round(c+(t-c)*a).toString(16).padStart(2,'0')).join('');
+  const n=parseInt(m[1],16),v=[(n>>16)&255,(n>>8)&255,n&255],factor=delta<0?1+delta/100:1+delta/100;
+  return '#'+v.map(c=>Math.max(0,Math.min(255,Math.round(c*factor))).toString(16).padStart(2,'0')).join('');
 }
 function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const kind=n.civ;
@@ -8493,9 +8493,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
   const side=dir==='l'||dir==='r',back=dir==='u',f=dir==='l'?-1:1;
   const skin=['#e6b48a','#c98a62','#8a5a3a','#f0c8a0'][((n.x*5+n.y)|0)%4];
-  const ink='#171725',body=P.body||'#777777',shadow=owPixelTone(body,-42),highlight=owPixelTone(body,38);
-  const pant=P.pants||'#252535',pantShadow=owPixelTone(pant,-38),pantHighlight=owPixelTone(pant,34);
-  const hair=P.hair||'#211a22',hairHighlight=owPixelTone(hair,32),trim=P.trim||'#d8d8d8',trimShadow=owPixelTone(trim,-34);
+  const ink='#141622',body=P.body||'#777777',shadow=owPixelTone(body,-20),highlight=owPixelTone(body,20);
+  const pant=P.pants||'#252535',pantShadow=owPixelTone(pant,-20),pantHighlight=owPixelTone(pant,20);
+  const hair=P.hair||'#211a22',hairHighlight=owPixelTone(hair,20),trim=P.trim||'#d8d8d8',trimShadow=owPixelTone(trim,-20);
   const step=moving?Math.sin(tm*11+ph*6):0,bob=moving?Math.abs(step)*.55:Math.sin(tm*2+n.x)*.16;
   const rows=[[-5,5],[-7,7],[-7,7],[-7,7],[-6,6],[-6,6],[-6,6],[-6,6],[-5,5],[-5,5],[-5,5],[-5,5],[-6,6],[-6,6],[-5,5],[-4,4]];
   g.save();g.translate(Math.round(sx),Math.round(sy-bob));g.scale(U,U);
@@ -8507,11 +8507,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const ky=-8+phase,fy=-2+phase;
     const pts=[[hip-2,-15],[hip+2,-15],[hip+2,ky-1],[knee+2,ky],[knee+2,fy-1],[ankle+2,fy],[ankle+2,0],[ankle-2,0],[ankle-2,fy],[knee-2,fy-1],[knee-2,ky],[hip-2,ky-1]];
     g.beginPath();g.moveTo(pts[0][0],pts[0][1]);pts.slice(1).forEach(q=>g.lineTo(q[0],q[1]));g.closePath();g.fillStyle=ink;g.fill();
-    px(hip-1,-14,2,Math.max(2,ky+13),pant);px(knee-1,ky,2,Math.max(2,fy-ky),pantShadow);
+    px(hip-1,-14,2,Math.max(2,ky+13),pant);px(hip-1,-13,1,Math.max(2,ky+11),pantHighlight);px(knee-1,ky,2,Math.max(2,fy-ky),pantShadow);
     px(ankle-1,fy,2,Math.max(1,-fy),pant);px(hip-1,-13,1,Math.max(2,ky+11),pantHighlight);
     px(knee-1,ky,2,1,trimShadow);px(ankle-3,-1,6,2,ink);px(ankle-2,-1,4,1,'#292638');
   };
-  if(!n.sit){leg(-3,-2+swing,-3+swing,0);leg(3,4-swing,3-swing,1)}
+  if(!n.sit){leg(-4,-3+swing,-4+swing,0);leg(4,5-swing,4-swing,1)}
   else{px(-5,-5,4,4,ink);px(-4,-5,3,3,pant);px(1,-5,4,4,ink);px(2,-5,3,3,pant)}
   const top=-29-(P.long?2:0),bodyRows=P.long?rows.concat([[-4,4],[-4,4]]):rows;
   // Shoulder, waist and hip rows shift independently to form a relaxed S-curve.
@@ -8532,16 +8532,18 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const ey=armY+6+armSwing*phase,wy=armY+11+armSwing*phase;
     const pts=[[shoulder-2,armY],[shoulder+2,armY],[shoulder+2,ey-1],[elbow+2,ey],[elbow+2,wy-1],[wrist+2,wy],[wrist+2,wy+2],[wrist-2,wy+2],[wrist-2,wy],[elbow-2,wy-1],[elbow-2,ey],[shoulder-2,ey-1]];
     g.beginPath();g.moveTo(pts[0][0],pts[0][1]);pts.slice(1).forEach(q=>g.lineTo(q[0],q[1]));g.closePath();g.fillStyle=ink;g.fill();
-    px(shoulder-1,armY,2,Math.max(2,ey-armY-1),body);px(elbow-1,ey,2,Math.max(2,wy-ey),shadow);
+    px(shoulder-1,armY,2,Math.max(2,ey-armY-1),body);px(shoulder-1,armY,1,Math.max(2,ey-armY-1),highlight);px(elbow-1,ey,2,Math.max(2,wy-ey),shadow);
     px(wrist-1,wy,2,2,skin);px(shoulder-1,armY,1,Math.max(2,ey-armY-1),highlight);
     px(elbow+1,ey+1,1,Math.max(1,wy-ey-1),shadow);px(wrist-1,wy,1,1,owPixelTone(skin,20));
   };
-  if(!back){if(side)arm(f*5,f*7,f*6,-f);else{arm(-6,-8,-7,1);arm(6,8,7,-1)}}
-  else{arm(-6,-7,-7,1);arm(6,7,7,-1)}
+  if(!back){if(side)arm(f*5,f*4,f*6,-f);else{arm(-6,-5,-7,1);arm(6,5,7,-1)}}
+  else{arm(-6,-5,-7,1);arm(6,5,7,-1)}
   const hy=top-8,headRows=[[-3,3],[-5,5],[-6,6],[-6,6],[-6,6],[-5,5],[-4,4],[-2,2]];
-  for(let r=0;r<headRows.length;r++){const [l,h]=headRows[r];px(l-1,hy+r,h-l+2,1,ink);px(l,hy+r,h-l+1,1,skin);if(r===2)px(-5,hy+r,2,1,owPixelTone(skin,22))}
+  for(let r=0;r<headRows.length;r++){const [l,h]=headRows[r];px(l,hy+r,h-l+1,1,ink);px(l+1,hy+r,h-l-1,1,skin);if(r===2)px(-4,hy+r,2,1,owPixelTone(skin,20))}
   // Face follows Granny's compact two-pixel eye and one-pixel mouth language.
-  if(!back){if(side){px(f*3,hy+3,2,1,'#202A3A');px(f*5,hy+4,1,1,owPixelTone(skin,-15))}else{px(-3,hy+3,2,1,'#202A3A');px(2,hy+3,2,1,'#202A3A');px(-1,hy+5,1,1,'#8D554E')}}
+  if(!back){if(side){px(f*3+1,hy+3,2,1,'#202A3A');px(f*5+1,hy+4,1,1,owPixelTone(skin,-15))}else{px(-2,hy+3,2,1,'#202A3A');px(3,hy+3,2,1,'#202A3A');px(0,hy+5,1,1,'#8D554E')}}
+  // One-pixel chin shadow separates the face from the neck.
+  px(1,hy+7,2,1,owPixelTone(skin,-20));
   if(!P.hood&&!P.helm){px(-6,hy-1,12,2,ink);px(-5,hy-1,10,2,hair);px(-5,hy-1,4,1,hairHighlight);if(back){px(-6,hy+1,2,5,ink);px(4,hy+1,2,5,ink);px(-5,hy+1,1,4,hair);px(5,hy+1,1,4,hair)}if(P.bun){px(-1,hy-5,4,4,ink);px(0,hy-5,3,3,hair);px(0,hy-5,2,1,hairHighlight)}}
   if(P.hood){px(-7,hy-2,14,3,ink);px(-6,hy-2,12,2,body);if(P.ears){px(-7,hy-5,3,4,ink);px(5,hy-5,3,4,ink)}}
   if(P.helm){px(-7,hy-3,14,5,ink);px(-6,hy-3,12,3,'#10161e');px(-5,hy-2,10,1,trim);if(!back)px(-5,hy+1,10,1,'#27e0ff')}
