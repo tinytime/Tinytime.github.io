@@ -7662,10 +7662,11 @@ function owBakeB(g,b,R){
   for(let i=0;i<b.w;i++){
     if(isDoorCol(i)){
       const dx=X+i*BP;g.fillStyle='#03060a';g.fillRect(dx+6,fy+BP*.35,BP-12,fh-BP*.35);
-      g.strokeStyle=b.col2;g.lineWidth=4;g.shadowColor=b.col2;g.shadowBlur=16;g.strokeRect(dx+6,fy+BP*.35,BP-12,fh-BP*.35);g.shadowBlur=0;
-      const dg=g.createLinearGradient(0,fy+BP*.4,0,fy+fh);dg.addColorStop(0,nrgba(b.col2,.12));dg.addColorStop(1,nrgba(b.col2,.42));g.fillStyle=dg;g.fillRect(dx+8,fy+BP*.4,BP-16,fh-BP*.4);
-      g.fillStyle='rgba(255,255,255,.55)';g.fillRect(dx+9,fy+BP*.4,2,fh-BP*.4);g.fillRect(dx+BP-11,fy+BP*.4,2,fh-BP*.4);   // lit door jambs
-      g.fillStyle='#15202b';g.fillRect(dx+3,fy+fh-6,BP-6,6);g.fillStyle=nrgba(b.col2,.8);g.fillRect(dx+6,fy+fh-6,BP-12,2);   // threshold step
+      g.strokeStyle=b.col2;g.lineWidth=3;g.shadowColor=b.col2;g.shadowBlur=8;g.strokeRect(dx+6,fy+BP*.35,BP-12,fh-BP*.35);g.shadowBlur=0;
+      const dg=g.createLinearGradient(0,fy+BP*.4,0,fy+fh);dg.addColorStop(0,'rgba(0,0,0,.24)');dg.addColorStop(1,nrgba(b.col2,.20));g.fillStyle=dg;g.fillRect(dx+8,fy+BP*.4,BP-16,fh-BP*.4);
+      g.fillStyle='rgba(255,255,255,.22)';g.fillRect(dx+9,fy+BP*.4,1,fh-BP*.4);g.fillRect(dx+BP-10,fy+BP*.4,1,fh-BP*.4);   // subdued recessed jambs
+      g.fillStyle='#101a25';g.fillRect(dx+6,fy+fh-3,BP-12,3);g.fillStyle=nrgba(b.col2,.42);g.fillRect(dx+8,fy+fh-3,BP-16,1);   // flush sill, aligned to the sidewalk
+      g.fillStyle='rgba(0,0,0,.32)';g.beginPath();g.ellipse(dx+BP/2,fy+fh+2,BP*.34,2.5,0,0,7);g.fill();   // tight contact shadow below the threshold
       g.fillStyle='#fff';g.shadowColor=b.col2;g.shadowBlur=12;g.beginPath();g.arc(dx+BP/2,fy+BP*.3,3.2,0,7);g.fill();g.shadowBlur=0;   // door lamp
       LG.push({x:dx+BP/2,y:fy+fh,r:BP*1.5,col:b.col2,a:.26,f:R()*9});
     }else{
