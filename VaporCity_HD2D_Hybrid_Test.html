@@ -8395,7 +8395,7 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph){
 }
 
 function owCiv(x,y,dir,moving,n,tm,ph){
-  const kind=n.civ;if(kind==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph);return}const P=Object.assign({},CIV[kind]||CIV.fan);
+  const kind=n.civ;if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph);return}const P=Object.assign({},CIV[kind]||CIV.fan);
   if(n.hb)Object.assign(P,HB_CIV[kind]||HB_CIV.fan);
   if(kind==='fan'&&n.hb){P.body=HB_FANC[((n.x*7+n.y*3)|0)%HB_FANC.length];P.pants=['#26333C','#2b3036','#1f2a30'][(n.x+n.y)%3]}else if(kind==='fan'){P.body=CIV_FANC[((n.x*7+n.y*3)|0)%CIV_FANC.length];P.pants=['#1a2433','#241a2e','#10202a'][(n.x+n.y)%3]}
   const g=og,U=OWT/36*P.sc*[.95,1,1.07,.98,1.04][((n.x*3+n.y*5)|0)%5],sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6,side=dir==='l'||dir==='r',back=dir==='u',f=dir==='l'?-1:1;
