@@ -8470,6 +8470,43 @@ function owFrame(dt){
   }
   if(fitX||fitY)og.drawImage(M.baked,0,0,M.baked.width,M.baked.height,0,0,mw,mh);
   else og.drawImage(M.baked,cx/k,cy/k,W/k,H/k,cx,cy,W,H);
+  /* HYBRID ROOFTOP PASS: restrained raised roof equipment and parapet
+     highlights add a readable upper plane without repainting the source art. */
+  if(M.id==='street'&&owc.classList.contains('hybrid-preview')){
+    for(let bi=0;bi<OWB.length;bi++){
+      const b=OWB[bi],x=b.x*OT,y=b.y*OT,w=b.w*OT,h=b.h*OT;
+      const inset=Math.max(3,OT*.12),topH=Math.min(h*.27,OT*1.35);
+      og.save();
+      og.lineWidth=Math.max(1,OT*.035);
+      og.strokeStyle='rgba(185,205,235,.20)';
+      og.strokeRect(x+inset,y+inset,w-inset*2,h-inset*2);
+      og.strokeStyle=b.col;og.globalAlpha=.30;
+      og.beginPath();og.moveTo(x+inset,y+inset);og.lineTo(x+w-inset,y+inset);og.stroke();
+      og.globalAlpha=.16;og.strokeStyle='#d9eaff';
+      og.beginPath();og.moveTo(x+inset,y+inset+topH);og.lineTo(x+w-inset,y+inset+topH);og.stroke();
+      // A small raised service unit, positioned deterministically per building.
+      const unitW=Math.max(OT*.38,Math.min(w*.22,OT*1.15));
+      const ux=x+inset+(bi%2? w*.58:w*.18),uy=y+inset+topH*.32;
+      const uh=Math.max(OT*.20,topH*.34);
+      og.fillStyle='rgba(4,9,19,.82)';
+      og.fillRect(ux,uy,unitW,uh);
+      og.fillStyle='rgba(100,135,175,.30)';
+      og.fillRect(ux,uy,unitW,Math.max(1,OT*.045));
+      og.strokeStyle='rgba(180,205,235,.32)';og.lineWidth=1;
+      og.strokeRect(ux,uy,unitW,uh);
+      og.fillStyle=b.col;og.globalAlpha=.34;
+      og.fillRect(ux+unitW*.18,uy+uh*.35,unitW*.64,Math.max(1,OT*.035));
+      // Low-profile vent slats on the larger rooftops.
+      if(w>OT*5){
+        og.globalAlpha=.25;og.strokeStyle='#a9bfdc';og.lineWidth=Math.max(1,OT*.025);
+        for(let k=0;k<3;k++){
+          const vx=x+w*.34+k*OT*.24,vy=y+inset+topH*.48;
+          og.beginPath();og.moveTo(vx,vy);og.lineTo(vx+OT*.16,vy-OT*.08);og.stroke();
+        }
+      }
+      og.restore();
+    }
+  }
   const tm=performance.now()/1000;
   if(M.id==='street'){for(const [gx,gy] of M.gates){if(gx<28&&owGateOpen())continue;const X=gx*OT,Y=gy*OT,vt=gx>=28,pul=.5+.4*Math.sin(tm*4+gx+gy);
       og.fillStyle='#0a0818';og.fillRect(X,Y+OT*.12,OT,OT*.76);og.fillStyle='#e8c53a';
