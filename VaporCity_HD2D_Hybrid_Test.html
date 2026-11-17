@@ -8570,12 +8570,14 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const top=-29-(P.long?2:0),torsoShift=1,hy=top-8;
   const waistY=top+bodyRowsLength(P);
   const torso=[[-2+torsoShift,top+1],[2+torsoShift,top+1],[3+torsoShift,top+2],[3+torsoShift,top+7],[2+torsoShift,top+8],[2+torsoShift,top+13],[3+torsoShift,top+14],[3+torsoShift,waistY],[-3+torsoShift,waistY],[-3+torsoShift,top+14],[-2+torsoShift,top+13],[-2+torsoShift,top+8],[-3+torsoShift,top+7],[-3+torsoShift,top+2]];
-  polygon(torso,body,ink,1.15);
+  polygon(torso,body,null,0);
   // Three-tone fill is clipped to the stepped silhouette, not a bounding box.
   g.save();g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.clip();
   const torsoGrad=g.createLinearGradient(-3+torsoShift,0,3+torsoShift,0);
   torsoGrad.addColorStop(0,body.highlight);torsoGrad.addColorStop(.49,body.highlight);torsoGrad.addColorStop(.50,body.base);torsoGrad.addColorStop(.51,body.shadow);torsoGrad.addColorStop(1,body.shadow);
   g.fillStyle=torsoGrad;g.fillRect(-4+torsoShift,top,8,bodyRowsLength(P)+2);g.restore();
+  // Ink contour is applied after the complete opaque three-tone torso fill.
+  g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.strokeStyle=ink;g.lineWidth=1.15;g.lineJoin='miter';g.lineCap='square';g.stroke();
   // The waist is a separate four-pixel shadow plane, inset on both sides.
   polygon([[-2+torsoShift,top+8],[2+torsoShift,top+8],[2+torsoShift,top+13],[-2+torsoShift,top+13]],{highlight:body.shadow,base:body.shadow,shadow:body.shadow},null,0);
   line([[-2+torsoShift,top+8],[2+torsoShift,top+8]],ink,1);
@@ -8671,7 +8673,15 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   g.restore();
   // Trace only the exterior boundary of the fully composited opaque pixels.
   // The dark ink seam and elbow overlap are therefore interior, not rim-lit.
-  const pixels=g.getImageData(0,0,64,64),rim=g.createImageData(64,64),alpha=pixels.data;
+  // Layer 1–3 are already composed on rimCanvas: opaque material fills,
+  // clipped three-tone shading, then the #141622 internal/outer ink contours.
+  // Build rim light on a SEPARATE transparent surface so putImageData can never
+  // replace (or erase) the completed character beneath it.
+  const pixels=g.getImageData(0,0,64,64),alpha=pixels.data;
+  const rimCanvas=owCiv._rimOverlayCanvas||(owCiv._rimOverlayCanvas=document.createElement('canvas'));
+  if(rimCanvas.width!==64)rimCanvas.width=64;if(rimCanvas.height!==64)rimCanvas.height=64;
+  const rimG=rimCanvas.getContext('2d');rimG.clearRect(0,0,64,64);
+  const rim=rimG.createImageData(64,64);
   // Flood-fill transparent pixels from the canvas boundary. This distinguishes
   // the true exterior from enclosed/internal gaps between overlapping limbs.
   const outside=new Uint8Array(64*64),stack=[];
@@ -8689,8 +8699,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const c=pxl<24?[255,154,61]:[41,242,232];
     rim.data[k]=c[0];rim.data[k+1]=c[1];rim.data[k+2]=c[2];rim.data[k+3]=255;
   }
-  g.putImageData(rim,0,0);
+  rimG.putImageData(rim,0,0);
+  // Layer 4: draw the thin exterior rim as an overlay, never as a replacement.
   targetG.drawImage(rimCanvas,sx-24*U,sy-bob-48*U,64*U,64*U);
+  targetG.drawImage(owCiv._rimOverlayCanvas,sx-24*U,sy-bob-48*U,64*U,64*U);
 }
 function bodyRowsLength(P){return P.long?18:16}
 function owCat(x,y,d,tm,pal){
