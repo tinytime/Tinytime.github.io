@@ -8484,13 +8484,13 @@ function applyShading(baseHex){
   return {
     highlight:hex(channels.map(v=>Math.min(255,v*1.20))),
     base:hex(channels),
-    shadow:hex(channels.map(v=>v*.80))
+    shadow:hex(channels.map(v=>v*.70))
   };
 }
 function owPixelTone(hex,delta){
   const ramp=applyShading(hex);
   if(delta===20)return ramp.highlight;
-  if(delta===-20)return ramp.shadow;
+  if(delta===-30)return ramp.shadow;
   const m=/^#([0-9a-f]{6})$/i.exec(hex||'');
   if(!m)return hex||'#777777';
   const n=parseInt(m[1],16),v=[(n>>16)&255,(n>>8)&255,n&255];
@@ -8555,7 +8555,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
 
   // A continuous shoulder-to-hip silhouette makes the torso read as volume,
   // not a stack of flat scanlines. The head/torso sit one pixel right.
-  const top=-29-(P.long?2:0),torsoShift=1;
+  const top=-29-(P.long?2:0),torsoShift=1,hy=top-8;
   const torso=[
     [-5+torsoShift,top+1],[ -7+torsoShift,top+4],[-7+torsoShift,top+11],
     [-6+torsoShift,top+16],[-5+torsoShift,top+22],[-6+torsoShift,top+27],
@@ -8584,23 +8584,23 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Arms have real shoulder, elbow and wrist geometry. Each outlined limb is
   // four pixels wide (two-pixel interior), with a one-pixel inward elbow bend.
   const armY=top+4,armSwing=n.sit?0:Math.round(step*.5);
-  const arm=(shoulder,elbow,wrist,phase)=>{
-    const ey=armY+6+armSwing*phase,wy=armY+11+armSwing*phase;
-    const s=shoulder+torsoShift,e=elbow+torsoShift+ (elbow<0?1:-1),w=wrist+torsoShift;
-    limb([[s-2,armY],[s+2,armY],[s+2,ey-1],[e+2,ey],[e+2,wy-1],[w+2,wy],[w+2,wy+2],[w-2,wy+2],[w-2,wy],[e-2,wy-1],[e-2,ey],[s-2,ey-1]],body);
+  const arm=(shoulder,elbow,wrist,phase,bent=false)=>{
+    const ey=armY+(bent?7:6)+armSwing*phase,wy=bent?top+bodyRowsLength(P)-1:armY+11+armSwing*phase;
+    const s=shoulder+torsoShift,e=elbow+torsoShift+(elbow<0?1:-1),w=wrist+torsoShift;
+    limb(bent?[[s-2,armY],[s+2,armY],[s+2,ey-1],[e+2,ey],[e+2,wy-1],[w+2,wy],[w+2,wy+2],[w-2,wy+2],[w-2,wy],[e-2,wy-1],[e-2,ey],[s-2,ey-1]]:[[s-2,armY],[s+2,armY],[s+2,wy],[w+2,wy+1],[w+2,wy+3],[w-2,wy+3],[w-2,wy+1],[s-2,wy]],body);
     line([[s-1,armY+1],[s-1,ey-1],[e-1,ey+1]],body.highlight,1);
+    line([[s+2,armY+2],[s+2,wy-1]],ink,1);
     line([[e+1,ey+1],[e+1,wy-1]],body.shadow,1);
     polygon([[w-2,wy+1],[w+2,wy+1],[w+2,wy+4],[w-2,wy+4]],skinTone,ink,1);
     px(w-1,wy+1,1,1,skinTone.highlight);
   };
-  if(!back){if(side)arm(f*5,f*4,f*6,-f);else{arm(-6,-5,-7,1);arm(6,5,7,-1)}}
-  else{arm(-6,-5,-7,1);arm(6,5,7,-1)}
+  if(!back){if(side)arm(f*5,f*4,f*6,-f);else{arm(-6,-6,-7,1,false);arm(6,9,7,-1,true)}}
+  else{arm(-6,-6,-7,1,false);arm(6,9,7,-1,true)}
 
   // Head offset follows the torso. Head is a compact sculpted silhouette,
   // with consistent one-pixel eyes/mouth and a distinct chin-to-neck shadow.
   g.save();g.translate(1,0);
-  const hy=top-8;
-  polygon([[-3,hy],[-5,hy+2],[-6,hy+4],[-6,hy+9],[-4,hy+12],[-2,hy+14],[2,hy+14],[4,hy+12],[6,hy+9],[6,hy+4],[5,hy+2],[3,hy]],skinTone,ink,1);
+  polygon([[-2,hy],[-4,hy],[-5,hy+2],[-6,hy+4],[-6,hy+9],[-4,hy+12],[-2,hy+14],[2,hy+14],[4,hy+12],[6,hy+9],[6,hy+4],[5,hy+2],[4,hy],[2,hy]],skinTone,ink,1);
   polygon([[-2,hy+13],[3,hy+13],[3,hy+16],[-2,hy+16]],applyShading('#b97966'),ink,1);
   if(!back){
     if(side){px(f*3,hy+5,1,1,'#202A3A');px(f*4,hy+7,1,1,skinTone.shadow)}
@@ -8608,8 +8608,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   }
   px(0,hy+13,3,1,skinTone.shadow);
   if(!P.hood&&!P.helm){
-    polygon([[-6,hy+1],[-5,hy-2],[4,hy-2],[6,hy+1],[5,hy+4],[3,hy+2],[-4,hy+3]],hair,ink,1);
+    polygon([[-6,hy+2],[-6,hy],[-4,hy-2],[-2,hy-3],[3,hy-3],[5,hy-1],[6,hy+2],[5,hy+5],[4,hy+4],[4,hy+2],[2,hy+1],[-3,hy+1],[-5,hy+4],[-6,hy+6]],hair,ink,1);
     line([[-4,hy-1],[0,hy-2],[3,hy-1]],hair.highlight,1);
+    line([[-5,hy+4],[-5,hy+8]],hair.shadow,1);line([[5,hy+3],[5,hy+7]],hair.shadow,1);
+    line([[-4,hy+2],[4,hy+2]],hair.shadow,1);
     if(back){line([[-5,hy+3],[-5,hy+9]],hair.shadow,2);line([[5,hy+3],[5,hy+9]],hair.shadow,2)}
     if(P.bun)polygon([[-1,hy-5],[3,hy-5],[4,hy-1],[0,hy]],hair,ink,1);
   }
@@ -8620,6 +8622,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   else if(P.hat==='wide')polygon([[-10,hy],[-7,hy-2],[-5,hy-5],[5,hy-5],[7,hy-2],[10,hy]],trim,ink,1);
   if(P.band)line([[-5,hy+2],[5,hy+2]],P.band,1);
   g.restore();
+  // Separate shirt from trousers and carve a collar shadow into every outfit.
+  line([[-5+torsoShift,top+4],[5+torsoShift,top+4]],body.shadow,1);
+  line([[-5+torsoShift,top+bodyRowsLength(P)],[5+torsoShift,top+bodyRowsLength(P)]],ink,1);
+  line([[-4+torsoShift,top+bodyRowsLength(P)+1],[4+torsoShift,top+bodyRowsLength(P)+1]],pants.shadow,1);
 
   // Existing profession-specific props stay attached to the newly articulated pose.
   if(P.umb){line([[8,hy-9],[9,hy+9]],ink,1);line([[9,hy-9],[10,hy+9]],P.umb,1);polygon([[-1,hy-12],[11,hy-12],[9,hy-10],[1,hy-10]],applyShading(P.umb),ink,1)}
