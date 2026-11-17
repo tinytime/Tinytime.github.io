@@ -142,11 +142,13 @@ function build(){
     const win=[{x0:.35,x1:Math.max(.7,b.w-.35),y0:.65,y1:Math.max(1.4,h-.65),w:.48,h:.42,gx:.26,gy:.32,cols:winCols,lit:.58}];
     building(wx(b.x),wx(b.x+b.w),wz(b.y),wz(b.y+b.h),h,{base,trim,win,doors,panel:48,ei:1.65,roof:0x15172a,
       sideWin:[{x0:.35,x1:Math.max(.7,b.h-.35),y0:.6,y1:h-.4,w:.42,h:.4,gx:.3,gy:.3,cols:winCols,lit:.38}]});
-    // Front-facing sign at the real building footprint, with a soft coloured light pool.
-    const sx=wx(b.x+b.w/2), sz=wz(b.y+b.h)+.18, sw=Math.min(b.w-1,Math.max(1.7,b.sign.length*.22));
-    const st=signTex(b.sign,b.sub||null,trim,accent,1024,220);
-    neonSign(st,sw,.52,sx,h*.53,sz,trim,1.35,7.5);
-    plight(trim,5.5,sx,h*.36,sz+.6,Math.max(3,b.w*.75));
+    // Oversized rooftop marquee: keep the windowed facade clear and put the
+    // building name above the roofline, like a classic neon city landmark.
+    const sx=wx(b.x+b.w/2), sz=wz(b.y+b.h)+.18;
+    const sw=Math.min(b.w+.35,Math.max(2.8,b.sign.length*.31));
+    const st=signTex(b.sign,b.sub||null,trim,accent,1024,256);
+    neonSign(st,sw,1.05,sx,h+1.05,sz,trim,2.25,12);
+    plight(trim,7,sx,h+.55,sz+.7,Math.max(4,b.w));
     // Doorway light and short neon spill on the wet pavement.
     for(const d of b.doors){const dx=wx(d[0]+.5),dz=wz(b.y+b.h)+.1;plight(trim,2.6,dx,1.2,dz+.8,3.5);streak(dx,dz+.8,trim,1.5,.22)}
   }
