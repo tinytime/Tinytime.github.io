@@ -8672,9 +8672,19 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Trace only the exterior boundary of the fully composited opaque pixels.
   // The dark ink seam and elbow overlap are therefore interior, not rim-lit.
   const pixels=g.getImageData(0,0,64,64),rim=g.createImageData(64,64),alpha=pixels.data;
+  // Flood-fill transparent pixels from the canvas boundary. This distinguishes
+  // the true exterior from enclosed/internal gaps between overlapping limbs.
+  const outside=new Uint8Array(64*64),stack=[];
+  for(let q=0;q<64;q++){stack.push(q,63*64+q,q*64,q*64+63)}
+  while(stack.length){
+    const q=stack.pop();if(q<0||q>=4096||outside[q]||alpha[q*4+3]>=220)continue;
+    outside[q]=1;const xq=q%64,yq=(q/64)|0;
+    if(xq>0)stack.push(q-1);if(xq<63)stack.push(q+1);
+    if(yq>0)stack.push(q-64);if(yq<63)stack.push(q+64);
+  }
   for(let py=1;py<63;py++)for(let pxl=1;pxl<63;pxl++){
-    const k=(py*64+pxl)*4;if(alpha[k+3]<220)continue;
-    const edge=alpha[k-4+3]<220||alpha[k+4+3]<220||alpha[k-256+3]<220||alpha[k+256+3]<220;
+    const q=py*64+pxl,k=q*4;if(alpha[k+3]<220)continue;
+    const edge=outside[q-1]||outside[q+1]||outside[q-64]||outside[q+64];
     if(!edge)continue;
     const c=pxl<24?[255,154,61]:[41,242,232];
     rim.data[k]=c[0];rim.data[k+1]=c[1];rim.data[k+2]=c[2];rim.data[k+3]=255;
