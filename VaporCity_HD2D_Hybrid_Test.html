@@ -8394,7 +8394,7 @@ function makeGrannyPixelLayers(dir,frame,hairFrame){
   px(u,25,15,14,2,'rgba(20,22,34,.38)');px(u,26,17,12,2,'rgba(20,22,34,.32)');
   px(u,27,19,10,1,'rgba(20,22,34,.22)');
   const layers={body,jacket,hair,umbrella};
-  if(flip){for(const cv of Object.values(layers)){const cx=cv.getContext('2d');const tmp=document.createElement('canvas');tmp.width=64;tmp.height=96;const tx=tmp.getContext('2d');tx.imageSmoothingEnabled=false;tx.translate(64,0);tx.scale(-1,1);tx.drawImage(cv,0,0);cx.clearRect(0,0,64,96);cx.drawImage(tmp,0,0)}}
+  if(flip){for(const cv of Object.values(layers)){const cx=cv.getContext('2d');const tmp=document.createElement('canvas');tmp.width=64;tmp.height=96;const tx=tmp.getContext('2d');tx.imageSmoothingEnabled=false;tx.translate(64,0);tx.scale(-1,1);tx.drawImage(cv,0,0);cx.clearRect(0,0,64,96);cx.drawImage(tmp,0,0)};px(b,25,59,1,20,warm);px(b,38,59,1,20,cool);px(j,21,33,1,23,warm);px(j,42,33,1,23,cool);px(h,23,11,1,17,warm);px(h,40,11,1,17,cool);px(u,15,9,1,5,warm);px(u,49,9,1,5,cool)}
   const result={layers,breath,hairLag};
   grannyPixelCache.set(key,result);return result;
 }
