@@ -8678,9 +8678,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Build rim light on a SEPARATE transparent surface so putImageData can never
   // replace (or erase) the completed character beneath it.
   const pixels=g.getImageData(0,0,64,64),alpha=pixels.data;
-  const rimCanvas=owCiv._rimOverlayCanvas||(owCiv._rimOverlayCanvas=document.createElement('canvas'));
-  if(rimCanvas.width!==64)rimCanvas.width=64;if(rimCanvas.height!==64)rimCanvas.height=64;
-  const rimG=rimCanvas.getContext('2d');rimG.clearRect(0,0,64,64);
+  const rimOverlayCanvas=owCiv._rimOverlayCanvas||(owCiv._rimOverlayCanvas=document.createElement('canvas'));
+  if(rimOverlayCanvas.width!==64)rimOverlayCanvas.width=64;if(rimOverlayCanvas.height!==64)rimOverlayCanvas.height=64;
+  const rimG=rimOverlayCanvas.getContext('2d');rimG.clearRect(0,0,64,64);
   const rim=rimG.createImageData(64,64);
   // Flood-fill transparent pixels from the canvas boundary. This distinguishes
   // the true exterior from enclosed/internal gaps between overlapping limbs.
@@ -8702,7 +8702,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   rimG.putImageData(rim,0,0);
   // Layer 4: draw the thin exterior rim as an overlay, never as a replacement.
   targetG.drawImage(rimCanvas,sx-24*U,sy-bob-48*U,64*U,64*U);
-  targetG.drawImage(owCiv._rimOverlayCanvas,sx-24*U,sy-bob-48*U,64*U,64*U);
+  targetG.drawImage(rimOverlayCanvas,sx-24*U,sy-bob-48*U,64*U,64*U);
 }
 function bodyRowsLength(P){return P.long?18:16}
 function owCat(x,y,d,tm,pal){
