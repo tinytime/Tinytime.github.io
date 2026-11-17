@@ -8516,7 +8516,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const targetG=ctxOverride||og,U=OWT/36*P.sc*[.95,1,1.07,.98,1.04][((n.x*3+n.y*5)|0)%5];
   // Render the complete NPC into a compact transparent layer so rim light can be
   // derived from the final alpha silhouette, never from individual limb paths.
-  const rimCanvas=document.createElement('canvas');rimCanvas.width=64;rimCanvas.height=64;
+  const rimCanvas=owCiv._rimCanvas||(owCiv._rimCanvas=document.createElement('canvas'));
+  if(rimCanvas.width!==64)rimCanvas.width=64;if(rimCanvas.height!==64)rimCanvas.height=64;
   const g=rimCanvas.getContext('2d');
   const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
   const side=dir==='l'||dir==='r',back=dir==='u',f=dir==='l'?-1:1;
