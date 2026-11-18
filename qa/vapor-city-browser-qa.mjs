@@ -32,6 +32,18 @@ const npcInventoryCheck = {
   error: npcInventoryRun.stderr || (npcInventoryRun.status === 0 ? null : 'NPC inventory validation failed')
 };
 
+const grannyRefPath = path.join(root, 'qa', 'granny-ref.json');
+const grannyRefExpected = JSON.parse(fs.readFileSync(grannyRefPath, 'utf8'));
+const grannyRefGeneratorRun = spawnSync(process.execPath, [path.join(root, 'qa', 'generate-granny-ref.mjs'), '--check'], {
+  cwd: root,
+  encoding: 'utf8'
+});
+const grannyRefGeneratorCheck = {
+  ok: grannyRefGeneratorRun.status === 0,
+  stdout: (grannyRefGeneratorRun.stdout || '').trim(),
+  error: grannyRefGeneratorRun.stderr || (grannyRefGeneratorRun.status === 0 ? null : 'Granny reference loader is stale')
+};
+
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
 const pageErrors = [];
@@ -103,10 +115,34 @@ try {
     if (!window.SG || typeof window.SG.npcMeasureGranny !== 'function') throw new Error('Granny measurement hook is unavailable');
     return window.SG.npcMeasureGranny();
   });
+  const grannyRuntimeRef = await page.evaluate(() => ({
+    source: window.GRANNY_REF_DATA || null,
+    active: window.SG?.npcGrannyRef?.() || null
+  }));
+  const near = (a, b) => typeof a === 'number' && typeof b === 'number' && Math.abs(a - b) < 1e-8;
+  const metricKeys = ['bodyHeight', 'headTopRow', 'neckRow', 'headHeight', 'shoulderRow', 'shoulderWidth', 'footRow', 'totalHeight'];
+  const directionsMatch = grannyRefExpected.directions.length === grannyMeasurements.directions.length &&
+    grannyRefExpected.directions.every(expected => {
+      const actual = grannyMeasurements.directions.find(d => d.direction === expected.direction);
+      return !!actual && metricKeys.every(key => actual[key] === expected[key]) &&
+        ['minX', 'maxX', 'minY', 'maxY', 'width', 'height'].every(key =>
+          actual.bodyBounds[key] === expected.bodyBounds[key] && actual.fullBounds[key] === expected.fullBounds[key]);
+    });
+  const inGameKeys = ['mapTileSize', 'cameraZoom', 'rendererScale', 'bodyWidthPixels', 'bodyHeightPixels', 'fullHeightPixels', 'bodyHeightInTiles'];
+  const inGameMatch = inGameKeys.every(key => near(grannyMeasurements.inGame[key], grannyRefExpected.inGame[key]));
+  const runtimeRefMatch = !!grannyRuntimeRef.source && !!grannyRuntimeRef.active &&
+    grannyRuntimeRef.active.bodyHeight === grannyRefExpected.bodyHeight &&
+    grannyRuntimeRef.active.totalHeight === grannyRefExpected.totalHeight &&
+    grannyRuntimeRef.active.headHeight === grannyRefExpected.headHeight &&
+    grannyRuntimeRef.active.shoulderWidth === grannyRefExpected.shoulderWidth &&
+    grannyRuntimeRef.active.footRow === grannyRefExpected.footRow &&
+    near(grannyRuntimeRef.active.nativeScale, grannyRefExpected.scaleFactor);
   const grannyMeasurementCheck = {
-    pass: grannyMeasurements.directions?.length === 4 &&
-      grannyMeasurements.directions.every(d => d.bodyHeight > 0 && d.headHeight > 0 && d.shoulderWidth > 0 && d.footRow >= 0),
-    directionCount: grannyMeasurements.directions?.length || 0
+    pass: directionsMatch && inGameMatch && runtimeRefMatch && grannyMeasurements.directions?.length === 4,
+    directionCount: grannyMeasurements.directions?.length || 0,
+    directionsMatch,
+    inGameMatch,
+    runtimeRefMatch
   };
 
   const galleryToggle = page.locator('#owNpcGalleryToggle');
@@ -199,12 +235,14 @@ try {
     htmlFile: path.basename(html),
     syntaxCheck,
     npcInventoryCheck,
+    grannyRefGeneratorCheck,
     pageTitle: await page.title(),
     townButtonVisible,
     townClickAttempted,
     townClickError,
     townSceneState,
     grannyMeasurements,
+    grannyRuntimeRef,
     grannyMeasurementCheck,
     worldState,
     galleryState,
@@ -222,7 +260,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
 } finally {
   await browser.close();
 }
