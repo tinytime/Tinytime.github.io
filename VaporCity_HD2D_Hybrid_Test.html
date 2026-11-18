@@ -8732,7 +8732,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       case 'bodyshade':return body.shadow||darkenHex(P.body||'#777777',.5);
       case 'bodyhi':return body.highlight||body.base||P.body||'#777777';
       case 'arm':return body.base||P.body||'#777777';
-      case 'armhi':return body.highlight||lightenHex(body.base||P.body||'#777777',1.18);
+      case 'armhi':return body.highlight||body.base||P.body||'#777777';
       case 'armshade':return body.shadow||darkenHex(body.base||P.body||'#777777',.62);
       case 'pants':return xx<32?(pants.base||P.pants):(pants.shadow||pants.base||P.pants);
       case 'legback':return pants.shadow||darkenHex(P.pants||'#252535',.5);
