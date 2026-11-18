@@ -106,8 +106,9 @@ const inventoryNpcs = npcs.map(npc => {
   return {
     id: npc.id,
     civ: npc.civ,
+    archetype: npc.civ ? (civToArchetype[npc.civ] || null) : null,
     rendererPath,
-    scopeClass: inScope ? 'town' : 'football',
+    scopeClass: inScope ? 'standardTown' : 'outOfScope',
     pxPersonAtlasOverride: Object.hasOwn(pxPersonAtlas, npc.id),
     ...(pxPersonAtlas[npc.id] ? { pxPersonAtlasKey: pxPersonAtlas[npc.id] } : {}),
     inScope
@@ -121,6 +122,7 @@ const inventory = {
   civCount: liveCivs.length,
   civs: liveCivs,
   fanNpcIds: inventoryNpcs.filter(n => n.civ === 'fan').map(n => n.id),
+  outOfScopeNpcIds: inventoryNpcs.filter(n => !n.inScope).map(n => n.id),
   pixelPack: {
     enabledOnlyWhen: "PXS.on && M.id === 'street' && pxUse()",
     pxPersonAtlasNpcIds: Object.keys(pxPersonAtlas).sort(),
