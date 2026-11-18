@@ -8520,8 +8520,8 @@ function owPixelTone(hex,delta){
   const n=parseInt(m[1],16),v=[(n>>16)&255,(n>>8)&255,n&255];
   return '#'+v.map(c=>Math.max(0,Math.min(255,Math.round(c*(1+delta/100)))).toString(16).padStart(2,'0')).join('');
 }
-// Granny Volt is the shared scale reference. Values below are source-geometry estimates;
-// pixel measurements still require a browser capture of the reference sprite.
+// Granny Volt is the shared scale reference. All geometry values are loaded from
+// qa/granny-ref.json, generated from alpha scans of four offscreen browser renders.
 const GRANNY_REF=Object.freeze({...window.GRANNY_REF_DATA,nativeScale:OWT/GRANNY_REF_DATA.tileSizeReference*GRANNY_REF_DATA.scaleFactor});
 const CIV_TO_ARCHETYPE=Object.freeze({
   runner:'athletic',coach:'athletic',ref:'athletic',
