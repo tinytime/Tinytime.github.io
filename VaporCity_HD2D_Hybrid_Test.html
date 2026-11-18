@@ -8507,9 +8507,20 @@ function owPixelTone(hex,delta){
   const n=parseInt(m[1],16),v=[(n>>16)&255,(n>>8)&255,n&255];
   return '#'+v.map(c=>Math.max(0,Math.min(255,Math.round(c*(1+delta/100)))).toString(16).padStart(2,'0')).join('');
 }
+// Granny Volt is the shared scale reference. Values below are source-geometry estimates;
+// pixel measurements still require a browser capture of the reference sprite.
+const GRANNY_REF=Object.freeze({totalHeight:137,headHeight:34,headWidth:36,shoulderWidth:41,torsoHeight:70,legLength:45,armWidth:4,footBaselineY:136,outlineColor:'#171725',nativeScale:OWT/36*.28,visibleCivHeight:80});
+const ARCHETYPES=Object.freeze({
+ runner:{head:'round-fringe',torso:'sweater',prop:{type:'delivery-bag',hand:'left'},paletteLimit:12},
+ courier:{head:'cap-profile',torso:'jacket',prop:{type:'parcel',hand:'right'},paletteLimit:12},
+ guard:{head:'helmet',torso:'armored-vest',prop:{type:'baton',hand:'right'},paletteLimit:12},
+ vendor:{head:'hat',torso:'apron',prop:{type:'bowl',hand:'left'},paletteLimit:12},
+ clinic:{head:'hair-band',torso:'long-scrubs',prop:{type:'medical-kit',hand:'right'},paletteLimit:12}
+});
 function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const kind=n.civ;
   if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
+  const A=ARCHETYPES[kind]||null;
   const P=Object.assign({},CIV[kind]||CIV.fan);
   if(n.hb)Object.assign(P,HB_CIV[kind]||HB_CIV.fan);
   if(kind==='fan'&&n.hb){P.body=HB_FANC[((n.x*7+n.y*3)|0)%HB_FANC.length];P.pants=['#26333C','#2b3036','#1f2a30'][(n.x+n.y)%3]}
@@ -8517,7 +8528,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Match Granny Volt's rendered silhouette height: her canopy-to-foot span is
   // about 137 source units at OWT/36*.28; this sprite's visible body is 80 units.
   // Use one shared scale for every civilian rather than per-role size multipliers.
-  const targetG=ctxOverride||og,U=OWT/75.1;
+  const targetG=ctxOverride||og,U=(GRANNY_REF.totalHeight*GRANNY_REF.nativeScale)/GRANNY_REF.visibleCivHeight;
   const d=typeof dir==='number'?['d','u','l','r'][Math.max(0,Math.min(3,dir|0))]:(dir||'d').toLowerCase();
   const dirCode=d==='down'?'d':d==='up'?'u':d==='left'?'l':d==='right'?'r':d;
   const side=dirCode==='l'||dirCode==='r',back=dirCode==='u';
@@ -8556,7 +8567,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     // Single hanging lock on the viewer's left side of the face.
     put(10,4,1,5,'hair');
     put(14,3,1,2,'hair'); // one-pixel fringe over forehead
-    set(14,5,'inkdetail');set(18,5,'inkdetail'); // 1x1 eyes
+    set(15,5,'inkdetail');set(17,5,'inkdetail'); // two native pixels apart
     set(16,8,'inkdetail'); // 1x1 mouth
   }
   if(P.bun)put(19,0,4,3,'hair');
@@ -8656,8 +8667,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
   if(P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
   if(P.keys)put(4,29,24,2,'key');
-  if(P.baton)put(29,13,2,18,'baton');
-  if(P.bowl&&!back)put(24,25,6,4,'bowl');
+  if(P.baton){const propHand=(A&&A.prop.hand)||'right';put(propHand==='left'?5:29,13,2,18,'baton');}
+  if(P.bowl&&!back){const propHand=(A&&A.prop.hand)||'left';put(propHand==='left'?4:24,25,6,4,'bowl');}
   if(P.long)put(10,22,12,2,'bodyshade');
   if(side&&dirCode==='l')for(let yy=0;yy<H;yy++)grid[yy].reverse();
   const colorFor=(role,xx,yy)=>{
