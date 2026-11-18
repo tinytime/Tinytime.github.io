@@ -39,7 +39,7 @@ const npcInventoryData = JSON.parse(fs.readFileSync(path.join(root, 'qa', 'npc-i
 const atlasOverrideIds = npcInventoryData.pixelPack.pxPersonAtlasNpcIds || [];
 const atlasOverrideRecords = npcInventoryData.npcs
   .filter(npc => npc.pxPersonAtlasKey)
-  .map(npc => ({ npcId: npc.id, key: npc.pxPersonAtlasKey }));
+  .map(npc => ({ npcId: npc.id, key: npc.pxPersonAtlasKey, direction: npc.direction }));
 const atlasOverrideSet = new Set(atlasOverrideIds);
 const pixelPackImpact = {
   enabledOnlyWhen: npcInventoryData.pixelPack.enabledOnlyWhen,
