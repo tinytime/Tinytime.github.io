@@ -416,18 +416,25 @@ try {
     measurements: bodyRows
   };
   const npcPropAudit = await page.evaluate(() => {
-    const {ARCHETYPES,ARCHETYPE_PROP_LAYERS,ARCHETYPE_PROP_SHAPES,PROP_ROLE_COLORS,ARCHETYPE_ACCESSORY_ROLES}=window.NPC_SPRITES.TABLES;
+    const {ARCHETYPES,ARCHETYPE_PROP_LAYERS,ARCHETYPE_PROP_SHAPES,PROP_ROLE_COLORS,ARCHETYPE_ACCESSORY_ROLES,FAN_VARIANT_PROPS}=window.NPC_SPRITES.TABLES;
     const names=Object.keys(ARCHETYPES);
     const frontTypes=names.map(name=>({archetype:name,type:ARCHETYPES[name].prop.front.type}));
     frontTypes.push({archetype:'fan-variant-profile',type:ARCHETYPE_PROP_LAYERS.fan?.types?.front || null});
+    const fanVariantRoles = FAN_VARIANT_PROPS || {};
+    const uniqueFanPropRoles = [...new Set(Object.values(fanVariantRoles))].sort();
     const fanVariantPropProfile = {
       types: ARCHETYPE_PROP_LAYERS.fan?.types || null,
       layers: Object.fromEntries(['front','side','back'].map(view => [view, ARCHETYPE_PROP_LAYERS.fan?.[view] || []])),
       shape: ARCHETYPE_PROP_SHAPES.foamfinger || null,
       color: PROP_ROLE_COLORS.foamfinger || null,
+      variantRoles: fanVariantRoles,
+      uniqueVariantRoles: uniqueFanPropRoles,
       valid: !!ARCHETYPE_PROP_LAYERS.fan &&
-        ['front','side','back'].every(view => ARCHETYPE_PROP_LAYERS.fan.types[view] === 'foam-finger' &&
+        ['front','side','back'].every(view => ARCHETYPE_PROP_LAYERS.fan.types[view] === 'fan-crowd-gear' &&
           ARCHETYPE_PROP_LAYERS.fan[view]?.some(layer => layer[4] === 'foamfinger')) &&
+        Object.keys(fanVariantRoles).length === 20 && uniqueFanPropRoles.length >= 4 &&
+        Object.values(fanVariantRoles).every(role => !!ARCHETYPE_PROP_SHAPES[role] &&
+          !!PROP_ROLE_COLORS[role] && ARCHETYPE_ACCESSORY_ROLES.has(role)) &&
         !!ARCHETYPE_PROP_SHAPES.foamfinger && !!PROP_ROLE_COLORS.foamfinger &&
         ARCHETYPE_ACCESSORY_ROLES.has('foamfinger')
     };
