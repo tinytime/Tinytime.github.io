@@ -1,0 +1,1154 @@
+{
+  "schemaVersion": 1,
+  "source": "VaporCity_HD2D_Hybrid_Test.html (live NPC records + renderer dispatch)",
+  "npcCount": 135,
+  "civCount": 24,
+  "civs": [
+    "broker",
+    "busker",
+    "clinic",
+    "coach",
+    "cook",
+    "courier",
+    "dancer",
+    "fan",
+    "fisher",
+    "granny",
+    "guard",
+    "hacker",
+    "kid",
+    "kid2",
+    "mouse",
+    "painter",
+    "ref",
+    "runner",
+    "sailor",
+    "slicker",
+    "tech",
+    "usher",
+    "vendor",
+    "welder"
+  ],
+  "fanNpcIds": [
+    "driverA",
+    "fan1",
+    "fan2",
+    "fanA",
+    "fanB",
+    "fanC",
+    "fanD",
+    "gamer1",
+    "hb_denny",
+    "hb_pete",
+    "hb_shopper",
+    "hb_splinter",
+    "hb_wick",
+    "patient1",
+    "r2_saltwife",
+    "r2_stack",
+    "regular1",
+    "shopper1",
+    "wait1",
+    "wait2"
+  ],
+  "pixelPack": {
+    "enabledOnlyWhen": "PXS.on && M.id === 'street' && pxUse()",
+    "pxPersonAtlasNpcIds": [
+      "busker",
+      "fanA",
+      "fanB",
+      "fanC",
+      "fanD",
+      "kid"
+    ],
+    "behavior": "Mapped ids are drawn from the atlas on the street when pixel-pack mode is enabled; otherwise they fall through to owCiv."
+  },
+  "npcs": [
+    {
+      "id": "bartender",
+      "civ": "vendor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "broker",
+      "civ": "broker",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "busker",
+      "civ": "busker",
+      "rendererPath": "pxPerson atlas override -> owCiv fallback",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": true,
+      "pxPersonAtlasKey": "tp5",
+      "inScope": true
+    },
+    {
+      "id": "cat",
+      "civ": null,
+      "rendererPath": "pxCat atlas override -> owCat fallback",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "cat1",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "cat2",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "courier",
+      "civ": "courier",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "drift1",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "drift2",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "driverA",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "driverB",
+      "civ": "busker",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "fan1",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "fan2",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "fanA",
+      "civ": "fan",
+      "rendererPath": "pxPerson atlas override -> owCiv fallback",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": true,
+      "pxPersonAtlasKey": "tp9",
+      "inScope": true
+    },
+    {
+      "id": "fanB",
+      "civ": "fan",
+      "rendererPath": "pxPerson atlas override -> owCiv fallback",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": true,
+      "pxPersonAtlasKey": "tp1",
+      "inScope": true
+    },
+    {
+      "id": "fanC",
+      "civ": "fan",
+      "rendererPath": "pxPerson atlas override -> owCiv fallback",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": true,
+      "pxPersonAtlasKey": "tp4",
+      "inScope": true
+    },
+    {
+      "id": "fanD",
+      "civ": "fan",
+      "rendererPath": "pxPerson atlas override -> owCiv fallback",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": true,
+      "pxPersonAtlasKey": "tp11",
+      "inScope": true
+    },
+    {
+      "id": "fisher",
+      "civ": "fisher",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "gamer1",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "gamer2",
+      "civ": "mouse",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "gateE",
+      "civ": "guard",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "gatekeeper",
+      "civ": "guard",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "gateS",
+      "civ": "guard",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "gcat1",
+      "civ": null,
+      "rendererPath": "pxCat atlas override -> owCat fallback",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "gcat2",
+      "civ": null,
+      "rendererPath": "pxCat atlas override -> owCat fallback",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "gcat3",
+      "civ": null,
+      "rendererPath": "pxCat atlas override -> owCat fallback",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "granny",
+      "civ": "granny",
+      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hacker",
+      "civ": "hacker",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_agnes",
+      "civ": "granny",
+      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_bram",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "hb_cadogan",
+      "civ": "granny",
+      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_cook",
+      "civ": "cook",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_cormac",
+      "civ": "vendor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_crabkid",
+      "civ": "kid2",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_deckhand",
+      "civ": "sailor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_deke",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "hb_denny",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_docker",
+      "civ": "guard",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_dockhand",
+      "civ": "vendor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_duke",
+      "civ": "vendor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_dutch",
+      "civ": "coach",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_finn",
+      "civ": "coach",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_fisher",
+      "civ": "fisher",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_fishwife",
+      "civ": "vendor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_gulllady",
+      "civ": "granny",
+      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_gus",
+      "civ": "coach",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_ivy",
+      "civ": "clinic",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_kell",
+      "civ": "coach",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_kidrun",
+      "civ": "kid2",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_lkid",
+      "civ": "kid",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_loader",
+      "civ": "slicker",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_marla",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "hb_marty",
+      "civ": "coach",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_marv",
+      "civ": "vendor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_mender",
+      "civ": "sailor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_messenger",
+      "civ": "courier",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_oldsalt",
+      "civ": "slicker",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_painter",
+      "civ": "painter",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_penrose",
+      "civ": "coach",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_pete",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_pip",
+      "civ": "kid",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_ref1",
+      "civ": "ref",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_ref2",
+      "civ": "ref",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_riptide",
+      "civ": "courier",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_riptide_b",
+      "civ": "courier",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_rita",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "hb_runner",
+      "civ": "runner",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_sable",
+      "civ": "broker",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_shopper",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_skeeter",
+      "civ": "coach",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_sketch",
+      "civ": "painter",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_splinter",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_tommy",
+      "civ": "kid",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_walker",
+      "civ": "sailor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_welder",
+      "civ": "welder",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_wick",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_yardman",
+      "civ": "welder",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "hb_zd",
+      "civ": "runner",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "kid",
+      "civ": "kid",
+      "rendererPath": "pxPerson atlas override -> owCiv fallback",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": true,
+      "pxPersonAtlasKey": "tp12",
+      "inScope": true
+    },
+    {
+      "id": "kid1",
+      "civ": "kid",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "kid2",
+      "civ": "kid",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "king1",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "king2",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "lou",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "mack",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "manager",
+      "civ": "coach",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "mate1",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "mate2",
+      "civ": "kid",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "mo",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "mouse",
+      "civ": "mouse",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "owner",
+      "civ": "vendor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "patient1",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "patient2",
+      "civ": "runner",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "pete",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "pharmacist",
+      "civ": "clinic",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_courier",
+      "civ": "courier",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_crewman",
+      "civ": "slicker",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_dock",
+      "civ": "guard",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_fisher",
+      "civ": "fisher",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_gullkid",
+      "civ": "kid",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_ida",
+      "civ": "slicker",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_keep",
+      "civ": "vendor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_laundry",
+      "civ": "granny",
+      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_mud",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "r2_noll",
+      "civ": "sailor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_oldfish",
+      "civ": "fisher",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_oldsalt",
+      "civ": "fisher",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_raker",
+      "civ": "vendor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_ref",
+      "civ": "ref",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_ripf",
+      "civ": "courier",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_riptide",
+      "civ": "courier",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_runkid",
+      "civ": "kid2",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_saltw",
+      "civ": "welder",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_saltwife",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_sela",
+      "civ": "granny",
+      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_skipper",
+      "civ": "sailor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_stack",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_toll",
+      "civ": "guard",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_zd",
+      "civ": "runner",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "r2_zdf",
+      "civ": "runner",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "rat2",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "regular1",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "regular2",
+      "civ": "dancer",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "regular3",
+      "civ": "coach",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "retiredLocal",
+      "civ": "fisher",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "runner",
+      "civ": "runner",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "rusty",
+      "civ": null,
+      "rendererPath": "owFig -> renderPerson (football player)",
+      "scopeClass": "football",
+      "pxPersonAtlasOverride": false,
+      "inScope": false
+    },
+    {
+      "id": "scriptkid",
+      "civ": "kid",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "shopper1",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "shopper2",
+      "civ": "busker",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "techgirl",
+      "civ": "tech",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "usher",
+      "civ": "usher",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "vendor",
+      "civ": "vendor",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "wait1",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    },
+    {
+      "id": "wait2",
+      "civ": "fan",
+      "rendererPath": "owCiv",
+      "scopeClass": "town",
+      "pxPersonAtlasOverride": false,
+      "inScope": true
+    }
+  ]
+}
