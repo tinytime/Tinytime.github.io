@@ -385,6 +385,8 @@ try {
     const scale = granny ? bodyReference.scaleFactor : civScale;
     // Civilian canvas height is inclusive; the 80-row visible body is the
     // distance between the first and last opaque rows (bodyHeight - 1).
+    const youth = ['kid','kid2','mouse'].includes(item.civ);
+    const expectedHeightPixels = expectedBodyPixels * (youth ? 0.78 : 1);
     const renderedHeightPixels = (granny ? item.bodyHeight : item.bodyHeight - 1) * scale;
     // owCiv anchors its 64x96 sprite at row 80; Granny's native renderer
     // anchors at source row 137 with her measured foot row at 136.
@@ -392,7 +394,7 @@ try {
     const expectedBaselineOffset = granny ? -1 : 0;
     const outlineLum = luminance(item.outlineColor);
     const contrastRatio = (Math.max(outlineLum,bgLum)+0.05)/(Math.min(outlineLum,bgLum)+0.05);
-    return {...item,renderedHeightPixels,heightDeviationPixels:Math.abs(renderedHeightPixels-expectedBodyPixels),
+    return {...item,youth,expectedHeightPixels,renderedHeightPixels,heightDeviationPixels:Math.abs(renderedHeightPixels-expectedHeightPixels),
       baselineOffset,baselineDelta:Math.abs(baselineOffset-expectedBaselineOffset),
       contrastRatio,outlineContrastPercent:Math.abs(outlineLum-bgLum)/Math.max(outlineLum,bgLum)};
   });
