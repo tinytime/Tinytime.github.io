@@ -625,28 +625,40 @@ try {
     lowestFillRatio: renderedPropComponents.length?Math.min(...renderedPropComponents.map(item=>item.fillRatio)):null,
     components: renderedPropComponents
   };
+  const archetypeTorsoMasks = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcMeasureArchetypeTorsoMasks !== 'function') {
+      throw new Error('Archetype torso-mask measurement hook is unavailable');
+    }
+    return window.SG.npcMeasureArchetypeTorsoMasks();
+  });
   const silhouetteComparisons = [];
   for (const direction of ['d', 'u', 'l', 'r']) {
     const view = archetypeSilhouettes.filter(item => item.direction === direction);
+    const torsoView = archetypeTorsoMasks.filter(item => item.direction === direction);
     for (let i = 0; i < view.length; i++) for (let j = i + 1; j < view.length; j++) {
       let intersection = 0, union = 0, torsoIntersection = 0, torsoUnion = 0, edgeRowsDifferentBy2 = 0;
+      const torsoA = torsoView.find(item => item.archetype === view[i].archetype);
+      const torsoB = torsoView.find(item => item.archetype === view[j].archetype);
+      if (!torsoA || !torsoB) throw new Error('Missing torso mask for silhouette comparison');
       for (let y = 0; y < 96; y++) {
         let leftA = 64, rightA = -1, leftB = 64, rightB = -1;
+        let torsoLeftA = 64, torsoRightA = -1, torsoLeftB = 64, torsoRightB = -1;
         for (let x = 0; x < 64; x++) {
           const a = view[i].maskRows[y][x] === '1', b = view[j].maskRows[y][x] === '1';
           if (a && b) intersection++;
           if (a || b) union++;
-          // Torso-only diagnostic excludes shared head and leg mass so those
-          // regions cannot make otherwise similar bodies look more distinct.
-          if (y >= 20 && y < 58) {
-            if (a && b) torsoIntersection++;
-            if (a || b) torsoUnion++;
-          }
           if (a) { leftA = Math.min(leftA, x); rightA = Math.max(rightA, x); }
           if (b) { leftB = Math.min(leftB, x); rightB = Math.max(rightB, x); }
+          const ta = torsoA.maskRows[y][x] === '1', tb = torsoB.maskRows[y][x] === '1';
+          if (ta && tb) torsoIntersection++;
+          if (ta || tb) torsoUnion++;
+          if (ta) { torsoLeftA = Math.min(torsoLeftA, x); torsoRightA = Math.max(torsoRightA, x); }
+          if (tb) { torsoLeftB = Math.min(torsoLeftB, x); torsoRightB = Math.max(torsoRightB, x); }
         }
-        if (y >= 20 && y <= 47 && leftA < 64 && leftB < 64 &&
-            (Math.abs(leftA - leftB) >= 2 || Math.abs(rightA - rightB) >= 2)) edgeRowsDifferentBy2++;
+        if (torsoLeftA < 64 && torsoLeftB < 64 &&
+            (Math.abs(torsoLeftA - torsoLeftB) >= 2 || Math.abs(torsoRightA - torsoRightB) >= 2)) {
+          edgeRowsDifferentBy2++;
+        }
       }
       silhouetteComparisons.push({
         direction,
@@ -674,8 +686,9 @@ try {
     comparisons: silhouetteComparisons
   };
   const torsoOnlySilhouetteSummary = {
-    basis: 'Rows 20–57 only; excludes shared head and leg regions. Props remain excluded.',
+    basis: 'Renderer ARCHETYPE_TORSO_MASKS only: torso garment geometry from shoulders through hem; excludes head, arms, legs, and props.',
     targetIoU: 0.85,
+    maskCount: archetypeTorsoMasks.length,
     minIoU: silhouetteBaseline.minTorsoOnlyIoU,
     maxIoU: silhouetteBaseline.maxTorsoOnlyIoU,
     meanIoU: silhouetteBaseline.meanTorsoOnlyIoU,
@@ -688,7 +701,7 @@ try {
   };
 
   const torsoPairDiagnosticDataUrl = await page.evaluate(({ masks, pairs }) => {
-    const scale = 2, cropTop = 20, cropHeight = 38, tileWidth = 128, rowHeight = 100;
+    const scale = 2, cropTop = 9, cropHeight = 20, rowHeight = 100;
     const canvas = document.createElement('canvas');
     canvas.width = 410;
     canvas.height = Math.max(1, pairs.length) * rowHeight;
@@ -720,19 +733,19 @@ try {
       drawMask(maskA, 272, y, '#ff6b6b', maskB);
     });
     return canvas.toDataURL('image/png');
-  }, { masks: archetypeSilhouettes, pairs: torsoOnlySilhouetteSummary.closestPairs.slice(0, 8) });
+  }, { masks: archetypeTorsoMasks, pairs: torsoOnlySilhouetteSummary.closestPairs.slice(0, 8) });
   fs.writeFileSync(path.join(out, 'torso-pair-diagnostics.png'),
     Buffer.from(torsoPairDiagnosticDataUrl.split(',')[1], 'base64'));
   const torsoPairDiagnostic = {
     path: 'torso-pair-diagnostics.png',
     pairCount: Math.min(8, torsoOnlySilhouetteSummary.closestPairs.length),
-    layout: 'Each row shows archetype A, archetype B, then an overlap (white pixels are shared); torso rows 20-57 only.',
+    layout: 'Each row shows actual torso mask A, torso mask B, then their overlap (white pixels are shared); heads, arms, legs, and props are excluded.',
     pairs: torsoOnlySilhouetteSummary.closestPairs.slice(0, 8)
   };
 
   const silhouetteQualityCheck = {
     // Reject trivial one-row edge edits: a distinct body silhouette must
-    // hold its contour difference across at least six torso/head scanlines.
+    // hold its contour difference across at least six actual torso-mask scanlines.
     pass: silhouetteBaseline.pairCount === 180 &&
       silhouetteBaseline.pairsBelowTarget === silhouetteBaseline.pairCount &&
       silhouetteBaseline.pairsAtOrAboveTarget === 0 &&
@@ -748,7 +761,7 @@ try {
     maxIoU: silhouetteBaseline.maxIoU,
     minEdgeRowsDifferentBy2: silhouetteBaseline.minEdgeRowsDifferentBy2,
     minimumDistinctEdgeRows: 6,
-    requirements: 'All 180 pairs across ten live owCiv archetypes must have IoU < 0.85 in all four directions; every pair must differ by at least 2 px across at least six torso/head edge rows. Granny is validated separately against her original baseline.'
+    requirements: 'All 180 pairs across ten live owCiv archetypes must have full-body IoU < 0.85 and actual torso-mask IoU < 0.85 in all four directions; every pair must differ by at least 2 px across at least six torso-mask edge rows. Granny is validated separately against her original baseline.'
   };
 
   const galleryToggle = page.locator('#owNpcGalleryToggle');
