@@ -389,7 +389,7 @@ try {
     maxHeightDeviationPixels: Math.max(...bodyRows.map(item=>item.heightDeviationPixels)),
     maxBaselineDelta: Math.max(...bodyRows.map(item=>item.baselineDelta)),
     invalidOutlineColor: bodyRows.filter(item=>!/^#[0-9a-f]{6}$/i.test(item.outlineColor || '')).map(item=>item.civ),
-    lowContrast: bodyRows.filter(item=>item.contrastRatio<1.3||item.outlineContrastPercent<0.30).map(item=>({civ:item.civ,outlineColor:item.outlineColor,contrastRatio:item.contrastRatio,outlineContrastPercent:item.outlineContrastPercent})),
+    lowContrast: bodyRows.filter(item=>item.contrastRatio<3.0||item.outlineContrastPercent<0.60).map(item=>({civ:item.civ,outlineColor:item.outlineColor,contrastRatio:item.contrastRatio,outlineContrastPercent:item.outlineContrastPercent})),
     outlinePixelCounts: bodyRows.map(item=>({civ:item.civ,count:item.outlinePixelCount,expectedColor:item.outlineColor})),
     outlineValidation: 'Counts rendered pixels matching each sprite’s computed per-civ outline color and verifies contrast against the gallery background.',
     measurements: bodyRows
