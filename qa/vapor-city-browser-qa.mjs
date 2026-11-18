@@ -496,9 +496,10 @@ try {
   const allSnapshotsMatch = snapshotResults.length === 24 && snapshotResults.every(item => item.status === 'match');
   const snapshotCheck = {
     // A committed one-time flag authorizes a deliberate baseline refresh.
-    // Otherwise all 24 native-grid renders must match byte-for-byte.
+    // Passing requires explicit human approval and exact decoded-pixel matches.
     pass: goldenBaselineApproval.approved && snapshotResults.length === 24 && allSnapshotsMatch,
     baselineRefreshPending,
+    baselineApproval: goldenBaselineApproval,
     baselineVerified: allSnapshotsMatch,
     expectedCount: 24,
     snapshotCount: snapshotResults.length,
