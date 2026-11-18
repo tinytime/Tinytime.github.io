@@ -1091,6 +1091,7 @@ try {
     npcBodyCheck,
     npcPropAudit,
     fanVariantAudit,
+    fanVariantRenderedPropCheck,
     snapshotCheck,
     archetypeSilhouetteCount: archetypeSilhouettes.length,
     silhouetteMaskDiagnostics: archetypeSilhouettes
