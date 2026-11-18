@@ -106,7 +106,6 @@ const inventoryNpcs = npcs.map(npc => {
   return {
     id: npc.id,
     civ: npc.civ,
-    archetype: npc.civ ? (civToArchetype[npc.civ] || null) : null,
     rendererPath,
     scopeClass: inScope ? 'standardTown' : 'outOfScope',
     pxPersonAtlasOverride: Object.hasOwn(pxPersonAtlas, npc.id),
