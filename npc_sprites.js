@@ -229,7 +229,7 @@
       mouse:{armSpread:0,armY:-1,legSpread:0,legW:-1},
       busker:{armSpread:2,armY:-1,legSpread:1,legW:1},
       dancer:{armSpread:-2,armY:1,legSpread:-1,legW:-1},
-      broker:{armSpread:2,armY:-1,legSpread:-2,legW:1},
+      broker:{armSpread:1,armY:-1,legSpread:-1,legW:1},
       usher:{armSpread:-2,armY:1,legSpread:2,legW:-1},
       fan:{armSpread:-2,armY:1,legSpread:1}
     });
