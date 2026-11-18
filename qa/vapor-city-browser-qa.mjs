@@ -34,6 +34,18 @@ const npcInventoryCheck = {
   stdout: (npcInventoryRun.stdout || '').trim(),
   error: npcInventoryRun.stderr || (npcInventoryRun.status === 0 ? null : 'NPC inventory validation failed')
 };
+const npcInventoryData = JSON.parse(fs.readFileSync(path.join(root, 'qa', 'npc-inventory.json'), 'utf8'));
+const atlasOverrideIds = npcInventoryData.pixelPack.pxPersonAtlasNpcIds || [];
+const atlasOverrideSet = new Set(atlasOverrideIds);
+const pixelPackImpact = {
+  enabledOnlyWhen: npcInventoryData.pixelPack.enabledOnlyWhen,
+  atlasOverrideCount: atlasOverrideIds.length,
+  atlasOverrideIds,
+  fansAffected: npcInventoryData.fanNpcIds.filter(id => atlasOverrideSet.has(id)),
+  kidsAffected: npcInventoryData.npcs.filter(n => atlasOverrideSet.has(n.id) && ['kid','kid2','youth'].includes(n.civ)).map(n => n.id),
+  buskersAffected: npcInventoryData.npcs.filter(n => atlasOverrideSet.has(n.id) && n.civ === 'busker').map(n => n.id),
+  recommendation: 'Regenerate these atlas entries from the live NPC renderer and verify them against the golden PNGs; if the atlas cannot be kept in sync, retire the overrides so the renderer fallback is authoritative.'
+};
 
 const grannyRefPath = path.join(root, 'qa', 'granny-ref.json');
 const grannyRefExpected = JSON.parse(fs.readFileSync(grannyRefPath, 'utf8'));
@@ -435,6 +447,7 @@ try {
     npcSpriteSyntaxCheck,
     npcSpriteModuleLoaded,
     npcInventoryCheck,
+    pixelPackImpact,
     grannyRefGeneratorCheck,
     pageTitle: await page.title(),
     townButtonVisible,
