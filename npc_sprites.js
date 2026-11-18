@@ -758,6 +758,73 @@
           set(16,15,'inkdetail');set(16,17,'inkdetail');
         }else put(16,13,2,7,'clothhi');
       }
+      // Individual trade and civic garment motifs make job identity readable beyond palette.
+      if(!side&&!back){
+        switch(kind){
+          case 'coach':
+            put(14,12,4,2,'clothhi');set(15,15,'inkdetail');set(16,15,'inkdetail');set(16,18,'clothhi');break;
+          case 'ref':
+            for(let yy=13;yy<=21;yy+=2){set(12,yy,'clothhi');set(19,yy,'clothhi');}
+            set(15,13,'bodyshade');set(16,13,'bodyshade');break;
+          case 'cook':
+            put(12,14,8,9,'apron');set(15,16,'clothhi');set(16,16,'clothhi');
+            set(15,19,'inkdetail');set(16,19,'inkdetail');break;
+          case 'tech':
+            put(12,13,8,8,'bodyshade');
+            for(const yy of [14,17,20])for(let xx=13;xx<=18;xx+=2)set(xx,yy,'clothhi');
+            set(14,16,'inkdetail');set(18,19,'inkdetail');break;
+          case 'hacker':
+            put(13,17,6,4,'bodyshade');set(14,18,'clothhi');set(18,18,'clothhi');
+            set(15,20,'inkdetail');set(16,20,'inkdetail');break;
+          case 'fisher':
+            put(12,12,2,10,'clothhi');put(18,12,2,10,'clothhi');
+            put(13,16,6,6,'apron');set(15,18,'bodyhi');set(16,18,'bodyhi');break;
+          case 'sailor':
+            set(12,13,'clothhi');set(13,14,'clothhi');set(14,15,'clothhi');
+            set(19,13,'clothhi');set(18,14,'clothhi');set(17,15,'clothhi');
+            set(15,17,'inkdetail');set(16,17,'inkdetail');break;
+          case 'slicker':
+            put(12,12,8,10,'bodyshade');
+            for(const yy of [14,17,20]){set(15,yy,'clothhi');set(16,yy,'clothhi');}
+            break;
+          case 'painter':
+            set(12,15,'clothhi');set(19,14,'bodyhi');set(14,19,'clothhi');
+            set(18,20,'bodyhi');set(16,16,'inkdetail');break;
+          case 'welder':
+            put(12,15,8,8,'apron');put(11,12,2,4,'bodyshade');
+            set(15,17,'clothhi');set(16,17,'clothhi');break;
+          case 'kid':
+            put(13,16,6,5,'pack');set(15,17,'clothhi');set(16,17,'clothhi');break;
+          case 'kid2':
+            put(13,14,6,7,'bodyshade');set(15,15,'clothhi');set(16,15,'clothhi');
+            set(15,19,'inkdetail');break;
+          case 'mouse':
+            put(14,17,4,4,'bodyshade');set(15,18,'clothhi');break;
+          case 'dancer':
+            for(let yy=13;yy<=21;yy++)set(12+Math.floor((yy-13)/2),yy,'clothhi');
+            set(18,20,'bodyhi');break;
+          case 'broker':
+            for(let yy=13;yy<=21;yy++)set(16,yy,'inkdetail');
+            set(15,14,'clothhi');set(17,14,'clothhi');
+            set(15,18,'bodyhi');break;
+          case 'usher':
+            put(11,12,2,3,'clothhi');put(19,12,2,3,'clothhi');
+            set(15,15,'clothhi');set(16,15,'clothhi');set(16,18,'inkdetail');break;
+          case 'busker':
+            for(let yy=13;yy<=21;yy++)set(12+Math.floor((yy-13)/2),yy,'bodyshade');
+            set(18,17,'clothhi');set(18,18,'clothhi');break;
+        }
+      }else if(back){
+        if(kind==='fisher'||kind==='welder'){put(12,13,2,10,'bodyshade');put(18,13,2,10,'bodyshade');}
+        if(kind==='sailor'){set(13,13,'clothhi');set(18,13,'clothhi');for(let xx=14;xx<=17;xx++)set(xx,14,'bodyshade');}
+        if(kind==='broker'||kind==='usher'){set(15,14,'bodyshade');set(16,14,'bodyshade');for(let yy=15;yy<=21;yy++)set(16,yy,'bodyshade');}
+        if(kind==='tech'||kind==='hacker'){put(13,15,6,6,'bodyshade');set(15,17,'clothhi');set(16,17,'clothhi');}
+      }else{
+        if(kind==='fisher'||kind==='welder')put(15,14,4,9,'apron');
+        if(kind==='sailor')set(17,14,'clothhi');
+        if(kind==='broker'||kind==='usher')set(16,16,'bodyshade');
+        if(kind==='tech'||kind==='hacker')put(17,15,3,6,'bodyshade');
+      }
       // Layered clothing details: dark collar under neck and crisp shirt-to-trouser hem.
       if(!back){
         for(let xx=13;xx<=18;xx++)set(xx,11,'bodyshade');
