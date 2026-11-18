@@ -5,7 +5,9 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const htmlPath = path.join(root, 'VaporCity_HD2D_Hybrid_Test.html');
 const inventoryPath = path.join(root, 'qa', 'npc-inventory.json');
-const source = fs.readFileSync(htmlPath, 'utf8');
+const htmlSource = fs.readFileSync(htmlPath, 'utf8');
+const spriteSource = fs.readFileSync(path.join(root, 'npc_sprites.js'), 'utf8');
+const source = htmlSource + '\n' + spriteSource;
 
 function objectEnd(text, start) {
   let depth = 0, quote = null, escaped = false;
@@ -121,7 +123,7 @@ const inventoryNpcs = npcs.map(npc => {
 
 const inventory = {
   schemaVersion: 1,
-  source: 'VaporCity_HD2D_Hybrid_Test.html (live NPC records + renderer dispatch)',
+  source: 'VaporCity_HD2D_Hybrid_Test.html + npc_sprites.js (live NPC records + renderer dispatch and archetype tables)',
   npcCount: inventoryNpcs.length,
   civCount: liveCivs.length,
   civs: liveCivs,
