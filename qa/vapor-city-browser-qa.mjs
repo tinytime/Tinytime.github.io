@@ -239,6 +239,25 @@ try {
     lowContrast: bodyRows.filter(item=>item.contrastRatio<1.3||item.outlineContrastPercent<0.30).map(item=>({civ:item.civ,outlineColor:item.outlineColor,contrastRatio:item.contrastRatio,outlineContrastPercent:item.outlineContrastPercent})),
     measurements: bodyRows
   };
+  const npcPropAudit = await page.evaluate(() => {
+    const {ARCHETYPES,ARCHETYPE_PROP_LAYERS,PALETTE_ROLES}=window.NPC_SPRITES.TABLES;
+    const names=Object.keys(ARCHETYPES);
+    const frontTypes=names.map(name=>({archetype:name,type:ARCHETYPES[name].prop.front.type}));
+    const propColors=names.map(name=>({archetype:name,color:PALETTE_ROLES[name].accent[1]}));
+    const footprints=[];
+    for(const name of names)for(const view of ['front','side','back']){
+      for(const layer of (ARCHETYPE_PROP_LAYERS[name][view]||[])){
+        const [x,y,w,h,role]=layer;
+        footprints.push({archetype:name,view,role,x,y,w,h,signature:[x,y,w,h].join(':')});
+      }
+    }
+    const duplicateTypes=frontTypes.filter((item,i)=>frontTypes.some((other,j)=>j!==i&&other.type===item.type));
+    const duplicateColors=propColors.filter((item,i)=>propColors.some((other,j)=>j!==i&&other.color===item.color));
+    const duplicateFootprints=footprints.filter((item,i)=>footprints.some((other,j)=>j!==i&&other.archetype!==item.archetype&&other.view===item.view&&other.signature===item.signature));
+    return {pass:duplicateTypes.length===0&&duplicateColors.length===0&&duplicateFootprints.length===0,
+      archetypeCount:names.length,frontTypes,propColors,footprintCount:footprints.length,
+      duplicateTypes,duplicateColors,duplicateFootprints,footprints};
+  });
 
   const npcSnapshotData = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcRenderSnapshots !== 'function') throw new Error('NPC snapshot hook is unavailable');
@@ -459,6 +478,7 @@ try {
     npcPaletteAudit,
     npcPaletteCheck,
     npcBodyCheck,
+    npcPropAudit,
     snapshotCheck,
     archetypeSilhouetteCount: archetypeSilhouettes.length,
     silhouetteMaskDiagnostics: archetypeSilhouettes
@@ -483,7 +503,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !npcBodyCheck.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
