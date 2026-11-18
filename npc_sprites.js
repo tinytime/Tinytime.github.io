@@ -761,7 +761,10 @@
         civ:kind,archetype:archetypeKey,fanJerseyStyle,uniqueColorCount:uniquePaletteColors.length,
         colors:uniquePaletteColors,colorPixelCounts:palettePixelCounts,
         opaquePixelCount:Object.values(palettePixelCounts).reduce((sum,count)=>sum+count,0),
-        outlinePixelCount:palettePixelCounts[ink]||0
+        outlinePixelCount:palettePixelCounts[ink]||0,
+        bodyColor:clothBase,bodyPixelCount:palettePixelCounts[clothBase]||0,
+        pantsColor:clothLower,pantsPixelCount:palettePixelCounts[clothLower]||0,
+        hairColor:hairBase,hairPixelCount:palettePixelCounts[hairBase]||0
       };
       // Keep a uniform dark outline; do not apply directional rim tints.
       const spriteCanvas=owCiv._gridCanvas||(owCiv._gridCanvas=document.createElement('canvas'));
