@@ -518,22 +518,36 @@ try {
     return { civ: item.civ, status: pixelDiff.dimensionsMatch && pixelDiff.changedPixels === 0 ? 'match' : 'changed',
       bytes: bytes.length, goldenBytes: golden.length, byteMatch, pixelDiff };
   }));
+  const civilianDirectionalSnapshotData = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcRenderDirectionalSnapshots !== 'function')
+      throw new Error('Directional civilian snapshot hook is unavailable');
+    return window.SG.npcRenderDirectionalSnapshots();
+  });
+  const civilianDirectionDir = path.join(out, 'npc-type-directions');
+  fs.mkdirSync(civilianDirectionDir, { recursive: true });
+  for (const item of civilianDirectionalSnapshotData) {
+    fs.writeFileSync(path.join(civilianDirectionDir, item.civ + '-' + item.direction + '.png'),
+      Buffer.from(item.dataUrl.split(',')[1], 'base64'));
+  }
   const civilianTypeSilhouetteAudit = await page.evaluate(async snapshots => {
     const table = window.NPC_SPRITES?.TABLES?.CIV_TORSO_MASKS;
     if (!table) throw new Error('Per-civilian torso mask table is unavailable');
     const civs = Object.keys(table).sort();
-    const directions = ['front','back','side'];
+    const directions = ['front','back','left','right'];
     const maskPairs = [], duplicates = [];
     const toPixels = rows => {
       const pixels = new Set();
-      for (const [y,left,right] of rows || []) for (let x=Math.max(0,left);x<=Math.min(31,right);x++) pixels.add(y*32+x);
+      for (const [y,left,right] of rows || [])
+        for (let x=Math.max(0,left);x<=Math.min(31,right);x++) pixels.add(y*32+x);
       return pixels;
     };
     const compare = (a,b) => {
-      let intersection=0; for (const pixel of a) if (b.has(pixel)) intersection++;
-      const union=a.size+b.size-intersection; return union ? intersection/union : 1;
+      let intersection=0;
+      for (const pixel of a) if (b.has(pixel)) intersection++;
+      const union=a.size+b.size-intersection;
+      return union ? intersection/union : 1;
     };
-    for (const direction of directions) {
+    for (const direction of ['front','back','side']) {
       const masks=civs.map(civ=>({civ,pixels:toPixels(table[civ][direction])}));
       for(let i=0;i<masks.length;i++)for(let j=i+1;j<masks.length;j++){
         const iou=compare(masks[i].pixels,masks[j].pixels);
@@ -541,31 +555,40 @@ try {
         if(iou===1)duplicates.push({direction,pair:[masks[i].civ,masks[j].civ]});
       }
     }
-    const rendered=snapshots.filter(item=>item.civ!=='granny');
-    const images=await Promise.all(rendered.map(item=>new Promise((resolve,reject)=>{
-      const image=new Image();image.onload=()=>resolve({civ:item.civ,image});
-      image.onerror=()=>reject(new Error('Unable to decode rendered civilian snapshot: '+item.civ));
+    const decoded=await Promise.all(snapshots.map(item=>new Promise((resolve,reject)=>{
+      const image=new Image();image.onload=()=>resolve({civ:item.civ,direction:item.direction,image});
+      image.onerror=()=>reject(new Error('Unable to decode directional snapshot: '+item.civ+'/'+item.direction));
       image.src=item.dataUrl;
     })));
-    const renderedMasks=images.map(({civ,image})=>{
-      const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;
-      const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);
-      const data=ctx.getImageData(0,0,canvas.width,canvas.height).data,pixels=new Set();
-      for(let p=0;p<data.length;p+=4)if(data[p+3]>0)pixels.add(p/4);
-      return {civ,pixels};
-    });
-    const renderedPairs=[];
-    for(let i=0;i<renderedMasks.length;i++)for(let j=i+1;j<renderedMasks.length;j++)
-      renderedPairs.push({pair:[renderedMasks[i].civ,renderedMasks[j].civ],iou:compare(renderedMasks[i].pixels,renderedMasks[j].pixels)});
+    const renderedPairs=[],directionStats=[];
+    for(const direction of directions){
+      const masks=decoded.filter(item=>item.direction===direction).map(({civ,image})=>{
+        const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;
+        const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);
+        const data=ctx.getImageData(0,0,canvas.width,canvas.height).data,pixels=new Set();
+        for(let p=0;p<data.length;p+=4)if(data[p+3]>0)pixels.add(p/4);
+        return {civ,pixels};
+      });
+      const pairs=[];
+      for(let i=0;i<masks.length;i++)for(let j=i+1;j<masks.length;j++){
+        const pair={direction,pair:[masks[i].civ,masks[j].civ],iou:compare(masks[i].pixels,masks[j].pixels)};
+        pairs.push(pair);renderedPairs.push(pair);
+      }
+      pairs.sort((a,b)=>b.iou-a.iou);
+      directionStats.push({direction,civCount:masks.length,pairCount:pairs.length,maxIoU:pairs[0]?.iou??null,closestPairs:pairs.slice(0,5)});
+    }
     renderedPairs.sort((a,b)=>b.iou-a.iou);maskPairs.sort((a,b)=>b.iou-a.iou);
     return {
-      pass:civs.length===23&&renderedMasks.length===23&&duplicates.length===0&&renderedPairs.length===253&&renderedPairs[0]?.iou<0.90&&maskPairs.length===759,
-      civCount:civs.length,renderedFrontPairCount:renderedPairs.length,maxRenderedFrontIoU:renderedPairs[0]?.iou??null,
-      closestRenderedFrontPairs:renderedPairs.slice(0,10),torsoMaskDirectionCount:directions.length,torsoMaskPairCount:maskPairs.length,
-      maxTorsoMaskIoU:maskPairs[0]?.iou??null,closestTorsoMaskPairs:maskPairs.slice(0,10),duplicateTorsoMasks:duplicates,
-      requirements:'All 23 civilian types must have non-identical torso masks in front, back, and side views; all 253 rendered front-facing type pairs must have alpha-mask IoU below 0.90.'
+      pass:civs.length===23&&decoded.length===92&&duplicates.length===0&&maskPairs.length===759&&
+        directionStats.length===4&&directionStats.every(item=>item.civCount===23&&item.pairCount===253&&item.maxIoU<0.90),
+      civCount:civs.length,directionalSnapshotCount:decoded.length,renderedDirectionCount:directionStats.length,
+      renderedPairCount:renderedPairs.length,maxRenderedIoU:renderedPairs[0]?.iou??null,
+      closestRenderedPairs:renderedPairs.slice(0,12),directionStats,
+      torsoMaskDirectionCount:3,torsoMaskPairCount:maskPairs.length,maxTorsoMaskIoU:maskPairs[0]?.iou??null,
+      closestTorsoMaskPairs:maskPairs.slice(0,10),duplicateTorsoMasks:duplicates,
+      requirements:'All 23 civilian types must have non-identical torso masks in front, back, and side views; all 253 rendered full-body pairs in each of front, back, left, and right must have alpha-mask IoU below 0.90.'
     };
-  }, npcSnapshotData);
+  }, civilianDirectionalSnapshotData);
 
   const goldenBaselineProvenancePath = path.join(root, 'qa', 'golden-npcs', 'PROVENANCE.json');
   const goldenBaselineProvenance = fs.existsSync(goldenBaselineProvenancePath)
