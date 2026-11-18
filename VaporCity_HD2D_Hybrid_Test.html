@@ -8626,7 +8626,6 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     // Ink seam between the foreground arm and torso: shared edges are not outlined by the grid pass.
     g.fillStyle=ink;g.fillRect(gridX+10,gridY+8,1,5);
     // Direction-facing nose and the two-pixel forward shoe toe.
-    g.fillStyle=skinTone.base;g.fillRect(8,-22,1,1);
     g.fillStyle=pants.shadow||'#20212a';g.fillRect(gridX+13,gridY+28,2,2);
   }
   // One-pixel #141622 outline around every occupied pixel; limbs retain a
