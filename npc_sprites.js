@@ -438,7 +438,7 @@
       const archetypeKey=CIV_TO_ARCHETYPE[kind];
       if(!archetypeKey||!ARCHETYPES[archetypeKey]||!CIV[kind])throw new Error('Missing civilian archetype mapping or palette: '+kind);
       const A=ARCHETYPES[archetypeKey],P=Object.assign({},A.palette,CIV[kind]);
-      const headStyle=kind==='fan'?(FAN_VARIANT_HEADS[n.id]||headStyle):headStyle;
+      const headStyle=kind==='fan'?(FAN_VARIANT_HEADS[n.id]||A.head):A.head;
       const qaExcludeProps=!!(qaOptions&&qaOptions.excludeProps);
       if(n.hb&&HB_CIV[kind])Object.assign(P,HB_CIV[kind]);
       if(kind==='fan'&&FAN_VARIANT_PALETTES[n.id])Object.assign(P,FAN_VARIANT_PALETTES[n.id]);
