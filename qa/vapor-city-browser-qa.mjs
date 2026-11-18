@@ -150,6 +150,17 @@ try {
     runtimeRefMatch
   };
 
+  const npcPaletteAudit = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcPaletteAudit !== 'function') throw new Error('NPC palette audit hook is unavailable');
+    return window.SG.npcPaletteAudit();
+  });
+  const npcPaletteCheck = {
+    pass: npcPaletteAudit.length === 23 && npcPaletteAudit.every(item => item.uniqueColorCount <= 12),
+    spriteCount: npcPaletteAudit.length,
+    maxUniqueColors: Math.max(...npcPaletteAudit.map(item => item.uniqueColorCount)),
+    overLimit: npcPaletteAudit.filter(item => item.uniqueColorCount > 12)
+  };
+
   const archetypeSilhouettes = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcMeasureArchetypeMasks !== 'function') throw new Error('Archetype silhouette hook is unavailable');
     return window.SG.npcMeasureArchetypeMasks();
@@ -299,6 +310,8 @@ try {
     grannyMeasurements,
     grannyRuntimeRef,
     grannyMeasurementCheck,
+    npcPaletteAudit,
+    npcPaletteCheck,
     archetypeSilhouetteCount: archetypeSilhouettes.length,
     silhouetteBaseline,
     silhouetteQualityCheck,
@@ -318,7 +331,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
 } finally {
   await browser.close();
 }
