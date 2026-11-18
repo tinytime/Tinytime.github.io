@@ -275,7 +275,7 @@
       gamer1:{armSpread:2,armY:2,legSpread:3,legW:-1,sideArmX:2,sideLegSpread:4},
       hb_denny:{armSpread:-2,armY:-2,legSpread:-3,legW:1,sideArmX:-2,sideLegSpread:-4},
       hb_pete:{armSpread:3,armY:2,legSpread:0,legW:-1,sideArmX:4,sideLegSpread:0},
-      hb_shopper:{armSpread:-3,armY:-2,legSpread:2,legW:1,sideArmX:-4,sideLegSpread:4},
+      hb_shopper:{armSpread:-3,armY:-2,legSpread:2,legW:1,sideArmX:-4,sideLegSpread:-4},
       hb_splinter:{armSpread:2,armY:0,legSpread:-2,legW:-1,sideArmX:2,sideLegSpread:-4},
       hb_wick:{armSpread:-2,armY:2,legSpread:3,legW:1,sideArmX:-2,sideLegSpread:4},
       patient1:{armSpread:0,armY:-2,legSpread:-3,legW:-1,sideArmX:0,sideLegSpread:-2},
