@@ -3,6 +3,10 @@ name: Vapor City Browser QA
 permissions:
   contents: write
 
+concurrency:
+  group: npc-browser-qa-${{ github.ref }}
+  cancel-in-progress: true
+
 'on':
   workflow_dispatch:
   push:
@@ -33,6 +37,11 @@ jobs:
       - name: Seed initial NPC golden snapshots
         if: success()
         run: |
+          BRANCH_HEAD="$(git ls-remote origin "refs/heads/${GITHUB_REF_NAME}" | cut -f1)"
+          if [ "$BRANCH_HEAD" != "$(git rev-parse HEAD)" ]; then
+            echo "Skipping golden seed from stale workflow commit"
+            exit 0
+          fi
           if [ ! -d qa/golden-npcs ] || [ -z "$(find qa/golden-npcs -maxdepth 1 -name '*.png' -print -quit)" ]; then
             mkdir -p qa/golden-npcs
             cp qa-output/npc-snapshots/*.png qa/golden-npcs/
