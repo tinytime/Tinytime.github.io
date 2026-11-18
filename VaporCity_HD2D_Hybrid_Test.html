@@ -9344,7 +9344,7 @@ setTimeout(()=>{const ro=document.getElementById('mRO');if(!ro||document.getElem
 
 window.SG={npcGalleryView:'all',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
-  c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#777982';c.fillRect(0,0,canvas.width,canvas.height;
+  c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#777982';c.fillRect(0,0,canvas.width,canvas.height);
   const tests=[['GRANNY','VOLT','granny'],['MINT','RUNNER','runner'],['ORANGE','COURIER','courier'],['CITY','GUARD','guard'],['STREET','VENDOR','vendor'],['FIELD','CLINIC','clinic']];
   const dirs=[['FRONT','d'],['BACK','u'],['LEFT','l'],['RIGHT','r']],cellW=canvas.width/6,rowH=420,scale=4,baseOffset=360,sourceW=64,sourceH=96,grannyW=100,grannyH=140,grannyScale=2.2857;
   const scratch=owCiv._galleryScratch||(owCiv._galleryScratch=document.createElement('canvas'));scratch.width=grannyW;scratch.height=grannyH;
@@ -9352,7 +9352,7 @@ window.SG={npcGalleryView:'all',npcGalleryDraw:canvas=>{
   dirs.forEach((d,ri)=>tests.forEach((v,ci)=>{
     const cx=ci*cellW+cellW/2,baseY=ri*rowH+baseOffset,n={id:v[2]==='granny'?'granny':'gallery-'+v[2],civ:v[2],x:ci,y:ri};
     sc.setTransform(1,0,0,1,0,0);sc.clearRect(0,0,grannyW,grannyH);
-    owCiv(0,0,v[2]==='granny'?'d':d[1],false,n,0,ci,sc);
+    owCiv(0,0,d[1],false,n,0,ci,sc);
     if(v[2]==='granny'){
       c.imageSmoothingEnabled=false;c.drawImage(scratch,cx-grannyW*grannyScale/2,baseY-grannyH*grannyScale,grannyW*grannyScale,grannyH*grannyScale);
     }else{
