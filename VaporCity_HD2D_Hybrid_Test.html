@@ -9072,7 +9072,7 @@ window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMas
       const n={id:'qa-body-'+civ,civ,x:0,y:0};
       owCiv(0,0,'d',false,n,0,0,target.getContext('2d'),{excludeProps:true});
       const sprite=owCiv._gridCanvas,ctx=sprite.getContext('2d'),pixels=ctx.getImageData(0,0,sprite.width,sprite.height).data;
-      const archetype=CIV_TO_ARCHETYPE[civ],outlineColor=PALETTE_ROLES[archetype].hair[1],rgb=outlineColor.match(/[0-9a-f]{2}/gi).map(v=>parseInt(v,16));
+      const archetype=CIV_TO_ARCHETYPE[civ],baseHair=CIV[civ].hair,outlineColor=baseHair?('#'+[1,3,5].map(i=>Math.round(parseInt(baseHair.slice(i,i+2),16)*.68).toString(16).padStart(2,'0')).join('')):PALETTE_ROLES[archetype].hair[1],rgb=outlineColor.match(/[0-9a-f]{2}/gi).map(v=>parseInt(v,16));
       let minX=sprite.width,minY=sprite.height,maxX=-1,maxY=-1,outlinePixelCount=0;
       for(let y=0;y<sprite.height;y++)for(let x=0;x<sprite.width;x++){
         const p=(y*sprite.width+x)*4;if(pixels[p+3]===0)continue;
@@ -9105,7 +9105,8 @@ window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMas
       atlasCtx.drawImage(PXS.img,sx,entry.y,entry.w,entry.h,32-entry.ax,96-entry.ay,entry.w,entry.h);
       atlasCtx.restore();
       const rendererCanvas=document.createElement('canvas');rendererCanvas.width=64;rendererCanvas.height=96;
-      owCiv(0,0,direction,false,n,0,0,rendererCanvas.getContext('2d'));
+      const rendererNpc=Object.assign({},n,{x:0,y:0,rx:0,ry:0});
+      owCiv(0,0,direction,false,rendererNpc,0,0,rendererCanvas.getContext('2d'));
       return {id,direction,key,frame,x:n.x,y:n.y,civ:n.civ,width:64,height:96,atlasDataUrl:atlasCanvas.toDataURL('image/png'),
         rendererDataUrl:rendererCanvas.toDataURL('image/png')};
     });
