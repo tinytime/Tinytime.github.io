@@ -1,7 +1,7 @@
 name: Vapor City Browser QA
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: npc-browser-qa-${{ github.ref }}
@@ -33,29 +33,6 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
       - name: Run game browser diagnostics
-        run: node qa/vapor-city-browser-qa.mjs
-      - name: Refresh NPC golden snapshots after intentional art updates
-        if: success()
-        run: |
-          if [ -f qa/update-goldens.flag ]; then
-            BRANCH_HEAD="$(git ls-remote origin "refs/heads/${GITHUB_REF_NAME}" | cut -f1)"
-            if [ "$BRANCH_HEAD" != "$(git rev-parse HEAD)" ]; then
-              echo "Skipping golden refresh from stale workflow commit"
-              exit 0
-            fi
-            cp qa-output/npc-snapshots/*.png qa/golden-npcs/
-            git rm qa/update-goldens.flag
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add qa/golden-npcs
-            git commit -m "Refresh NPC golden PNGs after intentional prop updates"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
-            for file in qa-output/npc-snapshots/*.png; do
-              cmp "$file" "qa/golden-npcs/$(basename "$file")"
-            done
-          fi
-      - name: Verify seeded NPC golden snapshots
-        if: success()
         run: node qa/vapor-city-browser-qa.mjs
       - name: Upload screenshots and report
         if: always()
