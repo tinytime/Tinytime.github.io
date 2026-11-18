@@ -70,6 +70,10 @@ for (const npc of records) {
   byId.set(npc.id, npc);
 }
 const npcs = [...byId.values()].sort((a, b) => a.id.localeCompare(b.id));
+const liveNpcIdSet = new Set(npcs.map(npc => npc.id));
+for (const id of [...outOfScopeOwFigIds, ...referenceBaselineIds]) {
+  if (!liveNpcIdSet.has(id)) throw new Error('Scope policy references an unknown live NPC id: ' + id);
+}
 const civToArchetype = objectMap('CIV_TO_ARCHETYPE');
 const archetypeMatch = source.match(/const ARCHETYPES=Object\.freeze\(\{([\s\S]*?)\}\);/);
 const civMatch = source.match(/const CIV=\{([\s\S]*?)\n\};/);
