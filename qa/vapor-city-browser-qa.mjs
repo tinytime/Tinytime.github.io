@@ -675,6 +675,49 @@ try {
     lowestOverlapPairs: [...silhouetteComparisons].sort((a, b) => a.torsoOnlyIou - b.torsoOnlyIou).slice(0, 10)
   };
 
+  const torsoPairDiagnosticDataUrl = await page.evaluate(({ masks, pairs }) => {
+    const scale = 2, cropTop = 20, cropHeight = 38, tileWidth = 128, rowHeight = 100;
+    const canvas = document.createElement('canvas');
+    canvas.width = 410;
+    canvas.height = Math.max(1, pairs.length) * rowHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#777982';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const drawMask = (mask, x, y, color, secondMask = null) => {
+      for (let row = 0; row < cropHeight; row++) for (let col = 0; col < 64; col++) {
+        const a = mask.maskRows[cropTop + row][col] === '1';
+        const b = secondMask ? secondMask.maskRows[cropTop + row][col] === '1' : false;
+        if (!a && !b) continue;
+        ctx.fillStyle = a && b ? '#ffffff' : a ? color : '#35e0e0';
+        ctx.fillRect(x + col * scale, y + row * scale, scale, scale);
+      }
+    };
+    pairs.forEach((pair, index) => {
+      const y = index * rowHeight + 18;
+      const [nameA, nameB] = pair.pair;
+      const maskA = masks.find(item => item.archetype === nameA && item.direction === pair.direction);
+      const maskB = masks.find(item => item.archetype === nameB && item.direction === pair.direction);
+      if (!maskA || !maskB) return;
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 11px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText((index + 1) + '. ' + pair.direction.toUpperCase() + '  ' + nameA + ' vs ' + nameB +
+        '  torso IoU ' + pair.torsoOnlyIou.toFixed(3), 8, index * rowHeight + 12);
+      drawMask(maskA, 8, y, '#ff6b6b');
+      drawMask(maskB, 140, y, '#35e0e0');
+      drawMask(maskA, 272, y, '#ff6b6b', maskB);
+    });
+    return canvas.toDataURL('image/png');
+  }, { masks: archetypeSilhouettes, pairs: torsoOnlySilhouetteSummary.closestPairs.slice(0, 8) });
+  fs.writeFileSync(path.join(out, 'torso-pair-diagnostics.png'),
+    Buffer.from(torsoPairDiagnosticDataUrl.split(',')[1], 'base64'));
+  const torsoPairDiagnostic = {
+    path: 'torso-pair-diagnostics.png',
+    pairCount: Math.min(8, torsoOnlySilhouetteSummary.closestPairs.length),
+    layout: 'Each row shows archetype A, archetype B, then an overlap (white pixels are shared); torso rows 20-57 only.',
+    pairs: torsoOnlySilhouetteSummary.closestPairs.slice(0, 8)
+  };
+
   const silhouetteQualityCheck = {
     // Reject trivial one-row edge edits: a distinct body silhouette must
     // hold its contour difference across at least six torso/head scanlines.
@@ -932,6 +975,7 @@ try {
       .map(item => ({ archetype: item.archetype, direction: item.direction, maskRows: item.maskRows })),
     silhouetteBaseline,
     torsoOnlySilhouetteSummary,
+    torsoPairDiagnostic,
     renderedPropShapeAudit,
     silhouetteQualityCheck,
     liveArchetypeUsageAudit,
