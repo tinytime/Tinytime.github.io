@@ -220,11 +220,11 @@
       clipboard:'#F4F6FF',notebook:'#FF2FA8',pin:'#FFD0EE',toolroll:'#8C9AA8',foamfinger:'#FFD23A'
     });
     const FAN_VARIANT_HEADS=Object.freeze({
-      driverA:'cap-profile',fan1:'beanie',fan2:'hat',fanA:'round-fringe',fanB:'work-cap',
+      driverA:'cap-profile',fan1:'beanie',fan2:'bucket-hat',fanA:'round-fringe',fanB:'visor',
       fanC:'newsboy-cap',fanD:'hair-band',gamer1:'hood',hb_denny:'cap-profile',
-      hb_pete:'beanie',hb_shopper:'hat',hb_splinter:'round-fringe',hb_wick:'work-cap',
+      hb_pete:'beanie',hb_shopper:'cowboy-hat',hb_splinter:'round-fringe',hb_wick:'pom-beanie',
       patient1:'newsboy-cap',r2_saltwife:'hair-band',r2_stack:'cap-profile',
-      regular1:'beanie',shopper1:'hat',wait1:'work-cap',wait2:'newsboy-cap'
+      regular1:'beanie',shopper1:'cowboy-hat',wait1:'visor',wait2:'newsboy-cap'
     });
     const FAN_VARIANT_PALETTES=Object.freeze({
       driverA:{body:'#27e0ff',trim:'#0e2a38',pants:'#10202b',hair:'#1a1410'},
@@ -538,6 +538,10 @@
         else if(headStyle==='round-fringe'){set(9,0,'hair');set(22,0,'hair')}
         else if(headStyle==='hair-band'){set(9,4,'hair');set(22,4,'hair')}
         else if(headStyle==='hood'){put(9,2,1,5,'cloth');put(22,2,1,5,'cloth')}
+        else if(headStyle==='bucket-hat'){put(8,0,16,1,'cloth');put(10,2,12,3,'cloth');put(8,0,2,1,'clothhi')}
+        else if(headStyle==='visor'){put(9,1,14,1,'clothhi');put(11,2,10,2,'cloth')}
+        else if(headStyle==='cowboy-hat'){put(7,0,18,1,'cloth');put(10,2,12,3,'cloth');put(7,0,2,1,'clothhi')}
+        else if(headStyle==='pom-beanie'){put(11,0,10,3,'cloth');put(15,0,2,1,'clothhi')}
       }
       if(headStyle==='round-fringe'){put(11,0,10,2,'hair');put(13,2,6,1,'hairlight');put(14,3,4,1,'hair')}
       if(headStyle==='helmet')put(10,0,12,4,'helm');
@@ -548,6 +552,10 @@
       else if(headStyle==='beanie'){put(12,0,8,2,'cloth');put(10,2,12,1,'clothhi')}
       else if(headStyle==='hat'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
       else if(headStyle==='hair-band')put(11,1,10,1,'hairband')
+      else if(headStyle==='bucket-hat'){put(9,0,14,1,'cloth');put(11,1,10,3,'cloth')}
+      else if(headStyle==='visor'){put(10,1,14,1,'cloth');put(12,2,10,1,'cloth')}
+      else if(headStyle==='cowboy-hat'){put(8,0,16,1,'cloth');put(10,2,12,3,'cloth')}
+      else if(headStyle==='pom-beanie'){put(11,0,10,3,'cloth');set(16,0,'clothhi')}
       // Facial planes and headwear highlights reuse the existing palette roles.
       if(!back){
         for(let xx=12;xx<=19;xx++)set(xx,3,'skinshade');
