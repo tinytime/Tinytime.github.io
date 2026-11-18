@@ -34,6 +34,8 @@ const npcInventoryCheck = {
   stdout: (npcInventoryRun.stdout || '').trim(),
   error: npcInventoryRun.stderr || (npcInventoryRun.status === 0 ? null : 'NPC inventory validation failed')
 };
+const htmlSource = fs.readFileSync(html, 'utf8');
+const pixelPackDirectionGuard = htmlSource.includes("if(n.d!=='l'&&n.d!=='r')return false;");
 const npcInventoryData = JSON.parse(fs.readFileSync(path.join(root, 'qa', 'npc-inventory.json'), 'utf8'));
 const atlasOverrideIds = npcInventoryData.pixelPack.pxPersonAtlasNpcIds || [];
 const atlasOverrideRecords = npcInventoryData.npcs
@@ -47,7 +49,10 @@ const pixelPackImpact = {
   fansAffected: npcInventoryData.fanNpcIds.filter(id => atlasOverrideSet.has(id)),
   kidsAffected: npcInventoryData.npcs.filter(n => atlasOverrideSet.has(n.id) && ['kid','kid2','youth'].includes(n.civ)).map(n => n.id),
   buskersAffected: npcInventoryData.npcs.filter(n => atlasOverrideSet.has(n.id) && n.civ === 'busker').map(n => n.id),
-  recommendation: 'Regenerate these atlas entries from the live NPC renderer and verify them against the golden PNGs; if the atlas cannot be kept in sync, retire the overrides so the renderer fallback is authoritative.'
+  horizontalFacingAtlasIds: atlasOverrideRecords.filter(n => ['l','r'].includes(n.direction)).map(n => n.npcId),
+  verticalFacingFallbackIds: atlasOverrideRecords.filter(n => !['l','r'].includes(n.direction)).map(n => n.npcId),
+  directionSupport: 'Atlas art is side-facing only. Up/down NPCs must use the four-direction owCiv renderer.',
+  recommendation: 'Keep side-facing atlas overrides only; vertical-facing NPCs fall back to owCiv so they retain correct back/front views.'
 };
 
 const grannyRefPath = path.join(root, 'qa', 'granny-ref.json');
@@ -505,6 +510,7 @@ try {
     npcSpriteModuleLoaded,
     npcInventoryCheck,
     pixelPackImpact,
+    pixelPackDirectionGuard: { pass: pixelPackDirectionGuard && pixelPackImpact.verticalFacingFallbackIds.length > 0, guardPresent: pixelPackDirectionGuard },
     pixelPackAtlasCaptures,
     pixelPackAtlasCaptureError,
     grannyRefGeneratorCheck,
@@ -544,7 +550,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !pixelPackDirectionGuard || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
