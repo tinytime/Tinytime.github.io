@@ -378,7 +378,7 @@
       "civ": "granny",
       "direction": "l",
       "archetype": "elder",
-      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
+      "rendererPath": "owCiv",
       "scopeClass": "standardUnclassified",
       "pxPersonAtlasOverride": false,
       "inScope": true
@@ -398,7 +398,7 @@
       "civ": "granny",
       "direction": "u",
       "archetype": "elder",
-      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
+      "rendererPath": "owCiv",
       "scopeClass": "standardUnclassified",
       "pxPersonAtlasOverride": false,
       "inScope": true
@@ -538,7 +538,7 @@
       "civ": "granny",
       "direction": "r",
       "archetype": "elder",
-      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
+      "rendererPath": "owCiv",
       "scopeClass": "standardUnclassified",
       "pxPersonAtlasOverride": false,
       "inScope": true
@@ -1119,7 +1119,7 @@
       "civ": "granny",
       "direction": "u",
       "archetype": "elder",
-      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
+      "rendererPath": "owCiv",
       "scopeClass": "standardUnclassified",
       "pxPersonAtlasOverride": false,
       "inScope": true
@@ -1239,7 +1239,7 @@
       "civ": "granny",
       "direction": "d",
       "archetype": "elder",
-      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
+      "rendererPath": "owCiv",
       "scopeClass": "standardUnclassified",
       "pxPersonAtlasOverride": false,
       "inScope": true
