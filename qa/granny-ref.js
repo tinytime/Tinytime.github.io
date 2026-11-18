@@ -1,7 +1,7 @@
 // Generated from qa/granny-ref.json. Do not edit by hand.
 window.GRANNY_REF_DATA = Object.freeze({
   "schemaVersion": 1,
-  "measuredAt": "2026-11-18T17:20:08.885Z",
+  "measuredAt": "2026-11-18T17:27:33.969Z",
   "source": "Browser-rendered drawGrannyVoltSprite at native source grid; four directions",
   "nativeGrid": {
     "width": 100,
@@ -163,7 +163,7 @@ window.GRANNY_REF_DATA = Object.freeze({
     "bodyHeightInTiles": 0.9722222222222222,
     "screenScaleX": 3.3685938517252603,
     "screenScaleY": 0.98295263671875,
-    "bodyWidthCssPixels": 51.87634531656901,
+    "bodyWidthCssPixels": 51.876345316569015,
     "bodyHeightCssPixels": 34.40334228515625,
     "fullHeightCssPixels": 38.25651662109375,
     "canvasCss": {
