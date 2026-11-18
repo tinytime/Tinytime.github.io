@@ -8573,9 +8573,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(P.bun)put(19,0,4,3,'hair');
   if(P.helm)put(10,0,12,4,'helm');
   else if(P.hood){put(10,1,12,3,'clothhi');put(10,3,2,6,'cloth');put(20,3,2,6,'cloth')}
-  if(P.hat==='cap'){put(10,1,12,2,'cloth');put(18,3,5,1,'clothhi')}
+  if(P.hat==='cap'||A?.head==='cap-profile'){put(10,1,12,2,'cloth');put(18,3,5,1,'clothhi');put(20,4,4,1,'cloth')}
   else if(P.hat==='beanie'){put(12,0,8,2,'cloth');put(10,2,12,1,'clothhi')}
-  else if(P.hat==='wide'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
+  else if(P.hat==='wide'||A?.head==='hat'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
+  if(A?.head==='round-fringe'&&!side&&!back){put(13,2,6,1,'hair');put(14,3,4,1,'hair');}
+  if(A?.head==='hair-band'&&!back){put(11,2,10,1,'band');put(10,3,2,1,'band');put(20,3,2,1,'band');}
   // Single-pixel hairline and chin shadows create facial depth.
   if(!back){for(let xx=12;xx<=19;xx++)set(xx,3,'skinshade');for(let xx=14;xx<=18;xx++)set(xx,9,'skinshade');}
   if(!back&&!P.helm&&!P.hood){set(side?19:14,5,'inkdetail');if(!side)set(18,5,'inkdetail');}
@@ -8645,7 +8647,14 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   }
   if(P.stripes&&!side&&!back)for(let yy=12;yy<22;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
   if(P.apron&&!back)put(13,16,6,8,'apron');
-  if(P.jacket||kind==='courier')for(let yy=12;yy<22;yy++)set(16,yy,'bodyshade');
+  if(P.jacket||A?.torso==='jacket')for(let yy=12;yy<22;yy++)set(16,yy,'bodyshade');
+  if(A?.torso==='sweater'&&!side&&!back){for(let yy=15;yy<21;yy++){set(13,yy,'clothhi');set(18,yy,'clothhi');}}
+  if(A?.torso==='armored-vest'&&!back){
+    put(13,13,6,9,'vest');put(12,14,1,7,'clothhi');put(19,14,1,7,'clothhi');
+    for(let xx=13;xx<=18;xx++)set(xx,16,'inkdetail');
+    for(let xx=13;xx<=18;xx++)set(xx,20,'clothhi');
+  }
+  if(A?.torso==='long-scrubs'&&!back){for(let yy=13;yy<23;yy++)set(18,yy,'bodyshade');put(14,14,4,1,'clothhi');}
   // Layered clothing details: dark collar under neck and crisp shirt-to-trouser hem.
   if(!back){
     for(let xx=13;xx<=18;xx++)set(xx,11,'bodyshade');
@@ -8667,8 +8676,23 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
   if(P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
   if(P.keys)put(4,29,24,2,'key');
-  if(P.baton){const propHand=(A&&A.prop.hand)||'right';put(propHand==='left'?5:29,13,2,18,'baton');}
-  if(P.bowl&&!back){const propHand=(A&&A.prop.hand)||'left';put(propHand==='left'?4:24,25,6,4,'bowl');}
+  const propHand=A?.prop?.hand||'right';
+  // In front view, character-left is viewer-right; in back view it mirrors.
+  const handX=back?(propHand==='left'?4:24):(propHand==='left'?24:4);
+  if(A?.prop?.type==='delivery-bag'){
+    if(back||side){put(side?20:handX,15,5,10,'deliverybag');put(side?20:handX,17,5,1,'clothhi');}
+    else{put(handX,23,5,8,'deliverybag');put(handX+1,24,3,1,'clothhi');}
+  }
+  if(A?.prop?.type==='parcel'){
+    if(back||side){put(side?20:handX,20,6,6,'parcel');put(side?21:handX+1,21,4,1,'clothhi');}
+    else{put(handX,24,6,6,'parcel');put(handX+1,25,4,1,'clothhi');}
+  }
+  if(A?.prop?.type==='medical-kit'){
+    if(back||side){put(side?20:handX,21,6,6,'medkit');put(side?21:handX+1,22,4,1,'clothhi');}
+    else{put(handX,24,6,6,'medkit');put(handX+1,25,4,1,'clothhi');}
+  }
+  if(P.baton){put(side?20:handX,13,2,18,'baton');}
+  if(P.bowl&&!back){put(side?20:handX,25,6,4,'bowl');}
   if(P.long)put(10,22,12,2,'bodyshade');
   if(side&&dirCode==='l')for(let yy=0;yy<H;yy++)grid[yy].reverse();
   const colorFor=(role,xx,yy)=>{
@@ -8691,6 +8715,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       case 'helm':return '#18202b';
       case 'apron':return applyShading(P.apron).base||P.apron;
       case 'pack':return applyShading(P.pack).base||P.pack;
+      case 'vest':return body.shadow||darkenHex(P.body||'#252b35',.55);
+      case 'deliverybag':return '#27e0ff';
+      case 'parcel':return '#d49a54';
+      case 'medkit':return '#e8f4f8';
+      case 'band':return P.band||body.highlight||'#27e0ff';
       case 'umb':return applyShading(P.umb).base||P.umb;
       case 'umbhi':return applyShading(P.umb).highlight||P.umb;
       case 'key':return '#ff7a1a';
