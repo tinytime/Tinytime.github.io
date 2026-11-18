@@ -8514,7 +8514,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(n.hb)Object.assign(P,HB_CIV[kind]||HB_CIV.fan);
   if(kind==='fan'&&n.hb){P.body=HB_FANC[((n.x*7+n.y*3)|0)%HB_FANC.length];P.pants=['#26333C','#2b3036','#1f2a30'][(n.x+n.y)%3]}
   else if(kind==='fan'){P.body=CIV_FANC[((n.x*7+n.y*3)|0)%CIV_FANC.length];P.pants=['#1a2433','#241a2e','#10202a'][(n.x+n.y)%3]}
-  const targetG=ctxOverride||og,U=OWT/36*P.sc*[.95,1,1.07,.98,1.04][((n.x*3+n.y*5)|0)%5];
+  // Match Granny Volt's rendered silhouette height: her canopy-to-foot span is
+  // about 137 source units at OWT/36*.28; this sprite's visible body is 80 units.
+  // Use one shared scale for every civilian rather than per-role size multipliers.
+  const targetG=ctxOverride||og,U=OWT/75.1;
   const d=typeof dir==='number'?['d','u','l','r'][Math.max(0,Math.min(3,dir|0))]:(dir||'d').toLowerCase();
   const dirCode=d==='down'?'d':d==='up'?'u':d==='left'?'l':d==='right'?'r':d;
   const side=dirCode==='l'||dirCode==='r',back=dirCode==='u';
@@ -8577,7 +8580,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const torsoRows=[
       [10,11,20],[11,10,21],[12,10,21],[13,11,20],
       [14,12,19],[15,12,19],[16,12,19],[17,11,20],
-      [18,10,21],[19,10,21],[20,10,21],[21,10,21],[22,10,21],[23,10,21]
+      [18,10,21],[19,10,21],[20,10,21],[21,10,21],
+      [22,9,22],[23,9,22]
     ];
     for(const [yy,x1,x2] of torsoRows)for(let xx=x1;xx<=x2;xx++)set(xx,yy,'body');
     // Strong right-side shadow; the bottom-right cell returns to base tone
@@ -8601,32 +8605,45 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Side-profile walking stride: paint the shadowed rear leg first, then
   // the base-color front leg. One source pixel remains transparent between them.
   if(side){
-    put(9,25,2,12,'legback');
-    put(12,24,2,13,'legfront');
+    // Rear leg is the dark shadow silhouette; front leg advances two pixels.
+    // The one-cell gap remains clear after the outline pass.
+    put(9,24,2,13,'legback');
+    put(14,24,2,13,'legfront');
   }else{
-    // Front A-stance: thighs begin apart, then calves angle outward at the knees.
-    // Two-pixel thighs run straight to the knee; calves shift outward one pixel.
-    for(let yy=24;yy<=29;yy++){set(11,yy,'pants');set(12,yy,'pants');set(16,yy,'pants');set(17,yy,'pants');}
-    // A one-pixel dark knee crease marks the exact point of each outward bend.
-    set(10,30,'legshadow');set(18,30,'legshadow');
-    for(let yy=31;yy<=36;yy++){set(10,yy,'pants');set(11,yy,'pants');set(17,yy,'pants');set(18,yy,'pants');}
+    // Four-pixel thighs connect directly beneath the widened hip line.
+    for(let yy=24;yy<=29;yy++){
+      for(let xx=11;xx<=14;xx++)set(xx,yy,'pants');
+      for(let xx=17;xx<=20;xx++)set(xx,yy,'pants');
+    }
+    // Calves taper to three pixels and shift inward at the knee.
+    set(11,30,'legshadow');set(20,30,'legshadow');
+    for(let yy=30;yy<=36;yy++){
+      for(let xx=12;xx<=14;xx++)set(xx,yy,'pants');
+      for(let xx=17;xx<=19;xx++)set(xx,yy,'pants');
+    }
   }
   if(side){
-    // Dark welt pixels separate each trouser leg from its shoe.
-    put(9,36,4,1,'legshadow');put(14,36,5,1,'legshadow');
-    put(9,37,4,3,'shoe');put(14,37,5,3,'shoefront');
+    // Dark ankle welt, then shoes two pixels wider than each two-pixel leg.
+    put(9,36,2,1,'legshadow');put(14,36,2,1,'legshadow');
+    put(8,37,4,3,'shoe');put(13,37,4,3,'shoefront');
   }else{
-    put(9,36,7,1,'legshadow');put(18,36,7,1,'legshadow');
-    put(9,37,7,3,'shoe');put(18,37,7,3,'shoe');
+    // Dark ankle welt; five-pixel shoes flare one pixel beyond each calf side.
+    put(12,36,3,1,'legshadow');put(17,36,3,1,'legshadow');
+    put(11,37,5,3,'shoe');put(16,37,5,3,'shoe');
   }
   if(P.stripes&&!side&&!back)for(let yy=12;yy<22;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
   if(P.apron&&!back)put(13,16,6,8,'apron');
   if(P.jacket||kind==='courier')for(let yy=12;yy<22;yy++)set(16,yy,'bodyshade');
   // Layered clothing details: dark collar under neck and crisp shirt-to-trouser hem.
-  if(!back){for(let xx=13;xx<=18;xx++)set(xx,11,'bodyshade');}
+  if(!back){
+    for(let xx=13;xx<=18;xx++)set(xx,11,'bodyshade');
+    // One-pixel dark collar seam directly beneath the neck.
+    set(15,12,'inkdetail');set(16,12,'inkdetail');
+  }
   if(!side&&!back){
-    for(let xx=14;xx<=17;xx++)set(xx,12,'inkdetail');
-    for(let xx=10;xx<=21;xx++)set(xx,23,'inkdetail');
+    // Single-pixel belt and shirt-over-pants shadow seam.
+    for(let xx=10;xx<=21;xx++)set(xx,22,'inkdetail');
+    for(let xx=9;xx<=22;xx++)set(xx,23,'bodyshade');
   }else if(side){
     for(let xx=13;xx<20;xx++)set(xx,23,'bodyshade');
     // Vertical hem seam keeps the shirt distinct from the separated legs.
@@ -8685,7 +8702,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // The side-view stride gap is genuinely transparent, not filled by the
   // automatic one-pixel outline pass. Mirror its column for left-facing sprites.
   if(side){
-    const gapX=dirCode==='l'?20:11;
+    const gapX=dirCode==='l'?19:12;
     for(let yy=24;yy<=36;yy++)finalGrid[yy][gapX]=null;
   }
   // Rim light only occupies the absolute outermost outline pixel per row.
@@ -8708,7 +8725,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const bob=moving?Math.abs(step)*.45:Math.sin(tm*1.8+((n.x*13+n.y*7)|0))*.12;
   const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
   targetG.save();targetG.globalAlpha=1;targetG.globalCompositeOperation='source-over';targetG.filter='none';targetG.imageSmoothingEnabled=false;
-  targetG.drawImage(spriteCanvas,sx-32*U,sy-bob-75*U,64*U,96*U);
+  // The visible sprite occupies grid rows 0-40 (80 doubled pixels).
+  // Pin its feet to Granny's baseline and center the narrower 32x48 canvas.
+  targetG.drawImage(spriteCanvas,sx-32*U,sy-bob-80*U,64*U,96*U);
   targetG.restore();
 }
 function bodyRowsLength(P){return P.long?18:16}
