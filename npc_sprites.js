@@ -145,8 +145,8 @@
       runner:[0,0,0],coach:[-2,1,2],ref:[2,-2,-1],
       courier:[-1,2,-2],guard:[2,0,-2],
       vendor:[-2,-2,2],cook:[2,2,-1],
-      clinic:[0,-2,2],tech:[2,0,2],hacker:[-2,2,-1],
-      fisher:[2,-2,2],sailor:[-2,0,-2],slicker:[0,2,2],painter:[2,2,-2],welder:[-2,-2,0],
+      clinic:[0,2,4],tech:[2,0,2],hacker:[-2,2,-1],
+      fisher:[2,-2,2],sailor:[4,-4,-4],slicker:[0,2,2],painter:[2,2,-2],welder:[-2,-2,0],
       kid:[-2,0,2],kid2:[2,0,-2],mouse:[0,2,0],
       busker:[-2,2,2],dancer:[2,-2,-2],
       broker:[-2,0,0],usher:[0,-2,0],fan:[2,2,2]
