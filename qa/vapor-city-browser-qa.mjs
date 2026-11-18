@@ -1023,6 +1023,7 @@ try {
     atlasRuntimeAudit,
     atlasComparisonAudit,
     pixelPackDirectionGuard: { pass: pixelPackDirectionGuard && pixelPackImpact.verticalFacingFallbackIds.length > 0, guardPresent: pixelPackDirectionGuard },
+    atlasVerticalFallbackAudit,
     pixelPackAtlasCaptures,
     pixelPackAtlasCaptureError,
     grannyRefGeneratorCheck,
