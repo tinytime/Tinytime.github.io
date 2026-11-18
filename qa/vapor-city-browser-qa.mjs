@@ -588,13 +588,26 @@ try {
       for (let pixel = 0; pixel < alphaMask.length; pixel++) alphaMask[pixel] = pixels[pixel * 4 + 3] > 0 ? 1 : 0;
       const silhouetteDigest = await crypto.subtle.digest('SHA-256', alphaMask.buffer);
       const silhouetteSha256 = Array.from(new Uint8Array(silhouetteDigest), byte => byte.toString(16).padStart(2, '0')).join('');
+      let topRowOpaquePixels = 0, firstOpaqueRow = canvas.height;
+      for (let y = 0; y < canvas.height; y++) for (let x = 0; x < canvas.width; x++) {
+        if (alphaMask[y * canvas.width + x]) {
+          firstOpaqueRow = Math.min(firstOpaqueRow, y);
+          if (y === 0) topRowOpaquePixels++;
+        }
+      }
       rows.push({ id: fan.id, width: canvas.width, height: canvas.height, pixelSha256, silhouetteSha256,
-        opaquePixels: alphaMask.reduce((sum, value) => sum + value, 0) });
+        opaquePixels: alphaMask.reduce((sum, value) => sum + value, 0), topRowOpaquePixels, firstOpaqueRow });
     }
     return rows;
   }, fanVariantData);
   const fanPixelSignatures = fanPixelAudit.map(fan => fan.pixelSha256);
   const fanSilhouetteSignatures = fanPixelAudit.map(fan => fan.silhouetteSha256);
+  const fanHeadroomCheck = {
+    pass: fanPixelAudit.length === 20 && fanPixelAudit.every(fan => fan.topRowOpaquePixels === 0 && fan.firstOpaqueRow > 0),
+    checked: fanPixelAudit.length,
+    failures: fanPixelAudit.filter(fan => fan.topRowOpaquePixels > 0 || fan.firstOpaqueRow === 0)
+      .map(fan => ({ id: fan.id, topRowOpaquePixels: fan.topRowOpaquePixels, firstOpaqueRow: fan.firstOpaqueRow }))
+  };
   const fanPaletteSignatures = fanVariantData.map(fan => [...fan.colors].sort().join('|'));
   const fanJerseyStyleCounts = Object.fromEntries([...new Set(fanVariantData.map(fan => fan.jerseyStyle))].map(style =>
     [style, fanVariantData.filter(fan => fan.jerseyStyle === style).length]));
@@ -1091,6 +1104,7 @@ try {
     npcBodyCheck,
     npcPropAudit,
     fanVariantAudit,
+    fanHeadroomCheck,
     fanVariantRenderedPropCheck,
     snapshotCheck,
     archetypeSilhouetteCount: archetypeSilhouettes.length,
@@ -1123,7 +1137,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
