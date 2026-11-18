@@ -8855,7 +8855,7 @@ var PX_TRUCK={x0:22,x1:25,y0:21,y1:22};
 /* draw one atlas frame with its anchor (feet / base) at world point wx,wy (points); crisp: whole device pixels, no smoothing */
 function pxBlit(key,fi,wx,wy,flip,al){
   const e=PXS.f[key];if(!e)return false;
-  const t=og.getTransform(),s=Math.max(1,Math.round(t.a)),dx=Math.round(t.a*wx+t.e),dy=Math.round(t.d*wy+t.f),sx=e.x+((fi|0)%e.n)*e.w,ax=Math.round(e.ax*s),ay=Math.round(e.ay*s);
+  const t=og.getTransform(),person=/^(tp9|tp1|tp4|tp11|tp12|tp5)$/.test(key),s=Math.max(1,Math.round(t.a))*(person?2:1),dx=Math.round(t.a*wx+t.e),dy=Math.round(t.d*wy+t.f),sx=e.x+((fi|0)%e.n)*e.w,ax=Math.round(e.ax*s),ay=Math.round(e.ay*s);
   if(dx+e.w*s<-40||dx-e.w*s>og.canvas.width+40||dy<-40||dy-e.h*s>og.canvas.height+40)return true;   // off screen
   const figure=/^(tp9|tp1|tp4|tp11|tp12|tp5|rat_[wi]|dog_[wi]|pig_[fi]|crow_i|cat_i)$/.test(key);
   og.save();og.setTransform(1,0,0,1,0,0);og.imageSmoothingEnabled=figure; if(figure)og.imageSmoothingQuality='high';if(al!=null)og.globalAlpha=al;
@@ -9102,7 +9102,8 @@ window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMas
       const sx=entry.x+((frame|0)%entry.n)*entry.w;
       atlasCtx.save();
       if(direction==='l'){atlasCtx.translate(64,0);atlasCtx.scale(-1,1)}
-      atlasCtx.drawImage(PXS.img,sx,entry.y,entry.w,entry.h,32-entry.ax,96-entry.ay,entry.w,entry.h);
+      const personScale=2;
+      atlasCtx.drawImage(PXS.img,sx,entry.y,entry.w,entry.h,32-entry.ax*personScale,96-entry.ay*personScale,entry.w*personScale,entry.h*personScale);
       atlasCtx.restore();
       const rendererCanvas=document.createElement('canvas');rendererCanvas.width=64;rendererCanvas.height=96;
       const rendererNpc=Object.assign({},n,{x:0,y:0,rx:0,ry:0});
