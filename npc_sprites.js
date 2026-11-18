@@ -122,11 +122,13 @@
         : (y>=15?{left:2,right:-2}:{left:0,right:1}));
       reshapeTorsoRows('guard',view,y=>y<=16?{left:-2,right:2}:y>=20?{left:1,right:-1}:{left:-1,right:1});
       reshapeTorsoRows('vendor',view,y=>y<=14?{left:1,right:-1}:y>=17?{left:-2,right:2}:{left:-1,right:1});
+      if(view==='front')reshapeTorsoRows('vendor','front',y=>y>=19?{left:-1,right:1}:{left:0,right:0});
       reshapeTorsoRows('trades',view,y=>y>=13&&y<=22?{left:1,right:-2}:{left:0,right:1});
       reshapeTorsoRows('youth',view,y=>({left:2,right:-2}));
       reshapeTorsoRows('elder',view,y=>y<=13?{left:1,right:-1}:y>=15?{left:-2,right:2}:{left:-1,right:1});
     }
-    reshapeTorsoRows('clinic','side',y=>y>=13&&y<=21?{left:-1,right:2}:{left:0,right:1});
+    reshapeTorsoRows('clinic','side',y=>y>=13&&y<=21?{left:1,right:-1}:{left:0,right:1});
+    reshapeTorsoRows('clinic','front',y=>y>=18?{left:2,right:-2}:{left:0,right:0});
     reshapeTorsoRows('clinic','back',y=>y<=13?{left:-1,right:1}:{left:2,right:-2});
     Object.freeze(ARCHETYPE_TORSO_MASKS);
     
