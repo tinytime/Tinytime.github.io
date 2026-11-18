@@ -8578,11 +8578,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // from shoulder Y=8 to Y=10; forearms shift exactly one pixel inward
   // from Y=10 through Y=14, then continue down the body's sides.
   if(side){
-    put(17,10,3,4,'arm');       // upper arm to local Y=10
-    put(16,12,3,12,'arm');      // forearm: one pixel inward, continues to hem
+    put(17,10,3,2,'arm');       // upper arm ends at local Y=10
+    put(16,12,3,12,'arm');      // forearm starts at local Y=10, one pixel inward
   }else{
-    put(6,10,3,4,'arm');put(7,12,3,12,'arm');
-    put(23,10,3,4,'arm');put(22,12,3,12,'arm');
+    put(6,10,3,2,'arm');put(7,12,3,12,'arm');
+    put(23,10,3,2,'arm');put(22,12,3,12,'arm');
   }
   // Side-profile legs use the 16-wide local grid: back leg anchor X=3,
   // front leg anchor X=5. Each is two pixels thick with exactly one
