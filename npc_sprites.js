@@ -192,7 +192,7 @@
       performer:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[26,11,5,17,'guitar'],[21,21,1,3,'guitar']],back:[[1,11,5,17,'guitar'],[8,21,1,3,'guitar']],side:[[26,11,5,17,'guitar'],[17,20,1,3,'guitar']]},
       civic:{types:{front:'clipboard',side:'clipboard',back:'coat-tail'},front:[[1,18,5,10,'briefcase'],[7,18,3,4,'clipboard']],back:[[26,18,5,10,'briefcase'],[21,18,3,4,'clipboard']],side:[[26,18,5,10,'briefcase'],[17,17,3,4,'clipboard']]},
       elder:{types:{front:'cardigan-pin',side:'cardigan-back',back:'cardigan-back'},front:[[20,13,2,2,'pin']],back:[],side:[]},
-      fan:{types:{front:'foam-finger',side:'foam-finger',back:'foam-finger'},front:[[1,12,5,14,'foamfinger']],side:[[27,12,5,14,'foamfinger']],back:[[26,12,5,14,'foamfinger']]}
+      fan:{types:{front:'fan-crowd-gear',side:'fan-crowd-gear',back:'fan-crowd-gear'},front:[[1,12,5,14,'foamfinger']],side:[[27,12,5,14,'foamfinger']],back:[[26,12,5,14,'foamfinger']]}
     });
     const ARCHETYPE_PROP_SHAPES=Object.freeze({
       duffel:['..##.','.####','#####','#####','.####'],
