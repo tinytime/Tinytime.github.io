@@ -8713,10 +8713,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   }
   for(let py=1;py<63;py++)for(let pxl=1;pxl<63;pxl++){
     const q=py*64+pxl,k=q*4;if(alpha[k+3]<220)continue;
-    const edge=outside[q-1]||outside[q+1]||outside[q-64]||outside[q+64];
+    const edge=outside[q-1]||outside[q+1];
     if(!edge)continue;
     const c=pxl<24?[255,154,61]:[41,242,232];
-    rim.data[k]=c[0];rim.data[k+1]=c[1];rim.data[k+2]=c[2];rim.data[k+3]=255;
+    rim.data[k]=c[0];rim.data[k+1]=c[1];rim.data[k+2]=c[2];rim.data[k+3]=150;
   }
   rimG.globalAlpha=1;rimG.globalCompositeOperation='source-over';rimG.putImageData(rim,0,0);
   // Composite the completed opaque material at full opacity, regardless of
