@@ -196,6 +196,7 @@ try {
   await page.screenshot({ path: path.join(out, 'town-atlas-on.png'), fullPage: true });
   const atlasOffState = await page.evaluate(() => {
     if (!window.PXA?.info || !window.PXA?.toggle) return null;
+    window.PXA.S.anim = 0;
     if (window.PXA.info().on) window.PXA.toggle();
     return window.PXA.info();
   });
@@ -204,6 +205,7 @@ try {
   await page.screenshot({ path: path.join(out, 'town-atlas-off.png'), fullPage: true });
   const atlasRestoredState = await page.evaluate(() => {
     if (!window.PXA?.info || !window.PXA?.toggle) return null;
+    window.PXA.S.anim = 0;
     if (!window.PXA.info().on) window.PXA.toggle();
     return window.PXA.info();
   });
@@ -211,16 +213,17 @@ try {
   const atlasRestoredSettled = await page.evaluate(() => window.PXA?.info?.() || null);
   const atlasRuntimeAudit = {
     pass: !!atlasOnInitialState?.ok && !!atlasOffSettled && atlasOffSettled.on === false &&
-      !!atlasRestoredSettled && atlasRestoredSettled.on === true &&
-      (atlasRestoredSettled.anim || 0) > (atlasOffSettled.anim || 0),
+      (atlasOffSettled.anim || 0) === 0 && !!atlasRestoredSettled && atlasRestoredSettled.on === true &&
+      (atlasRestoredSettled.anim || 0) > 2,
     atlasOnInitialState,
     atlasOffState,
     atlasOffSettled,
     atlasRestoredState,
     atlasRestoredSettled,
     atlasCallsDuringOff: (atlasOffSettled?.anim || 0) - (atlasOnInitialState?.anim || 0),
-    atlasCallsAfterRestore: (atlasRestoredSettled?.anim || 0) - (atlasOffSettled?.anim || 0),
-    activeAtlasKeys: atlasOnInitialState?.ents?.map(item => item.k) || []
+    atlasCallsAfterRestore: atlasRestoredSettled?.anim || 0,
+    estimatedHumanAtlasDraws: Math.max(0, (atlasRestoredSettled?.anim || 0) - 2),
+    activeAtlasKeys: atlasOverrideRecords.filter(item => ['l','r'].includes(item.direction)).map(item => item.npcId)
   };
 
   const grannyMeasurements = await page.evaluate(() => {
@@ -750,9 +753,9 @@ try {
     atlasComparisonError = error.message;
   }
   const atlasComparisonAudit = {
-    pass: atlasComparisonData.length === 3 && atlasComparisonData.every(item => !item.error && item.atlasDataUrl && item.rendererDataUrl),
+    pass: atlasComparisonData.length === 4 && atlasComparisonData.every(item => !item.error && item.atlasDataUrl && item.rendererDataUrl),
     comparisonCount: atlasComparisonData.length,
-    comparisons: atlasComparisonData.map(({id,direction,key,frame,error})=>({id,direction,key,frame,error:error||null})),
+    comparisons: atlasComparisonData.map(({id,direction,key,frame,x,y,civ,error})=>({id,direction,key,frame,x,y,civ,error:error||null})),
     error: atlasComparisonError
   };
 
