@@ -211,8 +211,14 @@
         pin:['.##.','####','.##.','..#.'],
         toolroll:['#####','#####','#####']
       });
+    const PROP_ROLE_COLORS=Object.freeze({
+      duffel:'#D8A04D',whistle:'#F5D45C',satchel:'#9A6541',parcel:'#D88A45',
+      shield:'#65788D',baton:'#C6D3E0',bowl:'#F2F2F8',medkit:'#F4F6FF',
+      wrench:'#AEB8C2',backpack:'#B4FF3A',guitar:'#FF7A1A',briefcase:'#8A5B38',
+      clipboard:'#F4F6FF',notebook:'#FF2FA8',pin:'#FFD0EE',toolroll:'#AEB8C2'
+    });
     const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin']);
-    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, ARCHETYPE_ACCESSORY_ROLES };
+    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
   function createGrannyRenderer({OWT,og,artShadow}) {
@@ -654,7 +660,8 @@
           case 'umbhi':return accentGarment;
           case 'hairband':return typeof P.band==='string'?P.band:accentGarment;
           case 'labcoat':return typeof P.labcoat==='string'?P.labcoat:accentGarment;
-          case 'key':case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return accentProp;
+          case 'key':return accentProp;
+          case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return PROP_ROLE_COLORS[role]||accentProp;
           default:return null;
         }
       };
