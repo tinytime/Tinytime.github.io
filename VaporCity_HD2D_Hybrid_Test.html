@@ -8667,8 +8667,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       case 'hairlight':return hair.highlight||hair.base||P.hair||'#211a22';
       case 'body':return body.base||P.body||'#777777';
       case 'bodyshade':return body.shadow||darkenHex(P.body||'#777777',.5);
-      case 'arm':return xx<16?(body.base||P.body):(body.shadow||body.base||P.body);
-      case 'pants':return xx<16?(pants.base||P.pants):(pants.shadow||pants.base||P.pants);
+      case 'arm':return xx<32?(body.base||P.body):(body.shadow||body.base||P.body);
+      case 'pants':return xx<32?(pants.base||P.pants):(pants.shadow||pants.base||P.pants);
       case 'legback':return pants.shadow||darkenHex(P.pants||'#252535',.5);
       case 'legfront':return pants.base||P.pants||'#252535';
       case 'legshadow':return ink;
