@@ -8720,13 +8720,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const gapX=dirCode==='l'?38:24;
     for(let yy=48;yy<=72;yy++)finalGrid[yy][gapX]=null;
   }
-  // Rim light only occupies the absolute outermost outline pixel per row.
-  for(let yy=0;yy<H;yy++){
-    let left=-1,right=-1;
-    for(let xx=0;xx<N;xx++)if(finalGrid[yy][xx]===ink){if(left<0)left=xx;right=xx}
-    if(left>=0)finalGrid  // Uniform dark outline: the prior renderer baked cyan on one side and orange on the other.
-  // Preserve the same single ink color on every archetype and facing.
-iteCanvas.getContext('2d');
+  // Keep a uniform dark outline; do not apply directional rim tints.
+  const spriteCanvas=owCiv._gridCanvas||(owCiv._gridCanvas=document.createElement('canvas'));
+  if(spriteCanvas.width!==N*SCALE)spriteCanvas.width=N*SCALE;
+  if(spriteCanvas.height!==H*SCALE)spriteCanvas.height=H*SCALE;
+  const ctx=spriteCanvas.getContext('2d');
   ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,N*SCALE,H*SCALE);
   for(let gy=0;gy<H;gy++)for(let gx=0;gx<N;gx++){
     const color=finalGrid[gy][gx];
