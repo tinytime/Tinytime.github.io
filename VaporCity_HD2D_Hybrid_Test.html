@@ -8585,7 +8585,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(P.apron&&!back)put(13,16,6,8,'apron');
   if(P.jacket||kind==='courier')for(let yy=12;yy<22;yy++)set(16,yy,'bodyshade');
   // Fine contact shadows: under the arms and across the shirt hem/waist.
-  if(!side&&!back){for(let xx=10;xx<22;xx++)if(grid[18][xx]!==null)set(xx,19,'bodyshade');for(let xx=11;xx<21;xx++)set(xx,23,'bodyshade');}
+  if(!side&&!back){for(let xx=11;xx<21;xx++)set(xx,18,'bodyshade');for(let xx=10;xx<22;xx++)if(grid[18][xx]!==null)set(xx,19,'bodyshade');for(let xx=11;xx<21;xx++)set(xx,23,'bodyshade');}
   else if(side){for(let xx=13;xx<20;xx++)set(xx,23,'bodyshade');}
   if(P.scarf&&!back)put(10,10,12,3,'clothhi');
   if(P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
