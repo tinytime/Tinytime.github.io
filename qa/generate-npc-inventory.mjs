@@ -82,7 +82,7 @@ if ((archetypeMatch[1].match(/palette:\{/g) || []).length !== archetypeKeys.leng
 if (liveCivs.length !== 24 || Object.keys(civToArchetype).length !== 24) {
   throw new Error('Expected 24 live civ mappings; found ' + liveCivs.length + ' live civs and ' + Object.keys(civToArchetype).length + ' mapping entries');
 }
-if (/CIV\[kind\]\s*\|\|\s*CIV\.fan/.test(source)) throw new Error('Forbidden CIV.fan palette fallback remains');
+if (/CIV\s*\[[^\]]+\]\s*\|\|\s*CIV\.fan/.test(source)) throw new Error('Forbidden CIV.fan palette fallback remains');
 
 const pxnMatch = source.match(/var PXN=\{([^}]+)\}/);
 if (!pxnMatch) throw new Error('Could not read PXN pixel-pack dispatch table');
