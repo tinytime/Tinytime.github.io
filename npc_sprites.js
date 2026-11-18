@@ -220,7 +220,7 @@
       tech:{armSpread:2,armY:-1,legSpread:-2},
       hacker:{armSpread:-2,armY:-1,legSpread:2,legW:-1},
       fisher:{armSpread:2,armY:0,legSpread:2,legW:1},
-      sailor:{armSpread:2,armY:1,legSpread:-2},
+      sailor:{armSpread:-2,armY:1,legSpread:-2},
       slicker:{armSpread:0,armY:-1,legSpread:2,legW:-1},
       painter:{armSpread:-2,armY:1,legSpread:0,legW:2},
       welder:{armSpread:2,armY:0,legSpread:-2},
