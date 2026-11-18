@@ -450,7 +450,7 @@ try {
     snapshotCheck,
     archetypeSilhouetteCount: archetypeSilhouettes.length,
     silhouetteMaskDiagnostics: archetypeSilhouettes
-      .filter(item => ['courier', 'trades'].includes(item.archetype))
+      .filter(item => ['courier', 'trades', 'clinic', 'civic'].includes(item.archetype))
       .map(item => ({ archetype: item.archetype, direction: item.direction, maskRows: item.maskRows })),
     silhouetteBaseline,
     silhouetteQualityCheck,
