@@ -158,7 +158,7 @@
         masks[view]=source[view].map(([y,left,right])=>{
           const band=variant[y<=14?0:y<=20?1:2];
           if(!band)return [y,left,right];
-          const profileHemTrim=view==='side'&&y>=18&&['vendor','cook','busker'].includes(civ)?2:0;
+          const profileHemTrim=view==='side'&&y>=18&&['vendor','cook','busker'].includes(civ)?3:0;
           const l=view==='side'?Math.max(0,left+band+profileHemTrim):Math.max(0,left-band);
           const r=view==='side'?Math.min(31,right-band-profileHemTrim):Math.min(31,right+band);
           const mid=Math.floor((left+right)/2);
@@ -958,7 +958,7 @@
       if(P.scarf&&!back){if(side)put(16,10,3,3,'clothhi');else put(10,10,12,3,'clothhi');}
       if(!qaExcludeProps&&P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
       if(!qaExcludeProps&&P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
-      if(!qaExcludeProps&&P.keys)put(4,29,24,2,'key');
+      if(!qaExcludeProps&&P.keys){if(side)put(15,28,3,2,'key');else put(4,29,24,2,'key');}
       // Props are explicit per-archetype/per-direction layers; no shared prop footprint is inferred.
       const propSpec=kind==='fan'?ARCHETYPE_PROP_LAYERS.fan:(CIV_PROP_LAYERS[kind]||ARCHETYPE_PROP_LAYERS[archetypeKey]);
       const declaredPropType=propSpec&&propSpec.types&&propSpec.types[rigView];
