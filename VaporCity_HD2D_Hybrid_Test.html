@@ -470,7 +470,7 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
     <canvas id="owc"></canvas>
     <button id="owHybridToggle" type="button" aria-pressed="true">HD-2D PREVIEW: ON</button>
     <button id="owNpcGalleryToggle" type="button" aria-expanded="false">NPC STYLE GALLERY</button>
-    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — GRANNY VOLT BENCHMARK</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><canvas id="owNpcGalleryCanvas" width="960" height="360"></canvas><div class="npcGalleryNote">Five civilian archetypes plus Granny Volt · front view · shared renderer · no map NPCs added</div></div>
+    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — GRANNY VOLT BENCHMARK</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><canvas id="owNpcGalleryCanvas" width="960" height="540"></canvas><div class="npcGalleryNote">Six archetypes · front row plus left, right and back views · shared renderer · no map NPCs added</div></div>
     <div id="owBlack" hidden style="position:absolute;inset:0;background:#000;z-index:2"></div>
     <div id="owTop"><b id="owTown">VAPOR CITY</b><span id="owObj"></span></div>
     <button id="owMenu">MENU</button>
@@ -8515,169 +8515,149 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(kind==='fan'&&n.hb){P.body=HB_FANC[((n.x*7+n.y*3)|0)%HB_FANC.length];P.pants=['#26333C','#2b3036','#1f2a30'][(n.x+n.y)%3]}
   else if(kind==='fan'){P.body=CIV_FANC[((n.x*7+n.y*3)|0)%CIV_FANC.length];P.pants=['#1a2433','#241a2e','#10202a'][(n.x+n.y)%3]}
   const targetG=ctxOverride||og,U=OWT/36*P.sc*[.95,1,1.07,.98,1.04][((n.x*3+n.y*5)|0)%5];
-  // Render the complete NPC into a compact transparent layer so rim light can be
-  // derived from the final alpha silhouette, never from individual limb paths.
+  const d=typeof dir==='number'?['d','u','l','r'][Math.max(0,Math.min(3,dir|0))]:(dir||'d').toLowerCase();
+  const dirCode=d==='down'?'d':d==='up'?'u':d==='left'?'l':d==='right'?'r':d;
+  const side=dirCode==='l'||dirCode==='r',back=dirCode==='u';
   const rimCanvas=owCiv._rimCanvas||(owCiv._rimCanvas=document.createElement('canvas'));
   if(rimCanvas.width!==64)rimCanvas.width=64;if(rimCanvas.height!==64)rimCanvas.height=64;
   const g=rimCanvas.getContext('2d');
-  // Start every sprite pass from a clean, fully opaque drawing state.
-  g.setTransform(1,0,0,1,0,0);g.globalAlpha=1;g.globalCompositeOperation='source-over';g.filter='none';
-  g.clearRect(0,0,64,64);
+  g.setTransform(1,0,0,1,0,0);g.globalAlpha=1;g.globalCompositeOperation='source-over';g.filter='none';g.clearRect(0,0,64,64);
   const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
-  const side=dir==='l'||dir==='r',back=dir==='u',f=dir==='l'?-1:1;
   const skin=['#e6b48a','#c98a62','#8a5a3a','#f0c8a0'][((n.x*5+n.y)|0)%4];
   const ink='#141622',body=applyShading(P.body||'#777777'),pants=applyShading(P.pants||'#252535');
   const skinTone=applyShading(skin),hair=applyShading(P.hair||'#211a22'),trim=applyShading(P.trim||'#d8d8d8');
-  const step=moving?Math.sin(tm*11+ph*6):0;
-  const seed=((n.x*13+n.y*7+(kind||'').length*3)|0);
-  const idle=seed%2?1:-1;
+  const step=moving?Math.sin(tm*11+ph*6):0,seed=((n.x*13+n.y*7+(kind||'').length*3)|0);
   const bob=moving?Math.abs(step)*.45:Math.sin(tm*1.8+seed)*.12;
-  const swing=moving?Math.round(step):idle;
   const px=(a,b,w,h,c)=>{g.fillStyle=c;g.fillRect(Math.round(a),Math.round(b),Math.max(1,w),Math.max(1,h))};
   const polygon=(pts,ramp,stroke=ink,lw=1)=>{
     g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();
-    const minX=Math.min(...pts.map(p=>p[0])),maxX=Math.max(...pts.map(p=>p[0]));
-    // Layer 1: hard-reset the offscreen material pass and fill the exact
-    // closed silhouette with its literal Base Hex at full opacity.
-    g.globalAlpha=1;g.globalCompositeOperation='source-over';g.shadowBlur=0;
-    g.shadowColor='rgba(0,0,0,0)';g.fillStyle=String(ramp.base||'#777777');g.fill('nonzero');
-    // Layer 2: edge tones only. Clip after the base fill so neither tone can
-    // replace the material interior or leak beyond this unchanged silhouette.
+    g.globalAlpha=1;g.globalCompositeOperation='source-over';g.shadowBlur=0;g.shadowColor='rgba(0,0,0,0)';
+    g.fillStyle=String(ramp.base||'#777777');g.fill('nonzero');
     g.save();g.clip();
+    const minX=Math.min(...pts.map(p=>p[0])),maxX=Math.max(...pts.map(p=>p[0]));
     const minY=Math.floor(Math.min(...pts.map(p=>p[1]))),height=Math.ceil(Math.max(...pts.map(p=>p[1]))-Math.min(...pts.map(p=>p[1])));
-    g.globalAlpha=1;g.globalCompositeOperation='source-over';
     g.fillStyle=String(ramp.highlight||ramp.base||'#777777');g.fillRect(Math.floor(minX),minY,1,height);
-    g.fillStyle=String(ramp.shadow||ramp.base||'#777777');g.fillRect(Math.ceil(maxX)-1,minY,1,height);
-    g.restore();
-    // Layer 3: internal ink is always last over the material.
-    if(stroke){g.globalAlpha=1;g.globalCompositeOperation='source-over';g.save();g.beginPath();g.rect(-64,-64,256,256);pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.clip('evenodd');g.strokeStyle=stroke;g.lineWidth=Math.max(1,lw||1);g.lineJoin='miter';g.lineCap='butt';g.stroke();g.restore()}
+    g.fillStyle=String(ramp.shadow||ramp.base||'#777777');g.fillRect(Math.ceil(maxX)-1,minY,1,height);g.restore();
+    if(stroke){g.save();g.beginPath();g.rect(-64,-64,256,256);pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.clip('evenodd');g.strokeStyle=stroke;g.lineWidth=Math.max(1,lw||1);g.lineJoin='miter';g.lineCap='butt';g.stroke();g.restore()}
   };
   const line=(pts,color,width=1)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.strokeStyle=color;g.lineWidth=width;g.lineCap='square';g.lineJoin='miter';g.stroke()};
-  const limb=(pts,ramp)=>polygon(pts,ramp,ink,1); // one-pixel ink border leaves a two-pixel base core.
-  const limbRect=(x,y,ramp)=>{px(x,y,2,4,String(ramp.base||'#777777'));g.strokeStyle=ink;g.lineWidth=1;g.strokeRect(x-.5,y-.5,3,5)};
-  const shadeRight=(pts,color)=>{
-    g.save();g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.clip();
-    const minX=Math.min(...pts.map(p=>p[0])),maxX=Math.max(...pts.map(p=>p[0]));
-    const minY=Math.min(...pts.map(p=>p[1])),maxY=Math.max(...pts.map(p=>p[1]));
-    g.fillStyle=color;g.fillRect(Math.floor((minX+maxX)/2),Math.floor(minY),Math.ceil(maxX-(minX+maxX)/2),Math.ceil(maxY-minY));g.restore();
-  };
+  const bodyRowsLength=P.long?18:16;
   g.save();g.translate(24,48);
-  // Stable 16x32 humanoid pixel template. '.' is transparent, 'B' is shirt/arm,
-  // and 'P' is trouser material. Every arm and leg is exactly two columns wide.
-  const NPC_BODY_16X32=[
-    "................",
-    "................",
-    "................",
-    "................",
-    "................",
-    "................",
-    "...AABBBBBBAA...",
-    "...AABBBBBBAA...",
-    "...AABBBBBBAA...",
-    "...AABBBBBBAA...",
-    "...AABBBBBBAA...",
-    "...AABBBBBBAA...",
-    "....AABBBBAA....",
-    "....AABBBBAA....",
-    "....AABBBBAA....",
-    "....AABBBBAA....",
-    "......BBBB......",
-    "......BBBB......",
-    ".....PP..PP.....",
-    ".....PP..PP.....",
-    "....PP....PP....",
-    "....PP....PP....",
-    "....PP....PP....",
-    "....PP....PP....",
-    "....PP....PP....",
-    "....PP....PP....",
-    "....PP....PP....",
-    "....PP....PP....",
-    "....PP...PP.....",
-    "....PP...PP.....",
-    "....PP...PP.....",
-    "................"
+  if(side&&dirCode==='l')g.scale(-1,1);
+  const frontTemplate=[
+    "................","................","................","................",
+    "................","................","...AABBBBBBAA...","...AABBBBBBAA...",
+    "...AABBBBBBAA...","...AABBBBBBAA...","...AABBBBBBAA...","...AABBBBBBAA...",
+    "....AABBBBAA....","....AABBBBAA....","....AABBBBAA....","....AABBBBAA....",
+    "......BBBB......","......BBBB......",".....PP..PP.....",".....PP..PP.....",
+    "....PP....PP....","....PP....PP....","....PP....PP....","....PP....PP....",
+    "....PP....PP....","....PP....PP....","....PP....PP....","....PP....PP....",
+    "...PP.....PP....","...PP.....PP....","...PP.....PP....","................"
   ];
-  if(NPC_BODY_16X32.length!==32||NPC_BODY_16X32.some(row=>row.length!==16))throw new Error('NPC 16x32 template dimensions invalid');
-  const top=-29-(P.long?2:0),torsoShift=1,hy=top-8,armY=top+4;
-  const npcGrid=NPC_BODY_16X32.map(row=>row.split(''));
-  const gridX=-7,gridY=-35,gridBase=body.base||P.body||'#777777',gridShadow=body.shadow||gridBase,gridHighlight=body.highlight||gridBase;
-  const gridColor=(gx,gy)=>{const cell=npcGrid[gy][gx];if(cell==='.')return null;if(cell==='P')return pants.base||P.pants||'#252535';if(cell==='B'&&gy>=6&&gy<=17&&gx>=((gy>=12&&gy<=15)?7:8))return gridShadow;if(cell==='B'&&gy>=6&&gy<=17&&gx===5)return gridHighlight;return gridBase};
-  // Pass 1: opaque Base Hex material fill for every occupied template pixel.
-  for(let gy=0;gy<32;gy++)for(let gx=0;gx<16;gx++){const color=gridColor(gx,gy);if(color){g.fillStyle=color;g.fillRect(gridX+gx,gridY+gy,1,1)}}
+  const npcGrid=frontTemplate.map(row=>row.split(''));
+  if(side){
+    for(let gy=0;gy<32;gy++)npcGrid[gy].fill('.');
+    const put=(x0,y0,w,h,ch)=>{for(let yy=y0;yy<y0+h;yy++)for(let xx=x0;xx<x0+w;xx++)npcGrid[yy][xx]=ch};
+    // A true profile: three-pixel torso, two-pixel leading arm/leg,
+    // and one-pixel dark rear-limb silhouettes.
+    put(7,6,3,12,'B');put(6,6,1,3,'A');put(10,8,2,9,'A');
+    put(5,10,1,7,'S');put(7,18,3,1,'B');
+    put(6,19,1,11,'S');put(8,19,2,10,'P');
+    put(9,28,4,2,'P'); // shoe points forward
+  }
+  if(npcGrid.length!==32||npcGrid.some(row=>row.length!==16))throw new Error('NPC 16x32 template dimensions invalid');
+  const gridX=-7,gridY=-35,gridBase=body.base||P.body||'#777777';
+  const gridColor=(gx,gy)=>{
+    const cell=npcGrid[gy][gx];if(cell==='.')return null;
+    if(cell==='P')return pants.base||P.pants||'#252535';
+    if(cell==='S')return pants.shadow||body.shadow||'#20212a';
+    if(cell==='A'){
+      if(!side&&gx>=11)return body.shadow||gridBase;
+      return gridBase;
+    }
+    if(cell==='B'){
+      if(!side&&gy>=6&&gy<=17&&gx>=8)return body.shadow||gridBase;
+      if(!side&&gy>=6&&gy<=17&&gx===5)return body.highlight||gridBase;
+      return gridBase;
+    }
+    return gridBase;
+  };
   const occupied=(gx,gy)=>gx>=0&&gx<16&&gy>=0&&gy<32&&npcGrid[gy][gx]!=='.';
-  // Pass 2: ink pixels wherever a filled cell borders transparency.
-  for(let gy=0;gy<32;gy++)for(let gx=0;gx<16;gx++)if(occupied(gx,gy)){const xx=gridX+gx,yy=gridY+gy;if(!occupied(gx-1,gy)){g.fillStyle=ink;g.fillRect(xx-1,yy,1,1)}if(!occupied(gx+1,gy)){g.fillStyle=ink;g.fillRect(xx+1,yy,1,1)}if(!occupied(gx,gy-1)){g.fillStyle=ink;g.fillRect(xx,yy-1,1,1)}if(!occupied(gx,gy+1)){g.fillStyle=ink;g.fillRect(xx,yy+1,1,1)}}
-  // Pass 3: directional rim light replaces the outer outline pixels.
-  for(let gy=0;gy<32;gy++)for(let gx=0;gx<16;gx++)if(occupied(gx,gy)){const xx=gridX+gx,yy=gridY+gy;if(!occupied(gx-1,gy)){g.fillStyle='#29f2e8';g.fillRect(xx-1,yy,1,1)}if(!occupied(gx+1,gy)){g.fillStyle='#ff9a3d';g.fillRect(xx+1,yy,1,1)}}
-  // Outfit-specific overlays remain layered over the fixed base anatomy.
-  if(P.apron&&!back){polygon([[-4+torsoShift,top+5],[4+torsoShift,top+5],[4+torsoShift,top+bodyRowsLength(P)-2],[-4+torsoShift,top+bodyRowsLength(P)-2]],applyShading(P.apron),ink,1);line([[-2+torsoShift,top+7],[-2+torsoShift,top+bodyRowsLength(P)-4]],applyShading(P.apron).highlight,1)}
-  if(P.stripes&&!back){line([[-3+torsoShift,top+3],[-3+torsoShift,top+bodyRowsLength(P)-3]],P.stripes,1);line([[3+torsoShift,top+3],[3+torsoShift,top+bodyRowsLength(P)-3]],P.stripes,1)}
-  if(P.pack&&(back||side))polygon([[side?-9:-5,top+3],[side?-5:-1,top+3],[side?-5:-1,top+12],[side?-9:-5,top+12]],applyShading(P.pack),ink,1);
-  // Six-by-six face tile with all four corner pixels removed.
-  g.save();g.translate(1,0);
-  polygon([[-1,hy],[1,hy],[2,hy+1],[3,hy+2],[3,hy+4],[2,hy+5],[1,hy+6],[-1,hy+6],[-2,hy+5],[-3,hy+4],[-3,hy+2],[-2,hy+1]],skinTone,ink,1);
-  polygon([[-2,hy+6],[2,hy+6],[2,hy+9],[-2,hy+9]],applyShading('#b97966'),ink,1);
-  if(!P.hood&&!P.helm){
-    // Stepped crown with one-pixel corner rounds; preserve the hanging left fringe.
+  // Opaque material pass: no outlines or rim effects can erase the Base Hex fills.
+  for(let gy=0;gy<32;gy++)for(let gx=0;gx<16;gx++){const color=gridColor(gx,gy);if(color){g.fillStyle=color;g.fillRect(gridX+gx,gridY+gy,1,1)}}
+  // One-pixel #141622 outline around every occupied pixel; limbs retain a
+  // two-pixel solid core plus their one-pixel outside contour.
+  for(let gy=0;gy<32;gy++)for(let gx=0;gx<16;gx++)if(occupied(gx,gy)){
+    const xx=gridX+gx,yy=gridY+gy;
+    if(!occupied(gx-1,gy)){g.fillStyle=ink;g.fillRect(xx-1,yy,1,1)}
+    if(!occupied(gx+1,gy)){g.fillStyle=ink;g.fillRect(xx+1,yy,1,1)}
+    if(!occupied(gx,gy-1)){g.fillStyle=ink;g.fillRect(xx,yy-1,1,1)}
+    if(!occupied(gx,gy+1)){g.fillStyle=ink;g.fillRect(xx,yy+1,1,1)}
+  }
+  const top=-29-(P.long?2:0),hy=top-8,torsoShift=1;
+  // Direction-specific head: frontal features, full hair at the back, or a
+  // one-eye profile with a one-pixel nose. Hair stays behind the face pixels.
+  if(back){
+    polygon([[-4,hy+2],[-4,hy-1],[-2,hy-3],[2,hy-3],[4,hy-1],[4,hy+4],[3,hy+7],[-3,hy+7]],hair,ink,1);
+    line([[-2,hy-2],[0,hy-3],[2,hy-2]],hair.highlight,1);
+    if(P.bun)polygon([[-2,hy-4],[2,hy-4],[3,hy-1],[0,hy]],hair,ink,1);
+  }else if(side){
+    polygon([[-1,hy+1],[2,hy-1],[5,hy],[6,hy+2],[7,hy+4],[6,hy+6],[3,hy+7],[0,hy+6],[-2,hy+4]],skinTone,ink,1);
+    polygon([[-4,hy+1],[-3,hy-2],[-1,hy-3],[2,hy-3],[4,hy-1],[4,hy+1],[1,hy+1],[-1,hy+3],[-3,hy+4]],hair,ink,1);
+    px(5,hy+2,1,1,'#101018');px(7,hy+4,1,1,skinTone.shadow);
+    line([[-2,hy-2],[0,hy-3],[2,hy-2]],hair.highlight,1);
+  }else{
+    polygon([[-1,hy],[1,hy],[2,hy+1],[3,hy+2],[3,hy+4],[2,hy+5],[1,hy+6],[-1,hy+6],[-2,hy+5],[-3,hy+4],[-3,hy+2],[-2,hy+1]],skinTone,ink,1);
+    polygon([[-2,hy+6],[2,hy+6],[2,hy+9],[-2,hy+9]],applyShading('#b97966'),ink,1);
     polygon([[-3,hy+1],[-3,hy],[-2,hy-1],[-1,hy-1],[-1,hy-2],[1,hy-2],[1,hy-1],[2,hy-1],[3,hy],[3,hy+1],[2,hy+2],[1,hy+1],[-2,hy+1]],hair,ink,1);
     line([[-2,hy-1],[0,hy-2],[2,hy-1]],hair.highlight,1);
-    line([[-3,hy+2],[-3,hy+5]],hair.shadow,1);
-    // A single hanging strand frames the left cheek; the hairline adds forehead depth.
     px(-4,hy+2,1,7,hair.base);
     if(P.bun)polygon([[-1,hy-3],[2,hy-3],[3,hy-1],[0,hy]],hair,ink,1);
+    if(!P.hood&&!P.helm){px(-1,hy+2,1,1,'#101018');px(1,hy+2,1,1,'#101018');px(0,hy+4,1,1,'#24151a')}
   }
   if(P.hood)polygon([[-4,hy+1],[-3,hy-2],[3,hy-2],[4,hy+1],[3,hy+5],[-3,hy+5]],body,ink,1);
   if(P.helm)polygon([[-4,hy+1],[-3,hy-3],[3,hy-3],[4,hy+1],[3,hy+4],[-3,hy+4]],applyShading('#10161e'),ink,1);
   if(P.hat==='cap')polygon([[-4,hy-1],[3,hy-1],[4,hy+1],[-4,hy+1]],body,ink,1);
   else if(P.hat==='beanie')polygon([[-4,hy],[-3,hy-2],[-1,hy-3],[2,hy-3],[4,hy-1],[3,hy+1],[-3,hy+1]],trim,ink,1);
   else if(P.hat==='wide')polygon([[-5,hy],[-4,hy-2],[-3,hy-3],[3,hy-3],[4,hy-2],[5,hy]],trim,ink,1);
-  if(P.band&&kind!=='runner')line([[-3,hy+1],[3,hy+1]],P.band,1);
-  if(P.glasses)line([[-3,hy+2],[3,hy+2]],P.glasses===true?ink:P.glasses,1);
-  // Face pixels are deliberately drawn after hair so they remain visible.
-  if(!back){
-    px(-1,hy+2,1,1,'#101018');px(1,hy+2,1,1,'#101018');
-    px(0,hy+4,1,1,'#24151a');
-    if(kind==='runner')px(-3,hy+1,1,5,hair.shadow);
+  if(P.band&&!back&&kind!=='runner')line(side?[[-2,hy+1],[3,hy+1]]:[[-3,hy+1],[3,hy+1]],P.band,1);
+  if(P.glasses&&!back)line(side?[[4,hy+2],[5,hy+2]]:[[-3,hy+2],[3,hy+2]],P.glasses===true?ink:P.glasses,1);
+  if(P.helm||P.hood){if(!back&&!side){px(-1,hy+2,1,1,'#101018');px(1,hy+2,1,1,'#101018')}}
+  if(!back){px(-1,hy+1,3,1,skinTone.shadow);px(0,hy+7,2,1,skinTone.shadow)}
+  // Outfit overlays follow the directional silhouette and never cover the face.
+  if(P.apron&&!back){
+    if(side)polygon([[7,top+5],[10,top+5],[10,top+bodyRowsLength-2],[7,top+bodyRowsLength-2]],applyShading(P.apron),ink,1);
+    else polygon([[-4+torsoShift,top+5],[4+torsoShift,top+5],[4+torsoShift,top+bodyRowsLength-2],[-4+torsoShift,top+bodyRowsLength-2]],applyShading(P.apron),ink,1);
   }
-  // Single-pixel shadow directly beneath the hairline and a shaded chin.
-  px(-1,hy+1,3,1,skinTone.shadow);px(0,hy+7,2,1,skinTone.shadow);px(0,hy+8,2,1,skinTone.shadow);
-  if(!P.hood&&!P.helm)line([[-2,hy+1],[2,hy+1]],hair.shadow,1);
-  g.restore();
-  // Separate shirt from trousers and carve a collar shadow into every outfit.
-  line([[-5+torsoShift,top+4],[5+torsoShift,top+4]],ink,1);
-  // One-pixel ink seams sit on the inner arm edges, separating each arm from the chest.
-  line([[-3+torsoShift,armY+1],[-3+torsoShift,top+bodyRowsLength(P)-1]],ink,1);
-  line([[3+torsoShift,armY+1],[3+torsoShift,top+bodyRowsLength(P)-1]],ink,1);
-  // Jacket opening: the courier wears a split front with a dark collar break.
-  if(P.jacket||kind==='courier'){line([[torsoShift,top+5],[torsoShift,top+bodyRowsLength(P)-2]],body.shadow,1);line([[-3+torsoShift,top+4],[torsoShift,top+6],[3+torsoShift,top+4]],ink,1);}
-  line([[-2+torsoShift,top+bodyRowsLength(P)],[2+torsoShift,top+bodyRowsLength(P)]],ink,1);
-  line([[-4+torsoShift,top+bodyRowsLength(P)+1],[4+torsoShift,top+bodyRowsLength(P)+1]],pants.shadow,1);
-
-  // Existing profession-specific props stay attached to the newly articulated pose.
+  if(P.stripes&&!back&&!side){line([[-3+torsoShift,top+3],[-3+torsoShift,top+bodyRowsLength-3]],P.stripes,1);line([[3+torsoShift,top+3],[3+torsoShift,top+bodyRowsLength-3]],P.stripes,1)}
+  if(P.pack&&(back||side))polygon([[side?6:-5,top+3],[side?9:-1,top+3],[side?9:-1,top+12],[side?6:-5,top+12]],applyShading(P.pack),ink,1);
+  if(back){
+    line([[1,top+6],[1,top+bodyRowsLength-2]],body.shadow,1);
+    line([[-2,top+bodyRowsLength-5],[3,top+bodyRowsLength-5]],body.highlight,1);
+  }else if(!side){
+    line([[-5+torsoShift,top+4],[5+torsoShift,top+4]],ink,1);
+    line([[-3+torsoShift,top+5],[-3+torsoShift,top+bodyRowsLength-1]],ink,1);
+    line([[3+torsoShift,top+5],[3+torsoShift,top+bodyRowsLength-1]],ink,1);
+    if(P.jacket||kind==='courier'){line([[torsoShift,top+5],[torsoShift,top+bodyRowsLength-2]],body.shadow,1);line([[-3+torsoShift,top+4],[torsoShift,top+6],[3+torsoShift,top+4]],ink,1)}
+  }else{
+    line([[7,top+4],[10,top+4]],ink,1);
+    if(P.jacket||kind==='courier')line([[8,top+5],[8,top+bodyRowsLength-2]],body.shadow,1);
+  }
+  line([[-2+torsoShift,top+bodyRowsLength],[2+torsoShift,top+bodyRowsLength]],ink,1);
+  line([[-4+torsoShift,top+bodyRowsLength+1],[4+torsoShift,top+bodyRowsLength+1]],pants.shadow,1);
   if(P.umb){line([[8,hy-9],[9,hy+9]],ink,1);line([[9,hy-9],[10,hy+9]],P.umb,1);polygon([[-1,hy-12],[11,hy-12],[9,hy-10],[1,hy-10]],applyShading(P.umb),ink,1)}
-  if(P.keys){polygon([[-8,top+bodyRowsLength(P)-6],[8,top+bodyRowsLength(P)-6],[8,top+bodyRowsLength(P)-3],[-8,top+bodyRowsLength(P)-3]],applyShading('#ff7a1a'),ink,1)}
-  if(P.baton){limb([[8,top+7],[11,top+7],[11,top+bodyRowsLength(P)-1],[8,top+bodyRowsLength(P)-1]],applyShading('#27e0ff'))}
-  if(P.bowl&&!back)polygon([[6,top+bodyRowsLength(P)-5],[12,top+bodyRowsLength(P)-5],[12,top+bodyRowsLength(P)-3],[6,top+bodyRowsLength(P)-3]],applyShading('#e8e8f0'),ink,1);
+  if(P.keys){polygon([[-8,top+bodyRowsLength-6],[8,top+bodyRowsLength-6],[8,top+bodyRowsLength-3],[-8,top+bodyRowsLength-3]],applyShading('#ff7a1a'),ink,1)}
+  if(P.baton){limb([[8,top+7],[11,top+7],[11,top+bodyRowsLength-1],[8,top+bodyRowsLength-1]],applyShading('#27e0ff'))}
+  if(P.bowl&&!back)polygon([[6,top+bodyRowsLength-5],[12,top+bodyRowsLength-5],[12,top+bodyRowsLength-3],[6,top+bodyRowsLength-3]],applyShading('#e8e8f0'),ink,1);
   if(P.scarf&&!back){polygon([[-5,top+3],[5,top+3],[5,top+6],[-5,top+6]],trim,ink,1);line([[4,top+5],[5,top+10]],trim.shadow,1)}
-  if(P.long)line([[-5,top+bodyRowsLength(P)-2],[5,top+bodyRowsLength(P)-2]],body.shadow,1);
-
+  if(P.long)line([[-5,top+bodyRowsLength-2],[5,top+bodyRowsLength-2]],body.shadow,1);
   g.restore();
-  // Trace only the exterior boundary of the fully composited opaque pixels.
-  // The dark ink seam and elbow overlap are therefore interior, not rim-lit.
-  // Layer 1–3 are already composed on rimCanvas: opaque material fills,
-  // clipped three-tone shading, then the #141622 internal/outer ink contours.
-  // Build rim light on a SEPARATE transparent surface so putImageData can never
-  // replace (or erase) the completed character beneath it.
   const pixels=g.getImageData(0,0,64,64),alpha=pixels.data;
   const rimOverlayCanvas=owCiv._rimOverlayCanvas||(owCiv._rimOverlayCanvas=document.createElement('canvas'));
   if(rimOverlayCanvas.width!==64)rimOverlayCanvas.width=64;if(rimOverlayCanvas.height!==64)rimOverlayCanvas.height=64;
   const rimG=rimOverlayCanvas.getContext('2d');rimG.setTransform(1,0,0,1,0,0);rimG.globalAlpha=1;rimG.globalCompositeOperation='source-over';rimG.filter='none';rimG.clearRect(0,0,64,64);
-  const rim=rimG.createImageData(64,64);
-  // Flood-fill transparent pixels from the canvas boundary. This distinguishes
-  // the true exterior from enclosed/internal gaps between overlapping limbs.
-  const outside=new Uint8Array(64*64),stack=[];
-  for(let q=0;q<64;q++){stack.push(q,63*64+q,q*64,q*64+63)}
+  const rim=rimG.createImageData(64,64),outside=new Uint8Array(64*64),stack=[];
+  for(let q=0;q<64;q++)stack.push(q,63*64+q,q*64,q*64+63);
   while(stack.length){
     const q=stack.pop();if(q<0||q>=4096||outside[q]||alpha[q*4+3]>=220)continue;
     outside[q]=1;const xq=q%64,yq=(q/64)|0;
@@ -8686,19 +8666,15 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   }
   for(let py=1;py<63;py++)for(let pxl=1;pxl<63;pxl++){
     const q=py*64+pxl,k=q*4;if(alpha[k+3]<220)continue;
-    const edge=outside[q-1]||outside[q+1];
+    const edge=side?(dirCode==='r'?outside[q+1]:outside[q-1]):(outside[q-1]||outside[q+1]);
     if(!edge)continue;
-    const c=pxl<24?[255,154,61]:[41,242,232];
+    const c=side?(dirCode==='r'?[41,242,232]:[255,154,61]):(pxl<24?[255,154,61]:[41,242,232]);
     rim.data[k]=c[0];rim.data[k+1]=c[1];rim.data[k+2]=c[2];rim.data[k+3]=150;
   }
   rimG.globalAlpha=1;rimG.globalCompositeOperation='source-over';rimG.putImageData(rim,0,0);
-  // Composite the completed opaque material at full opacity, regardless of
-  // the caller's temporary fade/light state. Preserve its transform and the
-  // existing rim pixels/placement exactly.
   targetG.save();targetG.globalAlpha=1;targetG.globalCompositeOperation='source-over';targetG.filter='none';
   targetG.shadowBlur=0;targetG.shadowColor='rgba(0,0,0,0)';
   targetG.drawImage(rimCanvas,sx-24*U*U,sy-bob-48*U*U,64*U*U,64*U*U);
-  // Layer 4: unchanged exterior rim overlay.
   targetG.drawImage(rimOverlayCanvas,sx-24*U*U,sy-bob-48*U*U,64*U*U,64*U*U);
   targetG.restore();
 }
@@ -9314,7 +9290,23 @@ setTimeout(()=>{const ro=document.getElementById('mRO');if(!ro||document.getElem
   if(window.CF_TEST){for(const [id,txt,o] of [['mPXgo','TEST: GO TO VAPOR PLAZA',{map:'street',x:15,y:14,d:'u',gates:1,ret:null}],['mPXback','TEST: BACK TO FERRY DOCK',{map:'harbor',x:35,y:39,d:'d',gates:1,ret:null}]]){
     const c=document.createElement('button');c.className='btn';c.id=id;c.textContent=txt;c.onclick=()=>{try{SAVE.ow=Object.assign({},o);persist();owShow()}catch(e){console.error(e)}};row.appendChild(c)}}},0);
 
-window.SG={npcGalleryDraw:canvas=>{const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#100f1d';c.fillRect(0,0,canvas.width,canvas.height);const tests=[['GRANNY','granny'],['MINT','runner'],['COURIER','courier'],['GUARD','guard'],['VENDOR','vendor'],['CLINIC','clinic']];const cellW=canvas.width/tests.length,scale=2.5,baseY=222;tests.forEach((v,i)=>{const cx=i*cellW+cellW/2;c.save();c.translate(cx-65,baseY);c.scale(scale,scale);const n={id:v[1]==='granny'?'granny':'gallery-'+v[1],civ:v[1],x:0,y:0};owCiv(0,0,'d',false,n,0,i,c);c.restore();if(i){c.strokeStyle='rgba(116,104,150,.35)';c.lineWidth=1;c.beginPath();c.moveTo(i*cellW,12);c.lineTo(i*cellW,316);c.stroke()}c.fillStyle='#d9d4e8';c.font='bold 22px system-ui';c.textAlign='center';c.fillText(v[0],cx,340)});},eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;const miss=[];for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))miss.push(pal.key.slice(0,12)+'|'+vk);let am=0;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))am++;return {mode:G.mode,on:R.on,inited:R.inited,need:R.need.length,n0:R.need.n0,miss:miss.slice(0,8),nmiss:miss.length,artMissing:am,artReady:artReady(),carryReady:carryReady(),jobs:R.jobs.length,q:R.q.length,busy:R.busy.size,fail:R.fail}},WSEG,CLUSTERS,camfix:o=>{window.__camFix=o},enterPlaycall:()=>enterPlaycall(),cam:()=>cam,LogoRenderer,LOGOS,LOGO_ORDER,registerLogo,logoId,logoSVG,LOGO_GLYPH,muState:()=>MU,lf:()=>ART.lf||[],SIDER:SIDER,RIGF,RIG,runInit,artDraw:(g,o)=>artDraw(g,o),uniFor:p=>uniFor(p),lookOf:d=>lookOf(d),playerPx:(...a)=>playerPx(...a),ART,artNumber:(...a)=>artNumber(...a),say:(a,b,c,d)=>say(a,b,c,d),setX:v=>{bannerExtra=v},popup:(a,b,c,d)=>popup(a,b,c,d),WALLY:()=>WALLY,sideVis:()=>sideVis,setPS:v=>{PSCALE=v;SPR.clear()},owLeave,owHide,P:(x,y)=>P(x,y),SND,OW,owShow,M:()=>M,owPlace,owTalk,owGot,owSay,renderPerson,lookOf,callPlay,endGame,get G(){return G},get F(){return F},get PLAY(){return PLAY},input,SAVE:()=>SAVE,startMatch,CREWS,PLAYS,throwTo,doJuke,doStiff,doStyle,startPlay,setSpeed:v=>{SPEED=v},resetSave:()=>{SAVE=freshSave();persist()},renderTeam,openGear,renderSquad,screens,renderMenu};
+window.SG={npcGalleryDraw:canvas=>{
+  const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
+  c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#100f1d';c.fillRect(0,0,canvas.width,canvas.height);
+  const tests=[['GRANNY','granny'],['MINT','runner'],['COURIER','courier'],['GUARD','guard'],['VENDOR','vendor'],['CLINIC','clinic']];
+  const views=[['FRONT','d'],['LEFT','l'],['RIGHT','r'],['BACK','u'],['LEFT','l'],['RIGHT','r']];
+  const cellW=canvas.width/tests.length,scale=2.05;
+  c.fillStyle='#ffcf8a';c.font='bold 13px system-ui';c.textAlign='left';c.fillText('FRONT VIEWS',10,18);c.fillText('SIDE / BACK VIEWS',10,276);
+  for(let row=0;row<2;row++)tests.forEach((v,i)=>{
+    const cx=i*cellW+cellW/2,baseY=row===0?205:463,view=row===0?'d':views[i][1];
+    c.save();c.translate(cx-53,baseY);c.scale(scale,scale);
+    const n={id:v[1]==='granny'?'granny':'gallery-'+v[1],civ:v[1],x:0,y:0};
+    owCiv(0,0,view,false,n,0,i,c);c.restore();
+    if(i){c.strokeStyle='rgba(116,104,150,.35)';c.lineWidth=1;c.beginPath();c.moveTo(i*cellW,28);c.lineTo(i*cellW,canvas.height-12);c.stroke()}
+    c.fillStyle='#d9d4e8';c.font='bold 17px system-ui';c.textAlign='center';c.fillText(v[0],cx,row===0?246:505);
+    if(row===1){c.fillStyle='#8debf0';c.font='bold 10px system-ui';c.fillText(views[i][0],cx,523)}
+  });
+}},eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;const miss=[];for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))miss.push(pal.key.slice(0,12)+'|'+vk);let am=0;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))am++;return {mode:G.mode,on:R.on,inited:R.inited,need:R.need.length,n0:R.need.n0,miss:miss.slice(0,8),nmiss:miss.length,artMissing:am,artReady:artReady(),carryReady:carryReady(),jobs:R.jobs.length,q:R.q.length,busy:R.busy.size,fail:R.fail}},WSEG,CLUSTERS,camfix:o=>{window.__camFix=o},enterPlaycall:()=>enterPlaycall(),cam:()=>cam,LogoRenderer,LOGOS,LOGO_ORDER,registerLogo,logoId,logoSVG,LOGO_GLYPH,muState:()=>MU,lf:()=>ART.lf||[],SIDER:SIDER,RIGF,RIG,runInit,artDraw:(g,o)=>artDraw(g,o),uniFor:p=>uniFor(p),lookOf:d=>lookOf(d),playerPx:(...a)=>playerPx(...a),ART,artNumber:(...a)=>artNumber(...a),say:(a,b,c,d)=>say(a,b,c,d),setX:v=>{bannerExtra=v},popup:(a,b,c,d)=>popup(a,b,c,d),WALLY:()=>WALLY,sideVis:()=>sideVis,setPS:v=>{PSCALE=v;SPR.clear()},owLeave,owHide,P:(x,y)=>P(x,y),SND,OW,owShow,M:()=>M,owPlace,owTalk,owGot,owSay,renderPerson,lookOf,callPlay,endGame,get G(){return G},get F(){return F},get PLAY(){return PLAY},input,SAVE:()=>SAVE,startMatch,CREWS,PLAYS,throwTo,doJuke,doStiff,doStyle,startPlay,setSpeed:v=>{SPEED=v},resetSave:()=>{SAVE=freshSave();persist()},renderTeam,openGear,renderSquad,screens,renderMenu};
 })();
 </script>
 
