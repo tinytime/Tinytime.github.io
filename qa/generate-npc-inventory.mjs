@@ -35,12 +35,17 @@ function objectMap(label) {
 const scopePolicyPath = path.join(root, 'qa', 'npc-scope-policy.json');
 const scopePolicy = JSON.parse(fs.readFileSync(scopePolicyPath, 'utf8'));
 const outOfScopeOwFigIds = new Set(scopePolicy.outOfScope || []);
+const referenceBaselineIds = new Set(scopePolicy.referenceBaseline || []);
 const standardScopeClass = scopePolicy.standardScopeClass || 'standardUnclassified';
 if (!['standardUnclassified', 'standardTown', 'standardFootball'].includes(standardScopeClass)) {
   throw new Error('Invalid standardScopeClass in qa/npc-scope-policy.json: ' + standardScopeClass);
 }
-if (outOfScopeOwFigIds.size !== (scopePolicy.outOfScope || []).length) {
+if (outOfScopeOwFigIds.size !== (scopePolicy.outOfScope || []).length ||
+    referenceBaselineIds.size !== (scopePolicy.referenceBaseline || []).length) {
   throw new Error('Duplicate ids in qa/npc-scope-policy.json');
+}
+for (const id of referenceBaselineIds) {
+  if (outOfScopeOwFigIds.has(id)) throw new Error('NPC cannot be both reference baseline and out of scope: ' + id);
 }
 
 const records = [];
@@ -101,21 +106,26 @@ if (!source.includes("if(n.id==='granny'){drawGrannyVoltSprite") ||
 }
 
 const inventoryNpcs = npcs.map(npc => {
-  let rendererPath, inScope;
+  let rendererPath, inScope, scopeClass;
   if (npc.civ === 'granny') {
-    rendererPath = 'drawGrannyVoltSprite (owCiv special case)';
-    inScope = true;
+    if (!referenceBaselineIds.has(npc.id)) throw new Error('Granny must be explicitly classified as the owner reference baseline');
+    rendererPath = 'drawGrannyVoltSprite (owner-approved reference baseline)';
+    inScope = false;
+    scopeClass = 'referenceBaseline';
   } else if (npc.civ) {
     rendererPath = pxPersonAtlas[npc.id] ? 'pxPerson atlas override -> owCiv fallback' : 'owCiv';
     inScope = true;
+    scopeClass = standardScopeClass;
   } else if (npc.sprite === 'cat') {
     rendererPath = 'pxCat atlas override -> owCat fallback';
     inScope = true;
+    scopeClass = standardScopeClass;
   } else {
     // Scope exceptions are explicit owner decisions maintained outside the parser.
     if (!outOfScopeOwFigIds.has(npc.id)) throw new Error('Unclassified owFig/renderPerson NPC: ' + npc.id + ' (owner scope decision required)');
     rendererPath = 'owFig -> renderPerson (non-standard, out of scope)';
     inScope = false;
+    scopeClass = 'outOfScope';
   }
   return {
     id: npc.id,
@@ -123,7 +133,7 @@ const inventoryNpcs = npcs.map(npc => {
     direction: npc.direction,
     archetype: npc.civ ? (civToArchetype[npc.civ] || null) : null,
     rendererPath,
-    scopeClass: inScope ? standardScopeClass : 'outOfScope',
+    scopeClass,
     pxPersonAtlasOverride: Object.hasOwn(pxPersonAtlas, npc.id),
     ...(pxPersonAtlas[npc.id] ? { pxPersonAtlasKey: pxPersonAtlas[npc.id] } : {}),
     inScope
@@ -137,7 +147,9 @@ const inventory = {
   civCount: liveCivs.length,
   civs: liveCivs,
   fanNpcIds: inventoryNpcs.filter(n => n.civ === 'fan').map(n => n.id),
-  outOfScopeNpcIds: inventoryNpcs.filter(n => !n.inScope).map(n => n.id),
+  standardInScopeCount: inventoryNpcs.filter(n => n.inScope).length,
+  referenceBaselineNpcIds: inventoryNpcs.filter(n => n.scopeClass === 'referenceBaseline').map(n => n.id),
+  outOfScopeNpcIds: inventoryNpcs.filter(n => n.scopeClass === 'outOfScope').map(n => n.id),
   pixelPack: {
     enabledOnlyWhen: "PXS.on && M.id === 'street' && pxUse()",
     pxPersonAtlasNpcIds: Object.keys(pxPersonAtlas).sort(),
