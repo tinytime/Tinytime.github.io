@@ -606,8 +606,9 @@
         // Single hanging lock on the viewer's left side of the face.
         put(10,4,1,5,'hair');
         put(14,3,1,2,'hair'); // one-pixel fringe over forehead
-        set(15,5,'inkdetail');set(17,5,'inkdetail'); // two native pixels apart
-        set(16,8,'inkdetail'); // 1x1 mouth
+        if(headStyle==='helmet'||headStyle==='hood'){
+          set(15,5,'inkdetail');set(17,5,'inkdetail');set(16,8,'inkdetail');
+        }
       }
       if(headStyle==='bun')put(19,0,4,3,'hair');
       // Fan headwear must alter the rendered outline as well as the palette.
@@ -814,9 +815,9 @@
       };
       // Keep facial marks at true native 1x1 resolution. Stable NPC-id hashing
       // selects a small expression family, so shared archetypes do not share one face.
+      const faceHash=Array.from(String(n.id||kind)).reduce((sum,ch)=>((sum*31)+ch.charCodeAt(0))>>>0,7);
+      const faceStyle=faceHash%6;
       if(!side&&!back&&headStyle!=='helmet'&&headStyle!=='hood'){
-        const faceHash=Array.from(String(n.id||kind)).reduce((sum,ch)=>((sum*31)+ch.charCodeAt(0))>>>0,7);
-        const faceStyle=faceHash%6;
         const faceSets=[
           {eyes:[[28,10],[36,10]],brows:[[28,8],[36,8]],mouth:[32,16]},
           {eyes:[[27,11],[36,10]],brows:[[27,9],[36,8]],mouth:[32,17]},
@@ -831,8 +832,22 @@
         for(const [ex,ey] of face.eyes)grid[ey][ex]='inkdetail';
         for(const [bx,by] of face.brows)grid[by][bx]='hair';
         grid[face.mouth[1]][face.mouth[0]]=faceStyle%2===0?'inkdetail':'skinshade';
+        if(faceStyle===1)grid[face.mouth[1]][face.mouth[0]+1]='skinshade';
+        else if(faceStyle===2)grid[face.mouth[1]+1][face.mouth[0]]='inkdetail';
+        else if(faceStyle===3)grid[face.mouth[1]][face.mouth[0]-1]='inkdetail';
+        else if(faceStyle===4){grid[14][30]='skinlight';grid[14][34]='skinlight';}
+        else if(faceStyle===5){grid[14][30]='hair';grid[14][31]='hair';grid[14][33]='hair';grid[14][34]='hair';}
       }
-      if(side)grid[8][40]='skin';
+      if(side){
+        grid[8][40]='skin';
+        if(headStyle!=='helmet'&&headStyle!=='hood'){
+          const profileEyeX=33+(faceStyle%3);
+          grid[10][profileEyeX]='inkdetail';
+          grid[8][profileEyeX]='hair';
+          grid[16][profileEyeX-1]=faceStyle%2===0?'inkdetail':'skinshade';
+          if(faceStyle===5)grid[15][profileEyeX-1]='hair';
+        }
+      }
       const fanJerseyStyles={
         driverA:'stripes',fan1:'crest',fan2:'bars',fanA:'sash',fanB:'split',
         fanC:'stripes',fanD:'crest',gamer1:'bars',hb_denny:'sash',hb_pete:'split',
