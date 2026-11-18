@@ -9144,7 +9144,7 @@ window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMas
       owCiv(0,0,'d',false,n,0,0,target.getContext('2d'));
       const sprite=owCiv._gridCanvas,metrics=owCiv._lastPaletteMetrics;
       return {id,width:sprite.width,height:sprite.height,uniqueColorCount:metrics.uniqueColorCount,
-        colors:metrics.colors,dataUrl:sprite.toDataURL('image/png')};
+        jerseyStyle:metrics.fanJerseyStyle,colors:metrics.colors,dataUrl:sprite.toDataURL('image/png')};
     });
   },
   npcRenderCatSnapshots:()=>{
