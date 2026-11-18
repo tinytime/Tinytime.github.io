@@ -128,8 +128,13 @@ try {
         ['minX', 'maxX', 'minY', 'maxY', 'width', 'height'].every(key =>
           actual.bodyBounds[key] === expected.bodyBounds[key] && actual.fullBounds[key] === expected.fullBounds[key]);
     });
-  const inGameKeys = ['mapTileSize', 'cameraZoom', 'rendererScale', 'bodyWidthPixels', 'bodyHeightPixels', 'fullHeightPixels', 'bodyHeightInTiles'];
-  const inGameMatch = inGameKeys.every(key => near(grannyMeasurements.inGame[key], grannyRefExpected.inGame[key]));
+  const inGameKeys = ['mapTileSize', 'cameraZoom', 'rendererScale', 'bodyWidthPixels', 'bodyHeightPixels', 'fullHeightPixels', 'bodyHeightInTiles',
+    'screenScaleX', 'screenScaleY', 'bodyWidthCssPixels', 'bodyHeightCssPixels', 'fullHeightCssPixels', 'deviceScale'];
+  const inGameMatch = inGameKeys.every(key => near(grannyMeasurements.inGame[key], grannyRefExpected.inGame[key])) &&
+    near(grannyMeasurements.inGame.canvasCss.width, grannyRefExpected.inGame.canvasCss.width) &&
+    near(grannyMeasurements.inGame.canvasCss.height, grannyRefExpected.inGame.canvasCss.height) &&
+    grannyMeasurements.inGame.canvasBacking.width === grannyRefExpected.inGame.canvasBacking.width &&
+    grannyMeasurements.inGame.canvasBacking.height === grannyRefExpected.inGame.canvasBacking.height;
   const runtimeRefMatch = !!grannyRuntimeRef.source && !!grannyRuntimeRef.active &&
     grannyRuntimeRef.active.bodyHeight === grannyRefExpected.bodyHeight &&
     grannyRuntimeRef.active.totalHeight === grannyRefExpected.totalHeight &&
