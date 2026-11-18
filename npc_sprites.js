@@ -394,10 +394,24 @@
       const d=typeof dir==='number'?['d','u','l','r'][Math.max(0,Math.min(3,dir|0))]:(dir||'d').toLowerCase();
       const dirCode=d==='down'?'d':d==='up'?'u':d==='left'?'l':d==='right'?'r':d;
       const side=dirCode==='l'||dirCode==='r',back=dirCode==='u';
+      const mixHex=(hex,target,amount)=>{
+        if(typeof hex!=='string'||!/^#[0-9a-f]{6}$/i.test(hex))return hex;
+        const a=[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));
+        const b=[1,3,5].map(i=>parseInt(target.slice(i,i+2),16));
+        return '#'+a.map((v,i)=>Math.round(v+(b[i]-v)*amount).toString(16).padStart(2,'0')).join('');
+      };
       const skin=palette.skin[0],skinShade=palette.skin[1],skinLight=palette.skin[2];
-      const hairBase=palette.hair[0],hairShade=palette.hair[1],hairLight=palette.hair[2];
-      const clothBase=palette.clothing[0],clothShade=palette.clothing[1],clothLight=palette.clothing[2],clothLower=palette.clothing[3];
-      const accentGarment=palette.accent[0],accentProp=palette.accent[1];
+      // CIV is the live per-civilian color source. Archetype palettes provide
+      // shading fallbacks, while CIV body/trim/pants/hair colors distinguish
+      // individuals that share a body rig (runner/coach/ref, broker/usher/fan).
+      const hairBase=P.hair||palette.hair[0];
+      const hairShade=P.hair?mixHex(P.hair,'#000000',.32):palette.hair[1];
+      const hairLight=P.hair?mixHex(P.hair,'#ffffff',.24):palette.hair[2];
+      const clothBase=P.body||palette.clothing[0];
+      const clothShade=P.body?mixHex(P.body,'#000000',.34):palette.clothing[1];
+      const clothLight=P.body?mixHex(P.body,'#ffffff',.34):palette.clothing[2];
+      const clothLower=P.pants||palette.clothing[3];
+      const accentGarment=P.trim||palette.accent[0],accentProp=palette.accent[1];
       const ink=hairShade,N=64,H=96,SCALE=1;
       // Higher-density fixed pixel canvas: 32 columns x 48 rows.
       const grid=Array.from({length:H},()=>Array(N).fill(null));
@@ -583,7 +597,13 @@
           case 'bodyhi':case 'armhi':case 'clothhi':return clothLight;
           case 'pants':case 'legfront':case 'shoe':case 'shoefront':return clothLower;
           case 'legshadow':case 'inkdetail':return ink;
-          case 'helm':case 'apron':case 'pack':case 'umb':case 'umbhi':case 'hairband':case 'labcoat':case 'umbrella':return accentGarment;
+          case 'helm':return typeof P.helm==='string'?P.helm:accentGarment;
+          case 'apron':return typeof P.apron==='string'?P.apron:accentGarment;
+          case 'pack':return typeof P.pack==='string'?P.pack:accentGarment;
+          case 'umb':case 'umbrella':return typeof P.umb==='string'?P.umb:accentGarment;
+          case 'umbhi':return accentGarment;
+          case 'hairband':return typeof P.band==='string'?P.band:accentGarment;
+          case 'labcoat':return typeof P.labcoat==='string'?P.labcoat:accentGarment;
           case 'key':case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return accentProp;
           default:return null;
         }
