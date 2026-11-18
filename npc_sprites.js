@@ -194,7 +194,7 @@
       elder:{types:{front:'cardigan-pin',side:'cardigan-back',back:'cardigan-back'},front:[[20,13,2,2,'pin']],back:[],side:[]}
     });
     const ARCHETYPE_PROP_SHAPES=Object.freeze({
-        duffel:['.###.','#####','#####','#####','.###.'],
+        duffel:['..##..','.####.','######','######','.####.'],
         whistle:['.#.','###','.#.'],
         satchel:['.###.','#####','#####','#####','##.##'],
         parcel:['.###.','#####','#####','#####','.###.'],
