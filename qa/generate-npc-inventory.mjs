@@ -35,6 +35,10 @@ function objectMap(label) {
 const scopePolicyPath = path.join(root, 'qa', 'npc-scope-policy.json');
 const scopePolicy = JSON.parse(fs.readFileSync(scopePolicyPath, 'utf8'));
 const outOfScopeOwFigIds = new Set(scopePolicy.outOfScope || []);
+const standardScopeClass = scopePolicy.standardScopeClass || 'standardUnclassified';
+if (!['standardUnclassified', 'standardTown', 'standardFootball'].includes(standardScopeClass)) {
+  throw new Error('Invalid standardScopeClass in qa/npc-scope-policy.json: ' + standardScopeClass);
+}
 if (outOfScopeOwFigIds.size !== (scopePolicy.outOfScope || []).length) {
   throw new Error('Duplicate ids in qa/npc-scope-policy.json');
 }
@@ -119,7 +123,7 @@ const inventoryNpcs = npcs.map(npc => {
     direction: npc.direction,
     archetype: npc.civ ? (civToArchetype[npc.civ] || null) : null,
     rendererPath,
-    scopeClass: inScope ? 'standardTown' : 'outOfScope',
+    scopeClass: inScope ? standardScopeClass : 'outOfScope',
     pxPersonAtlasOverride: Object.hasOwn(pxPersonAtlas, npc.id),
     ...(pxPersonAtlas[npc.id] ? { pxPersonAtlasKey: pxPersonAtlas[npc.id] } : {}),
     inScope
