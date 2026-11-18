@@ -8603,16 +8603,24 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     // Narrow two-pixel neck joins the head to the sloped shoulder line.
     put(15,9,2,3,'skin');
   }
-  // Arms: slim articulated silhouettes. Upper arms stay inside shoulder width;
-  // forearms begin directly below and shift one pixel inward at the elbow.
+  // Articulated arms: broaden the shoulder cap, define an elbow, and
+  // taper the forearm into a visible hand. The stepped contour avoids a tray pose.
   if(side){
-    // A narrow profile arm follows the outside edge of the torso without a sleeve bulge.
-    put(19,10,1,4,'arm');put(18,14,1,6,'arm');set(18,20,'arm');
+    put(19,10,2,5,'arm');
+    put(18,14,2,4,'arm');
+    put(17,17,2,4,'arm');
+    put(17,20,2,2,'skin');
   }else{
-    // Two-pixel upper arms remain straight; forearms move inward, never outward.
-    put(8,10,2,4,'arm');put(22,10,2,4,'arm');
-    put(9,14,2,7,'arm');put(21,14,2,7,'arm');
-    // Hands finish beside the hips, maintaining a clean inward line.
+    // Viewer-left arm: shoulder -> outward elbow -> inward forearm -> hand.
+    put(7,10,3,5,'arm');
+    put(7,14,3,3,'arm');
+    put(8,16,2,5,'arm');
+    put(8,20,2,2,'skin');
+    // Viewer-right arm mirrors the bend, keeping both hands at hip height.
+    put(22,10,3,5,'arm');
+    put(22,14,3,3,'arm');
+    put(22,16,2,5,'arm');
+    put(22,20,2,2,'skin');
   }
   // Side-profile walking stride: paint the shadowed rear leg first, then
   // the base-color front leg. One source pixel remains transparent between them.
@@ -8627,11 +8635,17 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       for(let xx=11;xx<=14;xx++)set(xx,yy,'pants');
       for(let xx=17;xx<=20;xx++)set(xx,yy,'pants');
     }
-    // Calves taper to three pixels and shift inward at the knee.
-    set(11,30,'legshadow');set(20,30,'legshadow');
-    for(let yy=30;yy<=36;yy++){
+    // Knees are marked with a dark welt; calves angle subtly inward,
+    // then shift back at the ankle to avoid two perfectly vertical stilts.
+    for(let xx=12;xx<=14;xx++)set(xx,30,'legshadow');
+    for(let xx=17;xx<=19;xx++)set(xx,30,'legshadow');
+    for(let yy=31;yy<=33;yy++){
       for(let xx=12;xx<=14;xx++)set(xx,yy,'pants');
       for(let xx=17;xx<=19;xx++)set(xx,yy,'pants');
+    }
+    for(let yy=34;yy<=36;yy++){
+      for(let xx=13;xx<=15;xx++)set(xx,yy,'pants');
+      for(let xx=16;xx<=18;xx++)set(xx,yy,'pants');
     }
   }
   if(side){
@@ -8639,9 +8653,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     put(9,36,2,1,'legshadow');put(14,36,2,1,'legshadow');
     put(8,37,4,3,'shoe');put(13,37,4,3,'shoefront');
   }else{
-    // Dark ankle welt; five-pixel shoes flare one pixel beyond each calf side.
-    put(12,36,3,1,'legshadow');put(17,36,3,1,'legshadow');
-    put(11,37,5,3,'shoe');put(16,37,5,3,'shoe');
+    // Dark ankle welt follows the angled calves; shoes remain planted
+    // directly beneath the new ankle positions.
+    put(13,36,3,1,'legshadow');put(16,36,3,1,'legshadow');
+    put(12,37,5,3,'shoe');put(15,37,5,3,'shoe');
   }
   if(P.stripes&&!side&&!back)for(let yy=12;yy<22;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
   if(P.apron&&!back)put(13,16,6,8,'apron');
