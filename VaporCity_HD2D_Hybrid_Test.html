@@ -8351,12 +8351,14 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride,measureOptions){
   const g=ctxOverride||og,scale=OWT/36*.28,sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
   // Feet remain pinned; the upper body keeps the existing one-pixel idle breath.
   const frame=Math.floor(tm*(moving?8:6)+(ph||0))%4,bob=[0,-1,0,1][frame],prevBob=[0,-1,0,1][(frame+3)%4];
-  const back=dir==='u';
+  const back=dir==='u',side=dir==='l'||dir==='r',facingLeft=dir==='l';
   const omitUmbrella=!!(measureOptions&&measureOptions.excludeUmbrella);
   const omitGroundEffects=!!(measureOptions&&measureOptions.excludeGroundEffects);
   // Keep measurement passes free of contact-shadow and additive glow pixels.
   if(!omitGroundEffects)artShadow(g,sx,sy,OWT*.24,OWT*.075,.75,2);
   g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-137);
+  // Side views use a narrower profile; left is the mirrored right-facing pose.
+  if(side){g.translate(50,0);g.scale(facingLeft?-.72:.72,1);g.translate(-50,0)}
   const ink='#171725',deep='#482B59',skin='#D6A17F';
   const path=(pts,fill,stroke=ink,lw=2)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='round';g.stroke()}};
   const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);for(const [p,c] of stops)z.addColorStop(p,c);return z};
@@ -8410,15 +8412,27 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride,measureOptions){
   g.strokeStyle=ink;g.lineWidth=1;g.strokeRect(63,37,2,2);
   g.fillStyle='#F1C3A1';g.fillRect(63,37,1,1);
 
-  // Neck, face and hair: reduced facial noise, with only two eye pixels.
+  // Neck, face and hair change by facing: back has no visible face, side has a profile.
   path([[43,38],[55,38],[57,48],[44,49]],'#B97966');
-  g.beginPath();g.ellipse(49,30,13,16,-.12,0,Math.PI*2);
-  g.fillStyle=grad(37,22,61,38,[[0,'#F0C09D'],[.45,skin],[1,'#996052']]);g.fill();
-  g.strokeStyle=ink;g.lineWidth=1.8;g.stroke();
   if(!back){
-    // Clean one-pixel dark blue-black glasses/eye line and a restrained mouth mark.
-    line([[48,29],[57,29]],'#202A3A',1);
-    line([[52,40],[55,40]],'#8D554E',1);
+    const faceX=side?(facingLeft?45:53):49;
+    g.beginPath();g.ellipse(faceX,30,side?10:13,16,-.12,0,Math.PI*2);
+    g.fillStyle=grad(37,22,61,38,[[0,'#F0C09D'],[.45,skin],[1,'#996052']]);g.fill();
+    g.strokeStyle=ink;g.lineWidth=1.8;g.stroke();
+    if(side){
+      const noseX=facingLeft?34:64;
+      path([[noseX,29],[noseX+(facingLeft?-3:3),32],[noseX,34]],skin,ink,1);
+      line([[facingLeft?40:58,29],[facingLeft?42:60,29]],'#202A3A',1);
+    }else{
+      line([[48,29],[57,29]],'#202A3A',1);
+      line([[52,40],[55,40]],'#8D554E',1);
+    }
+  }else{
+    // Back-facing silver hair mass replaces the face; the nape remains visible.
+    g.beginPath();g.ellipse(49,30,13,16,0,0,Math.PI*2);
+    g.fillStyle=grad(36,17,62,43,[[0,'#D9DCE3'],[.45,'#AEB4C2'],[1,'#55576B']]);g.fill();
+    g.strokeStyle=ink;g.lineWidth=1.8;g.stroke();
+    line([[40,27],[44,36],[49,39],[55,35],[59,26]],'#85899D',1.4);
   }
   // Silver hair cap and side sweep. Keep the existing one-frame hair lag.
   g.save();g.translate(0,(prevBob-bob)/scale);
@@ -8439,24 +8453,38 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride,measureOptions){
   // plus the requested left-side purple highlight.
   path([[35,49],[45,46],[59,48],[68,56],[70,83],[65,97],[34,96],[29,83],[30,60]],grad(30,49,68,88,[[0,'#C27CC0'],[.28,'#98539F'],[.62,'#75417F'],[1,'#43294F']]));
   path([[34,91],[67,91],[73,111],[66,116],[31,113],[27,108]],grad(30,96,70,112,[[0,'#A66AAB'],[.45,'#74427F'],[1,'#382643']]));
-  // One-pixel purple collar depth directly under the chin.
-  g.fillStyle='#2A1335';g.fillRect(45,47,9,1);
-  // Umbrella's underside shadow sits over the fringe/temple, not over the face.
-  path([[38,19],[47,17],[58,19],[63,25],[58,27],[48,24],[40,26]],'#2A1335',null);
-  path([[33,53],[43,49],[47,53],[45,88],[38,94],[31,87]],'#B35BCE',null);
-  path([[59,50],[67,56],[69,83],[63,93],[57,88],[60,67]],'#4D2D60',null);
-  line([[36,57],[39,74],[37,87]],'#E3A2D9',1.8);
-  line([[62,60],[60,77],[64,87]],'#33223F',2);
-  line([[40,94],[51,96],[64,93]],'#E7A8DA',1.5);
-  // Softened jacket-to-skirt transition: lighter shadow with a one-pixel feather.
-  line([[34,96],[45,97],[56,97],[66,95]],'#70477D',1/scale);
-  line([[35,97],[45,98],[56,98],[65,96]],'rgba(190,116,184,.48)',.8/scale);
-  line([[31,113],[42,114],[55,114],[66,112]],'#2A1335',1/scale);
-  line([[32,111],[43,113],[55,113],[66,111]],'rgba(255,47,168,.42)',1.15/scale);
-  path([[42,49],[49,56],[54,49],[58,53],[52,62],[46,59]],'#F0B5E0',ink,1.4);
-  line([[50,60],[49,88]],'#4A2C58',1.6);
-  [66,74,82].forEach(y=>{g.beginPath();g.arc(50,y,1.2,0,7);g.fillStyle='#FFE1F4';g.fill()});
-  g.beginPath();g.arc(40,70,3,0,7);g.fillStyle='#FFD15B';g.fill();g.strokeStyle=ink;g.lineWidth=1;g.stroke();
+  if(!back&&!side){
+    // Front jacket: collar, lapels, front seam and small buttons.
+    g.fillStyle='#2A1335';g.fillRect(45,47,9,1);
+    path([[38,19],[47,17],[58,19],[63,25],[58,27],[48,24],[40,26]],'#2A1335',null);
+    path([[33,53],[43,49],[47,53],[45,88],[38,94],[31,87]],'#B35BCE',null);
+    path([[59,50],[67,56],[69,83],[63,93],[57,88],[60,67]],'#4D2D60',null);
+    line([[36,57],[39,74],[37,87]],'#E3A2D9',1.8);
+    line([[62,60],[60,77],[64,87]],'#33223F',2);
+    line([[40,94],[51,96],[64,93]],'#E7A8DA',1.5);
+    line([[34,96],[45,97],[56,97],[66,95]],'#70477D',1/scale);
+    line([[35,97],[45,98],[56,98],[65,96]],'rgba(190,116,184,.48)',.8/scale);
+    line([[31,113],[42,114],[55,114],[66,112]],'#2A1335',1/scale);
+    line([[32,111],[43,113],[55,113],[66,111]],'rgba(255,47,168,.42)',1.15/scale);
+    path([[42,49],[49,56],[54,49],[58,53],[52,62],[46,59]],'#F0B5E0',ink,1.4);
+    line([[50,60],[49,88]],'#4A2C58',1.6);
+    [66,74,82].forEach(y=>{g.beginPath();g.arc(50,y,1.2,0,7);g.fillStyle='#FFE1F4';g.fill()});
+    g.beginPath();g.arc(40,70,3,0,7);g.fillStyle='#FFD15B';g.fill();g.strokeStyle=ink;g.lineWidth=1;g.stroke();
+  }else if(back){
+    // Back-facing jacket: broad shoulder yoke, center seam and skirt pleats.
+    path([[33,52],[42,49],[58,49],[67,54],[64,66],[36,66]],'#62386F',ink,1);
+    line([[50,54],[50,94]],'#2A1335',1.8);
+    line([[37,69],[40,88],[36,96]],'#B35BCE',1.5);
+    line([[63,69],[60,88],[64,96]],'#4D2D60',1.5);
+    line([[33,111],[43,113],[56,113],[67,111]],'#2A1335',1.2);
+    path([[42,49],[50,56],[58,49],[55,61],[50,65],[45,61]],'#8D5A99',ink,1);
+  }else{
+    // Side-facing jacket: a narrow profile seam and one visible side pocket.
+    path([[43,51],[55,49],[62,57],[61,88],[56,96],[42,94],[39,76]],'#75417F',ink,1);
+    line([[52,57],[52,91]],'#2A1335',1.6);
+    path([[54,78],[60,78],[60,86],[54,86]],'#B35BCE',ink,1);
+    line([[44,96],[55,97],[60,94]],'#E7A8DA',1.2);
+  }
 
   // Left arm (viewer-left) hangs naturally at the side: narrow sleeve and 2x2 hand.
   path([[34,55],[38,57],[35,68],[34,81],[30,81],[31,67]],grad(30,56,38,79,[[0,'#B66FC0'],[.55,'#75417F'],[1,'#43294F']]),ink,1);
