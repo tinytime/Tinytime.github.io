@@ -8541,6 +8541,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     if(stroke){g.save();g.beginPath();g.rect(-64,-64,256,256);pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.clip('evenodd');g.strokeStyle=stroke;g.lineWidth=Math.max(1,lw||1);g.lineJoin='miter';g.lineCap='butt';g.stroke();g.restore()}
   };
   const line=(pts,color,width=1)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.strokeStyle=color;g.lineWidth=width;g.lineCap='square';g.lineJoin='miter';g.stroke()};
+  const limb=(pts,ramp)=>polygon(pts,ramp,ink,1);
   const bodyRowsLength=P.long?18:16;
   g.save();g.translate(24,48);
   if(side&&dirCode==='l')g.scale(-1,1);
@@ -8569,8 +8570,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const gridX=-7,gridY=-35,gridBase=body.base||P.body||'#777777';
   const gridColor=(gx,gy)=>{
     const cell=npcGrid[gy][gx];if(cell==='.')return null;
-    if(cell==='P')return pants.base||P.pants||'#252535';
-    if(cell==='S')return pants.shadow||body.shadow||'#20212a';
+    if(cell==='P')return !side&&gx>=9?(pants.shadow||pants.base||P.pants||'#252535'):(pants.base||P.pants||'#252535');
+    if(cell==='S')return gy<18?(body.shadow||gridBase):(pants.shadow||body.shadow||'#20212a');
     if(cell==='A'){
       if(!side&&gx>=11)return body.shadow||gridBase;
       return gridBase;
