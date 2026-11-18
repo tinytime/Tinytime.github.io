@@ -13,32 +13,32 @@ function objectEnd(text, start) {
     const ch = text[i];
     if (quote) {
       if (escaped) escaped = false;
-      else if (ch === '\\\\') escaped = true;
+      else if (ch === '\\') escaped = true;
       else if (ch === quote) quote = null;
       continue;
     }
-    if (ch === "'" || ch === '"' || ch === '`') { quote = ch; continue; }
+    if (ch === "'" || ch === '"' || ch.charCodeAt(0) === 96) { quote = ch; continue; }
     if (ch === '{') depth++;
     else if (ch === '}' && --depth === 0) return i + 1;
   }
   throw new Error('Unclosed NPC object at source offset ' + start);
 }
 
-function objectMap(block, label) {
+function objectMap(label) {
   const match = source.match(new RegExp('const ' + label + '=Object\\.freeze\\(\\{([\\s\\S]*?)\\}\\);'));
   if (!match) throw new Error('Missing ' + label + ' table');
-  return Object.fromEntries([...match[1].matchAll(/([A-Za-z0-9_]+)\\s*:\\s*'([^']+)'/g)].map(m => [m[1], m[2]]));
+  return Object.fromEntries([...match[1].matchAll(/([A-Za-z0-9_]+)\s*:\s*'([^']+)'/g)].map(m => [m[1], m[2]]));
 }
 
 const records = [];
-for (const match of source.matchAll(/\\{\\s*id\\s*:\\s*(['"])([^'"]+)\\1/g)) {
+for (const match of source.matchAll(/\{\s*id\s*:\s*(['"])([^'"]+)\1/g)) {
   const end = objectEnd(source, match.index);
   const object = source.slice(match.index, end);
   // Live NPC records have coordinates and a direction. This excludes map,
   // crew, play, and roster metadata objects that also happen to use "id".
-  if (!/\\bx\\s*:/.test(object) || !/\\by\\s*:/.test(object) || !/\\bd\\s*:/.test(object)) continue;
-  const civ = (object.match(/\\bciv\\s*:\\s*(['"])([^'"]+)\\1/) || [])[2] || null;
-  const sprite = (object.match(/\\bsprite\\s*:\\s*(['"])([^'"]+)\\1/) || [])[2] || null;
+  if (!/\bx\s*:/.test(object) || !/\by\s*:/.test(object) || !/\bd\s*:/.test(object)) continue;
+  const civ = (object.match(/\bciv\s*:\s*(['"])([^'"]+)\1/) || [])[2] || null;
+  const sprite = (object.match(/\bsprite\s*:\s*(['"])([^'"]+)\1/) || [])[2] || null;
   records.push({ id: match[2], civ, sprite });
 }
 
@@ -51,12 +51,12 @@ for (const npc of records) {
   byId.set(npc.id, npc);
 }
 const npcs = [...byId.values()].sort((a, b) => a.id.localeCompare(b.id));
-const civToArchetype = objectMap(source, 'CIV_TO_ARCHETYPE');
-const archetypeMatch = source.match(/const ARCHETYPES=Object\\.freeze\\(\\{([\\s\\S]*?)\\}\\);/);
-const civMatch = source.match(/const CIV=\\{([\\s\\S]*?)\\n\\};/);
+const civToArchetype = objectMap('CIV_TO_ARCHETYPE');
+const archetypeMatch = source.match(/const ARCHETYPES=Object\.freeze\(\{([\s\S]*?)\}\);/);
+const civMatch = source.match(/const CIV=\{([\s\S]*?)\n\};/);
 if (!archetypeMatch || !civMatch) throw new Error('Missing ARCHETYPES or CIV palette table');
-const archetypeKeys = [...archetypeMatch[1].matchAll(/^\\s{2}([A-Za-z0-9_]+):\\{/gm)].map(m => m[1]);
-const civPaletteKeys = [...civMatch[1].matchAll(/^\\s{1,2}([A-Za-z0-9_]+):\\{/gm)].map(m => m[1]);
+const archetypeKeys = [...archetypeMatch[1].matchAll(/^\s{2}([A-Za-z0-9_]+):\{/gm)].map(m => m[1]);
+const civPaletteKeys = [...civMatch[1].matchAll(/^\s{1,2}([A-Za-z0-9_]+):\{/gm)].map(m => m[1]);
 const liveCivs = [...new Set(npcs.map(n => n.civ).filter(Boolean))].sort();
 const unmappedCivs = liveCivs.filter(civ => !civToArchetype[civ]);
 const missingPalettes = liveCivs.filter(civ => !civPaletteKeys.includes(civ));
@@ -67,11 +67,11 @@ if (missingArchetypes.length) throw new Error('CIV_TO_ARCHETYPE references missi
 if (liveCivs.length !== 24 || Object.keys(civToArchetype).length !== 24) {
   throw new Error('Expected 24 live civ mappings; found ' + liveCivs.length + ' live civs and ' + Object.keys(civToArchetype).length + ' mapping entries');
 }
-if (/CIV\\[kind\\]\\s*\\|\\|\\s*CIV\\.fan/.test(source)) throw new Error('Forbidden CIV.fan palette fallback remains');
+if (/CIV\[kind\]\s*\|\|\s*CIV\.fan/.test(source)) throw new Error('Forbidden CIV.fan palette fallback remains');
 
-const pxnMatch = source.match(/var PXN=\\{([^}]+)\\}/);
+const pxnMatch = source.match(/var PXN=\{([^}]+)\}/);
 if (!pxnMatch) throw new Error('Could not read PXN pixel-pack dispatch table');
-const pxPersonAtlas = Object.fromEntries([...pxnMatch[1].matchAll(/([A-Za-z0-9_]+)\\s*:\\s*'([^']+)'/g)].map(m => [m[1], m[2]]));
+const pxPersonAtlas = Object.fromEntries([...pxnMatch[1].matchAll(/([A-Za-z0-9_]+)\s*:\s*'([^']+)'/g)].map(m => [m[1], m[2]]));
 if (!source.includes("if(n.id==='granny'){drawGrannyVoltSprite") ||
     !source.includes("if(n.sprite==='cat'){if(!pxCat(n,tm))owCat") ||
     !source.includes('if(n.civ){if(!pxPerson(n,tm))owCiv') ||
@@ -119,7 +119,7 @@ const inventory = {
   },
   npcs: inventoryNpcs
 };
-const output = JSON.stringify(inventory, null, 2) + '\\n';
+const output = JSON.stringify(inventory, null, 2) + '\n';
 
 if (process.argv.includes('--check')) {
   if (!fs.existsSync(inventoryPath)) throw new Error('Missing qa/npc-inventory.json; run the generator without --check');
