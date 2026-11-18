@@ -283,7 +283,7 @@
       r2_stack:{armSpread:-3,armY:2,legSpread:-2,legW:1,sideArmX:-4,sideLegSpread:-2},
       regular1:{armSpread:2,armY:-2,legSpread:0,legW:0,sideArmX:2,sideLegSpread:0},
       shopper1:{armSpread:-2,armY:0,legSpread:3,legW:-1,sideArmX:-2,sideLegSpread:2},
-      wait1:{armSpread:3,armY:2,legSpread:-2,legW:0,sideArmX:4,sideLegSpread:-4},
+      wait1:{armSpread:3,armY:2,legSpread:-2,legW:0,sideArmX:4,sideLegSpread:4},
       wait2:{armSpread:-3,armY:-2,legSpread:0,legW:1,sideArmX:-4,sideLegSpread:0}
     });
     const makeIndividualRig=(archetype,spec={})=>{
