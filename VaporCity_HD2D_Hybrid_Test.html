@@ -9102,7 +9102,7 @@ window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMas
       const sx=entry.x+((frame|0)%entry.n)*entry.w;
       atlasCtx.save();
       if(direction==='l'){atlasCtx.translate(64,0);atlasCtx.scale(-1,1)}
-      const personScale=2;
+      const personScale=(key==='tp11'||key==='tp12')?3:2;
       atlasCtx.drawImage(PXS.img,sx,entry.y,entry.w,entry.h,32-entry.ax*personScale,96-entry.ay*personScale,entry.w*personScale,entry.h*personScale);
       atlasCtx.restore();
       const rendererCanvas=document.createElement('canvas');rendererCanvas.width=64;rendererCanvas.height=96;
