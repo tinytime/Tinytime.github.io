@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "description": "Owner-approved exclusions from the standard NPC art scorecard. These legacy owFig characters are not standard NPCs.",
+  "outOfScope": [
+    "cat1",
+    "cat2",
+    "drift1",
+    "drift2",
+    "hb_bram",
+    "hb_deke",
+    "hb_marla",
+    "hb_rita",
+    "king1",
+    "king2",
+    "lou",
+    "mack",
+    "mate1",
+    "mo",
+    "pete",
+    "r2_mud",
+    "rat2",
+    "rusty"
+  ]
+}
