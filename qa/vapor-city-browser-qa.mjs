@@ -530,14 +530,40 @@ try {
     return canvas.toDataURL('image/png');
   }, fanVariantData);
   fs.writeFileSync(path.join(out, 'npc-fan-variants-4x.png'), Buffer.from(fanGalleryDataUrl.split(',')[1], 'base64'));
-  const fanVariantSignatures = fanVariantData.map(fan => [...fan.colors].sort().join('|'));
+  const fanPixelAudit = await page.evaluate(async fans => {
+    const rows = [];
+    for (const fan of fans) {
+      const image = new Image();
+      image.src = fan.dataUrl;
+      await image.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(image, 0, 0);
+      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      const digest = await crypto.subtle.digest('SHA-256', pixels.buffer);
+      const pixelSha256 = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+      rows.push({ id: fan.id, width: canvas.width, height: canvas.height, pixelSha256 });
+    }
+    return rows;
+  }, fanVariantData);
+  const fanPixelSignatures = fanPixelAudit.map(fan => fan.pixelSha256);
+  const fanPaletteSignatures = fanVariantData.map(fan => [...fan.colors].sort().join('|'));
   const fanVariantAudit = {
-    pass: fanVariantData.length === 20 && new Set(fanVariantSignatures).size === 20 &&
+    pass: fanVariantData.length === 20 && fanPixelAudit.length === 20 &&
+      new Set(fanPixelSignatures).size === 20 &&
       fanVariantData.every(fan => fan.uniqueColorCount <= 12),
     count: fanVariantData.length,
-    uniqueLooks: new Set(fanVariantSignatures).size,
+    uniqueLooks: new Set(fanPixelSignatures).size,
+    uniquePixelLooks: new Set(fanPixelSignatures).size,
+    uniquePaletteSignatures: new Set(fanPaletteSignatures).size,
+    uniquenessMethod: 'SHA-256 of decoded RGBA pixel buffers from each rendered 64x96 fan snapshot; palette signatures are reported separately and do not determine visual uniqueness.',
     maxUniqueColors: Math.max(...fanVariantData.map(fan => fan.uniqueColorCount)),
-    fans: fanVariantData.map(({id,uniqueColorCount,colors})=>({id,uniqueColorCount,colors}))
+    fans: fanVariantData.map(fan => ({
+      id: fan.id, uniqueColorCount: fan.uniqueColorCount, colors: fan.colors,
+      pixelSha256: fanPixelAudit.find(row => row.id === fan.id)?.pixelSha256 || null
+    }))
   };
 
   const archetypeSilhouettes = await page.evaluate(() => {
