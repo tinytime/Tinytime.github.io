@@ -130,6 +130,30 @@
     reshapeTorsoRows('clinic','side',y=>y>=13&&y<=21?{left:1,right:-1}:{left:0,right:1});
     reshapeTorsoRows('clinic','front',y=>y>=18?{left:2,right:-2}:{left:0,right:0});
     reshapeTorsoRows('clinic','back',y=>y<=13?{left:-1,right:1}:{left:2,right:-2});
+    // Per-civilian contour signatures prevent same-archetype jobs from becoming
+    // palette-only swaps. Values are subtle silhouette edits by shoulder/waist/hem.
+    const CIV_TORSO_VARIANTS=Object.freeze({
+      runner:[-1,0,1],coach:[0,1,0],ref:[1,-1,0],
+      courier:[-1,1,-1],
+      guard:[1,0,-1],
+      vendor:[-1,-1,1],cook:[1,1,0],
+      clinic:[0,-1,1],tech:[1,0,1],hacker:[-1,1,0],
+      fisher:[1,-1,1],sailor:[-1,0,-1],slicker:[0,1,1],painter:[1,1,-1],welder:[-1,-1,0],
+      kid:[-1,0,1],kid2:[1,0,-1],mouse:[0,1,0],
+      busker:[-1,1,1],dancer:[1,-1,-1],
+      broker:[-1,0,0],usher:[0,-1,0],fan:[1,1,1]
+    });
+    for (const [civ, [shoulder, waist, hem]] of Object.entries(CIV_TORSO_VARIANTS)) {
+      const archetype=CIV_TO_ARCHETYPE[civ];
+      for (const view of ['front','back','side']) {
+        reshapeTorsoRows(archetype,view,(y,left,right)=>{
+          const band=y<=14?shoulder:y<=20?waist:hem;
+          if (!band) return {left:0,right:0};
+          if (view==='side') return {left:band,right:-band};
+          return {left:-band,right:band};
+        });
+      }
+    }
     Object.freeze(ARCHETYPE_TORSO_MASKS);
     
     
