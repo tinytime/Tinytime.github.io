@@ -8495,7 +8495,7 @@ function applyShading(baseHex){
     return '#'+v.map(n=>Math.round((n+q)*255).toString(16).padStart(2,'0')).join('');
   };
   const base=m?baseHex:'#777777';
-  const SHADOW_LIGHTNESS_FACTOR=.60; // 40% darker than the source material.
+  const SHADOW_LIGHTNESS_FACTOR=.50; // Exact 50% darker shadow; strong, unmistakable value separation.
   return {highlight:toHex(l*1.20),base,shadow:toHex(l*SHADOW_LIGHTNESS_FACTOR)};
 }
 function owPixelTone(hex,delta){
@@ -8527,7 +8527,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const ink='#141622',body=applyShading(P.body||'#777777'),pants=applyShading(P.pants||'#252535');
   const darkenHex=(hex,factor)=>{const m=/^#([0-9a-f]{6})$/i.exec(hex||'');if(!m)return hex;const n=parseInt(m[1],16);return '#'+[n>>16,(n>>8)&255,n&255].map(v=>Math.max(0,Math.min(255,Math.round(v*factor))).toString(16).padStart(2,'0')).join('')};
   // Stronger material shadow blocks: deepen cloth shadows without changing the global palette pipeline.
-  body.shadow=darkenHex(body.base||P.body||'#777777',.48);pants.shadow=darkenHex(pants.base||P.pants||'#252535',.48);
+  body.shadow=darkenHex(body.base||P.body||'#777777',.50);pants.shadow=darkenHex(pants.base||P.pants||'#252535',.50);
   const skinTone=applyShading(skin),hair=applyShading(P.hair||'#211a22'),trim=applyShading(P.trim||'#d8d8d8');
   const step=moving?Math.sin(tm*11+ph*6):0,seed=((n.x*13+n.y*7+(kind||'').length*3)|0);
   const bob=moving?Math.abs(step)*.45:Math.sin(tm*1.8+seed)*.12;
@@ -8554,6 +8554,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(side){
     // Profile torso is exactly 4x6: rear two columns shadow, front two base.
     put(7,6,4,6,'B');
+    // Profile shoe has a two-pixel toe extension in the direction of travel.
+    put(7,26,3,2,'P');put(9,28,4,2,'P');put(13,28,2,2,'P');
     // Exposed profile arm and leg are explicitly two pixels wide.
     put(11,8,2,5,'A');
     put(5,19,2,7,'P');
@@ -8566,6 +8568,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     // Six-pixel-wide torso with a defined waist and lower torso.
     put(5,6,6,6,'B');
     put(6,12,4,4,'B');
+    // Remove the outer left/right pixels at Y=14 to force the waist indent.
+    npcGrid[14][5]='.';npcGrid[14][10]='.';
     put(5,16,6,2,'B');
     // Front/back legs: each 2x7 overall, with an explicit knee step.
     put(3,20,2,3,'P');put(2,23,2,4,'P');
@@ -8596,9 +8600,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     g.fillStyle=body.base||P.body||gridBase;g.fillRect(gridX+3,gridY+6,2,5);
     g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+11,gridY+6,2,5);
     // Torso is six pixels wide: 1 highlight, 2 base, 3 deep-shadow columns.
-    g.fillStyle=body.highlight||gridBase;g.fillRect(gridX+5,gridY+6,1,12);
-    g.fillStyle=body.base||P.body||gridBase;g.fillRect(gridX+6,gridY+6,2,12);
-    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+8,gridY+6,3,12);
+    g.fillStyle=body.highlight||gridBase;g.fillRect(gridX+5,gridY+6,1,8);g.fillRect(gridX+5,gridY+15,1,3);
+    g.fillStyle=body.base||P.body||gridBase;g.fillRect(gridX+6,gridY+6,2,8);g.fillRect(gridX+6,gridY+14,4,1);g.fillRect(gridX+6,gridY+15,2,3);
+    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+8,gridY+6,3,8);g.fillRect(gridX+8,gridY+15,3,3);
     // Legs are 2x7 each, split into a 2x3 thigh and 2x4 bent calf.
     g.fillStyle=pants.base||P.pants||'#252535';
     g.fillRect(gridX+3,gridY+20,2,3);
@@ -8617,6 +8621,13 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     // Visible profile arm and leg are both exactly two pixels wide.
     g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+11,gridY+8,2,5);
     g.fillStyle=pants.shadow||'#20212a';g.fillRect(gridX+5,gridY+19,2,7);
+    // A stepped dark spine follows the rear contour instead of a straight edge.
+    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+6,gridY+8,1,1);g.fillRect(gridX+6,gridY+10,1,1);g.fillRect(gridX+7,gridY+12,1,1);
+    // Ink seam between the foreground arm and torso: shared edges are not outlined by the grid pass.
+    g.fillStyle=ink;g.fillRect(gridX+10,gridY+8,1,5);
+    // Direction-facing nose and the two-pixel forward shoe toe.
+    g.fillStyle=skinTone.base;g.fillRect(8,-22,1,1);
+    g.fillStyle=pants.shadow||'#20212a';g.fillRect(gridX+13,gridY+28,2,2);
   }
   // One-pixel #141622 outline around every occupied pixel; limbs retain a
   // two-pixel solid core plus their one-pixel outside contour.
@@ -8637,7 +8648,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   }else if(side){
     polygon([[-1,hy+1],[2,hy-1],[5,hy],[6,hy+2],[7,hy+4],[6,hy+6],[3,hy+7],[0,hy+6],[-2,hy+4]],skinTone,ink,1);
     polygon([[-4,hy+1],[-3,hy-2],[-1,hy-3],[2,hy-3],[4,hy-1],[4,hy+1],[1,hy+1],[-1,hy+3],[-3,hy+4]],hair,ink,1);
-    px(5,hy+2,1,1,'#101018');px(7,hy+4,1,1,skinTone.shadow);
+    // Pixel-stepped rear skull contour: a slight curve rather than a flat edge.
+    px(-5,hy+1,1,1,hair.shadow);px(-5,hy+3,1,1,hair.base);px(-4,hy+5,1,1,hair.shadow);
+    px(5,hy+2,1,1,'#101018');px(7,hy+4,1,1,skinTone.shadow);px(8,hy+3,1,1,skinTone.base);
     line([[-2,hy-2],[0,hy-3],[2,hy-2]],hair.highlight,1);
   }else{
     polygon([[-1,hy],[1,hy],[2,hy+1],[3,hy+2],[3,hy+4],[2,hy+5],[1,hy+6],[-1,hy+6],[-2,hy+5],[-3,hy+4],[-3,hy+2],[-2,hy+1]],skinTone,ink,1);
