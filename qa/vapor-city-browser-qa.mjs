@@ -112,10 +112,46 @@ try {
       return { width, height, sampledStride: stride, sampledAlphaPixels: alphaPixels, sampledUniqueRGB: colors.size,
         alphaBounds: maxX < 0 ? null : { minX, minY, maxX, maxY } };
     });
-    await page.screenshot({ path: path.join(out, 'npc-gallery-1x.png'), fullPage: true });
-    await galleryCanvas.evaluate(c => { c.style.width = (c.clientWidth * 4) + 'px'; c.style.maxWidth = 'none'; });
-    await page.waitForTimeout(200);
-    await page.screenshot({ path: path.join(out, 'npc-gallery-4x.png'), fullPage: true });
+    // Export the complete backing canvas, not the clipped gallery panel viewport.
+    // The panel intentionally scrolls on smaller screens, so page screenshots can omit row 4.
+    const galleryPng = await galleryCanvas.evaluate(c => c.toDataURL('image/png'));
+    fs.writeFileSync(path.join(out, 'npc-gallery-1x.png'), Buffer.from(galleryPng.split(',')[1], 'base64'));
+    const gallery4xPng = await galleryCanvas.evaluate(async c => {
+      const scaled = document.createElement('canvas');
+      scaled.width = c.width * 4;
+      scaled.height = c.height * 4;
+      const ctx = scaled.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(c, 0, 0, scaled.width, scaled.height);
+      return scaled.toDataURL('image/png');
+    });
+    fs.writeFileSync(path.join(out, 'npc-gallery-4x.png'), Buffer.from(gallery4xPng.split(',')[1], 'base64'));
+    canvasMetrics.cellGrid = await galleryCanvas.evaluate(c => {
+      const ctx = c.getContext('2d');
+      const { width, height } = c;
+      const cols = 6, rows = 4;
+      const cellW = Math.floor(width / cols), cellH = Math.floor(height / rows);
+      const pixels = ctx.getImageData(0, 0, width, height).data;
+      const bg = [pixels[0], pixels[1], pixels[2]];
+      const cells = [];
+      for (let row = 0; row < rows; row++) for (let col = 0; col < cols; col++) {
+        let visible = 0, minX = cellW, minY = cellH, maxX = -1, maxY = -1;
+        const x0 = col * cellW, y0 = row * cellH;
+        for (let y = y0; y < Math.min(height, y0 + cellH); y++) {
+          for (let x = x0; x < Math.min(width, x0 + cellW); x++) {
+            const p = (y * width + x) * 4;
+            if (pixels[p] !== bg[0] || pixels[p+1] !== bg[1] || pixels[p+2] !== bg[2]) {
+              visible++; minX = Math.min(minX, x-x0); minY = Math.min(minY, y-y0);
+              maxX = Math.max(maxX, x-x0); maxY = Math.max(maxY, y-y0);
+            }
+          }
+        }
+        cells.push({ row, col, nonBackgroundPixels: visible,
+          bounds: maxX < 0 ? null : { minX, minY, maxX, maxY } });
+      }
+      return { rows, cols, cellWidth: cellW, cellHeight: cellH,
+        nonEmptyCells: cells.filter(x => x.nonBackgroundPixels > 100).length, cells };
+    });
   }
 
   scriptErrors.push(...await page.evaluate(() => window.__qaScriptErrors || []));
@@ -139,11 +175,11 @@ try {
     scriptErrors,
     pageErrors,
     consoleErrors,
-    note: 'Browser smoke test. Script error event includes filename/line/column when Chromium provides it. Canvas summary is sampled, not per-NPC measurement or a visual-quality PASS.'
+    note: 'Browser smoke test. Script error event includes filename/line/column when Chromium provides it. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 24 non-empty cells but does not certify visual quality.'
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length) process.exitCode = 1;
+  if (!syntaxCheck.ok || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
 } finally {
   await browser.close();
 }
