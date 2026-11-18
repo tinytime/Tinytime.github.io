@@ -8983,7 +8983,7 @@ function pxDrawEnt(a,tm){const OT=OWT,t0=performance.now();
     else if(a.k==='crow'){pxBlit('crow_i',pxFi('crow_i',tm,a.sd),fx,fy,a.dir<0);PXS.anim++}
   }catch(e){pxFail(e)}PXS.ms=PXS.ms*.95+(performance.now()-t0)*.05}
 /* a pack civilian in place of the code-drawn one (only the six plaza people); false = draw the old art */
-function pxPerson(n,tm){if(!M||M.id!=='street'||!pxUse())return false;const k=PXN[n.id];if(!k)return false;
+function pxPerson(n,tm){if(!M||M.id!=='street'||!pxUse())return false;if(n.d!=='l'&&n.d!=='r')return false;const k=PXN[n.id];if(!k)return false;
   try{const OT=OWT,fx=(n.rx!=null?n.rx:n.x)*OT+OT/2,fy=(n.ry!=null?n.ry:n.y)*OT+OT-6;pxShadow(fx,fy+1,9,3);
     pxBlit(k,pxFi(k,tm,(n.x*7+n.y*3)%9),fx,fy,n.d==='l');PXS.anim++;return true}catch(e){pxFail(e);return false}}
 /* the HOME cat: the pack's black cat (the glitch kittens keep their own art) */
