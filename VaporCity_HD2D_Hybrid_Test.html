@@ -8322,7 +8322,13 @@ const CIV={
  hacker:{sc:1,body:'#1a2a24',trim:'#58ffb0',pants:'#10161e',hood:1,hair:'#000'},
  tech:{sc:1,body:'#2a2f3a',trim:'#27e0ff',pants:'#14182a',apron:'#58ffb0',band:'#27e0ff',hair:'#14110f'},
  broker:{sc:1,body:'#5a3a2a',trim:'#ffb02e',pants:'#1a1410',long:1,hat:'beanie',hair:'#8a8a90'},
- usher:{sc:1,body:'#2a1a3a',trim:'#ff2fa8',pants:'#14102a',hat:'cap',hair:'#1a1410'}
+ usher:{sc:1,body:'#2a1a3a',trim:'#ff2fa8',pants:'#14102a',hat:'cap',hair:'#1a1410'},cook:{sc:1,body:'#eee7d5',trim:'#f0a34a',pants:'#26323c',hat:'cap',apron:'#d3d8dd',hair:'#33231d'},
+ kid2:{sc:.84,body:'#e7a44c',trim:'#fff0c2',pants:'#25324a',hood:1,hair:'#231a16'},
+ painter:{sc:1,body:'#d9a2bd',trim:'#f8d7e5',pants:'#3a2b43',hat:'cap',hair:'#2b1c20'},
+ ref:{sc:1,body:'#f0f0e8',trim:'#242b38',pants:'#202a36',hat:'cap',hair:'#241e1b'},
+ sailor:{sc:1,body:'#286c8b',trim:'#cfe8f1',pants:'#152c3b',hat:'wide',hair:'#241e1b'},
+ slicker:{sc:1,body:'#7c8990',trim:'#d9e3e8',pants:'#27313b',hat:'beanie',hair:'#4b4a46'},
+ welder:{sc:1,body:'#c46b32',trim:'#ffd05a',pants:'#25303a',hat:'wide',hair:'#1a1a1a'}
 };
 const CIV_FANC=['#ff2fa8','#27e0ff','#ffd23a','#9b5cff','#58ffb0','#ff7a1a'];
 
@@ -8510,19 +8516,38 @@ function owPixelTone(hex,delta){
 // Granny Volt is the shared scale reference. Values below are source-geometry estimates;
 // pixel measurements still require a browser capture of the reference sprite.
 const GRANNY_REF=Object.freeze({totalHeight:137,headHeight:34,headWidth:36,shoulderWidth:41,torsoHeight:70,legLength:45,armWidth:4,footBaselineY:136,outlineColor:'#171725',nativeScale:OWT/36*.28,visibleCivHeight:80});
+const CIV_TO_ARCHETYPE=Object.freeze({
+  runner:'athletic',coach:'athletic',ref:'athletic',
+  courier:'courier',
+  guard:'guard',
+  vendor:'vendor',cook:'vendor',
+  clinic:'clinic',tech:'clinic',hacker:'clinic',
+  fisher:'trades',sailor:'trades',slicker:'trades',painter:'trades',welder:'trades',
+  kid:'youth',kid2:'youth',mouse:'youth',
+  busker:'performer',dancer:'performer',
+  broker:'civic',usher:'civic',fan:'civic',
+  granny:'elder'
+});
 const ARCHETYPES=Object.freeze({
- runner:{head:'round-fringe',torso:'sweater',prop:{type:'delivery-bag',hand:'left'},paletteLimit:12},
- courier:{head:'cap-profile',torso:'jacket',prop:{type:'parcel',hand:'right'},paletteLimit:12},
- guard:{head:'helmet',torso:'armored-vest',prop:{type:'baton',hand:'right'},paletteLimit:12},
- vendor:{head:'hat',torso:'apron',prop:{type:'bowl',hand:'left'},paletteLimit:12},
- clinic:{head:'hair-band',torso:'long-scrubs',prop:{type:'medical-kit',hand:'right'},paletteLimit:12}
+  athletic:{head:'round-fringe',torso:'sweater',palette:{body:'#58ffb0',trim:'#ffffff',pants:'#0e2a24',hair:'#1a1410'},prop:{type:'whistle',hand:'right'},paletteLimit:12},
+  courier:{head:'cap-profile',torso:'jacket',palette:{body:'#e8742a',trim:'#27e0ff',pants:'#15202e',hair:'#1a1410'},prop:{type:'parcel',hand:'right'},paletteLimit:12},
+  guard:{head:'helmet',torso:'armored-vest',palette:{body:'#1b2430',trim:'#27e0ff',pants:'#10161e',hair:'#000000'},prop:{type:'baton',hand:'right'},paletteLimit:12},
+  vendor:{head:'hat',torso:'apron',palette:{body:'#2a2f3a',trim:'#e8e8f0',pants:'#1a1d26',hair:'#14110f'},prop:{type:'bowl',hand:'left'},paletteLimit:12},
+  clinic:{head:'hair-band',torso:'long-scrubs',palette:{body:'#e8f4f8',trim:'#27e0ff',pants:'#1a2433',hair:'#2a1a20'},prop:{type:'medical-kit',hand:'right'},paletteLimit:12},
+  trades:{head:'work-cap',torso:'jacket',palette:{body:'#286c8b',trim:'#cfe8f1',pants:'#27313b',hair:'#241e1b'},prop:{type:'wrench',hand:'right'},paletteLimit:12},
+  youth:{head:'hood',torso:'sweater',palette:{body:'#27e0ff',trim:'#0a2a38',pants:'#1a2433',hair:'#1a1410'},prop:{type:'backpack',hand:'left'},paletteLimit:12},
+  performer:{head:'beanie',torso:'jacket',palette:{body:'#3a5a8a',trim:'#ff7a1a',pants:'#1a1a26',hair:'#1a1410'},prop:{type:'guitar',hand:'right'},paletteLimit:12},
+  civic:{head:'cap-profile',torso:'sweater',palette:{body:'#5a3a2a',trim:'#ffb02e',pants:'#1a1410',hair:'#8a8a90'},prop:{type:'clipboard',hand:'left'},paletteLimit:12},
+  elder:{head:'bun',torso:'long-scrubs',palette:{body:'#9a4a9a',trim:'#ffd0ee',pants:'#2a1a2a',hair:'#e8e8f0'},prop:{type:'umbrella',hand:'right'},paletteLimit:12}
 });
 function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const kind=n.civ;
   if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
-  const A=ARCHETYPES[kind]||null;
-  const P=Object.assign({},CIV[kind]||CIV.fan);
-  if(n.hb)Object.assign(P,HB_CIV[kind]||HB_CIV.fan);
+  const archetypeKey=CIV_TO_ARCHETYPE[kind];
+  if(!archetypeKey||!ARCHETYPES[archetypeKey]||!CIV[kind])throw new Error('Missing civilian archetype mapping or palette: '+kind);
+  const A=ARCHETYPES[archetypeKey];
+  const P=Object.assign({},A.palette,CIV[kind]);
+  if(n.hb&&HB_CIV[kind])Object.assign(P,HB_CIV[kind]);
   if(kind==='fan'&&n.hb){P.body=HB_FANC[((n.x*7+n.y*3)|0)%HB_FANC.length];P.pants=['#26333C','#2b3036','#1f2a30'][(n.x+n.y)%3]}
   else if(kind==='fan'){P.body=CIV_FANC[((n.x*7+n.y*3)|0)%CIV_FANC.length];P.pants=['#1a2433','#241a2e','#10202a'][(n.x+n.y)%3]}
   // Match Granny Volt's rendered silhouette height: her canopy-to-foot span is
@@ -8782,7 +8807,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     else if(A.prop.type==='bowl')put(handX-2,propY,5,3,'bowl');
     else if(A.prop.type==='parcel')put(handX-1,propY-1,4,4,'parcel');
     else if(A.prop.type==='medical-kit')put(handX-1,propY-1,4,4,'medkit');
-    else if(A.prop.type==='delivery-bag'&&(back||side))put(side?20:8,13,4,8,'pack');
+    else if(A.prop.type==='whistle')put(handX-1,propY,3,2,'whistle');
+    else if(A.prop.type==='wrench')put(handX,propY-2,2,6,'wrench');
+    else if(A.prop.type==='backpack'&&(back||side))put(side?20:8,13,5,8,'backpack');
+    else if(A.prop.type==='guitar'){put(handX-2,propY-2,4,5,'guitar');put(handX-1,propY+2,2,4,'guitar')}
+    else if(A.prop.type==='clipboard')put(handX-1,propY-2,4,6,'clipboard');
   }
   if(P.long)put(10,22,12,2,'bodyshade');
   if(side&&dirCode==='l')for(let yy=0;yy<H;yy++)grid[yy].reverse();
@@ -8812,10 +8841,15 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       case 'umb':return applyShading(P.umb).base||P.umb;
       case 'umbhi':return applyShading(P.umb).highlight||P.umb;
       case 'key':return '#ff7a1a';
-      case 'baton':return '#27e0ff';
-      case 'bowl':return '#e8e8f0';
+      case 'baton':return '#00d7ff';
+      case 'bowl':return '#ffbd3d';
       case 'parcel':return '#d88a45';
-      case 'medkit':return '#e8e8f0';
+      case 'medkit':return '#f4f6ff';
+      case 'whistle':return '#ffd23a';
+      case 'wrench':return '#aeb8c2';
+      case 'backpack':return '#58ffb0';
+      case 'guitar':return '#9b5cff';
+      case 'clipboard':return '#ff2fa8';
       case 'inkdetail':return '#101018';
       default:return null;
     }
