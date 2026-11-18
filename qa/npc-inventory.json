@@ -91,7 +91,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "broker",
@@ -100,7 +101,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "busker",
@@ -110,7 +112,8 @@
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp5",
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "cat",
@@ -119,7 +122,8 @@
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "cat1",
@@ -128,7 +132,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "cat2",
@@ -137,7 +142,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "courier",
@@ -146,7 +152,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "drift1",
@@ -155,7 +162,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "drift2",
@@ -164,7 +172,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "driverA",
@@ -173,7 +182,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "driverB",
@@ -182,7 +192,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "fan1",
@@ -191,7 +202,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "fan2",
@@ -200,7 +212,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "fanA",
@@ -210,7 +223,8 @@
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp9",
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "fanB",
@@ -220,7 +234,8 @@
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp1",
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "fanC",
@@ -230,7 +245,8 @@
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp4",
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "fanD",
@@ -240,7 +256,8 @@
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp11",
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "fisher",
@@ -249,7 +266,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "gamer1",
@@ -258,7 +276,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "gamer2",
@@ -267,7 +286,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "gateE",
@@ -276,7 +296,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "gatekeeper",
@@ -285,7 +306,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "gateS",
@@ -294,7 +316,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "gcat1",
@@ -303,7 +326,8 @@
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "gcat2",
@@ -312,7 +336,8 @@
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "gcat3",
@@ -321,7 +346,8 @@
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "granny",
@@ -330,7 +356,8 @@
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hacker",
@@ -339,7 +366,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_agnes",
@@ -348,7 +376,8 @@
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "hb_bram",
@@ -357,7 +386,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "hb_cadogan",
@@ -366,7 +396,8 @@
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "hb_cook",
@@ -375,7 +406,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_cormac",
@@ -384,7 +416,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_crabkid",
@@ -393,7 +426,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "hb_deckhand",
@@ -402,7 +436,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_deke",
@@ -411,7 +446,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "hb_denny",
@@ -420,7 +456,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "hb_docker",
@@ -429,7 +466,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_dockhand",
@@ -438,7 +476,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "hb_duke",
@@ -447,7 +486,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_dutch",
@@ -456,7 +496,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_finn",
@@ -465,7 +506,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_fisher",
@@ -474,7 +516,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_fishwife",
@@ -483,7 +526,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "hb_gulllady",
@@ -492,7 +536,8 @@
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_gus",
@@ -501,7 +546,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_ivy",
@@ -510,7 +556,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_kell",
@@ -519,7 +566,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_kidrun",
@@ -528,7 +576,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_lkid",
@@ -537,7 +586,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "hb_loader",
@@ -546,7 +596,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_marla",
@@ -555,7 +606,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "hb_marty",
@@ -564,7 +616,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_marv",
@@ -573,7 +626,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "hb_mender",
@@ -582,7 +636,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_messenger",
@@ -591,7 +646,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "hb_oldsalt",
@@ -600,7 +656,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_painter",
@@ -609,7 +666,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_penrose",
@@ -618,7 +676,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_pete",
@@ -627,7 +686,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_pip",
@@ -636,7 +696,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "hb_ref1",
@@ -645,7 +706,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "hb_ref2",
@@ -654,7 +716,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_riptide",
@@ -663,7 +726,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "hb_riptide_b",
@@ -672,7 +736,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "hb_rita",
@@ -681,7 +746,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "hb_runner",
@@ -690,7 +756,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_sable",
@@ -699,7 +766,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_shopper",
@@ -708,7 +776,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_skeeter",
@@ -717,7 +786,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_sketch",
@@ -726,7 +796,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "hb_splinter",
@@ -735,7 +806,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_tommy",
@@ -744,7 +816,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "hb_walker",
@@ -753,7 +826,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_welder",
@@ -762,7 +836,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "hb_wick",
@@ -771,7 +846,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_yardman",
@@ -780,7 +856,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "hb_zd",
@@ -789,7 +866,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "kid",
@@ -799,7 +877,8 @@
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp12",
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "kid1",
@@ -808,7 +887,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "kid2",
@@ -817,7 +897,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "king1",
@@ -826,7 +907,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "king2",
@@ -835,7 +917,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "lou",
@@ -844,7 +927,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "mack",
@@ -853,7 +937,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "l"
     },
     {
       "id": "manager",
@@ -862,7 +947,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "mate1",
@@ -871,7 +957,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "r"
     },
     {
       "id": "mate2",
@@ -880,7 +967,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "mo",
@@ -889,7 +977,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "mouse",
@@ -898,7 +987,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "owner",
@@ -907,7 +997,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "patient1",
@@ -916,7 +1007,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "patient2",
@@ -925,7 +1017,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "pete",
@@ -934,7 +1027,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "pharmacist",
@@ -943,7 +1037,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "r2_courier",
@@ -952,7 +1047,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "r2_crewman",
@@ -961,7 +1057,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "r2_dock",
@@ -970,7 +1067,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "r2_fisher",
@@ -979,7 +1077,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "r2_gullkid",
@@ -988,7 +1087,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "r2_ida",
@@ -997,7 +1097,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "r2_keep",
@@ -1006,7 +1107,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "r2_laundry",
@@ -1015,7 +1117,8 @@
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "r2_mud",
@@ -1024,7 +1127,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "d"
     },
     {
       "id": "r2_noll",
@@ -1033,7 +1137,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "r2_oldfish",
@@ -1042,7 +1147,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "r2_oldsalt",
@@ -1051,7 +1157,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "r2_raker",
@@ -1060,7 +1167,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "r2_ref",
@@ -1069,7 +1177,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "r2_ripf",
@@ -1078,7 +1187,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "r2_riptide",
@@ -1087,7 +1197,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "r2_runkid",
@@ -1096,7 +1207,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "r2_saltw",
@@ -1105,7 +1217,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "r2_saltwife",
@@ -1114,7 +1227,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "r2_sela",
@@ -1123,7 +1237,8 @@
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "r2_skipper",
@@ -1132,7 +1247,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "r2_stack",
@@ -1141,7 +1257,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "r2_toll",
@@ -1150,7 +1267,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "r2_zd",
@@ -1159,7 +1277,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "r2_zdf",
@@ -1168,7 +1287,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "rat2",
@@ -1177,7 +1297,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "l"
     },
     {
       "id": "regular1",
@@ -1186,7 +1307,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "regular2",
@@ -1195,7 +1317,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "regular3",
@@ -1204,7 +1327,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "retiredLocal",
@@ -1213,7 +1337,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "runner",
@@ -1222,7 +1347,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "rusty",
@@ -1231,7 +1357,8 @@
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": false,
+      "direction": "u"
     },
     {
       "id": "scriptkid",
@@ -1240,7 +1367,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "shopper1",
@@ -1249,7 +1377,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "u"
     },
     {
       "id": "shopper2",
@@ -1258,7 +1387,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "techgirl",
@@ -1267,7 +1397,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "l"
     },
     {
       "id": "usher",
@@ -1276,7 +1407,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "vendor",
@@ -1285,7 +1417,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     },
     {
       "id": "wait1",
@@ -1294,7 +1427,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "d"
     },
     {
       "id": "wait2",
@@ -1303,7 +1437,8 @@
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": true,
+      "direction": "r"
     }
   ]
 }
