@@ -940,7 +940,7 @@
           case 'hairband':return typeof P.band==='string'?P.band:accentGarment;
           case 'labcoat':return typeof P.labcoat==='string'?P.labcoat:accentGarment;
           case 'key':return accentProp;
-          case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'foamfinger':case 'pennant':case 'megaphone':case 'rallytowel':return kind==='fan'&&FAN_VARIANT_PALETTES[n.id]?.trim?FAN_VARIANT_PALETTES[n.id].trim:(PROP_ROLE_COLORS[role]||accentProp);
+          case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'foamfinger':case 'pennant':case 'megaphone':case 'rallytowel':return PROP_ROLE_COLORS[role]||accentProp;
           case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return PROP_ROLE_COLORS[role]||accentProp;
           default:return null;
         }
