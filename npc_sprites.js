@@ -224,7 +224,7 @@
       sailor:{armSpread:-2,armY:1,legSpread:-2,sideArmX:-2,sideLegSpread:-2},
       slicker:{armSpread:0,armY:-1,legSpread:2,legW:-1},
       painter:{armSpread:-2,armY:1,legSpread:0,legW:2},
-      welder:{armSpread:2,armY:0,legSpread:-2,sideArmX:3,sideLegSpread:2},
+      welder:{armSpread:2,armY:0,legSpread:-2,sideArmX:2,sideLegSpread:-2},
       kid:{armSpread:-1,armY:1,legSpread:-1,legW:-1},
       kid2:{armSpread:1,armY:-1,legSpread:1,legW:1},
       mouse:{armSpread:0,armY:-1,legSpread:0,legW:-1},
