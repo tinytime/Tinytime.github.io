@@ -220,7 +220,7 @@ try {
     atlasOffSettled,
     atlasRestoredState,
     atlasRestoredSettled,
-    atlasCallsDuringOff: (atlasOffSettled?.anim || 0) - (atlasOnInitialState?.anim || 0),
+    atlasCallsDuringOff: atlasOffSettled?.anim || 0,
     atlasCallsAfterRestore: atlasRestoredSettled?.anim || 0,
     estimatedHumanAtlasDraws: Math.max(0, (atlasRestoredSettled?.anim || 0) - 2),
     activeAtlasKeys: atlasOverrideRecords.filter(item => ['l','r'].includes(item.direction)).map(item => item.npcId)
