@@ -380,6 +380,37 @@ try {
     snapshots: snapshotResults
   };
 
+  const fanVariantData = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcRenderFanVariantSnapshots !== 'function') throw new Error('Fan variant snapshot hook is unavailable');
+    return window.SG.npcRenderFanVariantSnapshots();
+  });
+  const fanSnapshotDir = path.join(out, 'npc-fan-variants');
+  fs.mkdirSync(fanSnapshotDir, { recursive: true });
+  for (const fan of fanVariantData) {
+    fs.writeFileSync(path.join(fanSnapshotDir, fan.id + '.png'), Buffer.from(fan.dataUrl.split(',')[1], 'base64'));
+  }
+  const fanGalleryDataUrl = await page.evaluate(async fans => {
+    const canvas=document.createElement('canvas');canvas.width=1280;canvas.height=1664;
+    const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.fillStyle='#777982';ctx.fillRect(0,0,canvas.width,canvas.height);
+    for(let i=0;i<fans.length;i++){
+      const img=new Image();img.src=fans[i].dataUrl;await img.decode();
+      const x=(i%5)*256,y=Math.floor(i/5)*416;
+      ctx.drawImage(img,x,y,256,384);
+      ctx.fillStyle='#ffffff';ctx.font='bold 14px monospace';ctx.textAlign='center';ctx.fillText(fans[i].id.toUpperCase(),x+128,y+405);
+    }
+    return canvas.toDataURL('image/png');
+  }, fanVariantData);
+  fs.writeFileSync(path.join(out, 'npc-fan-variants-4x.png'), Buffer.from(fanGalleryDataUrl.split(',')[1], 'base64'));
+  const fanVariantSignatures = fanVariantData.map(fan => [...fan.colors].sort().join('|'));
+  const fanVariantAudit = {
+    pass: fanVariantData.length === 20 && new Set(fanVariantSignatures).size === 20 &&
+      fanVariantData.every(fan => fan.uniqueColorCount <= 12),
+    count: fanVariantData.length,
+    uniqueLooks: new Set(fanVariantSignatures).size,
+    maxUniqueColors: Math.max(...fanVariantData.map(fan => fan.uniqueColorCount)),
+    fans: fanVariantData.map(({id,uniqueColorCount,colors})=>({id,uniqueColorCount,colors}))
+  };
+
   const catSnapshotData = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcRenderCatSnapshots !== 'function') throw new Error('Cat render snapshot hook is unavailable');
     return window.SG.npcRenderCatSnapshots();
@@ -689,6 +720,7 @@ try {
     npcBodyCheck,
     npcPropAudit,
     catArtAudit,
+    fanVariantAudit,
     snapshotCheck,
     archetypeSilhouetteCount: archetypeSilhouettes.length,
     silhouetteMaskDiagnostics: archetypeSilhouettes
@@ -715,7 +747,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !pixelPackDirectionGuard || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !catArtAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !pixelPackDirectionGuard || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !catArtAudit.pass || !fanVariantAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
