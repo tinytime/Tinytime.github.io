@@ -8631,10 +8631,15 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Side-profile walking stride: paint the shadowed rear leg first, then
   // the base-color front leg. One source pixel remains transparent between them.
   if(side){
-    // Rear leg is the dark shadow silhouette; front leg advances two pixels.
-    // The one-cell gap remains clear after the outline pass.
-    put(9,24,2,13,'legback');
-    put(14,24,2,13,'legfront');
+    // Profile legs use a planted rear leg and a forward-bent lead leg.
+    // Wider thighs connect under the hip; knees and ankles step to create
+    // an actual stride instead of two parallel vertical rods.
+    put(10,24,4,6,'legback');
+    put(10,29,3,4,'legback');
+    put(9,32,3,5,'legback');
+    put(14,24,4,6,'legfront');
+    put(15,29,3,4,'legfront');
+    put(16,32,3,5,'legfront');
   }else{
     // Four-pixel thighs connect directly beneath the widened hip line.
     for(let yy=24;yy<=29;yy++){
@@ -8655,9 +8660,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     }
   }
   if(side){
-    // Dark ankle welt, then shoes two pixels wider than each two-pixel leg.
-    put(9,36,2,1,'legshadow');put(14,36,2,1,'legshadow');
-    put(8,37,4,3,'shoe');put(13,37,4,3,'shoefront');
+    // Offset ankle welts and broad shoes align to the bent lower legs.
+    put(9,36,3,1,'legshadow');put(16,36,3,1,'legshadow');
+    put(8,37,5,3,'shoe');put(15,37,5,3,'shoefront');
   }else{
     // Dark ankle welt follows the angled calves; shoes remain planted
     // directly beneath the new ankle positions.
