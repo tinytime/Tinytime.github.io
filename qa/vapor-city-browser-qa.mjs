@@ -36,6 +36,17 @@ const npcInventoryCheck = {
 };
 const pixelPackDirectionGuard = htmlSource.includes("if(n.d!=='l'&&n.d!=='r')return false;");
 const npcInventoryData = JSON.parse(fs.readFileSync(path.join(root, 'qa', 'npc-inventory.json'), 'utf8'));
+const liveArchetypeKeys = await page.evaluate(() => Object.keys(window.NPC_SPRITES.TABLES.ARCHETYPES));
+const liveArchetypeUsage = liveArchetypeKeys.map(archetype => ({
+  archetype,
+  npcIds: npcInventoryData.npcs.filter(npc => npc.inScope && npc.archetype === archetype).map(npc => npc.id)
+}));
+const liveArchetypeUsageAudit = {
+  pass: liveArchetypeUsage.every(item => item.npcIds.length > 0),
+  archetypeCount: liveArchetypeKeys.length,
+  missingLiveArchetypes: liveArchetypeUsage.filter(item => item.npcIds.length === 0).map(item => item.archetype),
+  usage: liveArchetypeUsage
+};
 const atlasOverrideIds = npcInventoryData.pixelPack.pxPersonAtlasNpcIds || [];
 const atlasOverrideRecords = npcInventoryData.npcs
   .filter(npc => npc.pxPersonAtlasKey)
@@ -852,7 +863,7 @@ try {
     torsoOnlySilhouetteSummary,
     renderedPropShapeAudit,
     silhouetteQualityCheck,
-    liveArchetypes: Object.keys((await page.evaluate(() => window.NPC_SPRITES.TABLES.ARCHETYPES))),
+    liveArchetypeUsageAudit,
     standardNpcScope: { standardInScopeCount: npcInventoryData.standardInScopeCount, referenceBaselineNpcIds: npcInventoryData.referenceBaselineNpcIds, outOfScopeCount: npcInventoryData.outOfScopeNpcIds.length },
     worldState,
     galleryState,
@@ -871,7 +882,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !pixelPackDirectionGuard || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !catArtAudit.pass || !fanVariantAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !catArtAudit.pass || !fanVariantAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
