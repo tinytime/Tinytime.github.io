@@ -111,7 +111,7 @@ if (!source.includes("if(n.id==='granny'){drawGrannyVoltSprite") ||
 
 const inventoryNpcs = npcs.map(npc => {
   let rendererPath, inScope, scopeClass;
-  if (npc.civ === 'granny') {
+  if (npc.id === 'granny') {
     if (!referenceBaselineIds.has(npc.id)) throw new Error('Granny must be explicitly classified as the owner reference baseline');
     rendererPath = 'drawGrannyVoltSprite (owner-approved reference baseline)';
     inScope = false;
