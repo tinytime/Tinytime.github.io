@@ -158,18 +158,21 @@
         masks[view]=source[view].map(([y,left,right])=>{
           const band=variant[y<=14?0:y<=20?1:2];
           if(!band)return [y,left,right];
-          return view==='side'?[y,Math.max(0,left+band),Math.min(31,right-band)]:[y,Math.max(0,left-band),Math.min(31,right+band)];
+          const l=view==='side'?Math.max(0,left+band):Math.max(0,left-band);
+          const r=view==='side'?Math.min(31,right-band):Math.min(31,right+band);
+          const mid=Math.floor((left+right)/2);
+          return [y,l<=r?l:mid,l<=r?r:mid];
         });
         Object.freeze(masks[view]);
       }
       return [civ,Object.freeze(masks)];
     })));
     const FAN_TORSO_VARIANTS=Object.freeze({
-      driverA:[-2,0,2],fan1:[2,-2,0],fan2:[-1,2,-2],fanA:[1,-1,2],fanB:[-2,2,1],
-      fanC:[2,1,-2],fanD:[0,-2,2],gamer1:[1,2,-1],hb_denny:[-1,-2,2],hb_pete:[2,0,-2],
-      hb_shopper:[-2,-1,1],hb_splinter:[1,2,0],hb_wick:[-1,1,-2],patient1:[0,2,1],
-      r2_saltwife:[2,-1,1],r2_stack:[-2,1,-1],regular1:[1,-2,-1],shopper1:[-1,0,2],
-      wait1:[2,1,0],wait2:[-2,-2,1]
+      driverA:[-3,-3,-3],fan1:[-3,-3,0],fan2:[-3,-3,3],fanA:[-3,0,-3],fanB:[-3,0,0],
+      fanC:[-3,0,3],fanD:[-3,3,-3],gamer1:[-3,3,0],hb_denny:[-3,3,3],hb_pete:[0,-3,-3],
+      hb_shopper:[0,-3,0],hb_splinter:[0,-3,3],hb_wick:[0,0,-3],patient1:[0,0,0],
+      r2_saltwife:[0,0,3],r2_stack:[0,3,-3],regular1:[0,3,0],shopper1:[0,3,3],
+      wait1:[3,-3,-3],wait2:[3,-3,0]
     });
     const FAN_TORSO_MASKS=Object.freeze(Object.fromEntries(Object.entries(FAN_TORSO_VARIANTS).map(([id,variant])=>{
       const source=ARCHETYPE_TORSO_MASKS[ARCHETYPES[CIV_TO_ARCHETYPE.fan].torso],masks={};
@@ -262,26 +265,26 @@
       fan:{armSpread:-2,armY:1,legSpread:1}
     });
     const FAN_RIG_VARIANTS=Object.freeze({
-      driverA:{armSpread:-2,armY:0,legSpread:-2,legW:-1},
-      fan1:{armSpread:2,armY:0,legSpread:2,legW:1},
-      fan2:{armSpread:-1,armY:1,legSpread:1},
-      fanA:{armSpread:1,armY:-1,legSpread:-1,legW:1},
-      fanB:{armSpread:-2,armY:1,legSpread:2,legW:-1},
-      fanC:{armSpread:2,armY:-1,legSpread:-2,legW:1},
-      fanD:{armSpread:0,armY:1,legSpread:0,legW:1},
-      gamer1:{armSpread:1,armY:1,legSpread:2,legW:-1},
-      hb_denny:{armSpread:-1,armY:-1,legSpread:-2,legW:1},
-      hb_pete:{armSpread:2,armY:1,legSpread:0,legW:-1},
-      hb_shopper:{armSpread:-2,armY:-1,legSpread:1,legW:1},
-      hb_splinter:{armSpread:1,armY:0,legSpread:-1,legW:-1},
-      hb_wick:{armSpread:-1,armY:1,legSpread:2,legW:1},
-      patient1:{armSpread:0,armY:-1,legSpread:-2,legW:-1},
-      r2_saltwife:{armSpread:2,armY:0,legSpread:1,legW:-1},
-      r2_stack:{armSpread:-2,armY:1,legSpread:-1,legW:1},
-      regular1:{armSpread:1,armY:-1,legSpread:0},
-      shopper1:{armSpread:-1,armY:0,legSpread:2,legW:-1},
-      wait1:{armSpread:2,armY:1,legSpread:-1},
-      wait2:{armSpread:-2,armY:-1,legSpread:0,legW:1}
+      driverA:{armSpread:-3,armY:-1,legSpread:-3,legW:-1},
+      fan1:{armSpread:3,armY:1,legSpread:3,legW:1},
+      fan2:{armSpread:-2,armY:2,legSpread:1,legW:-1},
+      fanA:{armSpread:2,armY:-2,legSpread:-1,legW:1},
+      fanB:{armSpread:-3,armY:2,legSpread:3,legW:-1},
+      fanC:{armSpread:3,armY:-2,legSpread:-3,legW:1},
+      fanD:{armSpread:0,armY:2,legSpread:0,legW:2},
+      gamer1:{armSpread:2,armY:2,legSpread:3,legW:-1},
+      hb_denny:{armSpread:-2,armY:-2,legSpread:-3,legW:1},
+      hb_pete:{armSpread:3,armY:2,legSpread:0,legW:-1},
+      hb_shopper:{armSpread:-3,armY:-2,legSpread:2,legW:1},
+      hb_splinter:{armSpread:2,armY:0,legSpread:-2,legW:-1},
+      hb_wick:{armSpread:-2,armY:2,legSpread:3,legW:1},
+      patient1:{armSpread:0,armY:-2,legSpread:-3,legW:-1},
+      r2_saltwife:{armSpread:3,armY:0,legSpread:2,legW:-1},
+      r2_stack:{armSpread:-3,armY:2,legSpread:-2,legW:1},
+      regular1:{armSpread:2,armY:-2,legSpread:0,legW:0},
+      shopper1:{armSpread:-2,armY:0,legSpread:3,legW:-1},
+      wait1:{armSpread:3,armY:2,legSpread:-2,legW:0},
+      wait2:{armSpread:-3,armY:-2,legSpread:0,legW:1}
     });
     const makeIndividualRig=(archetype,spec={})=>{
       const base=ARCHETYPE_RIG_PARTS[archetype],result={};

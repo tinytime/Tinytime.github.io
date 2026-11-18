@@ -641,7 +641,7 @@ try {
     renderedPairs.sort((a,b)=>b.iou-a.iou);torsoPairs.sort((a,b)=>b.iou-a.iou);
     return {
       pass:ids.length===20&&decoded.length===80&&duplicates.length===0&&torsoPairs.length===570&&
-        directionStats.length===4&&directionStats.every(item=>item.count===20&&item.pairCount===190&&item.maxIoU<0.90),
+        directionStats.length===4&&directionStats.every(item=>item.count===20&&item.pairCount===190&&item.maxIoU<0.90)&&torsoPairs[0]?.iou<0.90,
       fanCount:ids.length,directionalSnapshotCount:decoded.length,renderedDirectionCount:directionStats.length,
       renderedPairCount:renderedPairs.length,maxRenderedIoU:renderedPairs[0]?.iou??null,
       closestRenderedPairs:renderedPairs.slice(0,12),directionStats,torsoMaskDirectionCount:3,
