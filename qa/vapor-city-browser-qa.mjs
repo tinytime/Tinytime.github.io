@@ -1019,6 +1019,7 @@ try {
     grannyBeforeAfterCapture: { path: 'granny-before-after-4x.png', directions: ['front','back','left','right'], rows: ['pre-side-view renderer','current renderer'] },
     npcInventoryCheck,
     pixelPackImpact,
+    atlasVerticalFallbackAudit,
     atlasRuntimeAudit,
     atlasComparisonAudit,
     pixelPackDirectionGuard: { pass: pixelPackDirectionGuard && pixelPackImpact.verticalFacingFallbackIds.length > 0, guardPresent: pixelPackDirectionGuard },
