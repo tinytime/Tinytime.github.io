@@ -64,7 +64,7 @@ const civToArchetype = objectMap('CIV_TO_ARCHETYPE');
 const archetypeMatch = source.match(/const ARCHETYPES=Object\.freeze\(\{([\s\S]*?)\}\);/);
 const civMatch = source.match(/const CIV=\{([\s\S]*?)\n\};/);
 if (!archetypeMatch || !civMatch) throw new Error('Missing ARCHETYPES or CIV palette table');
-const archetypeKeyMatches = [...archetypeMatch[1].matchAll(/^([ \t]+)([A-Za-z0-9_]+):\s*\{/gm)];
+const archetypeKeyMatches = [...archetypeMatch[1].matchAll(/^([ \t]+)([A-Za-z0-9_]+):\{/gm)];
 const archetypeIndent = Math.min(...archetypeKeyMatches.map(m => m[1].length));
 const archetypeKeys = archetypeKeyMatches.filter(m => m[1].length === archetypeIndent).map(m => m[2]);
 const civPaletteKeys = [...civMatch[1].matchAll(/([A-Za-z0-9_]+)\s*:\s*\{/g)].map(m => m[1]);
