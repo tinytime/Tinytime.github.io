@@ -8624,19 +8624,52 @@ const ARCHETYPE_TORSO_MASKS=Object.freeze({
 
 const BASE_RIG_PARTS=Object.freeze({
   front:{
-    arms:[[6,10,4,5,'arm'],[6,11,2,3,'armhi'],[5,14,3,4,'armshade'],[6,17,3,4,'arm'],[7,18,1,2,'armhi'],[7,21,2,2,'skin'],[22,10,4,5,'arm'],[24,11,2,3,'armhi'],[23,14,3,4,'armshade'],[22,17,3,4,'arm'],[23,18,1,2,'armhi'],[22,21,2,2,'skin']],
-    legs:[[11,24,4,6,'pants'],[17,24,4,6,'pants'],[12,30,3,1,'legshadow'],[17,30,3,1,'legshadow'],[12,31,3,3,'pants'],[17,31,3,3,'pants'],[13,34,3,3,'pants'],[16,34,3,3,'pants'],[11,25,1,5,'legshadow'],[20,25,1,5,'legshadow'],[12,31,1,5,'legshadow'],[19,31,1,5,'legshadow'],[14,26,1,4,'bodyhi'],[17,26,1,4,'bodyhi'],[13,36,3,1,'legshadow'],[16,36,3,1,'legshadow'],[12,37,5,3,'shoe'],[15,37,5,3,'shoe']]
+    arms:[[8,10,3,4,'arm'],[8,13,2,4,'armshade'],[8,16,2,4,'arm'],[9,19,2,3,'armhi'],[9,21,2,2,'skin'],[21,10,3,4,'arm'],[22,13,2,4,'armshade'],[22,16,2,4,'arm'],[21,19,2,3,'armhi'],[21,21,2,2,'skin']],
+    legs:[[11,24,4,6,'pants'],[17,24,4,6,'pants'],[11,29,4,4,'pants'],[17,29,4,4,'pants'],[10,33,4,4,'pants'],[18,33,4,4,'pants'],[12,25,1,5,'legshadow'],[18,25,1,5,'legshadow'],[12,31,1,4,'legshadow'],[19,31,1,4,'legshadow'],[13,26,1,3,'bodyhi'],[17,26,1,3,'bodyhi'],[10,37,5,3,'shoe'],[18,37,5,3,'shoe']]
   },
   back:{
-    arms:[[6,10,4,5,'arm'],[6,11,2,3,'armhi'],[5,14,3,4,'armshade'],[6,17,3,4,'arm'],[7,18,1,2,'armhi'],[7,21,2,2,'skin'],[22,10,4,5,'arm'],[24,11,2,3,'armhi'],[23,14,3,4,'armshade'],[22,17,3,4,'arm'],[23,18,1,2,'armhi'],[22,21,2,2,'skin']],
-    legs:[[11,24,4,6,'pants'],[17,24,4,6,'pants'],[12,30,3,1,'legshadow'],[17,30,3,1,'legshadow'],[12,31,3,3,'pants'],[17,31,3,3,'pants'],[13,34,3,3,'pants'],[16,34,3,3,'pants'],[11,25,1,5,'legshadow'],[20,25,1,5,'legshadow'],[12,31,1,5,'legshadow'],[19,31,1,5,'legshadow'],[14,26,1,4,'bodyhi'],[17,26,1,4,'bodyhi'],[13,36,3,1,'legshadow'],[16,36,3,1,'legshadow'],[12,37,5,3,'shoe'],[15,37,5,3,'shoe']]
+    arms:[[8,10,3,4,'arm'],[8,13,2,4,'armshade'],[8,16,2,4,'arm'],[9,19,2,3,'armhi'],[9,21,2,2,'skin'],[21,10,3,4,'arm'],[22,13,2,4,'armshade'],[22,16,2,4,'arm'],[21,19,2,3,'armhi'],[21,21,2,2,'skin']],
+    legs:[[11,24,4,6,'pants'],[17,24,4,6,'pants'],[11,29,4,4,'pants'],[17,29,4,4,'pants'],[10,33,4,4,'pants'],[18,33,4,4,'pants'],[12,25,1,5,'legshadow'],[18,25,1,5,'legshadow'],[12,31,1,4,'legshadow'],[19,31,1,4,'legshadow'],[13,26,1,3,'bodyhi'],[17,26,1,3,'bodyhi'],[10,37,5,3,'shoe'],[18,37,5,3,'shoe']]
   },
   side:{
-    arms:[[19,10,3,5,'arm'],[20,11,2,4,'armhi'],[18,14,3,4,'armshade'],[17,17,3,4,'arm'],[18,18,1,2,'armhi'],[17,20,2,2,'skin']],
-    legs:[[10,24,5,6,'legback'],[10,29,4,4,'legback'],[9,32,4,5,'legback'],[14,24,5,6,'legfront'],[15,29,4,4,'legfront'],[16,32,4,5,'legfront'],[10,25,1,4,'legshadow'],[14,25,1,3,'bodyhi'],[18,25,1,4,'bodyhi'],[17,30,1,3,'legshadow'],[9,36,3,1,'legshadow'],[16,36,3,1,'legshadow'],[8,37,5,3,'shoe'],[15,37,5,3,'shoefront']]
+    arms:[[19,10,3,4,'arm'],[20,13,2,4,'armshade'],[19,16,2,4,'arm'],[18,19,2,3,'armhi'],[18,21,2,2,'skin']],
+    legs:[[10,24,5,6,'legback'],[10,29,4,4,'legback'],[9,33,4,4,'legback'],[15,24,5,6,'legfront'],[16,29,4,4,'legfront'],[17,33,4,4,'legfront'],[10,25,1,4,'legshadow'],[15,25,1,3,'bodyhi'],[18,25,1,4,'bodyhi'],[17,30,1,3,'legshadow'],[9,37,5,3,'shoe'],[17,37,5,3,'shoefront']]
   }
 });
-const ARCHETYPE_RIG_PARTS=Object.freeze(Object.fromEntries(Object.keys(ARCHETYPES).map(key=>[key,BASE_RIG_PARTS])));
+function makeArchetypeRig(spec={}){
+  const result={};
+  for(const view of ['front','back','side']){
+    const side=view==='side',base=BASE_RIG_PARTS[view];
+    const arms=base.arms.map(([x,y,w,h,role])=>{
+      const right=side||x>=16;
+      const dx=side?(spec.sideArmX||0):(right?(spec.rightArmX??spec.armSpread??0):(spec.leftArmX??-(spec.armSpread||0)));
+      const dy=side?(spec.sideArmY||0):(right?(spec.rightArmY||0):(spec.leftArmY||0));
+      const dw=side?(spec.sideArmW||0):(right?(spec.rightArmW||0):(spec.leftArmW||0));
+      return [x+dx,y+dy,Math.max(1,w+dw),h,role];
+    });
+    const legs=base.legs.map(([x,y,w,h,role])=>{
+      const right=side?x>=14:x>=16;
+      const dx=right?(spec.rightLegX??spec.legSpread??0):(spec.leftLegX??-(spec.legSpread||0));
+      const dy=right?(spec.rightLegY||0):(spec.leftLegY||0);
+      const dw=right?(spec.rightLegW||0):(spec.leftLegW||0);
+      return [x+dx,y+dy,Math.max(1,w+dw),h,role];
+    });
+    result[view]={arms,legs};
+  }
+  return Object.freeze(result);
+}
+const ARCHETYPE_RIG_PARTS=Object.freeze({
+  athletic:BASE_RIG_PARTS,
+  courier:makeArchetypeRig({leftArmX:-1,rightArmX:1,leftArmY:1,leftLegX:-1,leftLegY:1}),
+  guard:makeArchetypeRig({armSpread:1,leftArmW:1,rightArmW:1,legSpread:1,leftLegW:1,rightLegW:1}),
+  vendor:makeArchetypeRig({armSpread:-1,leftArmY:1,rightArmY:1,legSpread:1,leftLegW:1,rightLegW:1}),
+  clinic:makeArchetypeRig({leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegY:1,rightLegY:1}),
+  trades:makeArchetypeRig({armSpread:1,leftArmY:1,legSpread:2,leftLegW:1,rightLegW:1}),
+  youth:makeArchetypeRig({armSpread:-1,leftArmY:1,rightArmY:1,leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegY:2,rightLegY:2,leftLegW:-1,rightLegW:-1}),
+  performer:makeArchetypeRig({leftArmX:-2,rightArmX:1,leftArmY:-1,rightArmY:1,leftLegX:-1,rightLegX:1,rightLegY:1}),
+  civic:makeArchetypeRig({armSpread:-1,legSpread:0}),
+  elder:makeArchetypeRig({armSpread:-1,leftArmY:2,rightArmY:2,leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegY:1,rightLegY:1,leftLegW:-1,rightLegW:-1})
+});
 const ARCHETYPE_PROP_LAYERS=Object.freeze({
   athletic:{types:{front:'whistle',side:'whistle',back:'jersey-mark'},front:[[1,12,5,5,'duffel'],[26,12,5,5,'duffel'],[21,19,2,2,'whistle']],back:[[1,12,5,5,'duffel'],[26,12,5,5,'duffel'],[7,19,2,2,'whistle']],side:[[25,12,5,6,'duffel'],[17,18,2,2,'whistle']]},
   courier:{types:{front:'parcel',side:'courier-pack',back:'courier-pack'},front:[[1,16,4,14,'satchel'],[22,18,3,3,'parcel']],back:[[27,16,4,14,'satchel'],[7,18,3,3,'parcel']],side:[[27,14,4,16,'satchel'],[17,18,3,3,'parcel']]},
