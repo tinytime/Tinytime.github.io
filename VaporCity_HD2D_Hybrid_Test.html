@@ -8519,6 +8519,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const rimCanvas=owCiv._rimCanvas||(owCiv._rimCanvas=document.createElement('canvas'));
   if(rimCanvas.width!==64)rimCanvas.width=64;if(rimCanvas.height!==64)rimCanvas.height=64;
   const g=rimCanvas.getContext('2d');
+  // Start every sprite pass from a clean, fully opaque drawing state.
+  g.setTransform(1,0,0,1,0,0);g.globalAlpha=1;g.globalCompositeOperation='source-over';
+  g.clearRect(0,0,64,64);
   const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
   const side=dir==='l'||dir==='r',back=dir==='u',f=dir==='l'?-1:1;
   const skin=['#e6b48a','#c98a62','#8a5a3a','#f0c8a0'][((n.x*5+n.y)|0)%4];
@@ -8533,8 +8536,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const polygon=(pts,ramp,stroke=ink,lw=1)=>{
     g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();
     const minX=Math.min(...pts.map(p=>p[0])),maxX=Math.max(...pts.map(p=>p[0]));
+    // Opaque material first: never let a narrow gradient stop erase the Base Hex.
+    g.globalAlpha=1;g.globalCompositeOperation='source-over';g.fillStyle=ramp.base;g.fill();
     const grad=g.createLinearGradient(minX,0,maxX||minX+1,0);
-    grad.addColorStop(0,ramp.highlight);grad.addColorStop(.49,ramp.highlight);grad.addColorStop(.50,ramp.base);grad.addColorStop(.51,ramp.shadow);grad.addColorStop(1,ramp.shadow);
+    grad.addColorStop(0,ramp.highlight);grad.addColorStop(.28,ramp.highlight);grad.addColorStop(.40,ramp.base);grad.addColorStop(.60,ramp.base);grad.addColorStop(.74,ramp.shadow);grad.addColorStop(1,ramp.shadow);
     g.fillStyle=grad;g.fill();
     if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='miter';g.lineCap='square';g.stroke()}
   };
@@ -8573,8 +8578,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   polygon(torso,body,null,0);
   // Three-tone fill is clipped to the stepped silhouette, not a bounding box.
   g.save();g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.clip();
+  // Preserve a broad, readable Base Hex band between the left highlight and right shadow.
+  g.globalAlpha=1;g.globalCompositeOperation='source-over';g.fillStyle=body.base;
+  g.fillRect(-4+torsoShift,top,8,bodyRowsLength(P)+2);
   const torsoGrad=g.createLinearGradient(-3+torsoShift,0,3+torsoShift,0);
-  torsoGrad.addColorStop(0,body.highlight);torsoGrad.addColorStop(.49,body.highlight);torsoGrad.addColorStop(.50,body.base);torsoGrad.addColorStop(.51,body.shadow);torsoGrad.addColorStop(1,body.shadow);
+  torsoGrad.addColorStop(0,body.highlight);torsoGrad.addColorStop(.28,body.highlight);torsoGrad.addColorStop(.40,body.base);torsoGrad.addColorStop(.60,body.base);torsoGrad.addColorStop(.74,body.shadow);torsoGrad.addColorStop(1,body.shadow);
   g.fillStyle=torsoGrad;g.fillRect(-4+torsoShift,top,8,bodyRowsLength(P)+2);g.restore();
   // Ink contour is applied after the complete opaque three-tone torso fill.
   g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.strokeStyle=ink;g.lineWidth=1.15;g.lineJoin='miter';g.lineCap='square';g.stroke();
