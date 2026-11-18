@@ -99,6 +99,7 @@ const inventoryNpcs = npcs.map(npc => {
     id: npc.id,
     civ: npc.civ,
     rendererPath,
+    scopeClass: inScope ? 'town' : 'football',
     pxPersonAtlasOverride: Object.hasOwn(pxPersonAtlas, npc.id),
     ...(pxPersonAtlas[npc.id] ? { pxPersonAtlasKey: pxPersonAtlas[npc.id] } : {}),
     inScope
