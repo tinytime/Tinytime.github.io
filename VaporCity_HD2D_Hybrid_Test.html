@@ -8495,7 +8495,7 @@ function applyShading(baseHex){
     return '#'+v.map(n=>Math.round((n+q)*255).toString(16).padStart(2,'0')).join('');
   };
   const base=m?baseHex:'#777777';
-  return {highlight:toHex(l*1.20),base,shadow:toHex(l*.75)};
+  return {highlight:toHex(l*1.20),base,shadow:toHex(l*.60)};
 }
 function owPixelTone(hex,delta){
   const ramp=applyShading(hex);
@@ -8553,6 +8553,12 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   };
   const line=(pts,color,width=1)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.strokeStyle=color;g.lineWidth=width;g.lineCap='square';g.lineJoin='miter';g.stroke()};
   const limb=(pts,ramp)=>polygon(pts,ramp,ink,1.15);
+  const shadeRight=(pts,color)=>{
+    g.save();g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.clip();
+    const minX=Math.min(...pts.map(p=>p[0])),maxX=Math.max(...pts.map(p=>p[0]));
+    const minY=Math.min(...pts.map(p=>p[1])),maxY=Math.max(...pts.map(p=>p[1]));
+    g.fillStyle=color;g.fillRect(Math.floor((minX+maxX)/2),Math.floor(minY),Math.ceil(maxX-(minX+maxX)/2),Math.ceil(maxY-minY));g.restore();
+  };
   g.save();g.translate(24,48);
   // Soft contact shadow remains directly beneath the feet.
   g.fillStyle='rgba(0,0,0,.36)';g.beginPath();g.ellipse(0,1,9,2.4,0,0,7);g.fill();
@@ -8564,11 +8570,13 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       const kY=-8+phase,footY=-2+phase,travel=swing*.35*phase;
       // Two-pixel trouser core with a one-pixel exterior ink contour.
       const left=x<0;
-      const kneeX=x+kneeShift,ankleX=x+ankleShift+travel;
+      const kneeX=x+kneeShift,ankleX=x+ankleShift+travel+(left?-1:1);
       const outer=left?x-2:x,inner=outer+2;
       const kneeOuter=left?kneeX:kneeX+2,kneeInner=kneeOuter+2;
       const ankleOuter=left?ankleX:ankleX+2,ankleInner=ankleOuter+2;
-      limb([[outer,-14],[inner,-14],[inner,kY-1],[kneeInner,kY],[kneeInner,footY-1],[ankleInner,footY],[ankleInner,0],[ankleOuter,0],[ankleOuter,footY],[kneeOuter,footY-1],[kneeOuter,kY],[outer,kY-1]],pants);
+      const legShape=[[outer,-14],[inner,-14],[inner,kY-1],[kneeInner,kY],[kneeInner,footY-1],[ankleInner,footY],[ankleInner,0],[ankleOuter,0],[ankleOuter,footY],[kneeOuter,footY-1],[kneeOuter,kY],[outer,kY-1]];
+      limb(legShape,pants);
+      if(!left)shadeRight(legShape,pants.shadow);
       line([[outer+.5,-13],[outer+.5,kY-1],[kneeOuter+.5,kY]],pants.highlight,1);
       line([[kneeInner-.5,kY+1],[kneeInner-.5,footY-1]],pants.shadow,1);
       polygon([[ankleX-1,-1],[ankleX+3,-1],[ankleX+3,1],[ankleX-1,1]],{highlight:'#292638',base:'#292638',shadow:'#171725'},ink,1);
@@ -8593,10 +8601,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // no composite tricks, no inherited alpha, and no bounding-box substitute.
   g.globalAlpha=1;g.globalCompositeOperation='source-over';g.shadowBlur=0;
   g.fillStyle=String(body.base||P.body||'#777777');g.fill('nonzero');
-  // Layer 2: preserve the base across the interior; shade only its outer edges.
+  // Layer 2: preserve the base across the interior; shade the complete right half.
   g.save();g.clip();g.globalAlpha=1;g.globalCompositeOperation='source-over';
   g.fillStyle=owPixelTone(body.highlight||body.base,20);g.fillRect(-3+torsoShift,top,1,bodyRowsLength(P)+2);
-  g.fillStyle=String(body.shadow||body.base);g.fillRect(3+torsoShift,top,1,bodyRowsLength(P)+2);
+  g.fillStyle=String(body.shadow||body.base);g.fillRect(torsoShift+1,top,3,bodyRowsLength(P)+2);
   g.restore();g.restore();
   // Layer 3: internal ink contour is applied after all opaque material fills.
   g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.save();g.beginPath();g.rect(-64,-64,256,256);torso.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.clip('evenodd');g.strokeStyle=ink;g.lineWidth=2;g.lineJoin='miter';g.lineCap='butt';g.stroke();g.restore();
@@ -8624,11 +8632,15 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const elbowX=rightArm?s:elbow+torsoShift+outward+(elbow<0?1:0),wristX=wrist+torsoShift+outward;
     if(bent){
       // Upper arm reaches the outside edge of the torso and ends at a defined elbow.
-      limb([[s-2,armY],[s+2,armY],[s+2,ey-1],[elbowX+2,ey],[elbowX+2,ey+2],[elbowX,ey+2],[elbowX,ey],[s-2,ey-1]],body);
+      const upperArmShape=[[s-2,armY],[s+2,armY],[s+2,ey-1],[elbowX+2,ey],[elbowX+2,ey+2],[elbowX,ey+2],[elbowX,ey],[s-2,ey-1]];
+      limb(upperArmShape,body);
+      if(rightArm)shadeRight(upperArmShape,body.shadow);
       // Forearm starts one pixel inward from the elbow, creating a visible angled return.
       const inward=rightArm?-1:1;const forearmX=elbowX+inward,handX=wristX+inward;
       // The forearm begins one pixel inside the upper-arm elbow, keeping the material silhouette connected.
-      limb([[forearmX-1,ey+1],[forearmX+1,ey+1],[handX+1,wy],[handX+1,wy+1],[handX-1,wy+1],[forearmX-1,ey+4]],body);
+      const forearmShape=[[forearmX-1,ey+1],[forearmX+1,ey+1],[handX+1,wy],[handX+1,wy+1],[handX-1,wy+1],[forearmX-1,ey+4]];
+      limb(forearmShape,body);
+      if(rightArm)shadeRight(forearmShape,body.shadow);
       const outerX=rightArm?s+2:s-2;
       line([[outerX,armY+1],[outerX,ey-1]],body.highlight,1);
       line([[forearmX+1,ey+3],[handX+1,wy]],body.shadow,1);
@@ -8638,7 +8650,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       line([[handX-1,wy+1],[handX+1,wy+1],[handX+1,wy+3],[handX-1,wy+3],[handX-1,wy+1]],ink,1);
       px(handX-1,wy+1,1,1,skinTone.highlight);
     }else{
-      limb([[s-1,armY],[s+1,armY],[s+1,wy],[s+1,wy+1],[s-1,wy+1],[s-1,armY]],body);
+      const straightArmShape=[[s-1,armY],[s+1,armY],[s+1,wy],[s+1,wy+1],[s-1,wy+1],[s-1,armY]];
+      limb(straightArmShape,body);
+      if(rightArm)shadeRight(straightArmShape,body.shadow);
       line([[s-1,armY+1],[s-1,wy]],body.highlight,1);
       line([[s-2,armY+2],[s-2,wy-1]],body.highlight,1);
       px(wristX-1,wy+1,2,2,skinTone.base);
@@ -8657,13 +8671,15 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     polygon([[-3,hy+1],[-3,hy],[-2,hy-1],[0,hy-2],[2,hy-1],[3,hy+1],[2,hy+2],[1,hy+1],[-2,hy+1]],hair,ink,1);
     line([[-2,hy-1],[0,hy-2],[2,hy-1]],hair.highlight,1);
     line([[-3,hy+2],[-3,hy+5]],hair.shadow,1);
+    // A single hanging strand frames the left cheek; the hairline adds forehead depth.
     px(-4,hy+2,1,7,hair.base);
+    line([[-2,hy+1],[2,hy+1]],hair.shadow,1);
     if(P.bun)polygon([[-1,hy-3],[2,hy-3],[3,hy-1],[0,hy]],hair,ink,1);
   }
   if(P.hood)polygon([[-4,hy+1],[-3,hy-2],[3,hy-2],[4,hy+1],[3,hy+5],[-3,hy+5]],body,ink,1);
   if(P.helm)polygon([[-4,hy+1],[-3,hy-3],[3,hy-3],[4,hy+1],[3,hy+4],[-3,hy+4]],applyShading('#10161e'),ink,1);
   if(P.hat==='cap')polygon([[-4,hy-1],[3,hy-1],[4,hy+1],[-4,hy+1]],body,ink,1);
-  else if(P.hat==='beanie')polygon([[-4,hy-1],[-3,hy-3],[3,hy-3],[4,hy-1],[3,hy+1],[-3,hy+1]],trim,ink,1);
+  else if(P.hat==='beanie')polygon([[-4,hy],[-3,hy-2],[-1,hy-3],[2,hy-3],[4,hy-1],[3,hy+1],[-3,hy+1]],trim,ink,1);
   else if(P.hat==='wide')polygon([[-5,hy],[-4,hy-2],[-3,hy-3],[3,hy-3],[4,hy-2],[5,hy]],trim,ink,1);
   if(P.band&&kind!=='runner')line([[-3,hy+1],[3,hy+1]],P.band,1);
   if(P.glasses)line([[-3,hy+2],[3,hy+2]],P.glasses===true?ink:P.glasses,1);
@@ -8674,7 +8690,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     if(kind==='runner')px(-3,hy+1,1,5,hair.shadow);
   }
   // Single-pixel shadow directly beneath the hairline and a shaded chin.
-  px(-1,hy+1,3,1,skinTone.shadow);px(0,hy+8,2,1,skinTone.shadow);
+  px(-1,hy+1,3,1,skinTone.shadow);px(0,hy+7,2,1,skinTone.shadow);px(0,hy+8,2,1,skinTone.shadow);
   g.restore();
   // Separate shirt from trousers and carve a collar shadow into every outfit.
   line([[-5+torsoShift,top+4],[5+torsoShift,top+4]],ink,1);
