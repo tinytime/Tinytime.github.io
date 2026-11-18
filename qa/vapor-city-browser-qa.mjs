@@ -108,6 +108,9 @@ page.on('console', m => {
 try {
   await page.goto(gameUrl, { waitUntil: 'load', timeout: 60000 });
   await page.waitForTimeout(1200);
+  // The game HTML still has the renderer module as a separate source file.
+  // Load it explicitly in the browser harness before the comparison fixture.
+  await page.addScriptTag({ path: path.join(root, 'npc_sprites.js') });
   await page.addScriptTag({ path: path.join(root, 'qa', 'fixtures', 'granny-before-side-views.js') });
   const npcSpriteModuleLoaded = await page.evaluate(() => !!window.NPC_SPRITES &&
     typeof window.NPC_SPRITES.createGrannyRenderer === 'function' &&
