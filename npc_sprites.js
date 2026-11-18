@@ -117,7 +117,9 @@
     for (const view of ['front','back','side']) {
       reshapeTorsoRows('athletic',view,y=>y<=15?{left:-2,right:2}:y>=18?{left:1,right:-1}:{left:-1,right:1});
       reshapeTorsoRows('courier',view,y=>view==='side'?{left:1,right:-2}:{left:1,right:-1});
-      reshapeTorsoRows('civic',view,y=>y>=15?{left:2,right:-2}:{left:0,right:1});
+      reshapeTorsoRows('civic',view,y=>view==='front'
+        ? (y<=15?{left:1,right:-1}:y<=22?{left:3,right:-3}:{left:0,right:0})
+        : (y>=15?{left:2,right:-2}:{left:0,right:1}));
       reshapeTorsoRows('guard',view,y=>y<=16?{left:-2,right:2}:y>=20?{left:1,right:-1}:{left:-1,right:1});
       reshapeTorsoRows('vendor',view,y=>y<=14?{left:1,right:-1}:y>=17?{left:-2,right:2}:{left:-1,right:1});
       reshapeTorsoRows('trades',view,y=>y>=13&&y<=22?{left:1,right:-2}:{left:0,right:1});
