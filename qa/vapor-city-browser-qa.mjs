@@ -276,23 +276,25 @@ try {
     measurements: bodyRows
   };
   const npcPropAudit = await page.evaluate(() => {
-    const {ARCHETYPES,ARCHETYPE_PROP_LAYERS,PALETTE_ROLES}=window.NPC_SPRITES.TABLES;
+    const {ARCHETYPES,ARCHETYPE_PROP_LAYERS,ARCHETYPE_PROP_SHAPES,PROP_ROLE_COLORS,ARCHETYPE_ACCESSORY_ROLES}=window.NPC_SPRITES.TABLES;
     const names=Object.keys(ARCHETYPES);
     const frontTypes=names.map(name=>({archetype:name,type:ARCHETYPES[name].prop.front.type}));
-    const propColors=names.map(name=>({archetype:name,color:PALETTE_ROLES[name].accent[1]}));
+    const shapeRows=Object.entries(ARCHETYPE_PROP_SHAPES).map(([role,rows])=>({role,rows,signature:rows.join('/'),color:PROP_ROLE_COLORS[role]||null}));
+    const propColors=Object.entries(PROP_ROLE_COLORS).map(([role,color])=>({role,color}));
     const footprints=[];
     for(const name of names)for(const view of ['front','side','back']){
       for(const layer of (ARCHETYPE_PROP_LAYERS[name][view]||[])){
         const [x,y,w,h,role]=layer;
-        footprints.push({archetype:name,view,role,x,y,w,h,signature:[x,y,w,h].join(':')});
+        if(ARCHETYPE_ACCESSORY_ROLES.has(role))footprints.push({archetype:name,view,role,x,y,w,h});
       }
     }
     const duplicateTypes=frontTypes.filter((item,i)=>frontTypes.some((other,j)=>j!==i&&other.type===item.type));
     const duplicateColors=propColors.filter((item,i)=>propColors.some((other,j)=>j!==i&&other.color===item.color));
-    const duplicateFootprints=footprints.filter((item,i)=>footprints.some((other,j)=>j!==i&&other.archetype!==item.archetype&&other.view===item.view&&other.signature===item.signature));
-    return {pass:duplicateTypes.length===0&&duplicateColors.length===0&&duplicateFootprints.length===0,
-      archetypeCount:names.length,frontTypes,propColors,footprintCount:footprints.length,
-      duplicateTypes,duplicateColors,duplicateFootprints,footprints};
+    const duplicateShapes=shapeRows.filter((item,i)=>shapeRows.some((other,j)=>j!==i&&other.signature===item.signature));
+    const missingRoleColors=shapeRows.filter(item=>!item.color);
+    return {pass:duplicateTypes.length===0&&duplicateColors.length===0&&duplicateShapes.length===0&&missingRoleColors.length===0,
+      archetypeCount:names.length,frontTypes,propColors,shapeRows,footprintCount:footprints.length,
+      duplicateTypes,duplicateColors,duplicateShapes,missingRoleColors,footprints};
   });
 
   const npcSnapshotData = await page.evaluate(() => {
