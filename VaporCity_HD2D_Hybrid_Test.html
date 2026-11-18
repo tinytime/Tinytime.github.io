@@ -9344,9 +9344,38 @@ window.SG={npcGalleryDraw:canvas=>{const c=canvas.getContext('2d');c.clearRect(0
   const panel=document.getElementById('owNpcGallery'),button=document.getElementById('owNpcGalleryToggle');
   const close=document.getElementById('owNpcGalleryClose'),canvas=document.getElementById('owNpcGalleryCanvas');
   if(!panel||!button||!canvas)return;
-  const set=open=>{panel.hidden=!open;button.setAttribute('aria-expanded',String(open));if(open&&window.SG&&window.SG.npcGalleryDraw)window.SG.npcGalleryDraw(canvas)};
+  let drawQueued=false;
+  function drawGallery(){
+    if(drawQueued)return;drawQueued=true;
+    requestAnimationFrame(()=>{
+      drawQueued=false;
+      const c=canvas.getContext('2d');
+      if(!c)return;
+      c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';
+      c.clearRect(0,0,canvas.width,canvas.height);
+      c.fillStyle='#100f1d';c.fillRect(0,0,canvas.width,canvas.height);
+      try{
+        const draw=window.SG&&window.SG.npcGalleryDraw;
+        if(typeof draw!=='function'){
+          c.fillStyle='#ffcf8a';c.font='bold 15px system-ui';c.textAlign='center';
+          c.fillText('NPC renderer is not ready yet',canvas.width/2,canvas.height/2);
+          return;
+        }
+        draw(canvas);
+      }catch(err){
+        console.error('[NPC gallery] render failed',err);
+        c.fillStyle='#ff9b9b';c.font='bold 13px system-ui';c.textAlign='center';
+        c.fillText('Gallery render error — see console',canvas.width/2,canvas.height/2);
+      }
+    });
+  }
+  const set=open=>{
+    panel.hidden=!open;button.setAttribute('aria-expanded',String(open));
+    if(open){drawGallery();setTimeout(drawGallery,180)}
+  };
   button.addEventListener('click',()=>set(panel.hidden));
   if(close)close.addEventListener('click',()=>set(false));
+  window.addEventListener('resize',()=>{if(!panel.hidden)drawGallery()});
 })();
 /* HYBRID TEST CONTROL — toggles a subtle perspective treatment on the original map canvas. */
 (function(){
