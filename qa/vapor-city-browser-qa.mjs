@@ -22,6 +22,8 @@ if (scriptBodyStart >= 0 && scriptBodyEnd > scriptBodyStart) {
   const checked = spawnSync(process.execPath, ['--check', checkFile], { encoding: 'utf8' });
   syntaxCheck = { found: true, ok: checked.status === 0, error: checked.stderr || null };
 }
+const npcSpriteSyntaxRun = spawnSync(process.execPath, ['--check', path.join(root, 'npc_sprites.js')], { encoding: 'utf8' });
+const npcSpriteSyntaxCheck = { ok: npcSpriteSyntaxRun.status === 0, error: npcSpriteSyntaxRun.stderr || null };
 
 const npcInventoryRun = spawnSync(process.execPath, [path.join(root, 'qa', 'generate-npc-inventory.mjs'), '--check'], {
   cwd: root,
@@ -87,6 +89,9 @@ page.on('console', m => {
 try {
   await page.goto(gameUrl, { waitUntil: 'load', timeout: 60000 });
   await page.waitForTimeout(1200);
+  const npcSpriteModuleLoaded = await page.evaluate(() => !!window.NPC_SPRITES &&
+    typeof window.NPC_SPRITES.createGrannyRenderer === 'function' &&
+    typeof window.NPC_SPRITES.createCivRenderer === 'function');
   await page.screenshot({ path: path.join(out, 'game-menu-1x.png'), fullPage: true });
 
   // Click the exact game menu control; do not infer navigation from button text.
@@ -421,6 +426,8 @@ try {
     timestamp: new Date().toISOString(),
     htmlFile: path.basename(html),
     syntaxCheck,
+    npcSpriteSyntaxCheck,
+    npcSpriteModuleLoaded,
     npcInventoryCheck,
     grannyRefGeneratorCheck,
     pageTitle: await page.title(),
@@ -458,7 +465,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !npcBodyCheck.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !npcBodyCheck.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
