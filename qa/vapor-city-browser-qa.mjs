@@ -372,6 +372,33 @@ try {
     snapshots: snapshotResults
   };
 
+  const catSnapshotData = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcRenderCatSnapshots !== 'function') throw new Error('Cat render snapshot hook is unavailable');
+    return window.SG.npcRenderCatSnapshots();
+  });
+  const catSnapshotDir = path.join(out, 'npc-cats');
+  fs.mkdirSync(catSnapshotDir, { recursive: true });
+  for (const cat of catSnapshotData) {
+    fs.writeFileSync(path.join(catSnapshotDir, cat.id + '.png'), Buffer.from(cat.dataUrl.split(',')[1], 'base64'));
+  }
+  const catGalleryDataUrl = await page.evaluate(async cats => {
+    const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=320;
+    const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.fillStyle='#777982';ctx.fillRect(0,0,canvas.width,canvas.height);
+    for(let i=0;i<cats.length;i++){
+      const img=new Image();img.src=cats[i].dataUrl;await img.decode();
+      ctx.drawImage(img,i*256,0,256,256);
+      ctx.fillStyle='#ffffff';ctx.font='bold 18px monospace';ctx.textAlign='center';ctx.fillText(cats[i].id.toUpperCase(),i*256+128,292);
+    }
+    return canvas.toDataURL('image/png');
+  }, catSnapshotData);
+  fs.writeFileSync(path.join(out, 'npc-cats-4x.png'), Buffer.from(catGalleryDataUrl.split(',')[1], 'base64'));
+  const catArtAudit = {
+    pass: catSnapshotData.length === 4 && catSnapshotData.every(cat => cat.opaquePixelCount >= 100 && cat.uniqueColorCount >= 4 &&
+      cat.bounds.width > 0 && cat.bounds.height > 0),
+    catCount: catSnapshotData.length,
+    cats: catSnapshotData.map(({id,direction,opaquePixelCount,uniqueColorCount,bounds})=>({id,direction,opaquePixelCount,uniqueColorCount,bounds}))
+  };
+
   const archetypeSilhouettes = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcMeasureArchetypeMasks !== 'function') throw new Error('Archetype silhouette hook is unavailable');
     return window.SG.npcMeasureArchetypeMasks({ excludeProps: true });
@@ -620,6 +647,7 @@ try {
     paletteDifferentiation,
     npcBodyCheck,
     npcPropAudit,
+    catArtAudit,
     snapshotCheck,
     archetypeSilhouetteCount: archetypeSilhouettes.length,
     silhouetteMaskDiagnostics: archetypeSilhouettes
@@ -645,7 +673,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !pixelPackDirectionGuard || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !pixelPackDirectionGuard || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !catArtAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
