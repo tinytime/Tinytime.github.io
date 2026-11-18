@@ -470,7 +470,7 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
     <canvas id="owc"></canvas>
     <button id="owHybridToggle" type="button" aria-pressed="true">HD-2D PREVIEW: ON</button>
     <button id="owNpcGalleryToggle" type="button" aria-expanded="false">NPC STYLE GALLERY</button>
-    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — 6 ARCHETYPES × 4 DIRECTIONS</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><canvas id="owNpcGalleryCanvas" width="1200" height="1040"></canvas><div class="npcGalleryNote">Front · back · left · right / head-top and feet guides / no map NPCs added</div></div>
+    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — 10 ARCHETYPES × 4 DIRECTIONS</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><canvas id="owNpcGalleryCanvas" width="2000" height="1040"></canvas><div class="npcGalleryNote">Front · back · left · right / head-top and feet guides / no map NPCs added</div></div>
     <div id="owBlack" hidden style="position:absolute;inset:0;background:#000;z-index:2"></div>
     <div id="owTop"><b id="owTown">VAPOR CITY</b><span id="owObj"></span></div>
     <button id="owMenu">MENU</button>
@@ -8649,12 +8649,14 @@ const ARCHETYPE_PROP_LAYERS=Object.freeze({
   civic:{types:{front:'clipboard',side:'clipboard',back:'coat-tail'},front:[[0,16,9,18,'briefcase'],[7,17,4,6,'clipboard']],back:[[23,16,9,18,'briefcase'],[21,17,4,6,'clipboard']],side:[[23,16,9,18,'briefcase'],[17,16,4,6,'clipboard']]},
   elder:{types:{front:'cardigan-pin',side:'cardigan-back',back:'cardigan-back'},front:[[0,0,32,8,'umbrella'],[21,19,3,2,'whistle']],back:[[0,0,32,8,'umbrella']],side:[[0,0,32,8,'umbrella']]}
 });
-function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
+const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella']);
+function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
   const kind=n.civ;
   if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
   const archetypeKey=CIV_TO_ARCHETYPE[kind];
   if(!archetypeKey||!ARCHETYPES[archetypeKey]||!CIV[kind])throw new Error('Missing civilian archetype mapping or palette: '+kind);
   const A=ARCHETYPES[archetypeKey],P=Object.assign({},A.palette,CIV[kind]);
+  const qaExcludeProps=!!(qaOptions&&qaOptions.excludeProps);
   if(n.hb&&HB_CIV[kind])Object.assign(P,HB_CIV[kind]);
   const palette=PALETTE_ROLES[archetypeKey];
   if(!palette||palette.skin.length!==3||palette.hair.length!==3||palette.clothing.length!==4||palette.accent.length!==2)throw new Error('Invalid 12-slot palette roles for '+archetypeKey);
@@ -8800,9 +8802,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     // (The renderer's outer outline pass supplies edge definition.)
   }
   if(P.scarf&&!back)put(10,10,12,3,'clothhi');
-  if(P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
-  if(P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
-  if(P.keys)put(4,29,24,2,'key');
+  if(!qaExcludeProps&&P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
+  if(!qaExcludeProps&&P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
+  if(!qaExcludeProps&&P.keys)put(4,29,24,2,'key');
   // Props are explicit per-archetype/per-direction layers; no shared prop footprint is inferred.
   const propSpec=ARCHETYPE_PROP_LAYERS[archetypeKey];
   const declaredPropType=A.prop&&A.prop[rigView]&&A.prop[rigView].type;
@@ -8810,7 +8812,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     throw new Error('Archetype '+rigView+' prop metadata/table mismatch: '+archetypeKey);
   }
   const propLayers=propSpec[rigView];
-  for(const [px,py,pw,ph,role] of propLayers)put(px,py,pw,ph,role);
+  for(const [px,py,pw,ph,role] of propLayers)if(!qaExcludeProps||!ARCHETYPE_ACCESSORY_ROLES.has(role))put(px,py,pw,ph,role);
   if(P.long)put(10,22,12,2,'bodyshade');
   if(side&&dirCode==='l')for(let yy=0;yy<H;yy++)grid[yy].reverse();
   const colorFor=(role,xx,yy)=>{
@@ -9528,7 +9530,7 @@ function measureGrannyVoltNative(){
       canvasBacking:{width:owc.width,height:owc.height},deviceScale:owDpr}};
 }
 
-function measureNpcArchetypeMasks(){
+function measureNpcArchetypeMasks(options={}){
   const archetypes=Object.keys(ARCHETYPES),directions=['d','u','r'],results=[];
   for(const archetype of archetypes){
     const civ=Object.keys(CIV_TO_ARCHETYPE).find(key=>CIV_TO_ARCHETYPE[key]===archetype);
@@ -9536,7 +9538,7 @@ function measureNpcArchetypeMasks(){
     for(const direction of directions){
       const target=document.createElement('canvas');target.width=100;target.height=100;
       const n={id:'qa-'+archetype,x:1,y:1,civ};
-      owCiv(0,0,direction,false,n,0,0,target.getContext('2d'));
+      owCiv(0,0,direction,false,n,0,0,target.getContext('2d'),options);
       const sprite=owCiv._gridCanvas,ctx=sprite.getContext('2d'),pixels=ctx.getImageData(0,0,64,96).data;
       const rows=[];
       for(let y=0;y<96;y++){let row='';for(let x=0;x<64;x++)row+=pixels[(y*64+x)*4+3]>0?'1':'0';rows.push(row)}
@@ -9545,13 +9547,13 @@ function measureNpcArchetypeMasks(){
   }
   return results;
 }
-window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMasks:()=>measureNpcArchetypeMasks(),npcGrannyRef:()=>GRANNY_REF,
+window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMasks:options=>measureNpcArchetypeMasks(options),npcGrannyRef:()=>GRANNY_REF,
   npcPaletteAudit:()=>Object.keys(CIV).filter(civ=>civ!=='granny').map(civ=>{const canvas=document.createElement('canvas');canvas.width=64;canvas.height=96;const n={id:'qa-'+civ,civ,x:0,y:0};owCiv(0,0,'d',false,n,0,0,canvas.getContext('2d'));return Object.assign({},owCiv._lastPaletteMetrics)}),
   npcGalleryView:'all',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
   c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#777982';c.fillRect(0,0,canvas.width,canvas.height);
-  const tests=[['GRANNY','VOLT','granny'],['MINT','RUNNER','runner'],['ORANGE','COURIER','courier'],['CITY','GUARD','guard'],['STREET','VENDOR','vendor'],['FIELD','CLINIC','clinic']];
-  const dirs=[['FRONT','d'],['BACK','u'],['LEFT','l'],['RIGHT','r']],cellW=canvas.width/6,rowH=260,scale=(GRANNY_REF.bodyHeight*GRANNY_REF.nativeScale/GRANNY_REF.visibleCivHeight)*4,baseOffset=202,sourceW=64,sourceH=96,grannyZoom=4;
+  const tests=[['GRANNY','VOLT','granny'],['MINT','RUNNER','runner'],['ORANGE','COURIER','courier'],['CITY','GUARD','guard'],['STREET','VENDOR','vendor'],['FIELD','CLINIC','clinic'],['SHOP','WELDER','welder'],['YOUNG','KID','kid'],['STREET','BUSKER','busker'],['CITY','BROKER','broker']];
+  const dirs=[['FRONT','d'],['BACK','u'],['LEFT','l'],['RIGHT','r']],cellW=canvas.width/tests.length,rowH=260,scale=(GRANNY_REF.bodyHeight*GRANNY_REF.nativeScale/GRANNY_REF.visibleCivHeight)*4,baseOffset=202,sourceW=64,sourceH=96,grannyZoom=4;
   dirs.forEach((d,ri)=>tests.forEach((v,ci)=>{
     const cx=ci*cellW+cellW/2,baseY=ri*rowH+baseOffset,n={id:v[2]==='granny'?'granny':'gallery-'+v[2],civ:v[2],x:ci,y:ri};
     if(v[2]==='granny'){

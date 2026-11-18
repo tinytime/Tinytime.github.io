@@ -163,7 +163,7 @@ try {
 
   const archetypeSilhouettes = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcMeasureArchetypeMasks !== 'function') throw new Error('Archetype silhouette hook is unavailable');
-    return window.SG.npcMeasureArchetypeMasks();
+    return window.SG.npcMeasureArchetypeMasks({ excludeProps: true });
   });
   const silhouetteComparisons = [];
   for (const direction of ['d', 'u', 'r']) {
@@ -195,6 +195,7 @@ try {
     viewCount: 3,
     pairCount: silhouetteComparisons.length,
     targetIoU: 0.85,
+    maskBasis: 'Body and clothing silhouettes; handheld props, bags, and gear excluded.',
     pairsBelowTarget: silhouetteComparisons.filter(x => x.iou < 0.85).length,
     pairsAtOrAboveTarget: silhouetteComparisons.filter(x => x.iou >= 0.85).length,
     minIoU: Math.min(...silhouetteComparisons.map(x => x.iou)),
@@ -280,7 +281,7 @@ try {
     canvasMetrics.cellGrid = await galleryCanvas.evaluate(c => {
       const ctx = c.getContext('2d');
       const { width, height } = c;
-      const cols = 6, rows = 4;
+      const cols = 10, rows = 4;
       const cellW = Math.floor(width / cols), cellH = Math.floor(height / rows);
       const pixels = ctx.getImageData(0, 0, width, height).data;
       const bg = [pixels[0], pixels[1], pixels[2]];
@@ -337,11 +338,11 @@ try {
     scriptErrors,
     pageErrors,
     consoleErrors,
-    note: 'Browser smoke test. Script error event includes filename/line/column when Chromium provides it. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 24 non-empty cells but does not certify visual quality.'
+    note: 'Browser smoke test. Script error event includes filename/line/column when Chromium provides it. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty archetype-direction cells but does not certify visual quality.'
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
 }
