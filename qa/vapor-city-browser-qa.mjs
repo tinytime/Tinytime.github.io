@@ -34,7 +34,6 @@ const npcInventoryCheck = {
   stdout: (npcInventoryRun.stdout || '').trim(),
   error: npcInventoryRun.stderr || (npcInventoryRun.status === 0 ? null : 'NPC inventory validation failed')
 };
-const htmlSource = fs.readFileSync(html, 'utf8');
 const pixelPackDirectionGuard = htmlSource.includes("if(n.d!=='l'&&n.d!=='r')return false;");
 const npcInventoryData = JSON.parse(fs.readFileSync(path.join(root, 'qa', 'npc-inventory.json'), 'utf8'));
 const atlasOverrideIds = npcInventoryData.pixelPack.pxPersonAtlasNpcIds || [];
