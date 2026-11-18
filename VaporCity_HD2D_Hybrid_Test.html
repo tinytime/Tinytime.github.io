@@ -8531,6 +8531,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const set=(xx,yy,role)=>{if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
   // Head: 10x10 with stepped, rounded corners and a clear hairline.
   put(11,1,10,8,'skin');put(12,0,8,10,'skin');
+  // Clip the two lower outer pixels to give the jaw a rounded chin.
+  set(11,8,null);set(20,8,null);
   put(10,2,1,6,'hair');put(21,2,1,6,'hair');
   put(12,0,8,2,'hair');put(11,1,10,2,'hair');
   if(side){
@@ -8559,14 +8561,17 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(side){
     // Profile torso is 8 wide: rear four pixels shadow, front four base.
     put(12,10,8,14,'body');
+    // Slightly slope the rear shoulder; the grid is mirrored for left-facing views.
+    set(12,10,null);
     for(let yy=10;yy<24;yy++)for(let xx=12;xx<16;xx++)set(xx,yy,'bodyshade');
   }else{
     // Rounded shoulders: remove the two outermost top corner pixels.
     put(10,10,12,14,'body');set(10,10,null);set(21,10,null);
-    // One-pixel waist indent on both sides.
-    set(10,18,null);set(21,18,null);
+    // One-pixel waist indent exactly four rows above the shirt hem.
+    set(10,19,null);set(21,19,null);
   }
-  // Arms drop vertically; forearms move inward at the elbow and then down.
+  // Arms hang close to the body: straight upper arms, then forearms tuck
+  // one pixel inward at the elbow instead of flaring outward like a tray.
   if(side){put(17,12,3,8,'arm');put(16,20,3,5,'arm');}
   else{
     put(6,11,3,8,'arm');put(7,19,3,5,'arm');
@@ -8584,9 +8589,20 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(P.stripes&&!side&&!back)for(let yy=12;yy<22;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
   if(P.apron&&!back)put(13,16,6,8,'apron');
   if(P.jacket||kind==='courier')for(let yy=12;yy<22;yy++)set(16,yy,'bodyshade');
-  // Fine contact shadows: under the arms and across the shirt hem/waist.
-  if(!side&&!back){for(let xx=11;xx<21;xx++)set(xx,18,'bodyshade');for(let xx=10;xx<22;xx++)if(grid[18][xx]!==null)set(xx,19,'bodyshade');for(let xx=11;xx<21;xx++)set(xx,23,'bodyshade');}
-  else if(side){for(let xx=13;xx<20;xx++)set(xx,23,'bodyshade');}
+  // Collar shadow, clean shirt hem, and waist shaping.
+  if(!back){for(let xx=13;xx<=18;xx++)set(xx,11,'bodyshade');}
+  if(!side&&!back){
+    for(let xx=11;xx<21;xx++)set(xx,23,'bodyshade');
+    // Preserve a crisp one-pixel shirt/pants divider and a short waist shadow.
+    for(let xx=11;xx<21;xx++)set(xx,23,'bodyshade');
+    for(let xx=11;xx<21;xx++)if(grid[19][xx]!==null)set(xx,19,'bodyshade');
+  }else if(side){
+    for(let xx=13;xx<20;xx++)set(xx,23,'bodyshade');
+    // Vertical hem seam keeps the shirt distinct from the separated legs.
+    for(let yy=20;yy<=23;yy++)set(16,yy,'bodyshade');
+    // A dark one-pixel channel separates the rear and front legs.
+    for(let yy=24;yy<37;yy++)set(16,yy,'legshadow');
+  }
   if(P.scarf&&!back)put(10,10,12,3,'clothhi');
   if(P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
   if(P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
@@ -8607,6 +8623,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       case 'pants':return xx<16?(pants.base||P.pants):(pants.shadow||pants.base||P.pants);
       case 'legback':return pants.shadow||darkenHex(P.pants||'#252535',.5);
       case 'legfront':return pants.base||P.pants||'#252535';
+      case 'legshadow':return ink;
       case 'shoe':return pants.base||P.pants||'#252535';
       case 'shoefront':return pants.base||P.pants||'#252535';
       case 'cloth':return body.base||P.body||'#777777';
