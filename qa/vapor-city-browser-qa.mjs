@@ -768,6 +768,27 @@ try {
       if (!window.SG || typeof window.SG.npcRenderAtlasComparisonSnapshots !== 'function') throw new Error('Atlas comparison hook is unavailable');
       return window.SG.npcRenderAtlasComparisonSnapshots();
     });
+    const atlasComparisonScaleAudit = await page.evaluate(async items => {
+      const measure = async dataUrl => {
+        const image = new Image(); image.src = dataUrl; await image.decode();
+        const canvas = document.createElement('canvas'); canvas.width = image.width; canvas.height = image.height;
+        const ctx = canvas.getContext('2d'); ctx.drawImage(image,0,0);
+        const data = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+        let minX=canvas.width,minY=canvas.height,maxX=-1,maxY=-1;
+        for(let y=0;y<canvas.height;y++)for(let x=0;x<canvas.width;x++)if(data[(y*canvas.width+x)*4+3]>0){
+          minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);
+        }
+        return {width:maxX-minX+1,height:maxY-minY+1,bounds:{minX,minY,maxX,maxY}};
+      };
+      const measurements=[];
+      for(const item of items){
+        if(!item.atlasDataUrl||!item.rendererDataUrl){measurements.push({id:item.id,error:'Missing comparison image'});continue;}
+        const [atlas,renderer]=await Promise.all([measure(item.atlasDataUrl),measure(item.rendererDataUrl)]);
+        measurements.push({id:item.id,atlas,renderer,heightRatio:atlas.height/renderer.height,widthRatio:atlas.width/renderer.width});
+      }
+      return {pass:measurements.length===4&&measurements.every(x=>!x.error&&x.heightRatio>=0.80&&x.heightRatio<=1.20),
+        targetHeightRatio:{min:0.80,max:1.20},measurements};
+    }, atlasComparisonData);
     const atlasComparisonGallery = await page.evaluate(async items => {
       const canvas=document.createElement('canvas');canvas.width=512;canvas.height=items.length*440;
       const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.fillStyle='#777982';ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -788,8 +809,10 @@ try {
     atlasComparisonError = error.message;
   }
   const atlasComparisonAudit = {
-    pass: atlasComparisonData.length === 4 && atlasComparisonData.every(item => !item.error && item.atlasDataUrl && item.rendererDataUrl),
+    pass: atlasComparisonData.length === 4 && atlasComparisonData.every(item => !item.error && item.atlasDataUrl && item.rendererDataUrl) &&
+      atlasComparisonScaleAudit?.pass === true,
     comparisonCount: atlasComparisonData.length,
+    scaleAudit: atlasComparisonScaleAudit || null,
     comparisons: atlasComparisonData.map(({id,direction,key,frame,x,y,civ,error})=>({id,direction,key,frame,x,y,civ,error:error||null})),
     error: atlasComparisonError
   };
