@@ -434,7 +434,43 @@ try {
     const goldenPath = path.join(root, 'qa', 'golden-npcs', item.civ + '.png');
     if (!fs.existsSync(goldenPath)) return { civ: item.civ, status: 'missing', bytes: bytes.length };
     const golden = fs.readFileSync(goldenPath);
-    return { civ: item.civ, status: Buffer.compare(bytes, golden) === 0 ? 'match' : 'changed', bytes: bytes.length };
+    const pixelDiff = await page.evaluate(async ({ currentUrl, goldenUrl }) => {
+      const load = src => new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error('Unable to decode snapshot PNG'));
+        image.src = src;
+      });
+      const [current, baseline] = await Promise.all([load(currentUrl), load(goldenUrl)]);
+      if (current.width !== baseline.width || current.height !== baseline.height) {
+        return { dimensionsMatch: false, current: { width: current.width, height: current.height },
+          baseline: { width: baseline.width, height: baseline.height }, changedPixels: null, diffBounds: null };
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = current.width; canvas.height = current.height;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(current, 0, 0);
+      const a = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(baseline, 0, 0);
+      const b = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      let changedPixels = 0, minX = canvas.width, minY = canvas.height, maxX = -1, maxY = -1;
+      for (let p = 0; p < a.length; p += 4) {
+        if (a[p] !== b[p] || a[p+1] !== b[p+1] || a[p+2] !== b[p+2] || a[p+3] !== b[p+3]) {
+          changedPixels++;
+          const x = (p / 4) % canvas.width, y = Math.floor(p / 4 / canvas.width);
+          minX = Math.min(minX, x); minY = Math.min(minY, y);
+          maxX = Math.max(maxX, x); maxY = Math.max(maxY, y);
+        }
+      }
+      return { dimensionsMatch: true, width: canvas.width, height: canvas.height, changedPixels,
+        totalPixels: canvas.width * canvas.height,
+        changedPercent: +(100 * changedPixels / (canvas.width * canvas.height)).toFixed(4),
+        diffBounds: changedPixels ? { minX, minY, maxX, maxY, width: maxX-minX+1, height: maxY-minY+1 } : null };
+    }, { currentUrl: item.dataUrl, goldenUrl: 'data:image/png;base64,' + golden.toString('base64') });
+    const byteMatch = Buffer.compare(bytes, golden) === 0;
+    return { civ: item.civ, status: pixelDiff.dimensionsMatch && pixelDiff.changedPixels === 0 ? 'match' : 'changed',
+      bytes: bytes.length, goldenBytes: golden.length, byteMatch, pixelDiff };
   });
   const baselineRefreshPending = fs.existsSync(path.join(root, 'qa', 'update-goldens.flag'));
   const allSnapshotsMatch = snapshotResults.length === 24 && snapshotResults.every(item => item.status === 'match');
