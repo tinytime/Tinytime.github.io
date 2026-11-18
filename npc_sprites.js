@@ -459,7 +459,7 @@
       const clothLight=P.body?mixHex(P.body,'#ffffff',.34):palette.clothing[2];
       const clothLower=P.pants||palette.clothing[3];
       const accentGarment=P.trim||palette.accent[0],accentProp=palette.accent[1];
-      const ink=hairShade,N=64,H=96,SCALE=1;
+      const ink=mixHex(hairBase,'#000000',.72),N=64,H=96,SCALE=1;
       // Higher-density fixed pixel canvas: 32 columns x 48 rows.
       const grid=Array.from({length:H},()=>Array(N).fill(null));
       const put=(x0,y0,w,h,role)=>{for(let yy=y0*2;yy<(y0+h)*2;yy++)for(let xx=x0*2;xx<(x0+w)*2;xx++)if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
