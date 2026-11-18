@@ -262,7 +262,9 @@
       mouse:{armSpread:0,armY:-1,legSpread:0,legW:-1},
       busker:{armSpread:2,armY:-1,legSpread:1,legW:1},
       dancer:{armSpread:-2,armY:1,legSpread:-1,legW:-1},
-      broker:{armSpread:1,armY:-1,legSpread:-1,legW:1},
+      broker:{armSpread:1,armY:-1,legSpread:-1,legW:1,
+        leftArmX:-2,rightArmX:1,leftArmY:2,rightArmY:-1,
+        leftLegX:-3,rightLegX:3,leftLegY:1,rightLegY:-1,leftLegW:1,rightLegW:1},
       usher:{armSpread:-2,armY:1,legSpread:2,legW:-1},
       fan:{armSpread:-2,armY:1,legSpread:1}
     });
@@ -294,8 +296,10 @@
         const side=view==='side';
         let arms=base[view].arms.map(([x,y,w,h,role])=>{
           const right=side||x>=16;
-          const dx=side?(spec.sideArmX??spec.armSpread??0):(right?(spec.armSpread||0):-(spec.armSpread||0));
-          return [x+dx,y+(spec.armY||0),Math.max(1,w+(spec.armW||0)),h,role];
+          const dx=side?(spec.sideArmX??spec.armSpread??0):(right?(spec.rightArmX??spec.armSpread??0):(spec.leftArmX??-(spec.armSpread||0)));
+          const dy=side?(spec.sideArmY??spec.armY??0):(right?(spec.rightArmY??spec.armY??0):(spec.leftArmY??spec.armY??0));
+          const dw=side?(spec.sideArmW??spec.armW??0):(right?(spec.rightArmW??spec.armW??0):(spec.leftArmW??spec.armW??0));
+          return [x+dx,y+dy,Math.max(1,w+dw),h,role];
         });
         // Articulated poses replace the generic straight arm blocks for athletics.
         if(spec.armPose==='down'){
@@ -312,8 +316,10 @@
         const legs=base[view].legs.map(([x,y,w,h,role])=>{
           const right=side?x>=14:x>=16;
           const spread=side?(spec.sideLegSpread??spec.legSpread):spec.legSpread;
-          const dx=right?(spread||0):-(spread||0);
-          return [x+dx,y,Math.max(1,w+(spec.legW||0)),h,role];
+          const dx=side?(spec.sideLegX??spread??0):(right?(spec.rightLegX??spread??0):(spec.leftLegX??-(spread||0)));
+          const dy=side?(spec.sideLegY||0):(right?(spec.rightLegY||0):(spec.leftLegY||0));
+          const dw=side?(spec.sideLegW??spec.legW??0):(right?(spec.rightLegW??spec.legW??0):(spec.leftLegW??spec.legW??0));
+          return [x+dx,y+dy,Math.max(1,w+dw),h,role];
         });
         result[view]={arms,legs};
       }
