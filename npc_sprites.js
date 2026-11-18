@@ -211,13 +211,17 @@
       notebook:['.##','###','##.','###','###'],
       pin:['.#','##'],
       toolroll:['.###.','#####','##.##','#####','#####','#####','#####','.###.'],
-      foamfinger:['..#..','.###.','.###.','.###.','.###.','#####','#####','.###.','.###.','.###.','.###.','.###.','..#..','..#..']
+      foamfinger:['..#..','.###.','.###.','.###.','.###.','#####','#####','.###.','.###.','.###.','.###.','.###.','..#..','..#..'],
+      pennant:['#....','##...','###..','####.','#####','####.','###..','##...','#....','#....','#....','#....','#....','#....'],
+      megaphone:['..#..','.###.','#####','#####','#####','.###.','..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..'],
+      rallytowel:['#####','####.','###..','##...','#....','##...','###..','####.','#####','####.','###..','##...','#....','.....']
     });
     const PROP_ROLE_COLORS=Object.freeze({
       duffel:'#D8A04D',whistle:'#F5D45C',satchel:'#9A6541',parcel:'#D88A45',
       shield:'#65788D',baton:'#C6D3E0',bowl:'#F2F2F8',medkit:'#E3F3FF',
       wrench:'#AEB8C2',backpack:'#B4FF3A',guitar:'#FF7A1A',briefcase:'#8A5B38',
-      clipboard:'#F4F6FF',notebook:'#FF2FA8',pin:'#FFD0EE',toolroll:'#8C9AA8',foamfinger:'#FFD23A'
+      clipboard:'#F4F6FF',notebook:'#FF2FA8',pin:'#FFD0EE',toolroll:'#8C9AA8',foamfinger:'#FFD23A',
+      pennant:'#FF3B5C',megaphone:'#D7E6FF',rallytowel:'#58FFB0'
     });
     const FAN_VARIANT_HEADS=Object.freeze({
       driverA:'cap-profile',fan1:'beanie',fan2:'bucket-hat',fanA:'round-fringe',fanB:'visor',
@@ -248,7 +252,7 @@
       wait1:{body:'#f4d35e',trim:'#fff1b8',pants:'#45321a',hair:'#24170e'},
       wait2:{body:'#90caf9',trim:'#e3f2fd',pants:'#1f3b57',hair:'#172333'}
     });
-    const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger']);
+    const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger','pennant','megaphone','rallytowel']);
     return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
@@ -669,11 +673,21 @@
       if(!qaExcludeProps&&P.keys)put(4,29,24,2,'key');
       // Props are explicit per-archetype/per-direction layers; no shared prop footprint is inferred.
       const propSpec=kind==='fan'?ARCHETYPE_PROP_LAYERS.fan:ARCHETYPE_PROP_LAYERS[archetypeKey];
-      const declaredPropType=kind==='fan'?'foam-finger':A.prop&&A.prop[rigView]&&A.prop[rigView].type;
+      const declaredPropType=kind==='fan'?'fan-crowd-gear':A.prop&&A.prop[rigView]&&A.prop[rigView].type;
       if(!propSpec||!declaredPropType||propSpec.types[rigView]!==declaredPropType) {
         throw new Error('Archetype '+rigView+' prop metadata/table mismatch: '+archetypeKey);
       }
-      const propLayers=propSpec[rigView];
+      const fanPropById={
+        driverA:'foamfinger',fan1:'pennant',fan2:'megaphone',fanA:'rallytowel',fanB:'foamfinger',
+        fanC:'pennant',fanD:'megaphone',gamer1:'rallytowel',hb_denny:'foamfinger',hb_pete:'pennant',
+        hb_shopper:'megaphone',hb_splinter:'rallytowel',hb_wick:'foamfinger',patient1:'pennant',
+        r2_saltwife:'megaphone',r2_stack:'rallytowel',regular1:'foamfinger',shopper1:'pennant',
+        wait1:'megaphone',wait2:'rallytowel'
+      };
+      const fanPropRole=fanPropById[n.id]||'foamfinger';
+      const propLayers=kind==='fan'
+        ? [[rigView==='front'?1:rigView==='side'?27:26,12,5,14,fanPropRole]]
+        : propSpec[rigView];
       for(const [px,py,pw,ph,role] of propLayers){
         if(qaExcludeProps&&ARCHETYPE_ACCESSORY_ROLES.has(role))continue;
         if(ARCHETYPE_ACCESSORY_ROLES.has(role))paintProp(px,py,pw,ph,role);
@@ -711,7 +725,7 @@
           case 'hairband':return typeof P.band==='string'?P.band:accentGarment;
           case 'labcoat':return typeof P.labcoat==='string'?P.labcoat:accentGarment;
           case 'key':return accentProp;
-          case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'foamfinger':case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return PROP_ROLE_COLORS[role]||accentProp;
+          case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'foamfinger':case 'pennant':case 'megaphone':case 'rallytowel':case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return PROP_ROLE_COLORS[role]||accentProp;
           default:return null;
         }
       };
