@@ -191,7 +191,8 @@
       youth:{types:{front:'notebook',side:'backpack',back:'backpack'},front:[[1,15,5,11,'backpack'],[21,18,3,5,'notebook']],back:[[26,15,5,11,'backpack']],side:[[26,15,5,11,'backpack']]},
       performer:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[26,11,5,17,'guitar'],[21,21,1,3,'guitar']],back:[[1,11,5,17,'guitar'],[8,21,1,3,'guitar']],side:[[26,11,5,17,'guitar'],[17,20,1,3,'guitar']]},
       civic:{types:{front:'clipboard',side:'clipboard',back:'coat-tail'},front:[[1,18,5,10,'briefcase'],[7,18,3,4,'clipboard']],back:[[26,18,5,10,'briefcase'],[21,18,3,4,'clipboard']],side:[[26,18,5,10,'briefcase'],[17,17,3,4,'clipboard']]},
-      elder:{types:{front:'cardigan-pin',side:'cardigan-back',back:'cardigan-back'},front:[[20,13,2,2,'pin']],back:[],side:[]}
+      elder:{types:{front:'cardigan-pin',side:'cardigan-back',back:'cardigan-back'},front:[[20,13,2,2,'pin']],back:[],side:[]},
+      fan:{types:{front:'foam-finger',side:'foam-finger',back:'foam-finger'},front:[[1,12,5,14,'foamfinger']],side:[[27,12,5,14,'foamfinger']],back:[[26,12,5,14,'foamfinger']]}
     });
     const ARCHETYPE_PROP_SHAPES=Object.freeze({
       duffel:['..##.','.####','#####','#####','.####'],
@@ -209,13 +210,21 @@
       clipboard:['.##','###','###','.##'],
       notebook:['.##','###','##.','###','###'],
       pin:['.#','##'],
-      toolroll:['.###.','#####','##.##','#####','#####','#####','#####','.###.']
+      toolroll:['.###.','#####','##.##','#####','#####','#####','#####','.###.'],
+      foamfinger:['..#..','.###.','.###.','.###.','.###.','#####','#####','.###.','.###.','.###.','.###.','.###.','..#..','..#..']
     });
     const PROP_ROLE_COLORS=Object.freeze({
       duffel:'#D8A04D',whistle:'#F5D45C',satchel:'#9A6541',parcel:'#D88A45',
       shield:'#65788D',baton:'#C6D3E0',bowl:'#F2F2F8',medkit:'#E3F3FF',
       wrench:'#AEB8C2',backpack:'#B4FF3A',guitar:'#FF7A1A',briefcase:'#8A5B38',
-      clipboard:'#F4F6FF',notebook:'#FF2FA8',pin:'#FFD0EE',toolroll:'#8C9AA8'
+      clipboard:'#F4F6FF',notebook:'#FF2FA8',pin:'#FFD0EE',toolroll:'#8C9AA8',foamfinger:'#FFD23A'
+    });
+    const FAN_VARIANT_HEADS=Object.freeze({
+      driverA:'cap-profile',fan1:'beanie',fan2:'hat',fanA:'round-fringe',fanB:'work-cap',
+      fanC:'newsboy-cap',fanD:'hair-band',gamer1:'hood',hb_denny:'cap-profile',
+      hb_pete:'beanie',hb_shopper:'hat',hb_splinter:'round-fringe',hb_wick:'work-cap',
+      patient1:'newsboy-cap',r2_saltwife:'hair-band',r2_stack:'cap-profile',
+      regular1:'beanie',shopper1:'hat',wait1:'work-cap',wait2:'newsboy-cap'
     });
     const FAN_VARIANT_PALETTES=Object.freeze({
       driverA:{body:'#27e0ff',trim:'#0e2a38',pants:'#10202b',hair:'#1a1410'},
@@ -239,8 +248,8 @@
       wait1:{body:'#f4d35e',trim:'#fff1b8',pants:'#45321a',hair:'#24170e'},
       wait2:{body:'#90caf9',trim:'#e3f2fd',pants:'#1f3b57',hair:'#172333'}
     });
-    const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin']);
-    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, ARCHETYPE_ACCESSORY_ROLES };
+    const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger']);
+    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
   function createGrannyRenderer({OWT,og,artShadow}) {
@@ -429,6 +438,7 @@
       const archetypeKey=CIV_TO_ARCHETYPE[kind];
       if(!archetypeKey||!ARCHETYPES[archetypeKey]||!CIV[kind])throw new Error('Missing civilian archetype mapping or palette: '+kind);
       const A=ARCHETYPES[archetypeKey],P=Object.assign({},A.palette,CIV[kind]);
+      const headStyle=kind==='fan'?(FAN_VARIANT_HEADS[n.id]||headStyle):headStyle;
       const qaExcludeProps=!!(qaOptions&&qaOptions.excludeProps);
       if(n.hb&&HB_CIV[kind])Object.assign(P,HB_CIV[kind]);
       if(kind==='fan'&&FAN_VARIANT_PALETTES[n.id])Object.assign(P,FAN_VARIANT_PALETTES[n.id]);
@@ -515,16 +525,16 @@
         set(15,5,'inkdetail');set(17,5,'inkdetail'); // two native pixels apart
         set(16,8,'inkdetail'); // 1x1 mouth
       }
-      if(A.head==='bun')put(19,0,4,3,'hair');
-      if(A.head==='round-fringe'){put(11,0,10,2,'hair');put(13,2,6,1,'hairlight');put(14,3,4,1,'hair')}
-      if(A.head==='helmet')put(10,0,12,4,'helm');
-      else if(A.head==='hood'){put(10,1,12,3,'clothhi');put(10,3,2,6,'cloth');put(20,3,2,6,'cloth')}
-      else if(A.head==='cap-profile'){put(10,1,12,2,'cloth');put(18,3,5,1,'clothhi')}
-      else if(A.head==='newsboy-cap'){put(10,0,12,2,'cloth');put(9,2,14,1,'clothhi');put(19,3,5,1,'cloth')}
-      else if(A.head==='work-cap'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
-      else if(A.head==='beanie'){put(12,0,8,2,'cloth');put(10,2,12,1,'clothhi')}
-      else if(A.head==='hat'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
-      else if(A.head==='hair-band')put(11,1,10,1,'hairband')
+      if(headStyle==='bun')put(19,0,4,3,'hair');
+      if(headStyle==='round-fringe'){put(11,0,10,2,'hair');put(13,2,6,1,'hairlight');put(14,3,4,1,'hair')}
+      if(headStyle==='helmet')put(10,0,12,4,'helm');
+      else if(headStyle==='hood'){put(10,1,12,3,'clothhi');put(10,3,2,6,'cloth');put(20,3,2,6,'cloth')}
+      else if(headStyle==='cap-profile'){put(10,1,12,2,'cloth');put(18,3,5,1,'clothhi')}
+      else if(headStyle==='newsboy-cap'){put(10,0,12,2,'cloth');put(9,2,14,1,'clothhi');put(19,3,5,1,'cloth')}
+      else if(headStyle==='work-cap'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
+      else if(headStyle==='beanie'){put(12,0,8,2,'cloth');put(10,2,12,1,'clothhi')}
+      else if(headStyle==='hat'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
+      else if(headStyle==='hair-band')put(11,1,10,1,'hairband')
       // Facial planes and headwear highlights reuse the existing palette roles.
       if(!back){
         for(let xx=12;xx<=19;xx++)set(xx,3,'skinshade');
@@ -532,19 +542,19 @@
         set(13,6,'skinlight');
         if(!side){grid[9][27]='skinlight';grid[9][37]='skinlight';}
       }
-      if(A.head==='round-fringe'||A.head==='bun'){
+      if(headStyle==='round-fringe'||headStyle==='bun'){
         if(!back){grid[1][27]='hairlight';grid[1][28]='hairlight';}
         else {grid[2][29]='hairlight';grid[2][30]='hairlight';}
-      }else if(A.head==='helmet'){
+      }else if(headStyle==='helmet'){
         if(!back){grid[2][25]='clothhi';grid[2][26]='clothhi';grid[2][27]='clothhi';}
         else {grid[2][36]='clothhi';grid[2][37]='clothhi';}
-      }else if(A.head==='cap-profile'||A.head==='newsboy-cap'||A.head==='work-cap'||A.head==='hat'){
+      }else if(headStyle==='cap-profile'||headStyle==='newsboy-cap'||headStyle==='work-cap'||headStyle==='hat'){
         if(!back){grid[5][37]='clothhi';grid[5][38]='clothhi';}
         else {grid[5][25]='clothhi';grid[5][26]='clothhi';}
-      }else if(A.head==='beanie'){
+      }else if(headStyle==='beanie'){
         grid[1][27]='clothhi';grid[1][28]='clothhi';grid[1][29]='clothhi';
       }
-      if(!back&&A.head!=='helmet'&&A.head!=='hood'){set(side?19:14,5,'inkdetail');if(!side)set(18,5,'inkdetail');}
+      if(!back&&headStyle!=='helmet'&&headStyle!=='hood'){set(side?19:14,5,'inkdetail');if(!side)set(18,5,'inkdetail');}
       // Torso: front/back 12x14; profile 8x14 with four shadow + four base columns.
       // Body coordinates use a 16-wide local anatomy grid centered at X=8;
       // local shoulder Y=8 maps to grid Y=10, and local waist Y=12 to grid Y=14.
@@ -637,8 +647,8 @@
       if(!qaExcludeProps&&P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
       if(!qaExcludeProps&&P.keys)put(4,29,24,2,'key');
       // Props are explicit per-archetype/per-direction layers; no shared prop footprint is inferred.
-      const propSpec=ARCHETYPE_PROP_LAYERS[archetypeKey];
-      const declaredPropType=A.prop&&A.prop[rigView]&&A.prop[rigView].type;
+      const propSpec=kind==='fan'?ARCHETYPE_PROP_LAYERS.fan:ARCHETYPE_PROP_LAYERS[archetypeKey];
+      const declaredPropType=kind==='fan'?'foam-finger':A.prop&&A.prop[rigView]&&A.prop[rigView].type;
       if(!propSpec||!declaredPropType||propSpec.types[rigView]!==declaredPropType) {
         throw new Error('Archetype '+rigView+' prop metadata/table mismatch: '+archetypeKey);
       }
@@ -680,12 +690,12 @@
           case 'hairband':return typeof P.band==='string'?P.band:accentGarment;
           case 'labcoat':return typeof P.labcoat==='string'?P.labcoat:accentGarment;
           case 'key':return accentProp;
-          case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return PROP_ROLE_COLORS[role]||accentProp;
+          case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'foamfinger':case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return PROP_ROLE_COLORS[role]||accentProp;
           default:return null;
         }
       };
       // Keep facial marks at true native 1x1 resolution despite logical block helpers.
-      if(!side&&!back&&A.head!=='helmet'&&A.head!=='hood'){grid[10][28]='inkdetail';grid[10][36]='inkdetail';grid[16][32]='inkdetail';}
+      if(!side&&!back&&headStyle!=='helmet'&&headStyle!=='hood'){grid[10][28]='inkdetail';grid[10][36]='inkdetail';grid[16][32]='inkdetail';}
       if(side)grid[8][40]='skin';
       const colors=grid.map((row,yy)=>row.map((role,xx)=>role?colorFor(role,xx,yy):null));
       const finalGrid=colors.map(row=>row.slice());
