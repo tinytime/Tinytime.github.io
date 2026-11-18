@@ -8495,7 +8495,7 @@ function applyShading(baseHex){
     return '#'+v.map(n=>Math.round((n+q)*255).toString(16).padStart(2,'0')).join('');
   };
   const base=m?baseHex:'#777777';
-  return {highlight:toHex(l*1.20),base,shadow:toHex(l*.60)};
+  return {highlight:toHex(l*1.20),base,shadow:toHex(l*.75)};
 }
 function owPixelTone(hex,delta){
   const ramp=applyShading(hex);
@@ -8549,11 +8549,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     g.fillStyle=String(ramp.shadow||ramp.base||'#777777');g.fillRect(Math.ceil(maxX)-1,minY,1,height);
     g.restore();
     // Layer 3: internal ink is always last over the material.
-    if(stroke){g.globalAlpha=1;g.globalCompositeOperation='source-over';g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='miter';g.lineCap='square';g.stroke()}
+    if(stroke){g.globalAlpha=1;g.globalCompositeOperation='source-over';g.save();g.beginPath();g.rect(-64,-64,256,256);pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.clip('evenodd');g.strokeStyle=stroke;g.lineWidth=2;g.lineJoin='miter';g.lineCap='butt';g.stroke();g.restore()}
   };
   const line=(pts,color,width=1)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.strokeStyle=color;g.lineWidth=width;g.lineCap='square';g.lineJoin='miter';g.stroke()};
   const limb=(pts,ramp)=>polygon(pts,ramp,ink,1.15);
-  g.save();g.translate(24,48);g.scale(U,U);
+  g.save();g.translate(24,48);
   // Soft contact shadow remains directly beneath the feet.
   g.fillStyle='rgba(0,0,0,.36)';g.beginPath();g.ellipse(0,1,9,2.4,0,0,7);g.fill();
 
@@ -8596,7 +8596,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   g.fillStyle=String(body.shadow||body.base);g.fillRect(3+torsoShift,top,1,bodyRowsLength(P)+2);
   g.restore();g.restore();
   // Layer 3: internal ink contour is applied after all opaque material fills.
-  g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.strokeStyle=ink;g.lineWidth=1.15;g.lineJoin='miter';g.lineCap='square';g.stroke();
+  g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.save();g.beginPath();g.rect(-64,-64,256,256);torso.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.clip('evenodd');g.strokeStyle=ink;g.lineWidth=2;g.lineJoin='miter';g.lineCap='butt';g.stroke();g.restore();
   // Keep the sculpted waist indent, but never flood the entire waist with shadow.
   polygon([[-2+torsoShift,top+8],[2+torsoShift,top+8],[2+torsoShift,top+13],[-2+torsoShift,top+13]],body,null,0);
   line([[-2+torsoShift,top+8],[2+torsoShift,top+8]],ink,1);
@@ -8724,9 +8724,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // existing rim pixels/placement exactly.
   targetG.save();targetG.globalAlpha=1;targetG.globalCompositeOperation='source-over';targetG.filter='none';
   targetG.shadowBlur=0;targetG.shadowColor='rgba(0,0,0,0)';
-  targetG.drawImage(rimCanvas,sx-24*U,sy-bob-48*U,64*U,64*U);
+  targetG.drawImage(rimCanvas,sx-24*U*U,sy-bob-48*U*U,64*U*U,64*U*U);
   // Layer 4: unchanged exterior rim overlay.
-  targetG.drawImage(rimOverlayCanvas,sx-24*U,sy-bob-48*U,64*U,64*U);
+  targetG.drawImage(rimOverlayCanvas,sx-24*U*U,sy-bob-48*U*U,64*U*U,64*U*U);
   targetG.restore();
 }
 function bodyRowsLength(P){return P.long?18:16}
