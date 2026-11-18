@@ -1,11 +1,11 @@
 name: Vapor City Browser QA
 
-on:
+'on':
   workflow_dispatch:
   push:
     branches:
       - npc-granny-baseline-overhaul
-    - main
+      - main
     paths:
       - 'VaporCity_HD2D_Hybrid_Test.html'
       - 'qa/**'
