@@ -9649,6 +9649,21 @@ function measureNpcArchetypeMasks(options={}){
 }
 window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMasks:options=>measureNpcArchetypeMasks(options),npcGrannyRef:()=>GRANNY_REF,
   npcPaletteAudit:()=>Object.keys(CIV).filter(civ=>civ!=='granny').map(civ=>{const canvas=document.createElement('canvas');canvas.width=64;canvas.height=96;const n={id:'qa-'+civ,civ,x:0,y:0};owCiv(0,0,'d',false,n,0,0,canvas.getContext('2d'));return Object.assign({},owCiv._lastPaletteMetrics)}),
+  npcRenderSnapshots:()=>Object.keys(CIV).sort().map(civ=>{
+    if(civ==='granny'){
+      const canvas=document.createElement('canvas');canvas.width=100;canvas.height=140;
+      const scale=OWT/36*.28,ctx=canvas.getContext('2d');
+      ctx.setTransform(1/scale,0,0,1/scale,0,0);
+      const n={id:'granny',x:(50*scale-OWT/2)/OWT,y:((137+3)*scale-OWT+5)/OWT};
+      drawGrannyVoltSprite(n,'d',false,0,0,ctx,{excludeGroundEffects:true});
+      return {civ,width:canvas.width,height:canvas.height,dataUrl:canvas.toDataURL('image/png')};
+    }
+    const target=document.createElement('canvas');target.width=64;target.height=96;
+    const n={id:'qa-snapshot-'+civ,civ,x:0,y:0};
+    owCiv(0,0,'d',false,n,0,0,target.getContext('2d'));
+    const sprite=owCiv._gridCanvas;
+    return {civ,width:sprite.width,height:sprite.height,dataUrl:sprite.toDataURL('image/png')};
+  }),
   npcGalleryView:'all',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
   c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#777982';c.fillRect(0,0,canvas.width,canvas.height);
