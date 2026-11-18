@@ -180,6 +180,31 @@ try {
     overLimit: npcPaletteAudit.filter(item => item.uniqueColorCount > 12)
   };
 
+  const npcSnapshotData = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcRenderSnapshots !== 'function') throw new Error('NPC snapshot hook is unavailable');
+    return window.SG.npcRenderSnapshots();
+  });
+  const snapshotDir = path.join(out, 'npc-snapshots');
+  fs.mkdirSync(snapshotDir, { recursive: true });
+  const snapshotResults = npcSnapshotData.map(item => {
+    const bytes = Buffer.from(item.dataUrl.split(',')[1], 'base64');
+    const outputPath = path.join(snapshotDir, item.civ + '.png');
+    fs.writeFileSync(outputPath, bytes);
+    const goldenPath = path.join(root, 'qa', 'golden-npcs', item.civ + '.png');
+    if (!fs.existsSync(goldenPath)) return { civ: item.civ, status: 'missing', bytes: bytes.length };
+    const golden = fs.readFileSync(goldenPath);
+    return { civ: item.civ, status: Buffer.compare(bytes, golden) === 0 ? 'match' : 'changed', bytes: bytes.length };
+  });
+  const snapshotCheck = {
+    pass: snapshotResults.length === 24 && snapshotResults.every(item => item.status === 'match'),
+    expectedCount: 24,
+    snapshotCount: snapshotResults.length,
+    matches: snapshotResults.filter(item => item.status === 'match').length,
+    missing: snapshotResults.filter(item => item.status === 'missing').map(item => item.civ),
+    changed: snapshotResults.filter(item => item.status === 'changed').map(item => item.civ),
+    snapshots: snapshotResults
+  };
+
   const archetypeSilhouettes = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcMeasureArchetypeMasks !== 'function') throw new Error('Archetype silhouette hook is unavailable');
     return window.SG.npcMeasureArchetypeMasks({ excludeProps: true });
@@ -367,6 +392,7 @@ try {
     grannyMeasurementCheck,
     npcPaletteAudit,
     npcPaletteCheck,
+    snapshotCheck,
     archetypeSilhouetteCount: archetypeSilhouettes.length,
     silhouetteMaskDiagnostics: archetypeSilhouettes
       .filter(item => ['courier', 'trades'].includes(item.archetype))
@@ -386,11 +412,11 @@ try {
     scriptErrors,
     pageErrors,
     consoleErrors,
-    note: 'Browser smoke test. Script error event includes filename/line/column when Chromium provides it. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty archetype-direction cells but does not certify visual quality.'
+    note: 'Browser QA. Native-grid snapshots are written to qa-output/npc-snapshots and compared byte-for-byte with qa/golden-npcs. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty archetype-direction cells but does not certify visual quality.'
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
