@@ -255,12 +255,11 @@ try {
     const golden = fs.readFileSync(goldenPath);
     return { civ: item.civ, status: Buffer.compare(bytes, golden) === 0 ? 'match' : 'changed', bytes: bytes.length };
   });
-  const allSnapshotsMissing = snapshotResults.length === 24 && snapshotResults.every(item => item.status === 'missing');
   const snapshotCheck = {
-    // The first clean run may seed the golden directory. Partial baselines or
-    // any changed existing PNG remain hard failures.
-    pass: snapshotResults.length === 24 && (allSnapshotsMissing || snapshotResults.every(item => item.status === 'match')),
-    baselinePending: allSnapshotsMissing,
+    // The golden PNG baseline is now committed. Every one of the 24 live
+    // native-grid renders must match byte-for-byte on every subsequent run.
+    pass: snapshotResults.length === 24 && snapshotResults.every(item => item.status === 'match'),
+    baselineVerified: snapshotResults.length === 24 && snapshotResults.every(item => item.status === 'match'),
     expectedCount: 24,
     snapshotCount: snapshotResults.length,
     matches: snapshotResults.filter(item => item.status === 'match').length,
