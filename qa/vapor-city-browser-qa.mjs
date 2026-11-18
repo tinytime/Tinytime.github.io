@@ -128,13 +128,11 @@ try {
         ['minX', 'maxX', 'minY', 'maxY', 'width', 'height'].every(key =>
           actual.bodyBounds[key] === expected.bodyBounds[key] && actual.fullBounds[key] === expected.fullBounds[key]);
     });
-  const inGameKeys = ['mapTileSize', 'cameraZoom', 'rendererScale', 'bodyWidthPixels', 'bodyHeightPixels', 'fullHeightPixels', 'bodyHeightInTiles',
-    'screenScaleX', 'screenScaleY', 'bodyWidthCssPixels', 'bodyHeightCssPixels', 'fullHeightCssPixels', 'deviceScale'];
-  const inGameMatch = inGameKeys.every(key => near(grannyMeasurements.inGame[key], grannyRefExpected.inGame[key])) &&
-    near(grannyMeasurements.inGame.canvasCss.width, grannyRefExpected.inGame.canvasCss.width) &&
-    near(grannyMeasurements.inGame.canvasCss.height, grannyRefExpected.inGame.canvasCss.height) &&
-    grannyMeasurements.inGame.canvasBacking.width === grannyRefExpected.inGame.canvasBacking.width &&
-    grannyMeasurements.inGame.canvasBacking.height === grannyRefExpected.inGame.canvasBacking.height;
+  const inGameKeys = ['mapTileSize', 'cameraZoom', 'rendererScale', 'bodyWidthPixels', 'bodyHeightPixels', 'fullHeightPixels', 'bodyHeightInTiles', 'deviceScale'];
+  const inGameMatch = inGameKeys.every(key => near(grannyMeasurements.inGame[key], grannyRefExpected.inGame[key]));
+  const canvasScaleCheck = near(grannyMeasurements.inGame.screenScaleX, 1 / grannyMeasurements.inGame.deviceScale) &&
+    near(grannyMeasurements.inGame.screenScaleY, 1 / grannyMeasurements.inGame.deviceScale) &&
+    near(grannyMeasurements.inGame.screenScaleX, grannyMeasurements.inGame.screenScaleY);
   const runtimeRefMatch = !!grannyRuntimeRef.source && !!grannyRuntimeRef.active &&
     grannyRuntimeRef.active.bodyHeight === grannyRefExpected.bodyHeight &&
     grannyRuntimeRef.active.totalHeight === grannyRefExpected.totalHeight &&
@@ -143,10 +141,12 @@ try {
     grannyRuntimeRef.active.footRow === grannyRefExpected.footRow &&
     near(grannyRuntimeRef.active.nativeScale, grannyRefExpected.scaleFactor);
   const grannyMeasurementCheck = {
-    pass: directionsMatch && inGameMatch && runtimeRefMatch && grannyMeasurements.directions?.length === 4,
+    pass: directionsMatch && inGameMatch && canvasScaleCheck && runtimeRefMatch && grannyMeasurements.directions?.length === 4,
     directionCount: grannyMeasurements.directions?.length || 0,
     directionsMatch,
     inGameMatch,
+    canvasScaleCheck,
+    canvasScale: { x: grannyMeasurements.inGame.screenScaleX, y: grannyMeasurements.inGame.screenScaleY, deviceScale: grannyMeasurements.inGame.deviceScale },
     runtimeRefMatch
   };
 

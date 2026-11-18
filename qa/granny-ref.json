@@ -160,19 +160,6 @@
     "bodyHeightPixels": 35,
     "fullHeightPixels": 38.92,
     "bodyHeightInTiles": 0.9722222222222222,
-    "screenScaleX": 3.3685938517252603,
-    "screenScaleY": 0.98295263671875,
-    "bodyWidthCssPixels": 51.876345316569015,
-    "bodyHeightCssPixels": 34.40334228515625,
-    "fullHeightCssPixels": 38.25651662109375,
-    "canvasCss": {
-      "width": 1616.925048828125,
-      "height": 982.95263671875
-    },
-    "canvasBacking": {
-      "width": 480,
-      "height": 1000
-    },
     "deviceScale": 1
   }
 }

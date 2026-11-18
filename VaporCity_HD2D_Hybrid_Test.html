@@ -2737,7 +2737,12 @@ function kbStick(){
 let rotSkip=false;
 function syncLand(){
   const inMatch=!OWON&&!$('#hud').hidden,wide=innerWidth>innerHeight,want=(inMatch||!$('#squad').hidden)&&wide;
-  if(want!==LAND){LAND=want;document.body.classList.toggle('land',want);resize()}
+  if(want!==LAND){
+    LAND=want;document.body.classList.toggle('land',want);resize();
+    // The town canvas has its own backing store. Refit it after the layout class
+    // changes, or its old portrait backing width can be stretched across landscape.
+    if(OWON)requestAnimationFrame(()=>owResize());
+  }
   const need=inMatch&&!wide&&!window.__noRot;if(need!==syncLand.n){syncLand.n=need;$('#rotMsg').hidden=!need}
 }
 let RESI=0;const RES=[{n:'HIGH',d:2},{n:'MEDIUM',d:1.5},{n:'LOW',d:1},{n:'SHARP',d:2.5}];try{const v=+localStorage.getItem('sg_res');if(v>=0&&v<RES.length)RESI=v}catch(e){}
@@ -9550,7 +9555,10 @@ function measureGrannyVoltNative(){
       fullBounds:{minX:full.minX,maxX:full.maxX,minY:full.minY,maxY:full.maxY,width:full.width,height:full.height}};
   });
   const front=directions[0],screenScale=scale,canvasRect=owc.getBoundingClientRect();
-  const screenScaleX=canvasRect.width/owc.width,screenScaleY=canvasRect.height/owc.height;
+  // Use the untransformed CSS layout size. getBoundingClientRect() includes
+  // the optional HD-2D perspective transform and would misreport pixel scaling.
+  const canvasLayoutWidth=owc.clientWidth,canvasLayoutHeight=owc.clientHeight;
+  const screenScaleX=canvasLayoutWidth/owc.width,screenScaleY=canvasLayoutHeight/owc.height;
   return {nativeGrid:{width:canvasWidth,height:canvasHeight,originOffsetY:originY,alphaThreshold:1,
       umbrellaExclusion:'The measurement pass skips the canopy path and shaft line; it retains the gripping hand and arm. Contact shadow and foot glow are disabled.'},
     measurementRows:{neckRow:49,shoulderRow:50,shoulderRowRule:'Fixed local source row 50; shoulder contour begins around local row 46.'},
@@ -9561,7 +9569,7 @@ function measureGrannyVoltNative(){
       bodyWidthCssPixels:front.bodyBounds.width*screenScale*screenScaleX,
       bodyHeightCssPixels:front.bodyHeight*screenScale*screenScaleY,
       fullHeightCssPixels:front.totalHeight*screenScale*screenScaleY,
-      canvasCss:{width:canvasRect.width,height:canvasRect.height},
+      canvasCss:{width:canvasLayoutWidth,height:canvasLayoutHeight},
       canvasBacking:{width:owc.width,height:owc.height},deviceScale:owDpr}};
 }
 
