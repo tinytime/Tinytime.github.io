@@ -878,7 +878,7 @@ try {
     scriptErrors,
     pageErrors,
     consoleErrors,
-    note: 'Browser QA. Native-grid snapshots are written to qa-output/npc-snapshots and compared byte-for-byte with qa/golden-npcs. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty live archetype-direction cells; Granny's special renderer is validated separately against the original baseline.'
+    note: "Browser QA. Native-grid snapshots are written to qa-output/npc-snapshots and compared byte-for-byte with qa/golden-npcs. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty live archetype-direction cells; Granny's special renderer is validated separately against the original baseline."
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
