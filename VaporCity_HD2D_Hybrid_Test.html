@@ -9367,7 +9367,7 @@ window.SG={npcGalleryView:'all',npcGalleryDraw:canvas=>{
       c.restore();c.setTransform(1,0,0,1,0,0);
     }else{
       // Rebuild the shared civilian sprite for this archetype and facing before sampling it.
-      owCiv(0,0,d[1],false,n,0,ci);
+      owCiv(0,0,d[1],false,n,0,ci,sc);
       const sprite=owCiv._gridCanvas;
       c.imageSmoothingEnabled=false;c.drawImage(sprite,cx-sourceW*scale/2,baseY-sourceH*scale,sourceW*scale,sourceH*scale);
     }
