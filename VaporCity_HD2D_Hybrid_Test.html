@@ -8535,12 +8535,14 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   put(12,0,8,2,'hair');put(11,1,10,2,'hair');
   if(side){
     put(10,2,2,7,'hair');
+    put(11,8,1,1,'hair'); // one-pixel sideburn
     put(20,4,1,1,'skin'); // exactly one-pixel profile nose
     set(19,4,'inkdetail');set(18,3,'skinshade');
   }else if(back){
     put(11,0,10,10,'hair');put(13,8,6,1,'hairlight');
   }else{
     put(10,2,2,7,'hair');put(20,2,2,7,'hair');
+    put(14,3,1,2,'hair'); // one-pixel fringe over forehead
     set(14,5,'inkdetail');set(18,5,'inkdetail'); // 1x1 eyes
     set(16,8,'inkdetail'); // 1x1 mouth
   }
@@ -8550,36 +8552,41 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(P.hat==='cap'){put(10,1,12,2,'cloth');put(18,3,5,1,'clothhi')}
   else if(P.hat==='beanie'){put(12,0,8,2,'cloth');put(10,2,12,1,'clothhi')}
   else if(P.hat==='wide'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
-  // Single-pixel hairline shadow creates facial depth without enlarging features.
-  if(!back)for(let xx=12;xx<=19;xx++)set(xx,3,'skinshade');
+  // Single-pixel hairline and chin shadows create facial depth.
+  if(!back){for(let xx=12;xx<=19;xx++)set(xx,3,'skinshade');for(let xx=14;xx<=18;xx++)set(xx,9,'skinshade');}
   if(!back&&!P.helm&&!P.hood){set(side?19:14,5,'inkdetail');if(!side)set(18,5,'inkdetail');}
   // Torso: front/back 12x14; profile 8x14 with four shadow + four base columns.
   if(side){
+    // Profile torso is 8 wide: rear four pixels shadow, front four base.
     put(12,10,8,14,'body');
-    for(let yy=10;yy<24;yy++){set(12,yy,'bodyshade');set(13,yy,'bodyshade');set(14,yy,'bodyshade');set(15,yy,'bodyshade')}
+    for(let yy=10;yy<24;yy++)for(let xx=12;xx<16;xx++)set(xx,yy,'bodyshade');
   }else{
-    put(10,10,12,14,'body');
-    for(let yy=10;yy<24;yy++)for(let xx=10;xx<16;xx++)set(xx,yy,'body');
-    for(let yy=10;yy<24;yy++)for(let xx=16;xx<22;xx++)set(xx,yy,'bodyshade');
-    // Narrow waist transition preserves a natural torso contour.
-    put(11,22,10,2,'body');
+    // Rounded shoulders: remove the two outermost top corner pixels.
+    put(10,10,12,14,'body');set(10,10,null);set(21,10,null);
+    // One-pixel waist indent on both sides.
+    set(10,18,null);set(21,18,null);
   }
-  // Arms: 3x12 with one-pixel inward elbow bends.
-  if(side){put(17,12,3,10,'arm');put(16,20,3,3,'arm');}
+  // Arms drop vertically; forearms move inward at the elbow and then down.
+  if(side){put(17,12,3,8,'arm');put(16,20,3,5,'arm');}
   else{
-    put(6,11,3,8,'arm');put(7,18,3,5,'arm');
-    put(23,11,3,8,'arm');put(22,18,3,5,'arm');
+    put(6,11,3,8,'arm');put(7,19,3,5,'arm');
+    put(23,11,3,8,'arm');put(22,19,3,5,'arm');
   }
-  // Legs: 4x14, knees shift inward/outward by one pixel for articulation.
-  if(side){put(14,24,4,9,'pants');put(13,32,4,5,'pants');}
+  // Side profile: rear leg is one pixel back/shadowed; front leg is one
+  // pixel forward/base-colored. Shoes follow the direction of travel.
+  if(side){put(12,24,4,13,'legback');put(17,24,4,13,'legfront');}
   else{
     put(11,24,4,9,'pants');put(10,32,4,5,'pants');
     put(18,24,4,9,'pants');put(19,32,4,5,'pants');
   }
-  put(side?13:9,37,7,3,'shoe');if(!side)put(18,37,7,3,'shoe');
+  if(side){put(16,37,5,3,'shoe');put(20,37,6,3,'shoefront');}
+  else{put(9,37,7,3,'shoe');put(18,37,7,3,'shoe');}
   if(P.stripes&&!side&&!back)for(let yy=12;yy<22;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
   if(P.apron&&!back)put(13,16,6,8,'apron');
-  if(P.jacket||kind==='courier')for(let yy=12;yy<23;yy++)set(16,yy,'bodyshade');
+  if(P.jacket||kind==='courier')for(let yy=12;yy<22;yy++)set(16,yy,'bodyshade');
+  // Fine contact shadows: under the arms and across the shirt hem/waist.
+  if(!side&&!back){for(let xx=10;xx<22;xx++)if(grid[18][xx]!==null)set(xx,19,'bodyshade');for(let xx=11;xx<21;xx++)set(xx,23,'bodyshade');}
+  else if(side){for(let xx=13;xx<20;xx++)set(xx,23,'bodyshade');}
   if(P.scarf&&!back)put(10,10,12,3,'clothhi');
   if(P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
   if(P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
@@ -8598,7 +8605,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       case 'bodyshade':return body.shadow||darkenHex(P.body||'#777777',.5);
       case 'arm':return xx<16?(body.base||P.body):(body.shadow||body.base||P.body);
       case 'pants':return xx<16?(pants.base||P.pants):(pants.shadow||pants.base||P.pants);
+      case 'legback':return pants.shadow||darkenHex(P.pants||'#252535',.5);
+      case 'legfront':return pants.base||P.pants||'#252535';
       case 'shoe':return pants.base||P.pants||'#252535';
+      case 'shoefront':return pants.base||P.pants||'#252535';
       case 'cloth':return body.base||P.body||'#777777';
       case 'clothhi':return body.highlight||body.base||P.body||'#777777';
       case 'helm':return '#18202b';
