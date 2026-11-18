@@ -30,6 +30,13 @@ function objectMap(label) {
   return Object.fromEntries([...match[1].matchAll(/([A-Za-z0-9_]+)\s*:\s*'([^']+)'/g)].map(m => [m[1], m[2]]));
 }
 
+const scopePolicyPath = path.join(root, 'qa', 'npc-scope-policy.json');
+const scopePolicy = JSON.parse(fs.readFileSync(scopePolicyPath, 'utf8'));
+const outOfScopeOwFigIds = new Set(scopePolicy.outOfScope || []);
+if (outOfScopeOwFigIds.size !== (scopePolicy.outOfScope || []).length) {
+  throw new Error('Duplicate ids in qa/npc-scope-policy.json');
+}
+
 const records = [];
 for (const match of source.matchAll(/\{\s*id\s*:\s*(['"])([^'"]+)\1/g)) {
   const end = objectEnd(source, match.index);
@@ -96,9 +103,7 @@ const inventoryNpcs = npcs.map(npc => {
     rendererPath = 'pxCat atlas override -> owCat fallback';
     inScope = true;
   } else {
-    // These 18 legacy owFig records are explicitly excluded from the standard-NPC art pass.
-    // They are neither town civilians nor football NPCs for this inventory's scope.
-    const outOfScopeOwFigIds = new Set(['cat1','cat2','drift1','drift2','hb_bram','hb_deke','hb_marla','hb_rita','king1','king2','lou','mack','mate1','mo','pete','r2_mud','rat2','rusty']);
+    // Scope exceptions are explicit owner decisions maintained outside the parser.
     if (!outOfScopeOwFigIds.has(npc.id)) throw new Error('Unclassified owFig/renderPerson NPC: ' + npc.id + ' (owner scope decision required)');
     rendererPath = 'owFig -> renderPerson (non-standard, out of scope)';
     inScope = false;
