@@ -418,6 +418,44 @@
       const put=(x0,y0,w,h,role)=>{for(let yy=y0*2;yy<(y0+h)*2;yy++)for(let xx=x0*2;xx<(x0+w)*2;xx++)if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
       // Paint each logical cell as a solid 2x2 native block, avoiding sparse stripe fills.
       const set=(xx,yy,role)=>{for(let py=yy*2;py<yy*2+2;py++)for(let px=xx*2;px<xx*2+2;px++)if(px>=0&&px<N&&py>=0&&py<H)grid[py][px]=role};
+      const PROP_SHAPES={
+        duffel:['.###.','#####','#####','#####','.###.'],
+        whistle:['.#.','###','.#.'],
+        satchel:['.###.','#####','#####','#####','##.##'],
+        parcel:['.###.','#####','#####','#####','.###.'],
+        shield:['.###.','#####','#####','.###.','..#..'],
+        baton:['#','#','#','#','#','#','#'],
+        bowl:['.####.','######','######','.####.'],
+        medkit:['.####.','######','######','######','.####.'],
+        wrench:['##..','###.','.##.','..#.'],
+        backpack:['.###.','#####','#####','#####','#####'],
+        guitar:['...#','..##','.###','####','..##','..##'],
+        briefcase:['.####.','######','######','######','.####.'],
+        clipboard:['.###.','#####','#####','#####'],
+        notebook:['.###','####','####','####'],
+        pin:['.##.','####','.##.','..#.'],
+        toolroll:['#####','#####','#####']
+      };
+      const paintProp=(x,y,w,h,role)=>{
+        const pattern=PROP_SHAPES[role];
+        if(!pattern){put(x,y,w,h,role);return}
+        for(let yy=0;yy<h;yy++){
+          const row=pattern[Math.min(pattern.length-1,Math.floor(yy*pattern.length/h))];
+          for(let xx=0;xx<w;xx++){
+            const cell=row[Math.min(row.length-1,Math.floor(xx*row.length/w))];
+            if(cell!==' ')set(x+xx,y+yy,role);
+          }
+        }
+        // Tiny readable prop details; highlights use the garment's light role.
+        if(role==='medkit'&&w>=3&&h>=3){set(x+Math.floor(w/2),y+1,'bodyhi');set(x+Math.floor(w/2),y+2,'bodyhi');set(x+Math.floor(w/2)-1,y+1,'bodyhi');set(x+Math.floor(w/2)+1,y+1,'bodyhi')}
+        if(role==='shield'&&w>=3&&h>=3)set(x+Math.floor(w/2),y+1,'bodyhi');
+        if(role==='guitar'&&w>=3&&h>=3)set(x+Math.floor(w/2),y+Math.floor(h/2),'bodyhi');
+        if(role==='briefcase'&&w>=3)set(x+Math.floor(w/2),y,'bodyhi');
+        if(role==='clipboard'&&w>=3)set(x+Math.floor(w/2),y+1,'bodyhi');
+        if(role==='notebook'&&w>=3)set(x,y+1,'bodyhi');
+        if(role==='parcel'&&w>=3&&h>=3)set(x+Math.floor(w/2),y+1,'bodyhi');
+        if(role==='bowl'&&w>=3)set(x+Math.floor(w/2),y,'bodyhi');
+      };
       // Head: hand-shaped pixel silhouette; clipped corners create a rounded cranium and jaw.
       put(12,1,8,7,'skin');put(11,2,10,6,'skin');put(13,8,6,1,'skin');
       set(11,1,null);set(20,1,null);set(11,8,null);set(20,8,null);set(12,9,null);set(19,9,null);
@@ -572,7 +610,11 @@
         throw new Error('Archetype '+rigView+' prop metadata/table mismatch: '+archetypeKey);
       }
       const propLayers=propSpec[rigView];
-      for(const [px,py,pw,ph,role] of propLayers)if(!qaExcludeProps||!ARCHETYPE_ACCESSORY_ROLES.has(role))put(px,py,pw,ph,role);
+      for(const [px,py,pw,ph,role] of propLayers){
+        if(qaExcludeProps&&ARCHETYPE_ACCESSORY_ROLES.has(role))continue;
+        if(ARCHETYPE_ACCESSORY_ROLES.has(role))paintProp(px,py,pw,ph,role);
+        else put(px,py,pw,ph,role);
+      }
       if(P.long)put(10,22,12,2,'bodyshade');
       // Give the footwear a dark sole and toe highlight using existing palette roles.
       if(!side){
