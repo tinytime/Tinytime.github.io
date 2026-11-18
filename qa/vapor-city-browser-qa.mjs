@@ -10,26 +10,44 @@ fs.mkdirSync(out, { recursive: true });
 
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
+const pageErrors = [];
 const consoleErrors = [];
-page.on('pageerror', e => consoleErrors.push(e.message));
-page.on('console', m => { if (m.type() === 'error') consoleErrors.push(m.text()); });
+page.on('pageerror', e => pageErrors.push({ message: e.message, stack: e.stack }));
+page.on('console', m => {
+  if (m.type() === 'error') consoleErrors.push({ text: m.text(), location: m.location() });
+});
 
 try {
   await page.goto('file://' + html, { waitUntil: 'load', timeout: 60000 });
   await page.waitForTimeout(1500);
-  await page.screenshot({ path: path.join(out, 'game-1x.png'), fullPage: true });
+  await page.screenshot({ path: path.join(out, 'game-menu-1x.png'), fullPage: true });
 
-  // The game can launch on a menu/settings screen. Navigate only when the button is visible.
   const backToTown = page.getByRole('button', { name: /back to town/i });
   let navigatedToTown = false;
   if (await backToTown.count() && await backToTown.first().isVisible()) {
     await backToTown.first().click({ timeout: 5000 });
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(2000);
     navigatedToTown = true;
   }
 
+  const worldState = await page.locator('#world').evaluate(el => ({
+    hidden: el.hidden,
+    display: getComputedStyle(el).display,
+    visibility: getComputedStyle(el).visibility,
+    rect: (() => { const r = el.getBoundingClientRect(); return { x:r.x,y:r.y,width:r.width,height:r.height }; })()
+  })).catch(e => ({ error: e.message }));
+
   const galleryToggle = page.locator('#owNpcGalleryToggle');
+  const galleryState = await galleryToggle.evaluate(el => ({
+    hidden: el.hidden,
+    display: getComputedStyle(el).display,
+    visibility: getComputedStyle(el).visibility,
+    opacity: getComputedStyle(el).opacity,
+    rect: (() => { const r = el.getBoundingClientRect(); return { x:r.x,y:r.y,width:r.width,height:r.height }; })()
+  })).catch(e => ({ error: e.message }));
   const galleryToggleVisible = await galleryToggle.count() > 0 && await galleryToggle.isVisible();
+  await page.screenshot({ path: path.join(out, 'game-town-1x.png'), fullPage: true });
+
   let galleryOpened = false;
   if (galleryToggleVisible) {
     await galleryToggle.click({ timeout: 5000 });
@@ -57,7 +75,7 @@ try {
         alphaBounds: maxX < 0 ? null : { minX, minY, maxX, maxY } };
     });
     await page.screenshot({ path: path.join(out, 'npc-gallery-1x.png'), fullPage: true });
-    galleryCanvas.evaluate(c => { c.style.width = (c.clientWidth * 4) + 'px'; c.style.maxWidth = 'none'; });
+    await galleryCanvas.evaluate(c => { c.style.width = (c.clientWidth * 4) + 'px'; c.style.maxWidth = 'none'; });
     await page.waitForTimeout(200);
     await page.screenshot({ path: path.join(out, 'npc-gallery-4x.png'), fullPage: true });
   }
@@ -67,12 +85,15 @@ try {
     htmlFile: path.basename(html),
     pageTitle: await page.title(),
     navigatedToTown,
+    worldState,
+    galleryState,
     galleryToggleVisible,
     galleryOpened,
     galleryFound: galleryExists,
     canvasMetrics,
+    pageErrors,
     consoleErrors,
-    note: 'Smoke test captures the game page and checks whether the NPC gallery is reachable. Canvas summary is sampled, not per-NPC measurement; this is not a visual-quality PASS.'
+    note: 'Browser smoke test. Canvas summary is sampled, not per-NPC measurement or a visual-quality PASS.'
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
