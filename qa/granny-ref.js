@@ -1,7 +1,7 @@
 // Generated from qa/granny-ref.json. Do not edit by hand.
 window.GRANNY_REF_DATA = Object.freeze({
   "schemaVersion": 1,
-  "measuredAt": "2026-11-18T17:27:33.969Z",
+  "measuredAt": "2026-11-18T18:50:59Z",
   "source": "Browser-rendered drawGrannyVoltSprite at native source grid; four directions",
   "nativeGrid": {
     "width": 100,
@@ -93,11 +93,11 @@ window.GRANNY_REF_DATA = Object.freeze({
     {
       "direction": "l",
       "bodyBounds": {
-        "minX": 24,
-        "maxX": 78,
+        "minX": 29,
+        "maxX": 68,
         "minY": 12,
         "maxY": 136,
-        "width": 55,
+        "width": 40,
         "height": 125
       },
       "bodyHeight": 125,
@@ -105,30 +105,30 @@ window.GRANNY_REF_DATA = Object.freeze({
       "neckRow": 49,
       "headHeight": 38,
       "shoulderRow": 50,
-      "shoulderWidth": 36,
+      "shoulderWidth": 27,
       "shoulderBounds": {
-        "minX": 33,
-        "maxX": 68
+        "minX": 36,
+        "maxX": 62
       },
       "footRow": 136,
       "totalHeight": 139,
       "fullBounds": {
-        "minX": 13,
-        "maxX": 82,
+        "minX": 26,
+        "maxX": 75,
         "minY": -2,
         "maxY": 136,
-        "width": 70,
+        "width": 50,
         "height": 139
       }
     },
     {
       "direction": "r",
       "bodyBounds": {
-        "minX": 24,
-        "maxX": 78,
+        "minX": 31,
+        "maxX": 70,
         "minY": 12,
         "maxY": 136,
-        "width": 55,
+        "width": 40,
         "height": 125
       },
       "bodyHeight": 125,
@@ -136,19 +136,19 @@ window.GRANNY_REF_DATA = Object.freeze({
       "neckRow": 49,
       "headHeight": 38,
       "shoulderRow": 50,
-      "shoulderWidth": 36,
+      "shoulderWidth": 27,
       "shoulderBounds": {
-        "minX": 33,
-        "maxX": 68
+        "minX": 37,
+        "maxX": 63
       },
       "footRow": 136,
       "totalHeight": 139,
       "fullBounds": {
-        "minX": 13,
-        "maxX": 82,
+        "minX": 24,
+        "maxX": 73,
         "minY": -2,
         "maxY": 136,
-        "width": 70,
+        "width": 50,
         "height": 139
       }
     }
@@ -157,7 +157,7 @@ window.GRANNY_REF_DATA = Object.freeze({
     "mapTileSize": 36,
     "cameraZoom": 1,
     "rendererScale": 0.28,
-    "bodyWidthPixels": 15.4,
+    "bodyWidthPixels": 15.400000000000002,
     "bodyHeightPixels": 35,
     "fullHeightPixels": 38.92,
     "bodyHeightInTiles": 0.9722222222222222,
