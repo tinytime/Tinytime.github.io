@@ -192,6 +192,37 @@ try {
   townSceneState.pass = townSceneState.mapId === 'street' && townSceneState.grannyPresent;
   await page.screenshot({ path: path.join(out, 'game-town-1x.png'), fullPage: true });
 
+  const atlasOnInitialState = await page.evaluate(() => window.PXA?.info?.() || null);
+  await page.screenshot({ path: path.join(out, 'town-atlas-on.png'), fullPage: true });
+  const atlasOffState = await page.evaluate(() => {
+    if (!window.PXA?.info || !window.PXA?.toggle) return null;
+    if (window.PXA.info().on) window.PXA.toggle();
+    return window.PXA.info();
+  });
+  await page.waitForTimeout(650);
+  const atlasOffSettled = await page.evaluate(() => window.PXA?.info?.() || null);
+  await page.screenshot({ path: path.join(out, 'town-atlas-off.png'), fullPage: true });
+  const atlasRestoredState = await page.evaluate(() => {
+    if (!window.PXA?.info || !window.PXA?.toggle) return null;
+    if (!window.PXA.info().on) window.PXA.toggle();
+    return window.PXA.info();
+  });
+  await page.waitForTimeout(650);
+  const atlasRestoredSettled = await page.evaluate(() => window.PXA?.info?.() || null);
+  const atlasRuntimeAudit = {
+    pass: !!atlasOnInitialState?.ok && !!atlasOffSettled && atlasOffSettled.on === false &&
+      !!atlasRestoredSettled && atlasRestoredSettled.on === true &&
+      (atlasRestoredSettled.anim || 0) > (atlasOffSettled.anim || 0),
+    atlasOnInitialState,
+    atlasOffState,
+    atlasOffSettled,
+    atlasRestoredState,
+    atlasRestoredSettled,
+    atlasCallsDuringOff: (atlasOffSettled?.anim || 0) - (atlasOnInitialState?.anim || 0),
+    atlasCallsAfterRestore: (atlasRestoredSettled?.anim || 0) - (atlasOffSettled?.anim || 0),
+    activeAtlasKeys: atlasOnInitialState?.ents?.map(item => item.k) || []
+  };
+
   const grannyMeasurements = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcMeasureGranny !== 'function') {
       const diagnostics = {
@@ -702,6 +733,7 @@ try {
     grannyBeforeAfterCapture: { path: 'granny-before-after-4x.png', directions: ['front','back','left','right'], rows: ['pre-side-view renderer','current renderer'] },
     npcInventoryCheck,
     pixelPackImpact,
+    atlasRuntimeAudit,
     pixelPackDirectionGuard: { pass: pixelPackDirectionGuard && pixelPackImpact.verticalFacingFallbackIds.length > 0, guardPresent: pixelPackDirectionGuard },
     pixelPackAtlasCaptures,
     pixelPackAtlasCaptureError,
