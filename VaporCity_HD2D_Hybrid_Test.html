@@ -8673,15 +8673,17 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     set(15,5,'inkdetail');set(17,5,'inkdetail'); // two native pixels apart
     set(16,8,'inkdetail'); // 1x1 mouth
   }
-  if(P.bun)put(19,0,4,3,'hair');
-  if(P.helm)put(10,0,12,4,'helm');
-  else if(P.hood){put(10,1,12,3,'clothhi');put(10,3,2,6,'cloth');put(20,3,2,6,'cloth')}
-  if(P.hat==='cap'){put(10,1,12,2,'cloth');put(18,3,5,1,'clothhi')}
-  else if(P.hat==='beanie'){put(12,0,8,2,'cloth');put(10,2,12,1,'clothhi')}
-  else if(P.hat==='wide'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
+  if(A.head==='bun')put(19,0,4,3,'hair');
+  if(A.head==='helmet')put(10,0,12,4,'helm');
+  else if(A.head==='hood'){put(10,1,12,3,'clothhi');put(10,3,2,6,'cloth');put(20,3,2,6,'cloth')}
+  else if(A.head==='cap-profile'){put(10,1,12,2,'cloth');put(18,3,5,1,'clothhi')}
+  else if(A.head==='work-cap'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
+  else if(A.head==='beanie'){put(12,0,8,2,'cloth');put(10,2,12,1,'clothhi')}
+  else if(A.head==='hat'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
+  else if(A.head==='hair-band')put(11,1,10,1,'hairband')
   // Single-pixel hairline and chin shadows create facial depth.
   if(!back){for(let xx=12;xx<=19;xx++)set(xx,3,'skinshade');for(let xx=14;xx<=18;xx++)set(xx,9,'skinshade');}
-  if(!back&&!P.helm&&!P.hood){set(side?19:14,5,'inkdetail');if(!side)set(18,5,'inkdetail');}
+  if(!back&&A.head!=='helmet'&&A.head!=='hood'){set(side?19:14,5,'inkdetail');if(!side)set(18,5,'inkdetail');}
   // Torso: front/back 12x14; profile 8x14 with four shadow + four base columns.
   // Body coordinates use a 16-wide local anatomy grid centered at X=8;
   // local shoulder Y=8 maps to grid Y=10, and local waist Y=12 to grid Y=14.
@@ -8719,17 +8721,17 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(P.jacket||kind==='courier')for(let yy=12;yy<22;yy++)set(16,yy,'bodyshade');
   // Archetype-specific garment construction keeps the five civilians from
   // collapsing into recolors of one generic body.
-  if(A&&A.torso==='sweater'&&!back&&!side){
+  if((archetypeKey==='athletic'||archetypeKey==='youth')&&!back&&!side){
     // Runner: raised knit shoulder seam and a broad chest panel.
     for(let xx=11;xx<=20;xx++)set(xx,14,'bodyhi');
     for(let xx=12;xx<=19;xx++)set(xx,15,'body');
     set(12,17,'bodyhi');set(19,17,'bodyshade');
-  }else if(A&&A.torso==='jacket'&&!back){
+  }else if(['courier','trades','performer'].includes(archetypeKey)&&!back){
     // Courier: offset zipper, collar fold, and a diagonal bag strap.
     for(let yy=12;yy<=21;yy++)set(15,yy,'inkdetail');
     for(let yy=13;yy<=20;yy++)set(14,yy,'bodyhi');
     if(!side)for(let yy=13;yy<=21;yy++)set(19,yy,'pack');
-  }else if(A&&A.torso==='armored-vest'&&!back){
+  }else if(archetypeKey==='guard'&&!back){
     // Guard: distinct shoulder armor and a reinforced central chest plate.
     put(side?18:8,10,3,3,'helm');put(side?18:23,10,3,3,'helm');
     if(!side){
@@ -8737,14 +8739,14 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       for(let xx=13;xx<=18;xx++)set(xx,14,'bodyhi');
       for(let xx=13;xx<=18;xx++)set(xx,19,'inkdetail');
     }else put(15,13,4,7,'helm');
-  }else if(A&&A.torso==='apron'&&!back){
+  }else if(archetypeKey==='vendor'&&!back){
     // Vendor: visible shoulder straps, broad apron bib, and lower pocket seam.
     if(!side){
       put(12,12,2,12,'clothhi');put(18,12,2,12,'clothhi');
       put(12,15,8,9,'apron');
       for(let xx=14;xx<=17;xx++)set(xx,20,'bodyshade');
     }else put(15,14,4,9,'apron');
-  }else if(A&&A.torso==='long-scrubs'&&!back){
+  }else if((archetypeKey==='clinic'||archetypeKey==='elder')&&!back){
     // Clinic worker: open coat lapels and a clear medical cross on the chest.
     if(!side){
       put(12,12,2,7,'clothhi');put(18,12,2,7,'clothhi');
@@ -8789,13 +8791,13 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       case 'bodyhi':case 'armhi':case 'clothhi':return clothLight;
       case 'pants':case 'legfront':case 'shoe':case 'shoefront':return clothLower;
       case 'legshadow':case 'inkdetail':return ink;
-      case 'helm':case 'apron':case 'pack':case 'umb':case 'umbhi':return accentGarment;
+      case 'helm':case 'apron':case 'pack':case 'umb':case 'umbhi':case 'hairband':return accentGarment;
       case 'key':case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':return accentProp;
       default:return null;
     }
   };
   // Keep facial marks at true native 1x1 resolution despite logical block helpers.
-  if(!side&&!back&&!P.helm&&!P.hood){grid[10][28]='inkdetail';grid[10][36]='inkdetail';grid[16][32]='inkdetail';}
+  if(!side&&!back&&A.head!=='helmet'&&A.head!=='hood'){grid[10][28]='inkdetail';grid[10][36]='inkdetail';grid[16][32]='inkdetail';}
   if(side)grid[8][40]='skin';
   const colors=grid.map((row,yy)=>row.map((role,xx)=>role?colorFor(role,xx,yy):null));
   const finalGrid=colors.map(row=>row.slice());
