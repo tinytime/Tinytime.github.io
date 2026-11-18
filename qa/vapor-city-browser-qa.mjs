@@ -305,13 +305,19 @@ try {
   for (const direction of ['d', 'u', 'l', 'r']) {
     const view = archetypeSilhouettes.filter(item => item.direction === direction);
     for (let i = 0; i < view.length; i++) for (let j = i + 1; j < view.length; j++) {
-      let intersection = 0, union = 0, edgeRowsDifferentBy2 = 0;
+      let intersection = 0, union = 0, torsoIntersection = 0, torsoUnion = 0, edgeRowsDifferentBy2 = 0;
       for (let y = 0; y < 96; y++) {
         let leftA = 64, rightA = -1, leftB = 64, rightB = -1;
         for (let x = 0; x < 64; x++) {
           const a = view[i].maskRows[y][x] === '1', b = view[j].maskRows[y][x] === '1';
           if (a && b) intersection++;
           if (a || b) union++;
+          // Torso-only diagnostic excludes shared head and leg mass so those
+          // regions cannot make otherwise similar bodies look more distinct.
+          if (y >= 20 && y < 58) {
+            if (a && b) torsoIntersection++;
+            if (a || b) torsoUnion++;
+          }
           if (a) { leftA = Math.min(leftA, x); rightA = Math.max(rightA, x); }
           if (b) { leftB = Math.min(leftB, x); rightB = Math.max(rightB, x); }
         }
@@ -322,6 +328,7 @@ try {
         direction,
         pair: [view[i].archetype, view[j].archetype],
         iou: union ? intersection / union : 1,
+        torsoOnlyIou: torsoUnion ? torsoIntersection / torsoUnion : 1,
         edgeRowsDifferentBy2
       });
     }
@@ -336,8 +343,19 @@ try {
     pairsAtOrAboveTarget: silhouetteComparisons.filter(x => x.iou >= 0.85).length,
     minIoU: Math.min(...silhouetteComparisons.map(x => x.iou)),
     maxIoU: Math.max(...silhouetteComparisons.map(x => x.iou)),
+    minTorsoOnlyIoU: Math.min(...silhouetteComparisons.map(x => x.torsoOnlyIou)),
+    maxTorsoOnlyIoU: Math.max(...silhouetteComparisons.map(x => x.torsoOnlyIou)),
+    meanTorsoOnlyIoU: silhouetteComparisons.reduce((sum, x) => sum + x.torsoOnlyIou, 0) / silhouetteComparisons.length,
     minEdgeRowsDifferentBy2: Math.min(...silhouetteComparisons.map(x => x.edgeRowsDifferentBy2)),
     comparisons: silhouetteComparisons
+  };
+  const torsoOnlySilhouetteSummary = {
+    basis: 'Rows 20–57 only; excludes shared head and leg regions. Props remain excluded.',
+    minIoU: silhouetteBaseline.minTorsoOnlyIoU,
+    maxIoU: silhouetteBaseline.maxTorsoOnlyIoU,
+    meanIoU: silhouetteBaseline.meanTorsoOnlyIoU,
+    closestPairs: [...silhouetteComparisons].sort((a, b) => b.torsoOnlyIou - a.torsoOnlyIou).slice(0, 10),
+    lowestOverlapPairs: [...silhouetteComparisons].sort((a, b) => a.torsoOnlyIou - b.torsoOnlyIou).slice(0, 10)
   };
 
   const silhouetteQualityCheck = {
@@ -531,6 +549,7 @@ try {
       .filter(item => ['courier', 'trades', 'clinic', 'civic', 'vendor'].includes(item.archetype))
       .map(item => ({ archetype: item.archetype, direction: item.direction, maskRows: item.maskRows })),
     silhouetteBaseline,
+    torsoOnlySilhouetteSummary,
     silhouetteQualityCheck,
     worldState,
     galleryState,
