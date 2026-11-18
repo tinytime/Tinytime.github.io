@@ -709,7 +709,7 @@ try {
     comparisons: silhouetteComparisons
   };
   const torsoOnlySilhouetteSummary = {
-    basis: 'Renderer ARCHETYPE_TORSO_MASKS only: torso garment geometry from shoulders through hem; excludes head, arms, legs, and props.',
+    basis: 'Renderer ARCHETYPE_TORSO_MASKS expanded from logical 32x48 cells to native 64x96 pixels; torso garment geometry from shoulders through hem, excluding head, arms, legs, and props.',
     targetIoU: 0.85,
     maskCount: archetypeTorsoMasks.length,
     minIoU: silhouetteBaseline.minTorsoOnlyIoU,
@@ -724,7 +724,7 @@ try {
   };
 
   const torsoPairDiagnosticDataUrl = await page.evaluate(({ masks, pairs }) => {
-    const scale = 2, cropTop = 9, cropHeight = 20, rowHeight = 100;
+    const scale = 2, cropTop = 18, cropHeight = 40, rowHeight = 100;
     const canvas = document.createElement('canvas');
     canvas.width = 410;
     canvas.height = Math.max(1, pairs.length) * rowHeight;
@@ -762,7 +762,7 @@ try {
   const torsoPairDiagnostic = {
     path: 'torso-pair-diagnostics.png',
     pairCount: Math.min(8, torsoOnlySilhouetteSummary.closestPairs.length),
-    layout: 'Each row shows actual torso mask A, torso mask B, then their overlap (white pixels are shared); heads, arms, legs, and props are excluded.',
+    layout: 'Each row shows native-resolution torso mask A, torso mask B, then their overlap (white pixels are shared); masks are expanded 2x from the logical rig grid; heads, arms, legs, and props are excluded.',
     pairs: torsoOnlySilhouetteSummary.closestPairs.slice(0, 8)
   };
 
