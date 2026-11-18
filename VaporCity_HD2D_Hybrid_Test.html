@@ -9367,9 +9367,13 @@ window.SG={npcGalleryView:'all',npcGalleryDraw:canvas=>{
       c.restore();c.setTransform(1,0,0,1,0,0);
     }else{
       // Rebuild the shared civilian sprite for this archetype and facing before sampling it.
-      owCiv(0,0,d[1],false,n,0,ci,scale);
-      const sprite=owCiv._gridCanvas;
-      c.imageSmoothingEnabled=false;c.drawImage(sprite,cx-sourceW*scale/2,baseY-sourceH*scale,sourceW*scale,sourceH*scale);
+      // owCiv's final argument is a CanvasRenderingContext2D, not a scale.
+      // Render directly into the gallery at the same 4x inspection zoom as Granny.
+      n.rx=(cx/4-OWT/2)/OWT;
+      n.ry=(baseY/4-OWT+6)/OWT;
+      c.save();c.setTransform(4,0,0,4,0,0);
+      owCiv(0,0,d[1],false,n,0,ci,c);
+      c.restore();c.setTransform(1,0,0,1,0,0);
     }
     c.strokeStyle='#c9cbd0';c.lineWidth=1;c.beginPath();c.moveTo(ci*cellW+4,baseY);c.lineTo((ci+1)*cellW-4,baseY);c.stroke();
     const topY=baseY-(v[2]==='granny'?GRANNY_REF.totalHeight*GRANNY_REF.nativeScale*grannyZoom:GRANNY_REF.totalHeight*GRANNY_REF.nativeScale*4);
