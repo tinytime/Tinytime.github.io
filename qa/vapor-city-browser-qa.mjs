@@ -99,6 +99,16 @@ try {
   townSceneState.pass = townSceneState.mapId === 'street' && townSceneState.grannyPresent;
   await page.screenshot({ path: path.join(out, 'game-town-1x.png'), fullPage: true });
 
+  const grannyMeasurements = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcMeasureGranny !== 'function') throw new Error('Granny measurement hook is unavailable');
+    return window.SG.npcMeasureGranny();
+  });
+  const grannyMeasurementCheck = {
+    pass: grannyMeasurements.directions?.length === 4 &&
+      grannyMeasurements.directions.every(d => d.bodyHeight > 0 && d.headHeight > 0 && d.shoulderWidth > 0 && d.footRow >= 0),
+    directionCount: grannyMeasurements.directions?.length || 0
+  };
+
   const galleryToggle = page.locator('#owNpcGalleryToggle');
   const galleryState = await galleryToggle.evaluate(el => ({
     hidden: el.hidden,
@@ -194,6 +204,8 @@ try {
     townClickAttempted,
     townClickError,
     townSceneState,
+    grannyMeasurements,
+    grannyMeasurementCheck,
     worldState,
     galleryState,
     galleryToggleVisible,
@@ -210,7 +222,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !townSceneState.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
 } finally {
   await browser.close();
 }
