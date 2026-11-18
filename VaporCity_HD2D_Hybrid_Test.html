@@ -8592,41 +8592,46 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     return gridBase;
   };
   const occupied=(gx,gy)=>gx>=0&&gx<16&&gy>=0&&gy<32&&npcGrid[gy][gx]!=='.';
-  // Opaque material pass: no outlines or rim effects can erase the Base Hex fills.
-  for(let gy=0;gy<32;gy++)for(let gx=0;gx<16;gx++){const color=gridColor(gx,gy);if(color){g.fillStyle=color;g.fillRect(gridX+gx,gridY+gy,1,1)}}
-  // Fixed-size volume fills. Widths are literal 2, 3, 4, or 6 pixel values.
-  if(!side){
-    // Front/back arms: exactly 2x5; the right arm is entirely Shadow Hex.
-    g.fillStyle=body.base||P.body||gridBase;g.fillRect(gridX+3,gridY+6,2,5);
-    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+11,gridY+6,2,5);
-    // Torso is six pixels wide: 1 highlight, 2 base, 3 deep-shadow columns.
-    g.fillStyle=body.highlight||gridBase;g.fillRect(gridX+5,gridY+6,1,8);g.fillRect(gridX+5,gridY+15,1,3);
-    g.fillStyle=body.base||P.body||gridBase;g.fillRect(gridX+6,gridY+6,2,8);g.fillRect(gridX+6,gridY+14,4,1);g.fillRect(gridX+6,gridY+15,2,3);
-    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+8,gridY+6,3,8);g.fillRect(gridX+8,gridY+15,3,3);
-    // Legs are 2x7 each, split into a 2x3 thigh and 2x4 bent calf.
-    g.fillStyle=pants.base||P.pants||'#252535';
-    g.fillRect(gridX+3,gridY+20,2,3);
-    g.fillRect(gridX+6,gridY+20,2,3);
-    g.fillStyle=pants.shadow||body.shadow||'#20212a';
-    g.fillRect(gridX+2,gridY+23,2,4);
-    g.fillRect(gridX+7,gridY+23,2,4);
-    // The entire right leg is deep Shadow Hex.
-    g.fillRect(gridX+6,gridY+20,2,3);
-    g.fillRect(gridX+7,gridY+23,2,4);
-  }else{
-    // Side torso: exactly 4x6. Rear 2 pixels are 40%-darker Shadow Hex;
-    // forward 2 pixels are the Base Hex. Left-facing view is mirrored below.
-    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+7,gridY+6,2,6);
-    g.fillStyle=body.base||P.body||gridBase;g.fillRect(gridX+9,gridY+6,2,6);
-    // Visible profile arm and leg are both exactly two pixels wide.
-    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+11,gridY+8,2,5);
-    g.fillStyle=pants.shadow||'#20212a';g.fillRect(gridX+5,gridY+19,2,7);
-    // A stepped dark spine follows the rear contour instead of a straight edge.
-    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+6,gridY+8,1,1);g.fillRect(gridX+6,gridY+10,1,1);g.fillRect(gridX+7,gridY+12,1,1);
-    // Ink seam between the foreground arm and torso: shared edges are not outlined by the grid pass.
-    g.fillStyle=ink;g.fillRect(gridX+10,gridY+8,1,5);
-    // Direction-facing nose and the two-pixel forward shoe toe.
-    g.fillStyle=pants.shadow||'#20212a';g.fillRect(gridX+13,gridY+28,2,2);
+  // ISOLATED VOLUME DEBUG: render only solid Base/Shadow material blocks.
+  // This bypasses every ink contour, face detail, outfit overlay, and rim-light pass.
+  {
+    const baseHex=body.base||P.body||'#777777';
+    const shadowHex=body.shadow||gridBase;
+    const rects=[];
+    const block=(gx,gy,w,h,color)=>{g.fillStyle=color;g.fillRect(gridX+gx,gridY+gy,w,h);rects.push([gridX+gx,gridY+gy,w,h])};
+    if(!side){
+      // Diagnostic front torso: literal 6x6, left three Base / right three Shadow.
+      block(5,6,3,6,baseHex);
+      block(8,6,3,6,shadowHex);
+      // Thick limbs remain visible as solid two-pixel blocks.
+      block(3,6,2,5,baseHex);
+      block(11,6,2,5,shadowHex);
+      block(3,20,2,7,baseHex);
+      block(6,20,2,7,shadowHex);
+    }else{
+      // Diagnostic side torso: literal 4x6, rear two Shadow / front two Base.
+      block(7,6,2,6,shadowHex);
+      block(9,6,2,6,baseHex);
+      block(11,8,2,5,baseHex);
+      block(5,19,2,7,shadowHex);
+    }
+    // Mint only: red one-pixel rectangle around the exact occupied debug-array bounds.
+    if(kind==='runner'){
+      const minX=Math.min(...rects.map(r=>r[0])),minY=Math.min(...rects.map(r=>r[1]));
+      const maxX=Math.max(...rects.map(r=>r[0]+r[2])),maxY=Math.max(...rects.map(r=>r[1]+r[3]));
+      g.fillStyle='#ff2020';
+      g.fillRect(minX-1,minY-1,maxX-minX+2,1);
+      g.fillRect(minX-1,maxY,maxX-minX+2,1);
+      g.fillRect(minX-1,minY-1,1,maxY-minY+2);
+      g.fillRect(maxX,minY-1,1,maxY-minY+2);
+    }
+    g.restore();
+    // IMPORTANT: apply the sprite scale once. The former U*U shrank every pixel twice.
+    targetG.save();targetG.globalAlpha=1;targetG.globalCompositeOperation='source-over';targetG.filter='none';
+    targetG.shadowBlur=0;targetG.shadowColor='rgba(0,0,0,0)';
+    targetG.drawImage(rimCanvas,sx-24*U,sy-bob-48*U,64*U,64*U);
+    targetG.restore();
+    return;
   }
   // One-pixel #141622 outline around every occupied pixel; limbs retain a
   // two-pixel solid core plus their one-pixel outside contour.
