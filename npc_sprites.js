@@ -158,7 +158,7 @@
         masks[view]=source[view].map(([y,left,right])=>{
           const band=variant[y<=14?0:y<=20?1:2];
           if(!band)return [y,left,right];
-          const profileHemTrim=view==='side'&&y>=18&&['vendor','cook','busker'].includes(civ)?1:0;
+          const profileHemTrim=view==='side'&&y>=18&&['vendor','cook','busker'].includes(civ)?2:0;
           const l=view==='side'?Math.max(0,left+band+profileHemTrim):Math.max(0,left-band);
           const r=view==='side'?Math.min(31,right-band-profileHemTrim):Math.min(31,right+band);
           const mid=Math.floor((left+right)/2);
@@ -949,7 +949,7 @@
         // Keep both requested stride-gap columns empty; no shadow fill is painted here.
         // (The renderer's outer outline pass supplies edge definition.)
       }
-      if(P.scarf&&!back)put(10,10,12,3,'clothhi');
+      if(P.scarf&&!back){if(side)put(16,10,3,3,'clothhi');else put(10,10,12,3,'clothhi');}
       if(!qaExcludeProps&&P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
       if(!qaExcludeProps&&P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
       if(!qaExcludeProps&&P.keys)put(4,29,24,2,'key');
@@ -974,7 +974,7 @@
         if(ARCHETYPE_ACCESSORY_ROLES.has(role))paintProp(px,py,pw,ph,role);
         else put(px,py,pw,ph,role);
       }
-      if(P.long)put(10,22,12,2,'bodyshade');
+      if(P.long){if(side)put(15,22,3,2,'bodyshade');else put(10,22,12,2,'bodyshade');}
       // Give the footwear a dark sole and toe highlight using existing palette roles.
       if(!side){
         for(let xx=10;xx<=14;xx++)set(xx,39,'inkdetail');
