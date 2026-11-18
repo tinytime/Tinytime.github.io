@@ -36,6 +36,9 @@ const npcInventoryCheck = {
 };
 const npcInventoryData = JSON.parse(fs.readFileSync(path.join(root, 'qa', 'npc-inventory.json'), 'utf8'));
 const atlasOverrideIds = npcInventoryData.pixelPack.pxPersonAtlasNpcIds || [];
+const atlasOverrideRecords = npcInventoryData.npcs
+  .filter(npc => npc.pxPersonAtlasKey)
+  .map(npc => ({ npcId: npc.id, key: npc.pxPersonAtlasKey }));
 const atlasOverrideSet = new Set(atlasOverrideIds);
 const pixelPackImpact = {
   enabledOnlyWhen: npcInventoryData.pixelPack.enabledOnlyWhen,
@@ -464,9 +467,9 @@ try {
   let pixelPackAtlasCaptureError = null;
   try {
     await page.waitForFunction(() => !!(window.PXA && window.PXA.info && window.PXA.info().ok && window.PXA.S && window.PXA.S.img), null, { timeout: 5000 });
-    const atlasFrames = await page.evaluate(() => {
+    const atlasFrames = await page.evaluate(records => {
       const pack = window.PXA.S;
-      return Object.entries(window.PXN || {}).map(([npcId, key]) => {
+      return records.map(({ npcId, key }) => {
         const entry = pack.f && pack.f[key];
         if (!entry) return { npcId, key, error: 'Atlas entry missing' };
         const canvas = document.createElement('canvas');
@@ -477,7 +480,7 @@ try {
         ctx.drawImage(pack.img, entry.x, entry.y, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
         return { npcId, key, frameWidth: entry.w, frameHeight: entry.h, frameCount: entry.n, dataUrl: canvas.toDataURL('image/png') };
       });
-    });
+    }, atlasOverrideRecords);
     const atlasDir = path.join(out, 'pixel-pack-overrides');
     fs.mkdirSync(atlasDir, { recursive: true });
     for (const item of atlasFrames) {
