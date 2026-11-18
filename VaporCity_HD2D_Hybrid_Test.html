@@ -9397,6 +9397,7 @@ window.SG={npcGalleryView:'all',npcGalleryDraw:canvas=>{
       if(!c)return;
       c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';
       c.clearRect(0,0,canvas.width,canvas.height);
+      canvas.dataset.renderError='';
       c.fillStyle='#100f1d';c.fillRect(0,0,canvas.width,canvas.height);
       try{
         const draw=window.SG&&window.SG.npcGalleryDraw;
@@ -9408,6 +9409,7 @@ window.SG={npcGalleryView:'all',npcGalleryDraw:canvas=>{
         draw(canvas);
       }catch(err){
         console.error('[NPC gallery] render failed',err);
+        canvas.dataset.renderError=String(err&&err.stack||err);
         c.fillStyle='#ff9b9b';c.font='bold 13px system-ui';c.textAlign='center';
         c.fillText('Gallery render error — see console',canvas.width/2,canvas.height/2);
       }
