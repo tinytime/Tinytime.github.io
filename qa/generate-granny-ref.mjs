@@ -10,11 +10,19 @@ const expectedDirections = ['d', 'u', 'l', 'r'];
 if (!Array.isArray(ref.directions) || ref.directions.map(d => d.direction).join(',') !== expectedDirections.join(',')) {
   throw new Error('Granny reference must contain d/u/l/r measurements in order');
 }
+const frontReference = ref.directions[0];
+if (!frontReference || frontReference.direction !== 'd' ||
+    frontReference.bodyHeight !== ref.bodyHeight ||
+    frontReference.headHeight !== ref.headHeight ||
+    frontReference.shoulderWidth !== ref.shoulderWidth ||
+    frontReference.footRow !== ref.footRow ||
+    frontReference.totalHeight !== ref.totalHeight) {
+  throw new Error('Top-level Granny reference summary must match the front-facing direction');
+}
 for (const d of ref.directions) {
   if (d.bodyHeight !== ref.bodyHeight || d.headHeight !== ref.headHeight ||
-      d.shoulderWidth !== ref.shoulderWidth || d.footRow !== ref.footRow ||
-      d.totalHeight !== ref.totalHeight) {
-    throw new Error('Direction ' + d.direction + ' does not match the reference summary');
+      d.footRow !== ref.footRow || d.totalHeight !== ref.totalHeight) {
+    throw new Error('Direction ' + d.direction + ' has an unexpected height or foot baseline');
   }
 }
 if (ref.umbrellaExclusion !== 'The measurement pass skips the canopy path and shaft line; it retains the gripping hand and arm. Contact shadow and foot glow are disabled.') {
