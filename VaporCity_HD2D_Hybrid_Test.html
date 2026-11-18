@@ -9350,15 +9350,15 @@ window.SG={npcGalleryView:'d',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
   c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#100f1d';c.fillRect(0,0,canvas.width,canvas.height);
   const tests=[['GRANNY','granny'],['MINT','runner'],['ORANGE','courier'],['GUARD','guard'],['VENDOR','vendor'],['CLINIC','clinic']];
-  const cellW=canvas.width/tests.length,scale=3,baseY=294,sourceW=64,sourceH=96,labelY=322;
-  const scratch=owCiv._galleryScratch||(owCiv._galleryScratch=document.createElement('canvas'));scratch.width=sourceW;scratch.height=sourceH;
+  const cellW=canvas.width/tests.length,scale=3,grannyScale=2,baseY=294,sourceW=64,sourceH=96,grannyW=100,grannyH=140,labelY=322;
+  const scratch=owCiv._galleryScratch||(owCiv._galleryScratch=document.createElement('canvas'));scratch.width=grannyW;scratch.height=grannyH;
   const sc=scratch.getContext('2d');sc.imageSmoothingEnabled=false;const view=window.SG.npcGalleryView||'d';
   tests.forEach((v,i)=>{
     const cx=i*cellW+cellW/2,n={id:v[1]==='granny'?'granny':'gallery-'+v[1],civ:v[1],x:0,y:0};
-    sc.setTransform(1,0,0,1,0,0);sc.clearRect(0,0,sourceW,sourceH);
+    sc.setTransform(1,0,0,1,0,0);sc.clearRect(0,0,grannyW,grannyH);
     owCiv(0,0,v[1]==='granny'?'d':view,false,n,0,i,sc);
-    const sprite=v[1]==='granny'?scratch:(owCiv._gridCanvas||scratch);
-    c.imageSmoothingEnabled=false;c.drawImage(sprite,cx-sourceW*scale/2,baseY-sourceH*scale,sourceW*scale,sourceH*scale);
+    if(v[1]==='granny'){c.imageSmoothingEnabled=false;c.drawImage(scratch,cx-grannyW*grannyScale/2,baseY-grannyH*grannyScale,grannyW*grannyScale,grannyH*grannyScale);}
+    else {const sprite=owCiv._gridCanvas||scratch;c.imageSmoothingEnabled=false;c.drawImage(sprite,cx-sourceW*scale/2,baseY-sourceH*scale,sourceW*scale,sourceH*scale);}
     c.fillStyle='#d9d4e8';c.font='bold 16px system-ui';c.textAlign='center';c.fillText(v[0],cx,labelY);
     if(v[1]==='granny'){c.fillStyle='#8debf0';c.font='12px system-ui';c.fillText('front only',cx,labelY+17)}
     c.strokeStyle='rgba(116,104,150,.28)';c.lineWidth=1;c.beginPath();c.moveTo((i+1)*cellW,24);c.lineTo((i+1)*cellW,canvas.height-18);c.stroke();
