@@ -96,12 +96,12 @@ const inventoryNpcs = npcs.map(npc => {
     rendererPath = 'pxCat atlas override -> owCat fallback';
     inScope = true;
   } else {
-    // These records are placed in explorable town/crew maps, not on-field rosters.
-    // A new owFig NPC must be explicitly classified before the inventory can pass.
-    const townOwFigIds = new Set(['cat1','cat2','drift1','drift2','hb_bram','hb_deke','hb_marla','hb_rita','king1','king2','lou','mack','mate1','mo','pete','r2_mud','rat2','rusty']);
-    if (!townOwFigIds.has(npc.id)) throw new Error('Unclassified owFig/renderPerson NPC: ' + npc.id + ' (owner scope decision required)');
-    rendererPath = 'owFig -> renderPerson (town NPC)';
-    inScope = true;
+    // These 18 legacy owFig records are explicitly excluded from the standard-NPC art pass.
+    // They are neither town civilians nor football NPCs for this inventory's scope.
+    const outOfScopeOwFigIds = new Set(['cat1','cat2','drift1','drift2','hb_bram','hb_deke','hb_marla','hb_rita','king1','king2','lou','mack','mate1','mo','pete','r2_mud','rat2','rusty']);
+    if (!outOfScopeOwFigIds.has(npc.id)) throw new Error('Unclassified owFig/renderPerson NPC: ' + npc.id + ' (owner scope decision required)');
+    rendererPath = 'owFig -> renderPerson (non-standard, out of scope)';
+    inScope = false;
   }
   return {
     id: npc.id,
