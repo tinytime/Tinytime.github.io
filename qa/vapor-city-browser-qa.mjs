@@ -769,12 +769,13 @@ try {
 
   let atlasComparisonData = [];
   let atlasComparisonError = null;
+  let atlasComparisonScaleAudit = null;
   try {
     atlasComparisonData = await page.evaluate(() => {
       if (!window.SG || typeof window.SG.npcRenderAtlasComparisonSnapshots !== 'function') throw new Error('Atlas comparison hook is unavailable');
       return window.SG.npcRenderAtlasComparisonSnapshots();
     });
-    const atlasComparisonScaleAudit = await page.evaluate(async items => {
+    atlasComparisonScaleAudit = await page.evaluate(async items => {
       const measure = async dataUrl => {
         const image = new Image(); image.src = dataUrl; await image.decode();
         const canvas = document.createElement('canvas'); canvas.width = image.width; canvas.height = image.height;
