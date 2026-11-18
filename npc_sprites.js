@@ -940,7 +940,8 @@
           case 'hairband':return typeof P.band==='string'?P.band:accentGarment;
           case 'labcoat':return typeof P.labcoat==='string'?P.labcoat:accentGarment;
           case 'key':return accentProp;
-          case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'foamfinger':case 'pennant':case 'megaphone':case 'rallytowel':case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return PROP_ROLE_COLORS[role]||accentProp;
+          case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'foamfinger':case 'pennant':case 'megaphone':case 'rallytowel':return kind==='fan'&&FAN_VARIANT_PALETTES[n.id]?.trim?FAN_VARIANT_PALETTES[n.id].trim:(PROP_ROLE_COLORS[role]||accentProp);
+          case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return PROP_ROLE_COLORS[role]||accentProp;
           default:return null;
         }
       };
@@ -981,28 +982,54 @@
       }
       const fanJerseyStyles={
         driverA:'stripes',fan1:'crest',fan2:'bars',fanA:'sash',fanB:'split',
-        fanC:'stripes',fanD:'crest',gamer1:'bars',hb_denny:'sash',hb_pete:'split',
-        hb_shopper:'stripes',hb_splinter:'crest',hb_wick:'bars',patient1:'sash',
-        r2_saltwife:'split',r2_stack:'stripes',regular1:'crest',shopper1:'bars',
-        wait1:'sash',wait2:'split'
+        fanC:'chevron',fanD:'checker',gamer1:'ring',hb_denny:'star',hb_pete:'number',
+        hb_shopper:'vertical',hb_splinter:'horizontal',hb_wick:'diagonal',patient1:'patch',
+        r2_saltwife:'cross',r2_stack:'diamond',regular1:'piping',shopper1:'shoulder',
+        wait1:'lightning',wait2:'panel'
       };
       const fanJerseyStyle=kind==='fan'?(fanJerseyStyles[n.id]||'stripes'):null;
       // Give fan jerseys readable garment construction, not just a new swatch.
       // These small motifs sit on the chest and never cover the foam-finger prop.
-      if(kind==='fan'&&!back&&!side){
-        if(fanJerseyStyle==='stripes'){
-          for(let yy=13;yy<=21;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
-        }else if(fanJerseyStyle==='crest'){
-          [[15,13],[14,14],[16,14],[15,15],[15,16]].forEach(([x,y])=>set(x,y,'clothhi'));
-          set(15,14,'bodyhi');
-        }else if(fanJerseyStyle==='bars'){
-          for(const yy of [13,17,21])for(let xx=12;xx<=19;xx++)set(xx,yy,'clothhi');
-        }else if(fanJerseyStyle==='sash'){
-          for(let yy=13;yy<=21;yy++)set(12+Math.floor((yy-13)/2),yy,'clothhi');
-          for(let yy=14;yy<=20;yy++)set(13+Math.floor((yy-14)/2),yy,'bodyhi');
-        }else if(fanJerseyStyle==='split'){
-          for(let yy=13;yy<=21;yy++){set(15,yy,'clothhi');set(16,yy,'bodyhi')}
-          for(let xx=12;xx<=14;xx++)set(xx,20,'clothhi');
+      if(kind==='fan'){
+        const motif=fanJerseyStyle;
+        if(!back&&!side){
+          switch(motif){
+            case 'stripes':for(let yy=13;yy<=21;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}break;
+            case 'crest':[[15,13],[14,14],[16,14],[15,15],[15,16]].forEach(([x,y])=>set(x,y,'clothhi'));set(15,14,'bodyhi');break;
+            case 'bars':for(const yy of [13,17,21])for(let xx=12;xx<=19;xx++)set(xx,yy,'clothhi');break;
+            case 'sash':for(let yy=13;yy<=21;yy++)set(12+Math.floor((yy-13)/2),yy,'clothhi');for(let yy=14;yy<=20;yy++)set(13+Math.floor((yy-14)/2),yy,'bodyhi');break;
+            case 'split':for(let yy=13;yy<=21;yy++){set(15,yy,'clothhi');set(16,yy,'bodyhi')}for(let xx=12;xx<=14;xx++)set(xx,20,'clothhi');break;
+            case 'chevron':for(let i=0;i<5;i++){set(12+i,14+i,'clothhi');set(19-i,14+i,'clothhi')}break;
+            case 'checker':for(let yy=14;yy<=20;yy+=2)for(let xx=13;xx<=19;xx+=2)set(xx,yy,'clothhi');break;
+            case 'ring':for(let xx=13;xx<=18;xx++){set(xx,14,'clothhi');set(xx,19,'clothhi')}set(13,16,'clothhi');set(18,16,'clothhi');break;
+            case 'star':[[16,13],[15,14],[16,14],[17,14],[14,15],[18,15],[15,16],[16,16],[17,16]].forEach(([x,y])=>set(x,y,'clothhi'));break;
+            case 'number':for(let yy=14;yy<=20;yy++)set(15,yy,'clothhi');for(let xx=15;xx<=18;xx++)set(xx,14,'clothhi');set(18,15,'clothhi');set(15,17,'clothhi');for(let xx=15;xx<=18;xx++)set(xx,20,'clothhi');break;
+            case 'vertical':for(let xx of [13,16,19])for(let yy=13;yy<=21;yy++)set(xx,yy,'clothhi');break;
+            case 'horizontal':for(const yy of [15,19])for(let xx=12;xx<=19;xx++)set(xx,yy,'clothhi');break;
+            case 'diagonal':for(let yy=13;yy<=21;yy++)set(19-Math.floor((yy-13)/2),yy,'clothhi');break;
+            case 'patch':put(13,14,4,4,'bodyshade');set(14,15,'clothhi');set(15,15,'clothhi');set(14,16,'clothhi');break;
+            case 'cross':for(let yy=14;yy<=20;yy++)set(16,yy,'clothhi');for(let xx=13;xx<=19;xx++)set(xx,17,'clothhi');break;
+            case 'diamond':for(let i=0;i<4;i++){set(16,14+i,'clothhi');set(15-i,17+i,'clothhi');set(17+i,17+i,'clothhi')}break;
+            case 'piping':for(let yy=12;yy<=22;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}set(13,12,'clothhi');set(18,12,'clothhi');break;
+            case 'shoulder':put(11,11,3,4,'clothhi');put(18,11,3,4,'clothhi');for(let yy=15;yy<=21;yy++)set(16,yy,'bodyshade');break;
+            case 'lightning':for(let yy=13;yy<=21;yy++)set(yy%2?14:18,yy,'clothhi');break;
+            case 'panel':put(14,13,5,9,'bodyshade');for(const yy of [15,18,21])set(16,yy,'clothhi');break;
+          }
+        }else if(back){
+          if(motif==='stripes'||motif==='vertical'||motif==='piping')for(let yy=13;yy<=22;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
+          else if(motif==='bars'||motif==='horizontal')for(const yy of [14,18,22])for(let xx=12;xx<=19;xx++)set(xx,yy,'clothhi');
+          else if(motif==='sash'||motif==='diagonal'||motif==='lightning')for(let yy=13;yy<=21;yy++)set(12+Math.floor((yy-13)/2),yy,'clothhi');
+          else if(motif==='split'||motif==='number'||motif==='panel')for(let yy=13;yy<=22;yy++)set(16,yy,'clothhi');
+          else if(motif==='checker')for(let yy=14;yy<=20;yy+=2)for(let xx=13;xx<=19;xx+=2)set(xx,yy,'clothhi');
+          else if(motif==='cross'){for(let yy=14;yy<=20;yy++)set(16,yy,'clothhi');for(let xx=13;xx<=19;xx++)set(xx,17,'clothhi');}
+          else {set(15,14,'clothhi');set(16,14,'clothhi');set(15,15,'clothhi');}
+        }else{
+          set(18,14,'clothhi');
+          if(motif==='stripes'||motif==='vertical'||motif==='piping')for(let yy=13;yy<=21;yy++)set(18,yy,'clothhi');
+          else if(motif==='bars'||motif==='horizontal')for(const yy of [15,19])set(18,yy,'clothhi');
+          else if(motif==='sash'||motif==='diagonal'||motif==='lightning')for(let yy=14;yy<=20;yy++)set(18-Math.floor((yy-14)/2),yy,'clothhi');
+          else if(motif==='split'||motif==='number'||motif==='panel')for(let yy=13;yy<=21;yy++)set(17,yy,'bodyshade');
+          else set(17,16,'clothhi');
         }
       }
       const colors=grid.map((row,yy)=>row.map((role,xx)=>role?colorFor(role,xx,yy):null));
