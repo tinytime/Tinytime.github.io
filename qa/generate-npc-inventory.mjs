@@ -29,7 +29,7 @@ function objectEnd(text, start) {
 function objectMap(label) {
   const match = source.match(new RegExp('\\bconst\\s+' + label + '\\s*=\\s*Object\\.freeze\\s*\\(\\s*\\{([\\s\\S]*?)\\}\\s*\\);'));
   if (!match) throw new Error('Missing ' + label + ' table');
-  return Object.fromEntries([...match[1].matchAll(/([A-Za-z0-9_]+)\\s*:\\s*'([^']+)'/g)].map(m => [m[1], m[2]]));
+  return Object.fromEntries([...match[1].matchAll(/([A-Za-z0-9_]+)\s*:\s*'([^']+)'/g)].map(m => [m[1], m[2]]));
 }
 
 const scopePolicyPath = path.join(root, 'qa', 'npc-scope-policy.json');
