@@ -209,6 +209,7 @@
       elder:makeArchetypeRig({armSpread:-1,leftArmY:2,rightArmY:2,leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegX:-2,rightLegX:-1,leftLegY:2,rightLegY:2,leftLegW:-1,rightLegW:-1,sideArmX:-3,sideArmY:3})
     });
     // Character-level limb silhouettes add stance and shoulder variation within jobs.
+    // Keep profession-specific shoulder and stance profiles readable at native scale.
     const CIV_RIG_VARIANTS=Object.freeze({
       coach:{armSpread:2,armY:1,legSpread:2,legW:1},
       ref:{armSpread:-2,armY:-1,legSpread:-2},
