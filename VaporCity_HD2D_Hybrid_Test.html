@@ -8553,10 +8553,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     "................","................","...AABBBBBBAA...","...AABBBBBBAA...",
     "...AABBBBBBAA...","...AABBBBBBAA...","...AABBBBBBAA...","...AABBBBBBAA...",
     "....AABBBBAA....","....AABBBBAA....","....AABBBBAA....","....AABBBBAA....",
-    "......BBBB......","......BBBB......",".....PP..PP.....",".....PP..PP.....",
+    "......BBBB......","......BBBB......","...PP.PP........","...PP.PP........",
     "....PP....PP....","....PP....PP....","....PP....PP....","....PP....PP....",
-    "....PP....PP....","....PP....PP....","...PP......PP...","...PP......PP...",
-    "...PP......PP...","...PP......PP...","...PPP....PPP...","................"
+    "....PP....PP....","....PP....PP....","..PP...PP.......","..PP...PP.......",
+    "..PP...PP.......","..PP...PP.......","..PPP..PPP......","................"
   ];
   const npcGrid=frontTemplate.map(row=>row.split(''));
   if(side){
@@ -8582,8 +8582,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     if(cell==='B'){
       if(side)return gx>=9?(body.highlight||gridBase):gx===8?gridBase:(body.shadow||gridBase);
       // Front and back torsos: explicit highlight | base | deep-shadow columns.
-      if(gx<=6)return body.highlight||gridBase;
-      if(gx>=8)return body.shadow||gridBase;
+      // Six-pixel torso is hard-partitioned: 1 highlight, 2 base, 3 deep-shadow.
+      // B occupies gx 5..10 in the fixed 16x32 template.
+      if(gx===5)return body.highlight||gridBase;
+      if(gx===6||gx===7)return gridBase;
+      if(gx===8||gx===9||gx===10)return body.shadow||gridBase;
       return gridBase;
     }
     return gridBase;
