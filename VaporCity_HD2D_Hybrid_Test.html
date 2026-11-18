@@ -8682,6 +8682,7 @@ const ARCHETYPE_PROP_LAYERS=Object.freeze({
   civic:{types:{front:'clipboard',side:'clipboard',back:'coat-tail'},front:[[1,18,5,10,'briefcase'],[7,18,3,4,'clipboard']],back:[[26,18,5,10,'briefcase'],[21,18,3,4,'clipboard']],side:[[26,18,5,10,'briefcase'],[17,17,3,4,'clipboard']]},
   elder:{types:{front:'cardigan-pin',side:'cardigan-back',back:'cardigan-back'},front:[[21,19,2,2,'whistle']],back:[],side:[]}
 });
+const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella']);
 function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
   const kind=n.civ;
   if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
