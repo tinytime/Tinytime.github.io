@@ -9539,15 +9539,19 @@ function measureGrannyVoltNative(){
       footRow:body.maxY,totalHeight:full.height,
       fullBounds:{minX:full.minX,maxX:full.maxX,minY:full.minY,maxY:full.maxY,width:full.width,height:full.height}};
   });
-  const front=directions[0],screenScale=scale;
+  const front=directions[0],screenScale=scale,canvasRect=owc.getBoundingClientRect();
+  const screenScaleX=canvasRect.width/owc.width,screenScaleY=canvasRect.height/owc.height;
   return {nativeGrid:{width:canvasWidth,height:canvasHeight,originOffsetY:originY,alphaThreshold:1,
       umbrellaExclusion:'The measurement pass skips the canopy path and shaft line; it retains the gripping hand and arm. Contact shadow and foot glow are disabled.'},
     measurementRows:{neckRow:49,shoulderRow:50,shoulderRowRule:'Fixed local source row 50; shoulder contour begins around local row 46.'},
     directions,
-    inGame:{mapTileSize:OWT,rendererScale:screenScale,bodyWidthPixels:front.bodyBounds.width*screenScale,
+    inGame:{mapTileSize:OWT,cameraZoom:OW.z||1,rendererScale:screenScale,bodyWidthPixels:front.bodyBounds.width*screenScale,
       bodyHeightPixels:front.bodyHeight*screenScale,fullHeightPixels:front.totalHeight*screenScale,
-      bodyHeightInTiles:front.bodyHeight*screenScale/OWT,
-      canvasCss:{width:owc.getBoundingClientRect().width,height:owc.getBoundingClientRect().height},
+      bodyHeightInTiles:front.bodyHeight*screenScale/OWT,screenScaleX,screenScaleY,
+      bodyWidthCssPixels:front.bodyBounds.width*screenScale*screenScaleX,
+      bodyHeightCssPixels:front.bodyHeight*screenScale*screenScaleY,
+      fullHeightCssPixels:front.totalHeight*screenScale*screenScaleY,
+      canvasCss:{width:canvasRect.width,height:canvasRect.height},
       canvasBacking:{width:owc.width,height:owc.height},deviceScale:owDpr}};
 }
 window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcGalleryView:'all',npcGalleryDraw:canvas=>{
