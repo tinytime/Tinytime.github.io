@@ -584,11 +584,13 @@ try {
     pass: silhouetteBaseline.pairCount === 180 &&
       silhouetteBaseline.pairsBelowTarget === silhouetteBaseline.pairCount &&
       silhouetteBaseline.pairsAtOrAboveTarget === 0 &&
-      silhouetteBaseline.minEdgeRowsDifferentBy2 >= 6,
+      silhouetteBaseline.minEdgeRowsDifferentBy2 >= 6 &&
+      torsoOnlySilhouetteSummary.pass,
     pairCount: silhouetteBaseline.pairCount,
     pairsBelowTarget: silhouetteBaseline.pairsBelowTarget,
     pairsAtOrAboveTarget: silhouetteBaseline.pairsAtOrAboveTarget,
     failingOverlapPairs: silhouetteComparisons.filter(x => x.iou >= 0.85),
+    failingTorsoOnlyPairs: torsoOnlySilhouetteSummary.failingPairs,
     failingEdgePairs: silhouetteComparisons.filter(x => x.edgeRowsDifferentBy2 < 6),
     minIoU: silhouetteBaseline.minIoU,
     maxIoU: silhouetteBaseline.maxIoU,
