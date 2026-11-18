@@ -185,7 +185,7 @@ try {
     return window.SG.npcMeasureArchetypeMasks({ excludeProps: true });
   });
   const silhouetteComparisons = [];
-  for (const direction of ['d', 'u', 'r']) {
+  for (const direction of ['d', 'u', 'l', 'r']) {
     const view = archetypeSilhouettes.filter(item => item.direction === direction);
     for (let i = 0; i < view.length; i++) for (let j = i + 1; j < view.length; j++) {
       let intersection = 0, union = 0, edgeRowsDifferentBy2 = 0;
@@ -211,7 +211,7 @@ try {
   }
   const silhouetteBaseline = {
     archetypeCount: new Set(archetypeSilhouettes.map(x => x.archetype)).size,
-    viewCount: 3,
+    viewCount: 4,
     pairCount: silhouetteComparisons.length,
     targetIoU: 0.85,
     maskBasis: 'Body and clothing silhouettes; handheld props, bags, and gear excluded.',
@@ -226,7 +226,7 @@ try {
   const silhouetteQualityCheck = {
     // Reject trivial one-row edge edits: a distinct body silhouette must
     // hold its contour difference across at least six torso/head scanlines.
-    pass: silhouetteBaseline.pairCount === 135 &&
+    pass: silhouetteBaseline.pairCount === 180 &&
       silhouetteBaseline.pairsBelowTarget === silhouetteBaseline.pairCount &&
       silhouetteBaseline.pairsAtOrAboveTarget === 0 &&
       silhouetteBaseline.minEdgeRowsDifferentBy2 >= 6,
@@ -239,7 +239,7 @@ try {
     maxIoU: silhouetteBaseline.maxIoU,
     minEdgeRowsDifferentBy2: silhouetteBaseline.minEdgeRowsDifferentBy2,
     minimumDistinctEdgeRows: 6,
-    requirements: 'All 135 archetype pairs must have IoU < 0.85 in each tested view; every pair must differ by at least 2 px across at least six torso/head edge rows.'
+    requirements: 'All 180 archetype pairs must have IoU < 0.85 in all four directions; every pair must differ by at least 2 px across at least six torso/head edge rows.'
   };
 
   const galleryToggle = page.locator('#owNpcGalleryToggle');
