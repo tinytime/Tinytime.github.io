@@ -134,14 +134,14 @@
     // palette-only swaps. Each type gets its own cloned mask; archetype templates
     // remain immutable and are never cumulatively modified.
     const CIV_TORSO_VARIANTS=Object.freeze({
-      runner:[-1,0,1],coach:[0,1,0],ref:[1,-1,0],
-      courier:[-1,1,-1],guard:[1,0,-1],
-      vendor:[-1,-1,1],cook:[1,1,0],
-      clinic:[0,-1,1],tech:[1,0,1],hacker:[-1,1,0],
-      fisher:[1,-1,1],sailor:[-1,0,-1],slicker:[0,1,1],painter:[1,1,-1],welder:[-1,-1,0],
-      kid:[-1,0,1],kid2:[1,0,-1],mouse:[0,1,0],
-      busker:[-1,1,1],dancer:[1,-1,-1],
-      broker:[-1,0,0],usher:[0,-1,0],fan:[1,1,1]
+      runner:[0,0,0],coach:[-2,1,2],ref:[2,-2,-1],
+      courier:[-1,2,-2],guard:[2,0,-2],
+      vendor:[-2,-2,2],cook:[2,2,-1],
+      clinic:[0,-2,2],tech:[2,0,2],hacker:[-2,2,-1],
+      fisher:[2,-2,2],sailor:[-2,0,-2],slicker:[0,2,2],painter:[2,2,-2],welder:[-2,-2,0],
+      kid:[-2,0,2],kid2:[2,0,-2],mouse:[0,2,0],
+      busker:[-2,2,2],dancer:[2,-2,-2],
+      broker:[-2,0,0],usher:[0,-2,0],fan:[2,2,2]
     });
     const CIV_TORSO_MASKS=Object.freeze(Object.fromEntries(Object.entries(CIV_TORSO_VARIANTS).map(([civ,variant])=>{
       const source=ARCHETYPE_TORSO_MASKS[ARCHETYPES[CIV_TO_ARCHETYPE[civ]].torso];
@@ -150,7 +150,7 @@
         masks[view]=source[view].map(([y,left,right])=>{
           const band=variant[y<=14?0:y<=20?1:2];
           if(!band)return [y,left,right];
-          return view==='side'?[y,left+band,right-band]:[y,left-band,right+band];
+          return view==='side'?[y,Math.max(0,left+band),Math.min(31,right-band)]:[y,Math.max(0,left-band),Math.min(31,right+band)];
         });
         Object.freeze(masks[view]);
       }
@@ -210,28 +210,28 @@
     });
     // Character-level limb silhouettes add stance and shoulder variation within jobs.
     const CIV_RIG_VARIANTS=Object.freeze({
-      coach:{armSpread:1,armY:1,legSpread:1,legW:1},
-      ref:{armSpread:-1,armY:-1,legSpread:-1},
+      coach:{armSpread:2,armY:1,legSpread:2,legW:1},
+      ref:{armSpread:-2,armY:-1,legSpread:-2},
       courier:{armSpread:1,armY:1,legSpread:-1},
       guard:{armSpread:1,armY:-1,legSpread:1,legW:1},
       vendor:{armSpread:-1,armY:1,legSpread:1},
-      cook:{armSpread:1,armY:-1,legSpread:-1,legW:1},
+      cook:{armSpread:2,armY:-1,legSpread:-2,legW:1},
       clinic:{armSpread:-1,armY:1,legSpread:1,legW:1},
-      tech:{armSpread:1,armY:-1,legSpread:-1},
-      hacker:{armSpread:-1,armY:-1,legSpread:1,legW:-1},
-      fisher:{armSpread:1,armY:0,legSpread:1,legW:1},
-      sailor:{armSpread:-1,armY:1,legSpread:-1},
-      slicker:{armSpread:0,armY:-1,legSpread:1,legW:-1},
-      painter:{armSpread:-1,armY:1,legSpread:0,legW:1},
-      welder:{armSpread:1,armY:0,legSpread:-1},
+      tech:{armSpread:2,armY:-1,legSpread:-2},
+      hacker:{armSpread:-2,armY:-1,legSpread:2,legW:-1},
+      fisher:{armSpread:2,armY:0,legSpread:2,legW:1},
+      sailor:{armSpread:-2,armY:1,legSpread:-2},
+      slicker:{armSpread:0,armY:-1,legSpread:2,legW:-1},
+      painter:{armSpread:-2,armY:1,legSpread:0,legW:2},
+      welder:{armSpread:2,armY:0,legSpread:-2},
       kid:{armSpread:-1,armY:1,legSpread:-1,legW:-1},
       kid2:{armSpread:1,armY:-1,legSpread:1,legW:1},
       mouse:{armSpread:0,armY:-1,legSpread:0,legW:-1},
-      busker:{armSpread:1,armY:-1,legSpread:1,legW:1},
-      dancer:{armSpread:-1,armY:1,legSpread:-1,legW:-1},
-      broker:{armSpread:1,armY:-1,legSpread:-1,legW:1},
-      usher:{armSpread:-1,armY:1,legSpread:1,legW:-1},
-      fan:{armSpread:1,armY:-1,legSpread:0}
+      busker:{armSpread:2,armY:-1,legSpread:1,legW:1},
+      dancer:{armSpread:-2,armY:1,legSpread:-1,legW:-1},
+      broker:{armSpread:2,armY:-1,legSpread:-2,legW:1},
+      usher:{armSpread:-2,armY:1,legSpread:2,legW:-1},
+      fan:{armSpread:-2,armY:1,legSpread:1}
     });
     const CIV_RIG_PARTS=Object.freeze(Object.fromEntries(Object.entries(CIV_TO_ARCHETYPE).map(([civ,archetype])=>{
       const base=ARCHETYPE_RIG_PARTS[archetype],spec=CIV_RIG_VARIANTS[civ]||{};
