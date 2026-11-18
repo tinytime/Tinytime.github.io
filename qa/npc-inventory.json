@@ -100,18 +100,18 @@
     {
       "id": "cat1",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "cat2",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "courier",
@@ -124,18 +124,18 @@
     {
       "id": "drift1",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "drift2",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "driverA",
@@ -304,10 +304,10 @@
     {
       "id": "hb_bram",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "hb_cadogan",
@@ -352,10 +352,10 @@
     {
       "id": "hb_deke",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "hb_denny",
@@ -480,10 +480,10 @@
     {
       "id": "hb_marla",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "hb_marty",
@@ -592,10 +592,10 @@
     {
       "id": "hb_rita",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "hb_runner",
@@ -721,34 +721,34 @@
     {
       "id": "king1",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "king2",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "lou",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "mack",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "manager",
@@ -761,10 +761,10 @@
     {
       "id": "mate1",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "mate2",
@@ -777,10 +777,10 @@
     {
       "id": "mo",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "mouse",
@@ -817,10 +817,10 @@
     {
       "id": "pete",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "pharmacist",
@@ -897,10 +897,10 @@
     {
       "id": "r2_mud",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "r2_noll",
@@ -1033,10 +1033,10 @@
     {
       "id": "rat2",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "regular1",
@@ -1081,10 +1081,10 @@
     {
       "id": "rusty",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (town NPC)",
-      "scopeClass": "town",
+      "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "scriptkid",
@@ -1150,5 +1150,25 @@
       "pxPersonAtlasOverride": false,
       "inScope": true
     }
+  ],
+  "outOfScopeNpcIds": [
+    "cat1",
+    "cat2",
+    "drift1",
+    "drift2",
+    "hb_bram",
+    "hb_deke",
+    "hb_marla",
+    "hb_rita",
+    "king1",
+    "king2",
+    "lou",
+    "mack",
+    "mate1",
+    "mo",
+    "pete",
+    "r2_mud",
+    "rat2",
+    "rusty"
   ]
 }
