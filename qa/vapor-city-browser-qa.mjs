@@ -67,6 +67,12 @@ const pixelPackImpact = {
   recommendation: 'Keep side-facing atlas overrides only; vertical-facing NPCs fall back to owCiv so they retain correct back/front views.'
 };
 
+const atlasVerticalFallbackAudit = {
+  expectedVerticalFallbackIds: ['fanA','fanB'],
+  verticalFacingFallbackIds: pixelPackImpact.verticalFacingFallbackIds,
+  pass: pixelPackDirectionGuard && ['fanA','fanB'].every(id => pixelPackImpact.verticalFacingFallbackIds.includes(id)),
+  rule: 'fanA and fanB are live up-facing NPCs; atlas overrides are horizontal-only, so their live vertical views must render through owCiv.'
+};
 const grannyRefPath = path.join(root, 'qa', 'granny-ref.json');
 const grannyRefExpected = JSON.parse(fs.readFileSync(grannyRefPath, 'utf8'));
 const grannyRefGeneratorRun = spawnSync(process.execPath, [path.join(root, 'qa', 'generate-granny-ref.mjs'), '--check'], {
@@ -964,7 +970,7 @@ try {
         const [atlas,renderer]=await Promise.all([measure(item.atlasDataUrl),measure(item.rendererDataUrl)]);
         measurements.push({id:item.id,atlas,renderer,heightRatio:atlas.height/renderer.height,widthRatio:atlas.width/renderer.width});
       }
-      return {pass:measurements.length===4&&measurements.every(x=>!x.error&&x.heightRatio>=0.80&&x.heightRatio<=1.20),
+      return {pass:measurements.length===6&&measurements.every(x=>!x.error&&x.heightRatio>=0.80&&x.heightRatio<=1.20),
         targetHeightRatio:{min:0.80,max:1.20},measurements};
     }, atlasComparisonData);
     const atlasComparisonGallery = await page.evaluate(async items => {
@@ -987,11 +993,11 @@ try {
     atlasComparisonError = error.message;
   }
   const atlasComparisonAudit = {
-    pass: atlasComparisonData.length === 4 && atlasComparisonData.every(item => !item.error && item.atlasDataUrl && item.rendererDataUrl) &&
+    pass: atlasComparisonData.length === 6 && atlasComparisonData.every(item => !item.error && item.atlasDataUrl && item.rendererDataUrl) &&
       atlasComparisonScaleAudit?.pass === true,
     comparisonCount: atlasComparisonData.length,
     scaleAudit: atlasComparisonScaleAudit || null,
-    comparisons: atlasComparisonData.map(({id,direction,key,frame,x,y,civ,error})=>({id,direction,key,frame,x,y,civ,error:error||null})),
+    comparisons: atlasComparisonData.map(({id,direction,liveDirection,comparisonMode,key,frame,x,y,civ,error})=>({id,direction,liveDirection,comparisonMode,key,frame,x,y,civ,error:error||null})),
     error: atlasComparisonError
   };
 
@@ -1058,7 +1064,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
