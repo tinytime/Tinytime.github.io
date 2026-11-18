@@ -8673,7 +8673,6 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     line([[-3,hy+2],[-3,hy+5]],hair.shadow,1);
     // A single hanging strand frames the left cheek; the hairline adds forehead depth.
     px(-4,hy+2,1,7,hair.base);
-    line([[-2,hy+1],[2,hy+1]],hair.shadow,1);
     if(P.bun)polygon([[-1,hy-3],[2,hy-3],[3,hy-1],[0,hy]],hair,ink,1);
   }
   if(P.hood)polygon([[-4,hy+1],[-3,hy-2],[3,hy-2],[4,hy+1],[3,hy+5],[-3,hy+5]],body,ink,1);
@@ -8691,6 +8690,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   }
   // Single-pixel shadow directly beneath the hairline and a shaded chin.
   px(-1,hy+1,3,1,skinTone.shadow);px(0,hy+7,2,1,skinTone.shadow);px(0,hy+8,2,1,skinTone.shadow);
+  if(!P.hood&&!P.helm)line([[-2,hy+1],[2,hy+1]],hair.shadow,1);
   g.restore();
   // Separate shirt from trousers and carve a collar shadow into every outfit.
   line([[-5+torsoShift,top+4],[5+torsoShift,top+4]],ink,1);
