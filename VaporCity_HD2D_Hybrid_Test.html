@@ -390,7 +390,7 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
 #owNpcGallery{position:absolute;z-index:8;left:10px;right:10px;top:calc(env(safe-area-inset-top,0px) + 174px);padding:10px;background:rgba(10,8,24,.96);border:1px solid #29f2e8;border-radius:10px;box-shadow:0 0 18px rgba(41,242,232,.2);pointer-events:auto}#owNpcGallery[hidden]{display:none!important;pointer-events:none!important}#owMenu{z-index:20}#owNpcGalleryToggle{z-index:20}
 .npcGalleryHead{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#dffcff;font:800 10px system-ui;letter-spacing:.05em;margin-bottom:7px}
 #owNpcGalleryClose{background:#241a30;border:1px solid #765477;color:#fff;border-radius:5px;padding:5px 8px;font:700 10px system-ui}
-.npcGalleryViews{display:flex;gap:6px;justify-content:center;padding:6px 0;margin:4px 0}.npcGalleryViews button{background:#241a30;color:#dffcff;border:1px solid #29f2e8;border-radius:6px;padding:5px 10px;font:800 12px system-ui;cursor:pointer}.npcGalleryViews button[aria-pressed="true"]{background:#14515a;color:#fff}\n#owNpcGalleryCanvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#100f1d}
+.npcGalleryViews{display:flex;gap:6px;justify-content:center;padding:6px 0;margin:4px 0}.npcGalleryViews button{background:#241a30;color:#dffcff;border:1px solid #29f2e8;border-radius:6px;padding:5px 10px;font:800 12px system-ui;cursor:pointer}.npcGalleryViews button[aria-pressed="true"]{background:#14515a;color:#fff}\n#owNpcGalleryCanvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#777982}
 .npcGalleryNote{color:#a8a2b8;font:10px system-ui;margin-top:6px}
 @media(prefers-reduced-motion:reduce){#owc{transition:none}}
 </style>
@@ -470,7 +470,7 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
     <canvas id="owc"></canvas>
     <button id="owHybridToggle" type="button" aria-pressed="true">HD-2D PREVIEW: ON</button>
     <button id="owNpcGalleryToggle" type="button" aria-expanded="false">NPC STYLE GALLERY</button>
-    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — GRANNY VOLT BENCHMARK</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><div class="npcGalleryViews"><button type="button" data-npc-view="d">FRONT</button><button type="button" data-npc-view="l">LEFT</button><button type="button" data-npc-view="r">RIGHT</button><button type="button" data-npc-view="u">BACK</button></div><canvas id="owNpcGalleryCanvas" width="1200" height="360"></canvas><div class="npcGalleryNote">Six archetypes · Granny Volt is front only · isolated style preview</div></div>
+    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — 6 ARCHETYPES × 4 DIRECTIONS</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><canvas id="owNpcGalleryCanvas" width="1200" height="1680"></canvas><div class="npcGalleryNote">Front · back · left · right / head-top and feet guides / no map NPCs added</div></div>
     <div id="owBlack" hidden style="position:absolute;inset:0;background:#000;z-index:2"></div>
     <div id="owTop"><b id="owTown">VAPOR CITY</b><span id="owObj"></span></div>
     <button id="owMenu">MENU</button>
@@ -8713,13 +8713,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   for(let yy=0;yy<H;yy++){
     let left=-1,right=-1;
     for(let xx=0;xx<N;xx++)if(finalGrid[yy][xx]===ink){if(left<0)left=xx;right=xx}
-    if(left>=0)finalGrid[yy][left]='#ff9a3d';
-    if(right>=0)finalGrid[yy][right]='#29f2e8';
-  }
-  const spriteCanvas=owCiv._gridCanvas||(owCiv._gridCanvas=document.createElement('canvas'));
-  if(spriteCanvas.width!==N*SCALE)spriteCanvas.width=N*SCALE;
-  if(spriteCanvas.height!==H*SCALE)spriteCanvas.height=H*SCALE;
-  const ctx=spriteCanvas.getContext('2d');
+    if(left>=0)finalGrid  // Uniform dark outline: the prior renderer baked cyan on one side and orange on the other.
+  // Preserve the same single ink color on every archetype and facing.
+iteCanvas.getContext('2d');
   ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,N*SCALE,H*SCALE);
   for(let gy=0;gy<H;gy++)for(let gx=0;gx<N;gx++){
     const color=finalGrid[gy][gx];
@@ -9346,30 +9342,29 @@ setTimeout(()=>{const ro=document.getElementById('mRO');if(!ro||document.getElem
   if(window.CF_TEST){for(const [id,txt,o] of [['mPXgo','TEST: GO TO VAPOR PLAZA',{map:'street',x:15,y:14,d:'u',gates:1,ret:null}],['mPXback','TEST: BACK TO FERRY DOCK',{map:'harbor',x:35,y:39,d:'d',gates:1,ret:null}]]){
     const c=document.createElement('button');c.className='btn';c.id=id;c.textContent=txt;c.onclick=()=>{try{SAVE.ow=Object.assign({},o);persist();owShow()}catch(e){console.error(e)}};row.appendChild(c)}}},0);
 
-window.SG={npcGalleryView:'d',npcGalleryDraw:canvas=>{
+window.SG={npcGalleryView:'all',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
-  c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#100f1d';c.fillRect(0,0,canvas.width,canvas.height);
+  c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#777982';c.fillRect(0,0,canvas.width,canvas.height;
   const tests=[['GRANNY','VOLT','granny'],['MINT','RUNNER','runner'],['ORANGE','COURIER','courier'],['CITY','GUARD','guard'],['STREET','VENDOR','vendor'],['FIELD','CLINIC','clinic']];
-  const cellW=canvas.width/tests.length,scale=3,grannyScale=2,baseY=294,sourceW=64,sourceH=96,grannyW=100,grannyH=140,labelY=322;
+  const dirs=[['FRONT','d'],['BACK','u'],['LEFT','l'],['RIGHT','r']],cellW=canvas.width/6,rowH=420,scale=4,baseOffset=360,sourceW=64,sourceH=96,grannyW=100,grannyH=140,grannyScale=2.2857;
   const scratch=owCiv._galleryScratch||(owCiv._galleryScratch=document.createElement('canvas'));scratch.width=grannyW;scratch.height=grannyH;
-  const sc=scratch.getContext('2d');sc.imageSmoothingEnabled=false;const view=window.SG.npcGalleryView||'d';
-  tests.forEach((v,i)=>{
-    const cx=i*cellW+cellW/2,n={id:v[2]==='granny'?'granny':'gallery-'+v[2],civ:v[2],x:0,y:0};
+  const sc=scratch.getContext('2d');sc.imageSmoothingEnabled=false;
+  dirs.forEach((d,ri)=>tests.forEach((v,ci)=>{
+    const cx=ci*cellW+cellW/2,baseY=ri*rowH+baseOffset,n={id:v[2]==='granny'?'granny':'gallery-'+v[2],civ:v[2],x:ci,y:ri};
     sc.setTransform(1,0,0,1,0,0);sc.clearRect(0,0,grannyW,grannyH);
-    owCiv(0,0,v[2]==='granny'?'d':view,false,n,0,i,sc);
+    owCiv(0,0,v[2]==='granny'?'d':d[1],false,n,0,ci,sc);
     if(v[2]==='granny'){
-      c.imageSmoothingEnabled=false;
-      c.drawImage(scratch,cx-grannyW*grannyScale/2,baseY-grannyH*grannyScale,grannyW*grannyScale,grannyH*grannyScale);
+      c.imageSmoothingEnabled=false;c.drawImage(scratch,cx-grannyW*grannyScale/2,baseY-grannyH*grannyScale,grannyW*grannyScale,grannyH*grannyScale);
     }else{
-      const sprite=owCiv._gridCanvas||scratch;
-      c.imageSmoothingEnabled=false;
-      c.drawImage(sprite,cx-sourceW*scale/2,baseY-sourceH*scale,sourceW*scale,sourceH*scale);
+      const sprite=owCiv._gridCanvas;
+      c.imageSmoothingEnabled=false;c.drawImage(sprite,cx-sourceW*scale/2,baseY-sourceH*scale,sourceW*scale,sourceH*scale);
     }
-    c.fillStyle='#d9d4e8';c.font='bold 16px system-ui';c.textAlign='center';c.fillText(v[0],cx,labelY);c.fillText(v[1],cx,labelY+18);
-    if(v[2]==='granny'){c.fillStyle='#8debf0';c.font='12px system-ui';c.fillText('front only',cx,labelY+34)}
-    c.strokeStyle='rgba(116,104,150,.28)';c.lineWidth=1;c.beginPath();c.moveTo((i+1)*cellW,24);c.lineTo((i+1)*cellW,canvas.height-18);c.stroke();
-  });
-},eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;const miss=[];for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))miss.push(pal.key.slice(0,12)+'|'+vk);let am=0;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))am++;return {mode:G.mode,on:R.on,inited:R.inited,need:R.need.length,n0:R.need.n0,miss:miss.slice(0,8),nmiss:miss.length,artMissing:am,artReady:artReady(),carryReady:carryReady(),jobs:R.jobs.length,q:R.q.length,busy:R.busy.size,fail:R.fail}},WSEG,CLUSTERS,camfix:o=>{window.__camFix=o},enterPlaycall:()=>enterPlaycall(),cam:()=>cam,LogoRenderer,LOGOS,LOGO_ORDER,registerLogo,logoId,logoSVG,LOGO_GLYPH,muState:()=>MU,lf:()=>ART.lf||[],SIDER:SIDER,RIGF,RIG,runInit,artDraw:(g,o)=>artDraw(g,o),uniFor:p=>uniFor(p),lookOf:d=>lookOf(d),playerPx:(...a)=>playerPx(...a),ART,artNumber:(...a)=>artNumber(...a),say:(a,b,c,d)=>say(a,b,c,d),setX:v=>{bannerExtra=v},popup:(a,b,c,d)=>popup(a,b,c,d),WALLY:()=>WALLY,sideVis:()=>sideVis,setPS:v=>{PSCALE=v;SPR.clear()},owLeave,owHide,P:(x,y)=>P(x,y),SND,OW,owShow,M:()=>M,owPlace,owTalk,owGot,owSay,renderPerson,lookOf,callPlay,endGame,get G(){return G},get F(){return F},get PLAY(){return PLAY},input,SAVE:()=>SAVE,startMatch,CREWS,PLAYS,throwTo,doJuke,doStiff,doStyle,startPlay,setSpeed:v=>{SPEED=v},resetSave:()=>{SAVE=freshSave();persist()},renderTeam,openGear,renderSquad,screens,renderMenu};
+    c.strokeStyle='#c9cbd0';c.lineWidth=1;c.beginPath();c.moveTo(ci*cellW+4,baseY);c.lineTo((ci+1)*cellW-4,baseY);c.stroke();
+    const topY=v[2]==='granny'?baseY-grannyH*grannyScale:baseY-80*scale;
+    c.strokeStyle='#b7bdc7';c.beginPath();c.moveTo(ci*cellW+4,topY);c.lineTo((ci+1)*cellW-4,topY);c.stroke();
+    c.fillStyle='#20212a';c.font='bold 15px system-ui';c.textAlign='center';c.fillText(d[0],cx,baseY+20);c.fillText(v[0]+' '+v[1],cx,baseY+39);
+  }));
+},eg:w=>endGame(w)},eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;const miss=[];for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))miss.push(pal.key.slice(0,12)+'|'+vk);let am=0;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))am++;return {mode:G.mode,on:R.on,inited:R.inited,need:R.need.length,n0:R.need.n0,miss:miss.slice(0,8),nmiss:miss.length,artMissing:am,artReady:artReady(),carryReady:carryReady(),jobs:R.jobs.length,q:R.q.length,busy:R.busy.size,fail:R.fail}},WSEG,CLUSTERS,camfix:o=>{window.__camFix=o},enterPlaycall:()=>enterPlaycall(),cam:()=>cam,LogoRenderer,LOGOS,LOGO_ORDER,registerLogo,logoId,logoSVG,LOGO_GLYPH,muState:()=>MU,lf:()=>ART.lf||[],SIDER:SIDER,RIGF,RIG,runInit,artDraw:(g,o)=>artDraw(g,o),uniFor:p=>uniFor(p),lookOf:d=>lookOf(d),playerPx:(...a)=>playerPx(...a),ART,artNumber:(...a)=>artNumber(...a),say:(a,b,c,d)=>say(a,b,c,d),setX:v=>{bannerExtra=v},popup:(a,b,c,d)=>popup(a,b,c,d),WALLY:()=>WALLY,sideVis:()=>sideVis,setPS:v=>{PSCALE=v;SPR.clear()},owLeave,owHide,P:(x,y)=>P(x,y),SND,OW,owShow,M:()=>M,owPlace,owTalk,owGot,owSay,renderPerson,lookOf,callPlay,endGame,get G(){return G},get F(){return F},get PLAY(){return PLAY},input,SAVE:()=>SAVE,startMatch,CREWS,PLAYS,throwTo,doJuke,doStiff,doStyle,startPlay,setSpeed:v=>{SPEED=v},resetSave:()=>{SAVE=freshSave();persist()},renderTeam,openGear,renderSquad,screens,renderMenu};
 })();
 </script>
 
@@ -9413,7 +9408,7 @@ window.SG={npcGalleryView:'d',npcGalleryDraw:canvas=>{
   button.addEventListener('click',()=>set(panel.hidden));
   if(close)close.addEventListener('click',()=>set(false));
   window.addEventListener('resize',()=>{if(!panel.hidden)drawGallery()});
-  panel.querySelectorAll('[data-npc-view]').forEach(btn=>btn.addEventListener('click',()=>{window.SG.npcGalleryView=btn.dataset.npcView;panel.querySelectorAll('[data-npc-view]').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));drawGallery()}));
+  
   panel.querySelector('[data-npc-view="d"]')?.setAttribute('aria-pressed','true');
 })();
 /* HYBRID TEST CONTROL — toggles a subtle perspective treatment on the original map canvas. */
