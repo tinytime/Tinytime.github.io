@@ -8519,9 +8519,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const dirCode=d==='down'?'d':d==='up'?'u':d==='left'?'l':d==='right'?'r':d;
   const side=dirCode==='l'||dirCode==='r',back=dirCode==='u';
   const rimCanvas=owCiv._rimCanvas||(owCiv._rimCanvas=document.createElement('canvas'));
-  if(rimCanvas.width!==64)rimCanvas.width=64;if(rimCanvas.height!==64)rimCanvas.height=64;
+  if(rimCanvas.width!==128)rimCanvas.width=128;if(rimCanvas.height!==128)rimCanvas.height=128;
   const g=rimCanvas.getContext('2d');
-  g.setTransform(1,0,0,1,0,0);g.globalAlpha=1;g.globalCompositeOperation='source-over';g.filter='none';g.clearRect(0,0,64,64);
+  g.setTransform(1,0,0,1,0,0);g.globalAlpha=1;g.globalCompositeOperation='source-over';g.filter='none';g.clearRect(0,0,128,128);
   const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
   const skin=['#e6b48a','#c98a62','#8a5a3a','#f0c8a0'][((n.x*5+n.y)|0)%4];
   const ink='#141622',body=applyShading(P.body||'#777777'),pants=applyShading(P.pants||'#252535');
@@ -8546,7 +8546,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const line=(pts,color,width=1)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.strokeStyle=color;g.lineWidth=width;g.lineCap='square';g.lineJoin='miter';g.stroke()};
   const limb=(pts,ramp)=>polygon(pts,ramp,ink,1);
   const bodyRowsLength=P.long?18:16;
-  g.save();g.translate(24,48);
+  g.save();g.translate(48,96);g.scale(2,2);
   if(side&&dirCode==='l')g.scale(-1,1);
   // Rigid 16x32 pixel template. Every limb dimension is authored as a fixed integer.
   const npcGrid=Array.from({length:32},()=>Array(16).fill('.'));
@@ -8585,54 +8585,12 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     if(cell==='A')return side?(gx>=11?(body.highlight||gridBase):(body.shadow||gridBase)):(gx>=11?(body.shadow||gridBase):(body.base||P.body||gridBase));
     if(cell==='B'){
       if(side)return gx<9?(body.shadow||gridBase):(body.base||P.body||gridBase);
-      if(gx===5)return body.highlight||gridBase;
-      if(gx===6||gx===7)return body.base||P.body||gridBase;
+      if(gx===5||gx===6||gx===7)return body.base||P.body||gridBase;
       if(gx===8||gx===9||gx===10)return body.shadow||gridBase;
     }
     return gridBase;
   };
   const occupied=(gx,gy)=>gx>=0&&gx<16&&gy>=0&&gy<32&&npcGrid[gy][gx]!=='.';
-  // ISOLATED VOLUME DEBUG: render only solid Base/Shadow material blocks.
-  // This bypasses every ink contour, face detail, outfit overlay, and rim-light pass.
-  {
-    const baseHex=body.base||P.body||'#777777';
-    const shadowHex=body.shadow||gridBase;
-    const rects=[];
-    const block=(gx,gy,w,h,color)=>{g.fillStyle=color;g.fillRect(gridX+gx,gridY+gy,w,h);rects.push([gridX+gx,gridY+gy,w,h])};
-    if(!side){
-      // Diagnostic front torso: literal 6x6, left three Base / right three Shadow.
-      block(5,6,3,6,baseHex);
-      block(8,6,3,6,shadowHex);
-      // Thick limbs remain visible as solid two-pixel blocks.
-      block(3,6,2,5,baseHex);
-      block(11,6,2,5,shadowHex);
-      block(3,20,2,7,baseHex);
-      block(6,20,2,7,shadowHex);
-    }else{
-      // Diagnostic side torso: literal 4x6, rear two Shadow / front two Base.
-      block(7,6,2,6,shadowHex);
-      block(9,6,2,6,baseHex);
-      block(11,8,2,5,baseHex);
-      block(5,19,2,7,shadowHex);
-    }
-    // Mint only: red one-pixel rectangle around the exact occupied debug-array bounds.
-    if(kind==='runner'){
-      const minX=Math.min(...rects.map(r=>r[0])),minY=Math.min(...rects.map(r=>r[1]));
-      const maxX=Math.max(...rects.map(r=>r[0]+r[2])),maxY=Math.max(...rects.map(r=>r[1]+r[3]));
-      g.fillStyle='#ff2020';
-      g.fillRect(minX-1,minY-1,maxX-minX+2,1);
-      g.fillRect(minX-1,maxY,maxX-minX+2,1);
-      g.fillRect(minX-1,minY-1,1,maxY-minY+2);
-      g.fillRect(maxX,minY-1,1,maxY-minY+2);
-    }
-    g.restore();
-    // IMPORTANT: apply the sprite scale once. The former U*U shrank every pixel twice.
-    targetG.save();targetG.globalAlpha=1;targetG.globalCompositeOperation='source-over';targetG.filter='none';
-    targetG.shadowBlur=0;targetG.shadowColor='rgba(0,0,0,0)';
-    targetG.drawImage(rimCanvas,sx-24*U,sy-bob-48*U,64*U,64*U);
-    targetG.restore();
-    return;
-  }
   // One-pixel #141622 outline around every occupied pixel; limbs retain a
   // two-pixel solid core plus their one-pixel outside contour.
   for(let gy=0;gy<32;gy++)for(let gx=0;gx<16;gx++)if(occupied(gx,gy)){
@@ -8702,20 +8660,20 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(P.scarf&&!back){polygon([[-5,top+3],[5,top+3],[5,top+6],[-5,top+6]],trim,ink,1);line([[4,top+5],[5,top+10]],trim.shadow,1)}
   if(P.long)line([[-5,top+bodyRowsLength-2],[5,top+bodyRowsLength-2]],body.shadow,1);
   g.restore();
-  const pixels=g.getImageData(0,0,64,64),alpha=pixels.data;
+  const pixels=g.getImageData(0,0,128,128),alpha=pixels.data;
   const rimOverlayCanvas=owCiv._rimOverlayCanvas||(owCiv._rimOverlayCanvas=document.createElement('canvas'));
-  if(rimOverlayCanvas.width!==64)rimOverlayCanvas.width=64;if(rimOverlayCanvas.height!==64)rimOverlayCanvas.height=64;
-  const rimG=rimOverlayCanvas.getContext('2d');rimG.setTransform(1,0,0,1,0,0);rimG.globalAlpha=1;rimG.globalCompositeOperation='source-over';rimG.filter='none';rimG.clearRect(0,0,64,64);
-  const rim=rimG.createImageData(64,64),outside=new Uint8Array(64*64),stack=[];
-  for(let q=0;q<64;q++)stack.push(q,63*64+q,q*64,q*64+63);
+  if(rimOverlayCanvas.width!==128)rimOverlayCanvas.width=128;if(rimOverlayCanvas.height!==128)rimOverlayCanvas.height=128;
+  const rimG=rimOverlayCanvas.getContext('2d');rimG.setTransform(1,0,0,1,0,0);rimG.globalAlpha=1;rimG.globalCompositeOperation='source-over';rimG.filter='none';rimG.clearRect(0,0,128,128);
+  const rim=rimG.createImageData(128,128),outside=new Uint8Array(128*128),stack=[];
+  for(let q=0;q<128;q++)stack.push(q,127*128+q,q*128,q*128+127);
   while(stack.length){
-    const q=stack.pop();if(q<0||q>=4096||outside[q]||alpha[q*4+3]>=220)continue;
-    outside[q]=1;const xq=q%64,yq=(q/64)|0;
-    if(xq>0)stack.push(q-1);if(xq<63)stack.push(q+1);
-    if(yq>0)stack.push(q-64);if(yq<63)stack.push(q+64);
+    const q=stack.pop();if(q<0||q>=16384||outside[q]||alpha[q*4+3]>=220)continue;
+    outside[q]=1;const xq=q%128,yq=(q/128)|0;
+    if(xq>0)stack.push(q-1);if(xq<127)stack.push(q+1);
+    if(yq>0)stack.push(q-128);if(yq<127)stack.push(q+128);
   }
-  for(let py=1;py<63;py++)for(let pxl=1;pxl<63;pxl++){
-    const q=py*64+pxl,k=q*4;if(alpha[k+3]<220)continue;
+  for(let py=1;py<127;py++)for(let pxl=1;pxl<127;pxl++){
+    const q=py*128+pxl,k=q*4;if(alpha[k+3]<220)continue;
     const edge=side?(dirCode==='r'?outside[q+1]:outside[q-1]):(outside[q-1]||outside[q+1]);
     if(!edge)continue;
     const c=side?(dirCode==='r'?[41,242,232]:[255,154,61]):(pxl<24?[255,154,61]:[41,242,232]);
@@ -8724,8 +8682,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   rimG.globalAlpha=1;rimG.globalCompositeOperation='source-over';rimG.putImageData(rim,0,0);
   targetG.save();targetG.globalAlpha=1;targetG.globalCompositeOperation='source-over';targetG.filter='none';
   targetG.shadowBlur=0;targetG.shadowColor='rgba(0,0,0,0)';
-  targetG.drawImage(rimCanvas,sx-24*U*U,sy-bob-48*U*U,64*U*U,64*U*U);
-  targetG.drawImage(rimOverlayCanvas,sx-24*U*U,sy-bob-48*U*U,64*U*U,64*U*U);
+  targetG.drawImage(rimCanvas,sx-48*U,sy-bob-86*U,128*U,128*U);
+  targetG.drawImage(rimOverlayCanvas,sx-48*U,sy-bob-86*U,128*U,128*U);
   targetG.restore();
 }
 function bodyRowsLength(P){return P.long?18:16}
