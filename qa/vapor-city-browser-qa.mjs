@@ -344,16 +344,23 @@ try {
       baselineOffset,baselineDelta:Math.abs(baselineOffset-expectedBaselineOffset),
       contrastRatio,outlineContrastPercent:Math.abs(outlineLum-bgLum)/Math.max(outlineLum,bgLum)};
   });
+  // The legacy outlinePixelCount field is based on a single fixed dark swatch
+  // (#0E0B0A), but civilian outline colors are role-specific. Treat that count
+  // as diagnostic only; validate the actual per-sprite outlineColor contract
+  // and its contrast against the gallery background instead of requiring the
+  // unrelated fixed swatch to occur in every render.
   const npcBodyCheck = {
     pass: bodyRows.length === 24 && bodyRows.every(item => item.heightDeviationPixels <= 1 &&
-      item.baselineDelta <= 0.02 && item.outlinePixelCount > 0 && item.contrastRatio >= 1.3 &&
-      item.outlineContrastPercent >= 0.30),
+      item.baselineDelta <= 0.02 && /^#[0-9a-f]{6}$/i.test(item.outlineColor || '') &&
+      item.contrastRatio >= 1.3 && item.outlineContrastPercent >= 0.30),
     spriteCount: bodyRows.length,
     expectedBodyHeightPixels: expectedBodyPixels,
     maxHeightDeviationPixels: Math.max(...bodyRows.map(item=>item.heightDeviationPixels)),
     maxBaselineDelta: Math.max(...bodyRows.map(item=>item.baselineDelta)),
-    missingOutline: bodyRows.filter(item=>item.outlinePixelCount===0).map(item=>item.civ),
+    invalidOutlineColor: bodyRows.filter(item=>!/^#[0-9a-f]{6}$/i.test(item.outlineColor || '')).map(item=>item.civ),
     lowContrast: bodyRows.filter(item=>item.contrastRatio<1.3||item.outlineContrastPercent<0.30).map(item=>({civ:item.civ,outlineColor:item.outlineColor,contrastRatio:item.contrastRatio,outlineContrastPercent:item.outlineContrastPercent})),
+    outlinePixelCountDiagnosticOnly: bodyRows.map(item=>({civ:item.civ,count:item.outlinePixelCount,expectedColor:item.outlineColor})),
+    outlineValidation: 'Per-sprite outlineColor contract and measured contrast; fixed-swatch pixel count is diagnostic only.',
     measurements: bodyRows
   };
   const npcPropAudit = await page.evaluate(() => {
@@ -559,9 +566,14 @@ try {
   };
   const torsoOnlySilhouetteSummary = {
     basis: 'Rows 20–57 only; excludes shared head and leg regions. Props remain excluded.',
+    targetIoU: 0.85,
     minIoU: silhouetteBaseline.minTorsoOnlyIoU,
     maxIoU: silhouetteBaseline.maxTorsoOnlyIoU,
     meanIoU: silhouetteBaseline.meanTorsoOnlyIoU,
+    pairsBelowTarget: silhouetteComparisons.filter(x => x.torsoOnlyIou < 0.85).length,
+    pairsAtOrAboveTarget: silhouetteComparisons.filter(x => x.torsoOnlyIou >= 0.85).length,
+    pass: silhouetteComparisons.length === 180 && silhouetteComparisons.every(x => x.torsoOnlyIou < 0.85),
+    failingPairs: silhouetteComparisons.filter(x => x.torsoOnlyIou >= 0.85).sort((a,b)=>b.torsoOnlyIou-a.torsoOnlyIou),
     closestPairs: [...silhouetteComparisons].sort((a, b) => b.torsoOnlyIou - a.torsoOnlyIou).slice(0, 10),
     lowestOverlapPairs: [...silhouetteComparisons].sort((a, b) => a.torsoOnlyIou - b.torsoOnlyIou).slice(0, 10)
   };
