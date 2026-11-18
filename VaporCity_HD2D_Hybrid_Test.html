@@ -9114,11 +9114,13 @@ window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMas
   },
   npcRenderAtlasComparisonSnapshots:()=>{
     if(!PXS||!PXS.ok||!PXS.img||!PXS.f)return [];
-    const ids=['fanC','fanD','kid','busker'];
+    const ids=['fanA','fanB','fanC','fanD','kid','busker'];
     return ids.map(id=>{
       const n=M?.npcs?.find(item=>item.id===id);
       if(!n||!PXN[id]||!PXS.f[PXN[id]])return {id,error:'Live street NPC or atlas frame missing'};
-      const key=PXN[id],entry=PXS.f[key],direction=n.d;
+      const key=PXN[id],entry=PXS.f[key],liveDirection=n.d;
+      const direction=(liveDirection==='l'||liveDirection==='r')?liveDirection:'r';
+      const comparisonMode=direction===liveDirection?'live-facing comparison':'simulated horizontal comparison; live vertical uses owCiv fallback';
       const frame=pxFi(key,0,(n.x*7+n.y*3)%9);
       const atlasCanvas=document.createElement('canvas');atlasCanvas.width=64;atlasCanvas.height=96;
       const atlasCtx=atlasCanvas.getContext('2d');atlasCtx.imageSmoothingEnabled=false;
@@ -9129,10 +9131,10 @@ window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMas
       atlasCtx.drawImage(PXS.img,sx,entry.y,entry.w,entry.h,32-entry.ax*personScale,96-entry.ay*personScale,entry.w*personScale,entry.h*personScale);
       atlasCtx.restore();
       const rendererCanvas=document.createElement('canvas');rendererCanvas.width=64;rendererCanvas.height=96;
-      const rendererNpc=Object.assign({},n,{x:0,y:0,rx:0,ry:0});
+      const rendererNpc=Object.assign({},n,{x:0,y:0,rx:0,ry:0,d:direction});
       owCiv(0,0,direction,false,rendererNpc,0,0,rendererCanvas.getContext('2d'));
       const rendererSprite=owCiv._gridCanvas;
-      return {id,direction,key,frame,x:n.x,y:n.y,civ:n.civ,width:rendererSprite.width,height:rendererSprite.height,atlasDataUrl:atlasCanvas.toDataURL('image/png'),
+      return {id,direction,liveDirection,comparisonMode,key,frame,x:n.x,y:n.y,civ:n.civ,width:rendererSprite.width,height:rendererSprite.height,atlasDataUrl:atlasCanvas.toDataURL('image/png'),
         rendererDataUrl:rendererSprite.toDataURL('image/png')};
     });
   },
