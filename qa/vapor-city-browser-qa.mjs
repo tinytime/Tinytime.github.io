@@ -191,6 +191,15 @@ try {
     comparisons: silhouetteComparisons
   };
 
+  const silhouetteQualityCheck = {
+    pass: silhouetteBaseline.pairsBelowTarget === 0 && silhouetteBaseline.minEdgeRowsDifferentBy2 >= 1,
+    pairCount: silhouetteBaseline.pairCount,
+    pairsBelowTarget: silhouetteBaseline.pairsBelowTarget,
+    minIoU: silhouetteBaseline.minIoU,
+    minEdgeRowsDifferentBy2: silhouetteBaseline.minEdgeRowsDifferentBy2,
+    requirements: 'Every archetype pair must have IoU < 0.85 in each tested view; every pair must also differ by at least 2 px on one or more torso/head edge rows.'
+  };
+
   const galleryToggle = page.locator('#owNpcGalleryToggle');
   const galleryState = await galleryToggle.evaluate(el => ({
     hidden: el.hidden,
@@ -292,6 +301,7 @@ try {
     grannyMeasurementCheck,
     archetypeSilhouetteCount: archetypeSilhouettes.length,
     silhouetteBaseline,
+    silhouetteQualityCheck,
     worldState,
     galleryState,
     galleryToggleVisible,
@@ -308,7 +318,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
 } finally {
   await browser.close();
 }
