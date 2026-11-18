@@ -9106,9 +9106,8 @@ window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMas
       atlasCtx.restore();
       const rendererCanvas=document.createElement('canvas');rendererCanvas.width=64;rendererCanvas.height=96;
       owCiv(0,0,direction,false,n,0,0,rendererCanvas.getContext('2d'));
-      const sprite=owCiv._gridCanvas;
       return {id,direction,key,frame,x:n.x,y:n.y,civ:n.civ,width:64,height:96,atlasDataUrl:atlasCanvas.toDataURL('image/png'),
-        rendererDataUrl:sprite.toDataURL('image/png')};
+        rendererDataUrl:rendererCanvas.toDataURL('image/png')};
     });
   },
   npcRenderFanVariantSnapshots:()=>{
