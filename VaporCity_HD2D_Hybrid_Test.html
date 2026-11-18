@@ -8612,21 +8612,28 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Articulated arms: broaden the shoulder cap, define an elbow, and
   // taper the forearm into a visible hand. The stepped contour avoids a tray pose.
   if(side){
-    put(19,10,2,5,'arm');
-    put(18,14,2,4,'arm');
-    put(17,17,2,4,'arm');
+    // Profile arm: rounded shoulder, elbow pulled back, forearm angled forward.
+    put(19,10,3,5,'arm');
+    put(20,11,2,4,'armhi');
+    put(18,14,3,4,'armshade');
+    put(17,17,3,4,'arm');
+    put(18,18,1,2,'armhi');
     put(17,20,2,2,'skin');
   }else{
-    // Viewer-left arm: shoulder -> outward elbow -> inward forearm -> hand.
-    put(7,10,3,5,'arm');
-    put(7,14,3,3,'arm');
-    put(8,16,2,5,'arm');
-    put(8,20,2,2,'skin');
-    // Viewer-right arm mirrors the bend, keeping both hands at hip height.
-    put(22,10,3,5,'arm');
-    put(22,14,3,3,'arm');
-    put(22,16,2,5,'arm');
-    put(22,20,2,2,'skin');
+    // Arms sit outside the ribcage with a readable shoulder cap, bent elbow,
+    // tapered forearm and exposed hand. Highlights separate the arm planes.
+    put(6,10,4,5,'arm');
+    put(6,11,2,3,'armhi');
+    put(5,14,3,4,'armshade');
+    put(6,17,3,4,'arm');
+    put(7,18,1,2,'armhi');
+    put(7,21,2,2,'skin');
+    put(22,10,4,5,'arm');
+    put(24,11,2,3,'armhi');
+    put(23,14,3,4,'armshade');
+    put(22,17,3,4,'arm');
+    put(23,18,1,2,'armhi');
+    put(22,21,2,2,'skin');
   }
   // Side-profile walking stride: paint the shadowed rear leg first, then
   // the base-color front leg. One source pixel remains transparent between them.
@@ -8634,12 +8641,15 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     // Profile legs use a planted rear leg and a forward-bent lead leg.
     // Wider thighs connect under the hip; knees and ankles step to create
     // an actual stride instead of two parallel vertical rods.
-    put(10,24,4,6,'legback');
-    put(10,29,3,4,'legback');
-    put(9,32,3,5,'legback');
-    put(14,24,4,6,'legfront');
-    put(15,29,3,4,'legfront');
-    put(16,32,3,5,'legfront');
+    put(10,24,5,6,'legback');
+    put(10,29,4,4,'legback');
+    put(9,32,4,5,'legback');
+    put(14,24,5,6,'legfront');
+    put(15,29,4,4,'legfront');
+    put(16,32,4,5,'legfront');
+    // Narrow inner planes and knee highlights make each leg read as volume.
+    put(10,25,1,4,'legshadow');put(14,25,1,3,'bodyhi');
+    put(18,25,1,4,'bodyhi');put(17,30,1,3,'legshadow');
   }else{
     // Four-pixel thighs connect directly beneath the widened hip line.
     for(let yy=24;yy<=29;yy++){
@@ -8658,6 +8668,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       for(let xx=13;xx<=15;xx++)set(xx,yy,'pants');
       for(let xx=16;xx<=18;xx++)set(xx,yy,'pants');
     }
+    // Outer trouser planes catch light; inner seams and knee shadows add depth.
+    for(let yy=25;yy<=29;yy++){set(11,yy,'legshadow');set(20,yy,'legshadow');}
+    for(let yy=31;yy<=35;yy++){set(12,yy,'legshadow');set(19,yy,'legshadow');}
+    for(let yy=26;yy<=29;yy++){set(14,yy,'bodyhi');set(17,yy,'bodyhi');}
   }
   if(side){
     // Offset ankle welts and broad shoes align to the bent lower legs.
@@ -8717,7 +8731,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       case 'body':return body.base||P.body||'#777777';
       case 'bodyshade':return body.shadow||darkenHex(P.body||'#777777',.5);
       case 'bodyhi':return body.highlight||body.base||P.body||'#777777';
-      case 'arm':return xx<32?(body.base||P.body):(body.shadow||body.base||P.body);
+      case 'arm':return body.base||P.body||'#777777';
+      case 'armhi':return body.highlight||lightenHex(body.base||P.body||'#777777',1.18);
+      case 'armshade':return body.shadow||darkenHex(body.base||P.body||'#777777',.62);
       case 'pants':return xx<32?(pants.base||P.pants):(pants.shadow||pants.base||P.pants);
       case 'legback':return pants.shadow||darkenHex(P.pants||'#252535',.5);
       case 'legfront':return pants.base||P.pants||'#252535';
