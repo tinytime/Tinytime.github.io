@@ -8710,7 +8710,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   else if(A.head==='hat'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
   else if(A.head==='hair-band')put(11,1,10,1,'hairband')
   // Single-pixel hairline and chin shadows create facial depth.
-  if(!back){for(let xx=12;xx<=19;xx++)set(xx,3,'skinshade');for(let xx=14;xx<=18;xx++)set(xx,9,'skinshade');}
+  if(!back){for(let xx=12;xx<=19;xx++)set(xx,3,'skinshade');for(let xx=14;xx<=18;xx++)set(xx,9,'skinshade');set(13,6,'skinlight');}
   if(!back&&A.head!=='helmet'&&A.head!=='hood'){set(side?19:14,5,'inkdetail');if(!side)set(18,5,'inkdetail');}
   // Torso: front/back 12x14; profile 8x14 with four shadow + four base columns.
   // Body coordinates use a 16-wide local anatomy grid centered at X=8;
@@ -8812,6 +8812,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     switch(role){
       case 'skin':return skin;
       case 'skinshade':return skinShade;
+      case 'skinlight':return skinLight;
       case 'hair':return hairBase;
       case 'hairlight':return hairLight;
       case 'body':case 'arm':case 'cloth':return clothBase;
