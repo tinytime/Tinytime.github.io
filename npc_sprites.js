@@ -833,10 +833,11 @@
       const step=moving?Math.sin(tm*11+ph*6):0;
       const bob=moving?Math.abs(step)*.45:Math.sin(tm*1.8+((n.x*13+n.y*7)|0))*.12;
       const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
+      const youthScale=['kid','kid2','mouse'].includes(kind)?0.78:1;
+      const spriteScale=U*youthScale;
       targetG.save();targetG.globalAlpha=1;targetG.globalCompositeOperation='source-over';targetG.filter='none';targetG.imageSmoothingEnabled=false;
-      // The visible sprite occupies grid rows 0-40 (80 doubled pixels).
-      // Pin its feet to Granny's baseline and center the narrower 32x48 canvas.
-      targetG.drawImage(spriteCanvas,sx-32*U,sy-bob-81*U,64*U,96*U);
+      // Youth sprites are shorter and narrower; all feet remain pinned to the shared baseline.
+      targetG.drawImage(spriteCanvas,sx-32*spriteScale,sy-bob-81*spriteScale,64*spriteScale,96*spriteScale);
       targetG.restore();
     }
     return owCiv;
