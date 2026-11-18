@@ -116,6 +116,7 @@ const inventoryNpcs = npcs.map(npc => {
   return {
     id: npc.id,
     civ: npc.civ,
+    direction: npc.direction,
     archetype: npc.civ ? (civToArchetype[npc.civ] || null) : null,
     rendererPath,
     scopeClass: inScope ? 'standardTown' : 'outOfScope',
