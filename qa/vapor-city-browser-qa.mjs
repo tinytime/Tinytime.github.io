@@ -327,7 +327,7 @@ try {
     const names=Object.keys(ARCHETYPES);
     const frontTypes=names.map(name=>({archetype:name,type:ARCHETYPES[name].prop.front.type}));
     const shapeRows=Object.entries(ARCHETYPE_PROP_SHAPES).map(([role,rows])=>{
-      const filled=rows.join('').replace(/\\./g,'').length,area=rows.length*rows[0].length;
+      const filled=rows.join('').replace(/\./g,'').length,area=rows.length*rows[0].length;
       return {role,rows,signature:rows.join('/'),color:PROP_ROLE_COLORS[role]||null,fillRatio:filled/area};
     });
     const propColors=Object.entries(PROP_ROLE_COLORS).map(([role,color])=>({role,color}));
