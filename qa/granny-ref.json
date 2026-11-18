@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "measuredAt": "2026-11-18T18:50:59Z",
+  "measuredAt": "2026-11-18T17:27:33.969Z",
   "source": "Browser-rendered drawGrannyVoltSprite at native source grid; four directions",
   "nativeGrid": {
     "width": 100,
@@ -92,11 +92,11 @@
     {
       "direction": "l",
       "bodyBounds": {
-        "minX": 29,
-        "maxX": 68,
+        "minX": 24,
+        "maxX": 78,
         "minY": 12,
         "maxY": 136,
-        "width": 40,
+        "width": 55,
         "height": 125
       },
       "bodyHeight": 125,
@@ -104,30 +104,30 @@
       "neckRow": 49,
       "headHeight": 38,
       "shoulderRow": 50,
-      "shoulderWidth": 27,
+      "shoulderWidth": 36,
       "shoulderBounds": {
-        "minX": 36,
-        "maxX": 62
+        "minX": 33,
+        "maxX": 68
       },
       "footRow": 136,
       "totalHeight": 139,
       "fullBounds": {
-        "minX": 26,
-        "maxX": 75,
+        "minX": 13,
+        "maxX": 82,
         "minY": -2,
         "maxY": 136,
-        "width": 50,
+        "width": 70,
         "height": 139
       }
     },
     {
       "direction": "r",
       "bodyBounds": {
-        "minX": 31,
-        "maxX": 70,
+        "minX": 24,
+        "maxX": 78,
         "minY": 12,
         "maxY": 136,
-        "width": 40,
+        "width": 55,
         "height": 125
       },
       "bodyHeight": 125,
@@ -135,19 +135,19 @@
       "neckRow": 49,
       "headHeight": 38,
       "shoulderRow": 50,
-      "shoulderWidth": 27,
+      "shoulderWidth": 36,
       "shoulderBounds": {
-        "minX": 37,
-        "maxX": 63
+        "minX": 33,
+        "maxX": 68
       },
       "footRow": 136,
       "totalHeight": 139,
       "fullBounds": {
-        "minX": 24,
-        "maxX": 73,
+        "minX": 13,
+        "maxX": 82,
         "minY": -2,
         "maxY": 136,
-        "width": 50,
+        "width": 70,
         "height": 139
       }
     }
@@ -156,7 +156,7 @@
     "mapTileSize": 36,
     "cameraZoom": 1,
     "rendererScale": 0.28,
-    "bodyWidthPixels": 15.400000000000002,
+    "bodyWidthPixels": 15.4,
     "bodyHeightPixels": 35,
     "fullHeightPixels": 38.92,
     "bodyHeightInTiles": 0.9722222222222222,
