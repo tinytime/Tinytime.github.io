@@ -11,6 +11,7 @@ permissions:
       - main
     paths:
       - 'VaporCity_HD2D_Hybrid_Test.html'
+      - 'npc_sprites.js'
       - 'qa/**'
       - '.github/workflows/vapor-city-browser-qa.yml'
 
