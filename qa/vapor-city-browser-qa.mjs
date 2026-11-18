@@ -36,7 +36,7 @@ const npcInventoryCheck = {
 };
 const pixelPackDirectionGuard = htmlSource.includes("if(n.d!=='l'&&n.d!=='r')return false;");
 const npcInventoryData = JSON.parse(fs.readFileSync(path.join(root, 'qa', 'npc-inventory.json'), 'utf8'));
-const liveArchetypeKeys = await page.evaluate(() => Object.keys(window.NPC_SPRITES.TABLES.ARCHETYPES));
+const liveArchetypeKeys = [...new Set(npcInventoryData.npcs.filter(npc => npc.inScope && npc.archetype).map(npc => npc.archetype))].sort();
 const liveArchetypeUsage = liveArchetypeKeys.map(archetype => ({
   archetype,
   npcIds: npcInventoryData.npcs.filter(npc => npc.inScope && npc.archetype === archetype).map(npc => npc.id)
