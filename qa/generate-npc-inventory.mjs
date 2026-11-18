@@ -116,20 +116,18 @@ const inventoryNpcs = npcs.map(npc => {
     rendererPath = 'drawGrannyVoltSprite (owner-approved reference baseline)';
     inScope = false;
     scopeClass = 'referenceBaseline';
+  } else if (outOfScopeOwFigIds.has(npc.id)) {
+    rendererPath = npc.sprite === 'cat' ? 'pxCat atlas override -> owCat (owner-excluded, out of scope)' : 'owFig -> renderPerson (non-standard, out of scope)';
+    inScope = false;
+    scopeClass = 'outOfScope';
   } else if (npc.civ) {
     rendererPath = pxPersonAtlas[npc.id] ? 'pxPerson atlas override -> owCiv fallback' : 'owCiv';
     inScope = true;
     scopeClass = standardScopeClass;
   } else if (npc.sprite === 'cat') {
-    rendererPath = 'pxCat atlas override -> owCat fallback';
-    inScope = true;
-    scopeClass = standardScopeClass;
+    throw new Error('Cat NPC must have an explicit owner out-of-scope decision: ' + npc.id);
   } else {
-    // Scope exceptions are explicit owner decisions maintained outside the parser.
-    if (!outOfScopeOwFigIds.has(npc.id)) throw new Error('Unclassified owFig/renderPerson NPC: ' + npc.id + ' (owner scope decision required)');
-    rendererPath = 'owFig -> renderPerson (non-standard, out of scope)';
-    inScope = false;
-    scopeClass = 'outOfScope';
+    throw new Error('Unclassified owFig/renderPerson NPC: ' + npc.id + ' (owner scope decision required)');
   }
   return {
     id: npc.id,
