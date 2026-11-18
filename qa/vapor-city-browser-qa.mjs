@@ -224,12 +224,12 @@ try {
   };
 
   const silhouetteQualityCheck = {
-    // Every pair must be below the strict 0.85 IoU ceiling. The prior
-    // zero-success condition inverted the gate and rejected good comparisons.
+    // Reject trivial one-row edge edits: a distinct body silhouette must
+    // hold its contour difference across at least six torso/head scanlines.
     pass: silhouetteBaseline.pairCount === 135 &&
       silhouetteBaseline.pairsBelowTarget === silhouetteBaseline.pairCount &&
       silhouetteBaseline.pairsAtOrAboveTarget === 0 &&
-      silhouetteBaseline.minEdgeRowsDifferentBy2 >= 1,
+      silhouetteBaseline.minEdgeRowsDifferentBy2 >= 6,
     pairCount: silhouetteBaseline.pairCount,
     pairsBelowTarget: silhouetteBaseline.pairsBelowTarget,
     pairsAtOrAboveTarget: silhouetteBaseline.pairsAtOrAboveTarget,
@@ -238,7 +238,8 @@ try {
     minIoU: silhouetteBaseline.minIoU,
     maxIoU: silhouetteBaseline.maxIoU,
     minEdgeRowsDifferentBy2: silhouetteBaseline.minEdgeRowsDifferentBy2,
-    requirements: 'All 135 archetype pairs must have IoU < 0.85 in each tested view; every pair must also differ by at least 2 px on one or more torso/head edge rows.'
+    minimumDistinctEdgeRows: 6,
+    requirements: 'All 135 archetype pairs must have IoU < 0.85 in each tested view; every pair must differ by at least 2 px across at least six torso/head edge rows.'
   };
 
   const galleryToggle = page.locator('#owNpcGalleryToggle');
@@ -297,6 +298,30 @@ try {
       return scaled.toDataURL('image/png');
     });
     fs.writeFileSync(path.join(out, 'npc-gallery-4x.png'), Buffer.from(gallery4xPng.split(',')[1], 'base64'));
+    const grannyDirectionalVisualCheck = await galleryCanvas.evaluate(c => {
+      const ctx = c.getContext('2d');
+      const cellW = Math.floor(c.width / 10);
+      const cellH = Math.floor(c.height / 4);
+      // Compare the first gallery column (Granny) above the label band.
+      // The sprite occupies the upper 72% of each cell; labels are excluded.
+      const cropHeight = Math.floor(cellH * 0.72);
+      const crops = [];
+      for (let row = 0; row < 4; row++) {
+        crops.push(ctx.getImageData(0, row * cellH, cellW, cropHeight).data);
+      }
+      const comparisons = [];
+      for (let row = 1; row < 4; row++) {
+        let differentPixels = 0;
+        for (let p = 0; p < crops[0].length; p += 4) {
+          if (crops[0][p] !== crops[row][p] || crops[0][p+1] !== crops[row][p+1] ||
+              crops[0][p+2] !== crops[row][p+2] || crops[0][p+3] !== crops[row][p+3]) differentPixels++;
+        }
+        comparisons.push({ directions: ['front', 'back', 'left', 'right'][0] + ' vs ' + ['front', 'back', 'left', 'right'][row], differentPixels });
+      }
+      return { pass: comparisons.every(x => x.differentPixels > 0), comparisons,
+        note: 'Pixel comparison of Granny gallery sprite crops; direction labels excluded.' };
+    });
+    canvasMetrics.grannyDirectionalVisualCheck = grannyDirectionalVisualCheck;
     canvasMetrics.cellGrid = await galleryCanvas.evaluate(c => {
       const ctx = c.getContext('2d');
       const { width, height } = c;
@@ -353,6 +378,7 @@ try {
     galleryFound: galleryExists,
     galleryRenderError,
     galleryVisualPass: galleryExists && !galleryRenderError,
+    grannyDirectionalVisualCheck: canvasMetrics?.grannyDirectionalVisualCheck || null,
     canvasMetrics,
     scriptErrors,
     pageErrors,
@@ -361,7 +387,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
