@@ -431,7 +431,7 @@
   }
 
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
-    const { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
+    const { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
@@ -526,6 +526,19 @@
         set(16,8,'inkdetail'); // 1x1 mouth
       }
       if(headStyle==='bun')put(19,0,4,3,'hair');
+      // Fan headwear must alter the rendered outline as well as the palette.
+      // These one-pixel brim/hood/tuft extensions remain inside the 64x96
+      // sprite and are intentionally distinct per headwear family.
+      if(kind==='fan'){
+        if(headStyle==='cap-profile')set(22,3,'cloth');
+        else if(headStyle==='newsboy-cap'){set(9,2,'cloth');set(22,2,'cloth')}
+        else if(headStyle==='work-cap'){set(9,1,'cloth');set(22,1,'cloth')}
+        else if(headStyle==='beanie'){set(10,1,'cloth');set(21,1,'cloth')}
+        else if(headStyle==='hat'){set(9,1,'clothhi');set(22,1,'clothhi')}
+        else if(headStyle==='round-fringe'){set(9,0,'hair');set(22,0,'hair')}
+        else if(headStyle==='hair-band'){set(9,4,'hair');set(22,4,'hair')}
+        else if(headStyle==='hood'){put(9,2,1,5,'cloth');put(22,2,1,5,'cloth')}
+      }
       if(headStyle==='round-fringe'){put(11,0,10,2,'hair');put(13,2,6,1,'hairlight');put(14,3,4,1,'hair')}
       if(headStyle==='helmet')put(10,0,12,4,'helm');
       else if(headStyle==='hood'){put(10,1,12,3,'clothhi');put(10,3,2,6,'cloth');put(20,3,2,6,'cloth')}
