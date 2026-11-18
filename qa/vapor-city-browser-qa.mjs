@@ -326,7 +326,10 @@ try {
     const {ARCHETYPES,ARCHETYPE_PROP_LAYERS,ARCHETYPE_PROP_SHAPES,PROP_ROLE_COLORS,ARCHETYPE_ACCESSORY_ROLES}=window.NPC_SPRITES.TABLES;
     const names=Object.keys(ARCHETYPES);
     const frontTypes=names.map(name=>({archetype:name,type:ARCHETYPES[name].prop.front.type}));
-    const shapeRows=Object.entries(ARCHETYPE_PROP_SHAPES).map(([role,rows])=>({role,rows,signature:rows.join('/'),color:PROP_ROLE_COLORS[role]||null}));
+    const shapeRows=Object.entries(ARCHETYPE_PROP_SHAPES).map(([role,rows])=>{
+      const filled=rows.join('').replace(/\\./g,'').length,area=rows.length*rows[0].length;
+      return {role,rows,signature:rows.join('/'),color:PROP_ROLE_COLORS[role]||null,fillRatio:filled/area};
+    });
     const propColors=Object.entries(PROP_ROLE_COLORS).map(([role,color])=>({role,color}));
     const footprints=[];
     for(const name of names)for(const view of ['front','side','back']){
@@ -339,9 +342,11 @@ try {
     const duplicateColors=propColors.filter((item,i)=>propColors.some((other,j)=>j!==i&&other.color===item.color));
     const duplicateShapes=shapeRows.filter((item,i)=>shapeRows.some((other,j)=>j!==i&&other.signature===item.signature));
     const missingRoleColors=shapeRows.filter(item=>!item.color);
-    return {pass:duplicateTypes.length===0&&duplicateColors.length===0&&duplicateShapes.length===0&&missingRoleColors.length===0,
+    const rectangularShapes=shapeRows.filter(item=>item.fillRatio>=0.999999).map(item=>item.role);
+    const nonRectangularShapeCount=shapeRows.length-rectangularShapes.length;
+    return {pass:duplicateTypes.length===0&&duplicateColors.length===0&&duplicateShapes.length===0&&missingRoleColors.length===0&&nonRectangularShapeCount>=14,
       archetypeCount:names.length,frontTypes,propColors,shapeRows,footprintCount:footprints.length,
-      duplicateTypes,duplicateColors,duplicateShapes,missingRoleColors,footprints};
+      duplicateTypes,duplicateColors,duplicateShapes,missingRoleColors,rectangularShapes,nonRectangularShapeCount,footprints};
   });
 
   const npcSnapshotData = await page.evaluate(() => {
