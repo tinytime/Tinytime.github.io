@@ -20,8 +20,8 @@ for (const d of ref.directions) {
 if (ref.umbrellaExclusion !== 'The measurement pass skips the canopy path and shaft line; it retains the gripping hand and arm. Contact shadow and foot glow are disabled.') {
   throw new Error('Unexpected umbrella exclusion method');
 }
-const generated = '// Generated from qa/granny-ref.json. Do not edit by hand.\\n' +
-  'window.GRANNY_REF_DATA = Object.freeze(' + JSON.stringify(ref, null, 2) + ');\\n';
+const generated = '// Generated from qa/granny-ref.json. Do not edit by hand.\n' +
+  'window.GRANNY_REF_DATA = Object.freeze(' + JSON.stringify(ref, null, 2) + ');\n';
 if (process.argv.includes('--check')) {
   if (!fs.existsSync(jsPath) || fs.readFileSync(jsPath, 'utf8') !== generated) {
     throw new Error('qa/granny-ref.js is stale; regenerate it from qa/granny-ref.json');
