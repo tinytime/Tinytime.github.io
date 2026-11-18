@@ -8573,9 +8573,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       const calfX=thighX+(left?-1:1);
       const travel=Math.round(swing*.25*phase);
       limbRect(thighX,-14,pants);                    // thigh: 2x4 base
-      limbRect(calfX+travel,-10,pants);             // calf: 2x4 base, shifted outward 1px
-      line([[thighX,-10],[thighX+2,-10]],pants.shadow,1); // dark knee-joint line
-      line([[calfX+travel,-9],[calfX+travel,-7]],pants.shadow,1);
+      limbRect(calfX+travel,-11,pants);             // calf: 2x4 base, shifted outward 1px
+      line([[thighX,-11],[thighX+2,-11]],pants.shadow,1); // dark knee-joint line
+      line([[calfX+travel,-10],[calfX+travel,-8]],pants.shadow,1);
       const shoeX=calfX+travel-1;
       px(shoeX,-2,4,2,'#292638');
       g.strokeStyle=ink;g.lineWidth=1;g.strokeRect(shoeX-.5,-2.5,5,3);
