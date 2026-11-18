@@ -8667,8 +8667,19 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
   if(P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
   if(P.keys)put(4,29,24,2,'key');
-  if(P.baton){const propHand=(A&&A.prop.hand)||'right';put(propHand==='left'?5:29,13,2,18,'baton');}
-  if(P.bowl&&!back){const propHand=(A&&A.prop.hand)||'left';put(propHand==='left'?4:24,25,6,4,'bowl');}
+  // Archetype props are attached to the actual hand position, not floated
+  // beyond the silhouette. Character-left is viewer-right in the front view.
+  if(A&&A.prop){
+    const hand=A.prop.hand||'right';
+    const viewerRight=back?(hand==='right'):(hand==='left');
+    const handX=side?18:(viewerRight?22:8);
+    const propY=side?18:19;
+    if(A.prop.type==='baton')put(handX,14,2,9,'baton');
+    else if(A.prop.type==='bowl')put(handX-2,propY,5,3,'bowl');
+    else if(A.prop.type==='parcel')put(handX-1,propY-1,4,4,'parcel');
+    else if(A.prop.type==='medical-kit')put(handX-1,propY-1,4,4,'medkit');
+    else if(A.prop.type==='delivery-bag'&&(back||side))put(side?20:8,13,4,8,'pack');
+  }
   if(P.long)put(10,22,12,2,'bodyshade');
   if(side&&dirCode==='l')for(let yy=0;yy<H;yy++)grid[yy].reverse();
   const colorFor=(role,xx,yy)=>{
@@ -8696,6 +8707,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       case 'key':return '#ff7a1a';
       case 'baton':return '#27e0ff';
       case 'bowl':return '#e8e8f0';
+      case 'parcel':return '#d88a45';
+      case 'medkit':return '#e8e8f0';
       case 'inkdetail':return '#101018';
       default:return null;
     }
