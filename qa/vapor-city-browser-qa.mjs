@@ -80,6 +80,25 @@ try {
     rect: (() => { const r = el.getBoundingClientRect(); return { x:r.x,y:r.y,width:r.width,height:r.height }; })()
   })).catch(e => ({ error: e.message }));
 
+  // Force the real Vapor City street map for the player-view screenshot.
+  // The test save can start in a later district, and menu labels are not a reliable map selector.
+  let townSceneState = await page.evaluate(() => {
+    const sg = window.SG;
+    if (!sg || typeof sg.owPlace !== 'function' || typeof sg.M !== 'function') {
+      return { pass: false, error: 'Game scene controls are unavailable' };
+    }
+    if (sg.M()?.id !== 'street') sg.owPlace('street', 19, 23, 'd', null);
+    const map = sg.M();
+    return {
+      mapId: map?.id || null,
+      npcCount: Array.isArray(map?.npcs) ? map.npcs.length : null,
+      grannyPresent: Array.isArray(map?.npcs) && map.npcs.some(n => n.id === 'granny')
+    };
+  });
+  await page.waitForTimeout(700);
+  townSceneState.pass = townSceneState.mapId === 'street' && townSceneState.grannyPresent;
+  await page.screenshot({ path: path.join(out, 'game-town-1x.png'), fullPage: true });
+
   const galleryToggle = page.locator('#owNpcGalleryToggle');
   const galleryState = await galleryToggle.evaluate(el => ({
     hidden: el.hidden,
@@ -174,6 +193,7 @@ try {
     townButtonVisible,
     townClickAttempted,
     townClickError,
+    townSceneState,
     worldState,
     galleryState,
     galleryToggleVisible,
@@ -190,7 +210,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !townSceneState.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
 } finally {
   await browser.close();
 }
