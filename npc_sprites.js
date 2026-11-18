@@ -436,8 +436,25 @@
       else if(A.head==='beanie'){put(12,0,8,2,'cloth');put(10,2,12,1,'clothhi')}
       else if(A.head==='hat'){put(9,1,14,1,'clothhi');put(12,0,8,2,'cloth')}
       else if(A.head==='hair-band')put(11,1,10,1,'hairband')
-      // Single-pixel hairline and chin shadows create facial depth.
-      if(!back){for(let xx=12;xx<=19;xx++)set(xx,3,'skinshade');for(let xx=14;xx<=18;xx++)set(xx,9,'skinshade');set(13,6,'skinlight');}
+      // Facial planes and headwear highlights reuse the existing palette roles.
+      if(!back){
+        for(let xx=12;xx<=19;xx++)set(xx,3,'skinshade');
+        for(let xx=14;xx<=18;xx++)set(xx,9,'skinshade');
+        set(13,6,'skinlight');
+        if(!side){grid[9][27]='skinlight';grid[9][37]='skinlight';}
+      }
+      if(A.head==='round-fringe'||A.head==='bun'){
+        if(!back){grid[1][27]='hairlight';grid[1][28]='hairlight';}
+        else {grid[2][29]='hairlight';grid[2][30]='hairlight';}
+      }else if(A.head==='helmet'){
+        if(!back){grid[2][25]='clothhi';grid[2][26]='clothhi';grid[2][27]='clothhi';}
+        else {grid[2][36]='clothhi';grid[2][37]='clothhi';}
+      }else if(A.head==='cap-profile'||A.head==='newsboy-cap'||A.head==='work-cap'||A.head==='hat'){
+        if(!back){grid[5][37]='clothhi';grid[5][38]='clothhi';}
+        else {grid[5][25]='clothhi';grid[5][26]='clothhi';}
+      }else if(A.head==='beanie'){
+        grid[1][27]='clothhi';grid[1][28]='clothhi';grid[1][29]='clothhi';
+      }
       if(!back&&A.head!=='helmet'&&A.head!=='hood'){set(side?19:14,5,'inkdetail');if(!side)set(18,5,'inkdetail');}
       // Torso: front/back 12x14; profile 8x14 with four shadow + four base columns.
       // Body coordinates use a 16-wide local anatomy grid centered at X=8;
@@ -539,6 +556,16 @@
       const propLayers=propSpec[rigView];
       for(const [px,py,pw,ph,role] of propLayers)if(!qaExcludeProps||!ARCHETYPE_ACCESSORY_ROLES.has(role))put(px,py,pw,ph,role);
       if(P.long)put(10,22,12,2,'bodyshade');
+      // Give the footwear a dark sole and toe highlight using existing palette roles.
+      if(!side){
+        for(let xx=10;xx<=14;xx++)set(xx,39,'inkdetail');
+        for(let xx=18;xx<=22;xx++)set(xx,39,'inkdetail');
+        set(10,37,'bodyhi');set(18,37,'bodyhi');
+      }else{
+        for(let xx=9;xx<=13;xx++)set(xx,39,'inkdetail');
+        for(let xx=17;xx<=21;xx++)set(xx,39,'inkdetail');
+        set(9,37,'bodyhi');set(17,37,'bodyhi');
+      }
       if(side&&dirCode==='l')for(let yy=0;yy<H;yy++)grid[yy].reverse();
       const colorFor=(role,xx,yy)=>{
         switch(role){
