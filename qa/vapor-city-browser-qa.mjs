@@ -94,7 +94,9 @@ try {
   const galleryCanvas = page.locator('#owNpcGalleryCanvas');
   const galleryExists = await galleryCanvas.count() > 0 && await galleryCanvas.isVisible();
   let canvasMetrics = null;
+  let galleryRenderError = null;
   if (galleryExists) {
+    galleryRenderError = await galleryCanvas.evaluate(c => c.dataset.renderError || null);
     canvasMetrics = await galleryCanvas.evaluate(canvas => {
       const ctx = canvas.getContext('2d');
       const { width, height } = canvas;
@@ -131,6 +133,8 @@ try {
     galleryOpened,
     galleryClickError,
     galleryFound: galleryExists,
+    galleryRenderError,
+    galleryVisualPass: galleryExists && !galleryRenderError,
     canvasMetrics,
     scriptErrors,
     pageErrors,
@@ -139,6 +143,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
+  if (!syntaxCheck.ok || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length) process.exitCode = 1;
 } finally {
   await browser.close();
 }
