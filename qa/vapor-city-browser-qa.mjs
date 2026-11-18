@@ -200,13 +200,19 @@ try {
   const bgLum = luminance(galleryBackground);
   const allBodyMeasurements = [...npcBodyMeasurements.civs, npcBodyMeasurements.granny];
   const bodyRows = allBodyMeasurements.map(item => {
-    const scale = item.civ === 'granny' ? bodyReference.scaleFactor : civScale;
-    const renderedHeightPixels = item.bodyHeight * scale;
-    const baselineRatio = item.footRow / (item.civ === 'granny' ? bodyReference.nativeGrid.height-1 : item.height-1);
+    const granny = item.civ === 'granny';
+    const scale = granny ? bodyReference.scaleFactor : civScale;
+    // Civilian canvas height is inclusive; the 80-row visible body is the
+    // distance between the first and last opaque rows (bodyHeight - 1).
+    const renderedHeightPixels = (granny ? item.bodyHeight : item.bodyHeight - 1) * scale;
+    // owCiv anchors its 64x96 sprite at row 80; Granny's native renderer
+    // anchors at source row 137 with her measured foot row at 136.
+    const baselineOffset = item.footRow - (granny ? 137 : 80);
+    const expectedBaselineOffset = granny ? -1 : 0;
     const outlineLum = luminance(item.outlineColor);
     const contrastRatio = (Math.max(outlineLum,bgLum)+0.05)/(Math.min(outlineLum,bgLum)+0.05);
     return {...item,renderedHeightPixels,heightDeviationPixels:Math.abs(renderedHeightPixels-expectedBodyPixels),
-      baselineRatio,baselineDelta:Math.abs(baselineRatio-(bodyReference.footRow/(bodyReference.nativeGrid.height-1))),
+      baselineOffset,baselineDelta:Math.abs(baselineOffset-expectedBaselineOffset),
       contrastRatio,outlineContrastPercent:Math.abs(outlineLum-bgLum)/Math.max(outlineLum,bgLum)};
   });
   const npcBodyCheck = {
