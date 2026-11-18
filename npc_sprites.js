@@ -710,6 +710,32 @@
       // Keep facial marks at true native 1x1 resolution despite logical block helpers.
       if(!side&&!back&&headStyle!=='helmet'&&headStyle!=='hood'){grid[10][28]='inkdetail';grid[10][36]='inkdetail';grid[16][32]='inkdetail';}
       if(side)grid[8][40]='skin';
+      const fanJerseyStyles={
+        driverA:'stripes',fan1:'crest',fan2:'bars',fanA:'sash',fanB:'split',
+        fanC:'stripes',fanD:'crest',gamer1:'bars',hb_denny:'sash',hb_pete:'split',
+        hb_shopper:'stripes',hb_splinter:'crest',hb_wick:'bars',patient1:'sash',
+        r2_saltwife:'split',r2_stack:'stripes',regular1:'crest',shopper1:'bars',
+        wait1:'sash',wait2:'split'
+      };
+      const fanJerseyStyle=kind==='fan'?(fanJerseyStyles[n.id]||'stripes'):null;
+      // Give fan jerseys readable garment construction, not just a new swatch.
+      // These small motifs sit on the chest and never cover the foam-finger prop.
+      if(kind==='fan'&&!back&&!side){
+        if(fanJerseyStyle==='stripes'){
+          for(let yy=13;yy<=21;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
+        }else if(fanJerseyStyle==='crest'){
+          [[15,13],[14,14],[16,14],[15,15],[15,16]].forEach(([x,y])=>set(x,y,'clothhi'));
+          set(15,14,'bodyhi');
+        }else if(fanJerseyStyle==='bars'){
+          for(const yy of [13,17,21])for(let xx=12;xx<=19;xx++)set(xx,yy,'clothhi');
+        }else if(fanJerseyStyle==='sash'){
+          for(let yy=13;yy<=21;yy++)set(12+Math.floor((yy-13)/2),yy,'clothhi');
+          for(let yy=14;yy<=20;yy++)set(13+Math.floor((yy-14)/2),yy,'bodyhi');
+        }else if(fanJerseyStyle==='split'){
+          for(let yy=13;yy<=21;yy++){set(15,yy,'clothhi');set(16,yy,'bodyhi')}
+          for(let xx=12;xx<=14;xx++)set(xx,20,'clothhi');
+        }
+      }
       const colors=grid.map((row,yy)=>row.map((role,xx)=>role?colorFor(role,xx,yy):null));
       const finalGrid=colors.map(row=>row.slice());
       // One grid cell of ink: each occupied cell touching transparency marks its
@@ -732,7 +758,7 @@
       for(const color of finalGrid.flat())if(color!==null)palettePixelCounts[color]=(palettePixelCounts[color]||0)+1;
       const uniquePaletteColors=Object.keys(palettePixelCounts);
       owCiv._lastPaletteMetrics={
-        civ:kind,archetype:archetypeKey,uniqueColorCount:uniquePaletteColors.length,
+        civ:kind,archetype:archetypeKey,fanJerseyStyle,uniqueColorCount:uniquePaletteColors.length,
         colors:uniquePaletteColors,colorPixelCounts:palettePixelCounts,
         opaquePixelCount:Object.values(palettePixelCounts).reduce((sum,count)=>sum+count,0),
         outlinePixelCount:palettePixelCounts[ink]||0
