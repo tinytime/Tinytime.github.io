@@ -196,6 +196,7 @@ try {
     pairCount: silhouetteComparisons.length,
     targetIoU: 0.85,
     pairsBelowTarget: silhouetteComparisons.filter(x => x.iou < 0.85).length,
+    pairsAtOrAboveTarget: silhouetteComparisons.filter(x => x.iou >= 0.85).length,
     minIoU: Math.min(...silhouetteComparisons.map(x => x.iou)),
     maxIoU: Math.max(...silhouetteComparisons.map(x => x.iou)),
     minEdgeRowsDifferentBy2: Math.min(...silhouetteComparisons.map(x => x.edgeRowsDifferentBy2)),
@@ -203,12 +204,21 @@ try {
   };
 
   const silhouetteQualityCheck = {
-    pass: silhouetteBaseline.pairsBelowTarget === 0 && silhouetteBaseline.minEdgeRowsDifferentBy2 >= 1,
+    // Every pair must be below the strict 0.85 IoU ceiling. The prior
+    // zero-success condition inverted the gate and rejected good comparisons.
+    pass: silhouetteBaseline.pairCount === 135 &&
+      silhouetteBaseline.pairsBelowTarget === silhouetteBaseline.pairCount &&
+      silhouetteBaseline.pairsAtOrAboveTarget === 0 &&
+      silhouetteBaseline.minEdgeRowsDifferentBy2 >= 1,
     pairCount: silhouetteBaseline.pairCount,
     pairsBelowTarget: silhouetteBaseline.pairsBelowTarget,
+    pairsAtOrAboveTarget: silhouetteBaseline.pairsAtOrAboveTarget,
+    failingOverlapPairs: silhouetteComparisons.filter(x => x.iou >= 0.85),
+    failingEdgePairs: silhouetteComparisons.filter(x => x.edgeRowsDifferentBy2 < 1),
     minIoU: silhouetteBaseline.minIoU,
+    maxIoU: silhouetteBaseline.maxIoU,
     minEdgeRowsDifferentBy2: silhouetteBaseline.minEdgeRowsDifferentBy2,
-    requirements: 'Every archetype pair must have IoU < 0.85 in each tested view; every pair must also differ by at least 2 px on one or more torso/head edge rows.'
+    requirements: 'All 135 archetype pairs must have IoU < 0.85 in each tested view; every pair must also differ by at least 2 px on one or more torso/head edge rows.'
   };
 
   const galleryToggle = page.locator('#owNpcGalleryToggle');
