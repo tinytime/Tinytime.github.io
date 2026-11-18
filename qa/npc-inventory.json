@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "source": "VaporCity_HD2D_Hybrid_Test.html (live NPC records + renderer dispatch)",
+  "source": "VaporCity_HD2D_Hybrid_Test.html + npc_sprites.js (live NPC records + renderer dispatch and archetype tables)",
   "npcCount": 135,
   "civCount": 24,
   "civs": [
