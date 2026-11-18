@@ -728,8 +728,15 @@
         for(let yy=48;yy<=72;yy++)finalGrid[yy][gapX]=null;
       }
       // Palette audit is measured from the final native pixel grid, including its outline.
-      const uniquePaletteColors=[...new Set(finalGrid.flat().filter(color=>color!==null))];
-      owCiv._lastPaletteMetrics={civ:kind,archetype:archetypeKey,uniqueColorCount:uniquePaletteColors.length,colors:uniquePaletteColors};
+      const palettePixelCounts=Object.create(null);
+      for(const color of finalGrid.flat())if(color!==null)palettePixelCounts[color]=(palettePixelCounts[color]||0)+1;
+      const uniquePaletteColors=Object.keys(palettePixelCounts);
+      owCiv._lastPaletteMetrics={
+        civ:kind,archetype:archetypeKey,uniqueColorCount:uniquePaletteColors.length,
+        colors:uniquePaletteColors,colorPixelCounts:palettePixelCounts,
+        opaquePixelCount:Object.values(palettePixelCounts).reduce((sum,count)=>sum+count,0),
+        outlinePixelCount:palettePixelCounts[ink]||0
+      };
       // Keep a uniform dark outline; do not apply directional rim tints.
       const spriteCanvas=owCiv._gridCanvas||(owCiv._gridCanvas=document.createElement('canvas'));
       if(spriteCanvas.width!==N*SCALE)spriteCanvas.width=N*SCALE;
