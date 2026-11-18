@@ -48,13 +48,14 @@ for (const match of source.matchAll(/\{\s*id\s*:\s*(['"])([^'"]+)\1/g)) {
   if (!/\bx\s*:/.test(object) || !/\by\s*:/.test(object) || !/\bd\s*:/.test(object)) continue;
   const civ = (object.match(/\bciv\s*:\s*(['"])([^'"]+)\1/) || [])[2] || null;
   const sprite = (object.match(/\bsprite\s*:\s*(['"])([^'"]+)\1/) || [])[2] || null;
-  records.push({ id: match[2], civ, sprite });
+  const direction = (object.match(/\bd\s*:\s*(['"])([^'"]+)\1/) || [])[2] || null;
+  records.push({ id: match[2], civ, sprite, direction });
 }
 
 const byId = new Map();
 for (const npc of records) {
   const prior = byId.get(npc.id);
-  if (prior && (prior.civ !== npc.civ || prior.sprite !== npc.sprite)) {
+  if (prior && (prior.civ !== npc.civ || prior.sprite !== npc.sprite || prior.direction !== npc.direction)) {
     throw new Error('Conflicting live NPC definitions for id ' + npc.id);
   }
   byId.set(npc.id, npc);
