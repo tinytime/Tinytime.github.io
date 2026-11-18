@@ -87,1358 +87,1358 @@
     {
       "id": "bartender",
       "civ": "vendor",
+      "direction": "d",
       "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "broker",
       "civ": "broker",
+      "direction": "d",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "busker",
       "civ": "busker",
+      "direction": "r",
       "archetype": "performer",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp5",
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "cat",
       "civ": null,
+      "direction": "l",
       "archetype": null,
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "cat1",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "cat2",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "courier",
       "civ": "courier",
+      "direction": "d",
       "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "drift1",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "drift2",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "driverA",
       "civ": "fan",
+      "direction": "r",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "driverB",
       "civ": "busker",
+      "direction": "l",
       "archetype": "performer",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "fan1",
       "civ": "fan",
+      "direction": "r",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "fan2",
       "civ": "fan",
+      "direction": "l",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "fanA",
       "civ": "fan",
+      "direction": "u",
       "archetype": "civic",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp9",
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "fanB",
       "civ": "fan",
+      "direction": "u",
       "archetype": "civic",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp1",
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "fanC",
       "civ": "fan",
+      "direction": "l",
       "archetype": "civic",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp4",
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "fanD",
       "civ": "fan",
+      "direction": "l",
       "archetype": "civic",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp11",
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "fisher",
       "civ": "fisher",
+      "direction": "d",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "gamer1",
       "civ": "fan",
+      "direction": "u",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "gamer2",
       "civ": "mouse",
+      "direction": "u",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "gateE",
       "civ": "guard",
+      "direction": "u",
       "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "gatekeeper",
       "civ": "guard",
+      "direction": "d",
       "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "gateS",
       "civ": "guard",
+      "direction": "r",
       "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "gcat1",
       "civ": null,
+      "direction": "r",
       "archetype": null,
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "gcat2",
       "civ": null,
+      "direction": "l",
       "archetype": null,
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "gcat3",
       "civ": null,
+      "direction": "l",
       "archetype": null,
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "granny",
       "civ": "granny",
+      "direction": "d",
       "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hacker",
       "civ": "hacker",
+      "direction": "d",
       "archetype": "clinic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_agnes",
       "civ": "granny",
+      "direction": "l",
       "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "hb_bram",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "hb_cadogan",
       "civ": "granny",
+      "direction": "u",
       "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "hb_cook",
       "civ": "cook",
+      "direction": "d",
       "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_cormac",
       "civ": "vendor",
+      "direction": "d",
       "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_crabkid",
       "civ": "kid2",
+      "direction": "l",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "hb_deckhand",
       "civ": "sailor",
+      "direction": "d",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_deke",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "hb_denny",
       "civ": "fan",
+      "direction": "l",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "hb_docker",
       "civ": "guard",
+      "direction": "r",
       "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_dockhand",
       "civ": "vendor",
+      "direction": "u",
       "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "hb_duke",
       "civ": "vendor",
+      "direction": "d",
       "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_dutch",
       "civ": "coach",
+      "direction": "d",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_finn",
       "civ": "coach",
+      "direction": "d",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_fisher",
       "civ": "fisher",
+      "direction": "r",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_fishwife",
       "civ": "vendor",
+      "direction": "l",
       "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "hb_gulllady",
       "civ": "granny",
+      "direction": "r",
       "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_gus",
       "civ": "coach",
+      "direction": "d",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_ivy",
       "civ": "clinic",
+      "direction": "d",
       "archetype": "clinic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_kell",
       "civ": "coach",
+      "direction": "d",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_kidrun",
       "civ": "kid2",
+      "direction": "r",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_lkid",
       "civ": "kid",
+      "direction": "u",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "hb_loader",
       "civ": "slicker",
+      "direction": "r",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_marla",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "hb_marty",
       "civ": "coach",
+      "direction": "r",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_marv",
       "civ": "vendor",
+      "direction": "l",
       "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "hb_mender",
       "civ": "sailor",
+      "direction": "d",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_messenger",
       "civ": "courier",
+      "direction": "l",
       "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "hb_oldsalt",
       "civ": "slicker",
+      "direction": "d",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_painter",
       "civ": "painter",
+      "direction": "d",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_penrose",
       "civ": "coach",
+      "direction": "d",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_pete",
       "civ": "fan",
+      "direction": "r",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_pip",
       "civ": "kid",
+      "direction": "u",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "hb_ref1",
       "civ": "ref",
+      "direction": "l",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "hb_ref2",
       "civ": "ref",
+      "direction": "r",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_riptide",
       "civ": "courier",
+      "direction": "l",
       "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "hb_riptide_b",
       "civ": "courier",
+      "direction": "l",
       "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "hb_rita",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "hb_runner",
       "civ": "runner",
+      "direction": "r",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_sable",
       "civ": "broker",
+      "direction": "d",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_shopper",
       "civ": "fan",
+      "direction": "r",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_skeeter",
       "civ": "coach",
+      "direction": "d",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_sketch",
       "civ": "painter",
+      "direction": "u",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "hb_splinter",
       "civ": "fan",
+      "direction": "r",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_tommy",
       "civ": "kid",
+      "direction": "u",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "hb_walker",
       "civ": "sailor",
+      "direction": "r",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_welder",
       "civ": "welder",
+      "direction": "d",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "hb_wick",
       "civ": "fan",
+      "direction": "r",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_yardman",
       "civ": "welder",
+      "direction": "r",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "hb_zd",
       "civ": "runner",
+      "direction": "l",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "kid",
       "civ": "kid",
+      "direction": "l",
       "archetype": "youth",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
       "pxPersonAtlasKey": "tp12",
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "kid1",
       "civ": "kid",
+      "direction": "r",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "kid2",
       "civ": "kid",
+      "direction": "l",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "king1",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "king2",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "lou",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "mack",
       "civ": null,
+      "direction": "l",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "l"
+      "inScope": false
     },
     {
       "id": "manager",
       "civ": "coach",
+      "direction": "d",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "mate1",
       "civ": null,
+      "direction": "r",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "r"
+      "inScope": false
     },
     {
       "id": "mate2",
       "civ": "kid",
+      "direction": "l",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "mo",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "mouse",
       "civ": "mouse",
+      "direction": "r",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "owner",
       "civ": "vendor",
+      "direction": "l",
       "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "patient1",
       "civ": "fan",
+      "direction": "d",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "patient2",
       "civ": "runner",
+      "direction": "l",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "pete",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "pharmacist",
       "civ": "clinic",
+      "direction": "d",
       "archetype": "clinic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "r2_courier",
       "civ": "courier",
+      "direction": "l",
       "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "r2_crewman",
       "civ": "slicker",
+      "direction": "u",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "r2_dock",
       "civ": "guard",
+      "direction": "u",
       "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "r2_fisher",
       "civ": "fisher",
+      "direction": "r",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "r2_gullkid",
       "civ": "kid",
+      "direction": "d",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "r2_ida",
       "civ": "slicker",
+      "direction": "d",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "r2_keep",
       "civ": "vendor",
+      "direction": "d",
       "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "r2_laundry",
       "civ": "granny",
+      "direction": "u",
       "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "r2_mud",
       "civ": null,
+      "direction": "d",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "d"
+      "inScope": false
     },
     {
       "id": "r2_noll",
       "civ": "sailor",
+      "direction": "d",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "r2_oldfish",
       "civ": "fisher",
+      "direction": "d",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "r2_oldsalt",
       "civ": "fisher",
+      "direction": "u",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "r2_raker",
       "civ": "vendor",
+      "direction": "r",
       "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "r2_ref",
       "civ": "ref",
+      "direction": "l",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "r2_ripf",
       "civ": "courier",
+      "direction": "l",
       "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "r2_riptide",
       "civ": "courier",
+      "direction": "l",
       "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "r2_runkid",
       "civ": "kid2",
+      "direction": "r",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "r2_saltw",
       "civ": "welder",
+      "direction": "l",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "r2_saltwife",
       "civ": "fan",
+      "direction": "r",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "r2_sela",
       "civ": "granny",
+      "direction": "d",
       "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "r2_skipper",
       "civ": "sailor",
+      "direction": "d",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "r2_stack",
       "civ": "fan",
+      "direction": "r",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "r2_toll",
       "civ": "guard",
+      "direction": "u",
       "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "r2_zd",
       "civ": "runner",
+      "direction": "d",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "r2_zdf",
       "civ": "runner",
+      "direction": "r",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "rat2",
       "civ": null,
+      "direction": "l",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "l"
+      "inScope": false
     },
     {
       "id": "regular1",
       "civ": "fan",
+      "direction": "u",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "regular2",
       "civ": "dancer",
+      "direction": "d",
       "archetype": "performer",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "regular3",
       "civ": "coach",
+      "direction": "r",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "retiredLocal",
       "civ": "fisher",
+      "direction": "l",
       "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "runner",
       "civ": "runner",
+      "direction": "d",
       "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "rusty",
       "civ": null,
+      "direction": "u",
       "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": false,
-      "direction": "u"
+      "inScope": false
     },
     {
       "id": "scriptkid",
       "civ": "kid",
+      "direction": "u",
       "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "shopper1",
       "civ": "fan",
+      "direction": "u",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "u"
+      "inScope": true
     },
     {
       "id": "shopper2",
       "civ": "busker",
+      "direction": "l",
       "archetype": "performer",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "techgirl",
       "civ": "tech",
+      "direction": "l",
       "archetype": "clinic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "l"
+      "inScope": true
     },
     {
       "id": "usher",
       "civ": "usher",
+      "direction": "d",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "vendor",
       "civ": "vendor",
+      "direction": "r",
       "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     },
     {
       "id": "wait1",
       "civ": "fan",
+      "direction": "d",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "d"
+      "inScope": true
     },
     {
       "id": "wait2",
       "civ": "fan",
+      "direction": "r",
       "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
-      "inScope": true,
-      "direction": "r"
+      "inScope": true
     }
   ]
 }
