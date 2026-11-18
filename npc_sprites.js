@@ -230,6 +230,13 @@
       patient1:'newsboy-cap',r2_saltwife:'hair-band',r2_stack:'cap-profile',
       regular1:'beanie',shopper1:'cowboy-hat',wait1:'visor',wait2:'newsboy-cap'
     });
+    const FAN_VARIANT_PROPS=Object.freeze({
+      driverA:'foamfinger',fan1:'pennant',fan2:'megaphone',fanA:'rallytowel',fanB:'foamfinger',
+      fanC:'pennant',fanD:'megaphone',gamer1:'rallytowel',hb_denny:'foamfinger',hb_pete:'pennant',
+      hb_shopper:'megaphone',hb_splinter:'rallytowel',hb_wick:'foamfinger',patient1:'pennant',
+      r2_saltwife:'megaphone',r2_stack:'rallytowel',regular1:'foamfinger',shopper1:'pennant',
+      wait1:'megaphone',wait2:'rallytowel'
+    });
     const FAN_VARIANT_PALETTES=Object.freeze({
       driverA:{body:'#27e0ff',trim:'#0e2a38',pants:'#10202b',hair:'#1a1410'},
       fan1:{body:'#ff2fa8',trim:'#ffd0ee',pants:'#1a2433',hair:'#2a1a20'},
@@ -253,7 +260,7 @@
       wait2:{body:'#90caf9',trim:'#e3f2fd',pants:'#1f3b57',hair:'#172333'}
     });
     const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger','pennant','megaphone','rallytowel']);
-    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, ARCHETYPE_ACCESSORY_ROLES };
+    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
   function createGrannyRenderer({OWT,og,artShadow}) {
@@ -435,7 +442,7 @@
   }
 
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
-    const { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
+    const { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
@@ -677,14 +684,7 @@
       if(!propSpec||!declaredPropType||propSpec.types[rigView]!==declaredPropType) {
         throw new Error('Archetype '+rigView+' prop metadata/table mismatch: '+archetypeKey);
       }
-      const fanPropById={
-        driverA:'foamfinger',fan1:'pennant',fan2:'megaphone',fanA:'rallytowel',fanB:'foamfinger',
-        fanC:'pennant',fanD:'megaphone',gamer1:'rallytowel',hb_denny:'foamfinger',hb_pete:'pennant',
-        hb_shopper:'megaphone',hb_splinter:'rallytowel',hb_wick:'foamfinger',patient1:'pennant',
-        r2_saltwife:'megaphone',r2_stack:'rallytowel',regular1:'foamfinger',shopper1:'pennant',
-        wait1:'megaphone',wait2:'rallytowel'
-      };
-      const fanPropRole=fanPropById[n.id]||'foamfinger';
+      const fanPropRole=FAN_VARIANT_PROPS[n.id]||'foamfinger';
       const propLayers=kind==='fan'
         ? [[rigView==='front'?1:rigView==='side'?27:26,12,5,14,fanPropRole]]
         : propSpec[rigView];
