@@ -310,11 +310,22 @@ try {
     return window.SG.npcPaletteAudit();
   });
   const npcPaletteCheck = {
-    pass: npcPaletteAudit.length === 23 && npcPaletteAudit.every(item => item.uniqueColorCount <= 12),
+    pass: npcPaletteAudit.length === 23 && npcPaletteAudit.every(item =>
+      item.uniqueColorCount <= 12 && item.opaquePixelCount > 0 && item.outlinePixelCount > 0 &&
+      item.colorPixelCounts && Object.values(item.colorPixelCounts).reduce((sum,count)=>sum+count,0) === item.opaquePixelCount),
     spriteCount: npcPaletteAudit.length,
     maxUniqueColors: Math.max(...npcPaletteAudit.map(item => item.uniqueColorCount)),
-    overLimit: npcPaletteAudit.filter(item => item.uniqueColorCount > 12)
+    overLimit: npcPaletteAudit.filter(item => item.uniqueColorCount > 12),
+    renderedPixelEvidence: 'Color counts are measured from the final rendered native RGBA grid, not just declared palette values.'
   };
+  const targetedPalettePixelAudit = ['runner','coach','ref','broker','usher','fan'].map(civ => {
+    const item = npcPaletteAudit.find(row => row.civ === civ);
+    return item ? {
+      civ, archetype: item.archetype, uniqueColorCount: item.uniqueColorCount,
+      opaquePixelCount: item.opaquePixelCount, outlinePixelCount: item.outlinePixelCount,
+      colorPixelCounts: item.colorPixelCounts
+    } : { civ, missing: true };
+  });
 
   const paletteGroups = [
     ['runner', 'coach', 'ref'],
@@ -989,6 +1000,7 @@ try {
     grannyMeasurementCheck,
     npcPaletteAudit,
     npcPaletteCheck,
+    targetedPalettePixelAudit,
     paletteDifferentiation,
     npcBodyCheck,
     npcPropAudit,
