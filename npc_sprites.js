@@ -167,13 +167,13 @@
     }
     const ARCHETYPE_RIG_PARTS=Object.freeze({
       athletic:BASE_RIG_PARTS,
-      courier:makeArchetypeRig({leftArmX:1,rightArmX:-1,leftArmY:1,leftLegX:-1,leftLegY:1,sideArmX:3,sideArmY:1}),
+      courier:makeArchetypeRig({leftArmX:1,rightArmX:-1,leftArmY:1,leftLegX:-1,leftLegY:0,sideArmX:3,sideArmY:1}),
       guard:makeArchetypeRig({armSpread:1,leftArmW:1,rightArmW:1,legSpread:1,leftLegW:1,rightLegW:1,sideArmX:2,sideArmY:-2}),
       vendor:makeArchetypeRig({armSpread:-2,leftArmY:1,rightArmY:1,legSpread:1,leftLegW:1,rightLegW:1,sideArmX:-3,sideArmY:2}),
-      clinic:makeArchetypeRig({leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegY:1,rightLegY:1}),
+      clinic:makeArchetypeRig({leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegY:0,rightLegY:0}),
       trades:makeArchetypeRig({armSpread:1,leftArmY:1,legSpread:2,leftLegW:1,rightLegW:1,sideArmX:-2,sideArmY:1}),
-      youth:makeArchetypeRig({armSpread:-1,leftArmY:1,rightArmY:1,leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegY:2,rightLegY:2,leftLegW:-1,rightLegW:-1}),
-      performer:makeArchetypeRig({leftArmX:-2,rightArmX:1,leftArmY:-1,rightArmY:1,leftLegX:-1,rightLegX:1,rightLegY:1,sideArmX:3,sideArmY:2}),
+      youth:makeArchetypeRig({armSpread:-1,leftArmY:1,rightArmY:1,leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegY:0,rightLegY:0,leftLegW:-1,rightLegW:-1}),
+      performer:makeArchetypeRig({leftArmX:-2,rightArmX:1,leftArmY:-1,rightArmY:1,leftLegX:-1,rightLegX:1,rightLegY:0,sideArmX:3,sideArmY:2}),
       civic:makeArchetypeRig({armSpread:-1,legSpread:0,sideArmX:-2,sideArmY:1}),
       elder:makeArchetypeRig({armSpread:-1,leftArmY:2,rightArmY:2,leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegX:-2,rightLegX:-1,leftLegY:2,rightLegY:2,leftLegW:-1,rightLegW:-1,sideArmX:-3,sideArmY:3})
     });
