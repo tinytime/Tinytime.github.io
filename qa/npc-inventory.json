@@ -87,6 +87,7 @@
     {
       "id": "bartender",
       "civ": "vendor",
+      "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -95,6 +96,7 @@
     {
       "id": "broker",
       "civ": "broker",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -103,6 +105,7 @@
     {
       "id": "busker",
       "civ": "busker",
+      "archetype": "performer",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
@@ -112,6 +115,7 @@
     {
       "id": "cat",
       "civ": null,
+      "archetype": null,
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -120,6 +124,7 @@
     {
       "id": "cat1",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -128,6 +133,7 @@
     {
       "id": "cat2",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -136,6 +142,7 @@
     {
       "id": "courier",
       "civ": "courier",
+      "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -144,6 +151,7 @@
     {
       "id": "drift1",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -152,6 +160,7 @@
     {
       "id": "drift2",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -160,6 +169,7 @@
     {
       "id": "driverA",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -168,6 +178,7 @@
     {
       "id": "driverB",
       "civ": "busker",
+      "archetype": "performer",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -176,6 +187,7 @@
     {
       "id": "fan1",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -184,6 +196,7 @@
     {
       "id": "fan2",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -192,6 +205,7 @@
     {
       "id": "fanA",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
@@ -201,6 +215,7 @@
     {
       "id": "fanB",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
@@ -210,6 +225,7 @@
     {
       "id": "fanC",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
@@ -219,6 +235,7 @@
     {
       "id": "fanD",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
@@ -228,6 +245,7 @@
     {
       "id": "fisher",
       "civ": "fisher",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -236,6 +254,7 @@
     {
       "id": "gamer1",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -244,6 +263,7 @@
     {
       "id": "gamer2",
       "civ": "mouse",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -252,6 +272,7 @@
     {
       "id": "gateE",
       "civ": "guard",
+      "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -260,6 +281,7 @@
     {
       "id": "gatekeeper",
       "civ": "guard",
+      "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -268,6 +290,7 @@
     {
       "id": "gateS",
       "civ": "guard",
+      "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -276,6 +299,7 @@
     {
       "id": "gcat1",
       "civ": null,
+      "archetype": null,
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -284,6 +308,7 @@
     {
       "id": "gcat2",
       "civ": null,
+      "archetype": null,
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -292,6 +317,7 @@
     {
       "id": "gcat3",
       "civ": null,
+      "archetype": null,
       "rendererPath": "pxCat atlas override -> owCat fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -300,6 +326,7 @@
     {
       "id": "granny",
       "civ": "granny",
+      "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -308,6 +335,7 @@
     {
       "id": "hacker",
       "civ": "hacker",
+      "archetype": "clinic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -316,6 +344,7 @@
     {
       "id": "hb_agnes",
       "civ": "granny",
+      "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -324,6 +353,7 @@
     {
       "id": "hb_bram",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -332,6 +362,7 @@
     {
       "id": "hb_cadogan",
       "civ": "granny",
+      "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -340,6 +371,7 @@
     {
       "id": "hb_cook",
       "civ": "cook",
+      "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -348,6 +380,7 @@
     {
       "id": "hb_cormac",
       "civ": "vendor",
+      "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -356,6 +389,7 @@
     {
       "id": "hb_crabkid",
       "civ": "kid2",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -364,6 +398,7 @@
     {
       "id": "hb_deckhand",
       "civ": "sailor",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -372,6 +407,7 @@
     {
       "id": "hb_deke",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -380,6 +416,7 @@
     {
       "id": "hb_denny",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -388,6 +425,7 @@
     {
       "id": "hb_docker",
       "civ": "guard",
+      "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -396,6 +434,7 @@
     {
       "id": "hb_dockhand",
       "civ": "vendor",
+      "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -404,6 +443,7 @@
     {
       "id": "hb_duke",
       "civ": "vendor",
+      "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -412,6 +452,7 @@
     {
       "id": "hb_dutch",
       "civ": "coach",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -420,6 +461,7 @@
     {
       "id": "hb_finn",
       "civ": "coach",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -428,6 +470,7 @@
     {
       "id": "hb_fisher",
       "civ": "fisher",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -436,6 +479,7 @@
     {
       "id": "hb_fishwife",
       "civ": "vendor",
+      "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -444,6 +488,7 @@
     {
       "id": "hb_gulllady",
       "civ": "granny",
+      "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -452,6 +497,7 @@
     {
       "id": "hb_gus",
       "civ": "coach",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -460,6 +506,7 @@
     {
       "id": "hb_ivy",
       "civ": "clinic",
+      "archetype": "clinic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -468,6 +515,7 @@
     {
       "id": "hb_kell",
       "civ": "coach",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -476,6 +524,7 @@
     {
       "id": "hb_kidrun",
       "civ": "kid2",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -484,6 +533,7 @@
     {
       "id": "hb_lkid",
       "civ": "kid",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -492,6 +542,7 @@
     {
       "id": "hb_loader",
       "civ": "slicker",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -500,6 +551,7 @@
     {
       "id": "hb_marla",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -508,6 +560,7 @@
     {
       "id": "hb_marty",
       "civ": "coach",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -516,6 +569,7 @@
     {
       "id": "hb_marv",
       "civ": "vendor",
+      "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -524,6 +578,7 @@
     {
       "id": "hb_mender",
       "civ": "sailor",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -532,6 +587,7 @@
     {
       "id": "hb_messenger",
       "civ": "courier",
+      "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -540,6 +596,7 @@
     {
       "id": "hb_oldsalt",
       "civ": "slicker",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -548,6 +605,7 @@
     {
       "id": "hb_painter",
       "civ": "painter",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -556,6 +614,7 @@
     {
       "id": "hb_penrose",
       "civ": "coach",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -564,6 +623,7 @@
     {
       "id": "hb_pete",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -572,6 +632,7 @@
     {
       "id": "hb_pip",
       "civ": "kid",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -580,6 +641,7 @@
     {
       "id": "hb_ref1",
       "civ": "ref",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -588,6 +650,7 @@
     {
       "id": "hb_ref2",
       "civ": "ref",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -596,6 +659,7 @@
     {
       "id": "hb_riptide",
       "civ": "courier",
+      "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -604,6 +668,7 @@
     {
       "id": "hb_riptide_b",
       "civ": "courier",
+      "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -612,6 +677,7 @@
     {
       "id": "hb_rita",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -620,6 +686,7 @@
     {
       "id": "hb_runner",
       "civ": "runner",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -628,6 +695,7 @@
     {
       "id": "hb_sable",
       "civ": "broker",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -636,6 +704,7 @@
     {
       "id": "hb_shopper",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -644,6 +713,7 @@
     {
       "id": "hb_skeeter",
       "civ": "coach",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -652,6 +722,7 @@
     {
       "id": "hb_sketch",
       "civ": "painter",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -660,6 +731,7 @@
     {
       "id": "hb_splinter",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -668,6 +740,7 @@
     {
       "id": "hb_tommy",
       "civ": "kid",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -676,6 +749,7 @@
     {
       "id": "hb_walker",
       "civ": "sailor",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -684,6 +758,7 @@
     {
       "id": "hb_welder",
       "civ": "welder",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -692,6 +767,7 @@
     {
       "id": "hb_wick",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -700,6 +776,7 @@
     {
       "id": "hb_yardman",
       "civ": "welder",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -708,6 +785,7 @@
     {
       "id": "hb_zd",
       "civ": "runner",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -716,6 +794,7 @@
     {
       "id": "kid",
       "civ": "kid",
+      "archetype": "youth",
       "rendererPath": "pxPerson atlas override -> owCiv fallback",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": true,
@@ -725,6 +804,7 @@
     {
       "id": "kid1",
       "civ": "kid",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -733,6 +813,7 @@
     {
       "id": "kid2",
       "civ": "kid",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -741,6 +822,7 @@
     {
       "id": "king1",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -749,6 +831,7 @@
     {
       "id": "king2",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -757,6 +840,7 @@
     {
       "id": "lou",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -765,6 +849,7 @@
     {
       "id": "mack",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -773,6 +858,7 @@
     {
       "id": "manager",
       "civ": "coach",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -781,6 +867,7 @@
     {
       "id": "mate1",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -789,6 +876,7 @@
     {
       "id": "mate2",
       "civ": "kid",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -797,6 +885,7 @@
     {
       "id": "mo",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -805,6 +894,7 @@
     {
       "id": "mouse",
       "civ": "mouse",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -813,6 +903,7 @@
     {
       "id": "owner",
       "civ": "vendor",
+      "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -821,6 +912,7 @@
     {
       "id": "patient1",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -829,6 +921,7 @@
     {
       "id": "patient2",
       "civ": "runner",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -837,6 +930,7 @@
     {
       "id": "pete",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -845,6 +939,7 @@
     {
       "id": "pharmacist",
       "civ": "clinic",
+      "archetype": "clinic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -853,6 +948,7 @@
     {
       "id": "r2_courier",
       "civ": "courier",
+      "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -861,6 +957,7 @@
     {
       "id": "r2_crewman",
       "civ": "slicker",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -869,6 +966,7 @@
     {
       "id": "r2_dock",
       "civ": "guard",
+      "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -877,6 +975,7 @@
     {
       "id": "r2_fisher",
       "civ": "fisher",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -885,6 +984,7 @@
     {
       "id": "r2_gullkid",
       "civ": "kid",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -893,6 +993,7 @@
     {
       "id": "r2_ida",
       "civ": "slicker",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -901,6 +1002,7 @@
     {
       "id": "r2_keep",
       "civ": "vendor",
+      "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -909,6 +1011,7 @@
     {
       "id": "r2_laundry",
       "civ": "granny",
+      "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -917,6 +1020,7 @@
     {
       "id": "r2_mud",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -925,6 +1029,7 @@
     {
       "id": "r2_noll",
       "civ": "sailor",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -933,6 +1038,7 @@
     {
       "id": "r2_oldfish",
       "civ": "fisher",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -941,6 +1047,7 @@
     {
       "id": "r2_oldsalt",
       "civ": "fisher",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -949,6 +1056,7 @@
     {
       "id": "r2_raker",
       "civ": "vendor",
+      "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -957,6 +1065,7 @@
     {
       "id": "r2_ref",
       "civ": "ref",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -965,6 +1074,7 @@
     {
       "id": "r2_ripf",
       "civ": "courier",
+      "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -973,6 +1083,7 @@
     {
       "id": "r2_riptide",
       "civ": "courier",
+      "archetype": "courier",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -981,6 +1092,7 @@
     {
       "id": "r2_runkid",
       "civ": "kid2",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -989,6 +1101,7 @@
     {
       "id": "r2_saltw",
       "civ": "welder",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -997,6 +1110,7 @@
     {
       "id": "r2_saltwife",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1005,6 +1119,7 @@
     {
       "id": "r2_sela",
       "civ": "granny",
+      "archetype": "elder",
       "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1013,6 +1128,7 @@
     {
       "id": "r2_skipper",
       "civ": "sailor",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1021,6 +1137,7 @@
     {
       "id": "r2_stack",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1029,6 +1146,7 @@
     {
       "id": "r2_toll",
       "civ": "guard",
+      "archetype": "guard",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1037,6 +1155,7 @@
     {
       "id": "r2_zd",
       "civ": "runner",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1045,6 +1164,7 @@
     {
       "id": "r2_zdf",
       "civ": "runner",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1053,6 +1173,7 @@
     {
       "id": "rat2",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -1061,6 +1182,7 @@
     {
       "id": "regular1",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1069,6 +1191,7 @@
     {
       "id": "regular2",
       "civ": "dancer",
+      "archetype": "performer",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1077,6 +1200,7 @@
     {
       "id": "regular3",
       "civ": "coach",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1085,6 +1209,7 @@
     {
       "id": "retiredLocal",
       "civ": "fisher",
+      "archetype": "trades",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1093,6 +1218,7 @@
     {
       "id": "runner",
       "civ": "runner",
+      "archetype": "athletic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1101,6 +1227,7 @@
     {
       "id": "rusty",
       "civ": null,
+      "archetype": null,
       "rendererPath": "owFig -> renderPerson (non-standard, out of scope)",
       "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
@@ -1109,6 +1236,7 @@
     {
       "id": "scriptkid",
       "civ": "kid",
+      "archetype": "youth",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1117,6 +1245,7 @@
     {
       "id": "shopper1",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1125,6 +1254,7 @@
     {
       "id": "shopper2",
       "civ": "busker",
+      "archetype": "performer",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1133,6 +1263,7 @@
     {
       "id": "techgirl",
       "civ": "tech",
+      "archetype": "clinic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1141,6 +1272,7 @@
     {
       "id": "usher",
       "civ": "usher",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1149,6 +1281,7 @@
     {
       "id": "vendor",
       "civ": "vendor",
+      "archetype": "vendor",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1157,6 +1290,7 @@
     {
       "id": "wait1",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
@@ -1165,6 +1299,7 @@
     {
       "id": "wait2",
       "civ": "fan",
+      "archetype": "civic",
       "rendererPath": "owCiv",
       "scopeClass": "standardTown",
       "pxPersonAtlasOverride": false,
