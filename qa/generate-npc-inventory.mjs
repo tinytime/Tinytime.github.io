@@ -64,8 +64,8 @@ const missingArchetypes = Object.values(civToArchetype).filter(key => !archetype
 if (unmappedCivs.length) throw new Error('NPC civs missing CIV_TO_ARCHETYPE: ' + unmappedCivs.join(', '));
 if (missingPalettes.length) throw new Error('NPC civs missing explicit CIV palette: ' + missingPalettes.join(', '));
 if (missingArchetypes.length) throw new Error('CIV_TO_ARCHETYPE references missing archetypes: ' + [...new Set(missingArchetypes)].join(', '));
-if ((archetypeMatch[1].match(/palette:\\{/g) || []).length !== archetypeKeys.length ||
-    (archetypeMatch[1].match(/prop:\\{/g) || []).length !== archetypeKeys.length) {
+if ((archetypeMatch[1].match(/palette:\{/g) || []).length !== archetypeKeys.length ||
+    (archetypeMatch[1].match(/prop:\{/g) || []).length !== archetypeKeys.length) {
   throw new Error('Every archetype must define its own palette and prop');
 }
 if (liveCivs.length !== 24 || Object.keys(civToArchetype).length !== 24) {
