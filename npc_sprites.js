@@ -443,7 +443,7 @@
           const row=pattern[Math.min(pattern.length-1,Math.floor(yy*pattern.length/h))];
           for(let xx=0;xx<w;xx++){
             const cell=row[Math.min(row.length-1,Math.floor(xx*row.length/w))];
-            if(cell!==' ')set(x+xx,y+yy,role);
+            if(cell!==' '&&cell!=='.')set(x+xx,y+yy,role);
           }
         }
         // Tiny readable prop details; highlights use the garment's light role.
