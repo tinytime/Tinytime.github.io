@@ -9089,6 +9089,17 @@ window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMas
     for(let p=0;p<data.length;p+=4)if(data[p]===23&&data[p+1]===23&&data[p+2]===37&&data[p+3]>0)outlinePixelCount++;
     return {civs,granny:{civ:'granny',archetype:'elder',bodyHeight:GRANNY_REF.bodyHeight,footRow:GRANNY_REF.footRow,outlineColor:'#171725',outlinePixelCount}};
   },
+  npcRenderFanVariantSnapshots:()=>{
+    const ids=['driverA','fan1','fan2','fanA','fanB','fanC','fanD','gamer1','hb_denny','hb_pete','hb_shopper','hb_splinter','hb_wick','patient1','r2_saltwife','r2_stack','regular1','shopper1','wait1','wait2'];
+    return ids.map(id=>{
+      const target=document.createElement('canvas');target.width=64;target.height=96;
+      const n={id,civ:'fan',x:0,y:0,hb:id.startsWith('hb_')?1:0};
+      owCiv(0,0,'d',false,n,0,0,target.getContext('2d'));
+      const sprite=owCiv._gridCanvas,metrics=owCiv._lastPaletteMetrics;
+      return {id,width:sprite.width,height:sprite.height,uniqueColorCount:metrics.uniqueColorCount,
+        colors:metrics.colors,dataUrl:sprite.toDataURL('image/png')};
+    });
+  },
   npcRenderCatSnapshots:()=>{
     const cats=[
       {id:'cat',direction:'l',palette:null},
