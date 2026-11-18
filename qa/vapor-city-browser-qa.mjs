@@ -544,25 +544,37 @@ try {
       const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
       const digest = await crypto.subtle.digest('SHA-256', pixels.buffer);
       const pixelSha256 = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
-      rows.push({ id: fan.id, width: canvas.width, height: canvas.height, pixelSha256 });
+      const alphaMask = new Uint8Array(canvas.width * canvas.height);
+      for (let pixel = 0; pixel < alphaMask.length; pixel++) alphaMask[pixel] = pixels[pixel * 4 + 3] > 0 ? 1 : 0;
+      const silhouetteDigest = await crypto.subtle.digest('SHA-256', alphaMask.buffer);
+      const silhouetteSha256 = Array.from(new Uint8Array(silhouetteDigest), byte => byte.toString(16).padStart(2, '0')).join('');
+      rows.push({ id: fan.id, width: canvas.width, height: canvas.height, pixelSha256, silhouetteSha256,
+        opaquePixels: alphaMask.reduce((sum, value) => sum + value, 0) });
     }
     return rows;
   }, fanVariantData);
   const fanPixelSignatures = fanPixelAudit.map(fan => fan.pixelSha256);
+  const fanSilhouetteSignatures = fanPixelAudit.map(fan => fan.silhouetteSha256);
   const fanPaletteSignatures = fanVariantData.map(fan => [...fan.colors].sort().join('|'));
+  const uniqueFanSilhouettes = new Set(fanSilhouetteSignatures).size;
   const fanVariantAudit = {
     pass: fanVariantData.length === 20 && fanPixelAudit.length === 20 &&
       new Set(fanPixelSignatures).size === 20 &&
+      uniqueFanSilhouettes > 1 &&
       fanVariantData.every(fan => fan.uniqueColorCount <= 12),
     count: fanVariantData.length,
     uniqueLooks: new Set(fanPixelSignatures).size,
     uniquePixelLooks: new Set(fanPixelSignatures).size,
+    uniqueSilhouettes: uniqueFanSilhouettes,
+    silhouetteDiversityPass: uniqueFanSilhouettes > 1,
     uniquePaletteSignatures: new Set(fanPaletteSignatures).size,
-    uniquenessMethod: 'SHA-256 of decoded RGBA pixel buffers from each rendered 64x96 fan snapshot; palette signatures are reported separately and do not determine visual uniqueness.',
+    uniquenessMethod: 'RGBA SHA-256 measures exact rendered differences; alpha-mask SHA-256 independently measures silhouette diversity. Palette signatures are reported separately. Pixel or palette recolors alone do not establish silhouette diversity.',
     maxUniqueColors: Math.max(...fanVariantData.map(fan => fan.uniqueColorCount)),
     fans: fanVariantData.map(fan => ({
       id: fan.id, uniqueColorCount: fan.uniqueColorCount, colors: fan.colors,
-      pixelSha256: fanPixelAudit.find(row => row.id === fan.id)?.pixelSha256 || null
+      pixelSha256: fanPixelAudit.find(row => row.id === fan.id)?.pixelSha256 || null,
+      silhouetteSha256: fanPixelAudit.find(row => row.id === fan.id)?.silhouetteSha256 || null,
+      opaquePixels: fanPixelAudit.find(row => row.id === fan.id)?.opaquePixels ?? null
     }))
   };
 
