@@ -354,10 +354,10 @@
       "civ": "granny",
       "direction": "d",
       "archetype": "elder",
-      "rendererPath": "drawGrannyVoltSprite (owCiv special case)",
-      "scopeClass": "standardUnclassified",
+      "rendererPath": "drawGrannyVoltSprite (owner-approved reference baseline)",
+      "scopeClass": "referenceBaseline",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "hacker",
@@ -1440,5 +1440,9 @@
       "pxPersonAtlasOverride": false,
       "inScope": true
     }
+  ],
+  "standardInScopeCount": 116,
+  "referenceBaselineNpcIds": [
+    "granny"
   ]
 }
