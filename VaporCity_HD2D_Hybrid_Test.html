@@ -8562,12 +8562,15 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(!n.sit){
     const leg=(x,kneeShift,ankleShift,phase)=>{
       const kY=-8+phase,footY=-2+phase,travel=swing*.35*phase;
-      // Each leg is its own narrow two-pixel silhouette; the center pixel stays transparent.
+      // Two-pixel trouser core with a one-pixel exterior ink contour.
       const left=x<0;
       const kneeX=x+kneeShift,ankleX=x+ankleShift+travel;
-      limb([[left?x-1:x,-14],[left?x+2:x+3,-14],[left?x+2:x+3,kY-1],[left?kneeX+2:kneeX+3,kY],[left?kneeX+2:kneeX+3,footY-1],[left?ankleX+2:ankleX+3,footY],[left?ankleX+2:ankleX+3,0],[ankleX,0],[ankleX,footY],[kneeX,footY-1],[kneeX,kY],[left?x-1:x,kY-1]],pants);
-      line([[x+.5,-13],[x+.5,kY-1],[kneeX+.5,kY]],pants.highlight,1);
-      line([[kneeX+1.5,kY+1],[kneeX+1.5,footY-1]],pants.shadow,1);
+      const outer=left?x-2:x,inner=outer+2;
+      const kneeOuter=left?kneeX:kneeX+2,kneeInner=kneeOuter+2;
+      const ankleOuter=left?ankleX:ankleX+2,ankleInner=ankleOuter+2;
+      limb([[outer,-14],[inner,-14],[inner,kY-1],[kneeInner,kY],[kneeInner,footY-1],[ankleInner,footY],[ankleInner,0],[ankleOuter,0],[ankleOuter,footY],[kneeOuter,footY-1],[kneeOuter,kY],[outer,kY-1]],pants);
+      line([[outer+.5,-13],[outer+.5,kY-1],[kneeOuter+.5,kY]],pants.highlight,1);
+      line([[kneeInner-.5,kY+1],[kneeInner-.5,footY-1]],pants.shadow,1);
       polygon([[ankleX-1,-1],[ankleX+3,-1],[ankleX+3,1],[ankleX-1,1]],{highlight:'#292638',base:'#292638',shadow:'#171725'},ink,1);
       line([[ankleX-1,1],[ankleX+3,1]],ink,1);
     };
@@ -8600,6 +8603,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Keep the sculpted waist indent, but never flood the entire waist with shadow.
   polygon([[-2+torsoShift,top+8],[2+torsoShift,top+8],[2+torsoShift,top+13],[-2+torsoShift,top+13]],body,null,0);
   line([[-2+torsoShift,top+8],[2+torsoShift,top+8]],ink,1);
+  // A one-pixel waist shadow separates the shirt from the trouser line.
+  line([[-2+torsoShift,top+13],[2+torsoShift,top+13]],body.shadow,1);
   line([[-3+torsoShift,top+4],[-3+torsoShift,top+7],[-2+torsoShift,top+8]],body.highlight,1);
   line([[torsoShift+1,top+9],[torsoShift+1,top+12]],body.shadow,1);
   if(P.apron&&!back){
@@ -8619,10 +8624,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const elbowX=rightArm?s:elbow+torsoShift+outward+(elbow<0?1:0),wristX=wrist+torsoShift+outward;
     if(bent){
       // Upper arm reaches the outside edge of the torso and ends at a defined elbow.
-      limb([[s+(shoulder<0?-3:-2),armY],[s+(shoulder<0?2:3),armY],[s+(shoulder<0?2:3),ey-1],[elbowX+(shoulder<0?2:3),ey],[elbowX+(shoulder<0?2:3),ey+2],[elbowX,ey+2],[elbowX,ey],[s+(shoulder<0?-3:-2),ey-1]],body);
+      limb([[s-2,armY],[s+2,armY],[s+2,ey-1],[elbowX+2,ey],[elbowX+2,ey+2],[elbowX,ey+2],[elbowX,ey],[s-2,ey-1]],body);
       // Forearm starts one pixel inward from the elbow, creating a visible angled return.
       const inward=rightArm?-1:1;const forearmX=elbowX+inward,handX=wristX+inward;
-      limb([[forearmX-1,ey+1],[forearmX+2,ey+1],[handX+2,wy],[handX+2,wy+1],[handX-1,wy+1],[forearmX-1,ey+4]],body);
+      // The forearm begins one pixel inside the upper-arm elbow, keeping the material silhouette connected.
+      limb([[forearmX-1,ey+1],[forearmX+1,ey+1],[handX+1,wy],[handX+1,wy+1],[handX-1,wy+1],[forearmX-1,ey+4]],body);
       const outerX=rightArm?s+2:s-2;
       line([[outerX,armY+1],[outerX,ey-1]],body.highlight,1);
       line([[forearmX+1,ey+3],[handX+1,wy]],body.shadow,1);
@@ -8632,7 +8638,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       line([[handX-1,wy+1],[handX+1,wy+1],[handX+1,wy+3],[handX-1,wy+3],[handX-1,wy+1]],ink,1);
       px(handX-1,wy+1,1,1,skinTone.highlight);
     }else{
-      limb([[s-2,armY],[s+2,armY],[s+2,wy],[s+2,wy+1],[s-2,wy+1],[s-2,armY]],body);
+      limb([[s-1,armY],[s+1,armY],[s+1,wy],[s+1,wy+1],[s-1,wy+1],[s-1,armY]],body);
       line([[s-1,armY+1],[s-1,wy]],body.highlight,1);
       line([[s-2,armY+2],[s-2,wy-1]],body.highlight,1);
       px(wristX-1,wy+1,2,2,skinTone.base);
