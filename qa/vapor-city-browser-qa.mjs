@@ -22,6 +22,16 @@ if (scriptBodyStart >= 0 && scriptBodyEnd > scriptBodyStart) {
   syntaxCheck = { found: true, ok: checked.status === 0, error: checked.stderr || null };
 }
 
+const npcInventoryRun = spawnSync(process.execPath, [path.join(root, 'qa', 'generate-npc-inventory.mjs'), '--check'], {
+  cwd: root,
+  encoding: 'utf8'
+});
+const npcInventoryCheck = {
+  ok: npcInventoryRun.status === 0,
+  stdout: (npcInventoryRun.stdout || '').trim(),
+  error: npcInventoryRun.stderr || (npcInventoryRun.status === 0 ? null : 'NPC inventory validation failed')
+};
+
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
 const pageErrors = [];
@@ -159,6 +169,7 @@ try {
     timestamp: new Date().toISOString(),
     htmlFile: path.basename(html),
     syntaxCheck,
+    npcInventoryCheck,
     pageTitle: await page.title(),
     townButtonVisible,
     townClickAttempted,
@@ -179,7 +190,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 24)) process.exitCode = 1;
 } finally {
   await browser.close();
 }
