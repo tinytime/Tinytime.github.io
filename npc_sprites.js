@@ -878,19 +878,22 @@
         if(kind==='dancer'){for(let yy=14;yy<=21;yy++)set(13+Math.floor((yy-14)/2),yy,'clothhi');set(18,21,'bodyhi');}
         if(kind==='busker'){for(let yy=13;yy<=21;yy++)set(15,yy,'bodyshade');set(14,15,'clothhi');set(17,19,'clothhi');}
       }else{
-        if(kind==='fisher'||kind==='welder')put(15,14,4,9,'apron');
-        if(kind==='sailor'){set(17,14,'clothhi');put(15,16,3,4,'bodyshade');}
-        if(kind==='slicker'){put(15,13,3,10,'bodyshade');set(16,17,'clothhi');}
-        if(kind==='painter'){put(16,15,3,8,'apron');set(18,16,'clothhi');}
-        if(kind==='broker'||kind==='usher'){set(16,16,'bodyshade');put(17,14,2,7,'clothhi');}
-        if(kind==='tech'){put(17,15,3,6,'bodyshade');set(18,18,'clothhi');}
-        if(kind==='hacker'){put(16,13,4,9,'bodyshade');set(18,16,'inkdetail');}
-        if(kind==='cook'){put(15,15,4,8,'apron');set(17,18,'clothhi');}
-        if(kind==='clinic'){put(16,13,3,8,'clothhi');set(17,17,'inkdetail');}
-        if(kind==='coach'){set(17,14,'clothhi');set(17,18,'bodyshade');}
-        if(kind==='ref'){for(let yy=14;yy<=20;yy+=2)set(17,yy,'clothhi');}
-        if(kind==='dancer'){for(let yy=14;yy<=20;yy+=2)set(15,yy,'clothhi');}
-        if(kind==='busker'){put(17,15,3,7,'bodyshade');set(18,18,'clothhi');}
+        // Side profiles get their own readable profession cues at 1x scale.
+        if(kind==='fisher'){put(15,14,4,9,'apron');set(17,13,'clothhi');set(18,16,'inkdetail');}
+        if(kind==='welder'){put(15,14,4,9,'apron');put(18,8,4,2,'inkdetail');set(19,9,'clothhi');set(17,19,'bodyhi');}
+        if(kind==='sailor'){set(17,14,'clothhi');put(15,16,3,4,'bodyshade');set(17,19,'clothhi');}
+        if(kind==='slicker'){put(15,13,3,10,'bodyshade');set(16,17,'clothhi');for(let yy=16;yy<=21;yy+=2)set(18,yy,'inkdetail');}
+        if(kind==='painter'){put(16,15,3,8,'apron');set(18,16,'clothhi');set(17,20,'bodyhi');}
+        if(kind==='broker'||kind==='usher'){set(16,16,'bodyshade');put(17,14,2,7,'clothhi');set(18,19,'inkdetail');}
+        if(kind==='tech'){put(17,15,3,6,'bodyshade');set(18,18,'clothhi');set(17,20,'inkdetail');}
+        if(kind==='hacker'){put(16,13,4,9,'bodyshade');set(18,16,'inkdetail');set(17,20,'clothhi');}
+        if(kind==='cook'){put(15,15,4,8,'apron');set(17,18,'clothhi');set(18,20,'inkdetail');}
+        if(kind==='clinic'){put(16,13,3,8,'clothhi');set(17,17,'inkdetail');set(18,18,'inkdetail');set(17,19,'clothhi');}
+        if(kind==='coach'){set(17,14,'clothhi');set(17,18,'bodyshade');set(18,15,'inkdetail');set(18,16,'inkdetail');}
+        if(kind==='ref'){for(let yy=14;yy<=20;yy+=2)set(17,yy,'clothhi');set(18,22,'inkdetail');}
+        if(kind==='dancer'){for(let yy=14;yy<=20;yy+=2)set(15,yy,'clothhi');set(17,22,'bodyhi');}
+        if(kind==='busker'){put(17,15,3,7,'bodyshade');set(18,18,'clothhi');set(17,20,'inkdetail');}
+        if(kind==='courier'){put(16,13,2,9,'bodyshade');set(17,14,'clothhi');set(18,18,'inkdetail');}
       }
       // Layered clothing details: dark collar under neck and crisp shirt-to-trouser hem.
       if(!back){
