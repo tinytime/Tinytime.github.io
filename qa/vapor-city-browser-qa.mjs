@@ -368,6 +368,9 @@ try {
     npcPaletteAudit,
     npcPaletteCheck,
     archetypeSilhouetteCount: archetypeSilhouettes.length,
+    silhouetteMaskDiagnostics: archetypeSilhouettes
+      .filter(item => ['courier', 'trades'].includes(item.archetype))
+      .map(item => ({ archetype: item.archetype, direction: item.direction, maskRows: item.maskRows })),
     silhouetteBaseline,
     silhouetteQualityCheck,
     worldState,
