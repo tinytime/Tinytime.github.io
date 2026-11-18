@@ -180,6 +180,43 @@ try {
     overLimit: npcPaletteAudit.filter(item => item.uniqueColorCount > 12)
   };
 
+  const npcBodyMeasurements = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcMeasureCivBodies !== 'function') throw new Error('NPC body measurement hook is unavailable');
+    return window.SG.npcMeasureCivBodies();
+  });
+  const bodyReference = await page.evaluate(() => window.GRANNY_REF_DATA);
+  const expectedBodyPixels = bodyReference.bodyHeight * bodyReference.scaleFactor;
+  const civScale = expectedBodyPixels / bodyReference.visibleCivHeight;
+  const galleryBackground = '#777982';
+  const luminance = hex => {
+    const rgb = hex.match(/[0-9a-f]{2}/gi).map(v => parseInt(v,16)/255).map(v => v<=0.04045?v/12.92:((v+0.055)/1.055)**2.4);
+    return 0.2126*rgb[0]+0.7152*rgb[1]+0.0722*rgb[2];
+  };
+  const bgLum = luminance(galleryBackground);
+  const allBodyMeasurements = [...npcBodyMeasurements.civs, npcBodyMeasurements.granny];
+  const bodyRows = allBodyMeasurements.map(item => {
+    const scale = item.civ === 'granny' ? bodyReference.scaleFactor : civScale;
+    const renderedHeightPixels = item.bodyHeight * scale;
+    const baselineRatio = item.footRow / (item.civ === 'granny' ? bodyReference.nativeGrid.height-1 : item.height-1);
+    const outlineLum = luminance(item.outlineColor);
+    const contrastRatio = (Math.max(outlineLum,bgLum)+0.05)/(Math.min(outlineLum,bgLum)+0.05);
+    return {...item,renderedHeightPixels,heightDeviationPixels:Math.abs(renderedHeightPixels-expectedBodyPixels),
+      baselineRatio,baselineDelta:Math.abs(baselineRatio-(bodyReference.footRow/(bodyReference.nativeGrid.height-1))),
+      contrastRatio,outlineContrastPercent:Math.abs(outlineLum-bgLum)/Math.max(outlineLum,bgLum)};
+  });
+  const npcBodyCheck = {
+    pass: bodyRows.length === 24 && bodyRows.every(item => item.heightDeviationPixels <= 1 &&
+      item.baselineDelta <= 0.02 && item.outlinePixelCount > 0 && item.contrastRatio >= 1.3 &&
+      item.outlineContrastPercent >= 0.30),
+    spriteCount: bodyRows.length,
+    expectedBodyHeightPixels: expectedBodyPixels,
+    maxHeightDeviationPixels: Math.max(...bodyRows.map(item=>item.heightDeviationPixels)),
+    maxBaselineDelta: Math.max(...bodyRows.map(item=>item.baselineDelta)),
+    missingOutline: bodyRows.filter(item=>item.outlinePixelCount===0).map(item=>item.civ),
+    lowContrast: bodyRows.filter(item=>item.contrastRatio<1.3||item.outlineContrastPercent<0.30).map(item=>({civ:item.civ,outlineColor:item.outlineColor,contrastRatio:item.contrastRatio,outlineContrastPercent:item.outlineContrastPercent})),
+    measurements: bodyRows
+  };
+
   const npcSnapshotData = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcRenderSnapshots !== 'function') throw new Error('NPC snapshot hook is unavailable');
     return window.SG.npcRenderSnapshots();
@@ -396,6 +433,7 @@ try {
     grannyMeasurementCheck,
     npcPaletteAudit,
     npcPaletteCheck,
+    npcBodyCheck,
     snapshotCheck,
     archetypeSilhouetteCount: archetypeSilhouettes.length,
     silhouetteMaskDiagnostics: archetypeSilhouettes
@@ -420,7 +458,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !npcBodyCheck.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
