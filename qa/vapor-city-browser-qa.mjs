@@ -121,7 +121,7 @@ try {
     const labels = ['FRONT', 'BACK', 'LEFT', 'RIGHT'];
     const sheet = document.createElement('canvas');
     sheet.width = 128 * 4;
-    sheet.height = 160 * 2;
+    sheet.height = 200 * 2;
     const out = sheet.getContext('2d');
     out.fillStyle = '#777982';
     out.fillRect(0, 0, sheet.width, sheet.height);
@@ -132,14 +132,14 @@ try {
       cell.width = 128; cell.height = 140;
       const ctx = cell.getContext('2d');
       ctx.imageSmoothingEnabled = false;
-      const npc = { id: 'granny', x: 0, y: 0, rx: 0, ry: 0 };
+      const npc = { id: 'granny', x: 0, y: 0.25, rx: 0, ry: 0.25 };
       if (row === 0) oldRenderer(npc, directions[col], false, 0, 0, ctx, { excludeGroundEffects: true });
       else newRenderer(npc, directions[col], false, 0, 0, ctx, { excludeGroundEffects: true });
-      out.drawImage(cell, col * 128, row * 160);
+      out.drawImage(cell, col * 128, row * 200);
       out.fillStyle = '#ffffff';
       out.font = 'bold 12px monospace';
       out.textAlign = 'center';
-      out.fillText(labels[col], col * 128 + 64, row * 160 + 154);
+      out.fillText(labels[col], col * 128 + 64, row * 200 + 190);
     }
     const scaled = document.createElement('canvas');
     scaled.width = sheet.width * 4; scaled.height = sheet.height * 4;
