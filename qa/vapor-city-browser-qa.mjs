@@ -204,6 +204,35 @@ try {
     overLimit: npcPaletteAudit.filter(item => item.uniqueColorCount > 12)
   };
 
+  const paletteGroups = [
+    ['runner', 'coach', 'ref'],
+    ['broker', 'usher', 'fan'],
+    ['clinic', 'tech', 'hacker'],
+    ['vendor', 'cook'],
+    ['kid', 'kid2', 'mouse']
+  ];
+  const paletteSignatures = new Map(npcPaletteAudit.map(item => [
+    item.civ,
+    [...item.colors].sort().join('|')
+  ]));
+  const paletteDifferentiation = {
+    groups: paletteGroups.map(group => ({
+      civs: group,
+      available: group.filter(civ => paletteSignatures.has(civ)),
+      signatures: group.map(civ => ({ civ, signature: paletteSignatures.get(civ) || null }))
+    })),
+    duplicatePairs: paletteGroups.flatMap(group => {
+      const available = group.filter(civ => paletteSignatures.has(civ));
+      const duplicates = [];
+      for (let i = 0; i < available.length; i++) for (let j = i + 1; j < available.length; j++) {
+        if (paletteSignatures.get(available[i]) === paletteSignatures.get(available[j])) duplicates.push([available[i], available[j]]);
+      }
+      return duplicates;
+    })
+  };
+  paletteDifferentiation.pass = paletteDifferentiation.groups.every(group => group.available.length === group.civs.length) &&
+    paletteDifferentiation.duplicatePairs.length === 0;
+
   const npcBodyMeasurements = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcMeasureCivBodies !== 'function') throw new Error('NPC body measurement hook is unavailable');
     return window.SG.npcMeasureCivBodies();
@@ -541,6 +570,7 @@ try {
     grannyMeasurementCheck,
     npcPaletteAudit,
     npcPaletteCheck,
+    paletteDifferentiation,
     npcBodyCheck,
     npcPropAudit,
     snapshotCheck,
@@ -568,7 +598,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !pixelPackDirectionGuard || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !pixelPackDirectionGuard || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
