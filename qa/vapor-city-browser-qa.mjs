@@ -383,7 +383,7 @@ try {
   const npcBodyCheck = {
     pass: bodyRows.length === 24 && bodyRows.every(item => item.heightDeviationPixels <= 1 &&
       item.baselineDelta <= 0.02 && /^#[0-9a-f]{6}$/i.test(item.outlineColor || '') &&
-      item.outlinePixelCount > 0 && item.contrastRatio >= 1.3 && item.outlineContrastPercent >= 0.30),
+      item.outlinePixelCount > 0 && item.contrastRatio >= 3.0 && item.outlineContrastPercent >= 0.60),
     spriteCount: bodyRows.length,
     expectedBodyHeightPixels: expectedBodyPixels,
     maxHeightDeviationPixels: Math.max(...bodyRows.map(item=>item.heightDeviationPixels)),
