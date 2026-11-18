@@ -51,15 +51,19 @@
     "wait1",
     "wait2"
   ],
-  "standardInScopeCount": 116,
+  "standardInScopeCount": 112,
   "referenceBaselineNpcIds": [
     "granny"
   ],
   "outOfScopeNpcIds": [
+    "cat",
     "cat1",
     "cat2",
     "drift1",
     "drift2",
+    "gcat1",
+    "gcat2",
+    "gcat3",
     "hb_bram",
     "hb_deke",
     "hb_marla",
@@ -124,10 +128,10 @@
       "civ": null,
       "direction": "l",
       "archetype": null,
-      "rendererPath": "pxCat atlas override -> owCat fallback",
-      "scopeClass": "standardUnclassified",
+      "rendererPath": "pxCat atlas override -> owCat (owner-excluded, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "cat1",
@@ -328,30 +332,30 @@
       "civ": null,
       "direction": "r",
       "archetype": null,
-      "rendererPath": "pxCat atlas override -> owCat fallback",
-      "scopeClass": "standardUnclassified",
+      "rendererPath": "pxCat atlas override -> owCat (owner-excluded, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "gcat2",
       "civ": null,
       "direction": "l",
       "archetype": null,
-      "rendererPath": "pxCat atlas override -> owCat fallback",
-      "scopeClass": "standardUnclassified",
+      "rendererPath": "pxCat atlas override -> owCat (owner-excluded, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "gcat3",
       "civ": null,
       "direction": "l",
       "archetype": null,
-      "rendererPath": "pxCat atlas override -> owCat fallback",
-      "scopeClass": "standardUnclassified",
+      "rendererPath": "pxCat atlas override -> owCat (owner-excluded, out of scope)",
+      "scopeClass": "outOfScope",
       "pxPersonAtlasOverride": false,
-      "inScope": true
+      "inScope": false
     },
     {
       "id": "granny",
