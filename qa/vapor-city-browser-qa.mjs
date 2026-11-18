@@ -129,7 +129,7 @@ try {
     const newRenderer = window.NPC_SPRITES.createGrannyRenderer({ OWT, og: null, artShadow: () => {} });
     for (let row = 0; row < 2; row++) for (let col = 0; col < 4; col++) {
       const cell = document.createElement('canvas');
-      cell.width = 128; cell.height = 140;
+      cell.width = 128; cell.height = 180;
       const ctx = cell.getContext('2d');
       ctx.imageSmoothingEnabled = false;
       const npc = { id: 'granny', x: 0, y: 0.25, rx: 0, ry: 0.25 };
