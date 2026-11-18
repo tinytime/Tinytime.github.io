@@ -579,22 +579,28 @@ try {
   const fanPixelSignatures = fanPixelAudit.map(fan => fan.pixelSha256);
   const fanSilhouetteSignatures = fanPixelAudit.map(fan => fan.silhouetteSha256);
   const fanPaletteSignatures = fanVariantData.map(fan => [...fan.colors].sort().join('|'));
+  const fanJerseyStyleCounts = Object.fromEntries([...new Set(fanVariantData.map(fan => fan.jerseyStyle))].map(style =>
+    [style, fanVariantData.filter(fan => fan.jerseyStyle === style).length]));
+  const uniqueFanJerseyStyles = Object.keys(fanJerseyStyleCounts).filter(style => style && style !== 'null').length;
   const uniqueFanSilhouettes = new Set(fanSilhouetteSignatures).size;
   const fanVariantAudit = {
     pass: fanVariantData.length === 20 && fanPixelAudit.length === 20 &&
       new Set(fanPixelSignatures).size === 20 &&
-      uniqueFanSilhouettes > 1 &&
+      uniqueFanSilhouettes >= 6 && uniqueFanJerseyStyles >= 5 &&
       fanVariantData.every(fan => fan.uniqueColorCount <= 12),
     count: fanVariantData.length,
     uniqueLooks: new Set(fanPixelSignatures).size,
     uniquePixelLooks: new Set(fanPixelSignatures).size,
     uniqueSilhouettes: uniqueFanSilhouettes,
-    silhouetteDiversityPass: uniqueFanSilhouettes > 1,
+    minimumDistinctSilhouettes: 6,
+    silhouetteDiversityPass: uniqueFanSilhouettes >= 6,
+    uniqueJerseyStyles: uniqueFanJerseyStyles,
+    jerseyStyleCounts: fanJerseyStyleCounts,
     uniquePaletteSignatures: new Set(fanPaletteSignatures).size,
     uniquenessMethod: 'RGBA SHA-256 measures exact rendered differences; alpha-mask SHA-256 independently measures silhouette diversity. Palette signatures are reported separately. Pixel or palette recolors alone do not establish silhouette diversity.',
     maxUniqueColors: Math.max(...fanVariantData.map(fan => fan.uniqueColorCount)),
     fans: fanVariantData.map(fan => ({
-      id: fan.id, uniqueColorCount: fan.uniqueColorCount, colors: fan.colors,
+      id: fan.id, uniqueColorCount: fan.uniqueColorCount, jerseyStyle: fan.jerseyStyle, colors: fan.colors,
       pixelSha256: fanPixelAudit.find(row => row.id === fan.id)?.pixelSha256 || null,
       silhouetteSha256: fanPixelAudit.find(row => row.id === fan.id)?.silhouetteSha256 || null,
       opaquePixels: fanPixelAudit.find(row => row.id === fan.id)?.opaquePixels ?? null
