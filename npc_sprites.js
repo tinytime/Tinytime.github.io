@@ -970,28 +970,29 @@
       };
       // Keep facial marks at true native 1x1 resolution. Stable NPC-id hashing
       // selects a small expression family, so shared archetypes do not share one face.
+      // Stable per-NPC expression families: brows, eye spacing and mouth shape
+      // are deliberately distinct at native resolution rather than palette-only swaps.
       const faceHash=Array.from(String(n.id||kind)).reduce((sum,ch)=>((sum*31)+ch.charCodeAt(0))>>>0,7);
-      const faceStyle=faceHash%6;
+      const faceStyle=faceHash%8;
+      const faceSets=[
+        {eyes:[[28,10],[36,10]],brows:[[28,8],[36,8]],mouth:[32,16],mouthPixels:[[0,0,'inkdetail']]}, // calm
+        {eyes:[[27,11],[36,10]],brows:[[27,9],[36,8]],mouth:[32,17],mouthPixels:[[0,0,'skinshade'],[1,0,'skinshade']]}, // friendly
+        {eyes:[[28,10],[37,11]],brows:[[28,8],[37,9]],mouth:[33,16],mouthPixels:[[0,0,'inkdetail'],[0,1,'inkdetail']]}, // curious
+        {eyes:[[27,10],[36,10]],brows:[[27,7],[36,9]],mouth:[31,17],mouthPixels:[[0,0,'inkdetail'],[-1,0,'inkdetail']]}, // skeptical
+        {eyes:[[29,11],[36,11]],brows:[[29,9],[36,9]],mouth:[32,16],mouthPixels:[[0,0,'skinshade']],cheeks:[[26,14],[38,14]]}, // warm
+        {eyes:[[28,10],[37,10]],brows:[[28,8],[37,8]],mouth:[33,17],mouthPixels:[[0,0,'skinshade'],[1,0,'skinshade']],facialHair:[[30,14],[31,14],[34,14],[35,14]]}, // grin
+        {eyes:[[27,10],[36,11]],brows:[[27,8],[36,9]],mouth:[32,16],mouthPixels:[[0,0,'inkdetail'],[1,0,'inkdetail'],[0,1,'inkdetail']]}, // surprised
+        {eyes:[[28,11],[36,10]],brows:[[28,9],[36,7]],mouth:[32,17],mouthPixels:[[0,0,'inkdetail'],[0,1,'skinshade']] } // concerned
+      ];
+      const face=faceSets[faceStyle];
       if(!side&&!back&&headStyle!=='helmet'&&headStyle!=='hood'){
-        const faceSets=[
-          {eyes:[[28,10],[36,10]],brows:[[28,8],[36,8]],mouth:[32,16]},
-          {eyes:[[27,11],[36,10]],brows:[[27,9],[36,8]],mouth:[32,17]},
-          {eyes:[[28,10],[37,11]],brows:[[28,8],[37,9]],mouth:[33,16]},
-          {eyes:[[27,10],[36,10]],brows:[[27,8],[36,8]],mouth:[31,17]},
-          {eyes:[[29,11],[36,11]],brows:[[29,9],[36,9]],mouth:[32,16]},
-          {eyes:[[28,10],[37,10]],brows:[[28,8],[37,8]],mouth:[33,17]}
-        ];
-        const face=faceSets[faceStyle];
-        // Remove the generic eye/mouth trio painted by the shared base head.
+        // Clear the generic base marks before laying down this NPC's expression.
         for(const [ex,ey] of [[28,10],[36,10],[32,16]])grid[ey][ex]='skin';
         for(const [ex,ey] of face.eyes)grid[ey][ex]='inkdetail';
         for(const [bx,by] of face.brows)grid[by][bx]='hair';
-        grid[face.mouth[1]][face.mouth[0]]=faceStyle%2===0?'inkdetail':'skinshade';
-        if(faceStyle===1)grid[face.mouth[1]][face.mouth[0]+1]='skinshade';
-        else if(faceStyle===2)grid[face.mouth[1]+1][face.mouth[0]]='inkdetail';
-        else if(faceStyle===3)grid[face.mouth[1]][face.mouth[0]-1]='inkdetail';
-        else if(faceStyle===4){grid[14][30]='skinlight';grid[14][34]='skinlight';}
-        else if(faceStyle===5){grid[14][30]='hair';grid[14][31]='hair';grid[14][33]='hair';grid[14][34]='hair';}
+        for(const [dx,dy,role] of face.mouthPixels)grid[face.mouth[1]+dy][face.mouth[0]+dx]=role;
+        if(face.cheeks)for(const [cx,cy] of face.cheeks)grid[cy][cx]='skinlight';
+        if(face.facialHair)for(const [hx,hy] of face.facialHair)grid[hy][hx]='hair';
       }
       if(side){
         grid[8][40]='skin';
@@ -1000,7 +1001,9 @@
           grid[10][profileEyeX]='inkdetail';
           grid[8][profileEyeX]='hair';
           grid[16][profileEyeX-1]=faceStyle%2===0?'inkdetail':'skinshade';
-          if(faceStyle===5)grid[15][profileEyeX-1]='hair';
+          if(faceStyle===5){grid[15][profileEyeX-1]='hair';grid[16][profileEyeX]='hair';}
+          if(faceStyle===6)grid[11][profileEyeX]='skinlight';
+          if(faceStyle===7)grid[9][profileEyeX-1]='hair';
         }
       }
       const fanJerseyStyles={
