@@ -241,8 +241,9 @@
     // Character-level limb silhouettes add stance and shoulder variation within jobs.
     // Keep profession-specific shoulder and stance profiles readable at native scale.
     const CIV_RIG_VARIANTS=Object.freeze({
-      coach:{armSpread:2,armY:1,legSpread:2,legW:1},
-      ref:{armSpread:-2,armY:-1,legSpread:-2},
+      coach:{armSpread:2,armY:1,legSpread:2,legW:1,armPose:'down'},
+      ref:{armSpread:-2,armY:-1,legSpread:-2,armPose:'down'},
+      runner:{armSpread:0,armY:0,legSpread:1,armPose:'swing'},
       courier:{armSpread:1,armY:1,legSpread:-1},
       guard:{armSpread:1,armY:-1,legSpread:1,legW:1},
       vendor:{armSpread:-1,armY:1,legSpread:1},
@@ -290,11 +291,23 @@
       const base=ARCHETYPE_RIG_PARTS[archetype],result={};
       for(const view of ['front','back','side']){
         const side=view==='side';
-        const arms=base[view].arms.map(([x,y,w,h,role])=>{
+        let arms=base[view].arms.map(([x,y,w,h,role])=>{
           const right=side||x>=16;
           const dx=side?(spec.sideArmX??spec.armSpread??0):(right?(spec.armSpread||0):-(spec.armSpread||0));
           return [x+dx,y+(spec.armY||0),Math.max(1,w+(spec.armW||0)),h,role];
         });
+        // Articulated poses replace the generic straight arm blocks for athletics.
+        if(spec.armPose==='down'){
+          arms=side
+            ? [[19,13,2,5,'arm'],[18,18,2,4,'armshade'],[18,22,2,2,'skin']]
+            : [[9,13,2,4,'arm'],[9,17,2,4,'armshade'],[9,21,2,2,'skin'],
+               [21,13,2,4,'arm'],[21,17,2,4,'armshade'],[21,21,2,2,'skin']];
+        }else if(spec.armPose==='swing'){
+          arms=side
+            ? [[19,12,2,4,'arm'],[18,16,3,3,'armshade'],[17,18,2,2,'skin']]
+            : [[8,12,2,3,'arm'],[9,15,3,2,'armshade'],[11,16,2,2,'skin'],
+               [21,13,2,3,'arm'],[20,16,3,2,'armshade'],[19,17,2,2,'skin']];
+        }
         const legs=base[view].legs.map(([x,y,w,h,role])=>{
           const right=side?x>=14:x>=16;
           const spread=side?(spec.sideLegSpread??spec.legSpread):spec.legSpread;
@@ -973,7 +986,21 @@
       // Stable per-NPC expression families: brows, eye spacing and mouth shape
       // are deliberately distinct at native resolution rather than palette-only swaps.
       const faceHash=Array.from(String(n.id||kind)).reduce((sum,ch)=>((sum*31)+ch.charCodeAt(0))>>>0,7);
-      const faceStyle=faceHash%8;
+      // Civilian expression families are authored by occupation, not selected by an opaque hash.
+      const CIV_FACE_FAMILIES={
+        runner:0,coach:1,ref:2,courier:3,guard:4,vendor:5,cook:6,clinic:7,
+        tech:0,hacker:1,fisher:2,sailor:3,slicker:4,painter:5,welder:6,
+        kid:7,kid2:0,mouse:1,busker:2,dancer:3,broker:4,usher:5
+      };
+      const CIV_FACE_DETAILS={
+        runner:[26,14],coach:[27,15],ref:[28,14],courier:[29,15],guard:[30,14],
+        vendor:[31,15],cook:[32,14],clinic:[33,15],tech:[34,14],hacker:[35,15],
+        fisher:[36,14],sailor:[37,15],slicker:[38,14],painter:[39,15],welder:[26,16],
+        kid:[27,16],kid2:[28,16],mouse:[29,16],busker:[30,16],dancer:[31,16],
+        broker:[32,16],usher:[33,16]
+      };
+      const faceStyle=kind==='fan'?faceHash%8:(CIV_FACE_FAMILIES[kind]??0);
+      const faceDetail=CIV_FACE_DETAILS[kind]||null;
       const faceSets=[
         {eyes:[[28,10],[36,10]],brows:[[28,8],[36,8]],mouth:[32,16],mouthPixels:[[0,0,'inkdetail']]}, // calm
         {eyes:[[27,11],[36,10]],brows:[[27,9],[36,8]],mouth:[32,17],mouthPixels:[[0,0,'skinshade'],[1,0,'skinshade']]}, // friendly
@@ -985,7 +1012,7 @@
         {eyes:[[28,11],[36,10]],brows:[[28,9],[36,7]],mouth:[32,17],mouthPixels:[[0,0,'inkdetail'],[0,1,'skinshade']] } // concerned
       ];
       const face=faceSets[faceStyle];
-      if(!side&&!back&&headStyle!=='helmet'&&headStyle!=='hood'){
+      if(!side&&!back){
         // Clear the generic base marks before laying down this NPC's expression.
         for(const [ex,ey] of [[28,10],[36,10],[32,16]])grid[ey][ex]='skin';
         for(const [ex,ey] of face.eyes)grid[ey][ex]='inkdetail';
@@ -993,18 +1020,21 @@
         for(const [dx,dy,role] of face.mouthPixels)grid[face.mouth[1]+dy][face.mouth[0]+dx]=role;
         if(face.cheeks)for(const [cx,cy] of face.cheeks)grid[cy][cx]='skinlight';
         if(face.facialHair)for(const [hx,hy] of face.facialHair)grid[hy][hx]='hair';
+        if(faceDetail)grid[faceDetail[1]*2][faceDetail[0]*2]='skinlight';
       }
       if(side){
+        // Profile face includes a projecting nose and stepped chin, including beneath headwear.
         grid[8][40]='skin';
-        if(headStyle!=='helmet'&&headStyle!=='hood'){
-          const profileEyeX=33+(faceStyle%3);
-          grid[10][profileEyeX]='inkdetail';
-          grid[8][profileEyeX]='hair';
-          grid[16][profileEyeX-1]=faceStyle%2===0?'inkdetail':'skinshade';
-          if(faceStyle===5){grid[15][profileEyeX-1]='hair';grid[16][profileEyeX]='hair';}
-          if(faceStyle===6)grid[11][profileEyeX]='skinlight';
-          if(faceStyle===7)grid[9][profileEyeX-1]='hair';
-        }
+        const profileEyeX=33+(faceStyle%3);
+        grid[10][profileEyeX]='inkdetail';
+        grid[8][profileEyeX]='hair';
+        grid[16][profileEyeX-1]=faceStyle%2===0?'inkdetail':'skinshade';
+        if(faceStyle===5){grid[15][profileEyeX-1]='hair';grid[16][profileEyeX]='hair';}
+        if(faceStyle===6)grid[11][profileEyeX]='skinlight';
+        if(faceStyle===7)grid[9][profileEyeX-1]='hair';
+        grid[10][42]='skinlight';grid[11][44]='skin';grid[12][42]='skinshade';
+        grid[14][41]='skinshade';grid[15][40]='skinlight';
+        if(faceDetail)grid[(faceDetail[1]%3+13)*2][(faceDetail[0]%5+35)*2]='skinlight';
       }
       const fanJerseyStyles={
         driverA:'stripes',fan1:'crest',fan2:'bars',fanA:'sash',fanB:'split',
