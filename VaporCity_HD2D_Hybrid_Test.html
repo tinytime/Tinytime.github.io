@@ -9563,7 +9563,7 @@ function measureNpcArchetypeMasks(){
   return results;
 }
 window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMasks:()=>measureNpcArchetypeMasks(),npcGrannyRef:()=>GRANNY_REF,
-  npcPaletteAudit:()=>Object.keys(CIV).map(civ=>{const canvas=document.createElement('canvas');canvas.width=64;canvas.height=96;const n={id:'qa-'+civ,civ,x:0,y:0};owCiv(0,0,'d',false,n,0,0,canvas.getContext('2d'));return Object.assign({},owCiv._lastPaletteMetrics)}),
+  npcPaletteAudit:()=>Object.keys(CIV).filter(civ=>civ!=='granny').map(civ=>{const canvas=document.createElement('canvas');canvas.width=64;canvas.height=96;const n={id:'qa-'+civ,civ,x:0,y:0};owCiv(0,0,'d',false,n,0,0,canvas.getContext('2d'));return Object.assign({},owCiv._lastPaletteMetrics)}),
   npcGalleryView:'all',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
   c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#777982';c.fillRect(0,0,canvas.width,canvas.height);
