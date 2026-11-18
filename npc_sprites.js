@@ -469,6 +469,9 @@
       const paintProp=(x,y,w,h,role)=>{
         const pattern=PROP_SHAPES[role];
         if(!pattern){put(x,y,w,h,role);return}
+        // Cut the prop's footprint out of the body first. Otherwise transparent
+        // mask corners reveal the shirt underneath and turn every prop into a box.
+        for(let py=y*2;py<(y+h)*2;py++)for(let px=x*2;px<(x+w)*2;px++)if(px>=0&&px<N&&py>=0&&py<H)grid[py][px]=null;
         for(let yy=0;yy<h;yy++){
           const row=pattern[Math.min(pattern.length-1,Math.floor(yy*pattern.length/h))];
           for(let xx=0;xx<w;xx++){
