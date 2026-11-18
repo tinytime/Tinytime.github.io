@@ -51,6 +51,26 @@
     "wait1",
     "wait2"
   ],
+  "outOfScopeNpcIds": [
+    "cat1",
+    "cat2",
+    "drift1",
+    "drift2",
+    "hb_bram",
+    "hb_deke",
+    "hb_marla",
+    "hb_rita",
+    "king1",
+    "king2",
+    "lou",
+    "mack",
+    "mate1",
+    "mo",
+    "pete",
+    "r2_mud",
+    "rat2",
+    "rusty"
+  ],
   "pixelPack": {
     "enabledOnlyWhen": "PXS.on && M.id === 'street' && pxUse()",
     "pxPersonAtlasNpcIds": [
@@ -1150,25 +1170,5 @@
       "pxPersonAtlasOverride": false,
       "inScope": true
     }
-  ],
-  "outOfScopeNpcIds": [
-    "cat1",
-    "cat2",
-    "drift1",
-    "drift2",
-    "hb_bram",
-    "hb_deke",
-    "hb_marla",
-    "hb_rita",
-    "king1",
-    "king2",
-    "lou",
-    "mack",
-    "mate1",
-    "mo",
-    "pete",
-    "r2_mud",
-    "rat2",
-    "rusty"
   ]
 }
