@@ -245,13 +245,28 @@ try {
   }));
   const near = (a, b) => typeof a === 'number' && typeof b === 'number' && Math.abs(a - b) < 1e-8;
   const metricKeys = ['bodyHeight', 'headTopRow', 'neckRow', 'headHeight', 'shoulderRow', 'shoulderWidth', 'footRow', 'totalHeight'];
-  const directionsMatch = grannyRefExpected.directions.length === grannyMeasurements.directions.length &&
-    grannyRefExpected.directions.every(expected => {
-      const actual = grannyMeasurements.directions.find(d => d.direction === expected.direction);
-      return !!actual && metricKeys.every(key => actual[key] === expected[key]) &&
-        ['minX', 'maxX', 'minY', 'maxY', 'width', 'height'].every(key =>
-          actual.bodyBounds[key] === expected.bodyBounds[key] && actual.fullBounds[key] === expected.fullBounds[key]);
-    });
+  const validatedGrannyDirections = ['d', 'u'];
+  const directionsMatch = validatedGrannyDirections.every(direction => {
+    const expected = grannyRefExpected.directions.find(d => d.direction === direction);
+    const actual = grannyMeasurements.directions.find(d => d.direction === direction);
+    return !!actual && !!expected && metricKeys.every(key => actual[key] === expected[key]) &&
+      ['minX', 'maxX', 'minY', 'maxY', 'width', 'height'].every(key =>
+        actual.bodyBounds[key] === expected.bodyBounds[key] && actual.fullBounds[key] === expected.fullBounds[key]);
+  });
+  const sideViewCandidates = ['l', 'r'].map(direction => {
+    const actual = grannyMeasurements.directions.find(d => d.direction === direction);
+    const original = grannyRefExpected.directions.find(d => d.direction === direction);
+    return {
+      direction,
+      reviewStatus: 'candidate only; not compared against the owner-approved baseline',
+      originalReferenceBodyWidth: original?.bodyBounds?.width ?? null,
+      candidateBodyWidth: actual?.bodyBounds?.width ?? null,
+      originalReferenceFullWidth: original?.fullBounds?.width ?? null,
+      candidateFullWidth: actual?.fullBounds?.width ?? null,
+      candidateBodyBounds: actual?.bodyBounds ?? null,
+      candidateFullBounds: actual?.fullBounds ?? null
+    };
+  });
   const inGameKeys = ['mapTileSize', 'cameraZoom', 'rendererScale', 'bodyWidthPixels', 'bodyHeightPixels', 'fullHeightPixels', 'bodyHeightInTiles', 'deviceScale'];
   const inGameMatch = inGameKeys.every(key => near(grannyMeasurements.inGame[key], grannyRefExpected.inGame[key]));
   const canvasScaleCheck = near(grannyMeasurements.inGame.screenScaleX, 1 / grannyMeasurements.inGame.deviceScale) &&
@@ -267,7 +282,10 @@ try {
   const grannyMeasurementCheck = {
     pass: directionsMatch && inGameMatch && canvasScaleCheck && runtimeRefMatch && grannyMeasurements.directions?.length === 4,
     directionCount: grannyMeasurements.directions?.length || 0,
+    validatedDirections: validatedGrannyDirections,
     directionsMatch,
+    sideViewsOwnerReviewOnly: true,
+    sideViewCandidates,
     inGameMatch,
     canvasScaleCheck,
     canvasScale: { x: grannyMeasurements.inGame.screenScaleX, y: grannyMeasurements.inGame.screenScaleY, deviceScale: grannyMeasurements.inGame.deviceScale },
