@@ -8529,11 +8529,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const grid=Array.from({length:H},()=>Array(N).fill(null));
   const put=(x0,y0,w,h,role)=>{for(let yy=y0;yy<y0+h;yy++)for(let xx=x0;xx<x0+w;xx++)if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
   const set=(xx,yy,role)=>{if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
-  // Head: stepped 10x10 silhouette with a tapered, rounded jaw.
-  put(11,1,10,8,'skin');put(12,0,8,10,'skin');
-  // Rounded jaw: remove the two lower outside pixels of the front-facing head mask.
-  set(13,9,null);set(18,9,null);
-  set(11,8,null);set(20,8,null);set(12,9,null);set(19,9,null);
+  // Head: hand-shaped pixel silhouette; clipped corners create a rounded cranium and jaw.
+  put(12,1,8,7,'skin');put(11,2,10,6,'skin');put(13,8,6,1,'skin');
+  set(11,1,null);set(20,1,null);set(11,8,null);set(20,8,null);set(12,9,null);set(19,9,null);
+  // Two-pixel neck is added below the face for a clear head-to-body connection.
+
   put(10,2,1,6,'hair');put(21,2,1,6,'hair');
   put(12,0,8,2,'hair');put(11,1,10,2,'hair');
   // One-pixel sideburns frame both sides of the face.
@@ -8547,8 +8547,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     put(11,0,10,10,'hair');put(13,8,6,1,'hairlight');
   }else{
     put(10,2,2,7,'hair');put(20,2,2,7,'hair');
-    // One-pixel side locks at the requested face-mask coordinates (3,4) and (8,4).
-    set(13,4,'hair');set(18,4,'hair');
+    // Single hanging lock on the viewer's left side of the face.
+    put(10,4,1,5,'hair');
     put(14,3,1,2,'hair'); // one-pixel fringe over forehead
     set(14,5,'inkdetail');set(18,5,'inkdetail'); // 1x1 eyes
     set(16,8,'inkdetail'); // 1x1 mouth
@@ -8568,47 +8568,52 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(side){
     // Profile torso is 8 wide: rear four pixels shadow, front four base.
     put(12,10,8,14,'body');
-    // Slightly slope the rear shoulder; the grid is mirrored for left-facing views.
     set(12,10,null);
     for(let yy=10;yy<24;yy++)for(let xx=12;xx<16;xx++)set(xx,yy,'bodyshade');
   }else{
-    // Broad shoulders stay exactly 12 pixels wide at local Y=8 (grid Y=10).
-    put(10,10,12,14,'body');
-    // Exact hourglass waist mask: local X 0,1,10,11 are empty
-    // for local rows Y=11..13 (mapped to grid X 10,11,20,21 / Y 13..15).
-    for(let yy=13;yy<=15;yy++)for(const xx of [10,11,20,21])set(xx,yy,null);
+    // Organic front torso: explicit row masks, not a rectangular bounding box.
+    const torsoRows=[
+      [10,11,20],[11,10,21],[12,10,21],[13,11,20],
+      [14,12,19],[15,12,19],[16,12,19],[17,11,20],
+      [18,10,21],[19,10,21],[20,10,21],[21,10,21],[22,10,21],[23,10,21]
+    ];
+    for(const [yy,x1,x2] of torsoRows)for(let xx=x1;xx<=x2;xx++)set(xx,yy,'body');
+    // Narrow two-pixel neck joins the head to the sloped shoulder line.
+    put(15,9,2,3,'skin');
   }
-  // Relaxed arms in local anatomy coordinates: upper arms fall straight
-  // from shoulder Y=8 to Y=10; forearms shift exactly one pixel inward
-  // from Y=10 through Y=14, then continue down the body's sides.
+  // Arms: narrow, articulated pixel paths with a one-cell ink gap from the torso.
   if(side){
-    put(17,10,3,2,'arm');       // upper arm ends at local Y=10
-    put(16,12,3,12,'arm');      // forearm starts at local Y=10, one pixel inward
+    put(17,10,2,4,'arm');put(16,14,2,5,'arm');
   }else{
-    put(6,10,3,2,'arm');put(7,12,3,12,'arm');
-    put(23,10,3,2,'arm');put(22,12,3,12,'arm');
+    // Upper arms descend from shoulder level; forearms angle inward at the elbow.
+    for(let yy=10;yy<=13;yy++){set(8,yy,'arm');set(23,yy,'arm');}
+    for(let yy=14;yy<=17;yy++){set(9,yy,'arm');set(22,yy,'arm');}
+    set(9,18,'arm');set(22,18,'arm'); // relaxed hands
   }
   // Side-profile legs use the 16-wide local grid: back leg anchor X=3,
   // front leg anchor X=5. Each is two pixels thick with exactly one
   // transparent/ink-shadow column (local X=4) between them.
   if(side){
-    // Side stride mask: back leg at local X=2, front leg at local X=5;
-    // local X=3 and X=4 remain clear (grid X=11 and X=12).
+    // Side stride mask: back leg at local X=2, front leg at local X=5.
     put(10,24,1,13,'legback');put(13,24,2,13,'legfront');
-  }
-  else{
-    put(11,24,4,9,'pants');put(10,32,4,5,'pants');
-    put(18,24,4,9,'pants');put(19,32,4,5,'pants');
+  }else{
+    // Front A-stance: thighs begin apart, then calves angle outward at the knees.
+    for(let yy=24;yy<=29;yy++){set(11,yy,'pants');set(16,yy,'pants');}
+    for(let yy=30;yy<=36;yy++){set(10,yy,'pants');set(17,yy,'pants');}
+    // Add a second pixel of volume to the upper thighs and calves without boxing them in.
+    for(let yy=24;yy<=29;yy++){set(12,yy,'pants');set(15,yy,'pants');}
+    for(let yy=30;yy<=36;yy++){set(9,yy,'pants');set(18,yy,'pants');}
   }
   if(side){put(9,37,4,3,'shoe');put(13,37,5,3,'shoefront');}
   else{put(9,37,7,3,'shoe');put(18,37,7,3,'shoe');}
   if(P.stripes&&!side&&!back)for(let yy=12;yy<22;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
   if(P.apron&&!back)put(13,16,6,8,'apron');
   if(P.jacket||kind==='courier')for(let yy=12;yy<22;yy++)set(16,yy,'bodyshade');
-  // Collar shadow and a crisp one-pixel shirt hem.
+  // Layered clothing details: dark collar under neck and crisp shirt-to-trouser hem.
   if(!back){for(let xx=13;xx<=18;xx++)set(xx,11,'bodyshade');}
   if(!side&&!back){
-    for(let xx=11;xx<21;xx++)set(xx,23,'bodyshade');
+    for(let xx=14;xx<=17;xx++)set(xx,12,'inkdetail');
+    for(let xx=10;xx<=21;xx++)set(xx,23,'inkdetail');
   }else if(side){
     for(let xx=13;xx<20;xx++)set(xx,23,'bodyshade');
     // Vertical hem seam keeps the shirt distinct from the separated legs.
