@@ -8573,14 +8573,14 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const gridX=-7,gridY=-35,gridBase=body.base||P.body||'#777777';
   const gridColor=(gx,gy)=>{
     const cell=npcGrid[gy][gx];if(cell==='.')return null;
-    if(cell==='P')return side?(gx===9?(pants.shadow||pants.base||P.pants||'#252535'):(pants.base||P.pants||'#252535')):(pants.base||P.pants||'#252535');
+    if(cell==='P')return side?(gx===8?(pants.shadow||pants.base||P.pants||'#252535'):(gx===9?(pants.highlight||pants.base||P.pants||'#252535'):(pants.base||P.pants||'#252535'))):(pants.base||P.pants||'#252535');
     if(cell==='S')return gy<18?(gx%2===0?gridBase:(body.shadow||gridBase)):(gx%2===0?(pants.base||P.pants||'#252535'):(pants.shadow||body.shadow||'#20212a'));
     if(cell==='A'){
-      if(side)return gx===10?gridBase:(body.shadow||gridBase);
+      if(side)return gx===11?(body.highlight||gridBase):(body.shadow||gridBase);
       return gridBase;
     }
     if(cell==='B'){
-      if(side){if(dirCode==='l')return gx>=9?body.highlight:gx===8?gridBase:body.shadow;return gx<=7?body.highlight:gx===8?gridBase:body.shadow}
+      if(side)return gx>=9?(body.highlight||gridBase):gx===8?gridBase:(body.shadow||gridBase);
       // Front and back torsos: explicit highlight | base | deep-shadow columns.
       if(gx<=6)return body.highlight||gridBase;
       if(gx>=8)return body.shadow||gridBase;
