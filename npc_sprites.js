@@ -264,7 +264,7 @@
       dancer:{armSpread:-2,armY:1,legSpread:-1,legW:-1},
       broker:{armSpread:1,armY:-1,legSpread:-1,legW:1,
         leftArmX:-2,rightArmX:1,leftArmY:2,rightArmY:-1,
-        leftLegX:-3,rightLegX:3,leftLegY:1,rightLegY:-1,leftLegW:1,rightLegW:1},
+        leftLegX:-3,rightLegX:3,leftLegY:0,rightLegY:0,leftLegW:1,rightLegW:1},
       usher:{armSpread:-2,armY:1,legSpread:2,legW:-1},
       fan:{armSpread:-2,armY:1,legSpread:1}
     });
