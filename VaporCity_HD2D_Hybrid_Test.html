@@ -9091,7 +9091,7 @@ window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMas
   },
   npcRenderAtlasComparisonSnapshots:()=>{
     if(!PXS||!PXS.ok||!PXS.img||!PXS.f)return [];
-    const ids=['fanC','fanD','busker'];
+    const ids=['fanC','fanD','kid','busker'];
     return ids.map(id=>{
       const n=M?.npcs?.find(item=>item.id===id);
       if(!n||!PXN[id]||!PXS.f[PXN[id]])return {id,error:'Live street NPC or atlas frame missing'};
@@ -9107,7 +9107,7 @@ window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMas
       const rendererCanvas=document.createElement('canvas');rendererCanvas.width=64;rendererCanvas.height=96;
       owCiv(0,0,direction,false,n,0,0,rendererCanvas.getContext('2d'));
       const sprite=owCiv._gridCanvas;
-      return {id,direction,key,frame,width:64,height:96,atlasDataUrl:atlasCanvas.toDataURL('image/png'),
+      return {id,direction,key,frame,x:n.x,y:n.y,civ:n.civ,width:64,height:96,atlasDataUrl:atlasCanvas.toDataURL('image/png'),
         rendererDataUrl:sprite.toDataURL('image/png')};
     });
   },
