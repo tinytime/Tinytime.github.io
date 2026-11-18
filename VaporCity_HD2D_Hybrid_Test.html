@@ -8339,13 +8339,15 @@ const CIV_FANC=['#ff2fa8','#27e0ff','#ffd23a','#9b5cff','#58ffb0','#ff7a1a'];
 /* Granny Volt: enlarged, layered illustrated sprite tuned to the football player's
    rounded silhouettes, directional gradients, edge definition and limb volume. */
 const grannyPixelCache=new Map();
-function drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride){
+function drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride,measureOptions){
   const g=ctxOverride||og,scale=OWT/36*.28,sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
   // Feet remain pinned; the upper body keeps the existing one-pixel idle breath.
   const frame=Math.floor(tm*(moving?8:6)+(ph||0))%4,bob=[0,-1,0,1][frame],prevBob=[0,-1,0,1][(frame+3)%4];
   const back=dir==='u';
-  // Preserve the football renderer's exact soft radial contact shadow.
-  artShadow(g,sx,sy,OWT*.24,OWT*.075,.75,2);
+  const omitUmbrella=!!(measureOptions&&measureOptions.excludeUmbrella);
+  const omitGroundEffects=!!(measureOptions&&measureOptions.excludeGroundEffects);
+  // Keep measurement passes free of contact-shadow and additive glow pixels.
+  if(!omitGroundEffects)artShadow(g,sx,sy,OWT*.24,OWT*.075,.75,2);
   g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-137);
   const ink='#171725',deep='#482B59',skin='#D6A17F';
   const path=(pts,fill,stroke=ink,lw=2)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='round';g.stroke()}};
@@ -8368,6 +8370,7 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride){
   // Upper body bobs; umbrella is behind the head and jacket.
   g.save();g.translate(0,bob/scale);
   // Rounded dome canopy with a distinct pointed crown, raised three pixels.
+  if(!omitUmbrella){
   g.save();g.translate(3,-3);
   g.beginPath();g.moveTo(47,2);
   g.quadraticCurveTo(31,2,21,8);
@@ -8389,10 +8392,11 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride){
   line([[14,22],[20,11],[31,5]],'#FF9A3D',1.4);
   line([[64,6],[75,15],[79,23]],'#29F2E8',1.4);
   g.restore();
+  }
   // Shift the head and umbrella grip one pixel right; canopy remains untouched.
   g.save();g.translate(1,0);
   // Shaft descends beside the viewer-right cheek to the raised gripping hand.
-  line([[65,18],[64,38]],'#D7C5AA',1);
+  if(!omitUmbrella)line([[65,18],[64,38]],'#D7C5AA',1);
   // Hand is a crisp 2x2 skin-colored grip at cheek/chin height.
   g.fillStyle=skin;g.fillRect(63,37,2,2);
   g.strokeStyle=ink;g.lineWidth=1;g.strokeRect(63,37,2,2);
@@ -8474,10 +8478,12 @@ function drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride){
   // Close the upper-body bob group and character transform.
   g.restore();g.restore();
   // Preserve the existing subtle additive bounce around the planted feet.
+  if(!omitGroundEffects){
   g.save();g.globalCompositeOperation='lighter';g.globalAlpha=.16;
   let glow=g.createRadialGradient(sx,sy-OWT*.025,1,sx,sy-OWT*.025,OWT*.34);
   glow.addColorStop(0,'rgba(41,242,232,.26)');glow.addColorStop(.48,'rgba(255,47,168,.12)');glow.addColorStop(1,'rgba(41,242,232,0)');
   g.fillStyle=glow;g.beginPath();g.ellipse(sx,sy-OWT*.025,OWT*.34,OWT*.17,0,0,7);g.fill();g.restore();
+  }
 }
 /* Vapor City pixel-precision NPC engine.
    Granny Volt is the approved benchmark: outlined polygon anatomy, shaped joints,
@@ -9505,7 +9511,46 @@ setTimeout(()=>{const ro=document.getElementById('mRO');if(!ro||document.getElem
   if(window.CF_TEST){for(const [id,txt,o] of [['mPXgo','TEST: GO TO VAPOR PLAZA',{map:'street',x:15,y:14,d:'u',gates:1,ret:null}],['mPXback','TEST: BACK TO FERRY DOCK',{map:'harbor',x:35,y:39,d:'d',gates:1,ret:null}]]){
     const c=document.createElement('button');c.className='btn';c.id=id;c.textContent=txt;c.onclick=()=>{try{SAVE.ow=Object.assign({},o);persist();owShow()}catch(e){console.error(e)}};row.appendChild(c)}}},0);
 
-window.SG={npcGalleryView:'all',npcGalleryDraw:canvas=>{
+
+function measureGrannyVoltNative(){
+  const dirs=['d','u','l','r'],scale=OWT/36*.28,originY=3,canvasWidth=100,canvasHeight=140;
+  const scan=(dir,excludeUmbrella)=>{
+    const canvas=document.createElement('canvas');canvas.width=canvasWidth;canvas.height=canvasHeight;
+    const c=canvas.getContext('2d');c.setTransform(1/scale,0,0,1/scale,0,0);
+    const n={id:'granny',x:(50*scale-OWT/2)/OWT,y:((137+originY)*scale-OWT+5)/OWT};
+    drawGrannyVoltSprite(n,dir,false,0,0,c,{excludeUmbrella,excludeGroundEffects:true});
+    const pixels=c.getImageData(0,0,canvas.width,canvas.height).data;
+    let minX=canvasWidth,minY=canvasHeight,maxX=-1,maxY=-1;
+    const rowXs=Array.from({length:canvasHeight},()=>[]);
+    for(let y=0;y<canvasHeight;y++)for(let x=0;x<canvasWidth;x++){
+      if(pixels[(y*canvasWidth+x)*4+3]>0){minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);rowXs[y].push(x)}
+    }
+    if(maxX<0)throw new Error('Granny measurement rendered no opaque pixels for '+dir);
+    return {minX,maxX,minY:minY-originY,maxY:maxY-originY,width:maxX-minX+1,height:maxY-minY+1,rowXs};
+  };
+  const directions=dirs.map(direction=>{
+    const body=scan(direction,true),full=scan(direction,false);
+    const headTopRow=body.minY,neckRow=49,shoulderRow=50,shoulderXs=body.rowXs[shoulderRow+originY]||[];
+    const shoulderMin=shoulderXs.length?Math.min(...shoulderXs):null,shoulderMax=shoulderXs.length?Math.max(...shoulderXs):null;
+    return {direction,bodyBounds:{minX:body.minX,maxX:body.maxX,minY:body.minY,maxY:body.maxY,width:body.width,height:body.height},
+      bodyHeight:body.height,headTopRow,neckRow,headHeight:neckRow-headTopRow+1,
+      shoulderRow,shoulderWidth:shoulderMin==null?0:shoulderMax-shoulderMin+1,
+      shoulderBounds:shoulderMin==null?null:{minX:shoulderMin,maxX:shoulderMax},
+      footRow:body.maxY,totalHeight:full.height,
+      fullBounds:{minX:full.minX,maxX:full.maxX,minY:full.minY,maxY:full.maxY,width:full.width,height:full.height}};
+  });
+  const front=directions[0],screenScale=scale;
+  return {nativeGrid:{width:canvasWidth,height:canvasHeight,originOffsetY:originY,alphaThreshold:1,
+      umbrellaExclusion:'The measurement pass skips the canopy path and shaft line; it retains the gripping hand and arm. Contact shadow and foot glow are disabled.'},
+    measurementRows:{neckRow:49,shoulderRow:50,shoulderRowRule:'Fixed local source row 50; shoulder contour begins around local row 46.'},
+    directions,
+    inGame:{mapTileSize:OWT,rendererScale:screenScale,bodyWidthPixels:front.bodyBounds.width*screenScale,
+      bodyHeightPixels:front.bodyHeight*screenScale,fullHeightPixels:front.totalHeight*screenScale,
+      bodyHeightInTiles:front.bodyHeight*screenScale/OWT,
+      canvasCss:{width:owc.getBoundingClientRect().width,height:owc.getBoundingClientRect().height},
+      canvasBacking:{width:owc.width,height:owc.height},deviceScale:owDpr}};
+}
+window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcGalleryView:'all',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
   c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#777982';c.fillRect(0,0,canvas.width,canvas.height);
   const tests=[['GRANNY','VOLT','granny'],['MINT','RUNNER','runner'],['ORANGE','COURIER','courier'],['CITY','GUARD','guard'],['STREET','VENDOR','vendor'],['FIELD','CLINIC','clinic']];
