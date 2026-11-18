@@ -472,12 +472,32 @@ try {
     return { civ: item.civ, status: pixelDiff.dimensionsMatch && pixelDiff.changedPixels === 0 ? 'match' : 'changed',
       bytes: bytes.length, goldenBytes: golden.length, byteMatch, pixelDiff };
   }));
+  const goldenBaselineProvenancePath = path.join(root, 'qa', 'golden-npcs', 'PROVENANCE.json');
+  const goldenBaselineProvenance = fs.existsSync(goldenBaselineProvenancePath)
+    ? JSON.parse(fs.readFileSync(goldenBaselineProvenancePath, 'utf8')) : null;
+  const goldenBaselineApproval = {
+    present: Boolean(goldenBaselineProvenance),
+    status: goldenBaselineProvenance?.status || 'missing',
+    approved: goldenBaselineProvenance?.status === 'approved' &&
+      typeof goldenBaselineProvenance.approvedBy === 'string' &&
+      goldenBaselineProvenance.approvedBy.trim().length > 0 &&
+      typeof goldenBaselineProvenance.approvedAt === 'string' &&
+      goldenBaselineProvenance.approvedAt.trim().length > 0 &&
+      typeof goldenBaselineProvenance.approvalCommit === 'string' &&
+      goldenBaselineProvenance.approvalCommit.trim().length > 0,
+    createdBy: goldenBaselineProvenance?.createdBy || null,
+    createdAt: goldenBaselineProvenance?.createdAt || null,
+    sourceCommit: goldenBaselineProvenance?.sourceCommit || null,
+    approvedBy: goldenBaselineProvenance?.approvedBy || null,
+    approvedAt: goldenBaselineProvenance?.approvedAt || null,
+    approvalCommit: goldenBaselineProvenance?.approvalCommit || null
+  };
   const baselineRefreshPending = fs.existsSync(path.join(root, 'qa', 'update-goldens.flag'));
   const allSnapshotsMatch = snapshotResults.length === 24 && snapshotResults.every(item => item.status === 'match');
   const snapshotCheck = {
     // A committed one-time flag authorizes a deliberate baseline refresh.
     // Otherwise all 24 native-grid renders must match byte-for-byte.
-    pass: snapshotResults.length === 24 && (baselineRefreshPending || allSnapshotsMatch),
+    pass: goldenBaselineApproval.approved && snapshotResults.length === 24 && allSnapshotsMatch,
     baselineRefreshPending,
     baselineVerified: allSnapshotsMatch,
     expectedCount: 24,
@@ -891,7 +911,7 @@ try {
     scriptErrors,
     pageErrors,
     consoleErrors,
-    note: "Browser QA. Native-grid snapshots are written to qa-output/npc-snapshots and compared by decoded RGBA pixels with qa/golden-npcs; PNG byte equality is diagnostic only. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty live archetype-direction cells; the Granny special renderer is validated separately against the original baseline."
+    note: "Browser QA. Native-grid snapshots are written to qa-output/npc-snapshots and compared by decoded RGBA pixels with qa/golden-npcs; PNG byte equality is diagnostic only. Golden comparisons are gated on explicit human approval recorded in qa/golden-npcs/PROVENANCE.json. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty live archetype-direction cells; the Granny special renderer is validated separately against the original baseline."
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
