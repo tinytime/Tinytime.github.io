@@ -9555,7 +9555,25 @@ function measureGrannyVoltNative(){
       canvasCss:{width:canvasRect.width,height:canvasRect.height},
       canvasBacking:{width:owc.width,height:owc.height},deviceScale:owDpr}};
 }
-window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcGrannyRef:()=>GRANNY_REF,npcGalleryView:'all',npcGalleryDraw:canvas=>{
+
+function measureNpcArchetypeMasks(){
+  const archetypes=Object.keys(ARCHETYPES),directions=['d','u','r'],results=[];
+  for(const archetype of archetypes){
+    const civ=Object.keys(CIV_TO_ARCHETYPE).find(key=>CIV_TO_ARCHETYPE[key]===archetype);
+    if(!civ)throw new Error('No representative civ for archetype '+archetype);
+    for(const direction of directions){
+      const target=document.createElement('canvas');target.width=100;target.height=100;
+      const n={id:'qa-'+archetype,x:1,y:1,civ};
+      owCiv(0,0,direction,false,n,0,0,target.getContext('2d'));
+      const sprite=owCiv._gridCanvas,ctx=sprite.getContext('2d'),pixels=ctx.getImageData(0,0,64,96).data;
+      const rows=[];
+      for(let y=0;y<96;y++){let row='';for(let x=0;x<64;x++)row+=pixels[(y*64+x)*4+3]>0?'1':'0';rows.push(row)}
+      results.push({archetype,civ,direction,maskRows:rows});
+    }
+  }
+  return results;
+}
+window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMasks:()=>measureNpcArchetypeMasks(),npcGrannyRef:()=>GRANNY_REF,npcGalleryView:'all',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
   c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#777982';c.fillRect(0,0,canvas.width,canvas.height);
   const tests=[['GRANNY','VOLT','granny'],['MINT','RUNNER','runner'],['ORANGE','COURIER','courier'],['CITY','GUARD','guard'],['STREET','VENDOR','vendor'],['FIELD','CLINIC','clinic']];
