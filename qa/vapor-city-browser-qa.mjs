@@ -723,6 +723,39 @@ try {
     pixelPackAtlasCaptureError = error.message;
   }
 
+  let atlasComparisonData = [];
+  let atlasComparisonError = null;
+  try {
+    atlasComparisonData = await page.evaluate(() => {
+      if (!window.SG || typeof window.SG.npcRenderAtlasComparisonSnapshots !== 'function') throw new Error('Atlas comparison hook is unavailable');
+      return window.SG.npcRenderAtlasComparisonSnapshots();
+    });
+    const atlasComparisonGallery = await page.evaluate(async items => {
+      const canvas=document.createElement('canvas');canvas.width=512;canvas.height=items.length*440;
+      const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.fillStyle='#777982';ctx.fillRect(0,0,canvas.width,canvas.height);
+      for(let i=0;i<items.length;i++){
+        for(const [col,key,label] of [[0,'rendererDataUrl','OWCIV'],[1,'atlasDataUrl','ATLAS']]){
+          if(!items[i][key])continue;
+          const img=new Image();img.src=items[i][key];await img.decode();
+          const x=col*256,y=i*440;
+          ctx.drawImage(img,x,y,256,384);
+          ctx.fillStyle='#ffffff';ctx.font='bold 16px monospace';ctx.textAlign='center';
+          ctx.fillText(items[i].id.toUpperCase()+' '+label,x+128,y+412);
+        }
+      }
+      return canvas.toDataURL('image/png');
+    }, atlasComparisonData);
+    fs.writeFileSync(path.join(out, 'npc-atlas-vs-renderer-4x.png'), Buffer.from(atlasComparisonGallery.split(',')[1], 'base64'));
+  } catch (error) {
+    atlasComparisonError = error.message;
+  }
+  const atlasComparisonAudit = {
+    pass: atlasComparisonData.length === 3 && atlasComparisonData.every(item => !item.error && item.atlasDataUrl && item.rendererDataUrl),
+    comparisonCount: atlasComparisonData.length,
+    comparisons: atlasComparisonData.map(({id,direction,key,frame,error})=>({id,direction,key,frame,error:error||null})),
+    error: atlasComparisonError
+  };
+
   scriptErrors.push(...await page.evaluate(() => window.__qaScriptErrors || []));
   const report = {
     timestamp: new Date().toISOString(),
@@ -734,6 +767,7 @@ try {
     npcInventoryCheck,
     pixelPackImpact,
     atlasRuntimeAudit,
+    atlasComparisonAudit,
     pixelPackDirectionGuard: { pass: pixelPackDirectionGuard && pixelPackImpact.verticalFacingFallbackIds.length > 0, guardPresent: pixelPackDirectionGuard },
     pixelPackAtlasCaptures,
     pixelPackAtlasCaptureError,
@@ -779,7 +813,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !pixelPackDirectionGuard || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !catArtAudit.pass || !fanVariantAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !pixelPackDirectionGuard || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !catArtAudit.pass || !fanVariantAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
