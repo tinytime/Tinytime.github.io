@@ -20,5 +20,7 @@
     "r2_mud",
     "rat2",
     "rusty"
-  ]
+  ],
+  "standardScopeClass": "standardUnclassified",
+  "scopeNote": "All in-scope NPCs remain included in standard art QA, but town-versus-football ownership has not been approved. Do not infer the split from civ labels; update this policy when the owner classifies the NPCs."
 }
