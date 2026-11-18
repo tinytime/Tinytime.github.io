@@ -108,9 +108,43 @@ page.on('console', m => {
 try {
   await page.goto(gameUrl, { waitUntil: 'load', timeout: 60000 });
   await page.waitForTimeout(1200);
+  await page.addScriptTag({ path: path.join(root, 'qa', 'fixtures', 'granny-before-side-views.js') });
   const npcSpriteModuleLoaded = await page.evaluate(() => !!window.NPC_SPRITES &&
     typeof window.NPC_SPRITES.createGrannyRenderer === 'function' &&
     typeof window.NPC_SPRITES.createCivRenderer === 'function');
+  const grannyBeforeAfterDataUrl = await page.evaluate(() => {
+    const OWT = 36 / 0.28;
+    const directions = ['d', 'u', 'l', 'r'];
+    const labels = ['FRONT', 'BACK', 'LEFT', 'RIGHT'];
+    const sheet = document.createElement('canvas');
+    sheet.width = 128 * 4;
+    sheet.height = 160 * 2;
+    const out = sheet.getContext('2d');
+    out.fillStyle = '#777982';
+    out.fillRect(0, 0, sheet.width, sheet.height);
+    const oldRenderer = window.makeGrannyBeforeSideViews(OWT, null, () => {});
+    const newRenderer = window.NPC_SPRITES.createGrannyRenderer({ OWT, og: null, artShadow: () => {} });
+    for (let row = 0; row < 2; row++) for (let col = 0; col < 4; col++) {
+      const cell = document.createElement('canvas');
+      cell.width = 128; cell.height = 140;
+      const ctx = cell.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      const npc = { id: 'granny', x: 0, y: 0, rx: 0, ry: 0 };
+      if (row === 0) oldRenderer(npc, directions[col], false, 0, 0, ctx, { excludeGroundEffects: true });
+      else newRenderer(npc, directions[col], false, 0, 0, ctx, { excludeGroundEffects: true });
+      out.drawImage(cell, col * 128, row * 160);
+      out.fillStyle = '#ffffff';
+      out.font = 'bold 12px monospace';
+      out.textAlign = 'center';
+      out.fillText(labels[col], col * 128 + 64, row * 160 + 154);
+    }
+    const scaled = document.createElement('canvas');
+    scaled.width = sheet.width * 4; scaled.height = sheet.height * 4;
+    const scaledCtx = scaled.getContext('2d');
+    scaledCtx.imageSmoothingEnabled = false;
+    scaledCtx.drawImage(sheet, 0, 0, scaled.width, scaled.height);
+    return scaled.toDataURL('image/png');
+  });
   await page.screenshot({ path: path.join(out, 'game-menu-1x.png'), fullPage: true });
 
   // Click the exact game menu control; do not infer navigation from button text.
@@ -128,6 +162,7 @@ try {
     }
   }
 
+  fs.writeFileSync(path.join(out, 'granny-before-after-4x.png'), Buffer.from(grannyBeforeAfterDataUrl.split(',')[1], 'base64'));
   const worldState = await page.locator('#world').evaluate(el => ({
     hidden: el.hidden,
     display: getComputedStyle(el).display,
@@ -556,6 +591,7 @@ try {
     syntaxCheck,
     npcSpriteSyntaxCheck,
     npcSpriteModuleLoaded,
+    grannyBeforeAfterCapture: { path: 'granny-before-after-4x.png', directions: ['front','back','left','right'], rows: ['pre-side-view renderer','current renderer'] },
     npcInventoryCheck,
     pixelPackImpact,
     pixelPackDirectionGuard: { pass: pixelPackDirectionGuard && pixelPackImpact.verticalFacingFallbackIds.length > 0, guardPresent: pixelPackDirectionGuard },
