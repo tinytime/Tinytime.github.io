@@ -9555,7 +9555,7 @@ function measureGrannyVoltNative(){
       canvasCss:{width:canvasRect.width,height:canvasRect.height},
       canvasBacking:{width:owc.width,height:owc.height},deviceScale:owDpr}};
 }
-window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcGalleryView:'all',npcGalleryDraw:canvas=>{
+window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcGrannyRef:()=>GRANNY_REF,npcGalleryView:'all',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
   c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#777982';c.fillRect(0,0,canvas.width,canvas.height);
   const tests=[['GRANNY','VOLT','granny'],['MINT','RUNNER','runner'],['ORANGE','COURIER','courier'],['CITY','GUARD','guard'],['STREET','VENDOR','vendor'],['FIELD','CLINIC','clinic']];
