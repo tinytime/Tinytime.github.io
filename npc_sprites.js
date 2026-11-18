@@ -862,15 +862,35 @@
             set(18,17,'clothhi');set(18,18,'clothhi');break;
         }
       }else if(back){
-        if(kind==='fisher'||kind==='welder'){put(12,13,2,10,'bodyshade');put(18,13,2,10,'bodyshade');}
-        if(kind==='sailor'){set(13,13,'clothhi');set(18,13,'clothhi');for(let xx=14;xx<=17;xx++)set(xx,14,'bodyshade');}
-        if(kind==='broker'||kind==='usher'){set(15,14,'bodyshade');set(16,14,'bodyshade');for(let yy=15;yy<=21;yy++)set(16,yy,'bodyshade');}
-        if(kind==='tech'||kind==='hacker'){put(13,15,6,6,'bodyshade');set(15,17,'clothhi');set(16,17,'clothhi');}
+        // Back views carry profession-specific construction, not just recolors.
+        if(kind==='fisher'){put(12,13,2,10,'bodyshade');put(18,13,2,10,'bodyshade');set(15,15,'clothhi');set(16,15,'clothhi');put(14,20,4,3,'apron');}
+        if(kind==='welder'){put(11,13,3,11,'bodyshade');put(18,13,3,11,'bodyshade');put(13,18,6,6,'apron');set(15,20,'clothhi');set(16,20,'clothhi');}
+        if(kind==='sailor'){set(13,13,'clothhi');set(18,13,'clothhi');for(let xx=14;xx<=17;xx++)set(xx,14,'bodyshade');set(14,16,'clothhi');set(17,16,'clothhi');}
+        if(kind==='slicker'){put(13,13,6,11,'bodyshade');set(15,15,'clothhi');set(16,15,'clothhi');for(let yy=17;yy<=21;yy++)set(15,yy,'inkdetail');}
+        if(kind==='painter'){put(12,15,2,8,'bodyshade');put(18,15,2,8,'bodyshade');put(14,18,4,5,'apron');set(15,19,'clothhi');set(16,19,'clothhi');}
+        if(kind==='broker'||kind==='usher'){put(13,13,6,3,'bodyshade');set(15,16,'bodyshade');set(16,16,'bodyshade');for(let yy=17;yy<=22;yy++)set(16,yy,'bodyshade');}
+        if(kind==='tech'){put(13,14,6,7,'bodyshade');set(15,16,'clothhi');set(16,16,'clothhi');set(14,19,'inkdetail');set(18,19,'inkdetail');}
+        if(kind==='hacker'){put(12,13,8,10,'bodyshade');set(15,15,'clothhi');set(16,15,'clothhi');set(14,19,'inkdetail');set(17,20,'inkdetail');}
+        if(kind==='cook'){put(12,13,2,10,'clothhi');put(18,13,2,10,'clothhi');put(14,19,4,5,'apron');set(15,20,'bodyshade');set(16,20,'bodyshade');}
+        if(kind==='clinic'){put(12,13,2,9,'clothhi');put(18,13,2,9,'clothhi');set(15,17,'inkdetail');set(16,17,'inkdetail');set(15,18,'inkdetail');set(16,18,'inkdetail');}
+        if(kind==='coach'){put(12,13,8,2,'clothhi');set(15,17,'bodyshade');set(16,17,'bodyshade');set(14,20,'clothhi');set(17,20,'clothhi');}
+        if(kind==='ref'){for(let yy=13;yy<=21;yy+=2){set(13,yy,'clothhi');set(18,yy,'clothhi');}set(15,14,'bodyshade');set(16,14,'bodyshade');}
+        if(kind==='dancer'){for(let yy=14;yy<=21;yy++)set(13+Math.floor((yy-14)/2),yy,'clothhi');set(18,21,'bodyhi');}
+        if(kind==='busker'){for(let yy=13;yy<=21;yy++)set(15,yy,'bodyshade');set(14,15,'clothhi');set(17,19,'clothhi');}
       }else{
         if(kind==='fisher'||kind==='welder')put(15,14,4,9,'apron');
-        if(kind==='sailor')set(17,14,'clothhi');
-        if(kind==='broker'||kind==='usher')set(16,16,'bodyshade');
-        if(kind==='tech'||kind==='hacker')put(17,15,3,6,'bodyshade');
+        if(kind==='sailor'){set(17,14,'clothhi');put(15,16,3,4,'bodyshade');}
+        if(kind==='slicker'){put(15,13,3,10,'bodyshade');set(16,17,'clothhi');}
+        if(kind==='painter'){put(16,15,3,8,'apron');set(18,16,'clothhi');}
+        if(kind==='broker'||kind==='usher'){set(16,16,'bodyshade');put(17,14,2,7,'clothhi');}
+        if(kind==='tech'){put(17,15,3,6,'bodyshade');set(18,18,'clothhi');}
+        if(kind==='hacker'){put(16,13,4,9,'bodyshade');set(18,16,'inkdetail');}
+        if(kind==='cook'){put(15,15,4,8,'apron');set(17,18,'clothhi');}
+        if(kind==='clinic'){put(16,13,3,8,'clothhi');set(17,17,'inkdetail');}
+        if(kind==='coach'){set(17,14,'clothhi');set(17,18,'bodyshade');}
+        if(kind==='ref'){for(let yy=14;yy<=20;yy+=2)set(17,yy,'clothhi');}
+        if(kind==='dancer'){for(let yy=14;yy<=20;yy+=2)set(15,yy,'clothhi');}
+        if(kind==='busker'){put(17,15,3,7,'bodyshade');set(18,18,'clothhi');}
       }
       // Layered clothing details: dark collar under neck and crisp shirt-to-trouser hem.
       if(!back){
