@@ -2,11 +2,25 @@ import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = path.join(root, 'VaporCity_HD2D_Hybrid_Test.html');
 const out = path.join(root, 'qa-output');
 fs.mkdirSync(out, { recursive: true });
+
+const htmlSource = fs.readFileSync(html, 'utf8');
+const mainScriptStart = htmlSource.indexOf('window.SG={');
+const scriptOpen = mainScriptStart >= 0 ? htmlSource.lastIndexOf('<script', mainScriptStart) : -1;
+const scriptBodyStart = scriptOpen >= 0 ? htmlSource.indexOf('>', scriptOpen) + 1 : -1;
+const scriptBodyEnd = scriptBodyStart >= 0 ? htmlSource.indexOf('</script>', mainScriptStart) : -1;
+let syntaxCheck = { found: false, ok: false, error: 'Main game script was not found' };
+if (scriptBodyStart >= 0 && scriptBodyEnd > scriptBodyStart) {
+  const checkFile = path.join(out, 'game-main-check.js');
+  fs.writeFileSync(checkFile, htmlSource.slice(scriptBodyStart, scriptBodyEnd));
+  const checked = spawnSync(process.execPath, ['--check', checkFile], { encoding: 'utf8' });
+  syntaxCheck = { found: true, ok: checked.status === 0, error: checked.stderr || null };
+}
 
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
