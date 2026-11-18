@@ -386,8 +386,10 @@ try {
     // Civilian canvas height is inclusive; the 80-row visible body is the
     // distance between the first and last opaque rows (bodyHeight - 1).
     const youth = ['kid','kid2','mouse'].includes(item.civ);
-    const expectedHeightPixels = expectedBodyPixels * (youth ? 0.78 : 1);
-    const renderedHeightPixels = (granny ? item.bodyHeight : item.bodyHeight - 1) * scale;
+    const youthScale = youth ? 0.78 : 1;
+    const expectedHeightPixels = expectedBodyPixels * youthScale;
+    // Measure the native sprite at the same in-game scale used by owCiv.
+    const renderedHeightPixels = (granny ? item.bodyHeight : item.bodyHeight - 1) * scale * youthScale;
     // owCiv anchors its 64x96 sprite at row 80; Granny's native renderer
     // anchors at source row 137 with her measured foot row at 136.
     const baselineOffset = item.footRow - (granny ? 137 : 80);
