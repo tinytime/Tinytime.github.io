@@ -411,6 +411,39 @@ try {
     if (!window.SG || typeof window.SG.npcMeasureArchetypeMasks !== 'function') throw new Error('Archetype silhouette hook is unavailable');
     return window.SG.npcMeasureArchetypeMasks({ excludeProps: true });
   });
+  const fullPropSilhouettes = await page.evaluate(() => {
+    return window.SG.npcMeasureArchetypeMasks({ excludeProps: false });
+  });
+  const renderedPropComponents = [];
+  for (const full of fullPropSilhouettes) {
+    const body = archetypeSilhouettes.find(item => item.archetype === full.archetype && item.direction === full.direction);
+    if (!body) continue;
+    const visited = Array.from({length:96},()=>Array(64).fill(false));
+    for (let y=0;y<96;y++) for (let x=0;x<64;x++) {
+      if (visited[y][x] || full.maskRows[y][x] !== '1' || body.maskRows[y][x] === '1') continue;
+      const queue=[[x,y]],cells=[];visited[y][x]=true;
+      for(let q=0;q<queue.length;q++){
+        const [cx,cy]=queue[q];cells.push([cx,cy]);
+        for(const [nx,ny] of [[cx-1,cy],[cx+1,cy],[cx,cy-1],[cx,cy+1]]){
+          if(nx<0||nx>=64||ny<0||ny>=96||visited[ny][nx]||full.maskRows[ny][nx]!=='1'||body.maskRows[ny][nx]==='1')continue;
+          visited[ny][nx]=true;queue.push([nx,ny]);
+        }
+      }
+      if(cells.length<4)continue;
+      const xs=cells.map(p=>p[0]),ys=cells.map(p=>p[1]);
+      const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+      const area=(maxX-minX+1)*(maxY-minY+1);
+      renderedPropComponents.push({archetype:full.archetype,direction:full.direction,pixelCount:cells.length,
+        bounds:{minX,maxX,minY,maxY,width:maxX-minX+1,height:maxY-minY+1},fillRatio:cells.length/area});
+    }
+  }
+  const renderedPropShapeAudit = {
+    componentCount: renderedPropComponents.length,
+    nonRectangularCount: renderedPropComponents.filter(item=>item.fillRatio<0.95).length,
+    rectangularCount: renderedPropComponents.filter(item=>item.fillRatio>=0.95).length,
+    lowestFillRatio: renderedPropComponents.length?Math.min(...renderedPropComponents.map(item=>item.fillRatio)):null,
+    components: renderedPropComponents
+  };
   const silhouetteComparisons = [];
   for (const direction of ['d', 'u', 'l', 'r']) {
     const view = archetypeSilhouettes.filter(item => item.direction === direction);
@@ -663,6 +696,7 @@ try {
       .map(item => ({ archetype: item.archetype, direction: item.direction, maskRows: item.maskRows })),
     silhouetteBaseline,
     torsoOnlySilhouetteSummary,
+    renderedPropShapeAudit,
     silhouetteQualityCheck,
     worldState,
     galleryState,
