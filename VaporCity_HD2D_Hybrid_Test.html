@@ -8531,7 +8531,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Higher-density fixed pixel canvas: 32 columns x 48 rows.
   const grid=Array.from({length:H},()=>Array(N).fill(null));
   const put=(x0,y0,w,h,role)=>{for(let yy=y0*2;yy<(y0+h)*2;yy++)for(let xx=x0*2;xx<(x0+w)*2;xx++)if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
-  const set=(xx,yy,role)=>{xx*=2;yy*=2;if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
+  // Paint each logical cell as a solid 2x2 native block, avoiding sparse stripe fills.
+  const set=(xx,yy,role)=>{for(let py=yy*2;py<yy*2+2;py++)for(let px=xx*2;px<xx*2+2;px++)if(px>=0&&px<N&&py>=0&&py<H)grid[py][px]=role};
   // Head: hand-shaped pixel silhouette; clipped corners create a rounded cranium and jaw.
   put(12,1,8,7,'skin');put(11,2,10,6,'skin');put(13,8,6,1,'skin');
   set(11,1,null);set(20,1,null);set(11,8,null);set(20,8,null);set(12,9,null);set(19,9,null);
@@ -8546,7 +8547,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(side){
     put(10,2,2,7,'hair');
     put(11,8,1,1,'hair'); // one-pixel sideburn
-    put(20,4,1,1,'skin'); // exactly one-pixel profile nose
+    // Profile nose is painted as a native 1x1 pixel after logical geometry.
     set(19,4,'inkdetail');set(18,3,'skinshade');
   }else if(back){
     put(11,0,10,10,'hair');put(13,8,6,1,'hairlight');
@@ -8688,6 +8689,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       default:return null;
     }
   };
+  // Keep facial marks at true native 1x1 resolution despite logical block helpers.
+  if(!side&&!back&&!P.helm&&!P.hood){grid[10][28]='inkdetail';grid[10][36]='inkdetail';grid[16][32]='inkdetail';}
+  if(side)grid[8][40]='skin';
   const colors=grid.map((row,yy)=>row.map((role,xx)=>role?colorFor(role,xx,yy):null));
   const finalGrid=colors.map(row=>row.slice());
   // One grid cell of ink: each occupied cell touching transparency marks its
