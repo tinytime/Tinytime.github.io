@@ -186,7 +186,7 @@
       courier:{types:{front:'parcel',side:'courier-pack',back:'courier-pack'},front:[[1,16,4,14,'satchel'],[22,18,3,3,'parcel']],back:[[27,16,4,14,'satchel'],[7,18,3,3,'parcel']],side:[[27,14,4,16,'satchel'],[17,18,3,3,'parcel']]},
       guard:{types:{front:'baton',side:'baton',back:'guard-plate'},front:[[27,12,4,17,'shield'],[23,15,1,7,'baton']],back:[[1,12,4,17,'shield'],[8,15,1,7,'baton']],side:[[27,12,4,17,'shield'],[18,15,1,7,'baton']]},
       vendor:{types:{front:'bowl',side:'apron-ties',back:'apron-ties'},front:[[6,19,4,2,'bowl']],back:[[8,14,2,10,'apron'],[22,14,2,10,'apron']],side:[[16,19,4,2,'bowl']]},
-      clinic:{types:{front:'medical-kit',side:'medical-kit',back:'clinic-yoke'},front:[[22,17,4,4,'medkit']],back:[[7,18,3,3,'medkit']],side:[[17,17,3,3,'medkit']]},
+      clinic:{types:{front:'medical-kit',side:'medical-kit',back:'clinic-yoke'},front:[[22,17,4,4,'medkit']],back:[[8,17,4,4,'medkit']],side:[[17,17,3,3,'medkit']]},
       trades:{types:{front:'wrench',side:'wrench',back:'tool-pocket'},front:[[1,29,5,8,'toolroll'],[22,17,1,5,'wrench']],back:[[26,29,5,8,'toolroll'],[8,17,1,5,'wrench']],side:[[26,29,5,8,'toolroll'],[18,16,1,5,'wrench']]},
       youth:{types:{front:'notebook',side:'backpack',back:'backpack'},front:[[1,15,5,11,'backpack'],[21,18,3,5,'notebook']],back:[[26,15,5,11,'backpack']],side:[[26,15,5,11,'backpack']]},
       performer:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[26,11,5,17,'guitar'],[21,21,1,3,'guitar']],back:[[1,11,5,17,'guitar'],[8,21,1,3,'guitar']],side:[[26,11,5,17,'guitar'],[17,20,1,3,'guitar']]},
