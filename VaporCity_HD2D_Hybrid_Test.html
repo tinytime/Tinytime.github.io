@@ -8638,16 +8638,16 @@ const BASE_RIG_PARTS=Object.freeze({
 });
 const ARCHETYPE_RIG_PARTS=Object.freeze(Object.fromEntries(Object.keys(ARCHETYPES).map(key=>[key,BASE_RIG_PARTS])));
 const ARCHETYPE_PROP_LAYERS=Object.freeze({
-  athletic:{type:'whistle',front:[[0,10,8,7,'duffel'],[24,10,8,7,'duffel'],[21,19,3,2,'whistle']],back:[[0,10,8,7,'duffel'],[24,10,8,7,'duffel'],[7,19,3,2,'whistle']],side:[[24,10,8,8,'duffel'],[17,18,3,2,'whistle']]},
-  courier:{type:'parcel',front:[[0,12,7,23,'satchel'],[21,18,4,4,'parcel']],back:[[25,12,7,23,'satchel'],[7,18,4,4,'parcel']],side:[[25,10,7,25,'satchel'],[17,18,4,4,'parcel']]},
-  guard:{type:'baton',front:[[26,8,6,28,'shield'],[22,14,2,9,'baton']],back:[[0,8,6,28,'shield'],[8,14,2,9,'baton']],side:[[26,8,6,28,'shield'],[18,14,2,9,'baton']]},
-  vendor:{type:'bowl',front:[[5,14,22,24,'apron'],[6,19,5,3,'bowl']],back:[[5,14,22,24,'apron'],[7,12,3,16,'apron'],[22,12,3,16,'apron']],side:[[23,14,9,24,'apron'],[16,18,5,3,'bowl']]},
-  clinic:{type:'medical-kit',front:[[9,15,14,27,'labcoat'],[21,18,4,4,'medkit']],back:[[9,15,14,27,'labcoat'],[7,18,4,4,'medkit']],side:[[22,15,10,27,'labcoat'],[17,17,4,4,'medkit']]},
-  trades:{type:'wrench',front:[[0,26,8,14,'toolroll'],[22,17,2,6,'wrench']],back:[[24,26,8,14,'toolroll'],[8,17,2,6,'wrench']],side:[[24,26,8,14,'toolroll'],[18,16,2,6,'wrench']]},
-  youth:{type:'backpack',front:[[0,12,8,16,'backpack'],[21,19,3,2,'whistle']],back:[[24,12,8,16,'backpack']],side:[[24,12,8,16,'backpack']]},
-  performer:{type:'guitar',front:[[24,8,8,28,'guitar'],[21,21,2,4,'guitar']],back:[[0,8,8,28,'guitar'],[8,21,2,4,'guitar']],side:[[24,8,8,28,'guitar'],[17,20,2,4,'guitar']]},
-  civic:{type:'clipboard',front:[[0,16,9,18,'briefcase'],[7,17,4,6,'clipboard']],back:[[23,16,9,18,'briefcase'],[21,17,4,6,'clipboard']],side:[[23,16,9,18,'briefcase'],[17,16,4,6,'clipboard']]},
-  elder:{type:'umbrella',front:[[0,0,32,8,'umbrella'],[21,19,3,2,'whistle']],back:[[0,0,32,8,'umbrella']],side:[[0,0,32,8,'umbrella']]}
+  athletic:{types:{front:'whistle',side:'whistle',back:'jersey-mark'},front:[[0,10,8,7,'duffel'],[24,10,8,7,'duffel'],[21,19,3,2,'whistle']],back:[[0,10,8,7,'duffel'],[24,10,8,7,'duffel'],[7,19,3,2,'whistle']],side:[[24,10,8,8,'duffel'],[17,18,3,2,'whistle']]},
+  courier:{types:{front:'parcel',side:'courier-pack',back:'courier-pack'},front:[[0,12,7,23,'satchel'],[21,18,4,4,'parcel']],back:[[25,12,7,23,'satchel'],[7,18,4,4,'parcel']],side:[[25,10,7,25,'satchel'],[17,18,4,4,'parcel']]},
+  guard:{types:{front:'baton',side:'baton',back:'guard-plate'},front:[[26,8,6,28,'shield'],[22,14,2,9,'baton']],back:[[0,8,6,28,'shield'],[8,14,2,9,'baton']],side:[[26,8,6,28,'shield'],[18,14,2,9,'baton']]},
+  vendor:{types:{front:'bowl',side:'apron-ties',back:'apron-ties'},front:[[5,14,22,24,'apron'],[6,19,5,3,'bowl']],back:[[5,14,22,24,'apron'],[7,12,3,16,'apron'],[22,12,3,16,'apron']],side:[[23,14,9,24,'apron'],[16,18,5,3,'bowl']]},
+  clinic:{types:{front:'medical-kit',side:'medical-kit',back:'clinic-yoke'},front:[[9,15,14,27,'labcoat'],[21,18,4,4,'medkit']],back:[[9,15,14,27,'labcoat'],[7,18,4,4,'medkit']],side:[[22,15,10,27,'labcoat'],[17,17,4,4,'medkit']]},
+  trades:{types:{front:'wrench',side:'wrench',back:'tool-pocket'},front:[[0,26,8,14,'toolroll'],[22,17,2,6,'wrench']],back:[[24,26,8,14,'toolroll'],[8,17,2,6,'wrench']],side:[[24,26,8,14,'toolroll'],[18,16,2,6,'wrench']]},
+  youth:{types:{front:'notebook',side:'backpack',back:'backpack'},front:[[0,12,8,16,'backpack'],[21,19,3,2,'whistle']],back:[[24,12,8,16,'backpack']],side:[[24,12,8,16,'backpack']]},
+  performer:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[24,8,8,28,'guitar'],[21,21,2,4,'guitar']],back:[[0,8,8,28,'guitar'],[8,21,2,4,'guitar']],side:[[24,8,8,28,'guitar'],[17,20,2,4,'guitar']]},
+  civic:{types:{front:'clipboard',side:'clipboard',back:'coat-tail'},front:[[0,16,9,18,'briefcase'],[7,17,4,6,'clipboard']],back:[[23,16,9,18,'briefcase'],[21,17,4,6,'clipboard']],side:[[23,16,9,18,'briefcase'],[17,16,4,6,'clipboard']]},
+  elder:{types:{front:'cardigan-pin',side:'cardigan-back',back:'cardigan-back'},front:[[0,0,32,8,'umbrella'],[21,19,3,2,'whistle']],back:[[0,0,32,8,'umbrella']],side:[[0,0,32,8,'umbrella']]}
 });
 function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const kind=n.civ;
@@ -8805,7 +8805,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(P.keys)put(4,29,24,2,'key');
   // Props are explicit per-archetype/per-direction layers; no shared prop footprint is inferred.
   const propSpec=ARCHETYPE_PROP_LAYERS[archetypeKey];
-  if(!A.prop||propSpec.type!==A.prop.type)throw new Error('Archetype prop metadata/table mismatch: '+archetypeKey);
+  const declaredPropType=A.prop&&A.prop[rigView]&&A.prop[rigView].type;
+  if(!propSpec||!declaredPropType||propSpec.types[rigView]!==declaredPropType) {
+    throw new Error('Archetype '+rigView+' prop metadata/table mismatch: '+archetypeKey);
+  }
   const propLayers=propSpec[rigView];
   for(const [px,py,pw,ph,role] of propLayers)put(px,py,pw,ph,role);
   if(P.long)put(10,22,12,2,'bodyshade');
