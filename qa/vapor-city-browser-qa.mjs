@@ -370,15 +370,15 @@ try {
   const npcBodyCheck = {
     pass: bodyRows.length === 24 && bodyRows.every(item => item.heightDeviationPixels <= 1 &&
       item.baselineDelta <= 0.02 && /^#[0-9a-f]{6}$/i.test(item.outlineColor || '') &&
-      item.contrastRatio >= 1.3 && item.outlineContrastPercent >= 0.30),
+      item.outlinePixelCount > 0 && item.contrastRatio >= 1.3 && item.outlineContrastPercent >= 0.30),
     spriteCount: bodyRows.length,
     expectedBodyHeightPixels: expectedBodyPixels,
     maxHeightDeviationPixels: Math.max(...bodyRows.map(item=>item.heightDeviationPixels)),
     maxBaselineDelta: Math.max(...bodyRows.map(item=>item.baselineDelta)),
     invalidOutlineColor: bodyRows.filter(item=>!/^#[0-9a-f]{6}$/i.test(item.outlineColor || '')).map(item=>item.civ),
     lowContrast: bodyRows.filter(item=>item.contrastRatio<1.3||item.outlineContrastPercent<0.30).map(item=>({civ:item.civ,outlineColor:item.outlineColor,contrastRatio:item.contrastRatio,outlineContrastPercent:item.outlineContrastPercent})),
-    outlinePixelCountDiagnosticOnly: bodyRows.map(item=>({civ:item.civ,count:item.outlinePixelCount,expectedColor:item.outlineColor})),
-    outlineValidation: 'Per-sprite outlineColor contract and measured contrast; fixed-swatch pixel count is diagnostic only.',
+    outlinePixelCounts: bodyRows.map(item=>({civ:item.civ,count:item.outlinePixelCount,expectedColor:item.outlineColor})),
+    outlineValidation: 'Counts rendered pixels matching each sprite’s computed per-civ outline color and verifies contrast against the gallery background.',
     measurements: bodyRows
   };
   const npcPropAudit = await page.evaluate(() => {
