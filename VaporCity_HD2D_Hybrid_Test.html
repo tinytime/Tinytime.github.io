@@ -8583,24 +8583,30 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Body coordinates use a 16-wide local anatomy grid centered at X=8;
   // local shoulder Y=8 maps to grid Y=10, and local waist Y=12 to grid Y=14.
   if(side){
-    // Profile torso is 8 wide: rear four pixels shadow, front four base.
-    put(12,10,8,14,'body');
-    set(12,10,null);
-    for(let yy=10;yy<24;yy++)for(let xx=12;xx<16;xx++)set(xx,yy,'bodyshade');
+    // Profile torso has a shoulder bulge, narrow waist and hip return.
+    const profileRows=[[10,12,19],[11,11,19],[12,11,19],[13,12,19],
+      [14,13,18],[15,14,18],[16,14,18],[17,14,18],
+      [18,13,19],[19,12,19],[20,12,19],[21,12,19],[22,12,19],[23,12,19]];
+    for(const [yy,x1,x2] of profileRows)for(let xx=x1;xx<=x2;xx++)set(xx,yy,'body');
+    for(let yy=10;yy<=23;yy++)for(let xx=12;xx<=15;xx++)if(grid[yy][xx]==='body')set(xx,yy,'bodyshade');
+    for(let yy=12;yy<=16;yy++)set(18,yy,'bodyhi');
   }else{
-    // Organic front torso: explicit row masks, not a rectangular bounding box.
+    // Shared humanoid base silhouette: broad shoulder yoke, tapered ribcage,
+    // defined waist, then a slight hip flare. These proportions are the
+    // reusable anatomy rules for every non-player civilian archetype.
     const torsoRows=[
-      [10,11,20],[11,10,21],[12,10,21],[13,11,20],
-      [14,12,19],[15,12,19],[16,12,19],[17,11,20],
-      [18,10,21],[19,10,21],[20,10,21],[21,10,21],
+      [10,9,22],[11,9,22],[12,10,21],[13,10,21],
+      [14,11,20],[15,12,19],[16,12,19],[17,12,19],
+      [18,11,20],[19,10,21],[20,10,21],[21,10,21],
       [22,9,22],[23,9,22]
     ];
     for(const [yy,x1,x2] of torsoRows)for(let xx=x1;xx<=x2;xx++)set(xx,yy,'body');
-    // Strong right-side shadow; the bottom-right cell returns to base tone
-    // to taper the shading naturally into the waist.
-    for(let yy=10;yy<=23;yy++)for(let xx=16;xx<=21;xx++)if(grid[yy][xx]==='body')set(xx,yy,'bodyshade');
+    // Layered value structure: shadow under the right shoulder and along
+    // the right ribcage, with a narrow upper-left highlight to round volume.
+    for(let yy=10;yy<=22;yy++)for(let xx=17;xx<=22;xx++)if(grid[yy][xx]==='body')set(xx,yy,'bodyshade');
+    for(let yy=12;yy<=17;yy++)for(let xx=10;xx<=11;xx++)if(grid[yy][xx]==='body')set(xx,yy,'bodyhi');
     set(21,23,'body');
-    // Narrow two-pixel neck joins the head to the sloped shoulder line.
+    // Narrow neck joins the trapezius-shaped shoulder line.
     put(15,9,2,3,'skin');
   }
   // Articulated arms: broaden the shoulder cap, define an elbow, and
@@ -8705,6 +8711,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       case 'hairlight':return hair.highlight||hair.base||P.hair||'#211a22';
       case 'body':return body.base||P.body||'#777777';
       case 'bodyshade':return body.shadow||darkenHex(P.body||'#777777',.5);
+      case 'bodyhi':return body.highlight||body.base||P.body||'#777777';
       case 'arm':return xx<32?(body.base||P.body):(body.shadow||body.base||P.body);
       case 'pants':return xx<32?(pants.base||P.pants):(pants.shadow||pants.base||P.pants);
       case 'legback':return pants.shadow||darkenHex(P.pants||'#252535',.5);
