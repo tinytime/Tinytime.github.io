@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "status": "unapproved",
+  "purpose": "Historical pixel-comparison fixtures only; not an approved art-quality target.",
+  "createdBy": "github-actions[bot]",
+  "createdAt": "2026-11-18T19:12:38Z",
+  "sourceCommit": "283033ca4b99e50d77d3a75f4950064a450f6760",
+  "creationCommit": "68bf499f078ee9f1156e6503522325e98e71de6f",
+  "creationMethod": "Automatically copied from qa-output/npc-snapshots by the initial-seed step in .github/workflows/vapor-city-browser-qa.yml after a successful browser QA run.",
+  "approvalRequired": true,
+  "approvedBy": null,
+  "approvedAt": null,
+  "approvalCommit": null,
+  "notes": [
+    "The initial files were committed by GitHub Actions, not reviewed or approved by the project owner.",
+    "A pixel match proves only that output matches this historical capture; it does not establish that the art is correct or meets the Granny Volt quality bar.",
+    "Do not overwrite these fixtures until the owner and art reviewer have visually approved the proposed baseline."
+  ]
+}
