@@ -234,7 +234,7 @@ try {
     pairsBelowTarget: silhouetteBaseline.pairsBelowTarget,
     pairsAtOrAboveTarget: silhouetteBaseline.pairsAtOrAboveTarget,
     failingOverlapPairs: silhouetteComparisons.filter(x => x.iou >= 0.85),
-    failingEdgePairs: silhouetteComparisons.filter(x => x.edgeRowsDifferentBy2 < 1),
+    failingEdgePairs: silhouetteComparisons.filter(x => x.edgeRowsDifferentBy2 < 6),
     minIoU: silhouetteBaseline.minIoU,
     maxIoU: silhouetteBaseline.maxIoU,
     minEdgeRowsDifferentBy2: silhouetteBaseline.minEdgeRowsDifferentBy2,
