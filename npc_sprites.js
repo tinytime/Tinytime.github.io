@@ -430,26 +430,19 @@
       // individuals that share a body rig (runner/coach/ref, broker/usher/fan).
       const hairBase=P.hair||palette.hair[0];
       const hairShade=P.hair?mixHex(P.hair,'#000000',.32):palette.hair[1];
-      const hairLight=P.hair?mixHex(P.hair,'#ffffff',.24):palette.hair[2      const PROP_SHAPES=ARCHETYPE_PROP_SHAPES;
-<H)grid[py][px]=role};
-      const PROP_SHAPES={
-        duffel:['.###.','#####','#####','#####','.###.'],
-        whistle:['.#.','###','.#.'],
-        satchel:['.###.','#####','#####','#####','##.##'],
-        parcel:['.###.','#####','#####','#####','.###.'],
-        shield:['.###.','#####','#####','.###.','..#..'],
-        baton:['#','#','#','#','#','#','#'],
-        bowl:['.####.','######','######','.####.'],
-        medkit:['.####.','######','######','######','.####.'],
-        wrench:['##..','###.','.##.','..#.'],
-        backpack:['.###.','#####','#####','#####','#####'],
-        guitar:['...#','..##','.###','####','..##','..##'],
-        briefcase:['.####.','######','######','######','.####.'],
-        clipboard:['.###.','#####','#####','#####'],
-        notebook:['.###','####','####','####'],
-        pin:['.##.','####','.##.','..#.'],
-        toolroll:['#####','#####','#####']
-      };
+      const hairLight=P.hair?mixHex(P.hair,'#ffffff',.24):palette.hair[2];
+      const clothBase=P.body||palette.clothing[0];
+      const clothShade=P.body?mixHex(P.body,'#000000',.34):palette.clothing[1];
+      const clothLight=P.body?mixHex(P.body,'#ffffff',.34):palette.clothing[2];
+      const clothLower=P.pants||palette.clothing[3];
+      const accentGarment=P.trim||palette.accent[0],accentProp=palette.accent[1];
+      const ink=hairShade,N=64,H=96,SCALE=1;
+      // Higher-density fixed pixel canvas: 32 columns x 48 rows.
+      const grid=Array.from({length:H},()=>Array(N).fill(null));
+      const put=(x0,y0,w,h,role)=>{for(let yy=y0*2;yy<(y0+h)*2;yy++)for(let xx=x0*2;xx<(x0+w)*2;xx++)if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
+      // Paint each logical cell as a solid 2x2 native block, avoiding sparse stripe fills.
+      const set=(xx,yy,role)=>{for(let py=yy*2;py<yy*2+2;py++)for(let px=xx*2;px<xx*2+2;px++)if(px>=0&&px<N&&py>=0&&py<H)grid[py][px]=role};
+      const PROP_SHAPES=ARCHETYPE_PROP_SHAPES;
       const paintProp=(x,y,w,h,role)=>{
         const pattern=PROP_SHAPES[role];
         if(!pattern){put(x,y,w,h,role);return}
