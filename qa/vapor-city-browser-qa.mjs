@@ -120,6 +120,7 @@ try {
   const report = {
     timestamp: new Date().toISOString(),
     htmlFile: path.basename(html),
+    syntaxCheck,
     pageTitle: await page.title(),
     townButtonVisible,
     townClickAttempted,
