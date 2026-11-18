@@ -8527,11 +8527,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   body.shadow=darkenHex(body.base||P.body||'#777777',.60);
   pants.shadow=darkenHex(pants.base||P.pants||'#252535',.60);
   const skinRamp=applyShading(skin),hair=applyShading(P.hair||'#211a22');
-  const ink='#141622',N=32,H=48,SCALE=2;
+  const ink='#141622',N=64,H=96,SCALE=1;
   // Higher-density fixed pixel canvas: 32 columns x 48 rows.
   const grid=Array.from({length:H},()=>Array(N).fill(null));
-  const put=(x0,y0,w,h,role)=>{for(let yy=y0;yy<y0+h;yy++)for(let xx=x0;xx<x0+w;xx++)if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
-  const set=(xx,yy,role)=>{if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
+  const put=(x0,y0,w,h,role)=>{for(let yy=y0*2;yy<(y0+h)*2;yy++)for(let xx=x0*2;xx<(x0+w)*2;xx++)if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
+  const set=(xx,yy,role)=>{xx*=2;yy*=2;if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
   // Head: hand-shaped pixel silhouette; clipped corners create a rounded cranium and jaw.
   put(12,1,8,7,'skin');put(11,2,10,6,'skin');put(13,8,6,1,'skin');
   set(11,1,null);set(20,1,null);set(11,8,null);set(20,8,null);set(12,9,null);set(19,9,null);
@@ -8702,8 +8702,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // The side-view stride gap is genuinely transparent, not filled by the
   // automatic one-pixel outline pass. Mirror its column for left-facing sprites.
   if(side){
-    const gapX=dirCode==='l'?19:12;
-    for(let yy=24;yy<=36;yy++)finalGrid[yy][gapX]=null;
+    const gapX=dirCode==='l'?38:24;
+    for(let yy=48;yy<=72;yy++)finalGrid[yy][gapX]=null;
   }
   // Rim light only occupies the absolute outermost outline pixel per row.
   for(let yy=0;yy<H;yy++){
@@ -8719,7 +8719,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,N*SCALE,H*SCALE);
   for(let gy=0;gy<H;gy++)for(let gx=0;gx<N;gx++){
     const color=finalGrid[gy][gx];
-    if(color!==null){ctx.fillStyle=color;ctx.fillRect(gx*2,gy*2,2,2);}
+    if(color!==null){ctx.fillStyle=color;ctx.fillRect(gx,gy,1,1);}
   }
   const step=moving?Math.sin(tm*11+ph*6):0;
   const bob=moving?Math.abs(step)*.45:Math.sin(tm*1.8+((n.x*13+n.y*7)|0))*.12;
