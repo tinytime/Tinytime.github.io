@@ -1052,7 +1052,7 @@
         for(const [dx,dy,role] of face.mouthPixels)grid[face.mouth[1]+dy][face.mouth[0]+dx]=role;
         if(face.cheeks)for(const [cx,cy] of face.cheeks)grid[cy][cx]='skinlight';
         if(face.facialHair)for(const [hx,hy] of face.facialHair)grid[hy][hx]='hair';
-        if(faceDetail)grid[faceDetail[1]*2][faceDetail[0]*2]='skinlight';
+        if(faceDetail)grid[faceDetail[1]][faceDetail[0]]='skinlight';
       }
       if(side){
         // Profile face includes a projecting nose and stepped chin, including beneath headwear.
@@ -1066,7 +1066,7 @@
         if(faceStyle===7)grid[9][profileEyeX-1]='hair';
         grid[10][42]='skinlight';grid[11][44]='skin';grid[12][42]='skinshade';
         grid[14][41]='skinshade';grid[15][40]='skinlight';
-        if(faceDetail)grid[(faceDetail[1]%3+13)*2][(faceDetail[0]%5+35)*2]='skinlight';
+        if(faceDetail)grid[Math.min(16,faceDetail[1])][Math.min(40,faceDetail[0]+2)]='skinlight';
       }
       const fanJerseyStyles={
         driverA:'stripes',fan1:'crest',fan2:'bars',fanA:'sash',fanB:'split',
