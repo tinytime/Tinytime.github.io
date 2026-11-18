@@ -207,6 +207,50 @@
       civic:makeArchetypeRig({armSpread:-1,legSpread:0,sideArmX:-2,sideArmY:1}),
       elder:makeArchetypeRig({armSpread:-1,leftArmY:2,rightArmY:2,leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegX:-2,rightLegX:-1,leftLegY:2,rightLegY:2,leftLegW:-1,rightLegW:-1,sideArmX:-3,sideArmY:3})
     });
+    // Character-level limb silhouettes add stance and shoulder variation within jobs.
+    const CIV_RIG_VARIANTS=Object.freeze({
+      coach:{armSpread:1,armY:1,legSpread:1,legW:1},
+      ref:{armSpread:-1,armY:-1,legSpread:-1},
+      courier:{armSpread:1,armY:1,legSpread:-1},
+      guard:{armSpread:1,armY:-1,legSpread:1,legW:1},
+      vendor:{armSpread:-1,armY:1,legSpread:1},
+      cook:{armSpread:1,armY:-1,legSpread:-1,legW:1},
+      clinic:{armSpread:-1,armY:1,legSpread:1,legW:1},
+      tech:{armSpread:1,armY:-1,legSpread:-1},
+      hacker:{armSpread:-1,armY:-1,legSpread:1,legW:-1},
+      fisher:{armSpread:1,armY:0,legSpread:1,legW:1},
+      sailor:{armSpread:-1,armY:1,legSpread:-1},
+      slicker:{armSpread:0,armY:-1,legSpread:1,legW:-1},
+      painter:{armSpread:-1,armY:1,legSpread:0,legW:1},
+      welder:{armSpread:1,armY:0,legSpread:-1},
+      kid:{armSpread:-1,armY:1,legSpread:-1,legW:-1},
+      kid2:{armSpread:1,armY:-1,legSpread:1,legW:1},
+      mouse:{armSpread:0,armY:-1,legSpread:0,legW:-1},
+      busker:{armSpread:1,armY:-1,legSpread:1,legW:1},
+      dancer:{armSpread:-1,armY:1,legSpread:-1,legW:-1},
+      broker:{armSpread:1,armY:-1,legSpread:-1,legW:1},
+      usher:{armSpread:-1,armY:1,legSpread:1,legW:-1},
+      fan:{armSpread:1,armY:-1,legSpread:0}
+    });
+    const CIV_RIG_PARTS=Object.freeze(Object.fromEntries(Object.entries(CIV_TO_ARCHETYPE).map(([civ,archetype])=>{
+      const base=ARCHETYPE_RIG_PARTS[archetype],spec=CIV_RIG_VARIANTS[civ]||{};
+      const result={};
+      for(const view of ['front','back','side']){
+        const side=view==='side';
+        const arms=base[view].arms.map(([x,y,w,h,role])=>{
+          const right=side||x>=16;
+          const dx=side?(spec.sideArmX??spec.armSpread??0):(right?(spec.armSpread||0):-(spec.armSpread||0));
+          return [x+dx,y+(spec.armY||0),Math.max(1,w+(spec.armW||0)),h,role];
+        });
+        const legs=base[view].legs.map(([x,y,w,h,role])=>{
+          const right=side?x>=14:x>=16;
+          const dx=right?(spec.legSpread||0):-(spec.legSpread||0);
+          return [x+dx,y,Math.max(1,w+(spec.legW||0)),h,role];
+        });
+        result[view]={arms,legs};
+      }
+      return [civ,Object.freeze(result)];
+    })));
     const ARCHETYPE_PROP_LAYERS=Object.freeze({
       athletic:{types:{front:'whistle',side:'whistle',back:'jersey-mark'},front:[[1,12,5,5,'duffel'],[26,12,5,5,'duffel'],[21,19,2,2,'whistle']],back:[[1,12,5,5,'duffel'],[26,12,5,5,'duffel'],[7,19,2,2,'whistle']],side:[[25,12,5,6,'duffel'],[17,18,2,2,'whistle']]},
       courier:{types:{front:'parcel',side:'courier-pack',back:'courier-pack'},front:[[1,16,4,14,'satchel'],[22,18,3,3,'parcel']],back:[[27,16,4,14,'satchel'],[7,18,3,3,'parcel']],side:[[27,14,4,16,'satchel'],[17,18,3,3,'parcel']]},
@@ -286,7 +330,7 @@
       wait2:{body:'#90caf9',trim:'#e3f2fd',pants:'#1f3b57',hair:'#172333'}
     });
     const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger','pennant','megaphone','rallytowel']);
-    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES };
+    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
   function createGrannyRenderer({OWT,og,artShadow}) {
@@ -642,7 +686,7 @@
       // Articulated arms: broaden the shoulder cap, define an elbow, and
       // taper the forearm into a visible hand. The stepped contour avoids a tray pose.
       const rigView=side?'side':back?'back':'front';
-      const rigParts=ARCHETYPE_RIG_PARTS[archetypeKey][rigView];
+      const rigParts=(CIV_RIG_PARTS[kind]||ARCHETYPE_RIG_PARTS[archetypeKey])[rigView];
       for(const [rx,ry,rw,rh,role] of rigParts.arms)put(rx,ry,rw,rh,role);
       // Directional limb masks are table-driven; the same rig is shared while each archetype owns its silhouette data.
       for(const [rx,ry,rw,rh,role] of rigParts.legs)put(rx,ry,rw,rh,role);
