@@ -518,6 +518,55 @@ try {
     return { civ: item.civ, status: pixelDiff.dimensionsMatch && pixelDiff.changedPixels === 0 ? 'match' : 'changed',
       bytes: bytes.length, goldenBytes: golden.length, byteMatch, pixelDiff };
   }));
+  const civilianTypeSilhouetteAudit = await page.evaluate(async snapshots => {
+    const table = window.NPC_SPRITES?.TABLES?.CIV_TORSO_MASKS;
+    if (!table) throw new Error('Per-civilian torso mask table is unavailable');
+    const civs = Object.keys(table).sort();
+    const directions = ['front','back','side'];
+    const maskPairs = [], duplicates = [];
+    const toPixels = rows => {
+      const pixels = new Set();
+      for (const [y,left,right] of rows || []) for (let x=Math.max(0,left);x<=Math.min(31,right);x++) pixels.add(y*32+x);
+      return pixels;
+    };
+    const compare = (a,b) => {
+      let intersection=0; for (const pixel of a) if (b.has(pixel)) intersection++;
+      const union=a.size+b.size-intersection; return union ? intersection/union : 1;
+    };
+    for (const direction of directions) {
+      const masks=civs.map(civ=>({civ,pixels:toPixels(table[civ][direction])}));
+      for(let i=0;i<masks.length;i++)for(let j=i+1;j<masks.length;j++){
+        const iou=compare(masks[i].pixels,masks[j].pixels);
+        maskPairs.push({direction,pair:[masks[i].civ,masks[j].civ],iou});
+        if(iou===1)duplicates.push({direction,pair:[masks[i].civ,masks[j].civ]});
+      }
+    }
+    const rendered=snapshots.filter(item=>item.civ!=='granny');
+    const images=await Promise.all(rendered.map(item=>new Promise((resolve,reject)=>{
+      const image=new Image();image.onload=()=>resolve({civ:item.civ,image});
+      image.onerror=()=>reject(new Error('Unable to decode rendered civilian snapshot: '+item.civ));
+      image.src=item.dataUrl;
+    })));
+    const renderedMasks=images.map(({civ,image})=>{
+      const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;
+      const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);
+      const data=ctx.getImageData(0,0,canvas.width,canvas.height).data,pixels=new Set();
+      for(let p=0;p<data.length;p+=4)if(data[p+3]>0)pixels.add(p/4);
+      return {civ,pixels};
+    });
+    const renderedPairs=[];
+    for(let i=0;i<renderedMasks.length;i++)for(let j=i+1;j<renderedMasks.length;j++)
+      renderedPairs.push({pair:[renderedMasks[i].civ,renderedMasks[j].civ],iou:compare(renderedMasks[i].pixels,renderedMasks[j].pixels)});
+    renderedPairs.sort((a,b)=>b.iou-a.iou);maskPairs.sort((a,b)=>b.iou-a.iou);
+    return {
+      pass:civs.length===23&&renderedMasks.length===23&&duplicates.length===0&&renderedPairs.length===253&&renderedPairs[0]?.iou<0.90&&maskPairs.length===759,
+      civCount:civs.length,renderedFrontPairCount:renderedPairs.length,maxRenderedFrontIoU:renderedPairs[0]?.iou??null,
+      closestRenderedFrontPairs:renderedPairs.slice(0,10),torsoMaskDirectionCount:directions.length,torsoMaskPairCount:maskPairs.length,
+      maxTorsoMaskIoU:maskPairs[0]?.iou??null,closestTorsoMaskPairs:maskPairs.slice(0,10),duplicateTorsoMasks:duplicates,
+      requirements:'All 23 civilian types must have non-identical torso masks in front, back, and side views; all 253 rendered front-facing type pairs must have alpha-mask IoU below 0.90.'
+    };
+  }, npcSnapshotData);
+
   const goldenBaselineProvenancePath = path.join(root, 'qa', 'golden-npcs', 'PROVENANCE.json');
   const goldenBaselineProvenance = fs.existsSync(goldenBaselineProvenancePath)
     ? JSON.parse(fs.readFileSync(goldenBaselineProvenancePath, 'utf8')) : null;
@@ -1123,6 +1172,7 @@ try {
     torsoPairDiagnostic,
     renderedPropShapeAudit,
     silhouetteQualityCheck,
+    civilianTypeSilhouetteAudit,
     liveArchetypeUsageAudit,
     excludedCatNpcIds,
     standardNpcScope: { standardInScopeCount: npcInventoryData.standardInScopeCount, referenceBaselineNpcIds: npcInventoryData.referenceBaselineNpcIds, outOfScopeCount: npcInventoryData.outOfScopeNpcIds.length },
@@ -1143,7 +1193,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
