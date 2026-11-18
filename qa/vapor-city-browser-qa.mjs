@@ -593,7 +593,7 @@ try {
     meanIoU: silhouetteBaseline.meanTorsoOnlyIoU,
     pairsBelowTarget: silhouetteComparisons.filter(x => x.torsoOnlyIou < 0.85).length,
     pairsAtOrAboveTarget: silhouetteComparisons.filter(x => x.torsoOnlyIou >= 0.85).length,
-    pass: silhouetteComparisons.length === 180 && silhouetteComparisons.every(x => x.torsoOnlyIou < 0.85),
+    pass: silhouetteComparisons.length === 144 && silhouetteComparisons.every(x => x.torsoOnlyIou < 0.85),
     failingPairs: silhouetteComparisons.filter(x => x.torsoOnlyIou >= 0.85).sort((a,b)=>b.torsoOnlyIou-a.torsoOnlyIou),
     closestPairs: [...silhouetteComparisons].sort((a, b) => b.torsoOnlyIou - a.torsoOnlyIou).slice(0, 10),
     lowestOverlapPairs: [...silhouetteComparisons].sort((a, b) => a.torsoOnlyIou - b.torsoOnlyIou).slice(0, 10)
@@ -835,7 +835,7 @@ try {
     renderedPropShapeAudit,
     silhouetteQualityCheck,
     inactiveArchetypesExcluded,
-    standardNpcScope: { standardInScopeCount: 116, referenceBaselineNpcIds: ['granny'], outOfScopeCount: 18 },
+    standardNpcScope: { standardInScopeCount: npcInventoryData.standardInScopeCount, referenceBaselineNpcIds: npcInventoryData.referenceBaselineNpcIds, outOfScopeCount: npcInventoryData.outOfScopeNpcIds.length },
     worldState,
     galleryState,
     galleryToggleVisible,
@@ -849,7 +849,7 @@ try {
     scriptErrors,
     pageErrors,
     consoleErrors,
-    note: 'Browser QA. Native-grid snapshots are written to qa-output/npc-snapshots and compared byte-for-byte with qa/golden-npcs. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 36 non-empty live archetype-direction cells; Granny is checked separately and this does not certify visual quality.'
+    note: 'Browser QA. Native-grid snapshots are written to qa-output/npc-snapshots and compared byte-for-byte with qa/golden-npcs. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty gallery cells (including Granny); only 36 live owCiv cells enter the silhouette comparison, with Granny checked separately.'
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
