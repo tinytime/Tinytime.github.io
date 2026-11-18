@@ -190,7 +190,16 @@ try {
   await page.screenshot({ path: path.join(out, 'game-town-1x.png'), fullPage: true });
 
   const grannyMeasurements = await page.evaluate(() => {
-    if (!window.SG || typeof window.SG.npcMeasureGranny !== 'function') throw new Error('Granny measurement hook is unavailable');
+    if (!window.SG || typeof window.SG.npcMeasureGranny !== 'function') {
+      const diagnostics = {
+        hasSG: !!window.SG,
+        sgKeys: window.SG ? Object.keys(window.SG) : [],
+        hasNpcSprites: !!window.NPC_SPRITES,
+        npcSpriteKeys: window.NPC_SPRITES ? Object.keys(window.NPC_SPRITES) : [],
+        scriptErrors: window.__qaScriptErrors || []
+      };
+      throw new Error('Granny measurement hook is unavailable: ' + JSON.stringify(diagnostics));
+    }
     return window.SG.npcMeasureGranny();
   });
   const grannyRuntimeRef = await page.evaluate(() => ({
