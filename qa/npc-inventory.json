@@ -51,6 +51,10 @@
     "wait1",
     "wait2"
   ],
+  "standardInScopeCount": 116,
+  "referenceBaselineNpcIds": [
+    "granny"
+  ],
   "outOfScopeNpcIds": [
     "cat1",
     "cat2",
@@ -1440,9 +1444,5 @@
       "pxPersonAtlasOverride": false,
       "inScope": true
     }
-  ],
-  "standardInScopeCount": 116,
-  "referenceBaselineNpcIds": [
-    "granny"
   ]
 }
