@@ -100,18 +100,18 @@
     {
       "id": "cat1",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "cat2",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "courier",
@@ -124,18 +124,18 @@
     {
       "id": "drift1",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "drift2",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "driverA",
@@ -304,10 +304,10 @@
     {
       "id": "hb_bram",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "hb_cadogan",
@@ -352,10 +352,10 @@
     {
       "id": "hb_deke",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "hb_denny",
@@ -480,10 +480,10 @@
     {
       "id": "hb_marla",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "hb_marty",
@@ -592,10 +592,10 @@
     {
       "id": "hb_rita",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "hb_runner",
@@ -721,34 +721,34 @@
     {
       "id": "king1",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "king2",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "lou",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "mack",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "manager",
@@ -761,10 +761,10 @@
     {
       "id": "mate1",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "mate2",
@@ -777,10 +777,10 @@
     {
       "id": "mo",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "mouse",
@@ -817,10 +817,10 @@
     {
       "id": "pete",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "pharmacist",
@@ -897,10 +897,10 @@
     {
       "id": "r2_mud",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "r2_noll",
@@ -1033,10 +1033,10 @@
     {
       "id": "rat2",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "regular1",
@@ -1081,10 +1081,10 @@
     {
       "id": "rusty",
       "civ": null,
-      "rendererPath": "owFig -> renderPerson (football player)",
-      "scopeClass": "football",
+      "rendererPath": "owFig -> renderPerson (town NPC)",
+      "scopeClass": "town",
       "pxPersonAtlasOverride": false,
-      "inScope": false
+      "inScope": true
     },
     {
       "id": "scriptkid",
