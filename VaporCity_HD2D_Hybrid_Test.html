@@ -8566,11 +8566,13 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Legs are tapered, jointed polygons: four logical pixels across including
   // the #141622 outline, leaving a two-pixel material core at every segment.
   if(!n.sit){
-    const leg=(x,kneeShift,ankleShift,phase)=>{
+    const leg=(x,phase)=>{
       const kY=-8+phase,footY=-2+phase,travel=swing*.35*phase;
       // Two-pixel trouser core with a one-pixel exterior ink contour.
-      const left=x<0;
-      const kneeX=x+kneeShift,ankleX=x+ankleShift+travel+(left?-1:1);
+      // The calf and shoe move one full pixel outward from the knee:
+      // left lower leg -1px, right lower leg +1px.
+      const left=x<0,lowerShift=left?-1:1;
+      const kneeX=x+lowerShift,ankleX=x+lowerShift+travel;
       const outer=left?x-2:x,inner=outer+2;
       const kneeOuter=left?kneeX:kneeX+2,kneeInner=kneeOuter+2;
       const ankleOuter=left?ankleX:ankleX+2,ankleInner=ankleOuter+2;
@@ -8583,8 +8585,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       line([[ankleX-1,1],[ankleX+3,1]],ink,1);
     };
     // Two distinct legs with a one-pixel transparent channel and outward-set stance.
-    leg(-3,-.5,-.5,1);
-    leg(3,.5,.5,-1);
+    leg(-3,1);
+    leg(3,-1);
   }else{
     limb([[-6,-6],[-2,-6],[-2,-2],[-6,-2]],pants);
     limb([[1,-6],[5,-6],[5,-2],[1,-2]],pants);
@@ -8611,8 +8613,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Keep the sculpted waist indent, but never flood the entire waist with shadow.
   polygon([[-2+torsoShift,top+8],[2+torsoShift,top+8],[2+torsoShift,top+13],[-2+torsoShift,top+13]],body,null,0);
   line([[-2+torsoShift,top+8],[2+torsoShift,top+8]],ink,1);
-  // A one-pixel waist shadow separates the shirt from the trouser line.
-  line([[-2+torsoShift,top+13],[2+torsoShift,top+13]],body.shadow,1);
+  // A one-pixel dark separator cleanly divides the narrow four-pixel waist.
+  line([[-2+torsoShift,top+13],[2+torsoShift,top+13]],ink,1);
   line([[-3+torsoShift,top+4],[-3+torsoShift,top+7],[-2+torsoShift,top+8]],body.highlight,1);
   line([[torsoShift+1,top+9],[torsoShift+1,top+12]],body.shadow,1);
   if(P.apron&&!back){
@@ -8668,7 +8670,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   polygon([[-1,hy],[1,hy],[2,hy+1],[3,hy+2],[3,hy+4],[2,hy+5],[1,hy+6],[-1,hy+6],[-2,hy+5],[-3,hy+4],[-3,hy+2],[-2,hy+1]],skinTone,ink,1);
   polygon([[-2,hy+6],[2,hy+6],[2,hy+9],[-2,hy+9]],applyShading('#b97966'),ink,1);
   if(!P.hood&&!P.helm){
-    polygon([[-3,hy+1],[-3,hy],[-2,hy-1],[0,hy-2],[2,hy-1],[3,hy+1],[2,hy+2],[1,hy+1],[-2,hy+1]],hair,ink,1);
+    // Stepped crown with one-pixel corner rounds; preserve the hanging left fringe.
+    polygon([[-3,hy+1],[-3,hy],[-2,hy-1],[-1,hy-1],[-1,hy-2],[1,hy-2],[1,hy-1],[2,hy-1],[3,hy],[3,hy+1],[2,hy+2],[1,hy+1],[-2,hy+1]],hair,ink,1);
     line([[-2,hy-1],[0,hy-2],[2,hy-1]],hair.highlight,1);
     line([[-3,hy+2],[-3,hy+5]],hair.shadow,1);
     // A single hanging strand frames the left cheek; the hairline adds forehead depth.
