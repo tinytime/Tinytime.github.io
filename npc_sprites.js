@@ -217,8 +217,30 @@
       wrench:'#AEB8C2',backpack:'#B4FF3A',guitar:'#FF7A1A',briefcase:'#8A5B38',
       clipboard:'#F4F6FF',notebook:'#FF2FA8',pin:'#FFD0EE',toolroll:'#8C9AA8'
     });
+    const FAN_VARIANT_PALETTES=Object.freeze({
+      driverA:{body:'#27e0ff',trim:'#0e2a38',pants:'#10202b',hair:'#1a1410'},
+      fan1:{body:'#ff2fa8',trim:'#ffd0ee',pants:'#1a2433',hair:'#2a1a20'},
+      fan2:{body:'#ff7a1a',trim:'#ffe0a8',pants:'#2a1a10',hair:'#1a1410'},
+      fanA:{body:'#9b5cff',trim:'#d9c2ff',pants:'#21163a',hair:'#14110f'},
+      fanB:{body:'#58ffb0',trim:'#d9ffe9',pants:'#0e2a24',hair:'#1a1410'},
+      fanC:{body:'#ff3b5c',trim:'#ffd1d8',pants:'#2b1420',hair:'#14110f'},
+      fanD:{body:'#ffd23a',trim:'#fff1b8',pants:'#2d2814',hair:'#1a1410'},
+      gamer1:{body:'#70a8ff',trim:'#d7e6ff',pants:'#142b54',hair:'#111827'},
+      hb_denny:{body:'#2ec4b6',trim:'#c6fff7',pants:'#0f3b3a',hair:'#102a29'},
+      hb_pete:{body:'#ff8a65',trim:'#ffe0d4',pants:'#4a1d24',hair:'#241312'},
+      hb_shopper:{body:'#c77dff',trim:'#f0d8ff',pants:'#3c096c',hair:'#1b1025'},
+      hb_splinter:{body:'#b5e48c',trim:'#e8f7c8',pants:'#1b4332',hair:'#152d22'},
+      hb_wick:{body:'#4361ee',trim:'#dbe4ff',pants:'#14213d',hair:'#111827'},
+      patient1:{body:'#d8d8e0',trim:'#f4f4f8',pants:'#3a4a5a',hair:'#22232a'},
+      r2_saltwife:{body:'#e052a0',trim:'#ffd1e8',pants:'#3b1735',hair:'#21101c'},
+      r2_stack:{body:'#f9844a',trim:'#ffe0c2',pants:'#6a2c16',hair:'#23130c'},
+      regular1:{body:'#00b4d8',trim:'#c8f6ff',pants:'#003049',hair:'#101820'},
+      shopper1:{body:'#a7f3d0',trim:'#e1fff2',pants:'#1d473a',hair:'#172c24'},
+      wait1:{body:'#f4d35e',trim:'#fff1b8',pants:'#45321a',hair:'#24170e'},
+      wait2:{body:'#90caf9',trim:'#e3f2fd',pants:'#1f3b57',hair:'#172333'}
+    });
     const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin']);
-    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, ARCHETYPE_ACCESSORY_ROLES };
+    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
   function createGrannyRenderer({OWT,og,artShadow}) {
@@ -400,7 +422,7 @@
   }
 
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
-    const { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
+    const { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
@@ -409,6 +431,7 @@
       const A=ARCHETYPES[archetypeKey],P=Object.assign({},A.palette,CIV[kind]);
       const qaExcludeProps=!!(qaOptions&&qaOptions.excludeProps);
       if(n.hb&&HB_CIV[kind])Object.assign(P,HB_CIV[kind]);
+      if(kind==='fan'&&FAN_VARIANT_PALETTES[n.id])Object.assign(P,FAN_VARIANT_PALETTES[n.id]);
       const palette=PALETTE_ROLES[archetypeKey];
       if(!palette||palette.skin.length!==3||palette.hair.length!==3||palette.clothing.length!==4||palette.accent.length!==2)throw new Error('Invalid 12-slot palette roles for '+archetypeKey);
       // Match Granny's measured umbrella-excluded body height (125 source rows);
