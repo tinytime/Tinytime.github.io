@@ -44,7 +44,7 @@
       vendor:{skin:['#E0AD87','#986447','#F3CFB2'],hair:['#241A16','#100B09','#5A4033'],clothing:['#2A2F3A','#151923','#697384','#1A1D26'],accent:['#F2F2F8','#FFBD3D']},
       clinic:{skin:['#DDA47D','#8D5A42','#F2C6A4'],hair:['#2A1A20','#100A0E','#68434E'],clothing:['#E8F4F8','#A6C8D4','#FFFFFF','#1A2433'],accent:['#27E0FF','#F4F6FF']},
       trades:{skin:['#C98A62','#75452F','#E9B38A'],hair:['#211A1A','#0D0B0B','#574444'],clothing:['#286C8B','#163A4B','#72B4CF','#27313B'],accent:['#D9A23B','#AEB8C2']},
-      youth:{skin:['#E8B78F','#A96F54','#F7D4B5'],hair:['#241A16','#100C0B','#5B4032'],clothing:['#27E0FF','#0B3B4B','#9CF3FF','#1A2433'],accent:['#FF2FA8','#FFD23A']},
+      youth:{skin:['#E8B78F','#A96F54','#F7D4B5'],hair:['#241A16','#100C0B','#5B4032'],clothing:['#27E0FF','#0B3B4B','#9CF3FF','#1A2433'],accent:['#FF2FA8','#B4FF3A']},
       performer:{skin:['#DDA47D','#8D5A42','#F2C6A4'],hair:['#241A16','#100C0B','#5B4032'],clothing:['#3A5A8A','#1A2C4B','#83A7E0','#1A1A26'],accent:['#FF7A1A','#9B5CFF']},
       civic:{skin:['#C98A62','#75452F','#E9B38A'],hair:['#27212A','#100D13','#62536B'],clothing:['#5A3A2A','#2B1C17','#B17A59','#1A1410'],accent:['#FFB02E','#FF2FA8']},
       elder:{skin:['#D6A17F','#996052','#F0C09D'],hair:['#C6CAD5','#55576B','#E8E8F0'],clothing:['#98539F','#43294F','#C27CC0','#2A1A2A'],accent:['#FF2FA8','#FFD0EE']}
@@ -186,14 +186,14 @@
       courier:{types:{front:'parcel',side:'courier-pack',back:'courier-pack'},front:[[1,16,4,14,'satchel'],[22,18,3,3,'parcel']],back:[[27,16,4,14,'satchel'],[7,18,3,3,'parcel']],side:[[27,14,4,16,'satchel'],[17,18,3,3,'parcel']]},
       guard:{types:{front:'baton',side:'baton',back:'guard-plate'},front:[[27,12,4,17,'shield'],[23,15,1,7,'baton']],back:[[1,12,4,17,'shield'],[8,15,1,7,'baton']],side:[[27,12,4,17,'shield'],[18,15,1,7,'baton']]},
       vendor:{types:{front:'bowl',side:'apron-ties',back:'apron-ties'},front:[[6,19,4,2,'bowl']],back:[[8,14,2,10,'apron'],[22,14,2,10,'apron']],side:[[16,19,4,2,'bowl']]},
-      clinic:{types:{front:'medical-kit',side:'medical-kit',back:'clinic-yoke'},front:[[22,18,3,3,'medkit']],back:[[7,18,3,3,'medkit']],side:[[17,17,3,3,'medkit']]},
+      clinic:{types:{front:'medical-kit',side:'medical-kit',back:'clinic-yoke'},front:[[22,17,4,4,'medkit']],back:[[7,18,3,3,'medkit']],side:[[17,17,3,3,'medkit']]},
       trades:{types:{front:'wrench',side:'wrench',back:'tool-pocket'},front:[[1,29,5,8,'toolroll'],[22,17,1,5,'wrench']],back:[[26,29,5,8,'toolroll'],[8,17,1,5,'wrench']],side:[[26,29,5,8,'toolroll'],[18,16,1,5,'wrench']]},
-      youth:{types:{front:'notebook',side:'backpack',back:'backpack'},front:[[1,15,5,11,'backpack'],[21,19,2,2,'whistle']],back:[[26,15,5,11,'backpack']],side:[[26,15,5,11,'backpack']]},
+      youth:{types:{front:'notebook',side:'backpack',back:'backpack'},front:[[1,15,5,11,'backpack'],[21,18,3,5,'notebook']],back:[[26,15,5,11,'backpack']],side:[[26,15,5,11,'backpack']]},
       performer:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[26,11,5,17,'guitar'],[21,21,1,3,'guitar']],back:[[1,11,5,17,'guitar'],[8,21,1,3,'guitar']],side:[[26,11,5,17,'guitar'],[17,20,1,3,'guitar']]},
       civic:{types:{front:'clipboard',side:'clipboard',back:'coat-tail'},front:[[1,18,5,10,'briefcase'],[7,18,3,4,'clipboard']],back:[[26,18,5,10,'briefcase'],[21,18,3,4,'clipboard']],side:[[26,18,5,10,'briefcase'],[17,17,3,4,'clipboard']]},
-      elder:{types:{front:'cardigan-pin',side:'cardigan-back',back:'cardigan-back'},front:[[21,19,2,2,'whistle']],back:[],side:[]}
+      elder:{types:{front:'cardigan-pin',side:'cardigan-back',back:'cardigan-back'},front:[[20,13,2,2,'pin']],back:[],side:[]}
     });
-    const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella']);
+    const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin']);
     return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
@@ -584,7 +584,7 @@
           case 'pants':case 'legfront':case 'shoe':case 'shoefront':return clothLower;
           case 'legshadow':case 'inkdetail':return ink;
           case 'helm':case 'apron':case 'pack':case 'umb':case 'umbhi':case 'hairband':case 'labcoat':case 'umbrella':return accentGarment;
-          case 'key':case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return accentProp;
+          case 'key':case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':return accentProp;
           default:return null;
         }
       };
