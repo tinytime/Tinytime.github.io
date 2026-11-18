@@ -393,7 +393,9 @@ try {
     // owCiv anchors its 64x96 sprite at row 80; Granny's native renderer
     // anchors at source row 137 with her measured foot row at 136.
     const baselineOffset = item.footRow - (granny ? 137 : 80);
-    const expectedBaselineOffset = granny ? -1 : 0;
+    // Civilian render grids now reserve row 0 as transparent headroom,
+    // so their first body pixel and foot row shift down by one native row.
+    const expectedBaselineOffset = granny ? -1 : 1;
     const outlineLum = luminance(item.outlineColor);
     const contrastRatio = (Math.max(outlineLum,bgLum)+0.05)/(Math.min(outlineLum,bgLum)+0.05);
     return {...item,youth,expectedHeightPixels,renderedHeightPixels,heightDeviationPixels:Math.abs(renderedHeightPixels-expectedHeightPixels),
