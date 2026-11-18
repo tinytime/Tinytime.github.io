@@ -9072,9 +9072,14 @@ function measureNpcArchetypeTorsoMasks(){
     for(const direction of ['d','u','l','r']){
       const view=direction==='d'?'front':direction==='u'?'back':'side';
       const rows=Array.from({length:96},()=>Array(64).fill('0'));
+      // ARCHETYPE_TORSO_MASKS uses the renderer's logical 32x48 grid.
+      // Expand each logical cell to its actual 2x2 native RGBA footprint so
+      // torso IoU is measured in the same 64x96 coordinate space as live masks.
       for(const [y,left,right] of (views[view]||[])){
-        if(y<0||y>=96)continue;
-        for(let x=Math.max(0,left);x<=Math.min(63,right);x++)rows[y][x]='1';
+        for(let py=y*2;py<y*2+2;py++){
+          if(py<0||py>=96)continue;
+          for(let x=Math.max(0,left*2);x<=Math.min(63,right*2+1);x++)rows[py][x]='1';
+        }
       }
       if(direction==='l')for(const row of rows)row.reverse();
       results.push({archetype,direction,maskRows:rows.map(row=>row.join(''))});
