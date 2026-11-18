@@ -9064,7 +9064,25 @@ function measureNpcArchetypeMasks(options={}){
   }
   return results;
 }
-window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMasks:options=>measureNpcArchetypeMasks(options),npcGrannyRef:()=>GRANNY_REF,
+function measureNpcArchetypeTorsoMasks(){
+  const torsoMasks=window.NPC_SPRITES?.TABLES?.ARCHETYPE_TORSO_MASKS;
+  if(!torsoMasks)throw new Error('Archetype torso mask table is unavailable');
+  const results=[];
+  for(const [archetype,views] of Object.entries(torsoMasks)){
+    for(const direction of ['d','u','l','r']){
+      const view=direction==='d'?'front':direction==='u'?'back':'side';
+      const rows=Array.from({length:96},()=>Array(64).fill('0'));
+      for(const [y,left,right] of (views[view]||[])){
+        if(y<0||y>=96)continue;
+        for(let x=Math.max(0,left);x<=Math.min(63,right);x++)rows[y][x]='1';
+      }
+      if(direction==='l')for(const row of rows)row.reverse();
+      results.push({archetype,direction,maskRows:rows.map(row=>row.join(''))});
+    }
+  }
+  return results;
+}
+window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMasks:options=>measureNpcArchetypeMasks(options),npcMeasureArchetypeTorsoMasks:()=>measureNpcArchetypeTorsoMasks(),npcGrannyRef:()=>GRANNY_REF,
   npcPaletteAudit:()=>Object.keys(CIV).filter(civ=>civ!=='granny').map(civ=>{const canvas=document.createElement('canvas');canvas.width=64;canvas.height=96;const n={id:'qa-'+civ,civ,x:0,y:0};owCiv(0,0,'d',false,n,0,0,canvas.getContext('2d'));return Object.assign({},owCiv._lastPaletteMetrics)}),
   npcMeasureCivBodies:()=>{
     const civs=Object.keys(CIV).filter(civ=>civ!=='granny').map(civ=>{
