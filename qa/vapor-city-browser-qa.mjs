@@ -150,6 +150,47 @@ try {
     runtimeRefMatch
   };
 
+  const archetypeSilhouettes = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcMeasureArchetypeMasks !== 'function') throw new Error('Archetype silhouette hook is unavailable');
+    return window.SG.npcMeasureArchetypeMasks();
+  });
+  const silhouetteComparisons = [];
+  for (const direction of ['d', 'u', 'r']) {
+    const view = archetypeSilhouettes.filter(item => item.direction === direction);
+    for (let i = 0; i < view.length; i++) for (let j = i + 1; j < view.length; j++) {
+      let intersection = 0, union = 0, edgeRowsDifferentBy2 = 0;
+      for (let y = 0; y < 96; y++) {
+        let leftA = 64, rightA = -1, leftB = 64, rightB = -1;
+        for (let x = 0; x < 64; x++) {
+          const a = view[i].maskRows[y][x] === '1', b = view[j].maskRows[y][x] === '1';
+          if (a && b) intersection++;
+          if (a || b) union++;
+          if (a) { leftA = Math.min(leftA, x); rightA = Math.max(rightA, x); }
+          if (b) { leftB = Math.min(leftB, x); rightB = Math.max(rightB, x); }
+        }
+        if (y >= 20 && y <= 47 && leftA < 64 && leftB < 64 &&
+            (Math.abs(leftA - leftB) >= 2 || Math.abs(rightA - rightB) >= 2)) edgeRowsDifferentBy2++;
+      }
+      silhouetteComparisons.push({
+        direction,
+        pair: [view[i].archetype, view[j].archetype],
+        iou: union ? intersection / union : 1,
+        edgeRowsDifferentBy2
+      });
+    }
+  }
+  const silhouetteBaseline = {
+    archetypeCount: new Set(archetypeSilhouettes.map(x => x.archetype)).size,
+    viewCount: 3,
+    pairCount: silhouetteComparisons.length,
+    targetIoU: 0.85,
+    pairsBelowTarget: silhouetteComparisons.filter(x => x.iou < 0.85).length,
+    minIoU: Math.min(...silhouetteComparisons.map(x => x.iou)),
+    maxIoU: Math.max(...silhouetteComparisons.map(x => x.iou)),
+    minEdgeRowsDifferentBy2: Math.min(...silhouetteComparisons.map(x => x.edgeRowsDifferentBy2)),
+    comparisons: silhouetteComparisons
+  };
+
   const galleryToggle = page.locator('#owNpcGalleryToggle');
   const galleryState = await galleryToggle.evaluate(el => ({
     hidden: el.hidden,
@@ -249,6 +290,8 @@ try {
     grannyMeasurements,
     grannyRuntimeRef,
     grannyMeasurementCheck,
+    archetypeSilhouetteCount: archetypeSilhouettes.length,
+    silhouetteBaseline,
     worldState,
     galleryState,
     galleryToggleVisible,
