@@ -8548,83 +8548,75 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const bodyRowsLength=P.long?18:16;
   g.save();g.translate(24,48);
   if(side&&dirCode==='l')g.scale(-1,1);
-  const frontTemplate=[
-    "................","................","................","................",
-    "................","................","...AABBBBBBAA...","...AABBBBBBAA...",
-    "...AABBBBBBAA...","...AABBBBBBAA...","...AABBBBBBAA...","...AABBBBBBAA...",
-    "....AABBBBAA....","....AABBBBAA....","....AABBBBAA....","....AABBBBAA....",
-    ".....BBBBBB.....",".....BBBBBB.....","...PP.PP........","...PP.PP........",
-    "...PP..PP.......","...PP..PP.......","...PP..PP.......","..PP....PP......",
-    "..PP....PP......","..PP....PP......","..PP...PP.......","..PP...PP.......",
-    "..PP...PP.......","..PP...PP.......","..PPP..PPP......","................"
-  ];
-  const npcGrid=frontTemplate.map(row=>row.split(''));
+  // Rigid 16x32 pixel template. Every limb dimension is authored as a fixed integer.
+  const npcGrid=Array.from({length:32},()=>Array(16).fill('.'));
+  const put=(x0,y0,w,h,ch)=>{for(let yy=y0;yy<y0+h;yy++)for(let xx=x0;xx<x0+w;xx++)npcGrid[yy][xx]=ch};
   if(side){
-    for(let gy=0;gy<32;gy++)npcGrid[gy].fill('.');
-    const put=(x0,y0,w,h,ch)=>{for(let yy=y0;yy<y0+h;yy++)for(let xx=x0;xx<x0+w;xx++)npcGrid[yy][xx]=ch};
-    // A true profile with two-pixel limbs on both sides. Each visible limb
-    // uses a base/shadow pair rather than a single-pixel stick silhouette.
-    put(7,6,4,12,'B');put(11,8,2,9,'A');
-    put(5,10,2,7,'S');put(7,18,3,1,'B');
-    put(5,19,2,11,'S');put(8,19,2,10,'P');
-    put(9,28,4,2,'P'); // shoe points forward
+    // Profile torso is exactly 4x6: rear two columns shadow, front two base.
+    put(7,6,4,6,'B');
+    // Exposed profile arm and leg are explicitly two pixels wide.
+    put(11,8,2,5,'A');
+    put(5,19,2,7,'P');
+    put(7,26,3,2,'P');
+    put(9,28,4,2,'P');
+  }else{
+    // Front/back arms: exact 2x5 blocks.
+    put(3,6,2,5,'A');
+    put(11,6,2,5,'A');
+    // Six-pixel-wide torso with a defined waist and lower torso.
+    put(5,6,6,6,'B');
+    put(6,12,4,4,'B');
+    put(5,16,6,2,'B');
+    // Front/back legs: each 2x7 overall, with an explicit knee step.
+    put(3,20,2,3,'P');put(2,23,2,4,'P');
+    put(6,20,2,3,'P');put(7,23,2,4,'P');
+    // Shoes.
+    put(1,27,4,3,'P');put(6,27,4,3,'P');
   }
   if(npcGrid.length!==32||npcGrid.some(row=>row.length!==16))throw new Error('NPC 16x32 template dimensions invalid');
   const gridX=-7,gridY=-35,gridBase=body.base||P.body||'#777777';
   const gridColor=(gx,gy)=>{
     const cell=npcGrid[gy][gx];if(cell==='.')return null;
-    if(cell==='P')return side?(gx===8?(pants.shadow||pants.base||P.pants||'#252535'):(gx===9?(pants.highlight||pants.base||P.pants||'#252535'):(pants.base||P.pants||'#252535'))):(pants.base||P.pants||'#252535');
-    if(cell==='S')return gy<18?(gx%2===0?gridBase:(body.shadow||gridBase)):(gx%2===0?(pants.base||P.pants||'#252535'):(pants.shadow||body.shadow||'#20212a'));
-    if(cell==='A'){
-      if(side)return gx===11?(body.highlight||gridBase):(body.shadow||gridBase);
-      return gridBase;
-    }
+    if(cell==='P')return side?(gx<7?(pants.shadow||pants.base||P.pants||'#252535'):(pants.base||P.pants||'#252535')):(pants.base||P.pants||'#252535');
+    if(cell==='A')return side?(gx>=11?(body.highlight||gridBase):(body.shadow||gridBase)):(gx>=11?(body.shadow||gridBase):(body.base||P.body||gridBase));
     if(cell==='B'){
-      if(side)return gx>=9?(body.highlight||gridBase):gx===8?gridBase:(body.shadow||gridBase);
-      // Front and back torsos: explicit highlight | base | deep-shadow columns.
-      // Six-pixel torso is hard-partitioned: 1 highlight, 2 base, 3 deep-shadow.
-      // B occupies gx 5..10 in the fixed 16x32 template.
+      if(side)return gx<9?(body.shadow||gridBase):(body.base||P.body||gridBase);
       if(gx===5)return body.highlight||gridBase;
-      if(gx===6||gx===7)return gridBase;
+      if(gx===6||gx===7)return body.base||P.body||gridBase;
       if(gx===8||gx===9||gx===10)return body.shadow||gridBase;
-      return gridBase;
     }
     return gridBase;
   };
   const occupied=(gx,gy)=>gx>=0&&gx<16&&gy>=0&&gy<32&&npcGrid[gy][gx]!=='.';
   // Opaque material pass: no outlines or rim effects can erase the Base Hex fills.
   for(let gy=0;gy<32;gy++)for(let gx=0;gx<16;gx++){const color=gridColor(gx,gy);if(color){g.fillStyle=color;g.fillRect(gridX+gx,gridY+gy,1,1)}}
-  // Chunky anatomy is painted as explicit rectangles (never line/stroke limbs).
+  // Fixed-size volume fills. Widths are literal 2, 3, 4, or 6 pixel values.
   if(!side){
-    // Both front/back arms are two pixels wide; the entire right arm is Shadow Hex.
-    g.fillStyle=body.highlight||gridBase;g.fillRect(gridX+3,gridY+6,2,6);
-    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+11,gridY+6,2,6);
-    // Lower, tapered arm rows retain their full two-pixel width.
-    g.fillStyle=body.highlight||gridBase;g.fillRect(gridX+4,gridY+12,2,4);
-    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+10,gridY+12,2,4);
-    // Six-pixel chest: exactly the rightmost three pixels are deep shadow.
-    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+8,gridY+6,3,6);
-    g.fillRect(gridX+8,gridY+16,3,2);
-    // Four-pixel waist rows: shade their entire right half.
-    g.fillRect(gridX+8,gridY+12,2,4);
-    // Knee-bent legs: x = gridX + 3; both thighs and calves are 2x3 fills.
-    // Left calf shifts one pixel left; right calf shifts one pixel right.
+    // Front/back arms: exactly 2x5; the right arm is entirely Shadow Hex.
+    g.fillStyle=body.base||P.body||gridBase;g.fillRect(gridX+3,gridY+6,2,5);
+    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+11,gridY+6,2,5);
+    // Torso is six pixels wide: 1 highlight, 2 base, 3 deep-shadow columns.
+    g.fillStyle=body.highlight||gridBase;g.fillRect(gridX+5,gridY+6,1,12);
+    g.fillStyle=body.base||P.body||gridBase;g.fillRect(gridX+6,gridY+6,2,12);
+    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+8,gridY+6,3,12);
+    // Legs are 2x7 each, split into a 2x3 thigh and 2x4 bent calf.
     g.fillStyle=pants.base||P.pants||'#252535';
     g.fillRect(gridX+3,gridY+20,2,3);
-    g.fillRect(gridX+7,gridY+20,2,3);
+    g.fillRect(gridX+6,gridY+20,2,3);
     g.fillStyle=pants.shadow||body.shadow||'#20212a';
-    g.fillRect(gridX+2,gridY+23,2,3);
-    g.fillRect(gridX+8,gridY+23,2,3);
-    // Entire right thigh and calf are the dark-side Shadow Hex.
-    g.fillRect(gridX+7,gridY+20,2,3);
-    g.fillRect(gridX+8,gridY+23,2,3);
+    g.fillRect(gridX+2,gridY+23,2,4);
+    g.fillRect(gridX+7,gridY+23,2,4);
+    // The entire right leg is deep Shadow Hex.
+    g.fillRect(gridX+6,gridY+20,2,3);
+    g.fillRect(gridX+7,gridY+23,2,4);
   }else{
-    // Four-pixel profile torso: rear two pixels Shadow Hex, front two Base Hex.
-    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+7,gridY+6,2,12);
-    g.fillStyle=body.base||P.body||'#777777';g.fillRect(gridX+9,gridY+6,2,12);
-    // Profile arm and exposed leg each have a solid two-pixel fillRect width.
-    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+11,gridY+8,2,9);
-    g.fillStyle=pants.shadow||'#20212a';g.fillRect(gridX+5,gridY+19,2,11);
+    // Side torso: exactly 4x6. Rear 2 pixels are 40%-darker Shadow Hex;
+    // forward 2 pixels are the Base Hex. Left-facing view is mirrored below.
+    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+7,gridY+6,2,6);
+    g.fillStyle=body.base||P.body||gridBase;g.fillRect(gridX+9,gridY+6,2,6);
+    // Visible profile arm and leg are both exactly two pixels wide.
+    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+11,gridY+8,2,5);
+    g.fillStyle=pants.shadow||'#20212a';g.fillRect(gridX+5,gridY+19,2,7);
   }
   // One-pixel #141622 outline around every occupied pixel; limbs retain a
   // two-pixel solid core plus their one-pixel outside contour.
