@@ -729,8 +729,26 @@
           default:return null;
         }
       };
-      // Keep facial marks at true native 1x1 resolution despite logical block helpers.
-      if(!side&&!back&&headStyle!=='helmet'&&headStyle!=='hood'){grid[10][28]='inkdetail';grid[10][36]='inkdetail';grid[16][32]='inkdetail';}
+      // Keep facial marks at true native 1x1 resolution. Stable NPC-id hashing
+      // selects a small expression family, so shared archetypes do not share one face.
+      if(!side&&!back&&headStyle!=='helmet'&&headStyle!=='hood'){
+        const faceHash=Array.from(String(n.id||kind)).reduce((sum,ch)=>((sum*31)+ch.charCodeAt(0))>>>0,7);
+        const faceStyle=faceHash%6;
+        const faceSets=[
+          {eyes:[[28,10],[36,10]],brows:[[28,8],[36,8]],mouth:[32,16]},
+          {eyes:[[27,11],[36,10]],brows:[[27,9],[36,8]],mouth:[32,17]},
+          {eyes:[[28,10],[37,11]],brows:[[28,8],[37,9]],mouth:[33,16]},
+          {eyes:[[27,10],[36,10]],brows:[[27,8],[36,8]],mouth:[31,17]},
+          {eyes:[[29,11],[36,11]],brows:[[29,9],[36,9]],mouth:[32,16]},
+          {eyes:[[28,10],[37,10]],brows:[[28,8],[37,8]],mouth:[33,17]}
+        ];
+        const face=faceSets[faceStyle];
+        // Remove the generic eye/mouth trio painted by the shared base head.
+        for(const [ex,ey] of [[28,10],[36,10],[32,16]])grid[ey][ex]='skin';
+        for(const [ex,ey] of face.eyes)grid[ey][ex]='inkdetail';
+        for(const [bx,by] of face.brows)grid[by][bx]='hair';
+        grid[face.mouth[1]][face.mouth[0]]=faceStyle%2===0?'inkdetail':'skinshade';
+      }
       if(side)grid[8][40]='skin';
       const fanJerseyStyles={
         driverA:'stripes',fan1:'crest',fan2:'bars',fanA:'sash',fanB:'split',
@@ -775,6 +793,10 @@
         const gapX=dirCode==='l'?38:24;
         for(let yy=48;yy<=72;yy++)finalGrid[yy][gapX]=null;
       }
+      // Reserve one transparent native pixel above every civilian head. Move the
+      // rendered grid origin up by the same amount below so feet remain baseline-locked.
+      finalGrid.unshift(Array(N).fill(null));
+      finalGrid.pop();
       // Palette audit is measured from the final native pixel grid, including its outline.
       const palettePixelCounts=Object.create(null);
       for(const color of finalGrid.flat())if(color!==null)palettePixelCounts[color]=(palettePixelCounts[color]||0)+1;
@@ -804,7 +826,7 @@
       targetG.save();targetG.globalAlpha=1;targetG.globalCompositeOperation='source-over';targetG.filter='none';targetG.imageSmoothingEnabled=false;
       // The visible sprite occupies grid rows 0-40 (80 doubled pixels).
       // Pin its feet to Granny's baseline and center the narrower 32x48 canvas.
-      targetG.drawImage(spriteCanvas,sx-32*U,sy-bob-80*U,64*U,96*U);
+      targetG.drawImage(spriteCanvas,sx-32*U,sy-bob-81*U,64*U,96*U);
       targetG.restore();
     }
     return owCiv;
