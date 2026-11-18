@@ -457,6 +457,39 @@ try {
     });
   }
 
+  const pixelPackAtlasCaptures = [];
+  let pixelPackAtlasCaptureError = null;
+  try {
+    await page.waitForFunction(() => !!(window.PXA && window.PXA.info && window.PXA.info().ok && window.PXA.S && window.PXA.S.img), null, { timeout: 5000 });
+    const atlasFrames = await page.evaluate(() => {
+      const pack = window.PXA.S;
+      return Object.entries(window.PXN || {}).map(([npcId, key]) => {
+        const entry = pack.f && pack.f[key];
+        if (!entry) return { npcId, key, error: 'Atlas entry missing' };
+        const canvas = document.createElement('canvas');
+        canvas.width = entry.w * entry.n;
+        canvas.height = entry.h;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(pack.img, entry.x, entry.y, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+        return { npcId, key, frameWidth: entry.w, frameHeight: entry.h, frameCount: entry.n, dataUrl: canvas.toDataURL('image/png') };
+      });
+    });
+    const atlasDir = path.join(out, 'pixel-pack-overrides');
+    fs.mkdirSync(atlasDir, { recursive: true });
+    for (const item of atlasFrames) {
+      if (item.dataUrl) {
+        const bytes = Buffer.from(item.dataUrl.split(',')[1], 'base64');
+        fs.writeFileSync(path.join(atlasDir, item.npcId + '.png'), bytes);
+        pixelPackAtlasCaptures.push({ npcId: item.npcId, key: item.key, frameWidth: item.frameWidth, frameHeight: item.frameHeight, frameCount: item.frameCount, bytes: bytes.length });
+      } else {
+        pixelPackAtlasCaptures.push({ npcId: item.npcId, key: item.key, error: item.error });
+      }
+    }
+  } catch (error) {
+    pixelPackAtlasCaptureError = error.message;
+  }
+
   scriptErrors.push(...await page.evaluate(() => window.__qaScriptErrors || []));
   const report = {
     timestamp: new Date().toISOString(),
@@ -466,6 +499,8 @@ try {
     npcSpriteModuleLoaded,
     npcInventoryCheck,
     pixelPackImpact,
+    pixelPackAtlasCaptures,
+    pixelPackAtlasCaptureError,
     grannyRefGeneratorCheck,
     pageTitle: await page.title(),
     townButtonVisible,
@@ -503,7 +538,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
