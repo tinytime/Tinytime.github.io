@@ -383,7 +383,7 @@ try {
   };
   const npcPropAudit = await page.evaluate(() => {
     const {ARCHETYPES,ARCHETYPE_PROP_LAYERS,ARCHETYPE_PROP_SHAPES,PROP_ROLE_COLORS,ARCHETYPE_ACCESSORY_ROLES}=window.NPC_SPRITES.TABLES;
-    const names=Object.keys(ARCHETYPES).filter(name=>name!=='elder');
+    const names=Object.keys(ARCHETYPES);
     const frontTypes=names.map(name=>({archetype:name,type:ARCHETYPES[name].prop.front.type}));
     const shapeRows=Object.entries(ARCHETYPE_PROP_SHAPES).map(([role,rows])=>{
       const filled=rows.join('').replace(/\./g,'').length,area=rows.length*rows[0].length;
@@ -497,16 +497,11 @@ try {
     cats: catSnapshotData.map(({id,direction,opaquePixelCount,uniqueColorCount,bounds})=>({id,direction,opaquePixelCount,uniqueColorCount,bounds}))
   };
 
-  const allArchetypeSilhouettes = await page.evaluate(() => {
+  const archetypeSilhouettes = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcMeasureArchetypeMasks !== 'function') throw new Error('Archetype silhouette hook is unavailable');
     return window.SG.npcMeasureArchetypeMasks({ excludeProps: true });
   });
-  // The elder archetype is only a synthetic owCiv rig; Granny uses her own
-  // dedicated renderer and is validated separately against the owner baseline.
-  const inactiveArchetypesExcluded = ['elder'];
-  const archetypeSilhouettes = allArchetypeSilhouettes.filter(item => !inactiveArchetypesExcluded.includes(item.archetype));
-  const allFullPropSilhouettes = await page.evaluate(() => window.SG.npcMeasureArchetypeMasks({ excludeProps: false }));
-  const fullPropSilhouettes = allFullPropSilhouettes.filter(item => !inactiveArchetypesExcluded.includes(item.archetype));
+  const fullPropSilhouettes = await page.evaluate(() => window.SG.npcMeasureArchetypeMasks({ excludeProps: false }));
   const renderedPropComponents = [];
   for (const full of fullPropSilhouettes) {
     const body = archetypeSilhouettes.find(item => item.archetype === full.archetype && item.direction === full.direction);
@@ -593,7 +588,7 @@ try {
     meanIoU: silhouetteBaseline.meanTorsoOnlyIoU,
     pairsBelowTarget: silhouetteComparisons.filter(x => x.torsoOnlyIou < 0.85).length,
     pairsAtOrAboveTarget: silhouetteComparisons.filter(x => x.torsoOnlyIou >= 0.85).length,
-    pass: silhouetteComparisons.length === 144 && silhouetteComparisons.every(x => x.torsoOnlyIou < 0.85),
+    pass: silhouetteComparisons.length === 180 && silhouetteComparisons.every(x => x.torsoOnlyIou < 0.85),
     failingPairs: silhouetteComparisons.filter(x => x.torsoOnlyIou >= 0.85).sort((a,b)=>b.torsoOnlyIou-a.torsoOnlyIou),
     closestPairs: [...silhouetteComparisons].sort((a, b) => b.torsoOnlyIou - a.torsoOnlyIou).slice(0, 10),
     lowestOverlapPairs: [...silhouetteComparisons].sort((a, b) => a.torsoOnlyIou - b.torsoOnlyIou).slice(0, 10)
@@ -602,7 +597,7 @@ try {
   const silhouetteQualityCheck = {
     // Reject trivial one-row edge edits: a distinct body silhouette must
     // hold its contour difference across at least six torso/head scanlines.
-    pass: silhouetteBaseline.pairCount === 144 &&
+    pass: silhouetteBaseline.pairCount === 180 &&
       silhouetteBaseline.pairsBelowTarget === silhouetteBaseline.pairCount &&
       silhouetteBaseline.pairsAtOrAboveTarget === 0 &&
       silhouetteBaseline.minEdgeRowsDifferentBy2 >= 6 &&
@@ -617,7 +612,7 @@ try {
     maxIoU: silhouetteBaseline.maxIoU,
     minEdgeRowsDifferentBy2: silhouetteBaseline.minEdgeRowsDifferentBy2,
     minimumDistinctEdgeRows: 6,
-    requirements: 'All 144 pairs across nine live owCiv archetypes must have IoU < 0.85 in all four directions; every pair must differ by at least 2 px across at least six torso/head edge rows. Granny is validated separately against her original baseline.'
+    requirements: 'All 180 pairs across ten live owCiv archetypes must have IoU < 0.85 in all four directions; every pair must differ by at least 2 px across at least six torso/head edge rows. Granny is validated separately against her original baseline.'
   };
 
   const galleryToggle = page.locator('#owNpcGalleryToggle');
@@ -857,7 +852,7 @@ try {
     torsoOnlySilhouetteSummary,
     renderedPropShapeAudit,
     silhouetteQualityCheck,
-    inactiveArchetypesExcluded,
+    liveArchetypes: Object.keys((await page.evaluate(() => window.NPC_SPRITES.TABLES.ARCHETYPES))),
     standardNpcScope: { standardInScopeCount: npcInventoryData.standardInScopeCount, referenceBaselineNpcIds: npcInventoryData.referenceBaselineNpcIds, outOfScopeCount: npcInventoryData.outOfScopeNpcIds.length },
     worldState,
     galleryState,
@@ -872,7 +867,7 @@ try {
     scriptErrors,
     pageErrors,
     consoleErrors,
-    note: 'Browser QA. Native-grid snapshots are written to qa-output/npc-snapshots and compared byte-for-byte with qa/golden-npcs. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty gallery cells (including Granny); only 36 live owCiv cells enter the silhouette comparison, with Granny checked separately.'
+    note: 'Browser QA. Native-grid snapshots are written to qa-output/npc-snapshots and compared byte-for-byte with qa/golden-npcs. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty live archetype-direction cells; Granny's special renderer is validated separately against the original baseline.'
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
