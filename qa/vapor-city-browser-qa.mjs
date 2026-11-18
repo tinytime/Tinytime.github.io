@@ -427,7 +427,7 @@ try {
   });
   const snapshotDir = path.join(out, 'npc-snapshots');
   fs.mkdirSync(snapshotDir, { recursive: true });
-  const snapshotResults = npcSnapshotData.map(item => {
+  const snapshotResults = await Promise.all(npcSnapshotData.map(async item => {
     const bytes = Buffer.from(item.dataUrl.split(',')[1], 'base64');
     const outputPath = path.join(snapshotDir, item.civ + '.png');
     fs.writeFileSync(outputPath, bytes);
@@ -471,7 +471,7 @@ try {
     const byteMatch = Buffer.compare(bytes, golden) === 0;
     return { civ: item.civ, status: pixelDiff.dimensionsMatch && pixelDiff.changedPixels === 0 ? 'match' : 'changed',
       bytes: bytes.length, goldenBytes: golden.length, byteMatch, pixelDiff };
-  });
+  }));
   const baselineRefreshPending = fs.existsSync(path.join(root, 'qa', 'update-goldens.flag'));
   const allSnapshotsMatch = snapshotResults.length === 24 && snapshotResults.every(item => item.status === 'match');
   const snapshotCheck = {
@@ -891,7 +891,7 @@ try {
     scriptErrors,
     pageErrors,
     consoleErrors,
-    note: "Browser QA. Native-grid snapshots are written to qa-output/npc-snapshots and compared byte-for-byte with qa/golden-npcs. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty live archetype-direction cells; the Granny special renderer is validated separately against the original baseline."
+    note: "Browser QA. Native-grid snapshots are written to qa-output/npc-snapshots and compared by decoded RGBA pixels with qa/golden-npcs; PNG byte equality is diagnostic only. Gallery PNGs are exported from the full backing canvas; cellGrid verifies 40 non-empty live archetype-direction cells; the Granny special renderer is validated separately against the original baseline."
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
