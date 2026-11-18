@@ -164,6 +164,25 @@
       }
       return [civ,Object.freeze(masks)];
     })));
+    const FAN_TORSO_VARIANTS=Object.freeze({
+      driverA:[-2,0,2],fan1:[2,-2,0],fan2:[-1,2,-2],fanA:[1,-1,2],fanB:[-2,2,1],
+      fanC:[2,1,-2],fanD:[0,-2,2],gamer1:[1,2,-1],hb_denny:[-1,-2,2],hb_pete:[2,0,-2],
+      hb_shopper:[-2,-1,1],hb_splinter:[1,2,0],hb_wick:[-1,1,-2],patient1:[0,2,1],
+      r2_saltwife:[2,-1,1],r2_stack:[-2,1,-1],regular1:[1,-2,-1],shopper1:[-1,0,2],
+      wait1:[2,1,0],wait2:[-2,-2,1]
+    });
+    const FAN_TORSO_MASKS=Object.freeze(Object.fromEntries(Object.entries(FAN_TORSO_VARIANTS).map(([id,variant])=>{
+      const source=ARCHETYPE_TORSO_MASKS[ARCHETYPES[CIV_TO_ARCHETYPE.fan].torso],masks={};
+      for(const view of ['front','back','side']){
+        masks[view]=source[view].map(([y,left,right])=>{
+          const band=variant[y<=14?0:y<=20?1:2];
+          if(!band)return [y,left,right];
+          return view==='side'?[y,Math.max(0,left+band),Math.min(31,right-band)]:[y,Math.max(0,left-band),Math.min(31,right+band)];
+        });
+        Object.freeze(masks[view]);
+      }
+      return [id,Object.freeze(masks)];
+    })));
     Object.freeze(ARCHETYPE_TORSO_MASKS);
     
     
@@ -242,9 +261,30 @@
       usher:{armSpread:-2,armY:1,legSpread:2,legW:-1},
       fan:{armSpread:-2,armY:1,legSpread:1}
     });
-    const CIV_RIG_PARTS=Object.freeze(Object.fromEntries(Object.entries(CIV_TO_ARCHETYPE).map(([civ,archetype])=>{
-      const base=ARCHETYPE_RIG_PARTS[archetype],spec=CIV_RIG_VARIANTS[civ]||{};
-      const result={};
+    const FAN_RIG_VARIANTS=Object.freeze({
+      driverA:{armSpread:-2,armY:0,legSpread:-2,legW:-1},
+      fan1:{armSpread:2,armY:0,legSpread:2,legW:1},
+      fan2:{armSpread:-1,armY:1,legSpread:1},
+      fanA:{armSpread:1,armY:-1,legSpread:-1,legW:1},
+      fanB:{armSpread:-2,armY:1,legSpread:2,legW:-1},
+      fanC:{armSpread:2,armY:-1,legSpread:-2,legW:1},
+      fanD:{armSpread:0,armY:1,legSpread:0,legW:1},
+      gamer1:{armSpread:1,armY:1,legSpread:2,legW:-1},
+      hb_denny:{armSpread:-1,armY:-1,legSpread:-2,legW:1},
+      hb_pete:{armSpread:2,armY:1,legSpread:0,legW:-1},
+      hb_shopper:{armSpread:-2,armY:-1,legSpread:1,legW:1},
+      hb_splinter:{armSpread:1,armY:0,legSpread:-1,legW:-1},
+      hb_wick:{armSpread:-1,armY:1,legSpread:2,legW:1},
+      patient1:{armSpread:0,armY:-1,legSpread:-2,legW:-1},
+      r2_saltwife:{armSpread:2,armY:0,legSpread:1,legW:-1},
+      r2_stack:{armSpread:-2,armY:1,legSpread:-1,legW:1},
+      regular1:{armSpread:1,armY:-1,legSpread:0},
+      shopper1:{armSpread:-1,armY:0,legSpread:2,legW:-1},
+      wait1:{armSpread:2,armY:1,legSpread:-1},
+      wait2:{armSpread:-2,armY:-1,legSpread:0,legW:1}
+    });
+    const makeIndividualRig=(archetype,spec={})=>{
+      const base=ARCHETYPE_RIG_PARTS[archetype],result={};
       for(const view of ['front','back','side']){
         const side=view==='side';
         const arms=base[view].arms.map(([x,y,w,h,role])=>{
@@ -260,8 +300,12 @@
         });
         result[view]={arms,legs};
       }
-      return [civ,Object.freeze(result)];
-    })));
+      return Object.freeze(result);
+    };
+    const CIV_RIG_PARTS=Object.freeze(Object.fromEntries(Object.entries(CIV_TO_ARCHETYPE)
+      .map(([civ,archetype])=>[civ,makeIndividualRig(archetype,CIV_RIG_VARIANTS[civ]||{})])));
+    const FAN_RIG_PARTS=Object.freeze(Object.fromEntries(Object.entries(FAN_RIG_VARIANTS)
+      .map(([id,spec])=>[id,makeIndividualRig(CIV_TO_ARCHETYPE.fan,spec)])));
     const ARCHETYPE_PROP_LAYERS=Object.freeze({
       athletic:{types:{front:'whistle',side:'whistle',back:'jersey-mark'},front:[[1,12,5,5,'duffel'],[26,12,5,5,'duffel'],[21,19,2,2,'whistle']],back:[[1,12,5,5,'duffel'],[26,12,5,5,'duffel'],[7,19,2,2,'whistle']],side:[[25,12,5,6,'duffel'],[17,18,2,2,'whistle']]},
       courier:{types:{front:'parcel',side:'courier-pack',back:'courier-pack'},front:[[1,16,4,14,'satchel'],[22,18,3,3,'parcel']],back:[[27,16,4,14,'satchel'],[7,18,3,3,'parcel']],side:[[27,14,4,16,'satchel'],[17,18,3,3,'parcel']]},
@@ -341,7 +385,7 @@
       wait2:{body:'#90caf9',trim:'#e3f2fd',pants:'#1f3b57',hair:'#172333'}
     });
     const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger','pennant','megaphone','rallytowel']);
-    return { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES };
+    return { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, FAN_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, FAN_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
   function createGrannyRenderer({OWT,og,artShadow}) {
@@ -523,14 +567,14 @@
   }
 
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
-    const { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
+    const { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, FAN_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, FAN_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
       const archetypeKey=CIV_TO_ARCHETYPE[kind];
       if(!archetypeKey||!ARCHETYPES[archetypeKey]||!CIV[kind])throw new Error('Missing civilian archetype mapping or palette: '+kind);
       const A=ARCHETYPES[archetypeKey],P=Object.assign({},A.palette,CIV[kind]);
-      const civTorsoMasks=CIV_TORSO_MASKS[kind]||ARCHETYPE_TORSO_MASKS[A.torso];
+      const civTorsoMasks=kind==='fan'?(FAN_TORSO_MASKS[n.id]||CIV_TORSO_MASKS[kind]||ARCHETYPE_TORSO_MASKS[A.torso]):(CIV_TORSO_MASKS[kind]||ARCHETYPE_TORSO_MASKS[A.torso]);
       const headStyle=kind==='fan'?(FAN_VARIANT_HEADS[n.id]||A.head):(CIV_HEAD_STYLES[kind]||A.head);
       const qaExcludeProps=!!(qaOptions&&qaOptions.excludeProps);
       if(n.hb&&HB_CIV[kind])Object.assign(P,HB_CIV[kind]);
@@ -706,7 +750,7 @@
       // Articulated arms: broaden the shoulder cap, define an elbow, and
       // taper the forearm into a visible hand. The stepped contour avoids a tray pose.
       const rigView=side?'side':back?'back':'front';
-      const rigParts=(CIV_RIG_PARTS[kind]||ARCHETYPE_RIG_PARTS[archetypeKey])[rigView];
+      const rigParts=(kind==='fan'?(FAN_RIG_PARTS[n.id]||CIV_RIG_PARTS[kind]):(CIV_RIG_PARTS[kind]||ARCHETYPE_RIG_PARTS[archetypeKey]))[rigView];
       for(const [rx,ry,rw,rh,role] of rigParts.arms)put(rx,ry,rw,rh,role);
       // Directional limb masks are table-driven; the same rig is shared while each archetype owns its silhouette data.
       for(const [rx,ry,rw,rh,role] of rigParts.legs)put(rx,ry,rw,rh,role);

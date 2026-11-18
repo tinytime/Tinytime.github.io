@@ -9148,6 +9148,17 @@ window.SG={npcRenderDirectionalSnapshots:()=>{
         rendererDataUrl:rendererSprite.toDataURL('image/png')};
     });
   },
+  npcRenderFanDirectionalSnapshots:()=>{
+    const ids=['driverA','fan1','fan2','fanA','fanB','fanC','fanD','gamer1','hb_denny','hb_pete','hb_shopper','hb_splinter','hb_wick','patient1','r2_saltwife','r2_stack','regular1','shopper1','wait1','wait2'];
+    const directions=[['front','d'],['back','u'],['left','l'],['right','r']];
+    return ids.flatMap(id=>directions.map(([direction,dir])=>{
+      const target=document.createElement('canvas');target.width=64;target.height=96;
+      const n={id,civ:'fan',x:0,y:0,hb:id.startsWith('hb_')?1:0};
+      owCiv(0,0,dir,false,n,0,0,target.getContext('2d'));
+      const sprite=owCiv._gridCanvas;
+      return {id,direction,width:sprite.width,height:sprite.height,dataUrl:sprite.toDataURL('image/png')};
+    }));
+  },
   npcRenderFanVariantSnapshots:()=>{
     const ids=['driverA','fan1','fan2','fanA','fanB','fanC','fanD','gamer1','hb_denny','hb_pete','hb_shopper','hb_splinter','hb_wick','patient1','r2_saltwife','r2_stack','regular1','shopper1','wait1','wait2'];
     return ids.map(id=>{

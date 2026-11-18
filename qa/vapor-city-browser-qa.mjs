@@ -590,6 +590,67 @@ try {
     };
   }, civilianDirectionalSnapshotData);
 
+  const fanDirectionalSnapshotData = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcRenderFanDirectionalSnapshots !== 'function')
+      throw new Error('Directional fan snapshot hook is unavailable');
+    return window.SG.npcRenderFanDirectionalSnapshots();
+  });
+  const fanDirectionDir = path.join(out, 'npc-fan-directions');
+  fs.mkdirSync(fanDirectionDir, { recursive: true });
+  for (const item of fanDirectionalSnapshotData) {
+    fs.writeFileSync(path.join(fanDirectionDir, item.id + '-' + item.direction + '.png'),
+      Buffer.from(item.dataUrl.split(',')[1], 'base64'));
+  }
+  const fanVariantSilhouetteAudit = await page.evaluate(async snapshots => {
+    const table=window.NPC_SPRITES?.TABLES?.FAN_TORSO_MASKS;
+    if(!table)throw new Error('Per-fan torso mask table is unavailable');
+    const ids=Object.keys(table).sort(),directions=['front','back','side'];
+    const toPixels=rows=>{const pixels=new Set();for(const [y,left,right] of rows||[])for(let x=Math.max(0,left);x<=Math.min(31,right);x++)pixels.add(y*32+x);return pixels;};
+    const compare=(a,b)=>{let intersection=0;for(const pixel of a)if(b.has(pixel))intersection++;const union=a.size+b.size-intersection;return union?intersection/union:1;};
+    const torsoPairs=[],duplicates=[];
+    for(const direction of directions){
+      const masks=ids.map(id=>({id,pixels:toPixels(table[id][direction])}));
+      for(let i=0;i<masks.length;i++)for(let j=i+1;j<masks.length;j++){
+        const iou=compare(masks[i].pixels,masks[j].pixels);
+        torsoPairs.push({direction,pair:[masks[i].id,masks[j].id],iou});
+        if(iou===1)duplicates.push({direction,pair:[masks[i].id,masks[j].id]});
+      }
+    }
+    const decoded=await Promise.all(snapshots.map(item=>new Promise((resolve,reject)=>{
+      const image=new Image();image.onload=()=>resolve({id:item.id,direction:item.direction,image});
+      image.onerror=()=>reject(new Error('Unable to decode fan snapshot: '+item.id+'/'+item.direction));
+      image.src=item.dataUrl;
+    })));
+    const renderedPairs=[],directionStats=[];
+    for(const direction of ['front','back','left','right']){
+      const masks=decoded.filter(item=>item.direction===direction).map(({id,image})=>{
+        const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;
+        const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);
+        const data=ctx.getImageData(0,0,canvas.width,canvas.height).data,pixels=new Set();
+        for(let p=0;p<data.length;p+=4)if(data[p+3]>0)pixels.add(p/4);
+        return {id,pixels};
+      });
+      const pairs=[];
+      for(let i=0;i<masks.length;i++)for(let j=i+1;j<masks.length;j++){
+        const pair={direction,pair:[masks[i].id,masks[j].id],iou:compare(masks[i].pixels,masks[j].pixels)};
+        pairs.push(pair);renderedPairs.push(pair);
+      }
+      pairs.sort((a,b)=>b.iou-a.iou);
+      directionStats.push({direction,count:masks.length,pairCount:pairs.length,maxIoU:pairs[0]?.iou??null,closestPairs:pairs.slice(0,8)});
+    }
+    renderedPairs.sort((a,b)=>b.iou-a.iou);torsoPairs.sort((a,b)=>b.iou-a.iou);
+    return {
+      pass:ids.length===20&&decoded.length===80&&duplicates.length===0&&torsoPairs.length===570&&
+        directionStats.length===4&&directionStats.every(item=>item.count===20&&item.pairCount===190&&item.maxIoU<0.90),
+      fanCount:ids.length,directionalSnapshotCount:decoded.length,renderedDirectionCount:directionStats.length,
+      renderedPairCount:renderedPairs.length,maxRenderedIoU:renderedPairs[0]?.iou??null,
+      closestRenderedPairs:renderedPairs.slice(0,12),directionStats,torsoMaskDirectionCount:3,
+      torsoMaskPairCount:torsoPairs.length,maxTorsoMaskIoU:torsoPairs[0]?.iou??null,
+      closestTorsoMaskPairs:torsoPairs.slice(0,10),duplicateTorsoMasks:duplicates,
+      requirements:'All 20 fan NPCs must have non-identical torso masks in front, back, and side views; all 190 rendered fan pairs in each of front, back, left, and right must have alpha-mask IoU below 0.90.'
+    };
+  }, fanDirectionalSnapshotData);
+
   const goldenBaselineProvenancePath = path.join(root, 'qa', 'golden-npcs', 'PROVENANCE.json');
   const goldenBaselineProvenance = fs.existsSync(goldenBaselineProvenancePath)
     ? JSON.parse(fs.readFileSync(goldenBaselineProvenancePath, 'utf8')) : null;
@@ -1196,6 +1257,7 @@ try {
     renderedPropShapeAudit,
     silhouetteQualityCheck,
     civilianTypeSilhouetteAudit,
+    fanVariantSilhouetteAudit,
     liveArchetypeUsageAudit,
     excludedCatNpcIds,
     standardNpcScope: { standardInScopeCount: npcInventoryData.standardInScopeCount, referenceBaselineNpcIds: npcInventoryData.referenceBaselineNpcIds, outOfScopeCount: npcInventoryData.outOfScopeNpcIds.length },
@@ -1216,7 +1278,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
