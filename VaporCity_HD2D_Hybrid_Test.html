@@ -9631,7 +9631,7 @@ function measureGrannyVoltNative(){
 }
 
 function measureNpcArchetypeMasks(options={}){
-  const archetypes=Object.keys(ARCHETYPES),directions=['d','u','r'],results=[];
+  const archetypes=Object.keys(ARCHETYPES),directions=['d','u','l','r'],results=[];
   for(const archetype of archetypes){
     const civ=Object.keys(CIV_TO_ARCHETYPE).find(key=>CIV_TO_ARCHETYPE[key]===archetype);
     if(!civ)throw new Error('No representative civ for archetype '+archetype);
