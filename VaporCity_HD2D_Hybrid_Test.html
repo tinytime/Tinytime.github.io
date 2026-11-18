@@ -8382,8 +8382,8 @@ function owPixelTone(hex,delta){
   const n=parseInt(m[1],16),v=[(n>>16)&255,(n>>8)&255,n&255];
   return '#'+v.map(c=>Math.max(0,Math.min(255,Math.round(c*(1+delta/100)))).toString(16).padStart(2,'0')).join('');
 }
-// Granny Volt is the shared scale reference. All geometry values are loaded from
-// qa/granny-ref.json, generated from alpha scans of four offscreen browser renders.
+// Granny Volt remains the owner-approved scale reference. Front/back geometry
+// stays anchored to qa/granny-ref.json; new side poses remain review-only candidates.
 const GRANNY_REF=Object.freeze({...window.GRANNY_REF_DATA,nativeScale:OWT/GRANNY_REF_DATA.tileSizeReference*GRANNY_REF_DATA.scaleFactor});
 const { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_ACCESSORY_ROLES } = window.NPC_SPRITES.TABLES;
 const owCiv = window.NPC_SPRITES.createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite});
