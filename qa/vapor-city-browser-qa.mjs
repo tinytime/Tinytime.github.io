@@ -8,6 +8,7 @@ import { createServer } from 'node:http';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = path.join(root, 'VaporCity_HD2D_Hybrid_Test.html');
 const out = path.join(root, 'qa-output');
+const sourceCommitSha = process.env.GITHUB_SHA || null;
 fs.mkdirSync(out, { recursive: true });
 
 const htmlSource = fs.readFileSync(html, 'utf8');
@@ -799,6 +800,7 @@ try {
 
   scriptErrors.push(...await page.evaluate(() => window.__qaScriptErrors || []));
   const report = {
+    sourceCommitSha,
     timestamp: new Date().toISOString(),
     htmlFile: path.basename(html),
     syntaxCheck,
@@ -855,7 +857,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !snapshotCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
