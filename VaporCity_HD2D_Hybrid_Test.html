@@ -8570,7 +8570,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     "...AA.BBBBBB.AA.","...AA.BBBBBB.AA.","...AA.BBBBBB.AA.",
     "...AA.BBBBBB.AA.","...AA.BBBBBB.AA.","...AA.BBBBBB.AA.",
     "...AA..BBBB..AA.","...AA..BBBB..AA.","...AA..BBBB..AA.",
-    "....A..BBBB..A..","......BBBB......","......BBBB......",
+    "....AABBBBAA....","......BBBB......","......BBBB......",
     ".....PP..PP.....",".....PP..PP.....",
     "....PP...PP.....","....PP...PP.....",
     "....PP...PP.....","....PP...PP.....",
@@ -8582,7 +8582,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const top=-29-(P.long?2:0),torsoShift=1,hy=top-8,armY=top+4;
   const npcGrid=NPC_BODY_16X32.map(row=>row.split(''));
   const gridX=-7,gridY=-35,gridBase=body.base||P.body||'#777777',gridShadow=body.shadow||gridBase,gridHighlight=body.highlight||gridBase;
-  const gridColor=(gx,gy)=>{const cell=npcGrid[gy][gx];if(cell==='.')return null;if(cell==='P')return pants.base||P.pants||'#252535';if(cell==='B'&&gy>=6&&gy<=17&&gx>=8)return gridShadow;if(cell==='B'&&gy>=6&&gy<=17&&gx===5)return gridHighlight;return gridBase};
+  const gridColor=(gx,gy)=>{const cell=npcGrid[gy][gx];if(cell==='.')return null;if(cell==='P')return pants.base||P.pants||'#252535';if(cell==='B'&&gy>=6&&gy<=17&&gx>=((gy>=12&&gy<=15)?7:8))return gridShadow;if(cell==='B'&&gy>=6&&gy<=17&&gx===5)return gridHighlight;return gridBase};
   // Pass 1: opaque Base Hex material fill for every occupied template pixel.
   for(let gy=0;gy<32;gy++)for(let gx=0;gx<16;gx++){const color=gridColor(gx,gy);if(color){g.fillStyle=color;g.fillRect(gridX+gx,gridY+gy,1,1)}}
   const occupied=(gx,gy)=>gx>=0&&gx<16&&gy>=0&&gy<32&&npcGrid[gy][gx]!=='.';
