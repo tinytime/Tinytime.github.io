@@ -64,6 +64,10 @@ const missingArchetypes = Object.values(civToArchetype).filter(key => !archetype
 if (unmappedCivs.length) throw new Error('NPC civs missing CIV_TO_ARCHETYPE: ' + unmappedCivs.join(', '));
 if (missingPalettes.length) throw new Error('NPC civs missing explicit CIV palette: ' + missingPalettes.join(', '));
 if (missingArchetypes.length) throw new Error('CIV_TO_ARCHETYPE references missing archetypes: ' + [...new Set(missingArchetypes)].join(', '));
+if ((archetypeMatch[1].match(/palette:\\{/g) || []).length !== archetypeKeys.length ||
+    (archetypeMatch[1].match(/prop:\\{/g) || []).length !== archetypeKeys.length) {
+  throw new Error('Every archetype must define its own palette and prop');
+}
 if (liveCivs.length !== 24 || Object.keys(civToArchetype).length !== 24) {
   throw new Error('Expected 24 live civ mappings; found ' + liveCivs.length + ' live civs and ' + Object.keys(civToArchetype).length + ' mapping entries');
 }
@@ -125,12 +129,13 @@ const output = JSON.stringify(inventory, null, 2) + '\n';
 if (process.argv.includes('--check')) {
   if (!fs.existsSync(inventoryPath)) throw new Error('Missing qa/npc-inventory.json; run the generator without --check');
   const committed = fs.readFileSync(inventoryPath, 'utf8');
+  const committedInventory = JSON.parse(committed);
+  const indexedIds = new Set((committedInventory.npcs || []).map(n => n.id));
+  const missingIds = [...new Set(npcs.map(n => n.id))].filter(id => !indexedIds.has(id));
+  if (missingIds.length) throw new Error('Live NPC ids missing inventory entries: ' + missingIds.join(', '));
   if (committed !== output) {
     throw new Error('qa/npc-inventory.json is stale: regenerate it from the live NPC data and render dispatch');
   }
-  const indexedIds = new Set(inventoryNpcs.map(n => n.id));
-  const missingIds = [...new Set(npcs.map(n => n.id))].filter(id => !indexedIds.has(id));
-  if (missingIds.length) throw new Error('Live NPC ids missing inventory entries: ' + missingIds.join(', '));
   console.log(JSON.stringify({ pass: true, npcCount: inventoryNpcs.length, civCount: liveCivs.length, fanCount: inventory.fanNpcIds.length, pxPersonAtlasCount: Object.keys(pxPersonAtlas).length }));
 } else {
   fs.writeFileSync(inventoryPath, output);
