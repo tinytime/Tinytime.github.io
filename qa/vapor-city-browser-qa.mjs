@@ -11,7 +11,19 @@ fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
 const pageErrors = [];
+const scriptErrors = [];
 const consoleErrors = [];
+await page.addInitScript(() => {
+  window.__qaScriptErrors = [];
+  window.addEventListener('error', e => {
+    window.__qaScriptErrors.push({
+      message: e.message,
+      filename: e.filename,
+      line: e.lineno,
+      column: e.colno
+    });
+  });
+});
 page.on('pageerror', e => pageErrors.push({ message: e.message, stack: e.stack }));
 page.on('console', m => {
   if (m.type() === 'error') consoleErrors.push({ text: m.text(), location: m.location() });
@@ -19,15 +31,22 @@ page.on('console', m => {
 
 try {
   await page.goto('file://' + html, { waitUntil: 'load', timeout: 60000 });
-  await page.waitForTimeout(1500);
+  await page.waitForTimeout(1200);
   await page.screenshot({ path: path.join(out, 'game-menu-1x.png'), fullPage: true });
 
-  const backToTown = page.getByRole('button', { name: /back to town/i });
-  let navigatedToTown = false;
-  if (await backToTown.count() && await backToTown.first().isVisible()) {
-    await backToTown.first().click({ timeout: 5000 });
-    await page.waitForTimeout(2000);
-    navigatedToTown = true;
+  // Click the exact game menu control; do not infer navigation from button text.
+  const townButton = page.locator('#mTown');
+  const townButtonVisible = await townButton.count() > 0 && await townButton.isVisible();
+  let townClickAttempted = false;
+  let townClickError = null;
+  if (townButtonVisible) {
+    townClickAttempted = true;
+    try {
+      await townButton.click({ timeout: 5000 });
+      await page.waitForTimeout(1800);
+    } catch (e) {
+      townClickError = e.message;
+    }
   }
 
   const worldState = await page.locator('#world').evaluate(el => ({
@@ -49,10 +68,13 @@ try {
   await page.screenshot({ path: path.join(out, 'game-town-1x.png'), fullPage: true });
 
   let galleryOpened = false;
+  let galleryClickError = null;
   if (galleryToggleVisible) {
-    await galleryToggle.click({ timeout: 5000 });
-    await page.waitForTimeout(500);
-    galleryOpened = true;
+    try {
+      await galleryToggle.click({ timeout: 5000 });
+      await page.waitForTimeout(500);
+      galleryOpened = true;
+    } catch (e) { galleryClickError = e.message; }
   }
 
   const galleryCanvas = page.locator('#owNpcGalleryCanvas');
@@ -80,20 +102,25 @@ try {
     await page.screenshot({ path: path.join(out, 'npc-gallery-4x.png'), fullPage: true });
   }
 
+  scriptErrors.push(...await page.evaluate(() => window.__qaScriptErrors || []));
   const report = {
     timestamp: new Date().toISOString(),
     htmlFile: path.basename(html),
     pageTitle: await page.title(),
-    navigatedToTown,
+    townButtonVisible,
+    townClickAttempted,
+    townClickError,
     worldState,
     galleryState,
     galleryToggleVisible,
     galleryOpened,
+    galleryClickError,
     galleryFound: galleryExists,
     canvasMetrics,
+    scriptErrors,
     pageErrors,
     consoleErrors,
-    note: 'Browser smoke test. Canvas summary is sampled, not per-NPC measurement or a visual-quality PASS.'
+    note: 'Browser smoke test. Script error event includes filename/line/column when Chromium provides it. Canvas summary is sampled, not per-NPC measurement or a visual-quality PASS.'
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
