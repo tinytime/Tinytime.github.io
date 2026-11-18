@@ -8540,16 +8540,20 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const polygon=(pts,ramp,stroke=ink,lw=1)=>{
     g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();
     const minX=Math.min(...pts.map(p=>p[0])),maxX=Math.max(...pts.map(p=>p[0]));
-    // Layer 1: guaranteed opaque Base Hex. No gradient or inherited alpha.
-    g.globalAlpha=1;g.globalCompositeOperation='source-over';g.fillStyle=ramp.base;g.fill();
-    // Layer 2: one-pixel left highlight and one-pixel right shadow, clipped
-    // to this exact limb/polygon silhouette. The center always remains Base Hex.
+    // Layer 1: hard-reset the offscreen material pass and fill the exact
+    // closed silhouette with its literal Base Hex at full opacity.
+    g.globalAlpha=1;g.globalCompositeOperation='source-over';g.shadowBlur=0;
+    g.shadowColor='rgba(0,0,0,0)';g.fillStyle=String(ramp.base||'#777777');g.fill('nonzero');
+    // Layer 2: edge tones only. Clip after the base fill so neither tone can
+    // replace the material interior or leak beyond this unchanged silhouette.
     g.save();g.clip();
-    g.fillStyle=ramp.highlight;g.fillRect(Math.floor(minX),Math.floor(Math.min(...pts.map(p=>p[1]))),1,Math.ceil(Math.max(...pts.map(p=>p[1]))-Math.min(...pts.map(p=>p[1]))));
-    g.fillStyle=ramp.shadow;g.fillRect(Math.ceil(maxX)-1,Math.floor(Math.min(...pts.map(p=>p[1]))),1,Math.ceil(Math.max(...pts.map(p=>p[1]))-Math.min(...pts.map(p=>p[1]))));
+    const minY=Math.floor(Math.min(...pts.map(p=>p[1]))),height=Math.ceil(Math.max(...pts.map(p=>p[1]))-Math.min(...pts.map(p=>p[1])));
+    g.globalAlpha=1;g.globalCompositeOperation='source-over';
+    g.fillStyle=String(ramp.highlight||ramp.base||'#777777');g.fillRect(Math.floor(minX),minY,1,height);
+    g.fillStyle=String(ramp.shadow||ramp.base||'#777777');g.fillRect(Math.ceil(maxX)-1,minY,1,height);
     g.restore();
     // Layer 3: internal ink is always last over the material.
-    if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='miter';g.lineCap='square';g.stroke()}
+    if(stroke){g.globalAlpha=1;g.globalCompositeOperation='source-over';g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='miter';g.lineCap='square';g.stroke()}
   };
   const line=(pts,color,width=1)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.strokeStyle=color;g.lineWidth=width;g.lineCap='square';g.lineJoin='miter';g.stroke()};
   const limb=(pts,ramp)=>polygon(pts,ramp,ink,1.15);
@@ -8585,13 +8589,16 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const torso=[[-2+torsoShift,top+1],[2+torsoShift,top+1],[3+torsoShift,top+2],[3+torsoShift,top+7],[2+torsoShift,top+8],[2+torsoShift,top+13],[3+torsoShift,top+14],[3+torsoShift,waistY],[-3+torsoShift,waistY],[-3+torsoShift,top+14],[-2+torsoShift,top+13],[-2+torsoShift,top+8],[-3+torsoShift,top+7],[-3+torsoShift,top+2]];
   // Layer 1: direct opaque torso base. This is deliberately a plain fillRect
   // under the exact stepped path; the magenta canary verifies fillStyle/fillRect.
-  g.save();g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.clip();
-  g.globalAlpha=1;g.globalCompositeOperation='source-over';g.fillStyle=body.base;
-  g.fillRect(-4+torsoShift,top,8,bodyRowsLength(P)+2);
-  // Layer 2: only the outside-most material pixels receive directional tone.
-  g.fillStyle=body.highlight;g.fillRect(-3+torsoShift,top,1,bodyRowsLength(P)+2);
-  g.fillStyle=body.shadow;g.fillRect(3+torsoShift,top,1,bodyRowsLength(P)+2);
-  g.restore();
+  g.save();g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();
+  // Layer 1: fill the torso path itself with the literal Base Hex. No gradient,
+  // no composite tricks, no inherited alpha, and no bounding-box substitute.
+  g.globalAlpha=1;g.globalCompositeOperation='source-over';g.shadowBlur=0;
+  g.fillStyle=String(body.base||P.body||'#777777');g.fill('nonzero');
+  // Layer 2: preserve the base across the interior; shade only its outer edges.
+  g.save();g.clip();g.globalAlpha=1;g.globalCompositeOperation='source-over';
+  g.fillStyle=String(body.highlight||body.base);g.fillRect(-3+torsoShift,top,1,bodyRowsLength(P)+2);
+  g.fillStyle=String(body.shadow||body.base);g.fillRect(3+torsoShift,top,1,bodyRowsLength(P)+2);
+  g.restore();g.restore();
   // Layer 3: internal ink contour is applied after all opaque material fills.
   g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.strokeStyle=ink;g.lineWidth=1.15;g.lineJoin='miter';g.lineCap='square';g.stroke();
   // Keep the sculpted waist indent, but never flood the entire waist with shadow.
@@ -8716,9 +8723,15 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     rim.data[k]=c[0];rim.data[k+1]=c[1];rim.data[k+2]=c[2];rim.data[k+3]=255;
   }
   rimG.putImageData(rim,0,0);
-  // Layer 4: draw the thin exterior rim as an overlay, never as a replacement.
+  // Composite the completed opaque material at full opacity, regardless of
+  // the caller's temporary fade/light state. Preserve its transform and the
+  // existing rim pixels/placement exactly.
+  targetG.save();targetG.globalAlpha=1;targetG.globalCompositeOperation='source-over';
+  targetG.shadowBlur=0;targetG.shadowColor='rgba(0,0,0,0)';
   targetG.drawImage(rimCanvas,sx-24*U,sy-bob-48*U,64*U,64*U);
+  // Layer 4: unchanged exterior rim overlay.
   targetG.drawImage(rimOverlayCanvas,sx-24*U,sy-bob-48*U,64*U,64*U);
+  targetG.restore();
 }
 function bodyRowsLength(P){return P.long?18:16}
 function owCat(x,y,d,tm,pal){
