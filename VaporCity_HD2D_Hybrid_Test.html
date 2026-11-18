@@ -8525,6 +8525,10 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-6;
   const side=dir==='l'||dir==='r',back=dir==='u',f=dir==='l'?-1:1;
   const skin=['#e6b48a','#c98a62','#8a5a3a','#f0c8a0'][((n.x*5+n.y)|0)%4];
+  // Explicit palette test: this NPC is the bright-magenta base-fill canary.
+  if(kind==='mouse')P.body='#FF00FF';
+  if(kind==='runner')P.body='#58FFB0';
+  if(kind==='courier')P.body='#FF7A1A';
   const ink='#141622',body=applyShading(P.body||'#777777'),pants=applyShading(P.pants||'#252535');
   const skinTone=applyShading(skin),hair=applyShading(P.hair||'#211a22'),trim=applyShading(P.trim||'#d8d8d8');
   const step=moving?Math.sin(tm*11+ph*6):0;
@@ -8536,11 +8540,15 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const polygon=(pts,ramp,stroke=ink,lw=1)=>{
     g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();
     const minX=Math.min(...pts.map(p=>p[0])),maxX=Math.max(...pts.map(p=>p[0]));
-    // Opaque material first: never let a narrow gradient stop erase the Base Hex.
+    // Layer 1: guaranteed opaque Base Hex. No gradient or inherited alpha.
     g.globalAlpha=1;g.globalCompositeOperation='source-over';g.fillStyle=ramp.base;g.fill();
-    const grad=g.createLinearGradient(minX,0,maxX||minX+1,0);
-    grad.addColorStop(0,ramp.highlight);grad.addColorStop(.28,ramp.highlight);grad.addColorStop(.40,ramp.base);grad.addColorStop(.60,ramp.base);grad.addColorStop(.74,ramp.shadow);grad.addColorStop(1,ramp.shadow);
-    g.fillStyle=grad;g.fill();
+    // Layer 2: one-pixel left highlight and one-pixel right shadow, clipped
+    // to this exact limb/polygon silhouette. The center always remains Base Hex.
+    g.save();g.clip();
+    g.fillStyle=ramp.highlight;g.fillRect(Math.floor(minX),Math.floor(Math.min(...pts.map(p=>p[1]))),1,Math.ceil(Math.max(...pts.map(p=>p[1]))-Math.min(...pts.map(p=>p[1]))));
+    g.fillStyle=ramp.shadow;g.fillRect(Math.ceil(maxX)-1,Math.floor(Math.min(...pts.map(p=>p[1]))),1,Math.ceil(Math.max(...pts.map(p=>p[1]))-Math.min(...pts.map(p=>p[1]))));
+    g.restore();
+    // Layer 3: internal ink is always last over the material.
     if(stroke){g.strokeStyle=stroke;g.lineWidth=lw;g.lineJoin='miter';g.lineCap='square';g.stroke()}
   };
   const line=(pts,color,width=1)=>{g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.strokeStyle=color;g.lineWidth=width;g.lineCap='square';g.lineJoin='miter';g.stroke()};
@@ -8575,19 +8583,19 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const top=-29-(P.long?2:0),torsoShift=1,hy=top-8;
   const waistY=top+bodyRowsLength(P);
   const torso=[[-2+torsoShift,top+1],[2+torsoShift,top+1],[3+torsoShift,top+2],[3+torsoShift,top+7],[2+torsoShift,top+8],[2+torsoShift,top+13],[3+torsoShift,top+14],[3+torsoShift,waistY],[-3+torsoShift,waistY],[-3+torsoShift,top+14],[-2+torsoShift,top+13],[-2+torsoShift,top+8],[-3+torsoShift,top+7],[-3+torsoShift,top+2]];
-  polygon(torso,body,null,0);
-  // Three-tone fill is clipped to the stepped silhouette, not a bounding box.
+  // Layer 1: direct opaque torso base. This is deliberately a plain fillRect
+  // under the exact stepped path; the magenta canary verifies fillStyle/fillRect.
   g.save();g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.clip();
-  // Preserve a broad, readable Base Hex band between the left highlight and right shadow.
   g.globalAlpha=1;g.globalCompositeOperation='source-over';g.fillStyle=body.base;
   g.fillRect(-4+torsoShift,top,8,bodyRowsLength(P)+2);
-  const torsoGrad=g.createLinearGradient(-3+torsoShift,0,3+torsoShift,0);
-  torsoGrad.addColorStop(0,body.highlight);torsoGrad.addColorStop(.28,body.highlight);torsoGrad.addColorStop(.40,body.base);torsoGrad.addColorStop(.60,body.base);torsoGrad.addColorStop(.74,body.shadow);torsoGrad.addColorStop(1,body.shadow);
-  g.fillStyle=torsoGrad;g.fillRect(-4+torsoShift,top,8,bodyRowsLength(P)+2);g.restore();
-  // Ink contour is applied after the complete opaque three-tone torso fill.
+  // Layer 2: only the outside-most material pixels receive directional tone.
+  g.fillStyle=body.highlight;g.fillRect(-3+torsoShift,top,1,bodyRowsLength(P)+2);
+  g.fillStyle=body.shadow;g.fillRect(3+torsoShift,top,1,bodyRowsLength(P)+2);
+  g.restore();
+  // Layer 3: internal ink contour is applied after all opaque material fills.
   g.beginPath();g.moveTo(torso[0][0],torso[0][1]);torso.slice(1).forEach(p=>g.lineTo(p[0],p[1]));g.closePath();g.strokeStyle=ink;g.lineWidth=1.15;g.lineJoin='miter';g.lineCap='square';g.stroke();
-  // The waist is a separate four-pixel shadow plane, inset on both sides.
-  polygon([[-2+torsoShift,top+8],[2+torsoShift,top+8],[2+torsoShift,top+13],[-2+torsoShift,top+13]],{highlight:body.shadow,base:body.shadow,shadow:body.shadow},null,0);
+  // Keep the sculpted waist indent, but never flood the entire waist with shadow.
+  polygon([[-2+torsoShift,top+8],[2+torsoShift,top+8],[2+torsoShift,top+13],[-2+torsoShift,top+13]],body,null,0);
   line([[-2+torsoShift,top+8],[2+torsoShift,top+8]],ink,1);
   line([[-3+torsoShift,top+4],[-3+torsoShift,top+7],[-2+torsoShift,top+8]],body.highlight,1);
   line([[torsoShift+1,top+9],[torsoShift+1,top+12]],body.shadow,1);
