@@ -8004,7 +8004,7 @@ function owLeanFor(d,nx,ny){const p=owPropOver(nx,ny);if(!p)return 0;const g=OWG
   const gap=d==='d'?g[0]:d==='u'?g[1]:d==='r'?g[2]:g[3];     // walking down you meet the top margin, and so on
   return gap>=6?Math.min(.42,gap/64*.85):0}
 function owSave(){SAVE.ow=Object.assign(SAVE.ow||{},{map:M.id,x:OW.x,y:OW.y,d:OW.d,ret:OW.ret});persist()}
-function owResize(){const r=$('#app').getBoundingClientRect();owW=r.width;owH=r.height;owDpr=Math.min(window.devicePixelRatio||1,2);owc.width=Math.round(owW*owDpr);owc.height=Math.round(owH*owDpr)}
+function owResize(){const r=owc.getBoundingClientRect();owW=owc.clientWidth||r.width;owH=owc.clientHeight||r.height;owDpr=Math.min(window.devicePixelRatio||1,2);owc.width=Math.round(owW*owDpr);owc.height=Math.round(owH*owDpr)}
 function owFree(){const big=['street','spillway','harbor','island'];if(big.includes(M.id)){for(const k of big){if(k===M.id)continue;const o=OWMAPS[k];if(o&&o.baked){try{o.baked.width=o.baked.height=0;if(o.fg&&o.fg.c)o.fg.c.width=o.fg.c.height=0}catch(e){}o.baked=null;o.fg=null;o.lights=null;o.vents=null}}}if(M.hb){for(const k in OWMAPS){const o=OWMAPS[k];if(k!==M.id&&o.hb&&o.baked){try{o.baked.width=o.baked.height=0}catch(e){}o.baked=null;o.lights=null;o.vents=null}}}}
 /* v2.95 MEMORY: the town's pre-drawn map (23-35 MB) is let go while a match is on; it is drawn again (well under a second) on the way back */
 function owRelease(){try{if(typeof M!=='undefined'&&M){if(M.baked){M.baked.width=M.baked.height=0;M.baked=null}if(M.fg&&M.fg.c){M.fg.c.width=M.fg.c.height=0;M.fg=null}}}catch(e){}}
