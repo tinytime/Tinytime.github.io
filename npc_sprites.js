@@ -186,7 +186,7 @@
         });
         const legs=base.legs.map(([x,y,w,h,role])=>{
           const right=side?x>=14:x>=16;
-          const spread=view==='back'?(spec.backLegSpread??spec.legSpread):spec.legSpread;
+          const spread=view==='back'?(spec.backLegSpread??spec.legSpread):view==='side'?(spec.sideLegSpread??spec.legSpread):spec.legSpread;
           const dx=right?(spec.backRightLegX??spec.rightLegX??spread??0):(spec.backLeftLegX??spec.leftLegX??-(spread||0));
           const dy=right?(spec.backRightLegY??spec.rightLegY??0):(spec.backLeftLegY??spec.leftLegY??0);
           const dw=right?(spec.backRightLegW??spec.rightLegW??0):(spec.backLeftLegW??spec.leftLegW??0);
@@ -205,7 +205,7 @@
       trades:makeArchetypeRig({armSpread:1,leftArmY:1,legSpread:2,leftLegW:1,rightLegW:1,sideArmX:-2,sideArmY:1}),
       youth:makeArchetypeRig({armSpread:-1,leftArmY:1,rightArmY:1,leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegY:0,rightLegY:0,leftLegW:-1,rightLegW:-1}),
       performer:makeArchetypeRig({leftArmX:-2,rightArmX:1,leftArmY:-1,rightArmY:1,leftLegX:-1,rightLegX:1,rightLegY:0,sideArmX:3,sideArmY:2}),
-      civic:makeArchetypeRig({armSpread:-1,legSpread:0,backLegSpread:2,backLeftLegW:1,backRightLegW:1,sideArmX:-2,sideArmY:1}),
+      civic:makeArchetypeRig({armSpread:-1,legSpread:0,backLegSpread:2,backLeftLegW:1,backRightLegW:1,sideLegSpread:2,sideArmX:-2,sideArmY:1}),
       elder:makeArchetypeRig({armSpread:-1,leftArmY:2,rightArmY:2,leftArmW:-1,rightArmW:-1,legSpread:-1,leftLegX:-2,rightLegX:-1,leftLegY:2,rightLegY:2,leftLegW:-1,rightLegW:-1,sideArmX:-3,sideArmY:3})
     });
     // Character-level limb silhouettes add stance and shoulder variation within jobs.
