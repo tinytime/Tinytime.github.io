@@ -131,11 +131,11 @@
     reshapeTorsoRows('clinic','front',y=>y>=18?{left:2,right:-2}:{left:0,right:0});
     reshapeTorsoRows('clinic','back',y=>y<=13?{left:-1,right:1}:{left:2,right:-2});
     // Per-civilian contour signatures prevent same-archetype jobs from becoming
-    // palette-only swaps. Values are subtle silhouette edits by shoulder/waist/hem.
+    // palette-only swaps. Each type gets its own cloned mask; archetype templates
+    // remain immutable and are never cumulatively modified.
     const CIV_TORSO_VARIANTS=Object.freeze({
       runner:[-1,0,1],coach:[0,1,0],ref:[1,-1,0],
-      courier:[-1,1,-1],
-      guard:[1,0,-1],
+      courier:[-1,1,-1],guard:[1,0,-1],
       vendor:[-1,-1,1],cook:[1,1,0],
       clinic:[0,-1,1],tech:[1,0,1],hacker:[-1,1,0],
       fisher:[1,-1,1],sailor:[-1,0,-1],slicker:[0,1,1],painter:[1,1,-1],welder:[-1,-1,0],
@@ -143,17 +143,19 @@
       busker:[-1,1,1],dancer:[1,-1,-1],
       broker:[-1,0,0],usher:[0,-1,0],fan:[1,1,1]
     });
-    for (const [civ, [shoulder, waist, hem]] of Object.entries(CIV_TORSO_VARIANTS)) {
-      const archetype=CIV_TO_ARCHETYPE[civ];
-      for (const view of ['front','back','side']) {
-        reshapeTorsoRows(archetype,view,(y,left,right)=>{
-          const band=y<=14?shoulder:y<=20?waist:hem;
-          if (!band) return {left:0,right:0};
-          if (view==='side') return {left:band,right:-band};
-          return {left:-band,right:band};
+    const CIV_TORSO_MASKS=Object.freeze(Object.fromEntries(Object.entries(CIV_TORSO_VARIANTS).map(([civ,variant])=>{
+      const source=ARCHETYPE_TORSO_MASKS[ARCHETYPES[CIV_TO_ARCHETYPE[civ]].torso];
+      const masks={};
+      for(const view of ['front','back','side']){
+        masks[view]=source[view].map(([y,left,right])=>{
+          const band=variant[y<=14?0:y<=20?1:2];
+          if(!band)return [y,left,right];
+          return view==='side'?[y,left+band,right-band]:[y,left-band,right+band];
         });
+        Object.freeze(masks[view]);
       }
-    }
+      return [civ,Object.freeze(masks)];
+    })));
     Object.freeze(ARCHETYPE_TORSO_MASKS);
     
     
@@ -284,7 +286,7 @@
       wait2:{body:'#90caf9',trim:'#e3f2fd',pants:'#1f3b57',hair:'#172333'}
     });
     const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger','pennant','megaphone','rallytowel']);
-    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES };
+    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
   function createGrannyRenderer({OWT,og,artShadow}) {
@@ -466,13 +468,14 @@
   }
 
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
-    const { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
+    const { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
       const archetypeKey=CIV_TO_ARCHETYPE[kind];
       if(!archetypeKey||!ARCHETYPES[archetypeKey]||!CIV[kind])throw new Error('Missing civilian archetype mapping or palette: '+kind);
       const A=ARCHETYPES[archetypeKey],P=Object.assign({},A.palette,CIV[kind]);
+      const civTorsoMasks=CIV_TORSO_MASKS[kind]||ARCHETYPE_TORSO_MASKS[A.torso];
       const headStyle=kind==='fan'?(FAN_VARIANT_HEADS[n.id]||A.head):A.head;
       const qaExcludeProps=!!(qaOptions&&qaOptions.excludeProps);
       if(n.hb&&HB_CIV[kind])Object.assign(P,HB_CIV[kind]);
@@ -616,7 +619,7 @@
       // local shoulder Y=8 maps to grid Y=10, and local waist Y=12 to grid Y=14.
       if(side){
         // Profile torso has a shoulder bulge, narrow waist and hip return.
-        const profileRows=ARCHETYPE_TORSO_MASKS[A.torso].side;
+        const profileRows=civTorsoMasks.side;
         for(const [yy,x1,x2] of profileRows)for(let xx=x1;xx<=x2;xx++)set(xx,yy,'body');
         for(let yy=10;yy<=23;yy++)for(let xx=12;xx<=15;xx++)if(grid[yy][xx]==='body')set(xx,yy,'bodyshade');
         for(let yy=12;yy<=16;yy++)set(18,yy,'bodyhi');
@@ -626,7 +629,7 @@
         // reusable anatomy rules for every non-player civilian archetype.
         // Each role gets its own torso contour while sharing the same Granny-calibrated
         // height and pixel grid. These are silhouette masks, not palette-only variants.
-        const torsoRows=ARCHETYPE_TORSO_MASKS[A.torso][back?'back':'front'];
+        const torsoRows=civTorsoMasks[back?'back':'front'];
         for(const [yy,x1,x2] of torsoRows)for(let xx=x1;xx<=x2;xx++)set(xx,yy,'body');
         // Layered value structure: shadow under the right shoulder and along
         // the right ribcage, with a narrow upper-left highlight to round volume.
