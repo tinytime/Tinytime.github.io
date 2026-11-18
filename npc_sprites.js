@@ -211,10 +211,10 @@
       notebook:['.##','###','##.','###','###'],
       pin:['.#','##'],
       toolroll:['.###.','#####','##.##','#####','#####','#####','#####','.###.'],
-      foamfinger:['..#..','.###.','.###.','.###.','.###.','#####','#####','.###.','.###.','.###.','.###.','.###.','..#..','..#..'],
+      foamfinger:['..#..','..#..','.###.','.###.','.###.','#####','#####','.####','..###','..###','..###','..###','..#..','..#..'],
       pennant:['#....','##...','###..','####.','#####','####.','###..','##...','#....','#....','#....','#....','#....','#....'],
-      megaphone:['..#..','.###.','#####','#####','#####','.###.','..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..'],
-      rallytowel:['#####','####.','###..','##...','#....','##...','###..','####.','#####','####.','###..','##...','#....','.....']
+      megaphone:['.###.','#####','#####','#####','.###.','..##.','..##.','...#.','...#.','...#.','.....','.....','.....','.....'],
+      rallytowel:['#####','#####','####.','#####','#####','####.','#####','#####','#####','####.','#####','#####','#####','#####']
     });
     const PROP_ROLE_COLORS=Object.freeze({
       duffel:'#D8A04D',whistle:'#F5D45C',satchel:'#9A6541',parcel:'#D88A45',
@@ -225,9 +225,9 @@
     });
     const FAN_VARIANT_HEADS=Object.freeze({
       driverA:'cap-profile',fan1:'beanie',fan2:'bucket-hat',fanA:'round-fringe',fanB:'visor',
-      fanC:'newsboy-cap',fanD:'hair-band',gamer1:'hood',hb_denny:'cap-profile',
-      hb_pete:'beanie',hb_shopper:'cowboy-hat',hb_splinter:'round-fringe',hb_wick:'pom-beanie',
-      patient1:'newsboy-cap',r2_saltwife:'hair-band',r2_stack:'cap-profile',
+      fanC:'newsboy-cap',fanD:'hair-band',gamer1:'hood',hb_denny:'hat',
+      hb_pete:'work-cap',hb_shopper:'cowboy-hat',hb_splinter:'visor',hb_wick:'pom-beanie',
+      patient1:'pom-beanie',r2_saltwife:'bucket-hat',r2_stack:'cap-profile',
       regular1:'beanie',shopper1:'cowboy-hat',wait1:'visor',wait2:'newsboy-cap'
     });
     const FAN_VARIANT_PROPS=Object.freeze({
@@ -619,6 +619,16 @@
       for(const [rx,ry,rw,rh,role] of rigParts.arms)put(rx,ry,rw,rh,role);
       // Directional limb masks are table-driven; the same rig is shared while each archetype owns its silhouette data.
       for(const [rx,ry,rw,rh,role] of rigParts.legs)put(rx,ry,rw,rh,role);
+      // Fan gear is held: a short bent forearm bridges the raised hand to the prop.
+      if(kind==='fan'){
+        if(rigView==='front'){
+          put(6,18,1,4,'arm');put(7,20,1,3,'armhi');put(8,21,1,2,'skin');
+        }else if(rigView==='side'){
+          put(22,18,2,4,'arm');put(24,20,2,3,'armhi');put(26,21,1,2,'skin');
+        }else{
+          put(23,18,1,4,'arm');put(24,20,1,3,'armhi');put(25,21,1,2,'skin');
+        }
+      }
       if(P.stripes&&!side&&!back)for(let yy=12;yy<22;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
       if(P.apron&&!back)put(13,16,6,8,'apron');
       if(P.jacket||kind==='courier')for(let yy=12;yy<22;yy++)set(16,yy,'bodyshade');
