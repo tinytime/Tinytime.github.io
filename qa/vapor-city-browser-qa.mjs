@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
+import { createServer } from 'node:http';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = path.join(root, 'VaporCity_HD2D_Hybrid_Test.html');
@@ -44,6 +45,24 @@ const grannyRefGeneratorCheck = {
   error: grannyRefGeneratorRun.stderr || (grannyRefGeneratorRun.status === 0 ? null : 'Granny reference loader is stale')
 };
 
+// Serve the repository over localhost. Chromium blocks Fetch API requests on file:// URLs.
+const server = createServer((req, res) => {
+  let pathname;
+  try { pathname = decodeURIComponent(new URL(req.url, 'http://127.0.0.1').pathname); }
+  catch { res.writeHead(400).end('Bad request'); return; }
+  const target = path.resolve(root, '.' + pathname);
+  if (target !== root && !target.startsWith(root + path.sep)) { res.writeHead(403).end('Forbidden'); return; }
+  fs.readFile(target, (error, data) => {
+    if (error) { res.writeHead(404).end('Not found'); return; }
+    const ext = path.extname(target).toLowerCase();
+    const types = { '.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.json':'application/json', '.css':'text/css', '.mp3':'audio/mpeg', '.png':'image/png', '.jpg':'image/jpeg', '.webp':'image/webp', '.svg':'image/svg+xml' };
+    res.writeHead(200, { 'Content-Type': types[ext] || 'application/octet-stream' });
+    res.end(data);
+  });
+});
+await new Promise((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
+const gameUrl = 'http://127.0.0.1:' + server.address().port + '/VaporCity_HD2D_Hybrid_Test.html';
+
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
 const pageErrors = [];
@@ -66,7 +85,7 @@ page.on('console', m => {
 });
 
 try {
-  await page.goto('file://' + html, { waitUntil: 'load', timeout: 60000 });
+  await page.goto(gameUrl, { waitUntil: 'load', timeout: 60000 });
   await page.waitForTimeout(1200);
   await page.screenshot({ path: path.join(out, 'game-menu-1x.png'), fullPage: true });
 
@@ -345,4 +364,5 @@ try {
   if (!syntaxCheck.ok || !npcInventoryCheck.ok || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
+  await new Promise(resolve => server.close(resolve));
 }
