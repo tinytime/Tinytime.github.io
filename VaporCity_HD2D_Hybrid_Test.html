@@ -8576,7 +8576,7 @@ const PALETTE_ROLES=Object.freeze({
   civic:{skin:['#C98A62','#75452F','#E9B38A'],hair:['#27212A','#100D13','#62536B'],clothing:['#5A3A2A','#2B1C17','#B17A59','#1A1410'],accent:['#FFB02E','#FF2FA8']},
   elder:{skin:['#D6A17F','#996052','#F0C09D'],hair:['#C6CAD5','#55576B','#E8E8F0'],clothing:['#98539F','#43294F','#C27CC0','#2A1A2A'],accent:['#FF2FA8','#FFD0EE']}
 });
-const ARCHETYPE_TORSO_MASKS=Object.freeze({
+const ARCHETYPE_TORSO_MASKS=({
   athletic:{
     front:[[9,10,23],[10,8,25],[11,8,25],[12,9,24],[13,10,23],[14,11,21],[15,12,20],[16,12,19],[17,12,19],[18,11,20],[19,10,22],[20,10,22],[21,10,22],[22,10,22],[23,11,21],[24,12,19]],
     back:[[9,10,23],[10,8,25],[11,8,25],[12,9,24],[13,10,23],[14,11,21],[15,11,21],[16,11,20],[17,11,20],[18,11,20],[19,10,22],[20,10,22],[21,10,22],[22,10,22],[23,11,21],[24,12,19]],
@@ -8630,6 +8630,29 @@ const ARCHETYPE_TORSO_MASKS=Object.freeze({
     side:[[10,11,21],[11,10,21],[12,9,21],[13,9,22],[14,10,22],[15,11,21],[16,12,20],[17,12,20],[18,12,20],[19,11,20],[20,10,21],[21,10,21],[22,11,20],[23,12,19],[24,13,18]]
   }
 });
+function reshapeTorsoRows(archetype, view, transform) {
+  ARCHETYPE_TORSO_MASKS[archetype][view] = ARCHETYPE_TORSO_MASKS[archetype][view].map(([y,left,right]) => {
+    const delta = transform(y, left, right);
+    return [y, left + delta.left, right + delta.right];
+  });
+}
+// Distinguish body types with real contour changes, not palette or props:
+// V-shaped athletic build, narrower forward-leaning courier, heavier civic waist,
+// squared guard shoulders, apron-weighted vendor, asymmetric trades build,
+// compact youth, and stooped/heavier elder.
+for (const view of ['front','back','side']) {
+  reshapeTorsoRows('athletic',view,y=>y<=15?{left:-2,right:2}:y>=18?{left:1,right:-1}:{left:-1,right:1});
+  reshapeTorsoRows('courier',view,y=>view==='side'?{left:1,right:-2}:{left:1,right:-1});
+  reshapeTorsoRows('civic',view,y=>y>=17?{left:-2,right:2}:{left:0,right:1});
+  reshapeTorsoRows('guard',view,y=>y<=16?{left:-2,right:2}:y>=20?{left:1,right:-1}:{left:-1,right:1});
+  reshapeTorsoRows('vendor',view,y=>y<=14?{left:1,right:-1}:y>=17?{left:-2,right:2}:{left:-1,right:1});
+  reshapeTorsoRows('trades',view,y=>y>=13&&y<=22?{left:1,right:-2}:{left:0,right:1});
+  reshapeTorsoRows('youth',view,y=>({left:2,right:-2}));
+  reshapeTorsoRows('elder',view,y=>y<=13?{left:1,right:-1}:y>=15?{left:-2,right:2}:{left:-1,right:1});
+}
+reshapeTorsoRows('clinic','side',y=>y>=13&&y<=21?{left:-1,right:2}:{left:0,right:1});
+Object.freeze(ARCHETYPE_TORSO_MASKS);
+
 
 const BASE_RIG_PARTS=Object.freeze({
   front:{
