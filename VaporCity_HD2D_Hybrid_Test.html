@@ -8531,7 +8531,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const set=(xx,yy,role)=>{if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
   // Head: stepped 10x10 silhouette with a tapered, rounded jaw.
   put(11,1,10,8,'skin');put(12,0,8,10,'skin');
-  // Remove both lower corner pixels and taper the bottom row by one pixel.
+  // Rounded jaw: remove the two lower outside pixels of the front-facing head mask.
+  set(13,9,null);set(18,9,null);
   set(11,8,null);set(20,8,null);set(12,9,null);set(19,9,null);
   put(10,2,1,6,'hair');put(21,2,1,6,'hair');
   put(12,0,8,2,'hair');put(11,1,10,2,'hair');
@@ -8546,6 +8547,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     put(11,0,10,10,'hair');put(13,8,6,1,'hairlight');
   }else{
     put(10,2,2,7,'hair');put(20,2,2,7,'hair');
+    // One-pixel side locks at the requested face-mask coordinates (3,4) and (8,4).
+    set(13,4,'hair');set(18,4,'hair');
     put(14,3,1,2,'hair'); // one-pixel fringe over forehead
     set(14,5,'inkdetail');set(18,5,'inkdetail'); // 1x1 eyes
     set(16,8,'inkdetail'); // 1x1 mouth
@@ -8571,8 +8574,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   }else{
     // Broad shoulders stay exactly 12 pixels wide at local Y=8 (grid Y=10).
     put(10,10,12,14,'body');
-    // Narrow the waist to exactly 10 pixels at local Y=12 (grid Y=14).
-    set(10,14,null);set(21,14,null);
+    // Exact hourglass waist mask: local X 0,1,10,11 are empty
+    // for local rows Y=11..13 (mapped to grid X 10,11,20,21 / Y 13..15).
+    for(let yy=13;yy<=15;yy++)for(const xx of [10,11,20,21])set(xx,yy,null);
   }
   // Relaxed arms in local anatomy coordinates: upper arms fall straight
   // from shoulder Y=8 to Y=10; forearms shift exactly one pixel inward
@@ -8587,7 +8591,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   // Side-profile legs use the 16-wide local grid: back leg anchor X=3,
   // front leg anchor X=5. Each is two pixels thick with exactly one
   // transparent/ink-shadow column (local X=4) between them.
-  if(side){put(10,24,2,13,'legback');put(13,24,2,13,'legfront');}
+  if(side){
+    // Side stride mask: back leg at local X=2, front leg at local X=5;
+    // local X=3 and X=4 remain clear (grid X=11 and X=12).
+    put(10,24,1,13,'legback');put(13,24,2,13,'legfront');
+  }
   else{
     put(11,24,4,9,'pants');put(10,32,4,5,'pants');
     put(18,24,4,9,'pants');put(19,32,4,5,'pants');
@@ -8605,8 +8613,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     for(let xx=13;xx<20;xx++)set(xx,23,'bodyshade');
     // Vertical hem seam keeps the shirt distinct from the separated legs.
     for(let yy=20;yy<=23;yy++)set(16,yy,'bodyshade');
-    // Exactly one dark pixel column between side-view legs.
-    for(let yy=24;yy<37;yy++)set(12,yy,'legshadow');
+    // Keep both requested stride-gap columns empty; no shadow fill is painted here.
+    // (The renderer's outer outline pass supplies edge definition.)
   }
   if(P.scarf&&!back)put(10,10,12,3,'clothhi');
   if(P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
