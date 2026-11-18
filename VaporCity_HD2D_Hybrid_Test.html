@@ -390,7 +390,7 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
 #owNpcGallery{position:absolute;z-index:8;left:10px;right:10px;top:calc(env(safe-area-inset-top,0px) + 174px);padding:10px;background:rgba(10,8,24,.96);border:1px solid #29f2e8;border-radius:10px;box-shadow:0 0 18px rgba(41,242,232,.2)}
 .npcGalleryHead{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#dffcff;font:800 10px system-ui;letter-spacing:.05em;margin-bottom:7px}
 #owNpcGalleryClose{background:#241a30;border:1px solid #765477;color:#fff;border-radius:5px;padding:5px 8px;font:700 10px system-ui}
-#owNpcGalleryCanvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#100f1d}
+.npcGalleryViews{display:flex;gap:6px;justify-content:center;padding:6px 0;margin:4px 0}.npcGalleryViews button{background:#241a30;color:#dffcff;border:1px solid #29f2e8;border-radius:6px;padding:5px 10px;font:800 12px system-ui;cursor:pointer}.npcGalleryViews button[aria-pressed="true"]{background:#14515a;color:#fff}\n#owNpcGalleryCanvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#100f1d}
 .npcGalleryNote{color:#a8a2b8;font:10px system-ui;margin-top:6px}
 @media(prefers-reduced-motion:reduce){#owc{transition:none}}
 </style>
@@ -470,7 +470,7 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
     <canvas id="owc"></canvas>
     <button id="owHybridToggle" type="button" aria-pressed="true">HD-2D PREVIEW: ON</button>
     <button id="owNpcGalleryToggle" type="button" aria-expanded="false">NPC STYLE GALLERY</button>
-    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — GRANNY VOLT BENCHMARK</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><canvas id="owNpcGalleryCanvas" width="960" height="540"></canvas><div class="npcGalleryNote">Six archetypes · front row plus left, right and back views · shared renderer · no map NPCs added</div></div>
+    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — GRANNY VOLT BENCHMARK</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><div class="npcGalleryViews"><button type="button" data-npc-view="d">FRONT</button><button type="button" data-npc-view="l">LEFT</button><button type="button" data-npc-view="r">RIGHT</button><button type="button" data-npc-view="u">BACK</button></div><canvas id="owNpcGalleryCanvas" width="1200" height="360"></canvas><div class="npcGalleryNote">Six archetypes · Granny Volt is front only · isolated style preview</div></div>
     <div id="owBlack" hidden style="position:absolute;inset:0;background:#000;z-index:2"></div>
     <div id="owTop"><b id="owTown">VAPOR CITY</b><span id="owObj"></span></div>
     <button id="owMenu">MENU</button>
@@ -9346,23 +9346,24 @@ setTimeout(()=>{const ro=document.getElementById('mRO');if(!ro||document.getElem
   if(window.CF_TEST){for(const [id,txt,o] of [['mPXgo','TEST: GO TO VAPOR PLAZA',{map:'street',x:15,y:14,d:'u',gates:1,ret:null}],['mPXback','TEST: BACK TO FERRY DOCK',{map:'harbor',x:35,y:39,d:'d',gates:1,ret:null}]]){
     const c=document.createElement('button');c.className='btn';c.id=id;c.textContent=txt;c.onclick=()=>{try{SAVE.ow=Object.assign({},o);persist();owShow()}catch(e){console.error(e)}};row.appendChild(c)}}},0);
 
-window.SG={npcGalleryDraw:canvas=>{
+window.SG={npcGalleryView:'d',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
   c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#100f1d';c.fillRect(0,0,canvas.width,canvas.height);
-  const tests=[['GRANNY','granny'],['MINT','runner'],['COURIER','courier'],['GUARD','guard'],['VENDOR','vendor'],['CLINIC','clinic']];
-  const views=[['FRONT','d'],['LEFT','l'],['RIGHT','r'],['BACK','u'],['LEFT','l'],['RIGHT','r']];
-  const cellW=canvas.width/tests.length,scale=2.05;
-  c.fillStyle='#ffcf8a';c.font='bold 13px system-ui';c.textAlign='left';c.fillText('FRONT VIEWS',10,18);c.fillText('SIDE / BACK VIEWS',10,276);
-  for(let row=0;row<2;row++)tests.forEach((v,i)=>{
-    const cx=i*cellW+cellW/2,baseY=row===0?205:463,view=row===0?'d':views[i][1];
-    c.save();c.translate(cx-53,baseY);c.scale(scale,scale);
-    const n={id:v[1]==='granny'?'granny':'gallery-'+v[1],civ:v[1],x:0,y:0};
-    owCiv(0,0,view,false,n,0,i,c);c.restore();
-    if(i){c.strokeStyle='rgba(116,104,150,.35)';c.lineWidth=1;c.beginPath();c.moveTo(i*cellW,28);c.lineTo(i*cellW,canvas.height-12);c.stroke()}
-    c.fillStyle='#d9d4e8';c.font='bold 17px system-ui';c.textAlign='center';c.fillText(v[0],cx,row===0?246:505);
-    if(row===1){c.fillStyle='#8debf0';c.font='bold 10px system-ui';c.fillText(views[i][0],cx,523)}
+  const tests=[['GRANNY','granny'],['MINT','runner'],['ORANGE','courier'],['GUARD','guard'],['VENDOR','vendor'],['CLINIC','clinic']];
+  const cellW=canvas.width/tests.length,scale=3,baseY=294,sourceW=64,sourceH=96,labelY=322;
+  const scratch=owCiv._galleryScratch||(owCiv._galleryScratch=document.createElement('canvas'));scratch.width=sourceW;scratch.height=sourceH;
+  const sc=scratch.getContext('2d');sc.imageSmoothingEnabled=false;const view=window.SG.npcGalleryView||'d';
+  tests.forEach((v,i)=>{
+    const cx=i*cellW+cellW/2,n={id:v[1]==='granny'?'granny':'gallery-'+v[1],civ:v[1],x:0,y:0};
+    sc.setTransform(1,0,0,1,0,0);sc.clearRect(0,0,sourceW,sourceH);
+    owCiv(0,0,v[1]==='granny'?'d':view,false,n,0,i,sc);
+    const sprite=v[1]==='granny'?scratch:(owCiv._gridCanvas||scratch);
+    c.imageSmoothingEnabled=false;c.drawImage(sprite,cx-sourceW*scale/2,baseY-sourceH*scale,sourceW*scale,sourceH*scale);
+    c.fillStyle='#d9d4e8';c.font='bold 16px system-ui';c.textAlign='center';c.fillText(v[0],cx,labelY);
+    if(v[1]==='granny'){c.fillStyle='#8debf0';c.font='12px system-ui';c.fillText('front only',cx,labelY+17)}
+    c.strokeStyle='rgba(116,104,150,.28)';c.lineWidth=1;c.beginPath();c.moveTo((i+1)*cellW,24);c.lineTo((i+1)*cellW,canvas.height-18);c.stroke();
   });
-},eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;const miss=[];for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))miss.push(pal.key.slice(0,12)+'|'+vk);let am=0;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))am++;return {mode:G.mode,on:R.on,inited:R.inited,need:R.need.length,n0:R.need.n0,miss:miss.slice(0,8),nmiss:miss.length,artMissing:am,artReady:artReady(),carryReady:carryReady(),jobs:R.jobs.length,q:R.q.length,busy:R.busy.size,fail:R.fail}},WSEG,CLUSTERS,camfix:o=>{window.__camFix=o},enterPlaycall:()=>enterPlaycall(),cam:()=>cam,LogoRenderer,LOGOS,LOGO_ORDER,registerLogo,logoId,logoSVG,LOGO_GLYPH,muState:()=>MU,lf:()=>ART.lf||[],SIDER:SIDER,RIGF,RIG,runInit,artDraw:(g,o)=>artDraw(g,o),uniFor:p=>uniFor(p),lookOf:d=>lookOf(d),playerPx:(...a)=>playerPx(...a),ART,artNumber:(...a)=>artNumber(...a),say:(a,b,c,d)=>say(a,b,c,d),setX:v=>{bannerExtra=v},popup:(a,b,c,d)=>popup(a,b,c,d),WALLY:()=>WALLY,sideVis:()=>sideVis,setPS:v=>{PSCALE=v;SPR.clear()},owLeave,owHide,P:(x,y)=>P(x,y),SND,OW,owShow,M:()=>M,owPlace,owTalk,owGot,owSay,renderPerson,lookOf,callPlay,endGame,get G(){return G},get F(){return F},get PLAY(){return PLAY},input,SAVE:()=>SAVE,startMatch,CREWS,PLAYS,throwTo,doJuke,doStiff,doStyle,startPlay,setSpeed:v=>{SPEED=v},resetSave:()=>{SAVE=freshSave();persist()},renderTeam,openGear,renderSquad,screens,renderMenu};
+}}},eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;const miss=[];for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))miss.push(pal.key.slice(0,12)+'|'+vk);let am=0;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))am++;return {mode:G.mode,on:R.on,inited:R.inited,need:R.need.length,n0:R.need.n0,miss:miss.slice(0,8),nmiss:miss.length,artMissing:am,artReady:artReady(),carryReady:carryReady(),jobs:R.jobs.length,q:R.q.length,busy:R.busy.size,fail:R.fail}},WSEG,CLUSTERS,camfix:o=>{window.__camFix=o},enterPlaycall:()=>enterPlaycall(),cam:()=>cam,LogoRenderer,LOGOS,LOGO_ORDER,registerLogo,logoId,logoSVG,LOGO_GLYPH,muState:()=>MU,lf:()=>ART.lf||[],SIDER:SIDER,RIGF,RIG,runInit,artDraw:(g,o)=>artDraw(g,o),uniFor:p=>uniFor(p),lookOf:d=>lookOf(d),playerPx:(...a)=>playerPx(...a),ART,artNumber:(...a)=>artNumber(...a),say:(a,b,c,d)=>say(a,b,c,d),setX:v=>{bannerExtra=v},popup:(a,b,c,d)=>popup(a,b,c,d),WALLY:()=>WALLY,sideVis:()=>sideVis,setPS:v=>{PSCALE=v;SPR.clear()},owLeave,owHide,P:(x,y)=>P(x,y),SND,OW,owShow,M:()=>M,owPlace,owTalk,owGot,owSay,renderPerson,lookOf,callPlay,endGame,get G(){return G},get F(){return F},get PLAY(){return PLAY},input,SAVE:()=>SAVE,startMatch,CREWS,PLAYS,throwTo,doJuke,doStiff,doStyle,startPlay,setSpeed:v=>{SPEED=v},resetSave:()=>{SAVE=freshSave();persist()},renderTeam,openGear,renderSquad,screens,renderMenu};
 })();
 </script>
 
@@ -9406,6 +9407,8 @@ window.SG={npcGalleryDraw:canvas=>{
   button.addEventListener('click',()=>set(panel.hidden));
   if(close)close.addEventListener('click',()=>set(false));
   window.addEventListener('resize',()=>{if(!panel.hidden)drawGallery()});
+  panel.querySelectorAll('[data-npc-view]').forEach(btn=>btn.addEventListener('click',()=>{window.SG.npcGalleryView=btn.dataset.npcView;panel.querySelectorAll('[data-npc-view]').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));drawGallery()}));
+  panel.querySelector('[data-npc-view="d"]')?.setAttribute('aria-pressed','true');
 })();
 /* HYBRID TEST CONTROL — toggles a subtle perspective treatment on the original map canvas. */
 (function(){
