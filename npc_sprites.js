@@ -15,6 +15,14 @@
       broker:'civic',usher:'civic',fan:'civic',
       granny:'elder'
     });
+    const CIV_HEAD_STYLES=Object.freeze({
+      runner:'round-fringe',coach:'visor',ref:'cap-profile',courier:'cap-profile',
+      guard:'helmet',vendor:'hat',cook:'chef-hat',
+      clinic:'hair-band',tech:'visor',hacker:'hood',
+      fisher:'work-cap',sailor:'newsboy-cap',slicker:'bucket-hat',painter:'beanie',welder:'visor',
+      kid:'hood',kid2:'pom-beanie',mouse:'mouse-ears',
+      busker:'beanie',dancer:'hair-band',broker:'newsboy-cap',usher:'cap-profile'
+    });
     const ARCHETYPES=Object.freeze({
       athletic:{head:'round-fringe',torso:'athletic',palette:{body:'#58ffb0',trim:'#ffffff',pants:'#0e2a24',hair:'#1a1410'},prop:{
         front:{type:'whistle',hand:'right'},side:{type:'whistle',hand:'right'},back:{type:'jersey-mark'}}},
@@ -333,7 +341,7 @@
       wait2:{body:'#90caf9',trim:'#e3f2fd',pants:'#1f3b57',hair:'#172333'}
     });
     const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger','pennant','megaphone','rallytowel']);
-    return { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES };
+    return { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
   function createGrannyRenderer({OWT,og,artShadow}) {
@@ -515,7 +523,7 @@
   }
 
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
-    const { CIV_TO_ARCHETYPE, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
+    const { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, ARCHETYPE_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
@@ -523,7 +531,7 @@
       if(!archetypeKey||!ARCHETYPES[archetypeKey]||!CIV[kind])throw new Error('Missing civilian archetype mapping or palette: '+kind);
       const A=ARCHETYPES[archetypeKey],P=Object.assign({},A.palette,CIV[kind]);
       const civTorsoMasks=CIV_TORSO_MASKS[kind]||ARCHETYPE_TORSO_MASKS[A.torso];
-      const headStyle=kind==='fan'?(FAN_VARIANT_HEADS[n.id]||A.head):A.head;
+      const headStyle=kind==='fan'?(FAN_VARIANT_HEADS[n.id]||A.head):(CIV_HEAD_STYLES[kind]||A.head);
       const qaExcludeProps=!!(qaOptions&&qaOptions.excludeProps);
       if(n.hb&&HB_CIV[kind])Object.assign(P,HB_CIV[kind]);
       if(kind==='fan'&&FAN_VARIANT_PALETTES[n.id])Object.assign(P,FAN_VARIANT_PALETTES[n.id]);
@@ -630,6 +638,14 @@
         else if(headStyle==='pom-beanie'){put(11,0,10,3,'cloth');put(15,0,2,1,'clothhi')}
       }
       if(headStyle==='round-fringe'){put(11,0,10,2,'hair');put(13,2,6,1,'hairlight');put(14,3,4,1,'hair')}
+      if(headStyle==='chef-hat'){
+        put(11,0,4,2,'clothhi');put(15,0,4,2,'cloth');put(19,0,4,2,'clothhi');
+        put(10,2,12,1,'cloth');
+      }
+      if(headStyle==='mouse-ears'){
+        put(8,0,4,4,'hair');put(20,0,4,4,'hair');
+        set(9,0,'hairlight');set(22,0,'hairlight');
+      }
       if(headStyle==='helmet')put(10,0,12,4,'helm');
       else if(headStyle==='hood'){put(10,1,12,3,'clothhi');put(10,3,2,6,'cloth');put(20,3,2,6,'cloth')}
       else if(headStyle==='cap-profile'){put(10,1,12,2,'cloth');put(18,3,5,1,'clothhi')}
