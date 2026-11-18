@@ -8495,7 +8495,7 @@ function applyShading(baseHex){
     return '#'+v.map(n=>Math.round((n+q)*255).toString(16).padStart(2,'0')).join('');
   };
   const base=m?baseHex:'#777777';
-  const SHADOW_LIGHTNESS_FACTOR=.50; // Exact 50% darker shadow; strong, unmistakable value separation.
+  const SHADOW_LIGHTNESS_FACTOR=.60; // Shadow is 40% darker than the base lightness.
   return {highlight:toHex(l*1.20),base,shadow:toHex(l*SHADOW_LIGHTNESS_FACTOR)};
 }
 function owPixelTone(hex,delta){
@@ -8521,8 +8521,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const skin=['#e6b48a','#c98a62','#8a5a3a','#f0c8a0'][((n.x*5+n.y)|0)%4];
   const darkenHex=(hex,factor)=>{const m=/^#([0-9a-f]{6})$/i.exec(hex||'');if(!m)return hex;const v=parseInt(m[1],16);return '#'+[v>>16,(v>>8)&255,v&255].map(c=>Math.max(0,Math.min(255,Math.round(c*factor))).toString(16).padStart(2,'0')).join('')};
   const body=applyShading(P.body||'#777777'),pants=applyShading(P.pants||'#252535');
-  body.shadow=darkenHex(body.base||P.body||'#777777',.50);
-  pants.shadow=darkenHex(pants.base||P.pants||'#252535',.50);
+  body.shadow=darkenHex(body.base||P.body||'#777777',.60);
+  pants.shadow=darkenHex(pants.base||P.pants||'#252535',.60);
   const skinRamp=applyShading(skin),hair=applyShading(P.hair||'#211a22');
   const ink='#141622',N=32,H=48,SCALE=2;
   // Higher-density fixed pixel canvas: 32 columns x 48 rows.
@@ -8538,6 +8538,8 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   put(12,0,8,2,'hair');put(11,1,10,2,'hair');
   // One-pixel sideburns frame both sides of the face.
   put(10,5,1,4,'hair');put(21,5,1,4,'hair');
+  // Visible one-pixel sideburn tips on both sides of the front-facing face.
+  if(!side&&!back){set(11,7,'hair');set(20,7,'hair');}
   if(side){
     put(10,2,2,7,'hair');
     put(11,8,1,1,'hair'); // one-pixel sideburn
@@ -8578,33 +8580,36 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
       [18,10,21],[19,10,21],[20,10,21],[21,10,21],[22,10,21],[23,10,21]
     ];
     for(const [yy,x1,x2] of torsoRows)for(let xx=x1;xx<=x2;xx++)set(xx,yy,'body');
+    // Stark, continuous shadow block across the entire right half of the torso.
+    for(let yy=10;yy<=23;yy++)for(let xx=16;xx<=21;xx++)if(grid[yy][xx]==='body')set(xx,yy,'bodyshade');
     // Narrow two-pixel neck joins the head to the sloped shoulder line.
     put(15,9,2,3,'skin');
   }
-  // Arms: narrow, articulated pixel paths with a one-cell ink gap from the torso.
+  // Arms: two-pixel-wide articulated masks, elbows and forearms shift inward.
   if(side){
-    put(17,10,2,4,'arm');put(16,14,2,5,'arm');
+    put(17,10,2,4,'arm');put(16,14,2,7,'arm');
   }else{
-    // Upper arms descend from shoulder level; forearms angle inward at the elbow.
+    // Upper arms fall vertically; at the elbow each forearm moves one pixel toward the torso.
     for(let yy=10;yy<=13;yy++){set(8,yy,'arm');set(23,yy,'arm');}
-    for(let yy=14;yy<=17;yy++){set(9,yy,'arm');set(22,yy,'arm');}
-    set(9,18,'arm');set(22,18,'arm'); // relaxed hands
+    for(let yy=14;yy<=20;yy++){set(9,yy,'arm');set(22,yy,'arm');}
+    // Hands settle beside the hips rather than projecting outward.
+    set(9,21,'arm');set(22,21,'arm');
   }
   // Side-profile legs use the 16-wide local grid: back leg anchor X=3,
   // front leg anchor X=5. Each is two pixels thick with exactly one
   // transparent/ink-shadow column (local X=4) between them.
   if(side){
     // Side stride mask: back leg at local X=2, front leg at local X=5.
-    put(10,24,1,13,'legback');put(13,24,2,13,'legfront');
+    put(10,24,1,13,'legback');put(12,24,2,13,'legfront');
   }else{
     // Front A-stance: thighs begin apart, then calves angle outward at the knees.
-    for(let yy=24;yy<=29;yy++){set(11,yy,'pants');set(16,yy,'pants');}
-    for(let yy=30;yy<=36;yy++){set(10,yy,'pants');set(17,yy,'pants');}
-    // Add a second pixel of volume to the upper thighs and calves without boxing them in.
-    for(let yy=24;yy<=29;yy++){set(12,yy,'pants');set(15,yy,'pants');}
-    for(let yy=30;yy<=36;yy++){set(9,yy,'pants');set(18,yy,'pants');}
+    // Two-pixel thighs run straight to the knee; calves shift outward one pixel.
+    for(let yy=24;yy<=29;yy++){set(11,yy,'pants');set(12,yy,'pants');set(16,yy,'pants');set(17,yy,'pants');}
+    // A one-pixel dark knee crease marks the exact point of each outward bend.
+    set(10,30,'legshadow');set(18,30,'legshadow');
+    for(let yy=31;yy<=36;yy++){set(10,yy,'pants');set(11,yy,'pants');set(17,yy,'pants');set(18,yy,'pants');}
   }
-  if(side){put(9,37,4,3,'shoe');put(13,37,5,3,'shoefront');}
+  if(side){put(9,37,4,3,'shoe');put(14,37,5,3,'shoefront');}
   else{put(9,37,7,3,'shoe');put(18,37,7,3,'shoe');}
   if(P.stripes&&!side&&!back)for(let yy=12;yy<22;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
   if(P.apron&&!back)put(13,16,6,8,'apron');
