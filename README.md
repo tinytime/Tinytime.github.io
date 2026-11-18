@@ -19,3 +19,5 @@ The files in `qa/golden-npcs/` are comparison fixtures, not an art-quality score
 
 - Torso-diversity QA rasterizes the renderer's native torso masks at 64x96, rather than cropping arbitrary rows from full-body sprites. All 40 archetype/direction masks must be non-empty. This caught and fixed an inverted youth side-torso transform; the corrected audit reports 180 comparisons with maximum torso IoU 0.813 and at least 16 distinct edge rows in every pair.
 - Fan review now records 20 distinct rendered RGBA images and 10 distinct alpha silhouettes; the headwear set includes cap, beanie, bucket-hat, visor, cowboy-hat, pom-beanie, newsboy, hair-band, hood, and fringe families, alongside a football foam-finger prop. These counts are technical diversity evidence, not final art approval.
+
+- Atlas comparison now covers all six pixel-pack NPC overrides. fanA/fanB are compared using a simulated horizontal pose while their actual live up-facing direction is explicitly verified to fall back to the four-direction owCiv renderer. The six atlas-vs-renderer height ratios must remain within 0.80–1.20.
