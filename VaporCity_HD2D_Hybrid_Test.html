@@ -8553,7 +8553,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     "................","................","...AABBBBBBAA...","...AABBBBBBAA...",
     "...AABBBBBBAA...","...AABBBBBBAA...","...AABBBBBBAA...","...AABBBBBBAA...",
     "....AABBBBAA....","....AABBBBAA....","....AABBBBAA....","....AABBBBAA....",
-    "......BBBB......","......BBBB......","...PP.PP........","...PP.PP........",
+    ".....BBBBBB.....",".....BBBBBB.....","...PP.PP........","...PP.PP........",
     "....PP....PP....","....PP....PP....","....PP....PP....","....PP....PP....",
     "....PP....PP....","....PP....PP....","..PP...PP.......","..PP...PP.......",
     "..PP...PP.......","..PP...PP.......","..PPP..PPP......","................"
@@ -8564,7 +8564,7 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const put=(x0,y0,w,h,ch)=>{for(let yy=y0;yy<y0+h;yy++)for(let xx=x0;xx<x0+w;xx++)npcGrid[yy][xx]=ch};
     // A true profile with two-pixel limbs on both sides. Each visible limb
     // uses a base/shadow pair rather than a single-pixel stick silhouette.
-    put(7,6,3,12,'B');put(10,8,2,9,'A');
+    put(7,6,4,12,'B');put(11,8,2,9,'A');
     put(5,10,2,7,'S');put(7,18,3,1,'B');
     put(5,19,2,11,'S');put(8,19,2,10,'P');
     put(9,28,4,2,'P'); // shoe points forward
@@ -8594,6 +8594,30 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const occupied=(gx,gy)=>gx>=0&&gx<16&&gy>=0&&gy<32&&npcGrid[gy][gx]!=='.';
   // Opaque material pass: no outlines or rim effects can erase the Base Hex fills.
   for(let gy=0;gy<32;gy++)for(let gx=0;gx<16;gx++){const color=gridColor(gx,gy);if(color){g.fillStyle=color;g.fillRect(gridX+gx,gridY+gy,1,1)}}
+  // Explicit chunky volume pass using filled rectangles, never stroked limb lines.
+  if(!side){
+    // Six-pixel torso: rightmost three pixels are the deep Shadow Hex.
+    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+8,gridY+16,3,2);
+    // Right arm is a solid two-pixel-wide Shadow Hex.
+    g.fillRect(gridX+10,gridY+6,2,6);
+    // Two-pixel thighs and outward-stepped two-pixel calves.
+    g.fillStyle=pants.base||P.pants||'#252535';
+    g.fillRect(gridX+4,gridY+20,2,3);
+    g.fillRect(gridX+10,gridY+20,2,3);
+    g.fillStyle=pants.shadow||body.shadow||'#20212a';
+    g.fillRect(gridX+3,gridY+23,2,3);
+    g.fillRect(gridX+11,gridY+23,2,3);
+    // Entire right leg receives the deep shadow.
+    g.fillRect(gridX+10,gridY+20,2,3);
+    g.fillRect(gridX+11,gridY+23,2,3);
+  }else{
+    // Four-pixel profile torso: rear half Shadow Hex, front half Base Hex.
+    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+7,gridY+6,2,12);
+    g.fillStyle=body.base||P.body||'#777777';g.fillRect(gridX+9,gridY+6,2,12);
+    // Exposed profile arm and leg are both two-pixel filled rectangles.
+    g.fillStyle=body.shadow||gridBase;g.fillRect(gridX+11,gridY+8,2,9);
+    g.fillStyle=pants.shadow||'#20212a';g.fillRect(gridX+5,gridY+19,2,11);
+  }
   // One-pixel #141622 outline around every occupied pixel; limbs retain a
   // two-pixel solid core plus their one-pixel outside contour.
   for(let gy=0;gy<32;gy++)for(let gx=0;gx<16;gx++)if(occupied(gx,gy)){
