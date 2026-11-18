@@ -34,26 +34,6 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run game browser diagnostics
         run: node qa/vapor-city-browser-qa.mjs
-      - name: Seed initial NPC golden snapshots
-        if: success()
-        run: |
-          BRANCH_HEAD="$(git ls-remote origin "refs/heads/${GITHUB_REF_NAME}" | cut -f1)"
-          if [ "$BRANCH_HEAD" != "$(git rev-parse HEAD)" ]; then
-            echo "Skipping golden seed from stale workflow commit"
-            exit 0
-          fi
-          if [ ! -d qa/golden-npcs ] || [ -z "$(find qa/golden-npcs -maxdepth 1 -name '*.png' -print -quit)" ]; then
-            mkdir -p qa/golden-npcs
-            cp qa-output/npc-snapshots/*.png qa/golden-npcs/
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add qa/golden-npcs
-            git commit -m "Add initial NPC golden PNG snapshots"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
-            for file in qa-output/npc-snapshots/*.png; do
-              cmp "$file" "qa/golden-npcs/$(basename "$file")"
-            done
-          fi
       - name: Refresh NPC golden snapshots after intentional art updates
         if: success()
         run: |
