@@ -624,6 +624,55 @@ try {
     }))
   };
 
+  // Verify each fan's accessory in the final rendered PNG, not only in the
+  // declared role map. Front-facing fan captures place the prop in the left
+  // hand region (native 64x96 grid: x 0-15, y 20-59).
+  const fanVariantRenderedPropAudit = await page.evaluate(async fans => {
+    const { FAN_VARIANT_PROPS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS } = window.NPC_SPRITES.TABLES;
+    const rows = [];
+    for (const fan of fans) {
+      const role = FAN_VARIANT_PROPS[fan.id] || 'foamfinger';
+      const expectedColor = PROP_ROLE_COLORS[role] || null;
+      const image = new Image();
+      image.src = fan.dataUrl;
+      await image.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(image, 0, 0);
+      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      const rgb = expectedColor ? expectedColor.match(/[0-9a-f]{2}/gi).map(v => parseInt(v, 16)) : null;
+      let propColorPixels = 0;
+      // Prop footprint is isolated from the torso palette so a jersey color
+      // cannot accidentally satisfy the rendered-accessory assertion.
+      for (let y = 20; y < Math.min(60, canvas.height); y++) {
+        for (let x = 0; x < Math.min(16, canvas.width); x++) {
+          const offset = (y * canvas.width + x) * 4;
+          if (pixels[offset + 3] > 0 && pixels[offset] === rgb?.[0] &&
+              pixels[offset + 1] === rgb?.[1] && pixels[offset + 2] === rgb?.[2]) propColorPixels++;
+        }
+      }
+      rows.push({
+        id: fan.id, expectedRole: role, expectedColor,
+        expectedShapeRows: ARCHETYPE_PROP_SHAPES[role] || null,
+        propRegion: { xMin: 0, xMaxExclusive: Math.min(16, canvas.width), yMin: 20, yMaxExclusive: Math.min(60, canvas.height) },
+        renderedPropColorPixels: propColorPixels,
+        pass: !!expectedColor && !!ARCHETYPE_PROP_SHAPES[role] && propColorPixels >= 4
+      });
+    }
+    return rows;
+  }, fanVariantData);
+  const fanVariantRenderedPropCheck = {
+    pass: fanVariantRenderedPropAudit.length === 20 && fanVariantRenderedPropAudit.every(item => item.pass) &&
+      new Set(fanVariantRenderedPropAudit.map(item => item.expectedRole)).size === 4,
+    checked: fanVariantRenderedPropAudit.length,
+    rolesDetected: [...new Set(fanVariantRenderedPropAudit.filter(item => item.pass).map(item => item.expectedRole))].sort(),
+    minimumRenderedPropColorPixels: 4,
+    evidence: 'Exact accessory-role color pixels are counted inside the isolated hand/prop region of each decoded final PNG; the declared role and shape are reported alongside the measured pixels.',
+    fans: fanVariantRenderedPropAudit
+  };
+
   const archetypeSilhouettes = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcMeasureArchetypeMasks !== 'function') throw new Error('Archetype silhouette hook is unavailable');
     return window.SG.npcMeasureArchetypeMasks({ excludeProps: true });
@@ -1073,7 +1122,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
