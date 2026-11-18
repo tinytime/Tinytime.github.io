@@ -8547,16 +8547,27 @@ const ARCHETYPES=Object.freeze({
   civic:{head:'cap-profile',torso:'sweater',palette:{body:'#5a3a2a',trim:'#ffb02e',pants:'#1a1410',hair:'#8a8a90'},prop:{type:'clipboard',hand:'left'},paletteLimit:12},
   elder:{head:'bun',torso:'long-scrubs',palette:{body:'#9a4a9a',trim:'#ffd0ee',pants:'#2a1a2a',hair:'#e8e8f0'},prop:{type:'umbrella',hand:'right'},paletteLimit:12}
 });
+const PALETTE_ROLES=Object.freeze({
+  athletic:{skin:['#E8B78F','#A96F54','#F7D4B5'],hair:['#241A16','#100C0B','#5B4032'],clothing:['#58FFB0','#174B39','#B8FFE0','#172A26'],accent:['#FF2FA8','#FFD23A']},
+  courier:{skin:['#DDA47D','#8D5A42','#F2C6A4'],hair:['#211713','#0E0B0A','#574033'],clothing:['#E8742A','#713817','#FFB16B','#15202E'],accent:['#27E0FF','#D88A45']},
+  guard:{skin:['#C98A62','#75452F','#E9B38A'],hair:['#171A20','#090B10','#454B58'],clothing:['#1B2430','#0C121B','#536174','#10161E'],accent:['#65788D','#00D7FF']},
+  vendor:{skin:['#E0AD87','#986447','#F3CFB2'],hair:['#241A16','#100B09','#5A4033'],clothing:['#2A2F3A','#151923','#697384','#1A1D26'],accent:['#F2F2F8','#FFBD3D']},
+  clinic:{skin:['#DDA47D','#8D5A42','#F2C6A4'],hair:['#2A1A20','#100A0E','#68434E'],clothing:['#E8F4F8','#A6C8D4','#FFFFFF','#1A2433'],accent:['#27E0FF','#F4F6FF']},
+  trades:{skin:['#C98A62','#75452F','#E9B38A'],hair:['#211A1A','#0D0B0B','#574444'],clothing:['#286C8B','#163A4B','#72B4CF','#27313B'],accent:['#D9A23B','#AEB8C2']},
+  youth:{skin:['#E8B78F','#A96F54','#F7D4B5'],hair:['#241A16','#100C0B','#5B4032'],clothing:['#27E0FF','#0B3B4B','#9CF3FF','#1A2433'],accent:['#FF2FA8','#FFD23A']},
+  performer:{skin:['#DDA47D','#8D5A42','#F2C6A4'],hair:['#241A16','#100C0B','#5B4032'],clothing:['#3A5A8A','#1A2C4B','#83A7E0','#1A1A26'],accent:['#FF7A1A','#9B5CFF']},
+  civic:{skin:['#C98A62','#75452F','#E9B38A'],hair:['#27212A','#100D13','#62536B'],clothing:['#5A3A2A','#2B1C17','#B17A59','#1A1410'],accent:['#FFB02E','#FF2FA8']},
+  elder:{skin:['#D6A17F','#996052','#F0C09D'],hair:['#C6CAD5','#55576B','#E8E8F0'],clothing:['#98539F','#43294F','#C27CC0','#2A1A2A'],accent:['#FF2FA8','#FFD0EE']}
+});
 function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const kind=n.civ;
   if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
   const archetypeKey=CIV_TO_ARCHETYPE[kind];
   if(!archetypeKey||!ARCHETYPES[archetypeKey]||!CIV[kind])throw new Error('Missing civilian archetype mapping or palette: '+kind);
-  const A=ARCHETYPES[archetypeKey];
-  const P=Object.assign({},A.palette,CIV[kind]);
+  const A=ARCHETYPES[archetypeKey],P=Object.assign({},A.palette,CIV[kind]);
   if(n.hb&&HB_CIV[kind])Object.assign(P,HB_CIV[kind]);
-  if(kind==='fan'&&n.hb){P.body=HB_FANC[((n.x*7+n.y*3)|0)%HB_FANC.length];P.pants=['#26333C','#2b3036','#1f2a30'][(n.x+n.y)%3]}
-  else if(kind==='fan'){P.body=CIV_FANC[((n.x*7+n.y*3)|0)%CIV_FANC.length];P.pants=['#1a2433','#241a2e','#10202a'][(n.x+n.y)%3]}
+  const palette=PALETTE_ROLES[archetypeKey];
+  if(!palette||palette.skin.length!==3||palette.hair.length!==3||palette.clothing.length!==4||palette.accent.length!==2)throw new Error('Invalid 12-slot palette roles for '+archetypeKey);
   // Match Granny's measured umbrella-excluded body height (125 source rows);
   // civilian bodies occupy 80 visible source rows on the same 64x96 grid.
   // Use one shared scale for every civilian rather than per-role size multipliers.
@@ -8564,13 +8575,11 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   const d=typeof dir==='number'?['d','u','l','r'][Math.max(0,Math.min(3,dir|0))]:(dir||'d').toLowerCase();
   const dirCode=d==='down'?'d':d==='up'?'u':d==='left'?'l':d==='right'?'r':d;
   const side=dirCode==='l'||dirCode==='r',back=dirCode==='u';
-  const skin=['#e6b48a','#c98a62','#8a5a3a','#f0c8a0'][((n.x*5+n.y)|0)%4];
-  const darkenHex=(hex,factor)=>{const m=/^#([0-9a-f]{6})$/i.exec(hex||'');if(!m)return hex;const v=parseInt(m[1],16);return '#'+[v>>16,(v>>8)&255,v&255].map(c=>Math.max(0,Math.min(255,Math.round(c*factor))).toString(16).padStart(2,'0')).join('')};
-  const body=applyShading(P.body||'#777777'),pants=applyShading(P.pants||'#252535');
-  body.shadow=darkenHex(body.base||P.body||'#777777',.60);
-  pants.shadow=darkenHex(pants.base||P.pants||'#252535',.60);
-  const skinRamp=applyShading(skin),hair=applyShading(P.hair||'#211a22');
-  const ink='#141622',N=64,H=96,SCALE=1;
+  const skin=palette.skin[0],skinShade=palette.skin[1],skinLight=palette.skin[2];
+  const hairBase=palette.hair[0],hairShade=palette.hair[1],hairLight=palette.hair[2];
+  const clothBase=palette.clothing[0],clothShade=palette.clothing[1],clothLight=palette.clothing[2],clothLower=palette.clothing[3];
+  const accentGarment=palette.accent[0],accentProp=palette.accent[1];
+  const ink=hairShade,N=64,H=96,SCALE=1;
   // Higher-density fixed pixel canvas: 32 columns x 48 rows.
   const grid=Array.from({length:H},()=>Array(N).fill(null));
   const put=(x0,y0,w,h,role)=>{for(let yy=y0*2;yy<(y0+h)*2;yy++)for(let xx=x0*2;xx<(x0+w)*2;xx++)if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
@@ -8824,40 +8833,17 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
   if(side&&dirCode==='l')for(let yy=0;yy<H;yy++)grid[yy].reverse();
   const colorFor=(role,xx,yy)=>{
     switch(role){
-      case 'skin':return skinRamp.base||skin;
-      case 'skinshade':return skinRamp.shadow||darkenHex(skin,.7);
-      case 'hair':return hair.base||P.hair||'#211a22';
-      case 'hairlight':return hair.highlight||hair.base||P.hair||'#211a22';
-      case 'body':return body.base||P.body||'#777777';
-      case 'bodyshade':return body.shadow||darkenHex(P.body||'#777777',.5);
-      case 'bodyhi':return body.highlight||body.base||P.body||'#777777';
-      case 'arm':return body.base||P.body||'#777777';
-      case 'armhi':return body.highlight||body.base||P.body||'#777777';
-      case 'armshade':return body.shadow||darkenHex(body.base||P.body||'#777777',.62);
-      case 'pants':return xx<32?(pants.base||P.pants):(pants.shadow||pants.base||P.pants);
-      case 'legback':return pants.shadow||darkenHex(P.pants||'#252535',.5);
-      case 'legfront':return pants.base||P.pants||'#252535';
-      case 'legshadow':return ink;
-      case 'shoe':return pants.base||P.pants||'#252535';
-      case 'shoefront':return pants.base||P.pants||'#252535';
-      case 'cloth':return body.base||P.body||'#777777';
-      case 'clothhi':return body.highlight||body.base||P.body||'#777777';
-      case 'helm':return '#18202b';
-      case 'apron':return applyShading(P.apron).base||P.apron;
-      case 'pack':return applyShading(P.pack).base||P.pack;
-      case 'umb':return applyShading(P.umb).base||P.umb;
-      case 'umbhi':return applyShading(P.umb).highlight||P.umb;
-      case 'key':return '#ff7a1a';
-      case 'baton':return '#00d7ff';
-      case 'bowl':return '#ffbd3d';
-      case 'parcel':return '#d88a45';
-      case 'medkit':return '#f4f6ff';
-      case 'whistle':return '#ffd23a';
-      case 'wrench':return '#aeb8c2';
-      case 'backpack':return '#58ffb0';
-      case 'guitar':return '#9b5cff';
-      case 'clipboard':return '#ff2fa8';
-      case 'inkdetail':return '#101018';
+      case 'skin':return skin;
+      case 'skinshade':return skinShade;
+      case 'hair':return hairBase;
+      case 'hairlight':return hairLight;
+      case 'body':case 'arm':case 'cloth':return clothBase;
+      case 'bodyshade':case 'armshade':case 'legback':return clothShade;
+      case 'bodyhi':case 'armhi':case 'clothhi':return clothLight;
+      case 'pants':case 'legfront':case 'shoe':case 'shoefront':return clothLower;
+      case 'legshadow':case 'inkdetail':return ink;
+      case 'helm':case 'apron':case 'pack':case 'umb':case 'umbhi':return accentGarment;
+      case 'key':case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':return accentProp;
       default:return null;
     }
   };
@@ -8881,6 +8867,9 @@ function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride){
     const gapX=dirCode==='l'?38:24;
     for(let yy=48;yy<=72;yy++)finalGrid[yy][gapX]=null;
   }
+  // Palette audit is measured from the final native pixel grid, including its outline.
+  const uniquePaletteColors=[...new Set(finalGrid.flat().filter(color=>color!==null))];
+  owCiv._lastPaletteMetrics={civ:kind,archetype:archetypeKey,uniqueColorCount:uniquePaletteColors.length,colors:uniquePaletteColors};
   // Keep a uniform dark outline; do not apply directional rim tints.
   const spriteCanvas=owCiv._gridCanvas||(owCiv._gridCanvas=document.createElement('canvas'));
   if(spriteCanvas.width!==N*SCALE)spriteCanvas.width=N*SCALE;
@@ -9573,7 +9562,9 @@ function measureNpcArchetypeMasks(){
   }
   return results;
 }
-window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMasks:()=>measureNpcArchetypeMasks(),npcGrannyRef:()=>GRANNY_REF,npcGalleryView:'all',npcGalleryDraw:canvas=>{
+window.SG={npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMasks:()=>measureNpcArchetypeMasks(),npcGrannyRef:()=>GRANNY_REF,
+  npcPaletteAudit:()=>Object.keys(CIV).map(civ=>{const canvas=document.createElement('canvas');canvas.width=64;canvas.height=96;const n={id:'qa-'+civ,civ,x:0,y:0};owCiv(0,0,'d',false,n,0,0,canvas.getContext('2d'));return Object.assign({},owCiv._lastPaletteMetrics)}),
+  npcGalleryView:'all',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
   c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#777982';c.fillRect(0,0,canvas.width,canvas.height);
   const tests=[['GRANNY','VOLT','granny'],['MINT','RUNNER','runner'],['ORANGE','COURIER','courier'],['CITY','GUARD','guard'],['STREET','VENDOR','vendor'],['FIELD','CLINIC','clinic']];
