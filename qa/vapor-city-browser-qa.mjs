@@ -398,6 +398,18 @@ try {
     const {ARCHETYPES,ARCHETYPE_PROP_LAYERS,ARCHETYPE_PROP_SHAPES,PROP_ROLE_COLORS,ARCHETYPE_ACCESSORY_ROLES}=window.NPC_SPRITES.TABLES;
     const names=Object.keys(ARCHETYPES);
     const frontTypes=names.map(name=>({archetype:name,type:ARCHETYPES[name].prop.front.type}));
+    frontTypes.push({archetype:'fan-variant-profile',type:ARCHETYPE_PROP_LAYERS.fan?.types?.front || null});
+    const fanVariantPropProfile = {
+      types: ARCHETYPE_PROP_LAYERS.fan?.types || null,
+      layers: Object.fromEntries(['front','side','back'].map(view => [view, ARCHETYPE_PROP_LAYERS.fan?.[view] || []])),
+      shape: ARCHETYPE_PROP_SHAPES.foamfinger || null,
+      color: PROP_ROLE_COLORS.foamfinger || null,
+      valid: !!ARCHETYPE_PROP_LAYERS.fan &&
+        ['front','side','back'].every(view => ARCHETYPE_PROP_LAYERS.fan.types[view] === 'foam-finger' &&
+          ARCHETYPE_PROP_LAYERS.fan[view]?.some(layer => layer[4] === 'foamfinger')) &&
+        !!ARCHETYPE_PROP_SHAPES.foamfinger && !!PROP_ROLE_COLORS.foamfinger &&
+        ARCHETYPE_ACCESSORY_ROLES.has('foamfinger')
+    };
     const shapeRows=Object.entries(ARCHETYPE_PROP_SHAPES).map(([role,rows])=>{
       const filled=rows.join('').replace(/\./g,'').length,area=rows.length*rows[0].length;
       return {role,rows,signature:rows.join('/'),color:PROP_ROLE_COLORS[role]||null,fillRatio:filled/area};
@@ -416,8 +428,8 @@ try {
     const missingRoleColors=shapeRows.filter(item=>!item.color);
     const rectangularShapes=shapeRows.filter(item=>item.fillRatio>=0.999999).map(item=>item.role);
     const nonRectangularShapeCount=shapeRows.length-rectangularShapes.length;
-    return {pass:duplicateTypes.length===0&&duplicateColors.length===0&&duplicateShapes.length===0&&missingRoleColors.length===0&&nonRectangularShapeCount>=14,
-      archetypeCount:names.length,frontTypes,propColors,shapeRows,footprintCount:footprints.length,
+    return {pass:duplicateTypes.length===0&&duplicateColors.length===0&&duplicateShapes.length===0&&missingRoleColors.length===0&&nonRectangularShapeCount>=14&&fanVariantPropProfile.valid,
+      archetypeCount:names.length,frontTypes,fanVariantPropProfile,propColors,shapeRows,footprintCount:footprints.length,
       duplicateTypes,duplicateColors,duplicateShapes,missingRoleColors,rectangularShapes,nonRectangularShapeCount,footprints};
   });
 
