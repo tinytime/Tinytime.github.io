@@ -9,6 +9,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = path.join(root, 'VaporCity_HD2D_Hybrid_Test.html');
 const out = path.join(root, 'qa-output');
 const sourceCommitSha = process.env.GITHUB_SHA || null;
+const excludedCatNpcIds = ['cat', 'gcat1', 'gcat2', 'gcat3'];
 fs.mkdirSync(out, { recursive: true });
 
 const htmlSource = fs.readFileSync(html, 'utf8');
@@ -839,6 +840,7 @@ try {
     renderedPropShapeAudit,
     silhouetteQualityCheck,
     liveArchetypeUsageAudit,
+    excludedCatNpcIds,
     standardNpcScope: { standardInScopeCount: npcInventoryData.standardInScopeCount, referenceBaselineNpcIds: npcInventoryData.referenceBaselineNpcIds, outOfScopeCount: npcInventoryData.outOfScopeNpcIds.length },
     worldState,
     galleryState,
