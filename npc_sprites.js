@@ -1406,25 +1406,39 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[44,56],[56,56],[55,66],[45,66]],'#E7E3D7',ink,1);
       ell(50,61,2,2,'#C64C3E',null);
       line([[36,93],[64,93]],'#C64C3E',1.6);
-      // Whistle lanyard wraps the neck; card hand raised overhead on the right.
+      // Rear view: the official's anatomical left arm stays raised (viewer-left from behind).
       line([[46,50],[50,62],[55,50]],'#C5A34D',1.5);
       ell(50,64,2.2,2.8,'#C5A34D',ink,1);
-      path([[61,55],[67,52],[70,41],[73,28],[79,25],[83,30],[78,47],[72,66],[66,72]],shirt);
-      path([[72,36],[78,33],[80,23],[88,22],[89,40],[78,43]],skin);
-      path([[75,14],[88,14],[88,33],[75,33]],'#E8BE45',ink,1.6);
-      line([[78,18],[85,18]],'#FFF0A7',1);
-      path([[30,54],[38,56],[34,77],[31,92],[24,91],[25,72]],shirt);
-      path([[24,88],[32,89],[33,97],[27,100],[22,95]],skin);
+      path([[39,55],[33,52],[29,42],[26,31],[20,28],[16,33],[22,49],[29,67],[35,72]],shirt);
+      path([[27,36],[21,33],[19,23],[11,22],[10,40],[21,43]],skin);
+      path([[8,12],[27,12],[27,37],[8,37]],'#E8BE45',ink,1.7);
+      line([[12,17],[23,17]],'#FFF0A7',1.3);
+      line([[17,22],[17,30]],'#C64C3E',2);
+      ell(17,33,1.5,1.5,'#C64C3E',null);
+      // Fingers overlap the lower card edge so the grip reads at native scale.
+      path([[18,34],[26,34],[29,40],[25,44],[17,40]],skin,ink,1.1);
+      line([[20,36],[25,37]],'#754633',1);
+      path([[62,55],[68,57],[72,77],[69,92],[63,92],[61,72]],shirt);
+      path([[61,88],[69,89],[70,97],[64,100],[59,95]],skin);
     }else if(side){
       // Side-facing raised arm and card remain a clear official silhouette.
-      path([[38,51],[48,48],[61,52],[68,61],[66,92],[59,98],[36,98],[33,75]],shirt);
-      for(const x of [41,51,61])line([[x,53],[x-1,94]],'#27313A',2.8);
-      path([[61,56],[67,54],[71,42],[74,29],[80,26],[84,31],[79,49],[73,67],[66,73]],shirt);
-      path([[73,37],[79,34],[81,24],[89,23],[90,41],[79,44]],skin);
-      path([[76,15],[90,15],[90,34],[76,34]],'#E8BE45',ink,1.5);
-      line([[79,19],[87,19]],'#FFF0A7',1);
-      path([[34,57],[41,58],[40,80],[34,92],[28,91],[29,72]],shirt);
-      path([[28,88],[35,89],[36,97],[30,100],[25,95]],skin);
+      // Narrow, offset torso planes make the profile read as a real side view.
+      path([[43,51],[50,48],[58,52],[62,61],[61,91],[57,98],[40,98],[39,76]],shirt);
+      line([[48,53],[47,93]],'#27313A',2.6);
+      line([[55,55],[55,91]],'#27313A',1.8);
+      // Left hand is the raised hand in both profiles. The mirrored left-facing
+      // render places it on the opposite screen edge without changing anatomy.
+      path([[40,56],[35,53],[31,42],[27,31],[21,28],[17,33],[23,49],[30,67],[36,73]],shirt);
+      path([[28,36],[22,33],[20,23],[12,22],[11,40],[22,43]],skin);
+      path([[9,13],[28,13],[28,37],[9,37]],'#E8BE45',ink,1.7);
+      line([[13,18],[24,18]],'#FFF0A7',1.2);
+      line([[18,22],[18,30]],'#C64C3E',2);
+      ell(18,33,1.5,1.5,'#C64C3E',null);
+      path([[19,34],[27,34],[30,40],[26,44],[18,40]],skin,ink,1.1);
+      line([[21,36],[26,37]],'#754633',1);
+      // Opposite arm hangs naturally behind the narrowed torso.
+      path([[58,58],[65,60],[69,80],[66,92],[60,92],[59,75]],shirt);
+      path([[59,89],[66,90],[68,98],[62,101],[57,96]],skin);
       line([[46,63],[50,73],[54,63]],'#C5A34D',1.4);ell(50,75,2.2,2.7,'#C5A34D',ink,1);
     }else{
       // Front stripes are broad enough to survive native 64x96 downsampling.
@@ -1437,8 +1451,13 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[25,89],[33,89],[34,98],[28,101],[23,96]],skin);
       path([[62,54],[68,52],[71,41],[74,27],[80,24],[84,30],[79,48],[73,66],[66,72]],shirt);
       path([[73,27],[79,24],[81,14],[89,13],[90,31],[79,34]],skin);
-      path([[76,13],[90,13],[90,32],[76,32]],'#E8BE45',ink,1.6);
-      line([[79,17],[87,17]],'#FFF0A7',1);
+      path([[73,10],[93,10],[93,37],[73,37]],'#E8BE45',ink,1.8);
+      line([[77,15],[89,15]],'#FFF0A7',1.3);
+      line([[83,20],[83,29]],'#C64C3E',2);
+      ell(83,33,1.7,1.7,'#C64C3E',null);
+      // The hand is drawn over the card's lower edge to show a firm grip.
+      path([[74,29],[82,30],[85,36],[81,41],[73,37]],skin,ink,1.1);
+      line([[76,32],[82,33]],'#754633',1);
       // Gold whistle and lanyard, centered over the shirt stripes.
       line([[45,51],[50,65],[55,51]],'#C5A34D',1.6);
       ell(50,67,2.5,3,'#C5A34D',ink,1);
@@ -1453,7 +1472,15 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         ell(44,31,1.25,1.7,ink,null);ell(56,31,1.25,1.7,ink,null);
         line([[49,34],[47,38],[52,38]],'#80513D',1);
         line([[46,42],[54,42]],'#704333',1.1);
-      }else{line([[43,22],[44,38]],'#A9A59A',1);line([[57,22],[56,38]],'#A9A59A',1);}
+      }else{
+        // Rear hair is a deliberate dark cropped mass under the sweatband,
+        // with short textured locks at the nape—not exposed skin or pale streaks.
+        path([[38,23],[40,16],[46,13],[55,13],[62,18],[64,27],[62,36],[57,42],[43,42],[38,36]],'#30282A',ink,1.2);
+        line([[42,31],[44,38]],'#4A3938',1.1);
+        line([[48,32],[49,40]],'#4A3938',1.1);
+        line([[56,31],[55,39]],'#4A3938',1.1);
+        path([[41,37],[45,41],[48,39],[51,42],[55,39],[59,40],[57,43],[43,43]],'#272126',ink,.8);
+      }
       // Slim black sweatband with a small white official mark.
       path([[36,23],[42,17],[58,17],[65,23],[63,27],[37,27]],'#28252A',ink,1.2);
       line([[43,20],[57,20]],'#E8E3D7',1);
