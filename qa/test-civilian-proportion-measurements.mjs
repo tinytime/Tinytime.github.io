@@ -58,6 +58,10 @@ profileShoulder.directions.left.shoulderRight.y=52;
 assert.ok(validateLandmarkRecord(profileShoulder,'profile-shoulder').some(x=>x.includes('profile shoulder points')));
 
 const actualManifest=loadManifest();
+for(const id of ['usher','cook','courier','runner','coach','referee']){
+ const record=actualManifest.characters[id];
+ assert.deepEqual(validateLandmarkRecord({id,...record},id),[],id+' source annotation validation');
+}
 const actualReport=buildMeasurementReport(actualManifest);
 assert.equal(actualReport.sourceAnnotatedCandidateCount,6);
 assert.equal(actualReport.pendingCount,6);
@@ -65,7 +69,6 @@ for(const id of ['usher','cook','courier','runner','coach','referee']){
  const record=actualManifest.characters[id];
  assert.equal(record.status,'source_annotated',id+' candidate status');
  assert.equal(Object.keys(record.directions).length,4,id+' direction count');
- assert.deepEqual(validateLandmarkRecord({id,...record},id),[],id+' source annotation validation');
  const candidate=measureLandmarkRecord({id,...record});
  assert.equal(candidate.status,'source_annotated',id+' candidate result status');
  assert.equal(Object.keys(candidate.directions).length,4,id+' measured direction count');
