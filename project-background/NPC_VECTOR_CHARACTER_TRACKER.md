@@ -39,6 +39,16 @@ The first review batch is three characters total. Once all three are built and i
 
 The project owner approved the first batch (Usher, Cook, Courier) on 2026-11-19 and authorized the next three-character group. Runner, Coach, and Referee are built and have passed targeted internal QA. Latest combined run #452 tested exact source `4eafc657fa9ee15db3b70f3c64a76280d4add0a6`; artifact `14562025835` was inspected. Runner's side-profile torso front hem was narrowed; collar/bib placement remains on the forward chest plane in both mirrored views; front view unchanged. All three remain NOT APPROVED pending Claude comparative review and owner acceptance. The standard town screenshot does not explicitly spawn Coach or Referee, so it is scene-regression evidence rather than character-specific live-town proof.
 
+
+
+## Expanded six-civilian comparative review — 2026-11-19
+
+The owner has requested a single full comparative review of all six completed vector civilians, not only the second batch. The review package is [Claude full six-civilian review](../qa-artifacts/six-civilian-full-review/README.md). It explicitly provides the live renderer source **[npc_sprites.js](../npc_sprites.js)** (underscore; authoritative file), pinned to renderer source commit `4eafc657fa9ee15db3b70f3c64a76280d4add0a6`, plus first-batch and latest second-batch QA evidence.
+
+Claude's deliverables: individual score/verdict and required/optional fixes for Usher, Cook, Courier, Runner, Coach and Referee; a six-character comparative ranking; and a technically actionable Vapor City Civilian Vector Build Standard derived from the strengths and failure patterns of these six. The standard must speed up future production without imposing a shared body/template or sacrificing bespoke identities.
+
+Status is unchanged: Usher, Cook and Courier remain APPROVED BY OWNER. Runner, Coach and Referee remain BUILT — TARGETED INTERNAL QA PASSED — NOT APPROVED. The remaining 20 remain ON HOLD until Claude's review is evaluated, the owner approves any corrections and the owner approves the reusable build standard. No golden snapshots were refreshed or approved. The review package is prepared in GitHub; it has not been transmitted to Claude through an external channel.
+
 ## Full civilian roster
 
 All other designs remain unapproved until their own design and review are complete.
