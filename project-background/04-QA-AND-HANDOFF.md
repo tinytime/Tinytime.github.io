@@ -407,3 +407,8 @@ Added `qa/build-five-civilian-review-sheet.mjs` and wired it into `.github/workf
 - The generator expects and packages 20 native 64×96 images (five civilians × four directions) enlarged 4×. Direct 28×42 captures remain only the existing 12 for Runner/Coach/Referee; no direct game-scale capture has yet been added for Usher/Cook/Courier.
 - The Actions log confirms the diagnostics job still fails. Existing report failures remain global civilian-type silhouette overlap and unapproved golden snapshots; 180 audio 404s remain. No snapshots were refreshed or approved.
 - **Visual evidence boundary:** the artifact is available, but the PNGs have not been human-visually inspected in this pass. Contact-sheet generation is not a visual verdict. All five remain NOT APPROVED; Runner remains outside this review round; remaining 20 remain ON HOLD.
+
+
+## Five-civilian game-scale coverage expansion — 2026-11-19
+
+Commit `c1d8d75aceeef0c9a689c2f8c40ae88909c55ada` expands `npcRenderGameScaleSnapshots()` from 12 captures (Runner/Coach/Referee) to 20 direct `owCiv` captures for Usher, Cook, Courier, Coach and Referee, four directions each, at 28×42. The QA audit now asserts all 20 unique pairs and all five names explicitly. First verification is [run #463](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178), testing that exact commit. Treat the expanded coverage as implemented but not verified until the run report and artifact confirm 20/20. The earlier [run #461 artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/44600405554/artifacts/14566568903) verifies contact-sheet packaging only and contains no expanded five-character direct game-scale evidence.
