@@ -648,3 +648,10 @@ The fixture suite includes two disconnected components and an interior hole; it 
 ## Contour topology follow-up — 2026-11-19
 
 The latest helper filters inner hole loops by winding and retains every disconnected outer component. This prevents interior voids from being incorrectly added as anatomical appendages while still preserving separate visible prop fragments. Exact row-span alpha masks remain untouched in the candidate JSON. The nine-fixture local test suite passed; applying the updated contour helper to Run #555 again yields body contour IoU 0.9964/0.9961/0.9954/0.9975 and visible umbrella contour IoU 1.0 in all directions. This is a local artifact calculation, not a fresh Actions run.
+
+
+## Granny contour topology follow-up — implementation (2026-11-19)
+
+A further edge case was identified: tracing only the largest outer loop can drop detached body/prop fragments, while tracing outer loops alone fills transparent holes. The helper now returns all outer components and interior holes separately. The capture stores body components in `bodyPolygon`/`bodyAppendagePolygons`, body cutouts in `bodyMaskHolePolygons`, visible umbrella components in `visiblePropPolygons`, and visible-prop cutouts in `visiblePropMaskHolePolygons`. Fit diagnostics subtract holes before comparing with exact alpha row spans. Manual body and full-prop candidates remain preserved for audit.
+
+The fixture suite now covers disconnected components and an interior hole, with exact mask reconstruction expected. The new helper, tests and capture integration are committed but remain unverified by a fresh Actions run/artifact. Run #555 remains the latest browser-tested and visually inspected artifact. Granny remains `reference_only`.
