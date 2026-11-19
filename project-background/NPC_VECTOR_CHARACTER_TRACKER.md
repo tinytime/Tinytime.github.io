@@ -504,7 +504,7 @@ The Run #552 artifact's exact alpha masks were used to establish a non-gating po
 
 The current capture implementation retains the old hand-transcribed body polygon/appendages as `manualBodyPolygonCandidate` and replaces the active candidate `bodyPolygon` with an outer contour traced from the exact umbrella-excluded renderer alpha mask. Profiles are inverse-transformed back into local coordinates. The semantic overlay displays the derived contour in red and the manual candidate in magenta. This is still a candidate, not a verified measurement.
 
-Local eight-fixture tests pass. Applied to Run #555's actual artifact, the derived contour matches the body alpha mask at IoU 0.9964 front, 0.9961 back, 0.9954 left and 0.9975 right (recall 1.0). Fresh Actions verification is pending. This method is specific to Granny's renderer pass; do not generalize to other NPCs without confirming their body/prop layer semantics.
+Local nine-fixture tests pass. Applied to Run #555's actual artifact, the derived contour matches the body alpha mask at IoU 0.9964 front, 0.9961 back, 0.9954 left and 0.9975 right (recall 1.0). Fresh Actions verification is pending. This method is specific to Granny's renderer pass; do not generalize to other NPCs without confirming their body/prop layer semantics.
 
 
 ## Visible-only umbrella contour — 2026-11-19
@@ -512,12 +512,12 @@ Local eight-fixture tests pass. Applied to Run #555's actual artifact, the deriv
 The output now keeps full manual umbrella geometry in `manualPropPolygonCandidate` and separate visible-only contours in `visiblePropPolygons`, traced from exact exposed prop alpha. Local comparison against Run #555 gives visible contour IoU 1.0 in all four directions. The full manual prop candidate covers 81.5–82.2% of visible umbrella pixels; the remaining hidden/visible boundary needs second review. This is a diagnostic candidate, not approved prop geometry. Fresh Actions verification pending.
 
 
-The latest contour helper now preserves every disconnected visible prop component. Its eight-fixture suite covers this behavior; fresh Actions verification remains pending.
+The latest contour helper now preserves every disconnected visible prop component. Its nine-fixture suite covers disconnected components and interior-hole handling; fresh Actions verification remains pending.
 
 
 ## Multi-component mask contour follow-up — 2026-11-19
 
-The Granny mask contour helper now retains every disconnected outer component. Body loops are split between the primary `bodyPolygon` and additional `bodyAppendagePolygons`; all visible umbrella loops are retained in `visiblePropPolygons`. Manual body/prop candidates remain preserved for audit. A new fixture verifies two disconnected components. Latest implementation is committed but awaits fresh Actions evidence and visual inspection; Run #555 remains the latest verified browser artifact. No semantic promotion or approval change.
+The Granny mask contour helper now retains every disconnected outer component. Outer body loops are split between the primary `bodyPolygon` and additional `bodyAppendagePolygons`; interior hole loops are excluded; all visible umbrella outer loops are retained in `visiblePropPolygons`. Manual body/prop candidates remain preserved for audit. A new fixture verifies two disconnected components. Latest implementation is committed but awaits fresh Actions evidence and visual inspection; Run #555 remains the latest verified browser artifact. No semantic promotion or approval change.
 
 
 ## Contour topology validation — 2026-11-19
