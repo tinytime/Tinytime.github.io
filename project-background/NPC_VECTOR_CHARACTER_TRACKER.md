@@ -498,3 +498,10 @@ A diagnostic rasterized comparison of hand-authored polygons against exact Run #
 ## Granny mask-fit diagnostic baseline — 2026-11-19
 
 The Run #552 artifact's exact alpha masks were used to establish a non-gating polygon-fit diagnostic. The reusable helper/test and capture integration are committed in `qa/granny-mask-fit.mjs`, `qa/test-granny-mask-fit.mjs`, and `qa/build-granny-semantic-overlay.mjs`. Initial body IoU/precision/recall: front 0.786/0.817/0.954; back 0.786/0.817/0.954; left 0.645/0.852/0.727; right 0.644/0.844/0.731. Visible umbrella coverage: front/back 0.822; left 0.815; right 0.816. Side body candidates need substantial refinement; prop coverage is incomplete at some visible edges. These are diagnostic metrics, not hard gates or approval scores. Helper fixture tests passed locally; fresh Actions verification is pending. Granny remains `reference_only`.
+
+
+## Pixel-derived Granny body contour candidate — 2026-11-19
+
+The current capture implementation retains the old hand-transcribed body polygon/appendages as `manualBodyPolygonCandidate` and replaces the active candidate `bodyPolygon` with an outer contour traced from the exact umbrella-excluded renderer alpha mask. Profiles are inverse-transformed back into local coordinates. The semantic overlay displays the derived contour in red and the manual candidate in magenta. This is still a candidate, not a verified measurement.
+
+Local six-fixture tests pass. Applied to Run #555's actual artifact, the derived contour matches the body alpha mask at IoU 0.9964 front, 0.9961 back, 0.9954 left and 0.9975 right (recall 1.0). Fresh Actions verification is pending. This method is specific to Granny's renderer pass; do not generalize to other NPCs without confirming their body/prop layer semantics.
