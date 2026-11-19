@@ -344,6 +344,9 @@
     });
     // Individual civilian prop layouts replace repeated archetype-level tools.
     const CIV_PROP_LAYERS=Object.freeze({
+      runner:{types:{front:'no-held-prop',side:'no-held-prop',back:'no-held-prop'},front:[],side:[],back:[]},
+      coach:{types:{front:'clipboard',side:'clipboard',back:'coach-board'},front:[[23,17,3,7,'clipboard']],side:[[24,16,3,7,'clipboard']],back:[[13,14,6,4,'clipboard']]},
+      ref:{types:{front:'whistle',side:'whistle',back:'whistle'},front:[[22,18,2,2,'whistle']],side:[[18,18,2,2,'whistle']],back:[[7,18,2,2,'whistle']]},
       fisher:{types:{front:'fishnet',side:'fishnet',back:'net-roll'},front:[[23,16,3,8,'fishnet']],side:[[25,16,3,8,'fishnet']],back:[[25,17,4,8,'toolroll']]},
       welder:{types:{front:'welding-torch',side:'welding-torch',back:'weld-cylinder'},front:[[23,16,3,7,'weldingtorch']],side:[[24,15,3,7,'weldingtorch']],back:[[25,16,4,9,'toolroll']]},
       sailor:{types:{front:'rope-coil',side:'rope-coil',back:'sailor-seam'},front:[[23,17,3,5,'ropecoil']],side:[[24,16,3,5,'ropecoil']],back:[[12,15,8,3,'clipboard']]},
@@ -958,7 +961,7 @@
       if(P.scarf&&!back){if(side)put(16,10,3,3,'clothhi');else put(10,10,12,3,'clothhi');}
       if(!qaExcludeProps&&P.pack&&(back||side))put(side?19:9,14,3,9,'pack');
       if(!qaExcludeProps&&P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
-      if(!qaExcludeProps&&P.keys){if(side)put(15,28,3,2,'key');else put(4,29,24,2,'key');}
+      if(!qaExcludeProps&&P.keys){if(side||back)put(15,28,2,3,'key');else put(22,24,2,3,'key');}
       // Props are explicit per-archetype/per-direction layers; no shared prop footprint is inferred.
       const propSpec=kind==='fan'?ARCHETYPE_PROP_LAYERS.fan:(CIV_PROP_LAYERS[kind]||ARCHETYPE_PROP_LAYERS[archetypeKey]);
       const declaredPropType=propSpec&&propSpec.types&&propSpec.types[rigView];
@@ -970,7 +973,7 @@
         ? [[rigView==='front'?1:rigView==='side'?27:26,12,5,14,fanPropRole]]
         : propSpec[rigView];
       // Bridge the wrist to the occupation-specific tool before painting it.
-      const heldPropKinds=new Set(['fisher','welder','sailor','painter','slicker','cook','vendor','dancer','busker']);
+      const heldPropKinds=new Set(['coach','ref','fisher','welder','sailor','painter','slicker','cook','vendor','dancer','busker']);
       if(!qaExcludeProps&&heldPropKinds.has(kind)){
         if(rigView==='front'){put(21,17,2,4,'arm');put(22,19,2,2,'skin');}
         else if(rigView==='side'){put(20,17,3,3,'arm');put(22,18,2,2,'skin');}
