@@ -864,7 +864,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     opts=opts||{}; const g=ctx, scale=OWT/36*.28;
     const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2, sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
     const back=dir==='u', side=dir==='l'||dir==='r', flip=dir==='l';
-    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-137);
+    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
     if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
     const ink='#171725', skin='#B97855';
     const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
@@ -951,19 +951,19 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         [40,45,50,55,60].forEach(x=>line([[x,20],[x+1,39]],'#59404A',1));
       }
       // Tall soft toque: pleated crown, rolled band, small offset fold.
-      path([[37,22],[38,11],[42,6],[47,8],[50,4],[54,8],[59,6],[63,12],[63,23]],'#F8F3E8',ink,1.7);
-      line([[41,10],[42,21]],'#C8BDAA',1.1);line([[49,8],[49,21]],'#C8BDAA',1.1);line([[57,9],[58,21]],'#C8BDAA',1.1);
-      path([[36,21],[64,21],[65,26],[35,26]],'#D8CBB7',ink,1.3);
-      line([[38,23],[62,23]],'#FFFDF4',1.1);
-      if(!back) line([[49,22],[52,22]],'#B95B3C',1.5);
+      path([[37,28],[38,17],[42,12],[47,14],[50,10],[54,14],[59,12],[63,18],[63,29]],'#F8F3E8',ink,1.7);
+      line([[41,16],[42,27]],'#C8BDAA',1.1);line([[49,14],[49,27]],'#C8BDAA',1.1);line([[57,15],[58,27]],'#C8BDAA',1.1);
+      path([[36,27],[64,27],[65,32],[35,32]],'#D8CBB7',ink,1.3);
+      line([[38,29],[62,29]],'#FFFDF4',1.1);
+      if(!back) line([[49,28],[52,28]],'#B95B3C',1.5);
     }else{
       ell(50,31,12,15,'#30242A',ink,1.7);
       ell(55,31,9,13,grad(45,18,64,44,[[0,'#E5B08B'],[1,skin]]),ink,1.4);
       path([[61,30],[67,34],[62,37]],skin,ink,1.1);
       ell(57,30,1.5,2,'#241725',null);
-      path([[48,7],[56,6],[62,12],[63,23],[39,23],[39,12],[44,7]],'#F8F3E8',ink,1.7);
-      line([[43,10],[43,21]],'#C8BDAA',1);line([[54,8],[55,21]],'#C8BDAA',1);
-      path([[38,21],[64,21],[65,26],[37,26]],'#D8CBB7',ink,1.2);
+      path([[48,13],[56,12],[62,18],[63,29],[39,29],[39,18],[44,13]],'#F8F3E8',ink,1.7);
+      line([[43,16],[43,27]],'#C8BDAA',1);line([[54,14],[55,27]],'#C8BDAA',1);
+      path([[38,27],[64,27],[65,32],[37,32]],'#D8CBB7',ink,1.2);
     }
     // restrained warm/cool rim accents keep the figure legible in neon town scenes
     g.save();g.globalAlpha=.58;g.shadowBlur=.7/scale;g.shadowColor='rgba(255,126,65,.42)';
