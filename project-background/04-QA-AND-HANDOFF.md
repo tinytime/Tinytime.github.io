@@ -311,3 +311,12 @@ The separate full civilian type-silhouette audit is still failed: Clinic/Sailor 
 - Overall workflow remains **FAILED** on global Clinic/Sailor front silhouette IoU `0.9094292803970223`, unapproved golden snapshots (23 changed / 1 match), and 180 missing-audio 404 console errors. No golden snapshots were refreshed or approved.
 - Review package: [Runner / Coach / Referee run #446](../qa-artifacts/runner-coach-referee-run-446/README.md).
 - Internal targeted QA and visual inspection are not Claude review or owner approval. All three remain NOT APPROVED pending independent comparative review and explicit owner acceptance; remaining 20 remain on hold.
+
+
+## Run #452 — latest Runner side-profile verification
+
+- Source commit `4eafc657fa9ee15db3b70f3c64a76280d4add0a6`; [run #452](https://github.com/tinytime/Tinytime.github.io/actions/runs/44587406698), artifact `14562025835`.
+- Inspected fresh Runner native 64×96 front/back/left/right and direct 28×42 game-scale captures. Side torso front hem is narrowed; collar and bib remain aligned to the forward chest plane in both mirrored profiles. Front design unchanged.
+- Targeted checks pass: direct captures 12/12; role-debug 12/12; directional integrity 92/92; silhouette-quality 180/180; palette/body/prop; gallery; town scene (16 NPCs, Granny present); page/script errors 0.
+- Workflow overall FAILED on global Clinic/Sailor silhouette overlap (max IoU `0.9094292803970223`), unapproved golden snapshots (23 changed / 1 match), and 180 audio 404s. No snapshot refresh or approval performed.
+- Claude comparative review and owner acceptance remain outstanding. All three remain NOT APPROVED.
