@@ -210,3 +210,14 @@ Granny's existing umbrella-excluded geometry is preserved as a legacy reference 
 
 
 **Annotation readiness update:** the six-character manifest now has explicit front/back/left/right annotation slots for every character. Source-space point and polygon bounds are validated against the 100×140 coordinate grid, and the structural check requires the exact six-character roster. Missing landmarks remain visibly pending; they are not synthesized from sprite bounds.
+
+
+## Semantic measurement tooling follow-through — 2026-11-19
+
+The follow-up measurement framework is implemented:
+- `qa/civilian-proportion-measurements.mjs` computes ratios only from explicit semantic landmarks and separately bounded body/headwear/prop polygons.
+- `qa/civilian-anatomy-landmarks.json` records Granny's existing values as `reference_only` and all six current NPCs as `pending_annotation`.
+- `qa/test-civilian-proportion-measurements.mjs` tests standing ratios, dynamic Runner joint-only behavior, missing annotations and reference-only accounting.
+- `qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md` defines how to annotate all four directions.
+
+This implements the measurement engine and guardrails, not the actual landmark annotation. Semantic coverage remains 0/6 NPCs; Granny's legacy mask convention also needs harmonization before direct ratio calibration. The workflow runs the fixture tests and manifest structural check.
