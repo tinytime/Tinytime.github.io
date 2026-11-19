@@ -175,11 +175,18 @@
       r2_saltwife:[0,0,4],r2_stack:[0,4,-4],regular1:[0,4,0],shopper1:[0,4,4],
       wait1:[4,-4,-4],wait2:[4,-4,0]
     });
+    const FAN_SIDE_TORSO_VARIANTS=Object.freeze({
+      // Side silhouettes need more than small width nudges: these four bodies
+      // were the closest rendered pairs after the first fan differentiation pass.
+      fanA:[-6,-4,-2],r2_stack:[4,6,0],
+      fan2:[-4,4,6],r2_saltwife:[4,-4,-6]
+    });
     const FAN_TORSO_MASKS=Object.freeze(Object.fromEntries(Object.entries(FAN_TORSO_VARIANTS).map(([id,variant])=>{
       const source=ARCHETYPE_TORSO_MASKS[ARCHETYPES[CIV_TO_ARCHETYPE.fan].torso],masks={};
       for(const view of ['front','back','side']){
+        const shape=view==='side'?(FAN_SIDE_TORSO_VARIANTS[id]||variant):variant;
         masks[view]=source[view].map(([y,left,right])=>{
-          const band=variant[y<=14?0:y<=20?1:2];
+          const band=shape[y<=14?0:y<=20?1:2];
           if(!band)return [y,left,right];
           return view==='side'?[y,Math.max(0,left+band),Math.min(31,right-band)]:[y,Math.max(0,left-band),Math.min(31,right+band)];
         });
@@ -362,14 +369,14 @@
       coach:{types:{front:'clipboard',side:'clipboard',back:'coach-board'},front:[[22,18,3,7,'clipboard']],side:[[23,17,3,7,'clipboard']],back:[[13,14,6,4,'clipboard']]},
       ref:{types:{front:'whistle',side:'whistle',back:'whistle'},front:[[16,14,2,2,'whistle']],side:[[34,11,2,2,'whistle']],back:[[7,18,2,2,'whistle']]},
       fisher:{types:{front:'fishnet',side:'fishnet',back:'net-roll'},front:[[23,16,3,8,'fishnet']],side:[[25,16,3,8,'fishnet']],back:[[24,15,4,10,'fishnet']]},
-      welder:{types:{front:'welding-torch',side:'welding-torch',back:'weld-cylinder'},front:[[23,16,3,7,'weldingtorch']],side:[[24,15,3,7,'weldingtorch']],back:[[24,13,4,12,'weldcylinder']]},
+      welder:{types:{front:'welding-torch',side:'welding-torch',back:'weld-cylinder'},front:[[23,16,3,7,'weldingtorch']],side:[[24,15,3,7,'weldingtorch']],back:[[18,13,4,12,'weldcylinder']]},
       sailor:{types:{front:'rope-coil',side:'rope-coil',back:'sailor-seam'},front:[[23,17,3,5,'ropecoil']],side:[[24,16,3,5,'ropecoil']],back:[[23,15,4,6,'ropecoil']]},
       painter:{types:{front:'paintbrush',side:'paintbrush',back:'paint-can'},front:[[23,15,2,9,'paintbrush']],side:[[24,15,2,9,'paintbrush']],back:[[24,14,4,9,'paintcan']]},
       slicker:{types:{front:'umbrella',side:'umbrella',back:'umbrella-pack'},front:[[23,13,3,12,'umbrella']],side:[[24,13,3,12,'umbrella']],back:[[24,14,4,10,'umbrella']]},
       cook:{types:{front:'serving-spoon',side:'serving-spoon',back:'apron-tools'},front:[[23,16,2,9,'servingspoon']],side:[[24,16,2,9,'servingspoon']],back:[[23,15,2,9,'servingspoon']]},
       vendor:{types:{front:'serving-tray',side:'serving-tray',back:'apron-ties'},front:[[23,18,5,2,'servingtray']],side:[[24,18,5,2,'servingtray']],back:[[13,16,5,4,'aprontie']]},
       dancer:{types:{front:'ribbon',side:'ribbon',back:'ribbon-tie'},front:[[23,15,3,8,'ribbon']],side:[[24,15,3,8,'ribbon']],back:[[13,14,6,4,'ribbon']]},
-      busker:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[24,12,5,17,'guitar']],side:[[25,12,5,17,'guitar']],back:[[1,11,5,17,'guitar']]},
+      busker:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[24,12,5,17,'guitar']],side:[[25,12,5,17,'guitar']],back:[[9,11,5,17,'guitar']]},
       usher:{types:{front:'lapel-pin',side:'earpiece',back:'radio-pin'},front:[[21,13,2,2,'pin']],side:[[19,12,2,2,'pin']],back:[[20,13,2,2,'pin']]}
     });
     const ARCHETYPE_PROP_SHAPES=Object.freeze({
