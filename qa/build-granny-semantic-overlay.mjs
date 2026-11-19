@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import { measureGrannyMaskFit } from './granny-mask-fit.mjs';
 import { createServer } from 'node:http';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -160,6 +161,12 @@ try {
     if(Math.max(...shaft.map(p=>p.y))>38||Math.min(...shaft.map(p=>p.y))<14)
       throw new Error('Granny umbrella shaft candidate bounds are invalid in '+key);
   }
+  annotation.pixelMaskFitReview = {
+    status:'candidate_diagnostic_not_approval',
+    method:'100x140 pixel-center polygon rasterization compared with exact renderer alpha row spans; profile scale/mirror matches the capture transform',
+    directions:measureGrannyMaskFit(annotation,result.masks)
+  };
+  fs.writeFileSync(path.join(out,'granny-pixel-mask-fit-report.json'),JSON.stringify(annotation.pixelMaskFitReview,null,2)+'\n');
   fs.writeFileSync(path.join(out,'granny-semantic-candidate.json'),JSON.stringify(annotation,null,2)+'\n');
   const sheet=await page.evaluate(async({directions,annotation})=>{
     const canvas=document.createElement('canvas');canvas.width=4*260+24;canvas.height=330;
@@ -210,5 +217,5 @@ try {
     return canvas.toDataURL('image/png');
   },{directions:result.directions,masks:result.masks});
   fs.writeFileSync(path.join(out,'granny-pixel-mask-overlay.png'),Buffer.from(pixelMaskSheet.split(',')[1],'base64'));
-  console.log(JSON.stringify({pass:true,directions:result.directions.length,source:'live createGrannyRenderer',status:annotation.status,outputs:['granny-four-direction-semantic-overlay.png','granny-pixel-mask-overlay.png','granny-semantic-candidate.json']}));
+  console.log(JSON.stringify({pass:true,directions:result.directions.length,source:'live createGrannyRenderer',status:annotation.status,outputs:['granny-four-direction-semantic-overlay.png','granny-pixel-mask-overlay.png','granny-pixel-mask-fit-report.json','granny-semantic-candidate.json']}));
 } finally { await browser.close(); server.close(); }
