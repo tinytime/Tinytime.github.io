@@ -387,3 +387,12 @@ This is a source-only finish refinement. It has not yet been browser-tested or v
 - Overall workflow FAILED on the full civilian type-silhouette audit (max rendered IoU `0.9094292803970223`, Clinic/Sailor front; Coach/Courier back `0.8939319190922546`) and golden snapshots (23 changed / 1 match; baseline explicitly unapproved). Console logs record 180 missing-audio 404s. No golden snapshots refreshed or approved.
 - **Evidence boundary:** Actions logs and the JSON report were inspected. PNGs in artifact `14568035039` have not yet been visually inspected. Do not record visual pass, Claude review or owner approval from automated checks alone.
 - Next: visually inspect the five characters' native four-direction captures and enlarged views, extend direct 28×42 captures to Usher/Cook/Courier if the harness is adapted, resolve or explicitly disposition the global silhouette gate, then prepare the updated artifact for Claude. Keep all five NOT APPROVED and the remaining 20 ON HOLD.
+
+
+## Five-civilian evidence packaging automation — 2026-11-19
+
+Added `qa/build-five-civilian-review-sheet.mjs` and wired it into `.github/workflows/vapor-city-browser-qa.yml`. After the browser diagnostics step (including failed runs), the workflow now creates a labelled 4× native directional contact sheet for Usher, Cook, Courier, Coach and Referee, plus a machine-readable-check summary Markdown file. The contact sheet is assembled from the actual native 64×96 captures; it does not modify renderer code, test thresholds or golden snapshots. The summary explicitly distinguishes automated evidence from human visual approval.
+
+- Generator commit: [`1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc`](https://github.com/tinytime/Tinytime.github.io/commit/1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc).
+- Workflow integration commit: [`80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f`](https://github.com/tinytime/Tinytime.github.io/commit/80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f).
+- Fresh Actions run #461 was triggered by the workflow update and is pending at the time of this note. Its artifact must be checked before claiming the new sheet generator works.
