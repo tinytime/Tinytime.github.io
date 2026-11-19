@@ -116,3 +116,6 @@ Run #506 produced a complete overlay for all 24 native captures with the correct
 The inspection exposed a further semantic issue: side-profile shoulder landmarks had been placed at front-view widths, leaving green points outside the visible shoulder projection. All six characters' left/right profile shoulder landmarks have now been repositioned to a narrow, foreshortened pair; front/back shoulder landmarks remain full-width. This is a candidate correction, not a visual approval. A new run must regenerate and inspect the 24-capture overlay before promoting any record to `measured`.
 
 Remaining coarse areas: some held-object exclusion polygons are intentionally broad (especially Cook's pan/handle, Courier's satchel/parcel, and Coach's clipboard), and should be tightened against individual pixels before ratio calibration. No thresholds or renderer artwork were changed.
+
+
+Referee now uses a core body polygon plus separate raised-arm/hand anatomical appendage polygons. The measurement report preserves these as `anatomicalAppendagePolygons`; the overlay renders them in the body-mask color. This avoids forcing a complex raised-arm silhouette into a self-crossing single polygon.
