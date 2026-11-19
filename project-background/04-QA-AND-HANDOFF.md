@@ -80,3 +80,22 @@ Next actions:
 - [ ] Keep Usher marked not approved until Claude and owner review are complete.
 - [ ] Do not start the remaining 20 characters before the three-character review.
 - [ ] Update the tracker after each meaningful build or QA milestone.
+
+
+## Courier correction independent QA verification — run #410
+
+The QA Coordinator independently rechecked the current correction run and artifact after the renderer handoff.
+
+- Run: [#410 / 44542492048](https://github.com/tinytime/Tinytime.github.io/actions/runs/44542492048)
+- Tested source SHA: `98dbcda2a32fa506ba355f12ddd449db3322a4b4`
+- Browser QA job: `135624264131` (diagnostic step failed; artifact upload succeeded)
+- Artifact: `vapor-city-browser-qa`, ID `14537384741`
+- Artifact files inspected: `npc-type-directions/courier-{front,back,left,right}.png`, `cook-courier-usher-role-debug-8x.png`, `npc-gallery-4x.png`, `npc-gallery-1x.png`, `game-town-1x.png`, and `report.json`.
+
+Independent visual verification confirms the side-profile face is readable in both directions; the satchel is consistent in front/back/side views and appears on viewer-right (the character's right hip) in the rear view; the detached cyan hem stripe is absent; and the parcel remains visibly held. The role-debug evidence shows distinct Courier props and garments. Gallery and town renders show no obvious clipping. Reported visual-integrity checks cover 92 captures with zero edge contacts and zero detached large components.
+
+Courier-specific automated checks pass: syntax/module/inventory; three-vector palette evidence (Courier 1,405 unique antialiased colors, 2,210 opaque pixels, 42 ink pixels); body/baseline/contrast; 23 distinct faces at native and game scale; role-debug (6 captures); prop audit; town scene; and gallery. No scriptErrors or pageErrors.
+
+The workflow remains **FAILED** on unrelated/global gates: all-civilian silhouette audit max rendered IoU 0.909429 (Clinic/Sailor front), with further legacy overlaps including Coach/Vendor, Sailor/Welder, and Clinic/Welder; golden snapshots remain explicitly unapproved (23 changed, 1 match). No snapshots were refreshed or approved. 135 missing audio-resource 404s were logged.
+
+**QA Coordinator verdict:** Courier's three required corrections pass internal visual verification and the updated evidence is ready for Claude's focused re-review. This is not independent reviewer approval or owner approval. Claude has not yet been contacted. Keep all three pilots NOT APPROVED and the remaining 20 on hold.
