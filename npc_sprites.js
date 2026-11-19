@@ -1214,26 +1214,28 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         // Far arm is occluded in profile; the near arm carries the stopwatch.
         // Separate shorts from exposed lower legs. The near knee drives forward
         // while the far leg trails; rounded contours define thigh, knee and calf.
-        curvePath([32,89],[
-          [37,89,46,89,50,94],[54,98,54,102,50,106],
-          [46,109,38,107,33,102],[29,98,29,93,32,89]
-        ],shorts,ink,1.6);
-        curvePath([49,100],[
-          [54,102,54,106,50,111],[45,116,38,120,34,122],
-          [29,124,24,121,25,117],[26,112,31,106,35,102],
-          [39,100,44,99,49,100]
-        ],legSkin,ink,1.5);
-        curvePath([50,89],[
-          [57,89,64,91,68,96],[72,101,76,106,82,110],
-          [87,112,92,113,94,117],[96,121,92,124,87,123],
-          [79,121,72,117,66,112],[60,107,55,100,50,89]
-        ],shorts,ink,1.6);
-        curvePath([76,102],[
-          [82,105,88,108,91,113],[93,117,90,120,86,119],
-          [80,117,75,112,71,108],[70,105,72,103,76,102]
-        ],legSkin,ink,1.35);
-        path([[24,116],[36,117],[40,122],[38,128],[20,128],[17,123]],shoe,ink,1.6);
-        path([[79,112],[91,112],[96,116],[94,122],[78,123],[73,119]],shoe,ink,1.6);
+        // Build the stride from two compact thigh/shorts forms and tapered
+        // exposed calves. Keep the joints legible and avoid oversized ribbon-like limbs.
+        curvePath([33,89],[
+          [38,89,45,90,49,94],[52,98,52,102,48,105],
+          [44,108,37,106,33,102],[30,98,30,93,33,89]
+        ],shorts,ink,1.5);
+        curvePath([47,100],[
+          [52,102,53,106,49,111],[45,116,39,120,34,123],
+          [30,125,26,122,28,118],[30,113,35,107,39,103],
+          [42,101,45,100,47,100]
+        ],legSkin,ink,1.4);
+        curvePath([49,90],[
+          [56,91,62,94,68,99],[74,104,80,108,86,110],
+          [91,112,92,115,89,118],[85,120,79,117,72,114],
+          [64,110,57,103,49,90]
+        ],shorts,ink,1.5);
+        curvePath([79,107],[
+          [84,109,89,112,91,116],[93,119,90,122,86,121],
+          [81,119,77,115,74,111],[74,109,76,107,79,107]
+        ],legSkin,ink,1.3);
+        path([[26,117],[37,117],[40,122],[38,128],[21,128],[18,124]],shoe,ink,1.5);
+        path([[82,113],[92,113],[96,117],[94,122],[81,123],[76,119]],shoe,ink,1.5);
         // No floating sole strokes beneath the sprinting shoes.
         path([[69,73],[76,72],[78,77],[71,79]],'#F6C95C',ink,1);
         ell(72,74,2.5,2.5,'#25243B',ink,.9);line([[72,72],[73,74]],'#F6E7C1',.8);
@@ -1335,10 +1337,12 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     }else if(side){
       // Narrow single-plane torso: do not leave the broad front-view jacket
       // underneath this profile silhouette.
-      path([[43,51],[52,48],[60,52],[64,60],[63,91],[59,100],[41,100],[40,76]],jacket,ink,1.7);
-      // Profile yoke follows the shoulder seam as a tailored panel, not a pale blob.
-      path([[40,53],[48,50],[55,53],[59,59],[53,63],[44,62],[41,58]],'#D8D7B8',ink,1.05);
-      line([[47,63],[47,97]],'#A7C0A6',1.2);
+      // Add real jacket volume along the rear contour so the side view
+      // reads as a solid veteran's torso rather than a narrow edge-on sliver.
+      path([[38,51],[52,48],[61,52],[66,60],[65,91],[61,100],[36,100],[35,76]],jacket,ink,1.7);
+      // The cream yoke expands with the shoulder and follows the rear seam.
+      path([[36,53],[48,50],[56,53],[61,59],[54,64],[42,63],[37,58]],'#D8D7B8',ink,1.05);
+      line([[43,64],[43,97]],'#A7C0A6',1.2);
       // Arm and grip are behind the board. Paint the clipboard afterward so
       // it visibly sits in front of the hand instead of being obscured by it.
       path([[62,58],[70,60],[75,78],[71,89],[64,89],[61,75]],jacket);
@@ -1351,14 +1355,13 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[60,84],[65,82],[69,85],[68,89],[62,90]],skin,ink,1);
       // Far arm is occluded by the torso; only the clipboard-holding near arm shows.
       // Gold whistle and short lanyard are visible in profile, below the yoke.
-      line([[44,63],[49,72],[54,63]],'#D6B85D',1.8);
-      // Horizontal whistle barrel with a clear projecting mouthpiece; avoid
-      // the circular pendant silhouette that disappeared at native scale.
-      // Angled whistle body with a clearly dark mouthpiece opening.
-      path([[46,74],[50,71.8],[55,73],[58,76],[55,79],[49,78],[45,76]],'#D9AD45',ink,1);
-      path([[42,73],[48,72],[48,76],[44,78]],'#F3D985',ink,.8);
-      ell(47,74.8,1.05,.8,'#302B27',null);
-      line([[50,74],[55,75]],'#FFF0C8',1);
+      // Lanyard and whistle angle toward the face/front edge of the profile.
+      // The pendant stays on the chest-front side instead of hanging at the back.
+      line([[49,63],[56,70],[62,63]],'#D6B85D',1.8);
+      path([[53,73],[58,71],[63,73],[66,76],[63,79],[57,78],[52,76]],'#D9AD45',ink,1);
+      path([[58,72],[64,73],[64,77],[60,78]],'#F3D985',ink,.8);
+      ell(62,75,1.05,.8,'#302B27',null);
+      line([[60,74],[64,75]],'#FFF0C8',1);
     }else{
       // Front jacket: cream shoulder yoke, zipper, pocket seams and hem band.
       path([[34,52],[43,48],[58,48],[68,54],[64,68],[50,73],[36,67]],'#D8D7B8',ink,1.3);
