@@ -38,6 +38,9 @@ jobs:
           node qa/civilian-proportion-measurements.mjs --check
       - name: Run game browser diagnostics
         run: node qa/vapor-city-browser-qa.mjs
+      - name: Build Granny four-direction semantic capture and overlay
+        if: always()
+        run: node qa/build-granny-semantic-overlay.mjs
       - name: Build six-civilian semantic annotation overlay
         if: always()
         run: node qa/build-civilian-annotation-overlay.mjs
