@@ -9091,7 +9091,7 @@ window.SG={npcRenderGameScaleSnapshots:()=>{
   // Render with the live town renderer's OWT=36 and vector scale=.28.
   // This is a fresh renderer pass at game scale, not a resize of the 64x96 QA grid.
   const directions=[['front','d'],['back','u'],['left','l'],['right','r']];
-  const civs=['runner','coach','ref'];
+  const civs=['usher','cook','courier','coach','ref'];
   return civs.flatMap(civ=>directions.map(([direction,dir])=>{
     const target=document.createElement('canvas');target.width=28;target.height=42;
     const ctx=target.getContext('2d');ctx.imageSmoothingEnabled=false;

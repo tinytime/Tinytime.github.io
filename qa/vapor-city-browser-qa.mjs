@@ -586,15 +586,17 @@ try {
   const gameScaleNpcDir = path.join(out, 'npc-game-scale-28x42');
   fs.mkdirSync(gameScaleNpcDir, { recursive: true });
   const gameScaleNpcCaptureAudit = {
-    expected: 12,
+    expected: 20,
     captured: gameScaleNpcSnapshotData.length,
     dimensions: gameScaleNpcSnapshotData.map(item => ({ civ:item.civ,direction:item.direction,width:item.width,height:item.height })),
     captureMethods: [...new Set(gameScaleNpcSnapshotData.map(item => item.captureMethod))],
-    pass: gameScaleNpcSnapshotData.length === 12 && gameScaleNpcSnapshotData.every(item =>
+    pass: gameScaleNpcSnapshotData.length === 20 && gameScaleNpcSnapshotData.every(item =>
       item.width === 28 && item.height === 42 &&
       item.captureMethod === 'direct owCiv render at live OWT=36; vector scale=0.28; no resize' &&
       item.dataUrl && item.dataUrl.startsWith('data:image/png') && item.dataUrl.includes(',')) &&
-      new Set(gameScaleNpcSnapshotData.map(item => item.civ+'|'+item.direction)).size === 12
+      new Set(gameScaleNpcSnapshotData.map(item => item.civ+'|'+item.direction)).size === 20 &&
+      ['usher','cook','courier','coach','ref'].every(civ => ['front','back','left','right'].every(direction =>
+        gameScaleNpcSnapshotData.some(item => item.civ===civ && item.direction===direction)))
   };
   for (const item of gameScaleNpcSnapshotData) {
     fs.writeFileSync(path.join(gameScaleNpcDir, item.civ + '-' + item.direction + '.png'),
