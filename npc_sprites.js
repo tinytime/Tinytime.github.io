@@ -953,12 +953,15 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         [40,45,50,55,60].forEach(x=>line([[x,20],[x+1,39]],'#59404A',1));
       }
       // Tall soft toque: pleated crown, rolled band, small offset fold.
+      // Lower only the crown 2 source pixels to preserve clear headroom in all views.
+      g.save();g.translate(0,2);
       g.beginPath();g.moveTo(38,29);
       g.bezierCurveTo(31,24,33,12,41,11);
       g.bezierCurveTo(42,3,56,2,59,10);
       g.bezierCurveTo(68,11,69,24,62,29);g.closePath();
       g.fillStyle=grad(34,3,66,29,[[0,'#FFFDF6'],[1,'#E3D9C6']]);g.fill();g.strokeStyle=ink;g.lineWidth=1.7;g.stroke();
       line([[40,14],[41,27]],'#C8BDAA',1.1);line([[49,7],[49,27]],'#C8BDAA',1.1);line([[58,13],[58,27]],'#C8BDAA',1.1);
+      g.restore();
       path([[36,27],[64,27],[65,32],[35,32]],'#D8CBB7',ink,1.3);
       line([[38,29],[62,29]],'#FFFDF4',1.1);
       if(!back) line([[49,28],[52,28]],'#B95B3C',1.5);
@@ -967,9 +970,11 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       ell(55,31,9,13,grad(45,18,64,44,[[0,'#E5B08B'],[1,skin]]),ink,1.4);
       path([[61,30],[67,34],[62,37]],skin,ink,1.1);
       ell(57,30,1.5,2,'#241725',null);
+      g.save();g.translate(0,2);
       g.beginPath();g.moveTo(39,29);g.bezierCurveTo(33,22,37,12,45,11);
       g.bezierCurveTo(48,3,60,4,61,11);g.bezierCurveTo(68,15,66,24,63,29);g.closePath();
       g.fillStyle='#F8F3E8';g.fill();g.strokeStyle=ink;g.lineWidth=1.7;g.stroke();
+      g.restore();
       path([[38,27],[64,27],[65,32],[37,32]],'#D8CBB7',ink,1.2);
     }
     // restrained warm/cool rim accents keep the figure legible in neon town scenes
