@@ -1362,13 +1362,123 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
   }
 
 
+  // Referee: decisive match official with a raised yellow-card silhouette,
+  // black/ivory striped shirt, vermilion shorts, tall socks and whistle.
+  // This is a graphic, upright officiating pose—not another coaching stance.
+  function drawRefVector(n,dir,ctx,OWT,opts){
+    opts=opts||{};const g=ctx,scale=OWT/36*.28;
+    const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT-5+OWT;
+    const back=dir==='u',side=dir==='l'||dir==='r',flip=dir==='l';
+    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
+    if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
+    const ink='#171725',skin='#A96F53';
+    const grad=(a,b,stops)=>{const z=g.createLinearGradient(a[0],a[1],b[0],b[1]);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
+    const path=(p,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.stroke();}};
+    const line=(p,c,w=1.5)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.stroke();};
+    const ell=(x,y,rx,ry,fill,stroke=ink,w=1.3)=>{g.beginPath();g.ellipse(x,y,rx,ry,0,0,Math.PI*2);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.stroke();}};
+    const shirt=grad([30,48],[69,101],[[0,'#F4F0E2'],[.55,'#D8D8D0'],[1,'#AEB8B5']]);
+    const shorts=grad([37,93],[65,117],[[0,'#C64C3E'],[1,'#792D31']]);
+    const sock=grad([35,112],[66,133],[[0,'#F2EFE4'],[1,'#B8C2BF']]);
+    const shoe=grad([31,130],[68,139],[[0,'#343A43'],[1,'#111820']]);
+    // Short official's shorts and split stance, with tall contrasting socks.
+    if(!side){
+      path([[37,94],[49,95],[48,112],[44,118],[33,117],[34,106]],shorts);
+      path([[51,95],[64,94],[67,108],[67,118],[55,118],[52,110]],shorts);
+      path([[34,114],[45,114],[45,132],[34,132]],sock);
+      path([[56,114],[67,114],[68,132],[57,132]],sock);
+      line([[34,120],[45,120]],'#343A43',1.5);line([[57,120],[68,120]],'#343A43',1.5);
+      path([[31,129],[46,129],[49,134],[47,138],[28,138],[27,134]],shoe);
+      path([[56,129],[69,129],[74,134],[73,138],[54,138],[53,134]],shoe);
+      line([[32,134],[45,134]],'#9DA7A8',1);line([[59,134],[70,134]],'#9DA7A8',1);
+    }else{
+      path([[39,94],[59,95],[61,112],[58,118],[41,118],[39,107]],shorts);
+      path([[42,114],[59,114],[60,132],[43,132]],sock);
+      line([[43,120],[59,120]],'#343A43',1.5);
+      path([[40,129],[60,129],[64,134],[62,138],[38,138],[37,134]],shoe);
+      line([[42,134],[59,134]],'#9DA7A8',1);
+    }
+    path([[43,39],[57,39],[57,52],[43,52]],skin);
+    // Torso is slightly tapered, with strong vertical stripe rhythm.
+    path([[36,50],[44,47],[57,47],[66,51],[69,88],[64,98],[35,98],[30,88]],shirt,ink,2);
+    if(back){
+      // Rear stripe layout and small official badge between shoulder blades.
+      for(const x of [38,46,54,62])path([[x,51],[x+4,50],[x+4,94],[x,95]],'#222B33',null);
+      path([[44,56],[56,56],[55,66],[45,66]],'#E7E3D7',ink,1);
+      ell(50,61,2,2,'#C64C3E',null);
+      line([[36,93],[64,93]],'#C64C3E',1.6);
+      // Whistle lanyard wraps the neck; card hand raised overhead on the right.
+      line([[46,50],[50,62],[55,50]],'#C5A34D',1.5);
+      ell(50,64,2.2,2.8,'#C5A34D',ink,1);
+      path([[61,55],[69,52],[75,34],[78,24],[84,23],[87,29],[79,48],[73,66],[66,72]],shirt);
+      path([[81,25],[87,23],[90,8],[99,7],[100,31],[87,33]],skin);
+      path([[87,1],[101,1],[101,20],[87,20]],'#E8BE45',ink,1.6);
+      line([[90,5],[98,5]],'#FFF0A7',1);
+      path([[30,54],[38,56],[34,77],[31,92],[24,91],[25,72]],shirt);
+      path([[24,88],[32,89],[33,97],[27,100],[22,95]],skin);
+    }else if(side){
+      // Side-facing raised arm and card remain a clear official silhouette.
+      path([[38,51],[48,48],[61,52],[68,61],[66,92],[59,98],[36,98],[33,75]],shirt);
+      for(const x of [41,51,61])line([[x,53],[x-1,94]],'#27313A',2.8);
+      path([[61,56],[69,54],[76,37],[80,23],[86,22],[89,28],[82,48],[74,67],[66,73]],shirt);
+      path([[83,24],[89,22],[92,8],[101,7],[102,30],[89,32]],skin);
+      path([[89,1],[103,1],[103,20],[89,20]],'#E8BE45',ink,1.5);
+      line([[92,5],[100,5]],'#FFF0A7',1);
+      path([[34,57],[41,58],[40,80],[34,92],[28,91],[29,72]],shirt);
+      path([[28,88],[35,89],[36,97],[30,100],[25,95]],skin);
+      line([[46,63],[50,73],[54,63]],'#C5A34D',1.4);ell(50,75,2.2,2.7,'#C5A34D',ink,1);
+    }else{
+      // Front stripes are broad enough to survive native 64x96 downsampling.
+      for(const x of [35,44,53,62])path([[x,51],[x+4,50],[x+4,94],[x,95]],'#222B33',null);
+      path([[43,53],[57,53],[56,62],[44,62]],'#E7E3D7',ink,1);
+      ell(50,58,2,2,'#C64C3E',null);
+      line([[36,94],[64,94]],'#C64C3E',1.6);
+      // Left arm hangs relaxed; right arm reaches up with a yellow card.
+      path([[30,54],[38,56],[35,78],[32,92],[25,92],[25,72]],shirt);
+      path([[25,89],[33,89],[34,98],[28,101],[23,96]],skin);
+      path([[62,54],[70,52],[76,34],[79,20],[86,19],[89,25],[82,47],[74,66],[66,72]],shirt);
+      path([[82,20],[88,18],[91,5],[100,4],[101,27],[88,29]],skin);
+      path([[88,-3],[102,-3],[102,17],[88,17]],'#E8BE45',ink,1.6);
+      line([[91,1],[99,1]],'#FFF0A7',1);
+      // Gold whistle and lanyard, centered over the shirt stripes.
+      line([[45,51],[50,65],[55,51]],'#C5A34D',1.6);
+      ell(50,67,2.5,3,'#C5A34D',ink,1);
+      line([[49,67],[51,67]],'#FFF0A7',.8);
+    }
+    // Distinctive close-cropped hair, no cap: profile remains readable.
+    if(!side){
+      ell(50,29,12.2,14.3,grad([38,15],[63,44],[[0,'#D69A72'],[.6,skin],[1,'#754633']]),ink,1.5);
+      if(!back){
+        path([[37,24],[38,17],[44,14],[56,14],[63,20],[63,26],[38,27]],'#28252A',ink,1.3);
+        line([[40,26],[47,25]],'#302329',1.2);line([[53,25],[60,26]],'#302329',1.2);
+        ell(44,31,1.25,1.7,ink,null);ell(56,31,1.25,1.7,ink,null);
+        line([[49,34],[47,38],[52,38]],'#80513D',1);
+        line([[46,42],[54,42]],'#704333',1.1);
+      }else{line([[43,22],[44,38]],'#A9A59A',1);line([[57,22],[56,38]],'#A9A59A',1);}
+      // Slim black sweatband with a small white official mark.
+      path([[36,23],[42,17],[58,17],[65,23],[63,27],[37,27]],'#28252A',ink,1.2);
+      line([[43,20],[57,20]],'#E8E3D7',1);
+    }else{
+      ell(50,29,12,14,back?'#30282A':grad([38,15],[63,44],[[0,'#D69A72'],[.6,skin],[1,'#754633']]),ink,1.5);
+      if(!back){
+        path([[38,23],[42,16],[55,16],[63,22],[61,27],[39,27]],'#28252A',ink,1.2);
+        ell(59,31,1.5,1.8,ink,null);
+        line([[60,32],[66,35],[61,38]],'#80513D',1.2);
+        line([[57,42],[62,42]],'#704333',1.2);
+      }else{line([[43,22],[44,38]],'#A9A59A',1);line([[57,22],[56,38]],'#A9A59A',1);}
+      path([[36,23],[42,17],[58,17],[65,23],[63,27],[37,27]],'#28252A',ink,1.2);
+      line([[43,20],[57,20]],'#E8E3D7',1);
+    }
+    g.restore();
+  }
+
+
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
     const { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, USHER_TORSO_MASKS, FAN_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, FAN_RIG_PARTS, ARCHETYPE_PROP_LAYERS, CIV_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
-      if(kind==='cook'||kind==='usher'||kind==='courier'||kind==='runner'||kind==='coach'){
-        const drawVector=kind==='cook'?drawCookVector:(kind==='usher'?drawUsherVector:(kind==='courier'?drawCourierVector:(kind==='runner'?drawRunnerVector:drawCoachVector)));
+      if(kind==='cook'||kind==='usher'||kind==='courier'||kind==='runner'||kind==='coach'||kind==='ref'){
+        const drawVector=kind==='cook'?drawCookVector:(kind==='usher'?drawUsherVector:(kind==='courier'?drawCourierVector:(kind==='runner'?drawRunnerVector:(kind==='coach'?drawCoachVector:drawRefVector))));
         drawVector(n,dir,ctxOverride||og,OWT,{moving,tm,ph});
         const qaCanvas=owCiv._vectorSnapshotCanvas||(owCiv._vectorSnapshotCanvas=document.createElement('canvas'));
         if(qaCanvas.width!==64)qaCanvas.width=64;if(qaCanvas.height!==96)qaCanvas.height=96;
@@ -1388,7 +1498,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         owCiv._lastPaletteMetrics={civ:kind,archetype:kind+'-vector',renderMode:'vector',colors:[...counts.keys()],
           uniqueColorCount:counts.size,opaquePixelCount,outlinePixelCount,outlineColor:'#171725',bodyColor,bodyPixelCount,
           pantsColor,pantsPixelCount,hairColor,hairPixelCount,colorPixelCounts:Object.fromEntries(counts)};
-        const roleSets={coach:[{role:'forest-coach-jacket',color:'#24583F'},{role:'cream-shoulder-yoke',color:'#D8D7B8'},{role:'practice-clipboard',color:'#C69A58'},{role:'whistle',color:'#D6B85D'},{role:'track-trousers',color:'#3A4650'},{role:'silver-temples',color:'#AEB5A8'},{role:'skin',color:'#B87959'}],runner:[{role:'coral-race-singlet',color:'#D94F43'},{role:'split-shorts',color:'#3C3454'},{role:'terry-sweatband',color:'#F6C95C'},{role:'race-bib',color:'#F5E8CE'},{role:'technical-shoes',color:'#D88B35'},{role:'skin',color:'#965A43'},{role:'curls',color:'#34252A'}],cook:[{role:'chef-coat',color:'#D9C6A6'},{role:'terracotta-apron',color:'#A84432'},{role:'copper-pan',color:'#B95B3C'},{role:'toque',color:'#F8F3E8'},{role:'skin',color:'#B97855'},{role:'hair',color:'#30242A'}],usher:[{role:'uniform-navy',color:'#294B70'},{role:'brass-trim',color:'#D6A84F'},{role:'skin',color:'#C98A62'},{role:'hair',color:'#241B26'}],courier:[{role:'windbreaker',color:'#237F83'},{role:'dispatch-satchel',color:'#B77A36'},{role:'parcel',color:'#F5D89A'},{role:'storm-cap',color:'#236E78'},{role:'skin',color:'#A96F54'},{role:'hair',color:'#29252B'}]};
+        const roleSets={ref:[{role:'ivory-official-stripes',color:'#F4F0E2'},{role:'graphite-stripes',color:'#222B33'},{role:'vermilion-shorts',color:'#C64C3E'},{role:'yellow-card',color:'#E8BE45'},{role:'whistle',color:'#C5A34D'},{role:'tall-socks',color:'#F2EFE4'},{role:'skin',color:'#A96F53'}],coach:[{role:'forest-coach-jacket',color:'#24583F'},{role:'cream-shoulder-yoke',color:'#D8D7B8'},{role:'practice-clipboard',color:'#C69A58'},{role:'whistle',color:'#D6B85D'},{role:'track-trousers',color:'#3A4650'},{role:'silver-temples',color:'#AEB5A8'},{role:'skin',color:'#B87959'}],runner:[{role:'coral-race-singlet',color:'#D94F43'},{role:'split-shorts',color:'#3C3454'},{role:'terry-sweatband',color:'#F6C95C'},{role:'race-bib',color:'#F5E8CE'},{role:'technical-shoes',color:'#D88B35'},{role:'skin',color:'#965A43'},{role:'curls',color:'#34252A'}],cook:[{role:'chef-coat',color:'#D9C6A6'},{role:'terracotta-apron',color:'#A84432'},{role:'copper-pan',color:'#B95B3C'},{role:'toque',color:'#F8F3E8'},{role:'skin',color:'#B97855'},{role:'hair',color:'#30242A'}],usher:[{role:'uniform-navy',color:'#294B70'},{role:'brass-trim',color:'#D6A84F'},{role:'skin',color:'#C98A62'},{role:'hair',color:'#241B26'}],courier:[{role:'windbreaker',color:'#237F83'},{role:'dispatch-satchel',color:'#B77A36'},{role:'parcel',color:'#F5D89A'},{role:'storm-cap',color:'#236E78'},{role:'skin',color:'#A96F54'},{role:'hair',color:'#29252B'}]};
         owCiv._lastRoleDebugLegend=qaOptions&&(qaOptions.roleDebug||qaOptions.roleDebugLayers||qaOptions.roleDebugSourceLayers)?roleSets[kind]:null;
         owCiv._lastRoleDebugRows={civ:kind,direction:dir,view:dir==='u'?'back':(dir==='l'||dir==='r'?'side':'front'),torsoMaskRows:[],renderedSourceRows:[]};
         return;
