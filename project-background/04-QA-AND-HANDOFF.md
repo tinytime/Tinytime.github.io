@@ -344,3 +344,12 @@ The separate full civilian type-silhouette audit is still failed: Clinic/Sailor 
 - **Targeted/global checks still FAIL:** NPC body/baseline audit flags Courier baseline delta 2 against the vector threshold of 1. Global civilian type-silhouette audit flags Clinic/Sailor front IoU `0.9094292803970223`. Golden snapshots remain explicitly unapproved (23 changed / 1 match); 180 missing-audio 404 console errors remain. No snapshots were refreshed or approved.
 - **Status:** targeted visual integrity and requested polish verified; overall workflow FAILED on the above gates. The first batch retains owner approval; Runner/Coach/Referee remain NOT APPROVED pending Claude's independent six-civilian review and owner approval. Remaining 20 remain ON HOLD.
 - Updated [Claude's full six-civilian review package](../qa-artifacts/six-civilian-full-review/README.md) with the exact source and artifact links.
+
+
+## Five-civilian Claude review package — owner scope update (2026-11-19)
+
+Claude reached its usage limit during the six-character review. The owner therefore reduced the review scope to **Usher, Cook, Courier, Coach and Referee**. Runner is excluded only from this review to reduce scope; it is not deleted, rejected or approved. Coach and Referee retain two distinct athletic-role examples, while the five still cover civic, vendor, courier and athletic design families. Runner remains built and awaits a later focused review.
+
+The new [five-civilian Claude package](../qa-artifacts/five-civilian-full-review/README.md) replaces the six-character package as the current handoff. It explicitly supplies the exact tested `npc_sprites.js` source at `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`, the raw source URL, run #457 QA artifact, five-character image scope, review criteria, and a detailed required deliverable for the reusable Civilian Vector Build Standard. Claude must return five individual scores/verdicts, ranked corrections, a comparative ranking and an actionable production rule set to reduce future iteration without using a generic body template.
+
+No character code changed for this scope update. Existing approvals and QA status are unchanged. Coach and Referee remain NOT APPROVED; Runner remains NOT APPROVED but out of scope for this pass; the remaining 20 remain ON HOLD. No golden snapshots were refreshed or approved. The new package is committed to GitHub but has not been sent externally to Claude.
