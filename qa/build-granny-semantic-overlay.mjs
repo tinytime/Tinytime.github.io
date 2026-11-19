@@ -206,6 +206,41 @@ try {
   },{directions:result.directions,annotation});
   fs.writeFileSync(path.join(out,'granny-four-direction-semantic-overlay.png'),Buffer.from(sheet.split(',')[1],'base64'));
 
+  // Render a dedicated semantic-landmark review sheet. These guides are diagnostic:
+  // they make landmark placement inspectable against the live body render without
+  // implying that pixel inclusion alone establishes anatomical correctness.
+  const landmarkSheet=await page.evaluate(async({directions,annotation})=>{
+    const canvas=document.createElement('canvas');canvas.width=4*260+24;canvas.height=370;
+    const c=canvas.getContext('2d');c.fillStyle='#292b35';c.fillRect(0,0,canvas.width,canvas.height);
+    const labels={headTop:'HEAD TOP',chin:'CHIN',shoulderY:'SHOULDER',pelvisY:'PELVIS',footBaseline:'FOOT'};
+    const colors={headTop:'#4de5ff',chin:'#ff72bd',shoulderY:'#a8f06a',pelvisY:'#ffc45c',footBaseline:'#ffffff'};
+    for(let i=0;i<directions.length;i++){
+      const d=directions[i],a=annotation.directions[{d:'front',u:'back',l:'left',r:'right'}[d.direction]];
+      const im=new Image();im.src=d.body;await im.decode();
+      const x=12+i*260,y=12;c.fillStyle='#fff';c.font='bold 16px monospace';c.fillText(({d:'FRONT',u:'BACK',l:'LEFT',r:'RIGHT'})[d.direction],x,y+16);
+      c.drawImage(im,x,y+24,240,280);
+      const map=p=>{const side=d.direction==='l'||d.direction==='r';const localX=50+(p.x-50)*(side?.72:1);const screenX=d.direction==='l'?100-localX:localX;return [x+120+(screenX-50)*2.4,y+24+p.y*2]};
+      const guide=(value,color,label)=>{
+        const yy=y+24+value*2;c.save();c.strokeStyle=color;c.lineWidth=1;c.setLineDash([4,3]);c.beginPath();c.moveTo(x+36,yy);c.lineTo(x+204,yy);c.stroke();c.restore();
+        c.fillStyle=color;c.font='10px monospace';c.fillText(label,x+5,yy-3);
+      };
+      for(const key of Object.keys(labels))guide(typeof a[key]==='number'?a[key]:a[key]?.y,colors[key],labels[key]);
+      for(const key of ['shoulderLeft','shoulderRight']){
+        const [px,py]=map(a[key]);c.fillStyle=colors.shoulderY;c.beginPath();c.arc(px,py,4,0,Math.PI*2);c.fill();c.strokeStyle='#17202a';c.lineWidth=1;c.stroke();
+      }
+      for(const key of ['headTop','chin']){
+        const value=a[key],[px,py]=map({x:key==='headTop'?50:(a.shoulderLeft.x+a.shoulderRight.x)/2,y:value});
+        c.fillStyle=colors[key];c.beginPath();c.arc(px,py,4,0,Math.PI*2);c.fill();c.strokeStyle='#17202a';c.stroke();
+      }
+    }
+    let lx=16;
+    for(const key of Object.keys(labels)){c.fillStyle=colors[key];c.fillRect(lx,330,10,7);c.fillStyle='#fff';c.font='10px monospace';c.fillText(labels[key],lx+14,337);lx+=key==='footBaseline'?94:110;}
+    c.fillStyle='#a8f06a';c.fillRect(16,350,10,7);c.fillStyle='#fff';c.font='10px monospace';c.fillText('SHOULDER LANDMARKS',31,357);
+    c.fillStyle='#c5c8d0';c.fillText('Guides show recorded candidates only; verify anatomy against renderer paths.',220,357);
+    return canvas.toDataURL('image/png');
+  },{directions:result.directions,annotation});
+  fs.writeFileSync(path.join(out,'granny-landmark-review.png'),Buffer.from(landmarkSheet.split(',')[1],'base64'));
+
   // Render the actual alpha row masks as a pixel-exact semantic review sheet.
   // Cyan = umbrella-excluded body pass (hair, clothing and gripping arm included).
   // Gold = visible umbrella pixels present only in the full render.
