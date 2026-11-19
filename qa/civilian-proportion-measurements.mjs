@@ -96,8 +96,8 @@ export function measureLandmarkRecord(record) {
 
 export function buildMeasurementReport(manifest) {
   const records = Object.entries(manifest.characters || {}).map(([id, record]) => {
-    if (record.status === 'reference_only' || record.status === 'reference_baseline') {
-      return { id, status: 'reference_baseline', source: record.referenceSource,
+    if (record.status === 'reference_only' || record.status === 'reference_only') {
+      return { id, status: 'reference_only', source: record.referenceSource,
         legacyMeasurements: record.legacyMeasurements,
         conventionNote: record.note };
     }
