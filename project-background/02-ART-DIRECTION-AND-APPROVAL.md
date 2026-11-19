@@ -23,6 +23,11 @@ Color variation alone does not create a distinct character. A prop that is too s
 
 These are starting concepts to guide exploration. They are not final art specifications; the builder may improve them as long as each character remains distinct and role-readable.
 
+### Runner
+- Athletic sprinter identity, communicated through a dynamic airborne stride rather than a static upright pose.
+- Coral race singlet with clearly separate split shorts, race bib 07, terry sweatband, close-cropped curls, stopwatch, and technical shoes.
+- Keep the running pose legible from front, back, left, and right; shorts and shoe separation must remain readable at native 64×96 scale.
+
 ### Usher
 - Civic / venue attendant identity.
 - Current implementation uses a formal uniform, cap, and clipboard.
