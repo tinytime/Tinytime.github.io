@@ -1035,6 +1035,7 @@
         : propSpec[rigView];
       // Bridge the wrist to the occupation-specific tool before painting it.
       const heldPropKinds=new Set(['coach','fisher','welder','sailor','painter','slicker','cook','vendor','dancer','busker']);
+      debugLayer='held-hand-bridge';
       if(!qaExcludeProps&&heldPropKinds.has(kind)){
         if(rigView==='front'){put(21,17,2,4,'arm');put(22,19,2,2,'skin');}
         else if(rigView==='side'){put(22,16,3,3,'arm');put(24,17,2,2,'skin');}
@@ -1050,6 +1051,7 @@
         // Guitar-case strap runs from shoulder to lower case so the silhouette is one piece.
         put(12,12,2,10,'bodyshade');
       }
+      debugLayer='held-props';
       for(const [px,py,pw,ph,role] of propLayers){
         if(qaExcludeProps&&ARCHETYPE_ACCESSORY_ROLES.has(role))continue;
         if(ARCHETYPE_ACCESSORY_ROLES.has(role))paintProp(px,py,pw,ph,role);
