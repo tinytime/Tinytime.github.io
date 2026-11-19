@@ -954,7 +954,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       }
       // Tall soft toque: pleated crown, rolled band, small offset fold.
       // Lower only the crown 2 source pixels to preserve clear headroom in all views.
-      g.save();g.translate(0,2);
+      g.save();g.translate(0,29);g.scale(1,.75);g.translate(0,-29);
       g.beginPath();g.moveTo(38,29);
       g.bezierCurveTo(31,24,33,12,41,11);
       g.bezierCurveTo(42,3,56,2,59,10);
@@ -970,7 +970,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       ell(55,31,9,13,grad(45,18,64,44,[[0,'#E5B08B'],[1,skin]]),ink,1.4);
       path([[61,30],[67,34],[62,37]],skin,ink,1.1);
       ell(57,30,1.5,2,'#241725',null);
-      g.save();g.translate(0,2);
+      g.save();g.translate(0,29);g.scale(1,.75);g.translate(0,-29);
       g.beginPath();g.moveTo(39,29);g.bezierCurveTo(33,22,37,12,45,11);
       g.bezierCurveTo(48,3,60,4,61,11);g.bezierCurveTo(68,15,66,24,63,29);g.closePath();
       g.fillStyle='#F8F3E8';g.fill();g.strokeStyle=ink;g.lineWidth=1.7;g.stroke();
