@@ -126,3 +126,11 @@ No golden snapshots were refreshed or approved. Separate character-specific visu
 - Remaining 20 civilians: ON HOLD.
 - Claude provides independent recommendations; ChatGPT evaluates findings and implements agreed fixes; the project owner makes final decisions.
 - Do not begin the remaining 20 or refresh/approve golden snapshots.
+
+## Owner decision and correction implementation — 2026-11-19
+
+The owner explicitly authorized reopening Usher, Cook and Courier for the review corrections, while also implementing the Coach and Referee fixes. Their previous approval history is preserved, but the revised versions are not currently approved.
+
+Initial correction commit: [027be47d8f6763f447992a9dec058ff62a7c60a3](https://github.com/tinytime/Tinytime.github.io/commit/027be47d8f6763f447992a9dec058ff62a7c60a3). The code addresses Cook's toque/face clearance and profile arm, Courier's whole-sprite baseline tilt, Coach's yoke/age cues/whistle/font-dependent lettering, Referee's side-torso leakage/profile hair, and Usher's profile clipboard face.
+
+Important: the commit has not yet been browser-tested or visually inspected. Run #457 is prior-source evidence only. Keep all five in revision / NOT APPROVED status pending fresh four-direction QA, screenshot inspection, independent Claude re-review, and owner acceptance. Runner remains excluded; remaining 20 stay on hold.
