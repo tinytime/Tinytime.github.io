@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { compareMasks, deriveLocalBodyPolygon, deriveLocalMaskContours, deriveLocalMaskHoles, maskFromRows, rasterizeMaskContours, rasterizePolygons, traceOuterContour, traceOuterContours, traceMaskContours } from './granny-mask-fit.mjs';
+import { compareMasks, deriveLocalBodyPolygon, deriveLocalMaskContours, deriveLocalMaskHoles, maskFromRows, rasterizeMaskContours, rasterizePolygons, traceOuterContour, traceOuterContours, traceMaskContours, measureGrannyLandmarkEvidence } from './granny-mask-fit.mjs';
 const square=[{x:10,y:10},{x:13,y:10},{x:13,y:13},{x:10,y:13}],candidate=rasterizePolygons([square],'front'),exact=new Uint8Array(14000);
 for(let y=10;y<13;y++)for(let x=10;x<13;x++)exact[y*100+x]=1;
 const perfect=compareMasks(candidate,exact);assert.equal(perfect.iou,1);assert.equal(perfect.precision,1);assert.equal(perfect.recall,1);
@@ -18,4 +18,10 @@ const holeOuter=deriveLocalMaskContours(withHole,'front'),holeInner=deriveLocalM
 const holeMask=maskFromRows(withHole),reconstructed=rasterizeMaskContours(holeOuter,holeInner,'front');
 assert.equal(holeMask.reduce((a,b)=>a+b,0),24);assert.equal(reconstructed.reduce((a,b)=>a+b,0),24);
 assert.equal(compareMasks(reconstructed,holeMask).iou,1);
-console.log('Granny mask-fit helper tests passed (10 fixtures).');
+const landmarkRows=Array.from({length:140},()=>[]);for(let y=10;y<=20;y++)landmarkRows[y]=[[10,20]];
+const landmarkAnnotation={directions:{front:{headTop:10,chin:15,shoulderLeft:{x:10,y:12},shoulderRight:{x:20,y:12},shoulderY:12,pelvisY:18,footBaseline:20}}};
+const landmarkReport=measureGrannyLandmarkEvidence(landmarkAnnotation,[{direction:'d',bodyAlpha:{rows:landmarkRows}}])[0];
+assert.equal(landmarkReport.headTop.deltaFromTopPixel,0);assert.equal(landmarkReport.shoulderPoints.left.exactPixelOnBodyMask,true);
+assert.equal(landmarkReport.shoulderPoints.right.exactPixelOnBodyMask,true);assert.equal(landmarkReport.pelvisRow.pixelCount,11);
+assert.equal(landmarkReport.footBaseline.deltaFromBottomPixel,0);
+console.log('Granny mask-fit helper tests passed (11 fixtures).');
