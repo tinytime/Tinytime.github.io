@@ -319,11 +319,11 @@ try {
   const legacyPaletteAudit = npcPaletteAudit.filter(item => item.renderMode !== 'vector');
   const vectorPaletteAudit = npcPaletteAudit.filter(item => item.renderMode === 'vector');
   const npcPaletteCheck = {
-    pass: legacyPaletteAudit.length === 19 && legacyPaletteAudit.every(item =>
+    pass: legacyPaletteAudit.length === 18 && legacyPaletteAudit.every(item =>
       item.uniqueColorCount <= 12 && item.opaquePixelCount > 0 && item.outlinePixelCount > 0 &&
       item.bodyPixelCount >= 100 && item.pantsPixelCount >= 50 && item.hairPixelCount >= 20 &&
       item.colorPixelCounts && Object.values(item.colorPixelCounts).reduce((sum,count)=>sum+count,0) === item.opaquePixelCount) &&
-      vectorPaletteAudit.length === 4 && vectorPaletteAudit.every(item =>
+      vectorPaletteAudit.length === 5 && vectorPaletteAudit.every(item =>
         item.opaquePixelCount > 0 && item.outlinePixelCount > 0 && item.colors?.length > 12),
     spriteCount: npcPaletteAudit.length,
     legacyPixelSpriteCount: legacyPaletteAudit.length,
@@ -418,9 +418,9 @@ try {
   // unrelated fixed swatch to occur in every render.
   const npcBodyCheck = {
     pass: bodyRows.length === 24 && bodyRows.every(item => item.heightDeviationPixels <= 1 &&
-      (['usher','cook','courier','runner'].includes(item.civ) ? item.baselineDelta <= 1 : item.baselineDelta <= 0.02) &&
+      (['usher','cook','courier','runner','coach'].includes(item.civ) ? item.baselineDelta <= 1 : item.baselineDelta <= 0.02) &&
       /^#[0-9a-f]{6}$/i.test(item.outlineColor || '') &&
-      (['cook','courier','runner'].includes(item.civ) ? item.outlinePixelCount >= 0 : (item.civ === 'usher' ? item.outlinePixelCount >= 1 : item.outlinePixelCount > 0)) &&
+      (['cook','courier','runner','coach'].includes(item.civ) ? item.outlinePixelCount >= 0 : (item.civ === 'usher' ? item.outlinePixelCount >= 1 : item.outlinePixelCount > 0)) &&
       item.contrastRatio >= 3.0 && item.outlineContrastPercent >= 0.60),
     spriteCount: bodyRows.length,
     expectedBodyHeightPixels: expectedBodyPixels,
@@ -429,7 +429,7 @@ try {
     invalidOutlineColor: bodyRows.filter(item=>!/^#[0-9a-f]{6}$/i.test(item.outlineColor || '')).map(item=>item.civ),
     lowContrast: bodyRows.filter(item=>item.contrastRatio<3.0||item.outlineContrastPercent<0.60).map(item=>({civ:item.civ,outlineColor:item.outlineColor,contrastRatio:item.contrastRatio,outlineContrastPercent:item.outlineContrastPercent})),
     outlinePixelCounts: bodyRows.map(item=>({civ:item.civ,count:item.outlinePixelCount,expectedColor:item.outlineColor})),
-    outlineValidation: 'Pixel sprites require exact-color outline pixels; vector usher, cook, courier, and runner use antialiased ink; vector ink evidence is independently required by the vector palette audit and is checked for nonzero ink evidence plus the same contrast and baseline requirements.',
+    outlineValidation: 'Pixel sprites require exact-color outline pixels; vector usher, cook, courier, runner, and coach use antialiased ink; vector ink evidence is independently required by the vector palette audit and is checked for nonzero ink evidence plus the same contrast and baseline requirements.',
     measurements: bodyRows
   };
   const npcPropAudit = await page.evaluate(() => {
@@ -582,7 +582,7 @@ try {
     if (!window.SG || typeof window.SG.npcRenderDirectionalSnapshots !== 'function')
       throw new Error('Directional civilian snapshot hook is unavailable');
     const items=window.SG.npcRenderDirectionalSnapshots({roleDebugLayers:true});
-    const selected=items.filter(item=>['runner','cook','courier','usher'].includes(item.civ)&&
+    const selected=items.filter(item=>['runner','coach','cook','courier','usher'].includes(item.civ)&&
       ['front','right'].includes(String(item.direction).toLowerCase()));
     return {items:selected.map(item=>({civ:item.civ,direction:item.direction,dataUrl:item.dataUrl,
       roleLegend:item.roleLegend||[]}))};
@@ -594,7 +594,7 @@ try {
     canvas.height=rows*cellH+(rows+1)*gap+legendH;
     const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
     ctx.fillStyle='#252733';ctx.fillRect(0,0,canvas.width,canvas.height);
-    const order=[['runner','front'],['runner','right'],['cook','front'],['cook','right'],['courier','front'],['courier','right'],['usher','front'],['usher','right']];
+    const order=[['runner','front'],['runner','right'],['coach','front'],['coach','right'],['cook','front'],['cook','right'],['courier','front'],['courier','right'],['usher','front'],['usher','right']];
     for(let i=0;i<order.length;i++){
       const [civ,direction]=order[i],item=capture.items.find(x=>x.civ===civ&&String(x.direction).toLowerCase()===direction);
       if(!item)continue;
@@ -618,19 +618,19 @@ try {
     });
     return canvas.toDataURL('image/png');
   },roleDebugCapture);
-  fs.writeFileSync(path.join(out,'runner-cook-courier-usher-role-debug-8x.png'),
+  fs.writeFileSync(path.join(out,'runner-coach-cook-courier-usher-role-debug-8x.png'),
     Buffer.from(roleDebugSheet.split(',')[1],'base64'));
   const roleDebugRoles=[...new Set(roleDebugCapture.items.flatMap(item=>item.roleLegend.map(role=>role.role)))].sort();
-  const roleDebugAudit={pass:roleDebugCapture.items.length===8&&roleDebugCapture.items.every(item=>item.roleLegend.length>0)&&roleDebugRoles.length>0,
-    captureCount:roleDebugCapture.items.length,expected:8,views:['front','right'],
-    civilians:['runner','cook','courier','usher'],scale:8,outline:'omitted',roleLegend:roleDebugRoles,
+  const roleDebugAudit={pass:roleDebugCapture.items.length===10&&roleDebugCapture.items.every(item=>item.roleLegend.length>0)&&roleDebugRoles.length>0,
+    captureCount:roleDebugCapture.items.length,expected:10,views:['front','right'],
+    civilians:['runner','coach','cook','courier','usher'],scale:8,outline:'omitted',roleLegend:roleDebugRoles,
     roleLegendCount:roleDebugRoles.length,
     perViewLegendCounts:roleDebugCapture.items.map(item=>({civ:item.civ,direction:item.direction,count:item.roleLegend.length})),
     path:'runner-cook-courier-usher-role-debug-8x.png'};
   const roleDebugRowWidthReport = await page.evaluate(() => {
     const table=window.NPC_SPRITES?.TABLES?.CIV_TORSO_MASKS;
     if(!table)throw new Error('Civilian torso mask table is unavailable for row-width diagnostics');
-    const civilians=['cook','courier','usher'];
+    const civilians=['runner','coach','cook','courier','usher'];
     const directions=['front','side'];
     return civilians.flatMap(civ=>directions.map(direction=>{
       const rows=table[civ]?.[direction]||[];
