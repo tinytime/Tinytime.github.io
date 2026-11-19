@@ -32,6 +32,10 @@ jobs:
         run: npm install --no-save playwright
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
+      - name: Validate semantic civilian proportion measurement framework
+        run: |
+          node qa/test-civilian-proportion-measurements.mjs
+          node qa/civilian-proportion-measurements.mjs --check
       - name: Run game browser diagnostics
         run: node qa/vapor-city-browser-qa.mjs
       - name: Build five-civilian review sheet and summary
