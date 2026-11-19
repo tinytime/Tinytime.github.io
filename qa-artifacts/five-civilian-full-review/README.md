@@ -180,3 +180,8 @@ The five review characters now have both evidence scales for every direction:
 The overall workflow remains FAILED on the global civilian silhouette audit (max IoU 0.9094292803970223, Clinic/Sailor front; Coach/Courier back 0.8939319190922546) and unapproved golden snapshot comparison (1 match / 23 changed). Missing-audio 404s remain; page/script exceptions are zero. No thresholds were lowered and no golden snapshots were refreshed or approved.
 
 **Status:** all five remain NOT APPROVED pending Claude's independent review and the owner's final decision. Runner is excluded from this review round; remaining 20 civilians remain ON HOLD.
+
+
+## Independent review handoff
+
+The current five-character independent review brief is [`CLAUDE-REVIEW-BRIEF.md`](./CLAUDE-REVIEW-BRIEF.md). It identifies the exact renderer source, run #464 artifact, native and direct game-scale captures, review criteria, known corrections to verify, and the remaining global QA gates. The brief is prepared but has **not** yet been submitted to Claude; independent review is still pending.
