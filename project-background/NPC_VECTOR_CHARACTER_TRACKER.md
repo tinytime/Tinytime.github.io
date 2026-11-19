@@ -538,3 +538,12 @@ The current helper stores interior body/prop holes separately and subtracts them
 ## Landmark-to-mask evidence — 2026-11-19
 
 The diagnostic report now checks candidate headTop/chin/shoulder/pelvis/foot-baseline values against the exact body alpha. Run #555 data: body bounds y=9..136 in all views; headTop y=8 is one pixel above the first alpha row; chin is within body bounds; both shoulder points touch exact body-alpha pixels; pelvis row counts are 40 front/back and 30 profiles; footBaseline y=136 matches the bottom alpha row. This is evidence for human review, not semantic approval. Eleven local fixtures pass; fresh Actions verification pending.
+
+
+## Run #587 verification update — 2026-11-19
+
+Run #587 ([Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44632151886), artifact `14581958311`) confirms the latest Granny helper/capture code in the browser workflow. The 11-fixture helper suite passed; live four-direction Granny capture and both pixel-mask outputs were generated. Pixel-derived body and visible umbrella contours reproduce source alpha at IoU 1.0 in all directions. Landmark diagnostics flag headTop y=8 as one pixel above body alpha y=9; chin is in bounds; shoulder points hit exact body pixels; pelvis row counts are 40 front/back and 30 profiles; footBaseline y=136 matches the bottom row.
+
+The original manual body candidate remains weak (IoU 0.786 front/back; 0.645/0.644 profiles), so it is not ready for semantic promotion. Manual umbrella candidate covers 81.5–82.2% of visible umbrella pixels; hidden extent/grip remains for human review. The pixel-derived masks are renderer evidence, not approved anatomy polygons.
+
+Other QA: 24/24 six-civilian overlay captures; 20/20 five-civilian native and direct game-scale captures; 92/92 directional integrity; role debug 12/12; prop audit 10 archetypes; gallery rendered. Workflow failed on audio 404 diagnostics; full-roster silhouette gate remains max IoU 0.909429 and golden snapshot gate 1/23. No golden snapshots changed. Visual artifact inspection completed; no artistic approval. Granny remains `reference_only`.
