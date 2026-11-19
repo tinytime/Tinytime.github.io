@@ -564,6 +564,57 @@ try {
     fs.writeFileSync(path.join(civilianDirectionDir, item.civ + '-' + item.direction + '.png'),
       Buffer.from(item.dataUrl.split(',')[1], 'base64'));
   }
+  const civilianVisualIntegrityAudit = await page.evaluate(async snapshots => {
+    const decoded=await Promise.all(snapshots.map(async item=>{
+      const image=new Image();image.src=item.dataUrl;await image.decode();
+      const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;
+      const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);
+      return {...item,width:canvas.width,height:canvas.height,data:ctx.getImageData(0,0,canvas.width,canvas.height).data};
+    }));
+    const edgeContacts=[],componentRows=[],faceRows=[];
+    for(const item of decoded){
+      const {width,height,data}=item,opaque=new Uint8Array(width*height);
+      let touchesLeft=false,touchesRight=false,touchesTop=false,touchesBottom=false;
+      for(let y=0;y<height;y++)for(let x=0;x<width;x++){
+        const on=data[(y*width+x)*4+3]>0;
+        if(on){opaque[y*width+x]=1;if(x===0)touchesLeft=true;if(x===width-1)touchesRight=true;if(y===0)touchesTop=true;if(y===height-1)touchesBottom=true;}
+      }
+      if(touchesLeft||touchesRight||touchesTop||touchesBottom)edgeContacts.push({civ:item.civ,direction:item.direction,touches:{left:touchesLeft,right:touchesRight,top:touchesTop,bottom:touchesBottom}});
+      const seen=new Uint8Array(width*height),sizes=[];
+      for(let start=0;start<opaque.length;start++){
+        if(!opaque[start]||seen[start])continue;
+        const stack=[start];seen[start]=1;let size=0,minX=width,minY=height,maxX=-1,maxY=-1;
+        while(stack.length){const p=stack.pop(),x=p%width,y=Math.floor(p/width);size++;minX=Math.min(minX,x);maxX=Math.max(maxX,x);minY=Math.min(minY,y);maxY=Math.max(maxY,y);
+          for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){if(!dx&&!dy)continue;const nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=width||ny>=height)continue;const np=ny*width+nx;if(opaque[np]&&!seen[np]){seen[np]=1;stack.push(np);}}
+        }
+        sizes.push({pixels:size,bounds:[minX,minY,maxX,maxY]});
+      }
+      sizes.sort((a,b)=>b.pixels-a.pixels);
+      const detached=sizes.slice(1).filter(part=>part.pixels>=80);
+      componentRows.push({civ:item.civ,direction:item.direction,componentCount:sizes.length,largestComponent:sizes[0]?.pixels||0,detachedLargeComponents:detached});
+      if(item.direction==='left'||item.direction==='right'){
+        // Quantized grayscale removes hue/saturation as a source of artificial uniqueness.
+        const x0=22,y0=5,w=22,h=22,values=[];
+        let lo=255,hi=0;
+        for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){
+          const p=(y*width+x)*4,a=data[p+3];
+          const lum=a?Math.round(.2126*data[p]+.7152*data[p+1]+.0722*data[p+2]):0;
+          values.push(a?lum:-1);if(a){lo=Math.min(lo,lum);hi=Math.max(hi,lum);}
+        }
+        const normalized=values.map(v=>v<0?0:hi===lo?1:Math.min(3,Math.floor(((v-lo)/(hi-lo))*4))).join('');
+        faceRows.push({civ:item.civ,direction:item.direction,pattern:normalized});
+      }
+    }
+    const left=faceRows.filter(row=>row.direction==='left'),right=faceRows.filter(row=>row.direction==='right');
+    const uniqueLeft=new Set(left.map(row=>row.pattern)).size,uniqueRight=new Set(right.map(row=>row.pattern)).size;
+    const floating=componentRows.filter(row=>row.detachedLargeComponents.length);
+    return {
+      pass:decoded.length===92&&edgeContacts.length===0&&floating.length===0&&uniqueLeft===23&&uniqueRight===23,
+      checked:decoded.length,expected:92,edgeContacts,
+      connectedComponents:{thresholdPixels:80,affectedCaptures:floating.length,detachedLargeComponents:floating},
+      colorAgnosticProfiles:{method:'22x22 face crop; alpha retained, grayscale luminance normalized per crop and quantized to four levels; hue and saturation discarded',leftUnique:uniqueLeft,rightUnique:uniqueRight,leftDuplicates:left.filter(row=>left.some(other=>other.civ!==row.civ&&other.pattern===row.pattern)).map(row=>row.civ),rightDuplicates:right.filter(row=>right.some(other=>other.civ!==row.civ&&other.pattern===row.pattern)).map(row=>row.civ)}
+    };
+  },civilianDirectionalSnapshotData);
   const civilianTypeSilhouetteAudit = await page.evaluate(async snapshots => {
     const table = window.NPC_SPRITES?.TABLES?.CIV_TORSO_MASKS;
     if (!table) throw new Error('Per-civilian torso mask table is unavailable');
@@ -1277,6 +1328,7 @@ try {
     paletteDifferentiation,
     npcBodyCheck,
     civilianFaceDistinctnessAudit,
+    civilianVisualIntegrityAudit,
     npcPropAudit,
     fanVariantAudit,
     fanHeadroomCheck,
@@ -1314,7 +1366,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !civilianFaceDistinctnessAudit.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !civilianFaceDistinctnessAudit.pass || !civilianVisualIntegrityAudit.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
