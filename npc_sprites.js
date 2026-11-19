@@ -169,7 +169,7 @@
       return [civ,Object.freeze(masks)];
     })));
     const FAN_TORSO_VARIANTS=Object.freeze({
-      driverA:[-4,-4,-4],fan1:[-4,-4,0],fan2:[-4,-4,4],fanA:[-4,0,-4],fanB:[-4,0,0],
+      driverA:[-4,-4,-4],fan1:[-4,-4,0],fan2:[4,6,-6],fanA:[-4,0,-4],fanB:[-4,0,0],
       fanC:[-4,0,4],fanD:[-4,4,-4],gamer1:[-4,4,0],hb_denny:[-4,4,4],hb_pete:[0,-4,-4],
       hb_shopper:[0,-4,0],hb_splinter:[0,-4,4],hb_wick:[0,0,-4],patient1:[0,0,0],
       r2_saltwife:[0,0,4],r2_stack:[0,4,-4],regular1:[0,4,0],shopper1:[0,4,4],
@@ -179,7 +179,7 @@
       // Side silhouettes need more than small width nudges: these four bodies
       // were the closest rendered pairs after the first fan differentiation pass.
       fanA:[-6,-4,-2],r2_stack:[4,6,0],
-      fan2:[-4,4,6],r2_saltwife:[4,-4,-6]
+      fan2:[4,6,-6],r2_saltwife:[4,-4,-6]
     });
     const FAN_TORSO_MASKS=Object.freeze(Object.fromEntries(Object.entries(FAN_TORSO_VARIANTS).map(([id,variant])=>{
       const source=ARCHETYPE_TORSO_MASKS[ARCHETYPES[CIV_TO_ARCHETYPE.fan].torso],masks={};
