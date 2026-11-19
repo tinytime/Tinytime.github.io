@@ -998,7 +998,7 @@
       }
       const fanPropRole=FAN_VARIANT_PROPS[n.id]||'foamfinger';
       const propLayers=kind==='fan'
-        ? [[rigView==='front'?1:rigView==='side'?27:26,12,5,14,fanPropRole]]
+        ? [[rigView==='front'?1:rigView==='side'?22:22,12,5,14,fanPropRole]]
         : propSpec[rigView];
       // Bridge the wrist to the occupation-specific tool before painting it.
       const heldPropKinds=new Set(['coach','fisher','welder','sailor','painter','slicker','cook','vendor','dancer','busker']);
