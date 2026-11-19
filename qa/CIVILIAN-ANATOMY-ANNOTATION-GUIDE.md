@@ -10,7 +10,7 @@ The tooling is descriptive only. It does not approve a character, enforce provis
 
 - Annotate in the character renderer's local source coordinates, normalized to a 100×140 reference canvas.
 - Origin is top-left; x increases rightward and y increases downward.
-- Keep fractional coordinates when the renderer uses fractional paths.
+- Keep fractional coordinates when the renderer uses fractional paths. Store coordinates in the renderer's local, pre-transform coordinate system; do not pre-mirror left-facing records when the renderer itself flips them.
 - Do not annotate from enlarged contact sheets or the 28×42 downsample. Use source renderer paths or native 64×96 capture mapped back to source space.
 - Store the coordinate source and renderer commit before marking a record measured.
 
@@ -84,6 +84,9 @@ The six civilian records now contain first-pass source-derived candidate landmar
 
 ## Native overlay inspection — 2026-11-19
 
-The first QA artifact overlay was generated locally from Run #487's actual 64×96 native captures. This is a preliminary visual spot-check, not final annotation acceptance. It confirms the candidate body contours generally track the broad character silhouettes, but several exclusions and joints remain visibly coarse. Referee's raised-card arm/hand needs to be included in the anatomical body polygon while the yellow card remains excluded; the front card exclusion is currently on the wrong side. Cook and Courier handheld-object boundaries, Usher's clipboard, Coach's clipboard, and Runner's dynamic joints also require direction-by-direction correction. The overlay's 100×140-to-64×96 mapping is a visual aid; authoritative coordinate values remain in source-space.
+The first QA artifact overlay was generated locally from Run #487's actual 64×96 native captures. This is a preliminary visual spot-check, not final annotation acceptance. It confirms the candidate body contours generally track the broad character silhouettes, but several exclusions and joints remain visibly coarse. Referee's raised-card arm/hand needs to be included in the anatomical body polygon while the yellow card remains excluded; the front card exclusion is currently on the wrong side. Cook and Courier handheld-object boundaries, Usher's clipboard, Coach's clipboard, and Runner's dynamic joints also require direction-by-direction correction. The overlay maps the 100×140 local source space to 64×96 pixels and mirrors x for left-facing captures where the renderer flips the local path; authoritative coordinate values remain in unflipped source-space.
 
 The existing five-civilian contact sheet covers Usher, Cook, Courier, Coach and Referee; it does not include Runner. Runner's four-direction captures are available separately in the browser artifact and are included in the new six-civilian overlay step. No annotation is promoted to `measured` from this spot-check. A fresh workflow artifact is required after the overlay step is committed.
+
+
+The overlay renderer was corrected to apply the left-facing x mirror at display time. Manifest geometry remains in local pre-flip coordinates for all directions. This avoids double-mirroring accessory polygons and keeps measurements consistent with the renderer transform.
