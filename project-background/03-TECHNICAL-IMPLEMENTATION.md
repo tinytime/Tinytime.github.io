@@ -110,3 +110,10 @@ The `window.SG.npcRenderGameScaleSnapshots()` hook in `VaporCity_HD2D_Hybrid_Tes
 
 
 The evidence generator was subsequently extended to create a second contact sheet from the direct game-scale PNGs. [Run #464](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571) verified both sheets and uploaded [artifact `14568746641`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571/artifacts/14568746641): native sheet `five-civilian-native-4x-contact-sheet.png` and direct game-scale sheet `five-civilian-game-scale-4x-contact-sheet.png` (730×1208). The latter is made from the 28×42 renderer outputs, enlarged 4× nearest-neighbour only for inspection.
+
+
+## Civilian Vector Construction Standard — technical companion (2026-11-19)
+
+See [Civilian Vector Construction Standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md) for measurement definitions, anatomy/prop separation, per-character proportion cards, the eight-stage pipeline, the provisional scorecard, and proposed QA instrumentation. The Granny reference values originate from `qa/granny-ref.json`; `qa/granny-ref.js` is generated and must not be edited by hand.
+
+No renderer or browser QA code was changed as part of creating the standard. Before adding automated hard-fail proportion checks, measure the five review characters and Granny using consistent body masks, accessory exclusions, alpha thresholds, and landmark conventions. Compare pose categories separately. Keep silhouette IoU as a human-review trigger until the threshold is calibrated against actual judgments. Preserve current QA gates and golden-snapshot policy.
