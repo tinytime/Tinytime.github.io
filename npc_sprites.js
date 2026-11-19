@@ -162,7 +162,9 @@
           const l=view==='side'?Math.max(0,left+band+profileHemTrim):Math.max(0,left-band);
           const r=view==='side'?Math.min(31,right-band-profileHemTrim):Math.min(civ==='cook'&&view==='front'?30:31,right+band);
           const mid=Math.floor((left+right)/2);
-          return [y,l<=r?l:mid,l<=r?r:mid];
+          let L=l,R=r;
+          if(R-L<3){L=mid-1;R=mid+2}
+          return [y,L,R];
         });
         Object.freeze(masks[view]);
       }
@@ -312,7 +314,7 @@
         if(spec.armPose==='whistle'){
           // Referee's near arm bends inward and rises to the mouth; the far arm hangs naturally.
           arms=side
-            ? [[32,14,2,3,'arm'],[34,12,2,3,'armshade'],[36,11,2,2,'skin']]
+            ? [[18,13,2,3,'arm'],[19,11,2,3,'armshade'],[20,9,2,2,'skin']]
             : [[10,14,2,4,'arm'],[10,18,2,3,'armshade'],[11,21,2,2,'skin'],
                [16,14,2,3,'arm'],[18,12,2,3,'armshade'],[20,11,2,2,'skin'],
                [21,12,2,2,'skin']];
@@ -352,12 +354,12 @@
       .map(([id,spec])=>[id,makeIndividualRig(CIV_TO_ARCHETYPE.fan,spec)])));
     const ARCHETYPE_PROP_LAYERS=Object.freeze({
       athletic:{types:{front:'whistle',side:'whistle',back:'jersey-mark'},front:[[1,12,5,5,'duffel'],[26,12,5,5,'duffel'],[21,19,2,2,'whistle']],back:[[1,12,5,5,'duffel'],[26,12,5,5,'duffel'],[7,19,2,2,'whistle']],side:[[25,12,5,6,'duffel'],[17,18,2,2,'whistle']]},
-      courier:{types:{front:'parcel',side:'courier-pack',back:'courier-pack'},front:[[1,16,4,14,'satchel'],[22,18,3,3,'parcel']],back:[[27,16,4,14,'satchel'],[7,18,3,3,'parcel']],side:[[27,14,4,16,'satchel'],[17,18,3,3,'parcel']]},
+      courier:{types:{front:'parcel',side:'courier-pack',back:'courier-pack'},front:[[4,18,4,11,'satchel'],[22,18,3,3,'parcel']],back:[[24,18,4,11,'satchel'],[7,18,3,3,'parcel']],side:[[11,16,4,11,'satchel'],[17,18,3,3,'parcel']]},
       guard:{types:{front:'baton',side:'baton',back:'guard-plate'},front:[[27,12,4,17,'shield'],[23,15,1,7,'baton']],back:[[1,12,4,17,'shield'],[8,15,1,7,'baton']],side:[[27,12,4,17,'shield'],[18,15,1,7,'baton']]},
       vendor:{types:{front:'bowl',side:'apron-ties',back:'apron-ties'},front:[[6,19,4,2,'bowl']],back:[[8,14,2,10,'apron'],[22,14,2,10,'apron']],side:[[16,19,4,2,'bowl']]},
       clinic:{types:{front:'medical-kit',side:'medical-kit',back:'clinic-yoke'},front:[[22,17,4,4,'medkit']],back:[[8,17,4,4,'medkit']],side:[[17,17,3,3,'medkit']]},
       trades:{types:{front:'wrench',side:'wrench',back:'tool-pocket'},front:[[1,29,5,8,'toolroll'],[22,17,2,5,'wrench']],back:[[26,29,5,8,'toolroll'],[8,17,2,5,'wrench']],side:[[26,29,5,8,'toolroll'],[18,16,2,5,'wrench']]},
-      youth:{types:{front:'notebook',side:'backpack',back:'backpack'},front:[[1,15,5,11,'backpack'],[21,18,3,5,'notebook']],back:[[26,15,5,11,'backpack']],side:[[26,15,5,11,'backpack']]},
+      youth:{types:{front:'notebook',side:'backpack',back:'backpack'},front:[[21,18,3,5,'notebook']],back:[[12,12,8,10,'backpack']],side:[[9,13,5,10,'backpack']]},
       performer:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[26,11,5,17,'guitar'],[21,21,1,3,'guitar']],back:[[1,11,5,17,'guitar'],[8,21,1,3,'guitar']],side:[[26,11,5,17,'guitar'],[17,20,1,3,'guitar']]},
       civic:{types:{front:'clipboard',side:'clipboard',back:'coat-tail'},front:[[1,18,5,10,'briefcase'],[7,18,3,4,'clipboard']],back:[[26,18,5,10,'briefcase'],[21,18,3,4,'clipboard']],side:[[26,18,5,10,'briefcase'],[17,17,3,4,'clipboard']]},
       elder:{types:{front:'cardigan-pin',side:'cardigan-back',back:'cardigan-back'},front:[[20,13,2,2,'pin']],back:[],side:[]},
@@ -367,7 +369,7 @@
     const CIV_PROP_LAYERS=Object.freeze({
       runner:{types:{front:'no-held-prop',side:'no-held-prop',back:'no-held-prop'},front:[],side:[],back:[]},
       coach:{types:{front:'clipboard',side:'clipboard',back:'coach-board'},front:[[22,18,3,7,'clipboard']],side:[[23,17,3,7,'clipboard']],back:[[13,14,6,4,'clipboard']]},
-      ref:{types:{front:'whistle',side:'whistle',back:'whistle'},front:[[16,14,2,2,'whistle']],side:[[34,11,2,2,'whistle']],back:[[7,18,2,2,'whistle']]},
+      ref:{types:{front:'whistle',side:'whistle',back:'whistle'},front:[[16,14,2,2,'whistle']],side:[[21,8,2,2,'whistle']],back:[[7,18,2,2,'whistle']]},
       fisher:{types:{front:'fishnet',side:'fishnet',back:'net-roll'},front:[[23,16,3,8,'fishnet']],side:[[25,16,3,8,'fishnet']],back:[[24,15,4,10,'fishnet']]},
       welder:{types:{front:'welding-torch',side:'welding-torch',back:'weld-cylinder'},front:[[23,16,3,7,'weldingtorch']],side:[[24,15,3,7,'weldingtorch']],back:[[18,13,4,12,'weldcylinder']]},
       sailor:{types:{front:'rope-coil',side:'rope-coil',back:'sailor-seam'},front:[[23,17,3,5,'ropecoil']],side:[[24,16,3,5,'ropecoil']],back:[[23,15,4,6,'ropecoil']]},
@@ -377,7 +379,9 @@
       vendor:{types:{front:'serving-tray',side:'serving-tray',back:'apron-ties'},front:[[23,18,5,2,'servingtray']],side:[[24,18,5,2,'servingtray']],back:[[13,16,5,4,'aprontie']]},
       dancer:{types:{front:'ribbon',side:'ribbon',back:'ribbon-tie'},front:[[23,15,3,8,'ribbon']],side:[[24,15,3,8,'ribbon']],back:[[13,14,6,4,'ribbon']]},
       busker:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[24,12,5,17,'guitar']],side:[[25,12,5,17,'guitar']],back:[[9,11,5,17,'guitar']]},
-      usher:{types:{front:'lapel-pin',side:'earpiece',back:'radio-pin'},front:[[21,13,2,2,'pin']],side:[[19,12,2,2,'pin']],back:[[20,13,2,2,'pin']]}
+      usher:{types:{front:'lapel-pin',side:'earpiece',back:'radio-pin'},front:[[21,13,2,2,'pin']],side:[[19,12,2,2,'pin']],back:[[20,13,2,2,'pin']]},
+      hacker:{types:{front:'no-held-prop',side:'no-held-prop',back:'no-held-prop'},front:[],side:[],back:[]},
+      tech:{types:{front:'tablet',side:'tablet',back:'tablet'},front:[[22,17,4,4,'tablet']],side:[[17,17,3,3,'tablet']],back:[[8,17,4,4,'tablet']]}
     });
     const ARCHETYPE_PROP_SHAPES=Object.freeze({
       duffel:['..##.','.####','#####','#####','.####'],
@@ -390,7 +394,8 @@
       medkit:['.##.','####','####','.##.'],
       wrench:['##','.#','.#','.#','##'],
       backpack:['.###.','#####','##.##','##.##','#####','#####','#####','#####','#####','.###.','..#..'],
-      guitar:['..#..','..#..','..#..','..#..','..#..','..#..','..#..','.###.','#####','#####','#####','.###.','..#..','..#..','..#..','..#..','..#..'],
+      tablet:['####','####','####','####'],
+      guitar:['..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..','.###.','.###.','.###.','#####','#####','#####','#####','.###.','.###.'],
       briefcase:['.###.','#####','##.##','#####','#####','#####','#####','#####','.###.','.###.'],
       clipboard:['.##','###','###','.##'],
       notebook:['.##','###','##.','###','###'],
@@ -414,8 +419,8 @@
     });
     const PROP_ROLE_COLORS=Object.freeze({
       duffel:'#D8A04D',whistle:'#F5D45C',satchel:'#9A6541',parcel:'#D88A45',
-      shield:'#65788D',baton:'#C6D3E0',bowl:'#F2F2F8',medkit:'#E3F3FF',
-      wrench:'#AEB8C2',backpack:'#B4FF3A',guitar:'#FF7A1A',briefcase:'#8A5B38',
+      shield:'#65788D',baton:'#C6D3E0',bowl:'#F2F2F8',medkit:'#E8384F',
+      wrench:'#AEB8C2',tablet:'#27E0FF',backpack:'#B4FF3A',guitar:'#FF7A1A',briefcase:'#8A5B38',
       clipboard:'#F4F6FF',notebook:'#FF2FA8',pin:'#FFD0EE',toolroll:'#8C9AA8',foamfinger:'#FFD23A',
       pennant:'#FF3B5C',megaphone:'#D7E6FF',rallytowel:'#58FFB0',
       fishnet:'#6DB8C8',weldingtorch:'#F5A623',ropecoil:'#D6B47A',paintbrush:'#E76F51',
@@ -458,7 +463,7 @@
       wait1:{body:'#f4d35e',trim:'#fff1b8',pants:'#45321a',hair:'#24170e'},
       wait2:{body:'#90caf9',trim:'#e3f2fd',pants:'#1f3b57',hair:'#172333'}
     });
-    const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger','pennant','megaphone','rallytowel','fishnet','weldingtorch','ropecoil','paintbrush','umbrella','ribbon','servingspoon','servingtray','weldcylinder','paintcan','aprontie']);
+    const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','tablet','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger','pennant','megaphone','rallytowel','fishnet','weldingtorch','ropecoil','paintbrush','umbrella','ribbon','servingspoon','servingtray','weldcylinder','paintcan','aprontie']);
     return { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, FAN_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, FAN_RIG_PARTS, ARCHETYPE_PROP_LAYERS, CIV_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
@@ -668,6 +673,7 @@
         const b=[1,3,5].map(i=>parseInt(target.slice(i,i+2),16));
         return '#'+a.map((v,i)=>Math.round(v+(b[i]-v)*amount).toString(16).padStart(2,'0')).join('');
       };
+      const lum=h=>{const c=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255);return .2126*c[0]+.7152*c[1]+.0722*c[2]};
       const skin=palette.skin[0],skinShade=palette.skin[1],skinLight=palette.skin[2];
       // CIV is the live per-civilian color source. Archetype palettes provide
       // shading fallbacks, while CIV body/trim/pants/hair colors distinguish
@@ -675,11 +681,13 @@
       const hairBase=P.hair||palette.hair[0];
       const hairShade=P.hair?mixHex(P.hair,'#000000',.32):palette.hair[1];
       const hairLight=P.hair?mixHex(P.hair,'#ffffff',.24):palette.hair[2];
-      const clothBase=P.body||palette.clothing[0];
+      const clothBase0=P.body||palette.clothing[0];
+      const clothBase=lum(clothBase0)<.26?mixHex(clothBase0,'#ffffff',.22):clothBase0;
       const needsValueSeparation=['usher','hacker','tech','vendor','guard','slicker','broker'].includes(kind);
-      const clothShade=P.body?mixHex(P.body,'#000000',needsValueSeparation?.27:.34):palette.clothing[1];
-      const clothLight=P.body?mixHex(P.body,'#ffffff',needsValueSeparation?.48:.34):palette.clothing[2];
-      const clothLower=P.pants?(needsValueSeparation?mixHex(P.pants,'#ffffff',.12):P.pants):palette.clothing[3];
+      const clothShade=P.body?mixHex(clothBase,'#000000',needsValueSeparation?.27:.34):palette.clothing[1];
+      const clothLight=P.body?mixHex(clothBase,'#ffffff',needsValueSeparation?.48:.34):palette.clothing[2];
+      const clothLower0=P.pants?(needsValueSeparation?mixHex(P.pants,'#ffffff',.12):P.pants):palette.clothing[3];
+      const clothLower=lum(clothLower0)<.1?mixHex(clothLower0,'#ffffff',.16):clothLower0;
       const accentGarment=P.trim||palette.accent[0],accentProp=palette.accent[1];
       const ink=mixHex(hairBase,'#000000',.85),N=64,H=96,SCALE=1;
       // Higher-density fixed pixel canvas: 32 columns x 48 rows.
@@ -704,7 +712,7 @@
         // Tiny readable prop details; highlights use the garment's light role.
         if(role==='medkit'&&w>=3&&h>=3){set(x+Math.floor(w/2),y+1,'bodyhi');set(x+Math.floor(w/2),y+2,'bodyhi');set(x+Math.floor(w/2)-1,y+1,'bodyhi');set(x+Math.floor(w/2)+1,y+1,'bodyhi')}
         if(role==='shield'&&w>=3&&h>=3)set(x+Math.floor(w/2),y+1,'bodyhi');
-        if(role==='guitar'&&w>=3&&h>=3)set(x+Math.floor(w/2),y+Math.floor(h/2),'bodyhi');
+        if(role==='guitar'&&w>=3&&h>=3)set(x+Math.floor(w/2),y+Math.floor(h*0.7),'bodyhi');
         if(role==='briefcase'&&w>=3)set(x+Math.floor(w/2),y,'bodyhi');
         if(role==='clipboard'&&w>=3)set(x+Math.floor(w/2),y+1,'bodyhi');
         if(role==='notebook'&&w>=3)set(x,y+1,'bodyhi');
@@ -853,7 +861,7 @@
         // Courier: offset zipper, collar fold, and a diagonal bag strap.
         for(let yy=12;yy<=21;yy++)set(15,yy,'inkdetail');
         for(let yy=13;yy<=20;yy++)set(14,yy,'bodyhi');
-        if(!side)for(let yy=13;yy<=21;yy++)set(19,yy,'pack');
+        if(!side)for(let i=0;i<=8;i++)set(19-i,13+i,'pack');
       }else if(archetypeKey==='guard'&&!back){
         // Guard: distinct shoulder armor and a reinforced central chest plate.
         put(side?18:8,10,3,3,'helm');put(side?18:23,10,3,3,'helm');
@@ -989,15 +997,7 @@
       if(!qaExcludeProps&&P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
       if(!qaExcludeProps&&P.keys){if(side||back)put(15,28,2,3,'key');else put(22,24,2,3,'key');}
       // Props are explicit per-archetype/per-direction layers; no shared prop footprint is inferred.
-      if(!qaExcludeProps&&kind==='courier'){
-        if(rigView==='front')put(4,18,16,2,'bodyshade');
-        else if(rigView==='back')put(21,18,7,2,'bodyshade');
-      }
-      if(!qaExcludeProps&&['kid','kid2','mouse'].includes(kind)){
-        if(rigView==='front')put(5,18,16,2,'bodyshade');
-        else if(rigView==='back')put(21,18,6,2,'bodyshade');
-        else if(rigView==='side')put(19,18,7,2,'bodyshade');
-      }
+      if(!qaExcludeProps&&['kid','kid2','mouse'].includes(kind)&&rigView==='front'){put(14,13,1,8,'pack');put(17,13,1,8,'pack');}
       const propSpec=kind==='fan'?ARCHETYPE_PROP_LAYERS.fan:(CIV_PROP_LAYERS[kind]||ARCHETYPE_PROP_LAYERS[archetypeKey]);
       const declaredPropType=propSpec&&propSpec.types&&propSpec.types[rigView];
       if(!propSpec||!declaredPropType||propSpec.types[rigView]!==declaredPropType) {
@@ -1015,15 +1015,14 @@
       }
       if(!qaExcludeProps&&kind==='ref'){
         if(rigView==='front'){put(16,12,3,3,'arm');put(18,12,2,2,'skin');}
-        else if(rigView==='side'){put(32,12,3,3,'arm');put(34,11,2,2,'skin');}
       }
       if(!qaExcludeProps&&kind==='welder'&&rigView==='back'){
         // A narrow shoulder strap joins the cylinder to the back rig in the rendered mask.
-        put(16,22,2,20,'bodyshade');
+        put(16,12,2,10,'bodyshade');
       }
       if(!qaExcludeProps&&kind==='busker'&&rigView==='back'){
         // Guitar-case strap runs from shoulder to lower case so the silhouette is one piece.
-        put(12,22,2,20,'bodyshade');
+        put(12,12,2,10,'bodyshade');
       }
       for(const [px,py,pw,ph,role] of propLayers){
         if(qaExcludeProps&&ARCHETYPE_ACCESSORY_ROLES.has(role))continue;
@@ -1063,7 +1062,7 @@
           case 'labcoat':return typeof P.labcoat==='string'?P.labcoat:accentGarment;
           case 'key':return accentProp;
           case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'foamfinger':case 'pennant':case 'megaphone':case 'rallytowel':return PROP_ROLE_COLORS[role]||accentProp;
-          case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':
+          case 'duffel':case 'satchel':case 'tablet':case 'shield':case 'toolroll':case 'briefcase':
           case 'fishnet':case 'weldingtorch':case 'ropecoil':case 'paintbrush':case 'umbrella':
           case 'ribbon':case 'servingspoon':case 'servingtray':case 'weldcylinder':case 'paintcan':case 'aprontie':return PROP_ROLE_COLORS[role]||accentProp;
           default:return null;
@@ -1099,6 +1098,25 @@
         {eyes:[[27,10],[36,11]],brows:[[27,8],[36,9]],mouth:[32,16],mouthPixels:[[0,0,'inkdetail'],[1,0,'inkdetail'],[0,1,'inkdetail']]}, // surprised
         {eyes:[[28,11],[36,10]],brows:[[28,9],[36,7]],mouth:[32,17],mouthPixels:[[0,0,'inkdetail'],[0,1,'skinshade']] } // concerned
       ];
+      const FP={
+        eyes:{dot:[[28,10,2,2],[36,10,2,2]],wide:[[27,10,3,2],[36,10,3,2]],tall:[[28,10,2,3],[36,10,2,3]],
+         sleepy:[[27,11,3,1],[36,11,3,1]],close:[[29,10,2,2],[35,10,2,2]],far:[[27,10,2,2],[37,10,2,2]]},
+        brows:{flat:[[27,8,4,1],[35,8,4,1]],arch:[[27,8,1,1],[28,7,2,1],[30,8,1,1],[35,8,1,1],[36,7,2,1],[38,8,1,1]],
+         angry:[[27,8,2,1],[29,9,2,1],[35,9,2,1],[37,8,2,1]],worried:[[27,9,2,1],[29,8,2,1],[35,8,2,1],[37,9,2,1]],
+         skew:[[27,8,4,1],[35,8,1,1],[36,7,2,1],[38,8,1,1]]},
+        mouths:{flat:[[0,0,4,1,'inkdetail']],smile:[[0,0,4,1,'inkdetail'],[-1,-1,1,1,'inkdetail'],[4,-1,1,1,'inkdetail']],
+         frown:[[0,0,4,1,'inkdetail'],[-1,1,1,1,'inkdetail'],[4,1,1,1,'inkdetail']],o:[[1,0,2,2,'inkdetail']],
+         smirk:[[0,1,3,1,'inkdetail'],[3,0,1,1,'inkdetail'],[4,-1,1,1,'inkdetail']],
+         grin:[[-1,0,6,2,'inkdetail'],[0,0,4,1,'skinlight']],small:[[1,0,2,1,'inkdetail']]}
+      };
+      const CIV_FACES={runner:['dot','flat','smile'],coach:['wide','angry','flat'],ref:['close','arch','o'],
+       courier:['far','skew','smirk'],guard:['sleepy','flat','frown'],vendor:['tall','arch','grin'],
+       cook:['wide','arch','smile'],clinic:['close','worried','small'],tech:['wide','flat','small'],
+       hacker:['sleepy','angry','smirk'],fisher:['dot','angry','frown'],sailor:['far','arch','grin'],
+       slicker:['tall','skew','flat'],painter:['dot','skew','smile'],welder:['sleepy','angry','flat'],
+       kid:['tall','arch','o'],kid2:['close','flat','grin'],mouse:['far','worried','small'],
+       busker:['close','skew','grin'],dancer:['tall','worried','smile'],broker:['dot','worried','frown'],
+       usher:['wide','worried','o']};
       const face=faceSets[faceStyle];
       // Facial features are deliberately larger than single source pixels.
       // At the in-game scale a 1x1 mark disappears; 2x2 eyes/mouths and 3x2
@@ -1107,13 +1125,20 @@
         for(let fy=y;fy<Math.min(H,y+h);fy++)for(let fx=x;fx<Math.min(N,x+w);fx++)if(fx>=0&&fy>=0)grid[fy][fx]=role;
       };
       if(!side&&!back){
-        // Clear the generic base marks before laying down this NPC's expression.
         for(const [ex,ey] of [[28,10],[36,10],[32,16]])grid[ey][ex]='skin';
-        for(const [ex,ey] of face.eyes)stampFace(ex,ey,'inkdetail',2,2);
-        for(const [bx,by] of face.brows)stampFace(bx,by,'hair',3,2);
-        for(const [dx,dy,role] of face.mouthPixels)stampFace(face.mouth[0]+dx,face.mouth[1]+dy,role,2,2);
-        if(face.cheeks)for(const [cx,cy] of face.cheeks)stampFace(cx,cy,'skinlight',2,2);
-        if(face.facialHair)for(const [hx,hy] of face.facialHair)stampFace(hx,hy,'hair',2,2);
+        const fp=kind!=='fan'&&CIV_FACES[kind];
+        if(fp){
+          for(let y=8;y<=17;y++)for(let x=26;x<=39;x++)grid[y][x]='skin';
+          for(const [x,y,w,h] of FP.eyes[fp[0]])stampFace(x,y,'inkdetail',w,h);
+          for(const [x,y,w,h] of FP.brows[fp[1]])stampFace(x,y,'hair',w,h);
+          for(const [dx,dy,w,h,r] of FP.mouths[fp[2]])stampFace(31+dx,16+dy,r,w,h);
+        }else{
+          for(const [ex,ey] of face.eyes)stampFace(ex,ey,'inkdetail',2,2);
+          for(const [bx,by] of face.brows)stampFace(bx,by,'hair',3,2);
+          for(const [dx,dy,role] of face.mouthPixels)stampFace(face.mouth[0]+dx,face.mouth[1]+dy,role,2,2);
+          if(face.cheeks)for(const [cx,cy] of face.cheeks)stampFace(cx,cy,'skinlight',2,2);
+          if(face.facialHair)for(const [hx,hy] of face.facialHair)stampFace(hx,hy,'hair',2,2);
+        }
         if(faceDetail)stampFace(faceDetail[0],faceDetail[1],'skinlight',2,2);
       }
       if(side){
