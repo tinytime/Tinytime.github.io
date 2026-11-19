@@ -1284,10 +1284,12 @@
         roleDebugGrid.unshift(Array(N).fill(null));
         roleDebugGrid.pop();
         const roles=[...new Set(roleDebugGrid.flat().filter(Boolean))].sort();
-        owCiv._lastRoleDebugLegend=roles.map((role,index)=>({
-          role,
-          color:'hsl('+Math.round(index*360/Math.max(1,roles.length))+' 100% 58%)'
-        }));
+        const roleColor=role=>{
+          let hash=2166136261;
+          for(let i=0;i<role.length;i++){hash^=role.charCodeAt(i);hash=Math.imul(hash,16777619);}
+          return 'hsl('+((hash>>>0)%360)+' 100% 58%)';
+        };
+        owCiv._lastRoleDebugLegend=roles.map(role=>({role,color:roleColor(role)}));
       }else owCiv._lastRoleDebugLegend=null;
       for(let gy=0;gy<H;gy++)for(let gx=0;gx<N;gx++){
         const color=roleDebug
