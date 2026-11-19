@@ -2,7 +2,7 @@
 
 **Project:** Vapor City civilian NPC vector redesign  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Last recorded implementation checkpoint:** `35027d7d849ee3bb9ef173f2ae6172a53de920ba` (Usher targeted-QA checkpoint; verify the latest branch head before continuing)
+**Last recorded implementation checkpoint:** `08b4556a8ec4d1756ac3c7af698d4acb8bb8685a` (Cook renderer refinement; verify the latest branch head before continuing)
 
 > This is the live status document. Update it after each meaningful design, integration, QA, and review milestone. The project background and working rules are in this folder's [README](README.md).
 
@@ -32,7 +32,7 @@ The first review batch is three characters total. Once all three are built and i
 | Character | Role / identity | Status | Internal QA | Claude review | Notes |
 |---|---|---|---|---|---|
 | Usher | Civic / venue usher; cap, clipboard, formal uniform | **BUILT — NOT APPROVED** | Targeted checks passed; four-direction render captured | Pending | First vector pilot. Navy/steel direction with restrained brass accents; distinct from Granny. |
-| Cook | Food service / chef | **BUILT — NOT APPROVED** | Browser QA pending | Pending | Dedicated vector path integrated: tall pleated toque, broad double-breasted cream coat, terracotta apron with ties/pocket, copper sauté pan, dark cropped curls; four intentional directions. QA run pending; visual approval not claimed. |
+| Cook | Food service / chef | **BUILT — NOT APPROVED** | Targeted checks pass; global workflow fails on separate gates | Pending | Dedicated vector path integrated: tall pleated toque, broad double-breasted cream coat, terracotta apron with ties/pocket, copper sauté pan with connected grip, dark cropped curls; four intentional directions. Native-size and 4× directional renders inspected. No approval claimed. |
 | Courier | Delivery / messenger | **PLANNED — NOT APPROVED** | Pending | Pending | Working concept: distinct cap or helmet, delivery bag, parcel/dispatch prop, separate silhouette and palette. |
 
 ## Full civilian roster
@@ -47,7 +47,7 @@ All designs below remain unapproved until their own design and review are comple
 | 4 | Courier | **PLANNED — NOT APPROVED** | Pending | Pending | Included in first three-character pilot. |
 | 5 | Guard | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 6 | Vendor | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 7 | Cook | **BUILT — NOT APPROVED** | Browser QA pending | Pending | Included in first three-character pilot; dedicated vector renderer now integrated. |
+| 7 | Cook | **BUILT — NOT APPROVED** | Targeted checks pass; global workflow fails on separate gates | Pending | Included in first three-character pilot; dedicated vector renderer now integrated. |
 | 8 | Clinic worker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 9 | Tech | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 10 | Hacker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
@@ -69,6 +69,6 @@ All designs below remain unapproved until their own design and review are comple
 
 - **2026-11-19:** Usher vector pilot integrated. Run #393 targeted Usher checks passed. Overall browser workflow remained failed by the unapproved golden-snapshot gate and legacy civilian silhouette-overlap audit. These are tracked separately from Usher approval.
 - **2026-11-19:** Agreed to complete three vector characters before the next Claude review: Usher, Cook, and Courier.
-- **2026-11-19:** Cook's bespoke vector renderer integrated in `npc_sprites.js` with front/back/left/right compositions, pleated toque, double-breasted chef coat, terracotta apron and copper sauté pan. Browser QA was extended to count Cook as the second vector civilian and apply vector baseline/outline tolerances. Commits: `1fdb0c2c501844b2a2589655334325833182d72d` (renderer), `c69a367589ceb29b4428fd97829966e682bd8cf0` (QA), `4f9736960bd206515be3d055e34b6e95961a7f63` (apron strap refinement). Automated run results and screenshot inspection still pending; Cook remains NOT APPROVED.
+- **2026-11-19:** Cook's bespoke vector renderer integrated in `npc_sprites.js` with front/back/left/right compositions, pleated toque, double-breasted chef coat, terracotta apron and copper sauté pan. Browser QA now counts Cook as the second vector civilian and validates vector baseline/outline evidence. Commits: `1fdb0c2c501844b2a2589655334325833182d72d` (initial renderer), `421607e0940d29d572f72321d9b24645e6774cbf` (dispatch syntax correction), `08979b4320e95bdf597e3a8914d0a8f523a98d5f` (headroom/baseline correction), `d333e4562032162579f2ba6105f8336a14a9ef29` (Cook QA tolerances), `5c57947f9a08055282391c1dd4097245bf5c8924` (QA syntax correction), `08b4556a8ec4d1756ac3c7af698d4acb8bb8685a` (pan grip refinement). Run `44536883982` verified Cook's palette, baseline/body, face, role-debug, prop, and directional visual-integrity checks; town and gallery passed. Overall workflow remains failed on unapproved golden snapshots and global legacy silhouette overlap. Final pan-grip refinement is undergoing a follow-up run. Cook remains NOT APPROVED.
 - **2026-11-19:** Project background handoff folder created. This tracker was moved here from `docs/NPC_VECTOR_CHARACTER_TRACKER.md`.
 - **Approval rule:** Keep every new character marked **NOT APPROVED** until internal QA, Claude's independent review, and project-owner acceptance are complete.
