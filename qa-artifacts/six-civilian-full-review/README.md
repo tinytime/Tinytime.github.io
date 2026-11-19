@@ -24,7 +24,6 @@ The live renderer is **`npc_sprites.js`** (with an underscore; not `npcsprites.j
 - [Current branch copy](https://github.com/tinytime/Tinytime.github.io/blob/npc-granny-baseline-overhaul/npc_sprites.js)
 - Source commit: [`5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`](https://github.com/tinytime/Tinytime.github.io/commit/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0)
 - Review branch: `npc-granny-baseline-overhaul`
-- Review-package branch head when prepared: `cbd98d527d850f72dd6f15a5be2ce82ace2ab65d` (documentation-only commits after the renderer source)
 
 Please read the actual draw functions, dispatch, palettes, directional paths, shape layering, shared helpers and archetype mappings—not just the rendered screenshots. The source link is deliberately pinned to the renderer commit used by the latest six-civilian QA.
 
@@ -39,7 +38,7 @@ Please read the actual draw functions, dispatch, palettes, directional paths, sh
 
 ### Second batch — Runner, Coach, Referee
 
-- [Latest QA run #457](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167), artifact `14563778383`
+- [Latest QA run #457](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167), [download its QA artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167/artifacts/14563778383), artifact ID `14563778383`
 - Exact tested renderer source: [`5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`](https://github.com/tinytime/Tinytime.github.io/commit/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0)
 - [Run #452 evidence index](../runner-coach-referee-run-452/README.md)
 - Artifact includes all three characters' native 64×96 four-direction captures, direct 28×42 game-scale captures, role-debug, Granny comparison, gallery, town regression and `report.json`.
