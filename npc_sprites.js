@@ -1239,11 +1239,10 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         // Keep the enlarged profile crown clear of the 64x96 crop edge.
         ell(40,21.5,3.4,3.2,'#34252A',ink,.65);ell(47,19,3.6,3.3,'#24202A',ink,.65);ell(54,19,3.5,3.3,'#34252A',ink,.65);ell(60,22.5,3.2,3.1,'#24202A',ink,.65);
         ell(58,31,1.8,2.1,'#171725',null);line([[57,28],[62,28]],'#3E2729',1.2);
-        path([[60,32],[67,35],[62,39],[59,37]],'#B8795F',ink,.8); // projecting nose bridge and tip
-        // Native-scale mouth: a short dark smile with a warm lower-lip pixel.
-        line([[59,41],[62,40],[65,40]],'#40282A',2);
-        line([[61,42],[64,42]],'#C77F65',1.1);
-        ell(55,37,2.2,1.5,'#C77F65',null);
+        // A distinct projecting nose and a clean mouth tick; avoid cheek/chin
+        // flecks that collapse into apparent stubble at native scale.
+        path([[59,32],[68,34],[65,37],[60,38]],'#B8795F',ink,.9);
+        line([[60,41],[63,41]],'#40282A',1.45);
       }else{
         ell(40,19,3.4,3.2,'#34252A',ink,.6);ell(47,17,3.4,3.2,'#24202A',ink,.6);ell(54,17,3.4,3.2,'#34252A',ink,.6);ell(60,20,3.2,3.1,'#24202A',ink,.6);
       }
@@ -1322,9 +1321,11 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       line([[44,63],[49,72],[54,63]],'#D6B85D',1.8);
       // Horizontal whistle barrel with a clear projecting mouthpiece; avoid
       // the circular pendant silhouette that disappeared at native scale.
-      path([[46,74],[49,72.8],[54,73],[57,75],[56,78],[49,79],[46,77]],'#D9AD45',ink,1);
-      path([[42,74],[47,73],[47,76],[43,77]],'#F3D985',ink,.8);
-      line([[49,74],[55,74]],'#FFF0C8',1);line([[55,75],[59,75]],'#8A6428',1.1);
+      // Angled whistle body with a clearly dark mouthpiece opening.
+      path([[46,74],[50,71.8],[55,73],[58,76],[55,79],[49,78],[45,76]],'#D9AD45',ink,1);
+      path([[42,73],[48,72],[48,76],[44,78]],'#F3D985',ink,.8);
+      ell(47,74.8,1.05,.8,'#302B27',null);
+      line([[50,74],[55,75]],'#FFF0C8',1);
     }else{
       // Front jacket: cream shoulder yoke, zipper, pocket seams and hem band.
       path([[34,52],[43,48],[58,48],[68,54],[64,68],[50,73],[36,67]],'#D8D7B8',ink,1.3);
@@ -1347,9 +1348,12 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       // Whistle on a short gold lanyard.
       line([[46,64],[50,76],[55,64]],'#D6B85D',1.9);
       // Side-facing whistle reads as a compact horizontal barrel and tip.
-      path([[47,75],[50,73.5],[56,74],[59,76],[57,79],[50,80],[47,78]],'#D9AD45',ink,1.05);
-      path([[43,75],[48,74],[48,77],[44,78]],'#F3D985',ink,.85);
-      line([[50,75],[57,75]],'#FFF0C8',1.1);line([[57,76],[61,76]],'#8A6428',1.1);
+      // Angled whistle chamber and dark mouthpiece opening remain distinct
+      // from a flat gold bar at native and game scale.
+      path([[47,75],[50,72.8],[56,74],[59,77],[56,80],[50,79],[46,77]],'#D9AD45',ink,1.05);
+      path([[43,74],[49,73],[49,77],[45,79]],'#F3D985',ink,.85);
+      ell(48,75.5,1.05,.8,'#302B27',null);
+      line([[51,75],[56,76]],'#FFF0C8',1.1);
     }
     // Head: older coach, swept silver temples, expressive brows and visor.
     if(!side){
@@ -1388,11 +1392,12 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[42,18],[52,16],[59,19],[63,24],[62,30],[67,33],[63,37],[61,41],[53,44],[45,42],[40,37],[38,29],[39,22]],
           grad(38,16,63,45,[[0,'#D99C76'],[.55,skin],[1,'#754632']]),ink,1.5);
         path([[38,22],[42,16],[55,16],[63,22],[66,25],[64,27],[40,27]],'#5B6260',ink,1);
+        // One visible eye, a small rear ear, a projecting nose and a defined
+        // jaw. Keep the cheek clear so the face cannot read as a second eye.
         ell(57,31,1.25,1.6,ink,null);
-        ell(43,31,1.8,2.2,'#D99C76',ink,.7);
-        line([[59,34],[66,35],[62,38]],'#80513D',1.2);
-        line([[55,42],[61,42]],'#714333',1.2);
-        ell(53,38,1.8,1.2,'#D99578',null);
+        ell(42,31,1.35,1.75,'#D99C76',ink,.65);
+        line([[57,33],[64,34],[68,36],[64,38]],'#80513D',1.35);
+        line([[52,42],[57,43],[62,41]],'#714333',1.15);
         // The visor projects forward, making the profile direction explicit.
         path([[37,23],[42,16],[54,16],[62,20],[66,25],[64,27],[39,27]],'#263B35',ink,1.3);
         path([[49,25],[67,25],[66,28],[49,28]],'#D6B85D',ink,1);
