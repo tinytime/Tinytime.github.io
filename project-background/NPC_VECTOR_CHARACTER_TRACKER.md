@@ -381,3 +381,14 @@ The browser QA hook now targets Usher, Cook, Courier, Coach and Referee at direc
 - Generator verified 20/20 native captures and 20/20 direct game-scale captures, with no missing images.
 - Artifact includes `five-civilian-native-4x-contact-sheet.png` (1114×2208) and `five-civilian-game-scale-4x-contact-sheet.png` (730×1208), plus individual images and report.
 - Overall workflow remains failed on the global silhouette and unapproved golden snapshot gates. Human visual inspection of both sheets and individual PNGs remains outstanding.
+
+
+## Runs #463–#464 — complete five-civilian visual evidence (2026-11-19)
+
+- Direct game-scale hook expanded in commit c1d8d75aceeef0c9a689c2f8c40ae88909c55ada: five in-scope civilians × four directions, each rendered directly through `owCiv` at live OWT=36 / vector scale 0.28 into a 28×42 canvas (no resize).
+- Run #463 (https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178), artifact 14568093189, verified the 20/20 direct captures and generated the native 64×96 contact sheet.
+- Generator commit 2b21457cb4faaa5d993c46d696df3d3aca07f87a adds a separate 4× nearest-neighbour game-scale contact sheet from the direct 28×42 captures.
+- Run #464 (https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571), artifact 14568746641, verified: native captures 20/20; direct 28×42 captures 20/20; directional integrity 92/92; role debug 12/12; prop audit 10 archetypes; gallery rendered; page errors 0; script errors 0.
+- Internal visual inspection of both contact sheets and the town render found no obvious clipping or detached pieces. Usher's clipboard reads in profile; Cook's toque clears the face and pan remains directional; Courier's parcel/satchel and strap remain visible; Coach's silver age cues/profile hair and whistle remain present; Referee's raised card remains present in all views. At 28×42, major role silhouettes and signature props remain distinguishable while fine facial detail compresses. This is ChatGPT internal visual QA only, not owner approval or Claude review.
+- Overall Actions result remains FAILED for the global civilian silhouette gate (max rendered IoU 0.9094292803970223, Clinic/Sailor front; Coach/Courier back 0.8939319190922546) and golden snapshot gate (1 match / 23 changed; baseline explicitly unapproved). Do not weaken thresholds or refresh snapshots. Missing-audio 404s remain; page/script exceptions are zero.
+- All five remain NOT APPROVED pending Claude's independent review and owner decision. Runner remains outside this review round; remaining 20 civilians remain ON HOLD. No golden snapshots were refreshed or approved.
