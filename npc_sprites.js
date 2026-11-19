@@ -1032,6 +1032,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         line([[73,80],[94,78]],'#F7E8C5',2);
         path([[82,76],[89,75],[89,80],[82,81]],'#F7F0DC',ink,.9);
         line([[84,78],[87,78]],'#4B6570',.8);
+        // The gripping fingers overlap the parcel edge so the delivery prop never floats.
+        path([[69,83],[75,82],[79,86],[78,91],[73,92],[69,88]],skin,ink,1.2);
+        line([[73,86],[77,87]],'#DDA47D',.9);
       }else{
         path([[31,54],[41,48],[60,50],[70,57],[68,91],[74,101],[26,103]],'#286D76',ink,1.8);
         // Large courier pack is the defining rear silhouette, not a tiny badge.
@@ -1057,6 +1060,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[68,82],[75,82],[78,88],[74,93],[68,90]],skin);
       path([[74,72],[91,70],[95,75],[93,91],[77,94],[72,87]],parcel,ink,1.7);
       line([[82,72],[84,91]],'#9A633D',1.2);line([[75,81],[93,79]],'#F7E8C5',2);
+      // Visible fingers wrap the near parcel corner and connect to the sleeve.
+      path([[69,83],[75,82],[79,86],[78,91],[73,92],[69,88]],skin,ink,1.2);
+      line([[73,86],[77,87]],'#DDA47D',.9);
       line([[32,105],[67,105]],'#79BFB2',1.2);
     }
     // Distinctive low-profile storm cap: swept crown, short visor and cyan piping.
