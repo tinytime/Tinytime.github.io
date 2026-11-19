@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import { compareMasks, maskFromRows, rasterizePolygons } from './granny-mask-fit.mjs';
+const square=[{x:10,y:10},{x:13,y:10},{x:13,y:13},{x:10,y:13}];
+const candidate=rasterizePolygons([square],'front'),exact=new Uint8Array(14000);
+for(let y=10;y<13;y++)for(let x=10;x<13;x++)exact[y*100+x]=1;
+const perfect=compareMasks(candidate,exact);
+assert.equal(perfect.iou,1);assert.equal(perfect.precision,1);assert.equal(perfect.recall,1);
+const partial=new Uint8Array(exact);partial[12*100+12]=0;
+const partialFit=compareMasks(candidate,partial);
+assert.ok(partialFit.iou<1&&partialFit.iou>0);assert.equal(partialFit.referenceOnlyPixels,0);assert.equal(partialFit.candidateOnlyPixels,1);
+const rows=Array.from({length:140},()=>[]);rows[20]=[[4,6],[8,8]];
+const rowMask=maskFromRows(rows);
+assert.equal(rowMask[20*100+4],1);assert.equal(rowMask[20*100+7],0);assert.equal(rowMask.reduce((a,b)=>a+b,0),4);
+const mirrored=rasterizePolygons([square],'left');
+assert.equal(mirrored[10*100+86],1);assert.equal(mirrored[10*100+89],0);
+console.log('Granny mask-fit helper tests passed (4 fixtures).');
