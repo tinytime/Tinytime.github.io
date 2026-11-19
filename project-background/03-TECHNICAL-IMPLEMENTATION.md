@@ -123,3 +123,14 @@ No renderer or browser QA code was changed as part of creating the standard. Bef
 The browser QA workflow validates the semantic measurement framework in `qa/civilian-proportion-measurements.mjs` and `qa/civilian-anatomy-landmarks.json`. The framework accepts human-verified landmarks in Granny's 100×140 source coordinate convention and calculates ratios from anatomical landmarks rather than accessory-inclusive sprite bounds. Headwear and prop polygons are recorded separately. Runner uses a dynamic-pose joint model (shoulder/elbow/wrist/hip/knee/ankle on both sides) and receives no upright leg-region ratio.
 
 The initial manifest preserves Granny's existing measured reference as a separate legacy baseline. All six current civilian annotations remain pending until their landmarks are verified against actual four-direction renders. The framework reports pending status rather than guessing coordinates. Its test suite and manifest validation run before browser diagnostics; the resulting JSON report is uploaded with the QA artifact. No new proportion thresholds or hard-fail gates are introduced.
+
+
+## Semantic civilian proportion measurement framework — 2026-11-19
+
+Implemented in `qa/civilian-proportion-measurements.mjs`, with the source annotation manifest at `qa/civilian-anatomy-landmarks.json` and annotation procedure at [Semantic Civilian Anatomy Annotation Guide](../qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md).
+
+The framework uses a shared 100×140 local source-space convention and separates anatomical body polygons from headwear and prop polygons. Required per-direction landmarks are head top, chin, shoulder endpoints/row, pelvis row and foot baseline. Runner is explicitly dynamic and requires shoulder/elbow/wrist/hip/knee/ankle joints; the script does not apply standing leg-height ratios to it.
+
+The report derives body/head/shoulder/torso/neck and (standing only) lower-body intervals and ratios. It validates polygon geometry and coordinates against the source canvas. Ratios are descriptive only; provisional bands are not hard-fail CI gates.
+
+Current data state is intentionally honest: Granny's existing measured facts are stored as `reference_only` because the legacy umbrella/body mask convention is not yet harmonized with the new semantic mask. All six current NPCs remain `pending_annotation` until a human annotates all four directions. The tool does not invent landmarks or mark characters measured based on whole-sprite bounds.
