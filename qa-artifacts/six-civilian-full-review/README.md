@@ -22,7 +22,7 @@ The live renderer is **`npc_sprites.js`** (with an underscore; not `npcsprites.j
 - [Live renderer at the exact reviewed source commit](https://github.com/tinytime/Tinytime.github.io/blob/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0/npc_sprites.js)
 - [Raw `npc_sprites.js` at the exact reviewed source commit](https://raw.githubusercontent.com/tinytime/Tinytime.github.io/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0/npc_sprites.js)
 - [Current branch copy](https://github.com/tinytime/Tinytime.github.io/blob/npc-granny-baseline-overhaul/npc_sprites.js)
-- Source commit: [`5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`](https://github.com/tinytime/Tinytime.github.io/commit/4eafc657fa9ee15db3b70f3c64a76280d4add0a6)
+- Source commit: [`5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`](https://github.com/tinytime/Tinytime.github.io/commit/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0)
 - Review branch: `npc-granny-baseline-overhaul`
 - Review-package branch head when prepared: `cbd98d527d850f72dd6f15a5be2ce82ace2ab65d` (documentation-only commits after the renderer source)
 
@@ -39,8 +39,8 @@ Please read the actual draw functions, dispatch, palettes, directional paths, sh
 
 ### Second batch — Runner, Coach, Referee
 
-- [Latest QA run #452](https://github.com/tinytime/Tinytime.github.io/actions/runs/44587406698), artifact `14562025835`
-- Exact tested renderer source: [`4eafc657fa9ee15db3b70f3c64a76280d4add0a6`](https://github.com/tinytime/Tinytime.github.io/commit/4eafc657fa9ee15db3b70f3c64a76280d4add0a6)
+- [Latest QA run #457](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167), artifact `14563778383`
+- Exact tested renderer source: [`5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`](https://github.com/tinytime/Tinytime.github.io/commit/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0)
 - [Run #452 evidence index](../runner-coach-referee-run-452/README.md)
 - Artifact includes all three characters' native 64×96 four-direction captures, direct 28×42 game-scale captures, role-debug, Granny comparison, gallery, town regression and `report.json`.
 - Run #452 specifically verifies the latest Runner side-profile narrowing. Coach and Referee have no source changes in that final Runner-only commit; their latest reviewed state is included in the same artifact.
@@ -92,9 +92,9 @@ Do not start designing the remaining civilians. The owner must review Claude's f
 
 ## Internal QA context and limitations
 
-Run #452 targeted checks passed: direct game-scale captures 12/12, role-debug 12/12, directional integrity 92/92 with zero edge contacts/detached large components, silhouette-quality 180/180, palette/body and prop checks, gallery and town regression. Page/script errors were empty.
+Run #457 targeted checks pass: syntax/module and inventory; direct game-scale captures 12/12; role-debug 12/12; directional visual integrity 92/92 with zero edge contacts or detached components; face distinctness 23/23; palette; prop audit; silhouette-quality 180/180; gallery and town regression. Page/script errors are empty. All 24 native 64×96 images for the six civilians were inspected.
 
-The overall workflow was **FAILED** on separate/global gates: Clinic/Sailor full-civilian silhouette overlap, unapproved golden snapshots (23 changed / 1 match), and 180 missing-audio 404 console errors. No snapshots were refreshed or approved. These global failures are not evidence of a new Runner/Coach/Referee defect, but must not be hidden.
+The NPC body/baseline audit still flags Courier's baseline delta 2 against the vector threshold of 1. The overall workflow was **FAILED** on this and separate/global gates: Clinic/Sailor full-civilian silhouette overlap (front IoU `0.9094292803970223`), unapproved golden snapshots (23 changed / 1 match), and 180 missing-audio 404 console errors. No snapshots were refreshed or approved. These failures must be reported separately from the visual integrity pass.
 
 The first-batch evidence also has historical QA notes and Claude findings in its linked review package. Use those as context, but independently inspect the actual six designs and source.
 
@@ -115,3 +115,13 @@ The first-batch evidence also has historical QA notes and Claude findings in its
 - Targeted results: syntax/module/inventory pass; palette pass; face distinctness 23/23; visual integrity 92/92 with zero edge contacts/detached large components; role-debug 12/12; prop audit; archetype silhouette quality 180/180; gallery and town regression pass; page/script errors 0.
 - Overall workflow remains **FAILED**: NPC body audit failed; global civilian type-silhouette audit still flags Clinic/Sailor front at IoU `0.9094292803970223`; golden snapshots remain unapproved (23 changed / 1 match); 180 missing-audio 404 console errors. No snapshots were refreshed or approved.
 - This evidence updates the review source and current status; it does not constitute Claude review or owner approval. The first three remain owner-approved; Runner/Coach/Referee remain pending comparative review and owner approval; remaining 20 stay on hold.
+
+
+## Latest verification — run #457
+
+- Exact source: `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0` — [renderer commit](https://github.com/tinytime/Tinytime.github.io/commit/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0).
+- [GitHub Actions run #457](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167), artifact `14563778383`.
+- Inspect the artifact's `npc-type-directions/` for all six × four native views and `npc-game-scale-28x42/` for the 12 direct Runner/Coach/Referee game-scale captures. `report.json` contains the exact audit results.
+- Cook toque now has transparent headroom in all directions; Runner side stride shows two legs/two feet with one trailing-leg draw. All 92 integrity checks pass with no edge contacts or detached components.
+- Not an overall workflow pass: Courier baseline alignment, Clinic/Sailor overlap, unapproved snapshots and 180 missing-audio console errors remain. No snapshots refreshed.
+
