@@ -13,9 +13,9 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 **Branch:** `npc-granny-baseline-overhaul`  
 **Latest renderer source:** `4f0d135f0f14506a2c19df0f760d0fe2ec5a7495` (Referee handedness, rear hair, side-profile torso and card grip refinement). Browser QA run [#426](https://github.com/tinytime/Tinytime.github.io/actions/runs/44557279748), job `135676647176`, tested that exact SHA; artifact `14545038850` was downloaded and inspected. Referee-specific four-direction, palette, body/baseline, face, prop, clipping and visual-integrity evidence passed. Role-debug passed 12/12 across six vectors (front/right views); full gallery four-direction evidence was inspected. Town scene loaded with 16 NPCs, but its street roster does not explicitly include a Referee, so this is scene-regression evidence rather than proof of the Referee's live town card. Overall workflow remains failed on the global Clinic/Sailor silhouette gate and explicitly unapproved golden baseline.
 
-**Active task:** Runner, Coach and Referee are built and have passed targeted internal QA. Referee's latest corrections have been rendered and inspected at native 64×96 and enlarged scale. All three remain NOT APPROVED pending Claude's comparative review and owner acceptance.
+**Active task:** Runner, Coach and Referee are built and have passed targeted internal QA. Referee's latest renderer (run #426 / source `4f0d135f0f14506a2c19df0f760d0fe2ec5a7495`) has been independently inspected at native 64×96 and enlarged scale. All three remain NOT APPROVED pending Claude's comparative review and owner acceptance. Referee-specific town readability is not yet evidenced: the standard street capture does not spawn Referee.
 **Assigned specialist chat:** **QA and Independent Review Coordinator**.
-**Next action:** Deliver the prepared Runner/Coach/Referee evidence package to Claude for comparative review against Granny Volt. Keep the remaining roster on hold until the owner approves the direction.
+**Next action:** Close the Referee live town/room capture gap if town readability is required, then deliver Runner/Coach/Referee's current artifacts (Runner #416, Coach #420, Referee #426) to Claude for comparative review against Granny Volt. Keep the remaining roster on hold until the owner approves the direction.
 
 ## Working agreement
 
