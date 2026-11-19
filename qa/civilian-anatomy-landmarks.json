@@ -2803,20 +2803,20 @@
           "propPolygons": [
             [
               {
-                "x": 8,
+                "x": 73,
                 "y": 10
               },
               {
-                "x": 28,
+                "x": 93,
                 "y": 10
               },
               {
-                "x": 28,
-                "y": 39
+                "x": 93,
+                "y": 37
               },
               {
-                "x": 8,
-                "y": 39
+                "x": 73,
+                "y": 37
               }
             ],
             [
@@ -2935,19 +2935,19 @@
             [
               {
                 "x": 8,
-                "y": 10
+                "y": 12
               },
               {
-                "x": 28,
-                "y": 10
+                "x": 27,
+                "y": 12
               },
               {
-                "x": 28,
-                "y": 39
+                "x": 27,
+                "y": 37
               },
               {
                 "x": 8,
-                "y": 39
+                "y": 37
               }
             ],
             [
@@ -3057,19 +3057,19 @@
           "propPolygons": [
             [
               {
-                "x": 8,
-                "y": 10
+                "x": 3,
+                "y": 13
               },
               {
-                "x": 28,
-                "y": 10
+                "x": 22,
+                "y": 13
               },
               {
-                "x": 28,
+                "x": 22,
                 "y": 39
               },
               {
-                "x": 8,
+                "x": 3,
                 "y": 39
               }
             ],
@@ -3180,19 +3180,19 @@
           "propPolygons": [
             [
               {
-                "x": 8,
-                "y": 10
+                "x": 78,
+                "y": 13
               },
               {
-                "x": 28,
-                "y": 10
+                "x": 97,
+                "y": 13
               },
               {
-                "x": 28,
+                "x": 97,
                 "y": 39
               },
               {
-                "x": 8,
+                "x": 78,
                 "y": 39
               }
             ],
@@ -3222,7 +3222,7 @@
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
         "reviewStatus": "pending_rendered_visual_spot_check",
-        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified."
+        "note": "Candidate geometry only. The body contour remains coarse and the raised arm/hand needs explicit inclusion in a refined anatomical mask. Card and whistle exclusions are direction-specific and must be checked against native captures."
       }
     }
   },
