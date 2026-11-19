@@ -80,7 +80,18 @@ try {
         if(start>=0)spans.push([start,99]);
         rows.push(spans);
       }
-      masks.push({direction:d.direction,bodyAlpha:{threshold:8,...body},fullAlpha:{threshold:8,...full},umbrellaExposedDelta:{threshold:8,rows,pixelCount}});
+      const deltaBounds={left:100,top:140,right:-1,bottom:-1};let deltaPixels=0;
+      for(let y=0;y<140;y++)for(const [x0,x1] of rows[y])for(let x=x0;x<=x1;x++){
+        deltaPixels++;deltaBounds.left=Math.min(deltaBounds.left,x);deltaBounds.right=Math.max(deltaBounds.right,x);
+        deltaBounds.top=Math.min(deltaBounds.top,y);deltaBounds.bottom=Math.max(deltaBounds.bottom,y);
+      }
+      const spanPixels=mask=>mask.rows.reduce((sum,row)=>sum+row.reduce((n,[x0,x1])=>n+x1-x0+1,0),0);
+      for(const [name,mask] of [['body',body],['full',full],['umbrellaDelta',{rows,pixelCount:deltaPixels}]]){
+        if(mask.rows.length!==140||spanPixels(mask)!==mask.pixelCount)throw new Error('Invalid '+name+' alpha row mask for '+d.direction);
+        for(const row of mask.rows)for(const [x0,x1] of row)if(x0<0||x1>=100||x0>x1)throw new Error('Out-of-bounds '+name+' span for '+d.direction);
+      }
+      if(body.pixelCount>full.pixelCount)throw new Error('Body alpha exceeds full render for '+d.direction);
+      masks.push({direction:d.direction,bodyAlpha:{threshold:8,...body},fullAlpha:{threshold:8,...full},umbrellaExposedDelta:{threshold:8,rows,pixelCount:deltaPixels,bounds:deltaPixels?deltaBounds:null}});
     }
     return {directions,masks};
   });
