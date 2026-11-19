@@ -1131,12 +1131,12 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       // with straight outer contours, compact knee transitions and clear shoes.
       // The sprint remains asymmetric, but the legs share the same solid anatomy
       // and visual weight as the other civilians rather than ribbon-like curves.
-      path([[35,89],[49,90],[51,98],[47,105],[39,108],[31,103],[31,96]],shorts,ink,1.6);
+      path([[36,89],[49,90],[49,98],[46,104],[39,106],[33,102],[33,95]],shorts,ink,1.6);
       // Keep both knees stacked over the feet: lower legs descend cleanly
       // instead of kicking outward from the shorts, following Coach's
       // straight, tapered leg construction while retaining a running offset.
       path([[37,103],[46,104],[45,111],[44,118],[43,125],[37,128],[32,125],[33,118],[35,110]],legSkin,ink,1.5);
-      path([[51,89],[65,89],[70,96],[74,105],[70,112],[63,110],[57,102]],shorts,ink,1.6);
+      path([[52,89],[65,89],[68,96],[70,104],[68,110],[63,109],[57,102]],shorts,ink,1.6);
       path([[65,106],[73,108],[74,115],[75,122],[73,128],[67,130],[63,126],[63,119],[64,112]],legSkin,ink,1.5);
       path([[31,123],[40,123],[45,127],[44,132],[29,133],[26,129]],shoe,ink,1.6);
       path([[63,125],[72,125],[78,128],[77,133],[62,134],[59,130]],shoe,ink,1.6);
