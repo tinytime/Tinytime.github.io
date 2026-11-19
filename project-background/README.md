@@ -178,3 +178,6 @@ The four-direction pixel-mask review sheet is now browser-generated and visually
 
 
 - **Contour topology:** the helper now filters interior holes separately from disconnected outer components, so holes are not misclassified as body appendages. All disconnected visible prop fragments are retained. Nine local fixtures pass; the exact Run #555 artifact still yields body contour IoU above 0.995 in every direction and visible umbrella contour IoU 1.0. Fresh Actions verification is still pending.
+
+
+- **Mask topology refinement (unverified):** contour tracing now retains all disconnected outer components and interior holes for body and visible umbrella masks; fit diagnostics subtract hole contours before mask comparison. Fixture coverage includes disconnected components and an interior hole. Latest capture changes are committed after Run #555 but still await a fresh Actions run/artifact and visual inspection. Run #555 remains the latest verified browser artifact; Granny remains `reference_only`.
