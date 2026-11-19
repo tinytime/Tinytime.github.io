@@ -2,7 +2,7 @@
 
 **Project:** Vapor City civilian NPC vector redesign  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest renderer source verified:** `4f0d135f0f14506a2c19df0f760d0fe2ec5a7495`. Referee browser QA run #426 (`44557279748`), job `135676647176`, tested this exact SHA; artifact `14545038850` downloaded and independently inspected by QA Coordinator. Latest branch head at review start: `cc26b76f01c7c32533d138af8c987d8cdcd8812f`.
+**Latest renderer source verified:** `4f0d135f0f14506a2c19df0f760d0fe2ec5a7495`. Referee browser QA run #426 (`44557279748`), job `135676647176`, tested this exact SHA; artifact `14545038850` inspected. Review findings are recorded in [Runner / Coach / Referee Internal Review](RUNNER-COACH-REFEREE-INTERNAL-REVIEW.md).
 
 > This is the live status document. Update it after each meaningful design, integration, QA, and review milestone. The project background and working rules are in this folder's [README](README.md).
 
@@ -37,7 +37,7 @@ The first review batch is three characters total. Once all three are built and i
 
 ## Next character batch: Runner, Coach, Referee
 
-The project owner approved the first batch (Usher, Cook, Courier) on 2026-11-19 and authorized the next three-character group. Runner, Coach, and Referee are built and have passed targeted internal QA; the complete second-group comparative package is ready for Claude review.
+The project owner approved the first batch (Usher, Cook, Courier) on 2026-11-19 and authorized the next three-character group. Runner, Coach, and Referee are built and have passed targeted internal QA. Latest Referee render reviewed on run #426: handedness, rear hair, side torso and card grip are resolved. Standard town screenshot does not spawn Referee; dedicated live town evidence remains outstanding if required. All three remain NOT APPROVED pending Claude comparative review and owner acceptance.
 
 ## Full civilian roster
 
@@ -124,3 +124,8 @@ All other designs remain unapproved until their own design and review are comple
 
 
 - **2026-11-19 QA Coordinator independent verification of Referee final renderer:** Re-verified run #426 (`44557279748`), job `135676647176`, exact source `4f0d135f0f14506a2c19df0f760d0fe2ec5a7495`, artifact `14545038850`. Inspected native 64×96 front/back/left/right captures, enlarged Referee four-direction gallery column, six-character role-debug sheet, full 4× gallery, town screenshot, Granny baseline context and report. Card handedness is anatomically consistent: front viewer-right, back viewer-left, profiles on the rear-facing side. Fingers overlap the lower card edge; rear cropped hair remains visible below the sweatband; profile torso is narrowed and the face/opposite hanging hand remain readable. Card and red mark survive 28×42 scale. No Referee-specific clipping or detached geometry found. Automated checks: syntax/module/inventory pass; palette Referee 1,078 unique antialiased colors / 2,192 opaque pixels / 93 ink pixels; body 35.4375px vs 35px target, deviation 0.4375px, baseline delta 1, contrast 4.70; face distinctness 23/23; role-debug 12/12 across six vector characters; visual integrity 92/92 with zero edge contacts or detached large components; prop audit, silhouette-quality 180/180 below 0.85, and gallery pass. No page/script errors. **Important town gap:** the street town capture has 16 NPCs and Granny but no Referee; it is general regression evidence, not proof of Referee in-world readability. A dedicated Referee town/room spawn capture remains outstanding if that criterion is required. Overall workflow fails on Clinic/Sailor front IoU 0.909429 (>0.90), explicitly unapproved snapshots (23 changed, 1 match), and 180 missing-audio 404s. No snapshots refreshed or approved. Referee remains NOT APPROVED pending Claude comparative review and owner acceptance.
+
+
+## 2026-11-19 latest Referee renderer review
+
+The latest renderer source `4f0d135f0f14506a2c19df0f760d0fe2ec5a7495` was tested on run #426 (`44557279748`), job `135676647176`, artifact `14545038850`. QA Coordinator inspected the actual native 64×96 four-direction captures, enlarged sheet, Referee gallery column, six-character role-debug, full gallery, town screenshot and report. Handedness is consistent across all directions; the hand overlaps the card; rear hair appears below the sweatband; side torso is narrower and profile face/opposite hand remain visible; yellow card and red mark read at 28×42. No Referee-specific clipping or detached geometry. Targeted checks: palette 1,078 unique antialiased colors / 2,192 opaque pixels / 93 ink pixels; body 35.4375px vs 35px target, 0.4375px deviation, baseline delta 1, contrast 4.70; faces 23/23; role-debug 12/12; visual integrity 92/92 with zero edge contacts/detached large components; prop and silhouette-quality audits, gallery and town regression passed; no page/script errors. Town capture uses the standard 16-NPC roster and does not explicitly spawn Referee, so it is not Referee-specific live-town proof. Overall workflow still fails on Clinic/Sailor front IoU 0.909429, unapproved golden snapshots (23 changed, 1 match), and 180 audio 404s. No snapshots were refreshed or approved. Runner/Coach/Referee remain NOT APPROVED pending Claude comparative review and owner acceptance.
