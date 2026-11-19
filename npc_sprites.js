@@ -1286,7 +1286,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     }
     path([[43,39],[57,39],[57,53],[43,53]],skin);
     // Jacket body and visible side seams.
-    path([[34,51],[43,47],[58,47],[68,53],[71,87],[67,101],[31,101],[28,87]],jacket,ink,2);
+    if(!side)path([[34,51],[43,47],[58,47],[68,53],[71,87],[67,101],[31,101],[28,87]],jacket,ink,2);
     if(back){
       path([[35,53],[43,49],[58,49],[66,54],[62,66],[50,72],[38,66]],'#D8D7B8',ink,1.3);
       path([[39,68],[50,74],[61,68],[63,96],[37,96]],'#24583F',null);
@@ -1300,7 +1300,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[64,55],[72,56],[75,78],[72,91],[65,91],[66,73]],jacket);
       path([[66,89],[73,89],[75,97],[69,100],[65,96]],skin);
     }else if(side){
-      path([[38,51],[48,48],[61,52],[68,61],[67,91],[61,100],[35,100],[33,76]],jacket);
+      // Narrow single-plane torso: do not leave the broad front-view jacket
+      // underneath this profile silhouette.
+      path([[43,51],[52,48],[60,52],[64,60],[63,91],[59,100],[41,100],[40,76]],jacket,ink,1.7);
       // Profile yoke follows the shoulder seam as a tailored panel, not a pale blob.
       path([[40,53],[48,50],[55,53],[59,59],[53,63],[44,62],[41,58]],'#D8D7B8',ink,1.05);
       line([[47,63],[47,97]],'#A7C0A6',1.2);
