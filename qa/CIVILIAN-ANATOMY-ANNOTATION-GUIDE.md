@@ -136,3 +136,8 @@ Renderer path inspection was used to tighten the object exclusions. Usher's fron
 ## Direction-specific prop refinement — Run #522, 2026-11-19
 
 The next native overlay pass ([Run #522](https://github.com/tinytime/Tinytime.github.io/actions/runs/44613594260), artifact `14572968146`) confirms that the direction-specific exclusion polygons are materially tighter. Cook's front pan/handle, back (explicitly empty), and side pan/handle masks now follow the actual visible objects. Courier's front two carried items, back satchel, and side-view parcel/satchel masks are now distinct per direction instead of reusing one generic pair. Usher's clipboard is also direction-specific. The overlay was inspected across all 24 captures. Coach's clipboard remains the broadest outstanding exclusion and should be tightened next; all candidates remain unverified until the remaining prop and anatomy boundaries are pixel-checked. The run's semantic validation and overlay generation passed; overall browser QA remains failed on the unrelated game-wide silhouette/golden/audio gates described in the run artifact.
+
+
+## Coach prop mask correction — 2026-11-19
+
+Coach's clipboard polygons now follow the actual front and side renderer paths, and the rear view explicitly has no clipboard/whistle exclusion. Regression tests cover this alongside Cook's rear no-pan, Courier's rear satchel-only, and Runner's stopwatch-only masks. The earlier broad rectangles are no longer the active candidate geometry. These refined polygons still need pixel-level visual review in the next fresh artifact.
