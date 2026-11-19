@@ -179,7 +179,7 @@
       // Side silhouettes need more than small width nudges: these four bodies
       // were the closest rendered pairs after the first fan differentiation pass.
       fanA:[-6,-4,-2],r2_stack:[4,6,0],
-      fan2:[4,6,-6],r2_saltwife:[4,-4,-6]
+      fan2:[4,6,-6],r2_saltwife:[4,-4,-6],wait1:[-6,6,6]
     });
     const FAN_TORSO_MASKS=Object.freeze(Object.fromEntries(Object.entries(FAN_TORSO_VARIANTS).map(([id,variant])=>{
       const source=ARCHETYPE_TORSO_MASKS[ARCHETYPES[CIV_TO_ARCHETYPE.fan].torso],masks={};
