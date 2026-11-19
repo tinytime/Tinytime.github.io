@@ -108,24 +108,18 @@ For each reviewed character, say what construction lesson can be reused and what
 
 ## Internal QA context and limitations
 
-Run #463 tested exact source `23c792f7e83eb14ff7d48e197678272f1c3e58b0`. Targeted checks pass: syntax/module and inventory; palette; face distinctness 23/23; direct game-scale captures 12/12; role-debug 12/12; directional visual integrity 92/92 with zero edge contacts or detached components; prop audit; silhouette-quality 180/180; gallery and town regression. Page and script errors are empty.
+The current civilian renderer is `npc_sprites.js` at `23c792f7e83eb14ff7d48e197678272f1c3e58b0`. The direct game-scale capture hook and 20-capture QA assertion were added in `c1d8d75aceeef0c9a689c2f8c40ae88909c55ada`.
 
-Do not misrepresent this as an overall workflow pass. The workflow was **FAILED** because:
-- NPC body/baseline audit flags Courier baseline delta 2 against a 1px vector threshold.
-- Global type-silhouette audit flags Clinic/Sailor front overlap at IoU `0.9094292803970223`.
-- Golden snapshots remain unapproved (23 changed / 1 match).
-- 180 missing-audio 404 console errors remain.
+[Run #463](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178) tested the combined state and uploaded [artifact `14568093189`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178/artifacts/14568093189). Confirmed automated results:
+- Native directional integrity: 92/92 PASS; no edge contacts or detached large components.
+- Direct game-scale capture audit: 20/20 PASS at 28×42, direct `owCiv` render, live OWT=36 / vector scale 0.28 / no resize; all five characters × four directions.
+- Role-debug: 12/12 PASS; prop audit: 10 archetypes PASS; gallery rendered.
+- Page errors: 0; script errors: 0; audio-resource 404 console errors remain.
+- Overall workflow: **FAILED** on global civilian-type silhouette overlap (max rendered IoU `0.9094292803970223`; closest pairs include Clinic/Sailor front and Coach/Courier back) and unapproved golden snapshots (23 changed / 1 match).
 
-No golden snapshots were refreshed or approved. Separate character-specific visual findings from unrelated/global QA gates.
+The run #463 artifact includes the 20 native 64×96 captures, 20 direct 28×42 captures, contact sheet, role-debug evidence, gallery/town outputs and `report.json`. **ChatGPT has not visually inspected these PNGs.** The automated pass is not visual approval. Coach/Courier rear-view silhouette overlap needs visual assessment before the package is sent to Claude.
 
-## Approval boundaries
-
-- Usher, Cook, Courier: APPROVED BY OWNER (still open to review recommendations).
-- Coach, Referee: BUILT — NOT APPROVED pending independent review and owner approval.
-- Runner: deliberately excluded from this five-character review; still built, NOT APPROVED, and awaiting a later focused review.
-- Remaining 20 civilians: ON HOLD.
-- Claude provides independent recommendations; ChatGPT evaluates findings and implements agreed fixes; the project owner makes final decisions.
-- Do not begin the remaining 20 or refresh/approve golden snapshots.
+No golden snapshots were refreshed or approved. All five remain NOT APPROVED pending human visual inspection, independent Claude re-review and owner decision. Runner remains excluded from this review; remaining 20 civilians stay on hold.
 
 ## Owner decision and correction implementation — 2026-11-19
 
@@ -149,7 +143,7 @@ The original run #457 links above remain historical context only; use run #459 a
 
 ## Workflow-generated review sheet (new QA automation)
 
-The browser QA workflow now runs `qa/build-five-civilian-review-sheet.mjs` after diagnostics, even when diagnostics fail. It is intended to add `five-civilian-native-4x-contact-sheet.png` and `five-civilian-review-summary.md` to the uploaded artifact. The contact sheet uses the actual five civilians' 64×96 front/back/left/right captures. This packaging change does not create direct 28×42 captures for Usher, Cook or Courier and does not constitute visual review.
+The browser QA workflow now runs `qa/build-five-civilian-review-sheet.mjs` after diagnostics, even when diagnostics fail. It is intended to add `five-civilian-native-4x-contact-sheet.png` and `five-civilian-review-summary.md` to the uploaded artifact. The contact sheet uses the actual five civilians' 64×96 front/back/left/right captures. The separate direct 28×42 game-scale hook now covers all five civilians and all four directions; run #463 confirms 20/20. Neither automation step constitutes visual review.
 
 - Generator commit: [`1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc`](https://github.com/tinytime/Tinytime.github.io/commit/1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc).
 - Workflow commit: [`80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f`](https://github.com/tinytime/Tinytime.github.io/commit/80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f).
