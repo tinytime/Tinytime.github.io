@@ -1442,7 +1442,20 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         line([[44,19],[55,19]],'#DDE0CF',.9);
       }
     }
-    g.restore();
+    // Shared restrained warm/cool rim recipe for face and shoulder readability.
+    g.save();g.globalAlpha=.56;g.shadowBlur=.7/scale;g.shadowColor='rgba(255,154,61,.38)';
+    if(!side){
+      line([[34,53],[39,49],[45,48]],'rgba(255,177,104,.84)',1/scale);
+      line([[29,59],[27,68],[29,75]],'rgba(255,154,61,.72)',1/scale);
+      g.shadowColor='rgba(41,242,232,.30)';
+      line([[59,49],[66,52],[70,58]],'rgba(113,245,229,.78)',1/scale);
+      line([[71,62],[73,70],[71,76]],'rgba(41,210,211,.68)',1/scale);
+    }else{
+      line([[37,53],[43,49],[50,48]],'rgba(255,177,104,.84)',1/scale);
+      g.shadowColor='rgba(41,242,232,.30)';
+      line([[61,53],[66,59],[67,66]],'rgba(113,245,229,.78)',1/scale);
+    }
+    g.restore();g.restore();
   }
 
 
@@ -1592,7 +1605,20 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[36,23],[42,17],[58,17],[65,23],[63,27],[37,27]],'#28252A',ink,1.2);
       line([[43,20],[57,20]],'#E8E3D7',1);
     }
-    g.restore();
+    // Shared restrained warm/cool rim accents; avoid tracing the yellow card.
+    g.save();g.globalAlpha=.56;g.shadowBlur=.7/scale;g.shadowColor='rgba(255,154,61,.38)';
+    if(!side){
+      line([[35,52],[40,49],[46,48]],'rgba(255,177,104,.84)',1/scale);
+      line([[29,58],[27,67],[29,74]],'rgba(255,154,61,.72)',1/scale);
+      g.shadowColor='rgba(41,242,232,.30)';
+      line([[58,50],[65,53],[69,59]],'rgba(113,245,229,.78)',1/scale);
+      line([[70,63],[72,71],[70,77]],'rgba(41,210,211,.68)',1/scale);
+    }else{
+      line([[40,52],[46,49],[52,49]],'rgba(255,177,104,.84)',1/scale);
+      g.shadowColor='rgba(41,242,232,.30)';
+      line([[60,53],[65,59],[66,66]],'rgba(113,245,229,.78)',1/scale);
+    }
+    g.restore();g.restore();
   }
 
 
