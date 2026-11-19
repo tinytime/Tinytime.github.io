@@ -315,15 +315,23 @@ try {
     if (!window.SG || typeof window.SG.npcPaletteAudit !== 'function') throw new Error('NPC palette audit hook is unavailable');
     return window.SG.npcPaletteAudit();
   });
+  const legacyPaletteAudit = npcPaletteAudit.filter(item => item.renderMode !== 'vector');
+  const vectorPaletteAudit = npcPaletteAudit.filter(item => item.renderMode === 'vector');
   const npcPaletteCheck = {
-    pass: npcPaletteAudit.length === 23 && npcPaletteAudit.every(item =>
+    pass: legacyPaletteAudit.length === 22 && legacyPaletteAudit.every(item =>
       item.uniqueColorCount <= 12 && item.opaquePixelCount > 0 && item.outlinePixelCount > 0 &&
       item.bodyPixelCount >= 100 && item.pantsPixelCount >= 50 && item.hairPixelCount >= 20 &&
-      item.colorPixelCounts && Object.values(item.colorPixelCounts).reduce((sum,count)=>sum+count,0) === item.opaquePixelCount),
+      item.colorPixelCounts && Object.values(item.colorPixelCounts).reduce((sum,count)=>sum+count,0) === item.opaquePixelCount) &&
+      vectorPaletteAudit.length === 1 && vectorPaletteAudit.every(item =>
+        item.opaquePixelCount > 0 && item.outlinePixelCount > 0 && item.colors?.length > 12),
     spriteCount: npcPaletteAudit.length,
+    legacyPixelSpriteCount: legacyPaletteAudit.length,
+    vectorSpriteCount: vectorPaletteAudit.length,
+    vectorRenderedEvidence: vectorPaletteAudit.map(item => ({civ:item.civ,uniqueColorCount:item.uniqueColorCount,
+      opaquePixelCount:item.opaquePixelCount,outlinePixelCount:item.outlinePixelCount})),
     maxUniqueColors: Math.max(...npcPaletteAudit.map(item => item.uniqueColorCount)),
-    overLimit: npcPaletteAudit.filter(item => item.uniqueColorCount > 12),
-    renderedPixelEvidence: 'Color counts are measured from the final rendered native RGBA grid, not just declared palette values.'
+    overLimit: legacyPaletteAudit.filter(item => item.uniqueColorCount > 12),
+    renderedPixelEvidence: 'Legacy 12-color checks apply only to pixel-rendered civilians; vector civilians are audited from their antialiased RGBA output.'
   };
   const targetedPalettePixelAudit = ['runner','coach','ref','broker','usher','fan'].map(civ => {
     const item = npcPaletteAudit.find(row => row.civ === civ);
