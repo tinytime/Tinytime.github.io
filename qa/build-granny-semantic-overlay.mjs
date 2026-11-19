@@ -28,13 +28,14 @@ try {
   const page=await browser.newPage();
   await page.goto('http://127.0.0.1:'+server.address().port+'/VaporCity_HD2D_Hybrid_Test.html',{waitUntil:'networkidle'});
   const result=await page.evaluate(async()=>{
-    if(typeof window.createGrannyRenderer!=='function') throw new Error('createGrannyRenderer is not exposed by npc_sprites.js');
-    const size=100, OWT=36/0.28; // renderer scale becomes exactly 1 source unit per output pixel.
+    const createGrannyRenderer=window.NPC_SPRITES&&window.NPC_SPRITES.createGrannyRenderer;
+    if(typeof createGrannyRenderer!=='function') throw new Error('NPC_SPRITES.createGrannyRenderer is not exposed by npc_sprites.js');
+    const OWT=36/0.28; // renderer scale becomes exactly 1 source unit per output pixel.
     const x=-.1111111111, y=.1044444444;
     const render=(dir,excludeUmbrella)=>{
       const canvas=document.createElement('canvas');canvas.width=100;canvas.height=140;
       const ctx=canvas.getContext('2d');
-      const draw=window.createGrannyRenderer({OWT,og:ctx,artShadow:()=>{}});
+      const draw=createGrannyRenderer({OWT,og:ctx,artShadow:()=>{}});
       draw({x,y},dir,false,0,0,ctx,{excludeUmbrella,excludeGroundEffects:true});
       return canvas.toDataURL('image/png');
     };
