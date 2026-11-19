@@ -2657,6 +2657,56 @@
                 "y": 80
               }
             ]
+          ],
+          "bodyAppendagePolygons": [
+            [
+              {
+                "x": 64,
+                "y": 55
+              },
+              {
+                "x": 72,
+                "y": 57
+              },
+              {
+                "x": 76,
+                "y": 78
+              },
+              {
+                "x": 73,
+                "y": 91
+              },
+              {
+                "x": 66,
+                "y": 91
+              },
+              {
+                "x": 65,
+                "y": 74
+              }
+            ],
+            [
+              {
+                "x": 67,
+                "y": 88
+              },
+              {
+                "x": 74,
+                "y": 89
+              },
+              {
+                "x": 76,
+                "y": 97
+              },
+              {
+                "x": 70,
+                "y": 101
+              },
+              {
+                "x": 66,
+                "y": 96
+              }
+            ]
           ]
         },
         "back": {
@@ -2743,7 +2793,105 @@
               }
             ]
           ],
-          "propPolygons": []
+          "propPolygons": [],
+          "bodyAppendagePolygons": [
+            [
+              {
+                "x": 31,
+                "y": 55
+              },
+              {
+                "x": 39,
+                "y": 56
+              },
+              {
+                "x": 37,
+                "y": 79
+              },
+              {
+                "x": 33,
+                "y": 91
+              },
+              {
+                "x": 26,
+                "y": 89
+              },
+              {
+                "x": 27,
+                "y": 72
+              }
+            ],
+            [
+              {
+                "x": 26,
+                "y": 87
+              },
+              {
+                "x": 34,
+                "y": 88
+              },
+              {
+                "x": 34,
+                "y": 97
+              },
+              {
+                "x": 28,
+                "y": 100
+              },
+              {
+                "x": 24,
+                "y": 95
+              }
+            ],
+            [
+              {
+                "x": 64,
+                "y": 55
+              },
+              {
+                "x": 72,
+                "y": 56
+              },
+              {
+                "x": 75,
+                "y": 78
+              },
+              {
+                "x": 72,
+                "y": 91
+              },
+              {
+                "x": 65,
+                "y": 91
+              },
+              {
+                "x": 66,
+                "y": 73
+              }
+            ],
+            [
+              {
+                "x": 66,
+                "y": 89
+              },
+              {
+                "x": 73,
+                "y": 89
+              },
+              {
+                "x": 75,
+                "y": 97
+              },
+              {
+                "x": 69,
+                "y": 100
+              },
+              {
+                "x": 65,
+                "y": 96
+              }
+            ]
+          ]
         },
         "left": {
           "bodyPolygon": [
@@ -2860,6 +3008,56 @@
               {
                 "x": 41,
                 "y": 80
+              }
+            ]
+          ],
+          "bodyAppendagePolygons": [
+            [
+              {
+                "x": 62,
+                "y": 58
+              },
+              {
+                "x": 70,
+                "y": 60
+              },
+              {
+                "x": 75,
+                "y": 78
+              },
+              {
+                "x": 71,
+                "y": 89
+              },
+              {
+                "x": 64,
+                "y": 89
+              },
+              {
+                "x": 61,
+                "y": 75
+              }
+            ],
+            [
+              {
+                "x": 61,
+                "y": 84
+              },
+              {
+                "x": 70,
+                "y": 84
+              },
+              {
+                "x": 75,
+                "y": 92
+              },
+              {
+                "x": 69,
+                "y": 98
+              },
+              {
+                "x": 61,
+                "y": 92
               }
             ]
           ]
@@ -2981,6 +3179,56 @@
                 "y": 80
               }
             ]
+          ],
+          "bodyAppendagePolygons": [
+            [
+              {
+                "x": 62,
+                "y": 58
+              },
+              {
+                "x": 70,
+                "y": 60
+              },
+              {
+                "x": 75,
+                "y": 78
+              },
+              {
+                "x": 71,
+                "y": 89
+              },
+              {
+                "x": 64,
+                "y": 89
+              },
+              {
+                "x": 61,
+                "y": 75
+              }
+            ],
+            [
+              {
+                "x": 61,
+                "y": 84
+              },
+              {
+                "x": 70,
+                "y": 84
+              },
+              {
+                "x": 75,
+                "y": 92
+              },
+              {
+                "x": 69,
+                "y": 98
+              },
+              {
+                "x": 61,
+                "y": 92
+              }
+            ]
           ]
         }
       },
@@ -2989,7 +3237,7 @@
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
         "reviewStatus": "candidate_visually_spot_checked_run530",
-        "note": "Candidate geometry only. Clipboard polygons now follow the actual front/profile board paths; the rear view has no clipboard or whistle prop exclusions. Prop bounds still require pixel-tight spot-checking.",
+        "note": "Candidate geometry only. Coach clipboard/whistle prop bounds are direction-specific; separate anatomical arm/hand appendage polygons now preserve the gripping limb while excluding the board itself. All boundaries still require visual review.",
         "visualReview": {
           "run": 530,
           "artifactId": 14573802446,
