@@ -69,3 +69,26 @@ These do not identify a Referee-specific defect. There were no page or JavaScrip
 Runner, Coach and Referee have passed targeted internal QA. The latest Referee renderer correction has been visually inspected and the previously raised handedness, rear-hair, profile-torso and hand/card-contact issues are resolved in the current evidence.
 
 **Status: BUILT — INTERNAL QA PASSED — NOT APPROVED.** Claude's comparative review against Granny Volt and the project owner's final acceptance are still required. Close the Referee live town/room capture gap if live town readability is part of the approval bar, then submit the three-character evidence set to Claude. Keep the remaining 20 civilian designs on hold until review and owner approval.
+
+
+## Coach — corrected-render QA follow-up (2026-11-19)
+
+Latest renderer source `3fdbd1e0640c97afce2c3b732491ff84823ba84e` was tested by browser run #428 (`44560760230`), job `135689302384`; artifact `14550985215` downloaded and inspected. The run tested the exact source SHA.
+
+Actual images inspected: Coach front/back/left/right at native 64×96, 4× full NPC gallery, Coach's front/right role-debug sheet, and town screenshot. Rear silver-templed hair is visible beneath the cap; both profile clipboard/hand assemblies remain present and connected; no Coach-specific clipping or detached geometry was found. The clipboard is clear from the front and remains visible in both profiles, though it compresses to a narrow hand-held shape at 28×42. The whistle/lanyard is visible as a gold chest accent but the pendant is very small at game scale; minor legibility polish, not a blocker by itself.
+
+Targeted results:
+- Syntax checks and renderer module load: pass; inventory: 135 NPCs / 24 civilian mappings.
+- Coach palette: 1,052 unique antialiased colors, 2,040 opaque pixels, 64 ink pixels.
+- Body/baseline: 34.5625px rendered vs 35px target; deviation 0.4375px; baseline delta 1; contrast ratio 3.66.
+- Face distinctness: 23/23 native and game-scale faces.
+- Role-debug: 12/12 across six vector characters (front/right).
+- Visual integrity: 92/92; zero edge contacts and zero detached large components.
+- Palette differentiation, prop audit, silhouette-quality audit (180/180 pairs below 0.85), gallery pass and town scene regression pass.
+- No JavaScript/page errors.
+
+**Additional global silhouette audit finding:** the separate full 23-civilian type-silhouette audit fails on Clinic/Sailor front IoU 0.909429 and Coach/Courier back IoU 0.890479 (both exceed 0.85), plus Sailor/Welder back 0.889290, Clinic/Sailor back 0.884215, Clinic/Welder back 0.871764 and Cook/Courier back 0.863465. The Coach/Courier pair is visually distinguishable by jacket versus satchel, but the automated overlap is a genuine cross-character audit flag and remains unresolved; do not hide it or conflate it with the separate 180-pair archetype silhouette-quality pass, which passes.
+
+Other global gates remain: golden baseline explicitly unapproved (23 changed snapshots, 1 match); 180 audio-resource 404 console errors. No page/script errors. The town screenshot is the standard 16-NPC street roster and does not explicitly spawn Coach, so it is scene-regression evidence only.
+
+**Coach status: BUILT — TARGETED INTERNAL QA PASSED — NOT APPROVED.** Pending Claude comparative review and owner acceptance. Minor native/game-scale whistle and profile clipboard legibility should be weighed in that review. No golden snapshots were refreshed or approved.
