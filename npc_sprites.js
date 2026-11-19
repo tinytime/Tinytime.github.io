@@ -248,7 +248,7 @@
       courier:{armSpread:1,armY:1,legSpread:-1},
       guard:{armSpread:1,armY:-1,legSpread:1,legW:1},
       vendor:{armSpread:-1,armY:1,legSpread:1},
-      cook:{armSpread:2,armY:-1,legSpread:-2,legW:1},
+      cook:{armSpread:2,armY:-1,legSpread:-2,legW:1,armPose:'down'},
       clinic:{armSpread:-1,armY:1,legSpread:1,legW:1,sideArmX:-3,sideLegSpread:-3},
       tech:{armSpread:2,armY:-1,legSpread:-2},
       hacker:{armSpread:-2,armY:-1,legSpread:2,legW:-1},
