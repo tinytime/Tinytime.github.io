@@ -64,7 +64,7 @@ These are landmark interval ratios, not pixel-area ratios. Do not compare them t
 
 ## Current manifest status
 
-`qa/civilian-anatomy-landmarks.json` currently records Granny's known measurements as `reference_only` and all six current civilians as `pending_annotation`. This is deliberate: no new landmark coordinates have been invented. The framework is implemented and testable, but no character is marked semantically measured until a human has annotated and reviewed all four directions.
+`qa/civilian-anatomy-landmarks.json` records Granny's known measurements as `reference_only` and all six current civilians as `source_annotated`. The six candidate sets were transcribed from renderer paths and pass structural validation, but are not verified measurements. Do not promote them to `measured` until every direction's overlay has been visually checked and corrected, including headwear/prop exclusions and anatomical landmarks. The browser QA workflow now emits `six-civilian-annotation-overlay.png` and a machine-readable summary to make this review repeatable.
 
 ## Safety rails
 
@@ -80,3 +80,10 @@ These are landmark interval ratios, not pixel-area ratios. Do not compare them t
 The six civilian records now contain first-pass source-derived candidate landmarks for front, back, left and right, based on the pinned `npc_sprites.js` draw paths at commit `8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317`. Candidate annotations include a coarse anatomical body polygon, headwear and prop exclusion polygons, head/chin/shoulder/pelvis/foot landmarks, and (for Runner) bilateral shoulder/elbow/wrist/hip/knee/ankle joints. The measurement report computes descriptive candidate ratios but labels these records `source_annotated`, not `measured`.
 
 **Verification boundary:** these are manually transcribed source-geometry candidates, not pixel-traced/visually approved masks. The polygons are intentionally coarse and must be overlaid against fresh native 64×96 captures in all four directions; profile mirroring, hair/headwear boundaries, shoulder joints, prop exclusions, and Runner's stride joints require spot-check/correction before promoting any record to `measured` or using ratios for calibration. No proportion band is enforced, no renderer art changed, and no approval status changed.
+
+
+## Native overlay inspection — 2026-11-19
+
+The first QA artifact overlay was generated locally from Run #487's actual 64×96 native captures. This is a preliminary visual spot-check, not final annotation acceptance. It confirms the candidate body contours generally track the broad character silhouettes, but several exclusions and joints remain visibly coarse. Referee's raised-card arm/hand needs to be included in the anatomical body polygon while the yellow card remains excluded; the front card exclusion is currently on the wrong side. Cook and Courier handheld-object boundaries, Usher's clipboard, Coach's clipboard, and Runner's dynamic joints also require direction-by-direction correction. The overlay's 100×140-to-64×96 mapping is a visual aid; authoritative coordinate values remain in source-space.
+
+The existing five-civilian contact sheet covers Usher, Cook, Courier, Coach and Referee; it does not include Runner. Runner's four-direction captures are available separately in the browser artifact and are included in the new six-civilian overlay step. No annotation is promoted to `measured` from this spot-check. A fresh workflow artifact is required after the overlay step is committed.
