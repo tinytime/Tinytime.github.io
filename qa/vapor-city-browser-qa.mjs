@@ -576,6 +576,31 @@ try {
       Buffer.from(item.dataUrl.split(',')[1], 'base64'));
   }
 
+  // Direct game-scale renders: the game renderer is called afresh at OWT=36
+  // (the live town tile size), producing 28x42 pixels without resizing a 64x96 PNG.
+  const gameScaleNpcSnapshotData = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcRenderGameScaleSnapshots !== 'function')
+      throw new Error('Direct game-scale NPC renderer hook is unavailable');
+    return window.SG.npcRenderGameScaleSnapshots();
+  });
+  const gameScaleNpcDir = path.join(out, 'npc-game-scale-28x42');
+  fs.mkdirSync(gameScaleNpcDir, { recursive: true });
+  const gameScaleNpcCaptureAudit = {
+    expected: 12,
+    captured: gameScaleNpcSnapshotData.length,
+    dimensions: gameScaleNpcSnapshotData.map(item => ({ civ:item.civ,direction:item.direction,width:item.width,height:item.height })),
+    captureMethods: [...new Set(gameScaleNpcSnapshotData.map(item => item.captureMethod))],
+    pass: gameScaleNpcSnapshotData.length === 12 && gameScaleNpcSnapshotData.every(item =>
+      item.width === 28 && item.height === 42 &&
+      item.captureMethod === 'direct owCiv render at live OWT=36; vector scale=0.28' &&
+      item.dataUrl && item.dataUrl.startsWith('data:image/png;base64,')) &&
+      new Set(gameScaleNpcSnapshotData.map(item => item.civ+'|'+item.direction)).size === 12
+  };
+  for (const item of gameScaleNpcSnapshotData) {
+    fs.writeFileSync(path.join(gameScaleNpcDir, item.civ + '-' + item.direction + '.png'),
+      Buffer.from(item.dataUrl.split(',')[1], 'base64'));
+  }
+
   // Diagnostic-only capture: the live renderer is already initialized, so pass
   // roleDebug directly through the snapshot hook rather than replacing its factory.
   const roleDebugCapture = await page.evaluate(() => {
@@ -1403,6 +1428,7 @@ try {
     paletteDifferentiation,
     npcBodyCheck,
     civilianFaceDistinctnessAudit,
+    gameScaleNpcCaptureAudit,
     roleDebugAudit,
     roleDebugRowWidthReport,
     civilianVisualIntegrityAudit,
@@ -1443,7 +1469,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !civilianFaceDistinctnessAudit.pass || !roleDebugAudit.pass || !civilianVisualIntegrityAudit.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !civilianFaceDistinctnessAudit.pass || !gameScaleNpcCaptureAudit.pass || !roleDebugAudit.pass || !civilianVisualIntegrityAudit.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
