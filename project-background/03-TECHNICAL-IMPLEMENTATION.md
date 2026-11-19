@@ -70,3 +70,8 @@ Owner feedback from browser QA run #434 identified three profile-specific anatom
 - Referee: moved the raised card arm and card to the forward/face side of the side-profile body; left-facing output is mirrored from the same anatomical construction.
 
 Browser QA run #435 (`44570451203`) is the required verification run for this exact source. These are implementation changes, not approval. Inspect all four directions and both native/game scales before recording them as visually verified.
+
+
+### Coach side-torso refinement — 2026-11-19
+
+Visual inspection of run #435 showed that the Coach side-view overlay still inherited the broad front-view jacket base. Follow-up renderer commit `b15d14fd9c6604c7ee232adf47d44a5d328054b3` now paints that broad base only for non-side views and uses a narrower side torso. This requires fresh browser QA; run #435 predates the change.
