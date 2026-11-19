@@ -144,7 +144,7 @@
     const CIV_TORSO_VARIANTS=Object.freeze({
       runner:[-2,0,-1],coach:[-2,1,2],ref:[2,-2,-1],
       courier:[-1,2,-2],guard:[2,0,-2],
-      vendor:[-2,-2,2],cook:[0,4,-4],
+      vendor:[-2,-2,-4],cook:[-2,0,-4],
       clinic:[0,2,4],tech:[2,0,2],hacker:[-2,2,-1],
       fisher:[2,-2,2],sailor:[4,-4,-4],slicker:[0,2,2],painter:[2,2,-2],welder:[-2,-2,0],
       kid:[-2,0,2],kid2:[2,0,-2],mouse:[0,2,0],
@@ -305,7 +305,7 @@
         if(spec.armPose==='whistle'){
           // Referee's near arm bends inward and rises to the mouth; the far arm hangs naturally.
           arms=side
-            ? [[24,14,2,3,'arm'],[26,12,2,3,'armshade'],[28,11,2,2,'skin']]
+            ? [[20,14,2,3,'arm'],[22,12,2,3,'armshade'],[24,11,2,2,'skin']]
             : [[10,14,2,4,'arm'],[10,18,2,3,'armshade'],[11,21,2,2,'skin'],
                [20,14,2,3,'arm'],[22,12,2,3,'armshade'],[24,11,2,2,'skin'],
                [25,12,2,2,'skin']];
@@ -316,7 +316,7 @@
                [20,13,2,4,'arm'],[20,17,2,3,'armshade'],[19,20,2,2,'skin']];
         }else if(spec.armPose==='swing'){
           arms=side
-            ? [[25,13,2,4,'arm'],[26,16,2,3,'armshade'],[27,18,2,2,'skin']]
+            ? [[20,13,2,4,'arm'],[21,16,2,3,'armshade'],[22,18,2,2,'skin']]
             : [[9,10,2,3,'arm'],[10,13,2,2,'armshade'],[11,15,2,2,'skin'],
                [20,14,2,3,'arm'],[19,17,2,2,'armshade'],[18,19,2,2,'skin']];
         }
@@ -330,10 +330,10 @@
         });
         if(spec.legPose==='stride'&&side){
           // Continuous stepped shins run into each boot; no detached toe blocks.
-          legs=[[9,24,4,5,'legback'],[8,28,4,5,'legback'],[7,32,4,5,'legback'],
-            [15,22,4,5,'legfront'],[16,26,4,5,'legfront'],[17,30,4,6,'legfront'],
-            [9,25,1,4,'legshadow'],[15,23,1,4,'bodyhi'],[18,28,1,3,'legshadow'],
-            [7,36,5,4,'shoe'],[17,35,5,5,'shoefront']];
+          legs=[[15,24,4,5,'legback'],[14,28,4,5,'legback'],[13,32,4,5,'legback'],
+            [21,22,4,5,'legfront'],[22,26,4,5,'legfront'],[23,30,4,6,'legfront'],
+            [15,25,1,4,'legshadow'],[21,23,1,4,'bodyhi'],[24,28,1,3,'legshadow'],
+            [13,36,5,4,'shoe'],[23,35,5,5,'shoefront']];
         }
         result[view]={arms,legs};
       }
@@ -354,13 +354,13 @@
       performer:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[26,11,5,17,'guitar'],[21,21,1,3,'guitar']],back:[[1,11,5,17,'guitar'],[8,21,1,3,'guitar']],side:[[26,11,5,17,'guitar'],[17,20,1,3,'guitar']]},
       civic:{types:{front:'clipboard',side:'clipboard',back:'coat-tail'},front:[[1,18,5,10,'briefcase'],[7,18,3,4,'clipboard']],back:[[26,18,5,10,'briefcase'],[21,18,3,4,'clipboard']],side:[[26,18,5,10,'briefcase'],[17,17,3,4,'clipboard']]},
       elder:{types:{front:'cardigan-pin',side:'cardigan-back',back:'cardigan-back'},front:[[20,13,2,2,'pin']],back:[],side:[]},
-      fan:{types:{front:'fan-crowd-gear',side:'fan-crowd-gear',back:'fan-crowd-gear'},front:[[1,12,5,14,'foamfinger']],side:[[27,12,5,14,'foamfinger']],back:[[26,12,5,14,'foamfinger']]}
+      fan:{types:{front:'fan-crowd-gear',side:'fan-crowd-gear',back:'fan-crowd-gear'},front:[[1,12,5,14,'foamfinger']],side:[[22,12,5,14,'foamfinger']],back:[[22,12,5,14,'foamfinger']]}
     });
     // Individual civilian prop layouts replace repeated archetype-level tools.
     const CIV_PROP_LAYERS=Object.freeze({
       runner:{types:{front:'no-held-prop',side:'no-held-prop',back:'no-held-prop'},front:[],side:[],back:[]},
       coach:{types:{front:'clipboard',side:'clipboard',back:'coach-board'},front:[[22,18,3,7,'clipboard']],side:[[23,17,3,7,'clipboard']],back:[[13,14,6,4,'clipboard']]},
-      ref:{types:{front:'whistle',side:'whistle',back:'whistle'},front:[[26,11,2,2,'whistle']],side:[[30,11,2,2,'whistle']],back:[[7,18,2,2,'whistle']]},
+      ref:{types:{front:'whistle',side:'whistle',back:'whistle'},front:[[30,14,2,2,'whistle']],side:[[22,11,2,2,'whistle']],back:[[7,18,2,2,'whistle']]},
       fisher:{types:{front:'fishnet',side:'fishnet',back:'net-roll'},front:[[23,16,3,8,'fishnet']],side:[[25,16,3,8,'fishnet']],back:[[24,15,4,10,'fishnet']]},
       welder:{types:{front:'welding-torch',side:'welding-torch',back:'weld-cylinder'},front:[[23,16,3,7,'weldingtorch']],side:[[24,15,3,7,'weldingtorch']],back:[[24,13,4,12,'weldcylinder']]},
       sailor:{types:{front:'rope-coil',side:'rope-coil',back:'sailor-seam'},front:[[23,17,3,5,'ropecoil']],side:[[24,16,3,5,'ropecoil']],back:[[23,15,4,6,'ropecoil']]},
@@ -982,6 +982,15 @@
       if(!qaExcludeProps&&P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
       if(!qaExcludeProps&&P.keys){if(side||back)put(15,28,2,3,'key');else put(22,24,2,3,'key');}
       // Props are explicit per-archetype/per-direction layers; no shared prop footprint is inferred.
+      if(!qaExcludeProps&&kind==='courier'){
+        if(rigView==='front')put(4,18,8,2,'pack');
+        else if(rigView==='back')put(21,18,7,2,'pack');
+      }
+      if(!qaExcludeProps&&['kid','kid2','mouse'].includes(kind)){
+        if(rigView==='front')put(5,18,8,2,'pack');
+        else if(rigView==='back')put(21,18,6,2,'pack');
+        else if(rigView==='side')put(19,18,7,2,'pack');
+      }
       const propSpec=kind==='fan'?ARCHETYPE_PROP_LAYERS.fan:(CIV_PROP_LAYERS[kind]||ARCHETYPE_PROP_LAYERS[archetypeKey]);
       const declaredPropType=propSpec&&propSpec.types&&propSpec.types[rigView];
       if(!propSpec||!declaredPropType||propSpec.types[rigView]!==declaredPropType) {
@@ -998,8 +1007,8 @@
         else if(rigView==='side'){put(22,16,3,3,'arm');put(24,17,2,2,'skin');}
       }
       if(!qaExcludeProps&&kind==='ref'){
-        if(rigView==='front'){put(23,12,3,3,'arm');put(25,11,2,2,'skin');}
-        else if(rigView==='side'){put(27,12,3,3,'arm');put(29,11,2,2,'skin');}
+        if(rigView==='front'){put(23,12,3,3,'arm');put(26,12,2,2,'skin');}
+        else if(rigView==='side'){put(20,12,3,3,'arm');put(22,11,2,2,'skin');}
       }
       for(const [px,py,pw,ph,role] of propLayers){
         if(qaExcludeProps&&ARCHETYPE_ACCESSORY_ROLES.has(role))continue;
