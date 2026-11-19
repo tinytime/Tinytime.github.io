@@ -51,3 +51,8 @@ The repository's automated inventory currently describes 24 live civilian archet
 The Usher vector renderer is integrated in `npc_sprites.js`. The previous browser QA run (#393) showed the targeted usher checks passing, but the overall workflow still failed for separate snapshot-approval and legacy silhouette-audit gates. See [QA, known issues, and handoff](04-QA-AND-HANDOFF.md).
 
 Usher, Cook, and Courier are owner-approved. Runner, Coach and Referee are built and internally checked. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
+
+
+## Latest owner follow-up — 2026-11-19
+
+Referee received positive owner feedback (“Ref good”) and was left unchanged. Coach's side-profile jacket rear contour was broadened and the whistle/lanyard shifted toward the front. Runner's trailing shorts were shortened to reveal a distinct calf and reduce the trouser-like read. These changes were tested at exact source `fafb991d3ce94ffa491179a84ecb63c10934b0e0` in browser QA run #446; see the [review package](../qa-artifacts/runner-coach-referee-run-446/README.md). Targeted internal QA and visual inspection passed. The three-character batch remains NOT APPROVED pending Claude's independent review and explicit owner acceptance.
