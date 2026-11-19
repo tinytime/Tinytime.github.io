@@ -140,3 +140,20 @@ Run `44548532467`, job `135645796007`, tested exact source `6905171293c04f34f3ee
 - Runner-specific checks: palette/vector output, group palette differentiation, body height and baseline, face uniqueness (23/23 at native and game scale), role-debug 8/8, visual integrity (92/92 captures; no edge contacts or detached large components), props, silhouette quality, town state (16 NPCs; Granny present), and gallery visual pass all passed. The race bib and distinct shorts/legs read in enlarged views; no character-specific clipping or detached geometry was found.
 - Overall workflow: **FAILED**, not because of Runner's targeted checks. Two known global gates remain: golden snapshots are unapproved (23 changed, 1 match; no snapshot refresh or provenance change), and the global 23-civilian silhouette audit flags legacy pairs including clinic/sailor and coach/vendor. There were 180 console errors, all audio-resource 404s across 46 unique audio URLs; `scriptErrors` and `pageErrors` were empty. `townButtonVisible=false` / no town click was attempted, but `townSceneState.pass=true` and the town screenshot was captured; gallery opened and passed.
 - Runner status: **BUILT — TARGETED INTERNAL QA PASSED; NOT APPROVED**. Claude review and owner approval for the second group are still pending. Coach is the next authorized character; Referee follows after Coach's internal QA.
+
+
+## Runner internal QA — independent Coordinator verification (run #416)
+
+- Run: [#416 / 44548532467](https://github.com/tinytime/Tinytime.github.io/actions/runs/44548532467)
+- Browser QA job: 135645796007 (diagnostic step failed; artifact upload succeeded)
+- Tested renderer/source SHA: 6905171293c04f34f3ee09c804c490082e1f3d57
+- QA coverage commit: ccd238161ca58a7d5743f7f4462ec7c8f7292e14
+- Artifact: vapor-city-browser-qa, ID 14540104692.
+
+The QA Coordinator independently downloaded and inspected the artifact: four native 64×96 Runner directions, nearest-neighbor 4× direction composite, 8× Runner/Cook/Courier/Usher role-debug, 4× civilian gallery, town screenshot, and report.json. The Runner's four views read consistently as an athletic sprint character. Side profiles show facial details; the front/back and side running poses retain distinct limb arrangements; race bib 07, terry sweatband, stopwatch, split shorts and technical shoes remain legible. No Runner-specific clipping or detached geometry was observed.
+
+Targeted results: syntax and module load pass; inventory pass (135 NPC, 24 civilian mappings); palette audit pass (four vector / 19 legacy pixel, Runner 1,083 unique colors, 1,904 opaque pixels, 20 exact ink pixels); palette differentiation pass; body check pass (80px body vs 81px target, 0.4375px deviation, baseline delta 1); face distinctness 23/23 unique at native and game scale; role-debug 8/8; visual integrity 92/92 with zero edge contacts and zero detached large components; prop audit pass; town scene pass (16 NPCs, Granny present); gallery pass; separate silhouette-quality audit 180/180 pairs below 0.85. No page or script errors.
+
+The overall workflow is FAILED on two global gates: civilian-type silhouette audit Clinic/Sailor front IoU 0.909429 exceeds 0.90, and the golden baseline remains explicitly unapproved (23 changed snapshots, 1 match). 180 audio-resource 404 console errors across 46 unique URLs were logged. These are not Runner-specific defects. No golden snapshots were refreshed or approved.
+
+**QA Coordinator verdict:** Runner's targeted internal QA is independently verified as PASS. This is not Claude approval or owner approval; Runner remains NOT APPROVED. Coach is next in the authorized group, followed by Referee.
