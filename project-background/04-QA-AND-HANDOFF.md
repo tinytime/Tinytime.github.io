@@ -636,3 +636,10 @@ Applied locally to Run #555's artifact, the visible-only contour matches the exp
 
 
 The latest follow-up also retains all disconnected visible umbrella mask contours (`visiblePropPolygons`) rather than selecting only the largest component. The helper test suite now covers this split-component case (eight fixtures). This refinement is committed but remains pending fresh Actions artifact verification.
+
+
+## Multi-component Granny contour follow-up — implementation (2026-11-19)
+
+The contour helper and capture were hardened to preserve every disconnected alpha component rather than selecting only the largest contour. The primary body loop is stored in `bodyPolygon`; remaining body loops are stored in `bodyAppendagePolygons`; all visible umbrella-delta loops are stored in `visiblePropPolygons`. Original hand-authored candidates remain in `manualBodyPolygonCandidate` and `manualPropPolygonCandidate`. The fit report compares the manual body and prop candidates with the exact masks and separately reports mask-derived body/visible-prop fit.
+
+The fixture test now includes two disconnected components and checks that both are rasterized back to the exact mask. This guards against accidentally dropping a detached component (particularly the visible umbrella shaft). The code is committed, but no fresh Actions run/artifact has yet been confirmed for this latest change. Last visually inspected browser evidence remains Run #555; do not describe the new contour overlay/report as browser-tested until a new artifact is retrieved and inspected. Granny remains `reference_only`.
