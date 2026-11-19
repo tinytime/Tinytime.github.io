@@ -345,3 +345,14 @@ Added `qa/build-five-civilian-review-sheet.mjs` and wired it into `.github/workf
 - Generator commit: [`1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc`](https://github.com/tinytime/Tinytime.github.io/commit/1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc).
 - Workflow integration commit: [`80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f`](https://github.com/tinytime/Tinytime.github.io/commit/80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f).
 - Fresh Actions run #461 was triggered by the workflow update and is pending at the time of this note. Its artifact must be checked before claiming the new sheet generator works.
+
+
+## Run #461 — review-sheet workflow integration verified (2026-11-19)
+
+- Workflow commit tested: `80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f`; current branch head at handoff: `ce0c63dc71b595c87f899e44d487f5f139a2f085`.
+- [GitHub Actions run #461](https://github.com/tinytime/Tinytime.github.io/actions/runs/44600405554), run ID `44600405554`, job `135829961792`; [artifact `14566568903`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44600405554/artifacts/14566568903), 7,178,358 bytes.
+- Step results: Chromium install PASS; browser diagnostics FAILED; five-civilian review sheet and summary generation PASS; artifact upload PASS (249 files). The contact-sheet generator therefore completed successfully on its first integrated run.
+- The run tested workflow packaging, not a new renderer revision; renderer source remains `23c792f7e83eb14ff7d48e197678272f1c3e58b0` as tested by run #459.
+- The generator expects and packages 20 native 64×96 images (five civilians × four directions) enlarged 4×. Direct 28×42 captures remain only the existing 12 for Runner/Coach/Referee; no direct game-scale capture has yet been added for Usher/Cook/Courier.
+- The Actions log confirms the diagnostics job still fails. Existing report failures remain global civilian-type silhouette overlap and unapproved golden snapshots; 180 audio 404s remain. No snapshots were refreshed or approved.
+- **Visual evidence boundary:** the artifact is available, but the PNGs have not been human-visually inspected in this pass. Contact-sheet generation is not a visual verdict. All five remain NOT APPROVED; Runner remains outside this review round; remaining 20 remain ON HOLD.
