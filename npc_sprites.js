@@ -1278,8 +1278,21 @@
       if(spriteCanvas.height!==H*SCALE)spriteCanvas.height=H*SCALE;
       const ctx=spriteCanvas.getContext('2d');
       ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,N*SCALE,H*SCALE);
+      const roleDebug=!!(qaOptions&&qaOptions.roleDebug);
+      const roleDebugGrid=roleDebug?grid.map(row=>row.slice()):null;
+      if(roleDebug){
+        roleDebugGrid.unshift(Array(N).fill(null));
+        roleDebugGrid.pop();
+        const roles=[...new Set(roleDebugGrid.flat().filter(Boolean))].sort();
+        owCiv._lastRoleDebugLegend=roles.map((role,index)=>({
+          role,
+          color:'hsl('+Math.round(index*360/Math.max(1,roles.length))+' 100% 58%)'
+        }));
+      }else owCiv._lastRoleDebugLegend=null;
       for(let gy=0;gy<H;gy++)for(let gx=0;gx<N;gx++){
-        const color=finalGrid[gy][gx];
+        const color=roleDebug
+          ? (roleDebugGrid[gy][gx]===null?null:owCiv._lastRoleDebugLegend.find(item=>item.role===roleDebugGrid[gy][gx])?.color||null)
+          : finalGrid[gy][gx];
         if(color!==null){ctx.fillStyle=color;ctx.fillRect(gx,gy,1,1);}
       }
       const step=moving?Math.sin(tm*11+ph*6):0;
