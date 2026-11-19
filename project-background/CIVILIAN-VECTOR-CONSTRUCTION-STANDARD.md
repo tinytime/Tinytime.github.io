@@ -423,3 +423,8 @@ The current helper traces all disconnected visible prop components via `deriveLo
 ## Disconnected pixel-mask components — 2026-11-19
 
 Contour extraction must retain every disconnected outer component. A largest-contour-only algorithm can drop a detached body-alpha fragment or the umbrella shaft when the visible umbrella delta separates canopy and shaft. The Granny helper now returns all outer loops; body components populate the primary body polygon plus appendage polygons, while visible prop components are retained as an array. A fixture checks two disjoint shapes. Continue to preserve manual full-prop geometry separately because visible alpha omits occluded geometry. This remains a Granny-specific renderer-mask technique, not a semantic approval rule.
+
+
+## Contour topology validation — 2026-11-19
+
+The contour tracer now distinguishes outer boundaries from interior holes using loop winding. Only positive-winding outer loops become polygons; negative-winding interior holes are not mislabeled as disconnected body appendages. All disconnected outer components are retained. Exact row-span masks remain in the JSON as the authoritative pixel evidence, so the polygon approximation's filled interior holes do not erase the source mask. The fixture suite now has nine cases, including a hollow shape and two disconnected components.
