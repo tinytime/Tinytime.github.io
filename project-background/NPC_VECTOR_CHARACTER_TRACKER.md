@@ -493,3 +493,8 @@ Implementation commit [`2f50d11`](https://github.com/tinytime/Tinytime.github.io
 ### Candidate polygon precision check — Run #555 artifact
 
 A diagnostic rasterized comparison of hand-authored polygons against exact Run #555 alpha masks found body polygon + appendage IoU of 0.790 front/back and 0.672 left / 0.666 right. Combined umbrella canopy + shaft polygon IoU against the exact visible umbrella delta was 0.609 front/back, 0.612 left and 0.615 right. These are descriptive local comparisons, not CI gates or approval scores. They show why the row-span pixel masks are the reliable segmentation evidence and why manually drawn semantic contours/landmarks remain candidates requiring refinement and second review.
+
+
+## Granny mask-fit diagnostic baseline — 2026-11-19
+
+The Run #552 artifact's exact alpha masks were used to establish a non-gating polygon-fit diagnostic. The reusable helper/test and capture integration are committed in `qa/granny-mask-fit.mjs`, `qa/test-granny-mask-fit.mjs`, and `qa/build-granny-semantic-overlay.mjs`. Initial body IoU/precision/recall: front 0.786/0.817/0.954; back 0.786/0.817/0.954; left 0.645/0.852/0.727; right 0.644/0.844/0.731. Visible umbrella coverage: front/back 0.822; left 0.815; right 0.816. Side body candidates need substantial refinement; prop coverage is incomplete at some visible edges. These are diagnostic metrics, not hard gates or approval scores. Helper fixture tests passed locally; fresh Actions verification is pending. Granny remains `reference_only`.
