@@ -206,7 +206,7 @@ try {
       c.drawImage(layer,px,py+24,240,280);
     }
     c.fillStyle='#28beff';c.fillRect(18,310,12,8);c.fillStyle='#fff';c.font='11px monospace';c.fillText('BODY / HAIR / CLOTHING / GRIP',35,318);
-    c.fillStyle='#ffbe23';c.fillRect(225,310,12,8);c.fillStyle='#fff';c.fillText('VISIBLE UMBRELLA',242,318);
+    c.fillStyle='#ffbe23';c.fillRect(410,310,12,8);c.fillStyle='#fff';c.fillText('VISIBLE UMBRELLA',428,318);
     return canvas.toDataURL('image/png');
   },{directions:result.directions,masks:result.masks});
   fs.writeFileSync(path.join(out,'granny-pixel-mask-overlay.png'),Buffer.from(pixelMaskSheet.split(',')[1],'base64'));
