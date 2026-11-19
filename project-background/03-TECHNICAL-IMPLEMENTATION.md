@@ -15,9 +15,9 @@ Always check the branch head before editing. The code may have changed since thi
 
 The game page contains the game/runtime and loads the NPC rendering code. The civilian rendering logic is in `npc_sprites.js`. The vector pilot work is being integrated into the existing civilian dispatch rather than creating an unrelated standalone renderer.
 
-The Usher integration currently has a dedicated vector draw path. The dispatch checks the character kind and calls `drawUsherVector(...)`. It also renders a 64×96 QA canvas to populate the renderer's existing grid/palette metrics, then returns so the legacy pixel body and prop layers do not paint over the vector character.
+Usher, Cook, Courier, and Runner each have dedicated vector draw paths in `npc_sprites.js`, dispatched by character kind. Each vector path renders to the 64×96 QA canvas for existing grid/palette metrics, then exits before legacy pixel body and prop layers can paint over the vector character. Runner's `drawRunnerVector(...)` has a distinct airborne sprint pose, coral race singlet, split shorts, race bib, sweatband, stopwatch, and technical shoes.
 
-Important implementation principle: when adding Cook and Courier, follow the same integration pattern only where it is appropriate. Give each character a dedicated draw function and character-specific paths, palette, and props. Ensure the vector path exits before legacy pixel layers can overwrite it. Do not make one generic renderer whose only differences are palette values.
+Important implementation principle: when adding further characters, follow the integration pattern only where it is appropriate. Give each character a dedicated draw function and character-specific paths, palette, and props. Ensure the vector path exits before legacy pixel layers can overwrite it. Do not make one generic renderer whose only differences are palette values.
 
 ## Existing reference assets
 
