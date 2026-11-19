@@ -345,7 +345,7 @@
     // Individual civilian prop layouts replace repeated archetype-level tools.
     const CIV_PROP_LAYERS=Object.freeze({
       runner:{types:{front:'no-held-prop',side:'no-held-prop',back:'no-held-prop'},front:[],side:[],back:[]},
-      coach:{types:{front:'clipboard',side:'clipboard',back:'coach-board'},front:[[23,17,3,7,'clipboard']],side:[[24,16,3,7,'clipboard']],back:[[13,14,6,4,'clipboard']]},
+      coach:{types:{front:'clipboard',side:'clipboard',back:'coach-board'},front:[[21,17,3,7,'clipboard']],side:[[21,16,3,7,'clipboard']],back:[[13,14,6,4,'clipboard']]},
       ref:{types:{front:'whistle',side:'whistle',back:'whistle'},front:[[22,18,2,2,'whistle']],side:[[18,18,2,2,'whistle']],back:[[7,18,2,2,'whistle']]},
       fisher:{types:{front:'fishnet',side:'fishnet',back:'net-roll'},front:[[23,16,3,8,'fishnet']],side:[[25,16,3,8,'fishnet']],back:[[24,15,4,10,'fishnet']]},
       welder:{types:{front:'welding-torch',side:'welding-torch',back:'weld-cylinder'},front:[[23,16,3,7,'weldingtorch']],side:[[24,15,3,7,'weldingtorch']],back:[[24,13,4,12,'weldcylinder']]},
