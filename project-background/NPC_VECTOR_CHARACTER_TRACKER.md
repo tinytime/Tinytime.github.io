@@ -2,7 +2,7 @@
 
 **Project:** Vapor City civilian NPC vector redesign  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest renderer source verified:** `4eafc657fa9ee15db3b70f3c64a76280d4add0a6`. Browser QA run #446 (`44581720083`), job `135762041794`, tested this exact source; artifact `14559965367` downloaded and inspected. Fresh Runner/Coach/Referee four-direction renders visually inspected at native 64×96, 6× enlargement and direct 28×42 scale. Targeted QA passes: syntax/module, 12/12 direct game-scale captures, role-debug 12/12, directional integrity 92/92 with zero edge contacts/detached components, face distinctness 23/23, palette, body/baseline, prop audit, silhouette-quality 180/180, gallery and town regression; zero page/script errors. Workflow remains failed on global Clinic/Sailor front silhouette overlap, unapproved golden snapshots (23 changed / 1 match), and 180 missing-audio 404s. No snapshots changed. [Run #446 evidence index](../qa-artifacts/runner-coach-referee-run-446/README.md).
+**Latest renderer source verified:** `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`. Browser QA run #457 (`44592153167`), job `135800700792`, tested this exact source; artifact `14563778383` downloaded and inspected. All six civilians' 24 native 64×96 direction captures inspected; 12 direct 28×42 game-scale captures for Runner/Coach/Referee, role-debug, gallery, Granny comparison, town regression and report also inspected. Targeted checks pass for syntax/module, 12/12 game-scale captures, role-debug 12/12, directional integrity 92/92 with zero edge contacts/detached components, face distinctness 23/23, palette, props, silhouette-quality 180/180, gallery and town regression; page/script errors 0. NPC body/baseline audit flags Courier baseline delta 2 vs allowed 1. Workflow also fails on global Clinic/Sailor front silhouette overlap, unapproved golden snapshots (23 changed / 1 match), and 180 missing-audio 404s. No snapshots refreshed or approved. [Run #457 evidence](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167).
 
 > This is the live status document. Update it after each meaningful design, integration, QA, and review milestone. The project background and working rules are in this folder's [README](README.md).
 
@@ -37,17 +37,29 @@ The first review batch is three characters total. Once all three are built and i
 
 ## Next character batch: Runner, Coach, Referee
 
-The project owner approved the first batch (Usher, Cook, Courier) on 2026-11-19 and authorized the next three-character group. Runner, Coach, and Referee are built and have passed targeted internal QA. Latest combined run #452 tested exact source `4eafc657fa9ee15db3b70f3c64a76280d4add0a6`; artifact `14562025835` was inspected. Runner's side-profile torso front hem was narrowed; collar/bib placement remains on the forward chest plane in both mirrored views; front view unchanged. All three remain NOT APPROVED pending Claude comparative review and owner acceptance. The standard town screenshot does not explicitly spawn Coach or Referee, so it is scene-regression evidence rather than character-specific live-town proof.
+The project owner approved the first batch (Usher, Cook, Courier) on 2026-11-19 and authorized the next three-character group. Runner, Coach, and Referee are built and have passed the targeted visual checks, with the Courier baseline audit still flagged in the latest combined six-civilian run. Run #457 tested exact source `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`; artifact `14563778383` was inspected. All 24 native views for the six completed civilians and 12 direct 28×42 captures for Runner/Coach/Referee were inspected. Runner's side stride has two legs/two feet; Cook's toque has clear top headroom. All three remain NOT APPROVED pending Claude comparative review and owner acceptance. The standard town screenshot does not explicitly spawn Coach or Referee, so it is scene-regression evidence rather than character-specific live-town proof.
 
 
 
 ## Expanded six-civilian comparative review — 2026-11-19
 
-The owner has requested a single full comparative review of all six completed vector civilians, not only the second batch. The review package is [Claude full six-civilian review](../qa-artifacts/six-civilian-full-review/README.md). It explicitly provides the live renderer source **[npc_sprites.js](../npc_sprites.js)** (underscore; authoritative file), pinned to renderer source commit `4eafc657fa9ee15db3b70f3c64a76280d4add0a6`, plus first-batch and latest second-batch QA evidence.
+The owner has requested a single full comparative review of all six completed vector civilians, not only the second batch. The review package is [Claude full six-civilian review](../qa-artifacts/six-civilian-full-review/README.md). It explicitly provides the live renderer source **[npc_sprites.js](../npc_sprites.js)** (underscore; authoritative file), pinned to renderer source commit `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`, plus first-batch and latest combined six-civilian QA evidence from run #457.
 
 Claude's deliverables: individual score/verdict and required/optional fixes for Usher, Cook, Courier, Runner, Coach and Referee; a six-character comparative ranking; and a technically actionable Vapor City Civilian Vector Build Standard derived from the strengths and failure patterns of these six. The standard must speed up future production without imposing a shared body/template or sacrificing bespoke identities.
 
 Status is unchanged: Usher, Cook and Courier remain APPROVED BY OWNER. Runner, Coach and Referee remain BUILT — TARGETED INTERNAL QA PASSED — NOT APPROVED. The remaining 20 remain ON HOLD until Claude's review is evaluated, the owner approves any corrections and the owner approves the reusable build standard. No golden snapshots were refreshed or approved. The review package is prepared in GitHub; it has not been transmitted to Claude through an external channel.
+
+## Run #457 — combined six-civilian polish verification (2026-11-19)
+
+- **Exact renderer source:** `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0` — [commit](https://github.com/tinytime/Tinytime.github.io/commit/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0).
+- **QA run:** [#457](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167), job `135800700792`, artifact `14563778383`.
+- All six civilians' native 64×96 front/back/left/right captures inspected (24 total). Direct 28×42 game-scale captures inspected for Runner, Coach and Referee (12 total); role-debug, gallery, Granny comparison, town scene and report inspected.
+- Requested eye catchlights, Courier forward lean, Cook pan/toque design and Runner stride paths were already in the renderer source tested by run #453. Final follow-up preserves these, removes an accidental duplicate Runner trailing-leg draw, restores Cook's prior eye treatment, and compresses the Cook toque crown vertically so every view has transparent headroom. No body baseline or toque band repositioning.
+- **Passes:** syntax/module, palette, face distinctness 23/23, game-scale capture 12/12, role-debug 12/12, directional visual integrity 92/92 (zero edge contacts/detached components), prop audit, silhouette-quality 180/180, gallery and town regression; page/script errors 0. Visual inspection confirms Cook headroom and a two-leg/two-foot Runner side stride.
+- **Fails:** NPC body/baseline check flags Courier baseline delta 2 against the vector threshold of 1. Global type-silhouette audit flags Clinic/Sailor front IoU `0.9094292803970223`; golden snapshots remain unapproved (23 changed / 1 match); 180 missing-audio 404 console errors remain. No snapshots refreshed or approved.
+- **Status:** internal visual integrity and requested polish verified; overall workflow FAILED on the gates above. Runner/Coach/Referee remain NOT APPROVED pending Claude's full six-character review and owner approval. Remaining 20 remain ON HOLD.
+- The updated [six-civilian Claude review package](../qa-artifacts/six-civilian-full-review/README.md) points to this source and artifact.
+
 
 ## Full civilian roster
 
