@@ -88,3 +88,10 @@ Visual inspection of run #435 showed that the Coach side-view overlay still inhe
 - Overall workflow remains failed on unrelated/global checks: civilian type silhouette audit max IoU `0.9094292803970223` (Clinic/Sailor overlap); golden snapshot comparison 23 changed / 1 match, with no baseline refresh or approval; existing audio resource 404 console errors. No snapshots were refreshed or approved.
 - The QA report has no character-specific town spawn/capture for Runner/Coach/Referee; town screenshot is regression context only. Granny comparison remains a separate reference check.
 - **Internal visual verdict:** all three owner-reported profile defects are corrected in the run #436 native renders. This is not independent Claude review or owner approval. Runner/Coach/Referee remain NOT APPROVED pending Claude's comparative review and owner decision. Keep remaining 20 civilians on hold.
+
+
+## Owner-requested side-profile anatomy correction — 2026-11-19
+
+Owner feedback identified double-visible arms in the side profiles of Runner, Coach and Referee, and questioned Runner's unusually angular, trouser-like legs. Renderer commit `98f58884f9fa2609414b17f5a5ce28e275ab3064` removes the far arm from each side profile while preserving Runner's stopwatch arm, Coach's clipboard arm and Referee's raised-card arm. Runner's profile legs were then refined with curved thigh/calf contours and exposed skin below the shorts. Follow-up commit `21481ee1768e80595cfdb13f6e338f57c10d076c` extends the shorts-to-calf separation into front/back views for consistent anatomy.
+
+**Animation clarification:** Runner's vector pose is drawn statically from direction; the current draw path does not animate the leg polygons. The airborne running posture is a deliberate still pose, not a temporary frame that animation will automatically normalize. Every still direction must therefore look anatomically intentional. Fresh browser QA run #444 is verifying the revised source; do not record visual approval until its artifact has been inspected.
