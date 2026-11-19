@@ -13,9 +13,9 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 **Branch:** `npc-granny-baseline-overhaul`  
 **Latest verified branch head before this documentation update:** `a9c29109e8f64a1009fd0b1df5ab560ff08fdbd8`. QA evidence is from renderer/source commit `6905171293c04f34f3ee09c804c490082e1f3d57`; documentation verification commits follow the reviewed source. **Latest renderer source:** `a9c29109e8f64a1009fd0b1df5ab560ff08fdbd8` (Coach profile refinement). Browser run [#44551256553](https://github.com/tinytime/Tinytime.github.io/actions/runs/44551256553), job `135655281455`, tested that exact renderer source; artifact `14542916538` inspected. Coach targeted internal QA passed; overall workflow remains failed on the global Clinic/Sailor silhouette gate and explicitly unapproved golden baseline.
 
-**Active task:** Runner and Coach are built and have passed targeted internal QA. Coach's four directions, role-debug, gallery and town evidence were inspected from run #420. Both remain NOT APPROVED pending second-group comparative review and owner acceptance.
+**Active task:** Runner, Coach and Referee are built and have passed targeted internal QA. Coach's and Referee's four directions, role-debug, gallery and town evidence were inspected. All three remain NOT APPROVED pending second-group comparative review and owner acceptance.
 **Assigned specialist chat:** **NPC Vector Development specialist**.
-**Next action:** Proceed with Referee, the third character in the authorized Runner/Coach/Referee group. After Referee passes internal QA, package all three for Claude's comparative review. Keep the remaining roster on hold until the owner approves the direction.
+**Next action:** Package Runner, Coach and Referee evidence for Claude's comparative review against Granny Volt. Keep the remaining roster on hold until the owner approves the direction.
 
 ## Working agreement
 
