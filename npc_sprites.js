@@ -303,11 +303,12 @@
         });
         // Articulated poses replace the generic straight arm blocks for athletics.
         if(spec.armPose==='whistle'){
-          // Referee raises the whistle hand toward the mouth; the other arm stays low.
+          // Referee's near arm bends inward and rises to the mouth; the far arm hangs naturally.
           arms=side
-            ? [[19,13,2,3,'arm'],[18,11,2,3,'armshade'],[17,9,2,2,'skin']]
-            : [[10,13,2,4,'arm'],[10,17,2,3,'armshade'],[11,20,2,2,'skin'],
-               [20,13,2,3,'arm'],[19,11,2,3,'armshade'],[18,9,2,2,'skin']];
+            ? [[24,14,2,3,'arm'],[26,12,2,3,'armshade'],[28,11,2,2,'skin']]
+            : [[10,14,2,4,'arm'],[10,18,2,3,'armshade'],[11,21,2,2,'skin'],
+               [20,14,2,3,'arm'],[22,12,2,3,'armshade'],[24,11,2,2,'skin'],
+               [25,12,2,2,'skin']];
         }else if(spec.armPose==='down'){
           arms=side
             ? [[19,13,2,4,'arm'],[18,17,2,3,'armshade'],[18,20,2,2,'skin']]
@@ -328,10 +329,11 @@
           return [x+dx,y+dy,Math.max(1,w+dw),h,role];
         });
         if(spec.legPose==='stride'&&side){
-          legs=[[9,25,4,5,'legback'],[8,29,4,4,'legback'],[7,33,4,4,'legback'],
-            [15,22,4,5,'legfront'],[16,27,4,4,'legfront'],[17,31,4,4,'legfront'],
-            [9,26,1,4,'legshadow'],[15,23,1,4,'bodyhi'],[18,28,1,3,'legshadow'],
-            [7,37,5,3,'shoe'],[17,37,5,3,'shoefront']];
+          // Continuous stepped shins run into each boot; no detached toe blocks.
+          legs=[[9,24,4,5,'legback'],[8,28,4,5,'legback'],[7,32,4,5,'legback'],
+            [15,22,4,5,'legfront'],[16,26,4,5,'legfront'],[17,30,4,6,'legfront'],
+            [9,25,1,4,'legshadow'],[15,23,1,4,'bodyhi'],[18,28,1,3,'legshadow'],
+            [7,36,5,4,'shoe'],[17,35,5,5,'shoefront']];
         }
         result[view]={arms,legs};
       }
@@ -357,8 +359,8 @@
     // Individual civilian prop layouts replace repeated archetype-level tools.
     const CIV_PROP_LAYERS=Object.freeze({
       runner:{types:{front:'no-held-prop',side:'no-held-prop',back:'no-held-prop'},front:[],side:[],back:[]},
-      coach:{types:{front:'clipboard',side:'clipboard',back:'coach-board'},front:[[21,17,3,7,'clipboard']],side:[[21,16,3,7,'clipboard']],back:[[13,14,6,4,'clipboard']]},
-      ref:{types:{front:'whistle',side:'whistle',back:'whistle'},front:[[18,9,2,2,'whistle']],side:[[16,9,2,2,'whistle']],back:[[7,18,2,2,'whistle']]},
+      coach:{types:{front:'clipboard',side:'clipboard',back:'coach-board'},front:[[22,18,3,7,'clipboard']],side:[[23,17,3,7,'clipboard']],back:[[13,14,6,4,'clipboard']]},
+      ref:{types:{front:'whistle',side:'whistle',back:'whistle'},front:[[26,11,2,2,'whistle']],side:[[30,11,2,2,'whistle']],back:[[7,18,2,2,'whistle']]},
       fisher:{types:{front:'fishnet',side:'fishnet',back:'net-roll'},front:[[23,16,3,8,'fishnet']],side:[[25,16,3,8,'fishnet']],back:[[24,15,4,10,'fishnet']]},
       welder:{types:{front:'welding-torch',side:'welding-torch',back:'weld-cylinder'},front:[[23,16,3,7,'weldingtorch']],side:[[24,15,3,7,'weldingtorch']],back:[[24,13,4,12,'weldcylinder']]},
       sailor:{types:{front:'rope-coil',side:'rope-coil',back:'sailor-seam'},front:[[23,17,3,5,'ropecoil']],side:[[24,16,3,5,'ropecoil']],back:[[23,15,4,6,'ropecoil']]},
@@ -993,7 +995,11 @@
       const heldPropKinds=new Set(['coach','fisher','welder','sailor','painter','slicker','cook','vendor','dancer','busker']);
       if(!qaExcludeProps&&heldPropKinds.has(kind)){
         if(rigView==='front'){put(21,17,2,4,'arm');put(22,19,2,2,'skin');}
-        else if(rigView==='side'){put(20,17,3,3,'arm');put(22,18,2,2,'skin');}
+        else if(rigView==='side'){put(22,16,3,3,'arm');put(24,17,2,2,'skin');}
+      }
+      if(!qaExcludeProps&&kind==='ref'){
+        if(rigView==='front'){put(23,12,3,3,'arm');put(25,11,2,2,'skin');}
+        else if(rigView==='side'){put(27,12,3,3,'arm');put(29,11,2,2,'skin');}
       }
       for(const [px,py,pw,ph,role] of propLayers){
         if(qaExcludeProps&&ARCHETYPE_ACCESSORY_ROLES.has(role))continue;
@@ -1087,18 +1093,23 @@
         if(faceDetail)stampFace(faceDetail[0],faceDetail[1],'skinlight',2,2);
       }
       if(side){
-        // Profile face includes a projecting nose and stepped chin, including beneath headwear.
-        stampFace(40,8,'skin',2,2);
-        const profileEyeX=33+(faceStyle%3);
+        // Clear the frontal two-eye layout before drawing a true one-eye profile.
+        for(const [ex,ey] of [[28,10],[36,10],[27,11],[37,11],[32,16]])stampFace(ex,ey,'skin',2,2);
+        const profileFacingLeft=dirCode==='l';
+        const profileEyeX=(profileFacingLeft?29:33)+(faceStyle%3);
         stampFace(profileEyeX,10,'inkdetail',2,2);
         stampFace(profileEyeX,8,'hair',2,2);
         stampFace(profileEyeX-1,16,faceStyle%2===0?'inkdetail':'skinshade',2,2);
         if(faceStyle===5){stampFace(profileEyeX-1,15,'hair',2,2);stampFace(profileEyeX,16,'hair',2,2);}
         if(faceStyle===6)stampFace(profileEyeX,11,'skinlight',2,2);
         if(faceStyle===7)stampFace(profileEyeX-1,9,'hair',2,2);
-        // Projecting nose bridge, tip and chin are sized to remain visible at 1x.
-        stampFace(42,10,'skinlight',2,2);stampFace(44,11,'skin',2,2);stampFace(42,12,'skinshade',2,2);
-        stampFace(41,14,'skinshade',2,2);stampFace(40,15,'skinlight',2,2);
+        // Position the nose on the outside edge after the left-facing mirror.
+        const noseX=profileFacingLeft?20:42;
+        stampFace(noseX,10,'skinlight',2,2);
+        stampFace(noseX+(profileFacingLeft?-2:2),11,'skin',2,2);
+        stampFace(noseX,12,'skinshade',2,2);
+        stampFace(profileFacingLeft?23:41,14,'skinshade',2,2);
+        stampFace(profileFacingLeft?24:40,15,'skinlight',2,2);
         if(faceDetail)stampFace(Math.min(40,faceDetail[0]+2),Math.min(16,faceDetail[1]),'skinlight',2,2);
       }
       const fanJerseyStyles={
