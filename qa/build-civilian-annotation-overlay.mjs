@@ -16,6 +16,7 @@ const captureKey = { referee: 'ref' };
 const directions = ['front', 'back', 'left', 'right'];
 const captures = [];
 const missing = [];
+const legend = { body: '#ff3535', headwear: '#39a8ff', props: '#ffd21a', points: '#35f27c', joints: '#f05bff' };
 
 for (const id of characters) {
   const record = manifest.characters[id];
@@ -122,7 +123,7 @@ try {
     overlay: 'six-civilian-annotation-overlay.png',
     dimensions: { width: result.width, height: result.height },
     status: 'candidate_visual_review_required',
-    legend: colors
+    legend
   };
   fs.writeFileSync(path.join(out, 'six-civilian-annotation-overlay-summary.json'), JSON.stringify(summary, null, 2) + '\n');
   console.log(JSON.stringify(summary));
