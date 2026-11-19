@@ -50,7 +50,7 @@ The repository's automated inventory currently describes 24 live civilian archet
 
 The Usher vector renderer is integrated in `npc_sprites.js`. The previous browser QA run (#393) showed the targeted usher checks passing, but the overall workflow still failed for separate snapshot-approval and legacy silhouette-audit gates. See [QA, known issues, and handoff](04-QA-AND-HANDOFF.md).
 
-Usher, Cook, and Courier are owner-approved. Runner, Coach and Referee are built and remain NOT APPROVED pending the full six-civilian Claude review and owner acceptance. Run #457 verifies all six native directional sheets and includes direct game-scale captures for Runner/Coach/Referee. Targeted visual integrity passes; the Courier body/baseline audit still flags a 2px delta against a 1px vector threshold, and global silhouette/snapshot/audio gates still fail. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
+Usher, Cook, and Courier were owner-approved and then reopened by the owner on 2026-11-19 for Claude-recommended corrections. Runner, Coach and Referee are built and remain NOT APPROVED pending the full six-civilian Claude review and owner acceptance. Run #457 verifies all six native directional sheets and includes direct game-scale captures for Runner/Coach/Referee. Targeted visual integrity passes; the Courier body/baseline audit still flags a 2px delta against a 1px vector threshold, and global silhouette/snapshot/audio gates still fail. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
 
 
 ## Latest six-civilian polish and QA — 2026-11-19
@@ -67,3 +67,10 @@ The overall workflow remains FAILED: Courier's body/baseline audit reports a 2px
 To fit Claude's available usage, the owner reduced the comparative review from six to five characters: **Usher, Cook, Courier, Coach and Referee**. Runner is intentionally excluded—not deleted, rejected or approved—because Runner, Coach and Referee share the athletic archetype. Keeping Coach and Referee preserves two distinct athletic-role examples while retaining civic, vendor and courier design families. Runner remains built and pending a later focused review.
 
 The new [five-civilian review package](../qa-artifacts/five-civilian-full-review/README.md) is the handoff source. It explicitly provides the authoritative `npc_sprites.js` at exact tested source commit `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`, the raw source link, run #457's rendered evidence, and a detailed requirement for individual scores/verdicts plus a reusable Civilian Vector Build Standard. The main goal is to reduce future design iteration through clear preflight, construction and QA rules without imposing a generic character template.
+
+
+## Owner authorization: reopen five-civilian correction pass — 2026-11-19
+
+The owner explicitly authorized implementation of Claude's recommendations across all five reviewed characters, including reopening the previously approved Usher, Cook and Courier. The historical approvals are preserved, but current status is revision in progress. Coach and Referee remain not approved. Runner remains excluded from this pass.
+
+Committed renderer changes: [027be47d8f6763f447992a9dec058ff62a7c60a3](https://github.com/tinytime/Tinytime.github.io/commit/027be47d8f6763f447992a9dec058ff62a7c60a3). Fresh browser QA and visual inspection are pending; run #457 applies to the previous source only. Do not start the remaining 20 or refresh golden snapshots.
