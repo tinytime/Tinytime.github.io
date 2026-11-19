@@ -864,7 +864,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     opts=opts||{}; const g=ctx, scale=OWT/36*.28;
     const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2, sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
     const back=dir==='u', side=dir==='l'||dir==='r', flip=dir==='l';
-    g.save();g.translate(sx,sy);g.scale(scale,scale*1.066);g.translate(-50,-139);
+    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
     if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
     const ink='#171725', skin='#B97855';
     const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
@@ -1113,7 +1113,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     opts=opts||{};const g=ctx,scale=OWT/36*.28;
     const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-3;
     const back=dir==='u',side=dir==='l'||dir==='r',flip=dir==='l';
-    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
+    g.save();g.translate(sx,sy);g.scale(scale,scale*1.066);g.translate(-50,-139);
     if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
     const ink='#171725',skin='#965A43';
     const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
