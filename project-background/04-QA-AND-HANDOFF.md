@@ -58,14 +58,18 @@ The inventory generator reads live NPC records and renderer tables from the game
 
 Claude's comparative review of the 18-image evidence package is complete. The reviewer found no required character fixes on Usher or Cook. Courier has three required corrections: readable face/profile in left/right views (major); consistent messenger satchel across all four directions, correctly on the character's right hip in rear view (major); remove or attach the detached cyan line below the hem in back/side views (minor). Optional polish and a legacy QA threshold-documentation discrepancy are recorded in the tracker; neither is a pilot blocker.
 
-A first Courier correction pass was committed as `98dbcda2a32fa506ba355f12ddd449db3322a4b4` in `npc_sprites.js`: side profile face added, backpack-like rear/side pack replaced with a consistent hip satchel and rear strap, detached hem stripe removed. This is implementation only; it has not yet been browser-tested or visually approved.
+A first Courier correction pass was committed as `98dbcda2a32fa506ba355f12ddd449db3322a4b4` in `npc_sprites.js`: side profile face added, backpack-like rear/side pack replaced with a compact messenger satchel and rear strap, detached hem stripe removed.
+
+Browser QA run #410 (`44542492048`) tested that exact source SHA and uploaded artifact `14537384741`. Courier-specific syntax/module, palette, body/baseline/contrast, unique face, 92-capture visual integrity, prop, role-debug, town and gallery checks passed. Actual four-direction native captures, nearest-neighbor enlargements, role-debug, full gallery and town screenshot were inspected. The profile face is readable; satchel placement is consistent (rear view on viewer-right, the character's right hip); the detached hem stripe is absent; parcel/hand contact remains connected. No page/script errors. 135 missing audio resources returned 404.
+
+The overall workflow is **FAILED**, but for separate existing/global gates: the 23-civilian silhouette audit still flags Clinic/Sailor front (0.9094), Coach/Vendor front (0.8990) and back (0.8912), Sailor/Welder back (0.8893), Clinic/Sailor back (0.8842), and Clinic/Welder back (0.8718), above the 0.90 limit. Cook/Courier back is 0.8635 and below the limit. The golden baseline remains explicitly unapproved (23 changed snapshots, 1 match); no golden images were refreshed or approved.
 
 Next actions:
-1. Run browser QA against the current branch head and verify the exact tested SHA.
-2. Inspect actual new Courier front/back/left/right captures at native size and nearest-neighbor enlargement, plus role-debug, gallery and town context. Check satchel side/hand continuity, profile readability, baseline, clipping and no detached components.
-3. Fix any regressions and rerun; keep global legacy silhouette and unapproved-golden failures separate. Never refresh snapshots.
-4. Send updated Courier directions and role-debug evidence to Claude for focused reinspection of all three required findings.
-5. Only after Claude's follow-up and owner approval may the pilot batch be marked approved or the remaining 20 designs begin.
+1. QA and Independent Review Coordinator independently verifies run #410, its exact source SHA, report and uploaded artifact.
+2. Send the corrected Courier front/back/left/right images and 8× role-debug evidence to Claude for focused reinspection of the three required findings.
+3. Record Claude's follow-up and any required changes; rerun browser QA if changes are made.
+4. Return the three-pilot status to the owner. Keep all pilots NOT APPROVED until owner acceptance.
+5. Keep the remaining 20 civilian designs on hold until the three-pilot review is complete and the owner approves the direction.
 
 ## Handoff checklist for a new builder
 

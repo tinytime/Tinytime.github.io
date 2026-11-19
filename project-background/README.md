@@ -11,12 +11,11 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest verified documentation commit at this status check:** `2979453a8762dc48fd96026bc149198389fd1e4f` — Courier correction pass `98dbcda2a32fa506ba355f12ddd449db3322a4b4`; review/tracker/handoff updates through the latest documentation commit. Browser QA for the correction pass is pending; do not treat the source commit as tested.
-**Latest browser QA before Courier corrections:** [Run #44539341875](https://github.com/tinytime/Tinytime.github.io/actions/runs/44539341875), tested exact commit `a006d3cee143b7ac7b3a4ec2ed614eb0f604a551`, **overall FAILED**. Courier-specific checks passed before Claude's corrections; global legacy silhouette and unapproved golden-snapshot gates failed; 135 audio-resource 404s logged. Artifact `14537616516` was inspected and supplied to Claude.
+**Latest verified documentation commit at this status check:** Courier correction QA reviewed on source commit `98dbcda2a32fa506ba355f12ddd449db3322a4b4`; documentation handoff refreshed at `ee05fbc1d6859904d9d3f6d973601824207451ae`. Browser QA run [#410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44542492048) tested the exact correction commit and completed **FAILED** overall. Courier-specific targeted checks passed; global legacy civilian silhouette and unapproved golden-snapshot gates remain failed. Artifact `14537384741` was downloaded and the corrected Courier directions, role-debug sheet, gallery, and town screenshot were visually inspected. No golden snapshots were changed.
 
-**Active task:** Apply Claude's required Courier corrections. Claude found no required fixes on Usher or Cook. Courier fixes: side-profile face; consistent right-hip messenger satchel in all directions; remove detached cyan hem stripe. Correction source commit `98dbcda2a32fa506ba355f12ddd449db3322a4b4` is committed but not yet browser-tested or independently reinspected. All three pilots remain NOT APPROVED.
-**Assigned specialist chat:** **Main Builder / QA and Independent Review Coordinator**.
-**Next action:** Run browser QA against the corrected source, inspect all new artifacts, then submit updated Courier directions and role-debug evidence to Claude for focused reinspection. Do not start the remaining 20 civilians before the pilot review is complete and the owner approves.
+**Active task:** Courier's corrected vector art is integrated and has completed internal browser QA. The side-profile face, consistent right-hip messenger satchel, and removed hem stripe are visible in the fresh four-direction captures. QA and Independent Review Coordinator now takes over to independently verify the run/artifacts and send the updated Courier evidence to Claude for focused re-review. Usher, Cook, Courier, and the pilot batch remain **NOT APPROVED** pending Claude's follow-up and owner acceptance.
+**Assigned specialist chat:** **QA and Independent Review Coordinator**.
+**Next action:** Complete independent QA artifact verification and Claude's Courier re-review. Keep the remaining 20 civilian designs on hold until the three-pilot review is complete and the owner approves the direction.
 
 ## Working agreement
 
