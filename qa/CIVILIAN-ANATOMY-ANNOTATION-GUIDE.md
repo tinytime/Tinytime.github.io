@@ -242,3 +242,8 @@ The visible prop tracer returns every disconnected visible component, not just t
 The contour tracer now returns **all disconnected outer components**, not just the largest loop. This matters for the umbrella's visible alpha delta, where canopy and shaft may be separate components, and prevents small detached body-alpha components from silently disappearing. The capture stores the primary body contour in `bodyPolygon`, remaining body contours in `bodyAppendagePolygons`, and every visible umbrella contour in `visiblePropPolygons`. The original hand-authored body and prop candidates remain preserved separately for comparison.
 
 Fixture coverage now includes two disconnected components and verifies that both are reconstructed. This remains a mask-derived candidate, not a semantic approval: the renderer's umbrella-excluded pass is known to retain hair, clothing and gripping anatomy, but only a human second-review can confirm semantic landmarks/contact boundaries. The latest code is committed; fresh GitHub Actions artifact verification is still pending.
+
+
+## Contour topology validation — 2026-11-19
+
+The contour tracer now distinguishes outer boundaries from interior holes using loop winding. Only positive-winding outer loops become polygons; negative-winding interior holes are not mislabeled as disconnected body appendages. All disconnected outer components are retained. Exact row-span masks remain in the JSON as the authoritative pixel evidence, so the polygon approximation's filled interior holes do not erase the source mask. The fixture suite now has nine cases, including a hollow shape and two disconnected components.
