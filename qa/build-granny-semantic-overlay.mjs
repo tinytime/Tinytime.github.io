@@ -56,6 +56,8 @@ try {
     sourceCommit:process.env.GITHUB_SHA||null,
     sourceFile:'npc_sprites.js:createGrannyRenderer/drawGrannyVoltSprite',
     sourceGrid:{width:100,height:140},
+    pixelMaskConvention:'Exact renderer-output alpha masks in 100x140 source space; row spans are inclusive [xStart,xEnd], alpha threshold >8/255. bodyAlpha is the accessory-excluded anatomy render (raised gripping hand retained); umbrellaExposedDelta is the full-render alpha not present in the body pass. These are pixel masks, distinct from the coarse candidate polygons below.',
+    pixelMasks:result.masks,
     renderConvention:'Native source-space capture from live renderer at 1 output pixel per source unit; idle phase 0; ground effects disabled; body layer excludes umbrella canopy and shaft but retains raised gripping hand/arm. Side-view .72 x scale and left mirror are applied by renderer, not pre-baked into coordinates.',
     directions:{
       front:{headTop:8,chin:46,shoulderLeft:{x:36,y:49},shoulderRight:{x:66,y:49},shoulderY:49,pelvisY:97,footBaseline:136,
