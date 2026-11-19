@@ -1288,15 +1288,23 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[66,89],[73,89],[75,97],[69,100],[65,96]],skin);
     }else if(side){
       path([[38,51],[48,48],[61,52],[68,61],[67,91],[61,100],[35,100],[33,76]],jacket);
-      path([[39,53],[48,50],[57,53],[61,61],[42,65]],'#D8D7B8',ink,1.1);
-      line([[47,62],[47,97]],'#A7C0A6',1.2);
-      path([[63,58],[72,60],[76,80],[72,92],[65,91],[64,75]],jacket);
-      path([[66,89],[73,90],[75,98],[69,101],[65,96]],skin);
+      // Profile yoke follows the shoulder seam as a tailored panel, not a pale blob.
+      path([[40,53],[48,50],[55,53],[59,59],[53,63],[44,62],[41,58]],'#D8D7B8',ink,1.05);
+      line([[47,63],[47,97]],'#A7C0A6',1.2);
+      // Clipboard is held in front of the torso: board, paper and brass clip
+      // remain separate shapes, with the hand visibly wrapping its near edge.
+      path([[64,69],[76,67],[81,91],[68,96],[62,91]],'#C69A58',ink,1.4);
+      path([[66,72],[74,70],[78,89],[69,92]],'#F2E8CE',ink,.9);
+      path([[69,68],[75,67],[76,71],[70,72]],'#7A6246',ink,1);
+      line([[69,78],[75,77]],'#3B6650',1);line([[70,83],[76,82]],'#3B6650',1);
+      path([[63,58],[70,60],[74,78],[70,89],[64,88],[62,75]],jacket);
+      path([[63,84],[70,84],[73,91],[68,96],[62,91]],skin,ink,1.15);
       path([[33,58],[40,57],[40,80],[34,91],[28,89],[29,72]],jacket);
       path([[28,88],[35,89],[35,97],[29,100],[25,95]],skin);
-      // Side-view clipboard edge is deliberately visible behind the forearm.
-      path([[24,72],[29,69],[33,73],[32,91],[26,94],[22,90]],'#C9A66A',ink,1.2);
-      line([[26,76],[30,75]],'#F7E8C8',1);
+      // Gold whistle and short lanyard are visible in profile, below the yoke.
+      line([[45,63],[49,72],[53,63]],'#D6B85D',1.4);
+      ell(49,75,2.2,2.7,'#D6B85D',ink,1);
+      line([[48,75],[50,75]],'#FFF0C8',.8);
     }else{
       // Front jacket: cream shoulder yoke, zipper, pocket seams and hem band.
       path([[34,52],[43,48],[58,48],[68,54],[64,68],[50,73],[36,67]],'#D8D7B8',ink,1.3);
@@ -1333,8 +1341,15 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         line([[45,41],[50,42],[55,41]],'#714333',1.2);
         ell(43,35,2,1,'#D18A72',null);ell(57,35,2,1,'#D18A72',null);
       }else{
-        ell(42,21,3,3,'#AEB5A8',ink,.6);ell(58,21,3,3,'#AEB5A8',ink,.6);
-        line([[43,23],[44,39]],'#D5D4C8',1);line([[57,23],[56,39]],'#D5D4C8',1);
+        // Rear hair: a silver-templed, charcoal undercut with a shaped nape
+        // visible below the cap; deliberately distinct from Referee's crop.
+        path([[37,23],[40,19],[45,20],[50,22],[55,20],[61,19],[64,24],
+          [63,35],[59,41],[54,43],[50,40],[46,43],[41,40],[37,34]],'#59615D',ink,1.25);
+        path([[39,25],[44,23],[47,27],[45,34],[41,38],[38,34]],'#AEB5A8',null);
+        path([[56,27],[60,23],[63,26],[62,34],[58,39],[55,35]],'#AEB5A8',null);
+        line([[45,30],[46,37]],'#D2D0C3',1.1);
+        line([[53,29],[52,38]],'#D2D0C3',1.1);
+        path([[42,39],[46,42],[49,40],[52,42],[56,39],[59,40],[56,44],[44,44]],'#343B38',ink,.8);
       }
       path([[34,23],[38,17],[47,16],[61,18],[67,23],[65,27],[35,27]],'#263B35',ink,1.4);
       path([[32,25],[68,25],[66,29],[34,29]],'#D6B85D',ink,1.1);
@@ -1345,7 +1360,13 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[38,22],[42,16],[55,16],[63,22],[61,27],[39,27]],'#5B6260',ink,1);
         ell(59,30,1.2,1.6,ink,null);line([[59,29],[64,30],[60,33]],'#80513D',1);
         line([[57,40],[62,40]],'#714333',1.2);
-      }else{line([[43,22],[44,38]],'#D5D4C8',1);line([[57,22],[56,38]],'#D5D4C8',1);}
+      }else{
+        // Profile rear/away-facing head keeps the same silver-templed hair mass.
+        path([[38,23],[42,18],[49,19],[55,18],[62,22],[63,32],[59,40],[53,43],[46,41],[40,37]],'#59615D',ink,1.15);
+        path([[40,25],[44,23],[47,29],[44,36],[40,34]],'#AEB5A8',null);
+        path([[55,25],[60,23],[62,28],[59,36],[55,37]],'#AEB5A8',null);
+        line([[47,30],[47,38]],'#D2D0C3',1);
+      }
       path([[36,23],[42,17],[58,17],[65,23],[63,27],[37,27]],'#263B35',ink,1.3);
       path([[35,25],[65,25],[63,29],[37,29]],'#D6B85D',ink,1);
       // Keep the side profile unmistakably alive at native 64x96 scale:
