@@ -1037,25 +1037,26 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         line([[73,86],[77,87]],'#DDA47D',.9);
       }else{
         path([[31,54],[41,48],[60,50],[70,57],[68,91],[74,101],[26,103]],'#286D76',ink,1.8);
-        // Large courier pack is the defining rear silhouette, not a tiny badge.
-        path([[25,59],[39,54],[48,61],[48,96],[42,108],[24,103],[20,91],[21,69]],bag,ink,1.9);
-        path([[24,66],[39,61],[44,68],[42,94],[28,98],[23,90]],'#D9A04D',ink,1.1);
-        line([[24,70],[42,66]],'#F3D18A',1.4);
-        path([[30,82],[40,79],[41,90],[31,93]],'#70472E',ink,1);
-        line([[34,84],[38,83]],'#F3D18A',1);
-        line([[50,54],[54,91]],'#D99A48',4);
-        line([[50,54],[54,91]],ink,1);
+        // The same compact messenger satchel sits on the courier's right hip.
+        // From behind, the character's right is viewer-right; the strap crosses
+        // from the opposite shoulder to the satchel exactly as it does in front.
+        path([[57,80],[72,77],[78,84],[76,103],[59,106],[53,96]],bag,ink,1.7);
+        path([[58,81],[71,79],[75,87],[59,92],[55,88]],'#E6B45D',ink,1.1);
+        line([[59,95],[74,91]],'#F3D18A',1.3);
+        path([[64,96],[70,95],[71,100],[64,101]],'#70472E',ink,1);
+        line([[36,54],[41,66],[49,78],[59,91]],'#D99A48',5);
+        line([[36,54],[41,66],[49,78],[59,91]],ink,1);
         path([[29,54],[37,54],[35,83],[29,91],[23,87]],jacket);
         path([[64,55],[72,58],[76,83],[70,90],[65,84]],jacket);
-        line([[30,104],[68,104]],'#79BFB2',1.2);
       }
     }else{
-      // Side view has a deep pack profile and a distinct forward parcel grip.
+      // Side profile of the same messenger satchel: compact, hip-height, and
+      // attached by a visible strap rather than a separate backpack silhouette.
       path([[38,53],[49,47],[63,52],[69,62],[66,92],[74,101],[30,103],[35,88]],jacket,ink,1.8);
-      path([[32,61],[44,57],[50,67],[49,98],[42,109],[26,103],[25,79]],bag,ink,1.8);
-      path([[34,66],[44,64],[46,91],[39,100],[29,95]],'#D9A04D',ink,1);
-      line([[35,68],[45,65]],'#F3D18A',1.3);
-      line([[55,54],[52,91]],'#D99A48',4);line([[55,54],[52,91]],ink,1);
+      path([[29,77],[42,74],[49,80],[48,99],[34,103],[27,94]],bag,ink,1.7);
+      path([[30,79],[41,77],[46,83],[33,88],[29,85]],'#E6B45D',ink,1);
+      line([[31,92],[45,88]],'#F3D18A',1.2);
+      line([[53,54],[48,72],[41,82]],'#D99A48',4);line([[53,54],[48,72],[41,82]],ink,1);
       path([[62,57],[70,61],[75,79],[72,88],[65,85],[62,72]],jacket);
       path([[68,82],[75,82],[78,88],[74,93],[68,90]],skin);
       path([[74,72],[91,70],[95,75],[93,91],[77,94],[72,87]],parcel,ink,1.7);
@@ -1063,7 +1064,6 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       // Visible fingers wrap the near parcel corner and connect to the sleeve.
       path([[69,83],[75,82],[79,86],[78,91],[73,92],[69,88]],skin,ink,1.2);
       line([[73,86],[77,87]],'#DDA47D',.9);
-      line([[32,105],[67,105]],'#79BFB2',1.2);
     }
     // Distinctive low-profile storm cap: swept crown, short visor and cyan piping.
     if(!side){
@@ -1084,10 +1084,19 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       line([[42,18],[49,14],[58,16]],'#9EE1D3',1.2);
       path([[44,20],[56,19],[58,23],[45,24]],'#1B5964',null);
     }else{
-      ell(50,31,12,14,'#29252B',ink,1.6);
-      path([[42,14],[57,13],[64,21],[65,28],[38,28],[38,20]],'#236E78',ink,1.7);
-      path([[38,25],[65,25],[68,29],[38,29]],'#D9A04D',ink,1.2);
-      line([[44,17],[57,16]],'#9EE1D3',1.1);
+      // True right-facing profile: visible cheek, jaw, ear and nose beneath
+      // the short visor. The left-facing view mirrors this authored profile.
+      ell(50,31,11.5,13.5,'#29252B',ink,1.5);
+      path([[43,27],[49,23],[59,25],[64,31],[63,39],[57,44],[47,42],[43,36]],
+        grad(44,25,63,44,[[0,'#D99D73'],[1,skin]]),ink,1.4);
+      ell(44,34,2.4,3.2,'#B9785E',ink,.9);
+      path([[55,29],[62,31],[66,35],[62,37],[58,35]],skin,ink,1);
+      ell(59,31,1.1,1.5,'#171725',null);
+      line([[56,28],[61,28]],'#46333A',1);
+      line([[57,39],[61,39]],'#633D3C',1.1);
+      path([[39,25],[43,17],[51,13],[60,17],[65,24],[61,28],[54,24],[47,26],[42,30]],'#236E78',ink,1.7);
+      path([[38,25],[51,23],[68,25],[69,29],[49,29],[38,29]],'#D9A04D',ink,1.2);
+      line([[44,19],[51,15],[59,17]],'#9EE1D3',1.1);
     }
     // Small reflective piping catches light without turning the silhouette neon.
     g.save();g.globalAlpha=.55;g.shadowBlur=.8/scale;g.shadowColor='rgba(41,242,232,.34)';
