@@ -158,7 +158,7 @@
         masks[view]=source[view].map(([y,left,right])=>{
           const band=variant[y<=14?0:y<=20?1:2];
           if(!band)return [y,left,right];
-          const profileHemTrim=view==='side'&&y>=18&&['vendor','cook','busker'].includes(civ)?3:0;
+          const profileHemTrim=view==='side'&&y>=18?(civ==='vendor'?3:civ==='cook'?1:civ==='busker'?3:0):0;
           const l=view==='side'?Math.max(0,left+band+profileHemTrim):Math.max(0,left-band);
           const r=view==='side'?Math.min(31,right-band-profileHemTrim):Math.min(31,right+band);
           const mid=Math.floor((left+right)/2);
