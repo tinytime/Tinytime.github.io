@@ -102,3 +102,8 @@ Native overlay inspection showed that the initial Runner candidate wrongly class
 Runner's race bib is part of the singlet and remains inside the body/garment mask; it is not a detachable prop. The wrist stopwatch is the prop exclusion where visible, and the back view explicitly has no prop polygon. Runner's joint candidates were revised using the actual sprint leg paths in `npc_sprites.js`, including separate profile near/far knees and ankles. These remain candidate landmarks pending visual verification; they do not yet support a measured or calibrated result.
 
 Courier's cap polygon was tightened to the source crown/visor path. Referee's body candidate now follows the raised sleeve contour in all views, with direction-specific yellow-card exclusions. These corrections improve the candidate overlays but do not constitute visual approval.
+
+
+## Native coordinate-fit correction — 2026-11-19
+
+The first overlay renderer incorrectly stretched the 100×140 local coordinate grid across the full 64×96 PNG. The sprites occupy only part of that capture, so that overlay was not a valid pixel-alignment check and its apparent boundary offsets must not be used to alter annotations. The overlay renderer now maps source x around the native capture centerline (source x=50 to capture x=32), mirrors left-facing x at display time, and fits y independently for each character from its headwear top to the shared native foot baseline. This accommodates the renderer's differing vertical transforms, including Runner's y-scale. A fresh workflow artifact is required before any further pixel-level mask judgments are made.
