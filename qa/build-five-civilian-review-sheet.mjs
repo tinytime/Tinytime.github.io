@@ -89,6 +89,8 @@ try {
     ''
   ];
   fs.writeFileSync(summaryPath, lines.join('\n'));
+  console.log('\n' + lines.join('\n'));
+  console.log('Review contact sheet written: ' + path.join(out, 'five-civilian-native-4x-contact-sheet.png'));
   if (missing.length) {
     console.error('Missing five-civilian directional captures:', missing.join(', '));
     process.exitCode = 1;
