@@ -119,7 +119,7 @@ try {
         // Granny has no separate worn headwear. The silver hair cap/sweep belongs
         // to anatomy; the pink canopy and shaft are her carried umbrella prop.
         propPolygons:[
-          [{x:50,y:-1},{x:39,y:-1},{x:31,y:2},{x:24,y:5},{x:18,y:10},{x:15,y:14},{x:15,y:20},{x:21,y:17},{x:27,y:22},{x:33,y:18},{x:39,y:22},{x:45,y:18},{x:51,y:22},{x:58,y:18},{x:71,y:20},{x:70,y:14},{x:66,y:8},{x:60,y:4}],
+          [{x:50,y:-1},{x:39,y:-1},{x:31,y:2},{x:24,y:5},{x:18,y:10},{x:15,y:14},{x:15,y:20},{x:21,y:17},{x:27,y:22},{x:33,y:18},{x:39,y:22},{x:45,y:18},{x:51,y:22},{x:58,y:18},{x:82,y:20},{x:79,y:12},{x:68,y:4}],
           [{x:65,y:15},{x:66,y:16},{x:65,y:37},{x:64,y:37},{x:64,y:16}]
         ]},
       back:{headTop:8,chin:49,shoulderLeft:{x:36,y:49},shoulderRight:{x:66,y:49},shoulderY:49,pelvisY:97,footBaseline:136,
@@ -148,6 +148,15 @@ try {
         ]}
     }
   };
+  for(const [key,d] of Object.entries(annotation.directions)){
+    if(d.headwearPolygons.length!==0)throw new Error('Granny has no separate worn headwear; unexpected headwear mask in '+key);
+    if(d.propPolygons.length!==2)throw new Error('Granny umbrella must be represented by canopy and shaft prop masks in '+key);
+    const canopy=d.propPolygons[0],shaft=d.propPolygons[1];
+    if(Math.max(...canopy.map(p=>p.x))<80||Math.min(...canopy.map(p=>p.x))>16||Math.max(...canopy.map(p=>p.y))>23)
+      throw new Error('Granny umbrella canopy candidate bounds are incomplete in '+key);
+    if(Math.max(...shaft.map(p=>p.y))>38||Math.min(...shaft.map(p=>p.y))<14)
+      throw new Error('Granny umbrella shaft candidate bounds are invalid in '+key);
+  }
   fs.writeFileSync(path.join(out,'granny-semantic-candidate.json'),JSON.stringify(annotation,null,2)+'\n');
   const sheet=await page.evaluate(async({directions,annotation})=>{
     const canvas=document.createElement('canvas');canvas.width=4*260+24;canvas.height=330;
