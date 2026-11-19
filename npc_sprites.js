@@ -167,6 +167,21 @@
           if(['tech','hacker','clinic','usher','cook','vendor'].includes(civ)&&y>=17){
             if(view==='side'){L=Math.max(L,11);R=Math.min(R,20)}else{L=Math.max(L,9);R=Math.min(R,22)}
           }
+          // Break the two closest back-view silhouette pairs with contour changes,
+          // not palette or prop differences. Coach keeps an athletic V taper;
+          // the welder gets a broader protective shoulder line than the sailor.
+          if(civ==='coach'&&view==='back'){
+            if(y<=14){L=Math.max(0,L-1);R=Math.min(31,R+1);}
+            else if(y>=18){
+              const mid=Math.floor((L+R)/2),half=Math.max(1,Math.floor((R-L)/2)-2);
+              L=mid-half;R=mid+half;
+            }
+          }
+          if(civ==='welder'&&view==='back'&&y<=16){L=Math.max(0,L-2);R=Math.min(31,R+2);}
+          if(civ==='sailor'&&view==='back'&&y<=16){
+            const mid=Math.floor((L+R)/2),half=Math.max(1,Math.floor((R-L)/2)-1);
+            L=mid-half;R=mid+half;
+          }
           return [y,L,R];
         });
         Object.freeze(masks[view]);
