@@ -28,7 +28,7 @@ The project owner approved the first batch—Usher, Cook, and Courier—on 2026-
 2. **Coach** — built with a dedicated vector renderer; targeted internal QA passed after side-profile facial refinement.
 3. **Referee** — built and internally checked; four-direction, role-debug, gallery and town evidence inspected.
 
-Complete and internally inspect each character in four directions, at native/enlarged scale, and in town/gallery context before moving to the next character. All three have now passed targeted internal QA. Send Runner, Coach and Referee to Claude for independent comparison and wait for owner approval before starting the remaining roster.
+Complete and internally inspect each character in four directions, at native/enlarged scale, and in town/gallery context before moving to the next character. The owner has expanded the next review to all six completed civilians together: Usher, Cook, Courier, Runner, Coach and Referee. Claude must compare the full set against Granny Volt, provide individual verdicts and a six-character ranking, and derive a reusable Civilian Vector Build Standard. Evaluate Claude's findings and obtain owner approval before starting the remaining 20.
 
 ## Scope and counts
 
@@ -50,9 +50,13 @@ The repository's automated inventory currently describes 24 live civilian archet
 
 The Usher vector renderer is integrated in `npc_sprites.js`. The previous browser QA run (#393) showed the targeted usher checks passing, but the overall workflow still failed for separate snapshot-approval and legacy silhouette-audit gates. See [QA, known issues, and handoff](04-QA-AND-HANDOFF.md).
 
-Usher, Cook, and Courier are owner-approved. Runner, Coach and Referee are built and internally checked. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
+Usher, Cook, and Courier are owner-approved. Runner, Coach and Referee are built and remain NOT APPROVED pending the full six-civilian Claude review and owner acceptance. Run #457 verifies all six native directional sheets and includes direct game-scale captures for Runner/Coach/Referee. Targeted visual integrity passes; the Courier body/baseline audit still flags a 2px delta against a 1px vector threshold, and global silhouette/snapshot/audio gates still fail. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
 
 
-## Latest owner follow-up — 2026-11-19
+## Latest six-civilian polish and QA — 2026-11-19
 
-Referee received positive owner feedback (“Ref good”) and was left unchanged. Coach's side-profile jacket rear contour was broadened and the whistle/lanyard shifted toward the front. Runner's trailing shorts were shortened to reveal a distinct calf and reduce the trouser-like read. These changes were tested at exact source `fafb991d3ce94ffa491179a84ecb63c10934b0e0` in browser QA run #446; see the [review package](../qa-artifacts/runner-coach-referee-run-446/README.md). Targeted internal QA and visual inspection passed. The three-character batch remains NOT APPROVED pending Claude's independent review and explicit owner acceptance.
+The owner supplied review corrections for larger eye catchlights (Coach, Referee, Courier, Runner), Cook's toque and side-view pan, Runner's side stride, and Courier's forward lean. Inspection of the live renderer confirmed these design changes were already present in the source tested by run #453. The final renderer source `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0` keeps those changes, removes a redundant duplicate Runner leg draw, preserves Cook's existing eye treatment, and compresses the Cook toque crown vertically to ensure transparent headroom in all four views.
+
+Browser QA [run #457](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167) tested that exact source; artifact `14563778383`. All 24 native 64×96 images for the six completed civilians and 12 direct 28×42 Runner/Coach/Referee captures were inspected. Visual integrity passes 92/92 with zero edge contacts or detached components; role-debug 12/12, face distinctness 23/23, silhouette-quality 180/180, props, gallery and town regression pass. The Runner side stride reads as two legs/two feet; Cook's toque has transparent top headroom.
+
+The overall workflow remains FAILED: Courier's body/baseline audit reports a 2px delta against a 1px vector threshold; the global Clinic/Sailor silhouette overlap remains (front IoU `0.9094292803970223`); golden snapshots remain unapproved (23 changed / 1 match); and 180 missing-audio 404 console errors remain. No snapshots were refreshed or approved. Usher, Cook and Courier retain owner approval; Runner, Coach and Referee remain NOT APPROVED pending Claude's independent six-character review and owner approval. The [full Claude review package](../qa-artifacts/six-civilian-full-review/README.md) contains the exact renderer source and QA artifact links. The remaining 20 civilians remain on hold.
