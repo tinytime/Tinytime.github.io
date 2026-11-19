@@ -564,6 +564,62 @@ try {
     fs.writeFileSync(path.join(civilianDirectionDir, item.civ + '-' + item.direction + '.png'),
       Buffer.from(item.dataUrl.split(',')[1], 'base64'));
   }
+
+  // Temporary role-debug capture: intercept only this diagnostic render, never
+  // the normal gallery/snapshot renderer. Every occupied grid role gets a flat
+  // unique hue; outlines are omitted by the renderer's roleDebug path.
+  const roleDebugCapture = await page.evaluate(async () => {
+    const originalFactory=window.NPC_SPRITES.createCivRenderer;
+    const legends=[];
+    window.NPC_SPRITES=Object.freeze({...window.NPC_SPRITES,createCivRenderer:(args)=>{
+      const render=originalFactory(args);
+      return (...callArgs)=>{
+        const result=render(...callArgs.slice(0,9),{...(callArgs[9]||{}),roleDebug:true});
+        if(render._lastRoleDebugLegend)legends.push(render._lastRoleDebugLegend);
+        return result;
+      };
+    }});
+    const items=window.SG.npcRenderDirectionalSnapshots();
+    const selected=items.filter(item=>['cook','vendor','usher'].includes(item.civ)&&
+      ['front','right'].includes(String(item.direction).toLowerCase()));
+    return {items:selected.map(item=>({civ:item.civ,direction:item.direction,dataUrl:item.dataUrl})),
+      legends:legends.length?legends[legends.length-1]:[]};
+  });
+  const roleDebugSheet = await page.evaluate(async capture => {
+    const cellW=512,cellH=768,gap=24,cols=3,rows=2,legendH=220;
+    const canvas=document.createElement('canvas');
+    canvas.width=cols*cellW+(cols+1)*gap;
+    canvas.height=rows*cellH+(rows+1)*gap+legendH;
+    const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+    ctx.fillStyle='#252733';ctx.fillRect(0,0,canvas.width,canvas.height);
+    const order=[['cook','front'],['cook','right'],['vendor','front'],['vendor','right'],['usher','front'],['usher','right']];
+    for(let i=0;i<order.length;i++){
+      const [civ,direction]=order[i],item=capture.items.find(x=>x.civ===civ&&String(x.direction).toLowerCase()===direction);
+      if(!item)continue;
+      const img=new Image();img.src=item.dataUrl;await img.decode();
+      const x=gap+(i%cols)*(cellW+gap),y=gap+Math.floor(i/cols)*(cellH+gap);
+      ctx.drawImage(img,x,y,cellW,cellH);
+      ctx.fillStyle='#ffffff';ctx.font='bold 24px monospace';ctx.textAlign='left';
+      ctx.fillText(civ.toUpperCase()+' / '+direction.toUpperCase(),x,y+cellH+30);
+    }
+    const legendY=rows*cellH+(rows+1)*gap+24;
+    ctx.font='bold 16px monospace';ctx.textAlign='left';ctx.fillStyle='#ffffff';
+    ctx.fillText('ROLE COLOR KEY (same role = same color within each sprite)',gap,legendY);
+    const legend=capture.legends||[];
+    const colW=(canvas.width-2*gap)/4;
+    legend.forEach((item,i)=>{
+      const col=i%4,row=Math.floor(i/4),x=gap+col*colW,y=legendY+26+row*26;
+      ctx.fillStyle=item.color;ctx.fillRect(x,y-13,18,18);
+      ctx.fillStyle='#ffffff';ctx.fillText(item.role,x+26,y+1);
+    });
+    return canvas.toDataURL('image/png');
+  },roleDebugCapture);
+  fs.writeFileSync(path.join(out,'cook-vendor-usher-role-debug-8x.png'),
+    Buffer.from(roleDebugSheet.split(',')[1],'base64'));
+  const roleDebugAudit={pass:roleDebugCapture.items.length===6&&!!roleDebugSheet,
+    captureCount:roleDebugCapture.items.length,expected:6,views:['front','right'],
+    civilians:['cook','vendor','usher'],scale:8,outline:'omitted',roleLegend:roleDebugCapture.legends||[],
+    path:'cook-vendor-usher-role-debug-8x.png'};
   const civilianVisualIntegrityAudit = await page.evaluate(async snapshots => {
     const decoded=await Promise.all(snapshots.map(async item=>{
       const image=new Image();image.src=item.dataUrl;await image.decode();
@@ -1328,6 +1384,7 @@ try {
     paletteDifferentiation,
     npcBodyCheck,
     civilianFaceDistinctnessAudit,
+    roleDebugAudit,
     civilianVisualIntegrityAudit,
     npcPropAudit,
     fanVariantAudit,
@@ -1366,7 +1423,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !civilianFaceDistinctnessAudit.pass || !civilianVisualIntegrityAudit.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !civilianFaceDistinctnessAudit.pass || !roleDebugAudit.pass || !civilianVisualIntegrityAudit.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
