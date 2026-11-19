@@ -505,3 +505,8 @@ The Run #552 artifact's exact alpha masks were used to establish a non-gating po
 The current capture implementation retains the old hand-transcribed body polygon/appendages as `manualBodyPolygonCandidate` and replaces the active candidate `bodyPolygon` with an outer contour traced from the exact umbrella-excluded renderer alpha mask. Profiles are inverse-transformed back into local coordinates. The semantic overlay displays the derived contour in red and the manual candidate in magenta. This is still a candidate, not a verified measurement.
 
 Local six-fixture tests pass. Applied to Run #555's actual artifact, the derived contour matches the body alpha mask at IoU 0.9964 front, 0.9961 back, 0.9954 left and 0.9975 right (recall 1.0). Fresh Actions verification is pending. This method is specific to Granny's renderer pass; do not generalize to other NPCs without confirming their body/prop layer semantics.
+
+
+## Visible-only umbrella contour — 2026-11-19
+
+The output now keeps full manual umbrella geometry in `manualPropPolygonCandidate` and a separate visible-only contour in `visiblePropPolygon`, traced from exact exposed prop alpha. Local comparison against Run #555 gives visible contour IoU 1.0 in all four directions. The full manual prop candidate covers 81.5–82.2% of visible umbrella pixels; the remaining hidden/visible boundary needs second review. This is a diagnostic candidate, not approved prop geometry. Fresh Actions verification pending.
