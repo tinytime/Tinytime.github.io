@@ -591,3 +591,27 @@ The overall job failed at the independent browser diagnostics step. The log reco
 ### Run #555 polygon-to-alpha comparison — candidate boundary precision
 
 A local rasterized comparison was performed against the Run #555 pixel masks (100×140 grid; side polygons transformed using the renderer's 0.72 scale and left mirror). Core body polygon plus appendage polygons vs exact body alpha IoU: front 0.790, back 0.790, left 0.672, right 0.666. Combined canopy+shaft prop polygons vs exact umbrella-delta alpha IoU: front 0.609, back 0.609, left 0.612, right 0.615. This is a diagnostic, not a CI gate or an approval score. It confirms the exact row masks are materially more precise than the hand-authored polygons, particularly for the prop boundary and side silhouettes. Keep all semantic polygons/landmarks candidate-only; refine from renderer paths and exact masks before any measurement promotion.
+
+
+## Granny candidate polygon fit diagnostics — implementation and Run #552 baseline (2026-11-19)
+
+Run #552 ([artifact `14581180670`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44628269878/artifacts/14581180670)) supplied the exact 100×140 alpha row masks and four-direction PNGs used for this initial diagnostic. I reconstructed the pixel-mask visualization from that artifact and inspected it against the actual front/back/left/right captures. The cyan body pass retains silver hair, clothing and the raised gripping hand/arm; gold marks visible umbrella pixels absent from the body pass. This confirms the mask convention visually, but the mask itself is not an automatic anatomy classifier.
+
+A reusable fit diagnostic has now been added:
+- `qa/granny-mask-fit.mjs` rasterizes candidate body/appendage and prop polygons with the capture's profile scale/mirror transform, then compares them with the exact row masks.
+- `qa/test-granny-mask-fit.mjs` covers perfect/partial overlap, alpha row conversion and profile mirroring.
+- `qa/build-granny-semantic-overlay.mjs` now adds `pixelMaskFitReview` to the candidate JSON and emits `granny-pixel-mask-fit-report.json`.
+- The browser QA workflow runs the helper fixture test.
+
+The helper and fixture tests passed locally against four fixtures. Applying the same helper to the Run #552 artifact produced:
+
+| Direction | Body IoU | Body precision | Body recall | Visible umbrella coverage |
+|---|---:|---:|---:|---:|
+| Front | 0.786 | 0.817 | 0.954 | 0.822 |
+| Back | 0.786 | 0.817 | 0.954 | 0.822 |
+| Left | 0.645 | 0.852 | 0.727 | 0.815 |
+| Right | 0.644 | 0.844 | 0.731 | 0.816 |
+
+Interpretation: the current body candidates capture most front/back body pixels but miss roughly 27% of side-view body pixels under the correct profile transform. This is a concrete refinement target; do not promote the profile masks or use the resulting ratios for calibration. The umbrella polygons cover about 82% of visible umbrella-delta pixels. Their extra area may be legitimately occluded behind Granny, so visible coverage—not IoU or precision—is the relevant prop diagnostic.
+
+**Verification boundary:** the new helper's four fixture tests passed locally, and the baseline calculation was run against the downloaded Run #552 artifact. The new GitHub Actions workflow execution for the helper/report changes has not yet been retrieved or confirmed. No hard thresholds, legacy Granny values, renderer artwork, NPC approval states or golden snapshots changed. Granny remains `reference_only`.
