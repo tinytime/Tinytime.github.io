@@ -1718,52 +1718,52 @@
           ],
           "joints": {
             "leftShoulder": {
-              "x": 65,
-              "y": 55
+              "x": 39,
+              "y": 52
             },
             "rightShoulder": {
-              "x": 36,
-              "y": 54
+              "x": 62,
+              "y": 52
             },
             "leftElbow": {
-              "x": 74,
-              "y": 68
+              "x": 30,
+              "y": 63
             },
             "rightElbow": {
-              "x": 29,
-              "y": 66
+              "x": 73,
+              "y": 65
             },
             "leftWrist": {
-              "x": 74,
-              "y": 78
+              "x": 24,
+              "y": 69
             },
             "rightWrist": {
-              "x": 25,
-              "y": 68
+              "x": 76,
+              "y": 79
             },
             "leftHip": {
-              "x": 58,
-              "y": 91
+              "x": 43,
+              "y": 92
             },
             "rightHip": {
-              "x": 42,
-              "y": 91
+              "x": 59,
+              "y": 92
             },
             "leftKnee": {
-              "x": 67,
-              "y": 117
+              "x": 39,
+              "y": 111
             },
             "rightKnee": {
-              "x": 39,
-              "y": 116
+              "x": 68,
+              "y": 112
             },
             "leftAnkle": {
-              "x": 69,
-              "y": 130
+              "x": 38,
+              "y": 126
             },
             "rightAnkle": {
-              "x": 35,
-              "y": 130
+              "x": 69,
+              "y": 126
             }
           }
         },
@@ -1930,52 +1930,52 @@
           "propPolygons": [],
           "joints": {
             "leftShoulder": {
-              "x": 35,
-              "y": 55
+              "x": 39,
+              "y": 52
             },
             "rightShoulder": {
-              "x": 65,
-              "y": 55
+              "x": 62,
+              "y": 52
             },
             "leftElbow": {
-              "x": 29,
-              "y": 67
+              "x": 30,
+              "y": 64
             },
             "rightElbow": {
               "x": 73,
-              "y": 69
+              "y": 66
             },
             "leftWrist": {
-              "x": 25,
-              "y": 69
+              "x": 24,
+              "y": 70
             },
             "rightWrist": {
-              "x": 74,
-              "y": 79
+              "x": 76,
+              "y": 80
             },
             "leftHip": {
-              "x": 42,
-              "y": 91
+              "x": 43,
+              "y": 92
             },
             "rightHip": {
-              "x": 58,
-              "y": 91
+              "x": 59,
+              "y": 92
             },
             "leftKnee": {
               "x": 39,
-              "y": 116
+              "y": 111
             },
             "rightKnee": {
-              "x": 67,
-              "y": 117
+              "x": 68,
+              "y": 112
             },
             "leftAnkle": {
-              "x": 35,
-              "y": 130
+              "x": 38,
+              "y": 126
             },
             "rightAnkle": {
               "x": 69,
-              "y": 130
+              "y": 126
             }
           }
         },
@@ -2169,52 +2169,52 @@
           ],
           "joints": {
             "leftShoulder": {
-              "x": 63,
-              "y": 54
+              "x": 43,
+              "y": 51
             },
             "rightShoulder": {
-              "x": 44,
-              "y": 54
+              "x": 57,
+              "y": 52
             },
             "leftElbow": {
-              "x": 73,
-              "y": 69
+              "x": 36,
+              "y": 66
             },
             "rightElbow": {
-              "x": 39,
-              "y": 67
+              "x": 71,
+              "y": 65
             },
             "leftWrist": {
-              "x": 74,
-              "y": 80
+              "x": 29,
+              "y": 78
             },
             "rightWrist": {
-              "x": 34,
-              "y": 79
+              "x": 76,
+              "y": 80
             },
             "leftHip": {
-              "x": 53,
+              "x": 38,
               "y": 96
             },
             "rightHip": {
-              "x": 39,
+              "x": 53,
               "y": 96
             },
             "leftKnee": {
-              "x": 51,
-              "y": 115
+              "x": 31,
+              "y": 116
             },
             "rightKnee": {
-              "x": 29,
+              "x": 50,
               "y": 116
             },
             "leftAnkle": {
-              "x": 50,
-              "y": 131
+              "x": 20,
+              "y": 126
             },
             "rightAnkle": {
-              "x": 18,
-              "y": 129
+              "x": 48,
+              "y": 128
             }
           }
         },
@@ -2408,52 +2408,52 @@
           ],
           "joints": {
             "leftShoulder": {
-              "x": 63,
-              "y": 54
+              "x": 43,
+              "y": 51
             },
             "rightShoulder": {
-              "x": 44,
-              "y": 54
+              "x": 57,
+              "y": 52
             },
             "leftElbow": {
-              "x": 73,
-              "y": 69
+              "x": 36,
+              "y": 66
             },
             "rightElbow": {
-              "x": 39,
-              "y": 67
+              "x": 71,
+              "y": 65
             },
             "leftWrist": {
-              "x": 74,
-              "y": 80
+              "x": 29,
+              "y": 78
             },
             "rightWrist": {
-              "x": 34,
-              "y": 79
+              "x": 76,
+              "y": 80
             },
             "leftHip": {
-              "x": 53,
+              "x": 38,
               "y": 96
             },
             "rightHip": {
-              "x": 39,
+              "x": 53,
               "y": 96
             },
             "leftKnee": {
-              "x": 51,
-              "y": 115
+              "x": 31,
+              "y": 116
             },
             "rightKnee": {
-              "x": 29,
+              "x": 50,
               "y": 116
             },
             "leftAnkle": {
-              "x": 50,
-              "y": 131
+              "x": 20,
+              "y": 126
             },
             "rightAnkle": {
-              "x": 18,
-              "y": 129
+              "x": 48,
+              "y": 128
             }
           }
         }
@@ -2463,7 +2463,7 @@
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
         "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
-        "note": "Candidate geometry only. Runner's race bib is part of the singlet and must remain in the anatomical/body-garment mask; prop exclusions now target only the wrist stopwatch where present. Bilateral joint coordinates still require pose-aware visual correction."
+        "note": "Candidate geometry only. Race bib remains in the body/garment mask and stopwatch is separately bounded where visible. Runner joint landmarks were revised against the source stride paths; they remain provisional and need visual verification against each direction."
       }
     },
     "coach": {
