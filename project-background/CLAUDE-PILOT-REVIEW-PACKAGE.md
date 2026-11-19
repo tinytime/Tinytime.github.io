@@ -70,3 +70,27 @@ Claude's review is advisory and independent. ChatGPT will assess each finding, i
 Claude inspected the 18-image package and recommended approval after specified fixes and reinspection. Usher and Cook had no required character fixes. Courier required: (1) a readable face/profile in left/right views (major); (2) one consistent messenger satchel across front/back/left/right, on the character's right hip in the rear view (major); and (3) removal or attachment of the detached cyan hem stripe in back/side views (minor). Optional polish: Cook's face/pan consistency; Usher's side-view prop readability, outline contrast and leg stance. QA clarification: the package's 0.90 rendered pair threshold does not explain legacy Coach/Vendor flags at 0.8990 and 0.8912; document the distinct threshold(s) used by the legacy audit.
 
 **Correction commit:** `98dbcda2a32fa506ba355f12ddd449db3322a4b4` updates Courier's side profile and messenger-bag consistency and removes the detached hem stripe. This change is not yet browser-tested or visually re-reviewed. The reviewer's recommendation is advisory; owner approval remains required. Do not refresh or approve golden snapshots.
+
+## Courier correction follow-up evidence — ready for Claude re-review
+
+**Follow-up status:** Internal QA Coordinator verification complete; Claude focused re-review not yet submitted.
+
+- Correction source commit: [`98dbcda2a32fa506ba355f12ddd449db3322a4b4`](https://github.com/tinytime/Tinytime.github.io/commit/98dbcda2a32fa506ba355f12ddd449db3322a4b4)
+- Browser QA run: [#410 / 44542492048](https://github.com/tinytime/Tinytime.github.io/actions/runs/44542492048)
+- Artifact: `vapor-city-browser-qa`, ID `14537384741`
+- Exact tested source SHA in `report.json`: `98dbcda2a32fa506ba355f12ddd449db3322a4b4`
+
+Please inspect these updated files from artifact `14537384741`:
+- `npc-type-directions/courier-front.png`
+- `npc-type-directions/courier-back.png`
+- `npc-type-directions/courier-left.png`
+- `npc-type-directions/courier-right.png`
+- `cook-courier-usher-role-debug-8x.png`
+- `npc-gallery-4x.png`
+- `game-town-1x.png`
+
+The QA Coordinator independently verified that the left/right face profiles are now readable; the same messenger satchel is used in all views and is on the character's right hip (viewer-right) in the rear view; the detached cyan hem stripe is gone; and the parcel remains visibly held. Courier-specific targeted checks passed, including the 92-capture integrity audit, prop audit, native/game-scale face distinctness, role-debug, town and gallery. No page/script errors.
+
+The overall workflow still fails on global legacy silhouette overlaps (max rendered IoU 0.909429 for Clinic/Sailor front, plus Coach/Vendor, Sailor/Welder and Clinic/Welder pairs) and the explicitly unapproved golden-snapshot baseline (23 changed, 1 match). 135 audio-resource 404s were logged. These are separate from the Courier corrections; no snapshots were changed or approved.
+
+**Focused review request:** Reassess only the three previously required Courier findings against these corrected images, and state whether each is resolved. Also note any newly visible defect that should block the pilot. Usher and Cook remain as previously reviewed. Do not treat this QA verification as Claude approval; project-owner approval remains mandatory.
