@@ -97,3 +97,10 @@ Runner's sprint pose must remain energetic, but the legs should read as athletic
 - Coach's side-profile jacket should carry more volume along the rear/back contour so the torso does not collapse into a skinny edge-on strip. The side-profile whistle and lanyard must angle toward the face/front edge and remain on the character's front in both mirrored directions; keep the near clipboard arm as the single visible arm.
 - Runner's stride should use clearly separated shorts/thighs and exposed, tapered lower legs. Avoid long dark ribbon-like shapes that read as trouser legs. Preserve the dynamic running pose and shoe separation.
 - Referee received positive owner feedback (“Ref good”); no additional change requested in this pass.
+
+
+## Civilian Vector Construction Standard — draft companion (2026-11-19)
+
+The [Civilian Vector Construction Standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md) is the detailed implementation companion to this art direction. It adds a silhouette-first eight-stage pipeline, measurable proportion cards, independent prop/anatomy bounds, directional construction requirements, a provisional 100-point rubric, and proposed automated metrics. Granny's 100×140 source grid, 125-unit body height, 38-unit head height, 36-unit shoulder width, row-136 foot baseline, 0.28 scale, and `#171725` ink are recorded as actual measured reference values.
+
+These values are reference geometry, not mandatory proportions for every character. Proposed ratio bands and score thresholds remain provisional until Claude and the owner review calibration against the five-character evidence set. The standard does not supersede the existing approval gates.
