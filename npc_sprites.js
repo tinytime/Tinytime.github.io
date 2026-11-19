@@ -188,6 +188,28 @@
       }
       return [civ,Object.freeze(masks)];
     })));
+    // The usher is individually authored rather than inheriting the flared civic coat.
+    // Keep the jacket within shoulder width, with a compact waist and a two-row back tail.
+    const USHER_TORSO_MASKS=Object.freeze({
+      front:Object.freeze([
+        [10,12,19],[11,11,20],[12,10,21],[13,10,21],
+        [14,10,21],[15,11,20],[16,11,20],[17,11,20],
+        [18,11,20],[19,11,20],[20,11,20],[21,11,20],
+        [22,12,19],[23,13,18],[24,14,17]
+      ]),
+      back:Object.freeze([
+        [10,12,19],[11,11,20],[12,10,21],[13,10,21],
+        [14,10,21],[15,11,20],[16,11,20],[17,11,20],
+        [18,11,20],[19,11,20],[20,11,20],[21,11,20],
+        [22,12,19],[23,12,19],[24,12,19],[25,13,18]
+      ]),
+      side:Object.freeze([
+        [10,14,18],[11,13,19],[12,13,19],[13,13,19],
+        [14,13,19],[15,13,19],[16,13,19],[17,13,19],
+        [18,13,19],[19,13,19],[20,13,19],[21,13,19],
+        [22,14,18],[23,14,18]
+      ])
+    });
     const FAN_TORSO_VARIANTS=Object.freeze({
       driverA:[-4,-4,-4],fan1:[-4,-4,0],fan2:[4,6,-6],fanA:[-4,0,-4],fanB:[-4,0,0],
       fanC:[-4,0,4],fanD:[-4,4,-4],gamer1:[-4,4,0],hb_denny:[-4,4,4],hb_pete:[0,-4,-4],
@@ -675,7 +697,7 @@
       if(!archetypeKey||!ARCHETYPES[archetypeKey]||!CIV[kind])throw new Error('Missing civilian archetype mapping or palette: '+kind);
       const A=ARCHETYPES[archetypeKey],P=Object.assign({},A.palette,CIV[kind]);
       if(kind==='welder'&&!P.helm)P.helm='#69747e';
-      const civTorsoMasks=kind==='fan'?(FAN_TORSO_MASKS[n.id]||CIV_TORSO_MASKS[kind]||ARCHETYPE_TORSO_MASKS[A.torso]):(CIV_TORSO_MASKS[kind]||ARCHETYPE_TORSO_MASKS[A.torso]);
+      const civTorsoMasks=kind==='usher'?USHER_TORSO_MASKS:(kind==='fan'?(FAN_TORSO_MASKS[n.id]||CIV_TORSO_MASKS[kind]||ARCHETYPE_TORSO_MASKS[A.torso]):(CIV_TORSO_MASKS[kind]||ARCHETYPE_TORSO_MASKS[A.torso]));
       const headStyle=kind==='fan'?(FAN_VARIANT_HEADS[n.id]||A.head):(CIV_HEAD_STYLES[kind]||A.head);
       const qaExcludeProps=!!(qaOptions&&qaOptions.excludeProps);
       if(n.hb&&HB_CIV[kind])Object.assign(P,HB_CIV[kind]);
