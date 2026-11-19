@@ -2,7 +2,7 @@
 
 **Project:** Vapor City civilian NPC vector redesign  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest branch head:** `db3f958351aa9994fab544dfb915ea0e2424708d` (12 documentation-only commits beyond tested renderer source). **Courier correction source:** `98dbcda2a32fa506ba355f12ddd449db3322a4b4`. Browser QA run [`44542492048` / #410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44542492048), job `135624264131`, tested that exact source; artifact `14537384741` independently re-inspected.
+**Latest renderer commit:** `129c7ed6e0f97d9029bd25ef12bed1d5f8524429` (bespoke Runner vector renderer). **Latest QA coverage commit:** `ccd238161ca58a7d5743f7f4462ec7c8f7292e14` (fourth vector character and expanded role-debug coverage). Browser QA for this revision is pending. Current branch head should be rechecked at each handoff.
 
 > This is the live status document. Update it after each meaningful design, integration, QA, and review milestone. The project background and working rules are in this folder's [README](README.md).
 
@@ -25,29 +25,33 @@ A passing automated test alone does not mean the design is approved. Do not appr
 
 Reference image: [Granny vs. vector Usher at 4×](../docs/granny_vs_vector_usher_4x.png). Measured scale and directional reference: [qa/granny-ref.json](../qa/granny-ref.json).
 
-## Three-character vector pilot
+## First three-character vector batch — owner approved
 
 The first review batch is three characters total. Once all three are built and internally checked, send the complete set to Claude for a comparative review alongside Granny Volt.
 
 | Character | Role / identity | Status | Internal QA | Claude review | Notes |
 |---|---|---|---|---|---|
-| Usher | Civic / venue usher; cap, clipboard, formal uniform | **BUILT — NOT APPROVED** | Targeted checks passed; four-direction render captured | Pending | First vector pilot. Navy/steel direction with restrained brass accents; distinct from Granny. |
-| Cook | Food service / chef | **BUILT — INTERNAL QA PASSED; NOT APPROVED** | Run `44537588645` / commit `5ed3f49`: palette, body/baseline, face, role-debug, prop, four-direction visual-integrity, town and gallery checks passed; 4× directional renders inspected. Overall workflow failed on unrelated global silhouette and unapproved golden-snapshot gates; audio asset 404s also logged. | Pending — batch review after Courier | Dedicated vector path: tall pleated toque, double-breasted cream coat, terracotta apron with ties/pocket, copper sauté pan. Latest refinement widens coat/apron silhouette and connects the pan grip visibly to the hand. No golden snapshots changed; no design approval claimed. |
-| Courier | Delivery / messenger | **CORRECTIONS IMPLEMENTED — INTERNAL QA PASSED; NOT APPROVED** | Run #410 / source commit `98dbcda2a32fa506ba355f12ddd449db3322a4b4`: syntax/module, 3-vector palette, body/baseline/contrast, 23-unique-face, 92-capture visual-integrity, prop, role-debug, town and gallery checks passed. Actual native 64×96 front/back/left/right captures and 4× role-debug/gallery evidence inspected. | Claude correction re-review pending | Profile face is visible in both side views; compact messenger satchel is consistent across views and sits on viewer-right in the rear view (character's right hip); detached hem stripe removed. Overall workflow failed only on global legacy silhouette and unapproved golden-snapshot gates. 23 snapshots differ, 1 matches; no refresh/approval. No page/script errors; 135 audio-resource 404s. |
+| Usher | Civic / venue usher; cap, clipboard, formal uniform | **APPROVED BY OWNER** | Targeted checks passed; four-direction render captured | Comparative review history recorded; owner accepted batch | First vector pilot. Navy/steel direction with restrained brass accents; distinct from Granny. |
+| Cook | Food service / chef | **APPROVED BY OWNER** | Run `44537588645` / commit `5ed3f49`: palette, body/baseline, face, role-debug, prop, four-direction visual-integrity, town and gallery checks passed; 4× directional renders inspected. Overall workflow failed on unrelated global silhouette and unapproved golden-snapshot gates; audio asset 404s also logged. | Comparative review history recorded; owner accepted batch | Dedicated vector path: tall pleated toque, double-breasted cream coat, terracotta apron with ties/pocket, copper sauté pan. Latest refinement widens coat/apron silhouette and connects the pan grip visibly to the hand. No golden snapshots changed; no design approval claimed. |
+| Courier | Delivery / messenger | **APPROVED BY OWNER** | Run #410 / source commit `98dbcda2a32fa506ba355f12ddd449db3322a4b4`: syntax/module, 3-vector palette, body/baseline/contrast, 23-unique-face, 92-capture visual-integrity, prop, role-debug, town and gallery checks passed. Actual native 64×96 front/back/left/right captures and 4× role-debug/gallery evidence inspected. | Focused correction re-review package prepared; owner accepted corrected batch | Profile face is visible in both side views; compact messenger satchel is consistent across views and sits on viewer-right in the rear view (character's right hip); detached hem stripe removed. Overall workflow failed only on global legacy silhouette and unapproved golden-snapshot gates. 23 snapshots differ, 1 matches; no refresh/approval. No page/script errors; 135 audio-resource 404s. |
+
+## Next character batch: Runner, Coach, Referee
+
+The project owner approved the first batch (Usher, Cook, Courier) on 2026-11-19 and authorized the next three-character group. Runner is the active build; Coach and Referee remain on hold until Runner is integrated and internally checked.
 
 ## Full civilian roster
 
-All designs below remain unapproved until their own design and review are complete.
+All other designs remain unapproved until their own design and review are complete.
 
 | # | Character | Current design status | Internal QA | Claude review | Notes |
 |---:|---|---|---|---|---|
-| 1 | Runner | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 2 | Coach | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 3 | Referee | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 4 | Courier | **CORRECTIONS IMPLEMENTED — INTERNAL QA PASSED; NOT APPROVED** | Run #410 / source `98dbcda2a32fa506ba355f12ddd449db3322a4b4`; targeted checks passed and actual four-direction captures inspected | Claude focused re-review pending | Third vector pilot. QA Coordinator to verify artifacts and send updated images to Claude. No new characters until the three-pilot review is complete and owner approves. |
+| 1 | Runner | **IN DEVELOPMENT — NOT APPROVED** | Renderer commit `129c7ed`; QA run pending | Pending | First character in the next approved group. Mid-stride runner with coral singlet, split shorts, race bib, sweatband, and technical shoes. |
+| 2 | Coach | **NOT STARTED — NOT APPROVED** | Pending | Pending | Second character in the next group; wait for Runner QA. |
+| 3 | Referee | **NOT STARTED — NOT APPROVED** | Pending | Pending | Third character in the next group; wait for Runner QA. |
+| 4 | Courier | **APPROVED BY OWNER** | Run #410 / source `98dbcda2a32fa506ba355f12ddd449db3322a4b4`; targeted checks passed and actual four-direction captures inspected | Focused correction package prepared; owner accepted batch | Third character in the first approved batch. |
 | 5 | Guard | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 6 | Vendor | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 7 | Cook | **BUILT — NOT APPROVED** | Targeted checks pass; global workflow fails on separate gates | Pending | Included in first three-character pilot; dedicated vector renderer now integrated. |
+| 7 | Cook | **APPROVED BY OWNER** | Targeted checks passed; global workflow had separate legacy silhouette and snapshot gates | Comparative review history recorded; owner accepted batch | Second character in the first approved batch. |
 | 8 | Clinic worker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 9 | Tech | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 10 | Hacker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
@@ -62,7 +66,7 @@ All designs below remain unapproved until their own design and review are comple
 | 19 | Busker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 20 | Dancer | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 21 | Broker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 22 | Usher | **BUILT — NOT APPROVED** | Targeted checks passed | Pending | First vector pilot. |
+| 22 | Usher | **APPROVED BY OWNER** | Targeted checks passed | Comparative review history recorded; owner accepted batch | First character in the first approved batch. |
 | 23 | Fan | **NOT STARTED — NOT APPROVED** | Pending | Pending | Fan variants will share the approved base design while retaining their variant-specific identity. |
 
 ## Ongoing decisions and review log
@@ -94,3 +98,6 @@ All designs below remain unapproved until their own design and review are comple
 - **2026-11-19 Courier correction independent QA verification:** Re-fetched run #410 (`44542492048`), confirmed completed browser job `135624264131` tested exact source commit `98dbcda2a32fa506ba355f12ddd449db3322a4b4`, and downloaded artifact `14537384741` (`vapor-city-browser-qa`). Independently inspected native 64×96 Courier front/back/left/right PNGs, the 8× Cook/Courier/Usher role-debug sheet, 4× full civilian gallery, and town screenshot. All three prior Claude-required corrections are visibly addressed: readable left/right profile face; consistent messenger satchel across views with rear placement on viewer-right (character's right hip); detached cyan hem stripe absent. Parcel remains visibly held. Report confirms syntax checks/module load/inventory, three-vector palette evidence (Courier 1,405 unique antialiased colors, 2,210 opaque pixels, 42 ink pixels), body/baseline/contrast, 23 distinct faces at native and game scale, 92-capture visual-integrity (zero edge contacts and zero detached large components), prop audit, six role-debug captures, town and gallery pass. No page/script errors. Overall workflow FAILED only on separate global gates: legacy silhouette audit max IoU 0.9094 (Clinic/Sailor front; additional Coach/Vendor, Sailor/Welder and Clinic/Welder overlaps) and unapproved golden snapshots (23 changed, 1 match); 135 audio-resource 404s logged. No golden snapshots changed or approved. **QA Coordinator verdict: Courier corrections pass internal visual verification; ready for focused Claude re-review; not approved.** The package has been updated with run #410 evidence, but Claude has not yet been contacted.
 
 - **2026-11-19 QA Coordinator final verification:** Re-fetched run #410 / job `135624264131` and artifact `14537384741`; verified report source SHA `98dbcda2a32fa506ba355f12ddd449db3322a4b4`. Current branch head `db3f958351aa9994fab544dfb915ea0e2424708d` is 12 documentation-only commits ahead of tested renderer source. Re-inspected native Courier front/back/left/right, role-debug, 4× gallery, and town screenshot. All three prior Claude-required corrections are visibly resolved; parcel grip remains connected. Targeted QA passes; no script/page errors. The overall run remains failed on Clinic/Sailor front full-body IoU 0.909429 (>0.90) and unapproved snapshots (23 changed, 1 match). Other nearest pairs Coach/Vendor (0.898985 front; 0.891175 back), Sailor/Welder back (0.889290), Clinic/Sailor back (0.884215), Clinic/Welder back (0.871764), and Cook/Courier back (0.863465) are below 0.90 and are not threshold failures. Separate legacy `silhouetteQualityCheck` uses <0.85 and passes (max 0.827467). Prepared focused Claude package `vapor-city-courier-claude-rereview.zip`; not yet sent. All three pilots remain NOT APPROVED; other 20 remain on hold.
+
+- **2026-11-19 owner decision:** Project owner approved the completed first batch—Usher, Cook, and Courier—and authorized the next group of three. The tracker records owner approval as the final decision; the prior Claude comparative review and Courier correction package history remain documented above without claiming that the prepared focused re-review was sent. Next group order: Runner, Coach, Referee. Runner is now in development; Coach and Referee remain unstarted pending Runner's internal QA.
+- **2026-11-19 Runner implementation:** Added bespoke `drawRunnerVector` with an airborne sprint silhouette, cropped coral race singlet, split shorts, bib 07, terry sweatband, close-cropped curls, stopwatch, and technical shoes. Integrated ahead of legacy pixel layers; role-debug legend added. Renderer commit `129c7ed6e0f97d9029bd25ef12bed1d5f8524429`. Browser QA updated to expect four vector civilians / 19 legacy pixel sprites, validate Runner's antialiased vector baseline, and capture eight role-debug views across Runner/Cook/Courier/Usher; QA commit `ccd238161ca58a7d5743f7f4462ec7c8f7292e14`. Syntax checks passed; full browser QA and artifact inspection pending.
