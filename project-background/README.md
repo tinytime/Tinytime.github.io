@@ -172,3 +172,6 @@ The four-direction pixel-mask review sheet is now browser-generated and visually
 
 
 - **Disconnected visible prop components:** the current contour helper returns and overlays every visible-only component (`visiblePropPolygons`), not just the largest. The helper suite now has eight fixtures including split components. This latest refinement is committed but awaits a fresh Actions artifact.
+
+
+- **Latest unverified implementation follow-up (2026-11-19):** Granny contour extraction now preserves all disconnected mask components (primary/additional body loops and all visible umbrella loops) and compares the visible-prop contour separately from the manual full-prop candidate. The fixture test includes disconnected components. This change is committed after Run #555 but has not yet been confirmed by a fresh Actions run/artifact. Run #555 remains the latest visually inspected browser evidence; Granny remains `reference_only`.
