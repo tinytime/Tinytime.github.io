@@ -2,7 +2,7 @@
 
 **Project:** Vapor City civilian NPC vector redesign  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest verified branch head:** `3fdfdb25a5481e62f43c84b3483ec131493e290b`. Coach QA: run `44551256553` / job `135655281455`, source `a9c29109e8f64a1009fd0b1df5ab560ff08fdbd8`, artifact `14542916538`. Referee QA: run `44553520770` / job `135663311368`, exact source `3fdfdb25a5481e62f43c84b3483ec131493e290b`, artifact `14542904013`.
+**Latest verified branch head after QA documentation updates:** `56a1f9679b2224a8406b4d39dfeffc39d670864f`; latest renderer source remains `3fdfdb25a5481e62f43c84b3483ec131493e290b`. Coach QA: run `44551256553` / job `135655281455`, source `a9c29109e8f64a1009fd0b1df5ab560ff08fdbd8`, artifact `14542916538`. Referee QA: run `44553520770` / job `135663311368`, exact source `3fdfdb25a5481e62f43c84b3483ec131493e290b`, artifact `14542904013`.
 
 > This is the live status document. Update it after each meaningful design, integration, QA, and review milestone. The project background and working rules are in this folder's [README](README.md).
 
