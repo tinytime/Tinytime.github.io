@@ -11,6 +11,11 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 7. **[Six-Civilian Construction Standard Audit](SIX-CIVILIAN-CONSTRUCTION-AUDIT.md)** — first application of the draft standard to Usher, Cook, Courier, Runner, Coach, and Referee, including rendered evidence, provisional scorecards, verified QA measurements, and calibration gaps.
 8. **[Semantic Civilian Anatomy Annotation Guide](../qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md)** — exact coordinate convention, body/headwear/prop masks, required landmarks, Runner joint annotations, and the human annotation workflow.
 
+
+
+### Semantic annotation state — 2026-11-19
+
+The six current civilians now have source-derived candidate landmark sets in all four directions. They are reported as `source_annotated`, not verified `measured`; the measurement report therefore shows 0 measured, 6 candidates, 1 Granny legacy reference, and 6 pending visual-verification records. The overlay QA generator now renders anatomical core/appendage masks, headwear and prop exclusions over all 24 native captures. Referee's raised appendage uses separate polygons; Runner retains pose-aware bilateral joints. Profile shoulder landmarks may differ vertically by at most one source unit. Latest passing annotation-validation run: #517 (browser QA continues to fail on existing game-wide gates; inspect its final artifact before handoff). No thresholds, golden snapshots, artwork, or approval states have been changed.
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
