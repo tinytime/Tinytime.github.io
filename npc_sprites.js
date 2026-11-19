@@ -1191,7 +1191,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       // Side silhouette leans forward from the hips: shoulders and chest
       // travel toward the runner's facing direction while the waist stays back.
       // The left-facing view mirrors this authored forward pitch.
-      path([[42,52],[53,46],[63,50],[68,59],[66,78],[71,90],[31,91],[36,79]],top,ink,1.8);
+      path([[42,52],[53,46],[63,50],[68,59],[66,78],[64,90],[31,91],[36,79]],top,ink,1.8);
       if(!back){
         path([[49,48],[57,58],[65,50],[61,46],[57,53],[52,46]],'#F6D6B8',ink,1);
         // Side bib wraps the near torso plane instead of reading as a flat
