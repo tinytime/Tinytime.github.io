@@ -470,7 +470,7 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
     <canvas id="owc"></canvas>
     <button id="owHybridToggle" type="button" aria-pressed="true">HD-2D PREVIEW: ON</button>
     <button id="owNpcGalleryToggle" type="button" aria-expanded="false">NPC STYLE GALLERY</button>
-    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — 10 ARCHETYPES × 4 DIRECTIONS</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><canvas id="owNpcGalleryCanvas" width="2000" height="1040"></canvas><div class="npcGalleryNote">Front · back · left · right / head-top and feet guides / no map NPCs added</div></div>
+    <div id="owNpcGallery" hidden><div class="npcGalleryHead"><b>NPC STYLE CHECK — 23 CIVILIANS × 4 DIRECTIONS</b><button id="owNpcGalleryClose" type="button">CLOSE</button></div><canvas id="owNpcGalleryCanvas" width="4600" height="1040"></canvas><div class="npcGalleryNote">Front · back · left · right / head-top and feet guides / all 23 civilian types</div></div>
     <div id="owBlack" hidden style="position:absolute;inset:0;background:#000;z-index:2"></div>
     <div id="owTop"><b id="owTown">VAPOR CITY</b><span id="owObj"></span></div>
     <button id="owMenu">MENU</button>
@@ -9210,7 +9210,7 @@ window.SG={npcRenderDirectionalSnapshots:()=>{
   npcGalleryView:'all',npcGalleryDraw:canvas=>{
   const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.imageSmoothingEnabled=false;
   c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#777982';c.fillRect(0,0,canvas.width,canvas.height);
-  const tests=[['GRANNY','VOLT','granny'],['MINT','RUNNER','runner'],['ORANGE','COURIER','courier'],['CITY','GUARD','guard'],['STREET','VENDOR','vendor'],['FIELD','CLINIC','clinic'],['SHOP','WELDER','welder'],['YOUNG','KID','kid'],['STREET','BUSKER','busker'],['CITY','BROKER','broker']];
+  const tests=[['CITY','BROKER','broker'],['STREET','BUSKER','busker'],['FIELD','CLINIC','clinic'],['TEAM','COACH','coach'],['KITCHEN','COOK','cook'],['ORANGE','COURIER','courier'],['STREET','DANCER','dancer'],['CROWD','FAN','fan'],['HARBOR','FISHER','fisher'],['CITY','GUARD','guard'],['SYSTEM','HACKER','hacker'],['YOUNG','KID','kid'],['YOUNG','KID 2','kid2'],['SMALL','MOUSE','mouse'],['ARTIST','PAINTER','painter'],['FIELD','REFEREE','ref'],['MINT','RUNNER','runner'],['HARBOR','SAILOR','sailor'],['CITY','SLICKER','slicker'],['CITY','TECH','tech'],['STREET','USHER','usher'],['STREET','VENDOR','vendor'],['SHOP','WELDER','welder']];
   const dirs=[['FRONT','d'],['BACK','u'],['LEFT','l'],['RIGHT','r']],cellW=canvas.width/tests.length,rowH=260,scale=(GRANNY_REF.bodyHeight*GRANNY_REF.nativeScale/GRANNY_REF.visibleCivHeight)*4,baseOffset=202,sourceW=64,sourceH=96,grannyZoom=4;
   dirs.forEach((d,ri)=>tests.forEach((v,ci)=>{
     const cx=ci*cellW+cellW/2,baseY=ri*rowH+baseOffset,n={id:v[2]==='granny'?'granny':'gallery-'+v[2],civ:v[2],x:ci,y:ri};
