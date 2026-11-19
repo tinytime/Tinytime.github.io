@@ -932,9 +932,10 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[62,56],[68,60],[69,79],[65,84],[61,79]],coat);
       // Pan profile remains visible at the forward hand, not fused to the torso.
       ell(67,81,2.8,3,skin,ink,1);
-      line([[67,80],[75,76],[79,74]],'#4B3434',3.6);
-      ell(85,73,8,5,'#B95B3C',ink,1.5);
-      line([[80,70],[89,70]],'#F2B17C',1);
+      line([[67,80],[78,75]],'#4B3434',4);
+      g.save();g.translate(87,72);g.rotate(-.35);
+      ell(0,0,9,6.5,'#B95B3C',ink,1.5);ell(0,-.5,6.6,4.2,'#3E2C34',null);
+      line([[-6,-3],[4,-4.5]],'#F2B17C',1);g.restore();
     }
     // Head: broad rounded face, cropped dark curls, and a tall pleated toque.
     if(!side){
@@ -952,8 +953,12 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         [40,45,50,55,60].forEach(x=>line([[x,20],[x+1,39]],'#59404A',1));
       }
       // Tall soft toque: pleated crown, rolled band, small offset fold.
-      path([[37,28],[38,17],[42,12],[47,14],[50,10],[54,14],[59,12],[63,18],[63,29]],'#F8F3E8',ink,1.7);
-      line([[41,16],[42,27]],'#C8BDAA',1.1);line([[49,14],[49,27]],'#C8BDAA',1.1);line([[57,15],[58,27]],'#C8BDAA',1.1);
+      g.beginPath();g.moveTo(38,29);
+      g.bezierCurveTo(31,24,33,12,41,11);
+      g.bezierCurveTo(42,3,56,2,59,10);
+      g.bezierCurveTo(68,11,69,24,62,29);g.closePath();
+      g.fillStyle=grad(34,3,66,29,[[0,'#FFFDF6'],[1,'#E3D9C6']]);g.fill();g.strokeStyle=ink;g.lineWidth=1.7;g.stroke();
+      line([[40,14],[41,27]],'#C8BDAA',1.1);line([[49,7],[49,27]],'#C8BDAA',1.1);line([[58,13],[58,27]],'#C8BDAA',1.1);
       path([[36,27],[64,27],[65,32],[35,32]],'#D8CBB7',ink,1.3);
       line([[38,29],[62,29]],'#FFFDF4',1.1);
       if(!back) line([[49,28],[52,28]],'#B95B3C',1.5);
@@ -962,8 +967,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       ell(55,31,9,13,grad(45,18,64,44,[[0,'#E5B08B'],[1,skin]]),ink,1.4);
       path([[61,30],[67,34],[62,37]],skin,ink,1.1);
       ell(57,30,1.5,2,'#241725',null);
-      path([[48,13],[56,12],[62,18],[63,29],[39,29],[39,18],[44,13]],'#F8F3E8',ink,1.7);
-      line([[43,16],[43,27]],'#C8BDAA',1);line([[54,14],[55,27]],'#C8BDAA',1);
+      g.beginPath();g.moveTo(39,29);g.bezierCurveTo(33,22,37,12,45,11);
+      g.bezierCurveTo(48,3,60,4,61,11);g.bezierCurveTo(68,15,66,24,63,29);g.closePath();
+      g.fillStyle='#F8F3E8';g.fill();g.strokeStyle=ink;g.lineWidth=1.7;g.stroke();
       path([[38,27],[64,27],[65,32],[37,32]],'#D8CBB7',ink,1.2);
     }
     // restrained warm/cool rim accents keep the figure legible in neon town scenes
@@ -983,6 +989,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     const back=dir==='u', side=dir==='l'||dir==='r', flip=dir==='l';
     g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
     if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
+    if(!side){g.translate(50,139);g.rotate(-.035);g.translate(-50,-139);}
     const ink='#171725',skin='#A96F54';
     const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
     const path=(p,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.stroke();}};
@@ -1071,7 +1078,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         ell(50,31,12.5,14.5,grad(38,17,62,45,[[0,'#D99D73'],[.55,skin],[1,'#70483E']]),ink,1.7);
         // close-cropped dark hair and alert courier expression
         path([[38,26],[39,18],[47,14],[59,18],[63,25],[59,27],[53,23],[46,25],[41,29]],'#29252B',ink,1.3);
-        ell(44,31,1.5,2,'#171725',null);ell(56,31,1.5,2,'#171725',null);
+        ell(44,31,2,2.6,'#171725',null);ell(56,31,2,2.6,'#171725',null);ell(44.7,30.1,.65,.65,'#FFF',null);ell(56.7,30.1,.65,.65,'#FFF',null);
         line([[42,26],[47,25]],'#46333A',1.2);line([[54,25],[59,26]],'#46333A',1.2);
         line([[49,34],[47,37],[51,37]],'#805442',1);
         line([[45,41],[50,42],[55,40]],'#633D3C',1.3);
@@ -1207,9 +1214,10 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[62,55],[71,58],[77,70],[73,78],[66,74],[62,65]],top);
         path([[71,74],[78,76],[79,82],[73,84],[69,80]],skin);
         // Far arm is occluded in profile; the near arm carries the stopwatch.
-        // Use Coach's grounded side-view construction: one solid, tapered leg
-        // plane with a crisp shorts hem, a defined knee/calf and a single shoe.
-        // The far leg is largely occluded instead of becoming a second ribbon.
+        // Add the trailing leg/raised rear shoe behind the planted near leg.
+        path([[36,97],[46,100],[40,112],[31,121],[25,127],[19,124],[25,113]],'#6E4234',ink,1.5);
+        path([[15,123],[26,123],[29,128],[28,133],[13,133],[10,128]],'#C9802F',ink,1.6);
+        // Use a single clearly articulated near-leg plane over the trailing stride.
         path([[35,89],[57,90],[60,99],[56,106],[43,107],[36,101]],shorts,ink,1.6);
         path([[43,103],[56,104],[58,113],[55,122],[49,128],[40,126],[39,119],[42,111]],legSkin,ink,1.5);
         path([[40,124],[54,124],[61,130],[60,135],[38,135],[35,131]],shoe,ink,1.6);
@@ -1235,7 +1243,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         ell(50,31,12.5,14.5,grad(38,17,62,45,[[0,'#C27D5D'],[.55,skin],[1,'#5F342D']]),ink,1.7);
         // Dense short curls form a compact but unmistakable crown silhouette.
         for(let i=0;i<9;i++){const x=39+(i%5)*5.2,y=18+Math.floor(i/5)*4;ell(x,y,3.1,3.1,i%2?'#24202A':'#34252A',ink,.7);}
-        ell(44,32,1.5,2,'#171725',null);ell(56,32,1.5,2,'#171725',null);
+        ell(44,32,2,2.6,'#171725',null);ell(56,32,2,2.6,'#171725',null);ell(44.7,31.1,.65,.65,'#FFF',null);ell(56.7,31.1,.65,.65,'#FFF',null);
         line([[41,27],[47,26]],'#3E2729',1.2);line([[53,26],[59,27]],'#3E2729',1.2);
         line([[49,34],[47,37],[51,37]],'#704338',1);
         line([[45,41],[50,42],[55,40]],'#5A302D',1.3);
@@ -1376,7 +1384,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       if(!back){
         path([[37,22],[39,15],[48,13],[58,16],[64,22],[61,27],[39,27]],'#5B6260',ink,1.2);
         ell(40,20,3.2,3.4,'#AEB5A8',null);ell(60,20,3.2,3.4,'#AEB5A8',null);
-        ell(44,31,1.3,1.8,ink,null);ell(56,31,1.3,1.8,ink,null);
+        ell(44,31,2,2.6,ink,null);ell(56,31,2,2.6,ink,null);ell(44.7,30.1,.65,.65,'#FFF',null);ell(56.7,30.1,.65,.65,'#FFF',null);
         line([[41,26],[47,25]],'#49332D',1.3);line([[53,25],[59,26]],'#49332D',1.3);
         line([[49,33],[47,37],[52,37]],'#80513D',1);
         line([[45,41],[50,42],[55,41]],'#714333',1.2);
@@ -1529,7 +1537,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       if(!back){
         path([[37,24],[38,17],[44,14],[56,14],[63,20],[63,26],[38,27]],'#28252A',ink,1.3);
         line([[40,26],[47,25]],'#302329',1.2);line([[53,25],[60,26]],'#302329',1.2);
-        ell(44,31,1.25,1.7,ink,null);ell(56,31,1.25,1.7,ink,null);
+        ell(44,31,2,2.6,ink,null);ell(56,31,2,2.6,ink,null);ell(44.7,30.1,.65,.65,'#FFF',null);ell(56.7,30.1,.65,.65,'#FFF',null);
         line([[49,34],[47,38],[52,38]],'#80513D',1);
         line([[46,42],[54,42]],'#704333',1.1);
       }else{
