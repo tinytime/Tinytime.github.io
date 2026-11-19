@@ -11,7 +11,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest branch head:** `2265d383e58acd4db31200b40fdb7d2a055f63e3` (refresh at each handoff). **Latest renderer source:** `6905171293c04f34f3ee09c804c490082e1f3d57`. Browser run [#44548532467](https://github.com/tinytime/Tinytime.github.io/actions/runs/44548532467), job `135645796007`, tested that exact renderer source; artifact `14540104692` inspected. Runner targeted internal QA passed; overall workflow remains failed on the global Clinic/Sailor silhouette gate and unapproved golden baseline.
+**Latest branch head:** `fd38a8b1562d5020fc6c76e6e5f3aa8ab45cf0dc` (refresh at each handoff). **Latest renderer source:** `6905171293c04f34f3ee09c804c490082e1f3d57`. Browser run [#44548532467](https://github.com/tinytime/Tinytime.github.io/actions/runs/44548532467), job `135645796007`, tested that exact renderer source; artifact `14540104692` inspected. Runner targeted internal QA passed; overall workflow remains failed on the global Clinic/Sailor silhouette gate and unapproved golden baseline.
 
 **Active task:** Runner is built and has passed targeted internal QA. Four directions, role-debug, gallery and town evidence from artifact `14540104692` have been inspected. Runner remains NOT APPROVED pending the next-group review and owner acceptance.
 **Assigned specialist chat:** **NPC Vector Development specialist**.
