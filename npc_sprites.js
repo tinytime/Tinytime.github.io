@@ -164,6 +164,9 @@
           const mid=Math.floor((left+right)/2);
           let L=l,R=r;
           if(R-L<3){L=mid-1;R=mid+2}
+          if(['tech','hacker','clinic','usher'].includes(civ)&&y>=21){
+            if(view==='side'){L=Math.max(L,11);R=Math.min(R,20)}else{L=Math.max(L,9);R=Math.min(R,22)}
+          }
           return [y,L,R];
         });
         Object.freeze(masks[view]);
@@ -354,7 +357,7 @@
       .map(([id,spec])=>[id,makeIndividualRig(CIV_TO_ARCHETYPE.fan,spec)])));
     const ARCHETYPE_PROP_LAYERS=Object.freeze({
       athletic:{types:{front:'whistle',side:'whistle',back:'jersey-mark'},front:[[1,12,5,5,'duffel'],[26,12,5,5,'duffel'],[21,19,2,2,'whistle']],back:[[1,12,5,5,'duffel'],[26,12,5,5,'duffel'],[7,19,2,2,'whistle']],side:[[25,12,5,6,'duffel'],[17,18,2,2,'whistle']]},
-      courier:{types:{front:'parcel',side:'courier-pack',back:'courier-pack'},front:[[4,18,4,11,'satchel'],[22,18,3,3,'parcel']],back:[[24,18,4,11,'satchel'],[7,18,3,3,'parcel']],side:[[11,16,4,11,'satchel'],[17,18,3,3,'parcel']]},
+      courier:{types:{front:'parcel',side:'courier-pack',back:'courier-pack'},front:[[5,22,4,8,'satchel'],[22,18,3,3,'parcel']],back:[[24,18,4,11,'satchel'],[7,18,3,3,'parcel']],side:[[11,16,4,11,'satchel'],[17,18,3,3,'parcel']]},
       guard:{types:{front:'baton',side:'baton',back:'guard-plate'},front:[[27,12,4,17,'shield'],[23,15,1,7,'baton']],back:[[1,12,4,17,'shield'],[8,15,1,7,'baton']],side:[[27,12,4,17,'shield'],[18,15,1,7,'baton']]},
       vendor:{types:{front:'bowl',side:'apron-ties',back:'apron-ties'},front:[[6,19,4,2,'bowl']],back:[[8,14,2,10,'apron'],[22,14,2,10,'apron']],side:[[16,19,4,2,'bowl']]},
       clinic:{types:{front:'medical-kit',side:'medical-kit',back:'clinic-yoke'},front:[[22,17,4,4,'medkit']],back:[[8,17,4,4,'medkit']],side:[[17,17,3,3,'medkit']]},
@@ -703,10 +706,14 @@
         // mask corners reveal the shirt underneath and turn every prop into a box.
         for(let py=y*2;py<(y+h)*2;py++)for(let px=x*2;px<(x+w)*2;px++)if(px>=0&&px<N&&py>=0&&py<H)grid[py][px]=null;
         for(let yy=0;yy<h;yy++){
-          const row=pattern[Math.min(pattern.length-1,Math.floor(yy*pattern.length/h))];
+          const r0=Math.floor(yy*pattern.length/h),r1=Math.max(r0+1,Math.ceil((yy+1)*pattern.length/h));
           for(let xx=0;xx<w;xx++){
-            const cell=row[Math.min(row.length-1,Math.floor(xx*row.length/w))];
-            if(cell!==' '&&cell!=='.')set(x+xx,y+yy,role);
+            let on=false;
+            for(let r=r0;r<r1&&!on;r++){
+              const row=pattern[r],c0=Math.floor(xx*row.length/w),c1=Math.max(c0+1,Math.ceil((xx+1)*row.length/w));
+              for(let c=c0;c<c1;c++){if(row[c]!==' '&&row[c]!=='.'){on=true;break}}
+            }
+            if(on)set(x+xx,y+yy,role);
           }
         }
         // Tiny readable prop details; highlights use the garment's light role.
@@ -923,7 +930,7 @@
           case 'kid':
             put(13,16,6,5,'pack');set(15,17,'clothhi');set(16,17,'clothhi');break;
           case 'kid2':
-            put(13,14,6,7,'bodyshade');set(15,15,'clothhi');set(16,15,'clothhi');
+            put(13,19,6,2,'bodyshade');set(15,15,'clothhi');set(16,15,'clothhi');
             set(15,19,'inkdetail');break;
           case 'mouse':
             put(14,17,4,4,'bodyshade');set(15,18,'clothhi');break;
@@ -1049,7 +1056,8 @@
           case 'hair':return hairBase;
           case 'hairlight':return hairLight;
           case 'body':case 'arm':case 'cloth':return clothBase;
-          case 'bodyshade':case 'armshade':case 'legback':return clothShade;
+          case 'bodyshade':case 'armshade':return clothShade;
+          case 'legback':return mixHex(clothLower,'#000000',.2);
           case 'bodyhi':case 'armhi':case 'clothhi':return clothLight;
           case 'pants':case 'legfront':case 'shoe':case 'shoefront':return clothLower;
           case 'legshadow':case 'inkdetail':return ink;
