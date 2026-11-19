@@ -38,6 +38,9 @@ jobs:
           node qa/civilian-proportion-measurements.mjs --check
       - name: Run game browser diagnostics
         run: node qa/vapor-city-browser-qa.mjs
+      - name: Build six-civilian semantic annotation overlay
+        if: always()
+        run: node qa/build-civilian-annotation-overlay.mjs
       - name: Build five-civilian review sheet and summary
         if: always()
         run: node qa/build-five-civilian-review-sheet.mjs
