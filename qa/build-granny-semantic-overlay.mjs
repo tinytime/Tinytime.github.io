@@ -108,15 +108,20 @@ try {
     sourceCommit:process.env.GITHUB_SHA||null,
     sourceFile:'npc_sprites.js:createGrannyRenderer/drawGrannyVoltSprite',
     sourceGrid:{width:100,height:140},
-    pixelMaskConvention:'Exact renderer-output alpha masks in 100x140 source space; row spans are inclusive [xStart,xEnd], alpha threshold >8/255. bodyAlpha is the accessory-excluded anatomy render (raised gripping hand retained); umbrellaExposedDelta is the full-render alpha not present in the body pass. These are pixel masks, distinct from the coarse candidate polygons below.',
+    pixelMaskConvention:'Exact renderer-output alpha masks in 100x140 source space; row spans are inclusive [xStart,xEnd], alpha threshold >8/255. bodyAlpha omits the umbrella canopy and shaft but retains the raised gripping hand/arm and silver hair; umbrellaExposedDelta is the full-render alpha not present in the body pass. These are renderer pixel masks, distinct from the semantic anatomy/headwear/prop candidate polygons below.',
     pixelMasks:result.masks,
     renderConvention:'Native source-space capture from live renderer at 1 output pixel per source unit; idle phase 0; ground effects disabled; body layer excludes umbrella canopy and shaft but retains raised gripping hand/arm. Side-view .72 x scale and left mirror are applied by renderer, not pre-baked into coordinates.',
     directions:{
       front:{headTop:8,chin:46,shoulderLeft:{x:36,y:49},shoulderRight:{x:66,y:49},shoulderY:49,pelvisY:97,footBaseline:136,
         bodyPolygon:[{x:32,y:8},{x:66,y:8},{x:68,y:42},{x:70,y:56},{x:73,y:84},{x:73,y:111},{x:78,y:130},{x:78,y:136},{x:27,y:136},{x:27,y:130},{x:32,y:111},{x:27,y:108},{x:29,y:83},{x:30,y:60},{x:32,y:49}],
         bodyAppendagePolygons:[[{x:35,y:55},{x:39,y:57},{x:36,y:68},{x:35,y:81},{x:31,y:83},{x:30,y:81},{x:31,y:67}], [{x:62,y:53},{x:66,y:53},{x:68,y:47},{x:67,y:43},{x:66,y:41},{x:63,y:45},{x:66,y:47},{x:64,y:50}], [{x:62,y:44},{x:66,y:45},{x:65,y:38},{x:62,y:37},{x:61,y:41},{x:64,y:38},{x:65,y:39}]],
-        headwearPolygons:[[{x:15,y:-1},{x:50,y:-1},{x:82,y:20},{x:82,y:24},{x:68,y:26},{x:48,y:25},{x:24,y:25},{x:15,y:23}]],
-        propPolygons:[[{x:65,y:15},{x:66,y:38},{x:65,y:39},{x:64,y:37}]]},
+        headwearPolygons:[],
+        // Granny has no separate worn headwear. The silver hair cap/sweep belongs
+        // to anatomy; the pink canopy and shaft are her carried umbrella prop.
+        propPolygons:[
+          [{x:50,y:-1},{x:39,y:-1},{x:31,y:2},{x:24,y:5},{x:18,y:10},{x:15,y:14},{x:15,y:20},{x:21,y:17},{x:27,y:22},{x:33,y:18},{x:39,y:22},{x:45,y:18},{x:51,y:22},{x:58,y:18},{x:71,y:20},{x:70,y:14},{x:66,y:8},{x:60,y:4}],
+          [{x:65,y:15},{x:66,y:16},{x:65,y:37},{x:64,y:37},{x:64,y:16}]
+        ]},
       back:{headTop:8,chin:49,shoulderLeft:{x:36,y:49},shoulderRight:{x:66,y:49},shoulderY:49,pelvisY:97,footBaseline:136,
         bodyPolygon:[{x:32,y:8},{x:66,y:8},{x:68,y:42},{x:70,y:56},{x:73,y:84},{x:73,y:111},{x:78,y:130},{x:78,y:136},{x:27,y:136},{x:27,y:130},{x:32,y:111},{x:27,y:108},{x:29,y:83},{x:30,y:60},{x:32,y:49}],
         bodyAppendagePolygons:[[{x:35,y:55},{x:39,y:57},{x:36,y:68},{x:35,y:81},{x:31,y:83},{x:30,y:81},{x:31,y:67}], [{x:62,y:53},{x:66,y:53},{x:68,y:47},{x:67,y:43},{x:66,y:41},{x:63,y:45},{x:66,y:47},{x:64,y:50}], [{x:62,y:44},{x:66,y:45},{x:65,y:38},{x:62,y:37},{x:61,y:41},{x:64,y:38},{x:65,y:39}]],
@@ -124,11 +129,23 @@ try {
       right:{headTop:8,chin:46,shoulderLeft:{x:44,y:50},shoulderRight:{x:56,y:50},shoulderY:50,pelvisY:97,footBaseline:136,
         bodyPolygon:[{x:39,y:8},{x:61,y:8},{x:64,y:42},{x:65,y:56},{x:66,y:84},{x:66,y:111},{x:70,y:130},{x:70,y:136},{x:30,y:136},{x:30,y:130},{x:34,y:111},{x:31,y:108},{x:34,y:83},{x:35,y:60},{x:38,y:49}],
         bodyAppendagePolygons:[[{x:39,y:55},{x:43,y:57},{x:42,y:68},{x:42,y:81},{x:38,y:83},{x:37,y:81},{x:38,y:67}], [{x:59,y:53},{x:63,y:53},{x:65,y:47},{x:64,y:43},{x:63,y:41},{x:60,y:45},{x:63,y:47},{x:61,y:50}], [{x:60,y:44},{x:64,y:45},{x:63,y:38},{x:60,y:37},{x:59,y:41}]],
-        headwearPolygons:[[{x:25,y:-1},{x:50,y:-1},{x:74,y:20},{x:74,y:24},{x:64,y:26},{x:48,y:25},{x:32,y:25},{x:25,y:23}]],propPolygons:[[{x:61,y:15},{x:62,y:38},{x:61,y:39},{x:60,y:37}]]},
+        headwearPolygons:[],
+        // Same umbrella prop in the unmirrored local coordinate system; the renderer
+        // applies the 0.72 side scale and left-facing mirror during capture.
+        propPolygons:[
+          [{x:50,y:-1},{x:39,y:-1},{x:31,y:2},{x:24,y:5},{x:18,y:10},{x:15,y:14},{x:15,y:20},{x:21,y:17},{x:27,y:22},{x:33,y:18},{x:39,y:22},{x:45,y:18},{x:51,y:22},{x:58,y:18},{x:71,y:20},{x:70,y:14},{x:66,y:8},{x:60,y:4}],
+          [{x:65,y:15},{x:66,y:16},{x:65,y:37},{x:64,y:37},{x:64,y:16}]
+        ]},
       left:{headTop:8,chin:46,shoulderLeft:{x:44,y:50},shoulderRight:{x:56,y:50},shoulderY:50,pelvisY:97,footBaseline:136,
         bodyPolygon:[{x:39,y:8},{x:61,y:8},{x:64,y:42},{x:65,y:56},{x:66,y:84},{x:66,y:111},{x:70,y:130},{x:70,y:136},{x:30,y:136},{x:30,y:130},{x:34,y:111},{x:31,y:108},{x:34,y:83},{x:35,y:60},{x:38,y:49}],
         bodyAppendagePolygons:[[{x:39,y:55},{x:43,y:57},{x:42,y:68},{x:42,y:81},{x:38,y:83},{x:37,y:81},{x:38,y:67}], [{x:59,y:53},{x:63,y:53},{x:65,y:47},{x:64,y:43},{x:63,y:41},{x:60,y:45},{x:63,y:47},{x:61,y:50}], [{x:60,y:44},{x:64,y:45},{x:63,y:38},{x:60,y:37},{x:59,y:41}]],
-        headwearPolygons:[[{x:25,y:-1},{x:50,y:-1},{x:74,y:20},{x:74,y:24},{x:64,y:26},{x:48,y:25},{x:32,y:25},{x:25,y:23}]],propPolygons:[[{x:61,y:15},{x:62,y:38},{x:61,y:39},{x:60,y:37}]]}
+        headwearPolygons:[],
+        // Same umbrella prop in the unmirrored local coordinate system; the renderer
+        // applies the 0.72 side scale and left-facing mirror during capture.
+        propPolygons:[
+          [{x:50,y:-1},{x:39,y:-1},{x:31,y:2},{x:24,y:5},{x:18,y:10},{x:15,y:14},{x:15,y:20},{x:21,y:17},{x:27,y:22},{x:33,y:18},{x:39,y:22},{x:45,y:18},{x:51,y:22},{x:58,y:18},{x:71,y:20},{x:70,y:14},{x:66,y:8},{x:60,y:4}],
+          [{x:65,y:15},{x:66,y:16},{x:65,y:37},{x:64,y:37},{x:64,y:16}]
+        ]}
     }
   };
   fs.writeFileSync(path.join(out,'granny-semantic-candidate.json'),JSON.stringify(annotation,null,2)+'\n');
