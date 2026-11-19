@@ -974,13 +974,124 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     g.restore();g.restore();
   }
 
+
+  // Courier: original forward-leaning messenger with a weatherproof dispatch cap,
+  // cross-body ochre satchel, reinforced teal jacket and hand-carried parcel.
+  function drawCourierVector(n, dir, ctx, OWT, opts) {
+    opts=opts||{}; const g=ctx, scale=OWT/36*.28;
+    const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2, sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
+    const back=dir==='u', side=dir==='l'||dir==='r', flip=dir==='l';
+    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
+    if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
+    const ink='#171725',skin='#A96F54';
+    const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
+    const path=(p,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.stroke();}};
+    const line=(p,c,w=1.5)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.stroke();};
+    const ell=(x,y,rx,ry,fill,stroke=ink,w=1.4)=>{g.beginPath();g.ellipse(x,y,rx,ry,0,0,Math.PI*2);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.stroke();}};
+    const jacket=grad(31,48,68,103,[[0,'#65C7B8'],[.48,'#237F83'],[1,'#14505F']]);
+    const pants=grad(38,99,64,134,[[0,'#35445A'],[1,'#172536']]);
+    const bag=grad(24,61,48,108,[[0,'#E6B45D'],[.48,'#B77A36'],[1,'#70472E']]);
+    const parcel=grad(73,66,96,91,[[0,'#F5D89A'],[1,'#B97A43']]);
+    // Leaning stride and compact boots create a runner's delivery posture.
+    if(!side){
+      path([[37,101],[49,103],[47,119],[45,132],[34,132],[36,117]],pants);
+      path([[52,103],[64,100],[66,117],[68,131],[56,132],[53,117]],pants);
+      path([[34,129],[46,129],[48,134],[47,138],[31,138],[30,134]],'#263246');
+      path([[56,129],[68,128],[72,133],[71,137],[55,138],[54,134]],'#263246');
+      line([[33,135],[45,135]],'#83A0AA',1.1);line([[57,135],[68,134]],'#83A0AA',1.1);
+    }else{
+      path([[40,100],[54,101],[55,119],[57,132],[43,133],[40,118]],pants);
+      path([[43,130],[56,130],[61,134],[60,138],[40,138]],'#263246');
+      line([[43,135],[57,135]],'#83A0AA',1.1);
+    }
+    path([[43,39],[56,39],[58,53],[42,53]],skin);
+    if(!side){
+      // Tapered windbreaker torso with a high storm collar and offset zip.
+      path([[31,53],[41,47],[60,49],[71,57],[68,91],[75,101],[25,103],[31,88]],jacket,ink,1.9);
+      if(!back){
+        path([[41,48],[49,58],[57,49],[55,45],[49,52],[44,45]],'#D8F0E5',ink,1.1);
+        path([[43,55],[57,55],[55,67],[50,72],[44,66]],'#1B5964',ink,1.1);
+        line([[51,57],[47,96]],'#B9E7D9',1.5);
+        path([[34,73],[44,73],[43,84],[33,84]],'#1C6670',ink,1);
+        line([[35,78],[42,78]],'#9AD8C9',1);
+        // Cross-body strap is layered over the jacket and visibly anchors the bag.
+        line([[64,54],[60,65],[53,77],[43,91]],'#D99A48',5);
+        line([[64,54],[60,65],[53,77],[43,91]],ink,1);
+        path([[27,54],[37,52],[35,77],[31,89],[24,88],[24,69]],jacket);
+        path([[24,85],[31,86],[33,94],[27,96],[23,91]],skin);
+        path([[65,55],[73,58],[77,74],[76,84],[69,86],[66,73]],jacket);
+        path([[70,82],[77,82],[80,88],[76,93],[70,90]],skin);
+        // Parcel sits in the courier's forward hand, with taped corners and label.
+        path([[73,70],[91,68],[96,73],[94,91],[77,94],[71,87]],parcel,ink,1.8);
+        line([[82,70],[84,91]],'#9A633D',1.2);
+        line([[73,80],[94,78]],'#F7E8C5',2);
+        path([[82,76],[89,75],[89,80],[82,81]],'#F7F0DC',ink,.9);
+        line([[84,78],[87,78]],'#4B6570',.8);
+      }else{
+        path([[31,54],[41,48],[60,50],[70,57],[68,91],[74,101],[26,103]],'#286D76',ink,1.8);
+        // Large courier pack is the defining rear silhouette, not a tiny badge.
+        path([[25,59],[39,54],[48,61],[48,96],[42,108],[24,103],[20,91],[21,69]],bag,ink,1.9);
+        path([[24,66],[39,61],[44,68],[42,94],[28,98],[23,90]],'#D9A04D',ink,1.1);
+        line([[24,70],[42,66]],'#F3D18A',1.4);
+        path([[30,82],[40,79],[41,90],[31,93]],'#70472E',ink,1);
+        line([[34,84],[38,83]],'#F3D18A',1);
+        line([[50,54],[54,91]],'#D99A48',4);
+        line([[50,54],[54,91]],ink,1);
+        path([[29,54],[37,54],[35,83],[29,91],[23,87]],jacket);
+        path([[64,55],[72,58],[76,83],[70,90],[65,84]],jacket);
+        line([[30,104],[68,104]],'#79BFB2',1.2);
+      }
+    }else{
+      // Side view has a deep pack profile and a distinct forward parcel grip.
+      path([[38,53],[49,47],[63,52],[69,62],[66,92],[74,101],[30,103],[35,88]],jacket,ink,1.8);
+      path([[32,61],[44,57],[50,67],[49,98],[42,109],[26,103],[25,79]],bag,ink,1.8);
+      path([[34,66],[44,64],[46,91],[39,100],[29,95]],'#D9A04D',ink,1);
+      line([[35,68],[45,65]],'#F3D18A',1.3);
+      line([[55,54],[52,91]],'#D99A48',4);line([[55,54],[52,91]],ink,1);
+      path([[62,57],[70,61],[75,79],[72,88],[65,85],[62,72]],jacket);
+      path([[68,82],[75,82],[78,88],[74,93],[68,90]],skin);
+      path([[74,72],[91,70],[95,75],[93,91],[77,94],[72,87]],parcel,ink,1.7);
+      line([[82,72],[84,91]],'#9A633D',1.2);line([[75,81],[93,79]],'#F7E8C5',2);
+      line([[32,105],[67,105]],'#79BFB2',1.2);
+    }
+    // Distinctive low-profile storm cap: swept crown, short visor and cyan piping.
+    if(!side){
+      if(!back){
+        ell(50,31,12.5,14.5,grad(38,17,62,45,[[0,'#D99D73'],[.55,skin],[1,'#70483E']]),ink,1.7);
+        // close-cropped dark hair and alert courier expression
+        path([[38,26],[39,18],[47,14],[59,18],[63,25],[59,27],[53,23],[46,25],[41,29]],'#29252B',ink,1.3);
+        ell(44,31,1.5,2,'#171725',null);ell(56,31,1.5,2,'#171725',null);
+        line([[42,26],[47,25]],'#46333A',1.2);line([[54,25],[59,26]],'#46333A',1.2);
+        line([[49,34],[47,37],[51,37]],'#805442',1);
+        line([[45,41],[50,42],[55,40]],'#633D3C',1.3);
+      }else{
+        ell(50,31,12,14,'#29252B',ink,1.6);
+        line([[42,20],[44,37]],'#55454A',1);line([[50,17],[50,39]],'#55454A',1);line([[58,20],[57,37]],'#55454A',1);
+      }
+      path([[36,25],[38,16],[47,11],[59,14],[65,22],[62,27],[39,28]],'#236E78',ink,1.8);
+      path([[36,24],[49,22],[67,25],[68,29],[48,29],[37,28]],'#D9A04D',ink,1.3);
+      line([[42,18],[49,14],[58,16]],'#9EE1D3',1.2);
+      path([[44,20],[56,19],[58,23],[45,24]],'#1B5964',null);
+    }else{
+      ell(50,31,12,14,'#29252B',ink,1.6);
+      path([[42,14],[57,13],[64,21],[65,28],[38,28],[38,20]],'#236E78',ink,1.7);
+      path([[38,25],[65,25],[68,29],[38,29]],'#D9A04D',ink,1.2);
+      line([[44,17],[57,16]],'#9EE1D3',1.1);
+    }
+    // Small reflective piping catches light without turning the silhouette neon.
+    g.save();g.globalAlpha=.55;g.shadowBlur=.8/scale;g.shadowColor='rgba(41,242,232,.34)';
+    line([[31,57],[39,51],[46,50]],'rgba(158,225,211,.9)',1/scale);
+    line([[61,53],[68,58],[71,65]],'rgba(41,224,255,.8)',1/scale);
+    g.restore();g.restore();
+  }
+
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
     const { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, USHER_TORSO_MASKS, FAN_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, FAN_RIG_PARTS, ARCHETYPE_PROP_LAYERS, CIV_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
-      if(kind==='cook'||kind==='usher'){
-        const drawVector=kind==='cook'?drawCookVector:drawUsherVector;
+      if(kind==='cook'||kind==='usher'||kind==='courier'){
+        const drawVector=kind==='cook'?drawCookVector:(kind==='usher'?drawUsherVector:drawCourierVector);
         drawVector(n,dir,ctxOverride||og,OWT,{moving,tm,ph});
         const qaCanvas=owCiv._vectorSnapshotCanvas||(owCiv._vectorSnapshotCanvas=document.createElement('canvas'));
         if(qaCanvas.width!==64)qaCanvas.width=64;if(qaCanvas.height!==96)qaCanvas.height=96;
@@ -1000,11 +1111,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         owCiv._lastPaletteMetrics={civ:kind,archetype:kind+'-vector',renderMode:'vector',colors:[...counts.keys()],
           uniqueColorCount:counts.size,opaquePixelCount,outlinePixelCount,outlineColor:'#171725',bodyColor,bodyPixelCount,
           pantsColor,pantsPixelCount,hairColor,hairPixelCount,colorPixelCounts:Object.fromEntries(counts)};
-        const cook=kind==='cook';
-        owCiv._lastRoleDebugLegend=qaOptions&&(qaOptions.roleDebug||qaOptions.roleDebugLayers||qaOptions.roleDebugSourceLayers)
-          ?(cook?[{role:'chef-coat',color:'#D9C6A6'},{role:'terracotta-apron',color:'#A84432'},{role:'copper-pan',color:'#B95B3C'},
-            {role:'toque',color:'#F8F3E8'},{role:'skin',color:'#B97855'},{role:'hair',color:'#30242A'}]
-            :[{role:'uniform-navy',color:'#294B70'},{role:'brass-trim',color:'#D6A84F'},{role:'skin',color:'#C98A62'},{role:'hair',color:'#241B26'}]):null;
+        const roleSets={cook:[{role:'chef-coat',color:'#D9C6A6'},{role:'terracotta-apron',color:'#A84432'},{role:'copper-pan',color:'#B95B3C'},{role:'toque',color:'#F8F3E8'},{role:'skin',color:'#B97855'},{role:'hair',color:'#30242A'}],usher:[{role:'uniform-navy',color:'#294B70'},{role:'brass-trim',color:'#D6A84F'},{role:'skin',color:'#C98A62'},{role:'hair',color:'#241B26'}],courier:[{role:'windbreaker',color:'#237F83'},{role:'dispatch-satchel',color:'#B77A36'},{role:'parcel',color:'#F5D89A'},{role:'storm-cap',color:'#236E78'},{role:'skin',color:'#A96F54'},{role:'hair',color:'#29252B'}]};
+        owCiv._lastRoleDebugLegend=qaOptions&&(qaOptions.roleDebug||qaOptions.roleDebugLayers||qaOptions.roleDebugSourceLayers)?roleSets[kind]:null;
         owCiv._lastRoleDebugRows={civ:kind,direction:dir,view:dir==='u'?'back':(dir==='l'||dir==='r'?'side':'front'),torsoMaskRows:[],renderedSourceRows:[]};
         return;
       }
