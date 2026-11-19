@@ -40,32 +40,336 @@
     "usher": {
       "status": "pending_annotation",
       "poseClass": "standing",
-      "note": "Awaiting landmark annotation against fresh native four-direction captures."
+      "note": "Awaiting landmark annotation against fresh native four-direction captures.",
+      "directions": {
+        "front": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "back": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "left": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "right": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        }
+      }
     },
     "cook": {
       "status": "pending_annotation",
       "poseClass": "standing",
-      "note": "Awaiting landmark annotation; toque must be separately bounded from anatomical head."
+      "note": "Awaiting landmark annotation; toque must be separately bounded from anatomical head.",
+      "directions": {
+        "front": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "back": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "left": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "right": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        }
+      }
     },
     "courier": {
       "status": "pending_annotation",
       "poseClass": "standing",
-      "note": "Awaiting landmark annotation; cap, satchel and parcel must be separately bounded."
+      "note": "Awaiting landmark annotation; cap, satchel and parcel must be separately bounded.",
+      "directions": {
+        "front": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "back": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "left": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "right": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        }
+      }
     },
     "runner": {
       "status": "pending_annotation",
       "poseClass": "dynamic",
-      "note": "Awaiting pose-aware joint annotation in all four directions; do not apply upright leg-region bands."
+      "note": "Awaiting pose-aware joint annotation in all four directions; do not apply upright leg-region bands.",
+      "directions": {
+        "front": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": [],
+          "joints": {}
+        },
+        "back": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": [],
+          "joints": {}
+        },
+        "left": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": [],
+          "joints": {}
+        },
+        "right": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": [],
+          "joints": {}
+        }
+      }
     },
     "coach": {
       "status": "pending_annotation",
       "poseClass": "standing",
-      "note": "Awaiting landmark annotation; cap, clipboard and whistle/lanyard must be separately bounded."
+      "note": "Awaiting landmark annotation; cap, clipboard and whistle/lanyard must be separately bounded.",
+      "directions": {
+        "front": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "back": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "left": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "right": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        }
+      }
     },
     "referee": {
       "status": "pending_annotation",
       "poseClass": "standing",
-      "note": "Awaiting landmark annotation; headband and raised card must be separately bounded."
+      "note": "Awaiting landmark annotation; headband and raised card must be separately bounded.",
+      "directions": {
+        "front": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "back": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "left": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        },
+        "right": {
+          "bodyPolygon": [],
+          "headTop": null,
+          "chin": null,
+          "shoulderLeft": null,
+          "shoulderRight": null,
+          "shoulderY": null,
+          "pelvisY": null,
+          "footBaseline": null,
+          "headwearPolygons": [],
+          "propPolygons": []
+        }
+      }
     }
   }
 }
