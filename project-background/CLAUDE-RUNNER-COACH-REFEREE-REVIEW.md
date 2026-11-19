@@ -176,3 +176,8 @@ These were confirmed in the run #434 artifact and corrected together in renderer
 - Runner's redundant preliminary profile leg/boot layer was removed; the two intended stride planes are painted once.
 
 **Fresh evidence required:** Browser QA run #435 [is running](https://github.com/tinytime/Tinytime.github.io/actions/runs/44570451203) against exact source `6332fb4622ed56686771e60541f975b2d6e33a61`. Do not review the run #434 artifact as proof of these fixes. Inspect the new artifact's six side captures (Runner/Coach/Referee left and right), all 12 native directions, 28×42 game-scale captures if available, role-debug, gallery, Granny comparison and report. Explicitly verify Coach profile identity and board/hand overlap, Referee arm/card forward placement in both views, and exactly two Runner legs/two feet in each profile. Keep all three NOT APPROVED until internal QA, Claude review and owner approval.
+
+
+## Coach profile body follow-up — after run #435
+
+Run #435 verified Runner's duplicate profile leg removal and Referee's forward-side raised-card placement in the rendered left/right captures. Coach's clipboard was visible with the hand relationship retained, and the shaped head read more clearly as a profile; however, the rendered side torso still contained the broad front-view jacket underneath the side overlay. This was corrected in follow-up commit [b15d14fd9c6604c7ee232adf47d44a5d328054b3](https://github.com/tinytime/Tinytime.github.io/commit/b15d14fd9c6604c7ee232adf47d44a5d328054b3): the broad jacket base is no longer painted for side views, and the side torso is narrower. This follow-up needs its own fresh browser artifact before review. Do not use run #435 to verify this additional change.
