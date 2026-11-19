@@ -40,7 +40,7 @@ The builder inspected all 12 native views and all 12 direct game-scale views, pl
 - No character-specific crop-edge clipping was found in the inspected native or game-scale sheets.
 
 Automated targeted checks recorded in run #441:
-- Direct game-scale capture audit: 12/12 PASS.
+- Direct game-scale capture audit: **FAIL (validator false negative)**. All 12 expected direct 28×42 PNGs are present and were visually inspected, but the initial validator's data-URL MIME-prefix check was too strict. The validator was corrected in a follow-up QA pass (#442, as noted in the project handoff); this package deliberately retains run #441's exact artifact and does not claim its initial capture-audit gate passed.
 - Role-debug: 12/12 PASS.
 - Directional integrity: 92/92 PASS; zero edge contacts and zero detached large components.
 - Face distinctness: 23/23 PASS. Note: the all-civilian 28×42 face-signature sub-audit still derives those signatures from native captures; the direct 28×42 PNGs in this artifact are for these three characters.
@@ -56,7 +56,7 @@ The overall GitHub Actions workflow is **FAILED** on separate/global gates:
 2. Golden snapshot comparison reports 23 changed / 1 match. The baseline is explicitly unapproved.
 3. 180 missing-audio resource 404 console errors remain.
 
-These are reported transparently but are not identified as defects in Runner, Coach or Referee by the targeted checks. **No golden snapshots were refreshed or approved.** The separate archetype silhouette-quality audit passes 180/180.
+These are reported transparently but are not identified as defects in Runner, Coach or Referee by the character-specific visual inspection. Run #441's direct-capture validator false negative is a separate harness issue, not a missing-image issue. **No golden snapshots were refreshed or approved.** The separate archetype silhouette-quality audit passes 180/180.
 
 ## Requested independent review
 
