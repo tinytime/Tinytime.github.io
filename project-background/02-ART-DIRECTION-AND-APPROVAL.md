@@ -83,3 +83,10 @@ For each character, ask:
 - Are all four directions equally considered?
 - Does the design look polished at native game size?
 - Does it meet Granny's quality level without looking like Granny?
+
+
+## Owner profile-anatomy feedback — 2026-11-19
+
+A side-profile civilian should read as a single visible arm, not two arms stacked along the same silhouette. The far arm should be occluded by the torso unless a deliberate pose clearly establishes a separate far-side plane. For prop-holding characters, retain the near arm that carries the defining prop and hide the far arm. Apply this consistently across Runner, Coach and Referee.
+
+Runner's sprint pose must remain energetic, but the legs should read as athletic human legs rather than long trouser-like polygons. Shorts should end above the knees, with exposed lower-leg anatomy and clear shoe separation. Do not rely on animation to make an awkward static sprite look correct: each directional sprite must read clearly on its own.
