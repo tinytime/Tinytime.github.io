@@ -28,10 +28,11 @@ For each of front, back, left and right:
 
 - headTop: top of anatomical scalp/hair, excluding separately bounded headwear.
 - chin: bottom of chin, not collar or beard tip.
-- shoulderLeft, shoulderRight, shoulderY: anatomical shoulder endpoints and their shared y row. These are shoulder joints/contour transitions, not sleeve edges or props.
+- shoulderLeft, shoulderRight, shoulderY: anatomical shoulder endpoints and the representative shoulder row. Front/back endpoints must share a y row; profile endpoints may differ by at most one source unit because of foreshortening, and shoulderY must lie between them. These are shoulder joints/contour transitions, not sleeve edges or props.
 - pelvisY: consistent pelvis/hip transition used to divide torso and lower-body region.
 - footBaseline: lowest anatomical foot contact row. Exclude props and trailing clothing; if a pose has no shared foot row, document why and use pose-aware foot contacts instead.
-- bodyPolygon: explicit polygon around anatomical body.
+- bodyPolygon: explicit polygon around the core anatomical body.
+- bodyAppendagePolygons: optional additional anatomical regions when a single body polygon would self-intersect (for example, Referee's raised arm and hand). These are included in the anatomical mask, not treated as props.
 - headwearPolygons and propPolygons: explicit exclusion geometry arrays, including empty arrays where appropriate.
 
 For Runner, additionally annotate both shoulders, elbows, wrists, hips, knees and ankles in every direction. Runner is a dynamic airborne pose; the system reports joint paths and deliberately does not compute a standing leg-height ratio.
