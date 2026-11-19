@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
-import { measureGrannyMaskFit } from './granny-mask-fit.mjs';
+import { deriveLocalBodyPolygon, measureGrannyMaskFit } from './granny-mask-fit.mjs';
 import { createServer } from 'node:http';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -161,9 +161,17 @@ try {
     if(Math.max(...shaft.map(p=>p.y))>38||Math.min(...shaft.map(p=>p.y))<14)
       throw new Error('Granny umbrella shaft candidate bounds are invalid in '+key);
   }
+  for(const [key,d] of Object.entries(annotation.directions)){
+    d.manualBodyPolygonCandidate={bodyPolygon:d.bodyPolygon,bodyAppendagePolygons:d.bodyAppendagePolygons,status:'source_transcribed_candidate_preserved_for_comparison'};
+    const code={front:'d',back:'u',left:'l',right:'r'}[key];
+    const mask=result.masks.find(m=>m.direction===code);
+    d.bodyPolygon=deriveLocalBodyPolygon(mask.bodyAlpha.rows,key);
+    d.bodyAppendagePolygons=[];
+    d.bodyPolygonDerivation='outer contour traced from exact umbrella-excluded renderer body alpha; renderer profile transform is inverted for source-space coordinates; candidate only, not human semantic approval';
+  }
   annotation.pixelMaskFitReview = {
     status:'candidate_diagnostic_not_approval',
-    method:'100x140 pixel-center polygon rasterization compared with exact renderer alpha row spans; profile scale/mirror matches the capture transform',
+    method:'manual candidate and pixel-derived outer contour are rasterized at pixel centers and compared with exact renderer alpha row spans; profile scale/mirror matches the capture transform',
     directions:measureGrannyMaskFit(annotation,result.masks)
   };
   fs.writeFileSync(path.join(out,'granny-pixel-mask-fit-report.json'),JSON.stringify(annotation.pixelMaskFitReview,null,2)+'\n');
