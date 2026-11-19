@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "coordinateSpace": {
+    "width": 100,
+    "height": 140,
+    "origin": "Granny Volt local source coordinates; y increases downward",
+    "alphaThreshold": 1
+  },
+  "measurementPolicy": {
+    "anatomy": "Manually annotated polygon encloses anatomical head/hair, neck, torso, pelvis, limbs and feet; excludes separate role headwear and handheld/carry props.",
+    "headwear": "Each direction must list accessory polygons; use an empty list only when no separate headwear is present.",
+    "props": "Each direction must list prop polygons; use an empty list only when no role prop is present.",
+    "bodyHeight": "headTop through footBaseline inclusive; body polygon is separately recorded and should exclude detached headwear/props.",
+    "shoulderWidth": "distance between anatomical shoulder landmarks at shoulderY; never use full sprite width.",
+    "dynamicPose": "Runner uses explicit shoulder/elbow/wrist/hip/knee/ankle landmarks; standing leg-height ratio is not computed.",
+    "thresholds": "All ratios are descriptive. No provisional band is a hard-fail gate."
+  },
+  "characters": {
+    "granny": {
+      "status": "measured",
+      "poseClass": "standing",
+      "referenceSource": "qa/granny-ref.json",
+      "note": "Approved benchmark; existing reference measurement excludes umbrella canopy and shaft, retains gripping hand/arm. Headwear is not separately excluded in the legacy reference; keep that known convention difference visible until source annotation is harmonized."
+    },
+    "usher": {
+      "status": "pending_annotation",
+      "poseClass": "standing",
+      "note": "Awaiting landmark annotation against fresh native four-direction captures."
+    },
+    "cook": {
+      "status": "pending_annotation",
+      "poseClass": "standing",
+      "note": "Awaiting landmark annotation; toque must be separately bounded from anatomical head."
+    },
+    "courier": {
+      "status": "pending_annotation",
+      "poseClass": "standing",
+      "note": "Awaiting landmark annotation; cap, satchel and parcel must be separately bounded."
+    },
+    "runner": {
+      "status": "pending_annotation",
+      "poseClass": "dynamic",
+      "note": "Awaiting pose-aware joint annotation in all four directions; do not apply upright leg-region bands."
+    },
+    "coach": {
+      "status": "pending_annotation",
+      "poseClass": "standing",
+      "note": "Awaiting landmark annotation; cap, clipboard and whistle/lanyard must be separately bounded."
+    },
+    "referee": {
+      "status": "pending_annotation",
+      "poseClass": "standing",
+      "note": "Awaiting landmark annotation; headband and raised card must be separately bounded."
+    }
+  }
+}
