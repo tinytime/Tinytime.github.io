@@ -1123,6 +1123,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     const top=grad(30,47,67,96,[[0,'#F07860'],[.45,'#D94F43'],[1,'#8C2F3D']]);
     const shorts=grad(35,88,66,119,[[0,'#3C3454'],[1,'#171B35']]);
     const shoe=grad(30,125,76,139,[[0,'#F6C95C'],[1,'#D88B35']]);
+    const legSkin=grad(28,101,78,122,[[0,'#B8795F'],[.55,skin],[1,'#653B32']]);
+    const curvePath=(start,segments,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(start[0],start[1]);segments.forEach(v=>g.bezierCurveTo(...v));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.stroke();}};
     // Airborne sprint: asymmetrical knee drive and trailing foot.
     if(!side){
       path([[40,89],[50,90],[47,103],[37,116],[27,125],[20,120],[30,109],[34,96]],shorts);
@@ -1192,12 +1194,27 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         g.restore();
         path([[62,55],[71,58],[77,70],[73,78],[66,74],[62,65]],top);
         path([[71,74],[78,76],[79,82],[73,84],[69,80]],skin);
-        path([[37,54],[44,53],[42,68],[34,74],[28,69],[32,62]],top);
-        path([[27,66],[34,64],[37,69],[33,75],[26,75],[23,71]],skin);
-        // Two clean stride planes: near leg drives forward, far leg trails
-        // behind. Keep the ankles and shoes separated instead of scissoring.
-        path([[32,89],[48,90],[51,101],[43,111],[35,121],[25,118],[32,105],[29,96]],shorts);
-        path([[51,90],[65,90],[68,102],[76,111],[84,114],[82,120],[69,120],[59,112],[53,103]],shorts);
+        // Far arm is occluded in profile; the near arm carries the stopwatch.
+        // Separate shorts from exposed lower legs. The near knee drives forward
+        // while the far leg trails; rounded contours define thigh, knee and calf.
+        curvePath([32,89],[
+          [37,89,46,89,50,94],[54,98,54,102,50,106],
+          [46,109,38,107,33,102],[29,98,29,93,32,89]
+        ],shorts,ink,1.6);
+        curvePath([49,100],[
+          [54,102,54,106,50,111],[45,116,38,120,34,122],
+          [29,124,24,121,25,117],[26,112,31,106,35,102],
+          [39,100,44,99,49,100]
+        ],legSkin,ink,1.5);
+        curvePath([50,89],[
+          [57,89,64,91,68,96],[72,101,76,106,82,110],
+          [87,112,92,113,94,117],[96,121,92,124,87,123],
+          [79,121,72,117,66,112],[60,107,55,100,50,89]
+        ],shorts,ink,1.6);
+        curvePath([79,109],[
+          [84,110,88,112,90,116],[91,119,89,121,85,120],
+          [81,119,77,116,75,113],[76,111,77,110,79,109]
+        ],legSkin,ink,1.35);
         path([[24,116],[36,117],[40,122],[38,128],[20,128],[17,123]],shoe,ink,1.6);
         path([[79,112],[91,112],[96,116],[94,122],[78,123],[73,119]],shoe,ink,1.6);
         // No floating sole strokes beneath the sprinting shoes.
@@ -1315,8 +1332,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       line([[67,78],[77,76]],'#3B6650',1.15);line([[68,84],[78,82]],'#3B6650',1.15);line([[69,89],[79,87]],'#3B6650',1);
       // Fingers curl over the near edge so the grip remains legible.
       path([[60,84],[65,82],[69,85],[68,89],[62,90]],skin,ink,1);
-      path([[33,58],[40,57],[40,80],[34,91],[28,89],[29,72]],jacket);
-      path([[28,88],[35,89],[35,97],[29,100],[25,95]],skin);
+      // Far arm is occluded by the torso; only the clipboard-holding near arm shows.
       // Gold whistle and short lanyard are visible in profile, below the yoke.
       line([[44,63],[49,72],[54,63]],'#D6B85D',1.8);
       // Horizontal whistle barrel with a clear projecting mouthpiece; avoid
@@ -1483,9 +1499,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       ell(87,35,1.5,1.5,'#C64C3E',null);
       path([[79,36],[87,36],[90,42],[86,46],[78,42]],skin,ink,1.1);
       line([[81,38],[87,39]],'#754633',1);
-      // Opposite arm hangs naturally along the rear side of the narrowed torso.
-      path([[40,58],[34,60],[30,80],[33,92],[39,92],[40,75]],shirt);
-      path([[33,89],[40,90],[42,98],[36,101],[31,96]],skin);
+      // Far arm is occluded behind the torso; only the raised-card arm shows.
       line([[46,63],[50,73],[54,63]],'#C5A34D',1.4);ell(50,75,2.2,2.7,'#C5A34D',ink,1);
     }else{
       // Front stripes are broad enough to survive native 64x96 downsampling.
