@@ -437,3 +437,10 @@ Run #487's actual native 64×96 captures were overlaid with the current source-s
 ## Runner annotation correction — 2026-11-19
 
 Native overlay inspection showed that the initial Runner candidate wrongly classified the race bib and an arm region as props and placed shoulder/elbow/wrist/knee/ankle landmarks too centrally. The manifest now keeps the bib as clothing, uses only the stopwatch as a prop exclusion (front and side; none on back), expands the anatomical outer contour to follow both arm silhouettes and the stride, and relocates bilateral joints to source-defined limb segments. This is still a candidate revision; the next fresh six-character overlay must be inspected before acceptance.
+
+
+## Semantic annotation QA update — 2026-11-19 (Run #517)
+
+The six candidate annotation sets are structurally valid and are rendered over 24/24 native directional captures in [Run #517](https://github.com/tinytime/Tinytime.github.io/actions/runs/44613152087), artifact `14573916586`. Dedicated semantic tests passed (43 checks). The report remains at 0 verified measurements, 6 source-annotated candidates, 1 Granny legacy reference, and 6 pending visual verification; no thresholds are enforced. Referee's raised arm/hand is represented by separate appendage polygons, and profile shoulder landmarks permit only a one-source-unit vertical offset. Visual inspection finds the contours generally track the six native renders, but Cook's pan/handle, Courier's bag/parcel and Coach's clipboard exclusions remain coarse, and Runner's joint positions still need final anatomical review. Do not promote any record to `measured` or calibrate proportion bands yet.
+
+Overall browser QA remains failed on the existing game-wide silhouette gate (max full-body IoU 0.909429; max torso-mask IoU 0.923077), unapproved golden snapshots (1 match / 23 changed), and 180 missing audio-file 404s. No renderer artwork or golden snapshots changed, and no character approval status changed. The remaining 17 civilians remain on hold.
