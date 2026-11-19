@@ -107,3 +107,12 @@ Courier's cap polygon was tightened to the source crown/visor path. Referee's bo
 ## Native coordinate-fit correction — 2026-11-19
 
 The first overlay renderer incorrectly stretched the 100×140 local coordinate grid across the full 64×96 PNG. The sprites occupy only part of that capture, so that overlay was not a valid pixel-alignment check and its apparent boundary offsets must not be used to alter annotations. The overlay renderer now maps source x around the native capture centerline (source x=50 to capture x=32), mirrors left-facing x at display time, and fits y independently for each character from its headwear top to the shared native foot baseline. This accommodates the renderer's differing vertical transforms, including Runner's y-scale. A fresh workflow artifact is required before any further pixel-level mask judgments are made.
+
+
+## Corrected native overlay review — 2026-11-19
+
+Run #506 produced a complete overlay for all 24 native captures with the corrected source-to-capture affine fit. I visually inspected the artifact. The red outer contours now align with the rendered bodies far better than the first stretched-grid overlay; the blue headwear and yellow prop exclusions are in the correct broad regions. Runner's revised front/back/side contours include the limbs, the race bib is no longer excluded as a prop, and the stopwatch exclusion aligns with its wrist position. Referee's raised arm/hand is already included in the body contour; the card remains a separate yellow exclusion.
+
+The inspection exposed a further semantic issue: side-profile shoulder landmarks had been placed at front-view widths, leaving green points outside the visible shoulder projection. All six characters' left/right profile shoulder landmarks have now been repositioned to a narrow, foreshortened pair; front/back shoulder landmarks remain full-width. This is a candidate correction, not a visual approval. A new run must regenerate and inspect the 24-capture overlay before promoting any record to `measured`.
+
+Remaining coarse areas: some held-object exclusion polygons are intentionally broad (especially Cook's pan/handle, Courier's satchel/parcel, and Coach's clipboard), and should be tightened against individual pixels before ratio calibration. No thresholds or renderer artwork were changed.
