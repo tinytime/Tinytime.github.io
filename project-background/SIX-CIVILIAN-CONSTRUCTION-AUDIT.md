@@ -226,3 +226,10 @@ This implements the measurement engine and guardrails, not the actual landmark a
 ### Framework verification result
 
 Run [#481](https://github.com/tinytime/Tinytime.github.io/actions/runs/44608283710) passed the semantic measurement fixture tests and manifest structural check. Artifact [14570697656](https://github.com/tinytime/Tinytime.github.io/actions/runs/44608283710/artifacts/14570697656) contains the generated `qa-output/civilian-proportion-measurements.json` alongside the browser QA evidence. The full workflow remains failed on the known global silhouette and unapproved snapshot gates, with audio 404 console errors. Semantic annotations remain pending for all six NPCs; a test pass does not create measured character ratios.
+
+
+## Source-derived candidate annotation update — 2026-11-19
+
+The six civilian records now contain first-pass source-derived candidate landmarks for front, back, left and right, based on the pinned `npc_sprites.js` draw paths at commit `8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317`. Candidate annotations include a coarse anatomical body polygon, headwear and prop exclusion polygons, head/chin/shoulder/pelvis/foot landmarks, and (for Runner) bilateral shoulder/elbow/wrist/hip/knee/ankle joints. The measurement report computes descriptive candidate ratios but labels these records `source_annotated`, not `measured`.
+
+**Verification boundary:** these are manually transcribed source-geometry candidates, not pixel-traced/visually approved masks. The polygons are intentionally coarse and must be overlaid against fresh native 64×96 captures in all four directions; profile mirroring, hair/headwear boundaries, shoulder joints, prop exclusions, and Runner's stride joints require spot-check/correction before promoting any record to `measured` or using ratios for calibration. No proportion band is enforced, no renderer art changed, and no approval status changed.
