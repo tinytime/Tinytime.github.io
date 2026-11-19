@@ -1,5 +1,17 @@
 # Technical Implementation
 
+## Current build and approval status — 2026-11-19
+
+This is the current status summary; dated historical entries below remain historical and are superseded where they conflict.
+
+- The construction standard is available as the working method, but remains subject to independent Claude review and owner ratification. Proportion bands and scorecard values remain provisional/non-enforcing.
+- Pairwise silhouette IoU remains a diagnostic review trigger, not a universal hard-fail art threshold. Current global watch items: Clinic/Sailor front 0.9094292803970223; Coach/Courier back 0.890479. Inspect the exact pair/direction at native and direct game scale and record a human judgment. Do not optimize art to a number.
+- The current correction/review group is Usher, Cook, Courier, Coach and Referee. Usher/Cook/Courier's earlier owner approvals were reopened and are historical only. Runner is excluded from this review submission and remains for a later focused review.
+- The remaining 17 civilians are ON HOLD. Do not begin production until the five-character correction set has fresh QA and visual inspection, independent Claude review, valid findings resolved, and explicit owner approval.
+- Run #591 verified targeted Granny/semantic/capture/overlay/directional/gallery/town checks, but the overall Actions workflow concluded FAILED on the global silhouette and unapproved golden-snapshot gates (1 match / 23 changed). Audio 404s are expected branch noise and non-blocking; do not add audio or count these as character defects. No snapshots were refreshed or approved.
+- Granny remains reference_only; candidate semantic landmarks/polygons are not verified measurements. Exact pixel-derived contour fit is renderer-mask evidence, not proof of anatomical semantics. No proportion calibration or candidate promotion is authorized.
+
+
 ## Repository and branch
 
 - Repository: `tinytime/Tinytime.github.io`
