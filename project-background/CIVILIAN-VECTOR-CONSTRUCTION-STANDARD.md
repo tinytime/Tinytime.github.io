@@ -438,3 +438,8 @@ Candidate contours must preserve the topology of the renderer alpha mask: all di
 ## Landmark-to-mask evidence without semantic overclaim — 2026-11-19
 
 Where exact body alpha masks are available, record whether candidate landmark coordinates are consistent with the visible mask: top/bottom offsets, chin vertical range, shoulder-point pixel inclusion, shoulder/pelvis row occupancy and foot-baseline alignment. Treat this as a diagnostic aid only. A point falling on the silhouette does not prove it is the correct anatomical landmark; human review must still interpret the character anatomy and the chosen measurement convention. No hard thresholds are established from Granny alone.
+
+
+## Run #587 evidence — mask and landmark diagnostics (2026-11-19)
+
+The 11-fixture helper suite passed in browser QA Run #587. Exact alpha-mask contours reconstructed both the umbrella-excluded body render and visible umbrella delta at IoU 1.0 in all four directions. This validates the mask-tracing implementation, not anatomical segmentation: the body pass intentionally includes hair and clothing. Manual candidate fit is separately reported and currently weak (body IoU 0.786 front/back; 0.645/0.644 profiles), demonstrating why source annotations must not be accepted merely because they render. Record landmark-to-mask offsets and pixel inclusion as non-gating evidence; human anatomical interpretation remains mandatory. Candidate headTop is one pixel above the first body-alpha row in all views. No universal ratio thresholds or semantic hard gates are inferred from this single character.
