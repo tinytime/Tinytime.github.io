@@ -171,3 +171,8 @@ The owner reviewed the actual run #434 renders and identified three required pro
 - **Runner:** side profiles showed an overlapping duplicate leg that read as a third leg; remove the redundant underlayer and retain exactly two distinct stride legs/feet.
 
 Implemented together in renderer commit [6332fb4](https://github.com/tinytime/Tinytime.github.io/commit/6332fb4622ed56686771e60541f975b2d6e33a61). Browser QA run [#435](https://github.com/tinytime/Tinytime.github.io/actions/runs/44570451203), exact source `6332fb4622ed56686771e60541f975b2d6e33a61`, is in progress. The run #434 artifact confirmed the owner's observations; it is baseline evidence only and cannot verify the new changes. All three remain NOT APPROVED pending inspection of the new artifact, independent Claude review, and owner acceptance. Do not begin the remaining 20 characters.
+
+
+### Coach profile follow-up after run #435
+
+Run #435's actual four-direction sheet confirmed the Runner duplicate leg layer was removed and Referee's card arm moved to the forward side in both profiles. Coach's head and clipboard were clearer, but inspection showed the broad front-view jacket base still painted beneath the side overlay. Follow-up commit `b15d14fd9c6604c7ee232adf47d44a5d328054b3` suppresses that base jacket when rendering side views and narrows the side torso to a single-plane profile. Fresh QA and visual inspection are pending; do not treat run #435 as evidence for this last Coach body change. All three remain NOT APPROVED.
