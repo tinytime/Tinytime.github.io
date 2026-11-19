@@ -17,10 +17,20 @@
   },
   "characters": {
     "granny": {
-      "status": "measured",
+      "status": "reference_baseline",
       "poseClass": "standing",
       "referenceSource": "qa/granny-ref.json",
-      "note": "Approved benchmark; existing reference measurement excludes umbrella canopy and shaft, retains gripping hand/arm. Headwear is not separately excluded in the legacy reference; keep that known convention difference visible until source annotation is harmonized."
+      "note": "Approved benchmark; existing reference measurement excludes umbrella canopy and shaft, retains gripping hand/arm. Headwear is not separately excluded in the legacy reference; keep that known convention difference visible until source annotation is harmonized.",
+      "legacyMeasurements": {
+        "bodyHeight": 125,
+        "headHeight": 38,
+        "shoulderWidth": 36,
+        "neckRow": 49,
+        "shoulderRow": 50,
+        "footBaseline": 136,
+        "headBodyPercent": 30.4,
+        "shoulderBodyPercent": 28.8
+      }
     },
     "usher": {
       "status": "pending_annotation",
