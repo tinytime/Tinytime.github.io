@@ -44,7 +44,7 @@ export function compareMasks(candidate,reference){
  return{candidatePixels:cp,referencePixels:rp,intersectionPixels:inter,unionPixels:union,iou:union?inter/union:1,precision:cp?inter/cp:(rp?0:1),recall:rp?inter/rp:(cp?0:1),candidateOnlyPixels:cp-inter,referenceOnlyPixels:rp-inter};
 }
 function pointKey(p){return p[0]+','+p[1];}
-export function traceOuterContours(rows){
+export function traceMaskContours(rows){
  const mask=maskFromRows(rows),edges=[],outgoing=new Map();
  const add=(sx,sy,ex,ey,dir)=>{
   const i=edges.length,edge={start:[sx,sy],end:[ex,ey],dir};edges.push(edge);
