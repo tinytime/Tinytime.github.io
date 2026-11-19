@@ -200,3 +200,10 @@ All six land in the draft 80–89 "promising / targeted polish expected" band. N
 - **Remaining 20:** ON HOLD.
 
 This audit applies the draft standard to the six current designs. It does not ratify the standard, approve any character, alter renderer code, change QA thresholds, or release the remaining roster.
+
+
+## Semantic measurement system implementation update — 2026-11-19
+
+The first reusable semantic measurement framework is now implemented in `qa/civilian-proportion-measurements.mjs`, driven by `qa/civilian-anatomy-landmarks.json`. It validates per-direction anatomical body polygons and landmarks, requires explicit headwear/prop polygon declarations, computes descriptive ratios, and uses joint landmarks rather than upright leg ratios for dynamic poses. Unit tests cover standing calculations, Runner-style dynamic joints, incomplete-direction rejection, and pending reports.
+
+Granny's existing umbrella-excluded geometry is preserved as a legacy reference baseline. All six civilian entries are currently pending annotation. This is deliberate: the previous alpha-bound hook excludes props but not all headwear and cannot safely supply head/body or torso/body ratios. The browser QA workflow now runs the tests and structural check and uploads the generated measurement report. No ratio bands are hard-fail gates. The next step is to annotate and visually verify the six characters' four-direction landmarks from fresh renders.
