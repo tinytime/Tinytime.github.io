@@ -943,7 +943,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         ell(50,31,13,15,grad(37,17,63,45,[[0,'#E5B08B'],[.55,skin],[1,'#814B3C']]),ink,1.8);
         // Hair curls visible at temples beneath hat.
         [38,41,59,62].forEach((x,i)=>ell(x,38+(i%2),3.2,5,'#38242A',ink,.8));
-        ell(44,31,1.8,2.5,'#241725',null);ell(56,31,1.8,2.5,'#241725',null);
+        ell(44,31,2,2.6,'#241725',null);ell(56,31,2,2.6,'#241725',null);ell(44.7,30.1,.65,.65,'#FFF',null);ell(56.7,30.1,.65,.65,'#FFF',null);
         ell(44.6,30.2,.55,.55,'#FFFFFF',null);ell(56.6,30.2,.55,.55,'#FFFFFF',null);
         line([[41,26],[46,26]],'#59372E',1.3);line([[54,26],[59,26]],'#59372E',1.3);
         line([[49,33],[48,36],[51,36]],'#945D48',1);
@@ -1217,7 +1217,10 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         // Add the trailing leg/raised rear shoe behind the planted near leg.
         path([[36,97],[46,100],[40,112],[31,121],[25,127],[19,124],[25,113]],'#6E4234',ink,1.5);
         path([[15,123],[26,123],[29,128],[28,133],[13,133],[10,128]],'#C9802F',ink,1.6);
-        // Use a single clearly articulated near-leg plane over the trailing stride.
+        // Far trailing leg and lifted rear shoe are joined to the hip before the near leg is painted.
+        path([[36,97],[46,100],[40,112],[31,121],[25,127],[19,124],[25,113]],'#6E4234',ink,1.5);
+        path([[15,123],[26,123],[29,128],[28,133],[13,133],[10,128]],'#C9802F',ink,1.6);
+        // The near-leg shorts and leg are layered over the trailing stride.
         path([[35,89],[57,90],[60,99],[56,106],[43,107],[36,101]],shorts,ink,1.6);
         path([[43,103],[56,104],[58,113],[55,122],[49,128],[40,126],[39,119],[42,111]],legSkin,ink,1.5);
         path([[40,124],[54,124],[61,130],[60,135],[38,135],[35,131]],shoe,ink,1.6);
