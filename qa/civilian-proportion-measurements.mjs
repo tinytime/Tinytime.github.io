@@ -96,7 +96,7 @@ export function measureLandmarkRecord(record) {
 
 export function buildMeasurementReport(manifest) {
   const records = Object.entries(manifest.characters || {}).map(([id, record]) => {
-    if (record.status === 'reference_baseline') {
+    if (record.status === 'reference_only' || record.status === 'reference_baseline') {
       return { id, status: 'reference_baseline', source: record.referenceSource,
         legacyMeasurements: record.legacyMeasurements,
         conventionNote: record.note };
@@ -110,7 +110,8 @@ export function buildMeasurementReport(manifest) {
     thresholdsEnforced: false,
     characterCount: records.length,
     measuredCount: records.filter(r => r.status === 'measured').length,
-    referenceBaselineCount: records.filter(r => r.status === 'reference_baseline').length,
+    referenceOnlyCount: records.filter(r => r.status === 'reference_only' || r.status === 'reference_baseline').length,
+    referenceBaselineCount: records.filter(r => r.status === 'reference_only' || r.status === 'reference_baseline').length,
     pendingCount: records.filter(r => r.status === 'pending_annotation').length,
     records
   };
@@ -129,7 +130,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   if (process.argv.includes('--check')) {
     const expected = ['usher','cook','courier','runner','coach','referee'];
     const actual = Object.keys(manifest.characters || {}).filter(id => id !== 'granny').sort();
-    if (report.characterCount !== 7 || report.referenceBaselineCount !== 1 ||
+    if (report.characterCount !== 7 || report.referenceOnlyCount !== 1 ||
         !manifest.characters.granny || report.pendingCount !== 6 ||
         actual.join(',') !== expected.sort().join(','))
       throw new Error('Semantic measurement manifest failed six-civilian scope validation');
