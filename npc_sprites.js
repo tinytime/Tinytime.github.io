@@ -1014,6 +1014,11 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         line([[51,57],[47,96]],'#B9E7D9',1.5);
         path([[34,73],[44,73],[43,84],[33,84]],'#1C6670',ink,1);
         line([[35,78],[42,78]],'#9AD8C9',1);
+        // Front-facing satchel sits on the hip; the strap visibly terminates at its flap.
+        path([[24,80],[39,77],[44,84],[42,103],[25,106],[19,96]],bag,ink,1.7);
+        path([[24,81],[38,79],[41,87],[25,91],[21,88]],'#E6B45D',ink,1.1);
+        line([[25,94],[40,90]],'#F3D18A',1.3);
+        path([[30,95],[36,94],[37,99],[30,100]],'#70472E',ink,1);
         // Cross-body strap is layered over the jacket and visibly anchors the bag.
         line([[64,54],[60,65],[53,77],[43,91]],'#D99A48',5);
         line([[64,54],[60,65],[53,77],[43,91]],ink,1);
