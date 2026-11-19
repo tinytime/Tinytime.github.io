@@ -145,3 +145,12 @@ The renderer was corrected after Claude's review and received a final rim-light 
 - **Do not treat the automated report as visual inspection.** The artifact's PNGs have not yet been visually inspected. The run does not confer approval; all five remain in revision / NOT APPROVED pending visual inspection, independent Claude re-review and owner decision. No golden snapshots were refreshed or approved.
 
 The original run #457 links above remain historical context only; use run #459 and commit `23c792f7e83eb14ff7d48e197678272f1c3e58b0` as the latest post-correction evidence.
+
+
+## Workflow-generated review sheet (new QA automation)
+
+The browser QA workflow now runs `qa/build-five-civilian-review-sheet.mjs` after diagnostics, even when diagnostics fail. It is intended to add `five-civilian-native-4x-contact-sheet.png` and `five-civilian-review-summary.md` to the uploaded artifact. The contact sheet uses the actual five civilians' 64×96 front/back/left/right captures. This packaging change does not create direct 28×42 captures for Usher, Cook or Courier and does not constitute visual review.
+
+- Generator commit: [`1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc`](https://github.com/tinytime/Tinytime.github.io/commit/1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc).
+- Workflow commit: [`80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f`](https://github.com/tinytime/Tinytime.github.io/commit/80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f).
+- [Run #461](https://github.com/tinytime/Tinytime.github.io/actions/runs/44600405554) is the first execution of the updated workflow; verify its artifact before relying on the generated files.
