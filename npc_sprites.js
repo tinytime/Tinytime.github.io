@@ -347,14 +347,14 @@
       runner:{types:{front:'no-held-prop',side:'no-held-prop',back:'no-held-prop'},front:[],side:[],back:[]},
       coach:{types:{front:'clipboard',side:'clipboard',back:'coach-board'},front:[[23,17,3,7,'clipboard']],side:[[24,16,3,7,'clipboard']],back:[[13,14,6,4,'clipboard']]},
       ref:{types:{front:'whistle',side:'whistle',back:'whistle'},front:[[22,18,2,2,'whistle']],side:[[18,18,2,2,'whistle']],back:[[7,18,2,2,'whistle']]},
-      fisher:{types:{front:'fishnet',side:'fishnet',back:'net-roll'},front:[[23,16,3,8,'fishnet']],side:[[25,16,3,8,'fishnet']],back:[[25,17,4,8,'toolroll']]},
-      welder:{types:{front:'welding-torch',side:'welding-torch',back:'weld-cylinder'},front:[[23,16,3,7,'weldingtorch']],side:[[24,15,3,7,'weldingtorch']],back:[[25,16,4,9,'toolroll']]},
-      sailor:{types:{front:'rope-coil',side:'rope-coil',back:'sailor-seam'},front:[[23,17,3,5,'ropecoil']],side:[[24,16,3,5,'ropecoil']],back:[[12,15,8,3,'clipboard']]},
-      painter:{types:{front:'paintbrush',side:'paintbrush',back:'paint-can'},front:[[23,15,2,9,'paintbrush']],side:[[24,15,2,9,'paintbrush']],back:[[25,18,4,6,'toolroll']]},
-      slicker:{types:{front:'umbrella',side:'umbrella',back:'umbrella-pack'},front:[[23,13,3,12,'umbrella']],side:[[24,13,3,12,'umbrella']],back:[[25,14,4,10,'backpack']]},
-      cook:{types:{front:'serving-spoon',side:'serving-spoon',back:'apron-tools'},front:[[23,16,2,9,'servingspoon']],side:[[24,16,2,9,'servingspoon']],back:[[13,18,6,4,'clipboard']]},
-      vendor:{types:{front:'serving-tray',side:'serving-tray',back:'apron-ties'},front:[[23,18,5,2,'servingtray']],side:[[24,18,5,2,'servingtray']],back:[[8,14,2,10,'apron'],[22,14,2,10,'apron']]},
-      dancer:{types:{front:'ribbon',side:'ribbon',back:'ribbon-tie'},front:[[23,15,3,8,'ribbon']],side:[[24,15,3,8,'ribbon']],back:[[13,14,6,3,'ribbon']]},
+      fisher:{types:{front:'fishnet',side:'fishnet',back:'net-roll'},front:[[23,16,3,8,'fishnet']],side:[[25,16,3,8,'fishnet']],back:[[24,15,4,10,'fishnet']]},
+      welder:{types:{front:'welding-torch',side:'welding-torch',back:'weld-cylinder'},front:[[23,16,3,7,'weldingtorch']],side:[[24,15,3,7,'weldingtorch']],back:[[24,13,4,12,'weldcylinder']]},
+      sailor:{types:{front:'rope-coil',side:'rope-coil',back:'sailor-seam'},front:[[23,17,3,5,'ropecoil']],side:[[24,16,3,5,'ropecoil']],back:[[23,15,4,6,'ropecoil']]},
+      painter:{types:{front:'paintbrush',side:'paintbrush',back:'paint-can'},front:[[23,15,2,9,'paintbrush']],side:[[24,15,2,9,'paintbrush']],back:[[24,14,4,9,'paintcan']]},
+      slicker:{types:{front:'umbrella',side:'umbrella',back:'umbrella-pack'},front:[[23,13,3,12,'umbrella']],side:[[24,13,3,12,'umbrella']],back:[[24,14,4,10,'umbrella']]},
+      cook:{types:{front:'serving-spoon',side:'serving-spoon',back:'apron-tools'},front:[[23,16,2,9,'servingspoon']],side:[[24,16,2,9,'servingspoon']],back:[[23,15,2,9,'servingspoon']]},
+      vendor:{types:{front:'serving-tray',side:'serving-tray',back:'apron-ties'},front:[[23,18,5,2,'servingtray']],side:[[24,18,5,2,'servingtray']],back:[[13,16,5,4,'aprontie']]},
+      dancer:{types:{front:'ribbon',side:'ribbon',back:'ribbon-tie'},front:[[23,15,3,8,'ribbon']],side:[[24,15,3,8,'ribbon']],back:[[13,14,6,4,'ribbon']]},
       busker:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[24,12,5,17,'guitar']],side:[[25,12,5,17,'guitar']],back:[[1,11,5,17,'guitar']]}
     });
     const ARCHETYPE_PROP_SHAPES=Object.freeze({
@@ -385,7 +385,10 @@
       umbrella:['..#..','.###.','#####','..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..'],
       ribbon:['#...#','.###.','..#..','.###.','#...#','..#..','.###.','#...#'],
       servingspoon:['..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..'],
-      servingtray:['#####','#####']
+      servingtray:['#####','#####'],
+      weldcylinder:['.##.','####','####','####','####','####','####','.##.'],
+      paintcan:['.##.','####','#..#','#..#','#..#','####','.##.'],
+      aprontie:['#...#','.###.','..#..','.###.','#...#']
     });
     const PROP_ROLE_COLORS=Object.freeze({
       duffel:'#D8A04D',whistle:'#F5D45C',satchel:'#9A6541',parcel:'#D88A45',
@@ -394,7 +397,8 @@
       clipboard:'#F4F6FF',notebook:'#FF2FA8',pin:'#FFD0EE',toolroll:'#8C9AA8',foamfinger:'#FFD23A',
       pennant:'#FF3B5C',megaphone:'#D7E6FF',rallytowel:'#58FFB0',
       fishnet:'#6DB8C8',weldingtorch:'#F5A623',ropecoil:'#D6B47A',paintbrush:'#E76F51',
-      umbrella:'#A78BFA',ribbon:'#FF4FA3',servingspoon:'#D9E2EC',servingtray:'#E8EDF2'
+      umbrella:'#A78BFA',ribbon:'#FF4FA3',servingspoon:'#D9E2EC',servingtray:'#E8EDF2',
+      weldcylinder:'#65717A',paintcan:'#E6B84A',aprontie:'#D9B7C9'
     });
     const FAN_VARIANT_HEADS=Object.freeze({
       driverA:'cap-profile',fan1:'beanie',fan2:'bucket-hat',fanA:'round-fringe',fanB:'visor',
@@ -432,7 +436,7 @@
       wait1:{body:'#f4d35e',trim:'#fff1b8',pants:'#45321a',hair:'#24170e'},
       wait2:{body:'#90caf9',trim:'#e3f2fd',pants:'#1f3b57',hair:'#172333'}
     });
-    const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger','pennant','megaphone','rallytowel','fishnet','weldingtorch','ropecoil','paintbrush','umbrella','ribbon','servingspoon','servingtray']);
+    const ARCHETYPE_ACCESSORY_ROLES=new Set(['duffel','whistle','satchel','parcel','shield','baton','bowl','medkit','toolroll','wrench','backpack','guitar','briefcase','clipboard','umbrella','notebook','pin','foamfinger','pennant','megaphone','rallytowel','fishnet','weldingtorch','ropecoil','paintbrush','umbrella','ribbon','servingspoon','servingtray','weldcylinder','paintcan','aprontie']);
     return { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, FAN_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, FAN_RIG_PARTS, ARCHETYPE_PROP_LAYERS, CIV_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES };
   })();
 
@@ -1018,7 +1022,7 @@
           case 'baton':case 'bowl':case 'parcel':case 'medkit':case 'whistle':case 'wrench':case 'backpack':case 'guitar':case 'clipboard':case 'notebook':case 'pin':case 'foamfinger':case 'pennant':case 'megaphone':case 'rallytowel':return PROP_ROLE_COLORS[role]||accentProp;
           case 'duffel':case 'satchel':case 'shield':case 'toolroll':case 'briefcase':
           case 'fishnet':case 'weldingtorch':case 'ropecoil':case 'paintbrush':case 'umbrella':
-          case 'ribbon':case 'servingspoon':case 'servingtray':return PROP_ROLE_COLORS[role]||accentProp;
+          case 'ribbon':case 'servingspoon':case 'servingtray':case 'weldcylinder':case 'paintcan':case 'aprontie':return PROP_ROLE_COLORS[role]||accentProp;
           default:return null;
         }
       };
