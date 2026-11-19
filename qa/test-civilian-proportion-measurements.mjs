@@ -63,4 +63,5 @@ for(const id of ['usher','cook','courier','runner','coach','referee']){
  assert.equal(Object.keys(candidate.directions).length,4,id+' measured direction count');
 }
 assert.equal(actualReport.records.find(r=>r.id==='runner').directions.front.poseAware.standingLegRatio,null);
+assert.ok(actualReport.records.find(r=>r.id==='referee').directions.front.anatomicalAppendagePolygons.length >= 1);
 console.log(JSON.stringify({pass:true,checks:43,standingRatios:measured.directions.front.ratiosPercent,dynamicPose:'joint-only',sourceAnnotatedCandidates:actualReport.sourceAnnotatedCandidateCount,pending:actualReport.pendingCount}));
