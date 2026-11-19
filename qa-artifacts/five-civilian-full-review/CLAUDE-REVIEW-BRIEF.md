@@ -60,3 +60,17 @@ The overall workflow is still **FAILED** on the separate full-roster civilian si
 Return a comparative table for all five characters with score, recommendation, strongest qualities, weakest direction, and required fixes. Then rank the five as a batch and state whether each is ready for owner review after any listed corrections. Do not infer owner approval. Do not begin the remaining 20 civilians.
 
 **Approval boundary:** Claude's recommendation is advisory. ChatGPT will assess and implement valid findings, rerun QA, and update the package. The project owner makes the final approval decision.
+
+
+## Additional required review: critique the draft construction standard
+
+Read [Civilian Vector Construction Standard](../../project-background/CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md) in full. It is a new owner-authorized draft, not a locked policy. Alongside the five character verdicts, assess:
+
+1. Are Granny's measured dimensions and the exclusion of umbrella/ground effects methodologically correct?
+2. Are the proposed proportion bands useful and measurable? Identify ambiguous landmarks, pose-specific cases, and likely false positives.
+3. Are the scorecard weights and suggested 90+ / 75%-per-category thresholds appropriate? Recommend changes with reasons.
+4. Which criteria should be hard technical invariants, soft numeric warnings, or purely human art-direction judgments?
+5. How should the five reviewed characters and Granny be measured to calibrate the ranges consistently?
+6. Does the standard preserve original character identity and avoid turning Granny's body or design into a template?
+
+Please return a concrete proposed revision and calibration table. Keep all numeric bands and score thresholds provisional unless the evidence supports locking them. Your critique must distinguish Granny's measured facts from the draft's proposed targets.
