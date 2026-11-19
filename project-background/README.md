@@ -11,11 +11,11 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest verified branch head before this documentation update:** `a9c29109e8f64a1009fd0b1df5ab560ff08fdbd8`. QA evidence is from renderer/source commit `6905171293c04f34f3ee09c804c490082e1f3d57`; documentation verification commits follow the reviewed source. **Latest renderer source:** `a9c29109e8f64a1009fd0b1df5ab560ff08fdbd8` (Coach profile refinement). Browser run [#44551256553](https://github.com/tinytime/Tinytime.github.io/actions/runs/44551256553), job `135655281455`, tested that exact renderer source; artifact `14542916538` inspected. Coach targeted internal QA passed; overall workflow remains failed on the global Clinic/Sailor silhouette gate and explicitly unapproved golden baseline.
+**Latest renderer source:** `3fdfdb25a5481e62f43c84b3483ec131493e290b` (Referee card/hand lowered to clear top-edge clipping). Documentation updates follow this source. Coach QA: run [#420](https://github.com/tinytime/Tinytime.github.io/actions/runs/44551256553), job `135655281455`, source `a9c29109e8f64a1009fd0b1df5ab560ff08fdbd8`, artifact `14542916538`. Referee QA: run [#425](https://github.com/tinytime/Tinytime.github.io/actions/runs/44553520770), job `135663311368`, exact source `3fdfdb25a5481e62f43c84b3483ec131493e290b`, artifact `14542904013`. Both characters passed targeted internal QA and visual inspection. Overall workflow remains failed on the global Clinic/Sailor silhouette gate and explicitly unapproved golden baseline.
 
-**Active task:** Runner, Coach and Referee are built and have passed targeted internal QA. Coach's and Referee's four directions, role-debug, gallery and town evidence were inspected. All three remain NOT APPROVED pending second-group comparative review and owner acceptance.
-**Assigned specialist chat:** **NPC Vector Development specialist**.
-**Next action:** Package Runner, Coach and Referee evidence for Claude's comparative review against Granny Volt. Keep the remaining roster on hold until the owner approves the direction.
+**Active task:** Runner, Coach and Referee are built and have passed targeted internal QA. Their four-direction renders, role-debug sheets, gallery and town evidence have been inspected. All three remain NOT APPROVED pending Claude's comparative review and owner acceptance.
+**Assigned specialist chat:** **QA and Independent Review Coordinator**.
+**Next action:** Deliver the prepared Runner/Coach/Referee evidence package to Claude for comparative review against Granny Volt. Keep the remaining roster on hold until the owner approves the direction.
 
 ## Working agreement
 
@@ -27,7 +27,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 
 ## Current focus
 
-The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The current group is **Runner, Coach, and Referee**. Runner and Coach have passed targeted internal QA; Referee is next. Complete internal QA on all three before comparative review.
+The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The current group is **Runner, Coach, and Referee**. All three have passed targeted internal QA; comparative review is next.
 
 ## Source of truth
 
