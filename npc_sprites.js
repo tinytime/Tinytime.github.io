@@ -714,9 +714,11 @@
       const ink=mixHex(hairBase,'#000000',.85),N=64,H=96,SCALE=1;
       // Higher-density fixed pixel canvas: 32 columns x 48 rows.
       const grid=Array.from({length:H},()=>Array(N).fill(null));
-      const put=(x0,y0,w,h,role)=>{for(let yy=y0*2;yy<(y0+h)*2;yy++)for(let xx=x0*2;xx<(x0+w)*2;xx++)if(xx>=0&&xx<N&&yy>=0&&yy<H)grid[yy][xx]=role};
+      const debugSourceGrid=qaOptions&&(qaOptions.roleDebugLayers||qaOptions.roleDebugSourceLayers)?Array.from({length:H},()=>Array(N).fill(null)):null;
+      let debugLayer='base';
+      const put=(x0,y0,w,h,role)=>{for(let yy=y0*2;yy<(y0+h)*2;yy++)for(let xx=x0*2;xx<(x0+w)*2;xx++)if(xx>=0&&xx<N&&yy>=0&&yy<H){grid[yy][xx]=role;if(debugSourceGrid)debugSourceGrid[yy][xx]=debugLayer}};
       // Paint each logical cell as a solid 2x2 native block, avoiding sparse stripe fills.
-      const set=(xx,yy,role)=>{for(let py=yy*2;py<yy*2+2;py++)for(let px=xx*2;px<xx*2+2;px++)if(px>=0&&px<N&&py>=0&&py<H)grid[py][px]=role};
+      const set=(xx,yy,role)=>{for(let py=yy*2;py<yy*2+2;py++)for(let px=xx*2;px<xx*2+2;px++)if(px>=0&&px<N&&py>=0&&py<H){grid[py][px]=role;if(debugSourceGrid)debugSourceGrid[py][px]=debugLayer}};
       const PROP_SHAPES=ARCHETYPE_PROP_SHAPES;
       const paintProp=(x,y,w,h,role)=>{
         const pattern=PROP_SHAPES[role];
@@ -834,7 +836,7 @@
       if(side){
         // Profile torso has a shoulder bulge, narrow waist and hip return.
         const profileRows=civTorsoMasks.side;
-        for(const [yy,x1,x2] of profileRows)for(let xx=x1;xx<=x2;xx++)set(xx,yy,'body');
+        for(const [yy,x1,x2] of profileRows){debugLayer=yy>=18?'torso-mask-hem':'torso-mask-upper';for(let xx=x1;xx<=x2;xx++)set(xx,yy,'body')}
         for(let yy=10;yy<=23;yy++)for(let xx=12;xx<=15;xx++)if(grid[yy][xx]==='body')set(xx,yy,'bodyshade');
         for(let yy=12;yy<=16;yy++)set(18,yy,'bodyhi');
       }else{
@@ -844,7 +846,7 @@
         // Each role gets its own torso contour while sharing the same Granny-calibrated
         // height and pixel grid. These are silhouette masks, not palette-only variants.
         const torsoRows=civTorsoMasks[back?'back':'front'];
-        for(const [yy,x1,x2] of torsoRows)for(let xx=x1;xx<=x2;xx++)set(xx,yy,'body');
+        for(const [yy,x1,x2] of torsoRows){debugLayer=yy>=18?'torso-mask-hem':'torso-mask-upper';for(let xx=x1;xx<=x2;xx++)set(xx,yy,'body')}
         // Layered value structure: shadow under the right shoulder and along
         // the right ribcage, with a narrow upper-left highlight to round volume.
         for(let yy=10;yy<=22;yy++)for(let xx=17;xx<=22;xx++)if(grid[yy][xx]==='body')set(xx,yy,'bodyshade');
@@ -857,9 +859,9 @@
       // taper the forearm into a visible hand. The stepped contour avoids a tray pose.
       const rigView=side?'side':back?'back':'front';
       const rigParts=(kind==='fan'?(FAN_RIG_PARTS[n.id]||CIV_RIG_PARTS[kind]):(CIV_RIG_PARTS[kind]||ARCHETYPE_RIG_PARTS[archetypeKey]))[rigView];
-      for(const [rx,ry,rw,rh,role] of rigParts.arms)put(rx,ry,rw,rh,role);
+      for(const [rx,ry,rw,rh,role] of rigParts.arms){debugLayer=role==='skin'?'hands':'sleeves-arms';put(rx,ry,rw,rh,role)}
       // Directional limb masks are table-driven; the same rig is shared while each archetype owns its silhouette data.
-      for(const [rx,ry,rw,rh,role] of rigParts.legs)put(rx,ry,rw,rh,role==='bodyhi'?'leghi':role);
+      for(const [rx,ry,rw,rh,role] of rigParts.legs){debugLayer='legs';put(rx,ry,rw,rh,role==='bodyhi'?'leghi':role)}
       // Fan gear is held: a short bent forearm bridges the raised hand to the prop.
       if(kind==='fan'){
         if(rigView==='front'){
@@ -871,8 +873,9 @@
         }
       }
       if(P.stripes&&!side&&!back)for(let yy=12;yy<22;yy++){set(12,yy,'clothhi');set(19,yy,'clothhi')}
-      if(P.apron&&!back)put(13,16,6,8,'apron');
-      if(P.jacket||kind==='courier')for(let yy=12;yy<22;yy++)set(16,yy,'bodyshade');
+      debugLayer='garment-overlays';
+      if(P.apron&&!back){debugLayer='apron';put(13,16,6,8,'apron')}
+      if(P.jacket||kind==='courier'){debugLayer='garment-overlays';for(let yy=12;yy<22;yy++)set(16,yy,'bodyshade')}
       // Archetype-specific garment construction keeps the five civilians from
       // collapsing into recolors of one generic body.
       if((archetypeKey==='athletic'||archetypeKey==='youth')&&!back&&!side){
@@ -1278,22 +1281,36 @@
       if(spriteCanvas.height!==H*SCALE)spriteCanvas.height=H*SCALE;
       const ctx=spriteCanvas.getContext('2d');
       ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,N*SCALE,H*SCALE);
-      const roleDebug=!!(qaOptions&&qaOptions.roleDebug);
+      const roleDebug=!!(qaOptions&&(qaOptions.roleDebug||qaOptions.roleDebugLayers||qaOptions.roleDebugSourceLayers));
+      const roleDebugLayers=!!(qaOptions&&(qaOptions.roleDebugLayers||qaOptions.roleDebugSourceLayers));
       const roleDebugGrid=roleDebug?grid.map(row=>row.slice()):null;
       if(roleDebug){
         roleDebugGrid.unshift(Array(N).fill(null));
         roleDebugGrid.pop();
-        const roles=[...new Set(roleDebugGrid.flat().filter(Boolean))].sort();
-        const roleColor=role=>{
-          let hash=2166136261;
-          for(let i=0;i<role.length;i++){hash^=role.charCodeAt(i);hash=Math.imul(hash,16777619);}
-          return 'hsl('+((hash>>>0)%360)+' 100% 58%)';
-        };
+        const roles=[...new Set((roleDebugLayers?debugSourceGrid:roleDebugGrid).flat().filter(Boolean))].sort();
+        const layerColors={'torso-mask-upper':'#268bd2','torso-mask-hem':'#dc322f','sleeves-arms':'#b58900','hands':'#2aa198','legs':'#6c71c4','apron':'#d33682','garment-overlays':'#859900','base':'#777777'};
+        const roleColor=role=>layerColors[role]||'#eeeeee';
         owCiv._lastRoleDebugLegend=roles.map(role=>({role,color:roleColor(role)}));
+        const rowSourceWidths=[];
+        if(roleDebugLayers&&debugSourceGrid){
+          for(let y=0;y<H;y++){
+            const bySource={};
+            for(let x=0;x<N;x++){
+              const source=debugSourceGrid[y][x];
+              if(source){const v=bySource[source]||(bySource[source]={minX:x,maxX:x,pixels:0});v.minX=Math.min(v.minX,x);v.maxX=Math.max(v.maxX,x);v.pixels++}
+            }
+            const sources={};
+            for(const [name,v] of Object.entries(bySource))sources[name]={minX:v.minX,maxX:v.maxX,width:v.maxX-v.minX+1,pixels:v.pixels};
+            rowSourceWidths.push({row:y,logicalRow:Math.floor(y/2),sources});
+          }
+        }
+        const torsoRows=civTorsoMasks[side?'side':back?'back':'front']||[];
+        owCiv._lastRoleDebugRows={civ:kind,direction:dirCode,view:side?'side':back?'back':'front',torsoMaskRows:torsoRows.map(([row,left,right])=>({row,left,right,width:right-left+1})),renderedSourceRows:rowSourceWidths};
       }else owCiv._lastRoleDebugLegend=null;
       for(let gy=0;gy<H;gy++)for(let gx=0;gx<N;gx++){
+        const debugCell=roleDebugLayers&&debugSourceGrid?debugSourceGrid[gy][gx]:roleDebugGrid[gy][gx];
         const color=roleDebug
-          ? (roleDebugGrid[gy][gx]===null?null:owCiv._lastRoleDebugLegend.find(item=>item.role===roleDebugGrid[gy][gx])?.color||null)
+          ? (debugCell===null?null:owCiv._lastRoleDebugLegend.find(item=>item.role===debugCell)?.color||null)
           : finalGrid[gy][gx];
         if(color!==null){ctx.fillStyle=color;ctx.fillRect(gx,gy,1,1);}
       }
