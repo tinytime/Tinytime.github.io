@@ -862,7 +862,53 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
-      if(kind==='usher'){drawUsherVector(n,dir,ctxOverride||og,OWT,{moving,tm,ph});return}
+      if(kind==='usher'){
+        drawUsherVector(n,dir,ctxOverride||og,OWT,{moving,tm,ph});
+        // Keep the legacy QA snapshot contract populated with a native 64x96
+        // vector render. The live draw above remains at the normal world scale.
+        const qaCanvas=owCiv._vectorSnapshotCanvas||(owCiv._vectorSnapshotCanvas=document.createElement('canvas'));
+        if(qaCanvas.width!==64)qaCanvas.width=64;
+        if(qaCanvas.height!==96)qaCanvas.height=96;
+        const qaCtx=qaCanvas.getContext('2d');
+        qaCtx.setTransform(1,0,0,1,0,0);qaCtx.globalAlpha=1;qaCtx.globalCompositeOperation='source-over';
+        qaCtx.clearRect(0,0,64,96);
+        const qaOWT=36*.625/.28;
+        const qaNpc=Object.assign({},n,{x:0,y:0,rx:(32-qaOWT/2)/qaOWT,ry:(86-qaOWT)/qaOWT});
+        drawUsherVector(qaNpc,dir,qaCtx,qaOWT,{moving:false,tm:0,ph:0});
+        owCiv._gridCanvas=qaCanvas;
+        const pixels=qaCtx.getImageData(0,0,64,96).data,counts=new Map();
+        let opaquePixelCount=0,outlinePixelCount=0;
+        for(let p=0;p<pixels.length;p+=4){
+          if(!pixels[p+3])continue;
+          opaquePixelCount++;
+          const hex='#'+[pixels[p],pixels[p+1],pixels[p+2]].map(v=>v.toString(16).padStart(2,'0')).join('');
+          counts.set(hex,(counts.get(hex)||0)+1);
+          if(hex==='#171725')outlinePixelCount++;
+        }
+        const dominant=(x0,y0,x1,y1)=>{
+          const region=new Map();
+          for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++){
+            const p=(y*64+x)*4;if(!pixels[p+3])continue;
+            const hex='#'+[pixels[p],pixels[p+1],pixels[p+2]].map(v=>v.toString(16).padStart(2,'0')).join('');
+            region.set(hex,(region.get(hex)||0)+1);
+          }
+          return [...region].sort((a,b)=>b[1]-a[1])[0]||['#000000',0];
+        };
+        const [bodyColor,bodyPixelCount]=dominant(17,30,47,63);
+        const [pantsColor,pantsPixelCount]=dominant(17,63,47,82);
+        const [hairColor,hairPixelCount]=dominant(17,3,47,31);
+        owCiv._lastPaletteMetrics={civ:'usher',archetype:'usher-vector',renderMode:'vector',
+          colors:[...counts.keys()],uniqueColorCount:counts.size,opaquePixelCount,outlinePixelCount,
+          outlineColor:'#171725',bodyColor,bodyPixelCount,pantsColor,pantsPixelCount,hairColor,hairPixelCount,
+          colorPixelCounts:Object.fromEntries(counts)};
+        owCiv._lastRoleDebugLegend=qaOptions&&(qaOptions.roleDebug||qaOptions.roleDebugLayers||qaOptions.roleDebugSourceLayers)
+          ?[{role:'vector-outline',color:'#171725'},{role:'uniform-navy',color:'#294B70'},
+            {role:'uniform-highlight',color:'#718DAF'},{role:'brass-trim',color:'#D6A84F'},
+            {role:'skin',color:'#C98A62'},{role:'hair',color:'#241B26'}]:null;
+        owCiv._lastRoleDebugRows={civ:'usher',direction:dir,view:dir==='u'?'back':(dir==='l'||dir==='r'?'side':'front'),
+          torsoMaskRows:[],renderedSourceRows:[]};
+        return;
+      }
       const archetypeKey=CIV_TO_ARCHETYPE[kind];
       if(!archetypeKey||!ARCHETYPES[archetypeKey]||!CIV[kind])throw new Error('Missing civilian archetype mapping or palette: '+kind);
       const A=ARCHETYPES[archetypeKey],P=Object.assign({},A.palette,CIV[kind]);
