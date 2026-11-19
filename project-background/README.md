@@ -11,7 +11,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest verified branch commit at this status check:** `d9695a3b9fd9a331f7c86083f7bf53dcd9ccc4ba` — comparative Claude review package prepared; latest renderer commit `87227b217fead5134d9dd375e67139c13097f49c`; QA expectation commit `a006d3cee143b7ac7b3a4ec2ed614eb0f604a551`.  
+**Latest verified branch commit at this status check:** `679e30bb72c7dfc5075d1cddc8dc8b8112fb678b` — project handoff points to the prepared Claude review package; latest renderer commit `87227b217fead5134d9dd375e67139c13097f49c`; QA expectation commit `a006d3cee143b7ac7b3a4ec2ed614eb0f604a551`.  
 **Latest browser QA:** [Run #44539341875](https://github.com/tinytime/Tinytime.github.io/actions/runs/44539341875), tested exact commit `a006d3cee143b7ac7b3a4ec2ed614eb0f604a551`, **overall FAILED**. Courier-specific syntax, module, inventory, palette, body/baseline, face, prop, 92-capture visual-integrity, town and gallery checks passed; actual front/back/left/right renders and gallery/town screenshots inspected. Global legacy silhouette and unapproved golden-snapshot gates failed; 135 audio-resource 404s logged. Artifact `14537616516` inspected. No golden snapshots changed.
 
 **Active task:** First three vector pilots — Usher, Cook, and Courier — are built and internally checked. All remain BUILT — NOT APPROVED pending one comparative Claude review and owner acceptance.  
