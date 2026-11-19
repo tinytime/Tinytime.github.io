@@ -8,6 +8,7 @@ import { chromium } from 'playwright';
 
 const root = process.cwd();
 const out = path.join(root, 'qa-output');
+fs.mkdirSync(out, { recursive: true });
 const captureDir = path.join(out, 'npc-type-directions');
 const manifestPath = path.join(root, 'qa', 'civilian-anatomy-landmarks.json');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
