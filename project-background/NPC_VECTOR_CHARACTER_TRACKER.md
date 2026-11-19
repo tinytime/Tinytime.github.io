@@ -33,7 +33,7 @@ The first review batch is three characters total. Once all three are built and i
 |---|---|---|---|---|---|
 | Usher | Civic / venue usher; cap, clipboard, formal uniform | **BUILT — NOT APPROVED** | Targeted checks passed; four-direction render captured | Pending | First vector pilot. Navy/steel direction with restrained brass accents; distinct from Granny. |
 | Cook | Food service / chef | **BUILT — INTERNAL QA PASSED; NOT APPROVED** | Run `44537588645` / commit `5ed3f49`: palette, body/baseline, face, role-debug, prop, four-direction visual-integrity, town and gallery checks passed; 4× directional renders inspected. Overall workflow failed on unrelated global silhouette and unapproved golden-snapshot gates; audio asset 404s also logged. | Pending — batch review after Courier | Dedicated vector path: tall pleated toque, double-breasted cream coat, terracotta apron with ties/pocket, copper sauté pan. Latest refinement widens coat/apron silhouette and connects the pan grip visibly to the hand. No golden snapshots changed; no design approval claimed. |
-| Courier | Delivery / messenger | **PLANNED — NOT APPROVED** | Pending | Pending | Working concept: distinct cap or helmet, delivery bag, parcel/dispatch prop, separate silhouette and palette. |
+| Courier | Delivery / messenger | **IN PROGRESS — NOT APPROVED** | Pending | Pending | NPC Art Designer is developing the third pilot character. Require a bespoke silhouette, role-specific outfit/props, palette, and four intentional directions; do not borrow Usher or Cook's body design. |
 
 ## Full civilian roster
 
@@ -44,7 +44,7 @@ All designs below remain unapproved until their own design and review are comple
 | 1 | Runner | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 2 | Coach | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 3 | Referee | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 4 | Courier | **PLANNED — NOT APPROVED** | Pending | Pending | Included in first three-character pilot. |
+| 4 | Courier | **IN PROGRESS — NOT APPROVED** | Pending | Pending | Active third pilot; NPC Art Designer owns the character design/build. |
 | 5 | Guard | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 6 | Vendor | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 7 | Cook | **BUILT — NOT APPROVED** | Targeted checks pass; global workflow fails on separate gates | Pending | Included in first three-character pilot; dedicated vector renderer now integrated. |
@@ -74,3 +74,5 @@ All designs below remain unapproved until their own design and review are comple
 - **Approval rule:** Keep every new character marked **NOT APPROVED** until internal QA, Claude's independent review, and project-owner acceptance are complete.
 
 - **2026-11-19 Cook QA review:** Inspected run `44537588645` and artifact `14536893339` for exact commit `5ed3f49cd7c7767a716383945236a33b4c82dcb8`. Cook-specific palette, body/baseline, face, role-debug, prop, four-direction visual-integrity, town scene, and gallery checks passed. Actual front/back/left/right 4× renders inspected: pan grip is visibly connected; revised rear/coat silhouette no longer appears among closest failing pairs. Overall workflow remains failed because global legacy civilian silhouette audit reports Clinic/Sailor and Coach/Vendor overlaps, and the golden snapshot baseline remains explicitly unapproved. Missing audio assets return HTTP 404; no page/script errors. No golden snapshots refreshed or approved. Cook remains NOT APPROVED pending comparative Claude review of the completed three-character batch and owner acceptance.
+
+- **2026-11-19 Courier handoff:** Cook internal QA finalized. Cook-specific checks passed on commit `5ed3f49cd7c7767a716383945236a33b4c82dcb8` (run `44537588645`, artifact `14536893339` inspected); global legacy-silhouette and unapproved-golden gates remain separate failures. Courier is now the active third pilot and is assigned to the NPC Art Designer chat. Next handoff: once the dedicated Courier vector implementation is committed, route it to QA for four-direction, native-scale, town/gallery, clipping, and regression inspection. Keep Courier and all pilot characters NOT APPROVED pending comparative Claude review and owner acceptance.
