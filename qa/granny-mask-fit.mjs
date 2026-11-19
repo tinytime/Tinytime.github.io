@@ -119,3 +119,40 @@ export function measureGrannyMaskFit(annotation,pixelMasks){
   return{direction:view,manualBodyCandidateFit:body,pixelDerivedBodyContourFit:derived,visibleUmbrellaManualCoverage:{candidatePixels:prop.candidatePixels,visibleUmbrellaPixels:prop.referencePixels,coveredVisiblePixels:prop.intersectionPixels,coverage:prop.recall,uncoveredVisiblePixels:prop.referenceOnlyPixels,candidateOutsideVisiblePixels:prop.candidateOnlyPixels,note:'Candidate prop geometry may include occluded umbrella area; candidateOutsideVisiblePixels is not a false-positive count.'},pixelDerivedVisibleUmbrellaContourFit:visibleProp};
  });
 }
+
+export function measureGrannyLandmarkEvidence(annotation,pixelMasks){
+ return pixelMasks.map(entry=>{
+  const view=CODE_TO_VIEW[entry.direction],semantic=annotation.directions[view],mask=maskFromRows(entry.bodyAlpha.rows);
+  if(!semantic)throw new Error('Missing Granny landmark direction: '+view);
+  let top=HEIGHT,bottom=-1;
+  for(let y=0;y<HEIGHT;y++)for(let x=0;x<WIDTH;x++)if(mask[y*WIDTH+x]){top=Math.min(top,y);bottom=Math.max(bottom,y);}
+  const pointEvidence=(point)=>{
+   const x=Math.round(point.x),y=Math.round(point.y);
+   const exact=x>=0&&x<WIDTH&&y>=0&&y<HEIGHT&&mask[y*WIDTH+x]===1;
+   let nearby=false;
+   for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){
+    const xx=x+dx,yy=y+dy;
+    if(xx>=0&&xx<WIDTH&&yy>=0&&yy<HEIGHT&&mask[yy*WIDTH+xx])nearby=true;
+   }
+   return {point,exactPixelOnBodyMask:exact,bodyPixelWithinOnePixel:nearby};
+  };
+  const rowCount=y=>{
+   if(!Number.isInteger(y)||y<0||y>=HEIGHT)return 0;
+   let n=0;for(let x=0;x<WIDTH;x++)if(mask[y*WIDTH+x])n++;
+   return n;
+  };
+  return {
+   direction:view,
+   maskBounds:{top,bottom},
+   headTop:{candidateY:semantic.headTop,deltaFromTopPixel:semantic.headTop-top},
+   chin:{candidateY:semantic.chin,withinBodyVerticalBounds:semantic.chin>=top&&semantic.chin<=bottom},
+   shoulderPoints:{
+    left:pointEvidence(semantic.shoulderLeft),
+    right:pointEvidence(semantic.shoulderRight),
+    candidateRowPixelCount:rowCount(semantic.shoulderY)
+   },
+   pelvisRow:{candidateY:semantic.pelvisY,pixelCount:rowCount(semantic.pelvisY)},
+   footBaseline:{candidateY:semantic.footBaseline,deltaFromBottomPixel:semantic.footBaseline-bottom}
+  };
+ });
+}
