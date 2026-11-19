@@ -34,8 +34,16 @@ assert.equal(dynamicResult.directions.front.legRegionHeight,undefined);
 assert.equal(dynamicResult.directions.front.poseAware.standingLegRatio,null);
 assert.equal(validateLandmarkRecord({...dynamic,directions:{front:dynamic.directions.front}},'runner').length>0,true);
 
-const report=buildMeasurementReport({characters:{fixture:standing,runner:{status:'pending_annotation',poseClass:'dynamic'}}});
-assert.equal(report.characterCount,2);
+const report=buildMeasurementReport({characters:{
+  granny:{status:'reference_only',poseClass:'standing',referenceSource:'qa/granny-ref.json',legacyMeasurements:{bodyHeight:125}},
+  fixture:standing,
+  runner:{status:'pending_annotation',poseClass:'dynamic'}
+}});
+assert.equal(report.characterCount,3);
 assert.equal(report.measuredCount,1);
+assert.equal(report.referenceOnlyCount,1);
 assert.equal(report.pendingCount,1);
-console.log(JSON.stringify({pass:true,checks:14,standingRatios:measured.directions.front.ratiosPercent,dynamicPose:'joint-only'}));
+const missingHeadwear=structuredClone(standing);
+delete missingHeadwear.directions.front.headwearPolygons;
+assert.ok(validateLandmarkRecord(missingHeadwear,'invalid').some(x=>x.includes('headwearPolygons')));
+console.log(JSON.stringify({pass:true,checks:17,standingRatios:measured.directions.front.ratiosPercent,dynamicPose:'joint-only',referenceOnly:'Granny legacy values'}));
