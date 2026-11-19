@@ -2,7 +2,7 @@
 
 **Project:** Vapor City civilian NPC vector redesign  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest combined renderer source verified:** `f78627caf53b15cfe1bee0f30feea39d68da7c35`. Combined browser QA run #429 (`44562696912`), job `135695989340`, tested this exact SHA; artifact `14548434248` inspected. Review brief: [Claude Runner / Coach / Referee Review](CLAUDE-RUNNER-COACH-REFEREE-REVIEW.md).
+**Latest combined renderer source verified:** `f78627caf53b15cfe1bee0f30feea39d68da7c35`. Combined browser QA run #429 (`44562696912`), job `135695989340`, tested this exact SHA; artifact `14548434248` inspected. Review brief: [Claude Runner / Coach / Referee Review](CLAUDE-RUNNER-COACH-REFEREE-REVIEW.md). Focused evidence index: [Run #429 review package](qa-artifacts/runner-coach-referee-run-429/README.md).
 
 > This is the live status document. Update it after each meaningful design, integration, QA, and review milestone. The project background and working rules are in this folder's [README](README.md).
 
