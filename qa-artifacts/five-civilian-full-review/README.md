@@ -20,10 +20,10 @@ Usher, Cook and Courier have existing owner approval. Coach and Referee remain N
 
 The authoritative live renderer is **`npc_sprites.js`** (with an underscore).
 
-- [Open exact renderer source at the tested commit](https://github.com/tinytime/Tinytime.github.io/blob/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0/npc_sprites.js)
-- [Raw `npc_sprites.js` source](https://raw.githubusercontent.com/tinytime/Tinytime.github.io/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0/npc_sprites.js)
+- [Open exact renderer source at the tested commit](https://github.com/tinytime/Tinytime.github.io/blob/c1d8d75aceeef0c9a689c2f8c40ae88909c55ada/npc_sprites.js)
+- [Raw `npc_sprites.js` source](https://raw.githubusercontent.com/tinytime/Tinytime.github.io/c1d8d75aceeef0c9a689c2f8c40ae88909c55ada/npc_sprites.js)
 - [Current branch copy](https://github.com/tinytime/Tinytime.github.io/blob/npc-granny-baseline-overhaul/npc_sprites.js)
-- Exact source commit: [`5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`](https://github.com/tinytime/Tinytime.github.io/commit/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0)
+- Exact source commit: [`c1d8d75aceeef0c9a689c2f8c40ae88909c55ada`](https://github.com/tinytime/Tinytime.github.io/commit/c1d8d75aceeef0c9a689c2f8c40ae88909c55ada)
 
 Read the actual draw functions, dispatch, palettes, directional paths, layering/occlusion, shared helpers and archetype mappings. Do not rely only on screenshots or prior review notes.
 
@@ -31,11 +31,11 @@ Read the actual draw functions, dispatch, palettes, directional paths, layering/
 
 ### Combined six-character QA run (the five in-scope characters are included)
 
-- [GitHub Actions run #457](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167)
-- [Download browser QA artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167/artifacts/14563778383) — artifact ID `14563778383`
-- Exact renderer source tested: [`5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`](https://github.com/tinytime/Tinytime.github.io/commit/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0)
-- Artifact contains all six completed civilians' native 64×96 front/back/left/right captures (24 images total), including all five in this review. It also contains direct 28×42 game-scale captures for Runner, Coach and Referee (12 captures total); use Coach and Referee from these for game-scale review. Runner's game-scale captures are out of scope.
-- Inspect the `npc-type-directions/` images for the five in-scope characters, and `npc-game-scale-28x42/` for Coach and Referee. Also inspect role-debug, Granny comparison, gallery, town regression and `report.json`.
+- [GitHub Actions run #457](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178)
+- [Download browser QA artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167/artifacts/(artifact pending)) — artifact ID `14563778383`
+- Exact implementation and QA source under test: [`c1d8d75aceeef0c9a689c2f8c40ae88909c55ada`](https://github.com/tinytime/Tinytime.github.io/commit/c1d8d75aceeef0c9a689c2f8c40ae88909c55ada)
+- The run #463 artifact is pending while the workflow executes. Its expected contents are all five in-scope civilians' native 64×96 front/back/left/right captures (20 images), plus direct 28×42 game-scale captures for the same five civilians (20 images). The direct game-scale hook was expanded in commit `c1d8d75aceeef0c9a689c2f8c40ae88909c55ada`; verify the report's `gameScaleNpcCaptureAudit` is 20/20 before treating coverage as complete.
+- Inspect the `npc-type-directions/` and `npc-game-scale-28x42/` images for all five in-scope characters, once run #463 completes and its artifact is available. Also inspect role-debug, Granny comparison, gallery, town regression and `report.json`.
 - [First-pilot review history and evidence](../../project-background/CLAUDE-PILOT-REVIEW-PACKAGE.md)
 - [Courier correction source and QA history](https://github.com/tinytime/Tinytime.github.io/commit/98dbcda2a32fa506ba355f12ddd449db3322a4b4)
 - The first-batch review history is context only; independently inspect current source and current images.
@@ -108,7 +108,7 @@ For each reviewed character, say what construction lesson can be reused and what
 
 ## Internal QA context and limitations
 
-Run #457 tested exact source `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`. Targeted checks pass: syntax/module and inventory; palette; face distinctness 23/23; direct game-scale captures 12/12; role-debug 12/12; directional visual integrity 92/92 with zero edge contacts or detached components; prop audit; silhouette-quality 180/180; gallery and town regression. Page and script errors are empty.
+Run #463 tested exact source `c1d8d75aceeef0c9a689c2f8c40ae88909c55ada`. Targeted checks pass: syntax/module and inventory; palette; face distinctness 23/23; direct game-scale captures 12/12; role-debug 12/12; directional visual integrity 92/92 with zero edge contacts or detached components; prop audit; silhouette-quality 180/180; gallery and town regression. Page and script errors are empty.
 
 Do not misrepresent this as an overall workflow pass. The workflow was **FAILED** because:
 - NPC body/baseline audit flags Courier baseline delta 2 against a 1px vector threshold.
