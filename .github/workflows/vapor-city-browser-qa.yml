@@ -34,6 +34,9 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run game browser diagnostics
         run: node qa/vapor-city-browser-qa.mjs
+      - name: Build five-civilian review sheet and summary
+        if: always()
+        run: node qa/build-five-civilian-review-sheet.mjs
       - name: Upload screenshots and report
         if: always()
         uses: actions/upload-artifact@v4
