@@ -290,3 +290,18 @@ This standard itself remains a **draft** until Claude has reviewed it and the pr
 ## Initial six-civilian application — 2026-11-19
 
 The draft standard has been applied internally to all six currently built vector civilians (Usher, Cook, Courier, Runner, Coach, Referee). See [Six-Civilian Construction Standard Audit](SIX-CIVILIAN-CONSTRUCTION-AUDIT.md) for the per-character construction cards, provisional first-pass scorecard, actual render evidence, current QA measurements, and semantic-measurement calibration gap. The audit does not ratify this draft, turn its provisional values into hard gates, expand the active five-character Claude submission, or release the remaining 20 civilians from hold.
+
+
+## Semantic measurement implementation — 2026-11-19
+
+A first implementation of the measurement framework now lives in:
+
+- `qa/civilian-anatomy-landmarks.json`: source-space annotation manifest for Granny plus all six current vector civilians.
+- `qa/civilian-proportion-measurements.mjs`: validates annotated landmarks and computes head/body, shoulder/body, torso/body, neck/body, and (standing poses only) leg-region/body ratios.
+- `qa/test-civilian-proportion-measurements.mjs`: deterministic tests for standing ratios, dynamic-pose joints, incomplete-direction rejection, and pending-record reporting.
+
+The manifest uses Granny's 100×140 source coordinate convention. Each of the four directions must carry an anatomical body polygon, head/chin landmarks, anatomical shoulder points, shoulder/pelvis/foot rows, and explicit headwear/prop polygons (empty arrays are explicit declarations, not omissions). Dynamic poses additionally require shoulder, elbow, wrist, hip, knee, and ankle landmarks for both sides. Runner is configured as a dynamic pose and is deliberately excluded from standing leg-height ratios.
+
+**Important status:** Granny is recorded as a legacy measured reference, preserving the existing umbrella-excluded values and its known convention limitation. The six civilian records are currently `pending_annotation`; the system does not invent anatomical coordinates from the old accessory-inclusive alpha bounds. It will emit a pending report until each direction is annotated from fresh renders. This is intentional and is not a QA failure or an approval gate.
+
+The browser QA workflow now runs the framework's unit tests and structural validation and uploads `qa-output/civilian-proportion-measurements.json` with the normal artifact. No proposed ratio band has been made a hard-fail gate.
