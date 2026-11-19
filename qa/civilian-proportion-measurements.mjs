@@ -11,6 +11,8 @@ const MANIFEST_PATH = path.join(ROOT, 'qa', 'civilian-anatomy-landmarks.json');
 const DIRECTIONS = ['front', 'back', 'left', 'right'];
 const REQUIRED_POINTS = ['headTop', 'chin', 'shoulderLeft', 'shoulderRight', 'shoulderY', 'pelvisY', 'footBaseline'];
 const isPoint = p => p && Number.isFinite(p.x) && Number.isFinite(p.y);
+const inSourceBounds = p => isPoint(p) && p.x >= 0 && p.x <= 100 && p.y >= 0 && p.y <= 140;
+const validPolygon = polygon => Array.isArray(polygon) && polygon.length >= 3 && polygon.every(inSourceBounds) && Math.abs(polygon.reduce((sum,p,i)=>{const q=polygon[(i+1)%polygon.length];return sum+p.x*q.y-q.x*p.y;},0)) > 0;
 const distance = (a,b) => Math.hypot(b.x-a.x,b.y-a.y);
 const ratio = (value, denominator) => denominator > 0 ? +(100*value/denominator).toFixed(2) : null;
 
@@ -22,8 +24,7 @@ export function validateLandmarkRecord(record, id) {
   for (const direction of DIRECTIONS) {
     const d = record.directions[direction];
     if (!d) { errors.push(direction + ' landmarks are missing'); continue; }
-    if (!Array.isArray(d.bodyPolygon) || d.bodyPolygon.length < 3 || !d.bodyPolygon.every(isPoint))
-      errors.push(direction + ' bodyPolygon must contain at least three source-space points');
+    if (!validPolygon(d.bodyPolygon)) errors.push(direction + ' bodyPolygon must be a non-zero-area polygon within 100x140 source bounds');
     for (const key of REQUIRED_POINTS) {
       if (key === 'shoulderLeft' || key === 'shoulderRight') {
         if (!isPoint(d[key])) errors.push(direction + ' ' + key + ' is missing');
@@ -34,11 +35,13 @@ export function validateLandmarkRecord(record, id) {
     if (d.shoulderY < d.chin || d.shoulderY > d.footBaseline) errors.push(direction + ' shoulderY is outside body height');
     if (d.pelvisY < d.shoulderY || d.pelvisY > d.footBaseline) errors.push(direction + ' pelvisY is outside shoulder-to-foot interval');
     if (d.shoulderLeft.y !== d.shoulderRight.y) errors.push(direction + ' shoulder points must share one measurement row');
-    if (!Array.isArray(d.headwearPolygons) || !Array.isArray(d.propPolygons))
-      errors.push(direction + ' must explicitly declare headwearPolygons and propPolygons (empty arrays are valid)');
+    if (!Array.isArray(d.headwearPolygons) || !d.headwearPolygons.every(validPolygon) || !Array.isArray(d.propPolygons) || !d.propPolygons.every(validPolygon))
+      errors.push(direction + ' must explicitly declare valid headwearPolygons and propPolygons (empty arrays are valid)');
+    for (const key of ['headTop','chin','shoulderY','pelvisY','footBaseline']) if (Number.isFinite(d[key]) && (d[key] < 0 || d[key] > 140)) errors.push(direction + ' ' + key + ' is outside 100x140 source bounds');
+    for (const key of ['shoulderLeft','shoulderRight']) if (isPoint(d[key]) && !inSourceBounds(d[key])) errors.push(direction + ' ' + key + ' is outside 100x140 source bounds');
     if (record.poseClass === 'dynamic') {
       for (const key of ['leftShoulder','rightShoulder','leftElbow','rightElbow','leftWrist','rightWrist','leftHip','rightHip','leftKnee','rightKnee','leftAnkle','rightAnkle']) {
-        if (!isPoint(d.joints?.[key])) errors.push(direction + ' dynamic pose joint ' + key + ' is missing');
+        if (!inSourceBounds(d.joints?.[key])) errors.push(direction + ' dynamic pose joint ' + key + ' is missing or outside 100x140 source bounds');
       }
     }
   }
