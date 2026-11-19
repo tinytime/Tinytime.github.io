@@ -27,7 +27,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 
 ## Current focus
 
-The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The next group is **Runner, Coach, and Referee**. Runner is the active character; complete its internal QA before starting Coach.
+The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The next group is **Runner, Coach, and Referee**. Runner is internally complete; Coach is next, followed by Referee. Complete internal QA on each before advancing.
 
 ## Source of truth
 
