@@ -144,7 +144,7 @@
     const CIV_TORSO_VARIANTS=Object.freeze({
       runner:[-2,0,-1],coach:[-2,1,2],ref:[2,-2,-1],
       courier:[-1,2,-2],guard:[2,0,-2],
-      vendor:[-2,-2,2],cook:[1,3,-3],
+      vendor:[-2,-2,2],cook:[2,-2,6],
       clinic:[0,2,4],tech:[2,0,2],hacker:[-2,2,-1],
       fisher:[2,-2,2],sailor:[4,-4,-4],slicker:[0,2,2],painter:[2,2,-2],welder:[-2,-2,0],
       kid:[-2,0,2],kid2:[2,0,-2],mouse:[0,2,0],
