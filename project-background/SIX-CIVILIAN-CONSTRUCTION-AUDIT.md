@@ -1,5 +1,14 @@
 # Six-Civilian Construction Standard Audit
 
+## Silhouette gate interpretation and release decision — 2026-11-19
+
+The full-roster silhouette audit's highest reported pair is Clinic/Sailor front (IoU 0.9094292803970223); Coach/Courier back is a secondary watch item (0.890479). Treat these as named human-review triggers, not proof of anatomical or design failure in the six-character pilot. The standard retains pairwise comparison and human inspection; it does not adopt a universal 0.90 artistic pass/fail threshold. Review both actual renders at native and direct game scale, then record whether the overlap is a genuine identity collision, an acceptable shared body mass with distinct role construction, or inconclusive. Keep this audit separate from semantic anatomy-mask fit and proportion measurement.
+
+The five-character correction group (Usher, Cook, Courier, Coach, Referee) still requires fresh current-source QA, independent Claude review and owner approval. Runner remains excluded from that submission. The remaining 17 civilians remain ON HOLD; the standard can guide future briefs but the production batch is not released.
+
+Missing-audio 404s are expected on this branch and are non-blocking environment noise. Do not add audio assets or treat these 404s as a character defect. Historical workflow conclusions remain as recorded; no golden snapshots are to be refreshed or approved without explicit owner authorization.
+
+
 **Status:** Internal application of the draft Civilian Vector Construction Standard  
 **Audit date:** 2026-11-19  
 **Scope:** Usher, Cook, Courier, Runner, Coach, Referee  
