@@ -11,9 +11,9 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest combined renderer source:** `4aee0893d41c2c67de560d9d494b7ba7639685f9`. Browser QA [run #437](https://github.com/tinytime/Tinytime.github.io/actions/runs/44572590664), artifact `14555840087`, tested this exact branch head and has been downloaded and visually inspected. Runner, Coach and Referee all pass targeted internal QA and fresh four-direction visual inspection after the latest profile-face / whistle polish. The overall workflow remains failed on global silhouette overlap, unapproved golden snapshots, and missing-audio 404s. All three remain NOT APPROVED pending updated Claude review and owner acceptance.
+**Latest verified renderer source for the current three-character review:** `8eeca34ae10a1d829f5035d72b57989bffb9e6e0`. Browser QA [run #441](https://github.com/tinytime/Tinytime.github.io/actions/runs/44577303597), artifact `14558375062`, contains 12 native 64×96 and 12 direct-rendered 28×42 Runner/Coach/Referee PNGs. All views and contact sheets were visually inspected. Run #441's direct-capture audit reported a validator false negative despite all 12 PNGs being present; the validator was corrected in follow-up QA #442. Run #441's overall workflow remains failed on the global Clinic/Sailor silhouette overlap, unapproved golden snapshots, and 180 missing-audio 404s. No snapshots were refreshed or approved.
 
-**Active task:** Send the fresh run #437 renders and evidence to Claude for comparative review against Granny Volt. Do not begin the remaining 20 until Claude's review is complete and the owner approves the three-character direction.
+**Active task:** Claude independent comparative review of Runner, Coach and Referee against Granny Volt. The [run #441 review package](../qa-artifacts/runner-coach-referee-run-441/README.md) is prepared in GitHub. All three remain NOT APPROVED pending Claude's review and owner acceptance. Do not begin the remaining 20.
 
 ## Working agreement
 
