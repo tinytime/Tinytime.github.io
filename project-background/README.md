@@ -11,9 +11,9 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest verified renderer source for the current three-character review:** `8eeca34ae10a1d829f5035d72b57989bffb9e6e0`. Browser QA [run #441](https://github.com/tinytime/Tinytime.github.io/actions/runs/44577303597), artifact `14558375062`, contains 12 native 64×96 and 12 direct-rendered 28×42 Runner/Coach/Referee PNGs. All views and contact sheets were visually inspected. Run #441's direct-capture audit reported a validator false negative despite all 12 PNGs being present; the validator was corrected in follow-up QA #442. Run #441's overall workflow remains failed on the global Clinic/Sailor silhouette overlap, unapproved golden snapshots, and 180 missing-audio 404s. No snapshots were refreshed or approved.
+**Latest verified QA source for the current three-character review:** `9d7e66ba9667a555c4b42c65d5910a2ea08cc055`. Browser QA [run #442](https://github.com/tinytime/Tinytime.github.io/actions/runs/44577766543), artifact `14558375601`, confirms 12 direct `owCiv` captures at 28×42 (Runner/Coach/Referee × four directions), plus 12 native 64×96 captures. Both sets and the role-debug sheet, gallery and town regression screenshot were visually inspected. Targeted internal QA passes; the overall workflow remains failed on the global Clinic/Sailor silhouette overlap, unapproved golden snapshots, and 180 missing-audio 404s. No snapshots were refreshed or approved.
 
-**Active task:** Claude independent comparative review of Runner, Coach and Referee against Granny Volt. The [run #441 review package](../qa-artifacts/runner-coach-referee-run-441/README.md) is prepared in GitHub. All three remain NOT APPROVED pending Claude's review and owner acceptance. Do not begin the remaining 20.
+**Active task:** Claude independent comparative review of Runner, Coach and Referee against Granny Volt. The [run #442 review package](qa-artifacts/runner-coach-referee-run-442/README.md) is prepared in GitHub. All three remain NOT APPROVED pending Claude's review and owner acceptance. Do not begin the remaining 20.
 
 ## Working agreement
 
@@ -25,7 +25,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 
 ## Current focus
 
-The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The current group is **Runner, Coach, and Referee**. Fresh combined run #437 includes the latest Runner profile-face and Coach whistle/profile-face polish; all 12 native directional renders, enlarged views, derived game-scale resamplings, role-debug, gallery, Granny comparison and town regression have been inspected. Updated Claude comparative review is next.
+The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The current group is **Runner, Coach, and Referee**. Fresh combined run #442 includes direct game-scale 28×42 renders in all four directions as well as native 64×96 views; all are inspected alongside role-debug, gallery and town regression. Updated Claude comparative review is next.
 
 ## Source of truth
 
