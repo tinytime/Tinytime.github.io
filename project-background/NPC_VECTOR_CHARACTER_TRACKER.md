@@ -317,3 +317,11 @@ The owner explicitly authorized reopening the previously approved Usher, Cook an
 **Implementation commit:** [027be47d8f6763f447992a9dec058ff62a7c60a3](https://github.com/tinytime/Tinytime.github.io/commit/027be47d8f6763f447992a9dec058ff62a7c60a3).
 
 **Verification status:** implementation is committed; no post-change browser QA run or new screenshot inspection has yet been completed. Do not restore approval status until all five revised characters pass four-direction native/enlarged and game-scale review, relevant QA gates, independent Claude re-review, and explicit owner acceptance. Runner remains excluded from this round. Remaining 20 remain ON HOLD.
+
+## Follow-up finish pass — 2026-11-19
+
+Renderer commit: [23c792f7e83eb14ff7d48e197678272f1c3e58b0](https://github.com/tinytime/Tinytime.github.io/commit/23c792f7e83eb14ff7d48e197678272f1c3e58b0).
+
+Added restrained warm/cool rim-light accents to Coach and Referee, matching the established light treatment already present on Usher, Cook and Courier. The accents are limited to face/shoulder contours and intentionally avoid tracing the clipboard, whistle or yellow card.
+
+This is a source-only finish refinement. It has not yet been browser-tested or visually inspected. All five characters remain in revision / NOT APPROVED status; Runner remains excluded from this review round and the remaining 20 civilians stay on hold. No golden snapshots were changed.
