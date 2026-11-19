@@ -81,3 +81,7 @@ Committed renderer changes: [027be47d8f6763f447992a9dec058ff62a7c60a3](https://g
 The owner authorized a permanent construction standard based on Granny Volt's measured geometry and quality strengths. See [Civilian Vector Construction Standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md). It formalizes the distinction between shared technical invariants and original character identity, adds a per-character proportion card, defines measurement conventions, proposes an eight-stage production pipeline and 100-point design scorecard, and identifies automated QA metrics.
 
 The standard is a draft for Claude review and owner ratification. The numeric proportion bands and scoring thresholds are provisional and must be calibrated against Granny plus the five-character review set. The standard does not authorize starting the remaining 20 civilians or approving any pending design.
+
+## Six-civilian construction-standard application — 2026-11-19
+
+The draft Civilian Vector Construction Standard has been applied internally to all six built vector civilians (Usher, Cook, Courier, Runner, Coach, Referee). See [Six-Civilian Construction Standard Audit](SIX-CIVILIAN-CONSTRUCTION-AUDIT.md) for rendered evidence, per-character construction cards, provisional scorecard, current QA measurements, and calibration gaps. This internal six-character scope does not change the owner's current five-character Claude review scope; Runner remains excluded from that submission only. The remaining 20 civilians remain on hold.
