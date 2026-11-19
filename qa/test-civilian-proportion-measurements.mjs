@@ -18,6 +18,9 @@ assert.equal(measured.directions.front.shoulderWidth,16);
 assert.equal(measured.directions.front.ratiosPercent.headBody,24.79);
 assert.equal(measured.directions.front.ratiosPercent.shoulderBody,13.22);
 assert.equal(measured.directions.front.ratiosPercent.legRegionBody,34.71);
+const invalidBounds=structuredClone(standing);
+invalidBounds.directions.front.bodyPolygon[0].x=101;
+assert.equal(validateLandmarkRecord(invalidBounds,'fixture').some(error=>error.includes('in-bounds')),true);
 
 const dynamic=structuredClone(standing);
 dynamic.id='runner-fixture';dynamic.poseClass='dynamic';
