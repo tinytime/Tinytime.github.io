@@ -11,7 +11,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest renderer source reviewed:** `4f0d135f0f14506a2c19df0f760d0fe2ec5a7495` (Referee handedness, rear hair, side-profile torso and card-grip refinement). Run [#426](https://github.com/tinytime/Tinytime.github.io/actions/runs/44557279748), job `135676647176`, tested that exact SHA; artifact `14545038850` inspected. Runner #416 and Coach #420 targeted QA evidence also remains valid. Referee-specific checks pass, but its dedicated live town spawn has not yet been captured. Overall workflow remains failed on the global Clinic/Sailor silhouette gate and explicitly unapproved golden baseline; 180 missing-audio 404s, no page/script errors.
+**Latest renderer source verified:** `3fdbd1e0640c97afce2c3b732491ff84823ba84e` (Coach clipboard / rear-hair correction). Browser run [#428](https://github.com/tinytime/Tinytime.github.io/actions/runs/44560760230), job `135689302384`, tested that exact SHA; artifact `14550985215` inspected. Coach four-direction review passes with a minor whistle-at-native-scale legibility note; standard town roster does not explicitly spawn Coach. Referee run #426 (`4f0d135f0f14506a2c19df0f760d0fe2ec5a7495`) remains the latest Referee-specific evidence; dedicated live town spawn has not been captured. Runner #416 remains current targeted evidence. Overall workflow fails on the global Clinic/Sailor silhouette gate and explicitly unapproved golden baseline; 180 missing-audio 404s, no page/script errors.
 
 **Active task:** Runner, Coach and Referee have passed targeted internal QA. The latest Referee render has been visually inspected at native and enlarged scale; handedness, rear hair, profile torso and card grip are consistent. The regular town screenshot does not spawn Referee, so a dedicated in-world Referee capture remains outstanding if town readability is required. All three remain NOT APPROVED pending Claude's comparative review and owner acceptance.
 **Assigned specialist chat:** **QA and Independent Review Coordinator**.
@@ -27,7 +27,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 
 ## Current focus
 
-The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The current group is **Runner, Coach, and Referee**. All three have passed targeted internal QA; comparative review is next.
+The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The current group is **Runner, Coach, and Referee**. All three have passed targeted internal QA; Coach's corrected-render run #428 has now been visually inspected, with a minor whistle-legibility note and no character-specific clipping or geometry defect. Comparative review is next.
 
 ## Source of truth
 
