@@ -11,9 +11,9 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest verified QA source for the current three-character review:** `9d7e66ba9667a555c4b42c65d5910a2ea08cc055`. Browser QA [run #442](https://github.com/tinytime/Tinytime.github.io/actions/runs/44577766543), artifact `14558375601`, confirms 12 direct `owCiv` captures at 28×42 (Runner/Coach/Referee × four directions), plus 12 native 64×96 captures. Both sets and the role-debug sheet, gallery and town regression screenshot were visually inspected. Targeted internal QA passes; the overall workflow remains failed on the global Clinic/Sailor silhouette overlap, unapproved golden snapshots, and 180 missing-audio 404s. No snapshots were refreshed or approved.
+**Latest verified renderer source:** `21481ee1768e80595cfdb13f6e338f57c10d076c`. Browser QA [run #444](https://github.com/tinytime/Tinytime.github.io/actions/runs/44579787401), artifact `14558936072`, contains 12 native 64×96 and 12 direct 28×42 Runner/Coach/Referee renders. All were visually inspected. Owner-requested side-profile far-arm removal and Runner leg anatomy refinements are implemented. Targeted internal QA passes; the overall workflow remains failed on the global Clinic/Sailor silhouette overlap, unapproved golden snapshots, and 180 missing-audio 404s. No snapshots were refreshed or approved.
 
-**Active task:** Claude independent comparative review of Runner, Coach and Referee against Granny Volt. The [run #442 review package](qa-artifacts/runner-coach-referee-run-442/README.md) is prepared in GitHub. All three remain NOT APPROVED pending Claude's review and owner acceptance. Do not begin the remaining 20.
+**Active task:** Claude independent comparative review of the corrected Runner, Coach and Referee designs against Granny Volt. The [updated run #444 Claude review package](../qa-artifacts/runner-coach-referee-run-444/README.md) is prepared in GitHub. All three remain NOT APPROVED pending Claude's review and owner acceptance. Do not begin the remaining 20.
 
 ## Working agreement
 
