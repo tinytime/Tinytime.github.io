@@ -187,3 +187,16 @@ The four-direction pixel-mask review sheet is now browser-generated and visually
 
 
 - **Landmark-to-mask evidence:** the new report records candidate headTop/chin/shoulder/pelvis/foot-baseline consistency against exact body alpha. Run #555 artifact results: body bounds y=9..136 in all views; headTop y=8 is 1 px above the first alpha row; chin is within bounds; shoulder points lie on exact alpha pixels; pelvis row widths 40 front/back and 30 profiles; footBaseline y=136 matches the bottom row. This flags headTop for review while supporting shoulder/foot placement; it is not semantic approval. Eleven local fixtures pass; fresh Actions verification remains pending.
+
+
+## Latest QA result — Run #587 (2026-11-19)
+
+- Workflow: [Vapor City Browser QA #587](https://github.com/tinytime/Tinytime.github.io/actions/runs/44632151886)
+- Tested commit: `64b841bdc53caad66fb9780a0f2bdeb3afcda0a2`; current branch head when reviewed: `8936de0cc808b939ab7efb4cec3dd20bb3d82d5f`. The three tested Granny code files (mask helper, 11-fixture test, capture script) have identical blob SHAs at both commits; later commits are documentation-only.
+- Granny helper tests: **11 fixtures passed**. Live Granny capture: **4/4 directions**. Pixel-mask overlay and fit report generated. Pixel-derived body and visible-umbrella contours reproduce their source alpha masks at IoU 1.0 in all four directions.
+- Landmark diagnostics: body bounds y=9..136 in all views; candidate headTop y=8 (one pixel above first body-alpha row); chin in bounds; shoulder points on exact body-alpha pixels; pelvis row widths 40 front/back and 30 profiles; foot baseline y=136 matches bottom row.
+- Manual body polygon fit remains weak: IoU 0.786 front/back and 0.645/0.644 profiles. This confirms the hand-transcribed candidate outlines need human refinement; the exact pixel contour is a renderer-mask reference, not an approved semantic polygon.
+- Manual full-umbrella candidate covers 81.5–82.2% of visible umbrella pixels; hidden geometry remains unscored. Visible-only contour fit is IoU 1.0 in all directions.
+- Six-civilian overlay: 24/24 captures. Five-civilian sheet: 20/20 native and 20/20 direct game-scale captures. Directional integrity 92/92, role debug 12/12, prop audit 10 archetypes, gallery rendered.
+- Workflow conclusion: **failure overall**. Browser diagnostics failed on widespread audio resource HTTP 404s. Five-civilian report also retains full-roster silhouette gate max IoU 0.909429 and golden snapshot gate 1 match / 23 changed. No golden snapshots were changed or approved.
+- Artifact: `14581958311` (`vapor-city-browser-qa`). Granny overlay and four-direction captures were downloaded and visually inspected. Granny remains `reference_only`; semantic polygons/landmarks are not approved. Fresh follow-up QA is still needed after addressing unrelated browser diagnostics and global gates.
