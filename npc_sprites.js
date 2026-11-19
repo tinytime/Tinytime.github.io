@@ -1010,8 +1010,14 @@
         if(rigView==='front'){put(16,12,3,3,'arm');put(18,12,2,2,'skin');}
         else if(rigView==='side'){put(32,12,3,3,'arm');put(34,11,2,2,'skin');}
       }
-      if(!qaExcludeProps&&kind==='welder'&&rigView==='back')put(16,17,8,2,'bodyshade');
-      if(!qaExcludeProps&&kind==='busker'&&rigView==='back')put(14,18,9,2,'bodyshade');
+      if(!qaExcludeProps&&kind==='welder'&&rigView==='back'){
+        // A narrow shoulder strap joins the cylinder to the back rig in the rendered mask.
+        put(16,22,2,20,'bodyshade');
+      }
+      if(!qaExcludeProps&&kind==='busker'&&rigView==='back'){
+        // Guitar-case strap runs from shoulder to lower case so the silhouette is one piece.
+        put(12,22,2,20,'bodyshade');
+      }
       for(const [px,py,pw,ph,role] of propLayers){
         if(qaExcludeProps&&ARCHETYPE_ACCESSORY_ROLES.has(role))continue;
         if(ARCHETYPE_ACCESSORY_ROLES.has(role))paintProp(px,py,pw,ph,role);
