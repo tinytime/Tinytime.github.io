@@ -1127,27 +1127,16 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     const curvePath=(start,segments,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(start[0],start[1]);segments.forEach(v=>g.bezierCurveTo(...v));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.stroke();}};
     // Airborne sprint: asymmetrical knee drive and trailing foot.
     if(!side){
-      // Short racing shorts end above the knees; exposed calves and rounded
-      // knee transitions keep the airborne stride athletic rather than trouser-like.
-      curvePath([40,89],[
-        [44,89,48,90,50,94],[51,98,47,103,41,106],
-        [36,108,31,104,31,99],[32,94,35,90,40,89]
-      ],shorts,ink,1.6);
-      curvePath([38,101],[
-        [44,102,46,106,42,112],[38,118,31,123,26,125],
-        [21,127,17,123,19,118],[23,111,29,105,33,102],
-        [35,101,36,101,38,101]
-      ],legSkin,ink,1.5);
-      curvePath([53,89],[
-        [58,88,64,88,67,93],[71,99,75,105,74,110],
-        [72,114,67,113,62,108],[58,103,55,96,53,89]
-      ],shorts,ink,1.6);
-      curvePath([69,105],[
-        [75,107,81,111,87,115],[91,119,89,124,84,125],
-        [77,125,70,120,66,114],[63,110,65,106,69,105]
-      ],legSkin,ink,1.5);
-      path([[20,120],[29,121],[34,126],[31,131],[16,131],[13,127]],shoe,ink,1.6);
-      path([[75,119],[87,117],[92,121],[91,126],[76,128],[71,124]],shoe,ink,1.6);
+      // Coach-inspired lower-body construction: clean, confident polygon planes
+      // with straight outer contours, compact knee transitions and clear shoes.
+      // The sprint remains asymmetric, but the legs share the same solid anatomy
+      // and visual weight as the other civilians rather than ribbon-like curves.
+      path([[35,89],[49,90],[51,98],[47,105],[39,108],[31,103],[31,96]],shorts,ink,1.6);
+      path([[37,103],[46,104],[43,113],[36,121],[27,126],[20,124],[22,117],[30,108]],legSkin,ink,1.5);
+      path([[51,89],[65,89],[70,96],[74,105],[70,112],[63,110],[57,102]],shorts,ink,1.6);
+      path([[68,105],[78,108],[88,115],[91,120],[87,125],[78,125],[69,119],[64,112]],legSkin,ink,1.5);
+      path([[20,120],[29,120],[34,125],[32,131],[16,131],[13,127]],shoe,ink,1.6);
+      path([[77,119],[88,117],[93,121],[91,127],[76,129],[71,124]],shoe,ink,1.6);
       // Removed detached pale sole glints; shoe highlights are now contained within the boot shapes.
       line([[37,109],[44,113]],'#8C2F3D',1.1);line([[62,108],[68,112]],'#8C2F3D',1.1); // restrained shorts seam, not torn orange slashes.
     }else{
@@ -1212,31 +1201,15 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[62,55],[71,58],[77,70],[73,78],[66,74],[62,65]],top);
         path([[71,74],[78,76],[79,82],[73,84],[69,80]],skin);
         // Far arm is occluded in profile; the near arm carries the stopwatch.
-        // Separate shorts from exposed lower legs. The near knee drives forward
-        // while the far leg trails; rounded contours define thigh, knee and calf.
-        // Build the stride from two compact thigh/shorts forms and tapered
-        // exposed calves. Keep the joints legible and avoid oversized ribbon-like limbs.
-        curvePath([33,89],[
-          [38,89,45,90,49,94],[52,98,52,102,48,105],
-          [44,108,37,106,33,102],[30,98,30,93,33,89]
-        ],shorts,ink,1.5);
-        curvePath([47,100],[
-          [52,102,53,106,49,111],[45,116,39,120,34,123],
-          [30,125,26,122,28,118],[30,113,35,107,39,103],
-          [42,101,45,100,47,100]
-        ],legSkin,ink,1.4);
-        // Trailing shorts stop at the knee; the full lower leg remains exposed
-        // so both stride legs read as human legs rather than one long trouser shape.
-        curvePath([49,90],[
-          [55,91,61,94,66,98],[71,102,76,105,79,108],
-          [79,111,75,114,70,111],[63,107,56,100,49,90]
-        ],shorts,ink,1.5);
-        curvePath([75,107],[
-          [80,108,85,111,89,116],[92,120,90,123,86,122],
-          [81,121,76,117,72,112],[71,110,72,108,75,107]
-        ],legSkin,ink,1.35);
-        path([[26,117],[37,117],[40,122],[38,128],[21,128],[18,124]],shoe,ink,1.5);
-        path([[82,113],[92,113],[96,117],[94,122],[81,123],[76,119]],shoe,ink,1.5);
+        // Use Coach's grounded side-view construction: one solid, tapered leg
+        // plane with a crisp shorts hem, a defined knee/calf and a single shoe.
+        // The far leg is largely occluded instead of becoming a second ribbon.
+        path([[35,89],[57,90],[60,99],[56,106],[43,107],[36,101]],shorts,ink,1.6);
+        path([[43,103],[56,104],[58,113],[55,122],[49,128],[40,126],[39,119],[42,111]],legSkin,ink,1.5);
+        path([[40,124],[54,124],[61,130],[60,135],[38,135],[35,131]],shoe,ink,1.6);
+        // A compact rear shoe tip hints at the trailing stride without a second
+        // oversized leg contour or overlapping calf mass.
+        path([[29,119],[39,119],[42,123],[39,127],[27,126],[24,123]],shoe,ink,1.45);
         // No floating sole strokes beneath the sprinting shoes.
         path([[69,73],[76,72],[78,77],[71,79]],'#F6C95C',ink,1);
         ell(72,74,2.5,2.5,'#25243B',ink,.9);line([[72,72],[73,74]],'#F6E7C1',.8);
