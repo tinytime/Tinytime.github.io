@@ -7,18 +7,18 @@
 **Requested reviewer:** Claude (independent reviewer)  
 **Final approval authority:** Project owner  
 **Builder:** ChatGPT  
-**Status:** RUN #436 INTERNAL VISUAL QA COMPLETE; READY FOR INDEPENDENT COMPARATIVE RE-REVIEW. ALL THREE CHARACTERS REMAIN NOT APPROVED.
+**Status:** RUN #437 INTERNAL VISUAL QA COMPLETE; READY FOR INDEPENDENT COMPARATIVE RE-REVIEW. ALL THREE CHARACTERS REMAIN NOT APPROVED.
 
-**Focused GitHub review package:** [Runner / Coach / Referee — latest run #436](qa-artifacts/runner-coach-referee-run-429/README.md). Download the run #436 artifact and use the exact PNG paths listed in that package index.
+**Focused GitHub review package:** [Runner / Coach / Referee — latest run #437](qa-artifacts/runner-coach-referee-run-437/README.md). Download artifact 14555840087 and use the exact PNG paths listed in that package index.
 
-## Primary evidence — use this latest combined run (run #436)
+## Primary evidence — use this latest combined run (run #437)
 
-- **Latest tested renderer/source commit:** [`b15d14fd9c6604c7ee232adf47d44a5d328054b3`](https://github.com/tinytime/Tinytime.github.io/commit/52f286912bf6fa44219972520211bc13d6f3ef7a)
-- **Browser QA run #432:** [GitHub Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44570917085)
-- **Job:** `135725393768`
-- **Artifact:** `vapor-city-browser-qa`, ID `14553029329`
-- **Report sourceCommitSha:** `52f286912bf6fa44219972520211bc13d6f3ef7a`
-- **Branch head at package preparation:** `52f286912bf6fa44219972520211bc13d6f3ef7a` (the tested source is the latest renderer commit; documentation commits followed it).
+- **Latest tested renderer/source commit:** [`4aee0893d41c2c67de560d9d494b7ba7639685f9`](https://github.com/tinytime/Tinytime.github.io/commit/4aee0893d41c2c67de560d9d494b7ba7639685f9)
+- **Browser QA run #437:** [GitHub Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44572590664)
+- **Job:** `135731400814`
+- **Artifact:** `vapor-city-browser-qa`, ID `14555840087`
+- **Report sourceCommitSha:** `4aee0893d41c2c67de560d9d494b7ba7639685f9`
+- **Branch head at package preparation:** `4aee0893d41c2c67de560d9d494b7ba7639685f9`.
 
 The artifact is the primary evidence. It contains all three characters' four native 64×96 directional PNGs, role-debug, full 23-civilian gallery, Granny comparison, town screenshot and report. Do not base approval on source code descriptions or earlier run images alone.
 
@@ -200,3 +200,12 @@ Run #435 verified Runner's duplicate profile leg removal and Referee's forward-s
 - **Internal visual verdict:** all three owner-reported profile defects are corrected in the run #436 native renders. This is not independent Claude review or owner approval. Runner/Coach/Referee remain NOT APPROVED pending Claude's comparative review and owner decision. Keep remaining 20 civilians on hold.
 
 **Reviewer focus for next pass:** compare Runner/Coach/Referee against Granny Volt on the latest source and assess the corrected profile anatomy, especially Coach's true side silhouette and clipboard grip, Referee's forward-side card arm, and Runner's two-leg stride. Review native 64×96 captures; the supplied artifact has no separate 28×42 browser captures, so a downsampled 28×42 check is supplementary only. The full artifact is attached to run #436, artifact ID `14553029329`.
+
+
+## Superseding polish verification — run #437
+
+Use run #437 as the current primary evidence; earlier run #436 and #432 images are historical only. The exact source changes after the prior run refine Runner's profile nose/mouth and remove cheek flecks that could read as stubble; refine Coach's whistle into an angled chamber with a dark mouthpiece opening and simplify the profile face into a clearer single-eye side silhouette. Referee is included unchanged from the prior corrected construction.
+
+All 12 native 64×96 direction captures were inspected, along with 6× nearest-neighbour enlargements, derived 28×42 resamplings, role-debug, 23-civilian gallery, Granny comparison, town capture and report. Targeted QA: inventory 135 NPCs / 24 mappings; palette and body/baseline pass; 23/23 unique faces at native and game scale; role-debug 12/12; integrity 92/92 with no edge contacts or detached large components; prop audit pass; silhouette-quality 180/180; gallery and town regression pass; zero page/script errors. Workflow-wide failures remain Clinic/Sailor front IoU 0.909429, unapproved snapshots (23 changed / 1 match), and 180 missing-audio 404s. No snapshots were refreshed or approved. Standard town scene does not explicitly spawn these three.
+
+**Reviewer request:** use the new run #437 images for fresh individual scores and verdicts. Reassess Runner's profile face cleanup, Coach's profile face and dark whistle mouthpiece at native/game scale, and Referee's unchanged forward-side card arm. Please state whether the batch is collectively ready for owner approval and identify any mandatory corrections. All three remain NOT APPROVED until the independent review and owner decision.
