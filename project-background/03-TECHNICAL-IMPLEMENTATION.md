@@ -60,3 +60,13 @@ The initial vector file under `docs/` is not necessarily the live implementation
 ## 2026-11-19 second-batch renderer polish
 
 The latest tested source is `52f286912bf6fa44219972520211bc13d6f3ef7a`. Runner's enlarged side-profile curl crown was lowered slightly after run #431 detected a single antialiased pixel touching the top edge in both profile captures; run #432 verifies all 92 directional captures have zero edge contacts. Referee's optional profile polish adds a clearer projecting nose, warm ear detail and an angled jacket seam to suggest a subtle three-quarter torso plane. These details are implemented in the dedicated Referee vector draw path in `npc_sprites.js`; they are not approval by themselves. See the [latest Claude review package](qa-artifacts/runner-coach-referee-run-429/README.md).
+
+
+## 2026-11-19 owner-feedback profile corrections
+
+Owner feedback from browser QA run #434 identified three profile-specific anatomy/layering defects. Renderer commit `6332fb4622ed56686771e60541f975b2d6e33a61` changes only the three affected vector draw paths in npc_sprites.js:
+- Runner: removed a preliminary side-leg/boot underlayer that duplicated one of the two later stride planes.
+- Coach: replaced the front-oval profile head treatment with a shaped profile silhouette and forward visor; reordered the side clipboard layers so the board and paper render in front of the forearm/hand while retaining a visible finger overlap.
+- Referee: moved the raised card arm and card to the forward/face side of the side-profile body; left-facing output is mirrored from the same anatomical construction.
+
+Browser QA run #435 (`44570451203`) is the required verification run for this exact source. These are implementation changes, not approval. Inspect all four directions and both native/game scales before recording them as visually verified.
