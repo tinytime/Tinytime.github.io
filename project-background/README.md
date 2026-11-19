@@ -11,11 +11,11 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest verified source commit at this status check:** Courier correction source `98dbcda2a32fa506ba355f12ddd449db3322a4b4`. Browser QA run [#410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44542492048) tested that exact commit; artifact `14537384741` was downloaded and independently re-inspected. The Courier corrections pass internal visual QA. Latest verified documentation handoff commit: `e44c4085a707fb9b6b285f7ac9cb51b001a70061`.
+**Latest branch head:** `db3f958351aa9994fab544dfb915ea0e2424708d`. The latest game/renderer/QA source tested remains `98dbcda2a32fa506ba355f12ddd449db3322a4b4`; the 12 commits between those SHAs are documentation-only. Browser QA run [#410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44542492048), job `135624264131`, tested that exact source commit; artifact `14537384741` was independently re-fetched and visually inspected by the QA Coordinator. Courier's three required corrections pass internal visual QA.
 
-**Active task:** Courier's corrected vector art has passed the QA Coordinator's independent artifact verification. The profile face, consistent messenger satchel/right-hip rear placement, and removed detached hem stripe are confirmed in the fresh four-direction captures. The 8× role-debug sheet, 4× gallery, and town screenshot were also inspected. All Courier-specific targeted checks passed; the overall workflow remains failed on the global legacy silhouette audit and unapproved golden snapshots, with missing audio-resource 404s logged. No golden snapshots were changed.
-**Assigned specialist chat:** **QA and Independent Review Coordinator**.
-**Next action:** Send the updated Courier four-direction captures and role-debug evidence from run #410 to Claude for focused re-review of the three previously required corrections. Record Claude's response and return the complete pilot batch to the owner. Keep the remaining 20 civilian designs on hold until the three-pilot review is complete and the owner approves the direction.
+**Active task:** Renderer integration and QA verification are complete. The corrected side profiles, consistent messenger satchel (rear view on viewer-right / character's right hip), and removed detached hem stripe are confirmed in the four native captures. The 8× role-debug sheet, gallery, and town screenshot were also inspected. A focused Claude re-review package has been prepared; it has **not** yet been sent or reviewed.
+**Assigned specialist chat:** **QA and Independent Review Coordinator — completed**.
+**Next action:** Submit `vapor-city-courier-claude-rereview.zip` to Claude for focused re-review of the three previously required Courier corrections. Record Claude's response, then return the complete pilot batch to the owner. Keep the remaining 20 civilian designs on hold.
 
 ## Working agreement
 
