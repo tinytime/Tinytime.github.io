@@ -245,3 +245,14 @@ Owner feedback: all three side profiles should show only one visible arm; Runner
 - **Animation clarification:** Runner's current vector draw path is a static pose per direction; the unusual leg shapes were not temporary animation frames.
 - Run #443 artifact visually confirmed the one-arm side-profile change. Run #444 is the verification render for the fuller Runner leg refinement; inspect its artifact before closing the feedback.
 - Status: owner feedback implemented in renderer; fresh QA and visual inspection pending. All three remain NOT APPROVED pending independent review and owner acceptance.
+
+
+## Run #444 — owner-requested side-profile and Runner leg corrections (2026-11-19)
+
+- Source: `21481ee1768e80595cfdb13f6e338f57c10d076c`; [Actions run #444](https://github.com/tinytime/Tinytime.github.io/actions/runs/44579787401), artifact `14558936072`.
+- Side-profile far arms removed for Runner, Coach and Referee; respective near stopwatch/clipboard/raised-card arms retained.
+- Runner's shorts/calf split and leg contours refined across front/back/left/right. The pose is static per direction, not an animation frame.
+- Inspected all 12 native 64×96 and 12 direct 28×42 images. Targeted QA PASS: capture 12/12, role-debug 12/12, visual integrity 92/92, face distinctness 23/23, palette/body, props, silhouette quality 180/180, gallery and town regression; zero page/script errors.
+- Workflow-wide failures persist on Clinic/Sailor silhouette overlap, unapproved golden snapshots, and 180 missing-audio 404s. No snapshots refreshed or approved.
+- Updated independent review brief: [Claude package — run #444](../qa-artifacts/runner-coach-referee-run-444/README.md).
+- **Status:** internal corrections and targeted QA PASS; Claude review and owner approval still pending. All three remain NOT APPROVED. Remaining 20 stay on hold.
