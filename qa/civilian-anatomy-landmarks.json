@@ -451,8 +451,15 @@
         "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
-        "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
-        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points. Prop exclusions tightened to renderer-defined object contours and made direction-specific; Cook rear view has no pan exclusion, Courier rear view excludes only the satchel, and Courier parcel/satchel contours follow their actual path shapes."
+        "reviewStatus": "candidate_visually_spot_checked_run530",
+        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points. Prop exclusions tightened to renderer-defined object contours and made direction-specific; Cook rear view has no pan exclusion, Courier rear view excludes only the satchel, and Courier parcel/satchel contours follow their actual path shapes.",
+        "visualReview": {
+          "run": 530,
+          "artifactId": 14573802446,
+          "capturesReviewed": 4,
+          "result": "Broad anatomical silhouettes, headwear exclusions, and direction-specific prop exclusions visually align with all 24 native captures at overlay scale.",
+          "remaining": "These are manually transcribed coarse polygons, not pixel-traced masks. Ratios remain candidates; do not promote to measured or calibrate until source-coordinate boundary review and Granny semantic harmonization are complete."
+        }
       }
     },
     "cook": {
@@ -948,8 +955,15 @@
         "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
-        "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
-        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points. Prop exclusions tightened to renderer-defined object contours and made direction-specific; Cook rear view has no pan exclusion, Courier rear view excludes only the satchel, and Courier parcel/satchel contours follow their actual path shapes."
+        "reviewStatus": "candidate_visually_spot_checked_run530",
+        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points. Prop exclusions tightened to renderer-defined object contours and made direction-specific; Cook rear view has no pan exclusion, Courier rear view excludes only the satchel, and Courier parcel/satchel contours follow their actual path shapes.",
+        "visualReview": {
+          "run": 530,
+          "artifactId": 14573802446,
+          "capturesReviewed": 4,
+          "result": "Broad anatomical silhouettes, headwear exclusions, and direction-specific prop exclusions visually align with all 24 native captures at overlay scale.",
+          "remaining": "These are manually transcribed coarse polygons, not pixel-traced masks. Ratios remain candidates; do not promote to measured or calibrate until source-coordinate boundary review and Granny semantic harmonization are complete."
+        }
       }
     },
     "courier": {
@@ -1564,8 +1578,15 @@
         "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
-        "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
-        "note": "Candidate geometry only. Courier cap polygons were tightened to the renderer's swept crown and visor path; parcel exclusions and anatomical arm contours still require visual correction. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points. Prop exclusions tightened to renderer-defined object contours and made direction-specific; Cook rear view has no pan exclusion, Courier rear view excludes only the satchel, and Courier parcel/satchel contours follow their actual path shapes."
+        "reviewStatus": "candidate_visually_spot_checked_run530",
+        "note": "Candidate geometry only. Courier cap polygons were tightened to the renderer's swept crown and visor path; parcel exclusions and anatomical arm contours still require visual correction. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points. Prop exclusions tightened to renderer-defined object contours and made direction-specific; Cook rear view has no pan exclusion, Courier rear view excludes only the satchel, and Courier parcel/satchel contours follow their actual path shapes.",
+        "visualReview": {
+          "run": 530,
+          "artifactId": 14573802446,
+          "capturesReviewed": 4,
+          "result": "Broad anatomical silhouettes, headwear exclusions, and direction-specific prop exclusions visually align with all 24 native captures at overlay scale.",
+          "remaining": "These are manually transcribed coarse polygons, not pixel-traced masks. Ratios remain candidates; do not promote to measured or calibrate until source-coordinate boundary review and Granny semantic harmonization are complete."
+        }
       }
     },
     "runner": {
@@ -2499,8 +2520,15 @@
         "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
-        "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
-        "note": "Candidate geometry only. Race bib remains in the body/garment mask and stopwatch is separately bounded where visible. Runner joint landmarks were revised against the source stride paths; they remain provisional and need visual verification against each direction. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points."
+        "reviewStatus": "candidate_visually_spot_checked_run530",
+        "note": "Candidate geometry only. Race bib remains in the body/garment mask and stopwatch is separately bounded where visible. Runner joint landmarks were revised against the source stride paths; they remain provisional and need visual verification against each direction. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points.",
+        "visualReview": {
+          "run": 530,
+          "artifactId": 14573802446,
+          "capturesReviewed": 4,
+          "result": "Broad anatomical silhouettes, headwear exclusions, and direction-specific prop exclusions visually align with all 24 native captures at overlay scale.",
+          "remaining": "These are manually transcribed coarse polygons, not pixel-traced masks. Ratios remain candidates; do not promote to measured or calibrate until source-coordinate boundary review and Granny semantic harmonization are complete."
+        }
       }
     },
     "coach": {
@@ -2960,8 +2988,15 @@
         "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
-        "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
-        "note": "Candidate geometry only. Clipboard polygons now follow the actual front/profile board paths; the rear view has no clipboard or whistle prop exclusions. Prop bounds still require pixel-tight spot-checking."
+        "reviewStatus": "candidate_visually_spot_checked_run530",
+        "note": "Candidate geometry only. Clipboard polygons now follow the actual front/profile board paths; the rear view has no clipboard or whistle prop exclusions. Prop bounds still require pixel-tight spot-checking.",
+        "visualReview": {
+          "run": 530,
+          "artifactId": 14573802446,
+          "capturesReviewed": 4,
+          "result": "Broad anatomical silhouettes, headwear exclusions, and direction-specific prop exclusions visually align with all 24 native captures at overlay scale.",
+          "remaining": "These are manually transcribed coarse polygons, not pixel-traced masks. Ratios remain candidates; do not promote to measured or calibrate until source-coordinate boundary review and Granny semantic harmonization are complete."
+        }
       }
     },
     "referee": {
@@ -3782,8 +3817,15 @@
         "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
-        "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
-        "note": "Candidate geometry only. Referee's core body and raised-arm/hand appendages are separated to avoid a self-crossing single polygon. The card/whistle exclusion polygons remain separate. All contours still require human verification against native captures."
+        "reviewStatus": "candidate_visually_spot_checked_run530",
+        "note": "Candidate geometry only. Referee's core body and raised-arm/hand appendages are separated to avoid a self-crossing single polygon. The card/whistle exclusion polygons remain separate. All contours still require human verification against native captures.",
+        "visualReview": {
+          "run": 530,
+          "artifactId": 14573802446,
+          "capturesReviewed": 4,
+          "result": "Broad anatomical silhouettes, headwear exclusions, and direction-specific prop exclusions visually align with all 24 native captures at overlay scale.",
+          "remaining": "These are manually transcribed coarse polygons, not pixel-traced masks. Ratios remain candidates; do not promote to measured or calibrate until source-coordinate boundary review and Granny semantic harmonization are complete."
+        }
       }
     }
   },
