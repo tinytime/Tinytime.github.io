@@ -43,11 +43,11 @@ The project owner approved the first batch (Usher, Cook, Courier) on 2026-11-19 
 
 ## Expanded six-civilian comparative review — 2026-11-19
 
-The owner has requested a single full comparative review of all six completed vector civilians, not only the second batch. The review package is [Claude full six-civilian review](../qa-artifacts/six-civilian-full-review/README.md). It explicitly provides the live renderer source **[npc_sprites.js](../npc_sprites.js)** (underscore; authoritative file), pinned to renderer source commit `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`, plus first-batch and latest combined six-civilian QA evidence from run #457.
+The owner initially requested a review of all six, then reduced the scope to five to fit Claude's usage: **Usher, Cook, Courier, Coach and Referee**. Runner is deliberately excluded for this round because it shares the athletic archetype with Coach and Referee; this is not deletion, rejection or approval. Runner remains built and awaits a later focused review. The new handoff is [Claude's five-civilian review package](../qa-artifacts/five-civilian-full-review/README.md). It explicitly links the authoritative live renderer **[npc_sprites.js](../npc_sprites.js)** at exact tested source `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`, the raw source, and run #457's six-character image evidence (with the five in-scope characters identified).
 
-Claude's deliverables: individual score/verdict and required/optional fixes for Usher, Cook, Courier, Runner, Coach and Referee; a six-character comparative ranking; and a technically actionable Vapor City Civilian Vector Build Standard derived from the strengths and failure patterns of these six. The standard must speed up future production without imposing a shared body/template or sacrificing bespoke identities.
+Claude's deliverables: individual scores/verdicts and ranked required/optional fixes for the five in-scope characters; a five-character comparative ranking; an overall batch verdict; and a technically actionable Vapor City Civilian Vector Build Standard. The standard must reduce avoidable iteration with a design brief, preflight checklist, four-view planning, construction rules, implementation conventions and QA gates—without imposing a shared body/template or sacrificing bespoke identities.
 
-Status is unchanged: Usher, Cook and Courier remain APPROVED BY OWNER. Runner, Coach and Referee remain BUILT — TARGETED INTERNAL QA PASSED — NOT APPROVED. The remaining 20 remain ON HOLD until Claude's review is evaluated, the owner approves any corrections and the owner approves the reusable build standard. No golden snapshots were refreshed or approved. The review package is prepared in GitHub; it has not been transmitted to Claude through an external channel.
+Status is unchanged: Usher, Cook and Courier remain APPROVED BY OWNER. Coach and Referee remain BUILT — NOT APPROVED. Runner remains BUILT — NOT APPROVED and is excluded only from this review. The remaining 20 remain ON HOLD until the owner reviews Claude's findings and approves the standard. No golden snapshots were refreshed or approved. The package is prepared in GitHub; it has not been transmitted to Claude externally.
 
 ## Run #457 — combined six-civilian polish verification (2026-11-19)
 
@@ -293,3 +293,12 @@ Owner feedback: all three side profiles should show only one visible arm; Runner
 - **Overall workflow failed:** global civilian type silhouette audit still flags Clinic/Sailor front at IoU `0.9094292803970223` (other close pairs also listed in report); golden snapshots remain unapproved (23 changed / 1 match); 180 existing audio resource 404s. No snapshots were refreshed or approved.
 - **Evidence:** run artifact contains `npc-type-directions/runner-{front,back,left,right}.png`, `npc-game-scale-28x42/runner-*.png`, role-debug, gallery/town screenshots and `report.json`. See [run artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/44587406698).
 - **Status:** internal targeted QA and visual inspection pass. Claude review and owner approval are still pending; Runner, Coach and Referee remain NOT APPROVED. Remaining 20 remain on hold.
+
+
+## Five-civilian Claude review scope — owner update (2026-11-19)
+
+- **In scope:** Usher, Cook, Courier, Coach, Referee.
+- **Excluded only for this round:** Runner. Not deleted, not rejected, not approved; it remains pending a later focused review. Reason: reduce Claude's review load while retaining Coach and Referee as distinct athletic-role examples alongside civic, vendor and courier designs.
+- **Review package:** [five-civilian full review](../qa-artifacts/five-civilian-full-review/README.md). The package explicitly names `npc_sprites.js` and pins both rendered evidence and source to run #457 / commit `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`.
+- **Required Claude output:** five scores and verdicts; severity-ranked fixes; five-character ranking; batch verdict; practical Civilian Vector Build Standard designed to minimize future iteration without templating the cast.
+- No new character implementation is authorized by this scope reduction. Remaining 20 remain ON HOLD.
