@@ -1050,29 +1050,36 @@
         {eyes:[[28,11],[36,10]],brows:[[28,9],[36,7]],mouth:[32,17],mouthPixels:[[0,0,'inkdetail'],[0,1,'skinshade']] } // concerned
       ];
       const face=faceSets[faceStyle];
+      // Facial features are deliberately larger than single source pixels.
+      // At the in-game scale a 1x1 mark disappears; 2x2 eyes/mouths and 3x2
+      // brows survive downsampling while retaining the 64x96 pixel-art grid.
+      const stampFace=(x,y,role,w=2,h=2)=>{
+        for(let fy=y;fy<Math.min(H,y+h);fy++)for(let fx=x;fx<Math.min(N,x+w);fx++)if(fx>=0&&fy>=0)grid[fy][fx]=role;
+      };
       if(!side&&!back){
         // Clear the generic base marks before laying down this NPC's expression.
         for(const [ex,ey] of [[28,10],[36,10],[32,16]])grid[ey][ex]='skin';
-        for(const [ex,ey] of face.eyes)grid[ey][ex]='inkdetail';
-        for(const [bx,by] of face.brows)grid[by][bx]='hair';
-        for(const [dx,dy,role] of face.mouthPixels)grid[face.mouth[1]+dy][face.mouth[0]+dx]=role;
-        if(face.cheeks)for(const [cx,cy] of face.cheeks)grid[cy][cx]='skinlight';
-        if(face.facialHair)for(const [hx,hy] of face.facialHair)grid[hy][hx]='hair';
-        if(faceDetail)grid[faceDetail[1]][faceDetail[0]]='skinlight';
+        for(const [ex,ey] of face.eyes)stampFace(ex,ey,'inkdetail',2,2);
+        for(const [bx,by] of face.brows)stampFace(bx,by,'hair',3,2);
+        for(const [dx,dy,role] of face.mouthPixels)stampFace(face.mouth[0]+dx,face.mouth[1]+dy,role,2,2);
+        if(face.cheeks)for(const [cx,cy] of face.cheeks)stampFace(cx,cy,'skinlight',2,2);
+        if(face.facialHair)for(const [hx,hy] of face.facialHair)stampFace(hx,hy,'hair',2,2);
+        if(faceDetail)stampFace(faceDetail[0],faceDetail[1],'skinlight',2,2);
       }
       if(side){
         // Profile face includes a projecting nose and stepped chin, including beneath headwear.
-        grid[8][40]='skin';
+        stampFace(40,8,'skin',2,2);
         const profileEyeX=33+(faceStyle%3);
-        grid[10][profileEyeX]='inkdetail';
-        grid[8][profileEyeX]='hair';
-        grid[16][profileEyeX-1]=faceStyle%2===0?'inkdetail':'skinshade';
-        if(faceStyle===5){grid[15][profileEyeX-1]='hair';grid[16][profileEyeX]='hair';}
-        if(faceStyle===6)grid[11][profileEyeX]='skinlight';
-        if(faceStyle===7)grid[9][profileEyeX-1]='hair';
-        grid[10][42]='skinlight';grid[11][44]='skin';grid[12][42]='skinshade';
-        grid[14][41]='skinshade';grid[15][40]='skinlight';
-        if(faceDetail)grid[Math.min(16,faceDetail[1])][Math.min(40,faceDetail[0]+2)]='skinlight';
+        stampFace(profileEyeX,10,'inkdetail',2,2);
+        stampFace(profileEyeX,8,'hair',2,2);
+        stampFace(profileEyeX-1,16,faceStyle%2===0?'inkdetail':'skinshade',2,2);
+        if(faceStyle===5){stampFace(profileEyeX-1,15,'hair',2,2);stampFace(profileEyeX,16,'hair',2,2);}
+        if(faceStyle===6)stampFace(profileEyeX,11,'skinlight',2,2);
+        if(faceStyle===7)stampFace(profileEyeX-1,9,'hair',2,2);
+        // Projecting nose bridge, tip and chin are sized to remain visible at 1x.
+        stampFace(42,10,'skinlight',2,2);stampFace(44,11,'skin',2,2);stampFace(42,12,'skinshade',2,2);
+        stampFace(41,14,'skinshade',2,2);stampFace(40,15,'skinlight',2,2);
+        if(faceDetail)stampFace(Math.min(40,faceDetail[0]+2),Math.min(16,faceDetail[1]),'skinlight',2,2);
       }
       const fanJerseyStyles={
         driverA:'stripes',fan1:'crest',fan2:'bars',fanA:'sash',fanB:'split',
