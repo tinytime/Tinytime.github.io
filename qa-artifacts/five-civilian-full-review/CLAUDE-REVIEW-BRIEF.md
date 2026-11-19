@@ -74,3 +74,7 @@ Read [Civilian Vector Construction Standard](../../project-background/CIVILIAN-V
 6. Does the standard preserve original character identity and avoid turning Granny's body or design into a template?
 
 Please return a concrete proposed revision and calibration table. Keep all numeric bands and score thresholds provisional unless the evidence supports locking them. Your critique must distinguish Granny's measured facts from the draft's proposed targets.
+
+## Additional context: six-civilian standard application
+
+ChatGPT has completed an internal application of the draft construction standard to all six built vector civilians, including Runner. See [Six-Civilian Construction Standard Audit](../../project-background/SIX-CIVILIAN-CONSTRUCTION-AUDIT.md) for the six per-character construction cards, provisional scorecard, rendered evidence, and QA measurements. **Review scope remains the five characters listed above.** Runner is not added to the independent Claude review by this note; the owner must explicitly change that scope if desired.
