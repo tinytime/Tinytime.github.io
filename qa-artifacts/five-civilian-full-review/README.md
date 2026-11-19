@@ -164,3 +164,17 @@ The generated sheet is based on 20 native 64×96 directional captures for the fi
 - [Artifact `14568746641`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571/artifacts/14568746641) includes 20 native 64×96 captures, 20 direct 28×42 captures, the paired contact sheets, role-debug/gallery/town evidence and report.
 - Generator step passed; both contact sheets generated and no expected images were missing. The main diagnostics remain failed on global silhouette overlap and unapproved golden snapshots.
 - ChatGPT has not visually inspected the PNGs. The owner can now review the two contact sheets and individual images directly from the artifact; no character approvals have been changed.
+
+
+## Current evidence — runs #463 and #464 (2026-11-19)
+
+The five review characters now have both evidence scales for every direction:
+
+- Run #463 (https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178) verified 20 direct 28×42 renders (five civilians × four directions) from the live `owCiv` renderer, not resized 64×96 captures.
+- Run #464 (https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571) uploaded artifact 14568746641. It contains `five-civilian-native-4x-contact-sheet.png`, `five-civilian-game-scale-4x-contact-sheet.png`, the summary, individual native/direct PNGs, gallery/town screenshots and QA report.
+- Run #464 checks: native 20/20; direct game-scale 20/20; directional integrity 92/92; role debug 12/12; prop audit PASS; gallery PASS; page errors 0; script errors 0.
+- ChatGPT visually inspected both contact sheets and the town screenshot. No obvious clipping or detached pieces were seen; signature props and role cues persist across directions. Fine face detail compresses at 28×42, but major silhouettes and props remain distinguishable. This is internal QA, not Claude review or owner approval.
+
+The overall workflow remains FAILED on the global civilian silhouette audit (max IoU 0.9094292803970223, Clinic/Sailor front; Coach/Courier back 0.8939319190922546) and unapproved golden snapshot comparison (1 match / 23 changed). Missing-audio 404s remain; page/script exceptions are zero. No thresholds were lowered and no golden snapshots were refreshed or approved.
+
+**Status:** all five remain NOT APPROVED pending Claude's independent review and the owner's final decision. Runner is excluded from this review round; remaining 20 civilians remain ON HOLD.
