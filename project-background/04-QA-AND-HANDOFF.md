@@ -286,3 +286,17 @@ The separate full civilian type-silhouette audit is still failed: Clinic/Sailor 
 - Overall workflow remains failed on global Clinic/Sailor front IoU `0.9094292803970223`, explicitly unapproved golden snapshots (23 changed / 1 match), and 180 audio 404s. No snapshots were refreshed or approved.
 - Claude's brief requests separate scores/verdicts, mandatory corrections versus optional polish, Granny-quality comparison without imitation, and an overall batch verdict.
 - **Status:** package prepared in GitHub; it has not been sent to Claude through an external channel. Runner, Coach and Referee remain NOT APPROVED until Claude review and owner acceptance. Remaining 20 stay on hold.
+
+
+## Run #444 — owner-requested side-profile and Runner leg corrections (2026-11-19)
+
+- **Exact renderer source:** `21481ee1768e80595cfdb13f6e338f57c10d076c` — [commit](https://github.com/tinytime/Tinytime.github.io/commit/21481ee1768e80595cfdb13f6e338f57c10d076c).
+- **Browser QA:** [run #444](https://github.com/tinytime/Tinytime.github.io/actions/runs/44579787401), run ID `44579787401`, job `135756996215`; artifact ID `14558936072`.
+- **Owner feedback:** side profiles of all three characters should not show two arms; Runner's legs looked unusually angular and trouser-like.
+- **Changes:** Runner, Coach and Referee now hide the far arm in side views while retaining the defining near arm (Runner stopwatch, Coach clipboard, Referee raised card). Runner's leg geometry now uses curved contours, shorts ending above the knees, and exposed lower-leg skin across front/back/side directions.
+- **Animation clarification:** the current Runner vector draw path is a static pose per direction; the old leg geometry was not an animation frame that would normalize automatically.
+- **Artifact inspection:** all 12 native 64×96 and all 12 direct 28×42 renders inspected. One visible arm in each side profile; Runner's shorts/calf separation and two-leg stride read more clearly at both scales. No crop-edge clipping or detached large components.
+- **Targeted QA PASS:** syntax and NPC module checks; direct game-scale capture 12/12; role-debug 12/12; civilian visual integrity 92/92 with zero edge contacts/detached components; face distinctness 23/23 at native and game scale; palette/body checks; prop audit; archetype silhouette quality 180/180; gallery visual check; town regression (16 NPCs, Granny present); page errors 0 and script errors 0.
+- **Overall workflow FAILED** on the unchanged global gates: Clinic/Sailor front silhouette IoU `0.9094292803970223`; unapproved golden snapshots (23 changed / 1 match); 180 missing-audio 404s. No snapshots were refreshed or approved.
+- **Updated Claude package:** [run #444 review brief and evidence index](../qa-artifacts/runner-coach-referee-run-444/README.md).
+- **Status:** owner-requested corrections implemented and targeted internal QA/visual inspection PASS. Not Claude-reviewed or owner-approved. All three remain NOT APPROVED; remaining 20 stay on hold.
