@@ -314,3 +314,6 @@ The measurement framework is implemented in `qa/civilian-proportion-measurements
 The framework separates anatomical body polygons, headwear polygons and prop polygons, and records semantic landmarks per direction in a shared 100×140 source-space convention. Runner uses explicit joint landmarks for its airborne pose and is excluded from standing lower-body ratio calculations.
 
 Calibration boundary: Granny's existing reference values remain a legacy reference record, not silently relabelled semantic measurements. The six NPCs remain pending human annotation. No Granny-to-NPC proportion comparison is yet claimed, and all proposed numeric bands remain provisional and non-enforcing.
+
+
+**Annotation readiness update:** the six-character manifest now has explicit front/back/left/right annotation slots for every character. Source-space point and polygon bounds are validated against the 100×140 coordinate grid, and the structural check requires the exact six-character roster. Missing landmarks remain visibly pending; they are not synthesized from sprite bounds.
