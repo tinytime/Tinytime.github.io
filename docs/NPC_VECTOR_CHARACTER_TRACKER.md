@@ -39,10 +39,10 @@ All designs below remain unapproved until their own design and review are comple
 | 1 | Runner | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 2 | Coach | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 3 | Referee | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 4 | Courier | **NOT STARTED — NOT APPROVED** | Pending | Pending | Included in first three-character pilot. |
+| 4 | Courier | **PLANNED — NOT APPROVED** | Pending | Pending | Included in first three-character pilot. |
 | 5 | Guard | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 6 | Vendor | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 7 | Cook | **NOT STARTED — NOT APPROVED** | Pending | Pending | Included in first three-character pilot. |
+| 7 | Cook | **IN PROGRESS — NOT APPROVED** | Pending | Pending | Included in first three-character pilot. |
 | 8 | Clinic worker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 9 | Tech | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 10 | Hacker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
