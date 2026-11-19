@@ -588,7 +588,7 @@ try {
       roleLegend:item.roleLegend||[]}))};
   });
   const roleDebugSheet = await page.evaluate(async capture => {
-    const cellW=512,cellH=768,gap=24,cols=4,rows=2,legendH=430;
+    const cellW=512,cellH=768,gap=24,cols=4,rows=3,legendH=430;
     const canvas=document.createElement('canvas');
     canvas.width=cols*cellW+(cols+1)*gap;
     canvas.height=rows*cellH+(rows+1)*gap+legendH;
@@ -606,7 +606,7 @@ try {
     }
     const legendY=rows*cellH+(rows+1)*gap+24;
     ctx.font='bold 18px monospace';ctx.textAlign='left';ctx.fillStyle='#ffffff';
-    ctx.fillText('ROLE COLOR KEY (consistent colors across all eight views)',gap,legendY);
+    ctx.fillText('ROLE COLOR KEY (consistent colors across all ten views)',gap,legendY);
     const grouped=[...new Set(capture.items.flatMap(item=>item.roleLegend.map(role=>role.role)))].sort();
     const colorByRole=new Map();
     capture.items.forEach(item=>item.roleLegend.forEach(role=>colorByRole.set(role.role,role.color)));
@@ -626,7 +626,7 @@ try {
     civilians:['runner','coach','cook','courier','usher'],scale:8,outline:'omitted',roleLegend:roleDebugRoles,
     roleLegendCount:roleDebugRoles.length,
     perViewLegendCounts:roleDebugCapture.items.map(item=>({civ:item.civ,direction:item.direction,count:item.roleLegend.length})),
-    path:'runner-cook-courier-usher-role-debug-8x.png'};
+    path:'runner-coach-cook-courier-usher-role-debug-8x.png'};
   const roleDebugRowWidthReport = await page.evaluate(() => {
     const table=window.NPC_SPRITES?.TABLES?.CIV_TORSO_MASKS;
     if(!table)throw new Error('Civilian torso mask table is unavailable for row-width diagnostics');
