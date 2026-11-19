@@ -57,12 +57,11 @@ The inventory generator reads live NPC records and renderer tables from the game
 ## Next actions
 
 1. Check the latest branch head and confirm the tracker is current.
-2. Continue the Cook vector design and integration.
-3. Run and inspect Cook's four-direction and town-context output.
-4. Build Courier as a distinct third character and repeat the same QA.
-5. Once Usher, Cook, and Courier are all internally checked, assemble one Claude review package comparing the three with Granny Volt.
-6. Record Claude's findings in the tracker, make required corrections, and recheck.
-7. Only after the three-character review should the project owner decide whether to proceed with the remaining civilian roster.
+2. Courier's bespoke vector renderer is integrated in `npc_sprites.js`; inspect the latest pending browser run `44538730042` and its four-direction, role-debug, gallery, town, and JSON artifacts.
+3. Correct any Courier-specific defects and rerun the browser workflow. Keep global legacy silhouette and golden-snapshot failures separate from Courier-specific results; do not refresh snapshots.
+4. Once Usher, Cook, and Courier are all internally checked, assemble one Claude review package comparing the three with Granny Volt.
+5. Record Claude's findings in the tracker, make required corrections, and recheck.
+6. Only after the three-character review should the project owner decide whether to proceed with the remaining civilian roster.
 
 ## Handoff checklist for a new builder
 
