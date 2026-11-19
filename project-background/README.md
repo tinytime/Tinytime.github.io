@@ -166,3 +166,6 @@ The four-direction pixel-mask review sheet is now browser-generated and visually
 
 
 - **Pixel-derived contour follow-up:** the current capture preserves the old manual body polygons for comparison and derives the active candidate body contour from the exact umbrella-excluded body alpha. Local six-fixture tests pass; applying the contour helper to Run #555's actual artifact gives IoU 0.9964/0.9961/0.9954/0.9975 (front/back/left/right), recall 1.0 in all directions. The overlay now distinguishes derived contour (red) from manual candidate (magenta). This validates contour extraction against the renderer mask, not semantic correctness. Fresh Actions verification for this latest change is pending; Granny remains `reference_only`.
+
+
+- **Visible prop distinction:** the latest capture preserves the complete manual umbrella geometry separately from a pixel-derived visible-only prop contour. On Run #555 data, the visible contour matches exposed umbrella alpha at IoU 1.0 in all directions; the full manual candidate covers 81.5–82.2% of visible pixels. Hidden/occluded geometry is not treated as an error. This latest code/overlay update still needs fresh Actions verification and visual inspection.
