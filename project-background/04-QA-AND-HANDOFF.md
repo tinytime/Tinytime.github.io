@@ -417,3 +417,16 @@ Commit `c1d8d75aceeef0c9a689c2f8c40ae88909c55ada` expands `npcRenderGameScaleSna
 ## Paired native and game-scale review sheets — run #464
 
 The review-sheet generator now packages two separate contact sheets: `five-civilian-native-4x-contact-sheet.png` from native 64×96 captures, and `five-civilian-game-scale-4x-contact-sheet.png` from direct 28×42 `owCiv` captures (4× nearest-neighbour enlargement for inspection). [Run #464](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571) verified 20/20 native and 20/20 direct game-scale captures, with no missing images, and uploaded [artifact `14568746641`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571/artifacts/14568746641). The workflow still fails on the global silhouette and golden snapshot gates; the paired sheets are evidence aids, not approval. Human visual inspection remains outstanding.
+
+
+## Runs #463–#464 — direct game-scale evidence and internal visual QA (2026-11-19)
+
+The five-character QA set now has complete, independently inspectable native and direct game-scale evidence.
+
+- Implementation commit c1d8d75aceeef0c9a689c2f8c40ae88909c55ada expands the live renderer hook to Usher, Cook, Courier, Coach and Referee, four directions each. Each 28×42 PNG is a direct `owCiv` render at live OWT=36 / vector scale 0.28, not a resize.
+- Run #463 (https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178) confirmed 20/20 unique civilian/direction pairs.
+- Generator commit 2b21457cb4faaa5d993c46d696df3d3aca07f87a adds a second 4× nearest-neighbour contact sheet built from direct 28×42 PNGs, separate from the 64×96 native sheet.
+- Run #464 (https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571) uploaded artifact 14568746641. Both sheets and summary were verified in the artifact. Report: native 20/20, direct game-scale 20/20, directional integrity 92/92, role debug 12/12, prop audit pass, gallery pass, page errors 0, script errors 0.
+- ChatGPT visually inspected the native contact sheet, direct game-scale contact sheet and town screenshot. No obvious clipping or detached components were seen. Usher clipboard, Cook toque/pan, Courier bag/parcel/strap, Coach age cues/profile hair/whistle, and Referee yellow card persist across directions. At game scale, major silhouettes and signature props remain distinguishable while fine facial detail compresses. This is internal QA, not Claude's independent review or owner approval.
+
+**Remaining gates:** overall run #464 is still FAILED because the full-roster civilian silhouette gate reports max rendered IoU 0.9094292803970223 (Clinic/Sailor front; Coach/Courier back 0.8939319190922546) and the golden snapshot baseline remains unapproved (1 match / 23 changed). Missing-audio 404s remain in the console, but there are no page/script exceptions. Do not lower thresholds or update/approve snapshots without owner authorization. The global silhouette issue needs separate disposition. All five remain NOT APPROVED pending Claude re-review and owner decision; Runner is excluded; remaining 20 are ON HOLD.
