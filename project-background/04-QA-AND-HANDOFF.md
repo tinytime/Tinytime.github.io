@@ -273,3 +273,16 @@ The separate full civilian type-silhouette audit is still failed: Clinic/Sailor 
 - **Overall workflow FAILED** on the unchanged global gates: Clinic/Sailor front silhouette IoU `0.9094292803970223` exceeds `<0.90`; golden snapshots 23 changed / 1 match and remain unapproved (no refresh or approval); 180 missing-audio 404 console errors. The full civilian silhouette audit is separate from the archetype silhouette-quality 180/180 check, which passes.
 - **Review package:** [run #442 evidence index](qa-artifacts/runner-coach-referee-run-442/README.md); artifact [14558375601](https://github.com/tinytime/Tinytime.github.io/actions/runs/44577766543/artifacts/14558375601).
 - **Status:** targeted internal QA and visual inspection PASS. This is not Claude's independent review or owner approval. Runner, Coach and Referee remain **NOT APPROVED** pending Claude comparative review and owner decision. Remaining 20 civilians stay on hold.
+ 
+
+## Runner / Coach / Referee — Claude review package prepared (2026-11-19)
+
+- Review package: [run #441 Claude review brief and evidence index](../qa-artifacts/runner-coach-referee-run-441/README.md).
+- Exact renderer source: `8eeca34ae10a1d829f5035d72b57989bffb9e6e0`.
+- Primary evidence: [GitHub Actions run #441](https://github.com/tinytime/Tinytime.github.io/actions/runs/44577303597), artifact ID `14558375062`.
+- The artifact contains 12 native 64×96 direction PNGs and 12 direct `owCiv` 28×42 renders at live `OWT=36` / vector scale `0.28`, plus role-debug, gallery, Granny comparison, town regression and report evidence. The direct 28×42 files are actual fresh renderer captures, not resampled native images.
+- **Audit clarification:** run #441's initial direct-capture audit falsely failed because its data-URL MIME-prefix check was too strict, although all 12 PNGs were present. The validator was corrected in follow-up QA #442. Do not report the initial run #441 capture-audit assertion as a pass. The images were independently inspected visually.
+- Run #441 targeted checks otherwise include role-debug 12/12, directional integrity 92/92 with zero edge contacts/detached components, prop audit, silhouette-quality 180/180, gallery/town regression, and zero page/script errors. Face-distinctness 23/23 passes; its all-civilian game-scale signature check still uses derived images, while direct 28×42 captures are currently only present for Runner/Coach/Referee.
+- Overall workflow remains failed on global Clinic/Sailor front IoU `0.9094292803970223`, explicitly unapproved golden snapshots (23 changed / 1 match), and 180 audio 404s. No snapshots were refreshed or approved.
+- Claude's brief requests separate scores/verdicts, mandatory corrections versus optional polish, Granny-quality comparison without imitation, and an overall batch verdict.
+- **Status:** package prepared in GitHub; it has not been sent to Claude through an external channel. Runner, Coach and Referee remain NOT APPROVED until Claude review and owner acceptance. Remaining 20 stay on hold.
