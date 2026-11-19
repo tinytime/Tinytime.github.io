@@ -55,3 +55,8 @@ Important implementation principle: when adding further characters, follow the i
 ## Do not assume
 
 The initial vector file under `docs/` is not necessarily the live implementation. A successful isolated render does not prove the game dispatch uses it. A passing targeted check does not prove the entire browser workflow passes. Verify each claim against the current branch and the relevant artifacts.
+
+
+## 2026-11-19 second-batch renderer polish
+
+The latest tested source is `52f286912bf6fa44219972520211bc13d6f3ef7a`. Runner's enlarged side-profile curl crown was lowered slightly after run #431 detected a single antialiased pixel touching the top edge in both profile captures; run #432 verifies all 92 directional captures have zero edge contacts. Referee's optional profile polish adds a clearer projecting nose, warm ear detail and an angled jacket seam to suggest a subtle three-quarter torso plane. These details are implemented in the dedicated Referee vector draw path in `npc_sprites.js`; they are not approval by themselves. See the [latest Claude review package](qa-artifacts/runner-coach-referee-run-429/README.md).
