@@ -13,4 +13,14 @@ const split=Array.from({length:140},()=>[]);for(let y=20;y<23;y++)split[y]=[[10,
 const loops=traceOuterContours(split);assert.equal(loops.length,2);
 const splitPolygons=deriveLocalMaskContours(split,'front');assert.equal(splitPolygons.length,2);
 assert.equal(compareMasks(rasterizePolygons(splitPolygons,'front'),maskFromRows(split)).iou,1);
-console.log('Granny mask-fit helper tests passed (8 fixtures).');
+
+const withHole=Array.from({length:140},()=>[]);
+for(let y=40;y<45;y++)withHole[y]=[[40,44]];
+withHole[42]=[[40,41],[43,44]];
+assert.equal(traceOuterContours(withHole).length,1);
+const holeMask=maskFromRows(withHole);
+const holeContour=rasterizePolygons(traceOuterContours(withHole),'front');
+assert.equal(holeContour.reduce((a,b)=>a+b,0),25);
+assert.equal(holeMask.reduce((a,b)=>a+b,0),24);
+
+console.log('Granny mask-fit helper tests passed (9 fixtures).');
