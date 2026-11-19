@@ -35,8 +35,16 @@ export function validateLandmarkRecord(record, id) {
     if (d.chin < d.headTop || d.chin > d.footBaseline) errors.push(direction + ' chin is outside body height');
     if (d.shoulderY < d.chin || d.shoulderY > d.footBaseline) errors.push(direction + ' shoulderY is outside body height');
     if (d.pelvisY < d.shoulderY || d.pelvisY > d.footBaseline) errors.push(direction + ' pelvisY is outside shoulder-to-foot interval');
-    if (isPoint(d.shoulderLeft) && isPoint(d.shoulderRight) && d.shoulderLeft.y !== d.shoulderRight.y)
-      errors.push(direction + ' shoulder points must share one measurement row');
+    if (isPoint(d.shoulderLeft) && isPoint(d.shoulderRight)) {
+      const shoulderDelta = Math.abs(d.shoulderLeft.y - d.shoulderRight.y);
+      if (direction === 'front' || direction === 'back') {
+        if (shoulderDelta !== 0) errors.push(direction + ' shoulder points must share one measurement row');
+      } else if (shoulderDelta > 1) {
+        errors.push(direction + ' profile shoulder points may differ by at most one source unit');
+      }
+      if (d.shoulderY < Math.min(d.shoulderLeft.y,d.shoulderRight.y) || d.shoulderY > Math.max(d.shoulderLeft.y,d.shoulderRight.y))
+        errors.push(direction + ' shoulderY must lie between the two shoulder landmarks');
+    }
     if (d.bodyAppendagePolygons != null && (!Array.isArray(d.bodyAppendagePolygons) || !d.bodyAppendagePolygons.every(validPolygon))) errors.push(direction + ' bodyAppendagePolygons must be valid polygons when supplied');
     if (!Array.isArray(d.headwearPolygons) || !d.headwearPolygons.every(validPolygon) || !Array.isArray(d.propPolygons) || !d.propPolygons.every(validPolygon))
       errors.push(direction + ' must explicitly declare valid headwearPolygons and propPolygons (empty arrays are valid)');
