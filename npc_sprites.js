@@ -361,7 +361,8 @@
       cook:{types:{front:'serving-spoon',side:'serving-spoon',back:'apron-tools'},front:[[23,16,2,9,'servingspoon']],side:[[24,16,2,9,'servingspoon']],back:[[23,15,2,9,'servingspoon']]},
       vendor:{types:{front:'serving-tray',side:'serving-tray',back:'apron-ties'},front:[[23,18,5,2,'servingtray']],side:[[24,18,5,2,'servingtray']],back:[[13,16,5,4,'aprontie']]},
       dancer:{types:{front:'ribbon',side:'ribbon',back:'ribbon-tie'},front:[[23,15,3,8,'ribbon']],side:[[24,15,3,8,'ribbon']],back:[[13,14,6,4,'ribbon']]},
-      busker:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[24,12,5,17,'guitar']],side:[[25,12,5,17,'guitar']],back:[[1,11,5,17,'guitar']]}
+      busker:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[24,12,5,17,'guitar']],side:[[25,12,5,17,'guitar']],back:[[1,11,5,17,'guitar']]},
+      usher:{types:{front:'lapel-pin',side:'earpiece',back:'radio-pin'},front:[[21,13,2,2,'pin']],side:[[19,12,2,2,'pin']],back:[[20,13,2,2,'pin']]}
     });
     const ARCHETYPE_PROP_SHAPES=Object.freeze({
       duffel:['..##.','.####','#####','#####','.####'],
