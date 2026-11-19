@@ -141,3 +141,6 @@ The next native overlay pass ([Run #522](https://github.com/tinytime/Tinytime.gi
 ## Coach prop mask correction — 2026-11-19
 
 Coach's clipboard polygons now follow the actual front and side renderer paths, and the rear view explicitly has no clipboard/whistle exclusion. Regression tests cover this alongside Cook's rear no-pan, Courier's rear satchel-only, and Runner's stopwatch-only masks. The earlier broad rectangles are no longer the active candidate geometry. These refined polygons still need pixel-level visual review in the next fresh artifact.
+
+
+Coach's directional prop mask has now been corrected from the actual draw paths: front includes the clipboard and whistle, back explicitly has no prop exclusions, and side views use the foreshortened clipboard and whistle bounds. The next fresh overlay is required to confirm these tighter bounds; the candidates remain pending verification.
