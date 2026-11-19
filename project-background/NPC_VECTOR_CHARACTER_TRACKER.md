@@ -149,3 +149,15 @@ The latest renderer source `4f0d135f0f14506a2c19df0f760d0fe2ec5a7495` was tested
 
 
 - **2026-11-19 refreshed Runner / Coach / Referee QA and Claude package:** Renderer source commit `52f286912bf6fa44219972520211bc13d6f3ef7a` tested exactly by browser run #432 (`44566620323`), job `135710025332`, artifact `14550224509`. The prior run #431 on commit `1ba8923da6804d0ef4b662cce7626b384857f9ab` caught a one-pixel top-edge contact in both Runner profile curl crowns; those curls were lowered slightly and run #432 confirms all 92 directional captures have zero edge contacts and zero detached large components. The optional Referee polish adds a projecting profile nose, subtle ear detail and angled jacket seam for a three-quarter garment read. Actual Runner, Coach and Referee native 64×96 four-direction PNGs and enlarged composites were inspected, along with the role-debug sheet, full 23-civilian gallery, Granny comparison and report. Targeted results: syntax/module/inventory pass; vector palette pass (Runner 1,070 colors / Coach 1,077 / Referee 1,078); body/baseline/contrast pass; face distinctness 23/23; role-debug 12/12; visual integrity 92/92; prop audit pass; silhouette-quality 180/180; gallery pass; town regression pass (16 NPCs, Granny present); pageErrors 0; scriptErrors 0. The overall workflow remains FAILED on the separate global Clinic/Sailor front type-silhouette overlap IoU 0.909429 and explicitly unapproved golden snapshots (23 changed, 1 match); 180 missing-audio 404s. The town capture does not explicitly spawn Runner, Coach or Referee. No golden snapshots were refreshed or approved. Updated Claude brief and run #432 package index are ready; all three characters remain NOT APPROVED pending refreshed Claude review and owner acceptance.
+
+
+## 2026-11-19 — Claude second review and combined correction pass
+
+Claude's independent review of run #432 scored Runner 6.5/10 (reject pending four corrections), Coach 7.5/10 (approve after whistle correction), and Referee 7.5/10 (approve after chin-line correction). Batch remains blocked by Runner.
+
+Implemented:
+- Runner: profile bib is now tapered/wrapped; number glyphs are counter-flipped in the mirrored left profile so "07" remains readable; profile mouth strengthened; profile stride redrawn with two separated leg/foot planes.
+- Coach: front and profile whistle redesigned as a horizontal barrel with a projecting mouthpiece/tip.
+- Referee: profile chin-level contour moved inside the jaw to remove the protruding dark line.
+
+Renderer commits: `a08c7eff983ea8ce23cbd31b33d008f1d33b9366` (Runner and Referee), then `777db4e16176324e66d368c6a5b4f022ab1cd411` (Coach). Fresh browser QA run #434 (`44568781463`) is in progress against the exact combined source `777db4e`; run #433 was cancelled because it tested only the intermediate commit before the Coach correction. The 28×42 game-scale inspection requested by Claude is a required gate for the new artifact. Do not reuse run #432 as proof of these changes. No new visual pass or approval is claimed yet; all three characters remain NOT APPROVED.
