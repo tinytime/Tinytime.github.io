@@ -680,3 +680,21 @@ This supports retaining the shoulder and foot-baseline candidates for now, while
 **Important limitation:** the hand-transcribed body polygon candidate fit is only IoU 0.786 front/back and 0.645/0.644 in profiles. The manual candidate remains unverified and needs human pixel-tight refinement. The derived contour exactly reproduces the renderer mask, but that mask includes hair/clothing and is not itself an anatomical segmentation or approved semantic outline. Manual umbrella geometry covers 81.5–82.2% of visible pixels; the visible-only contour is exact, while hidden geometry and grip contact still need review.
 
 **Workflow failed overall:** browser diagnostics report widespread audio resource HTTP 404s. The five-civilian report also records the full-roster silhouette gate at max IoU 0.909429 and the golden snapshot gate at 1 match / 23 changed. No golden snapshots were modified or approved. Artifact `14581958311` was downloaded; Granny pixel-mask and semantic overlays, before/after capture, five-civilian native/game-scale sheets, and town screenshot were visually inspected. No clipping or directional capture omissions were apparent in the inspected contact sheets. Visual inspection is not artistic approval. Granny remains `reference_only`.
+
+
+## Run #591 — follow-up verification and artifact inspection (2026-11-19)
+
+- Workflow: [Vapor City Browser QA #591](https://github.com/tinytime/Tinytime.github.io/actions/runs/44633672693)
+- Tested commit / branch head: `5ada0ff9a419f547c178c5a2c559c43ffe0e39f1`
+- Job: `135946628982`; conclusion: **FAILED**
+- Artifact: `vapor-city-browser-qa`, ID `14582493188` (downloaded and inspected)
+
+**Follow-up fix verified:** `granny-landmark-review.png` is now included in the artifact and the CHIN/SHOULDER labels are clearly separated in the actual four-direction sheet. All four Granny views, head-top/chin/shoulder/pelvis/foot guides and shoulder markers are visible. This confirms the output-manifest and label-spacing change; it does not approve any candidate landmark.
+
+**Passed:** semantic civilian validation; Granny live capture and overlay generation in all four directions; six-civilian overlay 24/24; five-civilian review 20/20 native and 20/20 direct game-scale; directional integrity 92/92; role debug 12/12; prop audit 10 archetypes; gallery render; town scene state (16 NPCs, Granny present); Granny directional visual comparison. `scriptErrors` and `pageErrors` are empty.
+
+**Failed:** browser diagnostics recorded 180 audio-resource HTTP 404 console errors across 46 unique URLs; full-roster civilian silhouette gate max IoU `0.9094292803970223`; golden snapshot gate 1 match / 23 changed with baseline unapproved. No golden snapshots were refreshed or approved. These global failures do not invalidate the targeted Granny capture/landmark-sheet result, but the overall workflow remains failed.
+
+**Granny evidence boundary:** manual body polygon fit remains IoU 0.7875 front, 0.7877 back, 0.6458 left and 0.6447 right. Pixel-derived body and visible-umbrella contours reproduce the exact source alpha masks at IoU 1.0, but this is renderer-mask reconstruction, not semantic anatomy approval. Candidate landmark values remain diagnostic. Granny remains `reference_only`; no measurement promotion, ratio calibration, renderer art change, or snapshot approval occurred.
+
+**Next:** address audio-resource diagnostics and the independent global silhouette/snapshot gates separately; continue pixel-tight semantic review before promoting Granny landmarks or using them to calibrate other civilians. Keep snapshot approval strictly owner-controlled.
