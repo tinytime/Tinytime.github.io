@@ -8,6 +8,18 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 4. **[QA, known issues, and handoff](04-QA-AND-HANDOFF.md)** — how to test, interpret failures, and continue safely.
 5. **[NPC vector character tracker](NPC_VECTOR_CHARACTER_TRACKER.md)** — live roster and per-character approval status.
 
+## Current project status — refresh this block at every handoff
+
+**Branch:** `npc-granny-baseline-overhaul`  
+**Latest verified code commit at this status check:** `421607e0940d29d572f72321d9b24645e6774cbf` — `Fix vector dispatch branch after Cook integration`  
+**Latest browser QA:** [Run #398](https://github.com/tinytime/Tinytime.github.io/actions/runs/44536125062), tested commit `421607e0940d29d572f72321d9b24645e6774cbf`, **FAILED**. Inspect its job details and uploaded artifact before deciding whether the failure is Cook-specific or a separate global gate.
+
+**Active task:** Complete internal browser QA and visual inspection of the integrated Cook vector character. Cook's bespoke four-direction renderer is implemented; this is not design approval.  
+**Assigned specialist chat:** **QA and Independent Review Coordinator**.  
+**Next action:** Retrieve and inspect Run #398's failure details and `qa-output/` artifact; verify Cook's four directions, native-scale readability, town/gallery rendering, clipping and regressions against Usher, Granny, Vendor and legacy civilians. Record exact results in the NPC tracker. If defects are found, route implementation to the appropriate NPC Art Designer or Renderer/Technical Development specialist, then rerun QA. Do not start Courier until Cook's current QA findings are understood and the owner-approved sequence permits it.
+
+**Handoff rule:** Main Builder must keep one authoritative current-status block here (or in the linked tracker) containing the latest verified repository commit, active task, assigned specialist chat, and explicit next action. Refresh it after every meaningful implementation, QA, review, or approval milestone and before handing work to another chat. Also update the per-character tracker; do not let this summary replace detailed evidence or approval records. A fresh conversation must verify the live branch head and latest Actions run rather than blindly trusting an old status snapshot.
+
 ## Working agreement
 
 - The project owner sets priorities and gives final approval.
