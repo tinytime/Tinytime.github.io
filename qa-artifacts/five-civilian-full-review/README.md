@@ -29,16 +29,18 @@ Read the actual draw functions, dispatch, palettes, directional paths, layering/
 
 ## Rendered evidence
 
-### Combined six-character QA run (the five in-scope characters are included)
+### Latest five-civilian evidence — runs #463 and #464
 
-- [GitHub Actions run #457](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178)
-- [Download browser QA artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167/artifacts/(artifact pending)) — artifact ID `14563778383`
-- Exact civilian renderer source: [`23c792f7e83eb14ff7d48e197678272f1c3e58b0`](https://github.com/tinytime/Tinytime.github.io/commit/23c792f7e83eb14ff7d48e197678272f1c3e58b0). The direct game-scale QA hook and expanded 20-capture assertion were added in [`c1d8d75aceeef0c9a689c2f8c40ae88909c55ada`](https://github.com/tinytime/Tinytime.github.io/commit/c1d8d75aceeef0c9a689c2f8c40ae88909c55ada); run #463 tested that combined state.
-- [Run #464 artifact `14568746641`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571/artifacts/14568746641) is the latest packaged review evidence. It contains all five in-scope civilians' native 64×96 front/back/left/right captures (20 images), direct 28×42 game-scale captures (20 images), and two contact sheets: `five-civilian-native-4x-contact-sheet.png` (1114×2208) and `five-civilian-game-scale-4x-contact-sheet.png` (730×1208). Run #463 confirms `gameScaleNpcCaptureAudit` passed 20/20, with all five names × four directions and direct `owCiv` rendering at live OWT=36 / vector scale 0.28 (no resize). Run #464 confirms both sheets were generated and no images were missing.
-- Inspect the `npc-type-directions/` and `npc-game-scale-28x42/` images for all five in-scope characters, from run #464 artifact `14568746641`. Also inspect role-debug, Granny comparison, gallery, town regression and `report.json`.
-- [First-pilot review history and evidence](../../project-background/CLAUDE-PILOT-REVIEW-PACKAGE.md)
-- [Courier correction source and QA history](https://github.com/tinytime/Tinytime.github.io/commit/98dbcda2a32fa506ba355f12ddd449db3322a4b4)
-- The first-batch review history is context only; independently inspect current source and current images.
+- [Run #463](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178) tested the direct game-scale capture hook and confirmed 20/20 28×42 captures: Usher, Cook, Courier, Coach and Referee, front/back/left/right.
+- [Run #464](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571) verified the evidence-sheet generator and uploaded [artifact `14568746641`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571/artifacts/14568746641).
+- The artifact contains 20 native 64×96 captures and 20 direct 28×42 captures, plus two sheets:
+  - `five-civilian-native-4x-contact-sheet.png` — 1114×2208
+  - `five-civilian-game-scale-4x-contact-sheet.png` — 730×1208
+- It also includes role-debug evidence, gallery/town outputs and `report.json`. The log summary confirms no missing native or game-scale images.
+- The native and game-scale contact sheets are enlarged with nearest-neighbour rendering for inspection; individual original PNGs are included for exact pixel review.
+- [Civilian renderer source](https://github.com/tinytime/Tinytime.github.io/blob/23c792f7e83eb14ff7d48e197678272f1c3e58b0/npc_sprites.js) is at commit `23c792f7e83eb14ff7d48e197678272f1c3e58b0`. The expanded direct game-scale capture hook and 20-pair QA assertion are at [commit `c1d8d75aceeef0c9a689c2f8c40ae88909c55ada`](https://github.com/tinytime/Tinytime.github.io/commit/c1d8d75aceeef0c9a689c2f8c40ae88909c55ada); the contact-sheet enhancement is at [commit `2b21457cb4faaa5d993c46d696df3d3aca07f87a`](https://github.com/tinytime/Tinytime.github.io/commit/2b21457cb4faaa5d993c46d696df3d3aca07f87a).
+- Automated targeted checks: 92/92 directional integrity, 20/20 direct game-scale, 12/12 role-debug, prop audit and gallery pass. Overall workflow remains failed on the global silhouette and golden snapshot gates.
+- **Visual inspection is still outstanding.** ChatGPT has not inspected the PNGs. The owner can review the paired sheets and individual captures from artifact `14568746641`; do not treat the automated evidence as a visual verdict.
 
 ## What to evaluate
 
