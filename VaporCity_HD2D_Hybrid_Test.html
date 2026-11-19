@@ -9087,7 +9087,21 @@ function measureNpcArchetypeTorsoMasks(){
   }
   return results;
 }
-window.SG={npcRenderDirectionalSnapshots:(options={})=>{
+window.SG={npcRenderGameScaleSnapshots:()=>{
+  // Render with the live town renderer's OWT=36 and vector scale=.28.
+  // This is a fresh renderer pass at game scale, not a resize of the 64x96 QA grid.
+  const directions=[['front','d'],['back','u'],['left','l'],['right','r']];
+  const civs=['runner','coach','ref'];
+  return civs.flatMap(civ=>directions.map(([direction,dir])=>{
+    const target=document.createElement('canvas');target.width=28;target.height=42;
+    const ctx=target.getContext('2d');ctx.imageSmoothingEnabled=false;
+    const n={id:'qa-game-scale-'+civ,civ,x:0,y:0,rx:(14-OWT/2)/OWT,
+      ry:civ==='runner'?(42-(OWT-3))/OWT:(42-(OWT-5+OWT))/OWT};
+    owCiv(0,0,dir,false,n,0,0,ctx);
+    return {civ,direction,width:target.width,height:target.height,dataUrl:target.toDataURL('image/png'),
+      captureMethod:'direct owCiv render at live OWT=36; vector scale=0.28; no resize'};
+  }));
+},npcRenderDirectionalSnapshots:(options={})=>{
   const directions=[['front','d'],['back','u'],['left','l'],['right','r']];
   const civs=Object.keys(CIV).filter(civ=>civ!=='granny').sort();
   return civs.flatMap(civ=>directions.map(([direction,dir])=>{
