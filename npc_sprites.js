@@ -1229,7 +1229,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     }else{
       ell(50,31,12,14,back?'#29212A':grad(38,17,62,45,[[0,'#C27D5D'],[.55,skin],[1,'#5F342D']]),ink,1.6);
       if(!back){
-        ell(40,20,3.4,3.2,'#34252A',ink,.65);ell(47,17,3.6,3.3,'#24202A',ink,.65);ell(54,17,3.5,3.3,'#34252A',ink,.65);ell(60,21,3.2,3.1,'#24202A',ink,.65);
+        // Keep the enlarged profile crown clear of the 64x96 crop edge.
+        ell(40,21.5,3.4,3.2,'#34252A',ink,.65);ell(47,19,3.6,3.3,'#24202A',ink,.65);ell(54,19,3.5,3.3,'#34252A',ink,.65);ell(60,22.5,3.2,3.1,'#24202A',ink,.65);
         ell(58,31,1.8,2.1,'#171725',null);line([[57,28],[62,28]],'#3E2729',1.2);
         path([[60,32],[67,35],[62,39],[59,37]],'#B8795F',ink,.8); // projecting nose bridge and tip
         line([[56,42],[63,41]],'#40282A',1.5); // readable mouth
