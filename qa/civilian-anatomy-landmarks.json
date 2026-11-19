@@ -294,14 +294,14 @@
           "headTop": 16,
           "chin": 44,
           "shoulderLeft": {
-            "x": 35,
+            "x": 44,
             "y": 49
           },
           "shoulderRight": {
-            "x": 65,
-            "y": 49
+            "x": 56,
+            "y": 50
           },
-          "shoulderY": 49,
+          "shoulderY": 50,
           "pelvisY": 99,
           "footBaseline": 136,
           "headwearPolygons": [
@@ -395,14 +395,14 @@
           "headTop": 16,
           "chin": 44,
           "shoulderLeft": {
-            "x": 35,
+            "x": 44,
             "y": 49
           },
           "shoulderRight": {
-            "x": 65,
-            "y": 49
+            "x": 56,
+            "y": 50
           },
-          "shoulderY": 49,
+          "shoulderY": 50,
           "pelvisY": 99,
           "footBaseline": 136,
           "headwearPolygons": [
@@ -451,8 +451,8 @@
         "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
-        "reviewStatus": "pending_rendered_visual_spot_check",
-        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified."
+        "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
+        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points."
       }
     },
     "cook": {
@@ -756,14 +756,14 @@
           "headTop": 16,
           "chin": 46,
           "shoulderLeft": {
-            "x": 28,
+            "x": 44,
             "y": 48
           },
           "shoulderRight": {
-            "x": 72,
-            "y": 48
+            "x": 56,
+            "y": 49
           },
-          "shoulderY": 48,
+          "shoulderY": 49,
           "pelvisY": 101,
           "footBaseline": 137,
           "headwearPolygons": [
@@ -875,14 +875,14 @@
           "headTop": 16,
           "chin": 46,
           "shoulderLeft": {
-            "x": 28,
+            "x": 44,
             "y": 48
           },
           "shoulderRight": {
-            "x": 72,
-            "y": 48
+            "x": 56,
+            "y": 49
           },
-          "shoulderY": 48,
+          "shoulderY": 49,
           "pelvisY": 101,
           "footBaseline": 137,
           "headwearPolygons": [
@@ -949,8 +949,8 @@
         "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
-        "reviewStatus": "pending_rendered_visual_spot_check",
-        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified."
+        "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
+        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points."
       }
     },
     "courier": {
@@ -1294,14 +1294,14 @@
           "headTop": 17,
           "chin": 45,
           "shoulderLeft": {
-            "x": 32,
-            "y": 49
+            "x": 44,
+            "y": 50
           },
           "shoulderRight": {
-            "x": 68,
-            "y": 49
+            "x": 56,
+            "y": 51
           },
-          "shoulderY": 49,
+          "shoulderY": 51,
           "pelvisY": 102,
           "footBaseline": 138,
           "headwearPolygons": [
@@ -1433,14 +1433,14 @@
           "headTop": 17,
           "chin": 45,
           "shoulderLeft": {
-            "x": 32,
-            "y": 49
+            "x": 44,
+            "y": 50
           },
           "shoulderRight": {
-            "x": 68,
-            "y": 49
+            "x": 56,
+            "y": 51
           },
-          "shoulderY": 49,
+          "shoulderY": 51,
           "pelvisY": 102,
           "footBaseline": 138,
           "headwearPolygons": [
@@ -1527,8 +1527,8 @@
         "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
-        "reviewStatus": "pending_rendered_visual_spot_check",
-        "note": "Candidate geometry only. Courier cap polygons were tightened to the renderer's swept crown and visor path; parcel exclusions and anatomical arm contours still require visual correction."
+        "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
+        "note": "Candidate geometry only. Courier cap polygons were tightened to the renderer's swept crown and visor path; parcel exclusions and anatomical arm contours still require visual correction. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points."
       }
     },
     "runner": {
@@ -2117,14 +2117,14 @@
           "headTop": 17,
           "chin": 45,
           "shoulderLeft": {
-            "x": 35,
-            "y": 49
+            "x": 45,
+            "y": 50
           },
           "shoulderRight": {
-            "x": 65,
-            "y": 49
+            "x": 58,
+            "y": 51
           },
-          "shoulderY": 49,
+          "shoulderY": 51,
           "pelvisY": 94,
           "footBaseline": 138,
           "headwearPolygons": [
@@ -2356,14 +2356,14 @@
           "headTop": 17,
           "chin": 45,
           "shoulderLeft": {
-            "x": 35,
-            "y": 49
+            "x": 45,
+            "y": 50
           },
           "shoulderRight": {
-            "x": 65,
-            "y": 49
+            "x": 58,
+            "y": 51
           },
-          "shoulderY": 49,
+          "shoulderY": 51,
           "pelvisY": 94,
           "footBaseline": 138,
           "headwearPolygons": [
@@ -2463,7 +2463,7 @@
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
         "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
-        "note": "Candidate geometry only. Race bib remains in the body/garment mask and stopwatch is separately bounded where visible. Runner joint landmarks were revised against the source stride paths; they remain provisional and need visual verification against each direction."
+        "note": "Candidate geometry only. Race bib remains in the body/garment mask and stopwatch is separately bounded where visible. Runner joint landmarks were revised against the source stride paths; they remain provisional and need visual verification against each direction. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points."
       }
     },
     "coach": {
@@ -2767,14 +2767,14 @@
           "headTop": 14,
           "chin": 44,
           "shoulderLeft": {
-            "x": 34,
+            "x": 44,
             "y": 48
           },
           "shoulderRight": {
-            "x": 66,
-            "y": 48
+            "x": 56,
+            "y": 49
           },
-          "shoulderY": 48,
+          "shoulderY": 49,
           "pelvisY": 101,
           "footBaseline": 138,
           "headwearPolygons": [
@@ -2886,14 +2886,14 @@
           "headTop": 14,
           "chin": 44,
           "shoulderLeft": {
-            "x": 34,
+            "x": 44,
             "y": 48
           },
           "shoulderRight": {
-            "x": 66,
-            "y": 48
+            "x": 56,
+            "y": 49
           },
-          "shoulderY": 48,
+          "shoulderY": 49,
           "pelvisY": 101,
           "footBaseline": 138,
           "headwearPolygons": [
@@ -2960,8 +2960,8 @@
         "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
-        "reviewStatus": "pending_rendered_visual_spot_check",
-        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified."
+        "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
+        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points."
       }
     },
     "referee": {
@@ -3537,14 +3537,14 @@
           "headTop": 16,
           "chin": 44,
           "shoulderLeft": {
-            "x": 36,
+            "x": 46,
             "y": 48
           },
           "shoulderRight": {
-            "x": 64,
-            "y": 48
+            "x": 56,
+            "y": 49
           },
-          "shoulderY": 48,
+          "shoulderY": 49,
           "pelvisY": 98,
           "footBaseline": 138,
           "headwearPolygons": [
@@ -3728,14 +3728,14 @@
           "headTop": 16,
           "chin": 44,
           "shoulderLeft": {
-            "x": 36,
+            "x": 46,
             "y": 48
           },
           "shoulderRight": {
-            "x": 64,
-            "y": 48
+            "x": 56,
+            "y": 49
           },
-          "shoulderY": 48,
+          "shoulderY": 49,
           "pelvisY": 98,
           "footBaseline": 138,
           "headwearPolygons": [
@@ -3810,8 +3810,8 @@
         "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
-        "reviewStatus": "pending_rendered_visual_spot_check",
-        "note": "Candidate geometry only. Referee body contours include the raised sleeve in front/back/profile, but the card-gripping hand is partly occluded and all polygon joins still require a human visual check. Do not promote to measured."
+        "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
+        "note": "Candidate geometry only. Referee body contours include the raised sleeve in front/back/profile, but the card-gripping hand is partly occluded and all polygon joins still require a human visual check. Do not promote to measured. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points."
       }
     }
   },
