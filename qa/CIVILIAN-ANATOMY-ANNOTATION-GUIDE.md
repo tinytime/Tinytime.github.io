@@ -225,3 +225,10 @@ For a renderer that can produce a semantically appropriate prop-excluded body al
 This is a renderer-derived **candidate**, not human semantic approval. It is appropriate for Granny because the dedicated body pass excludes only the umbrella canopy/shaft and retains the silver hair, clothing, and raised gripping arm/hand. The exact mask and original manual candidate are both preserved in the output JSON. The semantic review sheet now distinguishes the mask-derived contour (red) from the manual candidate (magenta), with umbrella prop outlines in yellow.
 
 The contour algorithm must be checked against the exact alpha mask in all four directions. Do not use it when the source pass includes unrelated props or when the semantic inclusion/exclusion convention is not established. For NPCs without a dedicated semantic render pass, continue using documented human-reviewed polygons until an equivalent layer/mask can be produced.
+
+
+## Visible prop contour versus full prop geometry — 2026-11-19
+
+The exact full-render-minus-body alpha mask contains only the **visible** prop pixels; it cannot reveal umbrella geometry hidden behind Granny. The capture now preserves the full hand-transcribed umbrella geometry as `manualPropPolygonCandidate` and separately derives `visiblePropPolygon` from the exposed-delta mask. The semantic overlay draws the full candidate in yellow and the visible-only pixel contour in cyan. The fit report compares manual full-geometry coverage against visible umbrella pixels and separately verifies the visible-only contour against the exact delta mask.
+
+This distinction is reusable: record visible rendered prop pixels separately from the complete geometric prop, and do not treat intentionally occluded geometry as a false positive. For props whose renderer does not expose a clean semantic layer, keep the visible mask and full geometry as separate human-reviewed candidates.
