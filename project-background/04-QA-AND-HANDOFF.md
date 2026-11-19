@@ -450,3 +450,15 @@ See [Six-Civilian Construction Standard Audit](SIX-CIVILIAN-CONSTRUCTION-AUDIT.m
 Verified run #464 results for the six: body/height/baseline check PASS (maximum height deviation 0.4375 px; maximum baseline delta 1 px); directional integrity 92/92; face distinctness 23/23; role-debug 12/12; prop audit and gallery PASS; page/script errors 0. The workflow remains FAILED on the global civilian silhouette gate (Clinic/Sailor front IoU 0.9094292803970223) and unapproved golden snapshots (23 changed / 1 match); missing-audio 404 console errors remain. No golden snapshots were refreshed or approved.
 
 The audit deliberately does not infer head/body or torso/body ratios from the current QA render envelope. A consistent body-only mask and semantic landmarks excluding headwear/accessories/props must be implemented and calibrated against qa/granny-ref.json before numeric proportion bands can be assessed. Runner requires pose-aware joint landmarks. The internal construction audit covers all six, while the active Claude review remains five as previously directed. No character approval or remaining-roster release is implied.
+
+
+## Semantic proportion measurement framework — 2026-11-19
+
+Implemented the first measurement layer:
+
+- `qa/civilian-anatomy-landmarks.json` defines the shared source-space manifest and per-direction semantic annotation requirements.
+- `qa/civilian-proportion-measurements.mjs` validates complete records and computes the descriptive ratios.
+- `qa/test-civilian-proportion-measurements.mjs` tests standing calculations, dynamic Runner joint requirements, incomplete directions, and pending reports.
+- The browser workflow runs these checks and writes `qa-output/civilian-proportion-measurements.json` for artifact upload.
+
+Granny remains a separate legacy reference measurement (body 125, head 38, shoulders 36, foot row 136). The six character entries are intentionally pending manual landmark annotation. The existing `excludeProps` render option is not treated as a semantic anatomy mask because it does not independently exclude role headwear. Do not promote the legacy alpha envelope to anatomical ratios. No new ratio thresholds are enforced. Next task is to annotate all four directions from fresh native captures, verify body/headwear/prop masks visually, then compare the six with Granny and calibrate only after review.
