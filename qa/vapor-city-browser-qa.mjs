@@ -471,6 +471,41 @@ try {
     if (!window.SG || typeof window.SG.npcRenderSnapshots !== 'function') throw new Error('NPC snapshot hook is unavailable');
     return window.SG.npcRenderSnapshots();
   });
+  const civilianFaceDistinctnessAudit = await page.evaluate(async snapshots => {
+    const civilians=snapshots.filter(item=>item.civ!=='granny');
+    const rows=[];
+    const signature=async bytes=>{
+      const digest=await crypto.subtle.digest('SHA-256',bytes);
+      return [...new Uint8Array(digest)].map(value=>value.toString(16).padStart(2,'0')).join('');
+    };
+    for(const item of civilians){
+      const image=new Image();image.src=item.dataUrl;await image.decode();
+      const nativeCanvas=document.createElement('canvas');nativeCanvas.width=64;nativeCanvas.height=96;
+      const nativeCtx=nativeCanvas.getContext('2d',{willReadFrequently:true});nativeCtx.drawImage(image,0,0);
+      // Inner face only: exclude hair/headwear and body color so a palette
+      // change cannot masquerade as a distinct facial design.
+      const nativeFace=nativeCtx.getImageData(26,8,15,11).data;
+      const gameCanvas=document.createElement('canvas');gameCanvas.width=28;gameCanvas.height=42;
+      const gameCtx=gameCanvas.getContext('2d',{willReadFrequently:true});
+      gameCtx.imageSmoothingEnabled=false;gameCtx.drawImage(image,0,0,28,42);
+      const gameFace=gameCtx.getImageData(10,3,9,6).data;
+      rows.push({civ:item.civ,nativeSignature:await signature(nativeFace),gameScaleSignature:await signature(gameFace)});
+    }
+    const duplicateGroups=key=>Object.values(rows.reduce((groups,row)=>{
+      (groups[row[key]]||(groups[row[key]]=[])).push(row.civ);return groups;
+    },{})).filter(group=>group.length>1);
+    const nativeDuplicates=duplicateGroups('nativeSignature');
+    const gameScaleDuplicates=duplicateGroups('gameScaleSignature');
+    const nativeUniqueCount=new Set(rows.map(row=>row.nativeSignature)).size;
+    const gameScaleUniqueCount=new Set(rows.map(row=>row.gameScaleSignature)).size;
+    return {
+      pass:civilians.length===23&&nativeUniqueCount===23&&gameScaleUniqueCount===23,
+      expectedCivilianCount:23,checked:civilians.length,
+      nativeUniqueCount,gameScaleUniqueCount,nativeDuplicates,gameScaleDuplicates,
+      gameScale:{width:28,height:42,faceCrop:{x:10,y:3,width:9,height:6},smoothing:false},
+      evidence:'SHA-256 signatures of the inner-face RGBA crop, measured both at native 64x96 and at the 28x42 in-game render scale; hair, headwear and body palette are excluded.'
+    };
+  },npcSnapshotData);
   const snapshotDir = path.join(out, 'npc-snapshots');
   fs.mkdirSync(snapshotDir, { recursive: true });
   const snapshotResults = await Promise.all(npcSnapshotData.map(async item => {
@@ -1241,6 +1276,7 @@ try {
     targetedPalettePixelAudit,
     paletteDifferentiation,
     npcBodyCheck,
+    civilianFaceDistinctnessAudit,
     npcPropAudit,
     fanVariantAudit,
     fanHeadroomCheck,
@@ -1278,7 +1314,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !civilianFaceDistinctnessAudit.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
