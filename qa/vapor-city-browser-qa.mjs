@@ -418,7 +418,8 @@ try {
   const npcBodyCheck = {
     pass: bodyRows.length === 24 && bodyRows.every(item => item.heightDeviationPixels <= 1 &&
       item.baselineDelta <= 0.02 && /^#[0-9a-f]{6}$/i.test(item.outlineColor || '') &&
-      item.outlinePixelCount > 0 && item.contrastRatio >= 3.0 && item.outlineContrastPercent >= 0.60),
+      (item.civ === 'usher' ? item.outlinePixelCount >= 1 : item.outlinePixelCount > 0) &&
+      item.contrastRatio >= 3.0 && item.outlineContrastPercent >= 0.60),
     spriteCount: bodyRows.length,
     expectedBodyHeightPixels: expectedBodyPixels,
     maxHeightDeviationPixels: Math.max(...bodyRows.map(item=>item.heightDeviationPixels)),
@@ -426,7 +427,7 @@ try {
     invalidOutlineColor: bodyRows.filter(item=>!/^#[0-9a-f]{6}$/i.test(item.outlineColor || '')).map(item=>item.civ),
     lowContrast: bodyRows.filter(item=>item.contrastRatio<3.0||item.outlineContrastPercent<0.60).map(item=>({civ:item.civ,outlineColor:item.outlineColor,contrastRatio:item.contrastRatio,outlineContrastPercent:item.outlineContrastPercent})),
     outlinePixelCounts: bodyRows.map(item=>({civ:item.civ,count:item.outlinePixelCount,expectedColor:item.outlineColor})),
-    outlineValidation: 'Counts rendered pixels matching each sprite’s computed per-civ outline color and verifies contrast against the gallery background.',
+    outlineValidation: 'Pixel sprites require exact-color outline pixels; vector usher uses antialiased ink and is checked for nonzero ink evidence plus the same contrast and baseline requirements.',
     measurements: bodyRows
   };
   const npcPropAudit = await page.evaluate(() => {
