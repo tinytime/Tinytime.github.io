@@ -523,3 +523,8 @@ The Granny mask contour helper now retains every disconnected outer component. O
 ## Contour topology validation — 2026-11-19
 
 The contour helper now excludes interior hole loops (by winding) from the returned outer contours and preserves all disconnected outer components. This avoids misclassifying holes as anatomical appendages. Nine fixture cases pass locally, including hollow and disconnected masks. Fresh Actions verification remains pending.
+
+
+## Granny mask topology — 2026-11-19
+
+Contour extraction now retains disconnected outer components and interior holes for both body alpha and visible umbrella delta. The candidate manifest stores outer body loops plus cutout loops separately; fit diagnostics subtract cutouts before mask comparison. This prevents lost detached components and filled transparent gaps. Fixtures cover disconnected components and one interior hole. Latest code is committed; fresh Actions verification and visual inspection remain pending. No semantic status or approval changed.
