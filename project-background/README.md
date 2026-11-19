@@ -11,11 +11,11 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest branch head:** `db3f958351aa9994fab544dfb915ea0e2424708d`. The latest game/renderer/QA source tested remains `98dbcda2a32fa506ba355f12ddd449db3322a4b4`; the 12 commits between those SHAs are documentation-only. Browser QA run [#410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44542492048), job `135624264131`, tested that exact source commit; artifact `14537384741` was independently re-fetched and visually inspected by the QA Coordinator. Courier's three required corrections pass internal visual QA.
+**Latest branch head:** `9058e84ea5405f35c7c4f141aba4c3e5ba3cf4f6` (refresh at each handoff). **Latest renderer source:** `6905171293c04f34f3ee09c804c490082e1f3d57`. Browser run [#44548532467](https://github.com/tinytime/Tinytime.github.io/actions/runs/44548532467), job `135645796007`, tested that exact renderer source; artifact `14540104692` inspected. Runner targeted internal QA passed; overall workflow remains failed on the global Clinic/Sailor silhouette gate and unapproved golden baseline.
 
 **Active task:** Runner is built and has passed targeted internal QA. Four directions, role-debug, gallery and town evidence from artifact `14540104692` have been inspected. Runner remains NOT APPROVED pending the next-group review and owner acceptance.
 **Assigned specialist chat:** **NPC Vector Development specialist**.
-**Next action:** Finish run `44547955840`, inspect its report and actual screenshots, verify Runner's body height/baseline and Cook's edge integrity, fix any remaining Runner-specific visual issues, then move to Coach only after Runner passes internal QA. Referee follows Coach. Keep all other characters on hold.
+**Next action:** Runner is internally checked. Coach is next in the authorized group; Referee follows Coach. Keep other roster members on hold until the owner advances the batch.
 
 ## Working agreement
 
