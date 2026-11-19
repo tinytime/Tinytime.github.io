@@ -134,3 +134,14 @@ The owner explicitly authorized reopening Usher, Cook and Courier for the review
 Initial correction commit: [027be47d8f6763f447992a9dec058ff62a7c60a3](https://github.com/tinytime/Tinytime.github.io/commit/027be47d8f6763f447992a9dec058ff62a7c60a3). The code addresses Cook's toque/face clearance and profile arm, Courier's whole-sprite baseline tilt, Coach's yoke/age cues/whistle/font-dependent lettering, Referee's side-torso leakage/profile hair, and Usher's profile clipboard face.
 
 Important: the commit has not yet been browser-tested or visually inspected. Run #457 is prior-source evidence only. Keep all five in revision / NOT APPROVED status pending fresh four-direction QA, screenshot inspection, independent Claude re-review, and owner acceptance. Runner remains excluded; remaining 20 stay on hold.
+
+## Updated source and automated evidence — run #459 (2026-11-19)
+
+The renderer was corrected after Claude's review and received a final rim-light consistency pass. The current five-character review source is now [`npc_sprites.js` at commit `23c792f7e83eb14ff7d48e197678272f1c3e58b0](https://github.com/tinytime/Tinytime.github.io/blob/23c792f7e83eb14ff7d48e197678272f1c3e58b0/npc_sprites.js). The source commit is the exact renderer revision tested by [GitHub Actions run #459](https://github.com/tinytime/Tinytime.github.io/actions/runs/44599635463); artifact ID `14568035039` is available from the [run artifacts page](https://github.com/tinytime/Tinytime.github.io/actions/runs/44599635463/artifacts/14568035039).
+
+- The artifact includes 92 native 64×96 directional captures (23 civilians × four directions), including the five characters in this review. Use `npc-type-directions/{usher,cook,courier,coach,ref}-{front,back,left,right}.png`.
+- Direct 28×42 game-scale PNGs in this run are limited to Runner, Coach and Referee. Coach and Referee are in scope; Usher, Cook and Courier do not have direct game-scale captures in this artifact.
+- Automated checks pass for directional integrity (92/92, no edge contacts or detached large components), role-debug (12/12), props, gallery, page/script errors (0). Overall run remains FAILED on global civilian-type silhouette overlap (Clinic/Sailor front IoU `0.9094292803970223`) and unapproved golden snapshots (23 changed / 1 match). There are 180 missing-audio 404 console errors.
+- **Do not treat the automated report as visual inspection.** The artifact's PNGs have not yet been visually inspected. The run does not confer approval; all five remain in revision / NOT APPROVED pending visual inspection, independent Claude re-review and owner decision. No golden snapshots were refreshed or approved.
+
+The original run #457 links above remain historical context only; use run #459 and commit `23c792f7e83eb14ff7d48e197678272f1c3e58b0` as the latest post-correction evidence.
