@@ -254,3 +254,8 @@ The contour tracer now distinguishes outer boundaries from interior holes using 
 The contour helper now retains both outer loops and interior hole loops from a binary alpha mask. The capture stores outer body components as `bodyPolygon` plus `bodyAppendagePolygons`, and interior cutouts as `bodyMaskHolePolygons`. Visible umbrella components and holes are stored separately as `visiblePropPolygons` and `visiblePropMaskHolePolygons`. Fit diagnostics rasterize outer contours and subtract the interior cutouts before comparing with the exact row-span mask. This avoids silently filling a transparent gap between limbs or within a prop.
 
 The new fixture covers a mask with two disconnected components and a separate mask with an interior hole; reconstruction is expected to match the original alpha mask exactly. These are implementation fixtures only. A fresh Actions run and artifact are still required before claiming the latest capture has passed.
+
+
+## Landmark-to-mask evidence — 2026-11-19
+
+The capture fit report now checks candidate landmarks against the exact body alpha mask without treating pixel inclusion as semantic approval. It records body top/bottom, head-top offset, chin vertical-range consistency, whether shoulder points touch the body mask (exact pixel and one-pixel neighborhood), pixel count on the candidate shoulder/pelvis rows, and foot-baseline offset. These are diagnostic observations only; they do not validate the anatomical interpretation of a landmark or create a hard gate.
