@@ -441,3 +441,12 @@ No golden snapshots, existing thresholds, renderer code, or NPC scope policy wer
 ## Claude re-review package prepared — five civilians (2026-11-19)
 
 Created `qa-artifacts/five-civilian-full-review/CLAUDE-REVIEW-BRIEF.md`. It packages the exact renderer revision, run #464, artifact 14568746641, all 20 native and 20 direct game-scale captures, Granny comparison assets, review criteria, known correction targets, and explicit global QA caveats. The package is ready for independent review, but **Claude has not yet reviewed these corrected versions**. All five remain NOT APPROVED pending that review and owner decision. No golden snapshots were changed.
+
+
+## Six-civilian construction-standard application — 2026-11-19
+
+See [Six-Civilian Construction Standard Audit](SIX-CIVILIAN-CONSTRUCTION-AUDIT.md). The audit applies the draft standard to all six dedicated vector renderers: Usher, Cook, Courier, Runner, Coach and Referee. It uses run #464's native 64×96 captures and body/baseline report, plus direct 28×42 captures from run #464 for five and run #457 for Runner. The Runner renderer path is unchanged between the run #457 and current five-character renderer sources.
+
+Verified run #464 results for the six: body/height/baseline check PASS (maximum height deviation 0.4375 px; maximum baseline delta 1 px); directional integrity 92/92; face distinctness 23/23; role-debug 12/12; prop audit and gallery PASS; page/script errors 0. The workflow remains FAILED on the global civilian silhouette gate (Clinic/Sailor front IoU 0.9094292803970223) and unapproved golden snapshots (23 changed / 1 match); missing-audio 404 console errors remain. No golden snapshots were refreshed or approved.
+
+The audit deliberately does not infer head/body or torso/body ratios from the current QA render envelope. A consistent body-only mask and semantic landmarks excluding headwear/accessories/props must be implemented and calibrated against qa/granny-ref.json before numeric proportion bands can be assessed. Runner requires pose-aware joint landmarks. The internal construction audit covers all six, while the active Claude review remains five as previously directed. No character approval or remaining-roster release is implied.
