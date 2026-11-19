@@ -857,12 +857,157 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
 };
 
 
+
+  // Cook: original kitchen silhouette, tall pleated toque, double-breasted coat,
+  // cross-tied terracotta apron, and a readable handled sauté pan. 100x140 grid.
+  function drawCookVector(n, dir, ctx, OWT, opts) {
+    opts=opts||{}; const g=ctx, scale=OWT/36*.28;
+    const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2, sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
+    const back=dir==='u', side=dir==='l'||dir==='r', flip=dir==='l';
+    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-137);
+    if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
+    const ink='#171725', skin='#B97855';
+    const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
+    const path=(p,fill,stroke=ink,w=1.6)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.stroke();}};
+    const line=(p,c,w=1.5)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.stroke();};
+    const ell=(x,y,rx,ry,fill,stroke=ink,w=1.4)=>{g.beginPath();g.ellipse(x,y,rx,ry,0,0,Math.PI*2);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.stroke();}};
+    const coat=grad(34,48,67,99,[[0,'#F8EBD2'],[.45,'#D9C6A6'],[1,'#9E8A72']]);
+    const apron=grad(36,68,65,113,[[0,'#D66B42'],[.5,'#A84432'],[1,'#642D32']]);
+    const pants=grad(37,96,64,132,[[0,'#414451'],[1,'#202431']]);
+    // Legs are broad and planted beneath the apron, unlike the narrow usher trousers.
+    if(!side){
+      path([[38,103],[49,103],[48,119],[48,131],[36,131],[37,118]],pants);
+      path([[51,103],[63,103],[63,119],[65,131],[53,131],[52,118]],pants);
+      path([[36,129],[48,129],[50,134],[49,137],[33,137],[33,134]],'#34303A');
+      path([[53,129],[65,129],[68,134],[67,137],[51,137],[51,134]],'#34303A');
+      line([[36,135],[47,135]],'#A7A2A0',1);line([[54,135],[65,135]],'#A7A2A0',1);
+    }else{
+      path([[40,101],[53,101],[52,120],[53,131],[40,131],[39,119]],pants);
+      path([[39,129],[52,129],[57,134],[56,137],[37,137]],'#34303A');
+      line([[40,135],[54,135]],'#A7A2A0',1);
+    }
+    // Neck and coat: broad chef shoulders, high double-breasted collar.
+    path([[44,39],[56,39],[57,52],[43,52]],skin);
+    if(!side){
+      path([[32,54],[40,47],[60,47],[68,55],[67,91],[71,101],[29,101],[33,90]],coat,ink,1.9);
+      if(!back){
+        path([[41,47],[50,59],[59,47],[56,44],[50,52],[44,44]],'#FFF8E9',ink,1.1);
+        line([[50,59],[50,96]],'#8C7966',1.2);
+        [65,76,87].forEach(y=>{ell(45,y,1.5,1.5,'#8B5B43',null);ell(55,y,1.5,1.5,'#8B5B43',null);});
+        // Apron bib, broad waist, shaped lower panel and stitched hem.
+        path([[39,59],[61,59],[63,76],[68,111],[32,111],[37,76]],apron,ink,1.8);
+        path([[40,59],[38,69],[34,72]],'none','#E9A17A',1.6);
+        path([[60,59],[62,69],[66,72]],'none','#E9A17A',1.6);
+        line([[35,105],[65,105]],'#F0A078',1.4);
+        path([[42,82],[58,82],[58,94],[42,94]],'#7B3540',ink,1.1);
+        line([[45,85],[55,85]],'#F4C49C',1);line([[45,89],[53,89]],'#F4C49C',1);
+        // Sleeves and hands: left arm rests at hip; right arm presents the pan.
+        path([[32,55],[38,54],[36,77],[33,88],[27,87],[28,70]],coat);
+        path([[27,86],[34,86],[35,94],[28,95]],skin);
+        path([[63,54],[69,57],[72,72],[68,82],[62,80],[65,68]],coat);
+        path([[64,78],[70,79],[71,86],[65,87]],skin);
+        // Pan is a strong silhouette prop: dark rim, warm copper bowl, long handle.
+        line([[68,80],[78,73],[82,73]],'#4B3434',3.2);
+        path([[77,62],[91,62],[94,66],[92,77],[88,82],[80,80],[76,73]],'#B95B3C',ink,1.8);
+        ell(85,65,8,3.2,'#E5A06B',ink,1.4);
+        ell(85,65,5.2,1.6,'#4C3540',null);
+        line([[80,68],[83,75],[88,77]],'#F2B17C',1.2);
+      }else{
+        // Rear coat yoke, apron straps and tied bow; no front-only details leak through.
+        path([[33,54],[42,49],[58,49],[67,54],[66,67],[34,67]],'#D6C2A3',ink,1.2);
+        line([[50,51],[50,97]],'#A18B70',1.2);
+        path([[40,59],[60,59],[65,109],[35,109]],apron,ink,1.6);
+        line([[39,64],[35,78],[38,84]],'#F0A078',2);line([[61,64],[65,78],[62,84]],'#F0A078',2);
+        path([[45,68],[50,73],[55,68],[53,77],[50,80],[47,77]],'#E9A17A',ink,1);
+        line([[35,106],[65,106]],'#F0A078',1.4);
+        path([[32,55],[38,54],[36,82],[30,89],[27,86]],coat);
+        path([[62,54],[68,56],[71,83],[66,89],[63,84]],coat);
+      }
+    }else{
+      path([[42,52],[50,47],[60,51],[64,60],[64,94],[69,101],[35,101],[40,87]],coat,ink,1.8);
+      path([[43,60],[60,60],[66,108],[36,108]],apron,ink,1.6);
+      line([[45,62],[44,97]],'#F0A078',1.5);
+      line([[59,62],[61,97]],'#7D3440',1.5);
+      path([[38,55],[44,55],[43,81],[39,89],[34,87]],coat);
+      path([[62,56],[68,60],[69,79],[65,84],[61,79]],coat);
+      // Pan profile remains visible at the forward hand, not fused to the torso.
+      line([[64,79],[78,73],[82,73]],'#4B3434',3);
+      ell(85,73,8,5,'#B95B3C',ink,1.5);
+      line([[80,70],[89,70]],'#F2B17C',1);
+    }
+    // Head: broad rounded face, cropped dark curls, and a tall pleated toque.
+    if(!side){
+      if(!back){
+        ell(50,31,13,15,grad(37,17,63,45,[[0,'#E5B08B'],[.55,skin],[1,'#814B3C']]),ink,1.8);
+        // Hair curls visible at temples beneath hat.
+        [38,41,59,62].forEach((x,i)=>ell(x,38+(i%2),3.2,5,'#38242A',ink,.8));
+        ell(44,31,1.8,2.5,'#241725',null);ell(56,31,1.8,2.5,'#241725',null);
+        ell(44.6,30.2,.55,.55,'#FFFFFF',null);ell(56.6,30.2,.55,.55,'#FFFFFF',null);
+        line([[41,26],[46,26]],'#59372E',1.3);line([[54,26],[59,26]],'#59372E',1.3);
+        line([[49,33],[48,36],[51,36]],'#945D48',1);
+        line([[45,41],[50,43],[55,41]],'#713D3A',1.5);
+      }else{
+        ell(50,31,13,15,'#30242A',ink,1.7);
+        [40,45,50,55,60].forEach(x=>line([[x,20],[x+1,39]],'#59404A',1));
+      }
+      // Tall soft toque: pleated crown, rolled band, small offset fold.
+      path([[37,22],[38,11],[42,6],[47,8],[50,4],[54,8],[59,6],[63,12],[63,23]],'#F8F3E8',ink,1.7);
+      line([[41,10],[42,21]],'#C8BDAA',1.1);line([[49,8],[49,21]],'#C8BDAA',1.1);line([[57,9],[58,21]],'#C8BDAA',1.1);
+      path([[36,21],[64,21],[65,26],[35,26]],'#D8CBB7',ink,1.3);
+      line([[38,23],[62,23]],'#FFFDF4',1.1);
+      if(!back) line([[49,22],[52,22]],'#B95B3C',1.5);
+    }else{
+      ell(50,31,12,15,'#30242A',ink,1.7);
+      ell(55,31,9,13,grad(45,18,64,44,[[0,'#E5B08B'],[1,skin]]),ink,1.4);
+      path([[61,30],[67,34],[62,37]],skin,ink,1.1);
+      ell(57,30,1.5,2,'#241725',null);
+      path([[48,7],[56,6],[62,12],[63,23],[39,23],[39,12],[44,7]],'#F8F3E8',ink,1.7);
+      line([[43,10],[43,21]],'#C8BDAA',1);line([[54,8],[55,21]],'#C8BDAA',1);
+      path([[38,21],[64,21],[65,26],[37,26]],'#D8CBB7',ink,1.2);
+    }
+    // restrained warm/cool rim accents keep the figure legible in neon town scenes
+    g.save();g.globalAlpha=.58;g.shadowBlur=.7/scale;g.shadowColor='rgba(255,126,65,.42)';
+    line([[34,54],[40,49],[46,48]],'rgba(255,190,133,.9)',1/scale);
+    g.shadowColor='rgba(41,242,232,.28)';
+    line([[60,51],[67,55],[70,63]],'rgba(113,245,229,.72)',1/scale);
+    g.restore();g.restore();
+  }
+
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
     const { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, USHER_TORSO_MASKS, FAN_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, FAN_RIG_PARTS, ARCHETYPE_PROP_LAYERS, CIV_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
-      if(kind==='usher'){
+      if(kind==='cook'||kind==='usher'){
+        const drawVector=kind==='cook'?drawCookVector:drawUsherVector;
+        drawVector(n,dir,ctxOverride||og,OWT,{moving,tm,ph});
+        const qaCanvas=owCiv._vectorSnapshotCanvas||(owCiv._vectorSnapshotCanvas=document.createElement('canvas'));
+        if(qaCanvas.width!==64)qaCanvas.width=64;if(qaCanvas.height!==96)qaCanvas.height=96;
+        const qaCtx=qaCanvas.getContext('2d');qaCtx.setTransform(1,0,0,1,0,0);qaCtx.globalAlpha=1;
+        qaCtx.globalCompositeOperation='source-over';qaCtx.clearRect(0,0,64,96);
+        const qaOWT=36*.625/.28,qaNpc=Object.assign({},n,{x:0,y:0,rx:(32-qaOWT/2)/qaOWT,ry:(88-qaOWT)/qaOWT});
+        drawVector(qaNpc,dir,qaCtx,qaOWT,{moving:false,tm:0,ph:0});
+        owCiv._gridCanvas=qaCanvas;
+        const pixels=qaCtx.getImageData(0,0,64,96).data,counts=new Map();let opaquePixelCount=0,outlinePixelCount=0;
+        for(let p=0;p<pixels.length;p+=4){if(!pixels[p+3])continue;opaquePixelCount++;
+          const hex='#'+[pixels[p],pixels[p+1],pixels[p+2]].map(v=>v.toString(16).padStart(2,'0')).join('');
+          counts.set(hex,(counts.get(hex)||0)+1);if(hex==='#171725')outlinePixelCount++;}
+        const dominant=(x0,y0,x1,y1)=>{const region=new Map();for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++){
+          const p=(y*64+x)*4;if(!pixels[p+3])continue;const hex='#'+[pixels[p],pixels[p+1],pixels[p+2]].map(v=>v.toString(16).padStart(2,'0')).join('');
+          region.set(hex,(region.get(hex)||0)+1);}return [...region].sort((a,b)=>b[1]-a[1])[0]||['#000000',0];};
+        const [bodyColor,bodyPixelCount]=dominant(17,30,47,63),[pantsColor,pantsPixelCount]=dominant(17,63,47,82),[hairColor,hairPixelCount]=dominant(17,3,47,31);
+        owCiv._lastPaletteMetrics={civ:kind,archetype:kind+'-vector',renderMode:'vector',colors:[...counts.keys()],
+          uniqueColorCount:counts.size,opaquePixelCount,outlinePixelCount,outlineColor:'#171725',bodyColor,bodyPixelCount,
+          pantsColor,pantsPixelCount,hairColor,hairPixelCount,colorPixelCounts:Object.fromEntries(counts)};
+        const cook=kind==='cook';
+        owCiv._lastRoleDebugLegend=qaOptions&&(qaOptions.roleDebug||qaOptions.roleDebugLayers||qaOptions.roleDebugSourceLayers)
+          ?(cook?[{role:'chef-coat',color:'#D9C6A6'},{role:'terracotta-apron',color:'#A84432'},{role:'copper-pan',color:'#B95B3C'},
+            {role:'toque',color:'#F8F3E8'},{role:'skin',color:'#B97855'},{role:'hair',color:'#30242A'}]
+            :[{role:'uniform-navy',color:'#294B70'},{role:'brass-trim',color:'#D6A84F'},{role:'skin',color:'#C98A62'},{role:'hair',color:'#241B26'}]):null;
+        owCiv._lastRoleDebugRows={civ:kind,direction:dir,view:dir==='u'?'back':(dir==='l'||dir==='r'?'side':'front'),torsoMaskRows:[],renderedSourceRows:[]};
+        return;
+      }
+
         drawUsherVector(n,dir,ctxOverride||og,OWT,{moving,tm,ph});
         // Keep the legacy QA snapshot contract populated with a native 64x96
         // vector render. The live draw above remains at the normal world scale.
