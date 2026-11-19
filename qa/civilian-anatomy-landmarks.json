@@ -38,338 +38,3195 @@
       "note": "Approved benchmark measurements imported as legacy reference facts. They are not yet a semantic-landmark annotation record; the umbrella canopy and shaft are excluded while gripping arm/hand remain included. Harmonize the semantic body/headwear mask before directly comparing new landmark ratios."
     },
     "usher": {
-      "status": "pending_annotation",
+      "status": "source_annotated",
       "poseClass": "standing",
       "note": "Awaiting landmark annotation against fresh native four-direction captures.",
       "directions": {
         "front": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 35,
+              "y": 16
+            },
+            {
+              "x": 65,
+              "y": 16
+            },
+            {
+              "x": 68,
+              "y": 49
+            },
+            {
+              "x": 69,
+              "y": 92
+            },
+            {
+              "x": 65,
+              "y": 100
+            },
+            {
+              "x": 66,
+              "y": 130
+            },
+            {
+              "x": 68,
+              "y": 136
+            },
+            {
+              "x": 34,
+              "y": 136
+            },
+            {
+              "x": 36,
+              "y": 100
+            },
+            {
+              "x": 31,
+              "y": 92
+            },
+            {
+              "x": 32,
+              "y": 49
+            }
+          ],
+          "headTop": 16,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 35,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 65,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 99,
+          "footBaseline": 136,
+          "headwearPolygons": [
+            [
+              {
+                "x": 34,
+                "y": 8
+              },
+              {
+                "x": 66,
+                "y": 8
+              },
+              {
+                "x": 67,
+                "y": 25
+              },
+              {
+                "x": 33,
+                "y": 25
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 48,
+                "y": 58
+              },
+              {
+                "x": 67,
+                "y": 58
+              },
+              {
+                "x": 67,
+                "y": 84
+              },
+              {
+                "x": 48,
+                "y": 84
+              }
+            ]
+          ]
         },
         "back": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 35,
+              "y": 16
+            },
+            {
+              "x": 65,
+              "y": 16
+            },
+            {
+              "x": 68,
+              "y": 49
+            },
+            {
+              "x": 69,
+              "y": 92
+            },
+            {
+              "x": 65,
+              "y": 100
+            },
+            {
+              "x": 66,
+              "y": 130
+            },
+            {
+              "x": 68,
+              "y": 136
+            },
+            {
+              "x": 34,
+              "y": 136
+            },
+            {
+              "x": 36,
+              "y": 100
+            },
+            {
+              "x": 31,
+              "y": 92
+            },
+            {
+              "x": 32,
+              "y": 49
+            }
+          ],
+          "headTop": 16,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 35,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 65,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 99,
+          "footBaseline": 136,
+          "headwearPolygons": [
+            [
+              {
+                "x": 34,
+                "y": 8
+              },
+              {
+                "x": 66,
+                "y": 8
+              },
+              {
+                "x": 67,
+                "y": 25
+              },
+              {
+                "x": 33,
+                "y": 25
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 48,
+                "y": 58
+              },
+              {
+                "x": 67,
+                "y": 58
+              },
+              {
+                "x": 67,
+                "y": 84
+              },
+              {
+                "x": 48,
+                "y": 84
+              }
+            ]
+          ]
         },
         "left": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 39,
+              "y": 16
+            },
+            {
+              "x": 61,
+              "y": 16
+            },
+            {
+              "x": 65,
+              "y": 49
+            },
+            {
+              "x": 67,
+              "y": 91
+            },
+            {
+              "x": 60,
+              "y": 100
+            },
+            {
+              "x": 60,
+              "y": 130
+            },
+            {
+              "x": 66,
+              "y": 136
+            },
+            {
+              "x": 34,
+              "y": 136
+            },
+            {
+              "x": 39,
+              "y": 100
+            },
+            {
+              "x": 34,
+              "y": 91
+            },
+            {
+              "x": 35,
+              "y": 49
+            }
+          ],
+          "headTop": 16,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 35,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 65,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 99,
+          "footBaseline": 136,
+          "headwearPolygons": [
+            [
+              {
+                "x": 34,
+                "y": 8
+              },
+              {
+                "x": 66,
+                "y": 8
+              },
+              {
+                "x": 67,
+                "y": 25
+              },
+              {
+                "x": 33,
+                "y": 25
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 48,
+                "y": 58
+              },
+              {
+                "x": 67,
+                "y": 58
+              },
+              {
+                "x": 67,
+                "y": 84
+              },
+              {
+                "x": 48,
+                "y": 84
+              }
+            ]
+          ]
         },
         "right": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 39,
+              "y": 16
+            },
+            {
+              "x": 61,
+              "y": 16
+            },
+            {
+              "x": 65,
+              "y": 49
+            },
+            {
+              "x": 67,
+              "y": 91
+            },
+            {
+              "x": 60,
+              "y": 100
+            },
+            {
+              "x": 60,
+              "y": 130
+            },
+            {
+              "x": 66,
+              "y": 136
+            },
+            {
+              "x": 34,
+              "y": 136
+            },
+            {
+              "x": 39,
+              "y": 100
+            },
+            {
+              "x": 34,
+              "y": 91
+            },
+            {
+              "x": 35,
+              "y": 49
+            }
+          ],
+          "headTop": 16,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 35,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 65,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 99,
+          "footBaseline": 136,
+          "headwearPolygons": [
+            [
+              {
+                "x": 34,
+                "y": 8
+              },
+              {
+                "x": 66,
+                "y": 8
+              },
+              {
+                "x": 67,
+                "y": 25
+              },
+              {
+                "x": 33,
+                "y": 25
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 48,
+                "y": 58
+              },
+              {
+                "x": 67,
+                "y": 58
+              },
+              {
+                "x": 67,
+                "y": 84
+              },
+              {
+                "x": 48,
+                "y": 84
+              }
+            ]
+          ]
         }
+      },
+      "annotationProvenance": {
+        "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
+        "sourceFile": "npc_sprites.js",
+        "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
+        "reviewStatus": "pending_rendered_visual_spot_check",
+        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified."
       }
     },
     "cook": {
-      "status": "pending_annotation",
+      "status": "source_annotated",
       "poseClass": "standing",
       "note": "Awaiting landmark annotation; toque must be separately bounded from anatomical head.",
       "directions": {
         "front": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 37,
+              "y": 16
+            },
+            {
+              "x": 63,
+              "y": 16
+            },
+            {
+              "x": 73,
+              "y": 48
+            },
+            {
+              "x": 77,
+              "y": 101
+            },
+            {
+              "x": 72,
+              "y": 111
+            },
+            {
+              "x": 65,
+              "y": 131
+            },
+            {
+              "x": 68,
+              "y": 137
+            },
+            {
+              "x": 33,
+              "y": 137
+            },
+            {
+              "x": 36,
+              "y": 131
+            },
+            {
+              "x": 28,
+              "y": 111
+            },
+            {
+              "x": 23,
+              "y": 101
+            },
+            {
+              "x": 27,
+              "y": 48
+            }
+          ],
+          "headTop": 16,
+          "chin": 46,
+          "shoulderLeft": {
+            "x": 28,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 72,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 101,
+          "footBaseline": 137,
+          "headwearPolygons": [
+            [
+              {
+                "x": 31,
+                "y": 2
+              },
+              {
+                "x": 69,
+                "y": 2
+              },
+              {
+                "x": 70,
+                "y": 29
+              },
+              {
+                "x": 30,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 76,
+                "y": 60
+              },
+              {
+                "x": 95,
+                "y": 60
+              },
+              {
+                "x": 96,
+                "y": 83
+              },
+              {
+                "x": 76,
+                "y": 84
+              }
+            ],
+            [
+              {
+                "x": 64,
+                "y": 78
+              },
+              {
+                "x": 85,
+                "y": 68
+              },
+              {
+                "x": 88,
+                "y": 84
+              },
+              {
+                "x": 70,
+                "y": 92
+              }
+            ]
+          ]
         },
         "back": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 37,
+              "y": 16
+            },
+            {
+              "x": 63,
+              "y": 16
+            },
+            {
+              "x": 73,
+              "y": 48
+            },
+            {
+              "x": 77,
+              "y": 101
+            },
+            {
+              "x": 72,
+              "y": 111
+            },
+            {
+              "x": 65,
+              "y": 131
+            },
+            {
+              "x": 68,
+              "y": 137
+            },
+            {
+              "x": 33,
+              "y": 137
+            },
+            {
+              "x": 36,
+              "y": 131
+            },
+            {
+              "x": 28,
+              "y": 111
+            },
+            {
+              "x": 23,
+              "y": 101
+            },
+            {
+              "x": 27,
+              "y": 48
+            }
+          ],
+          "headTop": 16,
+          "chin": 46,
+          "shoulderLeft": {
+            "x": 28,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 72,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 101,
+          "footBaseline": 137,
+          "headwearPolygons": [
+            [
+              {
+                "x": 31,
+                "y": 2
+              },
+              {
+                "x": 69,
+                "y": 2
+              },
+              {
+                "x": 70,
+                "y": 29
+              },
+              {
+                "x": 30,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 76,
+                "y": 60
+              },
+              {
+                "x": 95,
+                "y": 60
+              },
+              {
+                "x": 96,
+                "y": 83
+              },
+              {
+                "x": 76,
+                "y": 84
+              }
+            ],
+            [
+              {
+                "x": 64,
+                "y": 78
+              },
+              {
+                "x": 85,
+                "y": 68
+              },
+              {
+                "x": 88,
+                "y": 84
+              },
+              {
+                "x": 70,
+                "y": 92
+              }
+            ]
+          ]
         },
         "left": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 40,
+              "y": 16
+            },
+            {
+              "x": 62,
+              "y": 16
+            },
+            {
+              "x": 68,
+              "y": 48
+            },
+            {
+              "x": 70,
+              "y": 94
+            },
+            {
+              "x": 74,
+              "y": 108
+            },
+            {
+              "x": 65,
+              "y": 130
+            },
+            {
+              "x": 60,
+              "y": 137
+            },
+            {
+              "x": 36,
+              "y": 137
+            },
+            {
+              "x": 40,
+              "y": 100
+            },
+            {
+              "x": 35,
+              "y": 90
+            },
+            {
+              "x": 37,
+              "y": 48
+            }
+          ],
+          "headTop": 16,
+          "chin": 46,
+          "shoulderLeft": {
+            "x": 28,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 72,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 101,
+          "footBaseline": 137,
+          "headwearPolygons": [
+            [
+              {
+                "x": 31,
+                "y": 2
+              },
+              {
+                "x": 69,
+                "y": 2
+              },
+              {
+                "x": 70,
+                "y": 29
+              },
+              {
+                "x": 30,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 76,
+                "y": 60
+              },
+              {
+                "x": 95,
+                "y": 60
+              },
+              {
+                "x": 96,
+                "y": 83
+              },
+              {
+                "x": 76,
+                "y": 84
+              }
+            ],
+            [
+              {
+                "x": 64,
+                "y": 78
+              },
+              {
+                "x": 85,
+                "y": 68
+              },
+              {
+                "x": 88,
+                "y": 84
+              },
+              {
+                "x": 70,
+                "y": 92
+              }
+            ]
+          ]
         },
         "right": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 40,
+              "y": 16
+            },
+            {
+              "x": 62,
+              "y": 16
+            },
+            {
+              "x": 68,
+              "y": 48
+            },
+            {
+              "x": 70,
+              "y": 94
+            },
+            {
+              "x": 74,
+              "y": 108
+            },
+            {
+              "x": 65,
+              "y": 130
+            },
+            {
+              "x": 60,
+              "y": 137
+            },
+            {
+              "x": 36,
+              "y": 137
+            },
+            {
+              "x": 40,
+              "y": 100
+            },
+            {
+              "x": 35,
+              "y": 90
+            },
+            {
+              "x": 37,
+              "y": 48
+            }
+          ],
+          "headTop": 16,
+          "chin": 46,
+          "shoulderLeft": {
+            "x": 28,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 72,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 101,
+          "footBaseline": 137,
+          "headwearPolygons": [
+            [
+              {
+                "x": 31,
+                "y": 2
+              },
+              {
+                "x": 69,
+                "y": 2
+              },
+              {
+                "x": 70,
+                "y": 29
+              },
+              {
+                "x": 30,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 76,
+                "y": 60
+              },
+              {
+                "x": 95,
+                "y": 60
+              },
+              {
+                "x": 96,
+                "y": 83
+              },
+              {
+                "x": 76,
+                "y": 84
+              }
+            ],
+            [
+              {
+                "x": 64,
+                "y": 78
+              },
+              {
+                "x": 85,
+                "y": 68
+              },
+              {
+                "x": 88,
+                "y": 84
+              },
+              {
+                "x": 70,
+                "y": 92
+              }
+            ]
+          ]
         }
+      },
+      "annotationProvenance": {
+        "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
+        "sourceFile": "npc_sprites.js",
+        "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
+        "reviewStatus": "pending_rendered_visual_spot_check",
+        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified."
       }
     },
     "courier": {
-      "status": "pending_annotation",
+      "status": "source_annotated",
       "poseClass": "standing",
       "note": "Awaiting landmark annotation; cap, satchel and parcel must be separately bounded.",
       "directions": {
         "front": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 38,
+              "y": 17
+            },
+            {
+              "x": 62,
+              "y": 17
+            },
+            {
+              "x": 71,
+              "y": 52
+            },
+            {
+              "x": 75,
+              "y": 101
+            },
+            {
+              "x": 68,
+              "y": 105
+            },
+            {
+              "x": 71,
+              "y": 132
+            },
+            {
+              "x": 74,
+              "y": 138
+            },
+            {
+              "x": 30,
+              "y": 138
+            },
+            {
+              "x": 34,
+              "y": 132
+            },
+            {
+              "x": 25,
+              "y": 103
+            },
+            {
+              "x": 29,
+              "y": 88
+            },
+            {
+              "x": 25,
+              "y": 54
+            }
+          ],
+          "headTop": 17,
+          "chin": 45,
+          "shoulderLeft": {
+            "x": 32,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 68,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 102,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 34,
+                "y": 16
+              },
+              {
+                "x": 66,
+                "y": 16
+              },
+              {
+                "x": 67,
+                "y": 30
+              },
+              {
+                "x": 33,
+                "y": 30
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 18,
+                "y": 76
+              },
+              {
+                "x": 47,
+                "y": 75
+              },
+              {
+                "x": 49,
+                "y": 107
+              },
+              {
+                "x": 18,
+                "y": 108
+              }
+            ],
+            [
+              {
+                "x": 71,
+                "y": 67
+              },
+              {
+                "x": 97,
+                "y": 66
+              },
+              {
+                "x": 98,
+                "y": 95
+              },
+              {
+                "x": 72,
+                "y": 96
+              }
+            ]
+          ]
         },
         "back": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 38,
+              "y": 17
+            },
+            {
+              "x": 62,
+              "y": 17
+            },
+            {
+              "x": 71,
+              "y": 52
+            },
+            {
+              "x": 75,
+              "y": 101
+            },
+            {
+              "x": 68,
+              "y": 105
+            },
+            {
+              "x": 71,
+              "y": 132
+            },
+            {
+              "x": 74,
+              "y": 138
+            },
+            {
+              "x": 30,
+              "y": 138
+            },
+            {
+              "x": 34,
+              "y": 132
+            },
+            {
+              "x": 25,
+              "y": 103
+            },
+            {
+              "x": 29,
+              "y": 88
+            },
+            {
+              "x": 25,
+              "y": 54
+            }
+          ],
+          "headTop": 17,
+          "chin": 45,
+          "shoulderLeft": {
+            "x": 32,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 68,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 102,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 34,
+                "y": 16
+              },
+              {
+                "x": 66,
+                "y": 16
+              },
+              {
+                "x": 67,
+                "y": 30
+              },
+              {
+                "x": 33,
+                "y": 30
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 18,
+                "y": 76
+              },
+              {
+                "x": 47,
+                "y": 75
+              },
+              {
+                "x": 49,
+                "y": 107
+              },
+              {
+                "x": 18,
+                "y": 108
+              }
+            ],
+            [
+              {
+                "x": 71,
+                "y": 67
+              },
+              {
+                "x": 97,
+                "y": 66
+              },
+              {
+                "x": 98,
+                "y": 95
+              },
+              {
+                "x": 72,
+                "y": 96
+              }
+            ]
+          ]
         },
         "left": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 40,
+              "y": 17
+            },
+            {
+              "x": 62,
+              "y": 17
+            },
+            {
+              "x": 69,
+              "y": 52
+            },
+            {
+              "x": 74,
+              "y": 99
+            },
+            {
+              "x": 67,
+              "y": 104
+            },
+            {
+              "x": 63,
+              "y": 132
+            },
+            {
+              "x": 66,
+              "y": 138
+            },
+            {
+              "x": 36,
+              "y": 138
+            },
+            {
+              "x": 40,
+              "y": 102
+            },
+            {
+              "x": 28,
+              "y": 95
+            },
+            {
+              "x": 30,
+              "y": 55
+            }
+          ],
+          "headTop": 17,
+          "chin": 45,
+          "shoulderLeft": {
+            "x": 32,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 68,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 102,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 34,
+                "y": 16
+              },
+              {
+                "x": 66,
+                "y": 16
+              },
+              {
+                "x": 67,
+                "y": 30
+              },
+              {
+                "x": 33,
+                "y": 30
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 18,
+                "y": 76
+              },
+              {
+                "x": 47,
+                "y": 75
+              },
+              {
+                "x": 49,
+                "y": 107
+              },
+              {
+                "x": 18,
+                "y": 108
+              }
+            ],
+            [
+              {
+                "x": 71,
+                "y": 67
+              },
+              {
+                "x": 97,
+                "y": 66
+              },
+              {
+                "x": 98,
+                "y": 95
+              },
+              {
+                "x": 72,
+                "y": 96
+              }
+            ]
+          ]
         },
         "right": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 40,
+              "y": 17
+            },
+            {
+              "x": 62,
+              "y": 17
+            },
+            {
+              "x": 69,
+              "y": 52
+            },
+            {
+              "x": 74,
+              "y": 99
+            },
+            {
+              "x": 67,
+              "y": 104
+            },
+            {
+              "x": 63,
+              "y": 132
+            },
+            {
+              "x": 66,
+              "y": 138
+            },
+            {
+              "x": 36,
+              "y": 138
+            },
+            {
+              "x": 40,
+              "y": 102
+            },
+            {
+              "x": 28,
+              "y": 95
+            },
+            {
+              "x": 30,
+              "y": 55
+            }
+          ],
+          "headTop": 17,
+          "chin": 45,
+          "shoulderLeft": {
+            "x": 32,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 68,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 102,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 34,
+                "y": 16
+              },
+              {
+                "x": 66,
+                "y": 16
+              },
+              {
+                "x": 67,
+                "y": 30
+              },
+              {
+                "x": 33,
+                "y": 30
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 18,
+                "y": 76
+              },
+              {
+                "x": 47,
+                "y": 75
+              },
+              {
+                "x": 49,
+                "y": 107
+              },
+              {
+                "x": 18,
+                "y": 108
+              }
+            ],
+            [
+              {
+                "x": 71,
+                "y": 67
+              },
+              {
+                "x": 97,
+                "y": 66
+              },
+              {
+                "x": 98,
+                "y": 95
+              },
+              {
+                "x": 72,
+                "y": 96
+              }
+            ]
+          ]
         }
+      },
+      "annotationProvenance": {
+        "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
+        "sourceFile": "npc_sprites.js",
+        "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
+        "reviewStatus": "pending_rendered_visual_spot_check",
+        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified."
       }
     },
     "runner": {
-      "status": "pending_annotation",
+      "status": "source_annotated",
       "poseClass": "dynamic",
       "note": "Awaiting pose-aware joint annotation in all four directions; do not apply upright leg-region bands.",
       "directions": {
         "front": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": [],
-          "joints": {}
+          "bodyPolygon": [
+            {
+              "x": 38,
+              "y": 17
+            },
+            {
+              "x": 62,
+              "y": 17
+            },
+            {
+              "x": 68,
+              "y": 48
+            },
+            {
+              "x": 69,
+              "y": 82
+            },
+            {
+              "x": 76,
+              "y": 94
+            },
+            {
+              "x": 83,
+              "y": 112
+            },
+            {
+              "x": 76,
+              "y": 121
+            },
+            {
+              "x": 65,
+              "y": 115
+            },
+            {
+              "x": 59,
+              "y": 101
+            },
+            {
+              "x": 50,
+              "y": 96
+            },
+            {
+              "x": 40,
+              "y": 109
+            },
+            {
+              "x": 31,
+              "y": 125
+            },
+            {
+              "x": 20,
+              "y": 121
+            },
+            {
+              "x": 28,
+              "y": 104
+            },
+            {
+              "x": 35,
+              "y": 88
+            },
+            {
+              "x": 31,
+              "y": 51
+            }
+          ],
+          "headTop": 17,
+          "chin": 45,
+          "shoulderLeft": {
+            "x": 35,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 65,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 94,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 35,
+                "y": 19
+              },
+              {
+                "x": 65,
+                "y": 19
+              },
+              {
+                "x": 66,
+                "y": 33
+              },
+              {
+                "x": 34,
+                "y": 33
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 42,
+                "y": 69
+              },
+              {
+                "x": 60,
+                "y": 69
+              },
+              {
+                "x": 62,
+                "y": 85
+              },
+              {
+                "x": 42,
+                "y": 85
+              }
+            ],
+            [
+              {
+                "x": 55,
+                "y": 48
+              },
+              {
+                "x": 72,
+                "y": 48
+              },
+              {
+                "x": 77,
+                "y": 58
+              },
+              {
+                "x": 60,
+                "y": 63
+              }
+            ]
+          ],
+          "joints": {
+            "leftShoulder": {
+              "x": 42,
+              "y": 51
+            },
+            "rightShoulder": {
+              "x": 58,
+              "y": 51
+            },
+            "leftElbow": {
+              "x": 31,
+              "y": 66
+            },
+            "rightElbow": {
+              "x": 70,
+              "y": 65
+            },
+            "leftWrist": {
+              "x": 24,
+              "y": 80
+            },
+            "rightWrist": {
+              "x": 78,
+              "y": 79
+            },
+            "leftHip": {
+              "x": 45,
+              "y": 91
+            },
+            "rightHip": {
+              "x": 56,
+              "y": 92
+            },
+            "leftKnee": {
+              "x": 32,
+              "y": 112
+            },
+            "rightKnee": {
+              "x": 73,
+              "y": 105
+            },
+            "leftAnkle": {
+              "x": 22,
+              "y": 124
+            },
+            "rightAnkle": {
+              "x": 84,
+              "y": 116
+            }
+          }
         },
         "back": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": [],
-          "joints": {}
+          "bodyPolygon": [
+            {
+              "x": 38,
+              "y": 17
+            },
+            {
+              "x": 62,
+              "y": 17
+            },
+            {
+              "x": 68,
+              "y": 48
+            },
+            {
+              "x": 69,
+              "y": 82
+            },
+            {
+              "x": 76,
+              "y": 94
+            },
+            {
+              "x": 83,
+              "y": 112
+            },
+            {
+              "x": 76,
+              "y": 121
+            },
+            {
+              "x": 65,
+              "y": 115
+            },
+            {
+              "x": 59,
+              "y": 101
+            },
+            {
+              "x": 50,
+              "y": 96
+            },
+            {
+              "x": 40,
+              "y": 109
+            },
+            {
+              "x": 31,
+              "y": 125
+            },
+            {
+              "x": 20,
+              "y": 121
+            },
+            {
+              "x": 28,
+              "y": 104
+            },
+            {
+              "x": 35,
+              "y": 88
+            },
+            {
+              "x": 31,
+              "y": 51
+            }
+          ],
+          "headTop": 17,
+          "chin": 45,
+          "shoulderLeft": {
+            "x": 35,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 65,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 94,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 35,
+                "y": 19
+              },
+              {
+                "x": 65,
+                "y": 19
+              },
+              {
+                "x": 66,
+                "y": 33
+              },
+              {
+                "x": 34,
+                "y": 33
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 42,
+                "y": 69
+              },
+              {
+                "x": 60,
+                "y": 69
+              },
+              {
+                "x": 62,
+                "y": 85
+              },
+              {
+                "x": 42,
+                "y": 85
+              }
+            ],
+            [
+              {
+                "x": 55,
+                "y": 48
+              },
+              {
+                "x": 72,
+                "y": 48
+              },
+              {
+                "x": 77,
+                "y": 58
+              },
+              {
+                "x": 60,
+                "y": 63
+              }
+            ]
+          ],
+          "joints": {
+            "leftShoulder": {
+              "x": 42,
+              "y": 51
+            },
+            "rightShoulder": {
+              "x": 58,
+              "y": 51
+            },
+            "leftElbow": {
+              "x": 31,
+              "y": 66
+            },
+            "rightElbow": {
+              "x": 70,
+              "y": 65
+            },
+            "leftWrist": {
+              "x": 24,
+              "y": 80
+            },
+            "rightWrist": {
+              "x": 78,
+              "y": 79
+            },
+            "leftHip": {
+              "x": 45,
+              "y": 91
+            },
+            "rightHip": {
+              "x": 56,
+              "y": 92
+            },
+            "leftKnee": {
+              "x": 32,
+              "y": 112
+            },
+            "rightKnee": {
+              "x": 73,
+              "y": 105
+            },
+            "leftAnkle": {
+              "x": 22,
+              "y": 124
+            },
+            "rightAnkle": {
+              "x": 84,
+              "y": 116
+            }
+          }
         },
         "left": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": [],
-          "joints": {}
+          "bodyPolygon": [
+            {
+              "x": 39,
+              "y": 17
+            },
+            {
+              "x": 62,
+              "y": 17
+            },
+            {
+              "x": 69,
+              "y": 48
+            },
+            {
+              "x": 66,
+              "y": 80
+            },
+            {
+              "x": 77,
+              "y": 91
+            },
+            {
+              "x": 89,
+              "y": 101
+            },
+            {
+              "x": 84,
+              "y": 111
+            },
+            {
+              "x": 68,
+              "y": 106
+            },
+            {
+              "x": 55,
+              "y": 97
+            },
+            {
+              "x": 43,
+              "y": 110
+            },
+            {
+              "x": 34,
+              "y": 125
+            },
+            {
+              "x": 23,
+              "y": 121
+            },
+            {
+              "x": 32,
+              "y": 100
+            },
+            {
+              "x": 35,
+              "y": 51
+            }
+          ],
+          "headTop": 17,
+          "chin": 45,
+          "shoulderLeft": {
+            "x": 35,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 65,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 94,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 35,
+                "y": 19
+              },
+              {
+                "x": 65,
+                "y": 19
+              },
+              {
+                "x": 66,
+                "y": 33
+              },
+              {
+                "x": 34,
+                "y": 33
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 42,
+                "y": 69
+              },
+              {
+                "x": 60,
+                "y": 69
+              },
+              {
+                "x": 62,
+                "y": 85
+              },
+              {
+                "x": 42,
+                "y": 85
+              }
+            ],
+            [
+              {
+                "x": 55,
+                "y": 48
+              },
+              {
+                "x": 72,
+                "y": 48
+              },
+              {
+                "x": 77,
+                "y": 58
+              },
+              {
+                "x": 60,
+                "y": 63
+              }
+            ]
+          ],
+          "joints": {
+            "leftShoulder": {
+              "x": 45,
+              "y": 50
+            },
+            "rightShoulder": {
+              "x": 54,
+              "y": 51
+            },
+            "leftElbow": {
+              "x": 35,
+              "y": 66
+            },
+            "rightElbow": {
+              "x": 69,
+              "y": 63
+            },
+            "leftWrist": {
+              "x": 29,
+              "y": 79
+            },
+            "rightWrist": {
+              "x": 83,
+              "y": 76
+            },
+            "leftHip": {
+              "x": 45,
+              "y": 92
+            },
+            "rightHip": {
+              "x": 55,
+              "y": 93
+            },
+            "leftKnee": {
+              "x": 34,
+              "y": 113
+            },
+            "rightKnee": {
+              "x": 76,
+              "y": 101
+            },
+            "leftAnkle": {
+              "x": 23,
+              "y": 124
+            },
+            "rightAnkle": {
+              "x": 88,
+              "y": 108
+            }
+          }
         },
         "right": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": [],
-          "joints": {}
+          "bodyPolygon": [
+            {
+              "x": 39,
+              "y": 17
+            },
+            {
+              "x": 62,
+              "y": 17
+            },
+            {
+              "x": 69,
+              "y": 48
+            },
+            {
+              "x": 66,
+              "y": 80
+            },
+            {
+              "x": 77,
+              "y": 91
+            },
+            {
+              "x": 89,
+              "y": 101
+            },
+            {
+              "x": 84,
+              "y": 111
+            },
+            {
+              "x": 68,
+              "y": 106
+            },
+            {
+              "x": 55,
+              "y": 97
+            },
+            {
+              "x": 43,
+              "y": 110
+            },
+            {
+              "x": 34,
+              "y": 125
+            },
+            {
+              "x": 23,
+              "y": 121
+            },
+            {
+              "x": 32,
+              "y": 100
+            },
+            {
+              "x": 35,
+              "y": 51
+            }
+          ],
+          "headTop": 17,
+          "chin": 45,
+          "shoulderLeft": {
+            "x": 35,
+            "y": 49
+          },
+          "shoulderRight": {
+            "x": 65,
+            "y": 49
+          },
+          "shoulderY": 49,
+          "pelvisY": 94,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 35,
+                "y": 19
+              },
+              {
+                "x": 65,
+                "y": 19
+              },
+              {
+                "x": 66,
+                "y": 33
+              },
+              {
+                "x": 34,
+                "y": 33
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 42,
+                "y": 69
+              },
+              {
+                "x": 60,
+                "y": 69
+              },
+              {
+                "x": 62,
+                "y": 85
+              },
+              {
+                "x": 42,
+                "y": 85
+              }
+            ],
+            [
+              {
+                "x": 55,
+                "y": 48
+              },
+              {
+                "x": 72,
+                "y": 48
+              },
+              {
+                "x": 77,
+                "y": 58
+              },
+              {
+                "x": 60,
+                "y": 63
+              }
+            ]
+          ],
+          "joints": {
+            "leftShoulder": {
+              "x": 45,
+              "y": 50
+            },
+            "rightShoulder": {
+              "x": 54,
+              "y": 51
+            },
+            "leftElbow": {
+              "x": 35,
+              "y": 66
+            },
+            "rightElbow": {
+              "x": 69,
+              "y": 63
+            },
+            "leftWrist": {
+              "x": 29,
+              "y": 79
+            },
+            "rightWrist": {
+              "x": 83,
+              "y": 76
+            },
+            "leftHip": {
+              "x": 45,
+              "y": 92
+            },
+            "rightHip": {
+              "x": 55,
+              "y": 93
+            },
+            "leftKnee": {
+              "x": 34,
+              "y": 113
+            },
+            "rightKnee": {
+              "x": 76,
+              "y": 101
+            },
+            "leftAnkle": {
+              "x": 23,
+              "y": 124
+            },
+            "rightAnkle": {
+              "x": 88,
+              "y": 108
+            }
+          }
         }
+      },
+      "annotationProvenance": {
+        "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
+        "sourceFile": "npc_sprites.js",
+        "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
+        "reviewStatus": "pending_rendered_visual_spot_check",
+        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified."
       }
     },
     "coach": {
-      "status": "pending_annotation",
+      "status": "source_annotated",
       "poseClass": "standing",
       "note": "Awaiting landmark annotation; cap, clipboard and whistle/lanyard must be separately bounded.",
       "directions": {
         "front": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 37,
+              "y": 14
+            },
+            {
+              "x": 63,
+              "y": 14
+            },
+            {
+              "x": 69,
+              "y": 48
+            },
+            {
+              "x": 71,
+              "y": 87
+            },
+            {
+              "x": 68,
+              "y": 101
+            },
+            {
+              "x": 67,
+              "y": 130
+            },
+            {
+              "x": 73,
+              "y": 138
+            },
+            {
+              "x": 27,
+              "y": 138
+            },
+            {
+              "x": 32,
+              "y": 130
+            },
+            {
+              "x": 31,
+              "y": 101
+            },
+            {
+              "x": 28,
+              "y": 87
+            },
+            {
+              "x": 31,
+              "y": 53
+            }
+          ],
+          "headTop": 14,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 34,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 66,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 101,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 32,
+                "y": 16
+              },
+              {
+                "x": 68,
+                "y": 16
+              },
+              {
+                "x": 69,
+                "y": 29
+              },
+              {
+                "x": 31,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 70,
+                "y": 66
+              },
+              {
+                "x": 88,
+                "y": 66
+              },
+              {
+                "x": 89,
+                "y": 99
+              },
+              {
+                "x": 68,
+                "y": 101
+              }
+            ],
+            [
+              {
+                "x": 42,
+                "y": 70
+              },
+              {
+                "x": 55,
+                "y": 70
+              },
+              {
+                "x": 58,
+                "y": 80
+              },
+              {
+                "x": 43,
+                "y": 80
+              }
+            ]
+          ]
         },
         "back": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 37,
+              "y": 14
+            },
+            {
+              "x": 63,
+              "y": 14
+            },
+            {
+              "x": 69,
+              "y": 48
+            },
+            {
+              "x": 71,
+              "y": 87
+            },
+            {
+              "x": 68,
+              "y": 101
+            },
+            {
+              "x": 67,
+              "y": 130
+            },
+            {
+              "x": 73,
+              "y": 138
+            },
+            {
+              "x": 27,
+              "y": 138
+            },
+            {
+              "x": 32,
+              "y": 130
+            },
+            {
+              "x": 31,
+              "y": 101
+            },
+            {
+              "x": 28,
+              "y": 87
+            },
+            {
+              "x": 31,
+              "y": 53
+            }
+          ],
+          "headTop": 14,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 34,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 66,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 101,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 32,
+                "y": 16
+              },
+              {
+                "x": 68,
+                "y": 16
+              },
+              {
+                "x": 69,
+                "y": 29
+              },
+              {
+                "x": 31,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 70,
+                "y": 66
+              },
+              {
+                "x": 88,
+                "y": 66
+              },
+              {
+                "x": 89,
+                "y": 99
+              },
+              {
+                "x": 68,
+                "y": 101
+              }
+            ],
+            [
+              {
+                "x": 42,
+                "y": 70
+              },
+              {
+                "x": 55,
+                "y": 70
+              },
+              {
+                "x": 58,
+                "y": 80
+              },
+              {
+                "x": 43,
+                "y": 80
+              }
+            ]
+          ]
         },
         "left": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 39,
+              "y": 14
+            },
+            {
+              "x": 62,
+              "y": 14
+            },
+            {
+              "x": 66,
+              "y": 48
+            },
+            {
+              "x": 68,
+              "y": 91
+            },
+            {
+              "x": 62,
+              "y": 101
+            },
+            {
+              "x": 60,
+              "y": 130
+            },
+            {
+              "x": 64,
+              "y": 138
+            },
+            {
+              "x": 36,
+              "y": 138
+            },
+            {
+              "x": 40,
+              "y": 101
+            },
+            {
+              "x": 35,
+              "y": 91
+            },
+            {
+              "x": 36,
+              "y": 53
+            }
+          ],
+          "headTop": 14,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 34,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 66,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 101,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 32,
+                "y": 16
+              },
+              {
+                "x": 68,
+                "y": 16
+              },
+              {
+                "x": 69,
+                "y": 29
+              },
+              {
+                "x": 31,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 70,
+                "y": 66
+              },
+              {
+                "x": 88,
+                "y": 66
+              },
+              {
+                "x": 89,
+                "y": 99
+              },
+              {
+                "x": 68,
+                "y": 101
+              }
+            ],
+            [
+              {
+                "x": 42,
+                "y": 70
+              },
+              {
+                "x": 55,
+                "y": 70
+              },
+              {
+                "x": 58,
+                "y": 80
+              },
+              {
+                "x": 43,
+                "y": 80
+              }
+            ]
+          ]
         },
         "right": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 39,
+              "y": 14
+            },
+            {
+              "x": 62,
+              "y": 14
+            },
+            {
+              "x": 66,
+              "y": 48
+            },
+            {
+              "x": 68,
+              "y": 91
+            },
+            {
+              "x": 62,
+              "y": 101
+            },
+            {
+              "x": 60,
+              "y": 130
+            },
+            {
+              "x": 64,
+              "y": 138
+            },
+            {
+              "x": 36,
+              "y": 138
+            },
+            {
+              "x": 40,
+              "y": 101
+            },
+            {
+              "x": 35,
+              "y": 91
+            },
+            {
+              "x": 36,
+              "y": 53
+            }
+          ],
+          "headTop": 14,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 34,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 66,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 101,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 32,
+                "y": 16
+              },
+              {
+                "x": 68,
+                "y": 16
+              },
+              {
+                "x": 69,
+                "y": 29
+              },
+              {
+                "x": 31,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 70,
+                "y": 66
+              },
+              {
+                "x": 88,
+                "y": 66
+              },
+              {
+                "x": 89,
+                "y": 99
+              },
+              {
+                "x": 68,
+                "y": 101
+              }
+            ],
+            [
+              {
+                "x": 42,
+                "y": 70
+              },
+              {
+                "x": 55,
+                "y": 70
+              },
+              {
+                "x": 58,
+                "y": 80
+              },
+              {
+                "x": 43,
+                "y": 80
+              }
+            ]
+          ]
         }
+      },
+      "annotationProvenance": {
+        "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
+        "sourceFile": "npc_sprites.js",
+        "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
+        "reviewStatus": "pending_rendered_visual_spot_check",
+        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified."
       }
     },
     "referee": {
-      "status": "pending_annotation",
+      "status": "source_annotated",
       "poseClass": "standing",
       "note": "Awaiting landmark annotation; headband and raised card must be separately bounded.",
       "directions": {
         "front": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 38,
+              "y": 16
+            },
+            {
+              "x": 62,
+              "y": 16
+            },
+            {
+              "x": 67,
+              "y": 48
+            },
+            {
+              "x": 69,
+              "y": 88
+            },
+            {
+              "x": 65,
+              "y": 99
+            },
+            {
+              "x": 67,
+              "y": 114
+            },
+            {
+              "x": 74,
+              "y": 132
+            },
+            {
+              "x": 76,
+              "y": 138
+            },
+            {
+              "x": 27,
+              "y": 138
+            },
+            {
+              "x": 29,
+              "y": 132
+            },
+            {
+              "x": 34,
+              "y": 114
+            },
+            {
+              "x": 31,
+              "y": 99
+            },
+            {
+              "x": 30,
+              "y": 88
+            },
+            {
+              "x": 33,
+              "y": 51
+            }
+          ],
+          "headTop": 16,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 36,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 64,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 98,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 35,
+                "y": 16
+              },
+              {
+                "x": 65,
+                "y": 16
+              },
+              {
+                "x": 66,
+                "y": 29
+              },
+              {
+                "x": 34,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 8,
+                "y": 10
+              },
+              {
+                "x": 28,
+                "y": 10
+              },
+              {
+                "x": 28,
+                "y": 39
+              },
+              {
+                "x": 8,
+                "y": 39
+              }
+            ],
+            [
+              {
+                "x": 45,
+                "y": 65
+              },
+              {
+                "x": 56,
+                "y": 65
+              },
+              {
+                "x": 57,
+                "y": 78
+              },
+              {
+                "x": 45,
+                "y": 78
+              }
+            ]
+          ]
         },
         "back": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 38,
+              "y": 16
+            },
+            {
+              "x": 62,
+              "y": 16
+            },
+            {
+              "x": 67,
+              "y": 48
+            },
+            {
+              "x": 69,
+              "y": 88
+            },
+            {
+              "x": 65,
+              "y": 99
+            },
+            {
+              "x": 67,
+              "y": 114
+            },
+            {
+              "x": 74,
+              "y": 132
+            },
+            {
+              "x": 76,
+              "y": 138
+            },
+            {
+              "x": 27,
+              "y": 138
+            },
+            {
+              "x": 29,
+              "y": 132
+            },
+            {
+              "x": 34,
+              "y": 114
+            },
+            {
+              "x": 31,
+              "y": 99
+            },
+            {
+              "x": 30,
+              "y": 88
+            },
+            {
+              "x": 33,
+              "y": 51
+            }
+          ],
+          "headTop": 16,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 36,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 64,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 98,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 35,
+                "y": 16
+              },
+              {
+                "x": 65,
+                "y": 16
+              },
+              {
+                "x": 66,
+                "y": 29
+              },
+              {
+                "x": 34,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 8,
+                "y": 10
+              },
+              {
+                "x": 28,
+                "y": 10
+              },
+              {
+                "x": 28,
+                "y": 39
+              },
+              {
+                "x": 8,
+                "y": 39
+              }
+            ],
+            [
+              {
+                "x": 45,
+                "y": 65
+              },
+              {
+                "x": 56,
+                "y": 65
+              },
+              {
+                "x": 57,
+                "y": 78
+              },
+              {
+                "x": 45,
+                "y": 78
+              }
+            ]
+          ]
         },
         "left": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 40,
+              "y": 16
+            },
+            {
+              "x": 61,
+              "y": 16
+            },
+            {
+              "x": 64,
+              "y": 48
+            },
+            {
+              "x": 65,
+              "y": 91
+            },
+            {
+              "x": 59,
+              "y": 99
+            },
+            {
+              "x": 60,
+              "y": 114
+            },
+            {
+              "x": 64,
+              "y": 132
+            },
+            {
+              "x": 67,
+              "y": 138
+            },
+            {
+              "x": 36,
+              "y": 138
+            },
+            {
+              "x": 40,
+              "y": 114
+            },
+            {
+              "x": 38,
+              "y": 99
+            },
+            {
+              "x": 38,
+              "y": 51
+            }
+          ],
+          "headTop": 16,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 36,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 64,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 98,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 35,
+                "y": 16
+              },
+              {
+                "x": 65,
+                "y": 16
+              },
+              {
+                "x": 66,
+                "y": 29
+              },
+              {
+                "x": 34,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 8,
+                "y": 10
+              },
+              {
+                "x": 28,
+                "y": 10
+              },
+              {
+                "x": 28,
+                "y": 39
+              },
+              {
+                "x": 8,
+                "y": 39
+              }
+            ],
+            [
+              {
+                "x": 45,
+                "y": 65
+              },
+              {
+                "x": 56,
+                "y": 65
+              },
+              {
+                "x": 57,
+                "y": 78
+              },
+              {
+                "x": 45,
+                "y": 78
+              }
+            ]
+          ]
         },
         "right": {
-          "bodyPolygon": [],
-          "headTop": null,
-          "chin": null,
-          "shoulderLeft": null,
-          "shoulderRight": null,
-          "shoulderY": null,
-          "pelvisY": null,
-          "footBaseline": null,
-          "headwearPolygons": [],
-          "propPolygons": []
+          "bodyPolygon": [
+            {
+              "x": 40,
+              "y": 16
+            },
+            {
+              "x": 61,
+              "y": 16
+            },
+            {
+              "x": 64,
+              "y": 48
+            },
+            {
+              "x": 65,
+              "y": 91
+            },
+            {
+              "x": 59,
+              "y": 99
+            },
+            {
+              "x": 60,
+              "y": 114
+            },
+            {
+              "x": 64,
+              "y": 132
+            },
+            {
+              "x": 67,
+              "y": 138
+            },
+            {
+              "x": 36,
+              "y": 138
+            },
+            {
+              "x": 40,
+              "y": 114
+            },
+            {
+              "x": 38,
+              "y": 99
+            },
+            {
+              "x": 38,
+              "y": 51
+            }
+          ],
+          "headTop": 16,
+          "chin": 44,
+          "shoulderLeft": {
+            "x": 36,
+            "y": 48
+          },
+          "shoulderRight": {
+            "x": 64,
+            "y": 48
+          },
+          "shoulderY": 48,
+          "pelvisY": 98,
+          "footBaseline": 138,
+          "headwearPolygons": [
+            [
+              {
+                "x": 35,
+                "y": 16
+              },
+              {
+                "x": 65,
+                "y": 16
+              },
+              {
+                "x": 66,
+                "y": 29
+              },
+              {
+                "x": 34,
+                "y": 29
+              }
+            ]
+          ],
+          "propPolygons": [
+            [
+              {
+                "x": 8,
+                "y": 10
+              },
+              {
+                "x": 28,
+                "y": 10
+              },
+              {
+                "x": 28,
+                "y": 39
+              },
+              {
+                "x": 8,
+                "y": 39
+              }
+            ],
+            [
+              {
+                "x": 45,
+                "y": 65
+              },
+              {
+                "x": 56,
+                "y": 65
+              },
+              {
+                "x": 57,
+                "y": 78
+              },
+              {
+                "x": 45,
+                "y": 78
+              }
+            ]
+          ]
         }
+      },
+      "annotationProvenance": {
+        "sourceCommit": "8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317",
+        "sourceFile": "npc_sprites.js",
+        "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
+        "reviewStatus": "pending_rendered_visual_spot_check",
+        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified."
       }
     }
+  },
+  "annotationPolicy": {
+    "sourceAnnotationWarning": "All six records contain manual candidate annotations from renderer path coordinates. They are not visually verified. Do not treat ratios as calibrated or promote status to measured until polygon overlays and landmarks are checked against native front/back/left/right captures."
   }
 }
