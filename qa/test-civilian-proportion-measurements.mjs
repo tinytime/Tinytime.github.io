@@ -79,6 +79,8 @@ assert.equal(actualManifest.characters.cook.directions.back.propPolygons.length,
 assert.equal(actualManifest.characters.courier.directions.back.propPolygons.length,1,'Courier rear view excludes satchel only');
 assert.equal(actualManifest.characters.runner.directions.front.propPolygons.length,1,'Runner front excludes stopwatch only');
 assert.equal(actualManifest.characters.runner.directions.back.propPolygons.length,0,'Runner back has no stopwatch');
+assert.equal(actualManifest.characters.coach.directions.back.propPolygons.length,0,'Coach back has no clipboard or whistle prop');
+assert.equal(actualManifest.characters.coach.directions.front.propPolygons.length,2,'Coach front has clipboard and whistle exclusions');
 assert.equal(actualManifest.characters.coach.directions.back.propPolygons.length,0,'Coach rear view has no clipboard or whistle');
 for(const id of ['usher','cook','courier','runner','coach','referee']){
  for(const direction of ['left','right']){
