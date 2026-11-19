@@ -415,3 +415,8 @@ Run #464 body/height/baseline check passes (max height deviation 0.4375 px; max 
 ## Semantic proportion measurement framework — 2026-11-19
 
 A reusable semantic measurement engine and manifest are implemented: `qa/civilian-proportion-measurements.mjs` and `qa/civilian-anatomy-landmarks.json`. The framework uses Granny's 100×140 source coordinate convention, requires explicit anatomy/headwear/prop annotations per direction, and calculates descriptive head/body, shoulder/body, torso/body, neck/body, and standing leg-region/body ratios. Runner is pose-aware and requires bilateral shoulder/elbow/wrist/hip/knee/ankle landmarks rather than a standing leg ratio. Unit tests and structural validation are now part of the browser QA workflow. Granny's legacy measurement remains the separate baseline; all six civilian annotations remain pending manual review. No thresholds are enforced. Fresh native captures and verified annotations are still required before numeric six-character ratios can be reported.
+
+
+## Semantic anatomy measurement framework — 2026-11-19
+
+The semantic proportion measurement engine and fixture tests are now part of the browser QA workflow. See `qa/civilian-proportion-measurements.mjs`, `qa/civilian-anatomy-landmarks.json`, and `qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md`. Granny's established geometry remains a legacy reference record; Usher, Cook, Courier, Runner, Coach and Referee are explicitly pending manual annotation in all four directions. No semantic ratios are claimed yet. Runner requires pose-aware joint landmarks rather than standing leg proportions. Provisional ranges remain non-enforcing.
