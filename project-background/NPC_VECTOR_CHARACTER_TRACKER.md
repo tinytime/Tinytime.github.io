@@ -360,4 +360,16 @@ Added `qa/build-five-civilian-review-sheet.mjs` and wired it into `.github/workf
 
 ## Five-civilian direct game-scale evidence expansion — 2026-11-19
 
-The browser QA hook now targets Usher, Cook, Courier, Coach and Referee at direct live-renderer scale (OWT=36, vector scale 0.28), with 28×42 output in front/back/left/right. The QA assertion requires 20 unique pairs and explicitly checks all five names and all four directions. Implementation commit: `c1d8d75aceeef0c9a689c2f8c40ae88909c55ada`. First verification: [Actions run #463](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178), currently pending at time of this update. Do not mark this evidence complete until its report confirms 20/20 and the artifact is inspected.
+The browser QA hook now targets Usher, Cook, Courier, Coach and Referee at direct live-renderer scale (OWT=36, vector scale 0.28), with 28×42 output in front/back/left/right. The QA assertion requires 20 unique pairs and explicitly checks all five names and all four directions. Implementation commit: `c1d8d75aceeef0c9a689c2f8c40ae88909c55ada`. Verified by [Actions run #463](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178): 20/20 direct 28×42 captures passed, with all five civilians × four directions. [Artifact `14568093189`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178/artifacts/14568093189) contains the native and game-scale captures, contact sheet and report. The artifact has not yet received human visual inspection.
+
+
+## Run #463 — five-civilian direct game-scale verification (2026-11-19)
+
+- Tested commit: `c1d8d75aceeef0c9a689c2f8c40ae88909c55ada`
+- [Actions run #463](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178); [artifact `14568093189`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602240178/artifacts/14568093189)
+- Direct 28×42 `owCiv` capture audit: **20/20 PASS** — Usher, Cook, Courier, Coach and Referee, each front/back/left/right; method explicitly states live OWT=36, vector scale 0.28, no resize.
+- Native directional integrity: 92/92 PASS; no edge contacts or detached large components; 23 unique face profiles left/right.
+- Role-debug: 12/12 PASS; prop audit: 10 archetypes PASS; gallery rendered.
+- Page errors: 0; script errors: 0; audio-resource 404 console errors remain.
+- Overall workflow: **FAILED** on global civilian type silhouette audit (max rendered IoU 0.909429; closest pairs include Clinic/Sailor front and Coach/Courier back) and golden snapshot gate (23 changed / 1 match; baseline remains unapproved).
+- The 20 native 64×96 captures and 20 direct 28×42 captures have not been visually inspected by ChatGPT or Claude. All five remain NOT APPROVED; no golden snapshots were refreshed or approved.
