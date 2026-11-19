@@ -37,6 +37,7 @@ export function validateLandmarkRecord(record, id) {
     if (d.pelvisY < d.shoulderY || d.pelvisY > d.footBaseline) errors.push(direction + ' pelvisY is outside shoulder-to-foot interval');
     if (isPoint(d.shoulderLeft) && isPoint(d.shoulderRight) && d.shoulderLeft.y !== d.shoulderRight.y)
       errors.push(direction + ' shoulder points must share one measurement row');
+    if (d.bodyAppendagePolygons != null && (!Array.isArray(d.bodyAppendagePolygons) || !d.bodyAppendagePolygons.every(validPolygon))) errors.push(direction + ' bodyAppendagePolygons must be valid polygons when supplied');
     if (!Array.isArray(d.headwearPolygons) || !d.headwearPolygons.every(validPolygon) || !Array.isArray(d.propPolygons) || !d.propPolygons.every(validPolygon))
       errors.push(direction + ' must explicitly declare valid headwearPolygons and propPolygons (empty arrays are valid)');
     for (const key of ['headTop','chin','shoulderY','pelvisY','footBaseline']) if (Number.isFinite(d[key]) && (d[key] < 0 || d[key] > 140)) errors.push(direction + ' ' + key + ' is outside 100x140 source bounds');
@@ -74,6 +75,7 @@ export function measureLandmarkRecord(record) {
       },
       footBaseline: d.footBaseline,
       anatomicalBodyPolygon: d.bodyPolygon,
+      anatomicalAppendagePolygons: d.bodyAppendagePolygons || [],
       excludedHeadwearPolygons: d.headwearPolygons,
       excludedPropPolygons: d.propPolygons
     };
