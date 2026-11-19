@@ -1,0 +1,128 @@
+# Five-Civilian Vector Review — Claude
+
+## Purpose and scope
+
+Claude: conduct one complete, independent comparative review of these **five** completed vector civilians together:
+
+1. Usher — civic / venue attendant
+2. Cook — food service / chef
+3. Courier — delivery / messenger
+4. Coach — veteran sideline tactician
+5. Referee — football official
+
+Compare all five against Granny Volt's approved 10/10 quality benchmark. Review the actual rendered evidence and source, not descriptions alone. The goal is to identify the corrections needed to bring these five to a consistently excellent finish, then extract a practical production rule set that will let ChatGPT build the remaining civilians faster, with less iteration, without making them look like recolored versions of one template.
+
+**Runner is intentionally excluded from this review to reduce review scope. Runner is not deleted, not rejected, and not approved by this scope change.** Runner shares the athletic archetype with Coach and Referee; retaining Coach and Referee provides two distinct athletic-role examples while preserving the civic, vendor, and courier design families. Runner remains built and pending a later focused review. Do not spend review effort scoring Runner in this pass.
+
+Usher, Cook and Courier have existing owner approval. Coach and Referee remain NOT APPROVED. Review all five critically regardless of prior owner approval; identify worthwhile polish even on approved designs. Do not change any approval status—only the project owner can do that.
+
+## Essential source code
+
+The authoritative live renderer is **`npc_sprites.js`** (with an underscore).
+
+- [Open exact renderer source at the tested commit](https://github.com/tinytime/Tinytime.github.io/blob/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0/npc_sprites.js)
+- [Raw `npc_sprites.js` source](https://raw.githubusercontent.com/tinytime/Tinytime.github.io/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0/npc_sprites.js)
+- [Current branch copy](https://github.com/tinytime/Tinytime.github.io/blob/npc-granny-baseline-overhaul/npc_sprites.js)
+- Exact source commit: [`5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`](https://github.com/tinytime/Tinytime.github.io/commit/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0)
+
+Read the actual draw functions, dispatch, palettes, directional paths, layering/occlusion, shared helpers and archetype mappings. Do not rely only on screenshots or prior review notes.
+
+## Rendered evidence
+
+### Combined six-character QA run (the five in-scope characters are included)
+
+- [GitHub Actions run #457](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167)
+- [Download browser QA artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167/artifacts/14563778383) — artifact ID `14563778383`
+- Exact renderer source tested: [`5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`](https://github.com/tinytime/Tinytime.github.io/commit/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0)
+- Artifact contains all six completed civilians' native 64×96 front/back/left/right captures (24 images total), including all five in this review. It also contains direct 28×42 game-scale captures for Runner, Coach and Referee (12 captures total); use Coach and Referee from these for game-scale review. Runner's game-scale captures are out of scope.
+- Inspect the `npc-type-directions/` images for the five in-scope characters, and `npc-game-scale-28x42/` for Coach and Referee. Also inspect role-debug, Granny comparison, gallery, town regression and `report.json`.
+- [First-pilot review history and evidence](../../project-background/CLAUDE-PILOT-REVIEW-PACKAGE.md)
+- [Courier correction source and QA history](https://github.com/tinytime/Tinytime.github.io/commit/98dbcda2a32fa506ba355f12ddd449db3322a4b4)
+- The first-batch review history is context only; independently inspect current source and current images.
+
+## What to evaluate
+
+Review the five **side by side** and compare each to Granny Volt for finish, clarity, character and visual coherence. Evaluate:
+
+- Instant role recognition and originality of full silhouette at thumbnail size.
+- Proportions, anatomy, pose, stance, hands, feet and limb readability in all four directions.
+- Face construction, expression, eyes/catchlights, hair/headwear and side-profile anatomy.
+- Clothing construction: layering, seams, hems, collars, cuffs, material cues, outline consistency and occlusion.
+- Prop design, readability at game scale, physical grip/contact and consistent placement in mirrored views.
+- Front, back, left and right as intentionally composed views—not just mirrored shortcuts or blank fallbacks.
+- Readability at native 28×42 game scale and finish at 64×96 native source size / enlarged inspection.
+- Palette hierarchy and contrast; avoid palette-only character differentiation.
+- Consistent craft quality across the five without erasing their individual identities.
+- Technical/source issues that may explain visible artifacts.
+
+For **each of the five characters**, provide:
+1. A candid score out of 10 against Granny's 10/10 quality bar.
+2. Verdict: approve as-is, approve after required fixes, or reject/rework (recommendation only; owner decides).
+3. Required corrections ranked critical / major / minor, with exact direction/view and a precise description of the problem and desired result.
+4. Optional polish only where it materially improves the result.
+5. What is strongest and must be preserved.
+6. Whether it reads as finished at both 28×42 and 64×96.
+
+Then provide:
+- A five-character comparative ranking, with clear criteria.
+- An overall batch verdict and the smallest high-impact correction set that would bring the group to the desired standard.
+- A distinction between objective defects, technical constraints, and subjective art preferences.
+
+## Required deliverable: Vapor City Civilian Vector Build Standard
+
+The main long-term goal is to reduce iteration on the remaining civilians. Derive a concise, technically actionable **Vapor City Civilian Vector Build Standard** from the five reviewed characters, their renderer implementation, the QA evidence, and the actual successful/failed corrections.
+
+This is not a generic art-advice sheet. It must tell ChatGPT how to get the design right earlier and reduce avoidable correction loops. Include:
+
+### A. Design brief before drawing
+A one-page per-character brief covering role/personality, silhouette concept, head/face, body proportions, pose, clothing construction, palette, defining prop, and the unique feature that distinguishes the character at thumbnail scale. Include a quick overlap check against the existing approved/reviewed civilians.
+
+### B. Silhouette and anatomy
+Rules for creating original proportions and pose rather than reusing a shared body. Explain torso/head/limb relationships, visible limb separation, hands/feet, grounded vs dynamic poses, foot baseline and direction-specific anatomy. Include concrete do/don't examples from these five.
+
+### C. Face and head
+Practical native-pixel guidance for eye size/contrast/catchlights, expression, profile nose/ear/eye placement, hair and headwear. Explain how details survive reduction to 28×42.
+
+### D. Four-direction construction
+A planning grid for front/back/left/right before implementation. Rules for mirrored profiles, intentional prop placement, back-view identity, occlusion and the one-visible-arm side-profile convention unless a deliberate pose justifies otherwise.
+
+### E. Clothing, material and props
+Layer order, line/outline weight, seams/folds/highlights, fabric/material separation, prop-to-hand contact, silhouette contribution and game-scale legibility.
+
+### F. Palette and finish
+A compact role-based palette system and contrast rules without prescribing one shared palette. State which finish details are mandatory and which are optional polish.
+
+### G. Renderer implementation
+Exact integration conventions in `npc_sprites.js`: dedicated draw path per character, archetype dispatch, helper reuse only for genuinely shared mechanics, save/restore transforms, mirrored geometry/text compensation, and prevention of legacy layers painting over the vector path. Do not propose a generic recolor-only renderer.
+
+### H. Production sequence and QA gates
+A repeatable build sequence designed to reduce rework: design brief → silhouette thumbnails → four-view blockout → face/head → clothing/props → native render → 28×42 check → enlarged inspection → town/gallery → browser QA → review. Identify which decisions should be locked before code and which can be tuned late. Define measurable pass/fail checks and mandatory screenshots/artifacts.
+
+### I. Failure prevention
+List recurring failure patterns from these five and their prevention steps. Separate hard technical/art-quality requirements from flexible creative decisions. Include a reusable preflight checklist that ChatGPT can apply before implementing each future civilian.
+
+### J. Reuse lessons, not designs
+For each reviewed character, say what construction lesson can be reused and what must remain unique. The standard must accelerate work without imposing a common silhouette, outfit, face, palette, or prop language.
+
+**The build standard is a first-class deliverable, not an optional appendix.** It should be specific enough that ChatGPT can follow it on the next civilian with fewer rounds of correction.
+
+## Internal QA context and limitations
+
+Run #457 tested exact source `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`. Targeted checks pass: syntax/module and inventory; palette; face distinctness 23/23; direct game-scale captures 12/12; role-debug 12/12; directional visual integrity 92/92 with zero edge contacts or detached components; prop audit; silhouette-quality 180/180; gallery and town regression. Page and script errors are empty.
+
+Do not misrepresent this as an overall workflow pass. The workflow was **FAILED** because:
+- NPC body/baseline audit flags Courier baseline delta 2 against a 1px vector threshold.
+- Global type-silhouette audit flags Clinic/Sailor front overlap at IoU `0.9094292803970223`.
+- Golden snapshots remain unapproved (23 changed / 1 match).
+- 180 missing-audio 404 console errors remain.
+
+No golden snapshots were refreshed or approved. Separate character-specific visual findings from unrelated/global QA gates.
+
+## Approval boundaries
+
+- Usher, Cook, Courier: APPROVED BY OWNER (still open to review recommendations).
+- Coach, Referee: BUILT — NOT APPROVED pending independent review and owner approval.
+- Runner: deliberately excluded from this five-character review; still built, NOT APPROVED, and awaiting a later focused review.
+- Remaining 20 civilians: ON HOLD.
+- Claude provides independent recommendations; ChatGPT evaluates findings and implements agreed fixes; the project owner makes final decisions.
+- Do not begin the remaining 20 or refresh/approve golden snapshots.
