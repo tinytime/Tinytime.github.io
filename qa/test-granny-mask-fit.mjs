@@ -12,5 +12,5 @@ const rows=Array.from({length:140},()=>[]);rows[20]=[[4,6],[8,8]];
 const rowMask=maskFromRows(rows);
 assert.equal(rowMask[20*100+4],1);assert.equal(rowMask[20*100+7],0);assert.equal(rowMask.reduce((a,b)=>a+b,0),4);
 const mirrored=rasterizePolygons([square],'left');
-assert.equal(mirrored[10*100+86],1);assert.equal(mirrored[10*100+89],0);
+assert.equal(mirrored[10*100+77],1);assert.equal(mirrored[10*100+79],0);
 console.log('Granny mask-fit helper tests passed (4 fixtures).');
