@@ -19,7 +19,7 @@
       runner:'round-fringe',coach:'visor',ref:'cap-profile',courier:'cap-profile',
       guard:'helmet',vendor:'hat',cook:'chef-hat',
       clinic:'hair-band',tech:'visor',hacker:'hood',
-      fisher:'work-cap',sailor:'newsboy-cap',slicker:'bucket-hat',painter:'beanie',welder:'visor',
+      fisher:'work-cap',sailor:'newsboy-cap',slicker:'bucket-hat',painter:'beanie',welder:'helmet',
       kid:'hood',kid2:'pom-beanie',mouse:'mouse-ears',
       busker:'beanie',dancer:'hair-band',broker:'newsboy-cap',usher:'cap-profile'
     });
@@ -144,9 +144,9 @@
     const CIV_TORSO_VARIANTS=Object.freeze({
       runner:[-2,0,-1],coach:[-2,1,2],ref:[2,-2,-1],
       courier:[-1,2,-2],guard:[2,0,-2],
-      vendor:[-2,-2,-4],cook:[-2,4,-4],
+      vendor:[-2,-2,-4],cook:[-1,0,-3],
       clinic:[0,2,4],tech:[2,0,2],hacker:[-2,2,-1],
-      fisher:[2,-2,2],sailor:[4,-4,-4],slicker:[0,2,2],painter:[2,2,-2],welder:[-2,-2,0],
+      fisher:[2,-2,2],sailor:[1,-1,-2],slicker:[0,2,2],painter:[2,2,-2],welder:[-2,-2,0],
       kid:[-2,0,2],kid2:[2,0,-2],mouse:[0,2,0],
       busker:[-2,2,2],dancer:[2,-2,-2],
       broker:[-2,0,0],usher:[0,-2,0],fan:[2,2,2]
@@ -164,7 +164,7 @@
           const mid=Math.floor((left+right)/2);
           let L=l,R=r;
           if(R-L<3){L=mid-1;R=mid+2}
-          if(['tech','hacker','clinic','usher'].includes(civ)&&y>=21){
+          if(['tech','hacker','clinic','usher','cook'].includes(civ)&&y>=21){
             if(view==='side'){L=Math.max(L,11);R=Math.min(R,20)}else{L=Math.max(L,9);R=Math.min(R,22)}
           }
           return [y,L,R];
@@ -376,9 +376,9 @@
       fisher:{types:{front:'fishnet',side:'fishnet',back:'net-roll'},front:[[23,16,3,8,'fishnet']],side:[[25,16,3,8,'fishnet']],back:[[24,15,4,10,'fishnet']]},
       welder:{types:{front:'welding-torch',side:'welding-torch',back:'weld-cylinder'},front:[[23,16,3,7,'weldingtorch']],side:[[24,15,3,7,'weldingtorch']],back:[[18,13,4,12,'weldcylinder']]},
       sailor:{types:{front:'rope-coil',side:'rope-coil',back:'sailor-seam'},front:[[23,17,3,5,'ropecoil']],side:[[24,16,3,5,'ropecoil']],back:[[23,15,4,6,'ropecoil']]},
-      painter:{types:{front:'paintbrush',side:'paintbrush',back:'paint-can'},front:[[23,15,2,9,'paintbrush']],side:[[24,15,2,9,'paintbrush']],back:[[24,14,4,9,'paintcan']]},
+      painter:{types:{front:'paintbrush',side:'paintbrush',back:'paint-can'},front:[[23,15,3,9,'paintbrush']],side:[[24,15,3,9,'paintbrush']],back:[[24,14,4,9,'paintcan']]},
       slicker:{types:{front:'umbrella',side:'umbrella',back:'umbrella-pack'},front:[[23,13,3,12,'umbrella']],side:[[24,13,3,12,'umbrella']],back:[[24,14,4,10,'umbrella']]},
-      cook:{types:{front:'serving-spoon',side:'serving-spoon',back:'apron-tools'},front:[[23,16,2,9,'servingspoon']],side:[[24,16,2,9,'servingspoon']],back:[[23,15,2,9,'servingspoon']]},
+      cook:{types:{front:'serving-spoon',side:'serving-spoon',back:'apron-tools'},front:[[23,16,3,9,'servingspoon']],side:[[24,16,3,9,'servingspoon']],back:[[23,15,3,9,'servingspoon']]},
       vendor:{types:{front:'serving-tray',side:'serving-tray',back:'apron-ties'},front:[[23,18,5,2,'servingtray']],side:[[24,18,5,2,'servingtray']],back:[[13,16,5,4,'aprontie']]},
       dancer:{types:{front:'ribbon',side:'ribbon',back:'ribbon-tie'},front:[[23,15,3,8,'ribbon']],side:[[24,15,3,8,'ribbon']],back:[[13,14,6,4,'ribbon']]},
       busker:{types:{front:'guitar',side:'guitar',back:'guitar-back'},front:[[24,12,5,17,'guitar']],side:[[24,12,5,17,'guitar']],back:[[9,11,5,17,'guitar']]},
@@ -408,13 +408,13 @@
       pennant:['#....','##...','###..','####.','#####','####.','###..','##...','#....','#....','#....','#....','#....','#....'],
       megaphone:['.###.','#####','#####','#####','.###.','..##.','..##.','...#.','...#.','...#.','.....','.....','.....','.....'],
       rallytowel:['#####','#####','####.','#####','#####','####.','#####','#####','#####','####.','#####','#####','#####','#####'],
-      fishnet:['#...#','.#.#.','..#..','.#.#.','#...#','.#.#.','..#..','.#.#.','#...#'],
-      weldingtorch:['..#..','.###.','..#..','..#..','..#..','..##.','...#.'],
-      ropecoil:['.###.','##.##','#...#','##.##','.###.'],
-      paintbrush:['..#..','..#..','..#..','..#..','..#..','..#..','..#..','.###.'],
+      fishnet:['#.#','.#.','#.#','.#.','#.#','.#.','#.#','.#.'],
+      weldingtorch:['.#.','###','.#.','.#.','.#.','.#.','.#.'],
+      ropecoil:['###','#.#','###'],
+      paintbrush:['.#.','.#.','.#.','.#.','.#.','###','###','###'],
       umbrella:['..#..','.###.','#####','..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..'],
-      ribbon:['#...#','.###.','..#..','.###.','#...#','..#..','.###.','#...#'],
-      servingspoon:['..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..'],
+      ribbon:['#.#','.#.','###','.#.','#.#','.#.','###','.#.'],
+      servingspoon:['.#.','.#.','.#.','.#.','.#.','.#.','###','#.#','###'],
       servingtray:['#####','#####'],
       weldcylinder:['.##.','####','####','####','####','####','####','.##.'],
       paintcan:['.##.','####','#..#','#..#','#..#','####','.##.'],
@@ -706,14 +706,10 @@
         // mask corners reveal the shirt underneath and turn every prop into a box.
         for(let py=y*2;py<(y+h)*2;py++)for(let px=x*2;px<(x+w)*2;px++)if(px>=0&&px<N&&py>=0&&py<H)grid[py][px]=null;
         for(let yy=0;yy<h;yy++){
-          const r0=Math.floor(yy*pattern.length/h),r1=Math.max(r0+1,Math.ceil((yy+1)*pattern.length/h));
+          const row=pattern[Math.min(pattern.length-1,Math.floor((yy+.5)*pattern.length/h))];
           for(let xx=0;xx<w;xx++){
-            let on=false;
-            for(let r=r0;r<r1&&!on;r++){
-              const row=pattern[r],c0=Math.floor(xx*row.length/w),c1=Math.max(c0+1,Math.ceil((xx+1)*row.length/w));
-              for(let c=c0;c<c1;c++){if(row[c]!==' '&&row[c]!=='.'){on=true;break}}
-            }
-            if(on)set(x+xx,y+yy,role);
+            const cell=row[Math.min(row.length-1,Math.floor((xx+.5)*row.length/w))];
+            if(cell!==' '&&cell!=='.')set(x+xx,y+yy,role);
           }
         }
         // Tiny readable prop details; highlights use the garment's light role.
@@ -843,7 +839,7 @@
       const rigParts=(kind==='fan'?(FAN_RIG_PARTS[n.id]||CIV_RIG_PARTS[kind]):(CIV_RIG_PARTS[kind]||ARCHETYPE_RIG_PARTS[archetypeKey]))[rigView];
       for(const [rx,ry,rw,rh,role] of rigParts.arms)put(rx,ry,rw,rh,role);
       // Directional limb masks are table-driven; the same rig is shared while each archetype owns its silhouette data.
-      for(const [rx,ry,rw,rh,role] of rigParts.legs)put(rx,ry,rw,rh,role);
+      for(const [rx,ry,rw,rh,role] of rigParts.legs)put(rx,ry,rw,rh,role==='bodyhi'?'leghi':role);
       // Fan gear is held: a short bent forearm bridges the raised hand to the prop.
       if(kind==='fan'){
         if(rigView==='front'){
@@ -1041,11 +1037,11 @@
       if(!side){
         for(let xx=10;xx<=14;xx++)set(xx,39,'inkdetail');
         for(let xx=18;xx<=22;xx++)set(xx,39,'inkdetail');
-        set(10,37,'bodyhi');set(18,37,'bodyhi');
+        set(10,37,'leghi');set(18,37,'leghi');
       }else{
         for(let xx=9;xx<=13;xx++)set(xx,39,'inkdetail');
         for(let xx=17;xx<=21;xx++)set(xx,39,'inkdetail');
-        set(9,37,'bodyhi');set(17,37,'bodyhi');
+        set(9,37,'leghi');set(17,37,'leghi');
       }
       if(side&&dirCode==='l')for(let yy=0;yy<H;yy++)grid[yy].reverse();
       const colorFor=(role,xx,yy)=>{
@@ -1058,6 +1054,7 @@
           case 'body':case 'arm':case 'cloth':return clothBase;
           case 'bodyshade':case 'armshade':return clothShade;
           case 'legback':return mixHex(clothLower,'#000000',.2);
+          case 'leghi':return mixHex(clothLower,'#ffffff',.18);
           case 'bodyhi':case 'armhi':case 'clothhi':return clothLight;
           case 'pants':case 'legfront':case 'shoe':case 'shoefront':return clothLower;
           case 'legshadow':case 'inkdetail':return ink;
@@ -1095,7 +1092,7 @@
         broker:[32,16],usher:[33,16]
       };
       const faceStyle=kind==='fan'?faceHash%8:(CIV_FACE_FAMILIES[kind]??0);
-      const faceDetail=CIV_FACE_DETAILS[kind]||null;
+      const faceDetail=null;
       const faceSets=[
         {eyes:[[28,10],[36,10]],brows:[[28,8],[36,8]],mouth:[32,16],mouthPixels:[[0,0,'inkdetail']]}, // calm
         {eyes:[[27,11],[36,10]],brows:[[27,9],[36,8]],mouth:[32,17],mouthPixels:[[0,0,'skinshade'],[1,0,'skinshade']]}, // friendly
@@ -1109,9 +1106,9 @@
       const FP={
         eyes:{dot:[[28,10,2,2],[36,10,2,2]],wide:[[27,10,3,2],[36,10,3,2]],tall:[[28,10,2,3],[36,10,2,3]],
          sleepy:[[27,11,3,1],[36,11,3,1]],close:[[29,10,2,2],[35,10,2,2]],far:[[27,10,2,2],[37,10,2,2]]},
-        brows:{flat:[[27,8,4,1],[35,8,4,1]],arch:[[27,8,1,1],[28,7,2,1],[30,8,1,1],[35,8,1,1],[36,7,2,1],[38,8,1,1]],
-         angry:[[27,8,2,1],[29,9,2,1],[35,9,2,1],[37,8,2,1]],worried:[[27,9,2,1],[29,8,2,1],[35,8,2,1],[37,9,2,1]],
-         skew:[[27,8,4,1],[35,8,1,1],[36,7,2,1],[38,8,1,1]]},
+        brows:{flat:[[27,8,4,2],[35,8,4,2]],arch:[[27,8,1,2],[28,7,2,2],[30,8,1,2],[35,8,1,2],[36,7,2,2],[38,8,1,2]],
+         angry:[[27,8,2,2],[29,8,2,2],[35,8,2,2],[37,8,2,2]],worried:[[27,8,2,2],[29,8,2,2],[35,8,2,2],[37,8,2,2]],
+         skew:[[27,8,4,2],[35,8,1,2],[36,7,2,2],[38,8,1,2]]},
         mouths:{flat:[[0,0,4,1,'inkdetail']],smile:[[0,0,4,1,'inkdetail'],[-1,-1,1,1,'inkdetail'],[4,-1,1,1,'inkdetail']],
          frown:[[0,0,4,1,'inkdetail'],[-1,1,1,1,'inkdetail'],[4,1,1,1,'inkdetail']],o:[[1,0,2,2,'inkdetail']],
          smirk:[[0,1,3,1,'inkdetail'],[3,0,1,1,'inkdetail'],[4,-1,1,1,'inkdetail']],
