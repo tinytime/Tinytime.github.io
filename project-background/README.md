@@ -12,7 +12,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 
 **Branch:** `npc-granny-baseline-overhaul`  
 **Latest verified branch commit at this status check:** `a91131469e0f027e431fbf740e7b63c84dd45ef2` — handoff refreshed after Cook QA review; latest Cook implementation commit remains `5ed3f49cd7c7767a716383945236a33b4c82dcb8`.  
-**Latest browser QA:** [Run #44537588645](https://github.com/tinytime/Tinytime.github.io/actions/runs/44537588645), tested commit `5ed3f49cd7c7767a716383945236a33b4c82dcb8`, **overall FAILED**. Cook-specific palette, body/baseline, face, role-debug, prop, four-direction visual-integrity, town and gallery checks passed; actual four-direction renders were inspected. Global legacy civilian silhouette and unapproved golden-snapshot gates failed; audio assets also logged HTTP 404. Artifact `14536893339` inspected. No golden snapshots changed.
+**Latest browser QA:** [Run #44538730042](https://github.com/tinytime/Tinytime.github.io/actions/runs/44538730042), pending for QA revision `b6206240fb32ebaca11191fec0a81a1235889a77` (includes Courier renderer commit `5876ba595989743eca40cf80b7271c083810bf69`). Previous Cook run `44537588645` passed Cook-specific checks; global legacy silhouette and unapproved golden-snapshot gates failed. Courier's actual four-direction artifacts are not yet inspected. No golden snapshots changed.
 
 **Active task:** Build Courier as the third pilot character. Cook's internal QA is complete; Cook remains BUILT — NOT APPROVED pending comparative review and owner acceptance.  
 **Assigned specialist chat:** **NPC Art Designer / Vector Development** (Courier design and implementation).  
