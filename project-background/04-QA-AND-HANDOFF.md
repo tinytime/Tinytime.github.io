@@ -473,3 +473,6 @@ The semantic measurement tool and fixture tests are included in the browser QA w
 The structural check requires exactly one Granny legacy reference and six pending NPC annotations. This is a framework-integrity check, not a character proportion pass. The generated report is `qa-output/civilian-proportion-measurements.json`; inspect it and the source annotations whenever records are added.
 
 See [Semantic Civilian Anatomy Annotation Guide](../qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md). Current semantic annotation coverage is 0/6 NPCs: all six remain pending. Granny remains reference-only pending harmonization of her legacy mask convention. No proportion bands are enforced and no character is approved by this tooling.
+
+
+**Annotation readiness update:** the six-character manifest now has explicit front/back/left/right annotation slots for every character. Source-space point and polygon bounds are validated against the 100×140 coordinate grid, and the structural check requires the exact six-character roster. Missing landmarks remain visibly pending; they are not synthesized from sprite bounds.
