@@ -170,16 +170,16 @@
           // Break the two closest back-view silhouette pairs with contour changes,
           // not palette or prop differences. Coach keeps an athletic V taper;
           // the welder gets a broader protective shoulder line than the sailor.
-          if(civ==='coach'&&view==='back'){
-            if(y<=14){L=Math.max(0,L-1);R=Math.min(31,R+1);}
-            else if(y>=18){
-              const mid=Math.floor((L+R)/2),half=Math.max(1,Math.floor((R-L)/2)-2);
+          if(civ==='coach'&&(view==='back'||view==='front')){
+            if(y<=14){L=Math.max(0,L-2);R=Math.min(31,R+2);}
+            else if(y>=17){
+              const mid=Math.floor((L+R)/2),half=Math.max(1,Math.floor((R-L)/2)-(view==='front'?3:3));
               L=mid-half;R=mid+half;
             }
           }
-          if(civ==='welder'&&view==='back'&&y<=16){L=Math.max(0,L-2);R=Math.min(31,R+2);}
+          if(civ==='welder'&&view==='back'&&y<=16){L=Math.max(0,L-4);R=Math.min(31,R+4);}
           if(civ==='sailor'&&view==='back'&&y<=16){
-            const mid=Math.floor((L+R)/2),half=Math.max(1,Math.floor((R-L)/2)-1);
+            const mid=Math.floor((L+R)/2),half=Math.max(1,Math.floor((R-L)/2)-3);
             L=mid-half;R=mid+half;
           }
           return [y,L,R];
