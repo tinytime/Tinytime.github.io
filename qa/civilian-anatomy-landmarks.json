@@ -2595,38 +2595,50 @@
           "propPolygons": [
             [
               {
-                "x": 70,
-                "y": 66
+                "x": 72,
+                "y": 69
               },
               {
-                "x": 88,
-                "y": 66
+                "x": 84,
+                "y": 68
               },
               {
-                "x": 89,
-                "y": 99
+                "x": 87,
+                "y": 95
               },
               {
-                "x": 68,
-                "y": 101
+                "x": 75,
+                "y": 98
               }
             ],
             [
               {
-                "x": 42,
-                "y": 70
-              },
-              {
-                "x": 55,
-                "y": 70
-              },
-              {
-                "x": 58,
-                "y": 80
-              },
-              {
                 "x": 43,
+                "y": 74
+              },
+              {
+                "x": 49,
+                "y": 73
+              },
+              {
+                "x": 56,
+                "y": 74
+              },
+              {
+                "x": 59,
+                "y": 77
+              },
+              {
+                "x": 56,
                 "y": 80
+              },
+              {
+                "x": 50,
+                "y": 79
+              },
+              {
+                "x": 46,
+                "y": 77
               }
             ]
           ]
@@ -2715,44 +2727,7 @@
               }
             ]
           ],
-          "propPolygons": [
-            [
-              {
-                "x": 70,
-                "y": 66
-              },
-              {
-                "x": 88,
-                "y": 66
-              },
-              {
-                "x": 89,
-                "y": 99
-              },
-              {
-                "x": 68,
-                "y": 101
-              }
-            ],
-            [
-              {
-                "x": 42,
-                "y": 70
-              },
-              {
-                "x": 55,
-                "y": 70
-              },
-              {
-                "x": 58,
-                "y": 80
-              },
-              {
-                "x": 43,
-                "y": 80
-              }
-            ]
-          ]
+          "propPolygons": []
         },
         "left": {
           "bodyPolygon": [
@@ -2837,38 +2812,54 @@
           "propPolygons": [
             [
               {
-                "x": 70,
-                "y": 66
+                "x": 61,
+                "y": 68
               },
               {
-                "x": 88,
-                "y": 66
+                "x": 77,
+                "y": 65
               },
               {
-                "x": 89,
+                "x": 84,
+                "y": 93
+              },
+              {
+                "x": 67,
                 "y": 99
               },
               {
-                "x": 68,
-                "y": 101
+                "x": 59,
+                "y": 91
               }
             ],
             [
               {
-                "x": 42,
-                "y": 70
+                "x": 41,
+                "y": 73
               },
               {
-                "x": 55,
-                "y": 70
+                "x": 47,
+                "y": 71
               },
               {
-                "x": 58,
-                "y": 80
+                "x": 51,
+                "y": 73
               },
               {
-                "x": 43,
-                "y": 80
+                "x": 53,
+                "y": 76
+              },
+              {
+                "x": 50,
+                "y": 79
+              },
+              {
+                "x": 45,
+                "y": 78
+              },
+              {
+                "x": 41,
+                "y": 76
               }
             ]
           ]
@@ -2956,38 +2947,54 @@
           "propPolygons": [
             [
               {
-                "x": 70,
-                "y": 66
+                "x": 61,
+                "y": 68
               },
               {
-                "x": 88,
-                "y": 66
+                "x": 77,
+                "y": 65
               },
               {
-                "x": 89,
+                "x": 84,
+                "y": 93
+              },
+              {
+                "x": 67,
                 "y": 99
               },
               {
-                "x": 68,
-                "y": 101
+                "x": 59,
+                "y": 91
               }
             ],
             [
               {
-                "x": 42,
-                "y": 70
+                "x": 41,
+                "y": 73
               },
               {
-                "x": 55,
-                "y": 70
+                "x": 47,
+                "y": 71
               },
               {
-                "x": 58,
-                "y": 80
+                "x": 51,
+                "y": 73
               },
               {
-                "x": 43,
-                "y": 80
+                "x": 53,
+                "y": 76
+              },
+              {
+                "x": 50,
+                "y": 79
+              },
+              {
+                "x": 45,
+                "y": 78
+              },
+              {
+                "x": 41,
+                "y": 76
               }
             ]
           ]
@@ -2998,7 +3005,7 @@
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
         "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
-        "note": "Candidate geometry only. The broad body polygon and accessory exclusion polygons must be overlaid on fresh native captures and corrected before semantic measurements are treated as verified. Profile shoulder landmarks were repositioned to account for the foreshortened shoulder projection in side-facing captures; front/back retain full-width anatomical shoulder points."
+        "note": "Clipboard polygons now follow the front and side renderer paths; rear view has no clipboard or whistle prop exclusion."
       }
     },
     "referee": {
