@@ -574,8 +574,8 @@ try {
     window.NPC_SPRITES=Object.freeze({...window.NPC_SPRITES,createCivRenderer:(args)=>{
       const render=originalFactory(args);
       return (...callArgs)=>{
-        const result=render(...callArgs.slice(0,9),{...(callArgs[9]||{}),roleDebug:true});
-        if(render._lastRoleDebugLegend)legends.push(render._lastRoleDebugLegend);
+        const result=render(...callArgs.slice(0,8),{...(callArgs[8]||{}),roleDebug:true});
+        if(result._lastRoleDebugLegend)legends.push(result._lastRoleDebugLegend);
         return result;
       };
     }});
@@ -616,9 +616,10 @@ try {
   },roleDebugCapture);
   fs.writeFileSync(path.join(out,'cook-vendor-usher-role-debug-8x.png'),
     Buffer.from(roleDebugSheet.split(',')[1],'base64'));
-  const roleDebugAudit={pass:roleDebugCapture.items.length===6&&!!roleDebugSheet,
+  const roleDebugAudit={pass:roleDebugCapture.items.length===6&&!!roleDebugSheet&&roleDebugCapture.legends.length>0,
     captureCount:roleDebugCapture.items.length,expected:6,views:['front','right'],
     civilians:['cook','vendor','usher'],scale:8,outline:'omitted',roleLegend:roleDebugCapture.legends||[],
+    roleLegendCount:roleDebugCapture.legends.length,
     path:'cook-vendor-usher-role-debug-8x.png'};
   const civilianVisualIntegrityAudit = await page.evaluate(async snapshots => {
     const decoded=await Promise.all(snapshots.map(async item=>{
