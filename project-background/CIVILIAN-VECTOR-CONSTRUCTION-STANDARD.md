@@ -305,3 +305,12 @@ The manifest uses Granny's 100×140 source coordinate convention. Each of the fo
 **Important status:** Granny is recorded as a legacy measured reference, preserving the existing umbrella-excluded values and its known convention limitation. The six civilian records are currently `pending_annotation`; the system does not invent anatomical coordinates from the old accessory-inclusive alpha bounds. It will emit a pending report until each direction is annotated from fresh renders. This is intentional and is not a QA failure or an approval gate.
 
 The browser QA workflow now runs the framework's unit tests and structural validation and uploads `qa-output/civilian-proportion-measurements.json` with the normal artifact. No proposed ratio band has been made a hard-fail gate.
+
+
+## Semantic measurement implementation — 2026-11-19
+
+The measurement framework is implemented in `qa/civilian-proportion-measurements.mjs`. Its source manifest is `qa/civilian-anatomy-landmarks.json`; human annotation rules are in [Semantic Civilian Anatomy Annotation Guide](../qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md).
+
+The framework separates anatomical body polygons, headwear polygons and prop polygons, and records semantic landmarks per direction in a shared 100×140 source-space convention. Runner uses explicit joint landmarks for its airborne pose and is excluded from standing lower-body ratio calculations.
+
+Calibration boundary: Granny's existing reference values remain a legacy reference record, not silently relabelled semantic measurements. The six NPCs remain pending human annotation. No Granny-to-NPC proportion comparison is yet claimed, and all proposed numeric bands remain provisional and non-enforcing.
