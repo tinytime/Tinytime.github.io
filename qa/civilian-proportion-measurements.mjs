@@ -113,7 +113,7 @@ export function buildMeasurementReport(manifest) {
     sourceAnnotatedCandidateCount: records.filter(r => r.status === 'source_annotated').length,
     referenceOnlyCount: records.filter(r => r.status === 'reference_only' || r.status === 'reference_baseline').length,
     referenceBaselineCount: records.filter(r => r.status === 'reference_only' || r.status === 'reference_baseline').length,
-    pendingCount: records.filter(r => r.status === 'pending_annotation').length,
+    pendingCount: records.filter(r => r.status === 'pending_annotation' || r.status === 'source_annotated').length,
     records
   };
 }
@@ -132,10 +132,10 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     const expected = ['usher','cook','courier','runner','coach','referee'];
     const actual = Object.keys(manifest.characters || {}).filter(id => id !== 'granny').sort();
     if (report.characterCount !== 7 || report.referenceOnlyCount !== 1 ||
-        !manifest.characters.granny || report.sourceAnnotatedCandidateCount !== 6 || report.pendingCount !== 0 ||
+        !manifest.characters.granny || report.sourceAnnotatedCandidateCount !== 6 || report.pendingCount !== 6 ||
         actual.join(',') !== expected.sort().join(','))
       throw new Error('Semantic measurement manifest failed six-civilian scope validation');
-    console.log(JSON.stringify({ pass: true, characterCount: report.characterCount, measuredCount: report.measuredCount, sourceAnnotatedCandidateCount: report.sourceAnnotatedCandidateCount, pendingCount: report.pendingCount, output: 'qa-output/civilian-proportion-measurements.json' }));
+    console.log(JSON.stringify({ pass: true, characterCount: report.characterCount, measuredCount: report.measuredCount, sourceAnnotatedCandidateCount: report.sourceAnnotatedCandidateCount, pendingVerificationCount: report.pendingCount, output: 'qa-output/civilian-proportion-measurements.json' }));
   } else {
     console.log('Wrote qa-output/civilian-proportion-measurements.json');
   }
