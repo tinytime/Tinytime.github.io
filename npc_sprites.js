@@ -792,7 +792,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     line([[56, 56], [57, 96]], '#241632', 1.3);
     ell(57, 74, 1.2, 1.2, '#FFD0EE', null); ell(57, 84, 1.2, 1.2, '#FFD0EE', null);
     // clipboard held in front (back of board visible), far hand under it
-    board(58, 62, 8, 17, false);
+    board(57, 61, 9, 18, true);
+    line([[59,63],[64,62]],'#D6A84F',1.6);
+    line([[59,68],[64,67]],'#6E849B',.9);
     ell(61, 80, 2.4, 2.2, skin, ink, 1.2);
     // near arm hanging
     path([[45, 54], [52, 54], [52, 72], [51, 88], [45, 88], [45, 72]], sleeveG(45, 52), ink, 1.4);
@@ -928,7 +930,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[39,60],[62,60],[72,108],[29,108]],apron,ink,1.6);
       line([[45,62],[44,97]],'#F0A078',1.5);
       line([[59,62],[61,97]],'#7D3440',1.5);
-      path([[38,55],[44,55],[43,81],[39,89],[34,87]],coat);
+      // Far arm is occluded by the torso; keep only the near pan-holding arm.
       path([[62,56],[68,60],[69,79],[65,84],[61,79]],coat);
       // Pan profile remains visible at the forward hand, not fused to the torso.
       ell(67,81,2.8,3,skin,ink,1);
@@ -962,20 +964,22 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       g.fillStyle=grad(34,3,66,29,[[0,'#FFFDF6'],[1,'#E3D9C6']]);g.fill();g.strokeStyle=ink;g.lineWidth=1.7;g.stroke();
       line([[40,14],[41,27]],'#C8BDAA',1.1);line([[49,7],[49,27]],'#C8BDAA',1.1);line([[58,13],[58,27]],'#C8BDAA',1.1);
       g.restore();
-      path([[36,27],[64,27],[65,32],[35,32]],'#D8CBB7',ink,1.3);
-      line([[38,29],[62,29]],'#FFFDF4',1.1);
-      if(!back) line([[49,28],[52,28]],'#B95B3C',1.5);
+      path([[36,22],[64,22],[65,27],[35,27]],'#D8CBB7',ink,1.3);
+      line([[38,24],[62,24]],'#FFFDF4',1.1);
+      if(!back) line([[49,23],[52,23]],'#B95B3C',1.5);
     }else{
       ell(50,31,12,15,'#30242A',ink,1.7);
       ell(55,31,9,13,grad(45,18,64,44,[[0,'#E5B08B'],[1,skin]]),ink,1.4);
       path([[61,30],[67,34],[62,37]],skin,ink,1.1);
       ell(57,30,1.5,2,'#241725',null);
+      ell(44,34,1.7,2.1,'#B97855',ink,.8);
+      line([[54,39],[58,39]],'#814B3C',1.1);
       g.save();g.translate(0,29);g.scale(1,.75);g.translate(0,-29);
       g.beginPath();g.moveTo(39,29);g.bezierCurveTo(33,22,37,12,45,11);
       g.bezierCurveTo(48,3,60,4,61,11);g.bezierCurveTo(68,15,66,24,63,29);g.closePath();
       g.fillStyle='#F8F3E8';g.fill();g.strokeStyle=ink;g.lineWidth=1.7;g.stroke();
       g.restore();
-      path([[38,27],[64,27],[65,32],[37,32]],'#D8CBB7',ink,1.2);
+      path([[38,22],[64,22],[65,27],[37,27]],'#D8CBB7',ink,1.2);
     }
     // restrained warm/cool rim accents keep the figure legible in neon town scenes
     g.save();g.globalAlpha=.58;g.shadowBlur=.7/scale;g.shadowColor='rgba(255,126,65,.42)';
@@ -994,7 +998,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     const back=dir==='u', side=dir==='l'||dir==='r', flip=dir==='l';
     g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
     if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
-    if(!side){g.translate(50,139);g.rotate(-.035);g.translate(-50,-139);}
+    // Keep front/back feet on the shared baseline; avoid a whole-sprite tilt.
     const ink='#171725',skin='#A96F54';
     const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
     const path=(p,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.stroke();}};
@@ -1315,12 +1319,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     // Jacket body and visible side seams.
     if(!side)path([[34,51],[43,47],[58,47],[68,53],[71,87],[67,101],[31,101],[28,87]],jacket,ink,2);
     if(back){
-      path([[35,53],[43,49],[58,49],[66,54],[62,66],[50,72],[38,66]],'#D8D7B8',ink,1.3);
+      path([[35,53],[43,49],[58,49],[66,54],[62,61],[50,64],[38,61]],'#D8D7B8',ink,1.3);
       path([[39,68],[50,74],[61,68],[63,96],[37,96]],'#24583F',null);
       line([[50,73],[50,96]],'#9EB89A',1.4);
       line([[35,91],[65,91]],'#D6B85D',1.5);
       // Coach initials and small stitched team crest.
-      g.fillStyle='#F0E5C9';g.font='bold 7px sans-serif';g.textAlign='center';g.fillText('VC',50,86);
+      // Font-independent stitched VC mark built from vector paths.
+      line([[44,79],[47,87],[50,79]],'#F0E5C9',1.8);
+      line([[56,80],[53,79],[51,81],[51,85],[53,87],[56,86]],'#F0E5C9',1.8);
       // Arms rest at the sides, hands relaxed.
       path([[31,55],[39,56],[37,79],[33,91],[26,89],[27,72]],jacket);
       path([[26,87],[34,88],[34,97],[28,100],[24,95]],skin);
@@ -1333,7 +1339,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       // reads as a solid veteran's torso rather than a narrow edge-on sliver.
       path([[38,51],[52,48],[61,52],[66,60],[65,91],[61,100],[36,100],[35,76]],jacket,ink,1.7);
       // The cream yoke expands with the shoulder and follows the rear seam.
-      path([[36,53],[48,50],[56,53],[61,59],[54,64],[42,63],[37,58]],'#D8D7B8',ink,1.05);
+      path([[36,53],[48,50],[56,53],[61,59],[54,62],[42,61],[37,58]],'#D8D7B8',ink,1.05);
       line([[43,64],[43,97]],'#A7C0A6',1.2);
       // Arm and grip are behind the board. Paint the clipboard afterward so
       // it visibly sits in front of the hand instead of being obscured by it.
@@ -1349,14 +1355,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       // Gold whistle and short lanyard are visible in profile, below the yoke.
       // Lanyard and whistle angle toward the face/front edge of the profile.
       // The pendant stays on the chest-front side instead of hanging at the back.
-      line([[49,63],[56,70],[62,63]],'#D6B85D',1.8);
-      path([[53,73],[58,71],[63,73],[66,76],[63,79],[57,78],[52,76]],'#D9AD45',ink,1);
-      path([[58,72],[64,73],[64,77],[60,78]],'#F3D985',ink,.8);
-      ell(62,75,1.05,.8,'#302B27',null);
-      line([[60,74],[64,75]],'#FFF0C8',1);
+      line([[40,64],[44,70],[48,64]],'#D6B85D',1.8);
+      path([[42,73],[47,71],[51,73],[53,76],[50,79],[45,78],[41,76]],'#D9AD45',ink,1);
+      path([[46,72],[51,73],[51,77],[47,78]],'#F3D985',ink,.8);
+      ell(49,75,1.05,.8,'#302B27',null);
+      line([[47,74],[51,75]],'#FFF0C8',1);
     }else{
       // Front jacket: cream shoulder yoke, zipper, pocket seams and hem band.
-      path([[34,52],[43,48],[58,48],[68,54],[64,68],[50,73],[36,67]],'#D8D7B8',ink,1.3);
+      path([[34,52],[43,48],[58,48],[68,54],[64,60],[50,63],[36,60]],'#D8D7B8',ink,1.3);
       path([[37,67],[50,73],[63,67],[68,91],[65,100],[35,100],[32,91]],jacket,null);
       line([[50,70],[50,99]],'#D5DCC4',1.6);
       path([[34,78],[45,78],[45,91],[35,91]],'#1B4937',ink,1);
@@ -1403,8 +1409,10 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[42,39],[46,42],[49,40],[52,42],[56,39],[59,40],[56,44],[44,44]],'#343B38',ink,.8);
       }
       path([[34,23],[38,17],[47,16],[61,18],[67,23],[65,27],[35,27]],'#263B35',ink,1.4);
-      path([[32,25],[68,25],[66,29],[34,29]],'#D6B85D',ink,1.1);
+      path([[32,25],[68,25],[66,27],[34,27]],'#D6B85D',ink,1.1);
       line([[43,19],[57,19]],'#DDE0CF',1);
+      path([[36,25],[40,22],[43,25],[42,31],[39,33],[36,30]],'#AEB5A8',null);
+      path([[64,25],[60,22],[57,25],[58,31],[61,33],[64,30]],'#AEB5A8',null);
     }else{
       if(back){
         ell(50,30,12,14,'#5B6260',ink,1.5);
@@ -1417,6 +1425,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       }else{
         // A true side-profile head: a shaped rear cranium, projecting
         // forehead/nose and one visible eye, not a front oval turned sideways.
+        path([[35,24],[38,18],[45,18],[49,23],[47,34],[44,41],[38,39],[34,32]],'#59615D',ink,1.1);
+        path([[36,26],[40,21],[44,23],[43,32],[39,37],[35,33]],'#AEB5A8',null);
         path([[42,18],[52,16],[59,19],[63,24],[62,30],[67,33],[63,37],[61,41],[53,44],[45,42],[40,37],[38,29],[39,22]],
           grad(38,16,63,45,[[0,'#D99C76'],[.55,skin],[1,'#754632']]),ink,1.5);
         path([[38,22],[42,16],[55,16],[63,22],[66,25],[64,27],[40,27]],'#5B6260',ink,1);
@@ -1473,7 +1483,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     }
     path([[43,39],[57,39],[57,52],[43,52]],skin);
     // Torso is slightly tapered, with strong vertical stripe rhythm.
-    path([[36,50],[44,47],[57,47],[66,51],[69,88],[64,98],[35,98],[30,88]],shirt,ink,2);
+    // Front/back base only: side views use their own narrow torso below.
+    if(!side)path([[36,50],[44,47],[57,47],[66,51],[69,88],[64,98],[35,98],[30,88]],shirt,ink,2);
     if(back){
       // Rear stripe layout and small official badge between shoulder blades.
       for(const x of [38,46,54,62])path([[x,51],[x+4,50],[x+4,94],[x,95]],'#222B33',null);
@@ -1560,6 +1571,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     }else{
       ell(50,29,12,14,back?'#30282A':grad([38,15],[63,44],[[0,'#D69A72'],[.6,skin],[1,'#754633']]),ink,1.5);
       if(!back){
+        // Close-cropped rear hair and a short nape lock remain visible behind the ear.
+        path([[34,22],[38,16],[47,16],[51,21],[48,31],[44,38],[37,37],[33,31]],'#28252A',ink,1.1);
+        path([[35,24],[40,19],[44,20],[42,31],[38,34]],'#51434A',null);
         path([[38,23],[42,16],[55,16],[63,22],[61,27],[39,27]],'#28252A',ink,1.2);
         // Profile ear and projecting nose: warm ear crease and a clear
         // skin-toned bridge/tip keep the face readable at native scale.
