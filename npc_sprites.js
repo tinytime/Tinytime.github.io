@@ -1242,13 +1242,124 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     g.restore();
   }
 
+  // Coach: veteran sideline tactician with a broad forest-green warm-up jacket,
+  // cream shoulder yoke, whistle, marked clipboard, track trousers and court shoes.
+  // The silhouette and layered kit are deliberately unlike Runner's racewear.
+  function drawCoachVector(n,dir,ctx,OWT,opts){
+    opts=opts||{};const g=ctx,scale=OWT/36*.28;
+    const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT-5+OWT;
+    const back=dir==='u',side=dir==='l'||dir==='r',flip=dir==='l';
+    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
+    if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
+    const ink='#171725',skin='#B87959';
+    const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
+    const path=(p,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.stroke();}};
+    const line=(p,c,w=1.5)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.stroke();};
+    const ell=(x,y,rx,ry,fill,stroke=ink,w=1.3)=>{g.beginPath();g.ellipse(x,y,rx,ry,0,0,Math.PI*2);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.stroke();}};
+    const jacket=grad(30,48,70,105,[[0,'#4E8769'],[.5,'#24583F'],[1,'#143A30']]);
+    const pants=grad(35,94,66,137,[[0,'#3A4650'],[1,'#1C2731']]);
+    const shoe=grad(32,128,69,139,[[0,'#E6DCC1'],[1,'#9CA9A0']]);
+    // Grounded coach stance: broad, steady legs rather than a running stride.
+    if(!side){
+      path([[37,99],[48,100],[47,119],[45,132],[32,133],[34,117]],pants);
+      path([[52,100],[64,98],[67,116],[68,132],[55,133],[53,117]],pants);
+      path([[31,129],[45,129],[48,134],[47,138],[28,138],[27,134]],shoe);
+      path([[55,129],[68,128],[73,133],[72,138],[54,138],[53,134]],shoe);
+      line([[31,134],[44,134]],'#F4E9CF',1.2);line([[58,134],[69,134]],'#F4E9CF',1.2);
+    }else{
+      path([[39,99],[57,99],[59,119],[60,133],[43,134],[40,116]],pants);
+      path([[42,130],[58,130],[63,134],[62,138],[39,138],[38,134]],shoe);
+      line([[43,134],[58,134]],'#F4E9CF',1.2);
+    }
+    path([[43,39],[57,39],[57,53],[43,53]],skin);
+    // Jacket body and visible side seams.
+    path([[34,51],[43,47],[58,47],[68,53],[71,87],[67,101],[31,101],[28,87]],jacket,ink,2);
+    if(back){
+      path([[35,53],[43,49],[58,49],[66,54],[62,66],[50,72],[38,66]],'#D8D7B8',ink,1.3);
+      path([[39,68],[50,74],[61,68],[63,96],[37,96]],'#24583F',null);
+      line([[50,73],[50,96]],'#9EB89A',1.4);
+      line([[35,91],[65,91]],'#D6B85D',1.5);
+      // Coach initials and small stitched team crest.
+      g.fillStyle='#F0E5C9';g.font='bold 7px sans-serif';g.textAlign='center';g.fillText('VC',50,86);
+      // Arms rest at the sides, hands relaxed.
+      path([[31,55],[39,56],[37,79],[33,91],[26,89],[27,72]],jacket);
+      path([[26,87],[34,88],[34,97],[28,100],[24,95]],skin);
+      path([[64,55],[72,56],[75,78],[72,91],[65,91],[66,73]],jacket);
+      path([[66,89],[73,89],[75,97],[69,100],[65,96]],skin);
+    }else if(side){
+      path([[38,51],[48,48],[61,52],[68,61],[67,91],[61,100],[35,100],[33,76]],jacket);
+      path([[39,53],[48,50],[57,53],[61,61],[42,65]],'#D8D7B8',ink,1.1);
+      line([[47,62],[47,97]],'#A7C0A6',1.2);
+      path([[63,58],[72,60],[76,80],[72,92],[65,91],[64,75]],jacket);
+      path([[66,89],[73,90],[75,98],[69,101],[65,96]],skin);
+      path([[33,58],[40,57],[40,80],[34,91],[28,89],[29,72]],jacket);
+      path([[28,88],[35,89],[35,97],[29,100],[25,95]],skin);
+      // Side-view clipboard edge is deliberately visible behind the forearm.
+      path([[24,72],[29,69],[33,73],[32,91],[26,94],[22,90]],'#C9A66A',ink,1.2);
+      line([[26,76],[30,75]],'#F7E8C8',1);
+    }else{
+      // Front jacket: cream shoulder yoke, zipper, pocket seams and hem band.
+      path([[34,52],[43,48],[58,48],[68,54],[64,68],[50,73],[36,67]],'#D8D7B8',ink,1.3);
+      path([[37,67],[50,73],[63,67],[68,91],[65,100],[35,100],[32,91]],jacket,null);
+      line([[50,70],[50,99]],'#D5DCC4',1.6);
+      path([[34,78],[45,78],[45,91],[35,91]],'#1B4937',ink,1);
+      path([[55,78],[66,78],[65,91],[55,91]],'#1B4937',ink,1);
+      line([[37,94],[63,94]],'#D6B85D',1.5);
+      // Relaxed arms; the right hand grips the clipboard edge.
+      path([[31,55],[39,56],[38,76],[34,91],[27,91],[26,74]],jacket);
+      path([[27,88],[35,88],[36,97],[30,101],[25,96]],skin);
+      path([[64,55],[72,57],[76,78],[73,91],[66,91],[65,74]],jacket);
+      path([[67,88],[74,89],[76,97],[70,101],[66,96]],skin);
+      // Clipboard, brass clip, practice marks and a clearly held hand overlap.
+      path([[72,69],[84,68],[87,95],[75,98]],'#C69A58',ink,1.6);
+      path([[74,72],[82,71],[84,92],[76,94]],'#F2E8CE',ink,1);
+      path([[77,69],[82,69],[82,73],[77,74]],'#7A6246',ink,1);
+      line([[77,79],[82,78]],'#3B6650',1);line([[77,84],[83,83]],'#3B6650',1);line([[78,89],[82,88]],'#3B6650',1);
+      path([[69,88],[76,87],[78,94],[73,98],[68,94]],skin,ink,1.2);
+      // Whistle on a short gold lanyard.
+      line([[47,65],[50,76],[54,65]],'#D6B85D',1.5);
+      ell(50,78,2.5,3,'#D6B85D',ink,1);
+      line([[49,78],[51,78]],'#FFF0C8',.8);
+    }
+    // Head: older coach, swept silver temples, expressive brows and visor.
+    if(!side){
+      ell(50,30,12.5,14.5,grad(38,16,63,45,[[0,'#D99C76'],[.55,skin],[1,'#754632']]),ink,1.6);
+      if(!back){
+        path([[37,22],[39,15],[48,13],[58,16],[64,22],[61,27],[39,27]],'#5B6260',ink,1.2);
+        ell(40,20,3.2,3.4,'#AEB5A8',null);ell(60,20,3.2,3.4,'#AEB5A8',null);
+        ell(44,31,1.3,1.8,ink,null);ell(56,31,1.3,1.8,ink,null);
+        line([[41,26],[47,25]],'#49332D',1.3);line([[53,25],[59,26]],'#49332D',1.3);
+        line([[49,33],[47,37],[52,37]],'#80513D',1);
+        line([[45,41],[50,42],[55,41]],'#714333',1.2);
+        ell(43,35,2,1,'#D18A72',null);ell(57,35,2,1,'#D18A72',null);
+      }else{
+        ell(42,21,3,3,'#AEB5A8',ink,.6);ell(58,21,3,3,'#AEB5A8',ink,.6);
+        line([[43,23],[44,39]],'#D5D4C8',1);line([[57,23],[56,39]],'#D5D4C8',1);
+      }
+      path([[34,23],[38,17],[47,16],[61,18],[67,23],[65,27],[35,27]],'#263B35',ink,1.4);
+      path([[32,25],[68,25],[66,29],[34,29]],'#D6B85D',ink,1.1);
+      line([[43,19],[57,19]],'#DDE0CF',1);
+    }else{
+      ell(50,30,12,14,back?'#5B6260':grad(38,16,63,45,[[0,'#D99C76'],[.55,skin],[1,'#754632']]),ink,1.5);
+      if(!back){
+        path([[38,22],[42,16],[55,16],[63,22],[61,27],[39,27]],'#5B6260',ink,1);
+        ell(59,30,1.2,1.6,ink,null);line([[59,29],[64,30],[60,33]],'#80513D',1);
+        line([[57,40],[62,40]],'#714333',1.2);
+      }else{line([[43,22],[44,38]],'#D5D4C8',1);line([[57,22],[56,38]],'#D5D4C8',1);}
+      path([[36,23],[42,17],[58,17],[65,23],[63,27],[37,27]],'#263B35',ink,1.3);
+      path([[35,25],[65,25],[63,29],[37,29]],'#D6B85D',ink,1);
+    }
+    g.restore();
+  }
+
+
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
     const { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, USHER_TORSO_MASKS, FAN_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, FAN_RIG_PARTS, ARCHETYPE_PROP_LAYERS, CIV_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
-      if(kind==='cook'||kind==='usher'||kind==='courier'||kind==='runner'){
-        const drawVector=kind==='cook'?drawCookVector:(kind==='usher'?drawUsherVector:(kind==='courier'?drawCourierVector:drawRunnerVector));
+      if(kind==='cook'||kind==='usher'||kind==='courier'||kind==='runner'||kind==='coach'){
+        const drawVector=kind==='cook'?drawCookVector:(kind==='usher'?drawUsherVector:(kind==='courier'?drawCourierVector:(kind==='runner'?drawRunnerVector:drawCoachVector)));
         drawVector(n,dir,ctxOverride||og,OWT,{moving,tm,ph});
         const qaCanvas=owCiv._vectorSnapshotCanvas||(owCiv._vectorSnapshotCanvas=document.createElement('canvas'));
         if(qaCanvas.width!==64)qaCanvas.width=64;if(qaCanvas.height!==96)qaCanvas.height=96;
@@ -1268,7 +1379,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         owCiv._lastPaletteMetrics={civ:kind,archetype:kind+'-vector',renderMode:'vector',colors:[...counts.keys()],
           uniqueColorCount:counts.size,opaquePixelCount,outlinePixelCount,outlineColor:'#171725',bodyColor,bodyPixelCount,
           pantsColor,pantsPixelCount,hairColor,hairPixelCount,colorPixelCounts:Object.fromEntries(counts)};
-        const roleSets={runner:[{role:'coral-race-singlet',color:'#D94F43'},{role:'split-shorts',color:'#3C3454'},{role:'terry-sweatband',color:'#F6C95C'},{role:'race-bib',color:'#F5E8CE'},{role:'technical-shoes',color:'#D88B35'},{role:'skin',color:'#965A43'},{role:'curls',color:'#34252A'}],cook:[{role:'chef-coat',color:'#D9C6A6'},{role:'terracotta-apron',color:'#A84432'},{role:'copper-pan',color:'#B95B3C'},{role:'toque',color:'#F8F3E8'},{role:'skin',color:'#B97855'},{role:'hair',color:'#30242A'}],usher:[{role:'uniform-navy',color:'#294B70'},{role:'brass-trim',color:'#D6A84F'},{role:'skin',color:'#C98A62'},{role:'hair',color:'#241B26'}],courier:[{role:'windbreaker',color:'#237F83'},{role:'dispatch-satchel',color:'#B77A36'},{role:'parcel',color:'#F5D89A'},{role:'storm-cap',color:'#236E78'},{role:'skin',color:'#A96F54'},{role:'hair',color:'#29252B'}]};
+        const roleSets={coach:[{role:'forest-coach-jacket',color:'#24583F'},{role:'cream-shoulder-yoke',color:'#D8D7B8'},{role:'practice-clipboard',color:'#C69A58'},{role:'whistle',color:'#D6B85D'},{role:'track-trousers',color:'#3A4650'},{role:'silver-temples',color:'#AEB5A8'},{role:'skin',color:'#B87959'}],runner:[{role:'coral-race-singlet',color:'#D94F43'},{role:'split-shorts',color:'#3C3454'},{role:'terry-sweatband',color:'#F6C95C'},{role:'race-bib',color:'#F5E8CE'},{role:'technical-shoes',color:'#D88B35'},{role:'skin',color:'#965A43'},{role:'curls',color:'#34252A'}],cook:[{role:'chef-coat',color:'#D9C6A6'},{role:'terracotta-apron',color:'#A84432'},{role:'copper-pan',color:'#B95B3C'},{role:'toque',color:'#F8F3E8'},{role:'skin',color:'#B97855'},{role:'hair',color:'#30242A'}],usher:[{role:'uniform-navy',color:'#294B70'},{role:'brass-trim',color:'#D6A84F'},{role:'skin',color:'#C98A62'},{role:'hair',color:'#241B26'}],courier:[{role:'windbreaker',color:'#237F83'},{role:'dispatch-satchel',color:'#B77A36'},{role:'parcel',color:'#F5D89A'},{role:'storm-cap',color:'#236E78'},{role:'skin',color:'#A96F54'},{role:'hair',color:'#29252B'}]};
         owCiv._lastRoleDebugLegend=qaOptions&&(qaOptions.roleDebug||qaOptions.roleDebugLayers||qaOptions.roleDebugSourceLayers)?roleSets[kind]:null;
         owCiv._lastRoleDebugRows={civ:kind,direction:dir,view:dir==='u'?'back':(dir==='l'||dir==='r'?'side':'front'),torsoMaskRows:[],renderedSourceRows:[]};
         return;
