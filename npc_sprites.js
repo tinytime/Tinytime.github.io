@@ -263,7 +263,7 @@
       sailor:{armSpread:-2,armY:1,legSpread:-2,sideArmX:-2,sideLegSpread:-2},
       slicker:{armSpread:0,armY:-1,legSpread:2,legW:-1},
       painter:{armSpread:-2,armY:1,legSpread:0,legW:2},
-      welder:{armSpread:2,armY:0,legSpread:-2,sideArmX:3,sideLegSpread:2},
+      welder:{armSpread:2,armY:0,legSpread:-2,sideArmX:3,sideLegSpread:2,backLeftArmX:1},
       kid:{armSpread:-1,armY:1,legSpread:-1,legW:-1},
       kid2:{armSpread:1,armY:-1,legSpread:1,legW:1},
       mouse:{armSpread:0,armY:-1,legSpread:0,legW:-1},
@@ -278,9 +278,9 @@
     const FAN_RIG_VARIANTS=Object.freeze({
       driverA:{armSpread:-3,armY:-1,legSpread:-3,legW:-1,sideArmX:-4,sideLegSpread:-4},
       fan1:{armSpread:3,armY:1,legSpread:3,legW:1,sideArmX:4,sideLegSpread:4},
-      fan2:{armSpread:-2,armY:2,legSpread:1,legW:-1,sideArmX:-2,sideLegSpread:2},
+      fan2:{armSpread:3,armY:-2,legSpread:-3,legW:2,sideArmX:-2,sideLegSpread:2},
       fanA:{armSpread:2,armY:-2,legSpread:-1,legW:1,sideArmX:2,sideLegSpread:-2},
-      fanB:{armSpread:-3,armY:2,legSpread:3,legW:-1,sideArmX:-4,sideLegSpread:2},
+      fanB:{armSpread:4,armY:0,legSpread:-2,legW:2,sideArmX:-4,sideLegSpread:2},
       fanC:{armSpread:3,armY:-2,legSpread:-3,legW:1,sideArmX:4,sideLegSpread:-2},
       fanD:{armSpread:0,armY:2,legSpread:0,legW:2,sideArmX:0,sideLegSpread:0},
       gamer1:{armSpread:2,armY:2,legSpread:3,legW:-1,sideArmX:2,sideLegSpread:4},
@@ -303,7 +303,7 @@
         const side=view==='side';
         let arms=base[view].arms.map(([x,y,w,h,role])=>{
           const right=side||x>=16;
-          const dx=side?(spec.sideArmX??spec.armSpread??0):(right?(spec.rightArmX??spec.armSpread??0):(spec.leftArmX??-(spec.armSpread||0)));
+          const dx=side?(spec.sideArmX??spec.armSpread??0):(view==='back'&&!right?(spec.backLeftArmX??spec.leftArmX??-(spec.armSpread||0)):(right?(spec.rightArmX??spec.armSpread??0):(spec.leftArmX??-(spec.armSpread||0))));
           const dy=side?(spec.sideArmY??spec.armY??0):(right?(spec.rightArmY??spec.armY??0):(spec.leftArmY??spec.armY??0));
           const dw=side?(spec.sideArmW??spec.armW??0):(right?(spec.rightArmW??spec.armW??0):(spec.leftArmW??spec.armW??0));
           return [x+dx,y+dy,Math.max(1,w+dw),h,role];
