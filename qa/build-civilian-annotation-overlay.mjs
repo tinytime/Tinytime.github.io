@@ -71,7 +71,7 @@ try {
       ctx.drawImage(image, x, y + 32, 256, 384);
 
       const sx = 256 / 100, sy = 384 / 140;
-      const px = p => [x + p.x * sx, y + 32 + p.y * sy];
+      const px = p => [x + (item.direction === 'left' ? 100 - p.x : p.x) * sx, y + 32 + p.y * sy];
       const polygon = (points, color) => {
         if (!Array.isArray(points) || points.length < 3) return;
         ctx.beginPath();
