@@ -1317,9 +1317,11 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[28,88],[35,89],[35,97],[29,100],[25,95]],skin);
       // Gold whistle and short lanyard are visible in profile, below the yoke.
       line([[44,63],[49,72],[54,63]],'#D6B85D',1.8);
-      path([[46,73],[50,72],[53,74],[53,78],[50,80],[47,79],[45,76]],'#D9AD45',ink,1);
-      path([[43,74],[47,73],[47,76],[44,77]],'#F3D985',ink,.8); // distinct whistle mouthpiece
-      line([[48,75],[52,75]],'#FFF0C8',1);line([[50,77],[50,79]],'#8A6428',.8);
+      // Horizontal whistle barrel with a clear projecting mouthpiece; avoid
+      // the circular pendant silhouette that disappeared at native scale.
+      path([[46,74],[49,72.8],[54,73],[57,75],[56,78],[49,79],[46,77]],'#D9AD45',ink,1);
+      path([[42,74],[47,73],[47,76],[43,77]],'#F3D985',ink,.8);
+      line([[49,74],[55,74]],'#FFF0C8',1);line([[55,75],[59,75]],'#8A6428',1.1);
     }else{
       // Front jacket: cream shoulder yoke, zipper, pocket seams and hem band.
       path([[34,52],[43,48],[58,48],[68,54],[64,68],[50,73],[36,67]],'#D8D7B8',ink,1.3);
@@ -1341,9 +1343,10 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[69,88],[76,87],[78,94],[73,98],[68,94]],skin,ink,1.2);
       // Whistle on a short gold lanyard.
       line([[46,64],[50,76],[55,64]],'#D6B85D',1.9);
-      path([[47,75],[52,74],[55,76],[55,81],[52,84],[48,83],[46,79]],'#D9AD45',ink,1.05);
-      path([[43,76],[48,75],[48,78],[44,79]],'#F3D985',ink,.85); // projecting mouthpiece
-      line([[49,77],[54,77]],'#FFF0C8',1.1);line([[52,79],[52,82]],'#8A6428',.8);
+      // Side-facing whistle reads as a compact horizontal barrel and tip.
+      path([[47,75],[50,73.5],[56,74],[59,76],[57,79],[50,80],[47,78]],'#D9AD45',ink,1.05);
+      path([[43,75],[48,74],[48,77],[44,78]],'#F3D985',ink,.85);
+      line([[50,75],[57,75]],'#FFF0C8',1.1);line([[57,76],[61,76]],'#8A6428',1.1);
     }
     // Head: older coach, swept silver temples, expressive brows and visor.
     if(!side){
