@@ -873,7 +873,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         qaCtx.setTransform(1,0,0,1,0,0);qaCtx.globalAlpha=1;qaCtx.globalCompositeOperation='source-over';
         qaCtx.clearRect(0,0,64,96);
         const qaOWT=36*.625/.28;
-        const qaNpc=Object.assign({},n,{x:0,y:0,rx:(32-qaOWT/2)/qaOWT,ry:(87-qaOWT)/qaOWT});
+        const qaNpc=Object.assign({},n,{x:0,y:0,rx:(32-qaOWT/2)/qaOWT,ry:(88-qaOWT)/qaOWT});
         drawUsherVector(qaNpc,dir,qaCtx,qaOWT,{moving:false,tm:0,ph:0});
         owCiv._gridCanvas=qaCanvas;
         const pixels=qaCtx.getImageData(0,0,64,96).data,counts=new Map();
