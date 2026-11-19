@@ -90,3 +90,10 @@ For each character, ask:
 A side-profile civilian should read as a single visible arm, not two arms stacked along the same silhouette. The far arm should be occluded by the torso unless a deliberate pose clearly establishes a separate far-side plane. For prop-holding characters, retain the near arm that carries the defining prop and hide the far arm. Apply this consistently across Runner, Coach and Referee.
 
 Runner's sprint pose must remain energetic, but the legs should read as athletic human legs rather than long trouser-like polygons. Shorts should end above the knees, with exposed lower-leg anatomy and clear shoe separation. Do not rely on animation to make an awkward static sprite look correct: each directional sprite must read clearly on its own.
+
+
+## Owner follow-up — Coach profile and Runner leg anatomy (2026-11-19)
+
+- Coach's side-profile jacket should carry more volume along the rear/back contour so the torso does not collapse into a skinny edge-on strip. The side-profile whistle and lanyard must angle toward the face/front edge and remain on the character's front in both mirrored directions; keep the near clipboard arm as the single visible arm.
+- Runner's stride should use clearly separated shorts/thighs and exposed, tapered lower legs. Avoid long dark ribbon-like shapes that read as trouser legs. Preserve the dynamic running pose and shoe separation.
+- Referee received positive owner feedback (“Ref good”); no additional change requested in this pass.
