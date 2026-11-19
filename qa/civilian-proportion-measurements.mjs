@@ -10,7 +10,8 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const MANIFEST_PATH = path.join(ROOT, 'qa', 'civilian-anatomy-landmarks.json');
 const DIRECTIONS = ['front', 'back', 'left', 'right'];
 const REQUIRED_POINTS = ['headTop', 'chin', 'shoulderLeft', 'shoulderRight', 'shoulderY', 'pelvisY', 'footBaseline'];
-const isPoint = p => p && Number.isFinite(p.x) && Number.isFinite(p.y);
+const isPoint = p => p && Number.isFinite(p.x) && Number.isFinite(p.y) &&
+  p.x >= 0 && p.x <= 100 && p.y >= 0 && p.y <= 140;
 const inSourceBounds = p => isPoint(p) && p.x >= 0 && p.x <= 100 && p.y >= 0 && p.y <= 140;
 const validPolygon = polygon => Array.isArray(polygon) && polygon.length >= 3 && polygon.every(inSourceBounds) && Math.abs(polygon.reduce((sum,p,i)=>{const q=polygon[(i+1)%polygon.length];return sum+p.x*q.y-q.x*p.y;},0)) > 0;
 const distance = (a,b) => Math.hypot(b.x-a.x,b.y-a.y);
@@ -34,7 +35,8 @@ export function validateLandmarkRecord(record, id) {
     if (d.chin < d.headTop || d.chin > d.footBaseline) errors.push(direction + ' chin is outside body height');
     if (d.shoulderY < d.chin || d.shoulderY > d.footBaseline) errors.push(direction + ' shoulderY is outside body height');
     if (d.pelvisY < d.shoulderY || d.pelvisY > d.footBaseline) errors.push(direction + ' pelvisY is outside shoulder-to-foot interval');
-    if (d.shoulderLeft.y !== d.shoulderRight.y) errors.push(direction + ' shoulder points must share one measurement row');
+    if (isPoint(d.shoulderLeft) && isPoint(d.shoulderRight) && d.shoulderLeft.y !== d.shoulderRight.y)
+      errors.push(direction + ' shoulder points must share one measurement row');
     if (!Array.isArray(d.headwearPolygons) || !d.headwearPolygons.every(validPolygon) || !Array.isArray(d.propPolygons) || !d.propPolygons.every(validPolygon))
       errors.push(direction + ' must explicitly declare valid headwearPolygons and propPolygons (empty arrays are valid)');
     for (const key of ['headTop','chin','shoulderY','pelvisY','footBaseline']) if (Number.isFinite(d[key]) && (d[key] < 0 || d[key] > 140)) errors.push(direction + ' ' + key + ' is outside 100x140 source bounds');
@@ -125,8 +127,12 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, JSON.stringify(report, null, 2) + '\n');
   if (process.argv.includes('--check')) {
-    if (report.characterCount !== 7 || report.referenceBaselineCount !== 1 || !manifest.characters.granny || report.pendingCount !== 6)
-      throw new Error('Semantic measurement manifest failed structural validation');
+    const expected = ['usher','cook','courier','runner','coach','referee'];
+    const actual = Object.keys(manifest.characters || {}).filter(id => id !== 'granny').sort();
+    if (report.characterCount !== 7 || report.referenceBaselineCount !== 1 ||
+        !manifest.characters.granny || report.pendingCount !== 6 ||
+        actual.join(',') !== expected.sort().join(','))
+      throw new Error('Semantic measurement manifest failed six-civilian scope validation');
     console.log(JSON.stringify({ pass: true, characterCount: report.characterCount, measuredCount: report.measuredCount, pendingCount: report.pendingCount, output: 'qa-output/civilian-proportion-measurements.json' }));
   } else {
     console.log('Wrote qa-output/civilian-proportion-measurements.json');
