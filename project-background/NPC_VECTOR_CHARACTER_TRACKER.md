@@ -2,7 +2,7 @@
 
 **Project:** Vapor City civilian NPC vector redesign  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest combined renderer source verified:** `fafb991d3ce94ffa491179a84ecb63c10934b0e0`. Browser QA run #446 (`44581720083`), job `135762041794`, tested this exact source; artifact `14559965367` downloaded and inspected. Fresh Runner/Coach/Referee four-direction renders visually inspected at native 64×96, 6× enlargement and direct 28×42 scale. Targeted QA passes: syntax/module, 12/12 direct game-scale captures, role-debug 12/12, directional integrity 92/92 with zero edge contacts/detached components, face distinctness 23/23, palette, body/baseline, prop audit, silhouette-quality 180/180, gallery and town regression; zero page/script errors. Workflow remains failed on global Clinic/Sailor front silhouette overlap, unapproved golden snapshots (23 changed / 1 match), and 180 missing-audio 404s. No snapshots changed. [Run #446 evidence index](../qa-artifacts/runner-coach-referee-run-446/README.md).
+**Latest renderer source verified:** `4eafc657fa9ee15db3b70f3c64a76280d4add0a6`. Browser QA run #446 (`44581720083`), job `135762041794`, tested this exact source; artifact `14559965367` downloaded and inspected. Fresh Runner/Coach/Referee four-direction renders visually inspected at native 64×96, 6× enlargement and direct 28×42 scale. Targeted QA passes: syntax/module, 12/12 direct game-scale captures, role-debug 12/12, directional integrity 92/92 with zero edge contacts/detached components, face distinctness 23/23, palette, body/baseline, prop audit, silhouette-quality 180/180, gallery and town regression; zero page/script errors. Workflow remains failed on global Clinic/Sailor front silhouette overlap, unapproved golden snapshots (23 changed / 1 match), and 180 missing-audio 404s. No snapshots changed. [Run #446 evidence index](../qa-artifacts/runner-coach-referee-run-446/README.md).
 
 > This is the live status document. Update it after each meaningful design, integration, QA, and review milestone. The project background and working rules are in this folder's [README](README.md).
 
@@ -37,7 +37,7 @@ The first review batch is three characters total. Once all three are built and i
 
 ## Next character batch: Runner, Coach, Referee
 
-The project owner approved the first batch (Usher, Cook, Courier) on 2026-11-19 and authorized the next three-character group. Runner, Coach, and Referee are built and have passed targeted internal QA. Combined run #429 tested the latest renderer source including Coach's final whistle/profile-clipboard polish; artifact `14548434248` was inspected. All three remain NOT APPROVED pending Claude comparative review and owner acceptance. The standard town screenshot does not explicitly spawn Coach or Referee, so it is scene-regression evidence rather than character-specific live-town proof.
+The project owner approved the first batch (Usher, Cook, Courier) on 2026-11-19 and authorized the next three-character group. Runner, Coach, and Referee are built and have passed targeted internal QA. Latest combined run #452 tested exact source `4eafc657fa9ee15db3b70f3c64a76280d4add0a6`; artifact `14562025835` was inspected. Runner's side-profile torso front hem was narrowed; collar/bib placement remains on the forward chest plane in both mirrored views; front view unchanged. All three remain NOT APPROVED pending Claude comparative review and owner acceptance. The standard town screenshot does not explicitly spawn Coach or Referee, so it is scene-regression evidence rather than character-specific live-town proof.
 
 ## Full civilian roster
 
@@ -259,3 +259,15 @@ Owner feedback: all three side profiles should show only one visible arm; Runner
 
 
 - **2026-11-19 owner follow-up / run #446:** Owner feedback: “Ref good”; Coach should have more back volume in side profile and the whistle should stay on his front; Runner's legs should continue toward the proportions of the other civilians. Source `fafb991d3ce94ffa491179a84ecb63c10934b0e0` widens Coach's rear torso contour, shifts the profile whistle/lanyard toward the front, and shortens Runner's trailing shorts to expose a distinct calf. Run #446 (`44581720083`, artifact `14559965367`) tested the exact source. All 12 native 64×96 and 12 direct 28×42 captures inspected. Targeted QA passed; workflow remains failed on global Clinic/Sailor overlap, unapproved snapshots and 180 missing-audio 404s. [Run #446 review package](../qa-artifacts/runner-coach-referee-run-446/README.md). Referee unchanged. All three remain NOT APPROVED pending Claude's independent comparative review and owner acceptance.
+
+
+## Run #452 — Runner side-profile narrowing verification (2026-11-19)
+
+- **Exact source:** `4eafc657fa9ee15db3b70f3c64a76280d4add0a6` — [commit](https://github.com/tinytime/Tinytime.github.io/commit/4eafc657fa9ee15db3b70f3c64a76280d4add0a6).
+- **Browser QA:** [run #452](https://github.com/tinytime/Tinytime.github.io/actions/runs/44587406698), artifact `14562025835`.
+- **Change:** Runner side torso lower front edge moved inward (x=71 to x=64); no front/back torso geometry changed. Side collar and bib positions from the previous correction retained.
+- **Visual inspection:** fresh Runner front/back/left/right native 64×96 captures and direct 28×42 front/left/right game-scale captures inspected. Both mirrored profiles show a slimmer forward torso contour; collar and ID bib sit on the forward chest plane; front view remains unchanged. The side bib is necessarily foreshortened at game scale. No new edge clipping or detached components.
+- **Targeted checks pass:** syntax/module load, palette/body checks, direct game-scale captures 12/12, role-debug 12/12, directional integrity 92/92 (zero edge contacts/detached large components), prop audit, silhouette-quality 180/180, gallery visual pass, town regression (16 NPCs; Granny present), page errors 0 and script errors 0.
+- **Overall workflow failed:** global civilian type silhouette audit still flags Clinic/Sailor front at IoU `0.9094292803970223` (other close pairs also listed in report); golden snapshots remain unapproved (23 changed / 1 match); 180 existing audio resource 404s. No snapshots were refreshed or approved.
+- **Evidence:** run artifact contains `npc-type-directions/runner-{front,back,left,right}.png`, `npc-game-scale-28x42/runner-*.png`, role-debug, gallery/town screenshots and `report.json`. See [run artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/44587406698).
+- **Status:** internal targeted QA and visual inspection pass. Claude review and owner approval are still pending; Runner, Coach and Referee remain NOT APPROVED. Remaining 20 remain on hold.
