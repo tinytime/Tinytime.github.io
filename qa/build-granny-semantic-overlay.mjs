@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
-import { deriveLocalMaskContour, measureGrannyMaskFit } from './granny-mask-fit.mjs';
+import { deriveLocalMaskContour, deriveLocalMaskContours, measureGrannyMaskFit } from './granny-mask-fit.mjs';
 import { createServer } from 'node:http';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -167,10 +167,10 @@ try {
     const code={front:'d',back:'u',left:'l',right:'r'}[key];
     const mask=result.masks.find(m=>m.direction===code);
     d.bodyPolygon=deriveLocalMaskContour(mask.bodyAlpha.rows,key);
-    d.visiblePropPolygon=deriveLocalMaskContour(mask.umbrellaExposedDelta.rows,key);
+    d.visiblePropPolygons=deriveLocalMaskContours(mask.umbrellaExposedDelta.rows,key);
     d.bodyAppendagePolygons=[];
     d.bodyPolygonDerivation='outer contour traced from exact umbrella-excluded renderer body alpha; renderer profile transform is inverted for source-space coordinates; candidate only, not human semantic approval';
-    d.visiblePropPolygonDerivation='visible-only outer contour traced from full-render alpha minus body alpha; hidden/occluded umbrella geometry remains in manualPropPolygonCandidate';
+    d.visiblePropPolygonDerivation='all visible-only outer contours traced from full-render alpha minus body alpha; disconnected visible prop components are retained; hidden/occluded umbrella geometry remains in manualPropPolygonCandidate';
   }
   annotation.pixelMaskFitReview = {
     status:'candidate_diagnostic_not_approval',
@@ -193,7 +193,7 @@ try {
       poly(a.bodyPolygon,colors.body);for(const p of a.bodyAppendagePolygons)poly(p,colors.body);
       if(a.manualBodyPolygonCandidate){poly(a.manualBodyPolygonCandidate.bodyPolygon,colors.manual);for(const p of a.manualBodyPolygonCandidate.bodyAppendagePolygons||[])poly(p,colors.manual);}
       for(const p of a.headwearPolygons)poly(p,colors.headwear);for(const p of a.propPolygons)poly(p,colors.props);
-      if(a.visiblePropPolygon)poly(a.visiblePropPolygon,colors.visibleProp);
+      for(const p of a.visiblePropPolygons||[])poly(p,colors.visibleProp);
       for(const k of ['shoulderLeft','shoulderRight']){const [xx,yy]=map(a[k]);c.fillStyle=colors.points;c.beginPath();c.arc(xx,yy,3,0,7);c.fill()}
     }
     c.fillStyle='#ff3535';c.fillRect(12,319,10,6);c.fillStyle='#fff';c.font='10px monospace';c.fillText('MASK-DERIVED BODY',26,325);c.fillStyle='#ff66d9';c.fillRect(180,319,10,6);c.fillStyle='#fff';c.fillText('MANUAL CANDIDATE',194,325);c.fillStyle='#ffd21a';c.fillRect(330,319,10,6);c.fillStyle='#fff';c.fillText('FULL PROP CANDIDATE',344,325);c.fillStyle='#35d8ff';c.fillRect(485,319,10,6);c.fillStyle='#fff';c.fillText('VISIBLE PROP MASK',499,325);
