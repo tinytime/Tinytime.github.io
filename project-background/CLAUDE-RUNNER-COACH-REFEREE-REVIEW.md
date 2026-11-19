@@ -7,7 +7,7 @@
 **Requested reviewer:** Claude (independent reviewer)  
 **Final approval authority:** Project owner  
 **Builder:** ChatGPT  
-**Status:** READY FOR CLAUDE REVIEW — NONE OF THE THREE CHARACTERS IS APPROVED
+**Status:** REVIEWED — RUNNER AND COACH CORRECTIONS IMPLEMENTED; NEW BROWSER QA PENDING. REFEREE AWAITS OWNER ACCEPTANCE.
 
 **Focused GitHub review package:** [Runner / Coach / Referee — run #429](qa-artifacts/runner-coach-referee-run-429/README.md). Download the exact run #429 artifact from its Actions page; the focused package index lists the required PNG paths.
 
@@ -131,3 +131,12 @@ Do not approve based on code inspection or automated metrics alone. The project 
 ## Earlier review history
 
 The previous Claude review identified required corrections for this batch: Runner profile faces / floating foot dash / consistent curls; Coach rear hair / profile clipboard and hand connection / profile yoke; Referee card handedness / rear hair. Those corrections were implemented and internally rechecked. Coach received an additional final polish pass for the whistle and profile clipboard, and the combined run #429 artifact contains that latest version.
+
+
+## Claude's run #429 verdict and correction status (2026-11-19)
+
+Claude compared the corrected run #429 images and reported Runner 6/10 (corrections required), Coach 7/10 (approve after whistle correction), and Referee 7.5/10 (optional polish only; reviewer considers acceptable). The reviewer found Runner's four PNGs pixel-identical to run #416. Commit comparison confirms source `f78627c` contains Coach-only renderer changes and omitted Runner edits. The Runner renderer is already routed through `drawRunnerVector`; this was not a pixel-pack override.
+
+Correction commit: `5e50ee26f192792d78e7e9b7ae72dd95b9d640f1`. It strengthens Runner's side-profile facial features and curl silhouette, removes detached pale sole marks, softens shorts slashes, adds profile stopwatch visibility and improves crossed-leg separation. Coach's whistle now has a projecting mouthpiece and barrel-like body.
+
+**These corrections are implemented, not yet tested.** The next required step is a fresh standard browser QA run against the correction commit, followed by inspection of all four Runner and Coach directions at native and enlarged scale. Claude should re-review Runner and Coach only after that evidence exists. Referee remains NOT APPROVED until the project owner explicitly accepts it. No golden snapshots were refreshed or approved.
