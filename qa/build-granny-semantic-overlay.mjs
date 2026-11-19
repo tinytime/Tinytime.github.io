@@ -179,7 +179,7 @@ try {
   const sheet=await page.evaluate(async({directions,annotation})=>{
     const canvas=document.createElement('canvas');canvas.width=4*260+24;canvas.height=330;
     const c=canvas.getContext('2d');c.fillStyle='#292b35';c.fillRect(0,0,canvas.width,canvas.height);
-    const colors={body:'#ff3535',headwear:'#39a8ff',props:'#ffd21a',points:'#35f27c'};
+    const colors={body:'#ff3535',manual:'#ff66d9',headwear:'#39a8ff',props:'#ffd21a',points:'#35f27c'};
     for(let i=0;i<directions.length;i++){
       const d=directions[i],a=annotation.directions[{d:'front',u:'back',l:'left',r:'right'}[d.direction]];
       const im=new Image();im.src=d.body;await im.decode();
@@ -188,9 +188,11 @@ try {
       const map=p=>{const side=d.direction==='l'||d.direction==='r';const localX=50+(p.x-50)*(side?.72:1);const screenX=d.direction==='l'?100-localX:localX;return [x+120+(screenX-50)*2.4,y+24+p.y*2]};
       const poly=(pts,color)=>{c.beginPath();pts.forEach((p,j)=>{const [xx,yy]=map(p);if(!j)c.moveTo(xx,yy);else c.lineTo(xx,yy)});c.closePath();c.strokeStyle=color;c.lineWidth=1.5;c.stroke()};
       poly(a.bodyPolygon,colors.body);for(const p of a.bodyAppendagePolygons)poly(p,colors.body);
+      if(a.manualBodyPolygonCandidate){poly(a.manualBodyPolygonCandidate.bodyPolygon,colors.manual);for(const p of a.manualBodyPolygonCandidate.bodyAppendagePolygons||[])poly(p,colors.manual);}
       for(const p of a.headwearPolygons)poly(p,colors.headwear);for(const p of a.propPolygons)poly(p,colors.props);
       for(const k of ['shoulderLeft','shoulderRight']){const [xx,yy]=map(a[k]);c.fillStyle=colors.points;c.beginPath();c.arc(xx,yy,3,0,7);c.fill()}
     }
+    c.fillStyle='#ff3535';c.fillRect(12,319,10,6);c.fillStyle='#fff';c.font='10px monospace';c.fillText('MASK-DERIVED BODY',26,325);c.fillStyle='#ff66d9';c.fillRect(180,319,10,6);c.fillStyle='#fff';c.fillText('MANUAL CANDIDATE',194,325);c.fillStyle='#ffd21a';c.fillRect(330,319,10,6);c.fillStyle='#fff';c.fillText('UMBRELLA PROP',344,325);
     return canvas.toDataURL('image/png');
   },{directions:result.directions,annotation});
   fs.writeFileSync(path.join(out,'granny-four-direction-semantic-overlay.png'),Buffer.from(sheet.split(',')[1],'base64'));
