@@ -123,7 +123,7 @@
     // squared guard shoulders, apron-weighted vendor, asymmetric trades build,
     // compact youth, and stooped/heavier elder.
     for (const view of ['front','back','side']) {
-      reshapeTorsoRows('athletic',view,y=>y<=15?{left:-2,right:2}:y>=18?{left:1,right:-1}:{left:-1,right:1});
+      reshapeTorsoRows('athletic',view,y=>y<=15?{left:2,right:-2}:y>=18?{left:-1,right:1}:{left:1,right:-1});
       reshapeTorsoRows('courier',view,y=>view==='side'?{left:1,right:-2}:{left:1,right:-1});
       reshapeTorsoRows('civic',view,y=>view==='front'
         ? (y<=15?{left:1,right:-1}:y<=22?{left:3,right:-3}:{left:0,right:0})
@@ -142,7 +142,7 @@
     // palette-only swaps. Each type gets its own cloned mask; archetype templates
     // remain immutable and are never cumulatively modified.
     const CIV_TORSO_VARIANTS=Object.freeze({
-      runner:[2,0,-1],coach:[-2,1,2],ref:[2,-2,-1],
+      runner:[-2,0,-1],coach:[-2,1,2],ref:[2,-2,-1],
       courier:[-1,2,-2],guard:[2,0,-2],
       vendor:[-2,-2,2],cook:[2,2,-1],
       clinic:[0,2,4],tech:[2,0,2],hacker:[-2,2,-1],
