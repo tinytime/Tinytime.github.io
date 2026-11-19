@@ -220,9 +220,16 @@ try {
       const x=12+i*260,y=12;c.fillStyle='#fff';c.font='bold 16px monospace';c.fillText(({d:'FRONT',u:'BACK',l:'LEFT',r:'RIGHT'})[d.direction],x,y+16);
       c.drawImage(im,x,y+24,240,280);
       const map=p=>{const side=d.direction==='l'||d.direction==='r';const localX=50+(p.x-50)*(side?.72:1);const screenX=d.direction==='l'?100-localX:localX;return [x+120+(screenX-50)*2.4,y+24+p.y*2]};
+      const keyLabelOffset=(label,yy,baseY)=>{
+        if(label==='CHIN')return yy-9;
+        if(label==='SHOULDER')return yy+11;
+        return yy-3;
+      };
       const guide=(value,color,label)=>{
         const yy=y+24+value*2;c.save();c.strokeStyle=color;c.lineWidth=1;c.setLineDash([4,3]);c.beginPath();c.moveTo(x+36,yy);c.lineTo(x+204,yy);c.stroke();c.restore();
-        c.fillStyle=color;c.font='10px monospace';c.fillText(label,x+5,yy-3);
+        c.fillStyle=color;c.font='10px monospace';
+        const labelY=keyLabelOffset(label,yy,y);
+        c.fillText(label,x+5,labelY);
       };
       for(const key of Object.keys(labels))guide(typeof a[key]==='number'?a[key]:a[key]?.y,colors[key],labels[key]);
       for(const key of ['shoulderLeft','shoulderRight']){
@@ -271,5 +278,5 @@ try {
     return canvas.toDataURL('image/png');
   },{directions:result.directions,masks:result.masks});
   fs.writeFileSync(path.join(out,'granny-pixel-mask-overlay.png'),Buffer.from(pixelMaskSheet.split(',')[1],'base64'));
-  console.log(JSON.stringify({pass:true,directions:result.directions.length,source:'live createGrannyRenderer',status:annotation.status,outputs:['granny-four-direction-semantic-overlay.png','granny-pixel-mask-overlay.png','granny-pixel-mask-fit-report.json','granny-semantic-candidate.json']}));
+  console.log(JSON.stringify({pass:true,directions:result.directions.length,source:'live createGrannyRenderer',status:annotation.status,outputs:['granny-four-direction-semantic-overlay.png','granny-landmark-review.png','granny-pixel-mask-overlay.png','granny-pixel-mask-fit-report.json','granny-semantic-candidate.json']}));
 } finally { await browser.close(); server.close(); }
