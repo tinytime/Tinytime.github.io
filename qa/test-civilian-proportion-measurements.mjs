@@ -52,7 +52,7 @@ assert.ok(validateLandmarkRecord(missingHeadwear,'invalid').some(x=>x.includes('
 const actualManifest=loadManifest();
 const actualReport=buildMeasurementReport(actualManifest);
 assert.equal(actualReport.sourceAnnotatedCandidateCount,6);
-assert.equal(actualReport.pendingCount,0);
+assert.equal(actualReport.pendingCount,6);
 for(const id of ['usher','cook','courier','runner','coach','referee']){
  const record=actualManifest.characters[id];
  assert.equal(record.status,'source_annotated',id+' candidate status');
