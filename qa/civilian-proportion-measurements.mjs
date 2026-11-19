@@ -1,7 +1,7 @@
 // Semantic civilian proportion measurements.
 // Coordinates are authored in Granny's 100x140 source-space convention.
-// This module intentionally requires human-verified landmarks; it never guesses
-// anatomy from alpha bounds or silently treats props/headwear as body.
+// It distinguishes source-derived candidate annotations from visually verified
+// measurements and never guesses anatomy from alpha bounds.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
