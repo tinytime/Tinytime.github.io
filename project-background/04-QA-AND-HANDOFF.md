@@ -300,3 +300,14 @@ The separate full civilian type-silhouette audit is still failed: Clinic/Sailor 
 - **Overall workflow FAILED** on the unchanged global gates: Clinic/Sailor front silhouette IoU `0.9094292803970223`; unapproved golden snapshots (23 changed / 1 match); 180 missing-audio 404s. No snapshots were refreshed or approved.
 - **Updated Claude package:** [run #444 review brief and evidence index](../qa-artifacts/runner-coach-referee-run-444/README.md).
 - **Status:** owner-requested corrections implemented and targeted internal QA/visual inspection PASS. Not Claude-reviewed or owner-approved. All three remain NOT APPROVED; remaining 20 stay on hold.
+
+
+## Owner follow-up verification — run #446 (2026-11-19)
+
+- Tested source: `fafb991d3ce94ffa491179a84ecb63c10934b0e0`.
+- Run: [#446 / 44581720083](https://github.com/tinytime/Tinytime.github.io/actions/runs/44581720083); job `135762041794`; artifact `14559965367`.
+- Actual 64×96 native directional renders and direct 28×42 game-scale captures inspected for Runner, Coach and Referee (12 of each size). Coach's side torso now has more rear volume; the whistle/lanyard is shifted toward the front in both profiles. Runner's trailing shorts end at the knee and the calf is exposed; the running stride remains distinct. Referee is unchanged per owner feedback.
+- Targeted checks pass: syntax/module, 12/12 direct game-scale captures, role-debug 12/12, visual integrity 92/92 with zero edge contacts/detached components, 23/23 face distinctness, palette, body/baseline, props, silhouette-quality 180/180, gallery and town regression. No page or script errors.
+- Overall workflow remains **FAILED** on global Clinic/Sailor front silhouette IoU `0.9094292803970223`, unapproved golden snapshots (23 changed / 1 match), and 180 missing-audio 404 console errors. No golden snapshots were refreshed or approved.
+- Review package: [Runner / Coach / Referee run #446](../qa-artifacts/runner-coach-referee-run-446/README.md).
+- Internal targeted QA and visual inspection are not Claude review or owner approval. All three remain NOT APPROVED pending independent comparative review and explicit owner acceptance; remaining 20 remain on hold.
