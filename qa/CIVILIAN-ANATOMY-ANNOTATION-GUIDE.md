@@ -95,3 +95,10 @@ The overlay renderer was corrected to apply the left-facing x mirror at display 
 ## Runner annotation correction — 2026-11-19
 
 Native overlay inspection showed that the initial Runner candidate wrongly classified the race bib and an arm region as props and placed shoulder/elbow/wrist/knee/ankle landmarks too centrally. The manifest now keeps the bib as clothing, uses only the stopwatch as a prop exclusion (front and side; none on back), expands the anatomical outer contour to follow both arm silhouettes and the stride, and relocates bilateral joints to source-defined limb segments. This is still a candidate revision; the next fresh six-character overlay must be inspected before acceptance.
+
+
+## Runner and directional-mask refinement — 2026-11-19
+
+Runner's race bib is part of the singlet and remains inside the body/garment mask; it is not a detachable prop. The wrist stopwatch is the prop exclusion where visible, and the back view explicitly has no prop polygon. Runner's joint candidates were revised using the actual sprint leg paths in `npc_sprites.js`, including separate profile near/far knees and ankles. These remain candidate landmarks pending visual verification; they do not yet support a measured or calibrated result.
+
+Courier's cap polygon was tightened to the source crown/visor path. Referee's body candidate now follows the raised sleeve contour in all views, with direction-specific yellow-card exclusions. These corrections improve the candidate overlays but do not constitute visual approval.
