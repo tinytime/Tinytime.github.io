@@ -2614,31 +2614,19 @@
             [
               {
                 "x": 43,
-                "y": 74
-              },
-              {
-                "x": 49,
-                "y": 73
-              },
-              {
-                "x": 56,
-                "y": 74
+                "y": 64
               },
               {
                 "x": 59,
-                "y": 77
+                "y": 64
               },
               {
-                "x": 56,
+                "x": 59,
                 "y": 80
               },
               {
-                "x": 50,
-                "y": 79
-              },
-              {
-                "x": 46,
-                "y": 77
+                "x": 43,
+                "y": 80
               }
             ]
           ]
@@ -2826,40 +2814,24 @@
               {
                 "x": 67,
                 "y": 99
-              },
-              {
-                "x": 59,
-                "y": 91
               }
             ],
             [
               {
-                "x": 41,
-                "y": 73
+                "x": 40,
+                "y": 64
               },
               {
-                "x": 47,
-                "y": 71
+                "x": 59,
+                "y": 64
               },
               {
-                "x": 51,
-                "y": 73
-              },
-              {
-                "x": 53,
-                "y": 76
-              },
-              {
-                "x": 50,
-                "y": 79
-              },
-              {
-                "x": 45,
-                "y": 78
+                "x": 59,
+                "y": 80
               },
               {
                 "x": 41,
-                "y": 76
+                "y": 80
               }
             ]
           ]
@@ -2961,40 +2933,24 @@
               {
                 "x": 67,
                 "y": 99
-              },
-              {
-                "x": 59,
-                "y": 91
               }
             ],
             [
               {
-                "x": 41,
-                "y": 73
+                "x": 40,
+                "y": 64
               },
               {
-                "x": 47,
-                "y": 71
+                "x": 59,
+                "y": 64
               },
               {
-                "x": 51,
-                "y": 73
-              },
-              {
-                "x": 53,
-                "y": 76
-              },
-              {
-                "x": 50,
-                "y": 79
-              },
-              {
-                "x": 45,
-                "y": 78
+                "x": 59,
+                "y": 80
               },
               {
                 "x": 41,
-                "y": 76
+                "y": 80
               }
             ]
           ]
@@ -3005,7 +2961,7 @@
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
         "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
-        "note": "Clipboard polygons now follow the front and side renderer paths; rear view has no clipboard or whistle prop exclusion."
+        "note": "Candidate geometry only. Clipboard polygons now follow the actual front/profile board paths; the rear view has no clipboard or whistle prop exclusions. Prop bounds still require pixel-tight spot-checking."
       }
     },
     "referee": {
