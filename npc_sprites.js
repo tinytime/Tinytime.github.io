@@ -1311,7 +1311,7 @@
         owCiv._lastRoleDebugRows={civ:kind,direction:dirCode,view:side?'side':back?'back':'front',torsoMaskRows:torsoRows.map(([row,left,right])=>({row,left,right,width:right-left+1})),renderedSourceRows:rowSourceWidths};
       }else owCiv._lastRoleDebugLegend=null;
       for(let gy=0;gy<H;gy++)for(let gx=0;gx<N;gx++){
-        const debugCell=roleDebugLayers&&debugSourceGrid?debugSourceGrid[gy][gx]:roleDebugGrid[gy][gx];
+        const debugCell=roleDebug?(roleDebugLayers&&debugSourceGrid?debugSourceGrid[gy][gx]:roleDebugGrid[gy][gx]):null;
         const color=roleDebug
           ? (debugCell===null?null:owCiv._lastRoleDebugLegend.find(item=>item.role===debugCell)?.color||null)
           : finalGrid[gy][gx];
