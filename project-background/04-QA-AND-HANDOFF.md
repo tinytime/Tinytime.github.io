@@ -377,3 +377,13 @@ Renderer commit: [23c792f7e83eb14ff7d48e197678272f1c3e58b0](https://github.com/t
 Added restrained warm/cool rim-light accents to Coach and Referee, matching the established light treatment already present on Usher, Cook and Courier. The accents are limited to face/shoulder contours and intentionally avoid tracing the clipboard, whistle or yellow card.
 
 This is a source-only finish refinement. It has not yet been browser-tested or visually inspected. All five characters remain in revision / NOT APPROVED status; Runner remains excluded from this review round and the remaining 20 civilians stay on hold. No golden snapshots were changed.
+
+## Run #459 — five-civilian correction source QA (2026-11-19)
+
+- Exact renderer tested: `23c792f7e83eb14ff7d48e197678272f1c3e58b0` ([commit](https://github.com/tinytime/Tinytime.github.io/commit/23c792f7e83eb14ff7d48e197678272f1c3e58b0)).
+- [GitHub Actions run #459](https://github.com/tinytime/Tinytime.github.io/actions/runs/44599635463), job `135827201638`; [artifact `14568035039`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44599635463/artifacts/14568035039).
+- The run produced 92 native 64×96 directional captures (23 civilians × four directions), including Usher, Cook, Courier, Coach and Referee. Direct 28×42 capture remains 12/12 for Runner, Coach and Referee only; Usher, Cook and Courier are not included in that direct game-scale set.
+- Automated targeted checks pass: syntax/module/inventory; vector/legacy palette checks; face distinctness; 92/92 directional integrity with zero edge contacts and detached large components; role-debug 12/12; prop audit; gallery; page errors 0; script errors 0. The 12 direct game-scale captures pass their dimensions/method assertion.
+- Overall workflow FAILED on the full civilian type-silhouette audit (max rendered IoU `0.9094292803970223`, Clinic/Sailor front; Coach/Courier back `0.8939319190922546`) and golden snapshots (23 changed / 1 match; baseline explicitly unapproved). Console logs record 180 missing-audio 404s. No golden snapshots refreshed or approved.
+- **Evidence boundary:** Actions logs and the JSON report were inspected. PNGs in artifact `14568035039` have not yet been visually inspected. Do not record visual pass, Claude review or owner approval from automated checks alone.
+- Next: visually inspect the five characters' native four-direction captures and enlarged views, extend direct 28×42 captures to Usher/Cook/Courier if the harness is adapted, resolve or explicitly disposition the global silhouette gate, then prepare the updated artifact for Claude. Keep all five NOT APPROVED and the remaining 20 ON HOLD.
