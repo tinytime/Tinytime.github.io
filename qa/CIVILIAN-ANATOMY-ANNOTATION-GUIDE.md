@@ -216,3 +216,12 @@ When a capture provides exact renderer alpha row masks, compare candidate semant
 5. Pixel masks are renderer evidence, not semantic labels by themselves. A mask that excludes a prop can still include hair, clothing and anatomy; human review must confirm the semantic convention and all hand/prop contact boundaries.
 
 The reusable implementation is `qa/granny-mask-fit.mjs`, exercised by `qa/test-granny-mask-fit.mjs` and emitted by `qa/build-granny-semantic-overlay.mjs` as `granny-pixel-mask-fit-report.json`. This method is a calibration aid for future NPC annotations; do not assume every renderer can provide an automatic prop-excluded alpha pass.
+
+
+## Pixel-derived body contour workflow — 2026-11-19
+
+For a renderer that can produce a semantically appropriate prop-excluded body alpha pass, the outer contour can be traced directly from its 100×140 row-span mask. The helper traces the outer pixel boundary, converts profile points back into the renderer's local coordinate convention (inverse 0.72 horizontal scale and left-facing mirror), and retains the previous hand-transcribed body polygon/appendages as `manualBodyPolygonCandidate` for comparison.
+
+This is a renderer-derived **candidate**, not human semantic approval. It is appropriate for Granny because the dedicated body pass excludes only the umbrella canopy/shaft and retains the silver hair, clothing, and raised gripping arm/hand. The exact mask and original manual candidate are both preserved in the output JSON. The semantic review sheet now distinguishes the mask-derived contour (red) from the manual candidate (magenta), with umbrella prop outlines in yellow.
+
+The contour algorithm must be checked against the exact alpha mask in all four directions. Do not use it when the source pass includes unrelated props or when the semantic inclusion/exclusion convention is not established. For NPCs without a dedicated semantic render pass, continue using documented human-reviewed polygons until an equivalent layer/mask can be produced.
