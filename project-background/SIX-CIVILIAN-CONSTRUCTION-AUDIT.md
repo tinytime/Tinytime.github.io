@@ -267,3 +267,8 @@ Overall browser QA still fails on the existing game-wide silhouette gate (max fu
 ## Run #530 annotation evidence — 2026-11-19
 
 The six-civilian overlay was visually inspected across all 24 native directional captures ([Run #530](https://github.com/tinytime/Tinytime.github.io/actions/runs/44614186989), artifact `14573802446`). Direction-specific prop masks now align with the visible props, including Coach's empty rear view and Referee's separate raised-arm appendage geometry. All six annotations remain candidates (`source_annotated`), not measured; their geometry is manually transcribed and coarse rather than pixel traced. Granny remains a legacy reference pending semantic harmonization. Measurement validation and overlay generation passed; the overall browser workflow still fails on the game-wide silhouette, unapproved golden snapshot and 180 audio 404 gates. No snapshots or approval states changed.
+
+
+## Run #534 overlay and QA outcome — 2026-11-19
+
+The six-civilian overlay in [Run #534](https://github.com/tinytime/Tinytime.github.io/actions/runs/44614783942), artifact \`14574047896\`, rendered all 24/24 native captures with no missing directions. Visual inspection confirms the coarse candidate geometry is useful for review but not pixel-traced; all six stay \`source_annotated\` and Granny stays \`reference_only\`. Semantic validation and overlay generation passed. Overall browser QA remains failed on the 23-character full-body silhouette comparison (max IoU 0.909429, Clinic/Sailor front), unapproved golden snapshot baseline (1 match / 23 changed), and 180 audio 404s. Separate 92-capture visual integrity, archetype silhouette quality, NPC body, and gallery checks passed; page/script errors were zero. No snapshots or approvals changed.
