@@ -325,3 +325,14 @@ Renderer commit: [23c792f7e83eb14ff7d48e197678272f1c3e58b0](https://github.com/t
 Added restrained warm/cool rim-light accents to Coach and Referee, matching the established light treatment already present on Usher, Cook and Courier. The accents are limited to face/shoulder contours and intentionally avoid tracing the clipboard, whistle or yellow card.
 
 This is a source-only finish refinement. It has not yet been browser-tested or visually inspected. All five characters remain in revision / NOT APPROVED status; Runner remains excluded from this review round and the remaining 20 civilians stay on hold. No golden snapshots were changed.
+
+## Run #459 — post-correction automated QA (2026-11-19)
+
+- **Renderer source tested:** `23c792f7e83eb14ff7d48e197678272f1c3e58b0` — [rim-light finish commit](https://github.com/tinytime/Tinytime.github.io/commit/23c792f7e83eb14ff7d48e197678272f1c3e58b0). The branch head subsequently advanced only through documentation commits; no renderer changes followed this tested source.
+- **Browser QA:** [Actions run #459](https://github.com/tinytime/Tinytime.github.io/actions/runs/44599635463), run ID `44599635463`, job `135827201638`, artifact `14568035039`.
+- **Automated evidence:** 92/92 directional captures pass integrity checks with zero edge contacts and zero detached large components; 12/12 direct 28×42 captures pass for Runner, Coach and Referee; role-debug 12/12; prop audit pass; gallery pass; zero page errors and zero script errors. The 92 native directional captures include all 23 civilians, including all five in the current Claude review scope.
+- **Overall workflow FAILED on two report gates:** full civilian-type silhouette audit (maximum rendered IoU `0.9094292803970223`, Clinic/Sailor front; Coach/Courier back is `0.8939319190922546`) and golden snapshot comparison (23 changed / 1 match; baseline remains explicitly unapproved). The separate role, prop, directional-integrity and gallery checks pass. The run records 180 missing-audio 404 console errors; no page/script exceptions.
+- **Capture limitation:** the workflow's direct native 28×42 capture set remains 12 images for Runner/Coach/Referee only. Usher, Cook and Courier have native 64×96 four-direction captures but no separate direct 28×42 PNGs in this run. Do not describe derived/resized images as direct game-scale captures.
+- **Visual-inspection limitation:** the report and Actions logs were inspected; the artifact PNGs have not yet received human visual inspection. Automated integrity results are not a visual verdict.
+- No golden snapshots were refreshed or approved. All five reviewed civilians remain in revision / NOT APPROVED status pending visual inspection, Claude re-review and owner acceptance. Runner remains excluded from this review round; remaining 20 stay ON HOLD.
+- [Five-civilian review package](../qa-artifacts/five-civilian-full-review/README.md) now links this exact run and artifact.
