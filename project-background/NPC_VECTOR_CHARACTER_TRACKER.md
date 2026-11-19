@@ -234,3 +234,14 @@ The GitHub review brief and evidence index are ready: [Claude review package —
 The brief asks Claude for an independent per-character score and verdict, required corrections versus optional polish, four-direction and native/game-scale inspection, and comparison against Granny Volt's quality bar without copying her design. It also asks for an overall batch recommendation.
 
 **Review state:** package prepared in GitHub; not externally sent. Runner, Coach and Referee remain **NOT APPROVED** pending Claude's independent review and explicit owner acceptance. Remaining 20 civilian designs remain on hold.
+
+
+## 2026-11-19 — Owner-requested profile arms and Runner leg anatomy
+
+Owner feedback: all three side profiles should show only one visible arm; Runner's legs look unusually angular compared with the other civilians and should not depend on animation to read correctly.
+
+- Renderer commit `98f58884f9fa2609414b17f5a5ce28e275ab3064`: hides the far arm in Runner, Coach and Referee side views, retaining the prop/stopwatch arm.
+- Renderer commit `21481ee1768e80595cfdb13f6e338f57c10d076c`: refines Runner's leg shapes with curved contours, visible lower-leg skin and shorts that end above the knee across front/back and side views.
+- **Animation clarification:** Runner's current vector draw path is a static pose per direction; the unusual leg shapes were not temporary animation frames.
+- Run #443 artifact visually confirmed the one-arm side-profile change. Run #444 is the verification render for the fuller Runner leg refinement; inspect its artifact before closing the feedback.
+- Status: owner feedback implemented in renderer; fresh QA and visual inspection pending. All three remain NOT APPROVED pending independent review and owner acceptance.
