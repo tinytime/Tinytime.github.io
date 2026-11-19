@@ -29,7 +29,7 @@ try {
   await page.goto('http://127.0.0.1:'+server.address().port+'/VaporCity_HD2D_Hybrid_Test.html',{waitUntil:'networkidle'});
   const result=await page.evaluate(async()=>{
     if(typeof window.createGrannyRenderer!=='function') throw new Error('createGrannyRenderer is not exposed by npc_sprites.js');
-    const size=100, OWT=100/0.28/36*36; // 100 / renderer scale; keeps one source unit per output pixel.
+    const size=100, OWT=36/0.28; // renderer scale becomes exactly 1 source unit per output pixel.
     const x=-.1111111111, y=.1044444444;
     const render=(dir,excludeUmbrella)=>{
       const canvas=document.createElement('canvas');canvas.width=100;canvas.height=140;
@@ -86,7 +86,7 @@ try {
       const im=new Image();im.src=d.body;await im.decode();
       const x=12+i*260,y=12;c.fillStyle='#fff';c.font='bold 16px monospace';c.fillText(d.direction.toUpperCase(),x,y+16);
       c.drawImage(im,x,y+24,240,280);
-      const map=p=>[x+120+(d.direction==='left'?100-p.x:p.x-50)*2.4,y+24+p.y*2];
+      const map=p=>{const side=d.direction==='l'||d.direction==='r';const localX=50+(p.x-50)*(side?.72:1);const screenX=d.direction==='l'?100-localX:localX;return [x+120+(screenX-50)*2.4,y+24+p.y*2]};
       const poly=(pts,color)=>{c.beginPath();pts.forEach((p,j)=>{const [xx,yy]=map(p);if(!j)c.moveTo(xx,yy);else c.lineTo(xx,yy)});c.closePath();c.strokeStyle=color;c.lineWidth=1.5;c.stroke()};
       poly(a.bodyPolygon,colors.body);for(const p of a.bodyAppendagePolygons)poly(p,colors.body);
       for(const p of a.headwearPolygons)poly(p,colors.headwear);for(const p of a.propPolygons)poly(p,colors.props);
