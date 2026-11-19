@@ -462,3 +462,14 @@ Implemented the first measurement layer:
 - The browser workflow runs these checks and writes `qa-output/civilian-proportion-measurements.json` for artifact upload.
 
 Granny remains a separate legacy reference measurement (body 125, head 38, shoulders 36, foot row 136). The six character entries are intentionally pending manual landmark annotation. The existing `excludeProps` render option is not treated as a semantic anatomy mask because it does not independently exclude role headwear. Do not promote the legacy alpha envelope to anatomical ratios. No new ratio thresholds are enforced. Next task is to annotate all four directions from fresh native captures, verify body/headwear/prop masks visually, then compare the six with Granny and calibrate only after review.
+
+
+## Semantic proportion measurement framework — 2026-11-19
+
+The semantic measurement tool and fixture tests are included in the browser QA workflow before the game diagnostics:
+- `node qa/test-civilian-proportion-measurements.mjs`
+- `node qa/civilian-proportion-measurements.mjs --check`
+
+The structural check requires exactly one Granny legacy reference and six pending NPC annotations. This is a framework-integrity check, not a character proportion pass. The generated report is `qa-output/civilian-proportion-measurements.json`; inspect it and the source annotations whenever records are added.
+
+See [Semantic Civilian Anatomy Annotation Guide](../qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md). Current semantic annotation coverage is 0/6 NPCs: all six remain pending. Granny remains reference-only pending harmonization of her legacy mask convention. No proportion bands are enforced and no character is approved by this tooling.
