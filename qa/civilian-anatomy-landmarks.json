@@ -3004,32 +3004,40 @@
               "y": 51
             },
             {
+              "x": 62,
+              "y": 54
+            },
+            {
+              "x": 68,
+              "y": 52
+            },
+            {
               "x": 71,
               "y": 41
             },
             {
-              "x": 74,
-              "y": 27
+              "x": 76,
+              "y": 32
             },
             {
-              "x": 80,
-              "y": 24
+              "x": 82,
+              "y": 28
             },
             {
-              "x": 84,
-              "y": 30
+              "x": 87,
+              "y": 32
             },
             {
-              "x": 79,
-              "y": 48
+              "x": 83,
+              "y": 49
             },
             {
-              "x": 73,
-              "y": 66
+              "x": 75,
+              "y": 68
             },
             {
               "x": 66,
-              "y": 72
+              "y": 74
             },
             {
               "x": 69,
@@ -3112,8 +3120,8 @@
               "y": 52
             },
             {
-              "x": 66,
-              "y": 51
+              "x": 62,
+              "y": 54
             }
           ],
           "headTop": 16,
@@ -3494,11 +3502,11 @@
               "y": 99
             },
             {
-              "x": 64,
+              "x": 60,
               "y": 114
             },
             {
-              "x": 67,
+              "x": 64,
               "y": 132
             },
             {
@@ -3685,11 +3693,11 @@
               "y": 99
             },
             {
-              "x": 64,
+              "x": 60,
               "y": 114
             },
             {
-              "x": 67,
+              "x": 64,
               "y": 132
             },
             {
@@ -3815,7 +3823,7 @@
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
         "reviewStatus": "pending_rendered_visual_spot_check",
-        "note": "Candidate geometry only. Body polygons now include the main raised sleeve contours from the referee draw paths, but the card-gripping hand is partly occluded by the card and still needs human mask review. Card and whistle exclusions are direction-specific."
+        "note": "Candidate geometry only. Referee body contours include the raised sleeve in front/back/profile, but the card-gripping hand is partly occluded and all polygon joins still require a human visual check. Do not promote to measured."
       }
     }
   },
