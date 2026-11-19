@@ -19,14 +19,14 @@ The first three (Usher, Cook, Courier) have owner approval. The second three (Ru
 
 The live renderer is **`npc_sprites.js`** (with an underscore; not `npcsprites.js`). This is the authoritative implementation Claude must inspect.
 
-- [Live renderer at the exact reviewed source commit](https://github.com/tinytime/Tinytime.github.io/blob/4eafc657fa9ee15db3b70f3c64a76280d4add0a6/npc_sprites.js)
-- [Raw `npc_sprites.js` at the exact reviewed source commit](https://raw.githubusercontent.com/tinytime/Tinytime.github.io/4eafc657fa9ee15db3b70f3c64a76280d4add0a6/npc_sprites.js)
+- [Live renderer at the exact reviewed source commit](https://github.com/tinytime/Tinytime.github.io/blob/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0/npc_sprites.js)
+- [Raw `npc_sprites.js` at the exact reviewed source commit](https://raw.githubusercontent.com/tinytime/Tinytime.github.io/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0/npc_sprites.js)
 - [Current branch copy](https://github.com/tinytime/Tinytime.github.io/blob/npc-granny-baseline-overhaul/npc_sprites.js)
-- Source commit: [`4eafc657fa9ee15db3b70f3c64a76280d4add0a6`](https://github.com/tinytime/Tinytime.github.io/commit/4eafc657fa9ee15db3b70f3c64a76280d4add0a6)
+- Source commit: [`5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`](https://github.com/tinytime/Tinytime.github.io/commit/4eafc657fa9ee15db3b70f3c64a76280d4add0a6)
 - Review branch: `npc-granny-baseline-overhaul`
 - Review-package branch head when prepared: `cbd98d527d850f72dd6f15a5be2ce82ace2ab65d` (documentation-only commits after the renderer source)
 
-Please read the actual draw functions, dispatch, palettes, directional paths, shape layering, shared helpers and archetype mappings—not just the rendered screenshots. The source link is deliberately pinned to the renderer commit used by the latest Runner/Coach/Referee QA.
+Please read the actual draw functions, dispatch, palettes, directional paths, shape layering, shared helpers and archetype mappings—not just the rendered screenshots. The source link is deliberately pinned to the renderer commit used by the latest six-civilian QA.
 
 ## Rendered evidence
 
@@ -105,3 +105,13 @@ The first-batch evidence also has historical QA notes and Claude findings in its
 - Remaining 20 civilians: **ON HOLD**.
 - Claude provides independent recommendations; ChatGPT evaluates findings and implements agreed corrections; the project owner makes final approval decisions.
 - Do not refresh or approve golden snapshots.
+
+
+## Latest polish and QA — run #457
+
+- Tested exact source: [`5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`](https://github.com/tinytime/Tinytime.github.io/commit/5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0).
+- [GitHub Actions run #457](https://github.com/tinytime/Tinytime.github.io/actions/runs/44592153167); artifact ID `14563778383`.
+- The 24 native 64×96 captures for all six civilians were inspected. Direct 28×42 game-scale captures for Runner/Coach/Referee were inspected. Runner's side stride reads as two feet; Cook's compressed toque clears the top edge in all four directions.
+- Targeted results: syntax/module/inventory pass; palette pass; face distinctness 23/23; visual integrity 92/92 with zero edge contacts/detached large components; role-debug 12/12; prop audit; archetype silhouette quality 180/180; gallery and town regression pass; page/script errors 0.
+- Overall workflow remains **FAILED**: NPC body audit failed; global civilian type-silhouette audit still flags Clinic/Sailor front at IoU `0.9094292803970223`; golden snapshots remain unapproved (23 changed / 1 match); 180 missing-audio 404 console errors. No snapshots were refreshed or approved.
+- This evidence updates the review source and current status; it does not constitute Claude review or owner approval. The first three remain owner-approved; Runner/Coach/Referee remain pending comparative review and owner approval; remaining 20 stay on hold.
