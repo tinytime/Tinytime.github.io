@@ -161,3 +161,13 @@ Implemented:
 - Referee: profile chin-level contour moved inside the jaw to remove the protruding dark line.
 
 Renderer commits: `a08c7eff983ea8ce23cbd31b33d008f1d33b9366` (Runner and Referee), then `777db4e16176324e66d368c6a5b4f022ab1cd411` (Coach). Fresh browser QA run #434 (`44568781463`) is in progress against the exact combined source `777db4e`; run #433 was cancelled because it tested only the intermediate commit before the Coach correction. The 28×42 game-scale inspection requested by Claude is a required gate for the new artifact. Do not reuse run #432 as proof of these changes. No new visual pass or approval is claimed yet; all three characters remain NOT APPROVED.
+
+
+## Owner feedback correction pass — 2026-11-19
+
+The owner reviewed the actual run #434 renders and identified three required profile corrections:
+- **Coach:** side profile read as a front-facing head turned sideways; redesign the head as a genuine side silhouette. Clipboard must be visibly in front of the hand, with the grip still legible.
+- **Referee:** raised-card arm in both side profiles appeared to originate behind the character; move it to the forward/face side of the profile.
+- **Runner:** side profiles showed an overlapping duplicate leg that read as a third leg; remove the redundant underlayer and retain exactly two distinct stride legs/feet.
+
+Implemented together in renderer commit [6332fb4](https://github.com/tinytime/Tinytime.github.io/commit/6332fb4622ed56686771e60541f975b2d6e33a61). Browser QA run [#435](https://github.com/tinytime/Tinytime.github.io/actions/runs/44570451203), exact source `6332fb4622ed56686771e60541f975b2d6e33a61`, is in progress. The run #434 artifact confirmed the owner's observations; it is baseline evidence only and cannot verify the new changes. All three remain NOT APPROVED pending inspection of the new artifact, independent Claude review, and owner acceptance. Do not begin the remaining 20 characters.
