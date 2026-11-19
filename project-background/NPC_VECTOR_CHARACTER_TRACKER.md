@@ -223,3 +223,14 @@ Run #435's actual four-direction sheet confirmed the Runner duplicate leg layer 
 - Workflow-wide gates remain failed: Clinic/Sailor front full-body IoU `0.9094292803970223`; golden snapshots unapproved (23 changed / 1 match; none refreshed); 180 missing-audio 404 console errors.
 - Claude comparative review is the next gate. All three remain **NOT APPROVED** until Claude review and owner decision; do not start the remaining 20.
 - Evidence: [run #442 package index](qa-artifacts/runner-coach-referee-run-442/README.md).
+
+
+## 2026-11-19 — Runner / Coach / Referee Claude review package prepared
+
+The GitHub review brief and evidence index are ready: [Claude review package — run #441](../qa-artifacts/runner-coach-referee-run-441/README.md). It anchors the review to renderer source `8eeca34ae10a1d829f5035d72b57989bffb9e6e0` and browser QA [run #441](https://github.com/tinytime/Tinytime.github.io/actions/runs/44577303597), artifact `14558375062`. The artifact includes 12 native 64×96 and 12 direct-rendered 28×42 PNGs for all four directions of Runner, Coach and Referee, plus role-debug, gallery, Granny comparison, town regression and report evidence.
+
+**Capture-audit clarification:** run #441's first direct-capture assertion falsely failed because of an overly strict data-URL MIME-prefix check; all 12 actual 28×42 PNGs were present and visually inspected. The validator was corrected in follow-up QA #442. Do not describe the initial run #441 assertion as passing. Other targeted checks and the global workflow failures are detailed in the package.
+
+The brief asks Claude for an independent per-character score and verdict, required corrections versus optional polish, four-direction and native/game-scale inspection, and comparison against Granny Volt's quality bar without copying her design. It also asks for an overall batch recommendation.
+
+**Review state:** package prepared in GitHub; not externally sent. Runner, Coach and Referee remain **NOT APPROVED** pending Claude's independent review and explicit owner acceptance. Remaining 20 civilian designs remain on hold.
