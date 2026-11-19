@@ -9,6 +9,8 @@
 **Builder:** ChatGPT  
 **Status:** READY FOR CLAUDE REVIEW — NONE OF THE THREE CHARACTERS IS APPROVED
 
+**Focused GitHub review package:** [Runner / Coach / Referee — run #429](qa-artifacts/runner-coach-referee-run-429/README.md). Download the exact run #429 artifact from its Actions page; the focused package index lists the required PNG paths.
+
 ## Primary evidence (use this combined run)
 
 - **Latest tested renderer/source commit:** [`f78627caf53b15cfe1bee0f30feea39d68da7c35`](https://github.com/tinytime/Tinytime.github.io/commit/f78627caf53b15cfe1bee0f30feea39d68da7c35)
@@ -16,7 +18,7 @@
 - **Job:** `135695989340`
 - **Artifact:** `vapor-city-browser-qa`, ID `14548434248` (download from the run's Artifacts section)
 - **Report sourceCommitSha:** `f78627caf53b15cfe1bee0f30feea39d68da7c35`
-- Current branch head at package preparation: `6b84cd1f3438ee3cc76e5210045e5f8931c7e0f8`. It is three documentation-only commits ahead of the tested renderer source; compare confirms no renderer/game/QA source changes after the tested SHA.
+- Current branch head at package preparation: `ac0d6a5b085aa6c4f35f5d7936be0d776e37f63a`. It is three documentation-only commits ahead of the tested renderer source; compare confirms no renderer/game/QA source changes after the tested SHA.
 
 The artifact is the primary evidence. It includes all three characters' four native 64×96 directional PNGs, role-debug, full gallery, Granny comparison, town screenshot and report. Do not base approval on source code alone.
 
