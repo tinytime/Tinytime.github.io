@@ -370,3 +370,10 @@ Changes in that commit:
 **Not yet verified:** no browser QA has run against this commit and no new render artifacts have been visually inspected. Run #457 remains evidence for prior source 5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0, not this correction commit. The overall run #457 failure gates remain known: Courier baseline delta (the targeted correction aims to clear it), Clinic/Sailor global silhouette overlap, unapproved golden snapshots, and missing-audio 404s. Do not refresh or approve golden snapshots.
 
 Next QA must render all five characters in front/back/left/right at native 64×96 and enlarged scale; include direct 28×42 captures for all five if the harness supports them, plus role-debug, gallery, town regression and Granny comparisons. Verify Courier baseline, Referee side torso width/leakage, Cook eye visibility, Coach hair/yoke/whistle and deterministic back mark, and Usher clipboard identity. Inspect actual screenshots before recording a visual verdict. Keep all five in revision / NOT APPROVED status pending QA, Claude re-review, and owner acceptance.
+## Follow-up finish pass — 2026-11-19
+
+Renderer commit: [23c792f7e83eb14ff7d48e197678272f1c3e58b0](https://github.com/tinytime/Tinytime.github.io/commit/23c792f7e83eb14ff7d48e197678272f1c3e58b0).
+
+Added restrained warm/cool rim-light accents to Coach and Referee, matching the established light treatment already present on Usher, Cook and Courier. The accents are limited to face/shoulder contours and intentionally avoid tracing the clipboard, whistle or yellow card.
+
+This is a source-only finish refinement. It has not yet been browser-tested or visually inspected. All five characters remain in revision / NOT APPROVED status; Runner remains excluded from this review round and the remaining 20 civilians stay on hold. No golden snapshots were changed.
