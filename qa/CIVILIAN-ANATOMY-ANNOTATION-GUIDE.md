@@ -247,3 +247,10 @@ Fixture coverage now includes two disconnected components and verifies that both
 ## Contour topology validation — 2026-11-19
 
 The contour tracer now distinguishes outer boundaries from interior holes using loop winding. Only positive-winding outer loops become polygons; negative-winding interior holes are not mislabeled as disconnected body appendages. All disconnected outer components are retained. Exact row-span masks remain in the JSON as the authoritative pixel evidence, so the polygon approximation's filled interior holes do not erase the source mask. The fixture suite now has nine cases, including a hollow shape and two disconnected components.
+
+
+## Pixel-mask holes and disconnected components — 2026-11-19
+
+The contour helper now retains both outer loops and interior hole loops from a binary alpha mask. The capture stores outer body components as `bodyPolygon` plus `bodyAppendagePolygons`, and interior cutouts as `bodyMaskHolePolygons`. Visible umbrella components and holes are stored separately as `visiblePropPolygons` and `visiblePropMaskHolePolygons`. Fit diagnostics rasterize outer contours and subtract the interior cutouts before comparing with the exact row-span mask. This avoids silently filling a transparent gap between limbs or within a prop.
+
+The new fixture covers a mask with two disconnected components and a separate mask with an interior hole; reconstruction is expected to match the original alpha mask exactly. These are implementation fixtures only. A fresh Actions run and artifact are still required before claiming the latest capture has passed.
