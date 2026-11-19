@@ -100,8 +100,9 @@ export function measureGrannyMaskFit(annotation,pixelMasks){
   const manual=semantic.manualBodyPolygonCandidate||{bodyPolygon:semantic.bodyPolygon,bodyAppendagePolygons:semantic.bodyAppendagePolygons||[]};
   const manualBody=rasterizePolygons([manual.bodyPolygon,...(manual.bodyAppendagePolygons||[])],view);
   const derivedBody=rasterizePolygons([semantic.bodyPolygon],view);
-  const propCandidate=rasterizePolygons(semantic.propPolygons||[],view);
-  const body=compareMasks(manualBody,exactBody),derived=compareMasks(derivedBody,exactBody),prop=compareMasks(propCandidate,exactUmbrella);
-  return{direction:view,manualBodyCandidateFit:body,pixelDerivedBodyContourFit:derived,visibleUmbrellaCoverage:{candidatePixels:prop.candidatePixels,visibleUmbrellaPixels:prop.referencePixels,coveredVisiblePixels:prop.intersectionPixels,coverage:prop.recall,uncoveredVisiblePixels:prop.referenceOnlyPixels,candidateOutsideVisiblePixels:prop.candidateOnlyPixels,note:'Candidate prop geometry may include occluded umbrella area; candidateOutsideVisiblePixels is not a false-positive count.'}};
+  const propCandidate=rasterizePolygons(semantic.manualPropPolygonCandidate||semantic.propPolygons||[],view);
+  const visiblePropCandidate=rasterizePolygons(semantic.visiblePropPolygon?[semantic.visiblePropPolygon]:[],view);
+  const body=compareMasks(manualBody,exactBody),derived=compareMasks(derivedBody,exactBody),prop=compareMasks(propCandidate,exactUmbrella),visibleProp=compareMasks(visiblePropCandidate,exactUmbrella);
+  return{direction:view,manualBodyCandidateFit:body,pixelDerivedBodyContourFit:derived,visibleUmbrellaManualCoverage:{candidatePixels:prop.candidatePixels,visibleUmbrellaPixels:prop.referencePixels,coveredVisiblePixels:prop.intersectionPixels,coverage:prop.recall,uncoveredVisiblePixels:prop.referenceOnlyPixels,candidateOutsideVisiblePixels:prop.candidateOnlyPixels,note:'Candidate prop geometry may include occluded umbrella area; candidateOutsideVisiblePixels is not a false-positive count.'},pixelDerivedVisibleUmbrellaContourFit:visibleProp};
  });
 }
