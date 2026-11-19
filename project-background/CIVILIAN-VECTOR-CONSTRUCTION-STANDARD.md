@@ -428,3 +428,8 @@ Contour extraction must retain every disconnected outer component. A largest-con
 ## Contour topology validation — 2026-11-19
 
 The contour tracer now distinguishes outer boundaries from interior holes using loop winding. Only positive-winding outer loops become polygons; negative-winding interior holes are not mislabeled as disconnected body appendages. All disconnected outer components are retained. Exact row-span masks remain in the JSON as the authoritative pixel evidence, so the polygon approximation's filled interior holes do not erase the source mask. The fixture suite now has nine cases, including a hollow shape and two disconnected components.
+
+
+## Pixel-mask topology — 2026-11-19
+
+Candidate contours must preserve the topology of the renderer alpha mask: all disconnected outer components **and** interior holes. Largest-loop-only tracing loses detached parts; outer-only tracing fills transparent gaps. The Granny helper now stores body outer components and holes separately, does the same for visible umbrella alpha, and subtracts hole masks during rasterized fit comparison. The method is only applicable when the renderer alpha pass has a known semantic partition. It does not replace human review of anatomical meaning or prop contact.
