@@ -304,14 +304,14 @@
         // Articulated poses replace the generic straight arm blocks for athletics.
         if(spec.armPose==='down'){
           arms=side
-            ? [[19,13,2,5,'arm'],[18,18,2,4,'armshade'],[18,22,2,2,'skin']]
-            : [[9,13,2,4,'arm'],[9,17,2,4,'armshade'],[9,21,2,2,'skin'],
-               [21,13,2,4,'arm'],[21,17,2,4,'armshade'],[21,21,2,2,'skin']];
+            ? [[19,13,2,4,'arm'],[18,17,2,3,'armshade'],[18,20,2,2,'skin']]
+            : [[10,13,2,4,'arm'],[10,17,2,3,'armshade'],[11,20,2,2,'skin'],
+               [20,13,2,4,'arm'],[20,17,2,3,'armshade'],[19,20,2,2,'skin']];
         }else if(spec.armPose==='swing'){
           arms=side
-            ? [[19,12,2,4,'arm'],[18,16,3,3,'armshade'],[17,18,2,2,'skin']]
-            : [[8,12,2,3,'arm'],[9,15,3,2,'armshade'],[11,16,2,2,'skin'],
-               [21,13,2,3,'arm'],[20,16,3,2,'armshade'],[19,17,2,2,'skin']];
+            ? [[19,12,2,3,'arm'],[18,15,2,2,'armshade'],[17,16,2,2,'skin']]
+            : [[10,12,2,3,'arm'],[11,15,2,2,'armshade'],[12,16,2,2,'skin'],
+               [20,12,2,3,'arm'],[19,15,2,2,'armshade'],[18,16,2,2,'skin']];
         }
         const legs=base[view].legs.map(([x,y,w,h,role])=>{
           const right=side?x>=14:x>=16;
