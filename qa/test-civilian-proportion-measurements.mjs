@@ -49,4 +49,18 @@ assert.equal(report.pendingCount,1);
 const missingHeadwear=structuredClone(standing);
 delete missingHeadwear.directions.front.headwearPolygons;
 assert.ok(validateLandmarkRecord(missingHeadwear,'invalid').some(x=>x.includes('headwearPolygons')));
-console.log(JSON.stringify({pass:true,checks:17,standingRatios:measured.directions.front.ratiosPercent,dynamicPose:'joint-only',referenceOnly:'Granny legacy values'}));
+const actualManifest=loadManifest();
+const actualReport=buildMeasurementReport(actualManifest);
+assert.equal(actualReport.sourceAnnotatedCandidateCount,6);
+assert.equal(actualReport.pendingCount,0);
+for(const id of ['usher','cook','courier','runner','coach','referee']){
+ const record=actualManifest.characters[id];
+ assert.equal(record.status,'source_annotated',id+' candidate status');
+ assert.equal(Object.keys(record.directions).length,4,id+' direction count');
+ assert.deepEqual(validateLandmarkRecord({id,...record},id),[],id+' source annotation validation');
+ const candidate=measureLandmarkRecord({id,...record});
+ assert.equal(candidate.status,'source_annotated',id+' candidate result status');
+ assert.equal(Object.keys(candidate.directions).length,4,id+' measured direction count');
+}
+assert.equal(actualReport.records.find(r=>r.id==='runner').directions.front.poseAware.standingLegRatio,null);
+console.log(JSON.stringify({pass:true,checks:43,standingRatios:measured.directions.front.ratiosPercent,dynamicPose:'joint-only',sourceAnnotatedCandidates:actualReport.sourceAnnotatedCandidateCount,pending:actualReport.pendingCount}));
