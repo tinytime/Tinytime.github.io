@@ -24,7 +24,7 @@ The builder should provide Claude with the actual rendered sheets, comparative i
 
 The project owner approved the first batch—Usher, Cook, and Courier—on 2026-11-19 and authorized the next group of three:
 
-1. **Runner** — active build; bespoke vector renderer integrated, browser QA pending.
+1. **Runner** — built and internally checked; dedicated vector renderer integrated and actual four-direction, role-debug, gallery and town evidence inspected.
 2. **Coach** — next; do not start until Runner passes internal QA.
 3. **Referee** — third in this group; do not start until Runner passes internal QA.
 
@@ -50,4 +50,4 @@ The repository's automated inventory currently describes 24 live civilian archet
 
 The Usher vector renderer is integrated in `npc_sprites.js`. The previous browser QA run (#393) showed the targeted usher checks passing, but the overall workflow still failed for separate snapshot-approval and legacy silhouette-audit gates. See [QA, known issues, and handoff](04-QA-AND-HANDOFF.md).
 
-Usher, Cook, and Courier are owner-approved. Runner is the active build; Coach and Referee remain unstarted. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
+Usher, Cook, and Courier are owner-approved. Runner is built and internally checked; Coach and Referee remain unstarted. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
