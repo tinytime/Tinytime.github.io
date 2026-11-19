@@ -54,14 +54,18 @@ If the owner explicitly approves a golden update, document exactly what was appr
 
 The inventory generator reads live NPC records and renderer tables from the game HTML and `npc_sprites.js`. It expects 24 live civilian archetype mappings. This technical inventory count should not be conflated with the 23 civilian names in the design tracker.
 
-## Next actions
+## Current independent pilot review and next actions
 
-1. Check the latest branch head and confirm the tracker is current.
-2. Courier's bespoke vector renderer is integrated in `npc_sprites.js`; inspect the latest pending browser run `44539341875` and its four-direction, role-debug, gallery, town, and JSON artifacts.
-3. Correct any Courier-specific defects and rerun the browser workflow. Keep global legacy silhouette and golden-snapshot failures separate from Courier-specific results; do not refresh snapshots.
-4. Once Usher, Cook, and Courier are all internally checked, assemble one Claude review package comparing the three with Granny Volt.
-5. Record Claude's findings in the tracker, make required corrections, and recheck.
-6. Only after the three-character review should the project owner decide whether to proceed with the remaining civilian roster.
+Claude's comparative review of the 18-image evidence package is complete. The reviewer found no required character fixes on Usher or Cook. Courier has three required corrections: readable face/profile in left/right views (major); consistent messenger satchel across all four directions, correctly on the character's right hip in rear view (major); remove or attach the detached cyan line below the hem in back/side views (minor). Optional polish and a legacy QA threshold-documentation discrepancy are recorded in the tracker; neither is a pilot blocker.
+
+A first Courier correction pass was committed as `98dbcda2a32fa506ba355f12ddd449db3322a4b4` in `npc_sprites.js`: side profile face added, backpack-like rear/side pack replaced with a consistent hip satchel and rear strap, detached hem stripe removed. This is implementation only; it has not yet been browser-tested or visually approved.
+
+Next actions:
+1. Run browser QA against the current branch head and verify the exact tested SHA.
+2. Inspect actual new Courier front/back/left/right captures at native size and nearest-neighbor enlargement, plus role-debug, gallery and town context. Check satchel side/hand continuity, profile readability, baseline, clipping and no detached components.
+3. Fix any regressions and rerun; keep global legacy silhouette and unapproved-golden failures separate. Never refresh snapshots.
+4. Send updated Courier directions and role-debug evidence to Claude for focused reinspection of all three required findings.
+5. Only after Claude's follow-up and owner approval may the pilot batch be marked approved or the remaining 20 designs begin.
 
 ## Handoff checklist for a new builder
 
