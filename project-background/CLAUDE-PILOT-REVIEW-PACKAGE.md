@@ -94,3 +94,13 @@ The QA Coordinator independently verified that the left/right face profiles are 
 The overall workflow still fails on global legacy silhouette overlaps (max rendered IoU 0.909429 for Clinic/Sailor front, plus Coach/Vendor, Sailor/Welder and Clinic/Welder pairs) and the explicitly unapproved golden-snapshot baseline (23 changed, 1 match). 135 audio-resource 404s were logged. These are separate from the Courier corrections; no snapshots were changed or approved.
 
 **Focused review request:** Reassess only the three previously required Courier findings against these corrected images, and state whether each is resolved. Also note any newly visible defect that should block the pilot. Usher and Cook remain as previously reviewed. Do not treat this QA verification as Claude approval; project-owner approval remains mandatory.
+
+## QA Coordinator verification and focused Courier follow-up package — 2026-11-19
+
+- Current branch head: `db3f958351aa9994fab544dfb915ea0e2424708d`. The 12 commits after tested source `98dbcda2a32fa506ba355f12ddd449db3322a4b4` are documentation-only; no renderer/game/QA source changed.
+- Run #410: [44542492048](https://github.com/tinytime/Tinytime.github.io/actions/runs/44542492048), job `135624264131`, artifact `14537384741`.
+- QA Coordinator re-inspected Courier's native four-direction captures, role-debug, gallery and town screenshot. The three previously required fixes are resolved in the evidence: side profiles show a readable face; the compact satchel is consistent across views and is on viewer-right in rear view; detached cyan hem stripe is absent. Parcel remains visibly held.
+- Targeted checks pass. Workflow still fails on the single strict full-body silhouette violation Clinic/Sailor front IoU 0.909429 (>0.90) and unapproved golden snapshots (23 changed, 1 match). Coach/Vendor front 0.898985 and back 0.891175, Sailor/Welder back 0.889290, Clinic/Sailor back 0.884215, Clinic/Welder back 0.871764, and Cook/Courier back 0.863465 are below 0.90 and are nearest pairs, not failing pairs. The separate legacy archetype `silhouetteQualityCheck` uses <0.85 and passes (max 0.827467). No golden snapshots were changed or approved.
+- Focused reviewer handoff ZIP prepared: `vapor-city-courier-claude-rereview.zip` (brief + four Courier directions + role-debug + gallery + town + Granny context + report). **Not yet sent to Claude; no follow-up review received.**
+
+**QA Coordinator verdict:** Courier's three requested corrections pass internal visual verification. Ready for Claude focused re-review, not yet independently approved. The three-pilot batch remains NOT APPROVED pending Claude's response and owner acceptance; do not start the remaining 20.
