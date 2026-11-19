@@ -353,3 +353,20 @@ Claude reached its usage limit during the six-character review. The owner theref
 The new [five-civilian Claude package](../qa-artifacts/five-civilian-full-review/README.md) replaces the six-character package as the current handoff. It explicitly supplies the exact tested `npc_sprites.js` source at `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`, the raw source URL, run #457 QA artifact, five-character image scope, review criteria, and a detailed required deliverable for the reusable Civilian Vector Build Standard. Claude must return five individual scores/verdicts, ranked corrections, a comparative ranking and an actionable production rule set to reduce future iteration without using a generic body template.
 
 No character code changed for this scope update. Existing approvals and QA status are unchanged. Coach and Referee remain NOT APPROVED; Runner remains NOT APPROVED but out of scope for this pass; the remaining 20 remain ON HOLD. No golden snapshots were refreshed or approved. The new package is committed to GitHub but has not been sent externally to Claude.
+
+## Five-civilian Claude correction pass — 2026-11-19
+
+Owner authorization: reopen Usher, Cook and Courier despite their prior owner approval, and implement the corrections recommended for all five reviewed civilians (Usher, Cook, Courier, Coach, Referee). Prior approvals are historical; the revised versions are not currently approved. Runner is excluded from this pass; remaining 20 stay on hold.
+
+Renderer implementation commit: [027be47d8f6763f447992a9dec058ff62a7c60a3](https://github.com/tinytime/Tinytime.github.io/commit/027be47d8f6763f447992a9dec058ff62a7c60a3).
+
+Changes in that commit:
+- Cook: lifted front/profile toque band to clear the eye area; added profile ear/mouth marks; removed the far profile arm so the pan-holding arm is the single visible arm.
+- Courier: removed the -0.035 rad front/back whole-sprite rotation responsible for the native baseline delta.
+- Coach: shortened the cream yoke in front/back/profile; made silver temple and rear profile hair visible; moved profile whistle away from the clipboard; replaced font-dependent VC lettering with path strokes.
+- Referee: restricted the broad base torso to front/back so it no longer leaks beneath the side-specific torso; added rear hair/nape detail to the profile.
+- Usher: changed the profile clipboard from the brown board back to the paper face with clip/details.
+
+**Not yet verified:** no browser QA has run against this commit and no new render artifacts have been visually inspected. Run #457 remains evidence for prior source 5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0, not this correction commit. The overall run #457 failure gates remain known: Courier baseline delta (the targeted correction aims to clear it), Clinic/Sailor global silhouette overlap, unapproved golden snapshots, and missing-audio 404s. Do not refresh or approve golden snapshots.
+
+Next QA must render all five characters in front/back/left/right at native 64×96 and enlarged scale; include direct 28×42 captures for all five if the harness supports them, plus role-debug, gallery, town regression and Granny comparisons. Verify Courier baseline, Referee side torso width/leakage, Cook eye visibility, Coach hair/yoke/whistle and deterministic back mark, and Usher clipboard identity. Inspect actual screenshots before recording a visual verdict. Keep all five in revision / NOT APPROVED status pending QA, Claude re-review, and owner acceptance.
