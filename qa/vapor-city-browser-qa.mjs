@@ -1,3 +1,4 @@
+// Cook follow-up QA run: validate revised silhouette and connected pan grip.
 import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
