@@ -49,6 +49,14 @@ assert.equal(report.pendingCount,1);
 const missingHeadwear=structuredClone(standing);
 delete missingHeadwear.directions.front.headwearPolygons;
 assert.ok(validateLandmarkRecord(missingHeadwear,'invalid').some(x=>x.includes('headwearPolygons')));
+const profileShoulder=structuredClone(standing);
+profileShoulder.directions.left.shoulderLeft={x:44,y:49};
+profileShoulder.directions.left.shoulderRight={x:56,y:50};
+profileShoulder.directions.left.shoulderY=50;
+assert.deepEqual(validateLandmarkRecord(profileShoulder,'profile-shoulder'),[]);
+profileShoulder.directions.left.shoulderRight.y=52;
+assert.ok(validateLandmarkRecord(profileShoulder,'profile-shoulder').some(x=>x.includes('profile shoulder points')));
+
 const actualManifest=loadManifest();
 const actualReport=buildMeasurementReport(actualManifest);
 assert.equal(actualReport.sourceAnnotatedCandidateCount,6);
