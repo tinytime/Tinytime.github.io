@@ -7,18 +7,18 @@
 **Requested reviewer:** Claude (independent reviewer)  
 **Final approval authority:** Project owner  
 **Builder:** ChatGPT  
-**Status:** UPDATED RENDERS READY FOR FOCUSED COMPARATIVE RE-REVIEW. ALL THREE CHARACTERS REMAIN NOT APPROVED.
+**Status:** RUN #436 INTERNAL VISUAL QA COMPLETE; READY FOR INDEPENDENT COMPARATIVE RE-REVIEW. ALL THREE CHARACTERS REMAIN NOT APPROVED.
 
-**Focused GitHub review package:** [Runner / Coach / Referee — latest run #432](qa-artifacts/runner-coach-referee-run-429/README.md). Download the run #432 artifact and use the exact PNG paths listed in that package index.
+**Focused GitHub review package:** [Runner / Coach / Referee — latest run #436](qa-artifacts/runner-coach-referee-run-429/README.md). Download the run #436 artifact and use the exact PNG paths listed in that package index.
 
-## Primary evidence — use this latest combined run
+## Primary evidence — use this latest combined run (run #436)
 
-- **Latest tested renderer/source commit:** [`52f286912bf6fa44219972520211bc13d6f3ef7a`](https://github.com/tinytime/Tinytime.github.io/commit/52f286912bf6fa44219972520211bc13d6f3ef7a)
-- **Browser QA run #432:** [GitHub Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44566620323)
-- **Job:** `135710025332`
-- **Artifact:** `vapor-city-browser-qa`, ID `14550224509`
+- **Latest tested renderer/source commit:** [`b15d14fd9c6604c7ee232adf47d44a5d328054b3`](https://github.com/tinytime/Tinytime.github.io/commit/52f286912bf6fa44219972520211bc13d6f3ef7a)
+- **Browser QA run #432:** [GitHub Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44570917085)
+- **Job:** `135725393768`
+- **Artifact:** `vapor-city-browser-qa`, ID `14553029329`
 - **Report sourceCommitSha:** `52f286912bf6fa44219972520211bc13d6f3ef7a`
-- **Branch head at package preparation:** `52f286912bf6fa44219972520211bc13d6f3ef7a` (the tested source is the branch head).
+- **Branch head at package preparation:** `52f286912bf6fa44219972520211bc13d6f3ef7a` (the tested source is the latest renderer commit; documentation commits followed it).
 
 The artifact is the primary evidence. It contains all three characters' four native 64×96 directional PNGs, role-debug, full 23-civilian gallery, Granny comparison, town screenshot and report. Do not base approval on source code descriptions or earlier run images alone.
 
@@ -51,7 +51,7 @@ The artifact is the primary evidence. It contains all three characters' four nat
 - `game-town-1x.png`
 - `report.json`
 
-## Internal QA summary — run #432
+## Historical internal QA summary — run #432
 
 The exact run #432 artifact was downloaded. All 12 native directional images were enlarged 5× with nearest-neighbour and visually inspected, along with the six-character role-debug sheet, 23-civilian four-direction gallery, Granny comparison and report.
 
