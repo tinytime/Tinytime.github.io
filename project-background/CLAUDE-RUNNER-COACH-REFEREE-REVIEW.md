@@ -139,3 +139,25 @@ Please state:
 Do not approve based on code inspection or automated metrics alone. The project owner makes the final decision. Until Claude's updated review is received and the owner explicitly accepts the batch, all three remain **NOT APPROVED** and the remaining roster remains on hold.
 
 No golden snapshots were refreshed or approved.
+
+
+## Independent review received — run #432 (2026-11-19)
+
+Claude's latest visual verdict supersedes the earlier run #432 review state:
+
+| Character | Score | Verdict | Blocking correction |
+|---|---:|---|---|
+| Runner | 6.5/10 | Reject | Left-profile bib numerals mirrored; profile bib too flat; profile mouth still unreadable at native size; crossed stance / four-shoe overlap |
+| Coach | 7.5/10 | Approve after correction | Whistle still reads as round gold medallion |
+| Referee | 7.5/10 | Approve after correction | Dark chin-level line protrudes outside the head in both profiles |
+
+Claude confirmed Runner's floating sole dash is gone, curls are coherent and clear the crop, shorts accents read as seams, and the stopwatch appears in profiles. Front/back are strong. Coach's clipboard separation/grip, rear silver hair and yoke are good. Referee's card readability/grip, rear hair, nose, ear and jacket seam are good. Global Clinic/Sailor overlap, unapproved snapshots and audio 404s are explicitly not character blockers. Claude did not inspect game-scale 28×42 captures or the 1× town screenshot.
+
+### Builder corrections implemented after that review
+
+- Commit [`a08c7eff983ea8ce23cbd31b33d008f1d33b9366`](https://github.com/tinytime/Tinytime.github.io/commit/a08c7eff983ea8ce23cbd31b33d008f1d33b9366): Runner side bib reshaped to a tapered/wrapped profile panel; profile number is counter-flipped so the left view retains legible `07`; side stride simplified to two separated leg/foot planes; mouth strengthened with a distinct dark smile/lower-lip detail; Referee chin contour shortened and moved inside the jaw.
+- Commit [`777db4e16176324e66d368c6a5b4f022ab1cd411`](https://github.com/tinytime/Tinytime.github.io/commit/777db4e16176324e66d368c6a5b4f022ab1cd411): Coach front and profile whistle redesigned as a horizontal barrel with a clearly projecting mouthpiece/tip rather than a round pendant.
+
+**QA status:** These new corrections are code-implemented only. They have not yet been browser-tested or visually inspected. Run #433 was triggered by the first correction commit `a08c7ef`, before the Coach whistle commit `777db4e`; it does not validate the final combined source. Do not use run #432 images as evidence for these new corrections. A fresh standard browser QA run must test exact source commit `777db4e` and include explicit 28×42 game-scale inspection for Runner, Coach and Referee.
+
+**Next gate:** inspect the new combined run's 12 native 64×96 PNGs, all 12 28×42 game-scale captures, role-debug, gallery, Granny comparison and town context. Verify left/right bib typography, two-foot stride, Coach barrel whistle, and Referee chin edge. Update this brief with actual evidence, then return the three-character package to Claude. All three remain NOT APPROVED pending the next independent review and owner decision.
