@@ -91,10 +91,13 @@ export function measureLandmarkRecord(record) {
 
 export function buildMeasurementReport(manifest) {
   const records = Object.entries(manifest.characters || {}).map(([id, record]) => {
+    if (record.status === 'reference_baseline') {
+      return { id, status: 'reference_baseline', source: record.referenceSource,
+        legacyMeasurements: record.legacyMeasurements,
+        conventionNote: record.note };
+    }
     const normalized = { id, ...record };
-    const result = measureLandmarkRecord(normalized);
-    if (result.status === 'pending_annotation') return result;
-    return result;
+    return measureLandmarkRecord(normalized);
   });
   return {
     schemaVersion: 1,
@@ -102,7 +105,8 @@ export function buildMeasurementReport(manifest) {
     thresholdsEnforced: false,
     characterCount: records.length,
     measuredCount: records.filter(r => r.status === 'measured').length,
-    pendingCount: records.filter(r => r.status !== 'measured').length,
+    referenceBaselineCount: records.filter(r => r.status === 'reference_baseline').length,
+    pendingCount: records.filter(r => r.status === 'pending_annotation').length,
     records
   };
 }
@@ -118,7 +122,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, JSON.stringify(report, null, 2) + '\n');
   if (process.argv.includes('--check')) {
-    if (report.characterCount !== 7 || !manifest.characters.granny || report.pendingCount > 6)
+    if (report.characterCount !== 7 || report.referenceBaselineCount !== 1 || !manifest.characters.granny || report.pendingCount !== 6)
       throw new Error('Semantic measurement manifest failed structural validation');
     console.log(JSON.stringify({ pass: true, characterCount: report.characterCount, measuredCount: report.measuredCount, pendingCount: report.pendingCount, output: 'qa-output/civilian-proportion-measurements.json' }));
   } else {
