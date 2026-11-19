@@ -39,9 +39,50 @@ try {
       draw({x,y},dir,false,0,0,ctx,{excludeUmbrella,excludeGroundEffects:true});
       return canvas.toDataURL('image/png');
     };
-    return {directions:['d','u','l','r'].map(direction=>({
-      direction, body:render(direction,true), full:render(direction,false)
-    }))};
+    const directions=['d','u','l','r'].map(direction=>({direction,body:render(direction,true),full:render(direction,false)}));
+    const readAlphaRows=async(dataUrl)=>{
+      const image=new Image();image.src=dataUrl;await image.decode();
+      const canvas=document.createElement('canvas');canvas.width=100;canvas.height=140;
+      const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);
+      const pixels=ctx.getImageData(0,0,100,140).data;
+      const rows=[];let bounds={left:100,top:140,right:-1,bottom:-1},pixelCount=0;
+      for(let y=0;y<140;y++){
+        const spans=[];let start=-1;
+        for(let x=0;x<100;x++){
+          const on=pixels[(y*100+x)*4+3]>8;
+          if(on){pixelCount++;bounds.left=Math.min(bounds.left,x);bounds.right=Math.max(bounds.right,x);bounds.top=Math.min(bounds.top,y);bounds.bottom=Math.max(bounds.bottom,y);}
+          if(on&&start<0)start=x;
+          if(!on&&start>=0){spans.push([start,x-1]);start=-1;}
+        }
+        if(start>=0)spans.push([start,99]);
+        rows.push(spans);
+      }
+      return {rows,bounds:pixelCount?bounds:null,pixelCount};
+    };
+    const masks=[];
+    for(const d of directions){
+      const body=await readAlphaRows(d.body),full=await readAlphaRows(d.full);
+      const fullImage=new Image();fullImage.src=d.full;await fullImage.decode();
+      const bodyImage=new Image();bodyImage.src=d.body;await bodyImage.decode();
+      const c=document.createElement('canvas');c.width=100;c.height=140;
+      const ctx=c.getContext('2d',{willReadFrequently:true});
+      ctx.drawImage(fullImage,0,0);const fullPx=ctx.getImageData(0,0,100,140).data;
+      ctx.clearRect(0,0,100,140);ctx.drawImage(bodyImage,0,0);const bodyPx=ctx.getImageData(0,0,100,140).data;
+      const rows=[];let pixelCount=0;
+      for(let y=0;y<140;y++){
+        const spans=[];let start=-1;
+        for(let x=0;x<100;x++){
+          const on=fullPx[(y*100+x)*4+3]>8&&bodyPx[(y*100+x)*4+3]<=8;
+          if(on)pixelCount++;
+          if(on&&start<0)start=x;
+          if(!on&&start>=0){spans.push([start,x-1]);start=-1;}
+        }
+        if(start>=0)spans.push([start,99]);
+        rows.push(spans);
+      }
+      masks.push({direction:d.direction,bodyAlpha:{threshold:8,...body},fullAlpha:{threshold:8,...full},umbrellaExposedDelta:{threshold:8,rows,pixelCount}});
+    }
+    return {directions,masks};
   });
   for(const d of result.directions){
     for(const layer of ['body','full']){
