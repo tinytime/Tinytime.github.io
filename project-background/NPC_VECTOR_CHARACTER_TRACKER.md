@@ -518,3 +518,8 @@ The latest contour helper now preserves every disconnected visible prop componen
 ## Multi-component mask contour follow-up — 2026-11-19
 
 The Granny mask contour helper now retains every disconnected outer component. Body loops are split between the primary `bodyPolygon` and additional `bodyAppendagePolygons`; all visible umbrella loops are retained in `visiblePropPolygons`. Manual body/prop candidates remain preserved for audit. A new fixture verifies two disconnected components. Latest implementation is committed but awaits fresh Actions evidence and visual inspection; Run #555 remains the latest verified browser artifact. No semantic promotion or approval change.
+
+
+## Contour topology validation — 2026-11-19
+
+The contour helper now excludes interior hole loops (by winding) from the returned outer contours and preserves all disconnected outer components. This avoids misclassifying holes as anatomical appendages. Nine fixture cases pass locally, including hollow and disconnected masks. Fresh Actions verification remains pending.
