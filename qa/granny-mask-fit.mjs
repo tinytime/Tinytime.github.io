@@ -79,10 +79,11 @@ export function traceOuterContours(rows){
   }
   let twiceArea=0;
   for(let k=0;k<simple.length;k++){const a=simple[k],b=simple[(k+1)%simple.length];twiceArea+=a.x*b.y-b.x*a.y;}
-  loops.push({points:simple,area:Math.abs(twiceArea)/2});
+  loops.push({points:simple,signedArea:twiceArea/2});
  }
- if(!loops.length)throw new Error('Could not trace a closed alpha contour');
- return loops.sort((a,b)=>b.area-a.area).map(loop=>loop.points);
+ const outer=loops.filter(loop=>loop.signedArea>0);
+ if(!outer.length)throw new Error('Could not trace a closed outer alpha contour');
+ return outer.sort((a,b)=>Math.abs(b.signedArea)-Math.abs(a.signedArea)).map(loop=>loop.points);
 }
 export function traceOuterContour(rows){return traceOuterContours(rows)[0];}
 export function deriveLocalMaskContours(rows,direction){
@@ -102,7 +103,7 @@ export function measureGrannyMaskFit(annotation,pixelMasks){
   const exactBody=maskFromRows(entry.bodyAlpha.rows),exactUmbrella=maskFromRows(entry.umbrellaExposedDelta.rows);
   const manual=semantic.manualBodyPolygonCandidate||{bodyPolygon:semantic.bodyPolygon,bodyAppendagePolygons:semantic.bodyAppendagePolygons||[]};
   const manualBody=rasterizePolygons([manual.bodyPolygon,...(manual.bodyAppendagePolygons||[])],view);
-  const derivedBody=rasterizePolygons([semantic.bodyPolygon],view);
+  const derivedBody=rasterizePolygons([semantic.bodyPolygon,...(semantic.bodyAppendagePolygons||[])],view);
   const propCandidate=rasterizePolygons(semantic.manualPropPolygonCandidate||semantic.propPolygons||[],view);
   const visiblePropCandidate=rasterizePolygons(semantic.visiblePropPolygons|| (semantic.visiblePropPolygon?[semantic.visiblePropPolygon]:[]),view);
   const body=compareMasks(manualBody,exactBody),derived=compareMasks(derivedBody,exactBody),prop=compareMasks(propCandidate,exactUmbrella),visibleProp=compareMasks(visiblePropCandidate,exactUmbrella);
