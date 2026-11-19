@@ -5,7 +5,7 @@
 **Requested reviewer:** Claude (independent reviewer)  
 **Project owner:** Final approval authority  
 **Builder:** ChatGPT  
-**Review status:** Ready for independent review; no pilot character is approved by this package.
+**Review status:** Initial independent review received; Courier corrections in progress. No pilot character is approved by this package.
 
 ## Exact source and evidence
 
@@ -63,3 +63,10 @@ Do not give credit solely for passing automated checks. Do not approve based on 
 ## Approval boundary
 
 Claude's review is advisory and independent. ChatGPT will assess each finding, implement valid corrections, and rerun QA. The project owner makes the final approval decision. Until both stages are complete, tracker status remains **NOT APPROVED** for all three pilots. Do not begin the remaining 20 civilians before this review and owner approval.
+
+
+## Independent Claude review received — 2026-11-19
+
+Claude inspected the 18-image package and recommended approval after specified fixes and reinspection. Usher and Cook had no required character fixes. Courier required: (1) a readable face/profile in left/right views (major); (2) one consistent messenger satchel across front/back/left/right, on the character's right hip in the rear view (major); and (3) removal or attachment of the detached cyan hem stripe in back/side views (minor). Optional polish: Cook's face/pan consistency; Usher's side-view prop readability, outline contrast and leg stance. QA clarification: the package's 0.90 rendered pair threshold does not explain legacy Coach/Vendor flags at 0.8990 and 0.8912; document the distinct threshold(s) used by the legacy audit.
+
+**Correction commit:** `98dbcda2a32fa506ba355f12ddd449db3322a4b4` updates Courier's side profile and messenger-bag consistency and removes the detached hem stripe. This change is not yet browser-tested or visually re-reviewed. The reviewer's recommendation is advisory; owner approval remains required. Do not refresh or approve golden snapshots.
