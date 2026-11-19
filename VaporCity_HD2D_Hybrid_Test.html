@@ -9096,7 +9096,7 @@ window.SG={npcRenderGameScaleSnapshots:()=>{
     const target=document.createElement('canvas');target.width=28;target.height=42;
     const ctx=target.getContext('2d');ctx.imageSmoothingEnabled=false;
     const n={id:'qa-game-scale-'+civ,civ,x:0,y:0,rx:(14-OWT/2)/OWT,
-      ry:civ==='runner'?(42-(OWT-3))/OWT:(42-(OWT-5+OWT))/OWT};
+      ry:civ==='runner'?(42-(OWT-3))/OWT:(42-(OWT-5))/OWT};
     owCiv(0,0,dir,false,n,0,0,ctx);
     return {civ,direction,width:target.width,height:target.height,dataUrl:target.toDataURL('image/png'),
       captureMethod:'direct owCiv render at live OWT=36; vector scale=0.28; no resize'};
