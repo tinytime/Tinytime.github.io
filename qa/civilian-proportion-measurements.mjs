@@ -1,0 +1,127 @@
+// Semantic civilian proportion measurements.
+// Coordinates are authored in Granny's 100x140 source-space convention.
+// This module intentionally requires human-verified landmarks; it never guesses
+// anatomy from alpha bounds or silently treats props/headwear as body.
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const MANIFEST_PATH = path.join(ROOT, 'qa', 'civilian-anatomy-landmarks.json');
+const DIRECTIONS = ['front', 'back', 'left', 'right'];
+const REQUIRED_POINTS = ['headTop', 'chin', 'shoulderLeft', 'shoulderRight', 'shoulderY', 'pelvisY', 'footBaseline'];
+const isPoint = p => p && Number.isFinite(p.x) && Number.isFinite(p.y);
+const distance = (a,b) => Math.hypot(b.x-a.x,b.y-a.y);
+const ratio = (value, denominator) => denominator > 0 ? +(100*value/denominator).toFixed(2) : null;
+
+export function validateLandmarkRecord(record, id) {
+  const errors = [];
+  if (!record || !['standing','dynamic'].includes(record.poseClass)) errors.push('poseClass must be standing or dynamic');
+  if (!record || record.status !== 'measured') errors.push('status is not measured');
+  if (!record || !record.directions || typeof record.directions !== 'object') return ['directions are missing'];
+  for (const direction of DIRECTIONS) {
+    const d = record.directions[direction];
+    if (!d) { errors.push(direction + ' landmarks are missing'); continue; }
+    if (!Array.isArray(d.bodyPolygon) || d.bodyPolygon.length < 3 || !d.bodyPolygon.every(isPoint))
+      errors.push(direction + ' bodyPolygon must contain at least three source-space points');
+    for (const key of REQUIRED_POINTS) {
+      if (key === 'shoulderLeft' || key === 'shoulderRight') {
+        if (!isPoint(d[key])) errors.push(direction + ' ' + key + ' is missing');
+      } else if (!Number.isFinite(d[key])) errors.push(direction + ' ' + key + ' is missing');
+    }
+    if (d.footBaseline < d.headTop) errors.push(direction + ' footBaseline must be below headTop');
+    if (d.chin < d.headTop || d.chin > d.footBaseline) errors.push(direction + ' chin is outside body height');
+    if (d.shoulderY < d.chin || d.shoulderY > d.footBaseline) errors.push(direction + ' shoulderY is outside body height');
+    if (d.pelvisY < d.shoulderY || d.pelvisY > d.footBaseline) errors.push(direction + ' pelvisY is outside shoulder-to-foot interval');
+    if (d.shoulderLeft.y !== d.shoulderRight.y) errors.push(direction + ' shoulder points must share one measurement row');
+    if (!Array.isArray(d.headwearPolygons) || !Array.isArray(d.propPolygons))
+      errors.push(direction + ' must explicitly declare headwearPolygons and propPolygons (empty arrays are valid)');
+    if (record.poseClass === 'dynamic') {
+      for (const key of ['leftShoulder','rightShoulder','leftElbow','rightElbow','leftWrist','rightWrist','leftHip','rightHip','leftKnee','rightKnee','leftAnkle','rightAnkle']) {
+        if (!isPoint(d.joints?.[key])) errors.push(direction + ' dynamic pose joint ' + key + ' is missing');
+      }
+    }
+  }
+  return errors;
+}
+
+export function measureLandmarkRecord(record) {
+  const errors = validateLandmarkRecord(record, record.id || 'unknown');
+  if (errors.length) return { id: record.id, status: 'pending_annotation', errors };
+  const directions = Object.fromEntries(DIRECTIONS.map(direction => {
+    const d = record.directions[direction];
+    const bodyHeight = d.footBaseline - d.headTop + 1;
+    const headHeight = d.chin - d.headTop + 1;
+    const shoulderWidth = distance(d.shoulderLeft, d.shoulderRight);
+    const torsoHeight = d.pelvisY - d.shoulderY;
+    const neckHeight = d.shoulderY - d.chin;
+    const common = {
+      bodyHeight: +bodyHeight.toFixed(2),
+      headHeight: +headHeight.toFixed(2),
+      shoulderWidth: +shoulderWidth.toFixed(2),
+      torsoHeight: +torsoHeight.toFixed(2),
+      neckHeight: +neckHeight.toFixed(2),
+      ratiosPercent: {
+        headBody: ratio(headHeight, bodyHeight),
+        shoulderBody: ratio(shoulderWidth, bodyHeight),
+        torsoBody: ratio(torsoHeight, bodyHeight),
+        neckBody: ratio(neckHeight, bodyHeight)
+      },
+      footBaseline: d.footBaseline,
+      anatomicalBodyPolygon: d.bodyPolygon,
+      excludedHeadwearPolygons: d.headwearPolygons,
+      excludedPropPolygons: d.propPolygons
+    };
+    if (record.poseClass === 'dynamic') {
+      common.poseAware = {
+        joints: d.joints,
+        leftLegPath: [d.joints.leftHip,d.joints.leftKnee,d.joints.leftAnkle],
+        rightLegPath: [d.joints.rightHip,d.joints.rightKnee,d.joints.rightAnkle],
+        standingLegRatio: null,
+        note: 'Dynamic pose: use joint segments and polygon bounds; do not apply upright leg-height bands.'
+      };
+    } else {
+      common.legRegionHeight = +(d.footBaseline - d.pelvisY).toFixed(2);
+      common.ratiosPercent.legRegionBody = ratio(common.legRegionHeight, bodyHeight);
+    }
+    return [direction, common];
+  }));
+  return { id: record.id, poseClass: record.poseClass, status: 'measured', coordinateSpace: '100x140 source units', directions };
+}
+
+export function buildMeasurementReport(manifest) {
+  const records = Object.entries(manifest.characters || {}).map(([id, record]) => {
+    const normalized = { id, ...record };
+    const result = measureLandmarkRecord(normalized);
+    if (result.status === 'pending_annotation') return result;
+    return result;
+  });
+  return {
+    schemaVersion: 1,
+    measurementMethod: 'human-annotated semantic landmarks in a shared 100x140 source-space coordinate system; anatomy, headwear and props are separately bounded',
+    thresholdsEnforced: false,
+    characterCount: records.length,
+    measuredCount: records.filter(r => r.status === 'measured').length,
+    pendingCount: records.filter(r => r.status !== 'measured').length,
+    records
+  };
+}
+
+export function loadManifest() {
+  return JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const manifest = loadManifest();
+  const report = buildMeasurementReport(manifest);
+  const outPath = path.join(ROOT, 'qa-output', 'civilian-proportion-measurements.json');
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, JSON.stringify(report, null, 2) + '\n');
+  if (process.argv.includes('--check')) {
+    if (report.characterCount !== 7 || !manifest.characters.granny || report.pendingCount > 6)
+      throw new Error('Semantic measurement manifest failed structural validation');
+    console.log(JSON.stringify({ pass: true, characterCount: report.characterCount, measuredCount: report.measuredCount, pendingCount: report.pendingCount, output: 'qa-output/civilian-proportion-measurements.json' }));
+  } else {
+    console.log('Wrote qa-output/civilian-proportion-measurements.json');
+  }
+}
