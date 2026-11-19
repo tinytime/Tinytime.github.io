@@ -1198,7 +1198,7 @@
       finalGrid.pop();
       // Palette audit is measured from the final native pixel grid, including its outline.
       const palettePixelCounts=Object.create(null);
-      for(const color of finalGrid.flat())if(color!==null)palettePixelCounts[color]=(palettePixelCounts[color]||0)+1;
+      for(const color of finalGrid.flat())if(color!==null){const canonical=color.toLowerCase();palettePixelCounts[canonical]=(palettePixelCounts[canonical]||0)+1;}
       const uniquePaletteColors=Object.keys(palettePixelCounts);
       owCiv._lastPaletteMetrics={
         civ:kind,archetype:archetypeKey,fanJerseyStyle,uniqueColorCount:uniquePaletteColors.length,
