@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { buildMeasurementReport, measureLandmarkRecord, validateLandmarkRecord } from './civilian-proportion-measurements.mjs';
+import { buildMeasurementReport, loadManifest, measureLandmarkRecord, validateLandmarkRecord } from './civilian-proportion-measurements.mjs';
 
 const points = (y) => ({x:10,y});
 const standing = {
