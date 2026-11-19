@@ -13,7 +13,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 **Branch:** `npc-granny-baseline-overhaul`  
 **Latest verified renderer source:** `4eafc657fa9ee15db3b70f3c64a76280d4add0a6`. Browser QA [run #452](https://github.com/tinytime/Tinytime.github.io/actions/runs/44587406698), artifact `14562025835`, tested this exact source. Runner's four native 64×96 views and direct 28×42 game-scale captures were inspected, including both side profiles. The side torso front hem is narrowed; the chest detail/bib remain on the forward plane in mirrored profiles; front view is unchanged. Targeted QA checks pass, including 12/12 game-scale captures, role-debug 12/12, directional integrity 92/92, silhouette-quality 180/180, gallery and town regression. Overall workflow remains failed on global Clinic/Sailor silhouette overlap, unapproved golden snapshots (23 changed / 1 match), and 180 missing-audio 404s. No snapshots were refreshed or approved.
 
-**Active task:** prepare the refreshed Runner/Coach/Referee evidence from run #452 for Claude's independent comparative review against Granny Volt. The [updated run #446 Claude review package](../qa-artifacts/runner-coach-referee-run-446/README.md) is prepared in GitHub. All three remain NOT APPROVED pending Claude's review and owner acceptance. Do not begin the remaining 20.
+**Active task:** full independent comparative review of all six completed civilians (Usher, Cook, Courier, Runner, Coach, Referee), using the live [\`npc_sprites.js\` renderer](../npc_sprites.js), first-batch evidence and latest run #452 evidence. The [six-civilian Claude review package](../qa-artifacts/six-civilian-full-review/README.md) is prepared in GitHub. Claude is asked to identify all required polish and derive a reusable build standard for the remaining civilians. The second batch remains NOT APPROVED pending review and owner acceptance. Do not begin the remaining 20.
 
 ## Working agreement
 
@@ -25,7 +25,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 
 ## Current focus
 
-The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The current group is **Runner, Coach, and Referee**. Fresh combined run #442 includes direct game-scale 28×42 renders in all four directions as well as native 64×96 views; all are inspected alongside role-debug, gallery and town regression. Updated Claude comparative review is next.
+The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The second group—**Runner, Coach, and Referee**—has passed targeted internal QA, with latest Runner polish verified in run #452, but is not yet approved. The owner has expanded the next review to all six completed civilians together. See the [full six-civilian Claude review package](../qa-artifacts/six-civilian-full-review/README.md), which links the exact live renderer source and evidence. Claude's review must also produce a reusable, non-templating build standard before the remaining 20 are started.
 
 ## Source of truth
 
