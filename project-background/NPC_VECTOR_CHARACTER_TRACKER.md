@@ -533,3 +533,8 @@ Contour extraction now retains disconnected outer components and interior holes 
 ## Hole-aware contour reconstruction — 2026-11-19
 
 The current helper stores interior body/prop holes separately and subtracts them during fit comparison. Ten local fixtures pass. Applied to Run #555, the exact current contour helper reconstructs body and visible umbrella masks at IoU 1.0 in all four directions. This is algorithm-to-source-mask verification only; fresh Actions QA and human semantic review remain pending.
+
+
+## Landmark-to-mask evidence — 2026-11-19
+
+The diagnostic report now checks candidate headTop/chin/shoulder/pelvis/foot-baseline values against the exact body alpha. Run #555 data: body bounds y=9..136 in all views; headTop y=8 is one pixel above the first alpha row; chin is within body bounds; both shoulder points touch exact body-alpha pixels; pelvis row counts are 40 front/back and 30 profiles; footBaseline y=136 matches the bottom alpha row. This is evidence for human review, not semantic approval. Eleven local fixtures pass; fresh Actions verification pending.
