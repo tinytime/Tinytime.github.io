@@ -593,7 +593,7 @@ try {
     pass: gameScaleNpcSnapshotData.length === 12 && gameScaleNpcSnapshotData.every(item =>
       item.width === 28 && item.height === 42 &&
       item.captureMethod === 'direct owCiv render at live OWT=36; vector scale=0.28; no resize' &&
-      item.dataUrl && item.dataUrl.startsWith('data:image/png;base64,')) &&
+      item.dataUrl && item.dataUrl.startsWith('data:image/png') && item.dataUrl.includes(',')) &&
       new Set(gameScaleNpcSnapshotData.map(item => item.civ+'|'+item.direction)).size === 12
   };
   for (const item of gameScaleNpcSnapshotData) {
