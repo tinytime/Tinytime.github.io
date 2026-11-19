@@ -235,3 +235,10 @@ This distinction is reusable: record visible rendered prop pixels separately fro
 
 
 The visible prop tracer returns every disconnected visible component, not just the largest one. This matters for props that may render as separated visible fragments around occluding anatomy; keep all returned contours and keep the hidden full geometry separate.
+
+
+## Multi-component mask contours — implementation follow-up (2026-11-19)
+
+The contour tracer now returns **all disconnected outer components**, not just the largest loop. This matters for the umbrella's visible alpha delta, where canopy and shaft may be separate components, and prevents small detached body-alpha components from silently disappearing. The capture stores the primary body contour in `bodyPolygon`, remaining body contours in `bodyAppendagePolygons`, and every visible umbrella contour in `visiblePropPolygons`. The original hand-authored body and prop candidates remain preserved separately for comparison.
+
+Fixture coverage now includes two disconnected components and verifies that both are reconstructed. This remains a mask-derived candidate, not a semantic approval: the renderer's umbrella-excluded pass is known to retain hair, clothing and gripping anatomy, but only a human second-review can confirm semantic landmarks/contact boundaries. The latest code is committed; fresh GitHub Actions artifact verification is still pending.
