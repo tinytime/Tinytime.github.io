@@ -428,7 +428,7 @@ try {
     invalidOutlineColor: bodyRows.filter(item=>!/^#[0-9a-f]{6}$/i.test(item.outlineColor || '')).map(item=>item.civ),
     lowContrast: bodyRows.filter(item=>item.contrastRatio<3.0||item.outlineContrastPercent<0.60).map(item=>({civ:item.civ,outlineColor:item.outlineColor,contrastRatio:item.contrastRatio,outlineContrastPercent:item.outlineContrastPercent})),
     outlinePixelCounts: bodyRows.map(item=>({civ:item.civ,count:item.outlinePixelCount,expectedColor:item.outlineColor})),
-    outlineValidation: 'Pixel sprites require exact-color outline pixels; vector usher and cook use antialiased ink; Cook's ink evidence is independently required by the vector palette audit and is checked for nonzero ink evidence plus the same contrast and baseline requirements.',
+    outlineValidation: 'Pixel sprites require exact-color outline pixels; vector usher and cook use antialiased ink; Cook vector ink evidence is independently required by the vector palette audit and is checked for nonzero ink evidence plus the same contrast and baseline requirements.',
     measurements: bodyRows
   };
   const npcPropAudit = await page.evaluate(() => {
