@@ -570,7 +570,7 @@ try {
   const roleDebugCapture = await page.evaluate(() => {
     if (!window.SG || typeof window.SG.npcRenderDirectionalSnapshots !== 'function')
       throw new Error('Directional civilian snapshot hook is unavailable');
-    const items=window.SG.npcRenderDirectionalSnapshots({roleDebug:true});
+    const items=window.SG.npcRenderDirectionalSnapshots({roleDebugLayers:true});
     const selected=items.filter(item=>['cook','vendor','usher'].includes(item.civ)&&
       ['front','right'].includes(String(item.direction).toLowerCase()));
     return {items:selected.map(item=>({civ:item.civ,direction:item.direction,dataUrl:item.dataUrl,
@@ -616,6 +616,18 @@ try {
     roleLegendCount:roleDebugRoles.length,
     perViewLegendCounts:roleDebugCapture.items.map(item=>({civ:item.civ,direction:item.direction,count:item.roleLegend.length})),
     path:'cook-vendor-usher-role-debug-8x.png'};
+  const roleDebugRowWidthReport = await page.evaluate(() => {
+    const table=window.NPC_SPRITES?.TABLES?.CIV_TORSO_MASKS;
+    if(!table)throw new Error('Civilian torso mask table is unavailable for row-width diagnostics');
+    const civilians=['cook','vendor','usher'];
+    const directions=['front','side'];
+    return civilians.flatMap(civ=>directions.map(direction=>{
+      const rows=table[civ]?.[direction]||[];
+      const widths=rows.map(([row,left,right])=>({row,left,right,width:right-left+1}));
+      const widest=widths.reduce((best,item)=>!best||item.width>best.width?item:best,null);
+      return {civ,direction,rowCount:widths.length,maxWidth:widest?.width??0,widestRow:widest,rows:widths};
+    }));
+  });
   const civilianVisualIntegrityAudit = await page.evaluate(async snapshots => {
     const decoded=await Promise.all(snapshots.map(async item=>{
       const image=new Image();image.src=item.dataUrl;await image.decode();
@@ -1381,6 +1393,7 @@ try {
     npcBodyCheck,
     civilianFaceDistinctnessAudit,
     roleDebugAudit,
+    roleDebugRowWidthReport,
     civilianVisualIntegrityAudit,
     npcPropAudit,
     fanVariantAudit,
