@@ -1191,18 +1191,18 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       // Side silhouette leans forward from the hips: shoulders and chest
       // travel toward the runner's facing direction while the waist stays back.
       // The left-facing view mirrors this authored forward pitch.
-      path([[42,52],[55,45],[68,50],[74,59],[70,78],[71,90],[31,91],[36,79]],top,ink,1.8);
+      path([[42,52],[53,46],[63,50],[68,59],[66,78],[71,90],[31,91],[36,79]],top,ink,1.8);
       if(!back){
-        path([[43,48],[51,59],[59,49],[55,46],[51,53],[46,46]],'#F6D6B8',ink,1);
+        path([[49,48],[57,58],[65,50],[61,46],[57,53],[52,46]],'#F6D6B8',ink,1);
         // Side bib wraps the near torso plane instead of reading as a flat
         // front-facing placard; the tapered edge foreshortens into the ribs.
-        path([[49,65],[57,64],[61,68],[60,79],[52,82],[48,78]],'#F5E8CE',ink,1.1);
-        line([[57,66],[59,69],[58,78]],'#D7C8AC',.9);
+        path([[55,64],[62,63],[66,67],[65,78],[58,81],[54,77]],'#F5E8CE',ink,1.1);
+        line([[62,65],[64,68],[63,77]],'#D7C8AC',.9);
         g.save();
         // The whole left profile is mirrored for anatomy, but the printed
         // race number must remain typographically unmirrored.
         if(flip){g.translate(108,0);g.scale(-1,1);}
-        g.fillStyle='#25243B';g.font='bold 6px sans-serif';g.textAlign='center';g.fillText('07',54,76);
+        g.fillStyle='#25243B';g.font='bold 6px sans-serif';g.textAlign='center';g.fillText('07',60,75);
         g.restore();
         path([[62,55],[71,58],[77,70],[73,78],[66,74],[62,65]],top);
         path([[71,74],[78,76],[79,82],[73,84],[69,80]],skin);
