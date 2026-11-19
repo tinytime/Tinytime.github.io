@@ -487,3 +487,12 @@ The semantic measurement tool and fixture tests are included in the browser QA w
 The structural check requires exactly one Granny legacy reference and six pending NPC annotations. This is a framework-integrity check, not a character proportion pass. The generated report is `qa-output/civilian-proportion-measurements.json`; inspect it and the source annotations whenever records are added.
 
 See [Semantic Civilian Anatomy Annotation Guide](../qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md). Current semantic annotation coverage is 0/6 NPCs: all six remain pending. Granny remains reference-only pending harmonization of her legacy mask convention. No proportion bands are enforced and no character is approved by this tooling.
+
+
+## Semantic measurement implementation verification — run #481
+
+[Run #481](https://github.com/tinytime/Tinytime.github.io/actions/runs/44608283710) tested semantic measurement engine commit `6a9793f1431b3b79bccc375b3ed09b5265859772`. The semantic measurement test and manifest validation step **PASSED**. This confirms the fixture calculations, source-bound polygon validation, dynamic Runner joint-only handling, Granny legacy-reference accounting, and six-NPC pending-scope manifest are structurally valid.
+
+The full browser workflow still **FAILED** on the existing global civilian silhouette gate (max IoU 0.9094292803970223) and unapproved golden snapshots (1 match / 23 changed). The run also records missing audio-resource 404 console errors; page errors and script errors are empty. Directional integrity 92/92, direct game-scale capture assertion 20/20, role-debug 12/12, prop audit and gallery pass. Artifact: [14570697656](https://github.com/tinytime/Tinytime.github.io/actions/runs/44608283710/artifacts/14570697656).
+
+This is a framework test pass, not semantic annotation coverage: the six characters remain pending human landmark annotation. No snapshots were refreshed or approved.
