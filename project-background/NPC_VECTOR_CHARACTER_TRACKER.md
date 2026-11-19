@@ -336,3 +336,12 @@ This is a source-only finish refinement. It has not yet been browser-tested or v
 - **Visual-inspection limitation:** the report and Actions logs were inspected; the artifact PNGs have not yet received human visual inspection. Automated integrity results are not a visual verdict.
 - No golden snapshots were refreshed or approved. All five reviewed civilians remain in revision / NOT APPROVED status pending visual inspection, Claude re-review and owner acceptance. Runner remains excluded from this review round; remaining 20 stay ON HOLD.
 - [Five-civilian review package](../qa-artifacts/five-civilian-full-review/README.md) now links this exact run and artifact.
+
+
+## Five-civilian evidence packaging automation — 2026-11-19
+
+Added `qa/build-five-civilian-review-sheet.mjs` and wired it into `.github/workflows/vapor-city-browser-qa.yml`. After the browser diagnostics step (including failed runs), the workflow now creates a labelled 4× native directional contact sheet for Usher, Cook, Courier, Coach and Referee, plus a machine-readable-check summary Markdown file. The contact sheet is assembled from the actual native 64×96 captures; it does not modify renderer code, test thresholds or golden snapshots. The summary explicitly distinguishes automated evidence from human visual approval.
+
+- Generator commit: [`1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc`](https://github.com/tinytime/Tinytime.github.io/commit/1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc).
+- Workflow integration commit: [`80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f`](https://github.com/tinytime/Tinytime.github.io/commit/80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f).
+- Fresh Actions run #461 was triggered by the workflow update and is pending at the time of this note. Its artifact must be checked before claiming the new sheet generator works.
