@@ -145,3 +145,12 @@ Coach's clipboard polygons now follow the actual front and side renderer paths, 
 
 
 Coach's directional prop mask has now been corrected from the actual draw paths: front includes the clipboard and whistle, back explicitly has no prop exclusions, and side views use the foreshortened clipboard and whistle bounds. The next fresh overlay is required to confirm these tighter bounds; the candidates remain pending verification.
+
+
+## Run #530 native overlay review — 2026-11-19
+
+Inspected the generated six-civilian overlay from [Run #530](https://github.com/tinytime/Tinytime.github.io/actions/runs/44614186989), artifact `14573802446`, against all 24 native 64×96 directional captures. The overlay maps the source-space polygons to each character's actual native headwear top and foot baseline, and mirrors the left-facing capture for display. Broad body contours, headwear exclusions, and direction-specific prop exclusions visually track the captured silhouettes. Coach's rear view correctly has no prop exclusion; Cook's rear pan is empty; Courier's rear excludes only the satchel; Runner's dynamic body and joint markers remain distinct; Referee's raised arm/hand is included through separate appendage polygons while the card and whistle remain excluded.
+
+The six records' provenance is updated to `candidate_visually_spot_checked_run530`. This is a visual spot-check, not pixel tracing or final measurement acceptance. Candidate polygons remain manually transcribed and coarse; the ratios are descriptive candidates only. All six remain `source_annotated`; Granny remains `reference_only` and must be semantically harmonized before direct comparison. The measurement validator passed, generated all 24 overlays, and the report contains 6 source-annotated candidates, 0 verified measurements, and 6 pending. No thresholds were enforced.
+
+Browser QA overall still fails on the established game-wide gates: full-body civilian silhouette maximum IoU `0.909429` (Clinic/Sailor front; Coach/Courier back `0.893932`), torso-mask maximum IoU `0.923077` (Kid2/Mouse side), unapproved golden snapshot baseline (1 match / 23 changed), and 180 missing audio-file 404s. The existing `npcBodyCheck` passes (24 sprites; max height deviation 0.4375 px; max baseline delta 1), the 92-capture visual-integrity audit passes, the gallery visual pass succeeds, and the prop audit passes. No golden snapshots were refreshed or approved.
