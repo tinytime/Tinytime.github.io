@@ -25,10 +25,10 @@ The builder should provide Claude with the actual rendered sheets, comparative i
 The project owner approved the first batch—Usher, Cook, and Courier—on 2026-11-19 and authorized the next group of three:
 
 1. **Runner** — built and internally checked; dedicated vector renderer integrated and actual four-direction, role-debug, gallery and town evidence inspected.
-2. **Coach** — next character in the authorized group; Runner's internal QA has passed.
-3. **Referee** — third in this group; follow Coach.
+2. **Coach** — built with a dedicated vector renderer; targeted internal QA passed after side-profile facial refinement.
+3. **Referee** — next character to build in this group.
 
-Complete and internally inspect each character in four directions, at native/enlarged scale, and in town/gallery context before moving to the next character. Keep the remaining roster on hold until its group is authorized.
+Complete and internally inspect each character in four directions, at native/enlarged scale, and in town/gallery context before moving to the next character. After Referee passes, send all three to Claude for independent comparison and wait for owner approval before starting the remaining roster.
 
 ## Scope and counts
 

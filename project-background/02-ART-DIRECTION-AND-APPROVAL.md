@@ -28,6 +28,12 @@ These are starting concepts to guide exploration. They are not final art specifi
 - Coral race singlet with clearly separate split shorts, race bib 07, terry sweatband, close-cropped curls, stopwatch, and technical shoes.
 - Keep the running pose legible from front, back, left, and right; shorts and shoe separation must remain readable at native 64×96 scale.
 
+### Coach
+- Veteran sideline tactician with a steady, grounded stance; do not reuse Runner's airborne athletic pose.
+- Forest-green warm-up jacket with a distinct cream shoulder yoke, stitched pockets and hem band; dark track trousers and pale court shoes.
+- Silver-templed hair beneath a low-profile team cap, expressive mature face, gold whistle/lanyard, and a marked clipboard held visibly in the front view.
+- Preserve a readable face/profile in both side views and a deliberate rear jacket/yoke/team-mark composition. The clipboard and hands must feel physically connected at native 64×96 scale.
+
 ### Usher
 - Civic / venue attendant identity.
 - Current implementation uses a formal uniform, cap, and clipboard.
