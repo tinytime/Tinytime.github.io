@@ -179,5 +179,36 @@ try {
     return canvas.toDataURL('image/png');
   },{directions:result.directions,annotation});
   fs.writeFileSync(path.join(out,'granny-four-direction-semantic-overlay.png'),Buffer.from(sheet.split(',')[1],'base64'));
-  console.log(JSON.stringify({pass:true,directions:result.directions.length,source:'live createGrannyRenderer',status:annotation.status,outputs:['granny-four-direction-semantic-overlay.png','granny-semantic-candidate.json']}));
+
+  // Render the actual alpha row masks as a pixel-exact semantic review sheet.
+  // Cyan = umbrella-excluded body pass (hair, clothing and gripping arm included).
+  // Gold = visible umbrella pixels present only in the full render.
+  const pixelMaskSheet=await page.evaluate(async({directions,masks})=>{
+    const canvas=document.createElement('canvas');canvas.width=4*260+24;canvas.height=330;
+    const c=canvas.getContext('2d');c.fillStyle='#292b35';c.fillRect(0,0,canvas.width,canvas.height);
+    const map={d:'front',u:'back',l:'left',r:'right'};
+    for(let i=0;i<directions.length;i++){
+      const d=directions[i],m=masks.find(x=>x.direction===d.direction);
+      const image=new Image();image.src=d.full;await image.decode();
+      const layer=document.createElement('canvas');layer.width=100;layer.height=140;
+      const x=layer.getContext('2d',{willReadFrequently:true});x.drawImage(image,0,0);
+      const pixels=x.getImageData(0,0,100,140);
+      for(let y=0;y<140;y++){
+        for(const [x0,x1] of m.bodyAlpha.rows[y])for(let px=x0;px<=x1;px++){
+          const k=(y*100+px)*4;pixels.data[k]=40;pixels.data[k+1]=190;pixels.data[k+2]=255;pixels.data[k+3]=190;
+        }
+        for(const [x0,x1] of m.umbrellaExposedDelta.rows[y])for(let px=x0;px<=x1;px++){
+          const k=(y*100+px)*4;pixels.data[k]=255;pixels.data[k+1]=190;pixels.data[k+2]=35;pixels.data[k+3]=235;
+        }
+      }
+      x.putImageData(pixels,0,0);
+      const px=12+i*260,py=12;c.fillStyle='#fff';c.font='bold 16px monospace';c.fillText(map[d.direction].toUpperCase(),px,py+16);
+      c.drawImage(layer,px,py+24,240,280);
+    }
+    c.fillStyle='#28beff';c.fillRect(18,310,12,8);c.fillStyle='#fff';c.font='11px monospace';c.fillText('BODY / HAIR / CLOTHING / GRIP',35,318);
+    c.fillStyle='#ffbe23';c.fillRect(225,310,12,8);c.fillStyle='#fff';c.fillText('VISIBLE UMBRELLA',242,318);
+    return canvas.toDataURL('image/png');
+  },{directions:result.directions,masks:result.masks});
+  fs.writeFileSync(path.join(out,'granny-pixel-mask-overlay.png'),Buffer.from(pixelMaskSheet.split(',')[1],'base64'));
+  console.log(JSON.stringify({pass:true,directions:result.directions.length,source:'live createGrannyRenderer',status:annotation.status,outputs:['granny-four-direction-semantic-overlay.png','granny-pixel-mask-overlay.png','granny-semantic-candidate.json']}));
 } finally { await browser.close(); server.close(); }
