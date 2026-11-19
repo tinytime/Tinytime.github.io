@@ -621,7 +621,7 @@ Interpretation: the current body candidates capture most front/back body pixels 
 
 Following the Run #555 artifact inspection, the capture now retains the previous manual body polygon/appendages as `manualBodyPolygonCandidate` and derives the active candidate `bodyPolygon` from the exact umbrella-excluded `bodyAlpha` row mask. `qa/granny-mask-fit.mjs` traces the outer contour and converts profile coordinates back through the renderer's inverse 0.72 scale/mirror transform. The review sheet overlays red mask-derived contours against magenta manual candidates; yellow remains the umbrella prop outline. The fit report records manual candidate fit, pixel-derived contour fit, and visible umbrella coverage.
 
-Local tests: `node qa/test-granny-mask-fit.mjs` passed nine fixtures. The helper was also applied locally to the downloaded Run #555 artifact (artifact `14580687401`): derived contour IoU was 0.9964 front, 0.9961 back, 0.9954 left, 0.9975 right, with 1.0 recall in all four directions. This verifies contour tracing against the renderer mask, not human semantic correctness. The earlier manual candidate fit and prop coverage metrics remain in the diagnostic report for comparison. The exact semantic convention is Granny-specific; do not apply this auto-contour method to other NPCs unless their renderer body pass has a verified prop-exclusion definition.
+Local tests: `node qa/test-granny-mask-fit.mjs` passed ten fixtures. The helper was also applied locally to the downloaded Run #555 artifact (artifact `14580687401`): derived contour IoU was 0.9964 front, 0.9961 back, 0.9954 left, 0.9975 right, with 1.0 recall in all four directions. This verifies contour tracing against the renderer mask, not human semantic correctness. The earlier manual candidate fit and prop coverage metrics remain in the diagnostic report for comparison. The exact semantic convention is Granny-specific; do not apply this auto-contour method to other NPCs unless their renderer body pass has a verified prop-exclusion definition.
 
 **Verification boundary:** this latest contour-generation and side-by-side overlay change is committed but has not yet been run through a fresh Actions artifact. The last inspected Actions evidence remains Run #555, tested source `c90f9bb`. No legacy reference values, ratio thresholds, renderer artwork, NPC approval states or golden snapshots changed. Granny remains `reference_only`.
 
@@ -635,7 +635,7 @@ Applied locally to Run #555's artifact, the visible-only contour matches the exp
 **Verification boundary:** this visible-prop contour integration and updated overlay have not yet been produced by a fresh Actions run. The last inspected workflow remains Run #555. No prop geometry was approved or changed in the live renderer; Granny remains `reference_only`.
 
 
-The latest follow-up also retains all disconnected visible umbrella mask contours (`visiblePropPolygons`) rather than selecting only the largest component. The helper test suite now covers this split-component and hole-handling cases (nine fixtures). This refinement is committed but remains pending fresh Actions artifact verification.
+The latest follow-up also retains all disconnected visible umbrella mask contours (`visiblePropPolygons`) rather than selecting only the largest component. The helper test suite now covers this split-component and hole-handling cases (ten fixtures). This refinement is committed but remains pending fresh Actions artifact verification.
 
 
 ## Multi-component Granny contour follow-up — implementation (2026-11-19)
@@ -647,11 +647,16 @@ The fixture suite includes two disconnected components and an interior hole; it 
 
 ## Contour topology follow-up — 2026-11-19
 
-The latest helper filters inner hole loops by winding and retains every disconnected outer component. This prevents interior voids from being incorrectly added as anatomical appendages while still preserving separate visible prop fragments. Exact row-span alpha masks remain untouched in the candidate JSON. The nine-fixture local test suite passed; applying the updated contour helper to Run #555 again yields body contour IoU 0.9964/0.9961/0.9954/0.9975 and visible umbrella contour IoU 1.0 in all directions. This is a local artifact calculation, not a fresh Actions run.
+The latest helper filters inner hole loops by winding and retains every disconnected outer component. This prevents interior voids from being incorrectly added as anatomical appendages while still preserving separate visible prop fragments. Exact row-span alpha masks remain untouched in the candidate JSON. The ten-fixture local test suite passed; applying the updated contour helper to Run #555 again yields body contour IoU 0.9964/0.9961/0.9954/0.9975 and visible umbrella contour IoU 1.0 in all directions. This is a local artifact calculation, not a fresh Actions run.
 
 
 ## Granny contour topology follow-up — implementation (2026-11-19)
 
 A further edge case was identified: tracing only the largest outer loop can drop detached body/prop fragments, while tracing outer loops alone fills transparent holes. The helper now returns all outer components and interior holes separately. The capture stores body components in `bodyPolygon`/`bodyAppendagePolygons`, body cutouts in `bodyMaskHolePolygons`, visible umbrella components in `visiblePropPolygons`, and visible-prop cutouts in `visiblePropMaskHolePolygons`. Fit diagnostics subtract holes before comparing with exact alpha row spans. Manual body and full-prop candidates remain preserved for audit.
 
-The fixture suite now covers disconnected components and an interior hole, with exact mask reconstruction expected. The new helper, tests and capture integration are committed but remain unverified by a fresh Actions run/artifact. Run #555 remains the latest browser-tested and visually inspected artifact. Granny remains `reference_only`.
+The ten-fixture suite covers disconnected components and an interior hole; the exact current helper reconstructs the Run #555 body and visible umbrella alpha masks at IoU 1.0 in all directions. The new helper, tests and capture integration are committed but remain unverified by a fresh Actions run/artifact. Run #555 remains the latest browser-tested and visually inspected artifact. Granny remains `reference_only`.
+
+
+## Hole-aware contour reconstruction local validation — 2026-11-19
+
+The current helper retains outer loops and interior holes separately for both body alpha and visible umbrella delta. The fit report rasterizes outer loops and subtracts hole polygons before comparison. Local ten-fixture tests pass. Applying the current helper to Run #555's downloaded artifact reconstructs body alpha and visible umbrella delta at IoU 1.0 in front/back/left/right. This confirms the contour algorithm against the source masks, not semantic correctness or a fresh Actions run. Granny remains `reference_only`.
