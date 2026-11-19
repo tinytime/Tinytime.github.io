@@ -626,7 +626,7 @@ try {
     civilians:['runner','coach','ref','cook','courier','usher'],scale:8,outline:'omitted',roleLegend:roleDebugRoles,
     roleLegendCount:roleDebugRoles.length,
     perViewLegendCounts:roleDebugCapture.items.map(item=>({civ:item.civ,direction:item.direction,count:item.roleLegend.length})),
-    path:'runner-coach-cook-courier-usher-role-debug-8x.png'};
+    path:'runner-coach-ref-cook-courier-usher-role-debug-8x.png'};
   const roleDebugRowWidthReport = await page.evaluate(() => {
     const table=window.NPC_SPRITES?.TABLES?.CIV_TORSO_MASKS;
     if(!table)throw new Error('Civilian torso mask table is unavailable for row-width diagnostics');
