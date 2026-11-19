@@ -25,7 +25,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 
 ## Current focus
 
-The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The current group is **Runner, Coach, and Referee**. All three have passed targeted internal QA. The latest combined run #429 includes Coach's final polish and has been visually inspected. Comparative review is next.
+The first batch—**Usher, Cook, and Courier**—was approved by the project owner on 2026-11-19. The current group is **Runner, Coach, and Referee**. Fresh combined run #437 includes the latest Runner profile-face and Coach whistle/profile-face polish; all 12 native directional renders, enlarged views, derived game-scale resamplings, role-debug, gallery, Granny comparison and town regression have been inspected. Updated Claude comparative review is next.
 
 ## Source of truth
 
