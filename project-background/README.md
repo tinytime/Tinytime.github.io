@@ -7,6 +7,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 3. **[Technical implementation](03-TECHNICAL-IMPLEMENTATION.md)** — where the renderer lives, how vector NPCs are integrated, and which files matter.
 4. **[QA, known issues, and handoff](04-QA-AND-HANDOFF.md)** — how to test, interpret failures, and continue safely.
 5. **[NPC vector character tracker](NPC_VECTOR_CHARACTER_TRACKER.md)** — live roster and per-character approval status.
+6. **[Civilian Vector Construction Standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md)** — Granny Volt's measured reference geometry, shared technical rules, provisional proportion bands, staged build pipeline, scorecard, and QA calibration plan.
 
 ## Current project status — refresh this block at every handoff
 
@@ -86,3 +87,11 @@ Renderer commit: [23c792f7e83eb14ff7d48e197678272f1c3e58b0](https://github.com/t
 Added restrained warm/cool rim-light accents to Coach and Referee, matching the established light treatment already present on Usher, Cook and Courier. The accents are limited to face/shoulder contours and intentionally avoid tracing the clipboard, whistle or yellow card.
 
 This is a source-only finish refinement. It has not yet been browser-tested or visually inspected. All five characters remain in revision / NOT APPROVED status; Runner remains excluded from this review round and the remaining 20 civilians stay on hold. No golden snapshots were changed.
+
+## Civilian Vector Construction Standard — draft added (2026-11-19)
+
+The owner authorized formalizing the Granny Volt art analysis as a permanent GitHub standard. The new [Civilian Vector Construction Standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md) records measured reference geometry from `qa/granny-ref.json`, separates fixed technical invariants from character-specific design, defines measurement conventions and provisional exploration bands, establishes an eight-stage build pipeline, proposes a 100-point internal scorecard, and lists automated QA metrics plus calibration work.
+
+**Status is DRAFT FOR CLAUDE REVIEW AND OWNER RATIFICATION.** The proportion bands, score weights, score floors, and scoring bands are explicitly provisional; they are not hard-fail QA thresholds. They must be tested against Granny and the five-character review set before being locked. The standard does not alter renderer code, change existing QA gates, approve any character, refresh golden snapshots, or release the remaining 20 civilians from hold.
+
+Current review evidence is recorded in QA run #464: native 64×96 captures 20/20, direct 28×42 captures 20/20, directional integrity 92/92, role-debug 12/12, prop audit and gallery pass; overall workflow remains failed on the full-roster silhouette gate and unapproved golden snapshots. Missing-audio 404s remain; page/script exceptions are zero. See the QA handoff and tracker for full evidence and exact limitations.
