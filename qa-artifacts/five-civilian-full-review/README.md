@@ -167,7 +167,7 @@ The generated sheet is based on 20 native 64×96 directional captures for the fi
 - [Run #464](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571), source commit `2b21457cb4faaa5d993c46d696df3d3aca07f87a` (contact-sheet generator update only; renderer remains `23c792f7e83eb14ff7d48e197678272f1c3e58b0`).
 - [Artifact `14568746641`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571/artifacts/14568746641) includes 20 native 64×96 captures, 20 direct 28×42 captures, the paired contact sheets, role-debug/gallery/town evidence and report.
 - Generator step passed; both contact sheets generated and no expected images were missing. The main diagnostics remain failed on global silhouette overlap and unapproved golden snapshots.
-- ChatGPT has not visually inspected the PNGs. The owner can now review the two contact sheets and individual images directly from the artifact; no character approvals have been changed.
+- ChatGPT has since visually inspected both contact sheets and the town screenshot. No obvious clipping or detached components were seen; signature props and role cues persist across directions. Fine facial detail compresses at 28×42, while major silhouettes and props remain distinguishable. This is internal visual QA, not Claude review or owner approval.
 
 
 ## Current evidence — runs #463 and #464 (2026-11-19)
@@ -187,3 +187,20 @@ The overall workflow remains FAILED on the global civilian silhouette audit (max
 ## Independent review handoff
 
 The current five-character independent review brief is [`CLAUDE-REVIEW-BRIEF.md`](./CLAUDE-REVIEW-BRIEF.md). It identifies the exact renderer source, run #464 artifact, native and direct game-scale captures, review criteria, known corrections to verify, and the remaining global QA gates. The brief is prepared but has **not** yet been submitted to Claude; independent review is still pending.
+
+
+## Construction standard supplied for independent critique
+
+The owner authorized a formal draft based on Granny Volt's measured geometry and the project's current renderer/QA evidence: [Civilian Vector Construction Standard](../../project-background/CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md).
+
+Please review this standard as part of the assignment, not merely produce a new generic checklist. In particular:
+- Check Granny's recorded measurements against the actual reference geometry and confirm the body/prop exclusion conventions are sound.
+- Critique the proposed head/body, shoulder/body, torso/body, leg-region/body, and visible-neck exploration bands. Identify whether definitions are measurable and whether pose categories need separate ranges.
+- Critique the 100-point scorecard weights, 90+ candidate threshold, and 75% category floor. Recommend changes and explain the evidence for them.
+- Distinguish objective hard requirements from flexible art-direction judgments. Identify any proposed metric that would create false positives or reward the wrong thing.
+- Recommend a calibration method using Granny plus these five candidates, with concrete measurement definitions and examples. Do not declare proposed ranges production-ready without evidence.
+- Confirm that the standard protects original silhouettes, faces, body proportions, clothing, palettes, and props rather than turning Granny into a template.
+
+The current standard explicitly labels all proposed proportion bands and scoring thresholds as **provisional**. Please return a revised recommendation and list which values should remain guidance, which can become automated warnings, and which—if any—are safe hard-fail thresholds.
+
+The owner has not ratified this standard. Your review is advisory; do not change character approval statuses or release the remaining 20 civilians.
