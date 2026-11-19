@@ -660,3 +660,10 @@ The ten-fixture suite covers disconnected components and an interior hole; the e
 ## Hole-aware contour reconstruction local validation — 2026-11-19
 
 The current helper retains outer loops and interior holes separately for both body alpha and visible umbrella delta. The fit report rasterizes outer loops and subtracts hole polygons before comparison. Local ten-fixture tests pass. Applying the current helper to Run #555's downloaded artifact reconstructs body alpha and visible umbrella delta at IoU 1.0 in front/back/left/right. This confirms the contour algorithm against the source masks, not semantic correctness or a fresh Actions run. Granny remains `reference_only`.
+
+
+## Candidate landmark-to-mask evidence — local Run #555 inspection (2026-11-19)
+
+The helper now emits landmark evidence alongside polygon/mask fit. Applying it to Run #555's actual four-direction artifact reports body alpha bounds y=9..136 in every direction. Candidate headTop is y=8 in all views (one pixel above the first body-alpha row); chin y values are within the body's vertical bounds; both candidate shoulder points land on exact body-alpha pixels in all four directions; pelvis rows contain 40 pixels front/back and 30 pixels in profiles; candidate footBaseline y=136 matches the final body-alpha row exactly.
+
+This supports retaining the shoulder and foot-baseline candidates for now, while explicitly flagging the one-pixel headTop offset for human review. It does not establish semantic correctness of shoulder/chin/pelvis landmarks. Local helper tests now cover eleven fixtures. This report integration is committed but still needs a fresh Actions artifact before being called browser-tested.
