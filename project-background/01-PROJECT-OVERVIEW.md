@@ -26,7 +26,7 @@ The first batch is exactly three civilians:
 
 1. **Usher** — first vector pilot; integrated in the renderer, targeted checks passed, but not approved.
 2. **Cook** — second pilot character; integrated and internally checked for Cook-specific criteria, pending comparative review.
-3. **Courier** — third pilot character; bespoke vector renderer integrated, internal browser QA and artifact inspection pending.
+3. **Courier** — third pilot character; bespoke vector renderer integrated, correction QA run #410 independently inspected; ready for focused Claude re-review.
 
 After all three are built and internally checked in four directions and at game scale, send them together to Claude for a comparative review alongside Granny Volt. Apply the review findings, rerun checks, and return the results to the project owner. Do not start the other 20 civilian designs before this review unless the owner changes the sequence.
 
