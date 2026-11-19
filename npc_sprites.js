@@ -1181,18 +1181,26 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[37,52],[49,47],[63,52],[69,62],[66,80],[71,90],[31,91],[35,80]],top,ink,1.8);
       if(!back){
         path([[43,48],[51,59],[59,49],[55,46],[51,53],[46,46]],'#F6D6B8',ink,1);
-        path([[48,62],[61,64],[61,82],[47,84]],'#F5E8CE',ink,1.1);
-        g.fillStyle='#25243B';g.font='bold 7px sans-serif';g.textAlign='center';g.fillText('07',54,76);
+        // Side bib wraps the near torso plane instead of reading as a flat
+        // front-facing placard; the tapered edge foreshortens into the ribs.
+        path([[49,65],[57,64],[61,68],[60,79],[52,82],[48,78]],'#F5E8CE',ink,1.1);
+        line([[57,66],[59,69],[58,78]],'#D7C8AC',.9);
+        g.save();
+        // The whole left profile is mirrored for anatomy, but the printed
+        // race number must remain typographically unmirrored.
+        if(flip){g.translate(108,0);g.scale(-1,1);}
+        g.fillStyle='#25243B';g.font='bold 6px sans-serif';g.textAlign='center';g.fillText('07',54,76);
+        g.restore();
         path([[62,55],[71,58],[77,70],[73,78],[66,74],[62,65]],top);
         path([[71,74],[78,76],[79,82],[73,84],[69,80]],skin);
         path([[37,54],[44,53],[42,68],[34,74],[28,69],[32,62]],top);
         path([[27,66],[34,64],[37,69],[33,75],[26,75],[23,71]],skin);
-        path([[31,89],[64,89],[67,100],[56,108],[45,102],[38,96]],shorts);
-        path([[51,98],[64,100],[73,108],[84,108],[88,114],[81,120],[67,117],[55,111]],shorts);
-        line([[58,103],[68,109],[78,111]],'#65546B',1.5); // separate the overlapping navy leg planes
-        path([[67,119],[84,116],[92,120],[91,126],[77,130],[68,126]],shoe,ink,1.6);
-        path([[35,96],[48,101],[44,111],[32,118],[22,114],[30,105]],shorts);
-        path([[22,120],[34,121],[39,126],[36,132],[19,131],[16,126]],shoe,ink,1.6);
+        // Two clean stride planes: near leg drives forward, far leg trails
+        // behind. Keep the ankles and shoes separated instead of scissoring.
+        path([[32,89],[48,90],[51,101],[43,111],[35,121],[25,118],[32,105],[29,96]],shorts);
+        path([[51,90],[65,90],[68,102],[76,111],[84,114],[82,120],[69,120],[59,112],[53,103]],shorts);
+        path([[24,116],[36,117],[40,122],[38,128],[20,128],[17,123]],shoe,ink,1.6);
+        path([[79,112],[91,112],[96,116],[94,122],[78,123],[73,119]],shoe,ink,1.6);
         // No floating sole strokes beneath the sprinting shoes.
         path([[69,73],[76,72],[78,77],[71,79]],'#F6C95C',ink,1);
         ell(72,74,2.5,2.5,'#25243B',ink,.9);line([[72,72],[73,74]],'#F6E7C1',.8);
@@ -1233,7 +1241,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         ell(40,21.5,3.4,3.2,'#34252A',ink,.65);ell(47,19,3.6,3.3,'#24202A',ink,.65);ell(54,19,3.5,3.3,'#34252A',ink,.65);ell(60,22.5,3.2,3.1,'#24202A',ink,.65);
         ell(58,31,1.8,2.1,'#171725',null);line([[57,28],[62,28]],'#3E2729',1.2);
         path([[60,32],[67,35],[62,39],[59,37]],'#B8795F',ink,.8); // projecting nose bridge and tip
-        line([[56,42],[63,41]],'#40282A',1.5); // readable mouth
+        // Native-scale mouth: a short dark smile with a warm lower-lip pixel.
+        line([[59,41],[62,40],[65,40]],'#40282A',2);
+        line([[61,42],[64,42]],'#C77F65',1.1);
         ell(55,37,2.2,1.5,'#C77F65',null);
       }else{
         ell(40,19,3.4,3.2,'#34252A',ink,.6);ell(47,17,3.4,3.2,'#24202A',ink,.6);ell(54,17,3.4,3.2,'#34252A',ink,.6);ell(60,20,3.2,3.1,'#24202A',ink,.6);
@@ -1518,7 +1528,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         ell(59,31,1.5,1.8,ink,null);
         path([[62,32],[66.5,34.5],[67,36],[62,37],[60,35]],'#B87959',ink,.8);
         line([[64,35],[66,35.5]],'#80513D',.8);
-        line([[57,42],[62,42]],'#704333',1.2);
+        // Keep the chin contour inside the jaw; no dark line may protrude
+        // beyond the profile head silhouette.
+        line([[55,40],[58,40]],'#704333',.9);
         // A short angled jacket seam adds a subtle near/far plane to the
         // profile without broadening the established side silhouette.
         line([[43,55],[45,68],[44,84],[46,94]],'#E5E2D5',.9);
