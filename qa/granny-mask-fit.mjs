@@ -44,7 +44,7 @@ export function compareMasks(candidate,reference){
  return{candidatePixels:cp,referencePixels:rp,intersectionPixels:inter,unionPixels:union,iou:union?inter/union:1,precision:cp?inter/cp:(rp?0:1),recall:rp?inter/rp:(cp?0:1),candidateOnlyPixels:cp-inter,referenceOnlyPixels:rp-inter};
 }
 function pointKey(p){return p[0]+','+p[1];}
-export function traceOuterContour(rows){
+export function traceOuterContours(rows){
  const mask=maskFromRows(rows),edges=[],outgoing=new Map();
  const add=(sx,sy,ex,ey,dir)=>{
   const i=edges.length,edge={start:[sx,sy],end:[ex,ey],dir};edges.push(edge);
@@ -82,16 +82,19 @@ export function traceOuterContour(rows){
   loops.push({points:simple,area:Math.abs(twiceArea)/2});
  }
  if(!loops.length)throw new Error('Could not trace a closed alpha contour');
- return loops.sort((a,b)=>b.area-a.area)[0].points;
+ return loops.sort((a,b)=>b.area-a.area).map(loop=>loop.points);
 }
-export function deriveLocalBodyPolygon(rows,direction){
- return traceOuterContour(rows).map(({x,y})=>{
+export function traceOuterContour(rows){return traceOuterContours(rows)[0];}
+export function deriveLocalMaskContours(rows,direction){
+ return traceOuterContours(rows).map(contour=>contour.map(({x,y})=>{
   let localX=x;
   if(direction==='right')localX=50+(x-50)/0.72;
   if(direction==='left')localX=50+(50-x)/0.72;
   return{x:localX,y};
- });
+ }));
 }
+export function deriveLocalMaskContour(rows,direction){return deriveLocalMaskContours(rows,direction)[0];}
+export const deriveLocalBodyPolygon=deriveLocalMaskContour;
 export function measureGrannyMaskFit(annotation,pixelMasks){
  return pixelMasks.map(entry=>{
   const view=CODE_TO_VIEW[entry.direction],semantic=annotation.directions[view];
@@ -101,7 +104,7 @@ export function measureGrannyMaskFit(annotation,pixelMasks){
   const manualBody=rasterizePolygons([manual.bodyPolygon,...(manual.bodyAppendagePolygons||[])],view);
   const derivedBody=rasterizePolygons([semantic.bodyPolygon],view);
   const propCandidate=rasterizePolygons(semantic.manualPropPolygonCandidate||semantic.propPolygons||[],view);
-  const visiblePropCandidate=rasterizePolygons(semantic.visiblePropPolygon?[semantic.visiblePropPolygon]:[],view);
+  const visiblePropCandidate=rasterizePolygons(semantic.visiblePropPolygons|| (semantic.visiblePropPolygon?[semantic.visiblePropPolygon]:[]),view);
   const body=compareMasks(manualBody,exactBody),derived=compareMasks(derivedBody,exactBody),prop=compareMasks(propCandidate,exactUmbrella),visibleProp=compareMasks(visiblePropCandidate,exactUmbrella);
   return{direction:view,manualBodyCandidateFit:body,pixelDerivedBodyContourFit:derived,visibleUmbrellaManualCoverage:{candidatePixels:prop.candidatePixels,visibleUmbrellaPixels:prop.referencePixels,coveredVisiblePixels:prop.intersectionPixels,coverage:prop.recall,uncoveredVisiblePixels:prop.referenceOnlyPixels,candidateOutsideVisiblePixels:prop.candidateOnlyPixels,note:'Candidate prop geometry may include occluded umbrella area; candidateOutsideVisiblePixels is not a false-positive count.'},pixelDerivedVisibleUmbrellaContourFit:visibleProp};
  });
