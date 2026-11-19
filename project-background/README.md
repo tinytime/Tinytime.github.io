@@ -11,9 +11,9 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest branch head:** `fd38a8b1562d5020fc6c76e6e5f3aa8ab45cf0dc` (refresh at each handoff). **Latest renderer source:** `6905171293c04f34f3ee09c804c490082e1f3d57`. Browser run [#44548532467](https://github.com/tinytime/Tinytime.github.io/actions/runs/44548532467), job `135645796007`, tested that exact renderer source; artifact `14540104692` inspected. Runner targeted internal QA passed; overall workflow remains failed on the global Clinic/Sailor silhouette gate and unapproved golden baseline.
+**Latest branch head:** `8f11cb6ba3ed125b325a56c0ea9a48f6c4860d7e` at QA handoff start; refreshed after this documentation update. **Latest renderer source:** `6905171293c04f34f3ee09c804c490082e1f3d57`. Browser run [#44548532467](https://github.com/tinytime/Tinytime.github.io/actions/runs/44548532467), job `135645796007`, tested that exact renderer source; artifact `14540104692` inspected. Runner targeted internal QA independently reverified by QA Coordinator from artifact `14540104692`; overall workflow remains failed on the global Clinic/Sailor silhouette gate and unapproved golden baseline.
 
-**Active task:** Runner is built and has passed targeted internal QA. Four directions, role-debug, gallery and town evidence from artifact `14540104692` have been inspected. Runner remains NOT APPROVED pending the next-group review and owner acceptance.
+**Active task:** Runner is built; the QA Coordinator independently inspected artifact `14540104692` from run #416. Four directions, role-debug, gallery and town evidence passed targeted internal review. Runner remains NOT APPROVED pending second-group comparative review and owner acceptance.
 **Assigned specialist chat:** **NPC Vector Development specialist**.
 **Next action:** Runner is internally checked. Coach is next in the authorized group; Referee follows Coach. Keep other roster members on hold until the owner advances the batch.
 
