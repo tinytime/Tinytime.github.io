@@ -175,3 +175,6 @@ The four-direction pixel-mask review sheet is now browser-generated and visually
 
 
 - **Latest unverified implementation follow-up (2026-11-19):** Granny contour extraction now preserves all disconnected mask components (primary/additional body loops and all visible umbrella loops) and compares the visible-prop contour separately from the manual full-prop candidate. The fixture test includes disconnected components. This change is committed after Run #555 but has not yet been confirmed by a fresh Actions run/artifact. Run #555 remains the latest visually inspected browser evidence; Granny remains `reference_only`.
+
+
+- **Contour topology:** the helper now filters interior holes separately from disconnected outer components, so holes are not misclassified as body appendages. All disconnected visible prop fragments are retained. Nine local fixtures pass; the exact Run #555 artifact still yields body contour IoU above 0.995 in every direction and visible umbrella contour IoU 1.0. Fresh Actions verification is still pending.
