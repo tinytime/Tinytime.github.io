@@ -70,8 +70,20 @@ try {
       ctx.fillRect(x, y + 32, cellW, 384);
       ctx.drawImage(image, x, y + 32, 256, 384);
 
-      const sx = 256 / 100, sy = 384 / 140;
-      const px = p => [x + (item.direction === 'left' ? 100 - p.x : p.x) * sx, y + 32 + p.y * sy];
+      // Renderer-local coordinates do NOT fill the 64x96 capture. Fit the
+      // source grid to the native sprite's shared centerline and its headwear
+      // top / foot baseline. This preserves the renderer's character-specific
+      // vertical scale (including Runner's 1.066 y stretch).
+      const headwearTop = Math.min(...(item.annotation.headwearPolygons || [])
+        .flat().map(p => p.y));
+      const nativeTop = 1;
+      const nativeBaseline = 82;
+      const nativeYScale = (nativeBaseline - nativeTop) /
+        (item.annotation.footBaseline - headwearTop);
+      const px = p => [
+        x + 128 + ((item.direction === 'left' ? 100 - p.x : p.x) - 50) * 2.8,
+        y + 32 + 4 * (nativeTop + (p.y - headwearTop) * nativeYScale)
+      ];
       const polygon = (points, color) => {
         if (!Array.isArray(points) || points.length < 3) return;
         ctx.beginPath();
@@ -104,7 +116,7 @@ try {
           ctx.fillStyle = colors.joints; ctx.fill();
         }
       }
-      const baselineY = y + 32 + item.annotation.footBaseline * sy;
+      const baselineY = y + 32 + 4 * nativeBaseline;
       ctx.beginPath(); ctx.moveTo(x, baselineY); ctx.lineTo(x + 256, baselineY);
       ctx.strokeStyle = 'rgba(255,255,255,.65)'; ctx.lineWidth = 1; ctx.stroke();
     }
@@ -122,6 +134,7 @@ try {
     missing,
     overlay: 'six-civilian-annotation-overlay.png',
     dimensions: { width: result.width, height: result.height },
+    coordinateFit: 'native capture x centerline 32px at source x=50; y fitted from per-character headwear top to foot baseline; left-facing x mirrored at display time',
     status: 'candidate_visual_review_required',
     legend
   };
