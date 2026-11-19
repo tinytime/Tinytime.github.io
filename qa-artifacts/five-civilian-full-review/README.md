@@ -10,6 +10,8 @@ Claude: conduct one complete, independent comparative review of these **five** c
 4. Coach — veteran sideline tactician
 5. Referee — football official
 
+**Independent review brief:** [CLAUDE-REVIEW-BRIEF.md](CLAUDE-REVIEW-BRIEF.md) — exact source, latest artifact, review scope, criteria and required response format.
+
 Compare all five against Granny Volt's approved 10/10 quality benchmark. Review the actual rendered evidence and source, not descriptions alone. The goal is to identify the corrections needed to bring these five to a consistently excellent finish, then extract a practical production rule set that will let ChatGPT build the remaining civilians faster, with less iteration, without making them look like recolored versions of one template.
 
 **Runner is intentionally excluded from this review to reduce review scope. Runner is not deleted, not rejected, and not approved by this scope change.** Runner shares the athletic archetype with Coach and Referee; retaining Coach and Referee provides two distinct athletic-role examples while preserving the civic, vendor, and courier design families. Runner remains built and pending a later focused review. Do not spend review effort scoring Runner in this pass.
