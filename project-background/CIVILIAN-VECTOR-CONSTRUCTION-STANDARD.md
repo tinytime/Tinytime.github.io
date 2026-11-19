@@ -285,3 +285,8 @@ This standard itself remains a **draft** until Claude has reviewed it and the pr
 - `qa/npc-scope-policy.json`: explicit scorecard scope; Granny is the reference baseline, not a normal civilian scorecard entry.
 - `project-background/02-ART-DIRECTION-AND-APPROVAL.md`: art-direction and approval policy.
 - `project-background/03-TECHNICAL-IMPLEMENTATION.md`: renderer integration and technical guardrails.
+
+
+## Initial six-civilian application — 2026-11-19
+
+The draft standard has been applied internally to all six currently built vector civilians (Usher, Cook, Courier, Runner, Coach, Referee). See [Six-Civilian Construction Standard Audit](SIX-CIVILIAN-CONSTRUCTION-AUDIT.md) for the per-character construction cards, provisional first-pass scorecard, actual render evidence, current QA measurements, and semantic-measurement calibration gap. The audit does not ratify this draft, turn its provisional values into hard gates, expand the active five-character Claude submission, or release the remaining 20 civilians from hold.
