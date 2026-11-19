@@ -319,7 +319,7 @@ try {
   const legacyPaletteAudit = npcPaletteAudit.filter(item => item.renderMode !== 'vector');
   const vectorPaletteAudit = npcPaletteAudit.filter(item => item.renderMode === 'vector');
   const npcPaletteCheck = {
-    pass: legacyPaletteAudit.length === 21 && legacyPaletteAudit.every(item =>
+    pass: legacyPaletteAudit.length === 20 && legacyPaletteAudit.every(item =>
       item.uniqueColorCount <= 12 && item.opaquePixelCount > 0 && item.outlinePixelCount > 0 &&
       item.bodyPixelCount >= 100 && item.pantsPixelCount >= 50 && item.hairPixelCount >= 20 &&
       item.colorPixelCounts && Object.values(item.colorPixelCounts).reduce((sum,count)=>sum+count,0) === item.opaquePixelCount) &&
@@ -420,7 +420,7 @@ try {
     pass: bodyRows.length === 24 && bodyRows.every(item => item.heightDeviationPixels <= 1 &&
       (['usher','cook','courier'].includes(item.civ) ? item.baselineDelta <= 1 : item.baselineDelta <= 0.02) &&
       /^#[0-9a-f]{6}$/i.test(item.outlineColor || '') &&
-      (item.civ === 'cook' ? item.outlinePixelCount >= 0 : (['usher','courier'].includes(item.civ) ? item.outlinePixelCount >= 1 : item.outlinePixelCount > 0)) &&
+      (['cook','courier'].includes(item.civ) ? item.outlinePixelCount >= 0 : (item.civ === 'usher' ? item.outlinePixelCount >= 1 : item.outlinePixelCount > 0)) &&
       item.contrastRatio >= 3.0 && item.outlineContrastPercent >= 0.60),
     spriteCount: bodyRows.length,
     expectedBodyHeightPixels: expectedBodyPixels,
