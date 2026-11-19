@@ -17,20 +17,25 @@
   },
   "characters": {
     "granny": {
-      "status": "reference_baseline",
+      "status": "reference_only",
       "poseClass": "standing",
       "referenceSource": "qa/granny-ref.json",
-      "note": "Approved benchmark; existing reference measurement excludes umbrella canopy and shaft, retains gripping hand/arm. Headwear is not separately excluded in the legacy reference; keep that known convention difference visible until source annotation is harmonized.",
       "legacyMeasurements": {
+        "sourceGrid": {
+          "width": 100,
+          "height": 140
+        },
+        "rendererScale": 0.28,
         "bodyHeight": 125,
+        "totalMeasuredHeight": 139,
         "headHeight": 38,
         "shoulderWidth": 36,
-        "neckRow": 49,
-        "shoulderRow": 50,
         "footBaseline": 136,
+        "outlineInk": "#171725",
         "headBodyPercent": 30.4,
         "shoulderBodyPercent": 28.8
-      }
+      },
+      "note": "Approved benchmark measurements imported as legacy reference facts. They are not yet a semantic-landmark annotation record; the umbrella canopy and shaft are excluded while gripping arm/hand remain included. Harmonize the semantic body/headwear mask before directly comparing new landmark ratios."
     },
     "usher": {
       "status": "pending_annotation",
