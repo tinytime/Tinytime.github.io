@@ -496,3 +496,10 @@ See [Semantic Civilian Anatomy Annotation Guide](../qa/CIVILIAN-ANATOMY-ANNOTATI
 The full browser workflow still **FAILED** on the existing global civilian silhouette gate (max IoU 0.9094292803970223) and unapproved golden snapshots (1 match / 23 changed). The run also records missing audio-resource 404 console errors; page errors and script errors are empty. Directional integrity 92/92, direct game-scale capture assertion 20/20, role-debug 12/12, prop audit and gallery pass. Artifact: [14570697656](https://github.com/tinytime/Tinytime.github.io/actions/runs/44608283710/artifacts/14570697656).
 
 This is a framework test pass, not semantic annotation coverage: the six characters remain pending human landmark annotation. No snapshots were refreshed or approved.
+
+
+## Source-derived candidate annotation update — 2026-11-19
+
+The six civilian records now contain first-pass source-derived candidate landmarks for front, back, left and right, based on the pinned `npc_sprites.js` draw paths at commit `8ac99ec8fd7eb7f2328eda7b7332d5e8f2d45317`. Candidate annotations include a coarse anatomical body polygon, headwear and prop exclusion polygons, head/chin/shoulder/pelvis/foot landmarks, and (for Runner) bilateral shoulder/elbow/wrist/hip/knee/ankle joints. The measurement report computes descriptive candidate ratios but labels these records `source_annotated`, not `measured`.
+
+**Verification boundary:** these are manually transcribed source-geometry candidates, not pixel-traced/visually approved masks. The polygons are intentionally coarse and must be overlaid against fresh native 64×96 captures in all four directions; profile mirroring, hair/headwear boundaries, shoulder joints, prop exclusions, and Runner's stride joints require spot-check/correction before promoting any record to `measured` or using ratios for calibration. No proportion band is enforced, no renderer art changed, and no approval status changed.
