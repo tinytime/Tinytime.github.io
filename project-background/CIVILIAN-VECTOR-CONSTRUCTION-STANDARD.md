@@ -418,3 +418,8 @@ The Granny output now distinguishes the complete hand-transcribed umbrella geome
 
 
 The current helper traces all disconnected visible prop components via `deriveLocalMaskContours`; the semantic overlay draws every returned contour. Its fixture suite now includes split-component coverage. Do not silently discard smaller visible fragments when a prop is partially occluded.
+
+
+## Disconnected pixel-mask components — 2026-11-19
+
+Contour extraction must retain every disconnected outer component. A largest-contour-only algorithm can drop a detached body-alpha fragment or the umbrella shaft when the visible umbrella delta separates canopy and shaft. The Granny helper now returns all outer loops; body components populate the primary body polygon plus appendage polygons, while visible prop components are retained as an array. A fixture checks two disjoint shapes. Continue to preserve manual full-prop geometry separately because visible alpha omits occluded geometry. This remains a Granny-specific renderer-mask technique, not a semantic approval rule.
