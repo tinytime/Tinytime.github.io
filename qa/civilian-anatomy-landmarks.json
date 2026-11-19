@@ -1700,23 +1700,19 @@
             [
               {
                 "x": 21,
-                "y": 61
-              },
-              {
-                "x": 31,
-                "y": 61
+                "y": 60
               },
               {
                 "x": 32,
-                "y": 69
+                "y": 60
               },
               {
-                "x": 23,
-                "y": 72
+                "x": 33,
+                "y": 70
               },
               {
-                "x": 20,
-                "y": 68
+                "x": 22,
+                "y": 71
               }
             ]
           ],
@@ -2154,24 +2150,20 @@
           "propPolygons": [
             [
               {
-                "x": 69,
-                "y": 71
-              },
-              {
-                "x": 78,
+                "x": 68,
                 "y": 71
               },
               {
                 "x": 80,
-                "y": 82
+                "y": 71
               },
               {
-                "x": 72,
-                "y": 85
+                "x": 80,
+                "y": 84
               },
               {
                 "x": 68,
-                "y": 80
+                "y": 84
               }
             ]
           ],
@@ -2397,24 +2389,20 @@
           "propPolygons": [
             [
               {
-                "x": 69,
-                "y": 71
-              },
-              {
-                "x": 78,
+                "x": 68,
                 "y": 71
               },
               {
                 "x": 80,
-                "y": 82
+                "y": 71
               },
               {
-                "x": 72,
-                "y": 85
+                "x": 80,
+                "y": 84
               },
               {
                 "x": 68,
-                "y": 80
+                "y": 84
               }
             ]
           ],
@@ -2475,7 +2463,7 @@
         "sourceFile": "npc_sprites.js",
         "method": "Manual source-path landmark and coarse silhouette annotation from the character draw function; normalized to its 100x140 local coordinate grid.",
         "reviewStatus": "candidate_revised_after_native_overlay_spot_check",
-        "note": "Runner candidate revised after native overlay inspection: anatomical outer contour now follows both arm silhouettes and the sprinting legs; race bib is retained as clothing, while stopwatch alone is excluded as a prop. Bilateral joint landmarks are repositioned onto source-defined shoulders, elbows, wrists, hips, knees and ankles. Still requires visual verification at native capture scale."
+        "note": "Candidate geometry only. Runner's race bib is part of the singlet and must remain in the anatomical/body-garment mask; prop exclusions now target only the wrist stopwatch where present. Bilateral joint coordinates still require pose-aware visual correction."
       }
     },
     "coach": {
