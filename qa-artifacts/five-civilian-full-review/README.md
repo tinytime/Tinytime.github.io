@@ -204,3 +204,7 @@ Please review this standard as part of the assignment, not merely produce a new 
 The current standard explicitly labels all proposed proportion bands and scoring thresholds as **provisional**. Please return a revised recommendation and list which values should remain guidance, which can become automated warnings, and which—if any—are safe hard-fail thresholds.
 
 The owner has not ratified this standard. Your review is advisory; do not change character approval statuses or release the remaining 20 civilians.
+
+## Six-civilian standard application context
+
+The draft construction standard has now been applied internally to all six built vector civilians, including Runner. See [Six-Civilian Construction Standard Audit](../../project-background/SIX-CIVILIAN-CONSTRUCTION-AUDIT.md). The current Claude review remains five characters by the owner's previous scope decision; Runner is included in the internal audit only and is not added to this review package.
