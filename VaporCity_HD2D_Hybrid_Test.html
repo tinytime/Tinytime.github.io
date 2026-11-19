@@ -9087,15 +9087,15 @@ function measureNpcArchetypeTorsoMasks(){
   }
   return results;
 }
-window.SG={npcRenderDirectionalSnapshots:()=>{
+window.SG={npcRenderDirectionalSnapshots:(options={})=>{
   const directions=[['front','d'],['back','u'],['left','l'],['right','r']];
   const civs=Object.keys(CIV).filter(civ=>civ!=='granny').sort();
   return civs.flatMap(civ=>directions.map(([direction,dir])=>{
     const target=document.createElement('canvas');target.width=64;target.height=96;
     const n={id:'qa-direction-'+civ,civ,x:0,y:0};
-    owCiv(0,0,dir,false,n,0,0,target.getContext('2d'));
+    owCiv(0,0,dir,false,n,0,0,target.getContext('2d'),options);
     const sprite=owCiv._gridCanvas;
-    return {civ,direction,width:sprite.width,height:sprite.height,dataUrl:sprite.toDataURL('image/png')};
+    return {civ,direction,width:sprite.width,height:sprite.height,dataUrl:sprite.toDataURL('image/png'),roleLegend:owCiv._lastRoleDebugLegend||[]};
   }));
 },npcMeasureGranny:()=>measureGrannyVoltNative(),npcMeasureArchetypeMasks:options=>measureNpcArchetypeMasks(options),npcMeasureArchetypeTorsoMasks:()=>measureNpcArchetypeTorsoMasks(),npcGrannyRef:()=>GRANNY_REF,
   npcPaletteAudit:()=>Object.keys(CIV).filter(civ=>civ!=='granny').map(civ=>{const canvas=document.createElement('canvas');canvas.width=64;canvas.height=96;const n={id:'qa-'+civ,civ,x:0,y:0};owCiv(0,0,'d',false,n,0,0,canvas.getContext('2d'));return Object.assign({},owCiv._lastPaletteMetrics)}),
