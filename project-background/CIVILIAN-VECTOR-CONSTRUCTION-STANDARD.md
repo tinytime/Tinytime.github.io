@@ -433,3 +433,8 @@ The contour tracer now distinguishes outer boundaries from interior holes using 
 ## Pixel-mask topology — 2026-11-19
 
 Candidate contours must preserve the topology of the renderer alpha mask: all disconnected outer components **and** interior holes. Largest-loop-only tracing loses detached parts; outer-only tracing fills transparent gaps. The Granny helper now stores body outer components and holes separately, does the same for visible umbrella alpha, and subtracts hole masks during rasterized fit comparison. The method is only applicable when the renderer alpha pass has a known semantic partition. It does not replace human review of anatomical meaning or prop contact.
+
+
+## Landmark-to-mask evidence without semantic overclaim — 2026-11-19
+
+Where exact body alpha masks are available, record whether candidate landmark coordinates are consistent with the visible mask: top/bottom offsets, chin vertical range, shoulder-point pixel inclusion, shoulder/pelvis row occupancy and foot-baseline alignment. Treat this as a diagnostic aid only. A point falling on the silhouette does not prove it is the correct anatomical landmark; human review must still interpret the character anatomy and the chosen measurement convention. No hard thresholds are established from Granny alone.
