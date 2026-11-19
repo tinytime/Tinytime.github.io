@@ -547,3 +547,12 @@ Run #587 ([Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/
 The original manual body candidate remains weak (IoU 0.786 front/back; 0.645/0.644 profiles), so it is not ready for semantic promotion. Manual umbrella candidate covers 81.5–82.2% of visible umbrella pixels; hidden extent/grip remains for human review. The pixel-derived masks are renderer evidence, not approved anatomy polygons.
 
 Other QA: 24/24 six-civilian overlay captures; 20/20 five-civilian native and direct game-scale captures; 92/92 directional integrity; role debug 12/12; prop audit 10 archetypes; gallery rendered. Workflow failed on audio 404 diagnostics; full-roster silhouette gate remains max IoU 0.909429 and golden snapshot gate 1/23. No golden snapshots changed. Visual artifact inspection completed; no artistic approval. Granny remains `reference_only`.
+
+
+## Run #591 — Granny landmark sheet verification (2026-11-19)
+
+[Browser QA #591](https://github.com/tinytime/Tinytime.github.io/actions/runs/44633672693), artifact `14582493188`, tested `5ada0ff9a419f547c178c5a2c559c43ffe0e39f1` (branch head). The label-spacing/output-manifest correction is verified: the four-view `granny-landmark-review.png` is present in the artifact, its CHIN and SHOULDER labels no longer collide, and all candidate lines/points are visible. This is a presentation and artifact-integrity pass, not approval of the candidate anatomical landmarks.
+
+Targeted evidence passed: semantic validation; Granny four-direction capture; six-civilian overlays 24/24; five-civilian native and direct game-scale captures 20/20 each; directional integrity 92/92; role debug 12/12; prop audit 10 archetypes; gallery and town state (16 NPCs; Granny present). Granny direction distinction check passed. No page/script errors. Overall workflow failed on 180 audio 404 console errors across 46 unique URLs, full-roster silhouette max IoU `0.9094292803970223`, and unapproved golden snapshots (1/23). No golden files or approval provenance changed.
+
+The sheet's visual layout is now readable, but body-mask candidate fit remains weak (IoU 0.7875 front, 0.7877 back, 0.6458 left, 0.6447 right); exact pixel-derived contours reproduce renderer alpha at IoU 1.0 but are not semantic anatomy segmentation. Candidate landmarks/polygons remain unverified; Granny stays `reference_only`. Do not calibrate ratios or promote annotations from this run.
