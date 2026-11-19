@@ -1127,8 +1127,25 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     const curvePath=(start,segments,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(start[0],start[1]);segments.forEach(v=>g.bezierCurveTo(...v));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.stroke();}};
     // Airborne sprint: asymmetrical knee drive and trailing foot.
     if(!side){
-      path([[40,89],[50,90],[47,103],[37,116],[27,125],[20,120],[30,109],[34,96]],shorts);
-      path([[53,89],[64,88],[68,101],[73,113],[84,117],[87,124],[75,126],[63,120],[57,108]],shorts);
+      // Short racing shorts end above the knees; exposed calves and rounded
+      // knee transitions keep the airborne stride athletic rather than trouser-like.
+      curvePath([40,89],[
+        [44,89,48,90,50,94],[51,98,47,103,41,106],
+        [36,108,31,104,31,99],[32,94,35,90,40,89]
+      ],shorts,ink,1.6);
+      curvePath([38,101],[
+        [44,102,46,106,42,112],[38,118,31,123,26,125],
+        [21,127,17,123,19,118],[23,111,29,105,33,102],
+        [35,101,36,101,38,101]
+      ],legSkin,ink,1.5);
+      curvePath([53,89],[
+        [58,88,64,88,67,93],[71,99,75,105,74,110],
+        [72,114,67,113,62,108],[58,103,55,96,53,89]
+      ],shorts,ink,1.6);
+      curvePath([69,105],[
+        [75,107,81,111,87,115],[91,119,89,124,84,125],
+        [77,125,70,120,66,114],[63,110,65,106,69,105]
+      ],legSkin,ink,1.5);
       path([[20,120],[29,121],[34,126],[31,131],[16,131],[13,127]],shoe,ink,1.6);
       path([[75,119],[87,117],[92,121],[91,126],[76,128],[71,124]],shoe,ink,1.6);
       // Removed detached pale sole glints; shoe highlights are now contained within the boot shapes.
@@ -1211,9 +1228,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
           [87,112,92,113,94,117],[96,121,92,124,87,123],
           [79,121,72,117,66,112],[60,107,55,100,50,89]
         ],shorts,ink,1.6);
-        curvePath([79,109],[
-          [84,110,88,112,90,116],[91,119,89,121,85,120],
-          [81,119,77,116,75,113],[76,111,77,110,79,109]
+        curvePath([76,102],[
+          [82,105,88,108,91,113],[93,117,90,120,86,119],
+          [80,117,75,112,71,108],[70,105,72,103,76,102]
         ],legSkin,ink,1.35);
         path([[24,116],[36,117],[40,122],[38,128],[20,128],[17,123]],shoe,ink,1.6);
         path([[79,112],[91,112],[96,116],[94,122],[78,123],[73,119]],shoe,ink,1.6);
