@@ -11,7 +11,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 ## Current project status — refresh this block at every handoff
 
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest verified source commit at this status check:** Courier correction source `98dbcda2a32fa506ba355f12ddd449db3322a4b4`. Browser QA run [#410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44542492048) tested that exact commit; artifact `14537384741` was downloaded and independently re-inspected. The Courier corrections pass internal visual QA. Documentation handoff is being refreshed from branch head `0dc99d6fda28af34a17f6a1221516fe4b96dd8bf`.
+**Latest verified source commit at this status check:** Courier correction source `98dbcda2a32fa506ba355f12ddd449db3322a4b4`. Browser QA run [#410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44542492048) tested that exact commit; artifact `14537384741` was downloaded and independently re-inspected. The Courier corrections pass internal visual QA. Latest verified documentation handoff commit: `e44c4085a707fb9b6b285f7ac9cb51b001a70061`.
 
 **Active task:** Courier's corrected vector art has passed the QA Coordinator's independent artifact verification. The profile face, consistent messenger satchel/right-hip rear placement, and removed detached hem stripe are confirmed in the fresh four-direction captures. The 8× role-debug sheet, 4× gallery, and town screenshot were also inspected. All Courier-specific targeted checks passed; the overall workflow remains failed on the global legacy silhouette audit and unapproved golden snapshots, with missing audio-resource 404s logged. No golden snapshots were changed.
 **Assigned specialist chat:** **QA and Independent Review Coordinator**.
