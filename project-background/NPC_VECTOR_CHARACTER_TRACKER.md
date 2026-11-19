@@ -373,3 +373,11 @@ The browser QA hook now targets Usher, Cook, Courier, Coach and Referee at direc
 - Page errors: 0; script errors: 0; audio-resource 404 console errors remain.
 - Overall workflow: **FAILED** on global civilian type silhouette audit (max rendered IoU 0.909429; closest pairs include Clinic/Sailor front and Coach/Courier back) and golden snapshot gate (23 changed / 1 match; baseline remains unapproved).
 - The 20 native 64×96 captures and 20 direct 28×42 captures have not been visually inspected by ChatGPT or Claude. All five remain NOT APPROVED; no golden snapshots were refreshed or approved.
+
+
+## Run #464 — paired contact-sheet packaging verification (2026-11-19)
+
+- [Actions run #464](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571); [artifact `14568746641`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44602808571/artifacts/14568746641)
+- Generator verified 20/20 native captures and 20/20 direct game-scale captures, with no missing images.
+- Artifact includes `five-civilian-native-4x-contact-sheet.png` (1114×2208) and `five-civilian-game-scale-4x-contact-sheet.png` (730×1208), plus individual images and report.
+- Overall workflow remains failed on the global silhouette and unapproved golden snapshot gates. Human visual inspection of both sheets and individual PNGs remains outstanding.
