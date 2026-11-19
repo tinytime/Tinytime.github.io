@@ -35,6 +35,7 @@ jobs:
       - name: Validate semantic civilian proportion measurements and annotation manifest
         run: |
           node qa/test-civilian-proportion-measurements.mjs
+          node qa/test-granny-mask-fit.mjs
           node qa/civilian-proportion-measurements.mjs --check
       - name: Run game browser diagnostics
         run: node qa/vapor-city-browser-qa.mjs
