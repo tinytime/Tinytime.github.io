@@ -221,3 +221,8 @@ The follow-up measurement framework is implemented:
 - `qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md` defines how to annotate all four directions.
 
 This implements the measurement engine and guardrails, not the actual landmark annotation. Semantic coverage remains 0/6 NPCs; Granny's legacy mask convention also needs harmonization before direct ratio calibration. The workflow runs the fixture tests and manifest structural check.
+
+
+### Framework verification result
+
+Run [#481](https://github.com/tinytime/Tinytime.github.io/actions/runs/44608283710) passed the semantic measurement fixture tests and manifest structural check. Artifact [14570697656](https://github.com/tinytime/Tinytime.github.io/actions/runs/44608283710/artifacts/14570697656) contains the generated `qa-output/civilian-proportion-measurements.json` alongside the browser QA evidence. The full workflow remains failed on the known global silhouette and unapproved snapshot gates, with audio 404 console errors. Semantic annotations remain pending for all six NPCs; a test pass does not create measured character ratios.
