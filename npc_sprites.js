@@ -1289,6 +1289,7 @@
       if(roleDebug){
         roleDebugGrid.unshift(Array(N).fill(null));
         roleDebugGrid.pop();
+        if(roleDebugLayers&&debugSourceGrid){debugSourceGrid.unshift(Array(N).fill(null));debugSourceGrid.pop();}
         const roles=[...new Set((roleDebugLayers?debugSourceGrid:roleDebugGrid).flat().filter(Boolean))].sort();
         const layerColors={'torso-mask-upper':'#268bd2','torso-mask-hem':'#dc322f','sleeves-arms':'#b58900','hands':'#2aa198','legs':'#6c71c4','apron':'#d33682','garment-overlays':'#859900','base':'#777777'};
         const roleColor=role=>layerColors[role]||'#eeeeee';
