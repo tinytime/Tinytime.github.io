@@ -97,6 +97,7 @@ try {
         ctx.stroke();
       };
       polygon(item.annotation.bodyPolygon, colors.body);
+      for (const p of item.annotation.bodyAppendagePolygons || []) polygon(p, colors.body);
       for (const p of item.annotation.headwearPolygons || []) polygon(p, colors.headwear);
       for (const p of item.annotation.propPolygons || []) polygon(p, colors.props);
 
