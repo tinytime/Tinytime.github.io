@@ -1132,11 +1132,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       // The sprint remains asymmetric, but the legs share the same solid anatomy
       // and visual weight as the other civilians rather than ribbon-like curves.
       path([[35,89],[49,90],[51,98],[47,105],[39,108],[31,103],[31,96]],shorts,ink,1.6);
-      path([[37,103],[46,104],[43,113],[36,121],[27,126],[20,124],[22,117],[30,108]],legSkin,ink,1.5);
+      // Keep both knees stacked over the feet: lower legs descend cleanly
+      // instead of kicking outward from the shorts, following Coach's
+      // straight, tapered leg construction while retaining a running offset.
+      path([[37,103],[46,104],[45,111],[44,118],[43,125],[37,128],[32,125],[33,118],[35,110]],legSkin,ink,1.5);
       path([[51,89],[65,89],[70,96],[74,105],[70,112],[63,110],[57,102]],shorts,ink,1.6);
-      path([[68,105],[78,108],[88,115],[91,120],[87,125],[78,125],[69,119],[64,112]],legSkin,ink,1.5);
-      path([[20,120],[29,120],[34,125],[32,131],[16,131],[13,127]],shoe,ink,1.6);
-      path([[77,119],[88,117],[93,121],[91,127],[76,129],[71,124]],shoe,ink,1.6);
+      path([[65,106],[73,108],[74,115],[75,122],[73,128],[67,130],[63,126],[63,119],[64,112]],legSkin,ink,1.5);
+      path([[31,123],[40,123],[45,127],[44,132],[29,133],[26,129]],shoe,ink,1.6);
+      path([[63,125],[72,125],[78,128],[77,133],[62,134],[59,130]],shoe,ink,1.6);
       // Removed detached pale sole glints; shoe highlights are now contained within the boot shapes.
       line([[37,109],[44,113]],'#8C2F3D',1.1);line([[62,108],[68,112]],'#8C2F3D',1.1); // restrained shorts seam, not torn orange slashes.
     }else{
@@ -1207,10 +1210,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[35,89],[57,90],[60,99],[56,106],[43,107],[36,101]],shorts,ink,1.6);
         path([[43,103],[56,104],[58,113],[55,122],[49,128],[40,126],[39,119],[42,111]],legSkin,ink,1.5);
         path([[40,124],[54,124],[61,130],[60,135],[38,135],[35,131]],shoe,ink,1.6);
-        // A compact rear shoe tip hints at the trailing stride without a second
-        // oversized leg contour or overlapping calf mass.
-        path([[29,119],[39,119],[42,123],[39,127],[27,126],[24,123]],shoe,ink,1.45);
-        // No floating sole strokes beneath the sprinting shoes.
+        // The far foot is fully occluded in profile: keep one clear near shoe
+        // and avoid a detached rear shoe shape that reads as a third foot.
+        // No floating sole strokes beneath the sprinting shoe.
         path([[69,73],[76,72],[78,77],[71,79]],'#F6C95C',ink,1);
         ell(72,74,2.5,2.5,'#25243B',ink,.9);line([[72,72],[73,74]],'#F6E7C1',.8);
       }else{
