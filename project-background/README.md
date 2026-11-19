@@ -13,9 +13,9 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 **Branch:** `npc-granny-baseline-overhaul`  
 **Latest branch head:** `db3f958351aa9994fab544dfb915ea0e2424708d`. The latest game/renderer/QA source tested remains `98dbcda2a32fa506ba355f12ddd449db3322a4b4`; the 12 commits between those SHAs are documentation-only. Browser QA run [#410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44542492048), job `135624264131`, tested that exact source commit; artifact `14537384741` was independently re-fetched and visually inspected by the QA Coordinator. Courier's three required corrections pass internal visual QA.
 
-**Active task:** Runner's bespoke vector renderer and QA coverage are integrated. Full browser QA and actual directional/gallery/town artifact inspection are pending.
+**Active task:** Runner's bespoke vector renderer and QA coverage are integrated. Initial directional/gallery/town evidence was inspected; a height/baseline correction and Cook transform restoration are in commit `ae550b0`. The corrected browser run is still in progress.
 **Assigned specialist chat:** **NPC Vector Development specialist**.
-**Next action:** Inspect the latest Runner browser run and artifacts; fix any Runner-specific defects, then move to Coach only after Runner passes internal QA. Referee follows Coach. Keep all other characters on hold.
+**Next action:** Finish run `44547955840`, inspect its report and actual screenshots, verify Runner's body height/baseline and Cook's edge integrity, fix any remaining Runner-specific visual issues, then move to Coach only after Runner passes internal QA. Referee follows Coach. Keep all other characters on hold.
 
 ## Working agreement
 
