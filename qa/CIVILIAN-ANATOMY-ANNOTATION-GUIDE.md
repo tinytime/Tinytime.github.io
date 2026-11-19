@@ -90,3 +90,8 @@ The existing five-civilian contact sheet covers Usher, Cook, Courier, Coach and 
 
 
 The overlay renderer was corrected to apply the left-facing x mirror at display time. Manifest geometry remains in local pre-flip coordinates for all directions. This avoids double-mirroring accessory polygons and keeps measurements consistent with the renderer transform.
+
+
+## Runner annotation correction — 2026-11-19
+
+Native overlay inspection showed that the initial Runner candidate wrongly classified the race bib and an arm region as props and placed shoulder/elbow/wrist/knee/ankle landmarks too centrally. The manifest now keeps the bib as clothing, uses only the stopwatch as a prop exclusion (front and side; none on back), expands the anatomical outer contour to follow both arm silhouettes and the stride, and relocates bilateral joints to source-defined limb segments. This is still a candidate revision; the next fresh six-character overlay must be inspected before acceptance.
