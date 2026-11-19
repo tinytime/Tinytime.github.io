@@ -229,6 +229,9 @@ The contour algorithm must be checked against the exact alpha mask in all four d
 
 ## Visible prop contour versus full prop geometry — 2026-11-19
 
-The exact full-render-minus-body alpha mask contains only the **visible** prop pixels; it cannot reveal umbrella geometry hidden behind Granny. The capture now preserves the full hand-transcribed umbrella geometry as `manualPropPolygonCandidate` and separately derives `visiblePropPolygon` from the exposed-delta mask. The semantic overlay draws the full candidate in yellow and the visible-only pixel contour in cyan. The fit report compares manual full-geometry coverage against visible umbrella pixels and separately verifies the visible-only contour against the exact delta mask.
+The exact full-render-minus-body alpha mask contains only the **visible** prop pixels; it cannot reveal umbrella geometry hidden behind Granny. The capture now preserves the full hand-transcribed umbrella geometry as `manualPropPolygonCandidate` and separately derives `visiblePropPolygons` from the exposed-delta mask. The semantic overlay draws the full candidate in yellow and the visible-only pixel contour in cyan. The fit report compares manual full-geometry coverage against visible umbrella pixels and separately verifies the visible-only contour against the exact delta mask.
 
 This distinction is reusable: record visible rendered prop pixels separately from the complete geometric prop, and do not treat intentionally occluded geometry as a false positive. For props whose renderer does not expose a clean semantic layer, keep the visible mask and full geometry as separate human-reviewed candidates.
+
+
+The visible prop tracer returns every disconnected visible component, not just the largest one. This matters for props that may render as separated visible fragments around occluding anatomy; keep all returned contours and keep the hidden full geometry separate.
