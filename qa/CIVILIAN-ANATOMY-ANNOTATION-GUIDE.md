@@ -259,3 +259,10 @@ The new fixture covers a mask with two disconnected components and a separate ma
 ## Landmark-to-mask evidence — 2026-11-19
 
 The capture fit report now checks candidate landmarks against the exact body alpha mask without treating pixel inclusion as semantic approval. It records body top/bottom, head-top offset, chin vertical-range consistency, whether shoulder points touch the body mask (exact pixel and one-pixel neighborhood), pixel count on the candidate shoulder/pelvis rows, and foot-baseline offset. These are diagnostic observations only; they do not validate the anatomical interpretation of a landmark or create a hard gate.
+
+
+## Run #587 verification notes — 2026-11-19
+
+The updated mask helper and capture integration were exercised in browser QA Run #587 (artifact `14581958311`). Eleven helper fixtures passed. All four Granny directions were captured; derived body and visible umbrella contours reproduced exact renderer alpha masks at IoU 1.0 in all directions, including separate hole handling. The manual body candidate's fit remains poor (IoU 0.786 front/back; 0.645/0.644 profiles), so preserve it as an unverified source candidate rather than promoting it. Candidate headTop y=8 is one pixel above body alpha y=9; shoulder points and foot baseline align with the mask; chin remains in vertical bounds. These checks are diagnostic, not semantic approval.
+
+The browser job failed on unrelated audio HTTP 404 diagnostics; the five-civilian report also retains the global silhouette and unapproved golden snapshot gates. Granny remains `reference_only`.
