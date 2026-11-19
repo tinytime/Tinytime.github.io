@@ -102,3 +102,8 @@ Owner feedback identified double-visible arms in the side profiles of Runner, Co
 - Source commit `7b265931c800ad6055e16cc024f0339cefd517e5` widened Coach's side-profile rear jacket contour and moved the whistle/lanyard toward the front. Run #445 exposed one remaining Runner trailing-leg issue: the lower leg still read too much like a long dark trouser shape.
 - Follow-up source commit `fafb991d3ce94ffa491179a84ecb63c10934b0e0` shortened the trailing shorts form and exposed a distinct tapered calf. Run #446 tested this exact renderer commit.
 - Run #446 native 64×96 and direct 28×42 captures were inspected for all 12 Runner/Coach/Referee directions. See [run #446 review package](../qa-artifacts/runner-coach-referee-run-446/README.md).
+
+
+## Five-civilian direct game-scale QA capture (2026-11-19)
+
+The `window.SG.npcRenderGameScaleSnapshots()` hook in `VaporCity_HD2D_Hybrid_Test.html` now renders **Usher, Cook, Courier, Coach, and Referee** directly through `owCiv` at the live `OWT=36` / vector scale `0.28`. It emits four directions per character as native 28×42 PNGs; this is a fresh renderer pass, not a resize of the 64×96 QA captures. `qa/vapor-city-browser-qa.mjs` asserts exactly 20 unique character/direction pairs, all five named characters, all four directions, expected dimensions, and the explicit direct-render capture method. Implementation commit: `c1d8d75aceeef0c9a689c2f8c40ae88909c55ada`; run #463 is the first verification of this expanded hook. Do not call this tested until that run completes and its report/artifact confirms all 20 captures.
