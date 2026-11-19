@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
-import { deriveLocalMaskContours, deriveLocalMaskHoles, measureGrannyMaskFit } from './granny-mask-fit.mjs';
+import { deriveLocalMaskContours, deriveLocalMaskHoles, measureGrannyLandmarkEvidence, measureGrannyMaskFit } from './granny-mask-fit.mjs';
 import { createServer } from 'node:http';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -179,7 +179,8 @@ try {
   annotation.pixelMaskFitReview = {
     status:'candidate_diagnostic_not_approval',
     method:'manual candidate and pixel-derived outer contour are rasterized at pixel centers and compared with exact renderer alpha row spans; profile scale/mirror matches the capture transform',
-    directions:measureGrannyMaskFit(annotation,result.masks)
+    directions:measureGrannyMaskFit(annotation,result.masks),
+    landmarkEvidence:measureGrannyLandmarkEvidence(annotation,result.masks)
   };
   fs.writeFileSync(path.join(out,'granny-pixel-mask-fit-report.json'),JSON.stringify(annotation.pixelMaskFitReview,null,2)+'\n');
   fs.writeFileSync(path.join(out,'granny-semantic-candidate.json'),JSON.stringify(annotation,null,2)+'\n');
