@@ -203,3 +203,16 @@ The initial candidate overlay incorrectly labelled the canopy as headwear and it
 The Granny capture now emits `granny-pixel-mask-overlay.png` in addition to the existing coarse candidate polygon sheet. It overlays the exact alpha row masks from the live 100×140 renderer captures: cyan marks the umbrella-excluded body pass (including hair, clothing and the gripping hand/arm); gold marks visible umbrella pixels present in the full render but absent from the body pass. The overlay is evidence for reviewing the actual raster boundary, not an automatic anatomy classifier or a new measurement state.
 
 The semantic convention is explicit: Granny has no separate worn headwear; silver hair is anatomical hair. Both canopy and shaft are parts of the carried umbrella and are props. The grip/hand/forearm remain anatomy. The umbrella-delta mask contains only visible umbrella pixels not occluded by the character; it must not be interpreted as the full hidden geometric extent of the prop. Inspect the new four-direction sheet against the original full/body captures before accepting any landmarks. Granny remains `reference_only` until that visual verification and the profile convention review are complete.
+
+
+## Candidate polygon-to-pixel fit diagnostics — 2026-11-19
+
+When a capture provides exact renderer alpha row masks, compare candidate semantic polygons with those masks instead of relying only on visual impression:
+
+1. Rasterize the body polygon plus all anatomical appendage polygons into the same 100×140 output grid, using pixel-center inclusion. Apply the exact renderer transform used by the capture (Granny profiles: 0.72 horizontal scale; left view additionally mirrors).
+2. Compare that candidate raster with the exact umbrella-excluded `bodyAlpha` mask. Record intersection-over-union (IoU), precision, recall, candidate-only pixels and reference-only pixels. Low recall indicates missing visible body pixels; low precision indicates candidate overreach. Inspect the difference by direction before editing landmarks.
+3. Rasterize prop polygons separately. Compare their coverage of the visible `umbrellaExposedDelta` pixels, but do **not** treat candidate pixels outside that delta as false positives: the prop polygon may correctly include umbrella geometry hidden behind the character. Record visible-pixel coverage and uncovered visible pixels.
+4. Keep these metrics diagnostic and non-gating until multiple successful and failed examples have been reviewed. No universal IoU/precision/recall threshold is established by this one character.
+5. Pixel masks are renderer evidence, not semantic labels by themselves. A mask that excludes a prop can still include hair, clothing and anatomy; human review must confirm the semantic convention and all hand/prop contact boundaries.
+
+The reusable implementation is `qa/granny-mask-fit.mjs`, exercised by `qa/test-granny-mask-fit.mjs` and emitted by `qa/build-granny-semantic-overlay.mjs` as `granny-pixel-mask-fit-report.json`. This method is a calibration aid for future NPC annotations; do not assume every renderer can provide an automatic prop-excluded alpha pass.
