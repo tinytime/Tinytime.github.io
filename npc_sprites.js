@@ -1132,9 +1132,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       // Removed detached pale sole glints; shoe highlights are now contained within the boot shapes.
       line([[37,109],[44,113]],'#8C2F3D',1.1);line([[62,108],[68,112]],'#8C2F3D',1.1); // restrained shorts seam, not torn orange slashes.
     }else{
-      path([[41,89],[55,89],[59,102],[54,117],[43,125],[32,121],[43,106]],shorts);
-      path([[32,117],[44,119],[48,124],[45,130],[28,130],[25,126]],shoe,ink,1.6);
-      // Keep the profile boot clean: no detached pale dash beneath the toe.
+      // Profile legs are drawn once, after the torso, as two separated
+      // stride planes. Avoid prepainting an extra underlayer here.
     }
     path([[42,39],[56,39],[57,52],[43,52]],skin);
     if(!side){
@@ -1305,14 +1304,16 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       // Profile yoke follows the shoulder seam as a tailored panel, not a pale blob.
       path([[40,53],[48,50],[55,53],[59,59],[53,63],[44,62],[41,58]],'#D8D7B8',ink,1.05);
       line([[47,63],[47,97]],'#A7C0A6',1.2);
-      // Clipboard is held in front of the torso: board, paper and brass clip
-      // remain separate shapes, with the hand visibly wrapping its near edge.
+      // Arm and grip are behind the board. Paint the clipboard afterward so
+      // it visibly sits in front of the hand instead of being obscured by it.
+      path([[62,58],[70,60],[75,78],[71,89],[64,89],[61,75]],jacket);
+      path([[61,84],[70,84],[75,92],[69,98],[61,92]],skin,ink,1.2);
       path([[61,68],[77,65],[84,93],[67,99],[59,91]],'#C69A58',ink,1.5);
       path([[64,71],[75,69],[81,90],[68,94]],'#F2E8CE',ink,1);
       path([[69,67],[77,66],[78,71],[70,73]],'#7A6246',ink,1);
       line([[67,78],[77,76]],'#3B6650',1.15);line([[68,84],[78,82]],'#3B6650',1.15);line([[69,89],[79,87]],'#3B6650',1);
-      path([[62,58],[70,60],[75,78],[71,89],[64,89],[61,75]],jacket);
-      path([[61,84],[70,84],[75,92],[69,98],[61,92]],skin,ink,1.2);
+      // Fingers curl over the near edge so the grip remains legible.
+      path([[60,84],[65,82],[69,85],[68,89],[62,90]],skin,ink,1);
       path([[33,58],[40,57],[40,80],[34,91],[28,89],[29,72]],jacket);
       path([[28,88],[35,89],[35,97],[29,100],[25,95]],skin);
       // Gold whistle and short lanyard are visible in profile, below the yoke.
@@ -1371,27 +1372,29 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[32,25],[68,25],[66,29],[34,29]],'#D6B85D',ink,1.1);
       line([[43,19],[57,19]],'#DDE0CF',1);
     }else{
-      ell(50,30,12,14,back?'#5B6260':grad(38,16,63,45,[[0,'#D99C76'],[.55,skin],[1,'#754632']]),ink,1.5);
-      if(!back){
-        path([[38,22],[42,16],[55,16],[63,22],[61,27],[39,27]],'#5B6260',ink,1);
-        ell(59,30,1.2,1.6,ink,null);line([[59,29],[64,30],[60,33]],'#80513D',1);
-        line([[57,40],[62,40]],'#714333',1.2);
-      }else{
+      if(back){
+        ell(50,30,12,14,'#5B6260',ink,1.5);
         path([[38,23],[42,18],[49,19],[55,18],[62,22],[63,32],[59,40],[53,43],[46,41],[40,37]],'#59615D',ink,1.15);
         path([[40,25],[44,23],[47,29],[44,36],[40,34]],'#AEB5A8',null);
         path([[55,25],[60,23],[62,28],[59,36],[55,37]],'#AEB5A8',null);
         line([[47,30],[47,38]],'#D2D0C3',1);
-      }
-      path([[36,23],[42,17],[58,17],[65,23],[63,27],[37,27]],'#263B35',ink,1.3);
-      path([[35,25],[65,25],[63,29],[37,29]],'#D6B85D',ink,1);
-      // Keep the side profile unmistakably alive at native 64x96 scale:
-      // the eye, projecting nose and smile sit below the visor edge.
-      if(!back){
-        ell(57,33,1.8,2.0,'#241C20',null);
-        ell(57.5,32.5,.55,.65,'#F5D9B7',null);
-        line([[59,34],[65,36],[60,38]],'#80513D',1.25);
-        line([[55,42],[61,42]],'#633B32',1.35);
-        ell(54,38,2.2,1.4,'#D99578',null);
+        path([[36,23],[42,17],[58,17],[65,23],[63,27],[37,27]],'#263B35',ink,1.3);
+        path([[35,25],[65,25],[63,29],[37,29]],'#D6B85D',ink,1);
+      }else{
+        // A true side-profile head: a shaped rear cranium, projecting
+        // forehead/nose and one visible eye, not a front oval turned sideways.
+        path([[42,18],[52,16],[59,19],[63,24],[62,30],[67,33],[63,37],[61,41],[53,44],[45,42],[40,37],[38,29],[39,22]],
+          grad(38,16,63,45,[[0,'#D99C76'],[.55,skin],[1,'#754632']]),ink,1.5);
+        path([[38,22],[42,16],[55,16],[63,22],[66,25],[64,27],[40,27]],'#5B6260',ink,1);
+        ell(57,31,1.25,1.6,ink,null);
+        ell(43,31,1.8,2.2,'#D99C76',ink,.7);
+        line([[59,34],[66,35],[62,38]],'#80513D',1.2);
+        line([[55,42],[61,42]],'#714333',1.2);
+        ell(53,38,1.8,1.2,'#D99578',null);
+        // The visor projects forward, making the profile direction explicit.
+        path([[37,23],[42,16],[54,16],[62,20],[66,25],[64,27],[39,27]],'#263B35',ink,1.3);
+        path([[49,25],[67,25],[66,28],[49,28]],'#D6B85D',ink,1);
+        line([[44,19],[55,19]],'#DDE0CF',.9);
       }
     }
     g.restore();
@@ -1462,19 +1465,20 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[43,51],[50,48],[58,52],[62,61],[61,91],[57,98],[40,98],[39,76]],shirt);
       line([[48,53],[47,93]],'#27313A',2.6);
       line([[55,55],[55,91]],'#27313A',1.8);
-      // Left hand is the raised hand in both profiles. The mirrored left-facing
-      // render places it on the opposite screen edge without changing anatomy.
-      path([[40,56],[35,53],[31,42],[27,31],[21,28],[17,33],[23,49],[30,67],[36,73]],shirt);
-      path([[28,36],[22,33],[20,23],[12,22],[11,40],[22,43]],skin);
-      path([[9,13],[28,13],[28,37],[9,37]],'#E8BE45',ink,1.7);
-      line([[13,18],[24,18]],'#FFF0A7',1.2);
-      line([[18,22],[18,30]],'#C64C3E',2);
-      ell(18,33,1.5,1.5,'#C64C3E',null);
-      path([[19,34],[27,34],[30,40],[26,44],[18,40]],skin,ink,1.1);
-      line([[21,36],[26,37]],'#754633',1);
-      // Opposite arm hangs naturally behind the narrowed torso.
-      path([[58,58],[65,60],[69,80],[66,92],[60,92],[59,75]],shirt);
-      path([[59,89],[66,90],[68,98],[62,101],[57,96]],skin);
+      // Raised arm and yellow card are on the forward/face side of the
+      // profile (the nose points right in local coordinates). The mirrored
+      // left-facing render keeps the card on that view's front side too.
+      path([[58,57],[65,55],[71,45],[76,32],[82,28],[87,32],[83,49],[75,68],[66,74]],shirt);
+      path([[78,34],[84,31],[86,22],[94,21],[95,39],[85,42]],skin);
+      path([[78,13],[97,13],[97,39],[78,39]],'#E8BE45',ink,1.7);
+      line([[82,18],[93,18]],'#FFF0A7',1.2);
+      line([[87,23],[87,32]],'#C64C3E',2);
+      ell(87,35,1.5,1.5,'#C64C3E',null);
+      path([[79,36],[87,36],[90,42],[86,46],[78,42]],skin,ink,1.1);
+      line([[81,38],[87,39]],'#754633',1);
+      // Opposite arm hangs naturally along the rear side of the narrowed torso.
+      path([[40,58],[34,60],[30,80],[33,92],[39,92],[40,75]],shirt);
+      path([[33,89],[40,90],[42,98],[36,101],[31,96]],skin);
       line([[46,63],[50,73],[54,63]],'#C5A34D',1.4);ell(50,75,2.2,2.7,'#C5A34D',ink,1);
     }else{
       // Front stripes are broad enough to survive native 64x96 downsampling.
