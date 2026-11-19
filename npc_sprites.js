@@ -1105,13 +1105,150 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     g.restore();g.restore();
   }
 
+
+  // Runner: spring-loaded mid-stride athlete with a cropped race singlet,
+  // split shorts, high-top curls, sweatband, race bib and technical shoes.
+  // Deliberately unlike the upright Courier and broad-uniform Cook.
+  function drawRunnerVector(n,dir,ctx,OWT,opts){
+    opts=opts||{};const g=ctx,scale=OWT/36*.28;
+    const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2,sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
+    const back=dir==='u',side=dir==='l'||dir==='r',flip=dir==='l';
+    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
+    if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
+    const ink='#171725',skin='#965A43';
+    const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
+    const path=(p,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.stroke();}};
+    const line=(p,c,w=1.5)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.stroke();};
+    const ell=(x,y,rx,ry,fill,stroke=ink,w=1.4)=>{g.beginPath();g.ellipse(x,y,rx,ry,0,0,Math.PI*2);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.stroke();}};
+    const top=grad(30,47,67,96,[[0,'#F07860'],[.45,'#D94F43'],[1,'#8C2F3D']]);
+    const shorts=grad(35,88,66,119,[[0,'#3C3454'],[1,'#171B35']]);
+    const shoe=grad(30,125,76,139,[[0,'#F6C95C'],[1,'#D88B35']]);
+    // Airborne sprint: asymmetrical knee drive and trailing foot.
+    if(!side){
+      path([[40,99],[50,100],[47,112],[37,122],[27,129],[20,124],[30,114],[34,104]],shorts);
+      path([[53,99],[64,97],[68,108],[73,118],[84,122],[87,129],[75,131],[63,125],[57,115]],shorts);
+      path([[20,121],[29,122],[34,127],[31,132],[16,132],[13,128]],shoe,ink,1.6);
+      path([[75,124],[87,122],[92,126],[91,131],[76,133],[71,129]],shoe,ink,1.6);
+      line([[17,130],[30,130]],'#FFF0B2',1.4);line([[77,131],[89,129]],'#FFF0B2',1.4);
+      line([[37,109],[45,114]],'#F07860',1.4);line([[62,108],[68,113]],'#F07860',1.4);
+    }else{
+      path([[41,99],[55,99],[59,111],[54,125],[43,131],[32,127],[43,116]],shorts);
+      path([[32,124],[44,126],[48,131],[45,136],[28,136],[25,132]],shoe,ink,1.6);
+      line([[30,134],[44,134]],'#FFF0B2',1.4);
+    }
+    path([[42,39],[56,39],[57,52],[43,52]],skin);
+    if(!side){
+      // Narrow, forward-tilted runner torso and racerback cut.
+      path([[34,52],[43,47],[58,48],[68,55],[66,83],[71,96],[28,97],[34,82]],top,ink,1.9);
+      if(!back){
+        path([[42,47],[50,59],[58,48],[55,45],[50,53],[45,45]],'#F6D6B8',ink,1);
+        path([[39,57],[45,54],[43,79],[37,86],[31,82],[34,66]],'#A9363B',ink,1);
+        path([[57,54],[63,57],[68,83],[62,87],[57,78]],'#A9363B',ink,1);
+        line([[50,60],[50,94]],'#F7B36A',1.5);
+        // Race bib with readable number block and safety pins.
+        path([[43,65],[57,65],[58,81],[42,81]],'#F5E8CE',ink,1.2);
+        line([[45,68],[55,68]],'#D94F43',1);
+        g.fillStyle='#25243B';g.font='bold 8px sans-serif';g.textAlign='center';g.fillText('07',50,77);
+        ell(44,65,1,1,'#E9C77A',null);ell(56,65,1,1,'#E9C77A',null);
+        // Arm drive: one fist high, opposite arm pumping behind the ribs.
+        path([[34,54],[42,54],[39,66],[31,72],[24,67],[29,60]],top);
+        path([[23,63],[29,59],[34,63],[32,70],[25,72],[21,68]],skin);
+        path([[64,54],[72,56],[78,68],[73,76],[67,72],[63,64]],top);
+        path([[70,71],[77,73],[78,80],[72,82],[68,77]],skin);
+        // Stopwatch on the raised wrist.
+        path([[22,64],[29,61],[31,66],[24,69]],'#F6C95C',ink,1);
+        ell(26,64,2.3,2.3,'#25243B',ink,1);line([[26,62],[27,64]],'#F6E7C1',.8);
+        // Split-short hem and a small side vent.
+        line([[30,95],[47,96]],'#F6C95C',1.5);line([[55,96],[69,94]],'#F6C95C',1.5);
+        path([[63,91],[68,91],[70,98],[65,99]],'#F07860',ink,1);
+      }else{
+        path([[34,53],[43,48],[58,49],[68,56],[66,84],[71,96],[28,97]],'#B73D43',ink,1.8);
+        // Racerback panel and twin ventilation seams.
+        path([[42,49],[50,59],[58,49],[55,46],[50,53],[45,46]],'#F6D6B8',ink,1);
+        path([[39,59],[44,57],[47,90],[39,91]],'#8C2F3D',null);
+        path([[56,57],[61,59],[61,91],[53,91]],'#8C2F3D',null);
+        line([[45,61],[44,88]],'#F6A16F',1.2);line([[55,61],[56,88]],'#F6A16F',1.2);
+        // Back of raised arm and pumping opposite arm.
+        path([[34,55],[42,54],[38,67],[30,73],[23,68],[28,61]],top);
+        path([[23,64],[29,61],[33,65],[31,71],[25,73],[21,69]],skin);
+        path([[64,55],[72,57],[78,69],[73,77],[67,73],[63,65]],top);
+        path([[70,72],[77,74],[78,81],[72,83],[68,78]],skin);
+        line([[31,95],[68,95]],'#F6C95C',1.5);
+      }
+    }else{
+      // Profile: high knee, trailing arm and forward lean make the running
+      // action readable even in the two side directions.
+      path([[37,52],[49,47],[63,52],[69,62],[66,84],[72,97],[29,98],[35,83]],top,ink,1.8);
+      if(!back){
+        path([[43,48],[51,59],[59,49],[55,46],[51,53],[46,46]],'#F6D6B8',ink,1);
+        path([[48,62],[61,64],[61,82],[47,84]],'#F5E8CE',ink,1.1);
+        g.fillStyle='#25243B';g.font='bold 7px sans-serif';g.textAlign='center';g.fillText('07',54,76);
+        path([[62,55],[71,58],[77,70],[73,78],[66,74],[62,65]],top);
+        path([[71,74],[78,76],[79,82],[73,84],[69,80]],skin);
+        path([[37,54],[44,53],[42,68],[34,74],[28,69],[32,62]],top);
+        path([[27,66],[34,64],[37,69],[33,75],[26,75],[23,71]],skin);
+        path([[31,97],[64,97],[67,108],[56,114],[45,108],[38,104]],shorts);
+        path([[51,106],[64,108],[73,116],[84,116],[88,122],[81,127],[67,125],[55,119]],shorts);
+        path([[67,119],[84,116],[92,120],[91,126],[77,130],[68,126]],shoe,ink,1.6);
+        path([[35,105],[48,110],[44,120],[32,126],[22,122],[30,113]],shorts);
+        path([[22,120],[34,121],[39,126],[36,132],[19,131],[16,126]],shoe,ink,1.6);
+        line([[19,129],[34,129]],'#FFF0B2',1.2);line([[79,128],[90,125]],'#FFF0B2',1.2);
+        path([[69,73],[76,72],[78,77],[71,79]],'#F6C95C',ink,1);
+      }else{
+        path([[37,53],[49,48],[63,53],[69,63],[66,85],[72,97],[29,98]],'#B73D43',ink,1.8);
+        path([[62,56],[71,59],[77,71],[73,79],[66,75],[62,66]],'#B73D43');
+        path([[31,97],[63,97],[67,109],[54,115],[39,108]],shorts);
+        path([[53,107],[68,111],[81,118],[91,117],[94,123],[88,129],[73,127],[58,120]],shorts);
+        path([[74,121],[91,118],[96,123],[93,129],[77,132],[70,127]],shoe,ink,1.6);
+        path([[32,106],[46,111],[41,121],[29,127],[19,123],[27,114]],shorts);
+        path([[18,121],[31,122],[36,127],[33,133],[16,132],[13,127]],shoe,ink,1.6);
+        line([[17,130],[31,130]],'#FFF0B2',1.2);
+      }
+    }
+    // Head and face: close-cropped curls, terry sweatband, strong brow.
+    if(!side){
+      if(!back){
+        ell(50,31,12.5,14.5,grad(38,17,62,45,[[0,'#C27D5D'],[.55,skin],[1,'#5F342D']]),ink,1.7);
+        // Dense short curls form a compact but unmistakable crown silhouette.
+        for(let i=0;i<9;i++){const x=39+(i%5)*5.2,y=18+Math.floor(i/5)*4;ell(x,y,3.1,3.1,i%2?'#24202A':'#34252A',ink,.7);}
+        ell(44,32,1.5,2,'#171725',null);ell(56,32,1.5,2,'#171725',null);
+        line([[41,27],[47,26]],'#3E2729',1.2);line([[53,26],[59,27]],'#3E2729',1.2);
+        line([[49,34],[47,37],[51,37]],'#704338',1);
+        line([[45,41],[50,42],[55,40]],'#5A302D',1.3);
+        [42,58].forEach(x=>ell(x,35,.6,.6,'#E9B18D',null));
+      }else{
+        ell(50,31,12,14,'#29212A',ink,1.6);
+        for(let i=0;i<7;i++)ell(39+(i%4)*7,18+Math.floor(i/4)*5,3,3,'#34252A',ink,.6);
+        line([[43,21],[44,37]],'#65505A',1);line([[56,21],[55,37]],'#65505A',1);
+      }
+      path([[36,25],[39,20],[45,19],[50,21],[55,19],[61,21],[64,26],[61,29],[39,29]],'#F6C95C',ink,1.4);
+      line([[39,25],[61,25]],'#FFF0B2',1.2);
+      path([[36,29],[64,29],[62,32],[38,32]],'#D88B35',ink,1);
+    }else{
+      ell(50,31,12,14,back?'#29212A':grad(38,17,62,45,[[0,'#C27D5D'],[.55,skin],[1,'#5F342D']]),ink,1.6);
+      if(!back){
+        ell(43,20,3.3,3,'#34252A',ink,.6);ell(49,17,3.2,3,'#24202A',ink,.6);ell(56,20,3.1,3,'#34252A',ink,.6);
+        ell(58,31,1.25,1.7,'#171725',null);line([[58,29],[62,29]],'#3E2729',1);
+        line([[62,34],[66,36],[62,37]],'#704338',1);
+        line([[57,41],[62,40]],'#5A302D',1.2);
+      }else{
+        ell(43,19,3,3,'#34252A',ink,.6);ell(56,19,3,3,'#24202A',ink,.6);
+      }
+      path([[38,24],[43,19],[56,19],[63,24],[61,29],[39,29]],'#F6C95C',ink,1.3);
+      line([[40,25],[61,25]],'#FFF0B2',1.1);
+    }
+    // Sweatband tail and wrist tape; details remain visible at 64x96.
+    if(!back&&!side){path([[38,25],[42,26],[40,35],[35,37],[36,32]],'#D88B35',ink,1);}
+    g.restore();
+  }
+
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
     const { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, USHER_TORSO_MASKS, FAN_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, FAN_RIG_PARTS, ARCHETYPE_PROP_LAYERS, CIV_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
-      if(kind==='cook'||kind==='usher'||kind==='courier'){
-        const drawVector=kind==='cook'?drawCookVector:(kind==='usher'?drawUsherVector:drawCourierVector);
+      if(kind==='cook'||kind==='usher'||kind==='courier'||kind==='runner'){
+        const drawVector=kind==='cook'?drawCookVector:(kind==='usher'?drawUsherVector:(kind==='courier'?drawCourierVector:drawRunnerVector));
         drawVector(n,dir,ctxOverride||og,OWT,{moving,tm,ph});
         const qaCanvas=owCiv._vectorSnapshotCanvas||(owCiv._vectorSnapshotCanvas=document.createElement('canvas'));
         if(qaCanvas.width!==64)qaCanvas.width=64;if(qaCanvas.height!==96)qaCanvas.height=96;
@@ -1131,7 +1268,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         owCiv._lastPaletteMetrics={civ:kind,archetype:kind+'-vector',renderMode:'vector',colors:[...counts.keys()],
           uniqueColorCount:counts.size,opaquePixelCount,outlinePixelCount,outlineColor:'#171725',bodyColor,bodyPixelCount,
           pantsColor,pantsPixelCount,hairColor,hairPixelCount,colorPixelCounts:Object.fromEntries(counts)};
-        const roleSets={cook:[{role:'chef-coat',color:'#D9C6A6'},{role:'terracotta-apron',color:'#A84432'},{role:'copper-pan',color:'#B95B3C'},{role:'toque',color:'#F8F3E8'},{role:'skin',color:'#B97855'},{role:'hair',color:'#30242A'}],usher:[{role:'uniform-navy',color:'#294B70'},{role:'brass-trim',color:'#D6A84F'},{role:'skin',color:'#C98A62'},{role:'hair',color:'#241B26'}],courier:[{role:'windbreaker',color:'#237F83'},{role:'dispatch-satchel',color:'#B77A36'},{role:'parcel',color:'#F5D89A'},{role:'storm-cap',color:'#236E78'},{role:'skin',color:'#A96F54'},{role:'hair',color:'#29252B'}]};
+        const roleSets={runner:[{role:'coral-race-singlet',color:'#D94F43'},{role:'split-shorts',color:'#3C3454'},{role:'terry-sweatband',color:'#F6C95C'},{role:'race-bib',color:'#F5E8CE'},{role:'technical-shoes',color:'#D88B35'},{role:'skin',color:'#965A43'},{role:'curls',color:'#34252A'}],cook:[{role:'chef-coat',color:'#D9C6A6'},{role:'terracotta-apron',color:'#A84432'},{role:'copper-pan',color:'#B95B3C'},{role:'toque',color:'#F8F3E8'},{role:'skin',color:'#B97855'},{role:'hair',color:'#30242A'}],usher:[{role:'uniform-navy',color:'#294B70'},{role:'brass-trim',color:'#D6A84F'},{role:'skin',color:'#C98A62'},{role:'hair',color:'#241B26'}],courier:[{role:'windbreaker',color:'#237F83'},{role:'dispatch-satchel',color:'#B77A36'},{role:'parcel',color:'#F5D89A'},{role:'storm-cap',color:'#236E78'},{role:'skin',color:'#A96F54'},{role:'hair',color:'#29252B'}]};
         owCiv._lastRoleDebugLegend=qaOptions&&(qaOptions.roleDebug||qaOptions.roleDebugLayers||qaOptions.roleDebugSourceLayers)?roleSets[kind]:null;
         owCiv._lastRoleDebugRows={civ:kind,direction:dir,view:dir==='u'?'back':(dir==='l'||dir==='r'?'side':'front'),torsoMaskRows:[],renderedSourceRows:[]};
         return;
