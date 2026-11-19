@@ -78,3 +78,11 @@ The owner authorized reopening Usher, Cook and Courier for all relevant correcti
 Implementation commit: [027be47d8f6763f447992a9dec058ff62a7c60a3](https://github.com/tinytime/Tinytime.github.io/commit/027be47d8f6763f447992a9dec058ff62a7c60a3). The changes address Cook's toque/face clearance and profile arm, Courier's baseline tilt, Coach's yoke/age cues/whistle/font-dependent lettering, Referee's side-torso leakage/profile hair, and Usher's profile clipboard face.
 
 **The correction source is committed but not yet browser-tested or visually inspected.** Run #457 is prior-source evidence only. No golden snapshots were refreshed or approved. Keep all five in revision / not-approved status until fresh QA, visual inspection, independent Claude re-review, and owner acceptance. Remaining 20 stay on hold.
+
+## Follow-up finish pass — 2026-11-19
+
+Renderer commit: [23c792f7e83eb14ff7d48e197678272f1c3e58b0](https://github.com/tinytime/Tinytime.github.io/commit/23c792f7e83eb14ff7d48e197678272f1c3e58b0).
+
+Added restrained warm/cool rim-light accents to Coach and Referee, matching the established light treatment already present on Usher, Cook and Courier. The accents are limited to face/shoulder contours and intentionally avoid tracing the clipboard, whistle or yellow card.
+
+This is a source-only finish refinement. It has not yet been browser-tested or visually inspected. All five characters remain in revision / NOT APPROVED status; Runner remains excluded from this review round and the remaining 20 civilians stay on hold. No golden snapshots were changed.
