@@ -1348,6 +1348,15 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       }else{line([[43,22],[44,38]],'#D5D4C8',1);line([[57,22],[56,38]],'#D5D4C8',1);}
       path([[36,23],[42,17],[58,17],[65,23],[63,27],[37,27]],'#263B35',ink,1.3);
       path([[35,25],[65,25],[63,29],[37,29]],'#D6B85D',ink,1);
+      // Keep the side profile unmistakably alive at native 64x96 scale:
+      // the eye, projecting nose and smile sit below the visor edge.
+      if(!back){
+        ell(57,33,1.8,2.0,'#241C20',null);
+        ell(57.5,32.5,.55,.65,'#F5D9B7',null);
+        line([[59,34],[65,36],[60,38]],'#80513D',1.25);
+        line([[55,42],[61,42]],'#633B32',1.35);
+        ell(54,38,2.2,1.4,'#D99578',null);
+      }
     }
     g.restore();
   }
