@@ -2,7 +2,7 @@
 
 **Project:** Vapor City civilian NPC vector redesign  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Last recorded implementation checkpoint:** `08b4556a8ec4d1756ac3c7af698d4acb8bb8685a` (Cook renderer refinement; verify the latest branch head before continuing)
+**Latest documentation checkpoint:** `777fa6e26500cd9fbac6e0af96021742b43d2303` (Cook QA handoff updated; code refinement `5ed3f49cd7c7767a716383945236a33b4c82dcb8`).
 
 > This is the live status document. Update it after each meaningful design, integration, QA, and review milestone. The project background and working rules are in this folder's [README](README.md).
 
