@@ -22,7 +22,7 @@
 
 The artifact is the primary evidence. It contains all three characters' four native 64×96 directional PNGs, role-debug, full 23-civilian gallery, Granny comparison, town screenshot and report. Do not base approval on source code descriptions or earlier run images alone.
 
-## Required files in artifact 14550224509
+## Required files in artifact 14555840087
 
 **Runner**
 - `npc-type-directions/runner-front.png`
@@ -53,7 +53,7 @@ The artifact is the primary evidence. It contains all three characters' four nat
 
 ## Historical internal QA summary — run #432
 
-The exact run #432 artifact was downloaded. All 12 native directional images were enlarged 5× with nearest-neighbour and visually inspected, along with the six-character role-debug sheet, 23-civilian four-direction gallery, Granny comparison and report.
+The exact run #437 artifact was downloaded. All 12 native directional images were enlarged 5× with nearest-neighbour and visually inspected, along with the six-character role-debug sheet, 23-civilian four-direction gallery, Granny comparison and report.
 
 - Renderer/game syntax, module load and NPC inventory: pass (135 NPCs / 24 civilian archetype mappings).
 - Vector palette audit: pass (six vector civilians; Runner 1,070 unique colors, Coach 1,077, Referee 1,078).
