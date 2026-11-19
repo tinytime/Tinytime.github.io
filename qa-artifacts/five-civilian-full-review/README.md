@@ -154,3 +154,11 @@ The browser QA workflow now runs `qa/build-five-civilian-review-sheet.mjs` after
 - Generator commit: [`1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc`](https://github.com/tinytime/Tinytime.github.io/commit/1f5ffa09189ea20e3d7a6c96a9d7118d72ed22bc).
 - Workflow commit: [`80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f`](https://github.com/tinytime/Tinytime.github.io/commit/80bac03d1ee2eb99ff6be9c73bee9d04dcc67b3f).
 - [Run #461](https://github.com/tinytime/Tinytime.github.io/actions/runs/44600405554) is the first execution of the updated workflow; verify its artifact before relying on the generated files.
+
+
+
+## Run #461 — review-sheet workflow verification
+
+The first integrated run completed the new contact-sheet generator and artifact upload successfully. [Run #461](https://github.com/tinytime/Tinytime.github.io/actions/runs/44600405554), job `135829961792`, uploaded [artifact `14566568903`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44600405554/artifacts/14566568903) (7,178,358 bytes; 249 files). Browser diagnostics itself still failed, so this is evidence-packaging success, not an overall QA pass or a renderer retest.
+
+The generated sheet is based on 20 native 64×96 directional captures for the five reviewed civilians. Direct 28×42 game-scale captures remain limited to Runner, Coach and Referee; Usher, Cook and Courier still need genuine direct game-scale renders. The PNGs in the new artifact have not yet been human-visually inspected. Do not treat the sheet generator or automated checks as approval. All five remain NOT APPROVED pending internal visual inspection, independent Claude re-review and owner decision; no golden snapshots were refreshed or approved.
