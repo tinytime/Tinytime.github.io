@@ -22,13 +22,13 @@ The builder should provide Claude with the actual rendered sheets, comparative i
 
 ## Current agreed plan
 
-The first batch is exactly three civilians:
+The project owner approved the first batch—Usher, Cook, and Courier—on 2026-11-19 and authorized the next group of three:
 
-1. **Usher** — first vector pilot; integrated in the renderer, targeted checks passed, but not approved.
-2. **Cook** — second pilot character; integrated and internally checked for Cook-specific criteria, pending comparative review.
-3. **Courier** — third pilot character; bespoke vector renderer integrated, correction QA run #410 independently inspected; ready for focused Claude re-review.
+1. **Runner** — active build; bespoke vector renderer integrated, browser QA pending.
+2. **Coach** — next; do not start until Runner passes internal QA.
+3. **Referee** — third in this group; do not start until Runner passes internal QA.
 
-After all three are built and internally checked in four directions and at game scale, send them together to Claude for a comparative review alongside Granny Volt. Apply the review findings, rerun checks, and return the results to the project owner. Do not start the other 20 civilian designs before this review unless the owner changes the sequence.
+Complete and internally inspect each character in four directions, at native/enlarged scale, and in town/gallery context before moving to the next character. Keep the remaining roster on hold until its group is authorized.
 
 ## Scope and counts
 
@@ -42,12 +42,12 @@ The repository's automated inventory currently describes 24 live civilian archet
 - Reuse the completed vector character designs across towns.
 - Make the 23 civilians individually recognizable; avoid a shared-body recolor approach.
 - Use Granny Volt as a 10/10 quality reference, not a template to copy.
-- Complete Usher, Cook, and Courier as the first review batch.
-- Require both internal QA and Claude's independent review before approval.
+- Complete Usher, Cook, and Courier as the first owner-approved batch. Next group: Runner, Coach, Referee.
+- Require internal QA and independent review for each new batch; record the project owner's explicit final approval.
 - Keep golden snapshot approval separate from automated QA. Never approve or refresh snapshots without explicit owner authorization.
 
 ## Current state at handoff
 
 The Usher vector renderer is integrated in `npc_sprites.js`. The previous browser QA run (#393) showed the targeted usher checks passing, but the overall workflow still failed for separate snapshot-approval and legacy silhouette-audit gates. See [QA, known issues, and handoff](04-QA-AND-HANDOFF.md).
 
-Usher, Cook, and Courier remain unapproved pending the comparative pilot review and owner acceptance. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
+Usher, Cook, and Courier are owner-approved. Runner is the active build; Coach and Referee remain unstarted. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
