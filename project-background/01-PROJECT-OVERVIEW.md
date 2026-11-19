@@ -25,8 +25,8 @@ The builder should provide Claude with the actual rendered sheets, comparative i
 The first batch is exactly three civilians:
 
 1. **Usher** — first vector pilot; integrated in the renderer, targeted checks passed, but not approved.
-2. **Cook** — second pilot character; design/integration work is the next build task.
-3. **Courier** — third pilot character; planned for this batch.
+2. **Cook** — second pilot character; integrated and internally checked for Cook-specific criteria, pending comparative review.
+3. **Courier** — third pilot character; bespoke vector renderer integrated, internal browser QA and artifact inspection pending.
 
 After all three are built and internally checked in four directions and at game scale, send them together to Claude for a comparative review alongside Granny Volt. Apply the review findings, rerun checks, and return the results to the project owner. Do not start the other 20 civilian designs before this review unless the owner changes the sequence.
 
@@ -50,4 +50,4 @@ The repository's automated inventory currently describes 24 live civilian archet
 
 The Usher vector renderer is integrated in `npc_sprites.js`. The previous browser QA run (#393) showed the targeted usher checks passing, but the overall workflow still failed for separate snapshot-approval and legacy silhouette-audit gates. See [QA, known issues, and handoff](04-QA-AND-HANDOFF.md).
 
-Cook and Courier remain unapproved. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
+Usher, Cook, and Courier remain unapproved pending the comparative pilot review and owner acceptance. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
