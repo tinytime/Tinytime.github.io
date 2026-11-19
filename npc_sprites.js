@@ -19,7 +19,7 @@
       runner:'round-fringe',coach:'visor',ref:'cap-profile',courier:'cap-profile',
       guard:'helmet',vendor:'hat',cook:'chef-hat',
       clinic:'hair-band',tech:'visor',hacker:'hood',
-      fisher:'work-cap',sailor:'newsboy-cap',slicker:'bucket-hat',painter:'beanie',welder:'helmet',
+      fisher:'work-cap',sailor:'newsboy-cap',slicker:'bucket-hat',painter:'beanie',welder:'welder-mask',
       kid:'hood',kid2:'pom-beanie',mouse:'mouse-ears',
       busker:'beanie',dancer:'hair-band',broker:'newsboy-cap',usher:'cap-profile'
     });
@@ -164,7 +164,7 @@
           const mid=Math.floor((left+right)/2);
           let L=l,R=r;
           if(R-L<3){L=mid-1;R=mid+2}
-          if(['tech','hacker','clinic','usher','cook'].includes(civ)&&y>=21){
+          if(['tech','hacker','clinic','usher','cook','vendor'].includes(civ)&&y>=17){
             if(view==='side'){L=Math.max(L,11);R=Math.min(R,20)}else{L=Math.max(L,9);R=Math.min(R,22)}
           }
           return [y,L,R];
@@ -233,7 +233,8 @@
           const dx=right?(spec.backRightLegX??spec.rightLegX??spread??0):(spec.backLeftLegX??spec.leftLegX??-(spread||0));
           const dy=right?(spec.backRightLegY??spec.rightLegY??0):(spec.backLeftLegY??spec.leftLegY??0);
           const dw=right?(spec.backRightLegW??spec.rightLegW??0):(spec.backLeftLegW??spec.leftLegW??0);
-          return [x+dx,y+dy,Math.max(1,w+dw),h,role];
+          const wDelta=(role==='bodyhi'||role==='legshadow')?0:dw;
+          return [x+dx,y+dy,Math.max(1,w+wDelta),h,role];
         });
         result[view]={arms,legs};
       }
@@ -338,7 +339,8 @@
           const dx=side?(spec.sideLegX??spread??0):(right?(spec.rightLegX??spread??0):(spec.leftLegX??-(spread||0)));
           const dy=side?(spec.sideLegY||0):(right?(spec.rightLegY||0):(spec.leftLegY||0));
           const dw=side?(spec.sideLegW??spec.legW??0):(right?(spec.rightLegW??spec.legW??0):(spec.leftLegW??spec.legW??0));
-          return [x+dx,y+dy,Math.max(1,w+dw),h,role];
+          const wDelta=(role==='bodyhi'||role==='legshadow')?0:dw;
+          return [x+dx,y+dy,Math.max(1,w+wDelta),h,role];
         });
         if(spec.legPose==='stride'&&side){
           // Continuous stepped shins run into each boot; no detached toe blocks.
@@ -370,6 +372,7 @@
     });
     // Individual civilian prop layouts replace repeated archetype-level tools.
     const CIV_PROP_LAYERS=Object.freeze({
+      kid2:{types:{front:'notebook',side:'satchel',back:'satchel'},front:[[21,18,3,5,'notebook']],side:[[10,15,3,8,'satchel']],back:[[14,14,4,8,'satchel']]},
       runner:{types:{front:'no-held-prop',side:'no-held-prop',back:'no-held-prop'},front:[],side:[],back:[]},
       coach:{types:{front:'clipboard',side:'clipboard',back:'coach-board'},front:[[22,18,3,7,'clipboard']],side:[[23,17,3,7,'clipboard']],back:[[13,14,6,4,'clipboard']]},
       ref:{types:{front:'whistle',side:'whistle',back:'whistle'},front:[[16,14,2,2,'whistle']],side:[[21,8,2,2,'whistle']],back:[[7,18,2,2,'whistle']]},
@@ -409,7 +412,7 @@
       megaphone:['.###.','#####','#####','#####','.###.','..##.','..##.','...#.','...#.','...#.','.....','.....','.....','.....'],
       rallytowel:['#####','#####','####.','#####','#####','####.','#####','#####','#####','####.','#####','#####','#####','#####'],
       fishnet:['#.#','.#.','#.#','.#.','#.#','.#.','#.#','.#.'],
-      weldingtorch:['.#.','###','.#.','.#.','.#.','.#.','.#.'],
+      weldingtorch:['#..','##.','.#.','.#.','.#.','.#.','.#.'],
       ropecoil:['###','#.#','###'],
       paintbrush:['.#.','.#.','.#.','.#.','.#.','###','###','###'],
       umbrella:['..#..','.###.','#####','..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..','..#..'],
@@ -656,6 +659,7 @@
       const archetypeKey=CIV_TO_ARCHETYPE[kind];
       if(!archetypeKey||!ARCHETYPES[archetypeKey]||!CIV[kind])throw new Error('Missing civilian archetype mapping or palette: '+kind);
       const A=ARCHETYPES[archetypeKey],P=Object.assign({},A.palette,CIV[kind]);
+      if(kind==='welder'&&!P.helm)P.helm='#69747e';
       const civTorsoMasks=kind==='fan'?(FAN_TORSO_MASKS[n.id]||CIV_TORSO_MASKS[kind]||ARCHETYPE_TORSO_MASKS[A.torso]):(CIV_TORSO_MASKS[kind]||ARCHETYPE_TORSO_MASKS[A.torso]);
       const headStyle=kind==='fan'?(FAN_VARIANT_HEADS[n.id]||A.head):(CIV_HEAD_STYLES[kind]||A.head);
       const qaExcludeProps=!!(qaOptions&&qaOptions.excludeProps);
@@ -788,6 +792,7 @@
       else if(headStyle==='visor'){put(10,1,14,1,'cloth');put(12,2,10,1,'cloth')}
       else if(headStyle==='cowboy-hat'){put(8,0,16,1,'cloth');put(10,2,12,3,'cloth')}
       else if(headStyle==='pom-beanie'){put(11,0,10,3,'cloth');set(16,0,'clothhi')}
+      if(headStyle==='welder-mask'){put(10,0,12,3,'helm');put(9,2,14,1,'inkdetail');put(11,3,10,1,'inkdetail')}
       // Facial planes and headwear highlights reuse the existing palette roles.
       if(!back){
         for(let xx=12;xx<=19;xx++)set(xx,3,'skinshade');
@@ -1000,7 +1005,7 @@
       if(!qaExcludeProps&&P.umb){put(27,0,2,24,'umb');put(23,0,8,2,'umbhi')}
       if(!qaExcludeProps&&P.keys){if(side||back)put(15,28,2,3,'key');else put(22,24,2,3,'key');}
       // Props are explicit per-archetype/per-direction layers; no shared prop footprint is inferred.
-      if(!qaExcludeProps&&['kid','kid2','mouse'].includes(kind)&&rigView==='front'){put(14,13,1,8,'pack');put(17,13,1,8,'pack');}
+      if(!qaExcludeProps&&['kid','mouse'].includes(kind)&&rigView==='front'){put(14,13,1,8,'pack');put(17,13,1,8,'pack');}
       const propSpec=kind==='fan'?ARCHETYPE_PROP_LAYERS.fan:(CIV_PROP_LAYERS[kind]||ARCHETYPE_PROP_LAYERS[archetypeKey]);
       const declaredPropType=propSpec&&propSpec.types&&propSpec.types[rigView];
       if(!propSpec||!declaredPropType||propSpec.types[rigView]!==declaredPropType) {
@@ -1106,9 +1111,9 @@
       const FP={
         eyes:{dot:[[28,10,2,2],[36,10,2,2]],wide:[[27,10,3,2],[36,10,3,2]],tall:[[28,10,2,3],[36,10,2,3]],
          sleepy:[[27,11,3,1],[36,11,3,1]],close:[[29,10,2,2],[35,10,2,2]],far:[[27,10,2,2],[37,10,2,2]]},
-        brows:{flat:[[27,8,4,2],[35,8,4,2]],arch:[[27,8,1,2],[28,7,2,2],[30,8,1,2],[35,8,1,2],[36,7,2,2],[38,8,1,2]],
-         angry:[[27,8,2,2],[29,8,2,2],[35,8,2,2],[37,8,2,2]],worried:[[27,8,2,2],[29,8,2,2],[35,8,2,2],[37,8,2,2]],
-         skew:[[27,8,4,2],[35,8,1,2],[36,7,2,2],[38,8,1,2]]},
+        brows:{flat:[[27,7,4,2],[35,7,4,2]],arch:[[27,7,1,2],[28,6,2,2],[30,7,1,2],[35,7,1,2],[36,6,2,2],[38,7,1,2]],
+         angry:[[27,7,2,2],[29,7,2,2],[35,7,2,2],[37,7,2,2]],worried:[[27,7,2,2],[29,7,2,2],[35,7,2,2],[37,7,2,2]],
+         skew:[[27,7,4,2],[35,7,1,2],[36,6,2,2],[38,7,1,2]]},
         mouths:{flat:[[0,0,4,1,'inkdetail']],smile:[[0,0,4,1,'inkdetail'],[-1,-1,1,1,'inkdetail'],[4,-1,1,1,'inkdetail']],
          frown:[[0,0,4,1,'inkdetail'],[-1,1,1,1,'inkdetail'],[4,1,1,1,'inkdetail']],o:[[1,0,2,2,'inkdetail']],
          smirk:[[0,1,3,1,'inkdetail'],[3,0,1,1,'inkdetail'],[4,-1,1,1,'inkdetail']],
