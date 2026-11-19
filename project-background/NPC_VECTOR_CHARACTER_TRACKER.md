@@ -504,7 +504,7 @@ The Run #552 artifact's exact alpha masks were used to establish a non-gating po
 
 The current capture implementation retains the old hand-transcribed body polygon/appendages as `manualBodyPolygonCandidate` and replaces the active candidate `bodyPolygon` with an outer contour traced from the exact umbrella-excluded renderer alpha mask. Profiles are inverse-transformed back into local coordinates. The semantic overlay displays the derived contour in red and the manual candidate in magenta. This is still a candidate, not a verified measurement.
 
-Local nine-fixture tests pass. Applied to Run #555's actual artifact, the derived contour matches the body alpha mask at IoU 0.9964 front, 0.9961 back, 0.9954 left and 0.9975 right (recall 1.0). Fresh Actions verification is pending. This method is specific to Granny's renderer pass; do not generalize to other NPCs without confirming their body/prop layer semantics.
+Local ten-fixture tests pass. Applied to Run #555's actual artifact, the derived contour matches the body alpha mask at IoU 0.9964 front, 0.9961 back, 0.9954 left and 0.9975 right (recall 1.0). Fresh Actions verification is pending. This method is specific to Granny's renderer pass; do not generalize to other NPCs without confirming their body/prop layer semantics.
 
 
 ## Visible-only umbrella contour — 2026-11-19
@@ -512,7 +512,7 @@ Local nine-fixture tests pass. Applied to Run #555's actual artifact, the derive
 The output now keeps full manual umbrella geometry in `manualPropPolygonCandidate` and separate visible-only contours in `visiblePropPolygons`, traced from exact exposed prop alpha. Local comparison against Run #555 gives visible contour IoU 1.0 in all four directions. The full manual prop candidate covers 81.5–82.2% of visible umbrella pixels; the remaining hidden/visible boundary needs second review. This is a diagnostic candidate, not approved prop geometry. Fresh Actions verification pending.
 
 
-The latest contour helper now preserves every disconnected visible prop component. Its nine-fixture suite covers disconnected components and interior-hole handling; fresh Actions verification remains pending.
+The latest contour helper now preserves every disconnected visible prop component. Its ten-fixture suite covers disconnected components and interior-hole handling; fresh Actions verification remains pending.
 
 
 ## Multi-component mask contour follow-up — 2026-11-19
@@ -522,9 +522,14 @@ The Granny mask contour helper now retains every disconnected outer component. O
 
 ## Contour topology validation — 2026-11-19
 
-The contour helper now excludes interior hole loops (by winding) from the returned outer contours and preserves all disconnected outer components. This avoids misclassifying holes as anatomical appendages. Nine fixture cases pass locally, including hollow and disconnected masks. Fresh Actions verification remains pending.
+The contour helper now excludes interior hole loops (by winding) from the returned outer contours and preserves all disconnected outer components. This avoids misclassifying holes as anatomical appendages. Ten fixture cases pass locally, including hollow and disconnected masks. Fresh Actions verification remains pending.
 
 
 ## Granny mask topology — 2026-11-19
 
 Contour extraction now retains disconnected outer components and interior holes for both body alpha and visible umbrella delta. The candidate manifest stores outer body loops plus cutout loops separately; fit diagnostics subtract cutouts before mask comparison. This prevents lost detached components and filled transparent gaps. Fixtures cover disconnected components and one interior hole. Latest code is committed; fresh Actions verification and visual inspection remain pending. No semantic status or approval changed.
+
+
+## Hole-aware contour reconstruction — 2026-11-19
+
+The current helper stores interior body/prop holes separately and subtracts them during fit comparison. Ten local fixtures pass. Applied to Run #555, the exact current contour helper reconstructs body and visible umbrella masks at IoU 1.0 in all four directions. This is algorithm-to-source-mask verification only; fresh Actions QA and human semantic review remain pending.
