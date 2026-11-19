@@ -74,3 +74,10 @@ The new [five-civilian review package](../qa-artifacts/five-civilian-full-review
 The owner explicitly authorized implementation of Claude's recommendations across all five reviewed characters, including reopening the previously approved Usher, Cook and Courier. The historical approvals are preserved, but current status is revision in progress. Coach and Referee remain not approved. Runner remains excluded from this pass.
 
 Committed renderer changes: [027be47d8f6763f447992a9dec058ff62a7c60a3](https://github.com/tinytime/Tinytime.github.io/commit/027be47d8f6763f447992a9dec058ff62a7c60a3). Fresh browser QA and visual inspection are pending; run #457 applies to the previous source only. Do not start the remaining 20 or refresh golden snapshots.
+
+
+## Civilian Vector Construction Standard — 2026-11-19
+
+The owner authorized a permanent construction standard based on Granny Volt's measured geometry and quality strengths. See [Civilian Vector Construction Standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md). It formalizes the distinction between shared technical invariants and original character identity, adds a per-character proportion card, defines measurement conventions, proposes an eight-stage production pipeline and 100-point design scorecard, and identifies automated QA metrics.
+
+The standard is a draft for Claude review and owner ratification. The numeric proportion bands and scoring thresholds are provisional and must be calibrated against Granny plus the five-character review set. The standard does not authorize starting the remaining 20 civilians or approving any pending design.
