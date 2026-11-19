@@ -565,28 +565,19 @@ try {
       Buffer.from(item.dataUrl.split(',')[1], 'base64'));
   }
 
-  // Temporary role-debug capture: intercept only this diagnostic render, never
-  // the normal gallery/snapshot renderer. Every occupied grid role gets a flat
-  // unique hue; outlines are omitted by the renderer's roleDebug path.
-  const roleDebugCapture = await page.evaluate(async () => {
-    const originalFactory=window.NPC_SPRITES.createCivRenderer;
-    const legends=[];
-    window.NPC_SPRITES=Object.freeze({...window.NPC_SPRITES,createCivRenderer:(args)=>{
-      const render=originalFactory(args);
-      return (...callArgs)=>{
-        const result=render(...callArgs.slice(0,8),{...(callArgs[8]||{}),roleDebug:true});
-        if(result._lastRoleDebugLegend)legends.push(result._lastRoleDebugLegend);
-        return result;
-      };
-    }});
-    const items=window.SG.npcRenderDirectionalSnapshots();
+  // Diagnostic-only capture: the live renderer is already initialized, so pass
+  // roleDebug directly through the snapshot hook rather than replacing its factory.
+  const roleDebugCapture = await page.evaluate(() => {
+    if (!window.SG || typeof window.SG.npcRenderDirectionalSnapshots !== 'function')
+      throw new Error('Directional civilian snapshot hook is unavailable');
+    const items=window.SG.npcRenderDirectionalSnapshots({roleDebug:true});
     const selected=items.filter(item=>['cook','vendor','usher'].includes(item.civ)&&
       ['front','right'].includes(String(item.direction).toLowerCase()));
-    return {items:selected.map(item=>({civ:item.civ,direction:item.direction,dataUrl:item.dataUrl})),
-      legends:legends.length?legends[legends.length-1]:[]};
+    return {items:selected.map(item=>({civ:item.civ,direction:item.direction,dataUrl:item.dataUrl,
+      roleLegend:item.roleLegend||[]}))};
   });
   const roleDebugSheet = await page.evaluate(async capture => {
-    const cellW=512,cellH=768,gap=24,cols=3,rows=2,legendH=220;
+    const cellW=512,cellH=768,gap=24,cols=3,rows=2,legendH=430;
     const canvas=document.createElement('canvas');
     canvas.width=cols*cellW+(cols+1)*gap;
     canvas.height=rows*cellH+(rows+1)*gap+legendH;
@@ -603,23 +594,27 @@ try {
       ctx.fillText(civ.toUpperCase()+' / '+direction.toUpperCase(),x,y+cellH+30);
     }
     const legendY=rows*cellH+(rows+1)*gap+24;
-    ctx.font='bold 16px monospace';ctx.textAlign='left';ctx.fillStyle='#ffffff';
-    ctx.fillText('ROLE COLOR KEY (same role = same color within each sprite)',gap,legendY);
-    const legend=capture.legends||[];
+    ctx.font='bold 18px monospace';ctx.textAlign='left';ctx.fillStyle='#ffffff';
+    ctx.fillText('ROLE COLOR KEY (consistent colors across all six views)',gap,legendY);
+    const grouped=[...new Set(capture.items.flatMap(item=>item.roleLegend.map(role=>role.role)))].sort();
+    const colorByRole=new Map();
+    capture.items.forEach(item=>item.roleLegend.forEach(role=>colorByRole.set(role.role,role.color)));
     const colW=(canvas.width-2*gap)/4;
-    legend.forEach((item,i)=>{
-      const col=i%4,row=Math.floor(i/4),x=gap+col*colW,y=legendY+26+row*26;
-      ctx.fillStyle=item.color;ctx.fillRect(x,y-13,18,18);
-      ctx.fillStyle='#ffffff';ctx.fillText(item.role,x+26,y+1);
+    grouped.forEach((role,i)=>{
+      const col=i%4,row=Math.floor(i/4),x=gap+col*colW,y=legendY+32+row*25;
+      ctx.fillStyle=colorByRole.get(role)||'#ffffff';ctx.fillRect(x,y-13,18,18);
+      ctx.fillStyle='#ffffff';ctx.font='14px monospace';ctx.fillText(role,x+26,y+1);
     });
     return canvas.toDataURL('image/png');
   },roleDebugCapture);
   fs.writeFileSync(path.join(out,'cook-vendor-usher-role-debug-8x.png'),
     Buffer.from(roleDebugSheet.split(',')[1],'base64'));
-  const roleDebugAudit={pass:roleDebugCapture.items.length===6&&!!roleDebugSheet&&roleDebugCapture.legends.length>0,
+  const roleDebugRoles=[...new Set(roleDebugCapture.items.flatMap(item=>item.roleLegend.map(role=>role.role)))].sort();
+  const roleDebugAudit={pass:roleDebugCapture.items.length===6&&roleDebugCapture.items.every(item=>item.roleLegend.length>0)&&roleDebugRoles.length>0,
     captureCount:roleDebugCapture.items.length,expected:6,views:['front','right'],
-    civilians:['cook','vendor','usher'],scale:8,outline:'omitted',roleLegend:roleDebugCapture.legends||[],
-    roleLegendCount:roleDebugCapture.legends.length,
+    civilians:['cook','vendor','usher'],scale:8,outline:'omitted',roleLegend:roleDebugRoles,
+    roleLegendCount:roleDebugRoles.length,
+    perViewLegendCounts:roleDebugCapture.items.map(item=>({civ:item.civ,direction:item.direction,count:item.roleLegend.length})),
     path:'cook-vendor-usher-role-debug-8x.png'};
   const civilianVisualIntegrityAudit = await page.evaluate(async snapshots => {
     const decoded=await Promise.all(snapshots.map(async item=>{
