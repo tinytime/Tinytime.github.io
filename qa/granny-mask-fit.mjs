@@ -81,10 +81,13 @@ export function traceOuterContours(rows){
   for(let k=0;k<simple.length;k++){const a=simple[k],b=simple[(k+1)%simple.length];twiceArea+=a.x*b.y-b.x*a.y;}
   loops.push({points:simple,signedArea:twiceArea/2});
  }
- const outer=loops.filter(loop=>loop.signedArea>0);
+ const sorted=loops.sort((a,b)=>Math.abs(b.signedArea)-Math.abs(a.signedArea));
+ const outer=sorted.filter(loop=>loop.signedArea>0),holes=sorted.filter(loop=>loop.signedArea<0);
  if(!outer.length)throw new Error('Could not trace a closed outer alpha contour');
- return outer.sort((a,b)=>Math.abs(b.signedArea)-Math.abs(a.signedArea)).map(loop=>loop.points);
+ return {outer:outer.map(loop=>loop.points),holes:holes.map(loop=>loop.points)};
 }
+export function traceOuterContours(rows){return traceMaskContours(rows).outer;}
+export function traceInnerContours(rows){return traceMaskContours(rows).holes;}
 export function traceOuterContour(rows){return traceOuterContours(rows)[0];}
 export function deriveLocalMaskContours(rows,direction){
  return traceOuterContours(rows).map(contour=>contour.map(({x,y})=>{
@@ -95,6 +98,12 @@ export function deriveLocalMaskContours(rows,direction){
  }));
 }
 export function deriveLocalMaskContour(rows,direction){return deriveLocalMaskContours(rows,direction)[0];}
+export function deriveLocalMaskHoles(rows,direction){return traceInnerContours(rows).map(contour=>contour.map(({x,y})=>{let localX=x;if(direction==='right')localX=50+(x-50)/0.72;if(direction==='left')localX=50+(50-x)/0.72;return{x:localX,y};}));}
+export function rasterizeMaskContours(outer,holes,direction){
+ const filled=rasterizePolygons(outer,direction),cutouts=rasterizePolygons(holes,direction);
+ for(let i=0;i<filled.length;i++)if(cutouts[i])filled[i]=0;
+ return filled;
+}
 export const deriveLocalBodyPolygon=deriveLocalMaskContour;
 export function measureGrannyMaskFit(annotation,pixelMasks){
  return pixelMasks.map(entry=>{
@@ -103,9 +112,9 @@ export function measureGrannyMaskFit(annotation,pixelMasks){
   const exactBody=maskFromRows(entry.bodyAlpha.rows),exactUmbrella=maskFromRows(entry.umbrellaExposedDelta.rows);
   const manual=semantic.manualBodyPolygonCandidate||{bodyPolygon:semantic.bodyPolygon,bodyAppendagePolygons:semantic.bodyAppendagePolygons||[]};
   const manualBody=rasterizePolygons([manual.bodyPolygon,...(manual.bodyAppendagePolygons||[])],view);
-  const derivedBody=rasterizePolygons([semantic.bodyPolygon,...(semantic.bodyAppendagePolygons||[])],view);
+  const derivedBody=rasterizeMaskContours([semantic.bodyPolygon,...(semantic.bodyAppendagePolygons||[])],semantic.bodyMaskHolePolygons||[],view);
   const propCandidate=rasterizePolygons(semantic.manualPropPolygonCandidate||semantic.propPolygons||[],view);
-  const visiblePropCandidate=rasterizePolygons(semantic.visiblePropPolygons|| (semantic.visiblePropPolygon?[semantic.visiblePropPolygon]:[]),view);
+  const visiblePropCandidate=rasterizeMaskContours(semantic.visiblePropPolygons|| (semantic.visiblePropPolygon?[semantic.visiblePropPolygon]:[]),semantic.visiblePropMaskHolePolygons||[],view);
   const body=compareMasks(manualBody,exactBody),derived=compareMasks(derivedBody,exactBody),prop=compareMasks(propCandidate,exactUmbrella),visibleProp=compareMasks(visiblePropCandidate,exactUmbrella);
   return{direction:view,manualBodyCandidateFit:body,pixelDerivedBodyContourFit:derived,visibleUmbrellaManualCoverage:{candidatePixels:prop.candidatePixels,visibleUmbrellaPixels:prop.referencePixels,coveredVisiblePixels:prop.intersectionPixels,coverage:prop.recall,uncoveredVisiblePixels:prop.referenceOnlyPixels,candidateOutsideVisiblePixels:prop.candidateOnlyPixels,note:'Candidate prop geometry may include occluded umbrella area; candidateOutsideVisiblePixels is not a false-positive count.'},pixelDerivedVisibleUmbrellaContourFit:visibleProp};
  });
