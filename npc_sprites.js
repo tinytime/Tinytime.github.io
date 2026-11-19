@@ -1510,9 +1510,17 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       ell(50,29,12,14,back?'#30282A':grad([38,15],[63,44],[[0,'#D69A72'],[.6,skin],[1,'#754633']]),ink,1.5);
       if(!back){
         path([[38,23],[42,16],[55,16],[63,22],[61,27],[39,27]],'#28252A',ink,1.2);
+        // Profile ear and projecting nose: warm ear crease and a clear
+        // skin-toned bridge/tip keep the face readable at native scale.
+        ell(47.5,32,2.1,2.8,'#B87959',ink,.8);
+        ell(48,32,1,1.5,'#80513D',null);
         ell(59,31,1.5,1.8,ink,null);
-        line([[60,32],[66,35],[61,38]],'#80513D',1.2);
+        path([[62,32],[66.5,34.5],[67,36],[62,37],[60,35]],'#B87959',ink,.8);
+        line([[64,35],[66,35.5]],'#80513D',.8);
         line([[57,42],[62,42]],'#704333',1.2);
+        // A short angled jacket seam adds a subtle near/far plane to the
+        // profile without broadening the established side silhouette.
+        line([[43,55],[45,68],[44,84],[46,94]],'#E5E2D5',.9);
       }else{line([[43,22],[44,38]],'#A9A59A',1);line([[57,22],[56,38]],'#A9A59A',1);}
       path([[36,23],[42,17],[58,17],[65,23],[63,27],[37,27]],'#28252A',ink,1.2);
       line([[43,20],[57,20]],'#E8E3D7',1);
