@@ -142,7 +142,7 @@
     // palette-only swaps. Each type gets its own cloned mask; archetype templates
     // remain immutable and are never cumulatively modified.
     const CIV_TORSO_VARIANTS=Object.freeze({
-      runner:[0,0,0],coach:[-2,1,2],ref:[2,-2,-1],
+      runner:[2,0,-1],coach:[-2,1,2],ref:[2,-2,-1],
       courier:[-1,2,-2],guard:[2,0,-2],
       vendor:[-2,-2,2],cook:[2,2,-1],
       clinic:[0,2,4],tech:[2,0,2],hacker:[-2,2,-1],
