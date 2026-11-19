@@ -931,7 +931,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[38,55],[44,55],[43,81],[39,89],[34,87]],coat);
       path([[62,56],[68,60],[69,79],[65,84],[61,79]],coat);
       // Pan profile remains visible at the forward hand, not fused to the torso.
-      line([[64,79],[78,73],[82,73]],'#4B3434',3);
+      ell(67,81,2.8,3,skin,ink,1);
+      line([[67,80],[75,76],[79,74]],'#4B3434',3.6);
       ell(85,73,8,5,'#B95B3C',ink,1.5);
       line([[80,70],[89,70]],'#F2B17C',1);
     }
