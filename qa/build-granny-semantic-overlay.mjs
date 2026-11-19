@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
-import { deriveLocalMaskContours, measureGrannyMaskFit } from './granny-mask-fit.mjs';
+import { deriveLocalMaskContours, deriveLocalMaskHoles, measureGrannyMaskFit } from './granny-mask-fit.mjs';
 import { createServer } from 'node:http';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -170,7 +170,9 @@ try {
     if(!bodyContours.length)throw new Error('No body alpha contour found in '+key);
     d.bodyPolygon=bodyContours[0];
     d.bodyAppendagePolygons=bodyContours.slice(1);
+    d.bodyMaskHolePolygons=deriveLocalMaskHoles(mask.bodyAlpha.rows,key);
     d.visiblePropPolygons=deriveLocalMaskContours(mask.umbrellaExposedDelta.rows,key);
+    d.visiblePropMaskHolePolygons=deriveLocalMaskHoles(mask.umbrellaExposedDelta.rows,key);
     d.bodyPolygonDerivation='outer contour traced from exact umbrella-excluded renderer body alpha; renderer profile transform is inverted for source-space coordinates; candidate only, not human semantic approval';
     d.visiblePropPolygonDerivation='all visible-only outer contours traced from full-render alpha minus body alpha; disconnected visible prop components are retained; hidden/occluded umbrella geometry remains in manualPropPolygonCandidate';
   }
