@@ -2,7 +2,7 @@
 
 **Project:** Vapor City civilian NPC vector redesign  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Latest documentation checkpoint:** `777fa6e26500cd9fbac6e0af96021742b43d2303` (Cook QA handoff updated; code refinement `5ed3f49cd7c7767a716383945236a33b4c82dcb8`).
+**Latest verified implementation commit:** `5ed3f49cd7c7767a716383945236a33b4c82dcb8` (Cook silhouette and pan-grip refinement). Latest Cook browser QA: run `44537588645`, overall workflow failed on global legacy silhouette and unapproved golden-snapshot gates; Cook-specific checks passed.
 
 > This is the live status document. Update it after each meaningful design, integration, QA, and review milestone. The project background and working rules are in this folder's [README](README.md).
 
@@ -32,7 +32,7 @@ The first review batch is three characters total. Once all three are built and i
 | Character | Role / identity | Status | Internal QA | Claude review | Notes |
 |---|---|---|---|---|---|
 | Usher | Civic / venue usher; cap, clipboard, formal uniform | **BUILT — NOT APPROVED** | Targeted checks passed; four-direction render captured | Pending | First vector pilot. Navy/steel direction with restrained brass accents; distinct from Granny. |
-| Cook | Food service / chef | **BUILT — NOT APPROVED** | Targeted palette/body/face/role-debug/prop checks pass; follow-up silhouette and pan-grip QA pending | Pending | Dedicated vector path integrated: tall pleated toque, broad double-breasted cream coat, terracotta apron with ties/pocket, copper sauté pan with visibly connected grip; follow-up widened shoulder/apron silhouette refinement committed, dark cropped curls; four intentional directions. Native-size and 4× directional renders inspected. No approval claimed. |
+| Cook | Food service / chef | **BUILT — INTERNAL QA PASSED; NOT APPROVED** | Run `44537588645` / commit `5ed3f49`: palette, body/baseline, face, role-debug, prop, four-direction visual-integrity, town and gallery checks passed; 4× directional renders inspected. Overall workflow failed on unrelated global silhouette and unapproved golden-snapshot gates; audio asset 404s also logged. | Pending — batch review after Courier | Dedicated vector path: tall pleated toque, double-breasted cream coat, terracotta apron with ties/pocket, copper sauté pan. Latest refinement widens coat/apron silhouette and connects the pan grip visibly to the hand. No golden snapshots changed; no design approval claimed. |
 | Courier | Delivery / messenger | **PLANNED — NOT APPROVED** | Pending | Pending | Working concept: distinct cap or helmet, delivery bag, parcel/dispatch prop, separate silhouette and palette. |
 
 ## Full civilian roster
@@ -73,4 +73,4 @@ All designs below remain unapproved until their own design and review are comple
 - **2026-11-19:** Project background handoff folder created. This tracker was moved here from `docs/NPC_VECTOR_CHARACTER_TRACKER.md`.
 - **Approval rule:** Keep every new character marked **NOT APPROVED** until internal QA, Claude's independent review, and project-owner acceptance are complete.
 
-- **2026-11-19 follow-up:** Visual inspection of Run `44537243995`'s actual four-direction artifact found the front/side pan handle too weakly legible and Cook's rear silhouette too close to Usher (back-view IoU `0.8778`). Updated Cook's coat/apron silhouette and drew a filled, outlined pan handle from the hand into the pan. Commit `5ed3f49cd7c7767a716383945236a33b4c82dcb8`. Browser run `44537588645` is testing that code; QA output from this run is not yet verified. CI on the previous tested revision also fails the global civilian silhouette uniqueness audit, unapproved golden-snapshot gate, and reports missing audio assets (404); Cook-specific checks passed there. No Courier work started.
+- **2026-11-19 Cook QA review:** Inspected run `44537588645` and artifact `14536893339` for exact commit `5ed3f49cd7c7767a716383945236a33b4c82dcb8`. Cook-specific palette, body/baseline, face, role-debug, prop, four-direction visual-integrity, town scene, and gallery checks passed. Actual front/back/left/right 4× renders inspected: pan grip is visibly connected; revised rear/coat silhouette no longer appears among closest failing pairs. Overall workflow remains failed because global legacy civilian silhouette audit reports Clinic/Sailor and Coach/Vendor overlaps, and the golden snapshot baseline remains explicitly unapproved. Missing audio assets return HTTP 404; no page/script errors. No golden snapshots refreshed or approved. Cook remains NOT APPROVED pending comparative Claude review of the completed three-character batch and owner acceptance.
