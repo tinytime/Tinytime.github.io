@@ -189,3 +189,10 @@ Implementation commits: `0a9a008ac26477d4831d2bc804f97c7b8d1b5361` (manifest fie
 The capture now validates each generated body, full-render, and umbrella-delta mask before writing the candidate JSON: exactly 140 row arrays; every inclusive span bounded to x=0..99 with start <= end; and the sum of span widths equals the reported pixel count. It also rejects a body mask larger than the full-render mask and records the umbrella-delta bounding box. These checks protect the manifest against malformed or internally inconsistent masks; they do not establish anatomical correctness or approval.
 
 Validation implementation commit: `b31c7cbb4fc326e666b961fd7c6444a1a78f77b3`. Browser execution and artifact inspection are still pending; candidate statuses and approved Granny measurements remain unchanged.
+
+
+## Granny-specific semantic partition — 2026-11-19
+
+The live Granny renderer has no separate worn headwear. Her silver hair cap and side sweep are part of the anatomical head/hair silhouette and must remain in the body mask. The pink overhead canopy and its descending shaft are the carried umbrella prop and belong in `propPolygons`, not `headwearPolygons`. The small gripping hand and raised forearm remain anatomy; the shaft mask must stop at the hand/shaft contact and must not erase the hand. The umbrella-excluded renderer pass omits canopy and shaft while retaining the grip, making it useful source evidence for this partition.
+
+The initial candidate overlay incorrectly labelled the canopy as headwear and its shaft polygon extended through the grip. The capture script now records empty headwear arrays in all four directions, separates the canopy and shaft into two prop polygons, and validates those semantic declarations and their bounds before writing the candidate manifest. The canopy contour remains a manually sampled candidate polygon—not a pixel-traced verified prop boundary—and must be checked against the full-render PNG in each direction. Do not promote Granny to `measured` until this review is complete.
