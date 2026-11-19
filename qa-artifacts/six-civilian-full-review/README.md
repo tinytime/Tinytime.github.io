@@ -1,6 +1,10 @@
 # Full Six-Civilian Vector Review — Claude
 
 ## Purpose
+## Current construction-standard application
+
+The [Six-Civilian Construction Standard Audit](../../project-background/SIX-CIVILIAN-CONSTRUCTION-AUDIT.md) now applies the draft standard internally to all six characters, including Runner. It records the latest five-character renderer source, native captures for all six, direct game-scale evidence across runs #457 and #464, current QA measurements, and provisional scorecards. This audit does **not** mean that this historical six-character Claude package has been reactivated: the owner's current independent-review scope remains five (Usher, Cook, Courier, Coach, Referee), with Runner excluded from that submission only. Do not send or treat this package as the current Claude brief without an explicit scope decision.
+
 
 Claude: please conduct one complete, independent comparative review of **all six completed vector civilians together**:
 
