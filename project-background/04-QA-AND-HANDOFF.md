@@ -57,7 +57,7 @@ The inventory generator reads live NPC records and renderer tables from the game
 ## Next actions
 
 1. Check the latest branch head and confirm the tracker is current.
-2. Courier's bespoke vector renderer is integrated in `npc_sprites.js`; inspect the latest pending browser run `44538730042` and its four-direction, role-debug, gallery, town, and JSON artifacts.
+2. Courier's bespoke vector renderer is integrated in `npc_sprites.js`; inspect the latest pending browser run `44539341875` and its four-direction, role-debug, gallery, town, and JSON artifacts.
 3. Correct any Courier-specific defects and rerun the browser workflow. Keep global legacy silhouette and golden-snapshot failures separate from Courier-specific results; do not refresh snapshots.
 4. Once Usher, Cook, and Courier are all internally checked, assemble one Claude review package comparing the three with Granny Volt.
 5. Record Claude's findings in the tracker, make required corrections, and recheck.
