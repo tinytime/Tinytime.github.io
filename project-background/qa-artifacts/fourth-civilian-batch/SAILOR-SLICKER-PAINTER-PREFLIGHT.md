@@ -1,12 +1,13 @@
-## Owner authorization superseding earlier Sailor-only sequencing — 2026-11-20
+## Current internal QA and independent review handoff — revision 08 (2026-11-20)
 
-The owner has now explicitly authorized **Sailor (#12), Slicker (#13) and Painter (#14) to proceed simultaneously** through parallel identity refinement, four-view silhouette exploration and construction cards. This update supersedes every earlier Sailor-only / one-at-a-time sequencing note in this preflight. The earlier Sailor-only status remains historical and is not current authority.
+The internal design-source pass is complete for Sailor (#12), Slicker (#13) and Painter (#14). The exact-output Claude review package is [SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md). Package 01 is superseded.
 
-Current parallel artifacts:
-- [Parallel silhouette exploration 06](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-06.svg) — body-only and prop-on four-view study for all three, with explicit profile hand-contact bridges and rear Painter reach.
-- [Parallel construction cards and differentiation report 01](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md); [matched-scale face geometry study](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg)) — three proposed cards, handedness/contact tables and outstanding evidence register.
-
-All three construction families remain UNASSIGNED. The silhouettes, faces, props, handedness, palettes and proposed family descriptors remain unapproved. Production renderer authorization is explicitly NOT GRANTED. No character #15–23 work, approved NPC edits, golden snapshot changes or provenance changes are permitted.
+- Current source: [silhouette exploration 08](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg); [construction cards 01](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md); [face geometry study 02](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg).
+- Exact evidence: [Run #674](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302), artifact [14650547538](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302/artifacts/14650547538), tested commit `c004c4e9b231803bc3977b9d418f104e223dc417`.
+- Design-source captures: 24/24 native 64×96, 24/24 independently vector-rasterized direct 28×42, 24/24 enlarged 4×. Matched face comparisons, profile prop checks and proposed Sailor/Welder rear comparison are included.
+- Manual inspection: body-only silhouettes are distinct at native and direct scale; near-side props and character-relative handedness are present; far-side profile props are hidden; profile prop shapes and contact were visually inspected. Sailor/Welder rear comparison shows the proposed Sailor's narrower deck-coat construction distinct from Welder's broader blockier silhouette. Face geometry remains a principal independent-review question.
+- Overall Browser QA still fails only at global gates: unapproved snapshots (1 match / 23 changed) and 180 existing audio/resource HTTP 404 console entries. Page/script errors are empty. No snapshots or provenance changed.
+- No silhouette, face, prop, palette or construction family is owner-approved. All construction families remain UNASSIGNED; renderer work is NOT AUTHORIZED; #15–23 remain on hold.
 
 # Fourth civilian batch — Sailor, Slicker and Painter preflight
 
