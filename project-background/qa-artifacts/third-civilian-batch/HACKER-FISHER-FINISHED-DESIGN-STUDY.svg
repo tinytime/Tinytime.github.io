@@ -59,7 +59,7 @@
  </g></g>
  <g transform="translate(504 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">LEFT PROFILE</text><g id="hacker-left-art" transform="translate(72 38) scale(2.4 2.4)">
   <use href="#hLeft" class="hbody ink"/>
-  <path d="M29 22 L24 29 23 40 26 44 29 38 31 49 28 62 34 65 39 56 41 48 44 48 47 62 52 63 54 58 49 43 48 29 42 22 35 20Z" class="hshell ink"/>
+  <path d="M32 23 L28 30 27 40 30 44 32 39 34 49 32 59 37 63 41 55 43 48 45 48 47 60 51 62 53 57 49 43 48 30 42 23 36 21Z" class="hshell ink"/><path d="M31 43 L36 48 33 59" fill="none" stroke="#4d485d" stroke-width="1.5" stroke-linecap="round"/>
   <path d="M29 9 Q36 5 43 12 L42 20 35 23 28 19Z" class="hskin ink"/>
   <path d="M25 12 L31 7 37 8 40 12 37 14 35 17 32 16 29 18 26 16Z" class="hdeep ink"/>
   <path d="M35 14 L38 16 36 19 33 17Z" class="hskin ink"/>
