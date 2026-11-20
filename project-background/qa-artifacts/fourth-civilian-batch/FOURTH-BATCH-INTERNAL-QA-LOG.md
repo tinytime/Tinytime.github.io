@@ -1,3 +1,10 @@
+## Revision 11 — Claude corrections and internal QA in progress
+
+- Implemented the seven requested correction groups in [silhouette exploration 11](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-11.svg) and the matched face study.
+- Added body-preservation checks for all 12 body-only/prop-on direction pairs. Removed the unjustified Painter 12-pixel profile threshold; prop-region counts are now informational, not pass/fail.
+- Fresh browser capture is queued as [Run #682](https://github.com/tinytime/Tinytime.github.io/actions/runs/44783740911), source commit `51ede3a3c065dddb1eb56717e7d530e6acf528f1`. It has not completed yet; artifact inspection and manual visual disposition are pending.
+- No golden snapshots or provenance were changed. No production renderer or approved civilian assets were touched.
+
 # Fourth civilian batch — internal QA log
 
 **Date:** 2026-11-20  
