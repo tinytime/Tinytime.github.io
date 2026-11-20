@@ -45,3 +45,5 @@ jobs:
           path: vapor-city-project-documents.zip
           if-no-files-found: error
           retention-days: 30
+
+# Re-trigger package generation.
