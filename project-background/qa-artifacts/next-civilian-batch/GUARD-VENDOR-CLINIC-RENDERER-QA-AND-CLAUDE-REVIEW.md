@@ -17,7 +17,7 @@ The owner approved the Revision 02 designs for Guard, Vendor and Clinic Worker. 
 
 The first renderer pass exposed two clipping defects: Guard's helmet touched the native top edge; Vendor's left-profile tray touched the native left edge. They were corrected and refined in renderer commit 28bf7d3. Run #624 verified zero edge contacts in both the roster-wide and dedicated 24-capture alpha-bound checks. The direct 28×42 capture anchor is the live game sprite baseline (39px) in QA harness commit 2bc8c39.
 
-**Current status:** design approved; renderer implemented; targeted QA and visual inspection passed; independent Claude review and final owner completion approval are still pending. Do not begin the remaining 20 civilians yet.
+**Current status:** design approved; renderer implemented; targeted QA and visual inspection passed; independent Claude review and final owner completion approval are still pending. Do not begin the remaining 14 unstarted civilians until Claude's independent review is complete and the owner approves the direction.
 
 ## Exact QA evidence
 
@@ -33,7 +33,7 @@ Run #624 tested renderer commit `28bf7d31938c3f7a574a3b9df48d2f73488a5d80` and Q
 | Directional visual integrity | Pass; 92/92 captures checked; no edge contacts; no detached large components |
 | New-batch alpha bounds | Pass; 24/24 captures (12 native + 12 direct) have no left/right/top/bottom edge contact |
 | Prop/archetype audit | Pass |
-| NPC gallery | Pass; full 40-cell gallery rendered, including Field Clinic, City Guard and Street Vendor in all four directions |
+| NPC gallery | Pass; full 23-civilian × four-direction roster gallery (92 views) rendered and visually inspected, including Field Clinic, City Guard and Street Vendor. The separate existing 40-cell archetype-grid integrity check also passed |
 | Town-scene smoke check | Pass; street scene rendered with 16 NPCs and Granny present. This is a regression smoke check, not proof that all three new civilians spawned in that scene |
 | JavaScript/page errors | None |
 | Golden snapshot gate | Not passed: existing provenance remains `unapproved`. No snapshot was refreshed, approved or replaced |
