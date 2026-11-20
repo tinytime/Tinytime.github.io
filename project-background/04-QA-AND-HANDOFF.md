@@ -1,3 +1,7 @@
+## Latest browser QA harness checkpoint — Run #649 (2026-11-20)
+
+[Run #649](https://github.com/tinytime/Tinytime.github.io/actions/runs/44753230689), artifact [14636147603](https://github.com/tinytime/Tinytime.github.io/actions/runs/44753230689/artifacts/14636147603), tested commit `2d963db5e0b54f1f7b9afd652b33c053aa168c1b` after Tech was added to vector-civilian QA classification/count contracts. Directional integrity 92/92; direct game-scale 28×42 assertion 20/20; role debug 12/12; prop audit 10 archetypes; gallery and silhouette diagnostic inventory pass; pageErrors/scriptErrors 0. Overall Actions remains FAILED on the unapproved golden snapshot gate (1 match / 23 changed) and existing audio/resource HTTP 404 console errors. No snapshots or provenance changed.
+
 ## Owner approval and next handoff — 2026-11-20
 
 Owner approved Tech/Hacker/Fisher batch #9–11. Tech's production-renderer art is approved; Hacker/Fisher are approved finished designs only and are not production-renderer integrations. Claude's post-correction re-review has not been separately logged. The next batch is Sailor (#12), Slicker (#13), Painter (#14). Their identity/silhouette preflight is [SAILOR-SLICKER-PAINTER-PREFLIGHT.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md). Current status is preflight prepared, owner direction approval pending; no renderer work has started.
