@@ -714,3 +714,6 @@ The owner supplied Claude's completed five-character comparative findings. This 
 - **Evidence limits recorded by reviewer:** Run #599/#600 captures inspected; walk frames not inspected; black sheet is alpha-derived rather than semantic anatomy; town-ground composite is diagnostic, not proof of live named-NPC spawn. Reviewer did not inspect the written identity/proportion cards or internal QA rationale in that session.
 - **Version 2.1 audit:** Parts Seven/Eight remain unperformed pending reviewer access to the exact 64,953-byte current standard and supporting documents. The current branch standard includes the Version 2.1 independent-review response section; do not infer the audit from summaries.
 - **Next:** resolve C1 and decide whether to address U2. Keep all five NOT APPROVED until internal QA, completed independent review (including the Version 2.1 audit), and explicit owner approval. Remaining 17 stay ON HOLD; Runner remains excluded. No golden snapshots refreshed or approved.
+
+
+**NPC Designer handoff:** [GitHub issue #1 — approved four-view silhouette exploration for Guard, Vendor and Clinic Worker](https://github.com/tinytime/Tinytime.github.io/issues/1).
