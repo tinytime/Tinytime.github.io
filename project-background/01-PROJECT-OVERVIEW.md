@@ -106,3 +106,6 @@ The standard is a draft for Claude review and owner ratification. The numeric pr
 ## Six-civilian construction-standard application — 2026-11-19
 
 The draft Civilian Vector Construction Standard has been applied internally to all six built vector civilians (Usher, Cook, Courier, Runner, Coach, Referee). See [Six-Civilian Construction Standard Audit](SIX-CIVILIAN-CONSTRUCTION-AUDIT.md) for rendered evidence, per-character construction cards, provisional scorecard, current QA measurements, and calibration gaps. This internal six-character scope does not change the owner's current five-character Claude review scope; Runner remains excluded from that submission only. The remaining 20 civilians remain on hold.
+
+
+**NPC Designer handoff:** [GitHub issue #1 — approved four-view silhouette exploration for Guard, Vendor and Clinic Worker](https://github.com/tinytime/Tinytime.github.io/issues/1).
