@@ -3,12 +3,12 @@
 **Prepared:** 2026-11-20  
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Exact reviewed design source commit:** `4045675e71854b08b2e2fb1ab5c879d7b2ea2ab6`  
+**Exact reviewed design source commit:** `73774e27092de36fd88f45b0d5cb6c97f760c7ea`  
 **Current source:** [revision 18 SVG](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg)  
-**Exact evidence:** [Run #721](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910) · [artifact 14656889410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910/artifacts/14656889410)  
+**Exact evidence:** [Run #730](https://github.com/tinytime/Tinytime.github.io/actions/runs/44796157551) · [artifact 14658967396](https://github.com/tinytime/Tinytime.github.io/actions/runs/44796157551/artifacts/14658967396)  
 **Stage:** design-source silhouettes, body/prop construction and geometric face studies only
 
-Package 05 supersedes packages 01–04 for current review. The tested design source remains commit `4045675e71854b08b2e2fb1ab5c879d7b2ea2ab6`; later documentation-only commits do not change the tested SVG or evidence.
+Package 05 supersedes packages 01–04 for current review. The tested design source remains commit `73774e27092de36fd88f45b0d5cb6c97f760c7ea`; later documentation-only commits do not change the tested SVG or evidence.
 
 ## Authority and review boundary
 
@@ -19,9 +19,9 @@ Please review only the exact revision-18 source and evidence cited here. Do not 
 ## Exact evidence and source files
 
 - Revision 18 SVG: [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg)
-- Exact-source Actions run: [Run #721](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910)
-- Artifact: [14656889410 — vapor-city-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910/artifacts/14656889410)
-- Tested source commit: `4045675e71854b08b2e2fb1ab5c879d7b2ea2ab6`
+- Exact-source Actions run: [Run #730](https://github.com/tinytime/Tinytime.github.io/actions/runs/44796157551)
+- Artifact: [14658967396 — vapor-city-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/44796157551/artifacts/14658967396)
+- Tested source commit: `73774e27092de36fd88f45b0d5cb6c97f760c7ea`
 - Construction cards: [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md)
 - Owner-approved role hypotheses/constraints: [preflight](SAILOR-SLICKER-PAINTER-PREFLIGHT.md)
 - Internal QA log: [FOURTH-BATCH-INTERNAL-QA-LOG.md](FOURTH-BATCH-INTERNAL-QA-LOG.md)
@@ -42,8 +42,8 @@ The artifact includes 24 body-only/prop-on figure fields, 24 native 64×96 captu
 - 24/24 native 64×96, 24/24 independent direct 28×42 and 24/24 enlarged projections.
 - 69 roster face crops and six matched 40×38 face rows.
 - All 12 body-only/prop-on pairs preserve every body pixel (`removedBodyPixels=0`).
-- Painter body-only and prop-on figures each form one connected component in all four directions at both native and direct scales.
-- Profile prop audit: Sailor/right +172 added pixels; Painter/left +161 total / +159 expected-region pixels. These are descriptive values, not invented acceptance thresholds.
+- All three civilians' body-only and prop-on figures each form one connected component in all four directions at both native and direct scales (48/48 projections).
+- Profile prop audit: Sailor/right +172 added pixels; Painter/left +153 total / +151 expected-region pixels. These are descriptive values, not invented acceptance thresholds.
 
 **Actual artifact visual inspection: completed with review questions.**
 
@@ -57,7 +57,7 @@ Inspected the native/direct body and prop comparison sheets, front prop group, S
 
 ## Separate full-workflow failure — do not conflate with design-source pass
 
-Run #721 overall concluded **FAILURE** at the separate game-browser diagnostics step. The design projection and semantic validation steps passed. The full browser gate remains blocked because:
+Run #730 overall concluded **FAILURE** at the separate game-browser diagnostics step. The design projection and semantic validation steps passed. The full browser gate remains blocked because:
 
 - Golden snapshot gate: **1 match / 23 changed**; provenance remains explicitly unapproved.
 - Existing audio/resource HTTP 404 console entries remain.
