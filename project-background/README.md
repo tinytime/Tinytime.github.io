@@ -1,5 +1,8 @@
 ## Next civilian batch — Tech, Hacker and Fisher (2026-11-20)
 
+**Current checkpoint — Tech correction round:** latest browser QA [Run #44742568524](https://github.com/tinytime/Tinytime.github.io/actions/runs/44742568524) tested HEAD `c3ab02e929dc479850046d081e678d3cf585d85f` and uploaded artifact `14632210592`. Tech's dedicated native 64×96 (4/4) and direct 28×42 (4/4) captures, edge bounds (zero contacts), Tech role-debug (4/4), and explicit street-map NPC-list spawn audit passed. Full directional integrity (92/92), role-debug (12/12), prop audit and gallery passed; page/script errors were zero. I downloaded and inspected the actual artifact: profile eye/brow cues are now visible at native and direct game scale; the new asymmetric jacket shell, rear service pack and harness separate Tech more clearly from Clinic; the inward meter grip is visible. The town screenshot was generated after a successful runtime-list spawn, but its full-map framing is not a close-up visual confirmation of Tech's in-world appearance. Overall Actions failed on the unapproved golden baseline (1 match / 23 changed) and 180 existing audio/resource 404 console errors; no golden snapshots changed. Tech is **built, targeted automated QA passed, visually inspected; owner art approval and Claude review remain pending**. Hacker and Fisher remain untouched until Tech clears this gate.
+
+
 The project owner directed ChatGPT to move forward without sending the prior Guard/Vendor/Clinic Run #629 output back to Claude. The exact-output Claude review remains historically unrecorded; this instruction authorizes next-batch preparation and does not imply a reviewer verdict.
 
 Prepared:
