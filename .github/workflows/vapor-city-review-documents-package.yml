@@ -110,4 +110,5 @@ jobs:
 # Final refresh after current authority cleanup.
 # Ensure the artifact contains exact-source Run 603 and final owner status.
 # Final package refresh after Run 603 documentation and manifest updates.
+# Rebuild after final overview correction; package must match branch head.
 # Ensure the final artifact includes the latest README, tracker, standard, and manifest.
