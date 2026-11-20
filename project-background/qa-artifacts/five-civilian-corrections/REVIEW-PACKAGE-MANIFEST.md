@@ -14,7 +14,7 @@ Use this manifest for every independent review package. Mark each row `included`
 | Independent review log | included | `CLAUDE-REREVIEW-RUN-600.md` |
 | Accepted-exception register | included | `ACCEPTED-EXCEPTIONS.md` |
 | Native four-direction captures | included | Run #603 artifact `14593339734`; all 20 exact-source PNGs, plus Run #600 baseline artifact `14591690387` for comparison |
-| Direct 28×42 four-direction captures | included | Run #602 artifact `14592969167`; all 20 direct exact-source PNGs, plus Run #600 baseline artifact `14591690387` |
+| Direct 28×42 four-direction captures | included | Run #603 artifact `14593339734`; all 20 direct exact-source PNGs, plus Run #600 baseline artifact `14591690387` |
 | Black silhouette sheet | included | Alpha-derived; not anatomical segmentation |
 | Neutral-grey and town/night captures | included | Record exact background configuration |
 | Walk frames, two per direction | unavailable | Not present in Runs #600 or #603; required for any character with active walk animation, otherwise record not applicable |
@@ -22,7 +22,7 @@ Use this manifest for every independent review package. Mark each row `included`
 | Named-character town spawn proof | unavailable | Town-ground composite is diagnostic only |
 | Role-debug evidence | included | Run #600 artifact |
 | QA report and logs | included | Run #600 artifact |
-| Exact renderer commit | included | `880cad6bf937d8bfc1e004fe81cbd6854c522d23` (U4 only; Cook restored; U2 unchanged) |
+| Exact renderer commit | included | `2c00cfca09cc12ea19a72662c235beed2e9a19cb` (U4 only relative to task-start branch head; Cook preserved; U2 unchanged) |
 | Exact QA/evidence run | included | Run #603 (renderer `2c00cfca`); Runs #599/#600 retained as baseline and independent-review evidence |
 
 ## Review freeze
@@ -34,7 +34,7 @@ Use this manifest for every independent review package. Mark each row `included`
 - Do not mark any civilian approved based on package completeness or a reviewer recommendation.
 ## Self-contained package build
 
-The GitHub Actions workflow packages the complete current project documents, Run #600 and Run #602 evidence archives, U4 before/after profile sheets at native and direct game scale, and the Run #603 Claude re-review brief. Verify the latest successful artifact from the [package workflow run history](https://github.com/tinytime/Tinytime.github.io/actions/workflows/vapor-city-review-documents-package.yml). The package ZIP must pass integrity verification and its nested project ZIP must be tested before distribution.
+The GitHub Actions workflow packages the complete current project documents, Run #600 and Run #603 evidence archives, U4 before/after profile sheets at native and direct game scale, and the Run #603 Claude re-review brief. Verify the latest successful artifact from the [package workflow run history](https://github.com/tinytime/Tinytime.github.io/actions/workflows/vapor-city-review-documents-package.yml). The package ZIP must pass integrity verification and its nested project ZIP must be tested before distribution.
 
 ## Current owner dispositions
 
