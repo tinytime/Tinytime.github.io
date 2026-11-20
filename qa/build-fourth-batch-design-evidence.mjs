@@ -273,17 +273,17 @@ try {
   const sailorWelderBackSheet = await page.evaluate(async ({sailorUrl,welderUrl}) => {
     const load=async src=>{const im=new Image();im.src=src;await im.decode();return im;};
     const sailor=await load(sailorUrl),welder=await load(welderUrl);
-    const c=document.createElement('canvas');c.width=320;c.height=164;
+    const c=document.createElement('canvas');c.width=320;c.height=228;
     const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
     x.fillStyle='#fff';x.font='bold 11px sans-serif';x.fillText('PROPOSED SAILOR / BACK',12,14);x.fillText('LIVE WELDER / BACK',172,14);
-    x.drawImage(sailor,12,24,128,128);
+    x.drawImage(sailor,12,24,128,192);
     const mask=document.createElement('canvas');mask.width=welder.naturalWidth;mask.height=welder.naturalHeight;
     const m=mask.getContext('2d',{willReadFrequently:true});m.drawImage(welder,0,0);
     const pixels=m.getImageData(0,0,mask.width,mask.height);
     for(let i=0;i<pixels.data.length;i+=4){
       if(pixels.data[i+3]>0){pixels.data[i]=8;pixels.data[i+1]=10;pixels.data[i+2]=14;}
     }
-    m.putImageData(pixels,0,0);x.drawImage(mask,172,24,128,128);
+    m.putImageData(pixels,0,0);x.drawImage(mask,172,24,128,192);
     return c.toDataURL('image/png');
   },{sailorUrl:svgData.data['sailor-body-back'].native,welderUrl:welderBackDataUrl});
   writeData(path.join(out,'sailor-welder-back-silhouette-comparison.png'),sailorWelderBackSheet);
