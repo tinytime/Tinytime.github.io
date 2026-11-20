@@ -59,7 +59,7 @@ The required matched-scale face-crop comparisons have **not** been completed. No
 |---|---|---|---|---|---|
 | Front | Character-right | Viewer-left | Right arm/wrist/palm visible | Left arm separated or shell-occluded | Folded umbrella rests in right palm; small vertical footprint |
 | Back | Character-right | Viewer-right | Right arm/hand visible | Left arm intentionally occluded by shell | Same single umbrella; no duplicate |
-| Left profile | Character-right, far-side | Far side | Left arm is near-side and empty | Right arm occluded | Umbrella hidden |
+| Left profile | Character-right, near-side | Near side | Right arm/wrist/palm visible | Left/far arm occluded | Folded umbrella contacts the right hand; compact footprint |
 | Right profile | Character-right, far-side | Far side | Left arm is near-side and empty | Right/far arm occluded | Umbrella hidden |
 
 **Roster comparisons:** Fisher, Courier, Hacker, Coach and Sailor. Distinguish shell architecture and pose before prop: long asymmetric rain shell vs Fisher's broad short smock, Courier's A-line messenger coat, Hacker's cropped drape and Coach's athletic jacket.
