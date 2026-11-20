@@ -1,5 +1,18 @@
 # NPC Vector Character Design Tracker
 
+## Independent Claude review — Run #595 (2026-11-19)
+
+- **Review received:** independent comparative visual review of Usher, Cook, Courier, Coach and Referee.
+- **Claude batch verdict:** **READY FOR OWNER REVIEW**, with P2 findings disclosed. This is not owner approval; all five remain NOT APPROVED.
+- **Resolved round-one P1s:** Coach head/cap read, Cook connected forearm/hand/pan construction, and Usher coat/trouser/shoe separation.
+- **No P0/P1 findings remain.** Coach/Courier rear similarity was reclassified to P2: acceptable shared body mass with distinct construction, marginally. IoU remains around 0.89; record the human rationale, not a numeric pass/fail.
+- **P2 owner disposition:** F1 facial individuality for Courier, Usher and Cook; U1 Usher profile shoe separation; C1 Cook pan/hand and handle readability; X1 documented Coach/Courier rear distinction.
+- **P3 optional polish:** Cook rear hand continuity; faint pale arc behind Coach's ear; cyan/orange rim-fringe preference; mirrored near-side prop convention; Referee plain back. Do not redesign Referee absent a demonstrated defect.
+- **Scores:** Referee 7.5/10 (82/100); Cook 7/10 (73/100); Courier 6.5/10 (70/100); Coach 6/10 (65/100); Usher 6/10 (64/100). Scores are non-gating.
+- **Evidence limits:** Claude inspected 20/20 native and 20/20 direct game-scale images and supplied composites. The ZIP lacked the black silhouette sheet, identity briefs, proportion cards and Actions logs. Claude did not inspect repository source or supporting docs 02/04. Town evidence did not prove all five were individually spawned.
+- **QA:** [Run #595](https://github.com/tinytime/Tinytime.github.io/actions/runs/44645116652), artifact 14587318765; renderer c354abfa3d78b46dc982a03d2c5d1ece0c918257. Targeted checks passed; overall workflow FAILED on global Clinic/Sailor front silhouette and unapproved golden snapshots. Audio 404s are expected non-blocking noise. No snapshots were refreshed or approved.
+- **Current disposition:** ready to present to owner with P2s visible. None is approved. Resolve or explicitly accept P2s before final approval. Runner remains excluded; remaining 17 remain ON HOLD.
+
 ## Five-character Claude correction round — 2026-11-20
 
 - **Working renderer source:** `c354abfa3d78b46dc982a03d2c5d1ece0c918257` — [commit](https://github.com/tinytime/Tinytime.github.io/commit/c354abfa3d78b46dc982a03d2c5d1ece0c918257).
@@ -8,7 +21,7 @@
 - **Visual inspection:** the actual native and direct game-scale contact sheets and focused comparison sheets were opened and inspected. Coach/Courier back silhouettes now have a clear difference in jacket length/hem construction, not just palette or emblem. Cook's hand visibly overlaps the pan handle in front and profile captures. Usher's side trouser planes and shoes now separate more clearly at game scale. Referee remains unchanged; its raised card/arm, stripes, red shorts and white socks are preserved. Courier's parcel, satchel, strap and teal/gold palette are preserved.
 - **Automated results:** semantic annotation validation PASS; Granny semantic capture PASS; six-civilian annotation overlay PASS (24/24); five-character review evidence generation PASS; native captures 20/20; direct 28×42 captures 20/20; directional integrity 92/92; role debug 12/12; prop audit and gallery capture PASS. Town integration screenshot was captured as scene-regression evidence; it is not proof that each of the five named characters was individually spawned in that scene.
 - **Overall workflow:** Run #595 concluded FAILED at browser diagnostics. The report retains the global full-roster silhouette gate (max IoU 0.9094292803970223; Clinic/Sailor front is the known maximum) and unapproved golden-snapshot gate (1 match / 23 changed). Expected branch audio 404s remain non-blocking environment noise. No golden snapshots were refreshed or approved.
-- **Status:** the correction work is implemented, the evidence was generated, and the actual contact sheets were visually inspected. This is **not** character approval or final internal sign-off. Usher, Cook, Courier, Coach and Referee remain **NOT APPROVED / awaiting Claude's independent review and owner decision**. Runner remains excluded. The remaining 17 civilians remain ON HOLD. No construction-standard text was changed.
+- **Status:** the correction work is implemented, the evidence was generated, and the actual contact sheets were visually inspected. This is **not** character approval or final internal sign-off. Usher, Cook, Courier, Coach and Referee remain **NOT APPROVED / Claude review complete; awaiting owner decision and P2 disposition**. Runner remains excluded. The remaining 17 civilians remain ON HOLD. No construction-standard text was changed.
 
 
 ## Current release gate — 2026-11-19
