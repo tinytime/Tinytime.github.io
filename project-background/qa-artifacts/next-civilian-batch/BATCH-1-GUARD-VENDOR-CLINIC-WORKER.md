@@ -1,6 +1,6 @@
 # Next Vector Batch — Guard, Vendor and Clinic Worker
 
-**Status:** draft planning briefs; see the [owner preflight proposal](OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md). No renderer production is authorized.  
+**Status:** first four-view silhouette exploration and construction cards committed for owner review; renderer production is not authorized. See the [owner preflight proposal](OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md), [silhouette sheet](GUARD-VENDOR-CLINIC-SILHOUETTE-EXPLORATION.svg) and [construction cards](GUARD-VENDOR-CLINIC-CONSTRUCTION-CARDS.md).  
 **Batch order:** Guard, Vendor and Clinic worker — first three unstarted entries in the live roster.  
 **Roster context:** 23 types; five owner-approved; Runner built but excluded from the five-character approval and pending focused review; 17 roster entries remain unstarted/on hold.  
 **Reference:** Granny Volt is the 10/10 craft benchmark, never a template.
@@ -15,7 +15,11 @@
 - Every visible prop needs believable shoulder/arm/hand chain, grip/support, occlusion order and character-relative side. Legacy props are starting clues, not requirements.
 - Evidence: native 64×96 and direct 28×42 in all four directions; enlarged nearest-neighbour; black silhouette sheet; direct game-scale neutral-grey captures; gallery/town context; applicable walk frames; prop-contact table; package manifest.
 - Town composites are diagnostic context only unless the named character is explicitly spawned and captured.
-- The construction standard was ratified by the owner on 2026-11-19. The written direction proposal is ready for owner review. Do not begin renderer implementation until the owner accepts the direction and reviews the NPC Designer's actual four-view black silhouette exploration.
+- The construction standard was ratified by the owner on 2026-11-19. The written direction and first actual silhouette exploration are ready for owner review. Do not begin renderer implementation until the owner explicitly accepts the actual four-view silhouettes.
+
+## Current silhouette exploration status
+
+The first matched-scale black four-view sheet and detailed construction cards are now present in the linked artifacts above. This is an initial design proposal, not final approved silhouette art. The SVG uses a common 64×96 design field and shows all four directions; it is not a native renderer capture or direct game-scale screenshot. Prop contacts are proposed construction relationships and remain subject to owner review and later production QA.
 
 ## 1. Guard — security / protective role
 
