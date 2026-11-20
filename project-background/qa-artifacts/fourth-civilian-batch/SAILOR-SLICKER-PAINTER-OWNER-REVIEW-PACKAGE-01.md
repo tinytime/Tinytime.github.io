@@ -1,47 +1,47 @@
-# Owner review package — Sailor, Slicker and Painter (revision 15)
+# Correction package — Sailor, Slicker and Painter (revision 18)
 
 **Prepared:** 2026-11-20  
-**Repository:** tinytime/Tinytime.github.io  
-**Branch:** npc-granny-baseline-overhaul  
-**Status:** ready for owner design review; not approved for renderer implementation.
+**Repository:** `tinytime/Tinytime.github.io`  
+**Branch:** `npc-granny-baseline-overhaul`  
+**Status:** Claude's requested source corrections have been implemented. Fresh revision-18 QA and artifact inspection are pending; this is not an approval request and does not authorize renderer implementation.
 
-## Source and evidence
+## Current source
 
-- Design source: [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-15.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-15.svg), tested at commit 9abb7de906314a092157f6d5bffe4492e7736cb9.
-- Matched face geometry study: [SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg).
-- Construction notes: [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md).
-- Internal QA log: [FOURTH-BATCH-INTERNAL-QA-LOG.md](FOURTH-BATCH-INTERNAL-QA-LOG.md).
-- Source-validation run: [Run #695](https://github.com/tinytime/Tinytime.github.io/actions/runs/44787355926), tested source commit 9abb7de906314a092157f6d5bffe4492e7736cb9, [artifact 14653489949](https://github.com/tinytime/Tinytime.github.io/actions/runs/44787355926/artifacts/14653489949).
-- Follow-up documentation verification: [Run #697](https://github.com/tinytime/Tinytime.github.io/actions/runs/44788265440), commit 05149e72552108518d8a406bb716a20b374ca05e, [artifact 14654762821](https://github.com/tinytime/Tinytime.github.io/actions/runs/44788265440/artifacts/14654762821). It reran the same revision-15 source after package/tracker updates; design projections and semantic validation passed, with the same separate global browser diagnostics failure.
+- Silhouette/design source: [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg)
+- Matched face study: [SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg)
+- Construction cards: [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md)
+- Internal QA log: [FOURTH-BATCH-INTERNAL-QA-LOG.md](FOURTH-BATCH-INTERNAL-QA-LOG.md)
+- Evidence builder: `qa/build-fourth-batch-design-evidence.mjs` (now requires revision 18)
+- Latest source commit: `78fa6ad9b9ef2fef368ecc42cd3ff562e9f02f1f`
+- Revision-18 source creation: `46a0457fb841c8981395f36b4b54eedfec8fb888`
+- Evidence-builder retarget: `0d83656aa40aa2b9eb492dda909a2ed2c0768e98`
 
 ## Claude correction checklist
 
-| Review finding | Revision 15 response | Internal evidence / disposition |
+| Claude finding | Revision 18 source response | Verification still required |
 |---|---|---|
-| 1. Painter rear handedness and body-only preservation | Prop-on views retain the same base body and arm geometry; the profile arm/hand is shared with body-only and the brush is added below the hand. | All 12 body-only/prop-on comparisons passed with zero removed body pixels. |
-| 2. Painter brush hand/contact, brush-vs-mallet readability and arbitrary profile threshold | Right hand visibly supports the brush in front/back/left profile; the head flares into a bristle edge. Arbitrary minimum removed. | Painter/left adds 143 pixels (141 in expected region); direct 28×42 inspected. Tool/hand cluster remains dense and should receive owner scrutiny. |
-| 3. Slicker umbrella ambiguity | Separate umbrella removed; integrated face-framing hood, diagonal storm closure and longer character-left storm flap replace it. | Direct 28×42, native and enlarged projections inspected; rainwear reads as integrated clothing rather than a club/paddle. |
-| 4. Painter headwear similarity to Sailor | Painter uses a knit beanie without Sailor's flat brim. | Matched face/head crops inspected. |
-| 5. Painter asymmetric brow strength | Brow asymmetry strengthened; cheek/jaw and profile nose differentiated. | Six matched geometric face comparisons inspected; final face rendering still needs owner judgment. |
-| 6. Sailor coil bridge and arm separation | Coil-to-palm bridge thickened; rear/profile arm negative-space breaks retained. | Native/direct silhouette and prop comparisons inspected. |
-| 7. Slicker pitch and hem asymmetry | Profile forward lean retained; front/rear character-left storm flap makes the uneven rain-smock hem more legible. | Direct 28×42 and enlarged front/back/profile views inspected. |
+| Painter profiles detached at head/torso | Both profile head/neck/shoulder paths are connected; the empty row gap is removed in source. | Inspect all four directions at native 64×96 and direct 28×42; confirm no new overlaps/clipping. |
+| Slicker back has no rainwear cue | Added rear yoke and hem seams to the rain-shell body. | Confirm seams survive native and direct game scale and do not read as arbitrary stripes. |
+| Slicker hood opening is enclosed / non-directional | Hood opening is now face-side-open and the profile shape is oriented toward the face. | Inspect both profile directions at direct 28×42 to confirm near/far orientation. |
+| Slicker front closure splits torso; face study has a cap | Shortened the chest closure; revised the matched face study's Slicker headwear silhouette to a hood. | Confirm closure ends above the crotch gap and the face/body read as one hooded design. |
+| Painter brush reads as dangling bundle and merges with thigh | Added a visible ferrule band and separated bristle strokes. Shifted the left-profile near-side leg rearward in both body-only and prop-on views to separate the brush mass from the thigh. | Confirm the tool reads as a brush at direct 28×42, hand→handle→ferrule→bristles chain is clear, and right profile remains prop-hidden. |
+| Slicker/Painter faces too similar | Slicker retains close-set level brows and a narrow hood-framed face; Painter retains lifted asymmetric brow, squarer cheek/jaw and shorter profile nose. | Compare matched face crops at native/direct scales; final face distinction remains a human judgment. |
+| Sailor coil bridge too thin; profile slits may vanish | Retain the thicker front coil-to-palm bridge and rear/profile arm separation. | Confirm front hand contact and profile gaps at direct 28×42. |
 
-## Internal QA results
+## QA status and limits
 
-- Design-source evidence: 24/24 views projected at native 64×96, 24/24 independently rasterized at direct 28×42, and 24/24 nearest-neighbour enlarged images.
-- Body integrity: 12/12 body-only/prop-on pairs pass with zero removed body pixels.
-- Separate prop audit: Sailor/right +172 pixels; Painter/left +143 total / +141 in the expected region. Counts are descriptive; no arbitrary threshold is used. Slicker has integrated weather detail rather than a separate prop.
-- Face references: 69 current-roster crops and six matched 40×38 comparison rows (Sailor vs Clinic/Guard; Slicker vs Hacker/Courier; Painter vs Cook/Busker).
-- Manual inspection: body-native/direct, prop-native/direct, front prop group, enlarged directional crops, matched face comparisons and Sailor/Welder rear diagnostic reviewed.
-- Cross-roster body comparison: inspected Clinic, Guard, Coach, Courier and Fisher directional captures, plus the existing five-civilian black-silhouette sheet (Usher, Cook, Ref). Sailor's nearest body resemblance is Usher/Coach due to upright narrow mass, differentiated by flat-brim deck cap, longer stance, separated arms and coil. Slicker differs from Fisher/Cook/Guard through pear-shaped hooded smock, face opening and storm flap. Painter differs from Coach/Courier/Ref through open reaching pose and hip-level brush. These are qualitative comparisons, not pixel-normalized pairs: existing roster assets are game-rendered sprites while these are design-source silhouettes.
-- The Sailor/Welder rear diagnostic is vector-versus-legacy-pixel, not like-for-like. Face comparisons are grayscale geometry beside painted roster crops, not final character rendering approval.
+The last completed evidence, Runs #695 and #697, tested **revision 15**, not revision 18. Their 24/24 projection and 12/12 body-preservation results must not be attributed to revision 18.
 
-## Outstanding QA caveat
+Fresh revision-18 Actions execution, artifact retrieval, and manual inspection are outstanding. Once available, inspect:
+- all 24 source views at native 64×96 and independently rasterized direct 28×42;
+- nearest-neighbour enlargements for detached components, clipping and overlap;
+- all 12 body-only/prop-on pairs, requiring zero removed body pixels;
+- Painter left-profile brush separation and the complete contact chain;
+- Slicker rear seams, both profile hood openings, shortened front closure and matched face study;
+- Sailor front coil contact and profile arm gaps.
 
-The overall browser workflow remains failed at the global game-browser diagnostics gate. The golden snapshot metadata explicitly marks the baseline unapproved: 24 expected/present, one match (Granny), 23 changed civilian captures and none missing. The run also logged 180 resource 404 console entries, including audio resources. pageErrors and scriptErrors are empty. No golden snapshots or provenance were refreshed or approved. Ancillary checks passed: syntax and sprite module, NPC inventory, palette/body checks, atlas runtime and vertical fallback, 20/20 game-scale captures, 92/92 directional integrity, 12/12 role debug, 10 archetype prop audit and gallery render. These are existing-renderer diagnostics, not proof of live integration for these design candidates.
+The global game-browser diagnostics historically fail on the explicitly unapproved golden-snapshot baseline and existing resource 404s. Do not refresh or approve golden snapshots or provenance. No new source-specific QA result is claimed here.
 
-## Decision requested
+## Approval boundary
 
-Please review the three distinct silhouettes, all four directions, direct 28×42 readability, prop contact and matched face geometry. In particular, scrutinize Painter's compact brush/hand cluster, Sailor's nearest resemblance to Usher/Coach, and whether Slicker's longer storm flap gives the rain smock enough front/rear asymmetry.
-
-**No renderer implementation is authorized by this package.** The supplied Claude review drove the corrections, but independent Claude re-review of revision 15 has not yet been performed. After owner direction, the next gate is any requested design adjustment, then independent review if required, then explicit owner approval. Remaining roster characters stay on hold until this batch's direction is approved.
+This remains design-stage vector work only. No production renderer, live town/gallery integration, approved character art, palette lock, golden snapshot or snapshot provenance has changed. Claude's re-review of the corrected exact output and the owner's final approval remain required. The remaining civilian roster stays on hold.
