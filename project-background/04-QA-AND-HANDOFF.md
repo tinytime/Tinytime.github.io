@@ -1,5 +1,13 @@
 # QA, Known Issues, and Handoff
 
+ 
+## Claude Run #600 re-review — 2026-11-20
+
+Claude's independent verdict is **Ready with disclosed minor issues**, with no P0/P1 findings. This is not approval. New P2 findings are Cook profile pan handle/contact (C1), Usher profile clipboard/arm continuity (U4), and Usher silhouette originality (U2). The face-scale rule requires revision; the package lacked walk frames. Coach/Courier rear is accepted as documented. Full findings and evidence limits are in [the re-review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md).
+
+All five remain NOT APPROVED. U4 and U2 require owner disposition before renderer changes. Next package must include two walk frames per direction for animated characters, exact IoU mask basis/alpha threshold, per-finding before/after sheets, fixed backdrop configuration and a completeness manifest. Do not refresh golden snapshots without explicit owner authorization.
+
+
 ## Review-derived visual acceptance requirements — 2026-11-19
 
 Claude's review of the five-character evidence has been incorporated into the draft construction standard's Version 2 addendum. For future reviews, distinguish technical completeness, semantic annotation validity, visual design quality, direct game-scale readability and project integration. Do not treat passing automated checks as visual approval.
