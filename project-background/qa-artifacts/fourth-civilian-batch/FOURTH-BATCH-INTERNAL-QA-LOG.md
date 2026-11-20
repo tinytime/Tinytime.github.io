@@ -181,3 +181,13 @@ All three construction families remain UNASSIGNED. No final silhouette, face, pr
 - Town/gallery screenshots were inspected as existing-scene smoke evidence only; these three characters are not installed in production renderers or live spawn/gallery systems.
 
 **Current disposition: INTERNAL DESIGN-SOURCE QA PASS WITH REVIEW QUESTIONS.** Claude package 04 is prepared. No owner approval or renderer authorization. All construction families remain UNASSIGNED; #15–23 remain held.
+
+
+## Revision 19 — design-source update, QA not yet performed
+
+**Artwork source commit:** `44d133b65c8ebd6aa3c207e03960d85034df193b` ([revision 19 SVG](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg)).
+
+- Sailor: compacted the rope loop and revised the visible grip silhouette in front, rear and near-side right profile. Character-left handedness is retained under standard §F2.
+- Painter: replaced the fork/rake-like brush treatment with a compact diagonal handle and solid wedge bristle head in front, rear and near-side left profile. Character-right handedness is retained under standard §F2.
+- Slicker: unchanged; source geometry is preserved.
+- No revision-19 captures or automated/manual QA have been run. No result is inferred from the source edit. Internal QA is pending, not passed; Claude review and owner approval have not occurred. Renderer implementation is not authorized.
