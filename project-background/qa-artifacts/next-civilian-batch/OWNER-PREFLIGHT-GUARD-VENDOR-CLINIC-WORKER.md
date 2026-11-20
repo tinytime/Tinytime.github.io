@@ -176,3 +176,6 @@ Only after the owner accepts that silhouette exploration should the team begin r
 **Authorized now:** NPC Designer silhouette exploration and construction-card preparation for Guard, Vendor and Clinic Worker.
 
 **Still not authorized:** production vector rendering, changes to `npc_sprites.js` or other live game code, golden snapshot changes, or marking any of the three characters complete. Return the actual four-view black silhouettes and cards to the owner for approval first.
+
+
+**NPC Designer handoff:** [GitHub issue #1 — approved four-view silhouette exploration for Guard, Vendor and Clinic Worker](https://github.com/tinytime/Tinytime.github.io/issues/1).
