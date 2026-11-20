@@ -1,11 +1,11 @@
 # Guard / Vendor / Clinic Worker — Renderer QA and Claude Review Package
 
 **Owner design approval:** 2026-11-19  
-**Renderer source commit:** [b5762ab47868de96389d75f82517c57d481cd3ed](https://github.com/tinytime/Tinytime.github.io/commit/b5762ab47868de96389d75f82517c57d481cd3ed)
-**QA harness commit:** [87eac9cd0a2b23a706f57df3e570ca3669c94c53](https://github.com/tinytime/Tinytime.github.io/commit/87eac9cd0a2b23a706f57df3e570ca3669c94c53)  
+**Renderer source commit:** [28bf7d31938c3f7a574a3b9df48d2f73488a5d80](https://github.com/tinytime/Tinytime.github.io/commit/28bf7d31938c3f7a574a3b9df48d2f73488a5d80)
+**QA harness commit:** [2bc8c39babf145878925adb3d78fd93d8a2296e3](https://github.com/tinytime/Tinytime.github.io/commit/2bc8c39babf145878925adb3d78fd93d8a2296e3)  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Browser QA:** [Run #622](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670705401)  
-**Artifact:** [Download the complete Run #622 evidence package](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670705401/artifacts/14599434590)
+**Browser QA:** [Run #624](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670975455)  
+**Artifact:** [Download the complete Run #624 evidence package](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670975455/artifacts/14600880214)
 
 ## Scope and status
 
@@ -15,13 +15,13 @@ The owner approved the Revision 02 designs for Guard, Vendor and Clinic Worker. 
 - `drawVendorVector` — forward-pitched stall worker, split waistcoat, open shirt, offset sash, tray supported by the hand.
 - `drawClinicVector` — tapered wrap tunic, offset hip stance, low rear hair coil/side tie, separate character-left medical pouch.
 
-The first renderer pass exposed two clipping defects: Guard's helmet touched the native top edge; Vendor's left-profile tray touched the native left edge. They were corrected and further refined in renderer commit b5762ab. Run #622 verified zero edge contacts. The direct 28×42 capture anchor was corrected to the live game sprite baseline (39px) in QA harness commit 87eac9c.
+The first renderer pass exposed two clipping defects: Guard's helmet touched the native top edge; Vendor's left-profile tray touched the native left edge. They were corrected and refined in renderer commit 28bf7d3. Run #624 verified zero edge contacts in both the roster-wide and dedicated 24-capture alpha-bound checks. The direct 28×42 capture anchor is the live game sprite baseline (39px) in QA harness commit 2bc8c39.
 
 **Current status:** design approved; renderer implemented; targeted QA and visual inspection passed; independent Claude review and final owner completion approval are still pending. Do not begin the remaining 20 civilians yet.
 
 ## Exact QA evidence
 
-Run #622 tested renderer commit `b5762ab47868de96389d75f82517c57d481cd3ed` and QA harness commit `87eac9cd0a2b23a706f57df3e570ca3669c94c53`.
+Run #624 tested renderer commit `28bf7d31938c3f7a574a3b9df48d2f73488a5d80` and QA harness commit `2bc8c39babf145878925adb3d78fd93d8a2296e3`.
 
 | Check | Result |
 |---|---|
@@ -31,6 +31,7 @@ Run #622 tested renderer commit `b5762ab47868de96389d75f82517c57d481cd3ed` and Q
 | Palette audit | Pass; 23 civilians, 14 legacy pixel renderers, 9 vector renderers |
 | Body proportion / baseline audit | Pass; max height deviation 0.875 px; max baseline delta 1 |
 | Directional visual integrity | Pass; 92/92 captures checked; no edge contacts; no detached large components |
+| New-batch alpha bounds | Pass; 24/24 captures (12 native + 12 direct) have no left/right/top/bottom edge contact |
 | Prop/archetype audit | Pass |
 | NPC gallery | Pass; full 40-cell gallery rendered, including Field Clinic, City Guard and Street Vendor in all four directions |
 | Town-scene smoke check | Pass; street scene rendered with 16 NPCs and Granny present. This is a regression smoke check, not proof that all three new civilians spawned in that scene |
@@ -42,7 +43,7 @@ The browser log contains 135 existing audio-resource 404 responses. These are se
 
 ## Mandatory human-review triggers
 
-The pairwise silhouette diagnostics are technically complete and pass their diagnostic validity check. Nine full-body pairs cross the established IoU review threshold (0.85). This threshold is a **human-review trigger**, not an automatic art rejection. Torso-only IoU is materially lower, showing that torso construction is more distinct than the combined head/limb silhouette alone.
+The pairwise silhouette diagnostics are technically complete and pass their diagnostic validity check. Eight full-body pairs cross the established IoU review threshold (0.85). This threshold is a **human-review trigger**, not an automatic art rejection. Torso-only IoU is materially lower, showing that torso construction is more distinct than the combined head/limb silhouette alone.
 
 | Direction | Pair | Full-body IoU | Torso-only IoU |
 |---|---|---:|---:|
@@ -52,7 +53,6 @@ The pairwise silhouette diagnostics are technically complete and pass their diag
 | Back/up | Courier / Guard | 0.8771 | 0.3345 |
 | Back/up | Vendor / Clinic | 0.8686 | 0.5402 |
 
-| Front | Vendor / Clinic | 0.8654 | 0.5664 |
 | Front | Guard / Clinic | 0.8624 | 0.6621 |
 | Profile right | Guard / Clinic | 0.8550 | 0.5980 |
 | Back/up | Guard / Clinic | 0.8546 | 0.6405 |
@@ -67,9 +67,9 @@ Claude should inspect these exact comparisons in the native and game-scale captu
 4. [Owner-approved preflight and criteria](OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md)
 5. [Renderer implementation source](https://github.com/tinytime/Tinytime.github.io/blob/npc-granny-baseline-overhaul/npc_sprites.js)
 6. [Browser QA implementation](https://github.com/tinytime/Tinytime.github.io/blob/npc-granny-baseline-overhaul/qa/vapor-city-browser-qa.mjs)
-7. [Run #622 screenshots and report](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670705401/artifacts/14599434590)
+7. [Run #624 screenshots and report](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670975455/artifacts/14600880214)
 
-The Run #622 artifact contains the 12 individual native 64×96 PNGs, 12 individual direct 28×42 PNGs using the corrected 39px anchor, full NPC gallery captures, town screenshot, and machine-readable QA report.
+The Run #624 artifact contains the 12 individual native 64×96 PNGs, 12 individual direct 28×42 PNGs using the corrected 39px anchor, full NPC gallery captures, town screenshot, and machine-readable QA report.
 
 ## Claude review criteria
 
@@ -78,7 +78,7 @@ The Run #622 artifact contains the 12 individual native 64×96 PNGs, 12 individu
 - Inspect Guard's rear-harness radio visibility and front occlusion; front bracer placement and profile near/far-arm occlusion.
 - Inspect Vendor's hand-to-tray contact, far-side tray occlusion, sash continuity, and forward-pitched stance.
 - Inspect Clinic Worker's wrap overlap, low rear hair gathering, pouch attachment and separation from the hand.
-- Review the nine overlap-trigger pairs above, using torso-only metrics as supporting evidence rather than a substitute for visual judgment.
+- Review the eight overlap-trigger pairs above, using torso-only metrics as supporting evidence rather than a substitute for visual judgment.
 - Check clipping, edge clearance, detached components, face uniqueness, prop readability and consistency across directions.
 - Return actionable findings per character/direction. Do not approve golden snapshots or change the design scope.
 
