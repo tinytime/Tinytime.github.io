@@ -7,7 +7,7 @@
 - **Preserve:** Cook C1 remains deferred/accepted as-is; Usher U2 remains declined; Usher U4 is implemented and internally resolved; Coach/Courier rear X1 remains accepted. No renderer edits to these designs without renewed authorization.
 - **Renderer/QA provenance:** renderer 2c00cfca09cc12ea19a72662c235beed2e9a19cb; Run #603 [tested the exact source](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact 14593339734. Targeted U4 checks passed; overall Actions concluded failure on unapproved snapshots (1 match / 23 changed) and 180 existing audio 404s. No snapshots were refreshed or approved.
 - **Construction standard:** Claude recommended ready with revisions; F2–F7 have been reconciled. The owner ratified the revised standard on 2026-11-19; it now governs new civilian production.
-- **Next batch preparation:** draft briefs are prepared for **Guard, Vendor and Clinic worker** in the next-batch package. A roster-wide shell-family register is present. These are planning artifacts only. The standard is ratified; the [owner preflight proposal](qa-artifacts/next-civilian-batch/OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md) is now prepared. Renderer production remains gated on owner acceptance of the proposed direction and subsequent four-view silhouette exploration.
+- **Next batch preparation:** Guard, Vendor and Clinic Worker have an existing Revision 02 design-only package: separately constructed front/back/left/right silhouettes for each character, front/profile face studies, per-direction prop/contact notes, construction cards and a matched roster comparison. The first silhouette exploration was returned for revision; the focused directional correction is committed and ready for owner design review. The matched comparison's embedded 64×96 images now preserve their native aspect ratio. Renderer production remains gated on explicit owner approval of the actual directional designs; no renderer implementation or browser QA has been performed for these proposals.
 - **Runner:** already built, but excluded from Claude Run #603; remains pending a focused review and owner decision. It is not counted among the five approved.
 - **Remaining 17:** production remains on hold pending owner approval of each next-batch brief/silhouette preflight. No golden snapshots were changed or approved.
 
@@ -47,7 +47,7 @@ The builder should provide Claude with the actual rendered sheets, comparative i
 1. **Completed and owner-approved:** Usher, Cook, Courier, Coach and Referee. Claude Run #603 recommends owner review with no P0/P1 defects; the owner approved all five on 2026-11-20. Preserve their renderers and accepted exceptions.
 2. **Built but not approved:** Runner. It was excluded from the Run #603 five-character review and requires a separate focused review before it can be counted as complete.
 3. **Next draft batch:** Guard, Vendor and Clinic worker. Their draft briefs and the roster shell-family audit are in qa-artifacts/next-civilian-batch/.
-4. **Production gate:** the revised construction standard was ratified by the owner on 2026-11-19. Do not begin renderer production for Guard, Vendor or Clinic worker until the owner approves their silhouette/brief preflight.
+4. **Production gate:** the revised construction standard was ratified by the owner on 2026-11-19. The Guard, Vendor and Clinic Worker Revision 02 four-direction design package is committed for owner review. Do not begin renderer production until the owner explicitly approves the actual directional silhouettes and construction.
 5. **Remaining roster:** the 17 unstarted characters remain on production hold. Complete one character at a time with four-direction/native and direct game-scale evidence, internal QA, independent review and explicit owner approval.
 
 
@@ -71,7 +71,7 @@ The repository's automated inventory currently describes 24 live civilian archet
 
 The five-character art review is complete. Usher, Cook, Courier, Coach and Referee are **APPROVED by the owner**. Run #603 tested renderer source 2c00cfca09cc12ea19a72662c235beed2e9a19cb; targeted checks passed, while the overall Actions conclusion remains failed on the unapproved snapshot baseline and existing audio 404s. See the current [QA handoff](04-QA-AND-HANDOFF.md) and [NPC tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
 
-Runner is built but excluded from Claude Run #603 and remains pending a focused review. The next draft production batch is Guard, Vendor and Clinic worker; no renderer implementation begins until the owner approves the silhouette/brief preflight. The approved five's art and accepted exceptions are protected from unrequested changes.
+Runner is built but excluded from Claude Run #603 and remains pending a focused review. The next design-review package is Guard, Vendor and Clinic Worker Revision 02: four separately constructed directions per character, face studies, contact/occlusion notes, construction cards and the corrected matched-scale roster comparison. The package is design-only and NOT APPROVED; no renderer implementation begins until the owner approves it. The approved five's art and accepted exceptions are protected from unrequested changes.
 
 
 ## Historical six-civilian polish and QA — 2026-11-19
