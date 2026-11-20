@@ -1,5 +1,11 @@
 # Vapor City Civilian Vector Construction Standard
 
+## Owner approval — third batch and fourth-batch preflight (2026-11-20)
+
+The owner approved Tech (#9), Hacker (#10) and Fisher (#11). Approval scope is stage-specific: Tech's production-rendered art is approved; Hacker and Fisher are approved as finished design-stage art, with production renderer implementation still outstanding. The post-correction Claude re-review has not been separately recorded.
+
+The next batch is Sailor (#12), Slicker (#13), Painter (#14). Their identity and silhouette hypotheses are documented in [the fourth-batch preflight](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md). This preflight is planning only. Owner review of the hypotheses and subsequent four-view silhouette approval are required before renderer production. Keep their vector families UNASSIGNED until approved. Continue to use the eight-stage pipeline below; do not skip silhouette-first review.
+
 ## Owner approval and Run #603 closeout — 2026-11-20
 
 ## Owner authorization — Tech/Hacker/Fisher renderer implementation (2026-11-20)
