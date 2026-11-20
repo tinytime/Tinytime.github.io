@@ -2,12 +2,14 @@
 
 ## Current authority — 2026-11-20
 
-- Claude Run #600 reviewed Version 2.1 as **Retain with revisions**. The construction standard has been consolidated into a coherent working method, but remains **unratified** and is not authorization to begin individual next-civilian briefs or production.
-- Owner dispositions: Cook C1 pan-handle issue deferred/accepted as-is (no edit); Usher U2 silhouette proposal declined (no edit); Usher U4 profile clipboard contact authorized and implemented in renderer commit `2c00cfca09cc12ea19a72662c235beed2e9a19cb`. Run #603 tested the exact source; internal visual inspection confirms U4 resolved at native and direct 28×42. Claude re-review remains pending.
-- Usher, Cook, Courier, Coach and Referee remain NOT APPROVED until Claude reviews the final Run #603 evidence and the owner explicitly approves the five-character direction and standard.
-- Runner remains excluded from this review. The remaining 17 civilians remain ON HOLD for production. Do not begin individual next-civilian briefs or production until Claude review, owner ratification and first-batch approval.
-- No golden snapshots were refreshed or approved.
-
+- **Independent review:** Claude Run #603 recommends the five-character set for owner review, reports no P0/P1 defects, confirms U4, and withdraws the earlier blanket-outline criticism. Review scope limitations are recorded in the Run #603 review log.
+- **Owner approval:** Usher, Cook, Courier, Coach and Referee are **APPROVED — first five-character batch complete** by explicit owner decision on 2026-11-20.
+- **Preserve:** Cook C1 remains deferred/accepted as-is; Usher U2 remains declined; Usher U4 is implemented and internally resolved; Coach/Courier rear X1 remains accepted. No renderer edits to these designs without renewed authorization.
+- **Renderer/QA provenance:** renderer 2c00cfca09cc12ea19a72662c235beed2e9a19cb; Run #603 [tested the exact source](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact 14593339734. Targeted U4 checks passed; overall Actions concluded failure on unapproved snapshots (1 match / 23 changed) and 180 existing audio 404s. No snapshots were refreshed or approved.
+- **Construction standard:** Claude recommends ready with revisions. F2–F7 have been reconciled in the current rules/cards and the roster shell-family register. The standard is **awaiting explicit owner ratification as a separate decision**.
+- **Next batch preparation:** draft briefs are prepared for **Guard, Vendor and Clinic worker** in the next-batch package. A roster-wide shell-family register is present. These are planning artifacts only; no renderer production begins until the standard is ratified and silhouette preflight is accepted.
+- **Runner:** already built, but excluded from Claude Run #603; remains pending a focused review and owner decision. It is not counted among the five approved.
+- **Remaining 17:** production remains on hold pending standard ratification and next-batch brief/silhouette preflight. No golden snapshots were changed or approved.
 
 
 ## Historical build and approval status — pre-Run #602

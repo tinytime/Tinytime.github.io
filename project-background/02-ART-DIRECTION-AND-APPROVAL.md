@@ -2,10 +2,14 @@
 
 ## Current authority — 2026-11-20
 
-- The revised Civilian Vector Construction Standard is ready for final independent review and owner ratification. Do not apply it to individual next-civilian briefs or production until the owner approves the standard and first-batch direction.
-- Cook C1 is deferred/accepted as-is; Usher U2 is declined; Usher U4 was the only authorized open visual correction; it is implemented at renderer commit `2c00cfca09cc12ea19a72662c235beed2e9a19cb` and internally resolved by Run #603 at native and direct 28×42; Claude re-review remains pending.
-- Preserve the accepted Coach/Courier rear construction. Do not alter Cook's pan/handle or Usher's outer silhouette without renewed authorization.
-- The five review characters remain NOT APPROVED pending updated Claude review and explicit owner approval. The remaining 17 civilians remain ON HOLD for production.
+- Claude Run #603 recommends the five for owner review with no P0/P1 defects; the owner has explicitly approved **Usher, Cook, Courier, Coach and Referee**. All five are **APPROVED — first batch complete**.
+- Preserve the accepted/deferred dispositions: Cook C1 no edit; Usher U2 no silhouette edit; Usher U4 resolved; Coach/Courier rear X1 accepted. No art changes without renewed owner authorization.
+- Claude withdrew the outline premise. Do not apply a blanket outline pass. Remaining Granny/civilian differences are chiefly shape language, caricature and value hierarchy; any style test is optional and non-blocking.
+- Coach rear-head ambiguity is a disclosed P2 owner choice, not a required correction. Cook profile apron width, Coach clipboard-arm visibility and cyan fringe are observations/polish only.
+- The construction standard's F2–F7 issues have been revised, and a 23-character shell-family register is present. The standard is **not marked ratified**; explicit owner ratification remains a separate decision.
+- Next batch briefs are prepared for Guard, Vendor and Clinic worker. They are draft planning artifacts; implementation waits for standard ratification and silhouette preflight/owner review.
+- Runner remains built but excluded from Claude Run #603; it requires a focused review. The 17 unstarted characters remain on production hold.
+
 
 ## Historical build and approval status — 2026-11-19
 

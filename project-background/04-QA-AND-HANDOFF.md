@@ -2,15 +2,15 @@
 
 ## Current authority — 2026-11-20
 
-- Run #603 tested renderer commit `2c00cfca09cc12ea19a72662c235beed2e9a19cb`, which addresses only Usher U4 profile clipboard contact. The Cook C1 and Usher U2 proposals are explicitly declined/deferred by the owner and must not be implemented.
-- Visual inspection completed: Usher left/right native 64×96 and direct 28×42 captures confirm a single connected near-arm/hand carries the clipboard, the far hand is hidden, the board remains readable, and no edge contacts/detached components appear. See the Run #603 internal QA record.
-- U4 internal QA: [Run #603](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact `14593339734`; 20/20 native and 20/20 direct game-scale captures, 92/92 integrity, zero edge contacts/detached components. The exact U4 before/after evidence and full docs are embedded in [Claude review package workflow](https://github.com/tinytime/Tinytime.github.io/actions/workflows/vapor-city-review-documents-package.yml).
-- The updated five-character package is prepared; Claude's independent re-review is the next gate. Do not mark the five approved until Claude review and explicit owner approval.
-- The revised construction standard is ready for final independent review and owner ratification, but not yet authorized for individual next-civilian briefs or production. Remaining 17 civilians remain ON HOLD. No golden snapshots may be refreshed or approved without explicit owner authorization.
+- **Run #603 independent review:** Claude recommends the five for owner review, reports no P0/P1 defects, verifies U4 at native and direct game scale, and withdraws the earlier outline criticism. Full scope limitations and findings are in [the Run #603 review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-603.md).
+- **Owner approval:** Usher, Cook, Courier, Coach and Referee are **APPROVED — first five-character batch complete**. Preserve Cook C1 (deferred), Usher U2 (declined), U4 (resolved) and Coach/Courier X1 (accepted).
+- **QA provenance:** Run #603 tested renderer 2c00cfca09cc12ea19a72662c235beed2e9a19cb, artifact 14593339734. Targeted results passed: 20/20 native, 20/20 direct 28×42, 92/92 integrity, zero edge contacts/detached large components, role-debug 12/12, prop audit/gallery, page/script errors 0. Overall Actions failure remains recorded: snapshots 1/23 changed and 180 existing audio 404s. No snapshots refreshed/approved.
+- **Evidence limits:** Claude viewed the 40 captures as five assembled sheets, not 40 separate images; did not inspect docs 01/03/04, tracker, six-civilian audit, history, Cook prop-contact, role-debug, torso diagnostics, gallery or separate town captures. No walk-frame sheet was supplied. Do not overstate the review as a complete repository audit.
+- **Construction standard:** F2–F7 have been revised; the shell-family register and next-batch briefs are prepared. The standard is not yet marked ratified; that remains an explicit owner decision.
+- **Next batch:** Guard, Vendor and Clinic worker draft briefs are ready. No renderer implementation is authorized until standard ratification and silhouette preflight. Runner remains built but unreviewed in this five-character round.
+- **Golden snapshots:** none were refreshed or approved. Keep overall Actions failure distinct from targeted character evidence and visual approval.
 
 
-
- 
 ## Claude Run #600 re-review findings — historical; owner dispositions recorded above
 
 Claude's independent verdict is **Ready with disclosed minor issues**, with no P0/P1 findings. This is not approval. New P2 findings are Cook profile pan handle/contact (C1), Usher profile clipboard/arm continuity (U4), and Usher silhouette originality (U2). The face-scale rule requires revision; the package lacked walk frames. Coach/Courier rear is accepted as documented. Full findings and evidence limits are in [the re-review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md).

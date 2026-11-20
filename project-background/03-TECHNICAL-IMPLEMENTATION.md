@@ -2,10 +2,12 @@
 
 ## Current authority — 2026-11-20
 
-- Latest renderer commit: `2c00cfca09cc12ea19a72662c235beed2e9a19cb`. It changes only Usher profile clipboard contact/arm continuity and preserves the pre-existing Cook renderer exactly as it stood at the starting branch head. Usher silhouette is unchanged.
-- Browser QA Run #603 tested the exact renderer commit. Actual left/right captures and contact sheets were inspected at native 64×96 and direct 28×42; U4 is internally resolved. Updated Claude review remains pending.
-- The construction standard's 0.85 silhouette IoU is a human-review trigger only; it is not a workflow/artistic failure. Semantic civilian proportion calibration is suspended. No golden snapshots may be changed without explicit owner authorization.
-
+- Latest renderer source remains 2c00cfca09cc12ea19a72662c235beed2e9a19cb; no renderer or game-code changes were made for review closeout or next-batch preparation.
+- Run #603 tested that exact renderer. Targeted evidence: 20/20 native and 20/20 direct 28×42 captures, 92/92 directional integrity, zero edge contacts/detached large components, role-debug 12/12, prop audit/gallery pass, page/script errors 0. Claude independently judged U4 resolved in both profiles and at both scales.
+- Overall Run #603 Actions concluded failure on the unapproved snapshot baseline (1 match / 23 changed) and 180 existing audio-resource 404s. No golden snapshots were changed or approved.
+- Five owner-approved designs: Usher, Cook, Courier, Coach and Referee. Preserve current renderers and owner dispositions; no art changes authorized by review closeout.
+- Runner is built but not included in the five-character approval; it remains pending focused review.
+- Draft next-batch briefs cover Guard, Vendor and Clinic worker. Legacy archetype data in npc_sprites.js is reference context only; it must not become a shared vector template.
 
 
 ## Historical build and approval status — 2026-11-19

@@ -2,18 +2,14 @@
 
 ## Current decision and readiness — 2026-11-20
 
-This section is current authority and supersedes older status statements below where they conflict.
-
-- **Independent review:** Claude Run #600 verdict was **Ready with disclosed minor issues**; no P0/P1 defects. Version 2.1 was **Retain with revisions**. The five-character batch is not approved.
-- **Owner dispositions:** Cook C1 (profile pan handle/contact) is deferred/accepted as-is; do not edit Cook. Usher U2 (generic silhouette) is explicitly declined; do not alter the Usher silhouette. Usher U4 (profile clipboard contact) was authorized and is now internally resolved.
-- **Latest renderer source:** `2c00cfca09cc12ea19a72662c235beed2e9a19cb`. It fixes only Usher U4 and preserves the pre-existing Cook renderer exactly as it stood at the starting branch head.
-- **Run #603:** [Browser QA](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact `14593339734`. I inspected the actual Usher left/right profiles at native 64×96 and direct 28×42. One near arm carries the clipboard, the hand meets the lower/front edge, and the separate hanging/far hand is hidden. Targeted checks: 20/20 native, 20/20 direct game-scale, 92/92 directional integrity, zero edge contacts, zero detached large components, role-debug/prop/gallery pass. Page/script errors are 0. Overall Actions remains FAILED on the unapproved golden snapshot baseline (1 match / 23 changed) and 180 existing audio 404 console errors. No snapshots were changed or approved.
-- **Construction standard:** revised after Claude's Run #600 critique and consolidated into one eight-stage build pipeline with a separate operating loop; Tier A required evidence, Tier B IoU diagnostics, Tier C semantic calibration suspended; native face cues plus game-scale head-read cue; three must-survive items; handedness/prop-contact; accepted exceptions; package manifest. Numeric proportion bands are deferred to a historical appendix; semantic calibration is suspended; scorecard is non-gating. It is **ready for final independent review and owner ratification**, but **not yet authorized for individual next-civilian production or briefs**.
-- **Coach/Courier rear:** accepted exception; preserve the documented rationale and do not redesign either torso.
-- **Five-character approval:** Usher, Cook, Courier, Coach and Referee remain **NOT APPROVED** pending updated Claude review and explicit owner approval. Runner remains excluded from this review.
-- **Next roster:** remaining 17 civilians remain **ON HOLD for production**. Do not begin individual next-civilian briefs or implementation until Claude completes the updated review, the owner ratifies the standard, and the owner approves the first batch.
-- **Evidence/package:** [Run #603 internal QA](qa-artifacts/five-civilian-corrections/RUN-603-USHER-U4-INTERNAL-QA.md); [review manifest](qa-artifacts/five-civilian-corrections/REVIEW-PACKAGE-MANIFEST.md); [Run #603 Claude brief](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-BRIEF-RUN-603.md).
-
+- **Independent review:** Claude Run #603 recommends the five-character set for owner review, reports no P0/P1 defects, confirms U4, and withdraws the earlier blanket-outline criticism. Review scope limitations are recorded in the Run #603 review log.
+- **Owner approval:** Usher, Cook, Courier, Coach and Referee are **APPROVED — first five-character batch complete** by explicit owner decision on 2026-11-20.
+- **Preserve:** Cook C1 remains deferred/accepted as-is; Usher U2 remains declined; Usher U4 is implemented and internally resolved; Coach/Courier rear X1 remains accepted. No renderer edits to these designs without renewed authorization.
+- **Renderer/QA provenance:** renderer 2c00cfca09cc12ea19a72662c235beed2e9a19cb; Run #603 [tested the exact source](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact 14593339734. Targeted U4 checks passed; overall Actions concluded failure on unapproved snapshots (1 match / 23 changed) and 180 existing audio 404s. No snapshots were refreshed or approved.
+- **Construction standard:** Claude recommends ready with revisions. F2–F7 have been reconciled in the current rules/cards and the roster shell-family register. The standard is **awaiting explicit owner ratification as a separate decision**.
+- **Next batch preparation:** draft briefs are prepared for **Guard, Vendor and Clinic worker** in the next-batch package. A roster-wide shell-family register is present. These are planning artifacts only; no renderer production begins until the standard is ratified and silhouette preflight is accepted.
+- **Runner:** already built, but excluded from Claude Run #603; remains pending a focused review and owner decision. It is not counted among the five approved.
+- **Remaining 17:** production remains on hold pending standard ratification and next-batch brief/silhouette preflight. No golden snapshots were changed or approved.
 
 
 This folder is the starting point for anyone taking over work on the Vapor City NPC vector redesign. Read the documents in this order:
