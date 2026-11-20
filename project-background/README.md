@@ -1,20 +1,19 @@
 # Vapor City — Project Background & Handoff
 
-## Current decision and readiness — 2026-11-19
+## Current decision and readiness — 2026-11-20
 
 This section supersedes older status statements below where they conflict. Historical run notes remain unchanged.
 
-- **Independent Claude review:** Run #595 review of Usher, Cook, Courier, Coach and Referee is complete. Claude's batch verdict is **ready for owner review**, with P2 findings disclosed; this is not owner approval. No P0/P1 findings remain.
-- **P2 owner decision:** F1 facial individuality (Courier, Usher, Cook); U1 Usher profile shoe separation; C1 Cook pan/hand readability; X1 documented Coach/Courier rear-construction rationale. P3 observations are optional polish. See the tracker and Version 2.1 review-response addendum.
-- **Evidence boundary:** Claude inspected all 20 native and 20 direct game-scale captures, but the ZIP lacked the solid-black silhouette sheet, identity briefs, proportion cards and Actions logs. Claude did not inspect repository source or supporting docs 02/04. Town evidence is regression context, not proof all five were individually spawned.
-- **Construction standard:** Version 2.1 review-response changes are recorded in the draft. The standard remains unratified pending owner review. Its scorecard is non-gating; old score bands/floors are withdrawn. Proportion prompts and semantic measurements remain diagnostic only, not Granny-derived targets or acceptance gates.
-- **Silhouette diagnostics:** pairwise IoU remains a human-review trigger, not a universal artistic pass/fail. Clinic/Sailor front at 0.9094292803970223 is outside this five-character group. Coach/Courier back remains a documented owner-decision item, not an automatic collision pass.
-- **Current five-character group:** Usher, Cook, Courier, Coach and Referee remain **NOT APPROVED** pending owner decision and P2 disposition. Runner remains excluded from this review.
-- **Release decision:** the remaining 17 civilians remain **ON HOLD**. Do not begin their production until the owner approves the five-character direction and standard.
-- **Run #595:** [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44645116652), artifact 14587318765, tested renderer c354abfa3d78b46dc982a03d2c5d1ece0c918257. Targeted captures/checks passed; overall workflow FAILED on global silhouette and unapproved golden-snapshot gates. Expected audio 404s are non-blocking noise. No snapshots were refreshed or approved.
-- **Semantic status:** six civilian annotation sets remain source_annotated, not verified measured; Granny remains reference_only. Do not promote candidates or calibrate proportion bands.
-- **Scope counts:** the design tracker contains 23 civilian character types; Granny is a separate benchmark. Runner is built but excluded from this five-character review; 17 remain on hold. The automated inventory's 24 live archetype mappings are a separate technical count.
-
+- **Owner authorization:** all four Claude P2 areas are authorized for correction: face identity for Courier/Usher/Cook; Usher profile shoe separation; Cook pan/hand/handle readability; and documented Coach/Courier rear distinction.
+- **Renderer:** source changes committed in `2b45201eb762a939547f5c8414ae9f44e5dc0d22`. Browser QA Run #596 is running against that exact source; actual images must be inspected before declaring findings resolved.
+- **Identity/proportion cards:** [five-character correction cards](qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md) now document purposeful identity cues, qualitative construction intent and the Coach/Courier rear rationale. They are not verified semantic measurements.
+- **Claude review:** Run #595 recommended ready for owner review, with P2s disclosed; no P0/P1 findings remained. This was not approval. The owner has now authorized corrections rather than accepting the P2s as-is.
+- **Construction standard:** Version 2.1 review response is documented in the draft. The standard remains unratified pending owner review. Its scorecard is non-gating; old score bands/floors are withdrawn. Proportion prompts and semantic measurements remain diagnostic only, not Granny-derived targets or acceptance gates.
+- **Current five-character group:** Usher, Cook, Courier, Coach and Referee remain **NOT APPROVED** pending fresh internal QA, visual inspection, independent Claude review of the corrected evidence and final owner approval. Referee is unchanged. Runner remains excluded.
+- **Release decision:** remaining 17 civilians remain **ON HOLD**.
+- **Latest completed QA before this pass:** Run #595, artifact 14587318765, tested renderer c354abfa3d78b46dc982a03d2c5d1ece0c918257. Its overall workflow failed on global Clinic/Sailor front silhouette and unapproved golden snapshots; expected audio 404s are non-blocking. No snapshots were refreshed or approved.
+- **Semantic status:** six civilian annotation sets remain source_annotated, not verified measured; Granny remains reference_only.
+- **Scope counts:** the design tracker contains 23 civilian character types; Granny is a separate benchmark. Runner is built but excluded from this review; 17 remain on hold. The automated inventory's 24 live archetype mappings are a separate technical count.
 
 
 
