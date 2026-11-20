@@ -1,3 +1,17 @@
+## Revision 18 — Claude corrections implemented; validation pending
+
+**Source:** [silhouette exploration 18](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg)  
+**Current source commit:** `78fa6ad9b9ef2fef368ecc42cd3ff562e9f02f1f`  
+**Status:** design-source correction pass implemented; fresh Actions capture and visual inspection pending.
+
+- **Sailor #12:** retain the thicker front coil-to-palm bridge and rear/profile arm separation. Confirm the front contact and profile slits at direct 28×42 during fresh capture.
+- **Slicker #13:** rear yoke and hem seams make the back view carry a rainwear cue; profile hood opening is face-side-open and directional; front storm closure is shortened and no longer reads as a torso split. No separate umbrella. Face study uses a hood silhouette, not a flat cap.
+- **Painter #14:** both profile neck joins are continuous; the left-profile near-side leg is moved rearward in both body-only and prop-on paths to separate the brush from the thigh; ferrule and individual bristle strokes distinguish the brush head. The right profile remains prop-hidden. Verify the brush still reads at direct 28×42 and body-only/prop-on preservation remains exact.
+- **Face differentiation:** Slicker's narrow hood-framed face and close-set level brow are separated from Painter's lifted asymmetric brow and squarer cheek/jaw. The matched face study remains a geometric hypothesis, not owner-approved final face art.
+- **Evidence boundary:** revision 15 Runs #695/#697 are historical and do not validate revision 18. No revision-18 pass is claimed until the fresh run and artifact are inspected. No production renderer, approved art, golden snapshots or provenance changed. Claude re-review and owner approval remain pending.
+
+---
+
 ## Revision 15 — QA capture inspected; owner review pending
 
 **Source:** [silhouette exploration 15](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-15.svg)  
