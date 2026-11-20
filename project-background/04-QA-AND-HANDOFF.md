@@ -1,5 +1,22 @@
 # QA, Known Issues, and Handoff
 
+## Review-derived visual acceptance requirements — 2026-11-19
+
+Claude's review of the five-character evidence has been incorporated into the draft construction standard's Version 2 addendum. For future reviews, distinguish technical completeness, semantic annotation validity, visual design quality, direct game-scale readability and project integration. Do not treat passing automated checks as visual approval.
+
+Required review checks now include:
+- compare close roster silhouettes at native 64×96 and direct in-game 28×42; decide whether each warning is a genuine identity collision, acceptable shared body mass with distinct construction, or inconclusive;
+- verify every handheld prop through shoulder/arm/wrist/hand/contact/support and directional continuity;
+- assess character-specific face/head cues rather than accepting token differences in a shared template;
+- inspect value separation, shape hierarchy and noise at actual 28×42 output;
+- classify evidence-backed findings P0 critical, P1 major, P2 minor or P3 polish;
+- record what must be preserved as well as what must change;
+- keep gallery/town rendering-style compatibility as a separate project-level art-direction decision.
+
+The revised 100-point category allocation is proposed only and remains non-gating. No new numeric contrast, IoU, score or category-floor threshold is introduced. A verified P0/P1 defect blocks advancement to owner approval regardless of aggregate score. P2 requires correction or documented acceptance rationale; P3 may be deferred. The project owner retains final approval authority.
+
+Current application is limited to Usher, Cook, Courier, Coach and Referee. Runner remains excluded from this submission; the remaining 17 remain on hold. No snapshots or approval states are changed by this documentation update.
+
 ## Current QA interpretation and handoff — 2026-11-19
 
 This section supersedes older status statements below where they conflict. Historical run notes remain unchanged as historical records.
