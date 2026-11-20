@@ -1,3 +1,16 @@
+## Fourth civilian batch — construction detail study approved; face F6 refinement underway (2026-11-20)
+
+The owner approved construction detail study 01 for Sailor #12, Slicker #13 and Painter #14. The exact SVG and all 12 four-direction panels were rendered and captured by [Browser QA Run #831](https://github.com/tinytime/Tinytime.github.io/actions/runs/44824014197), artifact [14672658525](https://github.com/tinytime/Tinytime.github.io/actions/runs/44824014197/artifacts/14672658525). The construction-detail capture step passed: 12/12 panels, 12/12 detail overlays, and native 64×96, direct 28×42 and enlarged diagnostic captures. The approved revision-21 silhouette remains the base.
+
+The next design stage is face-geometry refinement. [Face geometry exploration 03](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-03.svg) refines the F6 comparisons:
+- Sailor — Clinic and Guard; stronger brow shelf, longer hooked profile nose and leaner cheek-to-chin transition.
+- Slicker — Hacker and Courier; closer-set eyes, compact level brow, tucked chin and compressed mouth. Fisher was reviewed in the roster crop sheet but was not selected as one of the two closest.
+- Painter — Cook and Busker; lifted asymmetric brow, squarer jaw turn and shorter/blunter profile nose.
+
+The matched-crop evidence is included in Run #831's artifact. These are design proposals, not owner-approved finished faces. No palette, production renderer, golden snapshot/provenance or #15–23 work is authorized.
+
+---
+
 ## Fourth civilian batch — construction cards owner-approved (2026-11-20)
 
 The owner approved construction cards 02 for Sailor #12, Slicker #13 and Painter #14. Their construction-family assignments are now current in the roster register:
