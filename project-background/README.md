@@ -6,7 +6,7 @@ Prepared:
 - [Tech/Hacker/Fisher design preflight](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md)
 - [Four-view silhouette exploration SVG](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg)
 
-The round-05 art silhouettes passed visual inspection across all 12 views (reported black-silhouette IoU 0.997; minor difference attributed to anti-aliasing). The initial 3× PNG's two clipped text blocks were wrapped in SVG commit `e25ac611ee17d12771cbf2815001b78f43090d7f`; [Run #2](https://github.com/tinytime/Tinytime.github.io/actions/runs/44739247661) successfully regenerated the 4800×3540 PNG. ChatGPT visually inspected the replacement and confirmed both text blocks are fully visible with no right-edge clipping. The review sheet is render-complete; explicit owner silhouette approval is still required before renderer implementation. No game renderer, approved civilian art or golden snapshot was changed.
+**Owner authorization update — 2026-11-20:** The owner has explicitly approved Tech/Hacker/Fisher renderer implementation. Tech (#9) is first; Hacker and Fisher remain untouched until Tech completes its own QA. A bespoke `drawTechVector` renderer has been added and wired to `tech`; QA now captures all four directions at native 64×96 and direct 28×42, with neutral-grey evidence. Implementation commit `67b397242996f675c4a257415e4620fa0d3a40ca`; QA harness commit `2eab7e84027f088ed8f9f7be5740547f590aa13d`. Fresh browser QA and visual inspection are in progress. The round-05 design sheet and SVG remain unchanged; no golden snapshots were changed.
 
 
 
