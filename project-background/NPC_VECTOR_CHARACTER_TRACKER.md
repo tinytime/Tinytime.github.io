@@ -241,10 +241,13 @@ ChatGPT implemented that focused pass in `npc_sprites.js` commit `6a1fd2a4fbad50
 - **Current disposition: INTERNAL DESIGN-SOURCE QA PASS WITH REVIEW QUESTIONS.** [Claude review package 04](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md) is prepared for independent review. Not owner-approved. Construction families remain UNASSIGNED; production renderer work is NOT AUTHORIZED; roster #15–23 remains on hold.
 
 
-## Revision 19 handoff — 2026-11-20 (design source only; QA pending)
+## Revision 19 — internal design QA disposition (2026-11-20)
 
-- **Sailor #12:** revision-19 source introduces a tighter character-left rope-coil/grip study in front, rear and near-side right profile. Character-relative handedness remains unchanged per §F2: front viewer-right, rear viewer-left, visible in right profile; hidden in left profile.
-- **Painter #14:** revision-19 source replaces the fork/rake-like brush marks with a compact diagonal handle and solid wedge bristle block in front, rear and near-side left profile. Character-right handedness remains unchanged per §F2: front viewer-left, rear viewer-right, visible in left profile; hidden in right profile.
-- **Slicker #13:** revision-18 construction preserved; no geometry changed.
-- **Source:** [revision 19 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg), source commit `44d133b65c8ebd6aa3c207e03960d85034df193b`.
-- **Status:** DESIGN REVISION IN PROGRESS — not yet captured or internally QA-tested. Native/direct scale captures, enlarged contact sheets, body-only anatomy/garment polish, clipping and roster differentiation remain outstanding. No new Claude package, owner approval or renderer authorization. #15–23 remain held.
+- **Source:** [revision 19 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg), commit `e161240696ac27659360a4dbfbc7922d6be6e49f`.
+- **Actions evidence:** [Run #780](https://github.com/tinytime/Tinytime.github.io/actions/runs/44805957949), artifact [14662329201](https://github.com/tinytime/Tinytime.github.io/actions/runs/44805957949/artifacts/14662329201).
+- **Focused design checks:** PASS — body preservation 12/12 (zero removed body pixels); anatomy/connectivity 48/48 at native 64×96 and direct 28×42; profile-prop contact 2/2; semantic source projection and proportion/annotation validation passed.
+- **Visual inspection:** inspected actual native/direct body-only and prop-on comparison sheets plus enlarged Sailor front/near-side profile and Painter front/near-side profile details. Sailor's loop reads as a compact held coil with a trailing rope cue; Painter's flat bristle block, ferrule and handle read more clearly as a hand-held brush. Painter's garment polish uses short paired side darts; cross-body seam experiments were removed because they severed the silhouette. Slicker remains unchanged.
+- **Slicker preservation:** all eight body/prop directional panels (four directions × two views) compare byte-for-byte with revision 18.
+- **Browser workflow disposition:** overall Run #780 is FAIL only at the existing game browser diagnostics step. The log reports missing audio assets returning HTTP 404 and the golden-snapshot gate at 1 match / 23 changed. No golden snapshots were modified or refreshed. These failures are separate from the revision-19 design-source projection checks.
+- **Status:** internal design QA for the revision-19 source projections is PASS, with no production renderer integration. Visual acceptance remains provisional pending independent Claude review and owner approval. The automated browser suite is not globally green. No Claude review has occurred; package 06 is to be prepared for independent review. #15–23 remain held.
+

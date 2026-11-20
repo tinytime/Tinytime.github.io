@@ -207,3 +207,13 @@ No silhouette, face, prop, handedness, palette or construction family is approve
 - Painter's bristle block is widened into a flat wedge and the ferrule/handle junction is clearer in front, rear and near-side left profile. Grip marks are additive only; white cutout overlays were removed because they erased body-only pixels in the audit.
 - Painter's offset garment transition and profile frame-edge clearance remain open review items. Slicker remains unchanged.
 - Exact current source: `0320663dd638f33f498a7a760ae505a7bdf0f208`; Run #752 pending.
+
+
+## Revision 19 — exact-source internal QA findings
+
+- Exact source: `e161240696ac27659360a4dbfbc7922d6be6e49f`; [Run #780](https://github.com/tinytime/Tinytime.github.io/actions/runs/44805957949), artifact [14662329201](https://github.com/tinytime/Tinytime.github.io/actions/runs/44805957949/artifacts/14662329201).
+- Focused checks passed: 12/12 body-preservation (zero removed pixels), 48/48 connectivity, 2/2 profile-prop contact. Direct 28×42 and native 64×96 source projections rendered.
+- Manual inspection of native/direct sheets and enlarged Sailor/Painter detail captures found improved rope-coil and brush readability. Painter's side darts are short, paired, and matched in body-only/prop-on views. Do not restore the full-width curved seam: it disconnected torso and legs in native masks.
+- Slicker: eight body/prop directional panels remain byte-identical to revision 18.
+- Overall workflow remains FAIL at the separate browser diagnostics step (audio HTTP 404 and golden gate 1/23). No golden snapshots changed. This is not a design-source failure.
+- Design-source internal QA passed; Claude review and owner approval remain outstanding. No renderer authorization.
