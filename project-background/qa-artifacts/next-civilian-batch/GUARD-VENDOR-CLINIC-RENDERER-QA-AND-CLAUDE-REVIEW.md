@@ -89,3 +89,39 @@ The Run #624 artifact contains the 12 individual native 64×96 PNGs, 12 individu
 3. Owner gives final approval of the completed rendered characters.
 
 No golden snapshots have been changed. No remaining roster characters have been started.
+
+## Claude independent review — 2026-11-20
+
+**Verdict:** no blocking defects; four targeted corrections recommended before final owner completion approval.
+
+Claude reviewed 12 native 64×96 and 12 direct game-scale 28×42 captures. The visual review found no visible clipping, detached components or edge-clearance problems. The following pairs were judged distinct enough on visual inspection: the three rear views (Guard radio, Vendor sash/tray stub, Clinic coil/pouch); Guard/Clinic front and profile; and the helmet-versus-gathered-hair distinction. The Guard helmet band and Vendor cap band remain a minor shared horizontal-dome motif to watch, not a blocking defect.
+
+### Review limitations
+
+- The supplied zip's torso-pair diagnostic showed older pairs rather than the eight current overlap triggers. Claude independently recomputed full-body IoU from the PNGs; native values agreed with the table within approximately 0.005.
+- The zip did not include construction cards, renderer source or a Granny comparison. Claude therefore did not assess construction quality against Granny Volt.
+- The Courier game-scale capture appeared to use an older anchor (approximately 0.69 versus approximately 0.89 native); Claude excluded that game-scale discrepancy from judgment.
+- These limitations do not invalidate the 12 new-batch native/direct captures, but the Granny craft comparison and Courier direct-scale evidence remain outside this review.
+
+### Required targeted corrections
+
+1. **Guard — right profile:** add a visible near-side arm/hand cue so the view does not read as a plain column. Keep the character-right bracer on its anatomically correct arm; do not duplicate it onto the near-side arm.
+2. **Vendor — right profile:** expose a small forward tray lip and supporting hand beyond the torso contour while retaining far-side occlusion. Preserve the tray's character-left placement and avoid a second full tray.
+3. **Guard and Vendor — profile faces:** strengthen the eye/brow cue so each has a clearly visible one-pixel facial mark at direct 28×42 scale. Clinic's existing profile eye is the consistency reference.
+4. **Vendor / Clinic — right-profile separation:** the full-body IoU review trigger is approximately 0.888. Improve the profile distinction through the Vendor's tray/hand projection and by placing Clinic's low hair coil on the rear side of the skull in both profiles. Treat IoU as a human-review prompt, not a target or automatic rejection.
+
+Claude also noted that Vendor's rear tray is only a 2–3px stub, but considered it marginally readable alongside the sash. No concept redesign was requested.
+
+### ChatGPT correction pass
+
+Implemented in [commit 27c414b46d560ae9b4e2dd0f67b1936ce3d8f3c8](https://github.com/tinytime/Tinytime.github.io/commit/27c414b46d560ae9b4e2dd0f67b1936ce3d8f3c8), limited to `npc_sprites.js`:
+
+- Guard right profile now shows a separate near-side sleeve/hand; the character-right bracer remains on its original arm.
+- Vendor right profile now exposes a partial supporting hand and tray lip; the remainder stays occluded.
+- Guard and Vendor profile eye/brow cues are strengthened for direct game-scale readability.
+- Clinic's low coil/tie is repositioned to the rear side of the skull in both profiles.
+
+The three approved Revision 02 concepts, palettes, garments and must-survive items are preserved. No other civilian renderer was changed. No golden snapshots were refreshed, approved or replaced.
+
+**Follow-up QA:** Run #625 was triggered by the correction commit and is in progress at the time of this documentation update. Do not treat the code correction as visually verified until the new native/direct captures are inspected. Final owner completion approval remains pending.
+
