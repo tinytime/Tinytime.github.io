@@ -84,21 +84,21 @@ try {
       const rgba=ctx.getImageData(0,0,width,height).data;
       const dark=new Uint8Array(width*height),seen=new Uint8Array(width*height);
       for(let i=0;i<dark.length;i++){const k=i*4;dark[i]=rgba[k]<70&&rgba[k+1]<70&&rgba[k+2]<70?1:0;}
-      let components=0;
+      const componentDetails=[];
       for(let i=0;i<dark.length;i++) if(dark[i]&&!seen[i]) {
-        components++;const stack=[i];seen[i]=1;
+        const stack=[i];seen[i]=1;let area=0,minX=width,maxX=0,minY=height,maxY=0;
         while(stack.length){const at=stack.pop(),x=at%width,y=Math.floor(at/width);
+          area++;minX=Math.min(minX,x);maxX=Math.max(maxX,x);minY=Math.min(minY,y);maxY=Math.max(maxY,y);
           for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){
             if(!dx&&!dy)continue;const nx=x+dx,ny=y+dy;
             if(nx<0||ny<0||nx>=width||ny>=height)continue;
             const ni=ny*width+nx;if(dark[ni]&&!seen[ni]){seen[ni]=1;stack.push(ni);}
           }
         }
+        componentDetails.push({area,bounds:{x0:minX,x1:maxX,y0:minY,y1:maxY}});
       }
-      painterConnectivityAudit.push({character:'painter',mode,direction,scale,width,height,connectedComponents:components,pass:components===1});
+      painterConnectivityAudit.push({character:'painter',mode,direction,scale,width,height,connectedComponents:componentDetails.length,components:componentDetails,pass:componentDetails.length===1});
     }
-    console.log(JSON.stringify({painterConnectivityAudit}));
-    if(painterConnectivityAudit.some(x=>!x.pass))throw new Error('Painter anatomy/prop contact is disconnected: '+JSON.stringify(painterConnectivityAudit.filter(x=>!x.pass)));
     // Profile-region pixel counts are descriptive only; no arbitrary minimum
     // is imposed. Body-only geometry must remain present in every prop-on view.
     const bodyPreservationAudit=[];
@@ -179,7 +179,7 @@ try {
       const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(im,0,0,c.width,c.height);return c.toDataURL('image/png');
     };
     for(const [key,item] of Object.entries(data)) item.enlarged4x=enlarge(item.native,4);
-    return {data,sheets:sheetsOut,profilePropAudit,bodyPreservationAudit};
+    return {data,sheets:sheetsOut,profilePropAudit,bodyPreservationAudit,painterConnectivityAudit};
   },svg);
   const writeData=(file,dataUrl)=>fs.writeFileSync(file,Buffer.from(dataUrl.split(',')[1],'base64'));
   for(const [key,item] of Object.entries(svgData.data)){
@@ -194,6 +194,9 @@ try {
   fs.writeFileSync(path.join(out,'profile-prop-audit.json'),JSON.stringify(svgData.profilePropAudit,null,2)+'\\n');
   console.log(JSON.stringify({profilePropAudit:svgData.profilePropAudit}));
   if(svgData.profilePropAudit.some(x=>!x.pass))throw new Error('Prop-on projection removes body-only pixels; anatomy must be preserved');
+  fs.writeFileSync(path.join(out,'painter-connectivity-audit.json'),JSON.stringify(svgData.painterConnectivityAudit,null,2)+'\n');
+  console.log(JSON.stringify({painterConnectivityAudit:svgData.painterConnectivityAudit}));
+  if(svgData.painterConnectivityAudit.some(x=>!x.pass))throw new Error('Painter anatomy/prop contact is disconnected: '+JSON.stringify(svgData.painterConnectivityAudit.filter(x=>!x.pass)));
 
   // Capture the proposed new face designs at exact 40x38 crop size.
   const faceStudyPath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg');
