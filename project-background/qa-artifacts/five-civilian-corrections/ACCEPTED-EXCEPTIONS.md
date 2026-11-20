@@ -8,9 +8,9 @@ This register records accepted similarities or deliberate departures from a prop
 
 ## Pending findings are not accepted exceptions
 
-- U4 — Usher profile clipboard/arm continuity: new P2; owner disposition pending.
-- U2 — Usher generic silhouette: new P2; owner disposition pending.
-- C1 — Cook profile handle/contact: reviewer re-raised P2; reconcile against the current owner-authorized correction scope and prior owner decisions before any edit.
+- U4 — Usher profile clipboard/arm continuity: owner authorized correction; renderer commit `880cad6bf937d8bfc1e004fe81cbd6854c522d23` implements one connected near-arm/hand carrying the board. Run #602 visual verification pending.
+- U2 — Usher generic silhouette: owner explicitly declined the proposed change; retain current silhouette as-is.
+- C1 — Cook profile handle/contact: owner explicitly deferred/accepted current implementation as-is; do not edit Cook's handle or pan contact.
 
 ## Record format for future entries
 
