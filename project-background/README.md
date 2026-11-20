@@ -1,3 +1,7 @@
+## Owner approval and next batch — 2026-11-20
+
+The owner approved batch #9–11 (Tech, Hacker, Fisher). Tech is approved at production-renderer stage; Hacker and Fisher are approved as finished design-stage art, not production-renderer integrations. Claude's post-correction re-review remains unrecorded. Next set: **Sailor (#12), Slicker (#13), Painter (#14)**. Their identity/silhouette preflight is ready: [SAILOR-SLICKER-PAINTER-PREFLIGHT.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md). Proposed directions only; owner review and silhouette approval are pending.
+
 ## Third-batch reviewer corrections — 2026-11-20
 
 **Updated independent review package:** [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md](qa-artifacts/third-civilian-batch/THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md). Claude's first verdicts have been addressed: Tech's field shell is darker/desaturated petrol with a squared storm-flap shoulder; Hacker's front chest is narrowed, bare forearm separated, left-profile drape tapered and temple/earbud cues strengthened; Fisher's rear smock is ochre rather than a dark cape-like block, the unexplained leg bar is gone, and the right-profile pouch is integrated into the garment.
