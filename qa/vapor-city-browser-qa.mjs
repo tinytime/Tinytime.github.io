@@ -139,12 +139,13 @@ try {
   // Instantiate the real civilian renderer factory and call its live owCiv dispatch
   // at native 64x96 and direct 28x42 tile scale; the latter is not a resized PNG.
   const approvedBatchCapture = await page.evaluate(() => {
-    const renderer = window.NPC_SPRITES.createCivRenderer({
-      CIV:{}, HB_CIV:{}, GRANNY_REF:{}, OWT:36, og:null, drawGrannyVoltSprite:()=>{}
+    const makeRenderer = OWT => window.NPC_SPRITES.createCivRenderer({
+      CIV:{}, HB_CIV:{}, GRANNY_REF:{}, OWT, og:null, drawGrannyVoltSprite:()=>{}
     });
+    const nativeRenderer=makeRenderer(36/0.28),gameScaleRenderer=makeRenderer(36);
     const directions = ['d','u','l','r'];
     const civilians = ['guard','vendor','clinic'];
-    const render = (civ,direction,width,height,OWT) => {
+    const render = (renderer,civ,direction,width,height,OWT) => {
       const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
       const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
       const rx=(width/2-OWT/2)/OWT;
@@ -156,8 +157,8 @@ try {
     };
     const native=[],gameScale=[];
     for(const civ of civilians)for(const direction of directions){
-      native.push(render(civ,direction,64,96,36/0.28));
-      gameScale.push(render(civ,direction,28,42,36));
+      native.push(render(nativeRenderer,civ,direction,64,96,36/0.28));
+      gameScale.push(render(gameScaleRenderer,civ,direction,28,42,36));
     }
     return {native,gameScale};
   });
