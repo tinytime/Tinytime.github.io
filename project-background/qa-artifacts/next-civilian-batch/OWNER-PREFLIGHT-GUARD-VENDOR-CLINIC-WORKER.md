@@ -147,6 +147,16 @@ Deep muted teal/blue-green tunic with pale sea-glass or sage panels and a small 
 
 ---
 
+## NPC Designer first silhouette exploration — 2026-11-20
+
+The first actual black silhouette sheet and construction cards have been created:
+- [Four-view silhouette exploration (SVG)](GUARD-VENDOR-CLINIC-SILHOUETTE-EXPLORATION.svg)
+- [Guard, Vendor and Clinic Worker construction cards](GUARD-VENDOR-CLINIC-CONSTRUCTION-CARDS.md)
+
+The sheet presents matched-scale front, back, left and right views for each character on a common 64×96 construction basis. The cards specify personality, head/face geometry, garment construction, exactly three must-survive items (including each 28×42 head-read cue), prop/contact and handedness logic, simplification rules, and closest roster comparisons.
+
+**Status:** first exploration delivered for owner silhouette review. It is not production vector art, has not been rendered through the game renderer, and has not been visually validated at native 64×96 or direct 28×42 capture scales. Prop contacts are construction proposals, not verified renderer contacts. Do not infer approval from this delivery. Renderer production remains blocked pending explicit owner approval of the actual silhouettes.
+
 ## Owner preflight checklist
 
 - [x] Guard direction accepted — 2026-11-20.
