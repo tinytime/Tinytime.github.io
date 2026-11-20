@@ -1,0 +1,47 @@
+name: Vapor City Review Documents Package
+
+on:
+  push:
+    branches:
+      - npc-granny-baseline-overhaul
+    paths:
+      - .github/workflows/vapor-city-review-documents-package.yml
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Package current project documents
+        run: |
+          set -euo pipefail
+          mkdir -p package/project-background/qa-artifacts/five-civilian-corrections
+          mkdir -p package/qa-artifacts/five-civilian-full-review
+          mkdir -p package/qa
+          cp project-background/README.md package/project-background/
+          cp project-background/01-PROJECT-OVERVIEW.md package/project-background/
+          cp project-background/02-ART-DIRECTION-AND-APPROVAL.md package/project-background/
+          cp project-background/03-TECHNICAL-IMPLEMENTATION.md package/project-background/
+          cp project-background/04-QA-AND-HANDOFF.md package/project-background/
+          cp project-background/NPC_VECTOR_CHARACTER_TRACKER.md package/project-background/
+          cp project-background/CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md package/project-background/
+          cp project-background/SIX-CIVILIAN-CONSTRUCTION-AUDIT.md package/project-background/
+          cp project-background/qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md package/project-background/qa-artifacts/five-civilian-corrections/
+          cp project-background/qa-artifacts/five-civilian-corrections/RUN-599-600-INTERNAL-QA.md package/project-background/qa-artifacts/five-civilian-corrections/
+          cp qa-artifacts/five-civilian-full-review/CLAUDE-REVIEW-BRIEF.md package/qa-artifacts/five-civilian-full-review/
+          cp qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md package/qa/
+          printf 'Repository: %s\nBranch: %s\nCommit: %s\n' "$GITHUB_REPOSITORY" "${GITHUB_REF_NAME}" "${GITHUB_SHA}" > package/SOURCE-MANIFEST.txt
+          find package -type f -print | sort >> package/SOURCE-MANIFEST.txt
+          zip -qr vapor-city-project-documents.zip package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vapor-city-project-documents
+          path: vapor-city-project-documents.zip
+          if-no-files-found: error
+          retention-days: 30
