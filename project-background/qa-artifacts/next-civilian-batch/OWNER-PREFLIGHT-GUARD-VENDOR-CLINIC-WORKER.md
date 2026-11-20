@@ -174,10 +174,10 @@ Only after the owner accepts that silhouette exploration should the team begin r
 
 ## Evidence status and limitations
 
-- The original proposal remains a **design preflight**, while the NPC Designer's first actual four-view black silhouette exploration is now linked above with completed construction cards.
-- The SVG is authored on a common 64×96 construction field; it is not a browser-renderer capture and has not been validated as direct 28×42 output. No native renderer captures exist for these unbuilt characters.
-- Prop-contact relationships are documented design proposals, not verified renderer contacts; the later production QA prop-contact table remains outstanding.
-- No roster shell-family assignment is made here; each remains UNASSIGNED pending owner approval and the later roster-wide comparison.
+- The original proposal remains a **design preflight**. Revision 02 is the current owner-review package: four-view silhouettes, front/profile face studies, matched-scale roster comparison, construction cards and 28×42 exploratory raster downsamplings.
+- The revision 02 SVGs use a common 64×96 design field; they are not browser-renderer captures. The 28×42 panels are derived raster downsamplings, not direct game-scale captures. No native renderer captures exist for these unbuilt characters.
+- Prop-contact relationships are documented design proposals, not verified renderer contacts; the production QA prop-contact table remains outstanding.
+- The roster shell-family register now records three **proposals pending owner approval**, not final assignments. Do not promote them until the owner accepts the revised silhouettes.
 - No production colour art, renderer code, game code, QA baseline or golden snapshot has been changed.
 
 
