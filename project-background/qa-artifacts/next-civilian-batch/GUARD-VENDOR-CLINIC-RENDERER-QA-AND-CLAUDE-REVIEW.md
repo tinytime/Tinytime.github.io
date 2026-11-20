@@ -69,7 +69,7 @@ Claude should inspect these exact comparisons in the native and game-scale captu
 6. [Browser QA implementation](https://github.com/tinytime/Tinytime.github.io/blob/npc-granny-baseline-overhaul/qa/vapor-city-browser-qa.mjs)
 7. [Run #624 screenshots and report](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670975455/artifacts/14600880214)
 
-The Run #624 artifact contains the 12 individual native 64×96 PNGs, 12 individual direct 28×42 PNGs using the corrected 39px anchor, full NPC gallery captures, town screenshot, and machine-readable QA report.
+The Run #624 artifact contains the 12 individual native 64×96 PNGs, 12 individual direct 28×42 PNGs using the corrected 39px anchor, the full 23-civilian × four-direction roster gallery (92 views), the separate 40-cell archetype-grid integrity capture, town screenshot, and machine-readable QA report.
 
 ## Claude review criteria
 
