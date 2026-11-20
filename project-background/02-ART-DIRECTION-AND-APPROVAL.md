@@ -26,6 +26,14 @@ Important distinctions:
 
 The five-character correction group is the first application of these requirements. The standard remains draft pending independent Claude review and owner ratification; the remaining 17 civilians remain on hold.
 
+## Claude Round #595 review outcome and owner gate — 2026-11-19
+
+Claude's independent review recommends **ready for owner review**, not approval. No P0/P1 findings remain. P2s requiring owner disposition are F1 facial individuality for Courier/Usher/Cook, U1 Usher profile shoe separation, C1 Cook pan/hand readability, and X1 documented Coach/Courier rear-construction rationale. Referee needs no change. P3 notes are optional. The owner must decide whether to require corrections or explicitly accept each P2 before approving any character.
+
+Claude reclassified Coach/Courier rear similarity as acceptable shared body mass with distinct role construction, marginally. Retain the exact pair/direction evidence and written rationale; do not treat IoU as a pass/fail threshold. Coach's straight hem and visible side elbow/hand negative spaces contrast with Courier's A-line coat and arms integrated into the coat; headwear/hair and shoe values also differ.
+
+For future roster work, require purposeful face cues, direct 28×42 inspection on neutral-grey diagnostic and actual town/night backgrounds, roster-level torso-shell variety review, explicit character-relative prop handedness in mirrored profiles, applicable walk-frame inspection, and before/after evidence for each correction. Do not set an arbitrary torso-family cap. The construction standard remains a draft; Granny is a quality benchmark, not a proportion template.
+
 ## Quality target
 
 Every civilian should feel like a finished, intentional game character—not a recolored template, a rough placeholder, or a flat icon. Designs should read clearly at the actual in-game size and remain attractive when enlarged for inspection.
