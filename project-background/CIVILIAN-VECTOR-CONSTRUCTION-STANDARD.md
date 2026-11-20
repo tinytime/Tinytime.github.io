@@ -2,6 +2,10 @@
 
 ## Owner approval and Run #603 closeout — 2026-11-20
 
+## Owner-directed progression exception — third-batch preparation (2026-11-20)
+
+The owner explicitly directed ChatGPT to proceed with preparing Tech, Hacker and Fisher without returning the prior Guard/Vendor/Clinic Run #629 output to Claude. This authorizes the third-batch design preflight only. It does not retroactively complete or waive the historical exact-output Claude review record for Run #629, and it does not approve the new silhouettes or authorize renderer implementation. The owner must approve the Tech/Hacker/Fisher construction preflight before their renderer work begins. Preserve this distinction in status reporting.
+
 ## Latest rendered-batch decision — Guard, Vendor and Clinic (2026-11-20)
 
 The owner has approved the rendered Guard/Vendor/Clinic batch based on Run #629. The exact-output Claude independent review is still pending; under §12 and §13A the batch remains review-gated for formal closeout and the remaining 17 civilians remain on hold. See the Run #629 closeout record below and the linked review package.
