@@ -342,10 +342,10 @@ try {
 
   const report={
     status:'design_source_projection_only',
-    revision:18,
+    revision:19,
     bodyPreservationAudit:svgData.bodyPreservationAudit,
     anatomyConnectivityAudit:svgData.anatomyConnectivityAudit,
-    integratedWeatherDetail:'Face-side-open rain hood, rear yoke/hem seams, shortened storm closure and separated brush bristles; no separate umbrella',
+    integratedWeatherDetail:'Slicker revision-18 rainwear construction preserved unchanged; Painter revision-19 flat wedge brush head; no separate umbrella',
     source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg',
     figureFields:24,
     nativeCaptures:Object.keys(svgData.data).length,
