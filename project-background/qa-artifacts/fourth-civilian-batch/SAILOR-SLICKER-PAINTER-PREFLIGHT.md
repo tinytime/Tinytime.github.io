@@ -170,3 +170,12 @@ Run #678 overall concluded **FAILURE** at the global browser diagnostics gate:
 - No golden snapshots or provenance were changed.
 
 **Internal design-source QA: PASS WITH REVIEW QUESTIONS.** Claude package 04 is prepared with the exact revision-10 source and Run #678 artifact. This is ready for independent comparative review, not owner approval. No silhouette, face, prop, palette or construction family is approved. All three construction families remain UNASSIGNED. Production renderer implementation is NOT AUTHORIZED. Roster positions #15–23 remain on hold pending Claude's review and explicit owner approval.
+
+
+## Revision 19 — preflight disposition (2026-11-20)
+
+- Source: [revision 19 SVG](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg), artwork commit `44d133b65c8ebd6aa3c207e03960d85034df193b`.
+- Handedness follows construction-standard §F2. Sailor remains character-left (front viewer-right, rear viewer-left, near-side right profile); Painter remains character-right (front viewer-left, rear viewer-right, near-side left profile). Far-side profile props remain hidden. No mirroring inversion is applied.
+- Sailor rope coil/grip and Painter compact wedge brush are revised. Slicker is preserved with no geometry changes.
+- **Preflight status: NOT YET QA-READY.** Revision-19 native 64×96 and independent direct 28×42 captures have not been generated or inspected. Enlarged contact views, anatomy/contact, Painter garment transition, frame-edge clearance and roster differentiation remain to be checked. No arbitrary thresholds; connectivity alone is not proof of grip.
+- Do not prepare Claude review package until internal QA is complete and passing. Owner approval remains pending; renderer work remains unauthorized.
