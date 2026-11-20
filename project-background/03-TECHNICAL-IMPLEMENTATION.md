@@ -1,3 +1,11 @@
+## Third-batch reviewer correction implementation — 2026-11-20
+
+Current handoff: [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md](qa-artifacts/third-civilian-batch/THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md).
+
+- **Tech renderer correction:** npc_sprites.js commit cea601503504c6b23527452a66cc64c3cb93e7a7 darkens/desaturates the petrol field shell and adds a squared storm-flap shoulder outline across front/back/profile. Clinic source/art is unchanged. Browser QA [Run #648](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752105957), artifact [14635417540](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752105957/artifacts/14635417540), tests that exact source. Tech native/direct captures 4/4 each, zero edge contacts, role-debug 4/4, explicit town spawn/close-up pass; wider integrity 92/92, face uniqueness 23/23, gallery/prop/Granny checks pass; page/script errors 0. Actual Tech/Clinic comparisons and town close-up inspected. Overall workflow remains red on unapproved snapshot baseline (1 match / 23 changed) and existing 180 audio/resource 404s; no snapshots/provenance changed.
+- **Hacker/Fisher design corrections:** source HACKER-FISHER-FINISHED-DESIGN-STUDY.svg is revised; Hacker front chest narrowed with separated bare forearm, left-profile drape tapered and temple/earbud cues clarified. Fisher rear smock/yoke is ochre, inter-leg bar removed, and right-profile hip pouch is smock-coloured with seam detail. Playwright design render [Run #9](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752401697), artifact [14636805512](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752401697/artifacts/14636805512), source SVG SHA-256 5e20a05a445b4684c3a212bf6e55fd61b3abb230c557e5d7ab85842a6ab03a52. Eight native 64×96 and eight direct design-projection 28×42 views, plus 4× enlargements; render passed and actual sheets inspected. This is design-only evidence, not game renderer QA.
+- **Gate:** Claude's independent re-review and owner acceptance are pending. Hacker/Fisher renderer implementation remains held. No golden snapshots or provenance changed.
+
 # Technical Implementation
 
 ## Current authority — 2026-11-20
