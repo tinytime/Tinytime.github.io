@@ -2,11 +2,11 @@
 
 ## Current build and approval status — 2026-11-20
 
-- Owner authorized all four Claude P2 correction areas: face identity (Courier, Usher, Cook), Usher profile shoe separation, Cook pan/hand/handle readability, and Coach/Courier rear rationale.
-- Renderer edits committed as `2b45201eb762a939547f5c8414ae9f44e5dc0d22`; Run #596 is running against that exact source. Visual confirmation is pending.
-- Qualitative identity/proportion cards are recorded in [the correction brief](qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md). These do not claim verified semantic measurements.
-- All five remain NOT APPROVED pending QA, actual image inspection, Claude re-review and owner approval. Referee is unchanged; Runner excluded; remaining 17 ON HOLD.
-- No golden snapshots or approvals have been changed.
+- Owner authorized all four Claude P2 areas. Source corrections are implemented in renderer `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb`.
+- Run #599 tested the exact renderer. It passes 92/92 directional integrity with zero edge contacts, 20/20 direct game-scale captures, 12/12 role-debug, prop audit and gallery. Page/script errors are zero.
+- Visual inspection confirms Usher profile shoes separate; Cook pan is now shallow with a visible handle and no clipping; Usher/Cook/Courier have purposeful face-cue changes; Coach/Courier rear construction remains distinct without torso edits. Referee is pixel-identical to baseline.
+- Before/after pixel diffs are recorded in the tracker and compare Run #595 with Run #599. Run #600 is building the black silhouette and town-ground diagnostic sheets.
+- All five remain NOT APPROVED pending Claude re-review and owner approval. Runner remains excluded; remaining 17 ON HOLD. No golden snapshots or approvals changed.
 
 
 
