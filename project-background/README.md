@@ -1,6 +1,6 @@
 ## Fourth civilian batch — revision 18 correction pass in progress (2026-11-20)
 
-Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; **not owner-approved and not authorized for production-renderer implementation**. Current source: [silhouette exploration 18](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg). Current verified branch head: `50e267b01a76de1b95e31b766dc332da896ce543`.
+Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; **not owner-approved and not authorized for production-renderer implementation**. Current source: [silhouette exploration 18](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg). Latest design-source commit: `50e267b01a76de1b95e31b766dc332da896ce543`.
 
 - **Painter:** both profile head/neck joins are connected. The left-profile near-side leg has been shifted rearward in both body-only and prop-on views to separate it from the brush. The brush now has a visible ferrule and individual light bristle strokes; the right profile remains prop-hidden. The evidence builder asserts revision 18. Fresh native 64×96 and direct 28×42 capture/inspection is still pending.
 - **Slicker:** no separate umbrella. The rain-shell body now carries rear yoke and hem seams, a face-side-open directional hood, and a shortened chest closure that no longer runs toward the crotch. The face geometry study now frames Slicker with a hood rather than a cap.
