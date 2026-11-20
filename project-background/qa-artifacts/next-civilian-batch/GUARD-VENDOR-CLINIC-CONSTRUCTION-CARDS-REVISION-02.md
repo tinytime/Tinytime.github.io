@@ -20,7 +20,7 @@ The focused follow-up replaces the repeated/mirrored directional placements with
 - Shell proposal: protective wedge / articulated braced stance.
 - Palette proposal: blue-charcoal #243244, slate #111A25, steel #596B7E, restrained ochre #B38B50.
 - Exactly three must-survive: (1) helmet brow/nape and shoulder wedge (direct 28×42 head-read cue); (2) short shell with chest segmentation, belt break and split hem; (3) character-right bracer integrated into bent arm.
-- Directional construction: front exposes helmet brow, shoulder wedge, chest segmentation and character-right bracer (viewer-left); back exposes rear helmet shell, nape guard, rear shoulder plates and clipped radio; left profile exposes the near-side bent elbow/bracer; right profile occludes the far-side bracer behind the torso rather than duplicating it on the outline.
+- Directional construction: front exposes helmet brow, shoulder wedge, chest segmentation and character-right bracer (viewer-left); back exposes rear helmet shell, nape guard and rear shoulder plates; the chest radio is front-mounted and hidden from the rear; left profile exposes the near-side bent elbow/bracer; right profile occludes the far-side bracer behind the torso rather than duplicating it on the outline.
 - Equipment contact: bracer is integrated into the bent forearm; radio is clipped to the chest/gear harness. No handheld baton is proposed.
 
 ## Vendor — forward-leaning stall-service / tray-presenting stance
