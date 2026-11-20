@@ -3,7 +3,7 @@
 **Status:** active planning register under the owner-ratified construction standard; not design approval or numeric quota. Legacy family labels describe the old sprite dispatch only; they are not approved vector templates.
 
 ## Rules
-- Record actual vector construction family only after bespoke silhouette exploration.
+- Record a proposed vector construction family after bespoke silhouette exploration; promote it to the current/actual family only after owner silhouette approval.
 - Unbuilt characters remain UNASSIGNED until silhouette exploration.
 - Legacy archetype families are context, not a mandate to reuse a body shell.
 - A recurring family is a review prompt, not an automatic failure. No numeric family cap.
@@ -18,10 +18,10 @@
 | 2 | Coach | Athletic | Straight-hem track jacket / yoke | **Owner-approved** |
 | 3 | Referee | Athletic | Striped official shirt / shorts | **Owner-approved** |
 | 4 | Courier | Courier | A-line messenger jacket | **Owner-approved** |
-| 5 | Guard | Guard | UNASSIGNED | Next batch; protective/security construction distinct from Usher and Coach |
-| 6 | Vendor | Vendor | UNASSIGNED | Next batch; market/service-worker construction distinct from Cook |
+| 5 | Guard | Guard | PROPOSED — protective wedge / articulated braced stance (pending owner approval) | Revision 02 exploration; protective/security construction distinct from Usher and Coach |
+| 6 | Vendor | Vendor | PROPOSED — forward-leaning stall-service / tray-presenting stance (pending owner approval) | Revision 02 exploration; market/service-worker construction distinct from Cook |
 | 7 | Cook | Vendor | Broad chef-coat / apron-front construction | **Owner-approved** |
-| 8 | Clinic worker | Clinic | UNASSIGNED | Next batch; clinical construction distinct from Tech/Hacker and Cook |
+| 8 | Clinic worker | Clinic | PROPOSED — tapered wrap tunic / offset-hip stance (pending owner approval) | Revision 02 exploration; clinical construction distinct from Tech/Hacker and Cook |
 | 9 | Tech | Clinic | UNASSIGNED | Reserve; do not assume shared clinic coat shell |
 | 10 | Hacker | Clinic | UNASSIGNED | Reserve; do not assume shared clinic coat shell |
 | 11 | Fisher | Trades | UNASSIGNED | Legacy grouping only |
