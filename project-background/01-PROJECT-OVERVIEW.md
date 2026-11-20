@@ -2,10 +2,10 @@
 
 ## Current authority — 2026-11-20
 
-- Claude Run #600 reviewed Version 2.1 as **Retain with revisions**. The construction standard has been consolidated into a usable working method for planning and briefs, but remains **unratified** and is not production-release authorization.
+- Claude Run #600 reviewed Version 2.1 as **Retain with revisions**. The construction standard has been consolidated into a coherent working method, but remains **unratified** and is not authorization to begin individual next-civilian briefs or production.
 - Owner dispositions: Cook C1 pan-handle issue deferred/accepted as-is (no edit); Usher U2 silhouette proposal declined (no edit); Usher U4 profile clipboard contact authorized and implemented in renderer commit `2c00cfca09cc12ea19a72662c235beed2e9a19cb`. Run #603 tested the exact source; internal visual inspection confirms U4 resolved at native and direct 28×42. Claude re-review remains pending.
 - Usher, Cook, Courier, Coach and Referee remain NOT APPROVED until Claude reviews the final Run #603 evidence and the owner explicitly approves the five-character direction and standard.
-- Runner remains excluded from this review. The remaining 17 civilians remain ON HOLD for production. Planning/brief preparation may use the revised standard; production implementation must wait for the approval gate.
+- Runner remains excluded from this review. The remaining 17 civilians remain ON HOLD for production. Do not begin individual next-civilian briefs or production until Claude review, owner ratification and first-batch approval.
 - No golden snapshots were refreshed or approved.
 
 
