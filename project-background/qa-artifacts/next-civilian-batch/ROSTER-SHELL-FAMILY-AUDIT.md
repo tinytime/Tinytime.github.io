@@ -1,3 +1,7 @@
+## Fourth-batch direction approval and Sailor exploration status — 2026-11-20
+
+The owner approved the refined role directions for Sailor, Slicker and Painter, and authorized Sailor silhouette exploration only. Sailor's family remains UNASSIGNED until the owner approves a silhouette/construction card. Slicker and Painter remain queued. See [Sailor silhouette study](../fourth-civilian-batch/SAILOR-SILHOUETTE-EXPLORATION-01.svg) and [construction card](../fourth-civilian-batch/SAILOR-CONSTRUCTION-CARD-EXPLORATION-01.md). No renderer or palette work is authorized.
+
 # Roster Shell-Family Audit — Pre-Production Register
 
 **Status:** active roster construction register under the owner-ratified construction standard. Character-family assignments reflect owner-approved designs where explicitly recorded; no numeric family quota applies. Legacy family labels describe the old sprite dispatch only; they are not approved vector templates.
@@ -25,9 +29,9 @@
 | 9 | Tech | Clinic | Compact forward-leaning field-maintenance harness / split utility shell | Owner-approved batch #9–11 (2026-11-20); dedicated production renderer implemented and owner-approved at rendered-art stage |
 | 10 | Hacker | Clinic | Narrow folded-in cropped asymmetric drape-shell | Owner-approved finished design-stage art (2026-11-20); production renderer not yet implemented |
 | 11 | Fisher | Trades | Broad short oilskin smock / wide braced deck stance | Owner-approved finished design-stage art (2026-11-20); production renderer not yet implemented |
-| 12 | Sailor | Trades | UNASSIGNED | Fourth civilian batch; identity/silhouette preflight prepared, owner review pending |
-| 13 | Slicker | Trades | UNASSIGNED | Fourth civilian batch; identity/silhouette preflight prepared, owner review pending |
-| 14 | Painter | Trades | UNASSIGNED | Fourth civilian batch; identity/silhouette preflight prepared, owner review pending |
+| 12 | Sailor | Trades | UNASSIGNED | Owner-approved role direction; silhouette exploration authorized only; owner silhouette approval pending |
+| 13 | Slicker | Trades | UNASSIGNED | Owner-approved role direction; queued pending Sailor silhouette/construction approval |
+| 14 | Painter | Trades | UNASSIGNED | Owner-approved role direction; queued pending Sailor silhouette/construction approval |
 | 15 | Welder | Trades | UNASSIGNED | Legacy grouping only |
 | 16 | Kid | Youth | UNASSIGNED | Legacy grouping only |
 | 17 | Kid 2 | Youth | UNASSIGNED | Legacy grouping only |
