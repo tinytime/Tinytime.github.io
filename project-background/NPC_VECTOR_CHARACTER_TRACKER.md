@@ -1,3 +1,14 @@
+## Revision 19 — latest design correction pass (2026-11-20)
+
+- **Current artwork source:** [revision 19 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg), latest source commit `0320663dd638f33f498a7a760ae505a7bdf0f208`.
+- **Handedness (§13):** Sailor carries character-left (front viewer-right, rear viewer-left, visible right/near profile only). Painter carries character-right (front viewer-left, rear viewer-right, visible left/near profile only). Far-side props remain hidden; no profile mirroring inversion.
+- **Sailor:** compact rope-loop grip/tail refinement added to front, rear and right profile. Body-only construction unchanged in this pass.
+- **Painter:** brush head enlarged into a flat wedge with a distinct ferrule; grip connection clarified additively. Body-only silhouette unchanged in this pass. Garment transition and profile frame-clearance still require focused human review.
+- **Slicker:** all eight body/prop direction panels are byte-identical to revision 18; no design changes.
+- **Evidence:** [Run #752](https://github.com/tinytime/Tinytime.github.io/actions/runs/44801977936) is testing exact source commit `0320663dd638f33f498a7a760ae505a7bdf0f208`. Earlier Run #751 caught body-pixel erasure from white grip marks; those marks were removed to preserve all body-only pixels. Do not treat Run #751 as a pass.
+- **Status:** design revision in progress; internal QA pending the final exact-source artifact and visual inspection. No Claude package prepared, no owner approval, no renderer implementation. #15–23 remain held.
+
+
 ## Fourth civilian batch — revision 18 design-source QA captured; independent review pending (2026-11-20)
 
 Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; **not owner-approved and not authorized for production-renderer implementation**. Current SVG is [silhouette exploration 18](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg), exact latest tested source commit 73774e27092de36fd88f45b0d5cb6c97f760c7ea.
