@@ -1,3 +1,14 @@
+## Fourth civilian batch — construction cards owner-approved (2026-11-20)
+
+The owner approved construction cards 02 for Sailor #12, Slicker #13 and Painter #14. Their construction-family assignments are now current in the roster register:
+- Sailor — Narrow Deck-Coat / Vertical Utility Shell
+- Slicker — Integrated Hooded Rain-Smock Shell
+- Painter — Offset Artisan Smock / Reaching-Arm Shell
+
+Detailed black-only construction study 01 is committed at [SAILOR-SLICKER-PAINTER-CONSTRUCTION-DETAIL-STUDY-01.svg](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-DETAIL-STUDY-01.svg). It reuses revision-21 silhouette geometry and proposes internal garment construction details only. It is design-stage art, not final face art, palette, renderer output or owner-approved finished art. Next: QA the exact SVG, resolve face comparisons with matched roster crops, and refine/validate the four-direction details. No renderer integration, golden snapshot changes, or #15–23 work is authorized.
+
+---
+
 ## Fourth civilian batch — post-silhouette identity/construction cards 02 (2026-11-20)
 
 The owner-approved revision 21 silhouettes are now the fixed baseline for the next design stage. The three complete identity/construction cards are in [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md).
