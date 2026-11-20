@@ -9,6 +9,14 @@
 - **Runner:** built but excluded from Run #603; pending focused review and owner decision.
 - **Remaining unstarted roster:** remains ON HOLD for renderer production pending character-specific owner-approved silhouette/brief preflight.
 
+## Guard / Vendor / Clinic Worker silhouette exploration — 2026-11-20
+
+- **Design artifacts committed:** [four-view black silhouette SVG](qa-artifacts/next-civilian-batch/GUARD-VENDOR-CLINIC-SILHOUETTE-EXPLORATION.svg) and [three construction cards](qa-artifacts/next-civilian-batch/GUARD-VENDOR-CLINIC-CONSTRUCTION-CARDS.md).
+- Each character has front, back, left and right profile silhouettes on a shared 64×96 construction basis. The cards document personality, garment/head construction, face geometry, exactly three must-survive items (including the 28×42 head-read cue), handedness, prop/contact logic, simplification and closest roster comparisons.
+- **Design-only status:** first exploration is ready for owner silhouette review; it is not production vector art or renderer implementation. No code, game files, golden snapshots or existing approved character art changed. No character is marked complete or approved.
+- **Open visual checks for owner review:** confirm Guard's helmet/shoulder mass, Vendor's tray support and open-vest negative space, and Clinic Worker's low hair gather/short wrap tunic remain distinct at the intended game scale. The current SVG is a construction exploration, not a captured 28×42 game render.
+- **Next gate:** revise silhouettes if requested; only explicit owner approval of the actual silhouettes unlocks renderer production, one character at a time.
+
 ## Claude independent re-review — Run #600 (2026-11-20)
 
 - Verdict: **Ready with disclosed minor issues**; no P0/P1 findings. Not owner approval.
