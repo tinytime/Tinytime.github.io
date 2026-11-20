@@ -142,7 +142,8 @@ try {
     const makeRenderer = OWT => window.NPC_SPRITES.createCivRenderer({
       CIV:{}, HB_CIV:{}, GRANNY_REF:{}, OWT, og:null, drawGrannyVoltSprite:()=>{}
     });
-    const nativeOWT=36*0.625/0.28,gameScaleOWT=36;\n    const nativeRenderer=makeRenderer(nativeOWT),gameScaleRenderer=makeRenderer(gameScaleOWT);
+    const nativeOWT=36*0.625/0.28,gameScaleOWT=36;
+    const nativeRenderer=makeRenderer(nativeOWT),gameScaleRenderer=makeRenderer(gameScaleOWT);
     const directions = ['d','u','l','r'];
     const civilians = ['guard','vendor','clinic'];
     const render = (renderer,civ,direction,width,height,OWT) => {
