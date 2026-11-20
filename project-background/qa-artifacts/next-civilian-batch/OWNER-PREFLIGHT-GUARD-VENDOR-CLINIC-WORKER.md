@@ -168,24 +168,22 @@ The sheet presents matched-scale front, back, left and right views for each char
 
 ## What approval unlocks
 
-Owner acceptance has been granted. The NPC Designer is authorized to create the actual four-view black silhouette explorations and completed identity/construction cards. Those actual silhouettes must be compared at matched scale against all six existing vector characters and against one another. If a genuine collision appears, revise the silhouette before adding colour or detailed vector paths.
-
-Only after the owner accepts that silhouette exploration should the team begin renderer implementation, one character at a time, with the full Tier A evidence package and browser QA required by the ratified standard.
+The project owner explicitly approved the completed Revision 02 four-view silhouettes, face studies, construction cards, palette directions and prop/contact approaches on 2026-11-19. Renderer production is authorized for Guard, Vendor and Clinic Worker only. The matched-scale roster comparison is the accepted preflight reference. If renderer QA reveals a genuine collision or a design departure, return to the approved cards and obtain renewed owner direction before changing the concept.
 
 ## Evidence status and limitations
 
-- The original proposal remains a **design preflight**. Revision 02 is the current owner-review package: four-view silhouettes, front/profile face studies, matched-scale roster comparison, construction cards and 28×42 exploratory raster downsamplings.
+- Revision 02 is the **owner-approved design package**: four-view silhouettes, front/profile face studies, matched-scale roster comparison, construction cards and 28×42 exploratory raster downsamplings.
 - The revision 02 SVGs use a common 64×96 design field; they are not browser-renderer captures. The 28×42 panels are derived raster downsamplings, not direct game-scale captures. No native renderer captures exist for these unbuilt characters.
 - Prop-contact relationships are documented design proposals, not verified renderer contacts; the production QA prop-contact table remains outstanding.
-- The roster shell-family register now records three **proposals pending owner approval**, not final assignments. Do not promote them until the owner accepts the revised silhouettes.
-- No production colour art, renderer code, game code, QA baseline or golden snapshot has been changed.
+- The roster shell-family register now records the three owner-approved Revision 02 construction families.
+- Renderer implementation is now in progress. No QA baseline or golden snapshot has been changed.
 
 
 ## Current production gate
 
 **Current review package:** revision 02 four-view silhouettes, face-construction studies, matched roster comparison and revised construction cards for Guard, Vendor and Clinic Worker.
 
-**Still not authorized:** production vector rendering, changes to `npc_sprites.js` or other live game code, golden snapshot changes, or marking any of the three characters complete. Return the revised actual four-view black silhouettes and cards to the owner for approval first.
+**Authorized:** dedicated production vector rendering and integration in `npc_sprites.js` for these three approved designs. **Still not authorized:** golden snapshot changes or marking any character complete before internal QA, actual render inspection, Claude review and final owner acceptance.
 
 
 **NPC Designer handoff:** [GitHub issue #1 — approved four-view silhouette exploration for Guard, Vendor and Clinic Worker](https://github.com/tinytime/Tinytime.github.io/issues/1).
@@ -202,4 +200,4 @@ Revision 02 is now committed:
 
 The revision changes body construction and pose: Guard is a broad protective wedge with a braced arm and offset knee; Vendor leans toward the customer with a stepped stance and continuous tray-support chain; Clinic Worker has a tapered wrap tunic, shifted hip and separated pouch/hand relationship. The cards add proposed shell families, palette proposals, geometric face comparisons, exactly three must-survive items per character and a per-view prop/contact/handedness table.
 
-The 28×42 panels are exploratory raster downsamplings only. They are not direct renderer captures. Existing roster references are alpha silhouettes derived from Run #603's exact 64×96 browser artifact. No new renderer/game code, production colour art, QA baseline or golden snapshot was changed. The revised package remains NOT APPROVED pending owner review; renderer implementation stays blocked.
+The 28×42 panels are exploratory raster downsamplings only. They are not direct renderer captures. Existing roster references are alpha silhouettes derived from Run #603's exact 64×96 browser artifact. No new renderer/game code, production colour art, QA baseline or golden snapshot was changed. The project owner approved Revision 02 on 2026-11-19. Renderer implementation is authorized and underway; game-rendered evidence and full QA remain outstanding.
