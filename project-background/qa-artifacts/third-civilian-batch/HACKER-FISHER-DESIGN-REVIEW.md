@@ -1,3 +1,15 @@
+## Claude first-review corrections — Run #9 (2026-11-20)
+
+Claude's first batch verdicts identified Hacker P1 front/profile construction issues and Fisher non-blocking garment-integration issues. The owner authorized all fixes. Updated combined handoff: [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md](THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md).
+
+**Hacker corrections:** front lilac chest narrowed by approximately one-third; character-left bare forearm separated from the shell; left-profile drape tapered with a stronger edge seam; temple notch and single asymmetrical earbud clarified. Compact single slate and supporting-hand contact retained. The left-profile device remains hidden as the far-side prop.
+
+**Fisher corrections:** right-profile pouch changed from a dark plate to smock ochre with seam detail; rear yoke/smock changed from black/cream cape-like mass to ochre with darker flap seam; unexplained grey inter-leg bar removed. Broad silhouette, hood/brow lip, bib closure, boots and basket handedness retained.
+
+**New exact evidence:** Playwright design render [Run #9](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752401697), artifact [14636805512](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752401697/artifacts/14636805512). Exact source SVG SHA-256: 5e20a05a445b4684c3a212bf6e55fd61b3abb230c557e5d7ab85842a6ab03a52. Run completed successfully. It includes the full 1×/3× sheets, eight native 64×96 captures, eight direct 28×42 design projections and eight 4× nearest-neighbour enlargements. ChatGPT inspected the actual full sheet and directional montages. All are design-stage projections, not production game-renderer captures.
+
+**Disposition:** first-review construction findings implemented and design render visually inspected; independent Claude re-review and owner finished-art acceptance pending. Hacker/Fisher renderer implementation remains held pending Tech review/owner rendered-art approval and owner acceptance of their designs. No golden snapshots or provenance changed.
+
 # Hacker (#10) and Fisher (#11) — finished design-stage review package
 
 **Status:** corrected Playwright design rendering and internal visual inspection complete on 2026-11-20 (Run #7). Awaiting owner acceptance of the finished colour artwork. This package does not authorize renderer implementation.
