@@ -110,6 +110,41 @@ try {
   }
   for(const [key,url] of Object.entries(svgData.sheets))writeData(path.join(out,key+'-comparison.png'),url);
 
+  // Capture the proposed new face designs at exact 40x38 crop size.
+  const faceStudyPath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg');
+  const faceStudySvg = fs.readFileSync(faceStudyPath, 'utf8');
+  const faceDesigns = await page.evaluate(async source => {
+    const img = new Image();
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
+    await img.decode();
+    const fields = [
+      {key:'sailor-front',x:20},{key:'sailor-profile',x:75},
+      {key:'slicker-front',x:185},{key:'slicker-profile',x:240},
+      {key:'painter-front',x:350},{key:'painter-profile',x:405}
+    ];
+    return fields.map(f => {
+      const canvas=document.createElement('canvas');canvas.width=40;canvas.height=38;
+      const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=true;
+      ctx.drawImage(img,f.x,65,40,38,0,0,40,38);
+      return {key:f.key,dataUrl:canvas.toDataURL('image/png')};
+    });
+  },faceStudySvg);
+  const faceDesignDir=path.join(out,'new-face-design-crops-40x38');fs.mkdirSync(faceDesignDir,{recursive:true});
+  for(const item of faceDesigns)writeData(path.join(faceDesignDir,item.key+'.png'),item.dataUrl);
+  const faceDesignSheet=await page.evaluate(async items=>{
+    const gap=12,w=160,h=170,cols=3,rows=2;
+    const c=document.createElement('canvas');c.width=gap+cols*(w+gap);c.height=gap+rows*(h+gap);
+    const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
+    for(let i=0;i<items.length;i++){
+      const im=new Image();im.src=items[i].dataUrl;await im.decode();
+      const px=gap+(i%cols)*(w+gap),py=gap+Math.floor(i/cols)*(h+gap);
+      x.fillStyle='#fff';x.font='bold 12px sans-serif';x.fillText(items[i].key.toUpperCase(),px,py+12);
+      x.drawImage(im,px,py+20,w,h-20);
+    }
+    return c.toDataURL('image/png');
+  },faceDesigns);
+  writeData(path.join(out,'new-face-designs-matched-40x38.png'),faceDesignSheet);
+
   // Capture current roster face crops through the existing game hooks. This is
   // read-only comparison evidence; no new NPC renderers are installed.
   await page.goto(baseUrl+'/VaporCity_HD2D_Hybrid_Test.html',{waitUntil:'load',timeout:60000});
@@ -156,7 +191,7 @@ try {
     direct28x42Captures:Object.values(svgData.data).filter(x=>x.direct).length,
     enlargedNearestNeighbourCaptures:Object.values(svgData.data).filter(x=>x.enlarged4x).length,
     rasterization:'SVG viewport reset to each 64x96 figure field, then independently rasterized at exact 64x96 and exact 28x42 output dimensions; direct 28x42 is a separate vector rasterization',
-    rosterFaceCrops:rosterFaces.length,
+    rosterFaceCrops:rosterFaces.length,\n    newFaceDesignCrops:faceDesigns.length,
     rosterFaceDirections:[...new Set(rosterFaces.map(x=>x.direction))],
     faceCropDimensions:{width:40,height:38,source:'current game directional snapshot hook, native 64x96'},
     note:'The roster face sheet is for human geometric comparison only. Closest two faces per new character and defining cues remain unselected until visual inspection.'
