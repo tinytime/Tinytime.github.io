@@ -1,5 +1,20 @@
 # NPC Vector Character Design Tracker
 
+## Owner-authorized P2 correction pass — 2026-11-20
+
+The owner has authorized implementation of all four P2 areas from Claude's Run #595 review.
+
+- **F1 — face identity:** purposeful individual face cues for Courier, Usher and Cook, beyond skin tone, hair colour or headwear.
+- **U1 — Usher:** stronger shoe/sole value separation from the pale trouser planes in both profile views at direct 28×42.
+- **C1 — Cook:** visible pan handle extending from the gripping hand to the pan body; preserve cuff/forearm/hand continuity and ensure pan/rim reads at direct 28×42.
+- **X1 — Coach/Courier:** document and evidence the accepted shared-body-mass distinction; no torso redesign unless fresh evidence shows the distinction is not legible.
+
+**Renderer change:** `2b45201eb762a939547f5c8414ae9f44e5dc0d22` (npc_sprites.js).  
+**Identity/proportion cards:** [IDENTITY-AND-PROPORTION-CARDS.md](qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md).  
+**QA:** Run #596 is running against the renderer commit. Its result and actual images must be inspected before claiming these P2s resolved.  
+**Status:** corrections implemented in source, visual validation pending. All five characters remain NOT APPROVED. Referee is intentionally unchanged. Runner and the remaining 17 are out of scope. No snapshots or approvals changed.
+
+
 ## Independent Claude review — Run #595 (2026-11-19)
 
 - **Review received:** independent comparative visual review of Usher, Cook, Courier, Coach and Referee.
