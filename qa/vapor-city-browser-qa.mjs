@@ -154,7 +154,14 @@ try {
       const ry=(baseline-(OWT-5))/OWT;
       const npc={id:civ,civ,x:0,y:0,rx,ry};
       renderer(0,0,direction,false,npc,0,0,ctx,{roleDebugLayers:true});
-      return {civ,direction,width,height,dataUrl:canvas.toDataURL('image/png')};
+      const pixels=ctx.getImageData(0,0,width,height).data;
+      const touches={left:false,right:false,top:false,bottom:false};
+      for(let y=0;y<height;y++)for(let x=0;x<width;x++){
+        if(pixels[(y*width+x)*4+3]===0)continue;
+        if(x===0)touches.left=true;if(x===width-1)touches.right=true;
+        if(y===0)touches.top=true;if(y===height-1)touches.bottom=true;
+      }
+      return {civ,direction,width,height,dataUrl:canvas.toDataURL('image/png'),touches};
     };
     const native=[],gameScale=[];
     for(const civ of civilians)for(const direction of directions){
@@ -176,11 +183,16 @@ try {
     gameScaleExpected:12,gameScaleCaptured:approvedBatchCapture.gameScale.length,
     nativeDimensions:approvedBatchCapture.native.map(({civ,direction,width,height})=>({civ,direction,width,height})),
     gameScaleDimensions:approvedBatchCapture.gameScale.map(({civ,direction,width,height})=>({civ,direction,width,height})),
+    edgeContacts:[
+      ...approvedBatchCapture.native.filter(item=>Object.values(item.touches).some(Boolean)).map(item=>({scale:'64x96',civ:item.civ,direction:item.direction,touches:item.touches})),
+      ...approvedBatchCapture.gameScale.filter(item=>Object.values(item.touches).some(Boolean)).map(item=>({scale:'28x42',civ:item.civ,direction:item.direction,touches:item.touches}))
+    ],
     pass:approvedBatchCapture.native.length===12&&approvedBatchCapture.gameScale.length===12&&
       approvedBatchCapture.native.every(item=>item.width===64&&item.height===96&&item.dataUrl.startsWith('data:image/png'))&&
       approvedBatchCapture.gameScale.every(item=>item.width===28&&item.height===42&&item.dataUrl.startsWith('data:image/png'))&&
       new Set(approvedBatchCapture.native.map(item=>item.civ+'|'+item.direction)).size===12&&
-      new Set(approvedBatchCapture.gameScale.map(item=>item.civ+'|'+item.direction)).size===12,
+      new Set(approvedBatchCapture.gameScale.map(item=>item.civ+'|'+item.direction)).size===12&&
+      [...approvedBatchCapture.native,...approvedBatchCapture.gameScale].every(item=>!Object.values(item.touches).some(Boolean)),
     captureMethod:'Direct createCivRenderer/owCiv render at native 64x96 and live OWT=36 / vector scale=0.28 for 28x42; no resize.'
   };
 
