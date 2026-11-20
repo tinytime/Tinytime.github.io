@@ -7,7 +7,7 @@
 - Overall Run #603 Actions concluded failure on the unapproved snapshot baseline (1 match / 23 changed) and 180 existing audio-resource 404s. No golden snapshots were changed or approved.
 - Five owner-approved designs: Usher, Cook, Courier, Coach and Referee. Preserve current renderers and owner dispositions; no art changes authorized by review closeout.
 - Runner is built but not included in the five-character approval; it remains pending focused review.
-- Draft next-batch briefs cover Guard, Vendor and Clinic worker. Legacy archetype data in npc_sprites.js is reference context only; it must not become a shared vector template.
+- Guard, Vendor and Clinic Worker Revision 02 designs were explicitly approved by the owner on 2026-11-19. Dedicated `drawGuardVector`, `drawVendorVector` and `drawClinicVector` functions are implemented and wired into `owCiv` dispatch. Their palette-role legends are present. JavaScript syntax validation has passed; full browser captures and visual QA remain pending. Legacy archetype data remains reference context only, not a shared vector template.
 
 
 ## Historical build and approval status — 2026-11-19
