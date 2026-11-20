@@ -1,11 +1,13 @@
-## Fourth civilian batch — parallel Sailor/Slicker/Painter exploration (2026-11-20)
+## Fourth civilian batch — internal QA complete; Claude review package ready (2026-11-20)
 
-The owner authorized **Sailor (#12), Slicker (#13) and Painter (#14) simultaneously** through identity refinement, four-view silhouette exploration and construction cards. This supersedes the earlier Sailor-only authorization note below.
+The owner authorized simultaneous design-stage exploration for Sailor (#12), Slicker (#13) and Painter (#14). The second internal pass is complete; the exact-output Claude package is [SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-01.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-01.md).
 
-- [Parallel silhouette exploration 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-05.svg)
-- [Parallel construction cards and differentiation report 01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md); [matched-scale face geometry study](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg))
-- Current status: revision 03 adds distinct rear contours and correct profile prop visibility; native/direct raster evidence and roster face comparisons are being generated and inspected. Full owner-review package remains incomplete. Matched-scale face crops, exact direct 28×42 raster projections, refined rear/profile anatomy and prop-contact validation remain outstanding.
-- Families remain UNASSIGNED; no palettes or production renderer work. #15–23 remain on hold. No approved NPC art, golden snapshots or snapshot provenance changed.
+- Current silhouette source: [revision 05](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-05.svg); construction cards: [01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md); face study: [revision 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg).
+- Latest QA: [Run #664](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773501153), artifact [14648551327](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773501153/artifacts/14648551327), exact tested commit `65252b64031626901b03905c4f253d1043f1a31e`.
+- Design-source projection generation and semantic annotation validation pass. All 24 fields have native 64×96, direct vector-rasterized 28×42 and 4× nearest-neighbour evidence. 69 roster face crops and six matched new-face comparison rows are included.
+- Internal visual pass corrected Slicker's front umbrella handedness (character-right / viewer-left), corrected the SVG revision title, and improved native face-comparison labels. Corrected front umbrella is visible but subtle at direct 28×42; face geometry remains a principal Claude review question.
+- Overall browser QA remains FAILED on the unapproved golden-snapshot baseline (1 match / 23 changed) and existing audio/resource HTTP 404 console diagnostics. `pageErrors` and `scriptErrors` are empty. No golden snapshots or provenance changed.
+- All three construction families remain UNASSIGNED. No silhouette, face, prop or palette is owner-approved; production renderer work is NOT AUTHORIZED. #15–23 remain on hold.
 
 ## Fourth civilian batch — owner direction approval and Sailor exploration (2026-11-20)
 
