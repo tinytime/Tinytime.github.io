@@ -1,3 +1,14 @@
+## Fourth civilian batch — revision 21 exact-source checkpoint, Run #810 (2026-11-20)
+
+- **Source and tested branch head:** `be1c0c012894ccae23b4cbce2ad06e523fb460c5`; revision-21 SVG blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`.
+- **Exact evidence:** [Actions Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056), artifact [14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854).
+- **Focused design-source checks PASS:** 24/24 native 64×96, 24/24 independently rasterized direct 28×42, 24/24 enlarged captures; body preservation 12/12 with zero removed pixels; anatomy/prop connectivity 48/48; profile prop contact 2/2; semantic proportion/annotation validation passed. Slicker remains byte-identical to revision 18 across all eight body/prop direction panels.
+- **Separate full workflow FAIL:** game-browser diagnostics failed with 135 audio/resource HTTP 404 responses plus 45 corresponding sound-load messages; pageErrors=0 and scriptErrors=0. Golden snapshot gate remains 1 match / 23 changed and unapproved. No golden snapshots or provenance were modified.
+- **Additional ChatGPT artifact inspection:** opened the actual native and direct body/prop comparison sheets, matched-face comparison sheet, and enlarged Sailor-front and Painter-front/left-profile prop crops. The overall silhouettes remain directionally coherent; Sailor's hand/coil read is still compact and merits close direct-scale reviewer scrutiny; Painter's brush is identifiable but the hand/handle/head cluster is dense at game scale. Face studies remain provisional grayscale geometry. This is a limited supplementary inspection, not a complete all-crops reviewer verdict or approval.
+- **Handoff:** review package 06 is pinned to this exact source/run/artifact and remains prepared but not sent to Claude. No independent Claude verdict or owner art approval exists. All construction families remain UNASSIGNED; no palette or renderer work is authorized; #15–23 remain held.
+
+---
+
 ## Fourth civilian batch — revision 21 exact-source internal design QA (2026-11-20)
 
 The owner-authorized parallel design-stage work for Sailor (#12), Slicker (#13) and Painter (#14) has reached **internal design-source QA PASS**. Independent Claude review and owner approval remain pending.
