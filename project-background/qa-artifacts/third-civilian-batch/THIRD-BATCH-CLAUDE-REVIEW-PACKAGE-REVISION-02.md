@@ -1,3 +1,10 @@
+
+## QA harness follow-up — Run #649 pending
+
+A separate QA contract correction was made after inspecting Run #648's report: Tech (#9) was missing from the vector-civilian allowlist and the expected renderer population counts still reflected nine vector / fourteen legacy sprites. The harness now expects ten vector / thirteen legacy civilians and treats Tech's antialiased ink and baseline under the same vector contract as the other dedicated renderers. This does not alter character art or golden snapshots.
+
+- QA harness commit: `2d963db5e0b54f1f7b9afd652b33c053aa168c1b`.
+- Fresh Browser QA [Run #649](https://github.com/tinytime/Tinytime.github.io/actions/runs/44753230689) is in progress against that commit, which includes the Tech renderer correction. Its final disposition and artifact will be appended after completion. Run #648 remains the latest completed Tech evidence and the direct images/comparison/town crop have already been inspected.
 # Third civilian batch — independent Claude review package (revision 02)
 
 **Characters:** Tech (#9), Hacker (#10), Fisher (#11)  
