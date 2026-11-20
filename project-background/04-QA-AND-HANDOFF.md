@@ -1,3 +1,7 @@
+## Owner-directed third-batch preparation exception — 2026-11-20
+
+The owner explicitly directed ChatGPT to prepare Tech, Hacker and Fisher without sending the prior Guard/Vendor/Clinic Run #629 output back to Claude. This is authorization for the design-preflight stage only. The Run #629 exact-output Claude review remains historically unrecorded; do not claim a Claude verdict or formal closeout. The three new silhouette concepts are proposals and require explicit owner approval before renderer implementation. No golden snapshots are authorized for refresh or replacement by this decision.
+
 
 
 ## Guard, Vendor and Clinic correction QA — Runs #625/#626 (2026-11-20)
