@@ -1,10 +1,10 @@
 ## Hacker (#10) and Fisher (#11) — finished design-stage vector study (2026-11-20)
 
-- Design sheet: [HACKER-FISHER-FINISHED-DESIGN-STUDY.svg](qa-artifacts/third-civilian-batch/HACKER-FISHER-FINISHED-DESIGN-STUDY.svg), commit [33b5a29015e08fd8cf340d48bd2f61b74473f8c4](https://github.com/tinytime/Tinytime.github.io/commit/33b5a29015e08fd8cf340d48bd2f61b74473f8c4).
+- Design sheet: [HACKER-FISHER-FINISHED-DESIGN-STUDY.svg](qa-artifacts/third-civilian-batch/HACKER-FISHER-FINISHED-DESIGN-STUDY.svg), commit [c8f251e61ce75a8e96f4cb2fa83cbc6b2d9a302a](https://github.com/tinytime/Tinytime.github.io/commit/c8f251e61ce75a8e96f4cb2fa83cbc6b2d9a302a).
 - Both characters have four separately labelled design views, face-construction cues, proposed palettes, and direction-specific prop/hand-contact treatment. The round-05 approved silhouette paths are retained as the construction base; no concept restart or silhouette reapproval was requested.
 - Hacker: narrow folded construction, broken side-swept fringe, exposed temple, cropped asymmetric drape-shell, exposed opposite forearm, and character-right slate (front viewer-left, rear viewer-right; near-side right profile only).
 - Fisher: broad braced construction, reduced oilskin hood, broad waterproof smock with diagonal bib closure, weathered ochre/rust/canvas palette, and character-left net basket (front viewer-right, rear viewer-left; near-side left profile only).
-- The SVG source was checked for all eight direction labels, unique IDs, and resolved symbol references. This is a source-level structural check only; browser rendering, true direct 28×42 game captures, enlarged nearest-neighbour evidence, town/gallery integration and visual QA have **not** been performed.
+- All eight view panels preserve the 64:96 sprite aspect ratio; the SVG source was checked for direction labels, unique IDs, and resolved symbol references. This is a source-level structural check only; browser rendering, true direct 28×42 game captures, enlarged nearest-neighbour evidence, town/gallery integration and visual QA have **not** been performed.
 - **Status:** design-stage candidate submitted for owner inspection; not yet owner-approved as finished art. Renderer integration and production QA remain unstarted for Hacker/Fisher. Tech's independent-review/owner gate remains unchanged. No existing renderer, approved civilian art, golden snapshot or snapshot provenance was modified.
 
 ## Tech, Hacker and Fisher — round-05 silhouette render (2026-11-20)
