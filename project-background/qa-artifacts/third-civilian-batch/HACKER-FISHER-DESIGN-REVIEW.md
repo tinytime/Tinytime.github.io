@@ -1,22 +1,22 @@
 # Hacker (#10) and Fisher (#11) — finished design-stage review package
 
-**Status:** owner-authorized design development in progress; final design-sheet visual inspection and owner acceptance remain pending. This package does not authorize renderer implementation.
+**Status:** finished design-stage candidate; Playwright design rendering and internal visual inspection complete on 2026-11-20. Awaiting owner acceptance of the finished colour artwork. This package does not authorize renderer implementation.
 
-## Authoritative construction
+## Authoritative construction and scope
 
-- Preserve the accepted four-direction round-05 construction in [TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg](TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg).
+- Preserve the approved four-direction round-05 construction in [TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg](TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg). No silhouette restart or new silhouette approval was requested.
 - Finished colour design: [HACKER-FISHER-FINISHED-DESIGN-STUDY.svg](HACKER-FISHER-FINISHED-DESIGN-STUDY.svg).
-- Round-05 3× black-silhouette reference remains unchanged.
-- No new silhouette concept pass or silhouette reapproval is requested.
+- Original round-05 SVG and 3× black-silhouette reference remain unchanged.
+- No game renderer, existing approved civilian, golden snapshot or snapshot provenance was changed.
 
 ## Hacker (#10)
 
 **Identity:** guarded, clever, agile and self-contained digital operator.
 
 - **Construction:** narrowest figure; folded-in, slightly off-centre stance; cropped asymmetric charcoal/lilac drape-shell over a close-fitting base layer; one short hanging panel and opposite exposed forearm.
-- **Head/face:** broken side-swept fringe, exposed temple, one asymmetrical earbud, uneven brow, one narrowed eye, short upturned nose and compact pointed chin.
+- **Head/face:** broken side-swept fringe, exposed temple, one asymmetrical earbud, uneven brow, one narrowed eye, short upturned nose and compact pointed chin. Front and profile eye/brow cues remain visible; rear hair mass follows the accepted head construction.
 - **Palette:** charcoal `#343640`, cool lilac `#77718b`, pale lilac `#aaa2bd`, deep base `#282a35`, slate `#565b72`, slate-blue device `#9ba8ba`, pale display `#c3d3df`.
-- **Handedness:** character-right slate: front viewer-left, rear viewer-right; shown only in the near-side right profile. Left profile hides the far-side slate. The rear and right-profile views include a visible hand/wrist contact cue.
+- **Handedness:** character-right slate: front viewer-left, rear viewer-right; shown only in the near-side right profile. Left profile hides the far-side slate. Rear and right-profile views include hand/wrist contact cues.
 
 **Three must-survive elements**
 1. Broken fringe, exposed temple and single asymmetrical earbud.
@@ -27,39 +27,39 @@
 
 **Identity:** weathered, patient, practical and quietly resilient waterfront net worker.
 
-- **Construction:** broadest and most grounded figure; low braced stance; low oilskin hood/cowl with short brow lip and soft rear neck flap; broad short waterproof smock with bib chest plane and diagonal shoulder closure; substantial trousers and heavy deck boots.
-- **Face:** broad cheek planes, relaxed low brow, deep-set eyes, blunt nose tip, stronger lower lip and sturdy rounded chin.
+- **Construction:** broadest and most grounded figure; low braced stance; low oilskin hood/cowl with short brow lip and soft rear neck flap; broad waterproof smock with bib chest plane and diagonal shoulder closure; substantial trousers and heavy deck boots.
+- **Face:** broad cheek planes, relaxed low brow, deep-set eyes, blunt nose tip, stronger lower lip and sturdy rounded chin. Hood frames the face; profile face remains visible.
 - **Palette:** dark weathered brown `#3b302a`, ochre oilskin `#a9783e`, worn ochre highlight `#c59b5c`, weathered canvas `#71695a`, warm skin `#bc9272`, deep charcoal `#282b2d`, salt-grey net `#777e72`.
-- **Handedness:** character-left basket: front viewer-right, rear viewer-left; near-side left profile only. Right profile has no basket. The front view is mirrored as a complete character construction to preserve the approved round-05 orientation and prop side.
+- **Handedness:** character-left basket: front viewer-right, rear viewer-left; near-side left profile only. Right profile has no basket. Front-view mirroring is the same complete-character orientation used by the accepted round-05 silhouette study.
 
 **Three must-survive elements**
 1. Low oilskin hood with short brow lip and rear neck flap.
-2. Broad short waterproof smock with diagonal bib closure.
+2. Broad waterproof smock with diagonal bib closure.
 3. Low-held compact net basket with a connected supporting hand/wrist.
 
 ## Presentation and scale evidence
 
-The SVG contains a comparison sheet and an appended scale section for all eight directional designs. The reproducible Playwright render job produces:
+The SVG contains the combined comparison sheet and scale section for all eight directional designs. Reproducible Playwright render workflow:
 
-- Full design sheet at 1× and 3×.
-- Eight native 64×96 design projections.
-- Eight direct 28×42 design projections.
-- Eight 28×42 crops enlarged 4× with image smoothing disabled (true nearest-neighbour enlargement).
-- A JSON render report recording the source hash and capture geometry.
+- [Run #6 — successful design render](https://github.com/tinytime/Tinytime.github.io/actions/runs/44747910509), tested source `71e3e8a674e887715613faa8e687a36b0e34a9d8`.
+- [Render artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/44747910509/artifacts/14633573148).
+- Committed outputs: 1× and 3× full sheets; eight native 64×96 crops; eight direct 28×42 vector projections; eight 28×42 crops enlarged 4× with smoothing disabled (nearest-neighbour); JSON report with source hash and capture geometry.
+- Render outputs are committed on the working branch in commit `b0216c079b3969469c3192366b57f98b619c2213`.
 
-These are design-source captures, not direct game-renderer captures. Downsampling the vector study does not replace the later production renderer QA.
+**Internal visual inspection:** ChatGPT inspected the full 1× sheet, native directional contact sheet, direct 28×42 contact sheet and 4× nearest-neighbour sheet. The eight views retain clearly different body envelopes (Hacker narrow/folded; Fisher broad/braced). Hacker's slate appears front viewer-left, rear viewer-right and near-side right profile only; no far-side slate appears in left profile. Fisher's basket appears front viewer-right, rear viewer-left and near-side left profile only; no basket appears in right profile. Hacker's fringe does not cover the visible profile eye; Fisher's hood leaves the profile face visible. No visible clipping, detached limbs or duplicate props were found in these design-source captures.
 
-## Source-level checks and scope
+**Evidence boundary:** these are captures from the finished design SVG, not direct game-renderer captures. They do not prove game integration, live town spawning, production renderer contact geometry or production QA. Direct game-renderer 28×42 capture, gallery/town integration and renderer QA belong to the later implementation gate.
 
-- SVG IDs are unique; all internal fragment references resolve.
-- Eight distinct directional art groups are defined and reused for scale presentation.
-- Hacker's slate is absent from the far-side left profile and present in the near-side right profile.
-- Fisher's front basket is on viewer-right; rear basket is on viewer-left; only the near-side left profile shows it.
-- The original round-05 silhouette source file is unchanged.
-- No game renderer, existing approved civilian, golden snapshot or snapshot provenance was changed.
+## Automated checks and workflow disposition
+
+- Design-render workflow #6 passed: Playwright/Chromium install, script syntax, SVG render, eight native/direct crops, nearest-neighbour enlargement, report generation, commit and artifact upload all succeeded.
+- Source checks: eight unique directional art groups, unique SVG IDs and resolved fragment references; source round-05 SVG unchanged.
+- General Browser QA Run #647 was triggered by the source commit. It failed its pre-existing game-browser diagnostics: unapproved golden-snapshot comparison (1 match / 23 changed) and existing audio/resource HTTP 404 errors. The same run still generated and uploaded its wider evidence. This general game QA is not a Hacker/Fisher renderer test; neither character is integrated into the game renderer yet. No snapshots or provenance were changed.
 
 ## Remaining gates / unresolved issues
 
-1. Complete the Playwright render workflow and inspect the actual 1×/3× sheets, all eight native crops, all eight direct 28×42 crops and nearest-neighbour enlargements. Resolve any visible clipping, face, anatomy or prop-contact defects found there.
-2. Owner inspects and accepts the finished design-stage artwork.
-3. Tech (#9) independent Claude review and owner rendered-art approval remain the existing prerequisite for Hacker/Fisher renderer implementation. No Hacker/Fisher renderer work or game QA is authorized by this design-stage assignment.
+1. **Owner acceptance of the finished design-stage artwork** is pending.
+2. Tech (#9) independent Claude review and owner rendered-art approval remain the existing prerequisite for Hacker/Fisher renderer implementation.
+3. No Hacker/Fisher renderer work, game QA, golden snapshot change or production approval is implied by this design-stage package.
+
+No specific unresolved construction defect was found during the design-source visual inspection.
