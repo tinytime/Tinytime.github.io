@@ -228,3 +228,12 @@ ChatGPT implemented that focused pass in `npc_sprites.js` commit `6a1fd2a4fbad50
 - Town/gallery screenshots inspected as existing-scene smoke checks only. No production renderers or live integration for #12–14.
 - Overall browser workflow failed the global unapproved snapshot gate (1 match / 23 changed) and 135 existing audio/resource 404 console errors. pageErrors=0, scriptErrors=0. No snapshots or provenance changed.
 - **Current disposition: INTERNAL DESIGN-SOURCE QA PASS WITH REVIEW QUESTIONS.** [Claude review package 04](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md) is prepared for independent review. Not owner-approved. Construction families remain UNASSIGNED; production renderer work is NOT AUTHORIZED; roster #15–23 remains on hold.
+
+
+## Revision 19 handoff — 2026-11-20 (design source only; QA pending)
+
+- **Sailor #12:** revision-19 source introduces a tighter character-left rope-coil/grip study in front, rear and near-side right profile. Character-relative handedness remains unchanged per §F2: front viewer-right, rear viewer-left, visible in right profile; hidden in left profile.
+- **Painter #14:** revision-19 source replaces the fork/rake-like brush marks with a compact diagonal handle and solid wedge bristle block in front, rear and near-side left profile. Character-right handedness remains unchanged per §F2: front viewer-left, rear viewer-right, visible in left profile; hidden in right profile.
+- **Slicker #13:** revision-18 construction preserved; no geometry changed.
+- **Source:** [revision 19 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg), source commit `44d133b65c8ebd6aa3c207e03960d85034df193b`.
+- **Status:** DESIGN REVISION IN PROGRESS — not yet captured or internally QA-tested. Native/direct scale captures, enlarged contact sheets, body-only anatomy/garment polish, clipping and roster differentiation remain outstanding. No new Claude package, owner approval or renderer authorization. #15–23 remain held.
