@@ -157,3 +157,14 @@ ChatGPT implemented that focused pass in `npc_sprites.js` commit `6a1fd2a4fbad50
 - Run #7's render, syntax, capture generation and artifact upload passed. Its PNG commit/push failed on a non-fast-forward branch race; the artifact is authoritative and corrected PNGs are not committed as repository files.
 - **Finished-art owner acceptance remains pending.** Internal QA is not owner approval.
 - No game renderer, live town integration, gallery integration, golden snapshots or snapshot provenance changed. Hacker/Fisher renderer implementation remains held by the Tech-first independent-review and owner rendered-art approval gate.
+
+
+## Fourth civilian batch — internal QA continuation (2026-11-20)
+
+- Current source branch HEAD: `2f240537ac16be4981cf2af7d840600bfd51bd6d` (`npc-granny-baseline-overhaul`).
+- Run #665 [44773914851](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773914851), artifact [14647819936](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773914851/artifacts/14647819936), tested `184fe72b211c11e968b7b192228bb7cf04792e5b`. Run #666 [44775202456](https://github.com/tinytime/Tinytime.github.io/actions/runs/44775202456), artifact [14649261738](https://github.com/tinytime/Tinytime.github.io/actions/runs/44775202456/artifacts/14649261738), tested `d53eb40b1186872f0cadbca4819821b32d3bddb5`.
+- Run #666 native face-comparison sheet visually inspected: names and scale labels are legible; comparator pairs are explicitly identified (Clinic/Guard, Hacker/Courier, Cook/Busker).
+- Profile prop source follow-up: Sailor coil re-anchored; Slicker folded umbrella and Painter brush added to both profile projections. An initial duplicate insertion was corrected. Commits: `34ebafd780c2bd21b352ab978043bd9f7c1157fd`, `43774db04f03d0d2a7993c1ec2d2d4baa8549d09`. QA script adds profile prop-presence assertions in `2f240537ac16be4981cf2af7d840600bfd51bd6d`.
+- **Verification pending:** neither Run #665 nor #666 includes the final profile geometry corrections or profile-presence audit. No fresh Actions run has yet been verified against current HEAD. Do not claim those changes tested or visually passed.
+- Both workflows failed global browser diagnostics: unapproved golden snapshot baseline (1 match / 23 changed) and existing audio/resource HTTP 404 console errors. Design evidence and semantic validation steps passed; pageErrors/scriptErrors were empty. No snapshots or provenance changed.
+- Next: capture exact current HEAD, inspect five profile prop projections at native 64×96 and direct 28×42, inspect Sailor rear against Welder, then close internal QA and prepare exact-output Claude package. All three remain design-stage only; no renderer authorization, owner silhouette approval, palette approval or work on #15–23.
