@@ -87,7 +87,9 @@ The sequence is a production order, not permission to skip the owner silhouette 
 
 Use the owner-ratified [Civilian Vector Construction Standard](../../CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md), especially its eight-stage pipeline and §13A directional/face requirements.
 
-For each character, produce:
+Under the current owner authorization, apply the following deliverables to Sailor (#12) only. Do not begin Slicker or Painter until Sailor's silhouette/construction gate is approved.
+
+For Sailor, produce:
 
 1. Two complete four-view silhouette sets: body-only (no props) and prop-on. The body-only set controls identity; the prop-on set tests optional prop integration.
 2. An identity brief with personality, pose, head/face cues, role construction, signature prop and palette hypothesis.
