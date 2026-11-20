@@ -824,6 +824,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[37, 24], [61, 24], [64, 27], [49, 30], [34, 27]], '#2A1A3A', ink, 1.4);
       line([[38, 25.5], [60, 25.5]], '#6F8EAA', .9);
       cap(49, true);
+      // Brow line sits below the visor so Usher's composed gaze survives headwear overlap.
+      line([[41,29.7],[45,29.1],[47,29.6]],'#30212B',1.45);line([[52,29.4],[56,29.8]],'#30212B',1.25);
     } else {
       ell(49, 30, 13, 15.5, hairG, ink, 1.8);
       line([[40, 27], [44, 37], [49, 40], [55, 36], [59, 27]], '#4A3C4E', 1.2);
@@ -843,6 +845,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     // visor to the front
     path([[50, 24], [62, 24], [71, 27], [62, 29], [50, 28]], '#142A43', ink, 1.4);
     line([[52, 25.5], [66, 26]], '#718DAF', .9);
+    line([[54,29.4],[58.5,29]],'#30212B',1.4);
     cap(48, false);
     path([[56, 15], [63, 21], [60, 22], [54, 16]], '#203B59', null);
   }
@@ -917,12 +920,13 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         // A distinct cuff bridges the sleeve to the gripping hand.
         path([[68,74],[76,75],[78,82],[73,86],[67,83]],'#C8B89F',ink,1.1);
         // The handle and pan are laid in first; the hand is painted last so its grip remains visible.
-        path([[70,85],[78,83],[89,84],[88,88],[77,90],[72,89]],'#4B3434',ink,1.25);
-        line([[80,84],[88,84.5]],'#C18A62',1.6);
-        path([[84,78],[96,78],[98,82],[96,94],[91,98],[85,96],[81,88]],'#B95B3C',ink,1.8);
-        ell(90,81,8,3.2,'#E5A06B',ink,1.4);
-        ell(90,81,5.2,1.6,'#4C3540',null);
-        line([[85,84],[88,92],[93,94]],'#F2B17C',1.2);
+        path([[70,85],[78,83],[88,84],[87,88],[77,90],[72,89]],'#4B3434',ink,1.25);
+        line([[79,84],[87,84.5]],'#C18A62',1.6);
+        // Shallow, wide sauté pan: an obvious oval rim and low-sided bowl, not a mug.
+        path([[82,81],[98,81],[99,85],[97,93],[92,96],[85,94],[80,87]],'#B95B3C',ink,1.8);
+        ell(90,82,9,2.8,'#E5A06B',ink,1.4);
+        ell(90,82,6.4,1.25,'#4C3540',null);
+        line([[84,86],[88,92],[93,93]],'#F2B17C',1.2);
         path([[68,82],[74,80],[80,84],[80,90],[76,94],[70,91],[67,87]],skin,ink,1.25);
         line([[69,87],[75,88]],'#8D5944',1);line([[70,90],[75,91]],'#8D5944',.8);
       }else{
@@ -945,10 +949,10 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[62,56],[69,60],[72,74],[74,81],[70,87],[64,84],[66,77]],coat);
       // Visible cuff, forearm and curled hand form one continuous grip.
       path([[65,79],[72,79],[75,84],[70,88],[64,85]],'#C8B89F',ink,1.05);
-      line([[72,86],[88,87]],'#4B3434',4.4);
-      line([[81,85.8],[88,86.4]],'#C18A62',1.5);
-      g.save();g.translate(91,88);
-      ell(0,0,8,6.5,'#B95B3C',ink,1.5);ell(0,-.5,5.8,4.2,'#3E2C34',null);
+      line([[72,86],[84,87]],'#4B3434',4.2);
+      line([[78,85.8],[84,86.4]],'#C18A62',1.4);
+      g.save();g.translate(87,88);
+      ell(0,0,7,4.5,'#B95B3C',ink,1.5);ell(0,-.3,5.2,2.4,'#3E2C34',null);
       line([[-6,-3],[4,-4.5]],'#F2B17C',1);g.restore();
       // Hand overlaps the handle after the pan is drawn, with visible curled fingers.
       path([[67,82],[73,81],[79,85],[79,91],[75,94],[69,91],[66,86]],skin,ink,1.2);
@@ -991,7 +995,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       ell(56,30,1.25,1.8,'#241725',null);
       ell(44,34,1.7,2.1,'#B97855',ink,.8);
       line([[52,39],[59,40]],'#713D3A',1.55);
-      line([[53,25],[57,24]],'#49302B',1.5);
+      line([[53,28.5],[57,27.8]],'#49302B',1.55);
       g.save();g.translate(0,29);g.scale(1,.75);g.translate(0,-29);
       g.beginPath();g.moveTo(39,29);g.bezierCurveTo(33,22,37,12,45,11);
       g.bezierCurveTo(48,3,60,4,61,11);g.bezierCurveTo(68,15,66,24,63,29);g.closePath();
@@ -1117,6 +1121,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[36,25],[38,16],[47,11],[59,14],[65,22],[62,27],[39,28]],'#236E78',ink,1.8);
       path([[36,24],[49,22],[67,25],[68,29],[48,29],[37,28]],'#D9A04D',ink,1.3);
       line([[42,18],[49,14],[58,16]],'#9EE1D3',1.2);
+      line([[53,29.8],[58.5,29.3]],'#35242A',1.45);
       path([[44,20],[56,19],[58,23],[45,24]],'#1B5964',null);
     }else{
       // True right-facing profile: visible cheek, jaw, ear and nose beneath
@@ -1133,6 +1138,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[39,25],[43,17],[51,13],[60,17],[65,24],[61,28],[54,24],[47,26],[42,30]],'#236E78',ink,1.7);
       path([[38,25],[51,23],[68,25],[69,29],[49,29],[38,29]],'#D9A04D',ink,1.2);
       line([[44,19],[51,15],[59,17]],'#9EE1D3',1.1);
+      line([[56,29.7],[61,29.2]],'#35242A',1.35);
     }
     // Small reflective piping catches light without turning the silhouette neon.
     g.save();g.globalAlpha=.55;g.shadowBlur=.8/scale;g.shadowColor='rgba(41,242,232,.34)';
