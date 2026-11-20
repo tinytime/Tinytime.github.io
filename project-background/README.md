@@ -1,3 +1,14 @@
+## Fourth civilian batch — revision 09 internal QA complete; Claude package 03 prepared (2026-11-20)
+
+Sailor (#12), Slicker (#13) and Painter (#14) have completed internal design-source capture and visual inspection. The exact-output independent review package is [Claude review package 03](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-03.md). Packages 01 and 02 are superseded.
+
+- Current source: [revision 09](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg); exact tested source commit `c74219986db2466122fe08ff3ad0bdcb012b5264`.
+- Exact evidence: [Run #677](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801), artifact [14650099995](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995). Design-source capture/semantic validation passed: 24/24 native 64×96, 24/24 independently rasterized direct 28×42, 24/24 enlarged 4×; 69 roster face crops and six matched face-comparison rows.
+- Profile prop checks passed: Sailor right 172 added pixels; Slicker left 295 (272 prop-region); Painter left 237 (95 prop-region). Body-only/prop-on sheets, direct-scale sheets, enlarged profiles, face comparisons and Sailor/Welder rear comparison were visually inspected. Slicker and Painter props were shifted inward from crop edges; Claude should judge their direct-scale identity/contact.
+- Browser QA overall remains FAILED at the unapproved golden snapshot baseline (1 match / 23 changed) and 180 existing audio/resource HTTP 404 console entries. Page/script errors are empty. No golden snapshots or provenance changed.
+- Proposed Sailor rear silhouette reads narrower and more vertically structured than Welder's broad blockier rear. Numeric IoU remains a human-review prompt, not a rejection gate.
+- All three construction families remain UNASSIGNED. No silhouette, face, prop or palette is owner-approved. Renderer work is NOT AUTHORIZED; #15–23 remain held pending independent review and owner approval.
+
 ## Fourth civilian batch — Claude review package 02 prepared (2026-11-20)
 
 Sailor (#12), Slicker (#13) and Painter (#14) have completed the current internal design-source evidence pass and are ready for independent critique. This is **not** owner approval and does not authorize production renderer work.
