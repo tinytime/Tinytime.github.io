@@ -1922,10 +1922,10 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[43,25],[49,20],[59,23],[65,31],[62,39],[54,44],[45,41],[40,33]],grad(42,22,64,44,[[0,'#F0C29D'],[1,skin]]),ink,1.3);
         ell(45,34,2.2,3,'#B77F62',ink,.8);
         path([[59,30],[66,33],[70,37],[65,39],[60,36]],skin,ink,1);
-        // A forward-set eye and short brow sit clear of the cap brim and ear.
-        // Keep the mark high-contrast so it survives both native and 28×42 renders.
-        ell(64,32,3.1,2.8,'#171725',null);
-        line([[59,28.5],[66,27.5]],'#38252A',2.4);
+        // Place the eye inside the visible cheek plane, clear of the nose contour.
+        // The darker, compact mark must survive the direct 28×42 game-scale render.
+        ell(56.5,31,3.2,2.8,'#171725',null);
+        line([[52,27.5],[59,26.5]],'#38252A',2.5);
         line([[56,41],[62,40]],'#814B49',1.2);
       }
       path([[39,24],[44,15],[54,14],[64,21],[67,26],[56,28],[43,26]],'#4B3048',ink,1.5);
