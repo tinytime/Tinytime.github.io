@@ -87,6 +87,6 @@ try {
     nearestNeighbour: 'Direct 28x42 crops upscaled 4x with canvas imageSmoothingEnabled=false',
     browser: 'Playwright Chromium'
   };
-  await writeFile(resolve(outDir,'HACKER-FISHER-DESIGN-RENDER-REPORT.json'),JSON.stringify(report,null,2)+'\\n');
+  await writeFile(resolve(outDir,'HACKER-FISHER-DESIGN-RENDER-REPORT.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify({ ...report, bytes:{full:full.length,full3x:full3x.length} },null,2));
 } finally { await browser.close(); }
