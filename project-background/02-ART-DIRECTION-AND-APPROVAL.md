@@ -2,14 +2,12 @@
 
 ## Current authority — 2026-11-20
 
-- Claude Run #603 recommends the five for owner review with no P0/P1 defects; the owner has explicitly approved **Usher, Cook, Courier, Coach and Referee**. All five are **APPROVED — first batch complete**.
-- Preserve the accepted/deferred dispositions: Cook C1 no edit; Usher U2 no silhouette edit; Usher U4 resolved; Coach/Courier rear X1 accepted. No art changes without renewed owner authorization.
-- Claude withdrew the outline premise. Do not apply a blanket outline pass. Remaining Granny/civilian differences are chiefly shape language, caricature and value hierarchy; any style test is optional and non-blocking.
-- Coach rear-head ambiguity is a disclosed P2 owner choice, not a required correction. Cook profile apron width, Coach clipboard-arm visibility and cyan fringe are observations/polish only.
-- The construction standard's F2–F7 issues have been revised, and a 23-character shell-family register is present. The standard is **not marked ratified**; explicit owner ratification remains a separate decision.
-- Next batch briefs are prepared for Guard, Vendor and Clinic worker. They are draft planning artifacts; implementation waits for standard ratification and silhouette preflight/owner review.
-- Runner remains built but excluded from Claude Run #603; it requires a focused review. The 17 unstarted characters remain on production hold.
-
+- **First five:** Usher, Cook, Courier, Coach and Referee are owner-approved and complete. Preserve Cook C1 (deferred), Usher U2 (declined), Usher U4 (resolved) and Coach/Courier rear X1 (accepted). No edits without renewed owner authorization.
+- **Style:** Claude withdrew the earlier blanket-outline criticism. Do not apply a blanket outline pass. Granny remains a craft benchmark, not a template.
+- **Construction standard:** the revised Civilian Vector Construction Standard was ratified by the owner on 2026-11-19 and governs future civilian work.
+- **Next preflight:** Guard, Vendor and Clinic worker are the next proposed batch. The [owner preflight proposal](qa-artifacts/next-civilian-batch/OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md) contains proposed identity, silhouette, face, prop and palette directions. It is awaiting owner review; it is not rendered silhouette evidence or production approval.
+- **Production gate:** do not change renderer code until the owner accepts the proposed directions and the NPC Designer supplies the actual four-view black silhouette exploration for owner review.
+- **Runner:** built, excluded from Claude Run #603 and still pending a focused review and owner decision.
 
 ## Historical build and approval status — 2026-11-19
 
