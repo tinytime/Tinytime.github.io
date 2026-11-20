@@ -1,7 +1,7 @@
 # Tech (#9) renderer review package
 
 **Review status:** internal QA and visual inspection complete; ready for independent Claude review; owner rendered-art approval pending.  
-**Latest QA run:** [GitHub Actions #643](https://github.com/tinytime/Tinytime.github.io/actions/runs/44746091189)  
+**Latest QA run:** [GitHub Actions #644](https://github.com/tinytime/Tinytime.github.io/actions/runs/44746091189)  
 **Tested source:** `579f0fff61b8cfd4e416cc59381187b162d3b8ca`  
 **Artifact:** [14634020084](https://github.com/tinytime/Tinytime.github.io/actions/runs/44746091189/artifacts/14634020084)  
 **Branch:** `npc-granny-baseline-overhaul`
