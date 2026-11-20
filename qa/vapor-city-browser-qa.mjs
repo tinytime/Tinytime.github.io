@@ -368,11 +368,11 @@ try {
   const legacyPaletteAudit = npcPaletteAudit.filter(item => item.renderMode !== 'vector');
   const vectorPaletteAudit = npcPaletteAudit.filter(item => item.renderMode === 'vector');
   const npcPaletteCheck = {
-    pass: legacyPaletteAudit.length === 17 && legacyPaletteAudit.every(item =>
+    pass: legacyPaletteAudit.length === 14 && legacyPaletteAudit.every(item =>
       item.uniqueColorCount <= 12 && item.opaquePixelCount > 0 && item.outlinePixelCount > 0 &&
       item.bodyPixelCount >= 100 && item.pantsPixelCount >= 50 && item.hairPixelCount >= 20 &&
       item.colorPixelCounts && Object.values(item.colorPixelCounts).reduce((sum,count)=>sum+count,0) === item.opaquePixelCount) &&
-      vectorPaletteAudit.length === 6 && vectorPaletteAudit.every(item =>
+      vectorPaletteAudit.length === 9 && vectorPaletteAudit.every(item =>
         item.opaquePixelCount > 0 && item.outlinePixelCount > 0 && item.colors?.length > 12),
     spriteCount: npcPaletteAudit.length,
     legacyPixelSpriteCount: legacyPaletteAudit.length,
@@ -383,7 +383,7 @@ try {
     overLimit: legacyPaletteAudit.filter(item => item.uniqueColorCount > 12),
     renderedPixelEvidence: 'Legacy 12-color checks apply only to pixel-rendered civilians; vector civilians are audited from their antialiased RGBA output.'
   };
-  const targetedPalettePixelAudit = ['runner','coach','ref','broker','usher','cook','courier','fan'].map(civ => {
+  const targetedPalettePixelAudit = ['runner','coach','ref','broker','usher','cook','courier','fan','guard','vendor','clinic'].map(civ => {
     const item = npcPaletteAudit.find(row => row.civ === civ);
     return item ? {
       civ, archetype: item.archetype, uniqueColorCount: item.uniqueColorCount,
@@ -467,9 +467,9 @@ try {
   // unrelated fixed swatch to occur in every render.
   const npcBodyCheck = {
     pass: bodyRows.length === 24 && bodyRows.every(item => item.heightDeviationPixels <= 1 &&
-      (['usher','cook','courier','runner','coach','ref'].includes(item.civ) ? item.baselineDelta <= 1 : item.baselineDelta <= 0.02) &&
+      (['usher','cook','courier','runner','coach','ref','guard','vendor','clinic'].includes(item.civ) ? item.baselineDelta <= 1 : item.baselineDelta <= 0.02) &&
       /^#[0-9a-f]{6}$/i.test(item.outlineColor || '') &&
-      (['cook','courier','runner','coach','ref'].includes(item.civ) ? item.outlinePixelCount >= 0 : (item.civ === 'usher' ? item.outlinePixelCount >= 1 : item.outlinePixelCount > 0)) &&
+      (['cook','courier','runner','coach','ref','guard','vendor','clinic'].includes(item.civ) ? item.outlinePixelCount >= 0 : (item.civ === 'usher' ? item.outlinePixelCount >= 1 : item.outlinePixelCount > 0)) &&
       item.contrastRatio >= 3.0 && item.outlineContrastPercent >= 0.60),
     spriteCount: bodyRows.length,
     expectedBodyHeightPixels: expectedBodyPixels,
@@ -478,7 +478,7 @@ try {
     invalidOutlineColor: bodyRows.filter(item=>!/^#[0-9a-f]{6}$/i.test(item.outlineColor || '')).map(item=>item.civ),
     lowContrast: bodyRows.filter(item=>item.contrastRatio<3.0||item.outlineContrastPercent<0.60).map(item=>({civ:item.civ,outlineColor:item.outlineColor,contrastRatio:item.contrastRatio,outlineContrastPercent:item.outlineContrastPercent})),
     outlinePixelCounts: bodyRows.map(item=>({civ:item.civ,count:item.outlinePixelCount,expectedColor:item.outlineColor})),
-    outlineValidation: 'Pixel sprites require exact-color outline pixels; vector usher, cook, courier, runner, coach, and referee use antialiased ink; vector ink evidence is independently required by the vector palette audit and is checked for nonzero ink evidence plus the same contrast and baseline requirements.',
+    outlineValidation: 'Pixel sprites require exact-color outline pixels; vector usher, cook, courier, runner, coach, referee, guard, vendor, and clinic worker use antialiased ink; vector ink evidence is independently required by the vector palette audit and is checked for nonzero ink evidence plus the same contrast and baseline requirements.',
     measurements: bodyRows
   };
   const npcPropAudit = await page.evaluate(() => {
