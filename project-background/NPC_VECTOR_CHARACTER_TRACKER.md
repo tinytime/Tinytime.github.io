@@ -1,15 +1,27 @@
 # NPC Vector Character Design Tracker
 
+## Current owner dispositions and U4 correction — 2026-11-20
+
+- **Cook C1 (profile pan handle/contact):** owner explicitly says ignore; retain current implementation. No Cook renderer change is authorized.
+- **Usher U2 (generic silhouette):** owner explicitly says ignore; retain current silhouette. No silhouette redesign is authorized.
+- **Usher U4 (profile clipboard contact):** owner authorizes correction. Renderer commit `880cad6bf937d8bfc1e004fe81cbd6854c522d23` changes the profile to one connected near-arm/hand carrying the clipboard and hides the far hand. Cook's unrelated edit from the preceding commit was reverted in the same renderer commit. Fresh browser QA is Run #602; inspect its exact-source artifact before calling U4 resolved.
+- **Accepted exception:** Coach/Courier rear remains accepted as-is. Preserve the rationale in [the accepted-exception register](qa-artifacts/five-civilian-corrections/ACCEPTED-EXCEPTIONS.md).
+- **Current open visual item from Run #600:** U4 only, pending Run #602 visual inspection. This does not approve the five characters.
+- **Five-character release state:** Usher, Cook, Courier, Coach and Referee remain NOT APPROVED pending U4 QA/inspection, updated Claude review and explicit owner approval. Runner remains outside this review.
+- **Construction standard:** revised working method is ready for planning and controlled brief development; owner ratification and first-batch approval are still required before production starts on the remaining 17. See the [standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md).
+- **QA baseline:** Run #601 verified the IoU diagnostic trigger behavior; 0.85 is human review only. Do not refresh or approve golden snapshots without explicit authorization.
+
+
  
 ## Claude independent re-review — Run #600 (2026-11-20)
 
 - Verdict: **Ready with disclosed minor issues**; no P0/P1 findings. Not owner approval.
-- New P2 findings: Cook profile pan handle/contact (C1); Usher profile clipboard/arm continuity (U4); Usher generic silhouette (U2).
+- Claude's Run #600 review identified Cook C1, Usher U4 and Usher U2 as P2s; see the current owner dispositions above. Only U4 remains authorized for correction.
 - Face standard: two distinct native-scale face-construction cues plus one head-read cue at direct 28×42; interior facial marks need not survive.
 - Coach/Courier rear: accepted shared body mass with distinct role construction; preserve the written rationale, no redesign.
 - Walk-frame evidence was absent from Run #600; next package needs at least two frames per direction for animated characters.
 - Town-ground composite is diagnostic only; black silhouette sheet is alpha-derived, not anatomical segmentation.
-- All five remain **NOT APPROVED**. U4 and U2 require explicit owner disposition before renderer edits. See [Claude re-review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md).
+- All five remain **NOT APPROVED**. Owner dispositions are recorded above; U4 is the only authorized open renderer correction. See [Claude re-review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md).
 
 
 ## P2 renderer iterations and internal QA — 2026-11-20
