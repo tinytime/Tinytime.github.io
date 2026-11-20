@@ -70,13 +70,13 @@ try {
     }
     const sourceDirectionLabels=(source.match(/class="lab">/g)||[]).length;
     if(!source.includes('EXPLORATION 18') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
-    // Painter's body-only anatomy and brush contact chain must be one
+    // Every civilian's body-only anatomy and prop-on construction must be one
     // continuous dark silhouette in native and independently rasterized
     // direct game-scale projections. Eight-neighbour connectivity is used;
     // no similarity or minimum-size threshold is applied.
-    const painterConnectivityAudit=[];
-    for(const mode of ['body','prop']) for(const direction of directions) for(const scale of ['native','direct']) {
-      const src=data['painter-'+mode+'-'+direction][scale];
+    const anatomyConnectivityAudit=[];
+    for(const character of characterNames) for(const mode of ['body','prop']) for(const direction of directions) for(const scale of ['native','direct']) {
+      const src=data[character+'-'+mode+'-'+direction][scale];
       const im=new Image();im.src=src;await im.decode();
       const width=im.naturalWidth,height=im.naturalHeight;
       const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
@@ -97,7 +97,7 @@ try {
         }
         componentDetails.push({area,bounds:{x0:minX,x1:maxX,y0:minY,y1:maxY}});
       }
-      painterConnectivityAudit.push({character:'painter',mode,direction,scale,width,height,connectedComponents:componentDetails.length,components:componentDetails,pass:componentDetails.length===1});
+      anatomyConnectivityAudit.push({character,mode,direction,scale,width,height,connectedComponents:componentDetails.length,components:componentDetails,pass:componentDetails.length===1});
     }
     // Profile-region pixel counts are descriptive only; no arbitrary minimum
     // is imposed. Body-only geometry must remain present in every prop-on view.
@@ -179,7 +179,7 @@ try {
       const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(im,0,0,c.width,c.height);return c.toDataURL('image/png');
     };
     for(const [key,item] of Object.entries(data)) item.enlarged4x=enlarge(item.native,4);
-    return {data,sheets:sheetsOut,profilePropAudit,bodyPreservationAudit,painterConnectivityAudit};
+    return {data,sheets:sheetsOut,profilePropAudit,bodyPreservationAudit,anatomyConnectivityAudit};
   },svg);
   const writeData=(file,dataUrl)=>fs.writeFileSync(file,Buffer.from(dataUrl.split(',')[1],'base64'));
   for(const [key,item] of Object.entries(svgData.data)){
@@ -194,9 +194,9 @@ try {
   fs.writeFileSync(path.join(out,'profile-prop-audit.json'),JSON.stringify(svgData.profilePropAudit,null,2)+'\\n');
   console.log(JSON.stringify({profilePropAudit:svgData.profilePropAudit}));
   if(svgData.profilePropAudit.some(x=>!x.pass))throw new Error('Prop-on projection removes body-only pixels; anatomy must be preserved');
-  fs.writeFileSync(path.join(out,'painter-connectivity-audit.json'),JSON.stringify(svgData.painterConnectivityAudit,null,2)+'\n');
-  console.log(JSON.stringify({painterConnectivityAudit:svgData.painterConnectivityAudit}));
-  if(svgData.painterConnectivityAudit.some(x=>!x.pass))throw new Error('Painter anatomy/prop contact is disconnected: '+JSON.stringify(svgData.painterConnectivityAudit.filter(x=>!x.pass)));
+  fs.writeFileSync(path.join(out,'anatomy-connectivity-audit.json'),JSON.stringify(svgData.anatomyConnectivityAudit,null,2)+'\n');
+  console.log(JSON.stringify({anatomyConnectivityAudit:svgData.anatomyConnectivityAudit}));
+  if(svgData.anatomyConnectivityAudit.some(x=>!x.pass))throw new Error('Civilian anatomy/prop contact is disconnected: '+JSON.stringify(svgData.anatomyConnectivityAudit.filter(x=>!x.pass)));
 
   // Capture the proposed new face designs at exact 40x38 crop size.
   const faceStudyPath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg');
@@ -344,7 +344,7 @@ try {
     status:'design_source_projection_only',
     revision:18,
     bodyPreservationAudit:svgData.bodyPreservationAudit,
-    painterConnectivityAudit:svgData.painterConnectivityAudit,
+    anatomyConnectivityAudit:svgData.anatomyConnectivityAudit,
     integratedWeatherDetail:'Face-side-open rain hood, rear yoke/hem seams, shortened storm closure and separated brush bristles; no separate umbrella',
     source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg',
     figureFields:24,
