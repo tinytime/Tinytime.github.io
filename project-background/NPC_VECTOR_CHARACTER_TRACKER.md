@@ -1,4 +1,14 @@
-## Third batch — reviewer corrections and re-review package (2026-11-20)
+## Fourth batch preflight — Sailor, Slicker and Painter (2026-11-20)
+
+**Next three characters:** #12 Sailor, #13 Slicker, #14 Painter. Identity briefs and proposed silhouette directions are prepared in [SAILOR-SLICKER-PAINTER-PREFLIGHT.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md). Their vector construction families remain UNASSIGNED until silhouette exploration and owner approval. These are hypotheses, not approved art.
+
+**Owner handoff:** review the three identity/role hypotheses, then authorize or revise the four-view black silhouette exploration. Do not begin renderer implementation until silhouette and construction approvals are recorded. Work one character at a time.
+
+## Third batch — owner approval and reviewer corrections (2026-11-20)
+
+The project owner explicitly approved the Tech/Hacker/Fisher batch on 2026-11-20. Tech is approved at production-renderer stage; Hacker and Fisher are approved at finished design-art stage only. This does not mean Hacker/Fisher have production renderer implementations. Claude's post-correction re-review has not been separately recorded; preserve that review status honestly while following the owner's direction to prepare the next set.
+
+
 
 **Current package:** [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md](qa-artifacts/third-civilian-batch/THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md).
 
