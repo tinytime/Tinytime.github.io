@@ -114,3 +114,4 @@ jobs:
 # Ensure the final artifact includes the latest README, tracker, standard, and manifest.
 # Refresh after owner-facing readiness language was clarified.
 # Build the final Run 603 package from the immediately preceding complete documentation state.
+# Include final construction-standard evidence reference correction.
