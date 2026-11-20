@@ -2063,7 +2063,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       ell(63,29.5,1.5,1.8,'#A8B8B5',ink,.7);
       // Keep the profile eye/brow on top of the swept hairline so the face
       // remains readable at direct 28x42 scale in both directions.
-      if(!back){ell(55.2,30.2,2.15,2.55,ink,null);ell(55.8,29.5,.65,.75,'#F2D6C2',null);line([[50.8,25.8],[58.1,24.8]],'#33252D',2.8);line([[53.8,34.5],[57.2,35.2]],'#9A6256',1.4);}
+      if(!back){
+        // Move the eye inward from the ear cup and exaggerate the brow/eye
+        // pair enough to survive the direct 28x42 sprite raster.
+        ell(53.8,30.8,3.05,3.1,ink,null);
+        ell(54.8,29.8,.9,1.0,'#F2D6C2',null);
+        line([[48.5,25.7],[57.8,24.6]],'#33252D',4.0);
+        line([[52.4,35.2],[57.0,35.7]],'#9A6256',1.6);
+      }
     }
     // Copper instrument glint and restrained petrol edge highlights.
     g.save();g.globalAlpha=.55;g.shadowBlur=.7/scale;g.shadowColor='rgba(240,180,95,.28)';
