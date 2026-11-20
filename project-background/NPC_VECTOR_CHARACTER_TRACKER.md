@@ -47,7 +47,7 @@ The project owner explicitly approved the Tech/Hacker/Fisher batch on 2026-11-20
 - **Hacker (#10):** first verdict CHANGES REQUIRED. Front chest narrowed ~one-third; character-left bare forearm separated; left-profile drape tapered; temple notch and asymmetrical earbud strengthened. One compact slate and handedness retained.
 - **Fisher (#11):** first verdict PASS WITH NON-BLOCKING NOTES. Right-profile pouch now matches smock with seam; rear yoke/smock is ochre with darker flap seam; unexplained inter-leg bar removed. Basket handedness and broad silhouette retained.
 - Hacker/Fisher corrected design render [Run #9](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752401697), artifact 14636805512, source SHA-256 5e20a05a445b4684c3a212bf6e55fd61b3abb230c557e5d7ab85842a6ab03a52; all eight views captured at 64×96 and direct design-projection 28×42, plus 4× enlargements. Render and visual inspection passed. Design-stage evidence only; no renderer integration.
-- Overall Browser QA Run #648 remains failed at global unapproved snapshot gate (1/23 match) and existing 180 audio/resource 404s. No snapshots/provenance changed.
+- Overall Browser QA Run #648 remains failed at global unapproved snapshot gate (1/23 match) and existing 135 audio/resource 404s. No snapshots/provenance changed.
 - **Status:** all first-review findings implemented; Claude re-review and owner acceptance pending. Hacker/Fisher renderer implementation remains held until Tech review/owner rendered-art approval and owner acceptance of H/F designs.
 
 ## Third-batch combined Claude review — 2026-11-20
