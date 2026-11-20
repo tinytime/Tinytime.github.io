@@ -8,7 +8,7 @@
 **Stage:** design-source silhouettes, face studies and prop-contact exploration only
 
 
-**Current branch head at package preparation:** `f0c89adec5f7a9a59234b2b7d6ec46bba839aa25`. Documentation commits after the tested source do not change the exact source under review; the reviewed source and artifact remain pinned to `8ae6a47055c6c75e361738b21c01d8b07b6830b4`.
+The SVG's internal title was corrected from “exploration 09” to “exploration 10” in metadata-only commit `f7efb67c3fdfcd38899c9d29996b1ed3e1310322` after Run #678. No geometry changed; the evidence remains pinned to tested source commit `8ae6a47055c6c75e361738b21c01d8b07b6830b4`.
 
 ## Review scope and authority
 
