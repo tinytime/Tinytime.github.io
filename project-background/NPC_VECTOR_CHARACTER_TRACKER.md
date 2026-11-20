@@ -1,10 +1,11 @@
 ## Tech, Hacker and Fisher — round-05 silhouette render (2026-11-20)
 
-- **Owner decision:** round-05 silhouette direction accepted by the owner on 2026-11-20. This is approval of the design direction, not approval of rendered game art or completed renderer QA.
-- GitHub Actions [SVG render Run #1](https://github.com/tinytime/Tinytime.github.io/actions/runs/44738396316) succeeded. Chromium rendered the canonical source SVG at exact 3× scale: 4800×3540 pixels. Source geometry was validated as 1600×1180 with viewBox `0 0 1600 1180`.
-- Generated PNG: `project-background/qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-ROUND-05-3X.png`. The PNG is committed to the working branch. Workflow artifact: [14628824017](https://github.com/tinytime/Tinytime.github.io/actions/runs/44738396316/artifacts/14628824017).
-- **Next gate:** visual inspection of the actual 3× PNG, especially Tech's left-profile meter/arm contact, Fisher's right-profile hood lip and resting hand, and all accepted handedness/silhouette differences. Do not begin renderer implementation until this inspection is complete.
-- Renderer implementation, native 64×96 captures, direct 28×42 captures, game-scale visual QA and owner approval of rendered art have not occurred. No golden snapshots were changed.
+- **Art inspection:** PASS for all 12 silhouette views. Reviewer comparison reported black-silhouette IoU 0.997 against an independent render; the small difference was attributed to anti-aliasing. Tech's ear-cup cue, left-profile meter contact, Fisher's short right-profile hood lip, dark rear yoke with seams, and dark resting right-profile hand with knuckle seam were confirmed.
+- **Text correction:** the first 3× PNG had two clipped text blocks at the right edge. Both were wrapped in the canonical SVG in commit `e25ac611ee17d12771cbf2815001b78f43090d7f`.
+- **Final sheet render:** GitHub Actions [Run #2](https://github.com/tinytime/Tinytime.github.io/actions/runs/44739247661) succeeded. Chromium rendered exact 3× scale: 4800×3540 pixels. The generated PNG was retrieved and visually inspected; both wrapped text blocks are complete and clear of the right canvas edge. Artifact `14630192008`.
+- PNG path: `project-background/qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-ROUND-05-3X.png`.
+- **Approval gate:** art inspection is passed and the review sheet is render-complete. Explicit project-owner silhouette approval is still required before renderer implementation. Do not begin Tech until that approval is recorded.
+- Renderer implementation, native 64×96 captures, direct 28×42 captures and game-scale renderer QA have not occurred. No golden snapshots were changed.
 
 ## Guard, Vendor and Clinic — corrected renderer QA (2026-11-20)
 
