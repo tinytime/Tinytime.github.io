@@ -1,12 +1,12 @@
-## Fourth civilian batch — parallel exploration authorized (2026-11-20)
+## Fourth civilian batch — internal QA complete; Claude package ready (2026-11-20)
 
-The owner authorized Sailor (#12), Slicker (#13) and Painter (#14) to proceed **simultaneously** through identity refinement, four-view silhouette exploration and construction cards. This supersedes the earlier Sailor-only / Slicker-and-Painter-queued status below.
+The owner authorized simultaneous design-stage exploration for Sailor (#12), Slicker (#13) and Painter (#14). The second internal pass is complete. The independent review handoff is [SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-01.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-01.md).
 
-- [Parallel silhouette exploration 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-05.svg)
-- [Parallel construction cards and differentiation report 01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md); [matched-scale face geometry study](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg))
-- Revision 03 has distinct rear silhouettes and corrected profile prop visibility. Native/direct 28×42 capture, visual contact/edge inspection, matched-scale roster comparisons and actual face-crop comparisons remain outstanding before owner review.
-- #12–14 vector construction families remain UNASSIGNED. All silhouette, face, prop and palette decisions remain proposals.
-- Production renderer work is NOT AUTHORIZED. #15–23 remain on hold. Approved civilian art, golden snapshots and snapshot provenance remain protected.
+- Current source: [silhouette exploration 05](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-05.svg), [construction cards/report 01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md), [face geometry study 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg).
+- QA Run #664: [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773501153), artifact [14648551327](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773501153/artifacts/14648551327), tested commit `65252b64031626901b03905c4f253d1043f1a31e`. Design-source projection generation and semantic validation pass; 24 native 64×96, 24 direct 28×42 and 24 enlarged captures produced; 69 roster face crops and six matched face rows produced.
+- Internal pass corrected Slicker's front prop handedness and native face-comparison label collisions. Remaining Claude focus: face-cue differentiation at small scale, Slicker's front umbrella legibility, and set-level comparison with closest roster figures.
+- Overall workflow failure is from existing global golden snapshot diagnostics (1 match / 23 changed) and existing audio/resource HTTP 404s; page/script errors are empty. No golden snapshots/provenance changed.
+- All three remain design-stage proposals; families UNASSIGNED; no renderer or palette work authorized. #15–23 remain held.
 
 ## Fourth civilian batch — Sailor exploration authorized (2026-11-20)
 
