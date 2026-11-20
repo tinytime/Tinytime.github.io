@@ -12,6 +12,20 @@ This is the current status summary; dated historical entries below remain histor
 - Granny remains reference_only; candidate semantic landmarks/polygons are not verified measurements. Exact pixel-derived contour fit is renderer-mask evidence, not proof of anatomical semantics. No proportion calibration or candidate promotion is authorized.
 
 
+## Review-derived design acceptance requirements — 2026-11-19
+
+Claude's independent review exposed gaps between general construction principles and repeatable visual acceptance. The draft construction standard now adds explicit checks for construction-level roster differentiation, hand/prop physical contact, individual facial identity cues, value separation and shape hierarchy at direct 28×42 game scale, and evidence-based P0–P3 findings. These supplement—not replace—the existing identity, anatomy, clothing, prop, palette and four-direction requirements.
+
+Important distinctions:
+- A prop or accessory cannot rescue an otherwise indistinct body construction by color/emblem alone.
+- A handheld prop must show a believable anatomical chain and visible grip/support in each relevant view.
+- Adjacent major forms must remain separable at game scale; tiny details that collapse into noise must be simplified or removed.
+- The shared face system must not become a shared generic face with token pixel edits.
+- Gallery/town mismatch between new antialiased vectors and legacy pixel assets is a project-level art-direction decision, not an automatic reason to degrade individual vector craft.
+- Revised scorecard weights are provisional and non-gating. No new numeric threshold or automatic pass mark is approved.
+
+The five-character correction group is the first application of these requirements. The standard remains draft pending independent Claude review and owner ratification; the remaining 17 civilians remain on hold.
+
 ## Quality target
 
 Every civilian should feel like a finished, intentional game character—not a recolored template, a rough placeholder, or a flat icon. Designs should read clearly at the actual in-game size and remain attractive when enlarged for inspection.
