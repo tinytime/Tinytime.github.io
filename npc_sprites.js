@@ -1959,14 +1959,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[34,94],[65,91],[68,101],[30,102]],'#285D5B',ink,1.2);
         line([[35,99],[64,98]],'#B5D5C9',1.1);
         // Character-left pouch (viewer-right), attached at the hip.
-        path([[59,79],[69,78],[72,90],[69,99],[57,99],[55,91]],plum,ink,1.3);
-        path([[58,80],[68,80],[68,85],[57,86]],'#B38AA0',ink,1);
-        line([[60,88],[67,88]],'#E0C9D6',1);
-        // Both hands remain distinct from the pouch with visible negative space.
+        path([[57,79],[69,78],[71,90],[68,99],[56,99],[54,91]],plum,ink,1.3);
+        path([[57,80],[67,80],[67,85],[56,86]],'#B38AA0',ink,1);
+        line([[59,88],[66,88]],'#E0C9D6',1);
+        // Hands stay outside the pouch silhouette with a clear 2px negative-space gap.
         path([[28,58],[35,58],[34,80],[30,90],[24,89],[25,73]],tunic,ink,1.2);
         path([[24,88],[31,88],[31,95],[25,96]],skin,ink,1);
-        path([[65,58],[71,60],[74,78],[71,89],[65,88],[65,73]],tunic,ink,1.2);
-        path([[65,88],[72,88],[72,95],[66,96]],skin,ink,1);
+        path([[66,58],[72,60],[75,77],[75,86],[72,89],[67,87],[68,73]],tunic,ink,1.2);
+        path([[74,88],[80,88],[81,94],[76,96],[73,93]],skin,ink,1);
       }else{
         path([[33,55],[43,49],[60,50],[68,57],[66,91],[72,101],[29,102]],'#285D5B',ink,1.7);
         path([[38,56],[62,56],[65,69],[35,69]],'#4D8B82',ink,1.1);
@@ -1975,7 +1975,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         // Rear pouch reverses to viewer-left, remaining character-left.
         path([[29,79],[40,78],[43,91],[39,99],[27,99],[25,90]],plum,ink,1.2);
         path([[28,81],[39,80],[39,86],[27,87]],'#B38AA0',ink,1);
-        path([[29,58],[36,57],[35,84],[29,92],[23,89]],tunic,ink,1.2);
+        // The far arm is hidden behind the rear tunic so the character-left pouch
+        // remains a distinct attached mass rather than merging with a hand.
         path([[64,58],[71,60],[75,84],[69,92],[64,84]],tunic,ink,1.2);
       }
     }else{
