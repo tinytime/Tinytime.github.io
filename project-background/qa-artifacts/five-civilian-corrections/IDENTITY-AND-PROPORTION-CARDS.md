@@ -10,7 +10,7 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 ## Usher — venue attendant
 - **Must survive at 28×42:** peaked-cap/visor outer profile; clipboard as the role prop; navy jacket against light-trouser/slate-shoe value blocks.
 - **Allowed to vanish:** tiny clipboard ruling, button highlights, subtle eye glints and fine gold stitch marks.
-- **Handedness/prop side:** clipboard is designed for the character's left hand (front view: viewer-right). The authorized U4 correction gives the near arm a continuous shoulder-to-elbow-to-forearm chain ending in one visible gripping hand at the board's lower/front edge; the far hand is hidden in profile. Renderer commit `880cad6bf937d8bfc1e004fe81cbd6854c522d23` implements this construction; Run #602 visual verification is pending.
+- **Handedness/prop side:** clipboard is designed for the character's left hand (front view: viewer-right). The authorized U4 correction gives the near arm a continuous shoulder-to-elbow-to-forearm chain ending in one visible gripping hand at the board's lower/front edge; the far hand is hidden in profile. Renderer commit `2c00cfca09cc12ea19a72662c235beed2e9a19cb` implements this construction; Run #603 visual verification confirms this construction at native and direct 28×42.
 
 - **Role/personality:** composed, observant, formal and quietly authoritative.
 - **Silhouette/proportion intent:** compact, upright uniform jacket; narrow waist; clean leg separation; light trousers; grounded stance. Side views should retain two readable trouser planes and a clearly distinct shoe mass.
