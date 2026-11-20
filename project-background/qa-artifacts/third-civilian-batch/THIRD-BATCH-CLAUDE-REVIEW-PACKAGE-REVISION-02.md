@@ -1,3 +1,7 @@
+## Final QA-harness follow-up — Run #649 (2026-11-20)
+
+The fresh Browser QA run completed: [Run #649](https://github.com/tinytime/Tinytime.github.io/actions/runs/44753230689), artifact [14636147603](https://github.com/tinytime/Tinytime.github.io/actions/runs/44753230689/artifacts/14636147603), tested harness/renderer commit `2d963db5e0b54f1f7b9afd652b33c053aa168c1b`. The Tech vector-civilian classification/count contract is now included. Automated checks report directional integrity 92/92, direct 28×42 capture assertion 20/20, role debug 12/12, prop audit 10 archetypes, gallery rendered, and silhouette diagnostic inventory complete (23 human-review prompts; max IoU 0.9065). `pageErrors=[]` and `scriptErrors=[]`. Overall Actions still concludes FAILED on the unapproved golden snapshot gate (1 match / 23 changed) and existing audio/resource HTTP 404 console errors. No snapshots or provenance were changed. This is general roster QA evidence, not a replacement for the character-specific visual review above.
+
 
 ## QA harness follow-up — Run #649 pending
 
