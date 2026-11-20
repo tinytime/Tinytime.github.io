@@ -5,10 +5,10 @@
 **Branch:** npc-granny-baseline-overhaul  
 **Exact reviewed design source commit:** be1c0c012894ccae23b4cbce2ad06e523fb460c5  
 **Current source:** [revision 21 SVG](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg)  
-**Exact evidence:** [Run #808](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663) · [artifact 14663163320](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663/artifacts/14663163320)  
+**Exact evidence:** [Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056) · [artifact 14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854)  
 **Stage:** design-source silhouettes, body/prop construction and geometric face studies only
 
-Package 06 supersedes packages 01–05 for the current Sailor/Slicker/Painter design review. The tested branch head was 5beb3709dd5080313e6ddea5248ef8698f74dd51; the revision-21 SVG itself is the exact design source commit above. Run #808's evidence report explicitly identifies the revision-21 SVG path. The review package is prepared but has **not** been sent to Claude.
+Package 06 supersedes packages 01–05 for the current Sailor/Slicker/Painter design review. The tested branch head was be1c0c012894ccae23b4cbce2ad06e523fb460c5; the revision-21 SVG itself is the exact design source commit above. Run #810's evidence report explicitly identifies the revision-21 SVG path. The review package is prepared but has **not** been sent to Claude.
 
 ## Authority and review boundary
 
@@ -19,8 +19,8 @@ Please review only the exact revision-21 source and evidence cited here. Do not 
 ## Exact evidence and source files
 
 - Revision 21 SVG: [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg)
-- Exact-source Actions run: [Run #808](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663)
-- Artifact: [14663163320 — vapor-city-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663/artifacts/14663163320)
+- Exact-source Actions run: [Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056)
+- Artifact: [14664701854 — vapor-city-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854)
 - Tested design-source commit: be1c0c012894ccae23b4cbce2ad06e523fb460c5
 - Construction cards: [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md)
 - Owner-approved role hypotheses/constraints: [preflight](SAILOR-SLICKER-PAINTER-PREFLIGHT.md)
@@ -59,7 +59,7 @@ Inspected the native/direct body and prop comparison sheets, enlarged Sailor fro
 
 ## Separate full-workflow failure — do not conflate with design-source pass
 
-Run #808 overall concluded **FAILURE** at the separate game-browser diagnostics step. Design projection and semantic proportion/annotation validation passed. The full browser gate remains blocked by:
+Run #810 overall concluded **FAILURE** at the separate game-browser diagnostics step. Design projection and semantic proportion/annotation validation passed. The full browser gate remains blocked by:
 
 - Golden snapshot gate: **1 match / 23 changed**; baseline approval metadata remains unapproved.
 - Existing audio/resource console HTTP 404s: 180 console/resource errors in the current run (135 HTTP 404 responses and 45 corresponding sound-load messages).
