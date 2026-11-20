@@ -1,3 +1,15 @@
+## Fourth civilian batch — revision 14 awaiting fresh QA (2026-11-20)
+
+Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; none is owner-approved and renderer implementation is not authorized. Current branch head before this documentation update: `a0c46c30fd42bdb717fa3893bd5a5759fc735d60`; current design source: [revision 14](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-14.svg).
+
+- **Latest completed test:** [Run #688](https://github.com/tinytime/Tinytime.github.io/actions/runs/44784814224), tested commit `81aacbcbe701fe4b748b72b406144c7b6389b0a4` (revision 13), artifact [14654841365](https://github.com/tinytime/Tinytime.github.io/actions/runs/44784814224/artifacts/14654841365). It captured 24/24 native 64×96 and 24/24 direct 28×42 design projections; the 12 body-preservation checks all passed with zero removed body pixels. Semantic civilian proportion and annotation checks passed; review sheets were generated.
+- **Manual artifact inspection:** inspected native/direct silhouette sheets and matched face comparisons from revision 13. Sailor's coil and arm gaps are present. Painter's profile brush/hand is retained but the direct-scale brush head still risks reading as a mallet. Slicker's separate umbrella remains ambiguous at direct scale. Those two visual concerns motivated revision 14's flared brush head and integrated hood/closure.
+- **Global browser diagnostics:** Run #688 failed. Golden snapshot gate remains unapproved (1 match / 23 changed); console includes missing audio/resource URLs. Page and script error arrays are empty. No golden snapshots or provenance were changed. The five-civilian review sheet's other checks passed (92/92 directional integrity, 20/20 direct game-scale captures, 12/12 role debug, 10 archetype prop audit, gallery rendered); this does not constitute visual approval or new-character renderer integration.
+- **Revision 14:** adds Painter brush flare and Slicker's integrated rain hood/diagonal storm closure, plus the Ubuntu 24.04/browser-only Playwright QA runner. These source changes are documented in the construction cards, but revision 14 has not yet been captured or tested by a completed Actions run. Do not transfer revision-13 pass results to revision 14.
+- No production renderer, approved character art, golden snapshots or provenance were changed. Construction families remain UNASSIGNED; #15–23 remain held pending independent review and explicit owner approval.
+
+---
+
 ## Fourth civilian batch — revision 10 internal QA complete; Claude package 04 prepared (2026-11-20)
 
 Sailor (#12), Slicker (#13) and Painter (#14) have completed the current design-source capture and internal visual inspection. [Claude review package 04](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md) supersedes packages 01–03.
