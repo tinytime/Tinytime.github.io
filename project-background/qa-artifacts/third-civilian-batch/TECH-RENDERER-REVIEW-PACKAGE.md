@@ -1,6 +1,6 @@
 # Tech (#9) renderer review package
 
-**Review status:** ready for independent visual review; not owner-approved.  
+**Review status:** internal review found one remaining game-scale readability concern; not yet ready for independent review or owner approval.  
 **QA run:** [GitHub Actions #44742568524](https://github.com/tinytime/Tinytime.github.io/actions/runs/44742568524)  
 **Tested source:** `c3ab02e929dc479850046d081e678d3cf585d85f`  
 **Artifact:** `14632210592` (download from the run's Artifacts section)  
@@ -51,7 +51,7 @@ Treat IoU/similarity diagnostics as human-review prompts, not automatic failures
 
 ## Current disposition
 
-ChatGPT internal QA and visual inspection: completed for this correction round.  
-Independent Claude review: pending.  
+ChatGPT automated QA: passed for targeted captures. Internal visual inspection: completed; profile face readability remains insufficiently clear at direct 28×42. The review package is held for one more focused correction and fresh browser artifact.  
+Independent Claude review: not yet requested; wait for the corrected artifact.  
 Project-owner rendered-art approval: pending.  
-Hacker and Fisher: held.
+Hacker and Fisher: held until Tech's corrected output clears internal QA and owner review.
