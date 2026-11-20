@@ -84,6 +84,75 @@ try {
   fs.writeFileSync(path.join(out, 'five-civilian-game-scale-4x-contact-sheet.png'),
     Buffer.from(gameScaleResult.dataUrl.split(',')[1], 'base64'));
 
+  // Solid-black silhouette sheet from the alpha of the actual native captures.
+  // This is a shape-inspection aid, not a silhouette-quality score.
+  const silhouetteResult = await page.evaluate(async ({ captures }) => {
+    const cellW = 256, cellH = 420, pad = 18, cols = 4, rows = 5;
+    const canvas = document.createElement('canvas');
+    canvas.width = pad + cols * (cellW + pad);
+    canvas.height = pad + rows * (cellH + pad);
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    ctx.fillStyle = '#777982'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < captures.length; i++) {
+      const item = captures[i], image = new Image();
+      image.src = item.dataUrl; await image.decode();
+      const mask = document.createElement('canvas');
+      mask.width = image.naturalWidth; mask.height = image.naturalHeight;
+      const maskCtx = mask.getContext('2d', { willReadFrequently: true });
+      maskCtx.drawImage(image, 0, 0);
+      const pixels = maskCtx.getImageData(0, 0, mask.width, mask.height);
+      for (let p = 0; p < pixels.data.length; p += 4) {
+        if (pixels.data[p + 3] > 0) {
+          pixels.data[p] = 0; pixels.data[p + 1] = 0; pixels.data[p + 2] = 0;
+        }
+      }
+      maskCtx.putImageData(pixels, 0, 0);
+      const x = pad + (i % cols) * (cellW + pad);
+      const y = pad + Math.floor(i / cols) * (cellH + pad);
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 18px monospace'; ctx.textAlign = 'left';
+      ctx.fillText(item.civ.toUpperCase() + ' / ' + item.direction.toUpperCase(), x, y + 20);
+      ctx.drawImage(mask, x, y + 32, cellW, 384);
+    }
+    return { dataUrl: canvas.toDataURL('image/png'), width: canvas.width, height: canvas.height };
+  }, { captures });
+  fs.writeFileSync(path.join(out, 'five-civilian-black-silhouette-4x-contact-sheet.png'),
+    Buffer.from(silhouetteResult.dataUrl.split(',')[1], 'base64'));
+
+  // Composite the five direct 28x42 front captures over the actual night-town
+  // screenshot as a lighting/ground diagnostic. This is explicitly NOT proof
+  // that these NPCs were spawned live in the town scene.
+  const townScreenshotPath = path.join(out, 'game-town-1x.png');
+  let townCompositeCreated = false;
+  if (fs.existsSync(townScreenshotPath)) {
+    const townDataUrl = 'data:image/png;base64,' + fs.readFileSync(townScreenshotPath).toString('base64');
+    const townSprites = gameScaleCaptures.filter(x => x.direction === 'front');
+    const townComposite = await page.evaluate(async ({ townDataUrl, sprites }) => {
+      const bg = new Image(); bg.src = townDataUrl; await bg.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = bg.naturalWidth; canvas.height = bg.naturalHeight;
+      const ctx = canvas.getContext('2d'); ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(bg, 0, 0);
+      ctx.fillStyle = 'rgba(8,10,20,.78)'; ctx.fillRect(12, 54, 430, 28);
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 13px monospace'; ctx.textAlign = 'left';
+      ctx.fillText('DIRECT 28x42 NPCS / TOWN-GROUND COMPOSITE (DIAGNOSTIC)', 22, 73);
+      const startX = Math.round(canvas.width * .36);
+      const y = Math.round(canvas.height * .77);
+      for (let i = 0; i < sprites.length; i++) {
+        const item = sprites[i], image = new Image();
+        image.src = item.dataUrl; await image.decode();
+        const x = startX + i * 48;
+        ctx.drawImage(image, x, y, 28, 42);
+        ctx.fillStyle = '#fff'; ctx.font = '9px monospace'; ctx.textAlign = 'center';
+        ctx.fillText(item.civ.toUpperCase(), x + 14, y - 5);
+      }
+      return { dataUrl: canvas.toDataURL('image/png'), width: canvas.width, height: canvas.height };
+    }, { townDataUrl, sprites: townSprites });
+    fs.writeFileSync(path.join(out, 'five-civilian-town-ground-composite.png'),
+      Buffer.from(townComposite.dataUrl.split(',')[1], 'base64'));
+    townCompositeCreated = true;
+  }
+
   // Focused evidence sheets requested for the correction round. Native and
   // direct 28x42 captures are kept in separate sheets so scale provenance is clear.
   const focusedGroups = [
@@ -137,6 +206,8 @@ try {
     '- Direct game-scale captures found: ' + gameScaleCaptures.length + '/20',
     '- Missing direct game-scale captures: ' + (missingGameScale.length ? missingGameScale.join(', ') : 'none'),
     '- Direct game-scale contact sheet: `five-civilian-game-scale-4x-contact-sheet.png` (' + gameScaleResult.width + '×' + gameScaleResult.height + ')',
+    '- Black silhouette sheet: `five-civilian-black-silhouette-4x-contact-sheet.png` (' + silhouetteResult.width + '×' + silhouetteResult.height + '), generated from native-capture alpha.',
+    '- Town-ground composite: ' + (townCompositeCreated ? '`five-civilian-town-ground-composite.png`' : 'not generated; town screenshot unavailable') + ' — diagnostic composition over the actual night-town screenshot, not live NPC spawn proof.',
     '- **This is an automated evidence index, not an artistic or visual approval.**',
     '',
     '## Automated checks',
@@ -149,6 +220,8 @@ try {
     '',
     '- Native contact sheet uses the actual 64×96 directional PNG captures enlarged 4× with nearest-neighbour rendering.',
     '- Game-scale contact sheet uses direct 28×42 renderer PNGs enlarged 4× with nearest-neighbour rendering; it is not derived from native captures.',
+    '- Black silhouettes are derived from native-capture alpha masks and are for shape comparison only.',
+    '- The town-ground composite overlays direct sprites onto a captured town screenshot; it is not a live in-game spawn or placement test.',
     '- Direct 28×42 captures are reported separately; do not describe resized images as direct game-scale captures.',
     '- No golden snapshots are changed by this script.',
     '- A human must inspect the contact sheet and individual PNGs before recording a visual verdict.',
