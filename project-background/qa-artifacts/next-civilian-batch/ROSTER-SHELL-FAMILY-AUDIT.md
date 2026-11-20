@@ -22,12 +22,12 @@
 | 6 | Vendor | Vendor | Forward-leaning stall-service / tray-presenting stance (owner-approved Revision 02) | Owner-approved Revision 02; renderer implementation in progress |
 | 7 | Cook | Vendor | Broad chef-coat / apron-front construction | **Owner-approved** |
 | 8 | Clinic worker | Clinic | Tapered wrap tunic / offset-hip stance (owner-approved Revision 02) | Owner-approved Revision 02; renderer implementation in progress |
-| 9 | Tech | Clinic | **PROPOSED (owner review pending):** compact forward-leaning field-maintenance harness / split utility shell | First-pass four-view concept in third-civilian-batch preflight; not approved; do not implement renderer yet |
-| 10 | Hacker | Clinic | **PROPOSED (owner review pending):** narrow folded-in cropped asymmetric drape-shell | First-pass four-view concept in third-civilian-batch preflight; not approved; do not implement renderer yet |
-| 11 | Fisher | Trades | **PROPOSED (owner review pending):** broad short oilskin smock / wide braced deck stance | First-pass four-view concept in third-civilian-batch preflight; not approved; do not implement renderer yet |
-| 12 | Sailor | Trades | UNASSIGNED | Legacy grouping only |
-| 13 | Slicker | Trades | UNASSIGNED | Legacy grouping only |
-| 14 | Painter | Trades | UNASSIGNED | Legacy grouping only |
+| 9 | Tech | Clinic | Compact forward-leaning field-maintenance harness / split utility shell | Owner-approved batch #9–11 (2026-11-20); dedicated production renderer implemented and owner-approved at rendered-art stage |
+| 10 | Hacker | Clinic | Narrow folded-in cropped asymmetric drape-shell | Owner-approved finished design-stage art (2026-11-20); production renderer not yet implemented |
+| 11 | Fisher | Trades | Broad short oilskin smock / wide braced deck stance | Owner-approved finished design-stage art (2026-11-20); production renderer not yet implemented |
+| 12 | Sailor | Trades | UNASSIGNED | Fourth civilian batch; identity/silhouette preflight prepared, owner review pending |
+| 13 | Slicker | Trades | UNASSIGNED | Fourth civilian batch; identity/silhouette preflight prepared, owner review pending |
+| 14 | Painter | Trades | UNASSIGNED | Fourth civilian batch; identity/silhouette preflight prepared, owner review pending |
 | 15 | Welder | Trades | UNASSIGNED | Legacy grouping only |
 | 16 | Kid | Youth | UNASSIGNED | Legacy grouping only |
 | 17 | Kid 2 | Youth | UNASSIGNED | Legacy grouping only |
