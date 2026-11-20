@@ -49,9 +49,9 @@ For each relevant character, distinguish body-only from prop-on construction; es
 
 A passing build or automated metric is not visual approval. Internal QA must be completed before Claude review. Claude review does not replace owner approval.
 
-## Current last-known checkpoint — verify before acting
+## Status is never carried by this prompt
 
-As of 2026-11-20, the fourth civilian batch (Sailor #12, Slicker #13, Painter #14) is still design-stage and not owner-approved; renderer implementation is not authorized. Revision 18 has outstanding structural findings and must not be treated as accepted. The current Actions run and current branch state must be rechecked before continuing. The nine remaining roster entries are held.
+This prompt is evergreen. It intentionally contains no project checkpoint, revision number, latest commit, current blocker, or roster status. Obtain all dated status from the current README, tracker, relevant batch log, exact source revision, and latest applicable Actions evidence during the cold start. If those records conflict, investigate and document the conflict before acting.
 
 ## Handoff discipline
 
