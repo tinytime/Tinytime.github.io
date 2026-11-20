@@ -1,3 +1,13 @@
+## Owner authorization superseding earlier Sailor-only sequencing — 2026-11-20
+
+The owner has now explicitly authorized **Sailor (#12), Slicker (#13) and Painter (#14) to proceed simultaneously** through parallel identity refinement, four-view silhouette exploration and construction cards. This update supersedes every earlier Sailor-only / one-at-a-time sequencing note in this preflight. The earlier Sailor-only status remains historical and is not current authority.
+
+Current parallel artifacts:
+- [Parallel silhouette exploration 02](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-02.svg) — body-only and prop-on four-view study for all three.
+- [Parallel construction cards and differentiation report 01](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md) — three proposed cards, handedness/contact tables and outstanding evidence register.
+
+All three construction families remain UNASSIGNED. The silhouettes, faces, props, handedness, palettes and proposed family descriptors remain unapproved. Production renderer authorization is explicitly NOT GRANTED. No character #15–23 work, approved NPC edits, golden snapshot changes or provenance changes are permitted.
+
 # Fourth civilian batch — Sailor, Slicker and Painter preflight
 
 **Prepared:** 2026-11-20  
