@@ -1,5 +1,14 @@
 # QA, Known Issues, and Handoff
 
+## Current authority — 2026-11-20
+
+- Run #602 tests renderer commit `880cad6bf937d8bfc1e004fe81cbd6854c522d23`, which addresses only Usher U4 profile clipboard contact. The Cook C1 and Usher U2 proposals are explicitly declined/deferred by the owner and must not be implemented.
+- Required visual inspection: Usher left/right native 64×96 and direct 28×42 captures; confirm a single connected near-arm/hand carries the clipboard, far hand is hidden, board remains readable, and no edge contacts/detached components appear. Compare against Run #600 and record exact evidence.
+- If U4 passes, prepare an updated five-character package for Claude. Do not mark the five approved until Claude review and explicit owner approval.
+- The revised construction standard is ready as a working method for planning/briefs, but remains unratified for production rollout. Remaining 17 civilians remain ON HOLD. No golden snapshots may be refreshed or approved without explicit owner authorization.
+
+
+
  
 ## Claude Run #600 re-review — 2026-11-20
 
