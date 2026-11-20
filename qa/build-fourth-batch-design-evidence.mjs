@@ -1,4 +1,4 @@
-// Fourth-batch design-source evidence for revision 19. QA projection utility only:
+// Fourth-batch design-source evidence for revision 19 (hand-contact correction pass). QA projection utility only:
 // it rasterizes approved-stage SVG hypotheses and captures existing roster faces.
 // It does not load or alter any production renderer for Sailor/Slicker/Painter.
 import fs from 'node:fs';
