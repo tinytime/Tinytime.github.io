@@ -1,13 +1,13 @@
 # Guard, Vendor and Clinic Worker — Silhouette / Brief Preflight
 
-**Status:** owner-review proposal; not approved for renderer production  
+**Status:** DIRECTION APPROVED — 2026-11-20; four-view silhouette exploration authorized; renderer production not yet authorized  
 **Prepared against:** `npc-granny-baseline-overhaul` at `424c442943c2fa18d8e97d133ff328a24b0be782`  
 **Governing standard:** owner-ratified Civilian Vector Construction Standard  
 **Scope:** first three unstarted roster entries — Guard, Vendor, Clinic worker
 
-## Decision requested
+## Owner decision — 2026-11-20
 
-Review and approve, revise or reject the proposed identity and silhouette directions below. Approval of this preflight would authorize the NPC Designer to produce the actual four-view black silhouette exploration and construction cards. It would **not** by itself approve finished character art or authorize changes to the live renderer.
+The owner approved the proposed Guard, Vendor and Clinic Worker directions without requested revisions. This authorizes the NPC Designer to produce the actual four-view black silhouette explorations and completed identity/construction cards for all three characters under the ratified standard. It does **not** approve finished character art or authorize changes to the live renderer. The four-view silhouette explorations must return for owner review before any renderer implementation begins.
 
 No renderer code, game code, golden snapshots or existing approved character art has been changed for this preflight.
 
@@ -149,16 +149,16 @@ Deep muted teal/blue-green tunic with pale sea-glass or sage panels and a small 
 
 ## Owner preflight checklist
 
-- [ ] Guard silhouette direction accepted or revisions requested.
-- [ ] Vendor silhouette direction accepted or revisions requested.
-- [ ] Clinic worker silhouette direction accepted or revisions requested.
-- [ ] Face-construction directions accepted or revisions requested.
-- [ ] Prop/contact approach accepted or revisions requested.
-- [ ] Palette directions accepted or revisions requested.
+- [x] Guard direction accepted — 2026-11-20.
+- [x] Vendor direction accepted — 2026-11-20.
+- [x] Clinic worker direction accepted — 2026-11-20.
+- [x] Face-construction directions accepted.
+- [x] Prop/contact approaches accepted.
+- [x] Palette directions accepted.
 
 ## What approval unlocks
 
-After owner acceptance, the NPC Designer may create the actual four-view black silhouette explorations and completed identity/construction cards. Those actual silhouettes must be compared at matched scale against all six existing vector characters and against one another. If a genuine collision appears, revise the silhouette before adding colour or detailed vector paths.
+Owner acceptance has been granted. The NPC Designer is authorized to create the actual four-view black silhouette explorations and completed identity/construction cards. Those actual silhouettes must be compared at matched scale against all six existing vector characters and against one another. If a genuine collision appears, revise the silhouette before adding colour or detailed vector paths.
 
 Only after the owner accepts that silhouette exploration should the team begin renderer implementation, one character at a time, with the full Tier A evidence package and browser QA required by the ratified standard.
 
@@ -169,3 +169,10 @@ Only after the owner accepts that silhouette exploration should the team begin r
 - No prop-contact table can be marked verified until actual views exist.
 - No roster shell-family assignment is made here; each remains UNASSIGNED until actual four-view silhouette evidence exists.
 - No production art, renderer code, game code, QA baseline or golden snapshot has been changed.
+
+
+## Current production gate
+
+**Authorized now:** NPC Designer silhouette exploration and construction-card preparation for Guard, Vendor and Clinic Worker.
+
+**Still not authorized:** production vector rendering, changes to `npc_sprites.js` or other live game code, golden snapshot changes, or marking any of the three characters complete. Return the actual four-view black silhouettes and cards to the owner for approval first.
