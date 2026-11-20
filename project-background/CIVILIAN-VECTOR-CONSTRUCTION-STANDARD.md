@@ -303,11 +303,11 @@ This allocation supersedes the earlier proposed weights. It is a non-gating disc
 Automate objective checks where possible:
 - source/render dimensions and transparent bounds;
 - body bounds measured with props and ground effects excluded;
-- head/body, shoulder/body, torso/body, and leg/body ratios;
+- visible-silhouette height, width, hem row, foot baseline and cross-direction consistency (report only until validated);
 - foot-contact baseline deviation;
 - outline colour and sampled stroke-width consistency;
 - palette role/value separation and contrast;
-- silhouette IoU against other civilian types;
+- pairwise full-character/torso IoU as a diagnostic review trigger only, with mask basis and alpha threshold declared;
 - negative-space and connected-component checks;
 - prop bounds, attachment/contact overlap, and handedness;
 - directional capture completeness;
@@ -320,9 +320,9 @@ For every metric, store the measurement definition, source image/canvas, directi
 ### Threshold policy
 
 1. Keep current proven QA gates intact.
-2. Do not introduce new hard-fail proportion thresholds until measurements have been collected across the existing five review characters and Granny using one consistent method.
+2. Do not introduce hard-fail proportion or artistic silhouette-IoU thresholds. The 0.85 IoU value is a human-review trigger only, not an automated acceptance gate.
 3. Calibrate thresholds against actual successful and failed examples; record false positives and false negatives.
-4. Treat silhouette IoU as a diagnostic human-review trigger, not an artistic pass/fail gate. A numeric trigger may prompt inspection, but must not become a universal approval threshold or cause design distortion.
+4. Treat silhouette IoU at or above 0.85 as a diagnostic human-review trigger only. The QA harness reports the pair and evidence; it must not fail Actions for artistic similarity. Technical capture and data-integrity checks remain gating.
 5. Never weaken or remove an existing gate merely to obtain a green workflow.
 6. Report targeted character results separately from global legacy failures, unapproved snapshots, and unrelated asset errors.
 
@@ -330,7 +330,7 @@ For every metric, store the measurement definition, source image/canvas, directi
 
 1. **Identity brief:** role, personality, age/read, posture, silhouette concept, signature prop, palette direction, purposeful face/head cues and intended torso/garment construction family.
 2. **Silhouette:** four solid-black directional views; compare against Granny and the roster before detail work.
-3. **Proportion card:** record body landmarks, ratios, pose category, baseline, prop footprint, and intentional exceptions.
+3. **Construction card:** record intended build descriptor (no numeric targets), pose category, visible silhouette bounds, baseline, prop footprint, handedness and intentional exceptions.
 4. **Anatomy and pose:** establish believable connected forms and negative spaces.
 5. **Clothing and props:** construct garments and integrate props with hands/attachment points.
 6. **Face and head identity:** create deliberate front, profile, and rear head construction.
@@ -352,25 +352,24 @@ A character remains **NOT APPROVED** until:
 
 This standard remains a **draft** until the project owner ratifies the revised rules. Keep the remaining 17 civilians on hold until the five-character correction set, standard and direction have passed internal QA, independent review and explicit owner approval.
 
-## 13. Calibration tasks before locking numeric thresholds
+## 13. Calibration status and future evidence requirements
 
-- Measure the five-character review set with the same body/prop masks and landmark definitions used for Granny.
-- Add the current five characters' per-direction bounds and proportion cards to the review evidence.
-- Compare ratios by pose category (standing, running/airborne, seated, etc.) rather than pooling unlike poses.
-- Test whether the draft proportion bands accept intentional designs without admitting visibly weak anatomy.
-- Review the 100-point rubric against Granny and the five candidate designs; record why scores differ.
-- Record how often the 0.85 review trigger produces genuine collisions, acceptable shared body mass, or inconclusive cases; use this to improve reviewer guidance, not to establish a universal artistic pass/fail threshold.
-- Keep automated hard failures limited to objective technical integrity checks. Do not automate artistic approval from proportions, silhouette IoU or the visual scorecard.
+**Semantic proportion calibration is suspended.** The current civilian annotations are source-derived candidates, not verified anatomical measurements. Granny's legacy front/back facts remain reference-only for calibration; her side-view widths are unresolved. Do not spend time refining polygons or promoting measurements unless a concrete design/technical decision requires them and the owner reauthorizes that work.
+
+Until then:
+- Keep visible-silhouette height, width, hem row, foot baseline and cross-direction agreement as descriptive diagnostics with their exact pixel/mask definitions.
+- Keep anatomical landmarks human-annotated. If clothing occludes a landmark, mark it inferred; do not imply it was directly observed.
+- Never compare different pose classes or mix clothing-inflated bounds with anatomical measures.
+- Do not use provisional proportion bands or score weights as targets, pass marks or hard gates.
+- If numeric calibration is later reauthorized, first gather at least 8–10 varied characters across at least three pose classes with pixel-verified body polygons; require two independent annotators to agree at IoU ≥0.95; record at least 20 flagged silhouette-pair outcomes; and have two reviewers blind-score the same five characters and compare rank order before ratifying score weights.
 
 ### Correction-round evidence and roster-level variety
 
-Every correction round includes before/after comparisons for each finding, tied to the exact renderer commit, direction, native capture and direct game-scale capture. Report changed-pixel counts/regions as diagnostic locators, not quality scores. If no visual change occurred, explain why and show evidence of resolution.
+Every correction round includes before/after side-by-side comparisons for each finding, tied to the exact renderer commit, direction, native capture and direct game-scale capture. Report changed-pixel counts/regions as diagnostic locators, not quality scores. Every count must state whether it is exact RGBA pixel inequality or thresholded colour difference; for thresholded counts, state the threshold (for example, summed RGB difference >12). If no visual change occurred, explain why and show evidence of resolution.
 
-Maintain a roster-level audit of recurring torso/garment shell families. Record recurrence and whether construction remains meaningfully distinct; do not impose an arbitrary numeric cap before the roster provides evidence for one. A shared shell family is a review prompt, not an automatic failure.
+Maintain a roster-level audit of recurring torso/garment-shell families before starting the remaining 17 civilians. Record family tags, recurrence and whether construction remains meaningfully distinct; do not impose an arbitrary numeric cap. A shared shell family is a review prompt, not an automatic failure.
 
-For mirrored left/right views, document anatomical handedness and the character-relative side carrying each prop. Mirroring is acceptable only when anatomy and prop side remain correct in each view.
-
-Retain semantic measurement tools as diagnostics, but do not use unverified candidate annotations, mask-fit metrics or Granny-derived assumptions as artistic acceptance gates or proportion calibration. Preserve historical run records; future detailed run logs may be maintained in a dedicated QA log.
+For mirrored left/right views, document anatomical handedness and the character-relative side carrying each prop. Mirroring is acceptable only when anatomy and prop side remain correct in each view. Maintain an accepted-exception register with exact pair/direction, evidence scales, rationale and owner disposition.
 
 ## 14. Source references
 
