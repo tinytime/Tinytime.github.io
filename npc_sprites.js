@@ -1884,9 +1884,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
           // This preserves the same market-service read without drawing a
           // second full tray or breaking the character-left prop placement.
           path([[61,57],[68,61],[73,72],[79,78],[84,78],[85,83],[79,86],[71,82],[63,73]],vest,ink,1.25);
-          path([[78,78],[85,77],[89,80],[88,84],[81,86],[77,83]],skin,ink,1);
-          path([[82,74],[95,74],[96,78],[94,81],[83,81],[80,78]],'#D6C7A7',ink,1.25);
-          line([[84,77],[94,77]],'#8D735B',1);
+          path([[75,78],[82,77],[86,80],[85,84],[78,86],[74,83]],skin,ink,1);
+          path([[79,74],[92,74],[93,78],[91,81],[80,81],[77,78]],'#D6C7A7',ink,1.25);
+          line([[81,77],[91,77]],'#8D735B',1);
         }
       }else{
         path([[39,56],[49,51],[64,56],[68,70],[62,96],[31,98]],'#38263A',ink,1.3);
