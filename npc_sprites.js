@@ -2061,6 +2061,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[39,23],[43,15],[51,14],[59,17],[64,23],[60,26],[53,22],[46,23]],'#252832',ink,1.2);
       path([[59,25],[65,25],[67,30],[64,34],[59,33]],'#59656B',ink,1);
       ell(63,29.5,1.5,1.8,'#A8B8B5',ink,.7);
+      // Keep the profile eye/brow on top of the swept hairline so the face
+      // remains readable at direct 28x42 scale in both directions.
+      if(!back){ell(55.5,29.5,1.15,1.45,ink,null);line([[52,26],[58,25]],'#44313A',1.3);}
     }
     // Copper instrument glint and restrained petrol edge highlights.
     g.save();g.globalAlpha=.55;g.shadowBlur=.7/scale;g.shadowColor='rgba(240,180,95,.28)';
