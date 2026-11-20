@@ -1,3 +1,16 @@
+## Fourth civilian batch — construction detail approval and F6 face refinement (2026-11-20)
+
+The owner approved construction detail study 01. Exact source QA and browser captures passed for all 12 direction panels; see [Run #831](https://github.com/tinytime/Tinytime.github.io/actions/runs/44824014197), artifact [14672658525](https://github.com/tinytime/Tinytime.github.io/actions/runs/44824014197/artifacts/14672658525). The overall workflow still fails at the pre-existing global browser audio-resource 404 diagnostics; no pageErrors or scriptErrors were reported, and no golden snapshot/provenance changes were made.
+
+F6 matched native-source face crops have been reviewed:
+- Sailor — Clinic and Guard
+- Slicker — Hacker and Courier (Fisher was reviewed but was not one of the two closest by face geometry)
+- Painter — Cook and Busker
+
+[Face geometry exploration 03](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-03.svg) applies clearer geometric distinctions. It remains a proposal pending owner review. The next step is inspect the exact face crops and direct game-scale details, revise if needed, and prepare the face-stage approval package. Palette and production renderer remain out of scope.
+
+---
+
 ## Fourth civilian batch — post-silhouette identity/construction cards 02 (2026-11-20)
 
 The owner-approved revision 21 silhouettes are now the fixed baseline for the next design stage. The three complete identity/construction cards are in [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md).
