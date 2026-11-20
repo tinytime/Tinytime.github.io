@@ -68,9 +68,24 @@ try {
       const key=item.character+'-'+item.mode+'-'+item.direction;
       data[key]=item;
     }
-    // Guard the optional profile props against silently disappearing from
-    // the source projection. This is a geometry-presence check, not proof of
-    // a readable grip; human visual review remains mandatory.
+    if(!source.includes('EXPLORATION 11') || directions.length!==4) throw new Error('Unexpected fourth-batch source revision/direction set');
+    // Profile-region pixel counts are descriptive only; no arbitrary minimum
+    // is imposed. Body-only geometry must remain present in every prop-on view.
+    const bodyPreservationAudit=[];
+    for(const character of characterNames) for(const direction of directions) {
+      const body=new Image(),prop=new Image();
+      body.src=data[character+'-body-'+direction].native;
+      prop.src=data[character+'-prop-'+direction].native;
+      await body.decode(); await prop.decode();
+      const canvas=document.createElement('canvas');canvas.width=64;canvas.height=96;
+      const ctx=canvas.getContext('2d',{willReadFrequently:true});
+      ctx.drawImage(body,0,0);const b=ctx.getImageData(0,0,64,96).data;
+      ctx.clearRect(0,0,64,96);ctx.drawImage(prop,0,0);const p=ctx.getImageData(0,0,64,96).data;
+      let removed=0;
+      for(let k=0;k<b.length;k+=4) if(b[k]<70&&b[k+1]<70&&b[k+2]<70&&p[k]>150&&p[k+1]>150&&p[k+2]>150) removed++;
+      bodyPreservationAudit.push({character,direction,removedBodyPixels:removed,pass:removed===0});
+    }
+    if(bodyPreservationAudit.some(x=>!x.pass)) throw new Error('A prop-on view removes body-only silhouette pixels');
     const profilePropAudit=[];
     // Designated near-side views: the tool must create a visible silhouette delta
     // in the prop's expected side region. Far-side occlusion remains a manual
@@ -293,7 +308,9 @@ try {
 
   const report={
     status:'design_source_projection_only',
-    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-10.svg',
+    revision:11,
+    bodyPreservationAudit,
+    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-11.svg',
     figureFields:24,
     nativeCaptures:Object.keys(svgData.data).length,
     direct28x42Captures:Object.values(svgData.data).filter(x=>x.direct).length,
