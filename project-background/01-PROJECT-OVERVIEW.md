@@ -1,3 +1,7 @@
+## Third civilian batch — review correction checkpoint (2026-11-20)
+
+Claude's initial batch verdicts and ChatGPT's implemented corrections are documented in [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md](qa-artifacts/third-civilian-batch/THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md). Tech (#9) now has a darker desaturated petrol shell and squared storm-flap shoulder; targeted production-renderer QA passed in Run #648. Hacker (#10) has a narrowed front chest, separated bare forearm, tapered left-profile drape and clearer temple/earbud; Fisher (#11) has an integrated right-profile pouch, ochre rear smock and removed unexplained inter-leg bar. Hacker/Fisher Run #9 design rendering succeeded and was visually inspected; these are design-stage projections only. Independent Claude re-review and owner acceptance are pending. Do not start Hacker/Fisher production renderer implementation until Tech clears its independent review and owner approval, and owner accepts their finished designs.
+
 # Project Overview
 
 ## Current authority — 2026-11-20
