@@ -1659,7 +1659,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
   // Guard: compact protective wedge with braced character-right forearm,
   // flexed offset stance, segmented shell and rear-harness radio.
   function drawGuardVector(n, dir, ctx, OWT, opts) {
-    opts=opts||{}; const g=ctx, scale=OWT/36*.28;
+    opts=opts||{}; const g=ctx, scale=OWT/36*.275;
     const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2, sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
     const back=dir==='u', side=dir==='l'||dir==='r', flip=dir==='l';
     g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
@@ -1798,7 +1798,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
   // negative space, offset sash and a shallow tray supported by the palm.
   function drawVendorVector(n, dir, ctx, OWT, opts) {
     opts=opts||{}; const g=ctx, scale=OWT/36*.28;
-    const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2, sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
+    const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2+(dir==='l'?3.2*scale:0), sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
     const back=dir==='u', side=dir==='l'||dir==='r', flip=dir==='l';
     g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
     if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
