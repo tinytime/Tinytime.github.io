@@ -27,7 +27,7 @@ const propY = [286,616,946];
 
 const server = createServer((req,res) => {
   const url = new URL(req.url, 'http://127.0.0.1');
-  const file = path.join(root, decodeURIComponent(url.pathname.replace(/^\\//,'')));
+  const file = path.join(root, decodeURIComponent(url.pathname.slice(1)));
   if (!file.startsWith(root) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
     res.writeHead(404); res.end('Not found'); return;
   }
