@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120">
+<title>Tech, Hacker and Fisher — first-pass directional silhouette exploration</title>
+<desc>Design-only first-pass four-view black silhouette studies for Tech, Hacker and Fisher. Each direction is independently constructed. These are not game renderer captures or approved final designs.</desc>
+<rect width="1600" height="1120" fill="#f3f1eb"/>
+<style>
+.h{font:700 28px sans-serif;fill:#202124}.sub{font:15px sans-serif;fill:#555}.name{font:700 21px sans-serif;fill:#202124}.dir{font:700 13px sans-serif;fill:#555}.note{font:13px sans-serif;fill:#444}.tiny{font:11px sans-serif;fill:#555}.sil{fill:#090a0d;stroke:#090a0d;stroke-linejoin:round;stroke-linecap:round}.cut{fill:#f3f1eb;stroke:#f3f1eb;stroke-linejoin:round}.feature{fill:none;stroke:#f3f1eb;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.panel{fill:#e8e5dd;stroke:#c9c5bc;stroke-width:1.2}.rule{stroke:#c9c5bc;stroke-width:1.4}
+</style>
+<text x="40" y="48" class="h">TECH · HACKER · FISHER — FIRST-PASS DIRECTIONAL SILHOUETTES</text>
+<text x="40" y="76" class="sub">Design exploration only · shared 64×96 field · four separately authored views per character · not renderer output or final approval</text>
+<text x="40" y="98" class="sub">Role must read from contour, posture, garment volume, face/head construction and prop integration—not palette, badge or gadget alone.</text>
+<line x1="40" y1="118" x2="1560" y2="118" class="rule"/>
+<!-- TECH -->
+<text x="40" y="154" class="name">01 · TECH — field systems technician / forward-leaning maintenance stance</text>
+<g transform="translate(75 175)">
+<g transform="scale(1.5)">
+<rect x="0" y="0" width="64" height="96" class="panel"/>
+<!-- front -->
+<path class="sil" d="M21 12Q20 5 29 4L38 6 40 11 36 17 24 18Z M20 20L13 25 10 39 14 44 19 38 20 51 16 65 21 69 29 63 31 50 36 51 39 66 47 69 51 64 46 48 47 30 42 22 35 20 29 24 25 21Z M19 64L29 66 27 81 22 92 13 92 12 87 18 78Z M37 64L47 64 49 80 55 89 52 94 38 93 34 82Z M12 88L24 88 23 95 8 95 7 92Z M43 89L54 88 59 94 58 96 40 96Z"/>
+<path class="sil" d="M42 27L50 30 55 39 53 45 47 42 44 36Z M45 44L53 43 57 51 54 58 48 57Z"/>
+<path class="cut" d="M25 31L31 35 39 31 41 43 34 48 25 44Z M18 29L22 31 20 37 16 36Z"/>
+<path class="feature" d="M28 12L35 11 M26 16L33 17 M31 27L35 29 M31 45L35 47"/>
+<!-- harness diagonal -->
+<path class="feature" d="M40 25L27 49L23 59"/>
+<!-- meter held -->
+<path class="sil" d="M13 42L18 40 22 44 21 52 17 54 12 50Z M9 45L13 44 15 49 12 52 8 50Z"/>
+<rect x="8" y="48" width="8" height="10" rx="1" class="sil"/>
+</g></g>
+<g transform="translate(255 175)"><g transform="scale(1.5)">
+<rect width="64" height="96" class="panel"/>
+<!-- back -->
+<path class="sil" d="M21 12Q20 5 29 4L38 6 40 11 36 17 24 18Z M20 20L13 25 10 39 15 45 21 40 20 53 16 66 22 70 30 63 32 51 38 52 41 68 49 70 52 64 47 48 48 31 42 22 35 20 28 24 25 21Z M19 65L29 67 27 82 22 93 13 93 12 87 18 78Z M38 65L48 64 50 80 56 89 52 94 39 93 34 82Z M12 89L24 89 23 95 8 95 7 92Z M44 89L55 88 60 94 59 96 41 96Z"/>
+<path class="feature" d="M24 26L39 45L28 57L20 48 M39 26L26 45L37 57L46 48"/>
+<path class="sil" d="M25 31L39 31 42 48 34 55 24 47Z M22 55L42 55 44 62 20 62Z M12 32L17 31 18 41 13 45Z"/>
+<path class="sil" d="M43 28L51 31 54 41 49 46 44 39Z"/>
+</g></g>
+<g transform="translate(435 175)"><g transform="scale(1.5)">
+<rect width="64" height="96" class="panel"/>
+<!-- left profile -->
+<path class="sil" d="M25 5Q34 3 39 10L39 17 33 20 24 17 21 12Z M23 20L17 25 16 39 20 44 23 37 24 51 20 66 26 70 34 64 34 51 40 48 45 63 52 65 54 59 48 43 47 29 40 21 31 20Z M24 65L34 66 31 82 27 93 18 93 17 88 23 78Z M41 62L50 62 54 78 59 89 55 94 42 92 37 80Z M17 89L28 89 27 96 13 96 12 93Z M47 89L58 88 62 94 61 96 45 96Z"/>
+<path class="sil" d="M21 10L13 13 18 18 25 17Z M37 25L45 28 50 38 46 43 40 36Z M40 43L48 43 53 50 50 55 44 53Z"/>
+<path class="feature" d="M24 14L29 15 M26 19L30 19 M33 29L37 30"/>
+<path class="sil" d="M18 45L25 43 28 50 25 55 19 54Z M14 47L19 46 20 53 15 55Z"/>
+</g></g>
+<g transform="translate(615 175)"><g transform="scale(1.5)">
+<rect width="64" height="96" class="panel"/>
+<!-- right profile -->
+<path class="sil" d="M27 5Q36 3 41 10L41 17 35 20 26 17 23 12Z M24 20L18 25 17 39 21 44 24 37 25 51 21 66 27 70 35 64 35 51 41 48 46 63 53 65 55 59 49 43 48 29 41 21 32 20Z M25 65L35 66 32 82 28 93 19 93 18 88 24 78Z M42 62L51 62 55 78 60 89 56 94 43 92 38 80Z M18 89L29 89 28 96 14 96 13 93Z M48 89L59 88 63 94 62 96 46 96Z"/>
+<path class="sil" d="M42 10L50 13 45 18 38 17Z M39 25L47 28 52 38 48 43 42 36Z M41 43L49 43 54 50 51 55 45 53Z"/>
+<path class="feature" d="M35 14L40 15 M34 19L38 19 M40 29L44 30"/>
+<path class="sil" d="M39 45L46 43 49 50 46 55 40 54Z M45 47L50 46 51 53 46 55Z"/>
+</g></g>
+<text x="123" y="330" class="dir">FRONT</text><text x="303" y="330" class="dir">BACK</text><text x="483" y="330" class="dir">LEFT</text><text x="663" y="330" class="dir">RIGHT</text>
+<text x="790" y="204" class="note">Identity: short swept-back undercut + compact ear cup</text>
+<text x="790" y="229" class="note">Shell: short high collar, offset crossing harness, split rear flap</text>
+<text x="790" y="254" class="note">Pose: forward maintenance lean; one knee flexed, one arm free</text>
+<text x="790" y="279" class="note">Interaction: low diagnostic meter supported in character-left hand</text>
+<text x="790" y="304" class="note">Avoid: Clinic wrap, Coach jacket/visor, Courier bag silhouette</text>
+<line x1="40" y1="350" x2="1560" y2="350" class="rule"/>
+<!-- HACKER -->
+<text x="40" y="386" class="name">02 · HACKER — guarded digital operator / folded-in asymmetrical stance</text>
+<g transform="translate(75 405)">
+<g transform="scale(1.5)">
+<rect width="64" height="96" class="panel"/>
+<path class="sil" d="M16 12Q18 3 31 4L40 9 37 17 27 20 19 17Z M17 20L10 26 8 40 14 45 18 38 20 51 17 65 24 69 31 60 34 51 41 53 43 68 51 70 54 64 49 47 48 30 41 22 31 20 25 24 21 21Z M20 64L31 65 29 79 25 91 16 92 13 87 19 77Z M40 65L50 64 52 80 57 88 53 94 41 93 36 82Z M14 88L26 88 25 95 10 95 9 92Z M45 89L56 88 61 94 60 96 43 96Z"/>
+<path class="sil" d="M14 8L5 16 10 24 19 20 25 17 23 11Z M41 22L53 29 56 44 49 49 43 40Z M44 44L54 43 58 54 54 61 48 57Z"/>
+<path class="cut" d="M25 31L32 35 39 32 40 43 33 48 25 44Z"/>
+<path class="feature" d="M28 13L35 14 M25 18L31 18 M31 36L36 35"/>
+<path class="sil" d="M10 49L17 46 20 53 17 58 11 56Z M7 53L12 52 14 59 9 61Z"/>
+<path class="sil" d="M5 57L17 55 19 62 7 65Z"/>
+</g></g>
+<g transform="translate(255 405)"><g transform="scale(1.5)">
+<rect width="64" height="96" class="panel"/>
+<path class="sil" d="M16 12Q18 3 31 4L40 9 37 17 27 20 19 17Z M17 20L10 26 8 40 14 45 18 38 20 51 17 65 24 69 31 60 34 51 41 53 43 68 51 70 54 64 49 47 48 30 41 22 31 20 25 24 21 21Z M20 64L31 65 29 79 25 91 16 92 13 87 19 77Z M40 65L50 64 52 80 57 88 53 94 41 93 36 82Z M14 88L26 88 25 95 10 95 9 92Z M45 89L56 88 61 94 60 96 43 96Z"/>
+<path class="sil" d="M12 9L4 17 10 27 19 23 24 18 20 11Z M40 24L50 30 53 44 47 49 41 39Z M23 26L40 27 43 49 32 55 22 47Z M13 50L20 49 22 59 16 64Z"/>
+<path class="feature" d="M23 31L39 49L29 59 M40 30L29 47"/>
+</g></g>
+<g transform="translate(435 405)"><g transform="scale(1.5)">
+<rect width="64" height="96" class="panel"/>
+<path class="sil" d="M22 5Q32 3 38 10L38 17 31 20 22 17 19 12Z M20 20L14 26 13 40 18 44 21 37 22 51 19 66 25 70 33 63 34 50 40 49 44 63 51 65 54 59 48 43 47 29 40 21 31 20 25 24 21 21Z M23 65L34 66 32 81 28 93 19 93 18 88 24 78Z M41 63L50 62 53 78 58 89 54 94 42 92 37 80Z M18 89L29 89 28 96 14 96 13 93Z M46 89L57 88 61 94 60 96 44 96Z"/>
+<path class="sil" d="M17 10L9 15 14 21 22 18Z M39 24L48 29 52 40 47 44 41 36Z M17 43L24 42 27 50 23 55 17 53Z"/>
+<path class="feature" d="M25 14L31 15 M25 19L30 19 M31 30L35 31"/>
+<path class="sil" d="M13 49L20 47 22 55 17 59 11 56Z M9 53L14 52 15 59 10 60Z"/>
+</g></g>
+<g transform="translate(615 405)"><g transform="scale(1.5)">
+<rect width="64" height="96" class="panel"/>
+<path class="sil" d="M23 5Q33 3 39 10L39 17 32 20 23 17 20 12Z M21 20L15 26 14 40 19 44 22 37 23 51 20 66 26 70 34 63 35 50 41 49 45 63 52 65 55 59 49 43 48 29 41 21 32 20 26 24 22 21Z M24 65L35 66 33 81 29 93 20 93 19 88 25 78Z M42 63L51 62 54 78 59 89 55 94 43 92 38 80Z M19 89L30 89 29 96 15 96 14 93Z M47 89L58 88 62 94 61 96 45 96Z"/>
+<path class="sil" d="M40 10L48 15 43 21 35 18Z M40 24L49 29 53 40 48 44 42 36Z M42 43L49 42 52 50 48 55 42 53Z"/>
+<path class="feature" d="M33 14L38 15 M34 19L39 19 M40 30L44 31"/>
+<path class="sil" d="M40 49L47 47 49 55 44 59 38 56Z"/>
+</g></g>
+<text x="123" y="560" class="dir">FRONT</text><text x="303" y="560" class="dir">BACK</text><text x="483" y="560" class="dir">LEFT</text><text x="663" y="560" class="dir">RIGHT</text>
+<text x="790" y="434" class="note">Identity: uneven side-swept fringe, exposed temple, single earbud</text>
+<text x="790" y="459" class="note">Shell: cropped asymmetric drape with one hanging side panel</text>
+<text x="790" y="484" class="note">Pose: narrow folded-in stance; one forearm exposed, opposite tucked</text>
+<text x="790" y="509" class="note">Interaction: one-hand slate held low at waist; other hand occluded</text>
+<text x="790" y="534" class="note">Avoid: generic hoodie, Tech harness, Courier messenger shell</text>
+<line x1="40" y1="580" x2="1560" y2="580" class="rule"/>
+<!-- FISHER -->
+<text x="40" y="616" class="name">03 · FISHER — waterfront net worker / wide braced deck stance</text>
+<g transform="translate(75 635)"><g transform="scale(1.5)">
+<rect width="64" height="96" class="panel"/>
+<path class="sil" d="M14 15Q15 6 29 5L41 8 45 16 40 21 18 21 12 18Z M18 21L9 27 7 42 13 47 18 39 19 55 12 69 17 74 29 66 32 54 39 54 44 70 55 73 59 66 51 49 50 31 43 23 34 22 27 25 22 22Z M16 66L30 68 26 83 19 93 8 94 5 89 12 78Z M39 66L53 67 56 82 62 91 58 96 42 95 34 83Z M7 89L22 89 21 96 2 96 1 92Z M47 90L59 89 63 94 63 96 45 96Z"/>
+<path class="sil" d="M12 15L7 20 12 27 19 23 20 19Z M45 26L53 31 57 43 51 48 45 39Z M48 44L56 47 60 58 55 62 49 55Z"/>
+<path class="cut" d="M23 32L32 36 41 32 43 46 34 52 24 46Z"/>
+<path class="feature" d="M23 13L37 13 M27 18L35 18 M30 40L36 41"/>
+<!-- net basket low -->
+<path class="sil" d="M3 58L14 57 18 65 14 73 4 72 1 66Z M4 60L14 60 M5 64L13 65 M6 68L12 69"/>
+</g></g>
+<g transform="translate(255 635)"><g transform="scale(1.5)">
+<rect width="64" height="96" class="panel"/>
+<path class="sil" d="M14 15Q15 6 29 5L41 8 45 16 40 21 18 21 12 18Z M18 21L9 27 7 42 13 47 18 39 19 55 12 69 17 74 29 66 32 54 39 54 44 70 55 73 59 66 51 49 50 31 43 23 34 22 27 25 22 22Z M16 66L30 68 26 83 19 93 8 94 5 89 12 78Z M39 66L53 67 56 82 62 91 58 96 42 95 34 83Z M7 89L22 89 21 96 2 96 1 92Z M47 90L59 89 63 94 63 96 45 96Z"/>
+<path class="sil" d="M11 15L6 20 12 27 20 23 20 19Z M44 27L52 31 56 43 50 48 44 39Z"/>
+<path class="feature" d="M19 30L44 30L49 42 M23 51L41 52"/>
+<path class="sil" d="M43 31L51 34 54 43 48 48 42 42Z M19 30L28 32 29 48 21 50Z"/>
+<path class="sil" d="M49 50L58 52 59 64 51 68 44 62Z"/>
+</g></g>
+<g transform="translate(435 635)"><g transform="scale(1.5)">
+<rect width="64" height="96" class="panel"/>
+<path class="sil" d="M22 6Q33 4 40 12L40 20 32 22 22 18 18 12Z M20 22L14 28 13 43 18 48 22 40 23 56 17 70 23 74 33 66 35 53 41 53 46 68 55 70 58 64 51 47 49 31 42 23 33 22 26 26 22 23Z M22 69L34 70 31 84 26 94 16 94 15 89 21 79Z M42 67L53 67 57 82 62 91 58 96 45 95 38 83Z M15 90L28 90 27 96 11 96 10 93Z M49 90L60 89 63 94 63 96 47 96Z"/>
+<path class="sil" d="M19 12L10 16 15 23 23 20Z M40 28L49 32 53 43 48 48 42 39Z"/>
+<path class="feature" d="M24 16L35 16 M29 21L34 21 M35 34L40 35"/>
+<path class="sil" d="M15 50L22 49 25 58 20 62 14 58Z M10 56L16 54 18 61 12 64Z"/>
+</g></g>
+<g transform="translate(615 635)"><g transform="scale(1.5)">
+<rect width="64" height="96" class="panel"/>
+<path class="sil" d="M23 6Q34 4 41 12L41 20 33 22 23 18 19 12Z M21 22L15 28 14 43 19 48 23 40 24 56 18 70 24 74 34 66 36 53 42 53 47 68 56 70 59 64 52 47 50 31 43 23 34 22 27 26 23 23Z M23 69L35 70 32 84 27 94 17 94 16 89 22 79Z M43 67L54 67 58 82 63 91 59 96 46 95 39 83Z M16 90L29 90 28 96 12 96 11 93Z M50 90L61 89 63 94 63 96 48 96Z"/>
+<path class="sil" d="M41 12L50 16 45 23 37 20Z M41 28L50 32 54 43 49 48 43 39Z"/>
+<path class="feature" d="M34 16L39 16 M35 21L40 21 M41 34L45 35"/>
+<path class="sil" d="M41 50L48 49 51 58 46 62 40 58Z"/>
+</g></g>
+<text x="123" y="790" class="dir">FRONT</text><text x="303" y="790" class="dir">BACK</text><text x="483" y="790" class="dir">LEFT</text><text x="663" y="790" class="dir">RIGHT</text>
+<text x="790" y="664" class="note">Identity: low oilskin hood, brow lip, soft rear neck flap</text>
+<text x="790" y="689" class="note">Shell: broad short waterproof smock, diagonal bib closure</text>
+<text x="790" y="714" class="note">Pose: wide braced deck stance, heavy boots, subtle wind lean</text>
+<text x="790" y="739" class="note">Interaction: compact net basket held low in character-left hand</text>
+<text x="790" y="764" class="note">Avoid: Sailor cap/naval uniform, generic Trades shell, Cook apron</text>
+<line x1="40" y1="825" x2="1560" y2="825" class="rule"/>
+<text x="40" y="862" class="name">OWNER PREFLIGHT — DECISIONS REQUIRED BEFORE RENDERER IMPLEMENTATION</text>
+<text x="60" y="900" class="note">• Confirm or revise each silhouette's construction, head-read cue, garment logic, pose and role-defining interaction.</text>
+<text x="60" y="930" class="note">• Confirm exactly three must-survive items, closest-face comparisons, prop side and near/far profile occlusion.</text>
+<text x="60" y="960" class="note">• These panels are first-pass design silhouettes, not renderer output, not direct 28×42 captures, and not final approved art.</text>
+<text x="60" y="990" class="note">• No renderer, existing civilian art, golden snapshot or baseline has been modified in this preflight.</text>
+<text x="40" y="1070" class="tiny">VAPOR CITY · CIVILIAN VECTOR OVERHAUL · 2026-11-20 · FIRST-PASS CONSTRUCTION EXPLORATION</text>
+</svg>
