@@ -4,17 +4,21 @@
 **Characters:** Sailor #12 · Slicker #13 · Painter #14  
 **Stage:** parallel silhouette exploration / construction hypotheses  
 **Approval:** role directions and simultaneous exploration authorized; no silhouette, face, prop, palette or construction family approved  
-**Source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-05.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-05.svg)
+**Current source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg)
 
-## Evidence status
+## Revision 08 internal QA update
 
-Source revision 06 is [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-06.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-06.svg). It follows direct inspection of Run #665 artifact [14647819936](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773914851/artifacts/14647819936), which showed Sailor's coil detached from the hand, Slicker's umbrella too subtle at direct 28×42, and Painter's profile brush grip unclear.
+The latest internal design-source QA is [Run #674](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302), artifact [14650547538](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302/artifacts/14650547538), tested commit `c004c4e9b231803bc3977b9d418f104e223dc417`.
 
-The expanded automated near/far audit in Run #670 [44776178822](https://github.com/tinytime/Tinytime.github.io/actions/runs/44776178822), artifact [14650042107](https://github.com/tinytime/Tinytime.github.io/actions/runs/44776178822/artifacts/14650042107), tested commit 65fb26fd2635bb178c2298826da2c729db01db03 and correctly failed: Slicker's far-side umbrella was still present and Painter's defined grip-region evidence was insufficient. Sailor's near-side profile prop and other presence checks were detected.
+- Design-source generation and semantic validation passed: 24/24 native 64×96 projections, 24/24 separately rasterized direct 28×42 projections and 24/24 enlarged nearest-neighbour images.
+- Profile prop audit passed for Sailor right profile (172 added silhouette pixels), Slicker left profile (389) and Painter left profile (163). These are geometry-presence/contact checks, not artistic scores.
+- Manual inspection covered body-only and prop-on native/direct comparison sheets, enlarged profiles, face-comparison sheets, and proposed Sailor/live Welder rear silhouette comparison.
+- Sailor's mooring coil now reads as a compact loop with a palm/forearm bridge; Slicker's folded umbrella profile has a clearer canopy/handle shape and is hidden in the far-side profile; Painter's broad brush head and near-side grip are clearer and the far-side profile remains hidden.
+- Body-only identity remains the controlling test: Sailor narrow/upright, Slicker compact/long-shell/forward-pitched, Painter open/asymmetrical/reaching. Proposed Sailor rear silhouette is narrower and more vertically structured than Welder's broader blockier rear silhouette.
+- Face differentiation remains subject to Claude's independent critique. All three proposed face pairs have matched roster comparisons; no face is approved.
+- Overall Browser QA remains failed at the unapproved snapshot baseline (1 match / 23 changed) and 180 existing audio/resource HTTP 404 console entries; page/script errors are empty. No golden snapshots or provenance changed.
 
-Follow-up source commit 388efaff3d545a84e2b768f2fead9ee3609d3e1c moves Sailor's coil inward and strengthens its palm bridge, enlarges Slicker's folded umbrella while removing its far-side profile prop, and increases Painter's near-side hand/grip footprint. This exact source has not yet been validated by a fresh Actions artifact. Do not mark these changes as passing until the profile audit succeeds and the native 64×96, direct 28×42 and enlarged images are manually inspected.
-
-The face-comparison label layout is fixed and the named comparator rows are legible. The three proposed face geometries still require human review for identity separation at small scale. All construction families remain UNASSIGNED; no silhouette, face, prop, palette or renderer is owner-approved.
+**Current independent-review handoff:** [Claude review package 02](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md). The previous package 01 (Run #664 / revision 05) is superseded.
 
 ## #12 Sailor — proposed construction card
 
