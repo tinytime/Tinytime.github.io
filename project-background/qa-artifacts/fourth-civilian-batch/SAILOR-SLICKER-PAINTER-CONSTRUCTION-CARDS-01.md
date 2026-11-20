@@ -187,3 +187,15 @@ The source is vector geometry in a 64×96 local figure field. For direct game-sc
 ## Approval boundary
 
 No silhouette, face, prop, handedness, palette or construction family is approved. Current family remains UNASSIGNED for #12–14. No production renderer, live town integration, gallery integration, golden snapshot or snapshot provenance work is authorized.
+
+
+## Revision 19 — Claude package 05 corrections (design source; QA pending)
+
+**Source:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg) · source commit [44d133b65c8ebd6aa3c207e03960d85034df193b](https://github.com/tinytime/Tinytime.github.io/commit/44d133b65c8ebd6aa3c207e03960d85034df193b).
+
+- **Handedness decision:** retain the construction-standard convention. Character-left appears viewer-right in front and viewer-left in rear; profile visibility is determined by near/far relative to facing. Sailor carries the coil in character-left: front/rear placements remain viewer-right/viewer-left, visible in right profile (near-side) and hidden in left profile (far-side). Painter carries the brush in character-right: front/rear placements remain viewer-left/viewer-right, visible in left profile (near-side) and hidden in right profile (far-side). No blind profile mirroring or handedness swap.
+- **Sailor:** revised front, rear and right-profile rope loop/grip geometry to compact the coil and bring the hand visibly across the coil edge. The upright deck-coat body, cap, collar and leg stance are retained. This is a first grip-shape iteration; direct-scale believability remains unverified until captures are inspected.
+- **Painter:** replaced the long thin rake-like brush treatment with a shorter diagonal handle, compact solid wedge bristle block and a thicker hand/grip silhouette in front, rear and near-side left profile. The reaching-arm silhouette remains asymmetric. Garment transition/body-only polish is not yet completed and remains open for the next correction pass.
+- **Slicker:** no source geometry changed. Revision 19 preserves the full revision-18 Slicker artwork byte-for-byte; only the title identifies it as preserved.
+- **QA status:** no revision-19 native/direct captures, enlarged detail sheets, connectivity/contact review, frame-clearance inspection or Actions result has yet been produced. Do not infer grip quality from path connectivity. Revision 19 is NOT internally QA-passed and NOT owner-approved. Do not prepare a new Claude review package until internal QA passes.
+- **Outstanding:** capture all four directions body-only and prop-on for Sailor/Painter at native 64×96 and independently rasterized direct 28×42; enlarged details; inspect grip/contact, body-only anatomy, Painter garment transition, clipping and roster differentiation; verify Slicker unchanged; update tracker after QA evidence exists.
