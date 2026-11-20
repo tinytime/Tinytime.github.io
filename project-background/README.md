@@ -49,7 +49,7 @@ Read the [semantic anatomy annotation guide](../qa/CIVILIAN-ANATOMY-ANNOTATION-G
 
 ## Current focus
 
-The first five civilians—**Usher, Cook, Courier, Coach and Referee**—are owner-approved and complete. Preserve their approved designs and recorded exceptions. Runner is built but remains pending a focused review. The next preflight batch is **Guard, Vendor and Clinic worker**. The construction standard was ratified by the owner on 2026-11-19. The [owner preflight proposal](qa-artifacts/next-civilian-batch/OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md) is ready for review; renderer production remains on hold until the owner accepts the proposed directions and the NPC Designer completes the actual four-view silhouette exploration for owner review.
+The first five civilians—**Usher, Cook, Courier, Coach and Referee**—are owner-approved and complete. Preserve their approved designs and recorded exceptions. Runner is built but remains pending a focused review. The next preflight batch is **Guard, Vendor and Clinic worker**. The construction standard was ratified by the owner on 2026-11-19. The owner approved the written directions on 2026-11-20. The NPC Designer is authorized to prepare four-view black silhouette explorations and construction cards; renderer production remains on hold until the owner approves those actual silhouettes.
 
 ## Source of truth
 
