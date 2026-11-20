@@ -124,14 +124,17 @@ The latest internal design-source QA is [Run #677](https://github.com/tinytime/T
 
 ## Evidence captured for independent review
 
-1. Body-only and prop-on four-view sets are complete: 12 body-only plus 12 prop-on views across the three characters.
-2. Combined native 64×96 and direct 28×42 comparison sheets are complete; direct 28×42 is a separate vector rasterization.
-3. Four-times nearest-neighbour enlargements have been generated and inspected for clipping, overlap, detached components and prop contact.
-4. Matched-scale roster face crops and closest-face pairs are documented: Sailor—Clinic/Guard; Slicker—Hacker/Courier; Painter—Cook/Busker. Granny remains a craft benchmark, not a template.
-5. Six new 40×38 face-design crops and six matched comparison rows are captured at native and 3× scales.
-6. Exact source commit, Run #664 and artifact paths are recorded in the [Claude review package](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-01.md).
+The current evidence is pinned to revision 10 and Run #678:
+1. Body-only and prop-on four-view sets: 12 body-only plus 12 prop-on views across the three characters.
+2. Native 64×96 and independently rasterized direct 28×42 comparison sheets; direct 28×42 output is not resized from native.
+3. Four-times nearest-neighbour enlargements for all 24 fields.
+4. Matched current-roster face crops and comparator pairs: Sailor—Clinic/Guard; Slicker—Hacker/Courier; Painter—Cook/Busker.
+5. Six new 40×38 face-design crops and six matched face-comparison rows at native and 3× scales.
+6. Near-side prop-region audit passed for Sailor/right, Slicker/left and Painter/left. Far-side visibility and grip are also manually reviewed in the exact artifact.
+7. Proposed Sailor rear silhouette is compared against the live Welder rear silhouette at matched native 64×96 aspect ratio.
+8. Exact source and artifact links are recorded in [Claude review package 04](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md): source commit `8ae6a47055c6c75e361738b21c01d8b07b6830b4`, Run #678, artifact `14650399818`.
 
-The remaining work is independent critique of face differentiation, the subtle Slicker front umbrella at 28×42, and set-level silhouette differentiation.
+Internal visual review finds the three body-only constructions distinct and the props readable at direct game scale. Face geometry and set-level originality remain open for Claude's independent critique. The overall browser workflow still fails at the existing unapproved golden snapshot gate (1/23 match) and existing audio/resource 404 console diagnostics; no snapshots or provenance were changed. These are not production-renderer results for the three proposed characters.
 
 ## Reproducible source rendering
 
