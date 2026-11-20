@@ -18,7 +18,7 @@ The project owner approved the revision 21 silhouettes for all three characters 
 
 The current branch also contains a later, separate revision-22 exploration commit (`f39f450a361668d60f3eb77f0e93ab804f848070`). Revision 22 is not the approved baseline and is not used as authority for these cards. It remains a proposal only. These cards preserve revision 21's body contours, pose class, headwear/garment outline, prop side, and near/far visibility. No material silhouette edits are proposed here.
 
-**Approval boundary:** this package assigns proposed construction families and specifies anatomy, clothing, props and identity. It does not approve face geometry, palette, finished art, renderer implementation or integration. Palette is expressed only as verbal direction and material/value roles, not final swatches.
+**Approval boundary:** the owner approved these construction families and the specified anatomy, clothing and prop integration direction on 2026-11-20. Face geometry, final palette, finished art and renderer implementation remain unapproved. It does not approve face geometry, palette, finished art, renderer implementation or integration. Palette is expressed only as verbal direction and material/value roles, not final swatches.
 
 ## Shared construction and QA contract
 
@@ -44,7 +44,7 @@ A capable, quietly upbeat harbour worker who knows ropes, knots and changing wat
 
 ## Construction-family assignment
 
-**Proposed family: Narrow Deck-Coat / Vertical Utility Shell (new roster family tag).**
+**Owner-approved construction family: Narrow Deck-Coat / Vertical Utility Shell (new roster family tag).**
 
 This family is defined by a close, vertically organized outer coat with a raised protective collar, restrained shoulder volume, a clear front opening/closure line and a relatively straight lower garment edge. It is not the broad rain-smock, apron, or boxy workshop jacket family. The narrow body mass and disciplined vertical seams support Sailor's rope-handling role and preserve separation from broad-bodied trades characters.
 
@@ -130,7 +130,7 @@ A thoughtful, practical city resident who is comfortable in drizzle and wind. Sl
 
 ## Construction-family assignment
 
-**Proposed family: Integrated Hooded Rain-Smock Shell (new roster family tag).**
+**Owner-approved construction family: Integrated Hooded Rain-Smock Shell (new roster family tag).**
 
 This family is defined by one continuous weather shell with an integrated hood, face opening, storm closure and shaped hem/yoke construction. It differs from the narrow vertical deck coat, waist-tied apron/smock silhouettes and rigid workshop jackets. The hood and shell must read as one garment system, not a separate hat pasted onto a generic torso.
 
@@ -216,7 +216,7 @@ A focused craftsperson who paints shop signs, wayfinding marks and small civic m
 
 ## Construction-family assignment
 
-**Proposed family: Offset Artisan Smock / Reaching-Arm Shell (new roster family tag).**
+**Owner-approved construction family: Offset Artisan Smock / Reaching-Arm Shell (new roster family tag).**
 
 This family is defined by a short, workmanlike smock with an offset front/side construction, paired shaping darts and a deliberately extended working arm. It is not a full apron, cook's chef shell, broad rain smock or rigid trades coat. The asymmetrical arm/brush relationship is a pose-and-garment system rather than a generic tunic with an accessory.
 
