@@ -1,3 +1,14 @@
+## Latest internal QA status — revision 09 validated; Claude package 03 prepared (2026-11-20)
+
+The current parallel design-source study is [revision 09](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg). Internal design-source capture and visual inspection are complete. The exact-output review package is [Claude review package 03](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-03.md); packages 01 and 02 are superseded.
+
+- Exact tested source commit: `c74219986db2466122fe08ff3ad0bdcb012b5264`.
+- [Run #677](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801), artifact [14650099995](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995). Design-source capture/semantic validation passed: 24/24 native 64×96, 24/24 direct 28×42, 24/24 enlarged; 69 roster face crops and six matched face rows.
+- Profile prop audit: Sailor right 172 added pixels; Slicker left 295 (272 prop-region); Painter left 237 (95 prop-region). All checks passed. Actual sheets and enlarged profiles were visually inspected. Revision 09 shifts Slicker's umbrella/hand/handle inward; Painter's brush had already been shifted inward in revision 08. Direct-scale object identity/contact remain specific Claude review questions.
+- Proposed Sailor rear silhouette is visibly narrower and more vertically structured than Welder's broad squared rear silhouette in the matched comparison.
+- Browser QA overall failed only at global gates: unapproved golden snapshots (1 match / 23 changed) and 180 existing audio/resource HTTP 404 console entries. Page/script errors are empty; no golden snapshots or provenance changed.
+- All three remain design-stage only. Construction families UNASSIGNED; no silhouette, face, prop, handedness or palette has owner approval. Renderer implementation is NOT AUTHORIZED. Do not begin #15–23.
+
 ## Latest internal QA status — revision 09 in revalidation (2026-11-20)
 
 The current parallel design-source study is [revision 09](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg). The previous Claude-ready claim is withdrawn; do not send superseded review package 01.
