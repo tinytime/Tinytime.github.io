@@ -2,12 +2,12 @@
 
 ## Current authority — 2026-11-20
 
-- Latest renderer source remains 2c00cfca09cc12ea19a72662c235beed2e9a19cb; no renderer or game-code changes were made for review closeout or next-batch preparation.
+- Latest renderer source for the approved Guard/Vendor/Clinic batch: `91bb65b531da36b4bdf082afc4578701f5f55a0c`. Added `drawGuardVector`, `drawVendorVector` and `drawClinicVector`, wired them into `owCiv` dispatch, and added palette-role legends. The approved designs are rendered in all four directions.
 - Run #603 tested that exact renderer. Targeted evidence: 20/20 native and 20/20 direct 28×42 captures, 92/92 directional integrity, zero edge contacts/detached large components, role-debug 12/12, prop audit/gallery pass, page/script errors 0. Claude independently judged U4 resolved in both profiles and at both scales.
 - Overall Run #603 Actions concluded failure on the unapproved snapshot baseline (1 match / 23 changed) and 180 existing audio-resource 404s. No golden snapshots were changed or approved.
 - Five owner-approved designs: Usher, Cook, Courier, Coach and Referee. Preserve current renderers and owner dispositions; no art changes authorized by review closeout.
 - Runner is built but not included in the five-character approval; it remains pending focused review.
-- Guard, Vendor and Clinic Worker Revision 02 designs were explicitly approved by the owner on 2026-11-19. Dedicated `drawGuardVector`, `drawVendorVector` and `drawClinicVector` functions are implemented and wired into `owCiv` dispatch. Their palette-role legends are present. JavaScript syntax validation has passed; full browser captures and visual QA remain pending. Legacy archetype data remains reference context only, not a shared vector template.
+- Run #620 [tested the exact source](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670437346), artifact `14599214667`. Dedicated captures: 12/12 native 64×96 and 12/12 direct 28×42. Palette audit: 23 civilians / 14 legacy / 9 vector. Body audit: max height deviation 0.4375 px, max baseline delta 1. Directional integrity: 92/92, zero edge contacts, zero detached large components. Face uniqueness: 23/23 at both scales. Prop audit, full 40-cell gallery and town smoke check passed. Run conclusion remains failure on the pre-existing unapproved snapshot gate; no snapshots were changed. Legacy archetype data remains reference context only, not a shared vector template.
 
 
 ## Historical build and approval status — 2026-11-19
@@ -17,7 +17,7 @@ This is the current status summary; dated historical entries below remain histor
 - The construction standard is available as the working method, but remains subject to independent Claude review and owner ratification. Proportion bands and scorecard values remain provisional/non-enforcing.
 - Pairwise silhouette IoU remains a diagnostic review trigger, not a universal hard-fail art threshold. Current global watch items: Clinic/Sailor front 0.9094292803970223; Coach/Courier back 0.890479. Inspect the exact pair/direction at native and direct game scale and record a human judgment. Do not optimize art to a number.
 - The current correction/review group is Usher, Cook, Courier, Coach and Referee. Usher/Cook/Courier's earlier owner approvals were reopened and are historical only. Runner is excluded from this review submission and remains for a later focused review.
-- The remaining 17 civilians are ON HOLD. Do not begin production until the five-character correction set has fresh QA and visual inspection, independent Claude review, valid findings resolved, and explicit owner approval.
+- The remaining 14 unstarted civilians are ON HOLD. Do not begin them until the current three-character batch completes internal QA, Claude independent review, valid findings are resolved, and the owner gives final approval.
 - Run #591 verified targeted Granny/semantic/capture/overlay/directional/gallery/town checks, but the overall Actions workflow concluded FAILED on the global silhouette and unapproved golden-snapshot gates (1 match / 23 changed). Audio 404s are expected branch noise and non-blocking; do not add audio or count these as character defects. No snapshots were refreshed or approved.
 - Granny remains reference_only; candidate semantic landmarks/polygons are not verified measurements. Exact pixel-derived contour fit is renderer-mask evidence, not proof of anatomical semantics. No proportion calibration or candidate promotion is authorized.
 
