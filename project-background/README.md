@@ -6,17 +6,15 @@ Every new chat must re-read current GitHub state, verify the branch HEAD and lat
 
 ---
 
-## Fourth civilian batch — revision 19 design corrections in progress (2026-11-20)
+## Revision 19 — latest design correction pass (2026-11-20)
 
-Sailor (#12) and Painter (#14) have first-pass prop/grip geometry corrections in [revision 19](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg). Slicker (#13) is preserved unchanged. Source commit: `44d133b65c8ebd6aa3c207e03960d85034df193b`.
-
-- **Handedness:** construction-standard §F2 is retained. Sailor carries character-left: front viewer-right, rear viewer-left, near-side right profile only. Painter carries character-right: front viewer-left, rear viewer-right, near-side left profile only. Far-side props remain hidden. No profile mirroring inversion or hand swap.
-- **Sailor:** compacted rope-loop and hand silhouette in front, rear and right profile. Native/direct visual grip quality remains unverified.
-- **Painter:** replaced the fork/rake-like marks with a compact diagonal handle and solid wedge bristle block in front, rear and left profile. Garment-transition/body-only polish remains outstanding.
-- **Slicker:** no geometry changes; revision-18 artwork preserved.
-- **Evidence builder:** `qa/build-fourth-batch-design-evidence.mjs` now targets revision 19. However, no revision-19 captures or Actions run have yet been produced or inspected. Internal QA is NOT PASSED.
-- **Next gate:** generate and inspect all 24 body/prop direction projections at native 64×96 and independently rasterized direct 28×42, plus enlarged contact views; verify grip, anatomy, Painter garment construction, clipping, Slicker preservation and roster differentiation. Only after internal QA passes may a new Claude package be prepared.
-- No production renderer, live town/gallery integration, golden snapshot or provenance work is authorized. No character is owner-approved; #15–23 remain held.
+- **Current artwork source:** [revision 19 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg), latest source commit `0320663dd638f33f498a7a760ae505a7bdf0f208`.
+- **Handedness (§13):** Sailor carries character-left (front viewer-right, rear viewer-left, visible right/near profile only). Painter carries character-right (front viewer-left, rear viewer-right, visible left/near profile only). Far-side props remain hidden; no profile mirroring inversion.
+- **Sailor:** compact rope-loop grip/tail refinement added to front, rear and right profile. Body-only construction unchanged in this pass.
+- **Painter:** brush head enlarged into a flat wedge with a distinct ferrule; grip connection clarified additively. Body-only silhouette unchanged in this pass. Garment transition and profile frame-clearance still require focused human review.
+- **Slicker:** all eight body/prop direction panels are byte-identical to revision 18; no design changes.
+- **Evidence:** [Run #752](https://github.com/tinytime/Tinytime.github.io/actions/runs/44801977936) is testing exact source commit `0320663dd638f33f498a7a760ae505a7bdf0f208`. Earlier Run #751 caught body-pixel erasure from white grip marks; those marks were removed to preserve all body-only pixels. Do not treat Run #751 as a pass.
+- **Status:** design revision in progress; internal QA pending the final exact-source artifact and visual inspection. No Claude package prepared, no owner approval, no renderer implementation. #15–23 remain held.
 
 ---
 
