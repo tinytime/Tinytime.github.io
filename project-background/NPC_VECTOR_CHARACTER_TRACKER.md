@@ -55,11 +55,12 @@ ChatGPT implemented that focused pass in `npc_sprites.js` commit `6a1fd2a4fbad50
 - No golden snapshots changed. Existing global Actions blockers are tracked separately from the passing character-specific evidence.
 
 
-## Third civilian batch preparation — Tech, Hacker and Fisher (2026-11-20)
+## Third civilian batch — Tech, Hacker and Fisher (2026-11-20)
 
-- The owner explicitly directed ChatGPT to proceed with preparing the next batch without returning the prior Guard/Vendor/Clinic Run #629 output to Claude. This instruction is recorded as authorization to advance preparation; it does not imply that Claude reviewed or approved Run #629. Its exact-output independent-review status remains historically pending.
+- Owner directed preparation to proceed without returning the prior Guard/Vendor/Clinic Run #629 output to Claude. This does not imply a Claude verdict on Run #629; its exact-output review remains historically unrecorded.
 - Prepared individual role/personality, silhouette, face, must-survive, palette and prop-contact briefs for **Tech (#9), Hacker (#10) and Fisher (#11)**.
-- Added first-pass separately authored front/back/left/right black silhouette concepts. These are design exploration only, not game-renderer captures and not owner-approved final silhouettes.
-- No renderer code, existing civilian art, golden snapshot or baseline was changed.
-- Next gate: owner review of the three concepts and construction cards. Implement one character at a time only after explicit silhouette approval.
-- Package: [Tech/Hacker/Fisher preflight](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md); [four-view silhouette exploration](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg).
+- Round 04 silhouette exploration incorporates the owner's latest feedback: Fisher rear yoke is explicitly dark with a seam; Fisher rear hood matches front and both profiles use short soft lips; Fisher basket and Tech meter appear in the character-left near-side/left profile only; Tech's ear-cup cue is present in all four views; Hacker's character-right drape is occluded in left profile.
+- Owner feedback confirmed the round-03 front-view handedness, Hacker fringe distinction, reduced Fisher head and reduced Tech trouser flare as fixed or substantially fixed. Round 04 is **ready for owner silhouette review, not approved**.
+- No renderer code, existing civilian art, golden snapshot or baseline was changed. No game captures or renderer QA evidence exist for this batch yet.
+- Next gate: explicit owner approval of the silhouettes. Then implement Tech, Hacker and Fisher one at a time, with full native 64×96 and direct 28×42 four-direction QA and visual inspection after each character.
+- Package: [Tech/Hacker/Fisher preflight](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md); [round-04 four-view silhouette exploration](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg).
