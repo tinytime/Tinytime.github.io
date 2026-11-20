@@ -1,6 +1,6 @@
 # Next Civilian Batch — Tech, Hacker and Fisher
 
-**Status:** preparation authorized by the project owner on 2026-11-20. This package establishes character-specific design briefs and first-pass directional silhouette concepts. It does not constitute approval of the silhouettes or authorize renderer implementation. Submit this package to the owner for silhouette/design approval before coding the three renderers.
+**Status:** preparation authorized by the project owner on 2026-11-20. First-pass silhouette sheet rejected in reviewer feedback dated 2026-11-20; correction round 02 is now the active proposal and remains NOT APPROVED pending owner review. This package establishes character-specific design briefs and first-pass directional silhouette concepts. It does not constitute approval of the silhouettes or authorize renderer implementation. Submit this package to the owner for silhouette/design approval before coding the three renderers.
 
 **Batch order:** Tech (#9), Hacker (#10), Fisher (#11).  
 **Builder:** ChatGPT. **Final decision authority:** project owner.  
@@ -21,7 +21,7 @@
 
 ## Batch-level separation strategy
 
-These three characters should not look like a shared "technology worker" body with different gadgets. Tech is a hands-on infrastructure maintainer; Hacker is a private, agile digital intruder; Fisher is a weathered waterfront worker. Their posture, torso volume, head construction, garment logic and negative space must carry those differences before props or colour are added.
+Reviewer correction: the first sheet was rejected because all three read as one body with different heads. Specific findings: repeated flared trouser/boot wedges and shoulder/torso blocks; Hacker/Fisher pentagon chest cutouts; contradictory prop-side placement; Hacker rear X/harness conflict; missing Tech rear harness; Tech profile brim/visor; Hacker fringe and Fisher neck-flap tail confusion; and inadequate Hacker one-sided drape. These three characters should not look like a shared "technology worker" body with different gadgets. Tech is a hands-on infrastructure maintainer; Hacker is a private, agile digital intruder; Fisher is a weathered waterfront worker. Their posture, torso volume, head construction, garment logic and negative space must carry those differences before props or colour are added.
 
 | Character | Legacy data only | Construction hypothesis | Avoid |
 |---|---|---|---|
@@ -29,7 +29,7 @@ These three characters should not look like a shared "technology worker" body wi
 | Hacker | clinic archetype; hood head style | Narrow, folded-in silhouette with cropped asymmetric drape-shell, exposed forearm and tucked-in stance; deliberate negative space around face and hands | Generic hoodie recolour, Tech's utility harness, Courier's A-line messenger shell |
 | Fisher | trades archetype; work-cap style | Low, wide oilskin smock / bib-front shell, braced legs and substantial deck boots; one low-held net/float interaction | Sailor's newsboy-cap/naval look, Trades generic work jacket, fishing rod as sole identity |
 
-These are first-pass proposals for owner discussion, not locked designs. The attached SVG contains four separately authored black silhouette studies per character and is not renderer output.
+These remain proposals, not locked designs. The attached correction-round-02 SVG replaces the rejected first-pass silhouette sheet. Fisher is now directed to the widest base and longest flared smock; Tech to a forward lean and narrow waist; Hacker to the narrowest body with one-sided drape. Palette is deferred until black-silhouette separation is accepted.
 
 ---
 
@@ -38,7 +38,7 @@ These are first-pass proposals for owner discussion, not locked designs. The att
 **Role/personality:** resourceful, precise, absorbed in practical problem-solving; a hands-on maintainer who repairs the city's physical systems rather than a medical worker or abstract office analyst.
 
 ### Proposed silhouette
-- **Head:** short swept-back undercut with a small side-part ridge and compact ear-protection/comm cup. Avoid a broad visor or face-obscuring goggles; the eyes and brow remain visible.
+- **Head:** short swept-back undercut with a small side-part ridge and compact ear-protection/comm cup. No brim, projecting bill, visor or face-obscuring goggles; eyes and brow remain visible.
 - **Torso:** compact high-collar work shell with an offset cross-body equipment harness and a short, split rear utility flap. The harness is structural and follows the torso rather than reading as a Courier messenger bag.
 - **Arms/hands:** one forearm is brought inward to inspect a small palm-sized diagnostic meter; the opposite arm hangs free or braces against the harness. The meter must be supported by a visible hand and wrist.
 - **Legs/stance:** slight forward lean, one knee flexed and one foot set outward as if working at a service panel. Keep the feet grounded; not a running/athletic pose.
