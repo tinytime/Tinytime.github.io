@@ -84,13 +84,20 @@ try {
       const ctx=canvas.getContext('2d',{willReadFrequently:true});
       ctx.drawImage(body,0,0);const b=ctx.getImageData(0,0,64,96).data;
       ctx.clearRect(0,0,64,96);ctx.drawImage(prop,0,0);const p=ctx.getImageData(0,0,64,96).data;
-      let added=0;
-      for(let k=0;k<p.length;k+=4){
+      let added=0,regionAdded=0;
+      for(let y=0;y<96;y++)for(let x=0;x<64;x++){
+        const k=(y*64+x)*4;
         const propDark=p[k]<70&&p[k+1]<70&&p[k+2]<70;
         const bodyLight=b[k]>150&&b[k+1]>150&&b[k+2]>150;
-        if(propDark&&bodyLight)added++;
+        if(propDark&&bodyLight){
+          added++;
+          if(character==='painter'&&direction==='left'&&x>=4&&x<16&&y>=20&&y<40)regionAdded++;
+        }
       }
-      profilePropAudit.push({character,direction,expectedVisible:shouldBeVisible,addedSilhouettePixels:added,pass:shouldBeVisible?added>=3:added===0});
+      const pass=shouldBeVisible
+        ? added>=3 && (character!=='painter'||regionAdded>=20)
+        : added===0;
+      profilePropAudit.push({character,direction,expectedVisible:shouldBeVisible,addedSilhouettePixels:added,propRegionAddedPixels:regionAdded,pass});
     }
     const sheet=(keys,scale,columns,cellW,cellH)=>{
       const gap=16,rows=Math.ceil(keys.length/columns),canvas=document.createElement('canvas');
