@@ -83,3 +83,12 @@ The 28×42 panels are raster downsamplings of the design silhouettes, not direct
 5. Record prop-contact/handedness plan for each visible direction.
 6. Owner reviews the three silhouette concepts and briefs; standard ratification is a separate decision.
 7. Only then implement one character at a time and run full browser QA before moving to the next.
+
+
+## Revision 02 — owner review requested
+
+The first exploration was returned for revision because the three concepts shared too much of the same underlying mannequin. Revision 02 changes the body/pose direction: Guard uses a protective wedge and braced stance; Vendor leans forward into a customer-facing tray interaction with an advanced foot and open-vest negative space; Clinic Worker uses a tapered wrap tunic, shifted hip and detached pouch/hand relationship.
+
+The [revision 02 silhouette study](GUARD-VENDOR-CLINIC-SILHOUETTE-REVISION-02.svg) includes four directional placements, face-construction prompts and exploratory reduced-scale panels. The [construction cards](GUARD-VENDOR-CLINIC-CONSTRUCTION-CARDS-REVISION-02.md) add shell-family and palette proposals, three must-survive items, face comparisons, and prop/contact/handedness notes.
+
+**Remaining required evidence:** a matched-scale visual comparison sheet against Granny Volt, Usher, Cook, Courier, Coach, Referee, Runner and all three new concepts. Until that sheet is added and the owner reviews the actual revised silhouettes, this is not approval. The 28×42 panels are exploratory reductions, not direct renderer captures. No production colour art, renderer integration, live game changes, QA baseline or golden snapshots are authorized.
