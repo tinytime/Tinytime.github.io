@@ -6,6 +6,8 @@ The owner approved the refined Sailor/Slicker/Painter role directions and author
 - [Sailor construction card exploration 01](qa-artifacts/fourth-civilian-batch/SAILOR-CONSTRUCTION-CARD-EXPLORATION-01.md) — provisional construction/contact notes and face-reference comparison plan.
 - [Fourth-batch preflight](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md) — updated with owner decision and QA refinements.
 
+- The prop-on study explicitly hides the character-left coil in the right profile (far side); front/back placement reverses correctly, and the left profile alone shows it on the near side. This remains a prop hypothesis, not a locked design.
+
 **Gate:** Sailor silhouette/construction review is pending. Slicker (#13) and Painter (#14) remain queued. All three construction families remain UNASSIGNED. No palette or renderer work is authorized; no golden snapshots or provenance changed.
 
 ## Latest browser QA harness checkpoint — Run #649 (2026-11-20)
