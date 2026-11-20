@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   browser-qa:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -32,7 +32,7 @@ jobs:
       - name: Install Playwright
         run: npm install --no-save playwright
       - name: Install Chromium
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install chromium
       - name: Build fourth-batch design-source projections and roster face crops
         if: always()
         run: node qa/build-fourth-batch-design-evidence.mjs

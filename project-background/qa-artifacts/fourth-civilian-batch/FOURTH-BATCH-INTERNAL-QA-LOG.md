@@ -1,3 +1,11 @@
+## Revision 14 — correction pass and QA runner stabilization
+
+- **Run #687** rendered revision 12 and produced design-source projections. Its anatomy audit found Painter/left removed 85 body-only pixels. Inspection traced this to a mismatch between the near-side profile arm/hand and the prop-on construction; revision 13 shares the same arm/hand geometry in both views and adds the brush below the hand.
+- Run #687 visual inspection: Sailor rear/profile arm gaps and coil bridge are improved. Painter front/back brush heads no longer crowd the face, but the direct 28×42 brush head remained borderline mallet-like. Slicker's separate umbrella remained unreadable at 28×42, so it was removed in favor of an integrated hood and diagonal storm closure.
+- **Run #688** was superseded while its Chromium dependency-install step remained in progress on the new Ubuntu 26.04 ubuntu-latest image. Revision 14 pins browser QA to Ubuntu 24.04 and uses the browser-only Playwright install to avoid the long apt dependency step.
+- Revision 14 adds a flared brush head, integrated Slicker hood/closure, zero-body-pixel-removal checks across all 12 body-only/prop-on pairs, and descriptive-only profile pixel counts. A new browser run will validate this revision; artifact inspection and owner approval remain pending.
+- No production renderer, approved character art, golden snapshots or provenance files were changed.
+
 ## Revision 11 — Claude corrections and internal QA in progress
 
 - Implemented the seven requested correction groups in [silhouette exploration 11](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-11.svg) and the matched face study.

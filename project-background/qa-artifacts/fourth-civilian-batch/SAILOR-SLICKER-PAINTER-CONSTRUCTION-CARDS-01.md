@@ -1,3 +1,15 @@
+## Revision 14 — final Claude correction pass; browser QA pending
+
+**Source:** [silhouette exploration 14](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-14.svg)
+
+- **Painter arm/prop:** the left-profile body-only arm and hand are identical to prop-on; the right hand sits below the face and holds the brush. The front, back and profile brush heads flare into a bristle edge at direct 28×42 scale. The front/back prop-on bases remain body-only geometry plus the tool.
+- **Slicker weather cue:** the separate umbrella was removed after the 28×42 render failed to read as an umbrella. It is replaced by a face-framing integrated rain hood, short profile brow/rear flap and diagonal storm closure. The broad pear smock, forward pitch and asymmetric front/rear hem remain.
+- **Sailor:** the front coil-to-palm bridge remains thickened; rear and both profile views retain arm/torso negative-space breaks.
+- **Painter head/face:** knit beanie without Sailor's brim, more pronounced asymmetric brow, squarer cheek/jaw and shorter blunt profile nose.
+- **Audit:** no arbitrary profile pixel minimum remains. All 12 body-only/prop-on pairs are checked for zero removed body pixels; only Sailor and Painter have separate near-side props. Slicker is audited as integrated clothing detail.
+- **CI:** browser QA is pinned to Ubuntu 24.04 and installs Chromium without apt dependency provisioning, avoiding the stalled Ubuntu 26.04 ubuntu-latest step observed in the prior run.
+- **Status:** revision 14 is a design-stage proposal. Browser QA and manual visual review are pending; no renderer, approved art or golden snapshots were changed.
+
 ## Revision 11 — Claude review corrections implemented; fresh QA pending
 
 **Source:** [silhouette exploration 11](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-11.svg)  

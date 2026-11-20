@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-13.svg');
+const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-14.svg');
 const htmlPath = path.join(root, 'VaporCity_HD2D_Hybrid_Test.html');
 const spritePath = path.join(root, 'npc_sprites.js');
 const out = path.join(root, 'qa-output/fourth-batch-design');
@@ -69,7 +69,7 @@ try {
       data[key]=item;
     }
     const sourceDirectionLabels=(source.match(/class="lab">/g)||[]).length;
-    if(!source.includes('EXPLORATION 13') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
+    if(!source.includes('EXPLORATION 14') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
     // Profile-region pixel counts are descriptive only; no arbitrary minimum
     // is imposed. Body-only geometry must remain present in every prop-on view.
     const bodyPreservationAudit=[];
@@ -88,12 +88,10 @@ try {
     }
     // Preserve per-view failure detail in the artifact before failing the gate.
     const profilePropAudit=[];
-    // Designated near-side views: the tool must create a visible silhouette delta
-    // in the prop's expected side region. Far-side occlusion remains a manual
-    // check because grip anatomy can legitimately alter the body contour.
+    // Designated near-side views for the separate Sailor/Painter tools. Pixel
+    // counts are descriptive only; zero removed body pixels is the pass/fail invariant.
     for(const [character,direction,region] of [
       ['sailor','right',{x0:45,x1:64,y0:35,y1:65}],
-      ['slicker','left',{x0:0,x1:18,y0:20,y1:70}],
       ['painter','left',{x0:0,x1:18,y0:35,y1:75}]
     ]){
       const body=new Image(),prop=new Image();
@@ -312,9 +310,10 @@ try {
 
   const report={
     status:'design_source_projection_only',
-    revision:13,
+    revision:14,
     bodyPreservationAudit:svgData.bodyPreservationAudit,
-    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-13.svg',
+    integratedWeatherDetail:'Slicker hood opening and diagonal storm closure; no separate umbrella',
+    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-14.svg',
     figureFields:24,
     nativeCaptures:Object.keys(svgData.data).length,
     direct28x42Captures:Object.values(svgData.data).filter(x=>x.direct).length,
@@ -325,7 +324,7 @@ try {
     matchedFaceComparisonRows:faceComparisons.length,
     rosterFaceDirections:[...new Set(rosterFaces.map(x=>x.direction))],
     faceCropDimensions:{width:40,height:38,source:'current game directional snapshot hook, native 64x96'},
-    note:'The roster face sheet and six matched 40x38 comparison rows are human geometric evidence. Comparator pairs: Sailor Clinic/Guard, Slicker Hacker/Courier, Painter Cook/Busker. Profile prop-region pixel counts are descriptive only; no arbitrary minimum threshold is applied. Automated prop audit asserts that prop-on preserves all body-only pixels. Final face geometry remains subject to owner review.'
+    note:'The roster face sheet and six matched 40x38 comparison rows are human geometric evidence. Comparator pairs: Sailor Clinic/Guard, Slicker Hacker/Courier, Painter Cook/Busker. Slicker's umbrella was removed after it failed the direct 28x42 readability check; the design now uses an integrated hood opening and diagonal storm closure. Profile prop-region counts are descriptive only; no arbitrary minimum threshold is applied. Automated prop audit asserts that prop-on preserves all body-only pixels. Final face geometry remains subject to owner review.'
   };
   fs.writeFileSync(path.join(out,'fourth-batch-design-evidence-report.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify(report));
