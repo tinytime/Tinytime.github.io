@@ -3,7 +3,7 @@
 ## Current authority — 2026-11-20
 
 - Use the revised Civilian Vector Construction Standard as a working method for planning and controlled briefs. It is not yet owner-ratified for production rollout.
-- Cook C1 is deferred/accepted as-is; Usher U2 is declined; Usher U4 is the only authorized open visual correction and is implemented at renderer commit `880cad6bf937d8bfc1e004fe81cbd6854c522d23`, pending Run #602 visual inspection.
+- Cook C1 is deferred/accepted as-is; Usher U2 is declined; Usher U4 is the only authorized open visual correction and is implemented at renderer commit `880cad6bf937d8bfc1e004fe81cbd6854c522d23`, internally resolved by Run #602 at native and direct 28×42; Claude re-review remains pending.
 - Preserve the accepted Coach/Courier rear construction. Do not alter Cook's pan/handle or Usher's outer silhouette without renewed authorization.
 - The five review characters remain NOT APPROVED pending U4 verification, updated Claude review and explicit owner approval. The remaining 17 civilians remain ON HOLD for production.
 
