@@ -2,7 +2,7 @@
 
 The owner has superseded the earlier Sailor-only sequencing and authorized **Sailor (#12), Slicker (#13) and Painter (#14) simultaneously** through identity refinement, four-view silhouette exploration and construction cards. This does not approve final silhouettes, faces, props, handedness, palettes or construction families, and it does not authorize renderer implementation. Each character requires its own owner silhouette/construction approval.
 
-Current study: [parallel silhouette exploration 03](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-04.svg); [construction cards and contact tables](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md). Read-only evidence capture utility: `qa/build-fourth-batch-design-evidence.mjs`. All three families remain UNASSIGNED.
+Current study: [parallel silhouette exploration 03](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-05.svg); [construction cards and contact tables](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md). Read-only evidence capture utility: `qa/build-fourth-batch-design-evidence.mjs`. All three families remain UNASSIGNED.
 
 ## Fourth-batch owner decision — 2026-11-20
 
