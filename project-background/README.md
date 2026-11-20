@@ -6,17 +6,17 @@ Every new chat must re-read current GitHub state, verify the branch HEAD and lat
 
 ---
 
-## Fourth civilian batch — revision 18 correction pass in progress (2026-11-20)
+## Fourth civilian batch — revision 19 design corrections in progress (2026-11-20)
 
-Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; **not owner-approved and not authorized for production-renderer implementation**. Current source: [silhouette exploration 18](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg). Latest design-source commit: `50e267b01a76de1b95e31b766dc332da896ce543`.
+Sailor (#12) and Painter (#14) have first-pass prop/grip geometry corrections in [revision 19](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg). Slicker (#13) is preserved unchanged. Source commit: `44d133b65c8ebd6aa3c207e03960d85034df193b`.
 
-- **Painter:** both profile head/neck joins are connected. The left-profile near-side leg has been shifted rearward in both body-only and prop-on views to separate it from the brush. The brush now has a visible ferrule and individual light bristle strokes; the right profile remains prop-hidden. The evidence builder asserts revision 18. Fresh native 64×96 and direct 28×42 capture/inspection is still pending.
-- **Slicker:** no separate umbrella. The rain-shell body now carries rear yoke and hem seams, a face-side-open directional hood, and a shortened chest closure that no longer runs toward the crotch. The face geometry study now frames Slicker with a hood rather than a cap.
-- **Sailor:** front coil-to-palm contact bridge remains thickened; rear/profile arm separation retained. The front coil and profile slits still require direct 28×42 confirmation.
-- **Face differentiation:** Slicker's close-set, level brow and narrow hood-framed face are contrasted with Painter's lifted asymmetric brow, squarer cheek/jaw and shorter profile nose. Final face readability remains subject to raster inspection and independent review.
-- **Revision 18 source commit:** `46a0457fb841c8981395f36b4b54eedfec8fb888`; evidence-builder update: `0d83656aa40aa2b9eb492dda909a2ed2c0768e98`; latest source polish: `50e267b01a76de1b95e31b766dc332da896ce543`.
-- **QA status:** revision 15 Run #695/#697 evidence does not validate revision 18. A fresh revision-18 Actions run and artifact inspection are required; do not report design checks as passed until that exact-source evidence is available. The latest completed historical browser run remains blocked by the unapproved golden-snapshot baseline and existing resource 404s. No snapshots/provenance may be refreshed.
-- No production renderer, live town/gallery integration, approved character art, golden snapshots or provenance changed. Independent Claude re-review and owner approval remain pending. Remaining roster entries stay held.
+- **Handedness:** construction-standard §F2 is retained. Sailor carries character-left: front viewer-right, rear viewer-left, near-side right profile only. Painter carries character-right: front viewer-left, rear viewer-right, near-side left profile only. Far-side props remain hidden. No profile mirroring inversion or hand swap.
+- **Sailor:** compacted rope-loop and hand silhouette in front, rear and right profile. Native/direct visual grip quality remains unverified.
+- **Painter:** replaced the fork/rake-like marks with a compact diagonal handle and solid wedge bristle block in front, rear and left profile. Garment-transition/body-only polish remains outstanding.
+- **Slicker:** no geometry changes; revision-18 artwork preserved.
+- **Evidence builder:** `qa/build-fourth-batch-design-evidence.mjs` now targets revision 19. However, no revision-19 captures or Actions run have yet been produced or inspected. Internal QA is NOT PASSED.
+- **Next gate:** generate and inspect all 24 body/prop direction projections at native 64×96 and independently rasterized direct 28×42, plus enlarged contact views; verify grip, anatomy, Painter garment construction, clipping, Slicker preservation and roster differentiation. Only after internal QA passes may a new Claude package be prepared.
+- No production renderer, live town/gallery integration, golden snapshot or provenance work is authorized. No character is owner-approved; #15–23 remain held.
 
 ---
 
