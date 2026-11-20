@@ -12,6 +12,12 @@ This is the current status summary; dated historical entries below remain histor
 - Granny remains reference_only; candidate semantic landmarks/polygons are not verified measurements. Exact pixel-derived contour fit is renderer-mask evidence, not proof of anatomical semantics. No proportion calibration or candidate promotion is authorized.
 
 
+## Latest five-character independent review — 2026-11-19
+
+Claude reviewed Run #595 and recommends ready for owner review, with P2 findings disclosed; this is not approval. No P0/P1 issues remain. The five designs remain NOT APPROVED pending owner decision. Renderer source remains c354abfa3d78b46dc982a03d2c5d1ece0c918257; this documentation update does not alter renderer code. Run #595 remains the latest relevant character QA artifact; overall workflow failure is due global silhouette and unapproved snapshot gates. Do not change golden snapshots without explicit authorization.
+
+The 23-name design roster, Granny benchmark, and 24 live inventory mappings are separate counts. Runner is built but excluded from this five-character review; the remaining 17 are on hold. Semantic candidates remain diagnostic and unverified.
+
 ## Repository and branch
 
 - Repository: `tinytime/Tinytime.github.io`
