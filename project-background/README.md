@@ -6,22 +6,21 @@ Every new chat must re-read current GitHub state, verify the branch HEAD and lat
 
 ---
 
-## Revision 19 — exact-source internal design QA (2026-11-20)
+## Fourth civilian batch — revision 21 exact-source internal design QA (2026-11-20)
 
-- **Source:** [revision 19 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg), commit `e161240696ac27659360a4dbfbc7922d6be6e49f`.
-- **Actions evidence:** [Run #780](https://github.com/tinytime/Tinytime.github.io/actions/runs/44805957949), artifact [14662329201](https://github.com/tinytime/Tinytime.github.io/actions/runs/44805957949/artifacts/14662329201).
-- **Focused design checks:** PASS — body preservation 12/12 (zero removed body pixels); anatomy/connectivity 48/48 at native 64×96 and direct 28×42; profile-prop contact 2/2; semantic source projection and proportion/annotation validation passed.
-- **Visual inspection:** inspected actual native/direct body-only and prop-on comparison sheets plus enlarged Sailor front/near-side profile and Painter front/near-side profile details. Sailor's loop reads as a compact held coil with a trailing rope cue; Painter's flat bristle block, ferrule and handle read more clearly as a hand-held brush. Painter's garment polish uses short paired side darts; cross-body seam experiments were removed because they severed the silhouette. Slicker remains unchanged.
-- **Slicker preservation:** all eight body/prop directional panels (four directions × two views) compare byte-for-byte with revision 18.
-- **Browser workflow disposition:** overall Run #780 is FAIL only at the existing game browser diagnostics step. The log reports missing audio assets returning HTTP 404 and the golden-snapshot gate at 1 match / 23 changed. No golden snapshots were modified or refreshed. These failures are separate from the revision-19 design-source projection checks.
-- **Status:** internal design QA for the revision-19 source projections is PASS, with no production renderer integration. Visual acceptance remains provisional pending independent Claude review and owner approval. The automated browser suite is not globally green. No Claude review has occurred; package 06 is to be prepared for independent review. #15–23 remain held.
+The owner-authorized parallel design-stage work for Sailor (#12), Slicker (#13) and Painter (#14) has reached **internal design-source QA PASS**. Independent Claude review and owner approval remain pending.
 
----
-
----
-
-
----
+- **Exact tested commit:** `5beb3709dd5080313e6ddea5248ef8698f74dd51` (revision 21 SVG source blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`).
+- **Source:** [revision 21 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg).
+- **Exact evidence:** [Run #808](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663) · [artifact 14663163320](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663/artifacts/14663163320).
+- **Design projections:** 24/24 native 64×96, 24/24 independently rendered direct 28×42, and 24/24 enlarged 4× views across body-only/prop-on states and all four directions.
+- **Structural checks:** body preservation 12/12 with zero removed body pixels; anatomy/prop connectivity 48/48; near-side profile prop audit 2/2. Sailor/right: 53 added pixels, all 53 in the configured prop region. Painter/left: 159 added silhouette pixels, 26 in the configured prop region, zero removed body pixels; this diagnostic count is a reviewer prompt, not an approval threshold.
+- **Visual inspection:** native/direct body and prop comparison sheets, enlarged Sailor/Painter details, matched face comparisons, and Sailor/Welder rear comparison inspected. All eight Slicker body/prop direction panels remain byte-identical to revision 18.
+- **Sailor #12:** connected rope coil/spiral refined for front, rear and near-side right profile; character-left carry remains front viewer-right, rear viewer-left, visible right profile only.
+- **Painter #14:** connected scalloped flat-brush head, ferrule/handle and grip retained; paired side darts shape the smock without cutting the torso/leg silhouette. Character-right carry remains front viewer-left, rear viewer-right, visible left profile only.
+- **Slicker #13:** preserved unchanged from revision 18; no redesign.
+- **Overall workflow boundary:** design projection, semantic proportion/annotation validation, gallery and review-sheet generation passed. The overall Actions run remains **FAILED** at global browser diagnostics: pageErrors=0, scriptErrors=0, 135 audio/resource HTTP 404 responses plus 45 corresponding sound-load console messages; the golden-snapshot gate reports 1 match / 23 changed. No golden snapshots or provenance were modified or approved.
+- **Authority:** [Claude package 06](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-06.md) is prepared but not sent; no Claude verdict is recorded. All three construction families remain UNASSIGNED. No palette or production-renderer work is authorized; roster #15–23 remains held.
 
 ## Fourth civilian batch — revision 10 internal QA complete; Claude package 04 prepared (2026-11-20)
 
