@@ -199,3 +199,11 @@ No silhouette, face, prop, handedness, palette or construction family is approve
 - **Slicker:** no source geometry changed. Revision 19 preserves the full revision-18 Slicker artwork byte-for-byte; only the title identifies it as preserved.
 - **QA status:** no revision-19 native/direct captures, enlarged detail sheets, connectivity/contact review, frame-clearance inspection or Actions result has yet been produced. Do not infer grip quality from path connectivity. Revision 19 is NOT internally QA-passed and NOT owner-approved. Do not prepare a new Claude review package until internal QA passes.
 - **Outstanding:** capture all four directions body-only and prop-on for Sailor/Painter at native 64×96 and independently rasterized direct 28×42; enlarged details; inspect grip/contact, body-only anatomy, Painter garment transition, clipping and roster differentiation; verify Slicker unchanged; update tracker after QA evidence exists.
+
+
+## Revision 19 construction addendum
+
+- Sailor's coil now has an additional rope-tail cue crossing the palm/coil junction in front, rear and near-side right profile. Hand contact remains a human visual question, not proven by connected pixels.
+- Painter's bristle block is widened into a flat wedge and the ferrule/handle junction is clearer in front, rear and near-side left profile. Grip marks are additive only; white cutout overlays were removed because they erased body-only pixels in the audit.
+- Painter's offset garment transition and profile frame-edge clearance remain open review items. Slicker remains unchanged.
+- Exact current source: `0320663dd638f33f498a7a760ae505a7bdf0f208`; Run #752 pending.
