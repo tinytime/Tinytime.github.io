@@ -1743,8 +1743,12 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
           // visible as a separate sleeve/hand edge so the profile is not a
           // featureless column. The bracer remains character-right only.
           path([[43,55],[50,56],[53,66],[51,76],[45,80],[40,74]],shell,ink,1.2);
-          path([[61,57],[67,60],[72,71],[76,78],[73,83],[67,82],[62,73]],shell,ink,1.25);
-          path([[71,79],[77,79],[80,84],[77,88],[71,86]],skin,ink,1);
+          // A visible near forearm continues from the shoulder into a short
+          // steel bracer and hand; keep the far braced arm occluded.
+          path([[61,57],[67,60],[72,69],[77,76],[77,82],[72,85],[66,80],[62,73]],shell,ink,1.3);
+          path([[69,75],[77,76],[80,81],[78,86],[71,85],[67,81]],'#8797A5',ink,1.25);
+          line([[70,78],[78,80]],'#B38B50',1.6);
+          path([[72,83],[78,82],[81,85],[78,89],[72,88]],skin,ink,1);
         }
       }else{
         path([[38,55],[49,50],[62,53],[66,65],[62,73],[40,73]],'#2B3A4B',ink,1.2);
@@ -1780,10 +1784,11 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[46,20],[55,19],[63,25],[65,32],[60,39],[52,43],[43,39],[40,29]],grad(42,21,64,44,[[0,'#E4B28D'],[1,skin]]),ink,1.4);
         path([[39,22],[41,15],[49,12],[59,14],[65,21],[63,25],[48,21]],'#111A25',ink,1.5);
         path([[43,19],[65,19],[68,24],[44,24]],'#596B7E',ink,1.3);
-        // Enlarge the profile eye to a reliable one-pixel cue at 28×42.
-        ell(59,30,1.8,1.8,'#171725',null);
+        // Strong, clean profile eye and brow remain legible after game-scale reduction.
+        ell(58.5,30.5,2.7,2.5,'#171725',null);
         path([[62,31],[68,34],[64,37],[60,36]],skin,ink,1);
-        line([[53,27],[60,26]],'#171725',2.2);
+        line([[52,27],[60,25.5]],'#171725',2.8);
+        line([[55,33],[59,33]],'#754A3B',1);
         line([[55,41],[61,40]],'#754A3B',1);
       }else{
         path([[39,20],[43,10],[56,9],[65,18],[64,28],[44,28]],'#111A25',ink,1.5);
@@ -1917,9 +1922,10 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[43,25],[49,20],[59,23],[65,31],[62,39],[54,44],[45,41],[40,33]],grad(42,22,64,44,[[0,'#F0C29D'],[1,skin]]),ink,1.3);
         ell(45,34,2.2,3,'#B77F62',ink,.8);
         path([[59,30],[66,33],[70,37],[65,39],[60,36]],skin,ink,1);
-        // A full one-pixel eye and firmer brow survive the direct 28×42 read.
-        ell(61,31,1.8,1.8,'#171725',null);
-        line([[56,27],[62,27]],'#49302B',2.2);line([[56,41],[62,40]],'#814B49',1.2);
+        // Distinct dark eye and angled brow are deliberately oversized for the 28×42 read.
+        ell(60,30.5,2.7,2.4,'#171725',null);
+        line([[54,27],[62,25.5]],'#49302B',2.8);
+        line([[56,41],[62,40]],'#814B49',1.2);
       }
       path([[39,24],[44,15],[54,14],[64,21],[67,26],[56,28],[43,26]],'#4B3048',ink,1.5);
       path([[39,24],[54,22],[69,25],[68,29],[50,28],[40,27]],'#D8A247',ink,1.1);
@@ -2000,6 +2006,12 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         if(dir==='l'){
           // Near-side character-left pouch is behind the torso edge in this view.
           path([[30,80],[40,80],[42,92],[37,98],[27,97],[25,89]],plum,ink,1.1);
+        }else{
+          // A narrow near-side pouch strap makes the clinic kit read in profile
+          // without duplicating the far-side pouch or changing its placement.
+          line([[59,72],[62,78],[61,86],[66,94]],plum,2.5);
+          line([[60,73],[63,79],[62,86]],'#D4AFC5',.9);
+          path([[63,91],[68,91],[69,96],[64,97]],'#8B647F',ink,.9);
         }
         // Separate hand rests forward of the hip; never merges into the pouch.
         path([[62,57],[69,60],[73,78],[70,89],[64,89],[64,74]],tunic,ink,1.2);
