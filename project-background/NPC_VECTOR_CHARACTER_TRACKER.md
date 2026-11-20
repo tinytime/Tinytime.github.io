@@ -1,12 +1,13 @@
-## Fourth civilian batch — internal QA complete; Claude package ready (2026-11-20)
+## Fourth civilian batch — prop-contact correction / revalidation (2026-11-20)
 
-The owner authorized simultaneous design-stage exploration for Sailor (#12), Slicker (#13) and Painter (#14). The second internal pass is complete. The independent review handoff is [SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-01.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-01.md).
+Sailor (#12), Slicker (#13) and Painter (#14) remain active in parallel design-stage exploration. The earlier “internal QA complete / Claude package ready” status is withdrawn after direct inspection of Run #665 and a stronger automated near/far prop audit.
 
-- Current source: [silhouette exploration 05](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-05.svg), [construction cards/report 01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md), [face geometry study 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg).
-- QA Run #664: [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773501153), artifact [14648551327](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773501153/artifacts/14648551327), tested commit `65252b64031626901b03905c4f253d1043f1a31e`. Design-source projection generation and semantic validation pass; 24 native 64×96, 24 direct 28×42 and 24 enlarged captures produced; 69 roster face crops and six matched face rows produced.
-- Internal pass corrected Slicker's front prop handedness and native face-comparison label collisions. Remaining Claude focus: face-cue differentiation at small scale, Slicker's front umbrella legibility, and set-level comparison with closest roster figures.
-- Overall workflow failure is from existing global golden snapshot diagnostics (1 match / 23 changed) and existing audio/resource HTTP 404s; page/script errors are empty. No golden snapshots/provenance changed.
-- All three remain design-stage proposals; families UNASSIGNED; no renderer or palette work authorized. #15–23 remain held.
+- Current silhouette source: [revision 06](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-06.svg). Construction families remain UNASSIGNED.
+- [Run #670](https://github.com/tinytime/Tinytime.github.io/actions/runs/44776178822), artifact [14650042107](https://github.com/tinytime/Tinytime.github.io/actions/runs/44776178822/artifacts/14650042107), tested `65fb26fd2635bb178c2298826da2c729db01db03`. New audit exposed Slicker’s far-side umbrella still visible and Painter’s profile grip region insufficient. This is a design-source QA failure, not an owner decision.
+- Follow-up commit `388efaff3d545a84e2b768f2fead9ee3609d3e1c` removes the Slicker far-side umbrella and increases Painter’s near-side hand contact. Run against this exact source and manual artifact inspection are pending.
+- Run #665’s visual evidence also showed Sailor’s coil detached from the hand and Slicker’s umbrella too subtle at direct 28×42. Revision 06 addresses these, but has not yet passed fresh capture/inspection.
+- Face comparison labels are now legible; face geometry remains an independent-review question. The previous Claude package 01 is superseded and must not be sent.
+- No palette, production renderer, gallery/town integration or golden snapshot work is authorized. #15–23 remain held.
 
 ## Fourth civilian batch — Sailor exploration authorized (2026-11-20)
 
