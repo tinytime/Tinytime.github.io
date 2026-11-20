@@ -1,3 +1,9 @@
+## Fourth-batch owner decision — 2026-11-20
+
+The owner approved the refined identity directions for Sailor (#12), Slicker (#13) and Painter (#14), and authorized **Sailor silhouette exploration only**. This is not approval of a final silhouette, face, prop, palette or vector construction family, and it does not authorize renderer implementation. Slicker and Painter remain queued until Sailor's silhouette/construction card is reviewed and approved.
+
+Sailor's exploration must provide body-only and prop-on four-view silhouettes; compare actual face geometry against the two closest existing roster faces at matched scale before selecting new cues; and establish near/far arm anatomy before adding the optional mooring-line coil. Compare Sailor at matched scale against Clinic (highest priority), Coach, Guard and Fisher. Historical Sailor/Clinic overlap is a human-review prompt, never a numeric gate. See [Sailor silhouette exploration 01](qa-artifacts/fourth-civilian-batch/SAILOR-SILHOUETTE-EXPLORATION-01.svg) and [construction card exploration 01](qa-artifacts/fourth-civilian-batch/SAILOR-CONSTRUCTION-CARD-EXPLORATION-01.md). Both remain preliminary review material.
+
 # Art Direction and Approval Standard
 
 ## Current authority — 2026-11-20
