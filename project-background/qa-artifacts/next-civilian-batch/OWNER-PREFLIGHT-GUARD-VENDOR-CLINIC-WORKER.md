@@ -1,6 +1,6 @@
 # Guard, Vendor and Clinic Worker — Silhouette / Brief Preflight
 
-**Status:** DIRECTION APPROVED — 2026-11-20; four-view silhouette exploration authorized; renderer production not yet authorized  
+**Status:** DIRECTION APPROVED — 2026-11-20; revision 02 silhouettes returned for owner review after revision request; renderer production not authorized  
 **Prepared against:** `npc-granny-baseline-overhaul` at `424c442943c2fa18d8e97d133ff328a24b0be782`  
 **Governing standard:** owner-ratified Civilian Vector Construction Standard  
 **Scope:** first three unstarted roster entries — Guard, Vendor, Clinic worker
@@ -147,7 +147,7 @@ Deep muted teal/blue-green tunic with pale sea-glass or sage panels and a small 
 
 ---
 
-## NPC Designer first silhouette exploration — 2026-11-20
+## NPC Designer first silhouette exploration — revision 01 (returned for revision)
 
 The first actual black silhouette sheet and construction cards have been created:
 - [Four-view silhouette exploration (SVG)](GUARD-VENDOR-CLINIC-SILHOUETTE-EXPLORATION.svg)
@@ -155,7 +155,7 @@ The first actual black silhouette sheet and construction cards have been created
 
 The sheet presents matched-scale front, back, left and right views for each character on a common 64×96 construction basis. The cards specify personality, head/face geometry, garment construction, exactly three must-survive items (including each 28×42 head-read cue), prop/contact and handedness logic, simplification rules, and closest roster comparisons.
 
-**Status:** first exploration delivered for owner silhouette review. It is not production vector art, has not been rendered through the game renderer, and has not been visually validated at native 64×96 or direct 28×42 capture scales. Prop contacts are construction proposals, not verified renderer contacts. Do not infer approval from this delivery. Renderer production remains blocked pending explicit owner approval of the actual silhouettes.
+**Status:** revision 01 was delivered and then returned for revision. It is superseded by revision 02 below. It was not production vector art and had not been rendered through the game renderer. Prop contacts are construction proposals, not verified renderer contacts. Do not infer approval from this delivery. Renderer production remains blocked pending explicit owner approval of the actual silhouettes.
 
 ## Owner preflight checklist
 
@@ -183,9 +183,23 @@ Only after the owner accepts that silhouette exploration should the team begin r
 
 ## Current production gate
 
-**Completed for owner review:** first NPC Designer silhouette exploration and construction cards for Guard, Vendor and Clinic Worker.
+**Current review package:** revision 02 four-view silhouettes, face-construction studies, matched roster comparison and revised construction cards for Guard, Vendor and Clinic Worker.
 
-**Still not authorized:** production vector rendering, changes to `npc_sprites.js` or other live game code, golden snapshot changes, or marking any of the three characters complete. Return the actual four-view black silhouettes and cards to the owner for approval first.
+**Still not authorized:** production vector rendering, changes to `npc_sprites.js` or other live game code, golden snapshot changes, or marking any of the three characters complete. Return the revised actual four-view black silhouettes and cards to the owner for approval first.
 
 
 **NPC Designer handoff:** [GitHub issue #1 — approved four-view silhouette exploration for Guard, Vendor and Clinic Worker](https://github.com/tinytime/Tinytime.github.io/issues/1).
+
+
+## Reviewer return and silhouette revision 02 — 2026-11-20
+
+The first silhouette package was assessed as **NOT APPROVED — revision required before renderer production**. The review found the three bodies too mannequin-like, with insufficiently distinct torso/limb construction and weight distribution. It also identified unclear Guard protective equipment, unreadable Vendor vest opening and customer-facing stance, insufficient Clinic wrap/stance differentiation, and missing face, comparison, shell-family and reduced-scale evidence.
+
+Revision 02 is now committed:
+- [Revised four-view silhouettes and front/profile face studies](GUARD-VENDOR-CLINIC-SILHOUETTE-REVISION-02.svg)
+- [Matched front-silhouette comparison sheet](GUARD-VENDOR-CLINIC-ROSTER-COMPARISON-REVISION-02.svg)
+- [Revised construction cards](GUARD-VENDOR-CLINIC-CONSTRUCTION-CARDS-REVISION-02.md)
+
+The revision changes body construction and pose: Guard is a broad protective wedge with a braced arm and offset knee; Vendor leans toward the customer with a stepped stance and continuous tray-support chain; Clinic Worker has a tapered wrap tunic, shifted hip and separated pouch/hand relationship. The cards add proposed shell families, palette proposals, geometric face comparisons, exactly three must-survive items per character and a per-view prop/contact/handedness table.
+
+The 28×42 panels are exploratory raster downsamplings only. They are not direct renderer captures. Existing roster references are alpha silhouettes derived from Run #603's exact 64×96 browser artifact. No new renderer/game code, production colour art, QA baseline or golden snapshot was changed. The revised package remains NOT APPROVED pending owner review; renderer implementation stays blocked.
