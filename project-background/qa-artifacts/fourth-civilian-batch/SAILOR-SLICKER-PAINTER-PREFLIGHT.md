@@ -162,11 +162,29 @@ See [Sailor silhouette exploration 01](SAILOR-SILHOUETTE-EXPLORATION-01.svg) and
 
 ## Internal QA continuation — 2026-11-20
 
-Run #677 [44778420801](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801), artifact [14650099995](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995), tested source commit c74219986db2466122fe08ff3ad0bdcb012b5264 and silhouette revision 09. Design-source projections and semantic validation passed: 24/24 native 64×96, 24/24 direct 28×42, 24/24 enlarged nearest-neighbour views, 69 roster face crops and six matched face-comparison rows. Near-side prop-region audit passed: Sailor/right 172 added pixels (minimum 100), Slicker/left 272 (minimum 100), Painter/left 95 (minimum 12).
+**Current design source:** [silhouette exploration revision 10](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-10.svg)  
+**Exact tested source commit:** `8ae6a47055c6c75e361738b21c01d8b07b6830b4`  
+**Latest evidence:** [Run #678](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334), artifact [14650399818](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334/artifacts/14650399818).
 
-Actual Run #677 images were downloaded and inspected. The native face comparison is legible. Sailor's rear body silhouette is clearly differentiated from the live Welder rear silhouette in the matched comparison. Sailor's near-side coil/hand bridge is present but the exact grasp remains subtle at direct game scale. Slicker's left-profile umbrella has been moved inward from the crop edge and reads more clearly in profile; front/back direct 28×42 views can still resemble a pouch/side mass. Painter's broad brush and near-side grip read more clearly and are clear of the crop edge; the far-side right profile hides the brush.
+Run #678 passed design-source projection and semantic validation:
+- 24/24 native 64×96 projections, 24/24 independently rasterized direct 28×42 projections, and 24/24 4× nearest-neighbour enlargements.
+- 69 current-roster face crops, six new face-design crops and six matched face-comparison rows.
+- Near-side prop-region audit: Sailor/right 172 pixels (minimum 100); Slicker/left 272 pixels (minimum 100); Painter/left 95 pixels (minimum 12). All three pass.
+- Browser report: directional integrity 92/92; existing five-civilian direct 28×42 assertion 20/20; role debug 12/12; prop audit 10 archetypes; gallery rendered.
 
-Run #677 overall browser workflow concluded FAILURE at the existing global diagnostics gate: golden snapshot gate 1 match / 23 changed, and existing audio/resource 404 console errors. pageErrors and scriptErrors are empty. Directional integrity 92/92, existing five-civilian direct 28×42 assertion 20/20, role debug 12/12, prop audit 10 archetypes and gallery render passed. No golden snapshots or provenance were changed.
+Actual Run #678 images were downloaded and inspected at native 64×96, direct 28×42 and enlarged 4× nearest-neighbour scales:
+- **Sailor:** narrow upright deck-coat body reads without the coil. The character-left mooring coil is visible front (viewer-right), back (viewer-left) and right profile only; hidden in the left profile. The compact loop is connected through the palm/forearm bridge and reads as held rope at direct scale.
+- **Slicker:** compact forward-pitched long-shell body reads without the umbrella. The character-right folded umbrella is visible front (viewer-left), back (viewer-right) and left profile only; hidden in the right profile. Revision 10 adds a more legible shaft/canopy silhouette in front and back; direct 28×42 and enlarged views read as a folded umbrella rather than a generic pouch/side mass.
+- **Painter:** open asymmetrical reaching body reads without the brush. The character-right broad brush is visible front (viewer-left), back (viewer-right) and left profile only; hidden in the right profile. The broad head and continuous handle/grip chain remain visible at direct 28×42 and enlarged scale.
+- **Set:** body-only constructions remain distinct: Sailor narrow/upright, Slicker compact/forward-pitched rain shell, Painter open/asymmetrical/reaching.
+- **Faces:** native and 3× matched comparisons are legible and name their comparator pairs: Sailor—Clinic/Guard; Slicker—Hacker/Courier; Painter—Cook/Busker. Face geometry remains provisional.
+- **Sailor/Welder:** the matched rear comparison preserves native 64×96 aspect ratio. Proposed Sailor is narrower and more vertically structured; live Welder remains broader/blockier with different shoulder/equipment mass. The legacy 0.889 Sailor/Welder diagnostic is from existing roster renderers, not the proposed vector Sailor.
 
-Claude review package 02 is now prepared with the exact revision-09 source and Run #677 artifact. It explicitly asks Claude to judge Sailor's grip and Slicker's front/back umbrella readability, alongside face differentiation and roster collision risks. Package 01 remains superseded. The owner retains final approval; no silhouette, face, prop, palette or construction family is approved, and production renderer work remains NOT AUTHORIZED.
+Run #678 overall concluded **FAILURE** at the global browser diagnostics gate:
+- Golden snapshot gate: 1 match / 23 changed; baseline approval metadata remains unapproved.
+- 135 existing audio/resource console 404s.
+- `pageErrors` and `scriptErrors` are empty.
+- Design-source generation, semantic validation, Granny overlay, six-civilian annotation overlay, five-civilian review sheet and artifact upload completed. Gallery and town screenshots were inspected; the characters are not integrated into production renderer/town/gallery, so these are existing-scene smoke checks only.
+- No golden snapshots or provenance were changed.
 
+**Internal design-source QA: PASS WITH REVIEW QUESTIONS.** Claude package 04 is prepared with the exact revision-10 source and Run #678 artifact. This is ready for independent comparative review, not owner approval. No silhouette, face, prop, palette or construction family is approved. All three construction families remain UNASSIGNED. Production renderer implementation is NOT AUTHORIZED. Roster positions #15–23 remain on hold pending Claude's review and explicit owner approval.
