@@ -30,6 +30,18 @@ This section supersedes older status statements below where they conflict. Histo
 - **Next sequence:** finish and render the five-character correction pass; update the five-character evidence package against the current source; run and inspect fresh QA artifacts; submit that exact evidence to Claude; resolve valid findings; obtain owner approval; only then release the remaining roster.
 
 
+## Run #595 independent review and revised evidence requirements — 2026-11-19
+
+Claude's independent visual review of the five-character Run #595 package is complete. Verdict: **ready for owner review**, not approval. No P0/P1 findings remain. P2s requiring owner disposition: F1 facial individuality (Courier/Usher/Cook), U1 Usher profile shoe separation, C1 Cook pan/hand readability, and X1 documented Coach/Courier rear distinction. P3 notes may be deferred. All five remain NOT APPROVED pending owner decision.
+
+Claude inspected all 20 native 64×96 and 20 direct 28×42 images and supplied composites. The ZIP did not contain the black silhouette sheet, identity briefs, proportion cards or Actions logs; the reviewer did not inspect source or supporting docs 02/04. A generic town scene is not proof that every named NPC was spawned. Future review packages must include those missing records or explicitly label them unavailable.
+
+Every correction round must include before/after evidence for each finding, with exact source commit, direction, native and direct game-scale captures, and a pixel-diff summary. Inspect direct game-scale output on neutral grey and actual town ground/night lighting. Include a solid-black four-direction silhouette sheet, identity brief and proportion card, and walk/animation frames where applicable. Pixel diffs are diagnostic locators, not quality scores.
+
+Maintain a roster-level torso/garment-shell variety audit without an arbitrary numeric cap. Document character-relative prop handedness and near-side prop placement in mirrored profiles. Retain semantic measurement tools as diagnostic; unverified candidate annotations must not become hard gates or Granny-derived targets. Preserve historical QA records; future detailed logs may be separated into a dedicated QA log.
+
+Run #595 overall workflow remains FAILED on the global Clinic/Sailor silhouette gate and unapproved golden snapshots. Expected audio 404s are non-blocking branch noise. No golden snapshots were refreshed or approved.
+
 ## Browser QA
 
 The GitHub Actions workflow is `.github/workflows/vapor-city-browser-qa.yml`. It runs on pushes to `npc-granny-baseline-overhaul` and `main` when relevant game, renderer, QA, or workflow files change. It can also be started manually.
