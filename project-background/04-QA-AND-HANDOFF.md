@@ -3,7 +3,7 @@
 ## Current authority — 2026-11-20
 
 - Run #602 tests renderer commit `880cad6bf937d8bfc1e004fe81cbd6854c522d23`, which addresses only Usher U4 profile clipboard contact. The Cook C1 and Usher U2 proposals are explicitly declined/deferred by the owner and must not be implemented.
-- Required visual inspection: Usher left/right native 64×96 and direct 28×42 captures; confirm a single connected near-arm/hand carries the clipboard, far hand is hidden, board remains readable, and no edge contacts/detached components appear. Compare against Run #600 and record exact evidence.
+- Visual inspection completed: Usher left/right native 64×96 and direct 28×42 captures confirm a single connected near-arm/hand carries the clipboard, the far hand is hidden, the board remains readable, and no edge contacts/detached components appear. See the Run #602 internal QA record.
 - U4 internal QA: [Run #602](https://github.com/tinytime/Tinytime.github.io/actions/runs/44657007100), artifact `14592969167`; 20/20 native and 20/20 direct game-scale captures, 92/92 integrity, zero edge contacts/detached components. The exact U4 before/after evidence and full docs are embedded in [Claude package artifact `14594041741`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44657601735/artifacts/14594041741).
 - The updated five-character package is prepared; Claude's independent re-review is the next gate. Do not mark the five approved until Claude review and explicit owner approval.
 - The revised construction standard is ready as a working method for planning/briefs, but remains unratified for production rollout. Remaining 17 civilians remain ON HOLD. No golden snapshots may be refreshed or approved without explicit owner authorization.
@@ -11,7 +11,7 @@
 
 
  
-## Claude Run #600 re-review — 2026-11-20
+## Claude Run #600 re-review findings — historical; owner dispositions recorded above
 
 Claude's independent verdict is **Ready with disclosed minor issues**, with no P0/P1 findings. This is not approval. New P2 findings are Cook profile pan handle/contact (C1), Usher profile clipboard/arm continuity (U4), and Usher silhouette originality (U2). The face-scale rule requires revision; the package lacked walk frames. Coach/Courier rear is accepted as documented. Full findings and evidence limits are in [the re-review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md).
 
@@ -35,7 +35,7 @@ The revised 100-point category allocation is proposed only and remains non-gatin
 
 Current application is limited to Usher, Cook, Courier, Coach and Referee. Runner remains excluded from this submission; the remaining 17 remain on hold. No snapshots or approval states are changed by this documentation update.
 
-## Current QA interpretation and handoff — 2026-11-19
+## Historical QA interpretation and handoff — 2026-11-19
 
 This section supersedes older status statements below where they conflict. Historical run notes remain unchanged as historical records.
 
