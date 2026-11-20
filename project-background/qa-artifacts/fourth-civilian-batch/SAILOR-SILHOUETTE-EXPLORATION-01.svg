@@ -100,7 +100,7 @@ M24 88 L34 88 L33 94 L21 94Z M51 87 L59 87 L62 94 L48 94Z"/>
 <rect width="112" height="160" class="panel"/>
 <g transform="translate(24 25)">
 <path class="sil" d="M29 6 Q37 3 41 9 L40 16 L34 19 L27 15Z M29 9 Q38 4 44 8 L46 11 L29 12Z M28 12 L23 14 L28 16Z M28 19 L22 23 L20 31 L18 43 L22 47 L26 38 L28 32 L29 45 L25 60 L30 64 L37 60 L39 47 L43 46 L47 59 L54 61 L57 56 L51 41 L49 29 L43 21 L36 19Z M43 27 L48 30 L53 41 L49 44 L44 36Z M29 62 L38 62 L36 77 L33 90 L26 91 L24 87 L29 75Z M44 60 L51 59 L55 73 L59 86 L54 90 L47 87 L43 75Z M24 88 L34 88 L33 94 L21 94Z M51 87 L59 87 L62 94 L48 94Z"/>
-<path class="sil" d="M53 44 L59 48 L61 55 L57 60 L53 56Z M58 47 C65 43 69 49 66 54 C63 59 58 56 58 52 C58 48 63 47 65 50" fill="none" stroke="#090a0d" stroke-width="3.2"/>
+<!-- character-left is far-side in right profile; no visible coil -->
 </g><text x="56" y="146" text-anchor="middle" class="tiny">RIGHT PROFILE</text></g>
 <text x="760" y="490" class="small">Prop/contact notes</text>
 <text x="760" y="518" class="small">• Coil remains compact and subordinate to the jacket silhouette</text>
