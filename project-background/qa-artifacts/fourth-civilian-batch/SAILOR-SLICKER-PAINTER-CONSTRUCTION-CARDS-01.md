@@ -1,12 +1,15 @@
-## Revision 15 — final hem-asymmetry refinement; browser QA pending
+## Revision 15 — QA capture inspected; owner review pending
 
-**Source:** [silhouette exploration 15](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-15.svg)
+**Source:** [silhouette exploration 15](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-15.svg)  
+**QA:** [Run #695](https://github.com/tinytime/Tinytime.github.io/actions/runs/44787355926) · [artifact 14653489949](https://github.com/tinytime/Tinytime.github.io/actions/runs/44787355926/artifacts/14653489949) · tested source commit 9abb7de906314a092157f6d5bffe4492e7736cb9
 
-- **Slicker:** added a longer character-left storm flap, mirrored correctly in front/rear views, to make the asymmetric rain-smock hem legible at 28×42. The integrated face-framing hood, diagonal closure, broad pear mass and forward-leaning profile remain.
-- **Painter:** revision-14 left-profile arm/hand is shared exactly between body-only and prop-on; the hand supports a flared, bristled brush below the face. The direct-scale tool/hand cluster is still dense and should receive owner scrutiny.
-- **Sailor:** thickened front coil-to-palm bridge and rear/profile arm negative-space breaks remain.
-- **Audit:** all 12 body-only/prop-on pairs must preserve every body pixel; no arbitrary profile pixel minimum is used. Only Sailor and Painter have separate props; Slicker uses integrated weather clothing.
-- **Status:** design-stage proposal only. Revision-15 browser capture and manual inspection are pending; no renderer, approved art or golden snapshots changed.
+- **Slicker:** the separate umbrella is removed. The face-framing hood opening and diagonal storm closure are integrated into the rain smock; a longer character-left storm flap, mirrored in front/rear views, makes the asymmetric hem visible at direct 28×42. The broad pear mass and forward-leaning profile remain.
+- **Painter:** the left-profile body-only arm/hand matches prop-on exactly; the right hand supports the brush below the face in every visible direction. The flared bristle head is more readable at direct scale, but the compact tool/hand cluster remains dense and is explicitly flagged for owner scrutiny.
+- **Sailor:** the front coil-to-palm bridge is thickened; rear/profile arm negative-space breaks remain clear.
+- **Internal audit:** 24/24 native, direct and enlarged projections; 69 face crops and six matched face rows; all 12 body-only/prop-on pairs preserve every body pixel. Sailor/right +172 and Painter/left +143 / +141 expected-region prop pixels; counts are descriptive, no arbitrary threshold.
+- **Cross-roster body comparison:** Clinic, Guard, Coach, Courier and Fisher directional captures, plus Usher/Cook/Ref silhouette sheet, reviewed qualitatively. Sailor's nearest shape resemblance is Usher/Coach; Slicker is distinct from Fisher/Cook/Guard; Painter is distinct from Coach/Courier/Ref. Existing pixel/game captures are not normalized to the new vector studies.
+- **Status:** design-stage only. Owner review pending; independent Claude re-review of revision 15 not yet performed. No renderer, approved art or golden snapshots changed.
+
 
 ## Revision 14 — QA evidence inspected; owner review pending
 
