@@ -797,15 +797,20 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     path([[38, 94], [43, 96], [41, 105], [37, 101]], '#172A40', ink, 1.2);   // short rear tail
     line([[56, 56], [57, 96]], '#241632', 1.3);
     ell(57, 74, 1.2, 1.2, '#FFD0EE', null); ell(57, 84, 1.2, 1.2, '#FFD0EE', null);
-    // clipboard held in front (back of board visible), far hand under it
-    board(57, 61, 9, 18, true);
-    line([[59,63],[64,62]],'#D6A84F',1.6);
-    line([[59,68],[64,67]],'#6E849B',.9);
-    ell(61, 80, 2.4, 2.2, skin, ink, 1.2);
-    // near arm hanging
-    path([[45, 54], [52, 54], [52, 72], [51, 88], [45, 88], [45, 72]], sleeveG(45, 52), ink, 1.4);
-    line([[45.5, 85], [51.5, 85]], pink, 3);
-    path([[45, 88], [51, 88], [51, 94], [45, 94]], skin, ink, 1.2);
+    // One near arm carries the clipboard. Draw the board first, then
+    // the connected bent sleeve/forearm and gripping hand over its lower edge.
+    // The far hand and the formerly hanging near arm are intentionally hidden.
+    board(57, 60, 10, 19, true);
+    line([[59,62],[65,61]],'#D6A84F',1.6);
+    line([[59,67],[65,66]],'#6E849B',.9);
+    // Continuous near-arm chain: shoulder -> elbow -> forearm -> board grip.
+    path([[44,54],[50,54],[54,59],[56,67],[61,73],[59,79],
+          [54,78],[51,71],[49,63]], sleeveG(44,61), ink, 1.4);
+    path([[54,73],[60,73],[63,78],[60,82],[55,80],[52,77]], '#8FA6BC', ink, 1.15);
+    line([[55,77],[61,78]], pink, 2.2);
+    // Single visible hand wraps the board's lower/front edge.
+    path([[57,78],[62,78],[65,81],[63,85],[58,84],[55,81]], skin, ink, 1.2);
+    line([[58,81],[62,82]], '#9A5E45', 1);
   }
 
   // ---------------- head ----------------
@@ -948,17 +953,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       line([[59,62],[61,97]],'#7D3440',1.5);
       // Far arm is occluded by the torso; keep only the near pan-holding arm.
       path([[62,56],[69,60],[72,74],[74,81],[70,87],[64,84],[66,77]],coat);
-      // Visible cuff and forearm lead into the near hand.
+      // Visible cuff, forearm and curled hand form one continuous grip.
       path([[65,79],[72,79],[75,84],[70,88],[64,85]],'#C8B89F',ink,1.05);
-      // Draw the shallow pan bowl first. Layer the handle over the bowl so
-      // a short shaft remains visible between the gripping fingers and rim.
+      line([[72,86],[84,87]],'#4B3434',4.2);
+      line([[78,85.8],[84,86.4]],'#C18A62',1.4);
       g.save();g.translate(87,88);
       ell(0,0,7,4.5,'#B95B3C',ink,1.5);ell(0,-.3,5.2,2.4,'#3E2C34',null);
       line([[-6,-3],[4,-4.5]],'#F2B17C',1);g.restore();
-      // Keep roughly 3 native pixels of handle shaft exposed beyond the fingers.
-      line([[72,86],[84,87]],'#4B3434',4.2);
-      line([[78,85.8],[84,86.4]],'#C18A62',1.4);
-      // Paint the hand last so it grips the handle end without hiding its shaft.
+      // Hand overlaps the handle after the pan is drawn, with visible curled fingers.
       path([[67,82],[73,81],[79,85],[79,91],[75,94],[69,91],[66,86]],skin,ink,1.2);
       line([[68,87],[74,88]],'#8D5944',1);line([[69,90],[74,91]],'#8D5944',.8);
     }
