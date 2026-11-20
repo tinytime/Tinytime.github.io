@@ -6,9 +6,9 @@
 - **Usher U2 (generic silhouette):** owner explicitly says ignore; retain current silhouette. No silhouette redesign is authorized.
 - **Usher U4 (profile clipboard contact):** owner authorizes correction. Renderer commit `880cad6bf937d8bfc1e004fe81cbd6854c522d23` changes the profile to one connected near-arm/hand carrying the clipboard and hides the far hand. Cook's unrelated edit from the preceding commit was reverted in the same renderer commit. Fresh browser QA is Run #602; inspect its exact-source artifact before calling U4 resolved.
 - **Accepted exception:** Coach/Courier rear remains accepted as-is. Preserve the rationale in [the accepted-exception register](qa-artifacts/five-civilian-corrections/ACCEPTED-EXCEPTIONS.md).
-- **Current open visual item from Run #600:** U4 only, pending Run #602 visual inspection. This does not approve the five characters.
+- **Current visual correction state:** U4 is internally resolved by Run #602. Cook C1 and Usher U2 are owner-declined/deferred, not open work. Updated Claude re-review and owner approval remain pending.
 - **Five-character release state:** Usher, Cook, Courier, Coach and Referee remain NOT APPROVED pending U4 QA/inspection, updated Claude review and explicit owner approval. Runner remains outside this review.
-- **Construction standard:** revised working method is ready for planning and controlled brief development; owner ratification and first-batch approval are still required before production starts on the remaining 17. See the [standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md).
+- **Construction standard:** revised working method is ready for planning and controlled brief development; owner ratification and first-batch approval are still required before production starts on the remaining 17. Self-contained Claude package: [Run #602 package artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/44657601735/artifacts/14594041741). See the [standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md).
 - **QA baseline:** Run #601 verified the IoU diagnostic trigger behavior; 0.85 is human review only. Do not refresh or approve golden snapshots without explicit authorization.
 
 
