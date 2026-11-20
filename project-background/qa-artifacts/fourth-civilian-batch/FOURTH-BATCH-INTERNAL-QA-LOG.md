@@ -1,3 +1,15 @@
+## Revision 14 — Run #688 inspected; revision 14 retest pending (2026-11-20)
+
+- Current source on branch before this log update: [revision 14](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-14.svg), commit `a0c46c30fd42bdb717fa3893bd5a5759fc735d60`.
+- Latest completed run is [Run #688](https://github.com/tinytime/Tinytime.github.io/actions/runs/44784814224), exact tested source commit `81aacbcbe701fe4b748b72b406144c7b6389b0a4` (revision 13), artifact [14654841365](https://github.com/tinytime/Tinytime.github.io/actions/runs/44784814224/artifacts/14654841365). Chromium install, design-source capture, semantic proportion/annotation validation, Granny overlay, six-civilian overlay, five-civilian review sheet and artifact upload completed.
+- Revision-13 design-source evidence: 24/24 native 64×96, 24/24 direct 28×42, 24/24 enlarged 4×; 69 roster face crops and six matched face rows. All 12 body-preservation pairs passed with zero removed body-only pixels. Profile additions were descriptive only: Sailor/right 172, Slicker/left 245, Painter/left 93; no minimum threshold is applied.
+- Artifact visual inspection: Sailor coil/arm gaps are visible in the silhouettes. Painter's near-side hand/brush is present, but the small brush head remains borderline mallet-like at 28×42. Slicker's separate umbrella still reads ambiguously at 28×42. Revision 14 responds with a flared brush head and integrated rain hood/diagonal storm closure. These visual observations apply to revision 13 only.
+- The global game browser diagnostics step failed: golden snapshot gate 1 match / 23 changed (unapproved baseline), and existing audio/resource requests generated console 404 entries. Syntax checks, NPC inventory, atlas runtime/vertical fallback, fan checks and Granny semantic overlay passed; pageErrors and scriptErrors were empty. The five-civilian review sheet reported directional integrity 92/92, direct game-scale captures 20/20, role debug 12/12, prop audit 10 archetypes and gallery rendered. This is not proof of new-character renderer integration or live-town spawning.
+- Revision 14 changes the SVG design source, QA projection script and runner environment (Ubuntu 24.04; Playwright Chromium without apt dependency installation). The current Actions run tested revision 13, not revision 14. The revision-14 capture and full browser QA remain pending; do not mark this iteration complete or pass based on Run #688.
+- No golden snapshots/provenance, production renderer or approved character art were changed. Construction families remain UNASSIGNED; owner approval and renderer authorization remain pending.
+
+---
+
 ## Revision 14 — correction pass and QA runner stabilization
 
 - **Run #687** rendered revision 12 and produced design-source projections. Its anatomy audit found Painter/left removed 85 body-only pixels. Inspection traced this to a mismatch between the near-side profile arm/hand and the prop-on construction; revision 13 shares the same arm/hand geometry in both views and adds the brush below the hand.
