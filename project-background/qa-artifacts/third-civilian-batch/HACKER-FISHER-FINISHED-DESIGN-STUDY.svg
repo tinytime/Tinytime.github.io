@@ -38,6 +38,9 @@
   <path d="M31 36 Q35 34 38 36" stroke="#815f59" stroke-width="1.1" fill="none"/>
   <path d="M6 54 L15 53 16 61 8 64 4 60Z" class="hprop ink"/><path d="M7 55 L13 55 13 59 7 60Z" class="hglass"/>
   <path d="M40 47 L46 51 47 58 41 60 37 54Z" class="hskin ink"/>
+  <!-- Character-right is the near side in this profile; slate meets the wrist. -->
+  <path d="M42 56 L51 56 53 64 44 65Z" class="hprop ink"/>
+  <path d="M44 58 L49 58 50 62 45 62Z" class="hglass"/>
   <path d="M20 48 L25 48 27 62 25 66 20 62Z" class="hlight ink"/>
  </g></g>
  <g transform="translate(252 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">BACK</text><g transform="translate(72 38) scale(1.48 2.42)">
@@ -48,6 +51,9 @@
   <path d="M21 27 L16 36 17 54 22 58 25 43Z" class="hshell ink"/>
   <path d="M40 28 L48 32 50 52 56 69 50 77 45 64 43 48Z" class="hskin ink"/>
   <path d="M29 50 L41 49 42 56 29 57Z" class="hlight ink"/>
+  <!-- Character-right hand is viewer-right from the rear; slate is not duplicated. -->
+  <path d="M49 68 L59 69 60 78 50 79Z" class="hprop ink"/>
+  <path d="M51 71 L57 71 57 76 51 76Z" class="hglass"/>
  </g></g>
  <g transform="translate(504 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">LEFT PROFILE</text><g transform="translate(72 38) scale(1.48 2.42)">
   <use href="#hLeft" class="hbody ink"/>
@@ -105,6 +111,11 @@
   <path d="M9 32 Q32 29 54 32 M14 49 Q32 54 51 49" class="fline"/>
   <path d="M30 56 L35 56 34 78 29 78Z" class="fcanvas ink"/>
   <path d="M22 79 L32 80 30 86 20 86Z" class="fcanvas"/>
+  <!-- Character-left is viewer-left from the rear: one basket rim and one grip. -->
+  <path d="M4 62 L17 61 19 73 7 77 2 71Z" class="fprop ink"/>
+  <path d="M4 64 Q10 60 16 64 L17 71 7 74Z" fill="none" stroke="#d1b98c" stroke-width="1.2"/>
+  <path d="M7 65 L15 70 M5 69 L13 73" class="fline"/>
+  <path d="M15 58 L19 60 18 65 13 65Z" class="fskin ink"/>
  </g></g>
  <g transform="translate(504 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">LEFT PROFILE</text><g transform="translate(72 38) scale(1.48 2.42)">
   <use href="#fLeft" class="fbody ink"/>
