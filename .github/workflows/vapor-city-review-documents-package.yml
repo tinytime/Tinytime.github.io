@@ -6,6 +6,12 @@ on:
       - npc-granny-baseline-overhaul
     paths:
       - .github/workflows/vapor-city-review-documents-package.yml
+      - project-background/README.md
+      - project-background/01-PROJECT-OVERVIEW.md
+      - project-background/NPC_VECTOR_CHARACTER_TRACKER.md
+      - project-background/qa-artifacts/next-civilian-batch/GUARD-VENDOR-CLINIC-*.svg
+      - project-background/qa-artifacts/next-civilian-batch/GUARD-VENDOR-CLINIC-*.md
+      - project-background/qa-artifacts/next-civilian-batch/BATCH-1-GUARD-VENDOR-CLINIC-WORKER.md
 
 permissions:
   contents: read
