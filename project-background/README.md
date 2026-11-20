@@ -2,9 +2,9 @@
 
 The owner authorized **Sailor (#12), Slicker (#13) and Painter (#14) simultaneously** through identity refinement, four-view silhouette exploration and construction cards. This supersedes the earlier Sailor-only authorization note below.
 
-- [Parallel silhouette exploration 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-02.svg)
+- [Parallel silhouette exploration 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-03.svg)
 - [Parallel construction cards and differentiation report 01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md)
-- Current status: preliminary source study exists; full evidence package is not yet complete. Matched-scale face crops, exact direct 28×42 raster projections, refined rear/profile anatomy and prop-contact validation remain outstanding.
+- Current status: revision 03 adds distinct rear contours and correct profile prop visibility; native/direct raster evidence and roster face comparisons are being generated and inspected. Full owner-review package remains incomplete. Matched-scale face crops, exact direct 28×42 raster projections, refined rear/profile anatomy and prop-contact validation remain outstanding.
 - Families remain UNASSIGNED; no palettes or production renderer work. #15–23 remain on hold. No approved NPC art, golden snapshots or snapshot provenance changed.
 
 ## Fourth civilian batch — owner direction approval and Sailor exploration (2026-11-20)
