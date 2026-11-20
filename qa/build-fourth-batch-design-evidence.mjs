@@ -68,6 +68,30 @@ try {
       const key=item.character+'-'+item.mode+'-'+item.direction;
       data[key]=item;
     }
+    // Guard the optional profile props against silently disappearing from
+    // the source projection. This is a geometry-presence check, not proof of
+    // a readable grip; human visual review remains mandatory.
+    const profilePropAudit=[];
+    for(const [character,direction] of [
+      ['sailor','right'],['slicker','left'],['slicker','right'],
+      ['painter','left'],['painter','right']
+    ]){
+      const body=new Image(),prop=new Image();
+      body.src=data[character+'-body-'+direction].native;
+      prop.src=data[character+'-prop-'+direction].native;
+      await body.decode();await prop.decode();
+      const canvas=document.createElement('canvas');canvas.width=64;canvas.height=96;
+      const ctx=canvas.getContext('2d',{willReadFrequently:true});
+      ctx.drawImage(body,0,0);const b=ctx.getImageData(0,0,64,96).data;
+      ctx.clearRect(0,0,64,96);ctx.drawImage(prop,0,0);const p=ctx.getImageData(0,0,64,96).data;
+      let added=0;
+      for(let k=0;k<p.length;k+=4){
+        const propDark=p[k]<70&&p[k+1]<70&&p[k+2]<70;
+        const bodyLight=b[k]>150&&b[k+1]>150&&b[k+2]>150;
+        if(propDark&&bodyLight)added++;
+      }
+      profilePropAudit.push({character,direction,addedSilhouettePixels:added,pass:added>=3});
+    }
     const sheet=(keys,scale,columns,cellW,cellH)=>{
       const gap=16,rows=Math.ceil(keys.length/columns),canvas=document.createElement('canvas');
       canvas.width=gap+columns*(cellW+gap);canvas.height=gap+rows*(cellH+gap);
@@ -100,7 +124,7 @@ try {
       const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(im,0,0,c.width,c.height);return c.toDataURL('image/png');
     };
     for(const [key,item] of Object.entries(data)) item.enlarged4x=enlarge(item.native,4);
-    return {data,sheets:sheetsOut};
+    return {data,sheets:sheetsOut,profilePropAudit};
   },svg);
   const writeData=(file,dataUrl)=>fs.writeFileSync(file,Buffer.from(dataUrl.split(',')[1],'base64'));
   for(const [key,item] of Object.entries(svgData.data)){
@@ -109,6 +133,9 @@ try {
     writeData(path.join(out,key+'-enlarged-4x.png'),item.enlarged4x);
   }
   for(const [key,url] of Object.entries(svgData.sheets))writeData(path.join(out,key+'-comparison.png'),url);
+  fs.writeFileSync(path.join(out,'profile-prop-audit.json'),JSON.stringify(svgData.profilePropAudit,null,2)+'\\n');
+  console.log(JSON.stringify({profilePropAudit:svgData.profilePropAudit}));
+  if(svgData.profilePropAudit.some(x=>!x.pass))throw new Error('Profile prop silhouette projection missing for one or more directions');
 
   // Capture the proposed new face designs at exact 40x38 crop size.
   const faceStudyPath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg');
