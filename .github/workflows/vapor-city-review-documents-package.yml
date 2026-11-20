@@ -18,6 +18,56 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}
+      - name: Download Run 600 baseline evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: vapor-city-browser-qa
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: 44650864326
+          path: package/run-600-evidence
+      - name: Download Run 602 U4 evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: vapor-city-browser-qa
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: 44657007100
+          path: package/run-602-evidence
+      - name: Build exact-source U4 before-after sheets
+        run: |
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from PIL import Image, ImageDraw, ImageFont
+          from pathlib import Path
+          base = Path("package/run-600-evidence")
+          current = Path("package/run-602-evidence")
+          out = Path("package")
+          font = ImageFont.load_default()
+          for folder, suffix, scale in [
+              ("npc-type-directions", "native", 6),
+              ("npc-game-scale-28x42", "game-scale", 10),
+          ]:
+              panels = []
+              for direction in ("left", "right"):
+                  for label, root in (("BEFORE — Run 600", base), ("AFTER — Run 602", current)):
+                      p = root / folder / f"usher-{direction}.png"
+                      im = Image.open(p).convert("RGBA")
+                      im = im.resize((im.width * scale, im.height * scale), Image.Resampling.NEAREST)
+                      panels.append((direction.upper(), label, im))
+              cell_w = max(im.width for _,_,im in panels)
+              cell_h = max(im.height for _,_,im in panels)
+              header_h = 28
+              row_h = cell_h + header_h
+              canvas = Image.new("RGB", (cell_w * 2 + 40, row_h * 2 + 40), "#30323a")
+              draw = ImageDraw.Draw(canvas)
+              for idx, (direction, label, im) in enumerate(panels):
+                  col, row = idx % 2, idx // 2
+                  x, y = 12 + col * (cell_w + 16), 10 + row * row_h
+                  draw.text((x, y), f"{direction} — {label}", fill="white", font=font)
+                  canvas.paste(im, (x, y + header_h), im)
+              canvas.save(out / f"usher-u4-before-after-{suffix}.png")
+          PY
       - name: Package current project documents
         run: |
           set -euo pipefail
@@ -34,6 +84,7 @@ jobs:
           cp project-background/SIX-CIVILIAN-CONSTRUCTION-AUDIT.md package/project-background/
           cp project-background/qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md package/project-background/qa-artifacts/five-civilian-corrections/
           cp project-background/qa-artifacts/five-civilian-corrections/RUN-599-600-INTERNAL-QA.md package/project-background/qa-artifacts/five-civilian-corrections/
+          cp project-background/qa-artifacts/five-civilian-corrections/RUN-602-USHER-U4-INTERNAL-QA.md package/project-background/qa-artifacts/five-civilian-corrections/
           cp project-background/qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md package/project-background/qa-artifacts/five-civilian-corrections/
           cp project-background/qa-artifacts/five-civilian-corrections/REVIEW-PACKAGE-MANIFEST.md package/project-background/qa-artifacts/five-civilian-corrections/
           cp project-background/qa-artifacts/five-civilian-corrections/ACCEPTED-EXCEPTIONS.md package/project-background/qa-artifacts/five-civilian-corrections/
@@ -43,7 +94,7 @@ jobs:
           cp qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md package/qa/
           printf 'Repository: %s\nBranch: %s\nCommit: %s\n' "$GITHUB_REPOSITORY" "${GITHUB_REF_NAME}" "${GITHUB_SHA}" > package/SOURCE-MANIFEST.txt
           find package -type f -print | sort >> package/SOURCE-MANIFEST.txt
-          zip -qr vapor-city-project-documents.zip package
+          zip -qr vapor-city-project-documents.zip package/run-600-evidence package/run-602-evidence package/usher-u4-before-after-native.png package/usher-u4-before-after-game-scale.png package/project-background package/qa-artifacts package/qa package/SOURCE-MANIFEST.txt
       - uses: actions/upload-artifact@v4
         with:
           name: vapor-city-project-documents
