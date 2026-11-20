@@ -1,3 +1,9 @@
+## Fourth civilian batch — revision 09 internal QA and review handoff (2026-11-20)
+
+The owner-authorized design-stage exploration for Sailor (#12), Slicker (#13) and Painter (#14) is complete through internal QA. [Claude review package 03](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-03.md) records exact source commit `c74219986db2466122fe08ff3ad0bdcb012b5264` and [Run #677](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801) / artifact [14650099995](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995). Internal visual inspection is complete; independent Claude critique is pending.
+
+No silhouette, face, prop, palette or construction family is owner-approved. All three families remain UNASSIGNED. Production renderer implementation is NOT AUTHORIZED. Do not begin #15–23 before independent review and explicit owner approval.
+
 ## Fourth civilian batch — current internal QA checkpoint (2026-11-20)
 
 Sailor (#12), Slicker (#13) and Painter (#14) remain in parallel design-stage exploration. The earlier Claude-ready claim is withdrawn. No Claude handoff, owner silhouette approval, palette approval, or renderer authorization is in force.
