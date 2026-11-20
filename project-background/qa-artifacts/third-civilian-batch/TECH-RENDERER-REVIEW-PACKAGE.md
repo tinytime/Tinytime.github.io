@@ -1,16 +1,17 @@
 # Tech (#9) renderer review package
 
 **Review status:** internal QA and visual inspection complete; ready for independent Claude review; owner rendered-art approval pending.  
-**Latest QA run:** [GitHub Actions #643](https://github.com/tinytime/Tinytime.github.io/actions/runs/44745345901)  
-**Tested source:** `4c3f87ad7be831b83b9f5502911abee2602a3ea5`  
-**Artifact:** [14633745010](https://github.com/tinytime/Tinytime.github.io/actions/runs/44745345901/artifacts/14633745010)  
+**Latest QA run:** [GitHub Actions #643](https://github.com/tinytime/Tinytime.github.io/actions/runs/44746091189)  
+**Tested source:** `579f0fff61b8cfd4e416cc59381187b162d3b8ca`  
+**Artifact:** [14634020084](https://github.com/tinytime/Tinytime.github.io/actions/runs/44746091189/artifacts/14634020084)  
 **Branch:** `npc-granny-baseline-overhaul`
 
 ## Source under review
 
 - Renderer: `npc_sprites.js` — dedicated `drawTechVector`, wired to `tech`.
-- Latest renderer correction: `9f11ca20a3bdaf3ca8e5bd1ace3f6043d394327e` (differentiate Tech profile shell and reinforce meter grip).
-- Latest evidence-only correction: `4c3f87ad7be831b83b9f5502911abee2602a3ea5` (native 1× close-up crop of explicitly spawned Tech in town).
+- Profile-shell and meter-grip correction: `9f11ca20a3bdaf3ca8e5bd1ace3f6043d394327e`.
+- Rear-construction correction: `579f0fff61b8cfd4e416cc59381187b162d3b8ca` (replaces hip-level mass with high-mounted service loop and shorter split rear flap).
+- QA close-up capture: `4c3f87ad7be831b83b9f5502911abee2602a3ea5` (native 1× crop of explicitly spawned Tech in town).
 - QA harness: `qa/vapor-city-browser-qa.mjs`.
 - Role legend: `adacc1f8d8dac3c832cd947a71fd5ab8fd055496`.
 - Tech role-debug and town-spawn evidence: `c3ab02e929dc479850046d081e678d3cf585d85f`.
@@ -18,7 +19,7 @@
 
 ## Artifact evidence to review
 
-Run #643 artifact `14633745010` contains:
+Run #644 artifact `14634020084` contains:
 
 - `tech-native-64x96/tech-d.png`, `tech-u.png`, `tech-l.png`, `tech-r.png`.
 - `tech-direct-game-scale-28x42/tech-d.png`, `tech-u.png`, `tech-l.png`, `tech-r.png` — direct renderer output, not resized.
@@ -28,7 +29,7 @@ Run #643 artifact `14633745010` contains:
 - `game-town-tech-spawn-closeup-1x.png` — 120×120 crop from the actual town scene at native 1× in-world scale, in addition to the full-map capture.
 - `report.json` — exact source SHA, capture audits, browser diagnostics, and snapshot report.
 
-## Run #643 automated QA
+## Run #644 automated QA
 
 - Source syntax and NPC sprite syntax: PASS; NPC sprite module loaded.
 - NPC inventory: PASS (135 NPCs, 24 civilian entries).
@@ -41,18 +42,18 @@ Run #643 artifact `14633745010` contains:
 - Gallery opened and rendered without error.
 - `pageErrors=[]`; `scriptErrors=[]`.
 - Semantic civilian proportion/annotation validation: PASS.
-- Silhouette similarity triggers remain human-review prompts, not automatic failures. Clinic/Tech full-character IoU: back 0.9154, front 0.8922, right 0.8562.
+- Silhouette similarity triggers remain human-review prompts, not automatic failures. Clinic/Tech full-character IoU: back 0.8775, front 0.8922, right 0.8562. The 0.85 threshold is a human-review trigger only.
 
 **Overall GitHub Actions: FAILED** at browser diagnostics. The artifact and all evidence builders uploaded successfully. The two recorded global blockers are the unapproved golden snapshot baseline (1 match / 23 changed; no missing; 24 expected) and 180 existing audio/resource HTTP 404 console errors across 46 URL entries. No golden snapshots or provenance were refreshed, approved, or changed.
 
-## ChatGPT visual inspection — Run #643
+## ChatGPT visual inspection — Run #644
 
 Inspected the actual four-direction Tech native and direct game-scale captures, side-by-side Clinic captures at both scales, the Tech role-debug sheet, and the native 1× town close-up.
 
 - Front/back/left/right are coherent with the approved round-05 construction.
 - Profile eye/brow cues are visible in both directions at direct 28×42 scale and are not obscured by the ear-protection cup.
 - Left-profile diagnostic meter and hand contact are discernible at both scales; the fuller hand contour reads as a grip without overwhelming the tool.
-- The asymmetric petrol field shell, crossing harness, ear cup and rear service-pack construction differentiate Tech from Clinic's pale medical coat, diagonal trim and side medical kit in the direct comparison.
+- The asymmetric petrol field shell and crossing harness distinguish the side views; the rear now uses a compact high-mounted service/tool loop and shorter split flap rather than a hip-level pouch, separating it from Clinic's wrap tunic and medical kit.
 - Role-debug labels and legend are separated and legible.
 - The town close-up confirms the explicitly spawned Tech is visibly rendered in the live street scene; it is a native 1× crop, not an enlarged sprite sheet.
 - No clipping or edge contact was observed. Automated visual-integrity checks report no detached large components.
@@ -65,12 +66,12 @@ Inspected the actual four-direction Tech native and direct game-scale captures, 
 4. Are all four directions coherent with the approved round-05 concept?
 5. Any clipping, detached geometry, implausible anatomy, direction/handedness issues, or game-scale readability regressions?
 
-Treat IoU/similarity diagnostics as human-review prompts, not automatic failures. Do not change or approve golden snapshots. Do not begin Hacker or Fisher until Tech has cleared independent review and the project owner approves the rendered direction.
+Treat IoU/similarity diagnostics as human-review prompts, not automatic failures. Do not change or approve golden snapshots. Hacker and Fisher remain on hold until Tech has cleared independent review and the project owner approves the rendered direction.
 
 ## Current disposition
 
 **Built:** dedicated Tech vector renderer implemented.  
-**Automated QA:** Tech targeted captures and associated checks pass in Run #643.  
+**Automated QA:** Tech targeted captures and associated checks pass in Run #644.  
 **Visually inspected:** all four directions at native and direct game scales, Clinic comparison, role-debug, and actual town close-up.  
 **Independent Claude review:** not yet recorded; package is ready for handoff.  
 **Project-owner rendered-art approval:** pending.  
