@@ -1,3 +1,12 @@
+## Combined third-batch Claude handoff — 2026-11-20
+
+- **Review package:** [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE.md](qa-artifacts/third-civilian-batch/THIRD-BATCH-CLAUDE-REVIEW-PACKAGE.md).
+- **Tech (#9):** production renderer; internally QA-passed and visually inspected in Run #644, artifact `14634020084`, tested source `579f0fff61b8cfd4e416cc59381187b162d3b8ca`. See the dedicated Tech package for full diagnostics and town evidence.
+- **Hacker (#10) and Fisher (#11):** finished design-stage artwork; internal QA passed against corrected Playwright Run #7, artifact `14634776106`, source `2b08e60d4814846923e133503f965532bde055ad`. Eight views at native 64×96 and design-projection 28×42, plus 4× nearest-neighbour enlargements, were inspected. The render/push race affected only committing presentation PNGs; artifact upload succeeded and the artifact is authoritative. These are not production renderer captures.
+- Internal QA is complete for all three at their respective stages. No additional render is required for Claude's review.
+- **Claude review:** pending. **Owner acceptance:** pending for Tech rendered art and Hacker/Fisher finished design art.
+- Hacker/Fisher production renderer work remains held pending Tech's independent review and owner rendered-art approval, plus owner acceptance of their finished designs. No golden snapshots or provenance changed.
+
 ## Tech final QA — Run #644 (2026-11-20)
 
 - Tested exact branch HEAD `579f0fff61b8cfd4e416cc59381187b162d3b8ca`: [Browser QA Run #644](https://github.com/tinytime/Tinytime.github.io/actions/runs/44746091189), artifact [14634020084](https://github.com/tinytime/Tinytime.github.io/actions/runs/44746091189/artifacts/14634020084).
