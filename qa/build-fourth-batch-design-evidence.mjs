@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-16.svg');
+const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-17.svg');
 const htmlPath = path.join(root, 'VaporCity_HD2D_Hybrid_Test.html');
 const spritePath = path.join(root, 'npc_sprites.js');
 const out = path.join(root, 'qa-output/fourth-batch-design');
@@ -69,7 +69,7 @@ try {
       data[key]=item;
     }
     const sourceDirectionLabels=(source.match(/class="lab">/g)||[]).length;
-    if(!source.includes('EXPLORATION 16') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
+    if(!source.includes('EXPLORATION 17') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
     // Profile-region pixel counts are descriptive only; no arbitrary minimum
     // is imposed. Body-only geometry must remain present in every prop-on view.
     const bodyPreservationAudit=[];
@@ -310,10 +310,10 @@ try {
 
   const report={
     status:'design_source_projection_only',
-    revision:16,
+    revision:17,
     bodyPreservationAudit:svgData.bodyPreservationAudit,
     integratedWeatherDetail:'Directional open rain hood, rear yoke/hem seams and shortened storm closure; no separate umbrella',
-    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-16.svg',
+    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-17.svg',
     figureFields:24,
     nativeCaptures:Object.keys(svgData.data).length,
     direct28x42Captures:Object.values(svgData.data).filter(x=>x.direct).length,
@@ -324,7 +324,7 @@ try {
     matchedFaceComparisonRows:faceComparisons.length,
     rosterFaceDirections:[...new Set(rosterFaces.map(x=>x.direction))],
     faceCropDimensions:{width:40,height:38,source:'current game directional snapshot hook, native 64x96'},
-    note:"The roster face sheet and six matched 40x38 comparison rows are human geometric evidence. Comparator pairs: Sailor Clinic/Guard, Slicker Hacker/Courier, Painter Cook/Busker. Slicker’s umbrella was removed after it failed the direct 28x42 readability check; the design now uses an directional hood opening, rear rainwear seams, shortened chest closure and a stronger character-left storm flap. Profile prop-region counts are descriptive only; no arbitrary minimum threshold is applied. Automated prop audit asserts that prop-on preserves all body-only pixels. Final face geometry remains subject to owner review."
+    note:"The roster face sheet and six matched 40x38 comparison rows are human geometric evidence. Comparator pairs: Sailor Clinic/Guard, Slicker Hacker/Courier, Painter Cook/Busker. Slicker’s umbrella was removed after it failed the direct 28x42 readability check; the design now uses a face-open directional hood opening, rear rainwear seams, shortened chest closure and a stronger character-left storm flap. Profile prop-region counts are descriptive only; no arbitrary minimum threshold is applied. Automated prop audit asserts that prop-on preserves all body-only pixels. Final face geometry remains subject to owner review."
   };
   fs.writeFileSync(path.join(out,'fourth-batch-design-evidence-report.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify(report));
