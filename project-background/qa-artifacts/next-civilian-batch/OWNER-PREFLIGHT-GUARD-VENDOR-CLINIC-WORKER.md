@@ -1,15 +1,15 @@
 # Guard, Vendor and Clinic Worker — Silhouette / Brief Preflight
 
-**Status:** DIRECTION APPROVED — 2026-11-20; revision 02 silhouettes returned for owner review after revision request; renderer production not authorized  
+**Status:** Revision 02 directional designs APPROVED — 2026-11-19; renderer production authorized and implemented; targeted QA/visual inspection passed; Claude review and final completion approval pending  
 **Prepared against:** `npc-granny-baseline-overhaul` at `424c442943c2fa18d8e97d133ff328a24b0be782`  
 **Governing standard:** owner-ratified Civilian Vector Construction Standard  
 **Scope:** first three unstarted roster entries — Guard, Vendor, Clinic worker
 
 ## Owner decision — 2026-11-20
 
-The owner approved the proposed Guard, Vendor and Clinic Worker directions without requested revisions. This authorizes the NPC Designer to produce the actual four-view black silhouette explorations and completed identity/construction cards for all three characters under the ratified standard. It does **not** approve finished character art or authorize changes to the live renderer. The four-view silhouette explorations must return for owner review before any renderer implementation begins.
+The owner explicitly approved the complete Revision 02 four-view silhouettes, face studies, construction cards, palette directions and prop/contact approaches on 2026-11-19. This authorized dedicated renderer production for these three characters only. The actual vector renderers are now implemented; Run #620 targeted QA and visual inspection passed. Claude review and final owner completion approval remain outstanding.
 
-No renderer code, game code, golden snapshots or existing approved character art has been changed for this preflight.
+Renderer code was changed only for the three approved characters. No golden snapshots or existing approved character art were changed.
 
 ## Design principles applied
 
