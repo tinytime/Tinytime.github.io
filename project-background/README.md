@@ -6,7 +6,7 @@ Prepared:
 - [Tech/Hacker/Fisher design preflight](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md)
 - [Four-view silhouette exploration SVG](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg)
 
-The round-05 art silhouettes passed visual inspection across all 12 views (reported black-silhouette IoU 0.997; minor difference attributed to anti-aliasing). The first 3× PNG exposed two clipped text blocks, so the canonical SVG was text-wrapped in commit `e25ac611ee17d12771cbf2815001b78f43090d7f`; [Run #2](https://github.com/tinytime/Tinytime.github.io/actions/runs/44739247661) is regenerating the 4800×3540 PNG. The review sheet remains not final until the replacement PNG is checked for unclipped text. Renderer implementation still requires explicit owner silhouette approval. No game renderer, approved civilian art or golden snapshot was changed.
+The round-05 art silhouettes passed visual inspection across all 12 views (reported black-silhouette IoU 0.997; minor difference attributed to anti-aliasing). The initial 3× PNG's two clipped text blocks were wrapped in SVG commit `e25ac611ee17d12771cbf2815001b78f43090d7f`; [Run #2](https://github.com/tinytime/Tinytime.github.io/actions/runs/44739247661) successfully regenerated the 4800×3540 PNG. ChatGPT visually inspected the replacement and confirmed both text blocks are fully visible with no right-edge clipping. The review sheet is render-complete; explicit owner silhouette approval is still required before renderer implementation. No game renderer, approved civilian art or golden snapshot was changed.
 
 
 
