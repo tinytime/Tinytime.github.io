@@ -1789,6 +1789,238 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
   }
 
 
+  // Vendor: forward-pitched stall worker with split waistcoat, open shirt
+  // negative space, offset sash and a shallow tray supported by the palm.
+  function drawVendorVector(n, dir, ctx, OWT, opts) {
+    opts=opts||{}; const g=ctx, scale=OWT/36*.28;
+    const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2, sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
+    const back=dir==='u', side=dir==='l'||dir==='r', flip=dir==='l';
+    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
+    if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
+    const ink='#171725',skin='#D09A73';
+    const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
+    const path=(p,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.lineCap='round';g.stroke();}};
+    const line=(p,c,w=1.4)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.stroke();};
+    const ell=(x,y,rx,ry,fill,stroke=ink,w=1.3)=>{g.beginPath();g.ellipse(x,y,rx,ry,0,0,Math.PI*2);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.stroke();}};
+    const vest=grad(31,48,68,102,[[0,'#754B68'],[.48,'#4B3048'],[1,'#261B2B']]);
+    const linen=grad(43,52,59,100,[[0,'#F0E4CA'],[1,'#BDAE91']]);
+    const trouser=grad(37,99,64,134,[[0,'#544454'],[1,'#282333']]);
+    const shoe='#302735';
+    if(!side){
+      // Leaning torso and offset leading foot; the stance is not upright or symmetric.
+      path([[36,101],[48,102],[46,118],[43,132],[31,132],[32,117]],trouser);
+      path([[51,98],[64,95],[68,111],[67,125],[72,132],[59,134],[54,121]],trouser);
+      path([[29,129],[43,129],[46,134],[45,138],[27,138],[25,134]],shoe);
+      path([[59,129],[70,128],[75,133],[74,137],[57,138],[56,134]],shoe);
+      line([[30,135],[43,135]],'#B89B8A',1);line([[60,135],[71,135]],'#B89B8A',1);
+    }else{
+      path([[39,98],[54,97],[55,114],[60,128],[58,134],[43,134],[40,118]],trouser);
+      path([[42,130],[57,130],[64,134],[64,138],[39,138]],shoe);
+      line([[43,135],[60,135]],'#B89B8A',1);
+    }
+    path([[43,39],[56,39],[58,52],[42,52]],skin);
+    if(!side){
+      // Forward-pitched shoulder line, separated vest panels and open shirt center.
+      path([[31,54],[43,47],[61,50],[71,59],[68,92],[76,101],[28,103],[32,87]],vest,ink,1.9);
+      if(!back){
+        path([[42,49],[50,60],[58,50],[55,47],[50,53],[45,46]],linen,ink,1.1);
+        path([[45,57],[55,57],[57,78],[50,88],[43,78]],linen,ink,1.2);
+        path([[32,56],[43,51],[48,62],[44,91],[31,97],[27,83]],vest,ink,1.5);
+        path([[57,52],[68,58],[70,83],[65,97],[53,91],[52,62]],vest,ink,1.5);
+        // Offset saffron sash leaves the shirt-shaped opening readable.
+        line([[62,56],[58,69],[51,82],[42,96]],'#D8A247',4);
+        line([[62,56],[58,69],[51,82],[42,96]],ink,.8);
+        path([[30,55],[38,54],[37,77],[33,91],[26,90],[25,72]],vest,ink,1.3);
+        path([[26,88],[34,88],[35,95],[28,97]],skin,ink,1.1);
+        // Reaching shoulder/upper arm and continuous forearm-to-palm support.
+        path([[65,56],[72,59],[78,72],[82,80],[88,81],[88,87],[79,89],[72,82],[68,72]],vest,ink,1.4);
+        path([[77,80],[85,79],[91,82],[91,87],[84,90],[77,87]],skin,ink,1.1);
+        // Shallow tray on character-left (viewer-right); palm is visibly under its lip.
+        path([[72,75],[94,75],[97,79],[95,83],[73,83],[70,80]],'#D6C7A7',ink,1.5);
+        path([[73,75],[94,75],[92,78],[74,78]],'#F1E6D1',ink,1);
+        line([[75,80],[93,80]],'#8D735B',1);
+        path([[80,82],[88,82],[90,86],[86,89],[79,87]],skin,ink,1);
+        // Opposite arm hangs separately with clear negative space.
+        path([[31,58],[37,58],[35,81],[30,91],[24,89],[26,72]],vest,ink,1.3);
+        path([[24,88],[31,89],[31,96],[25,97]],skin,ink,1.1);
+      }else{
+        path([[31,55],[43,49],[61,51],[70,59],[67,91],[74,101],[28,103]],'#38263A',ink,1.8);
+        path([[36,56],[47,53],[50,67],[43,93],[31,97]],vest,ink,1.3);
+        path([[53,53],[66,58],[68,94],[56,97],[51,68]],vest,ink,1.3);
+        line([[38,59],[42,80],[36,94]],'#D8A247',2.8);
+        line([[50,53],[50,97]],'#201827',1.1);
+        path([[28,57],[36,56],[34,83],[29,92],[23,89]],vest,ink,1.2);
+        path([[64,58],[71,60],[75,85],[69,92],[64,85]],vest,ink,1.2);
+        // Far-side tray is mostly hidden behind the torso, never a second floating prop.
+        path([[67,78],[78,78],[82,81],[78,84],[68,84]],'#D6C7A7',ink,1);
+      }
+    }else{
+      // Side profile: distinct forward pitch, near-side torso plane and advanced foot.
+      path([[38,54],[49,47],[63,53],[70,63],[66,90],[75,102],[29,103],[35,86]],vest,ink,1.8);
+      if(!back){
+        path([[44,51],[54,54],[60,68],[54,76],[43,68]],linen,ink,1.1);
+        path([[39,55],[48,53],[52,72],[43,93],[31,98],[29,82]],vest,ink,1.3);
+        path([[55,55],[65,60],[67,91],[57,97],[50,73]],vest,ink,1.3);
+        line([[63,57],[57,71],[47,91]],'#D8A247',3.5);
+        // Near arm bends forward; wrist and palm support the tray underside.
+        path([[61,57],[69,62],[77,75],[84,80],[90,78],[93,84],[86,89],[76,86],[68,75]],vest,ink,1.3);
+        path([[82,80],[90,78],[95,81],[94,86],[87,89],[81,86]],skin,ink,1);
+        path([[85,75],[98,75],[99,79],[97,82],[84,82]],'#D6C7A7',ink,1.3);
+        line([[86,78],[97,78]],'#8D735B',1);
+      }else{
+        path([[39,56],[49,51],[64,56],[68,70],[62,96],[31,98]],'#38263A',ink,1.3);
+        line([[43,58],[48,77],[38,95]],'#D8A247',2.6);
+        path([[38,57],[44,57],[43,85],[37,94]],vest,ink,1.2);
+        path([[62,59],[69,63],[73,86],[67,94],[62,83]],vest,ink,1.2);
+      }
+    }
+    // Sloped soft cap and fuller cheek; front/profile face cues are distinct from Cook/Courier.
+    if(!side){
+      if(!back){
+        ell(50,31,13,15,grad(37,17,63,45,[[0,'#F0C29D'],[.55,skin],[1,'#9C694F']]),ink,1.7);
+        ell(39,37,4,6,'#9C694F',null);ell(61,37,4,6,'#9C694F',null);
+        ell(44,31,1.5,1.9,'#171725',null);ell(56,30.5,1.5,1.9,'#171725',null);
+        ell(44.5,30.2,.45,.5,'#FFF',null);ell(56.5,29.7,.45,.5,'#FFF',null);
+        line([[40,28],[45,26],[48,28]],'#49302B',1.6);line([[53,27],[59,29]],'#49302B',1.3);
+        path([[49,32],[48,37],[53,38]],'#A66E54',null);
+        line([[43,41],[49,43],[56,40]],'#814B49',1.5);
+      }else{
+        ell(50,31,12,14,'#382B34',ink,1.5);line([[42,20],[44,39]],'#654A57',1);line([[56,20],[56,39]],'#654A57',1);
+      }
+      path([[36,22],[40,14],[51,11],[63,17],[66,24],[57,26],[40,24]],'#4B3048',ink,1.7);
+      path([[35,22],[50,20],[68,23],[66,27],[48,27],[36,26]],'#D8A247',ink,1.2);
+      line([[43,17],[53,14],[61,18]],'#B78A78',1);
+    }else{
+      ell(50,31,11,13,'#382B34',ink,1.4);
+      if(!back){
+        path([[43,25],[49,20],[59,23],[65,31],[62,39],[54,44],[45,41],[40,33]],grad(42,22,64,44,[[0,'#F0C29D'],[1,skin]]),ink,1.3);
+        ell(45,34,2.2,3,'#B77F62',ink,.8);
+        path([[59,30],[66,33],[70,37],[65,39],[60,36]],skin,ink,1);
+        ell(61,31,1.1,1.4,'#171725',null);
+        line([[56,27],[62,27]],'#49302B',1.4);line([[56,41],[62,40]],'#814B49',1.2);
+      }
+      path([[39,24],[44,15],[54,14],[64,21],[67,26],[56,28],[43,26]],'#4B3048',ink,1.5);
+      path([[39,24],[54,22],[69,25],[68,29],[50,28],[40,27]],'#D8A247',ink,1.1);
+    }
+    g.save();g.globalAlpha=.55;g.shadowBlur=.7/scale;g.shadowColor='rgba(216,162,71,.35)';
+    line([[31,55],[39,50],[46,49]],'rgba(231,190,128,.85)',1/scale);
+    g.shadowColor='rgba(113,245,229,.25)';line([[62,54],[69,60],[72,67]],'rgba(113,245,229,.7)',1/scale);
+    g.restore();g.restore();
+  }
+
+  // Clinic Worker: calm offset-hip stance, tapered wrap tunic, gathered low
+  // hair coil/side tie and character-left hip pouch separate from the hand.
+  function drawClinicVector(n, dir, ctx, OWT, opts) {
+    opts=opts||{}; const g=ctx, scale=OWT/36*.28;
+    const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2, sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
+    const back=dir==='u', side=dir==='l'||dir==='r', flip=dir==='l';
+    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
+    if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
+    const ink='#171725',skin='#D09A78';
+    const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
+    const path=(p,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.lineCap='round';g.stroke();}};
+    const line=(p,c,w=1.4)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.stroke();};
+    const ell=(x,y,rx,ry,fill,stroke=ink,w=1.2)=>{g.beginPath();g.ellipse(x,y,rx,ry,0,0,Math.PI*2);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.stroke();}};
+    const tunic=grad(31,48,66,105,[[0,'#B5D5C9'],[.46,'#4D8B82'],[1,'#285D5B']]);
+    const shadow='#173C3C',plum='#8B647F',trouser=grad(38,99,64,134,[[0,'#46535C'],[1,'#202A34']]);
+    if(!side){
+      // Soft shoulder line, shifted hip and angled foot stance.
+      path([[37,100],[48,101],[46,118],[42,132],[30,132],[32,117]],trouser);
+      path([[52,98],[63,96],[66,111],[65,126],[71,132],[58,134],[53,121]],trouser);
+      path([[28,129],[42,129],[45,134],[44,138],[26,138],[24,134]],'#27323B');
+      path([[58,129],[69,128],[74,133],[73,137],[56,138],[55,134]],'#27323B');
+      line([[29,135],[42,135]],'#9CB6B0',1);line([[59,135],[70,135]],'#9CB6B0',1);
+    }else{
+      path([[39,98],[54,98],[55,115],[59,129],[57,134],[42,134],[40,119]],trouser);
+      path([[41,130],[57,130],[64,134],[64,138],[38,138]],'#27323B');
+      line([[42,135],[60,135]],'#9CB6B0',1);
+    }
+    path([[44,39],[56,39],[57,52],[43,52]],skin);
+    if(!side){
+      path([[33,54],[42,48],[60,49],[69,57],[66,91],[73,101],[29,102],[33,86]],tunic,ink,1.8);
+      if(!back){
+        path([[42,49],[50,59],[58,49],[55,46],[50,52],[45,46]],'#DDE9DE',ink,1.1);
+        path([[36,55],[46,52],[51,66],[44,84],[33,97],[27,88]],tunic,ink,1.3);
+        path([[58,52],[67,57],[68,88],[61,97],[49,82],[53,65]],tunic,ink,1.3);
+        // Diagonal wrap panel overlaps the body; curved hem exposes trousers.
+        path([[43,57],[58,59],[61,75],[51,91],[34,96],[38,81]],'#DDE9DE',ink,1.2);
+        line([[44,59],[55,77],[39,94]],plum,2.3);
+        path([[34,94],[65,91],[68,101],[30,102]],'#285D5B',ink,1.2);
+        line([[35,99],[64,98]],'#B5D5C9',1.1);
+        // Character-left pouch (viewer-right), attached at the hip.
+        path([[59,79],[69,78],[72,90],[69,99],[57,99],[55,91]],plum,ink,1.3);
+        path([[58,80],[68,80],[68,85],[57,86]],'#B38AA0',ink,1);
+        line([[60,88],[67,88]],'#E0C9D6',1);
+        // Both hands remain distinct from the pouch with visible negative space.
+        path([[28,58],[35,58],[34,80],[30,90],[24,89],[25,73]],tunic,ink,1.2);
+        path([[24,88],[31,88],[31,95],[25,96]],skin,ink,1);
+        path([[65,58],[71,60],[74,78],[71,89],[65,88],[65,73]],tunic,ink,1.2);
+        path([[65,88],[72,88],[72,95],[66,96]],skin,ink,1);
+      }else{
+        path([[33,55],[43,49],[60,50],[68,57],[66,91],[72,101],[29,102]],'#285D5B',ink,1.7);
+        path([[38,56],[62,56],[65,69],[35,69]],'#4D8B82',ink,1.1);
+        line([[50,52],[50,97]],shadow,1.2);
+        line([[39,72],[61,72]],'#B5D5C9',1);
+        // Rear pouch reverses to viewer-left, remaining character-left.
+        path([[29,79],[40,78],[43,91],[39,99],[27,99],[25,90]],plum,ink,1.2);
+        path([[28,81],[39,80],[39,86],[27,87]],'#B38AA0',ink,1);
+        path([[29,58],[36,57],[35,84],[29,92],[23,89]],tunic,ink,1.2);
+        path([[64,58],[71,60],[75,84],[69,92],[64,84]],tunic,ink,1.2);
+      }
+    }else{
+      // Narrow side-on tapered tunic with shifted hip and directional pouch occlusion.
+      path([[40,53],[49,48],[62,52],[67,62],[64,89],[71,101],[30,102],[36,86]],tunic,ink,1.8);
+      if(!back){
+        path([[44,52],[55,55],[59,68],[51,80],[38,91],[33,86]],'#DDE9DE',ink,1.1);
+        line([[46,57],[55,73],[39,92]],plum,2);
+        path([[35,91],[64,90],[69,101],[30,102]],'#285D5B',ink,1.1);
+        if(dir==='r'){
+          // Near-side character-left pouch is behind the torso edge in this view.
+          path([[30,80],[40,80],[42,92],[37,98],[27,97],[25,89]],plum,ink,1.1);
+        }
+        // Separate hand rests forward of the hip; never merges into the pouch.
+        path([[62,57],[69,60],[73,78],[70,89],[64,89],[64,74]],tunic,ink,1.2);
+        path([[64,88],[71,88],[71,95],[65,96]],skin,ink,1);
+      }else{
+        path([[40,55],[50,51],[62,55],[65,70],[61,96],[31,98]],'#285D5B',ink,1.2);
+        line([[42,68],[62,68]],'#B5D5C9',1);
+        line([[49,54],[50,96]],shadow,1.1);
+      }
+    }
+    // Swept-back hair and low rear coil/side tie, deliberately unlike cap/helmet heads.
+    if(!side){
+      if(!back){
+        ell(50,31,12.5,15,grad(37,17,62,45,[[0,'#E7B99A'],[.55,skin],[1,'#93654F']]),ink,1.6);
+        ell(44,31,1.35,1.8,'#171725',null);ell(56,31,1.35,1.8,'#171725',null);
+        line([[40,28],[45,27],[48,29]],'#3C2930',1.4);line([[53,28],[59,27]],'#3C2930',1.4);
+        path([[48,32],[47,36],[51,38]],'#A87862',null);
+        line([[44,42],[50,43],[55,41]],'#81534C',1.2);
+        path([[37,20],[40,12],[51,10],[63,17],[64,23],[56,21],[47,19],[39,26]],'#35252B',ink,1.4);
+      }else{
+        ell(50,31,12,14,'#35252B',ink,1.5);
+        line([[40,20],[43,39]],'#674B53',1);line([[50,18],[51,39]],'#674B53',1);line([[59,20],[57,38]],'#674B53',1);
+      }
+    }else{
+      ell(50,31,11,13,'#35252B',ink,1.3);
+      if(!back){
+        path([[43,24],[49,19],[59,22],[64,30],[61,39],[53,44],[44,41],[40,33]],grad(42,21,64,44,[[0,'#E7B99A'],[1,skin]]),ink,1.2);
+        ell(60,31,1.1,1.4,'#171725',null);
+        path([[61,31],[67,34],[64,37],[59,36]],skin,ink,.9);
+        line([[56,27],[62,26]],'#3C2930',1.3);
+        line([[55,41],[61,40]],'#81534C',1.1);
+      }
+      path([[39,23],[43,15],[53,14],[63,20],[64,25],[55,26],[44,23]],'#35252B',ink,1.3);
+    }
+    // Low rear coil and side tie are visible from back/profile, not a high bun.
+    if(back){ell(57,35,5.2,5.5,'#35252B',ink,1.2);line([[59,31],[65,28],[67,31]],plum,1.5);}
+    else if(side){ell(58,37,4.2,4.5,'#35252B',ink,1.1);line([[60,35],[66,31],[68,34]],plum,1.4);}
+    g.save();g.globalAlpha=.54;g.shadowBlur=.7/scale;g.shadowColor='rgba(113,190,211,.3)';
+    line([[33,55],[41,50],[47,49]],'rgba(181,213,201,.85)',1/scale);
+    g.shadowColor='rgba(216,162,71,.2)';line([[61,55],[68,60],[71,67]],'rgba(181,213,201,.65)',1/scale);
+    g.restore();g.restore();
+  }
+
+
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
     const { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, USHER_TORSO_MASKS, FAN_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, FAN_RIG_PARTS, ARCHETYPE_PROP_LAYERS, CIV_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
