@@ -1,4 +1,4 @@
-// Fourth-batch design-source evidence for revision 19 (final compact ferrule and bristle correction pass). QA projection utility only:
+// Fourth-batch design-source evidence for revision 19 (rope-coil strand and Painter smock seam refinement; preservation-gated). QA projection utility only:
 // it rasterizes approved-stage SVG hypotheses and captures existing roster faces.
 // It does not load or alter any production renderer for Sailor/Slicker/Painter.
 import fs from 'node:fs';
