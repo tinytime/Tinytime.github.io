@@ -8,9 +8,11 @@
 
 ## Evidence status
 
-Revision 05 adds explicit contact bridges between each near-side profile hand and its prop, keeps props hidden on far-side profiles, and preserves Painter's rear-view reaching arm. It remains a proposal pending native/direct raster inspection and comparative review.
+Revision 05 was rendered and internally inspected in [Browser QA Run #664](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773501153), artifact [14648551327](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773501153/artifacts/14648551327), testing commit `65252b64031626901b03905c4f253d1043f1a31e`. The design-source workflow generated 24/24 native 64×96 captures, 24/24 separately rasterized direct 28×42 captures and 24/24 4× nearest-neighbour enlargements. All three characters' body-only and prop-on four-view sheets were visually inspected.
 
-Matched-scale roster face crops were captured from the existing directional snapshot hook (front and both profiles) and inspected as a human comparison sheet. The new grayscale face study is [FACE-GEOMETRY-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg); the evidence workflow now emits exact 40×38 design crops beside the existing roster 40×38 crops. Selected closest-face comparison pairs and exactly two proposed defining cues per character are recorded below. These remain face-design proposals, not owner approval.
+The internal pass corrected Slicker's front umbrella from viewer-right to viewer-left (character-right), corrected the SVG title to revision 05, and improved native face-comparison labels. The corrected front umbrella is attached and on the correct side but subtle at direct 28×42; Claude should judge whether it reads adequately. Sailor's coil and Painter's brush show the intended front/back/profile handedness and contact. The matched face study includes 69 roster crops and six new 40×38 crops; the proposed front-face geometries still share some broad proportions, so small-scale face differentiation is an explicit independent-review question. These remain design proposals, not owner approval.
+
+The overall Browser QA workflow is FAILED on the unapproved golden snapshot baseline (1 match / 23 changed) and existing audio/resource HTTP 404 diagnostics; pageErrors and scriptErrors are empty. No golden snapshots or provenance changed. The design-source capture and semantic annotation steps passed.
 
 ## #12 Sailor — proposed construction card
 
@@ -102,14 +104,16 @@ Matched-scale roster face crops were captured from the existing directional snap
 - Body-only identity is the controlling test. If a figure becomes generic when its prop is removed, revise the torso/pose rather than enlarging the prop.
 - No construction family is assigned. Proposed family descriptors above are planning language only.
 
-## Required remaining evidence before owner review
+## Evidence captured for independent review
 
-1. Correct and complete all twelve body-only and twelve prop-on views: intentional front/back construction, mirrored left/right facing, correct per-direction prop visibility, near/far anatomy and hand contact.
-2. Produce a combined matched-scale sheet with 64×96 source views and separate direct 28×42 raster projections; do not resize 64×96 output to claim direct scale.
-3. Inspect nearest-neighbour enlargements for overlaps, clipping, detached shapes and prop contact.
-4. Compare each candidate against the required closest roster figures and Granny at matched scale; document the actual closest silhouette pairs and changes made.
-5. Capture actual native 64×96 front/profile face crops from the current roster; select each character's two closest existing faces by geometry, then choose exactly two defining face cues. No face uniqueness claim is made in this draft.
-6. Update this report with the exact source revision, renderer/tool versions, render command and inspected artifact paths.
+1. Body-only and prop-on four-view sets are complete: 12 body-only plus 12 prop-on views across the three characters.
+2. Combined native 64×96 and direct 28×42 comparison sheets are complete; direct 28×42 is a separate vector rasterization.
+3. Four-times nearest-neighbour enlargements have been generated and inspected for clipping, overlap, detached components and prop contact.
+4. Matched-scale roster face crops and closest-face pairs are documented: Sailor—Clinic/Guard; Slicker—Hacker/Courier; Painter—Cook/Busker. Granny remains a craft benchmark, not a template.
+5. Six new 40×38 face-design crops and six matched comparison rows are captured at native and 3× scales.
+6. Exact source commit, Run #664 and artifact paths are recorded in the [Claude review package](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-01.md).
+
+The remaining work is independent critique of face differentiation, the subtle Slicker front umbrella at 28×42, and set-level silhouette differentiation.
 
 ## Reproducible source rendering
 
