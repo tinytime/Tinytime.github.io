@@ -16,7 +16,7 @@
 ## Claude independent re-review — Run #600 (2026-11-20)
 
 - Verdict: **Ready with disclosed minor issues**; no P0/P1 findings. Not owner approval.
-- Claude's Run #600 review identified Cook C1, Usher U4 and Usher U2 as P2s; see the current owner dispositions above. Only U4 remains authorized for correction.
+- Claude's Run #600 review identified Cook C1, Usher U4 and Usher U2 as P2s; see the current owner dispositions above. U4 was the only authorized correction and is now internally resolved.
 - Face standard: two distinct native-scale face-construction cues plus one head-read cue at direct 28×42; interior facial marks need not survive.
 - Coach/Courier rear: accepted shared body mass with distinct role construction; preserve the written rationale, no redesign.
 - Walk-frame evidence was absent from Run #600; next package needs at least two frames per direction for animated characters.
