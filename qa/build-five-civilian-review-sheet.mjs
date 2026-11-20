@@ -84,6 +84,37 @@ try {
   fs.writeFileSync(path.join(out, 'five-civilian-game-scale-4x-contact-sheet.png'),
     Buffer.from(gameScaleResult.dataUrl.split(',')[1], 'base64'));
 
+  // Focused evidence sheets requested for the correction round. Native and
+  // direct 28x42 captures are kept in separate sheets so scale provenance is clear.
+  const focusedGroups = [
+    { file: 'coach-courier-back-native-comparison.png', items: captures.filter(x => x.direction === 'back' && ['coach','courier'].includes(x.civ)), cellW: 256, cellH: 420, cols: 2 },
+    { file: 'coach-courier-back-game-scale-comparison.png', items: gameScaleCaptures.filter(x => x.direction === 'back' && ['coach','courier'].includes(x.civ)), cellW: 160, cellH: 220, cols: 2 },
+    { file: 'cook-prop-contact-native.png', items: captures.filter(x => ['front','left','right'].includes(x.direction) && x.civ === 'cook'), cellW: 256, cellH: 420, cols: 3 },
+    { file: 'cook-prop-contact-game-scale.png', items: gameScaleCaptures.filter(x => ['front','left','right'].includes(x.direction) && x.civ === 'cook'), cellW: 160, cellH: 220, cols: 3 },
+    { file: 'usher-game-scale-readability.png', items: gameScaleCaptures.filter(x => x.civ === 'usher'), cellW: 160, cellH: 220, cols: 4 }
+  ];
+  for (const group of focusedGroups) {
+    const rows = Math.ceil(group.items.length / group.cols);
+    const focused = await page.evaluate(async ({ items, cellW, cellH, cols, rows }) => {
+      const pad = 18, canvas = document.createElement('canvas');
+      canvas.width = pad + cols * (cellW + pad);
+      canvas.height = pad + rows * (cellH + pad);
+      const ctx = canvas.getContext('2d'); ctx.imageSmoothingEnabled = false;
+      ctx.fillStyle = '#292b35'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i], image = new Image(); image.src = item.dataUrl; await image.decode();
+        const x = pad + (i % cols) * (cellW + pad), y = pad + Math.floor(i / cols) * (cellH + pad);
+        ctx.fillStyle = '#fff'; ctx.font = 'bold 16px monospace'; ctx.textAlign = 'left';
+        ctx.fillText(item.civ.toUpperCase() + ' / ' + item.direction.toUpperCase(), x, y + 20);
+        ctx.fillStyle = '#777982'; ctx.fillRect(x, y + 32, cellW, cellH - 36);
+        if (cellW === 256) ctx.drawImage(image, x, y + 32, 256, 384);
+        else ctx.drawImage(image, x + Math.round((cellW - 112) / 2), y + 32, 112, 168);
+      }
+      return { dataUrl: canvas.toDataURL('image/png'), width: canvas.width, height: canvas.height };
+    }, { items: group.items, cellW: group.cellW, cellH: group.cellH, cols: group.cols, rows });
+    fs.writeFileSync(path.join(out, group.file), Buffer.from(focused.dataUrl.split(',')[1], 'base64'));
+  }
+
   const checks = [
     ['directional integrity', report.civilianVisualIntegrityAudit?.pass, report.civilianVisualIntegrityAudit?.checked + '/' + report.civilianVisualIntegrityAudit?.expected],
     ['direct 28x42 capture assertion', report.gameScaleNpcCaptureAudit?.pass, report.gameScaleNpcCaptureAudit?.captured + '/' + report.gameScaleNpcCaptureAudit?.expected],
