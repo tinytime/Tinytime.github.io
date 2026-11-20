@@ -1,6 +1,6 @@
 # Next Vector Batch — Guard, Vendor and Clinic Worker
 
-**Status:** draft preparation only; no renderer production authorized.  
+**Status:** draft planning briefs; see the [owner preflight proposal](OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md). No renderer production is authorized.  
 **Batch order:** Guard, Vendor and Clinic worker — first three unstarted entries in the live roster.  
 **Roster context:** 23 types; five owner-approved; Runner built but excluded from the five-character approval and pending focused review; 17 roster entries remain unstarted/on hold.  
 **Reference:** Granny Volt is the 10/10 craft benchmark, never a template.
@@ -15,7 +15,7 @@
 - Every visible prop needs believable shoulder/arm/hand chain, grip/support, occlusion order and character-relative side. Legacy props are starting clues, not requirements.
 - Evidence: native 64×96 and direct 28×42 in all four directions; enlarged nearest-neighbour; black silhouette sheet; direct game-scale neutral-grey captures; gallery/town context; applicable walk frames; prop-contact table; package manifest.
 - Town composites are diagnostic context only unless the named character is explicitly spawned and captured.
-- The construction standard was ratified by the owner on 2026-11-19. Do not begin renderer implementation until the owner approves the briefs and silhouette preflight.
+- The construction standard was ratified by the owner on 2026-11-19. The written direction proposal is ready for owner review. Do not begin renderer implementation until the owner accepts the direction and reviews the NPC Designer's actual four-view black silhouette exploration.
 
 ## 1. Guard — security / protective role
 
