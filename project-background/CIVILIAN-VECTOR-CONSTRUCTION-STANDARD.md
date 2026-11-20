@@ -380,12 +380,14 @@ Every candidate requires:
 1. Native 64 × 96 captures: front, back, left, right.
 2. Enlarged nearest-neighbour views for edge/path inspection.
 3. Direct in-game 28 × 42 captures in all four directions where the harness supports them.
-4. Solid-black silhouette sheet for all four directions.
+4. A separately inspectable solid-black silhouette sheet for all four directions.
 5. Role-debug/layer evidence when supported by the renderer.
-6. Gallery and town-context evidence.
-7. Inspection of clipping, edge contacts, detached components, limb/prop overlap, handedness, baseline, and readability.
+6. Gallery and town-context evidence, including a named-character spawn/capture where the harness supports it.
+7. Direct 28 × 42 inspection on both a neutral-grey diagnostic background and actual town ground/night lighting; neither background replaces the other.
+8. Walk/animation-frame review for animated characters, including frame-to-frame limb continuity, prop/hand stability, silhouette flicker and direction transitions. Record not-applicable for static-only characters.
+9. Inspection of clipping, edge contacts, detached components, limb/prop overlap, handedness, baseline, and readability.
 
-A derived downsample is not a substitute for a direct in-game capture; label evidence accurately. A standard town screenshot is not proof that a particular character was spawned if the roster does not include that character.
+A derived downsample is not a substitute for a direct in-game capture; label evidence accurately. A standard town screenshot is regression context only, not proof that a particular character was spawned. The review package must include the identity brief and proportion card, or explicitly identify them as unavailable; do not claim to have reviewed missing records.
 
 ## 9. Proposed 100-point internal design scorecard
 
