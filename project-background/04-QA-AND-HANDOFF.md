@@ -30,6 +30,15 @@ This section supersedes older status statements below where they conflict. Histo
 - **Next sequence:** finish and render the five-character correction pass; update the five-character evidence package against the current source; run and inspect fresh QA artifacts; submit that exact evidence to Claude; resolve valid findings; obtain owner approval; only then release the remaining roster.
 
 
+## Run #599 P2 correction QA — 2026-11-20
+
+- Exact renderer source: `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb`.
+- [Actions run #599](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650509863), artifact `14590034123`.
+- Results: syntax/module pass; 20/20 native and 20/20 direct 28×42 captures; 92/92 directional integrity with zero edge contacts and zero detached large components; 12/12 role-debug; prop audit and gallery pass; pageErrors=0; scriptErrors=0.
+- Overall workflow remains FAILED on expected 180 missing-audio 404 console diagnostics, global Clinic/Sailor front silhouette IoU 0.9094292803970223, and unapproved golden snapshots (1 match / 23 changed). No snapshots were refreshed or approved.
+- Visual inspection: Usher profile shoes separate at game scale; Cook front pan is now a shallow skillet with visible handle and no edge clipping; face edits for Courier/Usher/Cook are visible in native and direct game-scale evidence; Coach/Courier rear construction remains distinct; Referee is pixel-identical to Run #595.
+- Before/after pixel diffs from Run #595 to #599 are in the tracker. All five remain NOT APPROVED pending Claude re-review and owner approval.
+
 ## Owner-authorized P2 correction pass — 2026-11-20
 
 Owner authorized all four P2 areas from Claude Run #595. Renderer commit `2b45201eb762a939547f5c8414ae9f44e5dc0d22` changes the three affected draw functions (Usher, Cook, Courier); Coach/Courier rear distinction is documented without a torso change. Run #596 is the exact-source browser QA. Do not report visual resolution until all native 64×96 and direct 28×42 captures have been inspected. Required evidence includes before/after views, both profiles for Usher, Cook front and both profiles, Coach/Courier rear paired comparison, neutral-grey and town/night game-scale contexts, four-direction black silhouette sheet, and named-character town evidence where supported. Include pixel-diff summary and exact source SHA. Referee must remain unchanged. Do not refresh golden snapshots. All five remain NOT APPROVED pending internal QA, Claude review and owner approval.
