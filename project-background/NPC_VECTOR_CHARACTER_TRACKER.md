@@ -21,7 +21,7 @@ The owner has explicitly approved the **revision 21 silhouettes** for all three 
 
 ## Fourth civilian batch — revision 21 exact-source internal design QA (2026-11-20)
 
-The owner-authorized parallel design-stage work for Sailor (#12), Slicker (#13) and Painter (#14) has reached **internal design-source QA PASS**. Independent Claude review and owner approval remain pending.
+The owner-authorized parallel design-stage work for Sailor (#12), Slicker (#13) and Painter (#14) has reached **internal design-source QA PASS**. The owner has now approved the revision 21 silhouettes and authorized the next design stage. Claude approval is owner-reported; the actual Claude verdict has not yet been filed in GitHub.
 
 - **Exact tested commit:** `5beb3709dd5080313e6ddea5248ef8698f74dd51` (revision 21 SVG source blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`).
 - **Source:** [revision 21 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg).
@@ -33,7 +33,7 @@ The owner-authorized parallel design-stage work for Sailor (#12), Slicker (#13) 
 - **Painter #14:** connected scalloped flat-brush head, ferrule/handle and grip retained; paired side darts shape the smock without cutting the torso/leg silhouette. Character-right carry remains front viewer-left, rear viewer-right, visible left profile only.
 - **Slicker #13:** preserved unchanged from revision 18; no redesign.
 - **Overall workflow boundary:** design projection, semantic proportion/annotation validation, gallery and review-sheet generation passed. The overall Actions run remains **FAILED** at global browser diagnostics: pageErrors=0, scriptErrors=0, 135 audio/resource HTTP 404 responses plus 45 corresponding sound-load console messages; the golden-snapshot gate reports 1 match / 23 changed. No golden snapshots or provenance were modified or approved.
-- **Authority:** [Claude package 06](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-06.md) is prepared but not sent; no Claude verdict is recorded. All three construction families remain UNASSIGNED. No palette or production-renderer work is authorized; roster #15–23 remains held.
+- **Authority:** the owner approved all three revision 21 silhouettes on 2026-11-20, after reporting Claude's approval. The actual Claude verdict/package response is not yet filed in GitHub. All three construction families remain UNASSIGNED pending the newly authorized construction-card stage. Palette/colour rendering and production-renderer work remain unauthorized; roster #15–23 remains held.
 
 ## Revision 19 — latest design correction pass (2026-11-20)
 
