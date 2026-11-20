@@ -12,7 +12,7 @@ This section is current authority and supersedes older status statements below w
 - **Coach/Courier rear:** accepted exception; preserve the documented rationale and do not redesign either torso.
 - **Five-character approval:** Usher, Cook, Courier, Coach and Referee remain **NOT APPROVED** pending updated Claude review and explicit owner approval. Runner remains excluded from this review.
 - **Next roster:** remaining 17 civilians remain **ON HOLD for production**. Planning and briefs may use the revised working standard, but implementation must wait for first-batch approval and explicit owner ratification of the standard.
-- **Evidence/package:** [Run #602 internal QA](qa-artifacts/five-civilian-corrections/RUN-603-USHER-U4-INTERNAL-QA.md); [review manifest](qa-artifacts/five-civilian-corrections/REVIEW-PACKAGE-MANIFEST.md); [Run #602 Claude brief](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-BRIEF-RUN-603.md).
+- **Evidence/package:** [Run #603 internal QA](qa-artifacts/five-civilian-corrections/RUN-603-USHER-U4-INTERNAL-QA.md); [review manifest](qa-artifacts/five-civilian-corrections/REVIEW-PACKAGE-MANIFEST.md); [Run #603 Claude brief](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-BRIEF-RUN-603.md).
 
 
 
