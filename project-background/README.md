@@ -1,3 +1,11 @@
+# Chat continuity and role prompts
+
+**When creating a new Vapor City chat, start with the [Chat Playbook](CHAT-PLAYBOOK.md).** It contains a common startup prompt and copy-ready role prompts for the Project Lead, NPC Designer, Renderer/Technical Developer, QA/Visual Reviewer, Claude Independent Reviewer, Gameplay/Systems Developer, and Documentation/Release Steward.
+
+Every new chat must re-read current GitHub state, verify the branch HEAD and latest relevant Actions/artifacts, and establish its own evidence-backed starting point. Do not rely on prior chat memory.
+
+---
+
 ## Fourth civilian batch — revision 18 correction pass in progress (2026-11-20)
 
 Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; **not owner-approved and not authorized for production-renderer implementation**. Current source: [silhouette exploration 18](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg). Latest design-source commit: `50e267b01a76de1b95e31b766dc332da896ce543`.
