@@ -1,5 +1,7 @@
 ## Tech, Hacker and Fisher — round-05 silhouette render (2026-11-20)
 
+**Independent review handoff:** [Tech renderer review package](qa-artifacts/third-civilian-batch/TECH-RENDERER-REVIEW-PACKAGE.md) prepared against Run #44742568524 and artifact `14632210592`. ChatGPT internal QA and visual inspection are complete; Claude review and owner rendered-art approval remain pending.
+
 **Current Tech checkpoint:** correction renderer commit `59d6dab5f509bed825e0209045385a7e443f4805`; role legend `adacc1f8d8dac3c832cd947a71fd5ab8fd055496`; QA evidence commit `c3ab02e929dc479850046d081e678d3cf585d85f`. Run [#44742568524](https://github.com/tinytime/Tinytime.github.io/actions/runs/44742568524), artifact `14632210592`, completed with overall failure on global snapshot/audio gates. Tech targeted capture QA passed (4/4 native 64×96, 4/4 direct 28×42, zero edge contacts), role-debug 4/4, town runtime-list spawn PASS, and broad checks passed (92/92 directional integrity, role-debug 12/12, prop audit, gallery, zero page/script errors). Artifact images were inspected at both scales and compared directly with Clinic. Profile eye/brow cues are visible at both scales; the revised shell and rear service pack distinguish the side/back construction; the meter grip reads more clearly at game scale. Town capture is a full-map screenshot and is not conclusive close-up evidence of Tech's live appearance. **Status: built; targeted QA passed; visually inspected; awaiting owner art approval and Claude review.** Hacker and Fisher remain blocked. No golden snapshots changed.
 
 
