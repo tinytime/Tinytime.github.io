@@ -26,6 +26,10 @@ Important distinctions:
 
 The five-character correction group is the first application of these requirements. The standard remains draft pending independent Claude review and owner ratification; the remaining 17 civilians remain on hold.
 
+## Owner-authorized P2 correction pass — 2026-11-20
+
+The owner authorized all four P2 areas from Claude's Run #595 review. Implement face identity cues for Courier, Usher and Cook; improve Usher profile shoe separation at direct 28×42; make Cook's pan handle/hand contact legible at direct game scale; and document Coach/Courier rear distinction with evidence rather than redesigning either torso without cause. Referee is protected from unnecessary edits. Renderer source commit: `2b45201eb762a939547f5c8414ae9f44e5dc0d22`; Run #596 is the pending browser QA. See [identity and proportion cards](qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md). No P2 may be called resolved until the actual fresh captures have been inspected. All five remain NOT APPROVED.
+
 ## Claude Round #595 review outcome and owner gate — 2026-11-19
 
 Claude's independent review recommends **ready for owner review**, not approval. No P0/P1 findings remain. P2s requiring owner disposition are F1 facial individuality for Courier/Usher/Cook, U1 Usher profile shoe separation, C1 Cook pan/hand readability, and X1 documented Coach/Courier rear-construction rationale. Referee needs no change. P3 notes are optional. The owner must decide whether to require corrections or explicitly accept each P2 before approving any character.
