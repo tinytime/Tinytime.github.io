@@ -15,7 +15,7 @@
 - Every visible prop needs believable shoulder/arm/hand chain, grip/support, occlusion order and character-relative side. Legacy props are starting clues, not requirements.
 - Evidence: native 64×96 and direct 28×42 in all four directions; enlarged nearest-neighbour; black silhouette sheet; direct game-scale neutral-grey captures; gallery/town context; applicable walk frames; prop-contact table; package manifest.
 - Town composites are diagnostic context only unless the named character is explicitly spawned and captured.
-- Do not begin renderer implementation until the owner separately ratifies the revised standard and the briefs pass silhouette preflight.
+- The construction standard was ratified by the owner on 2026-11-19. Do not begin renderer implementation until the owner approves the briefs and silhouette preflight.
 
 ## 1. Guard — security / protective role
 

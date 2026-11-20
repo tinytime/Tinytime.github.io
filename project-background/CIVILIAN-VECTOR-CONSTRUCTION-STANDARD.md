@@ -14,7 +14,7 @@ This is the current authority for approval and rollout; historical run notes rem
 - **F6 — closest-face method:** compare new native 64×96 front/profile face crops against current roster using head/jaw proportions, eye placement/geometry, brow shape, nose/profile, cheek and mouth/expression. Exclude skin tone, hair colour, headwear and palette. Name the two closest faces, show matched-scale crops and state concrete geometric differences. This is a documented human comparison, not a numeric gate.
 - **F7 — Cook card accuracy:** describe the approved render as a rounded chef-toque/curl mass and compact handled copper pan; note that the pan can read bowl-like at direct game scale. Documentation only; Cook's renderer remains unchanged.
 - **Normative structure:** §§1–13 contain current rules. Dated reviewer/QA outcomes are historical evidence, not additional rules.
-- **Current standard status:** revised in response to Claude F2–F7; **awaiting explicit owner ratification as a separate decision**. Approval of the five artworks does not silently ratify the standard.
+- **Current standard status:** revised in response to Claude F2–F7 and **RATIFIED BY THE PROJECT OWNER on 2026-11-19**. This version is the governing construction and QA standard for new civilian production. Changes to normative requirements require explicit owner authorization.
 - **Next-batch preparation:** draft briefs for Guard, Vendor and Clinic worker and the 23-character shell-family register are linked in §14. Planning only; no renderer production begins until standard ratification and silhouette preflight are accepted.
 - **Runner:** built but excluded from Claude Run #603; pending focused review and not part of the five-character approval.
 - **Run #603:** [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact 14593339734. Targeted results passed; overall Actions failure remains due to unapproved snapshots (1 match / 23 changed) and 180 existing audio 404s. No golden snapshots were refreshed or approved.
@@ -334,7 +334,7 @@ A character remains **NOT APPROVED** until:
 - required corrections are implemented and retested;
 - the project owner explicitly approves.
 
-This standard remains a **draft** until the project owner explicitly ratifies the revised rules as a separate decision. The five artworks are owner-approved, but that does not ratify the standard. Keep renderer production for the remaining 17 on hold until standard ratification and next-batch silhouette/brief preflight.
+The project owner explicitly ratified this revised standard on 2026-11-19. It is the governing standard for future civilian production. The five artworks were separately approved. Renderer production for Guard, Vendor and Clinic worker remains gated on owner approval of their silhouette/brief preflight.
 
 ## 13. Calibration status and future evidence requirements
 

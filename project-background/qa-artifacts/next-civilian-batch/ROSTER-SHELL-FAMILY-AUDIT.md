@@ -1,6 +1,6 @@
 # Roster Shell-Family Audit — Pre-Production Register
 
-**Status:** planning register, not design approval or numeric quota. Legacy family labels describe the old sprite dispatch only; they are not approved vector templates.
+**Status:** active planning register under the owner-ratified construction standard; not design approval or numeric quota. Legacy family labels describe the old sprite dispatch only; they are not approved vector templates.
 
 ## Rules
 - Record actual vector construction family only after bespoke silhouette exploration.
