@@ -1,8 +1,11 @@
-## Fourth-batch owner authorization update — parallel exploration (2026-11-20)
+## Fourth-batch internal QA checkpoint — Claude review package ready (2026-11-20)
 
-The owner has superseded the earlier Sailor-only authorization and explicitly approved simultaneous design-stage exploration for Sailor (#12), Slicker (#13) and Painter (#14). See [parallel silhouette exploration 02](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-05.svg) and [parallel construction cards/report 01](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md); [matched-scale face geometry study](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg)).
+Sailor (#12), Slicker (#13) and Painter (#14) have completed the second internal design-stage QA pass. See [Claude review package 01](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-01.md), [silhouette source 05](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-05.svg), [construction cards 01](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md) and [face geometry study 02](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg).
 
-All three remain **UNASSIGNED** in the current vector construction-family column. Their proposed descriptors are planning notes only and must not be promoted until each character's own silhouette/construction is approved. No quotas or numeric thresholds are introduced. Renderer implementation is not authorized.
+- Run #664 / artifact 14648551327 tested commit `65252b64031626901b03905c4f253d1043f1a31e`; design-source capture and semantic validation passed.
+- Manual review verified four-view orientation and character-relative prop visibility. Slicker's front-view umbrella handedness was corrected and recaptured. Its direct-scale visibility remains a reviewer question.
+- Face geometry is still proposed; small-scale differentiation against the closest roster faces is the primary independent-review question.
+- All three families remain **UNASSIGNED**. No owner silhouette approval, palette approval or production renderer authorization has been granted.
 
 ## Historical fourth-batch direction approval — superseded by parallel authorization above (2026-11-20)
 
