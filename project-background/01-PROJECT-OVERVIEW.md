@@ -16,4 +16,4 @@ Vapor City is a browser-based game prototype. This workstream replaces legacy ci
 - **Primary builder (ChatGPT):** implements, integrates, tests, inspects rendered evidence, and maintains documentation.
 - **Independent reviewer (Claude):** evaluates completed work against Granny Volt and project standards; review does not replace owner approval.
 
-See the [QA handoff](04-QA-AND-HANDOFF.md), [NPC tracker](NPC_VECTOR_CHARACTER_TRACKER.md), [art direction](02-ART-DIRECTION-AND-VISUAL-DIRECTION.md), [technical implementation](03-TECHNICAL-IMPLEMENTATION.md), and [Civilian Vector Construction Standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md).
+See the [QA handoff](04-QA-AND-HANDOFF.md), [NPC tracker](NPC_VECTOR_CHARACTER_TRACKER.md), [technical implementation](03-TECHNICAL-IMPLEMENTATION.md), and [Civilian Vector Construction Standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md); consult the repository's current art-direction document for visual requirements.
