@@ -4,9 +4,9 @@ The owner has superseded the earlier Sailor-only authorization and explicitly ap
 
 All three remain **UNASSIGNED** in the current vector construction-family column. Their proposed descriptors are planning notes only and must not be promoted until each character's own silhouette/construction is approved. No quotas or numeric thresholds are introduced. Renderer implementation is not authorized.
 
-## Fourth-batch direction approval and Sailor exploration status — 2026-11-20
+## Historical fourth-batch direction approval — superseded by parallel authorization above (2026-11-20)
 
-The owner approved the refined role directions for Sailor, Slicker and Painter, and authorized Sailor silhouette exploration only. Sailor's family remains UNASSIGNED until the owner approves a silhouette/construction card. Slicker and Painter remain queued. See [Sailor silhouette study](../fourth-civilian-batch/SAILOR-SILHOUETTE-EXPLORATION-01.svg) and [construction card](../fourth-civilian-batch/SAILOR-CONSTRUCTION-CARD-EXPLORATION-01.md). No renderer or palette work is authorized.
+Historical status only: the owner initially authorized Sailor first. This was superseded by the parallel authorization recorded at the top of this audit. All three now proceed together; each remains UNASSIGNED pending its own approval. See [Sailor silhouette study](../fourth-civilian-batch/SAILOR-SILHOUETTE-EXPLORATION-01.svg) and [construction card](../fourth-civilian-batch/SAILOR-CONSTRUCTION-CARD-EXPLORATION-01.md). No renderer or palette work is authorized.
 
 # Roster Shell-Family Audit — Pre-Production Register
 
