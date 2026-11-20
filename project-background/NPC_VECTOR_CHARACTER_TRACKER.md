@@ -1,4 +1,10 @@
+## Tech, Hacker and Fisher — round-05 silhouette render (2026-11-20)
 
+- **Owner decision:** round-05 silhouette direction accepted by the owner on 2026-11-20. This is approval of the design direction, not approval of rendered game art or completed renderer QA.
+- GitHub Actions [SVG render Run #1](https://github.com/tinytime/Tinytime.github.io/actions/runs/44738396316) succeeded. Chromium rendered the canonical source SVG at exact 3× scale: 4800×3540 pixels. Source geometry was validated as 1600×1180 with viewBox `0 0 1600 1180`.
+- Generated PNG: `project-background/qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-ROUND-05-3X.png`. The PNG is committed to the working branch. Workflow artifact: [14628824017](https://github.com/tinytime/Tinytime.github.io/actions/runs/44738396316/artifacts/14628824017).
+- **Next gate:** visual inspection of the actual 3× PNG, especially Tech's left-profile meter/arm contact, Fisher's right-profile hood lip and resting hand, and all accepted handedness/silhouette differences. Do not begin renderer implementation until this inspection is complete.
+- Renderer implementation, native 64×96 captures, direct 28×42 captures, game-scale visual QA and owner approval of rendered art have not occurred. No golden snapshots were changed.
 
 ## Guard, Vendor and Clinic — corrected renderer QA (2026-11-20)
 
