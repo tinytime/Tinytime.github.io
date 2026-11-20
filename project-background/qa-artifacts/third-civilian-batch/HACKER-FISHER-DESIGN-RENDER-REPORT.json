@@ -1,0 +1,74 @@
+{
+  "source": "HACKER-FISHER-FINISHED-DESIGN-STUDY.svg",
+  "sourceSha256": "8fdc330a452bc07d4a1d0969c7d83d5c8c17610354c0c3adbb310ad272589722",
+  "sourceDimensions": {
+    "width": 1680,
+    "height": 1720,
+    "viewBox": "0 0 1680 1720"
+  },
+  "sourceType": "design-stage vector; not game-renderer output",
+  "rendered": {
+    "complete": true,
+    "width": 1680,
+    "height": 1720
+  },
+  "directionalCaptures": [
+    {
+      "character": "Hacker",
+      "direction": "front",
+      "native": "64x96",
+      "direct": "28x42"
+    },
+    {
+      "character": "Hacker",
+      "direction": "back",
+      "native": "64x96",
+      "direct": "28x42"
+    },
+    {
+      "character": "Hacker",
+      "direction": "left-profile",
+      "native": "64x96",
+      "direct": "28x42"
+    },
+    {
+      "character": "Hacker",
+      "direction": "right-profile",
+      "native": "64x96",
+      "direct": "28x42"
+    },
+    {
+      "character": "Fisher",
+      "direction": "front",
+      "native": "64x96",
+      "direct": "28x42"
+    },
+    {
+      "character": "Fisher",
+      "direction": "back",
+      "native": "64x96",
+      "direct": "28x42"
+    },
+    {
+      "character": "Fisher",
+      "direction": "left-profile",
+      "native": "64x96",
+      "direct": "28x42"
+    },
+    {
+      "character": "Fisher",
+      "direction": "right-profile",
+      "native": "64x96",
+      "direct": "28x42"
+    }
+  ],
+  "outputs": [
+    "HACKER-FISHER-FINISHED-DESIGN-STUDY-1X.png",
+    "HACKER-FISHER-FINISHED-DESIGN-STUDY-3X.png",
+    "HACKER-FISHER-NATIVE-64X96-DESIGN-CAPTURES.png",
+    "HACKER-FISHER-DIRECT-28X42-DESIGN-CAPTURES.png",
+    "HACKER-FISHER-NEAREST-NEIGHBOUR-4X-DESIGN-CAPTURES.png"
+  ],
+  "nearestNeighbour": "Direct 28x42 crops upscaled 4x with canvas imageSmoothingEnabled=false",
+  "browser": "Playwright Chromium"
+}
