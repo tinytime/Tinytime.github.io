@@ -13,6 +13,111 @@ This section supersedes older status statements below where they conflict. Histo
 - **Next sequence:** finish and render the five-character correction pass; update the five-character evidence package against the current source; run and inspect fresh QA artifacts; submit that exact evidence to Claude; resolve valid findings; obtain owner approval; only then release the remaining roster.
 
 
+## Version 2 review-derived visual acceptance addendum — 2026-11-19
+
+This addendum translates Claude's independent review of the Usher, Cook, Courier, Coach and Referee evidence into stronger design and review requirements. It supplements the construction and semantic-measurement framework below; it does not replace the existing technical invariants, approve the five characters, ratify this standard, or release the remaining 17 civilians. Where this addendum is more specific than earlier general wording, use the more specific requirement. Numeric score weights and any future thresholds remain provisional until independently reviewed and owner-ratified.
+
+### A. Design quality is separate from technical completeness
+
+A complete four-direction render set, passing automated checks, valid semantic JSON, or a green workflow does not by itself establish visual quality. Reviewers must assess the actual rendered images and distinguish:
+- technical/render correctness;
+- semantic annotation accuracy;
+- character design quality and identity;
+- readability at actual game scale;
+- integration with the game’s visual environment.
+
+A defect in one category must not be hidden by success in another. A high aggregate score cannot compensate for a critical failure in a defining visual requirement.
+
+### B. Roster identity separation — construction, not decoration
+
+Before detail polish, compare each new design with the closest existing civilians in front, back, left and right silhouettes. Record the closest pairings and inspect the actual paired renders at native 64 × 96 and direct in-game 28 × 42 scale.
+
+When two characters share a similar body mass, the designer must identify at least two meaningful construction-level distinctions, chosen where relevant from:
+- outer garment length, hem geometry, layering or closure construction;
+- shoulder, sleeve, torso or leg construction;
+- head shape, hairline, headwear profile or posture;
+- intentional negative spaces and limb/prop relationships;
+- signature prop placement and physical interaction.
+
+Color, emblem, badge or accessory differences alone do not resolve a genuine construction-level collision. They may reinforce an already distinct construction. Silhouette IoU remains a diagnostic trigger only; record a human conclusion for each material warning: genuine identity collision, acceptable shared body mass with distinct role construction, or inconclusive. Do not distort a design to chase a score.
+
+### C. Physical interaction and prop-contact test
+
+Every handheld or body-supported signature prop must be reviewed as a complete physical interaction, not as an isolated shape. For each direction in which the interaction is visible, verify:
+
+1. **Anatomical continuity:** shoulder to upper arm, elbow, forearm and wrist form a plausible connected limb.
+2. **Hand continuity:** the hand connects visibly and plausibly to the wrist/forearm.
+3. **Contact and support:** the hand visibly grips, supports, touches or operates the prop; the contact relationship is unambiguous at native scale.
+4. **Occlusion and depth:** the hand, prop, clothing and torso overlap in a deliberate front-to-back order; hidden geometry is not mistaken for missing contact.
+5. **Directional continuity:** handedness, prop placement and interaction remain logically consistent across front, back and profiles, allowing intentional view-dependent occlusion.
+
+Classify the interaction as handheld/gripped, supported, body-attached, worn/carried by a strap, or intentionally obscured. State the chosen relationship in the identity/proportion card when it is not self-evident. A prop emerging from a sleeve/apron edge, floating without support, or disappearing behind clothing without a credible grip is a construction defect. Prop bounds remain separate from anatomical measurement bounds; the hand and arm remain anatomy.
+
+### D. Individual face and head identity
+
+A technically non-identical face is not necessarily an individually designed face. Each identity brief must specify at least two intentional facial/head identity cues beyond skin tone, hair color or headwear. Appropriate cues include eye shape/spacing, brow shape, nose/profile contour, mouth/expression, facial proportions, hairline, sideburns, ear placement or age cues.
+
+Review front and both profiles for facial identity; review the rear for deliberate hair, nape and headwear construction. Avoid one shared face template with token one-pixel edits. Do not force every face to be radically different: the requirement is purposeful character-specific construction that reads at game scale.
+
+### E. Rasterized value, shape hierarchy and game-scale acceptance
+
+Every candidate must pass a dedicated visual-readability inspection using the actual direct 28 × 42 in-game capture in all four directions. A derived resize is useful for diagnosis but is not a substitute for direct capture.
+
+At game scale, inspect at minimum:
+- head and headwear separation, including age/personality cues;
+- face and expression where pixels permit;
+- separation of adjacent major forms such as coat/trousers, trousers/shoes, arm/torso, hair/headwear, hand/prop and garment layers;
+- silhouette and stance;
+- signature prop and role identifier;
+- whether small details remain intentional marks or collapse into noise.
+
+Important adjacent forms must remain distinguishable through value, outline, shape, spacing or another deliberate cue. Do not require a universal contrast ratio without calibrated evidence. Simplify, enlarge or remove details that become noise. Do not add detail merely because it is visible at 64 × 96. Record any intentional detail that is not expected to survive game scale and ensure it is not the sole role identifier.
+
+Shape hierarchy must be deliberate: outer silhouette first, major construction forms second, small decorative detail last. Outlines, internal lines, gradients and highlights should reinforce that hierarchy. Granny's bold outline and restrained detail are quality lessons, not a universal stroke-width or shading template; each design must remain cohesive at both scales.
+
+### F. Review severity and evidence format
+
+Use a consistent finding severity:
+- **P0 — Critical:** character cannot function/read as intended, major render corruption, or fundamental identity failure. Stop approval and correct.
+- **P1 — Major:** clear construction, prop-contact, identity, directional or game-scale readability defect. Must be corrected before the character/group advances to owner approval.
+- **P2 — Minor:** noticeable quality weakness that should be corrected where practical or explicitly accepted with rationale.
+- **P3 — Polish:** subjective refinement or low-impact preference; optional unless it exposes a real defect.
+
+Every finding must name the character, direction, evidence scale/source, exact visible issue, why it matters, proposed correction and severity. Separate objective defects from subjective preferences. Reviewers must also record **what should not change** so successful identity decisions are protected from unnecessary redesign. A score or automated audit finding must never substitute for image evidence.
+
+### G. Gallery and town rendering compatibility
+
+Character-level quality and project-wide art-style compatibility are separate review decisions. Inspect new vectors in the gallery and town alongside representative legacy assets, but do not automatically flatten, pixelate or otherwise degrade a well-constructed vector to imitate legacy art.
+
+The owner must decide the intended long-term coexistence/rendering direction. Until then, report style mismatch as a project-level art-direction risk, not automatically as a character defect. Do not change global antialiasing, outline, gradient or rendering behavior as a local character fix without explicit scope approval.
+
+### H. Provisional visual review scorecard proposal
+
+For consistent comparative reporting, use this proposed allocation only as a non-gating discussion aid:
+
+| Category | Proposed points |
+|---|---:|
+| Identity and silhouette | 20 |
+| Anatomy and construction | 15 |
+| Face and expression | 10 |
+| Clothing construction | 10 |
+| Props and physical interaction | 15 |
+| Palette and value hierarchy | 10 |
+| Vector craftsmanship and finish | 10 |
+| Four-direction consistency | 5 |
+| Direct game-scale readability | 5 |
+| **Total** | **100** |
+
+These weights are proposed, not ratified. Do not use the former suggested score bands, category floors, or this revised allocation as automatic acceptance gates. Do not invent a pass mark. Any score must be accompanied by evidence-backed rationale and P0–P3 findings. A high score never constitutes internal QA, Claude review or owner approval. Revisit weights only after multiple characters have been reviewed consistently and the owner has ratified the method.
+
+### I. Acceptance blockers and approval discipline
+
+Regardless of score, a character cannot advance as ready for owner approval while a verified P0 or P1 visual defect remains unresolved. Examples include a major prop with no believable contact, a head shape that reads as the wrong object, a genuine roster identity collision, a defining form that collapses at game scale, or a broken directional construction.
+
+P2 findings require correction or an explicit documented rationale for acceptance. P3 findings may be deferred. Reviewers must not turn subjective preferences into mandatory defects without explaining the impact on identity, readability, construction or integration.
+
+Keep technical QA, semantic measurement status, visual scorecard, review findings and approval state as separate records. Only the project owner can grant final approval. The five-character correction round is the calibration case for this addendum; it does not release the remaining 17 civilians.
+
 **Status:** Draft for independent review and owner ratification  
 **Created:** 2026-11-19  
 **Benchmark:** Granny Volt (approved 10/10 quality reference)  
