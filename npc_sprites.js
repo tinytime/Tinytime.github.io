@@ -1970,7 +1970,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     path([[43,39],[56,39],[57,52],[42,52]],skin);
     if(!side){
       // Offset shoulder and narrow waist; no broad clinic tunic or apron plane.
-      path([[32,54],[42,47],[59,49],[70,57],[66,91],[72,101],[28,102],[33,84]],shell,ink,1.9);
+      path([[35,54],[44,46],[57,48],[68,55],[65,77],[71,91],[64,98],[40,100],[27,96],[32,78]],shell,ink,1.9);
       if(!back){
         path([[42,49],[50,57],[58,49],[55,46],[50,51],[45,46]],'#D6E2D7',ink,1.1);
         path([[32,57],[42,51],[48,61],[43,78],[34,91],[28,83]],shellDark,ink,1.2);
@@ -1993,7 +1993,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         line([[72,81],[76,80]],'#7B4430',1);
       }else{
         // Rear X harness remains a continuous garment-mounted construction.
-        path([[32,56],[42,50],[60,51],[69,58],[66,92],[72,101],[28,102]],shellDark,ink,1.8);
+        path([[34,54],[43,47],[58,49],[69,56],[65,78],[71,92],[64,98],[39,100],[27,96],[32,78]],shellDark,ink,1.8);
         path([[36,55],[64,55],[66,65],[34,65]],'#2B6868',ink,1);
         path([[37,53],[42,52],[63,94],[58,97]],'#303C42',ink,1.1);
         path([[63,53],[67,56],[42,97],[37,95]],'#303C42',ink,1.1);
@@ -2007,7 +2007,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[51,94],[68,91],[72,101],[50,102]],'#17484B',ink,1.1);
     }else{
       // Narrow side plane keeps the pitched torso and compact waist.
-      path([[38,53],[48,48],[62,52],[68,62],[64,89],[71,101],[29,102],[35,85]],shell,ink,1.8);
+      path([[34,52],[47,45],[63,49],[72,60],[68,77],[63,88],[70,96],[61,100],[31,98],[35,79]],shell,ink,1.8);
       if(!back){
         path([[42,54],[52,55],[57,67],[51,82],[37,91],[32,85]],'#286C68',ink,1);
         line([[45,56],[58,88]],'#303C42',3.2);line([[48,57],[61,87]],'#9BB8AE',.9);
@@ -2018,17 +2018,17 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
           path([[34,81],[40,81],[42,87],[37,90],[33,87]],skin,ink,1);
           path([[36,72],[47,70],[50,84],[39,88],[35,84]],copper,ink,1.2);
           path([[38,74],[45,73],[47,79],[39,81]],'#243E43',ink,.8);
-          line([[40,76],[44,75]],'#F4D28E',.9);
+          line([[40,76],[44,75]],'#F4D28E',.9);path([[37,82],[40,81],[42,83],[41,86],[38,86]],skin,ink,.8);line([[38,83],[40,84]],'#85564B',.9);line([[39,85],[41,85]],'#85564B',.8);
         }else{
           path([[61,58],[68,60],[72,77],[69,88],[64,88],[63,73]],shell,ink,1.2);
           path([[64,86],[70,86],[71,92],[66,94],[63,91]],skin,ink,1);
         }
       }else{
-        path([[39,55],[50,51],[62,55],[65,70],[61,96],[31,98]],shellDark,ink,1.2);
+        path([[34,52],[47,45],[63,49],[72,60],[69,75],[75,81],[69,88],[65,96],[31,98]],shellDark,ink,1.2);
         line([[42,67],[62,67]],'#8DB4AB',1);
         line([[50,54],[50,96]],'#123C42',1.1);
         path([[43,55],[48,55],[60,92],[56,94]],'#303C42',1.1);
-        path([[60,55],[64,58],[47,94],[43,92]],'#303C42',1.1);
+        path([[60,55],[64,58],[47,94],[43,92]],'#303C42',1.1);path([[62,59],[72,61],[76,72],[74,86],[66,89],[62,82]],'#263F43',ink,1.2);path([[64,62],[71,64],[72,70],[64,69]],'#7FA9A0',ink,.9);
       }
     }
     // Swept-back undercut: stepped ridge, open brow/eye and compact ear cup.
@@ -2063,7 +2063,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       ell(63,29.5,1.5,1.8,'#A8B8B5',ink,.7);
       // Keep the profile eye/brow on top of the swept hairline so the face
       // remains readable at direct 28x42 scale in both directions.
-      if(!back){ell(55.5,29.5,1.15,1.45,ink,null);line([[52,26],[58,25]],'#44313A',1.3);}
+      if(!back){ell(55.2,30.2,2.15,2.55,ink,null);ell(55.8,29.5,.65,.75,'#F2D6C2',null);line([[50.8,25.8],[58.1,24.8]],'#33252D',2.8);line([[53.8,34.5],[57.2,35.2]],'#9A6256',1.4);}
     }
     // Copper instrument glint and restrained petrol edge highlights.
     g.save();g.globalAlpha=.55;g.shadowBlur=.7/scale;g.shadowColor='rgba(240,180,95,.28)';
