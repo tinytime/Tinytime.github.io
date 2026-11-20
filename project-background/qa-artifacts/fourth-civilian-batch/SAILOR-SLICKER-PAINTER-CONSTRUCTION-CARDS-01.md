@@ -5,7 +5,7 @@ Exact source: [revision 09 silhouette exploration](SAILOR-SLICKER-PAINTER-SILHOU
 - All 24 body-only/prop-on views generated at native 64×96, separately rasterized direct 28×42 and enlarged 4×. Face evidence: 69 roster crops and six matched comparison rows.
 - Profile prop audit passed: Sailor right 172 added pixels; Slicker left 295 (272 prop-region); Painter left 237 (95 prop-region).
 - Visual inspection covered body-only and prop-on sheets, direct-scale captures, enlarged profiles, matched face comparisons and Sailor/Welder rear silhouette. Sailor is narrower/upright versus Welder's broad squared rear. Slicker and Painter profile props are shifted inward from crop edges; Claude should assess direct-scale readability and physical grip/contact.
-- Browser QA global result: failure on unapproved golden snapshots (1/23) and 180 existing audio/resource 404 console entries; page/script errors empty. No snapshots/provenance changed.
+- Browser QA global result: failure on unapproved golden snapshots (1/23) and 135 existing audio/resource 404 console entries; page/script errors empty. No snapshots/provenance changed.
 - Current status: design-stage evidence complete; Claude review pending; owner silhouette/construction approval pending; all families UNASSIGNED; renderer work NOT AUTHORIZED.
 
 # Fourth civilian batch — parallel construction cards and differentiation report
