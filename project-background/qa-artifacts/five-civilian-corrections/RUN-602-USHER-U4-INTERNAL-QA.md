@@ -1,3 +1,5 @@
+> **SUPERSEDED:** Use the exact-source Run #603 QA and Claude re-review brief instead. Run #602 tested an intermediate source that temporarily restored Cook's pre-existing edit; the current owner instruction is to preserve the branch-start Cook code. Run #603 is the authoritative U4 evidence.
+
 # Run #602 — Usher U4 Clipboard Contact Internal QA
 
 **Verdict:** U4 is internally resolved in the tested renderer. This is not Claude's independent re-review and does not approve any of the five civilians.
