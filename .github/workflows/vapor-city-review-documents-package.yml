@@ -105,3 +105,4 @@ jobs:
 
 # Re-trigger package generation.
 # Include Run 602 U4 brief and current owner dispositions.
+# Rebuild after final current-authority and manifest updates.
