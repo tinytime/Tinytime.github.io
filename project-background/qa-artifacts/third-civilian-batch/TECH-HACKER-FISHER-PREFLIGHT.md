@@ -1,6 +1,6 @@
 # Next Civilian Batch — Tech, Hacker and Fisher
 
-**Status:** preparation authorized by the project owner on 2026-11-20. First-pass silhouette sheet rejected in reviewer feedback dated 2026-11-20; correction round 03 is now the active proposal and remains NOT APPROVED pending owner review. This package establishes character-specific design briefs and revised directional silhouette concepts. It does not constitute approval of the silhouettes or authorize renderer implementation. Submit this package to the owner for silhouette/design approval before coding the three renderers.
+**Status:** preparation authorized by the project owner on 2026-11-20. First-pass silhouette sheet rejected in reviewer feedback dated 2026-11-20; correction round 04 is now the active proposal and remains NOT APPROVED pending owner review. This package establishes character-specific design briefs and revised directional silhouette concepts. It does not constitute approval of the silhouettes or authorize renderer implementation. Submit this package to the owner for silhouette/design approval before coding the three renderers.
 
 **Batch order:** Tech (#9), Hacker (#10), Fisher (#11).  
 **Builder:** ChatGPT. **Final decision authority:** project owner.  
@@ -29,7 +29,7 @@ Reviewer correction: the first sheet was rejected because all three read as one 
 | Hacker | clinic archetype; hood head style | Narrow, folded-in silhouette with cropped asymmetric drape-shell, exposed forearm and tucked-in stance; deliberate negative space around face and hands | Generic hoodie recolour, Tech's utility harness, Courier's A-line messenger shell |
 | Fisher | trades archetype; work-cap style | Low, wide oilskin smock / bib-front shell, braced legs and substantial deck boots; one low-held net/float interaction | Sailor's newsboy-cap/naval look, Trades generic work jacket, fishing rod as sole identity |
 
-These remain proposals, not locked designs. The attached correction-round-03 SVG incorporates reviewer feedback: Tech and Fisher front/back prop placement is explicitly mirrored for character-left; Hacker slate remains character-right; Tech and Hacker gain distinct stepped head notches; Fisher's hood is reduced and its brow lip clarified; Fisher's back yoke is a solid garment plane with seam; Tech's flared trouser leg is reduced; Hacker's right profile gains its asymmetric hanging panel. Fisher remains the widest base and longest smock; Tech retains forward lean and narrow waist; Hacker remains the narrowest body. Palette direction is updated below.
+These remain proposals, not locked designs. The attached correction-round-04 SVG incorporates reviewer feedback: Tech and Fisher front/back prop placement is explicitly mirrored for character-left; Hacker slate remains character-right; Tech and Hacker gain distinct stepped head notches; Fisher's hood is reduced and its brow lip clarified; Fisher's back yoke is a solid garment plane with seam; Tech's flared trouser leg is reduced; Hacker's right profile gains its asymmetric hanging panel. Fisher remains the widest base and longest smock; Tech retains forward lean and narrow waist; Hacker remains the narrowest body. Palette direction is updated below.
 
 ---
 
@@ -137,14 +137,28 @@ These remain proposals, not locked designs. The attached correction-round-03 SVG
 
 ## Evidence status
 
-- The SVG is a correction-round-03 design exploration only. Front/back views are separately checked for character-relative handedness; mirrored transformations are used only where required to place the character-relative prop on the correct viewer side. Profile studies retain their own near/far anatomy.
+- The SVG is a correction-round-04 design exploration only. Front/back views are separately checked for character-relative handedness; mirrored transformations are used only where required to place the character-relative prop on the correct viewer side. Profile studies retain their own near/far anatomy.
 - No game renderer has been changed for Tech, Hacker or Fisher.
 - No direct renderer captures, game-scale face crops, prop-contact audit or town spawn evidence exist yet for these three.
 - No owner silhouette approval is implied by preparing this package.
 
-### Reviewer feedback and correction round 03 — 2026-11-20
+### Reviewer feedback and correction round 04 — 2026-11-20
 
 The reviewer judged round 02 a substantial improvement: body geometry and role separation were now distinct; Tech's rear harness, Hacker's harness-free back, Hacker's one-sided drape and palette separation were accepted. Four remaining issues were identified: front/back handedness was inconsistent; Fisher's rear yoke read as a white torso hole; Tech and Hacker head-read cues lacked distinct black-silhouette notches; and Fisher's hood/head was oversized and merged into the shoulders, with an ambiguous profile projection. Minor issues were Tech's flared trouser leg and Hacker's generic right profile.
 
-Round 03 updates the SVG to address those findings. In particular, Tech/Fisher character-left props are shown viewer-right in front and viewer-left in back; Hacker's character-right slate is viewer-left in front and viewer-right in back. Fisher's yoke is a solid garment plane with a seam, hood dimensions are reduced and the profile lip shortened. These are still design-sheet studies only. The reviewer has not yet confirmed round 03, and owner approval remains pending.
+Round 03 addressed the previous review findings; the owner then identified remaining construction defects. Round 04 updates the SVG to address those owner findings. In particular, Tech/Fisher character-left props are shown viewer-right in front and viewer-left in back; Hacker's character-right slate is viewer-left in front and viewer-right in back. Fisher's yoke is explicitly overpainted dark with a visible seam; the rear hood matches the reduced front hood and both profile views use a short, soft hood lip. Tech's stepped ear-cup cue is carried in front, back and both profiles. Tech's diagnostic meter and Fisher's basket appear in the character-left near-side (left profile) only; their far-side/right-profile props remain occluded. Hacker's character-right drape is hidden in left profile and retained only where its near side is visible. These are still design-sheet studies only. The reviewer has not yet confirmed round 03, and owner approval remains pending.
 - No golden snapshots, existing approved civilian renderers or legacy dispatch behavior were changed.
+
+
+### Owner feedback and correction round 04 — 2026-11-20
+
+The owner confirmed the round-03 improvements: Tech/Fisher front props and Hacker's front slate match their handedness labels; Hacker's broken fringe reads in all four views and is distinct from Tech; Fisher's head is smaller and separated from the shoulders; and Tech's leg flare is reduced. Remaining defects were the pale rear yoke, inconsistent Fisher hood profiles/rear scale, missing left-profile Fisher basket and Tech meter, and Tech's head cue disappearing outside the front view. The owner also asked that Hacker's character-right panel be occluded in left profile.
+
+Round 04 updates the silhouette SVG only:
+- Fisher rear yoke is explicitly painted dark with a light seam, avoiding a pale torso-hole read.
+- Fisher rear hood is reduced to match the front; left and right profiles receive short, soft hood lips without a projecting cap bill.
+- Fisher basket and Tech meter are shown with supporting arm/hand geometry in the left profile (character-left near side); they are not duplicated on the far side. Tech's back meter remains legitimately occluded.
+- Tech's stepped ear-cup cue is extended into both profiles and the back view, in addition to the existing front cue.
+- Hacker's character-right hanging panel is removed from the left profile because that side is far-side/occluded there.
+
+**Status:** round 04 is ready for owner silhouette review, not yet owner-approved. This is still a design sheet, not renderer implementation or game evidence. No renderer code, approved civilian art, golden snapshots or provenance changed. After explicit owner silhouette approval, implement Tech, then Hacker, then Fisher one at a time with the full four-direction native/direct-scale QA process.
