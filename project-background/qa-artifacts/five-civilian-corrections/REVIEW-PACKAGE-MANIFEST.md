@@ -18,7 +18,7 @@ Use this manifest for every independent review package. Mark each row `included`
 | Black silhouette sheet | included | Alpha-derived; not anatomical segmentation |
 | Neutral-grey and town/night captures | included | Record exact background configuration |
 | Walk frames, two per direction | unavailable | Not present in Runs #600 or #602; required for any character with active walk animation, otherwise record not applicable |
-| Before/after sheets for each finding | partial | Run #600 and #602 contain the exact native/direct captures for U4 before/after comparison; the two profile pairs are not yet merged into a single side-by-side composite. Other accepted/declined findings need no new correction sheet. |
+| Before/after sheets for each finding | included | U4 left/right native and direct 28×42 before/after sheets are embedded in Claude package artifact `14594041741`; source captures are in the Run #600 and Run #602 evidence ZIPs. Other accepted/declined findings need no new correction sheet. |
 | Named-character town spawn proof | unavailable | Town-ground composite is diagnostic only |
 | Role-debug evidence | included | Run #600 artifact |
 | QA report and logs | included | Run #600 artifact |
@@ -32,6 +32,13 @@ Use this manifest for every independent review package. Mark each row `included`
 - Record pixel-diff method and threshold for every changed-pixel count.
 - Preserve accepted exceptions and owner dispositions verbatim.
 - Do not mark any civilian approved based on package completeness or a reviewer recommendation.
+## Self-contained package build
+
+- GitHub Actions package run: [Run `44657601735`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44657601735)
+- Artifact: [14594041741](https://github.com/tinytime/Tinytime.github.io/actions/runs/44657601735/artifacts/14594041741)
+- The nested ZIP embeds the complete current project documents, Run #600 and Run #602 evidence archives, U4 before/after profile sheets at native and direct game scale, and the Run #602 Claude re-review brief.
+- Package workflow completed successfully; archive integrity verified locally. No required document is represented only by a link.
+
 ## Current owner dispositions
 
 - Cook C1: explicitly deferred/accepted as-is; no renderer change.
