@@ -95,3 +95,14 @@ ChatGPT implemented that focused pass in `npc_sprites.js` commit `6a1fd2a4fbad50
 - Hacker (#10) and Fisher (#11) renderer implementation remains on hold until Tech clears independent review and owner approval. Proceed one character at a time, with full native 64×96 and direct 28×42 four-direction QA and visual inspection after each.
 - No golden snapshots or provenance were changed.
 - Package: [Tech/Hacker/Fisher preflight](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md); [round-05 four-view silhouette exploration](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg).
+
+
+## Hacker (#10) and Fisher (#11) — Internal design QA disposition (2026-11-20)
+
+- Internal QA inspected corrected Playwright [Run #7](https://github.com/tinytime/Tinytime.github.io/actions/runs/44748083989), source `2b08e60d4814846923e133503f965532bde055ad`, artifact [14634776106](https://github.com/tinytime/Tinytime.github.io/actions/runs/44748083989/artifacts/14634776106).
+- Verified complete 1× sheet, all eight native 64×96 directional captures, all eight direct 28×42 design projections, and all eight 4× nearest-neighbour enlargements. Render report confirms complete 1680×1720 output and exact direction/scale inventory.
+- **Internal design QA: PASS.** Hacker's corrected single front slate and supporting-hand overlap are intact; rear/right-profile placement and left-profile far-side occlusion are consistent. Fisher basket is correctly placed front viewer-right, rear viewer-left and left-profile only, with no right-profile duplicate. The two silhouettes, outfit masses and palettes remain distinct. No visible clipping, detached large components, duplicate limbs or duplicate props.
+- Minor design-readability notes are recorded in [the internal review package](qa-artifacts/third-civilian-batch/HACKER-FISHER-DESIGN-REVIEW.md): retain the compact slate grip at 28×42; keep Fisher's right-profile hip detail subordinate and garment-integrated; facial micro-expression details naturally compress at game scale.
+- Run #7's render, syntax, capture generation and artifact upload passed. Its PNG commit/push failed on a non-fast-forward branch race; the artifact is authoritative and corrected PNGs are not committed as repository files.
+- **Finished-art owner acceptance remains pending.** Internal QA is not owner approval.
+- No game renderer, live town integration, gallery integration, golden snapshots or snapshot provenance changed. Hacker/Fisher renderer implementation remains held by the Tech-first independent-review and owner rendered-art approval gate.
