@@ -208,8 +208,10 @@ Show the exact pair/direction at both scales and classify it as genuine identity
 - Front, side, and rear head construction must be considered independently.
 - Profiles need a readable forehead/nose/chin contour and correctly placed visible eye/ear details where appropriate.
 - Back views need deliberate hair/headwear/nape construction rather than a blank head fallback.
-- Each identity brief specifies at least two purposeful facial/head cues beyond skin tone, hair color and headwear. Cues must be inspectable in native front/profile views; at least one must survive at direct 28×42 or be expressed as a readable profile contour. Do not count token one-pixel changes; cues may be structural rather than tiny interior marks.
-- Facial details must survive actual game scale; do not add detail that collapses into noise.
+- Each identity brief specifies at least two purposeful face-construction cues, named by type (eye geometry/spacing, brow, nose/profile, cheek/jaw, mouth/expression or facial proportions) and distinct from the two closest roster faces. Skin tone, hair colour and headwear alone do not count.
+- Judge interior facial features at native 64×96 and in front/profile views. Interior facial marks are not required to survive direct 28×42.
+- At direct 28×42, at least one deliberate head-read cue must remain visible: hair mass/hairline, sideburns, headwear profile, age cue or head shape. Name it in the character's must-survive list.
+- Do not count token one-pixel edits or rely on a shared face template.
 
 ### Clothing
 - Garments need clear volume, layering, closures, collars, cuffs, seams, pockets, hems, folds, and material cues where appropriate.
@@ -239,6 +241,14 @@ Use a clear value hierarchy: the viewer should know where to look first, second,
 Use gradients and highlights to describe volume and material, not as decoration for its own sake. Skin, cloth, leather, metal, hair, and hard props should have distinguishable treatments. Avoid excessive gradient bands, muddy midtones, indistinguishable adjacent values, and tiny details that disappear at game scale.
 
 The visual target is Granny's cohesion and finish—not her pink/purple/silver palette or umbrella.
+
+### Granny Volt: fixed reference facts versus non-transferable design choices
+
+**Fixed reference/technical facts:** 100×140 source grid; 0.28 renderer scale; shared ink `#171725`; foot-contact row 136; 36 px tile. These describe Granny's established renderer/reference setup and do not change the civilians' 64×96 native canvas.
+
+**Transferable craft principles:** bold outline hierarchy, restrained detail, a protected/legible face, one dominant silhouette idea, and a prop integrated into the character's pose and hand contact.
+
+**Character-specific; do not copy as defaults:** umbrella, 30.4% legacy head ratio, 36-unit shoulder width, skirt wedge, and purple palette. Granny's side-view widths (candidate 40 versus legacy 55) remain unresolved and are not calibration targets. Her 100×140 grid differs from the civilians' 64×96 grid.
 
 ## 8. Four-direction and scale review
 
