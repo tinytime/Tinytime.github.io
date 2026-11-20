@@ -42,16 +42,19 @@ const browser = await chromium.launch({headless:true});
 try {
   const page = await browser.newPage({viewport:{width:1440,height:1000},deviceScaleFactor:1});
   const svgData = await page.evaluate(async source => {
-    const img = new Image();
-    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
-    await img.decode();
     const captures = [];
     const sheets = {};
-    const renderCrop = (sx,sy,w,h) => {
-      const canvas = document.createElement('canvas'); canvas.width=w; canvas.height=h;
+    const renderCrop = async (sx,sy,w,h) => {
+      // Change the SVG viewport before rasterization. Native 64x96 and direct
+      // 28x42 are therefore two independent vector renders, never a resize.
+      const croppedSvg=source.replace('width="1800" height="1330" viewBox="0 0 1800 1330"',
+        'width="'+w+'" height="'+h+'" viewBox="'+sx+' '+sy+' 64 96"');
+      const image=new Image();
+      image.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(croppedSvg);
+      await image.decode();
+      const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
       const ctx=canvas.getContext('2d',{willReadFrequently:true});
-      ctx.imageSmoothingEnabled=true;
-      ctx.drawImage(img,sx,sy,64,96,0,0,w,h);
+      ctx.imageSmoothingEnabled=true;ctx.drawImage(image,0,0,w,h);
       return canvas.toDataURL('image/png');
     };
     const directions=['front','back','left','right'];
@@ -61,7 +64,7 @@ try {
     for(let r=0;r<3;r++) for(let d=0;d<4;d++) for(const mode of ['body','prop']){
       const x=xs[d],y=mode==='body'?bodyYs[r]:propYs[r];
       const item={character:characterNames[r],direction:directions[d],mode,
-        native:renderCrop(x,y,64,96),direct:renderCrop(x,y,28,42)};
+        native:await renderCrop(x,y,64,96),direct:await renderCrop(x,y,28,42)};
       const key=item.character+'-'+item.mode+'-'+item.direction;
       data[key]=item;
     }
@@ -152,7 +155,7 @@ try {
     nativeCaptures:Object.keys(svgData.data).length,
     direct28x42Captures:Object.values(svgData.data).filter(x=>x.direct).length,
     enlargedNearestNeighbourCaptures:Object.values(svgData.data).filter(x=>x.enlarged4x).length,
-    rasterization:'SVG figure-field crop rendered independently at exact 64x96 and exact 28x42 output dimensions; direct 28x42 is not resized from native output',
+    rasterization:'SVG viewport reset to each 64x96 figure field, then independently rasterized at exact 64x96 and exact 28x42 output dimensions; direct 28x42 is a separate vector rasterization',
     rosterFaceCrops:rosterFaces.length,
     rosterFaceDirections:[...new Set(rosterFaces.map(x=>x.direction))],
     faceCropDimensions:{width:40,height:38,source:'current game directional snapshot hook, native 64x96'},
