@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="850" viewBox="0 0 1360 850">
+<title>Sailor #12 — body-only and prop-on silhouette exploration</title>
+<desc>Preliminary four-direction silhouette study. Top row shows body and clothing only; lower row adds the proposed character-left mooring-line coil. This is a review candidate, not approved final art or renderer output.</desc>
+<rect width="1360" height="850" fill="#f2f0e9"/>
+<style>
+.h{font:700 28px sans-serif;fill:#202124}.sub{font:15px sans-serif;fill:#555}.section{font:700 19px sans-serif;fill:#202124}.small{font:13px sans-serif;fill:#454545}.tiny{font:12px sans-serif;fill:#555}.panel{fill:#e7e4dc;stroke:#c8c4ba;stroke-width:1.2}.sil{fill:#090a0d;stroke:#090a0d;stroke-linejoin:round;stroke-linecap:round}.cut{fill:#f2f0e9;stroke:#f2f0e9;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<text x="40" y="48" class="h">SAILOR #12 — SILHOUETTE EXPLORATION 01</text>
+<text x="40" y="76" class="sub">Upright narrow deckhand · squared cropped deck coat · raised collar · compact cap · character-left line-handling prop</text>
+<text x="40" y="105" class="small">Study intent: the jacket/collar/cap and stance must identify the role before the optional mooring line is added.</text>
+<line x1="40" y1="128" x2="1320" y2="128" stroke="#aaa"/>
+<text x="40" y="160" class="section">A · BODY-ONLY SILHOUETTES (NO PROPS)</text>
+<text x="40" y="184" class="tiny">Same 64×96 construction field in each panel · black fill only · no face marks or palette detail</text>
+<!-- four body-only direction panels -->
+<g transform="translate(70 205)">
+<rect width="112" height="160" class="panel"/>
+<g transform="translate(24 25) scale(1.0)">
+<!-- FRONT: cap with compact short bill, head, raised collar and square short coat, arm gaps -->
+<path class="sil" d="M25 7 Q30 2 36 5 L40 10 L39 15 L34 18 L26 17 L22 13Z M20 8 Q31 2 41 8 L43 11 L20 12Z M40 10 L46 12 L43 14 L39 13Z
+M25 19 L20 21 L18 27 L13 32 L11 44 L15 48 L20 39 L22 32 L23 43 L19 59 L23 64 L30 61 L33 47 L38 47 L41 61 L48 63 L51 58 L46 42 L47 30 L43 23 L38 20 L34 23 L29 20Z
+M22 27 L17 30 L13 41 L17 44 L22 36Z M43 27 L48 30 L53 41 L49 45 L44 36Z
+M23 62 L31 63 L30 77 L27 90 L20 91 L18 87 L22 75Z M39 63 L47 62 L49 75 L54 87 L50 91 L43 89 L39 77Z
+M18 88 L28 88 L28 94 L15 94Z M46 88 L55 88 L59 94 L44 94Z"/>
+<!-- raised collar cut notches -->
+<path class="cut" d="M23 20 L29 24 L33 22 L38 24 L43 20 L40 29 L34 31 L27 29Z"/>
+</g>
+<text x="56" y="146" text-anchor="middle" class="tiny">FRONT</text>
+</g>
+<g transform="translate(230 205)">
+<rect width="112" height="160" class="panel"/>
+<g transform="translate(24 25)">
+<path class="sil" d="M20 8 Q30 2 40 8 L42 12 L20 12Z M21 11 L17 13 L20 15 L24 14Z
+M25 18 L20 22 L18 29 L13 34 L11 44 L15 48 L20 39 L22 33 L23 44 L19 59 L23 64 L30 61 L33 47 L38 47 L41 61 L48 63 L51 58 L46 42 L47 30 L43 23 L38 20 L34 22 L29 20Z
+M22 27 L17 30 L13 41 L17 44 L22 36Z M43 27 L48 30 L53 41 L49 45 L44 36Z
+M23 62 L31 63 L30 77 L27 90 L20 91 L18 87 L22 75Z M39 63 L47 62 L49 75 L54 87 L50 91 L43 89 L39 77Z
+M18 88 L28 88 L28 94 L15 94Z M46 88 L55 88 L59 94 L44 94Z"/>
+<path class="cut" d="M25 25 L33 29 L40 25 L37 35 L33 38 L28 34Z"/>
+</g>
+<text x="56" y="146" text-anchor="middle" class="tiny">BACK</text>
+</g>
+<g transform="translate(390 205)">
+<rect width="112" height="160" class="panel"/>
+<g transform="translate(24 25)">
+<path class="sil" d="M29 6 Q37 3 41 9 L40 16 L34 19 L27 15Z M27 9 Q36 4 43 8 L45 11 L27 12Z M43 10 L48 12 L44 14Z
+M28 19 L22 23 L20 31 L18 43 L22 47 L26 38 L28 32 L29 45 L25 60 L30 64 L37 60 L39 47 L43 46 L47 59 L54 61 L57 56 L51 41 L49 29 L43 21 L36 19Z
+M27 27 L22 30 L18 41 L22 44 L27 36Z
+M29 62 L38 62 L36 77 L33 90 L26 91 L24 87 L29 75Z M44 60 L51 59 L55 73 L59 86 L54 90 L47 87 L43 75Z
+M24 88 L34 88 L33 94 L21 94Z M51 87 L59 87 L62 94 L48 94Z"/>
+<path class="cut" d="M27 20 L33 25 L39 21 L37 31 L32 34 L28 30Z"/>
+</g>
+<text x="56" y="146" text-anchor="middle" class="tiny">LEFT PROFILE</text>
+</g>
+<g transform="translate(550 205)">
+<rect width="112" height="160" class="panel"/>
+<g transform="translate(24 25)">
+<path class="sil" d="M29 6 Q37 3 41 9 L40 16 L34 19 L27 15Z M29 9 Q38 4 44 8 L46 11 L29 12Z M28 12 L23 14 L28 16Z
+M28 19 L22 23 L20 31 L18 43 L22 47 L26 38 L28 32 L29 45 L25 60 L30 64 L37 60 L39 47 L43 46 L47 59 L54 61 L57 56 L51 41 L49 29 L43 21 L36 19Z
+M43 27 L48 30 L53 41 L49 44 L44 36Z
+M29 62 L38 62 L36 77 L33 90 L26 91 L24 87 L29 75Z M44 60 L51 59 L55 73 L59 86 L54 90 L47 87 L43 75Z
+M24 88 L34 88 L33 94 L21 94Z M51 87 L59 87 L62 94 L48 94Z"/>
+<path class="cut" d="M27 20 L33 25 L39 21 L37 31 L32 34 L28 30Z"/>
+</g>
+<text x="56" y="146" text-anchor="middle" class="tiny">RIGHT PROFILE</text>
+</g>
+<text x="760" y="230" class="small">Construction read</text>
+<text x="760" y="258" class="small">• Narrow vertical torso; cropped squared coat</text>
+<text x="760" y="282" class="small">• Raised split collar creates a distinct neck frame</text>
+<text x="760" y="306" class="small">• Compact cap, no broad hood or long brim</text>
+<text x="760" y="330" class="small">• Relaxed but planted stagger; arm/torso gaps retained</text>
+<text x="760" y="354" class="small">• Profile nose/face geometry remains intentionally unresolved</text>
+</g>
+<line x1="40" y1="390" x2="1320" y2="390" stroke="#aaa"/>
+<text x="40" y="424" class="section">B · PROP-ON SILHOUETTES (MOORING-LINE COIL HYPOTHESIS)</text>
+<text x="40" y="448" class="tiny">Character-left hand carries the compact coil · front viewer-right / back viewer-left · only the matching profile shows the near-side coil</text>
+<!-- repeat figures with coil -->
+<g transform="translate(70 470)">
+<rect width="112" height="160" class="panel"/>
+<g transform="translate(24 25)">
+<path class="sil" d="M25 7 Q30 2 36 5 L40 10 L39 15 L34 18 L26 17 L22 13Z M20 8 Q31 2 41 8 L43 11 L20 12Z M40 10 L46 12 L43 14 L39 13Z M25 19 L20 21 L18 27 L13 32 L11 44 L15 48 L20 39 L22 32 L23 43 L19 59 L23 64 L30 61 L33 47 L38 47 L41 61 L48 63 L51 58 L46 42 L47 30 L43 23 L38 20 L34 23 L29 20Z M22 27 L17 30 L13 41 L17 44 L22 36Z M43 27 L48 30 L53 41 L49 45 L44 36Z M23 62 L31 63 L30 77 L27 90 L20 91 L18 87 L22 75Z M39 63 L47 62 L49 75 L54 87 L50 91 L43 89 L39 77Z M18 88 L28 88 L28 94 L15 94Z M46 88 L55 88 L59 94 L44 94Z"/>
+<path class="cut" d="M23 20 L29 24 L33 22 L38 24 L43 20 L40 29 L34 31 L27 29Z"/>
+<!-- left hand coil (character-left = viewer right) -->
+<path class="sil" d="M50 42 L56 46 L59 53 L59 60 L55 63 L52 58 L53 53 L50 50Z M57 47 C65 42 68 48 65 54 C63 58 59 57 57 54 C55 50 58 46 62 47 C66 48 66 53 63 55" fill="none" stroke="#090a0d" stroke-width="3.2"/>
+</g><text x="56" y="146" text-anchor="middle" class="tiny">FRONT</text></g>
+<g transform="translate(230 470)">
+<rect width="112" height="160" class="panel"/>
+<g transform="translate(24 25)">
+<path class="sil" d="M20 8 Q30 2 40 8 L42 12 L20 12Z M21 11 L17 13 L20 15 L24 14Z M25 18 L20 22 L18 29 L13 34 L11 44 L15 48 L20 39 L22 33 L23 44 L19 59 L23 64 L30 61 L33 47 L38 47 L41 61 L48 63 L51 58 L46 42 L47 30 L43 23 L38 20 L34 22 L29 20Z M22 27 L17 30 L13 41 L17 44 L22 36Z M43 27 L48 30 L53 41 L49 45 L44 36Z M23 62 L31 63 L30 77 L27 90 L20 91 L18 87 L22 75Z M39 63 L47 62 L49 75 L54 87 L50 91 L43 89 L39 77Z M18 88 L28 88 L28 94 L15 94Z M46 88 L55 88 L59 94 L44 94Z"/>
+<path class="cut" d="M25 25 L33 29 L40 25 L37 35 L33 38 L28 34Z"/>
+<path class="sil" d="M8 45 C1 43 0 51 5 55 C10 59 15 55 13 50 C12 46 7 46 6 50 C5 54 10 56 12 52" fill="none" stroke="#090a0d" stroke-width="3.2"/>
+</g><text x="56" y="146" text-anchor="middle" class="tiny">BACK</text></g>
+<g transform="translate(390 470)">
+<rect width="112" height="160" class="panel"/>
+<g transform="translate(24 25)">
+<path class="sil" d="M29 6 Q37 3 41 9 L40 16 L34 19 L27 15Z M27 9 Q36 4 43 8 L45 11 L27 12Z M43 10 L48 12 L44 14Z M28 19 L22 23 L20 31 L18 43 L22 47 L26 38 L28 32 L29 45 L25 60 L30 64 L37 60 L39 47 L43 46 L47 59 L54 61 L57 56 L51 41 L49 29 L43 21 L36 19Z M27 27 L22 30 L18 41 L22 44 L27 36Z M29 62 L38 62 L36 77 L33 90 L26 91 L24 87 L29 75Z M44 60 L51 59 L55 73 L59 86 L54 90 L47 87 L43 75Z M24 88 L34 88 L33 94 L21 94Z M51 87 L59 87 L62 94 L48 94Z"/>
+<path class="cut" d="M27 20 L33 25 L39 21 L37 31 L32 34 L28 30Z"/>
+<path class="sil" d="M17 43 L12 47 L11 55 L16 59 L21 56 L21 49Z M13 47 C6 44 5 53 10 57 C15 61 20 55 16 51 C13 48 9 51 11 54" fill="none" stroke="#090a0d" stroke-width="3.2"/>
+</g><text x="56" y="146" text-anchor="middle" class="tiny">LEFT PROFILE</text></g>
+<g transform="translate(550 470)">
+<rect width="112" height="160" class="panel"/>
+<g transform="translate(24 25)">
+<path class="sil" d="M29 6 Q37 3 41 9 L40 16 L34 19 L27 15Z M29 9 Q38 4 44 8 L46 11 L29 12Z M28 12 L23 14 L28 16Z M28 19 L22 23 L20 31 L18 43 L22 47 L26 38 L28 32 L29 45 L25 60 L30 64 L37 60 L39 47 L43 46 L47 59 L54 61 L57 56 L51 41 L49 29 L43 21 L36 19Z M43 27 L48 30 L53 41 L49 44 L44 36Z M29 62 L38 62 L36 77 L33 90 L26 91 L24 87 L29 75Z M44 60 L51 59 L55 73 L59 86 L54 90 L47 87 L43 75Z M24 88 L34 88 L33 94 L21 94Z M51 87 L59 87 L62 94 L48 94Z"/>
+<path class="sil" d="M53 44 L59 48 L61 55 L57 60 L53 56Z M58 47 C65 43 69 49 66 54 C63 59 58 56 58 52 C58 48 63 47 65 50" fill="none" stroke="#090a0d" stroke-width="3.2"/>
+</g><text x="56" y="146" text-anchor="middle" class="tiny">RIGHT PROFILE</text></g>
+<text x="760" y="490" class="small">Prop/contact notes</text>
+<text x="760" y="518" class="small">• Coil remains compact and subordinate to the jacket silhouette</text>
+<text x="760" y="542" class="small">• One wrist/hand contact chain; no floating line loop</text>
+<text x="760" y="566" class="small">• Front/back side reverses with character orientation</text>
+<text x="760" y="590" class="small">• Profiles: coil only on the side where character-left is near-side</text>
+<text x="760" y="614" class="small">• Prop is optional; remove it if it muddies 28×42 readability</text>
+<line x1="40" y1="665" x2="1320" y2="665" stroke="#aaa"/>
+<text x="40" y="700" class="section">REVIEW GATES — NOT YET APPROVED</text>
+<text x="60" y="730" class="small">1. Compare front/profile body-only and prop-on sheets against Clinic, Coach, Guard and Fisher at matched scale; pay particular attention to Clinic.</text>
+<text x="60" y="754" class="small">2. Select the two closest existing face references only after inspecting actual head/jaw/brow/eye/nose geometry; headwear and colour do not count.</text>
+<text x="60" y="778" class="small">3. Establish near/far arm anatomy first, then validate grip/contact in all four views. No palette or renderer work at this stage.</text>
+<text x="40" y="824" class="tiny">VAPOR CITY · FOURTH CIVILIAN BATCH · SAILOR ONLY · STUDY 01 · 2026-11-20 · OWNER REVIEW REQUIRED</text>
+</svg>
