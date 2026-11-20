@@ -1,4 +1,4 @@
-// Fourth-batch design-source evidence for revision 21 (Sailor compact connected rope coil, Painter flat wedge brush and wrapped grip; preservation-gated). QA projection utility only:
+// Fourth-batch design-source evidence for revision 21 (Sailor connected rope coil with detached highlight removed, Painter flat wedge brush and wrapped grip; preservation-gated). QA projection utility only:
 // it rasterizes approved-stage SVG hypotheses and captures existing roster faces.
 // It does not load or alter any production renderer for Sailor/Slicker/Painter.
 import fs from 'node:fs';
