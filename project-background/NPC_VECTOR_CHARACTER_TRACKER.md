@@ -170,12 +170,15 @@ ChatGPT implemented that focused pass in `npc_sprites.js` commit `6a1fd2a4fbad50
 - No game renderer, live town integration, gallery integration, golden snapshots or snapshot provenance changed. Hacker/Fisher renderer implementation remains held by the Tech-first independent-review and owner rendered-art approval gate.
 
 
-## Fourth civilian batch — internal QA continuation (2026-11-20)
+## Fourth civilian batch — current design QA and Claude handoff (2026-11-20)
 
-- Current source branch HEAD: `2f240537ac16be4981cf2af7d840600bfd51bd6d` (`npc-granny-baseline-overhaul`).
-- Run #665 [44773914851](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773914851), artifact [14647819936](https://github.com/tinytime/Tinytime.github.io/actions/runs/44773914851/artifacts/14647819936), tested `184fe72b211c11e968b7b192228bb7cf04792e5b`. Run #666 [44775202456](https://github.com/tinytime/Tinytime.github.io/actions/runs/44775202456), artifact [14649261738](https://github.com/tinytime/Tinytime.github.io/actions/runs/44775202456/artifacts/14649261738), tested `d53eb40b1186872f0cadbca4819821b32d3bddb5`.
-- Run #666 native face-comparison sheet visually inspected: names and scale labels are legible; comparator pairs are explicitly identified (Clinic/Guard, Hacker/Courier, Cook/Busker).
-- Profile prop source follow-up: Sailor coil re-anchored; Slicker folded umbrella and Painter brush added to both profile projections. An initial duplicate insertion was corrected. Commits: `34ebafd780c2bd21b352ab978043bd9f7c1157fd`, `43774db04f03d0d2a7993c1ec2d2d4baa8549d09`. QA script adds profile prop-presence assertions in `2f240537ac16be4981cf2af7d840600bfd51bd6d`.
-- **Verification pending:** neither Run #665 nor #666 includes the final profile geometry corrections or profile-presence audit. No fresh Actions run has yet been verified against current HEAD. Do not claim those changes tested or visually passed.
-- Both workflows failed global browser diagnostics: unapproved golden snapshot baseline (1 match / 23 changed) and existing audio/resource HTTP 404 console errors. Design evidence and semantic validation steps passed; pageErrors/scriptErrors were empty. No snapshots or provenance changed.
-- Next: capture exact current HEAD, inspect five profile prop projections at native 64×96 and direct 28×42, inspect Sailor rear against Welder, then close internal QA and prepare exact-output Claude package. All three remain design-stage only; no renderer authorization, owner silhouette approval, palette approval or work on #15–23.
+- Current source: [revision 10](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-10.svg).
+- Exact tested source commit: `8ae6a47055c6c75e361738b21c01d8b07b6830b4`.
+- [Run #678](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334), artifact [14650399818](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334/artifacts/14650399818).
+- Design-source projection and semantic validation passed: 24/24 native 64×96, 24/24 independently rasterized direct 28×42, 24/24 enlarged 4× images; 69 roster face crops; six new face crops; six matched face rows.
+- Near-side prop-region audit passed: Sailor/right 172 pixels, Slicker/left 272 pixels, Painter/left 95 pixels. Manual visual inspection confirms Sailor coil front/back/right only; Slicker umbrella front/back/left only; Painter brush front/back/left only. Props are hidden in the far-side profile.
+- Body-only silhouettes remain distinct at direct 28×42. The proposed Sailor rear silhouette is visibly differentiated from live Welder in a matched native 64×96 comparison; the legacy 0.889 IoU trigger refers to existing roster renders, not proposed vector Sailor.
+- Face comparison sheet is legible and labels Clinic/Guard, Hacker/Courier, Cook/Busker references. Face identity remains provisional for Claude's independent review.
+- Town/gallery screenshots inspected as existing-scene smoke checks only. No production renderers or live integration for #12–14.
+- Overall browser workflow failed the global unapproved snapshot gate (1 match / 23 changed) and 135 existing audio/resource 404 console errors. pageErrors=0, scriptErrors=0. No snapshots or provenance changed.
+- **Current disposition: INTERNAL DESIGN-SOURCE QA PASS WITH REVIEW QUESTIONS.** [Claude review package 04](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md) is prepared for independent review. Not owner-approved. Construction families remain UNASSIGNED; production renderer work is NOT AUTHORIZED; roster #15–23 remains on hold.
