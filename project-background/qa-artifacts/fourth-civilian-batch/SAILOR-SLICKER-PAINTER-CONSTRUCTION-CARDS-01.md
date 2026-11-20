@@ -1,16 +1,17 @@
-## Revision 18 — construction cards with exact-source QA status (2026-11-20)
+## Revision 18 — construction cards with latest exact-source QA status (2026-11-20)
 
 **Current SVG:** [revision 18](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg)  
-**Exact tested source:** `4045675e71854b08b2e2fb1ab5c879d7b2ea2ab6`  
-**Evidence:** [Run #721](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910) · [artifact 14656889410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910/artifacts/14656889410)
+**Exact tested source:** 73774e27092de36fd88f45b0d5cb6c97f760c7ea  
+**Evidence:** [Run #730](https://github.com/tinytime/Tinytime.github.io/actions/runs/44796157551) · [artifact 14658967396](https://github.com/tinytime/Tinytime.github.io/actions/runs/44796157551/artifacts/14658967396)
 
-- **Sailor #12:** body-only/prop-on geometry preserves all body pixels in all four directions. Front coil is visible at native/direct scale, but the grasp/contact remains subtle; retain as an explicit Claude and owner review question. Construction family remains UNASSIGNED.
-- **Slicker #13:** integrated hood/rain-shell construction (face-side-open hood, rear yoke/hem seams, shortened storm closure) reads as clothing rather than a separate held prop. Four-direction body evidence is captured; face study remains geometric only. Construction family remains UNASSIGNED.
-- **Painter #14:** front ferrule correction removes the previous two-pixel body overlap. Left-profile brush handle-to-bristle fan contact has been corrected after the direct 28×42 audit exposed a second component. Final Painter body-only and prop-on images are one connected component in all four directions at native 64×96 and direct 28×42. The compact tool/hand cluster is still visually dense at game scale and must be judged independently; connectivity alone does not establish grip readability. Construction family remains UNASSIGNED.
-- All 12 body-only/prop-on pairs preserve body pixels (zero removed). Native 64×96, independent direct 28×42 and enlarged captures are present 24/24 each. Actual evidence sheets and selected enlarged joins were visually inspected.
-- Overall Actions workflow still fails at the separate browser golden-snapshot gate (1 match / 23 changed; provenance unapproved) and existing resource 404s. This does not invalidate the passing design-source projection steps, but it means full workflow QA is not green. No snapshots/provenance were changed.
-- **Approval boundary:** these remain proposed design-stage candidates. No silhouette, face, prop or palette is owner-approved. No production renderer work is authorized. Independent Claude review and owner approval remain pending.
-
+- **Sailor #12:** body-only/prop-on geometry preserves all body pixels in all four directions. The mooring coil is visible front/back/right as designed, hidden on the far-side profile. The front/right grasp remains subtle and is an explicit independent-review question. Construction family remains UNASSIGNED.
+- **Slicker #13:** integrated face-side-open hood, long rain shell, rear yoke/hem seams and shortened storm closure read as rainwear. No separate umbrella. Connected-anatomy audit passes through all four views at native/direct scales. Construction family remains UNASSIGNED.
+- **Painter #14:** front ferrule no longer overlaps body-only pixels. Left-profile handle joins the bristle fan at direct scale. Two short internal bristle grooves restore a brush-head cue without splitting the silhouette. The compact hand/tool cluster remains dense at 28×42; connectivity does not by itself establish a believable grip or instant prop recognition. Construction family remains UNASSIGNED.
+- **All structural checks:** 12/12 body-preservation pairs pass with zero removed body pixels; 48/48 connected-anatomy projections pass across all three characters, body/prop, four directions and both scales. Native 64×96, independent direct 28×42 and enlarged captures are present 24/24 each.
+- **Prop-region diagnostics:** Sailor/right +172 pixels; Painter/left +153 total / +151 expected-region pixels. Descriptive only; no arbitrary thresholds.
+- **Visual evidence inspected:** native/direct body and prop sheets, matched face comparisons, Sailor/Welder rear comparison, and enlarged key Sailor/Slicker/Painter contact details. Sailor grasp and Painter tool readability remain review questions.
+- **Overall Actions workflow:** Run #730 fails at the separate global browser diagnostics gate after the revision-18 design projection and semantic validation passed. Golden snapshot baseline remains unapproved (1 match / 23 changed); 180 existing resource/audio 404s; page/script errors empty. No snapshots/provenance changed.
+- **Approval boundary:** design-stage proposals only. No silhouette, face, prop or palette is owner-approved. No production renderer work is authorized. Independent Claude review and owner approval remain pending.
 
 ## Revision 15 — QA capture inspected; owner review pending
 
