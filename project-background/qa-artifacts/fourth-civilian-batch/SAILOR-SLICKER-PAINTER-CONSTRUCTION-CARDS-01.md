@@ -1,3 +1,15 @@
+## Revision 11 — Claude review corrections implemented; fresh QA pending
+
+**Source:** [silhouette exploration 11](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-11.svg)  
+**Scope:** design-source geometry and evidence harness only. No production renderer, approved art, golden snapshot or provenance changes.
+
+- **Sailor:** widened the front coil-to-palm bridge; added narrow negative-space breaks to rear and both profile body-only and prop-on views. Character-left prop visibility remains front/back/right-profile only.
+- **Slicker:** shifted the upper shell to strengthen the forward-pitched read and exaggerated the diagonal front/rear hem. Rebuilt the character-right folded umbrella with a longer shaft, tapered canopy and higher hand/grip contact; near-side left profile only.
+- **Painter:** lowered the extended front/rear working arm so the tool no longer crowds the face; rebuilt prop-on front, back and near-side left profile from the exact body-only base plus a separate hand/handle/brush head. This directly removes the former back-view arm swap and prevents prop-on from replacing the free arm.
+- **Painter headwear/face:** changed both silhouette profiles to a cuffless knit-beanie contour; the matched 40×38 face study now uses a knit cap without a brim, a more pronounced asymmetric brow, a squarer cheek/jaw plane and a shorter blunt profile nose.
+- **Audit correction:** removed the unsupported 12-pixel Painter threshold (and the inconsistent 100-pixel comparisons). Profile-region pixel counts are now descriptive only. The automated gate checks a stronger, meaningful invariant: prop-on must not erase any body-only silhouette pixels across all 12 direction pairs.
+- **Validation status:** source edits committed. Revision-11 browser capture is queued as Run #682; no visual pass or owner approval is claimed until the resulting artifact is inspected.
+
 ## Revision 10 internal QA update
 
 Exact source: [revision 10 silhouette exploration](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-10.svg), tested commit 8ae6a47055c6c75e361738b21c01d8b07b6830b4. Exact evidence: [Run #678](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334), artifact [14650399818](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334/artifacts/14650399818). The subsequent SVG title correction was metadata-only; no geometry changed.
