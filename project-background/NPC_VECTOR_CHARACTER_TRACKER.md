@@ -7,9 +7,9 @@
 - **Preserve owner dispositions:** Cook C1 deferred/accepted as-is; Usher U2 declined; Usher U4 implemented/resolved; Coach/Courier rear X1 accepted. No renderer changes to the approved five without renewed owner authorization.
 - **Run #603 provenance:** renderer 2c00cfca09cc12ea19a72662c235beed2e9a19cb; [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact 14593339734. Targeted checks passed; overall Actions failure on snapshots 1/23 changed and 180 existing audio 404s. No golden snapshots refreshed or approved.
 - **Construction standard:** revised for F2–F7; explicit owner ratification remains a separate outstanding decision. Approval of the five artworks does not silently ratify the standard.
-- **Next batch planning:** draft briefs prepared for Guard, Vendor and Clinic worker; see [batch brief](qa-artifacts/next-civilian-batch/BATCH-1-GUARD-VENDOR-CLINIC-WORKER.md) and [shell-family audit](qa-artifacts/next-civilian-batch/ROSTER-SHELL-FAMILY-AUDIT.md). No renderer implementation is authorized until standard ratification and silhouette preflight.
+- **Next batch planning:** draft briefs prepared for Guard, Vendor and Clinic worker; see [batch brief](qa-artifacts/next-civilian-batch/BATCH-1-GUARD-VENDOR-CLINIC-WORKER.md) and [shell-family audit](qa-artifacts/next-civilian-batch/ROSTER-SHELL-FAMILY-AUDIT.md). The standard was ratified by the owner on 2026-11-19. No renderer implementation is authorized until the owner approves the named batch's silhouette preflight.
 - **Runner:** built but excluded from Claude Run #603; pending focused review and owner decision. Not included in the five approvals.
-- **Remaining 17 unstarted roster entries:** ON HOLD for renderer production until the standard is ratified and batch silhouette/brief preflight is accepted.
+- **Remaining 17 unstarted roster entries:** ON HOLD for renderer production until each batch's silhouette/brief preflight is accepted by the owner.
 
 
 ## Claude independent re-review — Run #600 (2026-11-20)
@@ -221,7 +221,7 @@ The five approved designs are complete. Runner remains built but pending a focus
 
 - Owner approved Usher, Cook, Courier, Coach and Referee. First five-character batch is complete. Claude Run #603 recommended owner review with no P0/P1; this log records the distinct owner approval.
 - Claude withdrew the outline criticism; no blanket outline pass. F2–F7 documentation/process revisions are recorded in the current standard. The standard still awaits explicit owner ratification.
-- Next planning batch: Guard, Vendor and Clinic worker. Draft briefs and roster shell-family register are prepared. Runner remains pending focused review; no renderer production is authorized until standard ratification and silhouette preflight.
+- Next planning batch: Guard, Vendor and Clinic worker. Draft briefs and roster shell-family register are prepared. Runner remains pending focused review; new renderer production follows the ratified standard and requires owner-approved silhouette preflight.
 
 ## Ongoing decisions and review log
 
