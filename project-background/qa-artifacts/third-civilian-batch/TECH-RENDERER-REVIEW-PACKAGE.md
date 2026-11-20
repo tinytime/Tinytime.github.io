@@ -1,3 +1,13 @@
+## Claude first-review correction — Run #648 (2026-11-20)
+
+Claude's first verdict was PASS WITH NON-BLOCKING NOTES with a P1 Tech/Clinic separation finding (especially back at direct 28×42). ChatGPT implemented a darker, desaturated petrol shell and a squared storm-flap shoulder outline across front/back/profile, without changing Clinic. Current combined handoff: [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md](THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md).
+
+- Tested renderer source: cea601503504c6b23527452a66cc64c3cb93e7a7.
+- [Browser QA Run #648](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752105957), artifact [14635417540](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752105957/artifacts/14635417540).
+- Tech native 64×96 4/4; direct game-renderer 28×42 4/4; zero edge contacts at both scales; role-debug 4/4; explicit street spawn and native 1× close-up pass. Wider integrity 92/92, face uniqueness 23/23, prop audit/gallery/Granny checks pass, page/script errors 0.
+- ChatGPT inspected actual four-direction direct 28×42 captures, Tech/Clinic game-scale comparison and live town close-up. The dark petrol, squared shoulder edge, X harness and rear service loop provide stronger role separation from Clinic. Independent Claude re-review and owner rendered-art acceptance remain pending.
+- Overall Actions remains failed on unapproved snapshot baseline (1 match / 23 changed) and 180 existing audio/resource 404 console errors. No snapshots or provenance changed.
+
 # Tech (#9) renderer review package
 
 **Review status:** internal QA and visual inspection complete; ready for independent Claude review; owner rendered-art approval pending.  
