@@ -2,6 +2,8 @@
 
 ## Current authority — 2026-11-20
 
+- **Tech (#9) first renderer:** owner authorized implementation on 2026-11-20. Dedicated `drawTechVector` is in `npc_sprites.js` commit `67b397242996f675c4a257415e4620fa0d3a40ca`; Tech-only four-direction native 64×96 and direct 28×42 capture QA was added in `2eab7e84027f088ed8f9f7be5740547f590aa13d`. Browser QA Run [44740192417](https://github.com/tinytime/Tinytime.github.io/actions/runs/44740192417) is testing the capture implementation. Internal visual inspection is not yet complete. Hacker and Fisher remain untouched pending Tech QA.
+
 - Final Guard/Vendor/Clinic renderer for this review round: `2bc1629edd82afc1a50ac7a4ab882b428dbd0c32`. Run #629 tested that exact source and its artifact was visually inspected at native 64×96 and direct 28×42; Vendor profile eye is now legible in both directions and both scales. Guard and Clinic profile cues remain intact.
 - Owner approval for the rendered three-character batch was received 2026-11-20. Claude's exact-output independent review remains pending; do not record final batch closeout until it is logged.
 
