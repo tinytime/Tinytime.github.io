@@ -8,7 +8,7 @@
 - **Accepted exception:** Coach/Courier rear remains accepted as-is. Preserve the rationale in [the accepted-exception register](qa-artifacts/five-civilian-corrections/ACCEPTED-EXCEPTIONS.md).
 - **Current visual correction state:** U4 is internally resolved by Run #603. Cook C1 and Usher U2 are owner-declined/deferred, not open work. Updated Claude re-review and owner approval remain pending.
 - **Five-character release state:** Usher, Cook, Courier, Coach and Referee remain NOT APPROVED pending updated Claude review and explicit owner approval. Runner remains outside this review.
-- **Construction standard:** revised working method is ready for planning and controlled brief development; owner ratification and first-batch approval are still required before production starts on the remaining 17. Self-contained Claude package: [Claude review package workflow](https://github.com/tinytime/Tinytime.github.io/actions/workflows/vapor-city-review-documents-package.yml). See the [standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md).
+- **Construction standard:** revised working method is ready for final independent review and owner ratification; do not begin individual next-civilian briefs or production until the owner approves the standard and first-batch direction. Self-contained Claude package: [Claude review package workflow](https://github.com/tinytime/Tinytime.github.io/actions/workflows/vapor-city-review-documents-package.yml). See the [standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md).
 - **QA baseline:** Run #601 verified the IoU diagnostic trigger behavior; 0.85 is human review only. Do not refresh or approve golden snapshots without explicit authorization.
 
 
