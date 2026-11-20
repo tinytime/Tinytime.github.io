@@ -2,6 +2,9 @@
 
 ## Current authority — 2026-11-20
 
+- **Third batch prepared:** Tech, Hacker and Fisher now have individual design briefs and first-pass four-direction silhouette concepts. Owner directed ChatGPT to proceed without sending the prior Run #629 output back to Claude; this does not fabricate a Claude verdict or erase its pending historical status. The new silhouettes are not yet owner-approved, so renderer implementation remains gated on owner preflight. See `qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md` and the companion SVG.
+- **Scope protection:** no Tech/Hacker/Fisher renderer code, approved civilian art, golden snapshots or baselines were changed during preflight.
+
 - Owner approval for the rendered Guard, Vendor and Clinic Worker batch was received on 2026-11-20, based on Run #629. Internal QA/visual inspection are complete; Claude's independent review of the exact final artifact remains pending. The remaining 17 stay on hold until that required review is recorded. (updated after Run #628)
 
 - The first five civilians (Usher, Cook, Courier, Coach and Referee) are owner-approved. Preserve their accepted exceptions and do not make unrequested changes.
