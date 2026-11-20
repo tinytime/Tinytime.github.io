@@ -4,16 +4,16 @@
 
 This section supersedes older status statements below where they conflict. Historical run notes remain unchanged.
 
-- **Owner authorization:** all four Claude P2 areas are authorized for correction: face identity for Courier/Usher/Cook; Usher profile shoe separation; Cook pan/hand/handle readability; and documented Coach/Courier rear distinction.
-- **Renderer:** source changes committed in `2b45201eb762a939547f5c8414ae9f44e5dc0d22`. Browser QA Run #596 is running against that exact source; actual images must be inspected before declaring findings resolved.
-- **Identity/proportion cards:** [five-character correction cards](qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md) now document purposeful identity cues, qualitative construction intent and the Coach/Courier rear rationale. They are not verified semantic measurements.
-- **Claude review:** Run #595 recommended ready for owner review, with P2s disclosed; no P0/P1 findings remained. This was not approval. The owner has now authorized corrections rather than accepting the P2s as-is.
-- **Construction standard:** Version 2.1 review response is documented in the draft. The standard remains unratified pending owner review. Its scorecard is non-gating; old score bands/floors are withdrawn. Proportion prompts and semantic measurements remain diagnostic only, not Granny-derived targets or acceptance gates.
-- **Current five-character group:** Usher, Cook, Courier, Coach and Referee remain **NOT APPROVED** pending fresh internal QA, visual inspection, independent Claude review of the corrected evidence and final owner approval. Referee is unchanged. Runner remains excluded.
-- **Release decision:** remaining 17 civilians remain **ON HOLD**.
-- **Latest completed QA before this pass:** Run #595, artifact 14587318765, tested renderer c354abfa3d78b46dc982a03d2c5d1ece0c918257. Its overall workflow failed on global Clinic/Sailor front silhouette and unapproved golden snapshots; expected audio 404s are non-blocking. No snapshots were refreshed or approved.
+- **Owner authorization:** all four Claude P2 areas are authorized: face identity for Courier/Usher/Cook; Usher profile shoe separation; Cook pan/hand readability; Coach/Courier rear distinction rationale.
+- **Renderer source:** `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb`. P2 source corrections are implemented. Run #599 tested this exact renderer; targeted integrity and capture checks pass, but independent re-review is still required.
+- **Latest QA evidence:** [Run #599](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650509863), artifact 14590034123. Run #600 is running the expanded evidence builder (black silhouette sheet and town-ground composite) against the same renderer source.
+- **Identity/proportion cards:** [five-character correction cards](qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md) document identity cues and qualitative proportions; these are not verified semantic measurements.
+- **P2 status:** implemented and internally inspected; pending Claude's independent review. Run #599 passes syntax/module, 92/92 directional integrity with zero edge contacts, 20/20 direct 28×42 captures, 12/12 role-debug, prop audit and gallery. The browser job still fails on expected audio 404 diagnostics and unrelated global Clinic/Sailor silhouette and unapproved snapshot gates.
+- **Coach/Courier:** no torso redesign; documented rear distinction is supported by native and direct game-scale side-by-side evidence.
+- **Approval:** all five remain **NOT APPROVED** pending Claude review and explicit owner approval. Referee is unchanged. Runner is excluded; remaining 17 civilians stay **ON HOLD**.
+- **No snapshots or golden approvals have been changed.**
 - **Semantic status:** six civilian annotation sets remain source_annotated, not verified measured; Granny remains reference_only.
-- **Scope counts:** the design tracker contains 23 civilian character types; Granny is a separate benchmark. Runner is built but excluded from this review; 17 remain on hold. The automated inventory's 24 live archetype mappings are a separate technical count.
+- **Scope counts:** 23 civilian design roster entries; Granny separate; Runner built but excluded from this review; 17 remain on hold. Automated inventory's 24 live archetype mappings are a distinct technical count.
 
 
 
