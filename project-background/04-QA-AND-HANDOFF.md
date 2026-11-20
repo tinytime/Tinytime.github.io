@@ -30,6 +30,10 @@ This section supersedes older status statements below where they conflict. Histo
 - **Next sequence:** finish and render the five-character correction pass; update the five-character evidence package against the current source; run and inspect fresh QA artifacts; submit that exact evidence to Claude; resolve valid findings; obtain owner approval; only then release the remaining roster.
 
 
+## Owner-authorized P2 correction pass — 2026-11-20
+
+Owner authorized all four P2 areas from Claude Run #595. Renderer commit `2b45201eb762a939547f5c8414ae9f44e5dc0d22` changes the three affected draw functions (Usher, Cook, Courier); Coach/Courier rear distinction is documented without a torso change. Run #596 is the exact-source browser QA. Do not report visual resolution until all native 64×96 and direct 28×42 captures have been inspected. Required evidence includes before/after views, both profiles for Usher, Cook front and both profiles, Coach/Courier rear paired comparison, neutral-grey and town/night game-scale contexts, four-direction black silhouette sheet, and named-character town evidence where supported. Include pixel-diff summary and exact source SHA. Referee must remain unchanged. Do not refresh golden snapshots. All five remain NOT APPROVED pending internal QA, Claude review and owner approval.
+
 ## Run #595 independent review and revised evidence requirements — 2026-11-19
 
 Claude's independent visual review of the five-character Run #595 package is complete. Verdict: **ready for owner review**, not approval. No P0/P1 findings remain. P2s requiring owner disposition: F1 facial individuality (Courier/Usher/Cook), U1 Usher profile shoe separation, C1 Cook pan/hand readability, and X1 documented Coach/Courier rear distinction. P3 notes may be deferred. All five remain NOT APPROVED pending owner decision.
