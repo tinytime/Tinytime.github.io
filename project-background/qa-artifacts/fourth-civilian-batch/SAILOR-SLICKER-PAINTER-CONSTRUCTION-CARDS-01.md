@@ -4,7 +4,7 @@
 **Characters:** Sailor #12 · Slicker #13 · Painter #14  
 **Stage:** parallel silhouette exploration / construction hypotheses  
 **Approval:** role directions and simultaneous exploration authorized; no silhouette, face, prop, palette or construction family approved  
-**Source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-01.svg)
+**Source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-02.svg)
 
 ## Evidence status
 
