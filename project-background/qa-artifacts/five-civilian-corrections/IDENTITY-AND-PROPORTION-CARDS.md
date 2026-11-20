@@ -63,7 +63,7 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 
 ## Correction-round acceptance record
 
-Run #599 is the current renderer evidence: [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650509863), artifact 14590034123. Run #600 adds the black silhouette and town-ground diagnostic sheets. Before/after pixel-diff counts are recorded in the NPC tracker. The town-ground composition is diagnostic only and is not a live named-NPC spawn proof.
+Run #599 is the current renderer evidence: [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650509863), artifact 14590034123. Run #600 [artifact 14591690387](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650864326) adds the black silhouette and town-ground diagnostic sheets. See [internal QA record](RUN-599-600-INTERNAL-QA.md) for metrics and before/after pixel diffs. Before/after pixel-diff counts are recorded in the NPC tracker. The town-ground composition is diagnostic only and is not a live named-NPC spawn proof.
 
 
 
