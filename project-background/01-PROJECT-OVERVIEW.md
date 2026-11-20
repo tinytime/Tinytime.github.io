@@ -1,15 +1,12 @@
 # Project Overview
 
-## Current build and approval status — 2026-11-19
+## Current build and approval status — 2026-11-20
 
-- Claude's independent Run #595 review of Usher, Cook, Courier, Coach and Referee is complete. Batch verdict: **ready for owner review**, with P2 findings disclosed. No P0/P1 findings remain; this is not approval.
-- P2 disposition needed: facial individuality for Courier/Usher/Cook; Usher profile shoe separation; Cook pan/hand readability; documented Coach/Courier rear distinction. P3 polish remains optional.
-- Version 2.1 construction-standard response is documented. The standard remains a draft pending owner ratification. The revised scorecard is non-gating; old score floors/bands are withdrawn; proportion prompts and semantic measurements are diagnostic only and not derived from Granny's proportions.
-- Five characters remain NOT APPROVED pending owner decisions on the P2s and explicit final approval. Runner remains excluded from this review. The remaining 17 civilians are ON HOLD.
-- Run #595 tested renderer c354abfa3d78b46dc982a03d2c5d1ece0c918257 and produced 20/20 native and 20/20 direct game-scale captures. Targeted checks passed; overall workflow FAILED on the unrelated global Clinic/Sailor silhouette gate and unapproved golden snapshots. No snapshots were refreshed or approved.
-- Granny remains reference_only; six civilian semantic annotation sets remain source_annotated, not verified measured. Do not promote candidate masks or calibrate proportion bands.
-- Scope: 23 redesign roster entries; Granny is separate; Runner is built but excluded from this review; 17 remain for later production. The automated inventory count of 24 live archetype mappings is a distinct technical scope.
-
+- Owner authorized all four Claude P2 correction areas: face identity (Courier, Usher, Cook), Usher profile shoe separation, Cook pan/hand/handle readability, and Coach/Courier rear rationale.
+- Renderer edits committed as `2b45201eb762a939547f5c8414ae9f44e5dc0d22`; Run #596 is running against that exact source. Visual confirmation is pending.
+- Qualitative identity/proportion cards are recorded in [the correction brief](qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md). These do not claim verified semantic measurements.
+- All five remain NOT APPROVED pending QA, actual image inspection, Claude re-review and owner approval. Referee is unchanged; Runner excluded; remaining 17 ON HOLD.
+- No golden snapshots or approvals have been changed.
 
 
 
