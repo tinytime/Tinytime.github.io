@@ -150,7 +150,7 @@ try {
       const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
       const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
       const rx=(width/2-OWT/2)/OWT;
-      const baseline=height===96?83:height;
+      const baseline=height===96?83:39;
       const ry=(baseline-(OWT-5))/OWT;
       const npc={id:civ,civ,x:0,y:0,rx,ry};
       renderer(0,0,direction,false,npc,0,0,ctx,{roleDebugLayers:true});
