@@ -11,7 +11,8 @@
 - Matched face geometry study: [SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg).
 - Construction notes: [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md).
 - Internal QA log: [FOURTH-BATCH-INTERNAL-QA-LOG.md](FOURTH-BATCH-INTERNAL-QA-LOG.md).
-- Latest completed evidence: [Run #695](https://github.com/tinytime/Tinytime.github.io/actions/runs/44787355926), tested source commit 9abb7de906314a092157f6d5bffe4492e7736cb9, [artifact 14653489949](https://github.com/tinytime/Tinytime.github.io/actions/runs/44787355926/artifacts/14653489949).
+- Source-validation run: [Run #695](https://github.com/tinytime/Tinytime.github.io/actions/runs/44787355926), tested source commit 9abb7de906314a092157f6d5bffe4492e7736cb9, [artifact 14653489949](https://github.com/tinytime/Tinytime.github.io/actions/runs/44787355926/artifacts/14653489949).
+- Follow-up documentation verification: [Run #697](https://github.com/tinytime/Tinytime.github.io/actions/runs/44788265440), commit 05149e72552108518d8a406bb716a20b374ca05e, [artifact 14654762821](https://github.com/tinytime/Tinytime.github.io/actions/runs/44788265440/artifacts/14654762821). It reran the same revision-15 source after package/tracker updates; design projections and semantic validation passed, with the same separate global browser diagnostics failure.
 
 ## Claude correction checklist
 
