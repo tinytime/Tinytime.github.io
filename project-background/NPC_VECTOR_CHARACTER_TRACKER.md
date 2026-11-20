@@ -1,16 +1,14 @@
-## Fourth civilian batch — current internal QA checkpoint (2026-11-20)
+## Fourth civilian batch — internal design evidence ready for Claude review (2026-11-20)
 
-Sailor (#12), Slicker (#13) and Painter (#14) remain in parallel design-stage exploration. The earlier Claude-ready claim is withdrawn. No Claude handoff, owner silhouette approval, palette approval, or renderer authorization is in force.
+Sailor (#12), Slicker (#13) and Painter (#14) remain in design stage. Current evidence package 02 is ready for independent Claude critique; this is not final approval.
 
-- Current design source: [revision 09](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg); evidence builder: `qa/build-fourth-batch-design-evidence.mjs`; construction cards: [01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md); face geometry study: [02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg).
-- [Run #673](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777304508), artifact [14649699220](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777304508/artifacts/14649699220), tested revision 07 at commit `f6d9e2dc84c3309489085f530f686fed195cd42c`. It generated 24/24 native 64×96 and 24/24 direct 28×42 design projections. Near-side profile prop-presence assertions passed (Sailor 172, Slicker 386, Painter 190 added silhouette pixels). Visual review then found Slicker's umbrella and Painter's brush too close to the left-profile crop edge; presence-only assertions did not catch this.
-- [Run #674](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302), artifact [14650547538](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302/artifacts/14650547538), tested commit `c004c4e9b231803bc3977b9d418f104e223dc417` and revision 08 before the subsequent crop-edge corrections. Evidence generation and profile-presence audit passed. The matched-scale Sailor/Welder rear comparison was inspected: narrow, long-legged Sailor and broad, squared Welder read as distinct silhouettes despite a high automated overlap trigger; the metric is a human-review prompt, not an automatic failure.
-- Run #674's left-profile captures showed Slicker's umbrella and Painter's brush pressed against / clipped by the left crop edge. Painter's brush was pulled inward in commit `3f5271a82f89a0882b5c24a5667db3907b01c874`; Slicker's near-side umbrella/hand/handle cluster was moved inward in revision 09 (commit `b70582e3ff4141e18c345ee68c9c968aef027d21`). The evidence builder now targets revision 09 (commit `c74219986db2466122fe08ff3ad0bdcb012b5264`). **A fresh artifact against this exact latest HEAD is still required.**
-- Browser diagnostics remain globally failed on the unapproved golden snapshot baseline (1 match / 23 changed) and missing audio resources returning HTTP 404. Runs report zero page and script errors. Do not update or approve golden snapshots or provenance to silence this gate.
-- Native face-comparison labels are readable. The six matched face crops remain proposed geometry and require human comparison; no face is approved.
-- All three construction families remain UNASSIGNED. No silhouette, face, prop, handedness or palette is owner-approved. Production renderer work is NOT AUTHORIZED. Characters #15–23 remain held.
-
-The earlier [Claude review package 01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-01.md) is superseded and must not be sent.
+- Current source: [silhouette exploration 09](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg).
+- Exact tested source commit: c74219986db2466122fe08ff3ad0bdcb012b5264.
+- [Run #677](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801), artifact [14650099995](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995): design projections and semantic validation passed. Native 64×96 24/24; direct 28×42 24/24; enlarged 24/24; 69 roster face crops; six matched face rows. Near-side prop audit: Sailor 172/100, Slicker 272/100, Painter 95/12. Sailor/Welder rear silhouettes are visibly differentiated.
+- Manual review: body-only constructions remain distinct. Painter brush profile is clearer and crop-safe. Claude should challenge Sailor's subtle coil grasp at game scale and Slicker's front/back umbrella read, which can resemble a pouch despite a clearer near-side profile.
+- Overall browser workflow remains failed on the global golden snapshot gate (1/23) and existing audio/resource 404s; page/script errors are empty. No snapshots or provenance changed.
+- [Claude review package 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md) is current; package 01 is superseded.
+- Construction families remain UNASSIGNED; no silhouettes, faces, props or palettes are owner-approved. Production renderer work remains NOT AUTHORIZED. #15–23 remain on hold.
 
 ## Fourth civilian batch — Sailor exploration authorized (2026-11-20)
 
