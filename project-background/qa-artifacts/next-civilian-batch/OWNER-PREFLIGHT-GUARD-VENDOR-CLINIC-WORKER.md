@@ -7,7 +7,7 @@
 
 ## Owner decision — 2026-11-20
 
-The owner explicitly approved the complete Revision 02 four-view silhouettes, face studies, construction cards, palette directions and prop/contact approaches on 2026-11-19. This authorized dedicated renderer production for these three characters only. The actual vector renderers are now implemented; Run #620 targeted QA and visual inspection passed. Claude review and final owner completion approval remain outstanding.
+The owner explicitly approved the complete Revision 02 four-view silhouettes, face studies, construction cards, palette directions and prop/contact approaches on 2026-11-19. This authorized dedicated renderer production for these three characters only. The actual vector renderers are implemented; Run #624 targeted QA and visual inspection passed, including 24/24 unclipped native/direct captures. Claude review and final owner completion approval remain outstanding.
 
 Renderer code was changed only for the three approved characters. No golden snapshots or existing approved character art were changed.
 
