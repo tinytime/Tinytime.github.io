@@ -10,20 +10,20 @@ Use this manifest for every independent review package. Mark each row `included`
 | QA handoff | included | `project-background/04-QA-AND-HANDOFF.md` |
 | Live NPC tracker | included | `project-background/NPC_VECTOR_CHARACTER_TRACKER.md` |
 | Identity/proportion cards | included | `IDENTITY-AND-PROPORTION-CARDS.md` |
-| Internal QA record | included | `RUN-599-600-INTERNAL-QA.md`; `RUN-602-USHER-U4-INTERNAL-QA.md` |
+| Internal QA record | included | `RUN-599-600-INTERNAL-QA.md`; `RUN-603-USHER-U4-INTERNAL-QA.md` |
 | Independent review log | included | `CLAUDE-REREVIEW-RUN-600.md` |
 | Accepted-exception register | included | `ACCEPTED-EXCEPTIONS.md` |
-| Native four-direction captures | included | Run #602 artifact `14592969167`; all 20 exact-source PNGs, plus Run #600 baseline artifact `14591690387` for comparison |
+| Native four-direction captures | included | Run #603 artifact `14593339734`; all 20 exact-source PNGs, plus Run #600 baseline artifact `14591690387` for comparison |
 | Direct 28×42 four-direction captures | included | Run #602 artifact `14592969167`; all 20 direct exact-source PNGs, plus Run #600 baseline artifact `14591690387` |
 | Black silhouette sheet | included | Alpha-derived; not anatomical segmentation |
 | Neutral-grey and town/night captures | included | Record exact background configuration |
-| Walk frames, two per direction | unavailable | Not present in Runs #600 or #602; required for any character with active walk animation, otherwise record not applicable |
-| Before/after sheets for each finding | included | U4 left/right native and direct 28×42 before/after sheets are embedded in Claude package artifact `14594041741`; source captures are in the Run #600 and Run #602 evidence ZIPs. Other accepted/declined findings need no new correction sheet. |
+| Walk frames, two per direction | unavailable | Not present in Runs #600 or #603; required for any character with active walk animation, otherwise record not applicable |
+| Before/after sheets for each finding | included | U4 left/right native and direct 28×42 before/after sheets are embedded in Claude package artifact `14594041741`; source captures are in the Run #600 and Run #603 evidence ZIPs. Other accepted/declined findings need no new correction sheet. |
 | Named-character town spawn proof | unavailable | Town-ground composite is diagnostic only |
 | Role-debug evidence | included | Run #600 artifact |
 | QA report and logs | included | Run #600 artifact |
 | Exact renderer commit | included | `880cad6bf937d8bfc1e004fe81cbd6854c522d23` (U4 only; Cook restored; U2 unchanged) |
-| Exact QA/evidence run | included | Run #602 (renderer `880cad6`); Runs #599/#600 retained as baseline and independent-review evidence |
+| Exact QA/evidence run | included | Run #603 (renderer `2c00cfca`); Runs #599/#600 retained as baseline and independent-review evidence |
 
 ## Review freeze
 
@@ -34,12 +34,12 @@ Use this manifest for every independent review package. Mark each row `included`
 - Do not mark any civilian approved based on package completeness or a reviewer recommendation.
 ## Self-contained package build
 
-The GitHub Actions workflow packages the complete current project documents, Run #600 and Run #602 evidence archives, U4 before/after profile sheets at native and direct game scale, and the Run #602 Claude re-review brief. Verify the latest successful artifact from the [package workflow run history](https://github.com/tinytime/Tinytime.github.io/actions/workflows/vapor-city-review-documents-package.yml). The package ZIP must pass integrity verification and its nested project ZIP must be tested before distribution.
+The GitHub Actions workflow packages the complete current project documents, Run #600 and Run #602 evidence archives, U4 before/after profile sheets at native and direct game scale, and the Run #603 Claude re-review brief. Verify the latest successful artifact from the [package workflow run history](https://github.com/tinytime/Tinytime.github.io/actions/workflows/vapor-city-review-documents-package.yml). The package ZIP must pass integrity verification and its nested project ZIP must be tested before distribution.
 
 ## Current owner dispositions
 
 - Cook C1: explicitly deferred/accepted as-is; no renderer change.
 - Usher U2: explicitly declined; no silhouette redesign.
-- Usher U4: authorized and implemented; internal QA record is `RUN-602-USHER-U4-INTERNAL-QA.md`; Claude re-review remains pending.
+- Usher U4: authorized and implemented; internal QA record is `RUN-603-USHER-U4-INTERNAL-QA.md`; Claude re-review remains pending.
 - Coach/Courier rear: accepted exception; preserve rationale.
 - All five remain NOT APPROVED until updated Claude review and explicit owner approval.
