@@ -1951,8 +1951,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     const path=(p,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.lineCap='round';g.stroke();}};
     const line=(p,c,w=1.4)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.stroke();};
     const ell=(x,y,rx,ry,fill,stroke=ink,w=1.2)=>{g.beginPath();g.ellipse(x,y,rx,ry,0,0,Math.PI*2);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.stroke();}};
-    const shell=grad(29,47,69,103,[[0,'#397B78'],[.42,'#185B5A'],[1,'#103A40']]);
-    const shellHi='#66A19A', shellDark='#123C42', graphite=grad(32,98,65,136,[[0,'#38434A'],[1,'#202A31']]);
+    const shell=grad(29,47,69,103,[[0,'#315A59'],[.42,'#234746'],[1,'#172F34']]);
+    const shellHi='#718B83', shellDark='#172F34', graphite=grad(32,98,65,136,[[0,'#38434A'],[1,'#202A31']]);
     const copper=grad(14,68,28,88,[[0,'#F0B45F'],[1,'#A85F32']]);
     const boot=grad(25,130,66,139,[[0,'#667078'],[1,'#29343B']]);
     if(!side){
@@ -1971,6 +1971,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     if(!side){
       // Offset shoulder and narrow waist; no broad clinic tunic or apron plane.
       path([[35,54],[44,46],[57,48],[68,55],[65,77],[71,91],[64,98],[40,100],[27,96],[32,78]],shell,ink,1.9);
+      // Squared storm-flap shoulder breaks the broad Clinic wrap-tunic outline.
+      path([[57,49],[68,54],[72,61],[64,62],[58,57]],'#294B4A',ink,1.2);
       if(!back){
         path([[42,49],[50,57],[58,49],[55,46],[50,51],[45,46]],'#D6E2D7',ink,1.1);
         path([[32,57],[42,51],[48,61],[43,78],[34,91],[28,83]],shellDark,ink,1.2);
@@ -2016,6 +2018,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     }else{
       // Narrow side plane keeps the pitched torso and compact waist.
       path([[29,48],[42,43],[59,47],[70,57],[66,68],[57,79],[64,88],[60,96],[27,94],[31,76]],shell,ink,1.8);
+      // A clipped, squared shoulder flap remains visible in both profiles.
+      path([[56,48],[68,53],[72,60],[65,64],[57,57]],'#294B4A',ink,1.1);
       if(!back){
         path([[42,54],[52,55],[57,67],[51,82],[37,91],[32,85]],'#286C68',ink,1);
         line([[45,56],[58,88]],'#303C42',3.2);line([[48,57],[61,87]],'#9BB8AE',.9);
