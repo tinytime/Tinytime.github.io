@@ -32,7 +32,7 @@ const server = createServer((req,res) => {
     res.writeHead(404); res.end('Not found'); return;
   }
   const ext = path.extname(file);
-  const type = ext === '.html' ? 'text/html' : ext === '.js' ? 'text/javascript' : 'application/octet-stream';
+  const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.svg':'image/svg+xml'}; const type=types[ext]||'application/octet-stream';
   res.writeHead(200, {'content-type':type});
   fs.createReadStream(file).pipe(res);
 });
@@ -57,9 +57,10 @@ try {
     const directions=['front','back','left','right'];
     const xs=[51,161,271,381], bodyYs=[128,458,788], propYs=[286,616,946];
     const data={};
+    const characterNames=['sailor','slicker','painter'];
     for(let r=0;r<3;r++) for(let d=0;d<4;d++) for(const mode of ['body','prop']){
       const x=xs[d],y=mode==='body'?bodyYs[r]:propYs[r];
-      const item={character:['sailor','slicker','painter'][r],direction:directions[d],mode,
+      const item={character:characterNames[r],direction:directions[d],mode,
         native:renderCrop(x,y,64,96),direct:renderCrop(x,y,28,42)};
       const key=item.character+'-'+item.mode+'-'+item.direction;
       data[key]=item;
@@ -83,13 +84,13 @@ try {
       if(decodedImages.has(src))continue;
       const im=new Image();im.src=src;await im.decode();decodedImages.set(src,im);
     }
-    const keysFor=(mode,dirs)=>people.flatMap(p=>dirs.map(d=>p.id+'-'+mode+'-'+d));
+    const keysFor=(mode,dirs)=>characterNames.flatMap(id=>dirs.map(d=>id+'-'+mode+'-'+d));
     const sheetsOut={};
     for(const mode of ['body','prop']) {
       const all=keysFor(mode,directions);
       sheetsOut[mode+'-native']=sheet(all,'native',4,128,192);
       sheetsOut[mode+'-direct']=sheet(all,'direct',4,56,84);
-      sheetsOut[mode+'-front-group']=sheet(people.map(p=>p.id+'-'+mode+'-front'),'native',3,128,192);
+      sheetsOut[mode+'-front-group']=sheet(characterNames.map(id=>id+'-'+mode+'-front'),'native',3,128,192);
     }
     const enlarge=(src,factor)=>{
       const im=decodedImages.get(src),c=document.createElement('canvas');c.width=im.width*factor;c.height=im.height*factor;
