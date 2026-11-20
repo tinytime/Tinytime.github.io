@@ -8,13 +8,13 @@ const sourcePath = resolve(root, 'project-background/qa-artifacts/third-civilian
 const outDir = resolve(root, 'project-background/qa-artifacts/third-civilian-batch');
 const svg = await readFile(sourcePath, 'utf8');
 const svgTag = svg.slice(svg.indexOf('<svg'), svg.indexOf('>', svg.indexOf('<svg')) + 1);
-const width = Number(svgTag.match(/\\bwidth=["'](\\d+)["']/)?.[1]);
-const height = Number(svgTag.match(/\\bheight=["'](\\d+)["']/)?.[1]);
-const viewBox = svgTag.match(/\\bviewBox=["']([^"']+)["']/)?.[1];
+const width = Number(svgTag.match(/\bwidth=["'](\d+)["']/)?.[1]);
+const height = Number(svgTag.match(/\bheight=["'](\d+)["']/)?.[1]);
+const viewBox = svgTag.match(/\bviewBox=["']([^"']+)["']/)?.[1];
 if (width !== 1680 || height !== 1720 || viewBox?.trim() !== '0 0 1680 1720') {
   throw new Error(`Unexpected design sheet geometry: ${width}x${height}; viewBox=${viewBox}`);
 }
-const ids = [...svg.matchAll(/\\bid="([^"]+)"/g)].map(m => m[1]);
+const ids = [...svg.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
 if (new Set(ids).size !== ids.length) throw new Error('Duplicate SVG IDs detected.');
 const hrefs = [...svg.matchAll(/href="#([^"]+)"/g)].map(m => m[1]);
 const unresolved = hrefs.filter(h => !ids.includes(h));
