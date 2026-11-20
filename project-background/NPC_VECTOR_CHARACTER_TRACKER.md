@@ -1,5 +1,17 @@
 # NPC Vector Character Design Tracker
 
+ 
+## Claude independent re-review — Run #600 (2026-11-20)
+
+- Verdict: **Ready with disclosed minor issues**; no P0/P1 findings. Not owner approval.
+- New P2 findings: Cook profile pan handle/contact (C1); Usher profile clipboard/arm continuity (U4); Usher generic silhouette (U2).
+- Face standard: two distinct native-scale face-construction cues plus one head-read cue at direct 28×42; interior facial marks need not survive.
+- Coach/Courier rear: accepted shared body mass with distinct role construction; preserve the written rationale, no redesign.
+- Walk-frame evidence was absent from Run #600; next package needs at least two frames per direction for animated characters.
+- Town-ground composite is diagnostic only; black silhouette sheet is alpha-derived, not anatomical segmentation.
+- All five remain **NOT APPROVED**. U4 and U2 require explicit owner disposition before renderer edits. See [Claude re-review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md).
+
+
 ## P2 renderer iterations and internal QA — 2026-11-20
 
 **Current renderer source:** `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb`.  
