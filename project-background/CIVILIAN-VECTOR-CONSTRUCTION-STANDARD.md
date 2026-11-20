@@ -376,6 +376,7 @@ For mirrored left/right views, document anatomical handedness and the character-
 - Historical review outcomes and dated run records: [Construction Standard — Historical Review and Run Log](qa-artifacts/standard-history/REVIEW-AND-VERSION-HISTORY.md).
 - Current five-civilian Run #600 independent review: [Claude re-review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md).
 - Required package manifest: [Review Package Completeness Manifest](qa-artifacts/five-civilian-corrections/REVIEW-PACKAGE-MANIFEST.md).
+- Accepted exception register: [Five-Civilian Accepted-Exception Register](qa-artifacts/five-civilian-corrections/ACCEPTED-EXCEPTIONS.md).
 
 - `npc_sprites.js`: live Granny and dedicated civilian vector renderers.
 - `qa/granny-ref.json`: measured Granny reference geometry.
