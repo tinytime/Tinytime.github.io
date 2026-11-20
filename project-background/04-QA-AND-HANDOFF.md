@@ -1,6 +1,6 @@
 ## Owner-directed third-batch preparation exception — 2026-11-20
 
-The owner explicitly directed ChatGPT to prepare Tech, Hacker and Fisher without sending the prior Guard/Vendor/Clinic Run #629 output back to Claude. This is authorization for the design-preflight stage only. The Run #629 exact-output Claude review remains historically unrecorded; do not claim a Claude verdict or formal closeout. The three new silhouette concepts are proposals and require explicit owner approval before renderer implementation. No golden snapshots are authorized for refresh or replacement by this decision.
+The owner explicitly directed ChatGPT to prepare Tech, Hacker and Fisher without sending the prior Guard/Vendor/Clinic Run #629 output back to Claude. This is authorization for the design-preflight stage only. The Run #629 exact-output Claude review remains historically unrecorded; do not claim a Claude verdict or formal closeout. The three new silhouette concepts are proposals and require explicit owner approval before renderer implementation. Round 04 is now ready for that owner silhouette review after corrections to Fisher's dark rear yoke and matched hood, near-side profile props for Tech/Fisher, Tech's four-view ear-cup cue, and Hacker's far-side panel occlusion. This is design-sheet work only; no renderer QA run exists for these concepts. No golden snapshots are authorized for refresh or replacement by this decision.
 
 
 
