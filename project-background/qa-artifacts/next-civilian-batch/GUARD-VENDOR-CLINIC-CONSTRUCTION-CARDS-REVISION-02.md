@@ -1,6 +1,6 @@
 # Guard / Vendor / Clinic Worker — silhouette revision 02 construction cards
 
-**Status:** focused directional-construction revision committed for owner review; NOT APPROVED. This remains a design-only package. No renderer/game code, production colour art, QA baseline or golden snapshots changed.
+**Status:** Revision 02 designs APPROVED by the project owner on 2026-11-19. Renderer production for Guard, Vendor and Clinic Worker is authorized. The implementation is now in progress; these construction cards remain the binding design specification. Browser QA and visual acceptance are still pending.
 
 ## Revision history and retained direction
 
@@ -56,4 +56,4 @@ The matched front-silhouette comparison is already committed at [GUARD-VENDOR-CL
 - The directional sheet contains separately authored design silhouettes, not renderer captures. It has front and profile face-construction prompts; they demonstrate geometry but are not finished portraits.
 - No direct game-rendered 64×96 or 28×42 captures exist for these proposed characters. No 28×42 preview is represented as a renderer result.
 - Prop/gear visibility and occlusion are design proposals, not renderer-verified hand contacts.
-- No character is renderer-ready, approved or complete. Do not begin colour production, renderer integration, game changes, QA baseline changes or golden snapshots until the owner explicitly approves the revised directional silhouettes.
+- Owner approval of the revised directional silhouettes is recorded. Dedicated vector renderer implementation is authorized for these three characters only. Renderer QA, actual render inspection, independent Claude review and final completion approval remain outstanding. Do not alter QA baselines or golden snapshots.
