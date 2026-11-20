@@ -1,7 +1,117 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760"><title>Guard Vendor Clinic Worker silhouette revision 02</title><desc>Four-view black silhouette exploration with face construction and reduced scale previews. Design only, not renderer output.</desc><rect width="1200" height="760" fill="#f3f1eb"/><style>.h{font:700 24px sans-serif;fill:#222}.n{font:700 18px sans-serif;fill:#222}.s{fill:#090a0d}.c{fill:#f3f1eb}.t{font:12px sans-serif;fill:#555}.p{fill:#e8e5dd;stroke:#ccc}</style><text x="25" y="35" class="h">CIVILIAN SILHOUETTE REVISION 02 — DESIGN EXPLORATION</text><defs>
-<g id="g"><path class="s" d="M22 9Q22 0 34 0Q46 1 47 10L45 19 41 25 24 25 20 17Z M20 26L10 30 5 41 9 49 17 45 21 54 16 66 20 72 29 70 33 55 38 56 42 71 52 72 55 64 49 51 51 42 58 47 62 39 54 30 44 27 39 32 26 31Z M8 43L16 43 20 52 14 62 6 59 3 51Z M18 51Q33 56 49 50L47 57Q32 62 17 57Z M19 58L30 60 27 73 21 82 12 83 9 79 16 68Z M37 58L48 57 52 67 49 77 56 85 52 90 37 89 33 80Z M12 80L24 79 25 86 21 92 4 92 4 88Z M40 83L53 82 60 88 58 93 38 93 36 89Z"/><path class="c" d="M27 34L33 38 39 33 41 48 33 52 25 48Z"/></g>
-<g id="v"><path class="s" d="M25 10Q26 2 36 3Q45 4 46 13L42 21 34 25 26 22Z M21 12Q22 3 35 2Q47 3 50 11L57 16 44 17 26 15Z M23 26L15 30 9 39 12 47 19 47 22 56 17 67 22 73 32 69 37 57 43 57 50 66 57 61 52 49 52 39 56 35 45 28 37 30 32 34Z M15 33L8 40 7 53 13 57 21 46 24 37Z M44 31L53 32 60 41 63 48 58 52 52 47 45 41Z M56 47L65 46 68 50 66 54 57 53Z M17 56L28 59 26 73 20 82 10 83 8 79 15 68Z M40 57L51 55 53 68 59 78 55 84 42 82 36 72Z M10 80L23 79 23 86 19 92 3 91 4 87Z M46 79L57 78 64 84 64 91 44 92 42 87Z"/><path class="c" d="M30 34L36 37 41 33 44 50 37 54 29 50Z"/></g>
-<g id="c"><path class="s" d="M24 10Q26 0 38 2Q49 5 47 17L43 23 33 26 25 21Z M49 12Q59 12 57 22Q54 30 46 27Z M24 27L16 31 11 42 15 51 22 47 25 56 20 67 25 73 34 69 37 56 43 56 48 68 56 66 54 53 51 41 48 31 39 29 33 34Z M17 57L28 60 27 72 20 81 12 82 9 78 16 68Z M39 57L49 55 52 68 49 78 56 84 52 89 39 87 35 77Z M12 79L24 78 24 85 20 91 5 91 4 87Z M42 80L53 79 59 85 57 91 39 91 38 87Z M49 54L59 55 62 67 58 73 48 69Z"/><path class="c" d="M29 33L40 40 35 48 45 54 41 58 28 49 33 42 26 37Z"/></g></defs>
-<text x="25" y="85" class="n">GUARD — protective wedge / braced stance</text><g transform="translate(50 105) scale(1.2)"><use href="#g"/></g><g transform="translate(150 105) scale(1.2)"><use href="#g"/></g><g transform="translate(250 105) scale(1.2)"><use href="#g"/></g><g transform="translate(350 105) scale(1.2)"><g transform="translate(64) scale(-1 1)"><use href="#g"/></g></g><text x="50" y="230" class="t">FRONT</text><text x="150" y="230" class="t">BACK</text><text x="250" y="230" class="t">LEFT</text><text x="350" y="230" class="t">RIGHT</text><rect x="470" y="105" width="120" height="125" class="p"/><text x="480" y="125" class="t">FACE STUDY</text><path class="s" d="M490 145Q495 130 520 132Q545 135 544 157L536 207 515 216 495 195Z"/><path stroke="#f3f1eb" stroke-width="3" d="M498 160L510 157M519 157L533 160M515 164L511 185 522 187M504 198Q516 205 529 197"/><rect x="605" y="105" width="65" height="125" class="p"/><text x="612" y="125" class="t">28×42</text><g transform="translate(621 150) scale(.35)"><use href="#g"/></g>
-<text x="25" y="290" class="n">VENDOR — forward-leaning stall service / advanced foot</text><g transform="translate(50 310) scale(1.2)"><use href="#v"/></g><g transform="translate(150 310) scale(1.2)"><use href="#v"/></g><g transform="translate(250 310) scale(1.2)"><use href="#v"/></g><g transform="translate(350 310) scale(1.2)"><g transform="translate(68) scale(-1 1)"><use href="#v"/></g></g><text x="50" y="435" class="t">FRONT</text><text x="150" y="435" class="t">BACK</text><text x="250" y="435" class="t">LEFT</text><text x="350" y="435" class="t">RIGHT</text><rect x="470" y="310" width="120" height="125" class="p"/><text x="480" y="330" class="t">FACE STUDY</text><path class="s" d="M490 350Q495 335 520 337Q545 340 544 362L536 412 515 421 495 400Z"/><path stroke="#f3f1eb" stroke-width="3" d="M498 365Q508 355 516 365M521 365Q532 355 540 365M515 368L520 390 529 392M504 402Q517 411 532 400"/><rect x="605" y="310" width="65" height="125" class="p"/><text x="612" y="330" class="t">28×42</text><g transform="translate(621 355) scale(.35)"><use href="#v"/></g>
-<text x="25" y="495" class="n">CLINIC WORKER — tapered wrap / offset-hip stance</text><g transform="translate(50 515) scale(1.2)"><use href="#c"/></g><g transform="translate(150 515) scale(1.2)"><use href="#c"/></g><g transform="translate(250 515) scale(1.2)"><use href="#c"/></g><g transform="translate(350 515) scale(1.2)"><g transform="translate(64) scale(-1 1)"><use href="#c"/></g></g><text x="50" y="640" class="t">FRONT</text><text x="150" y="640" class="t">BACK</text><text x="250" y="640" class="t">LEFT</text><text x="350" y="640" class="t">RIGHT</text><rect x="470" y="515" width="120" height="125" class="p"/><text x="480" y="535" class="t">FACE STUDY</text><path class="s" d="M490 555Q495 540 520 542Q545 545 544 567L536 617 515 626 495 605Z"/><path stroke="#f3f1eb" stroke-width="3" d="M498 570Q508 560 516 570M521 570Q532 560 540 570M515 573L513 594 524 596M504 607Q517 616 532 605"/><rect x="605" y="515" width="65" height="125" class="p"/><text x="612" y="535" class="t">28×42</text><g transform="translate(621 560) scale(.35)"><use href="#c"/></g><text x="25" y="700" class="t">28×42 panels are exploratory reductions, not direct game-renderer captures. Face studies are construction prompts, not portraits.</text><text x="25" y="725" class="t">No renderer, game code, colour production, QA baseline or golden snapshots changed. All prop contacts remain proposals.</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120">
+<title>Guard, Vendor and Clinic Worker — revision 02 directional construction pass</title>
+<desc>Design-only sheet with independently authored front, back, left and right silhouettes for each character, front and profile face construction studies, and direction-specific prop visibility notes. Not game renderer output.</desc>
+<rect width="1600" height="1120" fill="#f3f1eb"/>
+<style>
+.h{font:700 28px sans-serif;fill:#202124}.sub{font:15px sans-serif;fill:#555}.name{font:700 21px sans-serif;fill:#202124}.dir{font:700 13px sans-serif;fill:#555}.note{font:13px sans-serif;fill:#444}.tiny{font:11px sans-serif;fill:#555}.sil{fill:#090a0d;stroke:#090a0d;stroke-linejoin:round;stroke-linecap:round}.cut{fill:#f3f1eb;stroke:#f3f1eb;stroke-linejoin:round}.face{fill:#090a0d;stroke:#090a0d;stroke-linejoin:round;stroke-linecap:round}.feature{fill:none;stroke:#f3f1eb;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.panel{fill:#e8e5dd;stroke:#c9c5bc;stroke-width:1.2}.rule{stroke:#c9c5bc;stroke-width:1.4}
+</style>
+<text x="40" y="48" class="h">GUARD · VENDOR · CLINIC WORKER — REVISION 02 / DIRECTIONAL CONSTRUCTION</text>
+<text x="40" y="76" class="sub">Preserves the approved concept directions. Every directional silhouette below is separately drawn; no front-view group is reused or mirrored.</text>
+<text x="40" y="98" class="sub">Black silhouettes are design studies on a shared 64×96 field. Face panels isolate front/profile geometry. No renderer, game code, production colour art or QA baseline is changed.</text>
+<line x1="40" y1="118" x2="1560" y2="118" class="rule"/>
+<!-- GUARD -->
+<text x="40" y="154" class="name">01 · GUARD — protective wedge / braced defensive stance</text>
+<g transform="translate(75 175)">
+<rect x="0" y="0" width="96" height="144" class="panel"/>
+<g transform="scale(1.5)">
+<path class="sil" d="M20 13Q19 2 32 1L43 3Q51 8 49 17L45 24 24 24 19 19Z M18 25L9 30 3 43 8 51 16 47 19 57 14 70 18 76 29 73 32 59 38 58 43 75 55 77 59 68 52 51 54 39 49 29 43 26 37 31 27 30Z M7 41L15 40 20 48 16 57 8 56 3 49Z M19 52L31 56 46 51 51 56 43 63 26 63 17 59Z M18 63L29 65 26 78 20 88 11 88 8 84 15 73Z M39 62L50 60 55 71 52 82 59 91 55 96 39 95 34 83Z M10 85L23 84 24 91 20 96 3 96 3 91Z M44 87L56 86 63 92 62 96 42 96 40 92Z"/>
+<path class="cut" d="M25 35L33 39 41 34 44 49 35 54 25 49Z M11 45L15 44 17 49 14 53Z"/>
+<path class="sil" d="M47 28L55 31 61 40 66 46 63 52 56 49 50 42Z M57 48L65 47 69 52 66 57 59 55Z"/>
+<path class="sil" d="M7 10Q9 2 20 3L24 7 22 16 14 18 7 15Z"/>
+</g></g>
+<g transform="translate(205 175)"><rect width="96" height="144" class="panel"/><g transform="scale(1.5)">
+<path class="sil" d="M20 14Q20 3 33 1L44 3Q51 8 49 18L45 23 24 24 19 19Z M18 24L8 30 5 44 11 52 18 47 22 57 16 70 20 76 30 73 34 60 40 60 44 74 54 76 59 68 53 52 55 39 48 29 42 26 36 30 27 29Z M18 60L30 63 27 77 20 87 11 87 8 83 15 72Z M40 61L51 59 56 71 53 82 60 91 56 96 40 95 35 83Z M10 84L23 83 24 91 20 96 3 96 3 91Z M45 86L57 85 64 92 63 96 43 96 41 92Z"/>
+<path class="sil" d="M10 31L17 28 22 39 18 53 11 56 6 48Z M48 31L56 35 60 45 56 53 50 47Z M25 33L32 36 39 33 43 48 34 52 25 48Z"/>
+<path class="cut" d="M24 36L33 40 41 35 42 47 34 50 26 47Z"/>
+<path class="sil" d="M17 24L15 30 12 33 12 19 19 16Z M43 23L49 20 51 30 46 32Z M24 8Q26 3 34 3L44 5 48 13 43 18 24 18 19 14Z"/>
+<path class="sil" d="M28 28L38 28 40 32 27 33Z"/>
+</g></g>
+<g transform="translate(335 175)"><rect width="96" height="144" class="panel"/><g transform="scale(1.5)">
+<path class="sil" d="M24 10Q24 1 35 2L45 6 48 14 44 23 34 27 27 22Z M22 25L15 29 10 40 14 48 21 46 27 54 26 68 33 74 44 70 47 56 53 50 54 39 47 29 40 27 34 32 27 29Z M34 68L46 66 49 80 45 90 52 96 36 96 32 88Z M10 86L24 85 25 92 21 96 7 96 5 92Z"/>
+<path class="sil" d="M18 28L10 34 7 47 12 52 20 45 25 36Z M44 31L52 35 58 46 54 51 47 44Z M45 43L54 43 59 48 56 54 48 53Z"/>
+<path class="sil" d="M20 5Q21 0 34 0L45 5 48 11 39 13 25 12Z"/>
+<path class="cut" d="M28 33L36 36 41 34 42 46 34 50 27 46Z"/>
+</g></g>
+<g transform="translate(465 175)"><rect width="96" height="144" class="panel"/><g transform="scale(1.5)">
+<path class="sil" d="M37 10Q38 1 49 2L57 7 58 17 53 25 43 26 37 20Z M37 26L29 30 25 42 29 50 36 48 39 58 36 70 43 76 53 72 56 58 61 52 62 40 56 30 49 27 44 32 39 30Z M45 70L56 68 60 81 57 91 64 96 47 96 43 88Z M27 86L40 85 41 92 37 96 23 96 21 92Z"/>
+<path class="sil" d="M31 30L24 36 21 47 26 52 33 45 38 36Z M53 31L61 35 67 45 63 51 56 44Z M25 42L17 43 13 48 17 54 27 52Z"/>
+<path class="sil" d="M39 5Q41 0 50 2L59 8 59 13 39 13Z"/>
+<path class="cut" d="M43 34L50 37 54 34 55 45 48 49 42 45Z"/>
+</g></g>
+<text x="123" y="337" class="dir">FRONT</text><text x="253" y="337" class="dir">BACK</text><text x="383" y="337" class="dir">LEFT PROFILE</text><text x="513" y="337" class="dir">RIGHT PROFILE</text>
+<g transform="translate(610 174)">
+<rect width="420" height="165" rx="7" class="panel"/>
+<text x="16" y="24" class="dir">FACE CONSTRUCTION — FRONT / PROFILE</text>
+<g transform="translate(26 38)"><path class="face" d="M15 18Q15 2 39 2Q64 3 65 23L61 62 48 81 26 78 13 58Z M12 17Q14 1 39 0Q63 1 69 16L61 21 18 20Z"/><path class="feature" d="M22 35L33 33M45 33L57 35M39 37L35 56 44 58M27 68L49 68"/></g>
+<g transform="translate(135 38)"><path class="face" d="M24 7Q42 0 53 14L58 27 51 39 43 43 45 62 34 77 17 75 21 60 15 44 15 25Z M15 20Q17 4 36 3L52 10 55 18 22 17Z"/><path class="feature" d="M23 33L33 31 39 34M38 34L35 47 43 49M28 62L40 64"/></g>
+<text x="230" y="67" class="note">Broad jaw corners · close-set eyes</text><text x="230" y="91" class="note">Straight heavy brow · firm nose bridge</text><text x="230" y="115" class="note">Low brow shelf under helmet; compact chin</text><text x="230" y="139" class="tiny">Contrast: Referee rounder lower face; Coach softer cheek/chin</text>
+</g>
+<g transform="translate(1060 174)"><rect width="500" height="165" rx="7" class="panel"/><text x="16" y="24" class="dir">DIRECTIONAL EQUIPMENT / CONTACT READ</text><text x="16" y="51" class="note">Front: bracer on character-right (viewer-left), bent forearm crosses lower chest.</text><text x="16" y="76" class="note">Back: rear helmet shell, nape guard and back-mounted radio are distinct.</text><text x="16" y="101" class="note">Left: near-side bracer and bent elbow are visible in profile.</text><text x="16" y="126" class="note">Right: far-side bracer is occluded by torso; do not duplicate it on the outline.</text><text x="16" y="148" class="tiny">No handheld baton. Radio remains clipped equipment, not a hand-held prop.</text></g>
+<line x1="40" y1="360" x2="1560" y2="360" class="rule"/>
+<!-- VENDOR -->
+<text x="40" y="396" class="name">02 · VENDOR — forward customer pitch / tray-presenting service stance</text>
+<g transform="translate(75 417)"><rect width="96" height="144" class="panel"/><g transform="scale(1.5)">
+<path class="sil" d="M23 14Q25 3 38 4Q49 6 49 17L44 26 30 28 23 22Z M18 13Q20 3 36 2L49 7 55 14 45 15 25 13Z M25 29L17 34 12 44 17 51 24 48 29 56 25 69 31 75 41 70 44 57 51 54 56 43 50 32 42 29 35 34 29 31Z M13 36L6 43 4 56 10 61 20 51 22 41Z M48 34L57 35 65 44 69 51 64 56 57 49 50 44Z M61 49L71 48 75 53 72 58 62 57Z M25 67L37 68 34 82 27 91 17 91 14 86 23 76Z M43 64L54 61 60 74 58 84 65 92 60 96 45 94 39 82Z M16 88L29 87 30 94 26 96 10 96 9 92Z M52 88L64 87 71 93 70 96 49 96 47 92Z"/>
+<path class="cut" d="M31 37L38 40 44 36 46 50 38 54 30 49Z M23 39L27 42 25 49 20 47Z"/>
+<path class="sil" d="M50 43L69 42 74 46 72 50 54 51Z"/>
+</g></g>
+<g transform="translate(205 417)"><rect width="96" height="144" class="panel"/><g transform="scale(1.5)">
+<path class="sil" d="M23 14Q25 3 38 4Q49 6 49 17L44 25 30 27 23 22Z M18 13Q20 3 36 2L49 7 55 14 45 15 25 13Z M24 28L16 33 12 45 18 51 25 46 30 56 26 69 32 75 42 70 45 57 52 54 57 43 50 32 42 29 35 33 29 30Z M14 35L7 42 5 55 11 60 21 50 23 40Z M47 34L56 37 63 47 60 54 53 48Z M26 67L38 68 35 82 28 91 18 91 15 86 24 76Z M44 65L55 62 61 75 59 85 66 92 61 96 46 94 40 82Z M17 88L30 87 31 94 27 96 11 96 10 92Z M53 88L65 87 72 93 71 96 50 96 48 92Z"/>
+<path class="sil" d="M9 29L17 26 22 39 18 52 11 55 6 46Z M52 31L60 33 64 43 60 49 54 43Z"/>
+<path class="cut" d="M31 36L38 39 44 35 46 49 38 53 30 48Z"/>
+<path class="sil" d="M25 8Q27 2 38 3L49 7 51 13 23 13Z M28 29L41 29 45 32 29 34Z"/>
+</g></g>
+<g transform="translate(335 417)"><rect width="96" height="144" class="panel"/><g transform="scale(1.5)">
+<path class="sil" d="M27 13Q28 3 40 4L49 11 47 22 39 28 30 24Z M23 12Q26 3 40 3L51 10 49 14 25 16Z M25 29L18 33 13 45 17 52 25 49 31 56 30 69 38 75 47 69 48 55 56 49 59 38 52 30 44 28 38 33 31 30Z M17 37L10 43 9 55 14 60 24 51 27 42Z M48 32L58 35 65 45 61 51 54 45Z M29 67L40 68 38 83 31 92 22 92 19 87 27 76Z M43 65L54 63 59 76 57 86 64 93 59 96 45 94 40 82Z M21 89L33 88 34 95 30 96 15 96 14 92Z M51 89L63 88 70 94 69 96 48 96 47 92Z"/>
+<path class="sil" d="M53 38L63 39 69 46 67 52 59 49Z M61 49L70 47 75 50 73 54 64 56Z"/>
+<path class="cut" d="M32 37L40 40 46 36 48 49 40 53 32 49Z"/>
+</g></g>
+<g transform="translate(465 417)"><rect width="96" height="144" class="panel"/><g transform="scale(1.5)">
+<path class="sil" d="M37 13Q38 3 49 5L57 12 55 23 47 28 39 23Z M33 12Q36 3 49 4L59 11 57 15 35 16Z M34 29L27 34 23 45 27 52 34 49 39 57 37 70 45 76 54 70 56 56 63 50 65 39 58 31 51 29 45 33 39 30Z M27 37L20 43 19 55 24 60 34 51 36 42Z M57 33L66 36 72 46 68 52 61 46Z M38 68L49 68 47 83 40 92 31 92 28 87 36 77Z M52 65L63 63 68 76 66 86 73 93 68 96 54 94 49 82Z M30 89L42 88 43 95 39 96 24 96 23 92Z M60 89L72 88 79 94 78 96 57 96 56 92Z"/>
+<path class="sil" d="M28 41L19 43 14 48 18 54 29 52Z M59 39L68 40 74 47 71 53 63 49Z"/>
+<path class="cut" d="M42 37L50 40 56 36 57 49 49 53 42 49Z"/>
+</g></g>
+<text x="123" y="579" class="dir">FRONT</text><text x="253" y="579" class="dir">BACK</text><text x="383" y="579" class="dir">LEFT PROFILE</text><text x="513" y="579" class="dir">RIGHT PROFILE</text>
+<g transform="translate(610 416)"><rect width="420" height="165" rx="7" class="panel"/><text x="16" y="24" class="dir">FACE CONSTRUCTION — FRONT / PROFILE</text>
+<g transform="translate(26 38)"><path class="face" d="M15 18Q16 2 39 3Q64 5 65 24L60 61 48 80 27 78 14 58Z M12 18Q16 1 39 1L61 8 70 19 55 17 20 19Z"/><path class="feature" d="M20 35Q29 29 36 35M47 34Q55 28 61 35M39 37L43 54 51 55M29 67Q41 73 54 65"/></g>
+<g transform="translate(135 38)"><path class="face" d="M25 8Q42 0 54 14L59 28 52 40 44 44 47 62 35 78 18 75 21 60 15 44 16 24Z M15 20Q18 4 37 3L54 11 57 18 22 18Z"/><path class="feature" d="M23 34Q31 29 38 34M39 35L43 49 51 51M29 63Q39 69 47 62"/></g>
+<text x="230" y="67" class="note">Fuller cheek plane · wider eye spacing</text><text x="230" y="91" class="note">Lifted asymmetric brow · sloped nose</text><text x="230" y="115" class="note">Rounded chin · open, asymmetric smile</text><text x="230" y="139" class="tiny">Contrast: Cook compact lower face; Courier narrower cheek/jaw</text></g>
+<g transform="translate(1060 416)"><rect width="500" height="165" rx="7" class="panel"/><text x="16" y="24" class="dir">DIRECTIONAL TRAY / ARM CONTACT</text><text x="16" y="51" class="note">Front: shallow tray extends character-left (viewer-right); palm visibly supports its underside.</text><text x="16" y="76" class="note">Back: tray is carried on the far side and mostly occluded; rear vest seams and sash remain visible.</text><text x="16" y="101" class="note">Left: near-side forearm, wrist and palm form one continuous support under the tray lip.</text><text x="16" y="126" class="note">Right: far-side tray/hand are occluded by torso; only the reaching shoulder/upper arm contour remains.</text><text x="16" y="148" class="tiny">No detached tray, floating wrist or duplicate mirrored hand is intended.</text></g>
+<line x1="40" y1="602" x2="1560" y2="602" class="rule"/>
+<!-- CLINIC -->
+<text x="40" y="638" class="name">03 · CLINIC WORKER — tapered wrap tunic / shifted-hip attentive stance</text>
+<g transform="translate(75 659)"><rect width="96" height="144" class="panel"/><g transform="scale(1.5)">
+<path class="sil" d="M22 14Q23 4 35 3Q47 4 49 16L44 25 30 27 23 21Z M44 16Q54 12 58 20Q59 28 49 31L43 27Z M19 29L12 34 9 46 15 52 22 47 27 56 23 69 30 76 40 71 44 57 51 57 55 72 65 74 68 65 59 49 55 37 48 30 39 31 32 35 26 30Z M15 38L8 45 9 57 15 60 23 50Z M47 33L56 35 62 45 58 51 51 45Z M26 68L38 69 34 83 28 92 18 92 15 87 23 77Z M45 67L56 64 61 77 58 87 66 93 61 96 46 94 41 82Z M17 89L29 88 30 95 26 96 11 96 10 92Z M53 89L65 88 72 94 71 96 50 96 49 92Z"/>
+<path class="cut" d="M29 36L39 40 48 34 51 49 40 56 28 49Z M48 51L55 53 56 60 49 60Z"/>
+<path class="sil" d="M52 52L62 52 66 60 61 67 51 64Z M51 63L60 62 63 69 55 73 48 69Z"/>
+</g></g>
+<g transform="translate(205 659)"><rect width="96" height="144" class="panel"/><g transform="scale(1.5)">
+<path class="sil" d="M22 14Q23 4 35 3Q47 4 49 16L44 25 30 27 23 21Z M44 16Q54 12 58 20Q59 28 49 31L43 27Z M19 29L12 34 9 46 15 52 22 47 27 56 23 69 30 76 40 71 44 57 51 57 55 72 65 74 68 65 59 49 55 37 48 30 39 31 32 35 26 30Z M16 37L9 44 10 56 16 60 24 50Z M46 33L55 35 62 45 58 51 51 45Z M27 68L39 69 35 83 29 92 19 92 16 87 24 77Z M46 67L57 64 62 77 59 87 67 93 62 96 47 94 42 82Z M18 89L30 88 31 95 27 96 12 96 11 92Z M54 89L66 88 73 94 72 96 51 96 50 92Z"/>
+<path class="sil" d="M12 30L17 27 21 35 17 43 11 43Z M50 29L57 30 60 39 55 43 50 37Z"/>
+<path class="cut" d="M29 36L39 40 48 34 51 49 40 56 28 49Z"/>
+<path class="sil" d="M29 25L44 24 47 29 33 31Z"/>
+</g></g>
+<g transform="translate(335 659)"><rect width="96" height="144" class="panel"/><g transform="scale(1.5)">
+<path class="sil" d="M27 13Q29 3 40 5Q50 8 49 19L43 27 32 27 26 21Z M44 17Q53 13 57 21Q57 28 48 31L42 27Z M25 29L18 33 14 44 18 52 25 49 31 57 29 70 36 76 46 70 48 56 56 50 59 39 52 31 44 29 38 33 32 30Z M19 38L12 44 13 56 18 60 26 51Z M48 34L57 36 63 46 59 52 52 46Z M33 68L44 69 41 83 34 92 25 92 22 87 30 77Z M47 67L58 64 63 77 60 87 68 93 63 96 48 94 43 82Z M24 89L36 88 37 95 33 96 18 96 17 92Z M55 89L67 88 74 94 73 96 52 96 51 92Z"/>
+<path class="sil" d="M52 48L62 49 67 56 62 63 53 61Z"/>
+<path class="cut" d="M34 36L43 40 51 35 53 48 44 54 33 49Z"/>
+</g></g>
+<g transform="translate(465 659)"><rect width="96" height="144" class="panel"/><g transform="scale(1.5)">
+<path class="sil" d="M36 13Q38 3 49 5Q58 9 57 20L51 27 40 27 35 21Z M49 17Q58 13 62 21Q62 28 53 31L47 27Z M34 29L27 34 23 45 27 53 34 50 40 58 38 71 45 77 55 71 57 57 64 51 67 40 60 32 52 30 46 34 40 30Z M28 38L21 44 22 56 27 60 35 51Z M57 34L66 36 72 46 68 52 61 46Z M42 68L53 69 50 83 43 92 34 92 31 87 39 77Z M56 67L67 64 72 77 69 87 77 93 72 96 57 94 52 82Z M33 89L45 88 46 95 42 96 27 96 26 92Z M64 89L76 88 83 94 82 96 61 96 60 92Z"/>
+<path class="sil" d="M29 48L19 49 15 56 20 62 30 60Z M61 47L70 49 75 56 70 62 62 59Z"/>
+<path class="cut" d="M43 36L52 40 60 35 62 48 53 54 42 49Z"/>
+</g></g>
+<text x="123" y="821" class="dir">FRONT</text><text x="253" y="821" class="dir">BACK</text><text x="383" y="821" class="dir">LEFT PROFILE</text><text x="513" y="821" class="dir">RIGHT PROFILE</text>
+<g transform="translate(610 658)"><rect width="420" height="165" rx="7" class="panel"/><text x="16" y="24" class="dir">FACE / HAIR CONSTRUCTION — FRONT / PROFILE</text>
+<g transform="translate(26 38)"><path class="face" d="M16 19Q17 3 39 3Q61 5 63 24L58 61 47 78 28 79 14 58Z M13 20Q14 3 37 1L54 6 62 15 58 24 51 15 23 17Z M46 16Q58 12 65 22L63 35 54 33 49 25Z"/><path class="feature" d="M21 37Q29 32 36 37M46 37Q53 32 59 37M40 38L38 54 46 56M29 67Q40 70 50 65"/></g>
+<g transform="translate(135 38)"><path class="face" d="M26 8Q42 1 53 14L58 28 51 40 43 44 46 61 35 77 18 75 21 60 15 44 16 24Z M16 20Q18 4 37 3L53 10 57 18 23 18Z M46 17Q57 13 63 22L61 34 53 32 48 25Z"/><path class="feature" d="M23 35Q30 31 37 35M39 36L42 49 50 51M29 63Q39 68 47 62"/></g>
+<text x="230" y="67" class="note">Swept-back gathered hair / low rear coil</text><text x="230" y="91" class="note">Wider-set eyes · raised inner brow</text><text x="230" y="115" class="note">Shallow nose bridge · rounded tapered chin</text><text x="230" y="139" class="tiny">Contrast: Usher vertically formal; Courier narrower lower cheek</text></g>
+<g transform="translate(1060 658)"><rect width="500" height="165" rx="7" class="panel"/><text x="16" y="24" class="dir">DIRECTIONAL WRAP / POUCH CONSTRUCTION</text><text x="16" y="51" class="note">Front: diagonal wrap overlap crosses chest; pouch sits character-left (viewer-right).</text><text x="16" y="76" class="note">Back: rear yoke seam, gathered coil and side tie are exposed; pouch sits rear viewer-left.</text><text x="16" y="101" class="note">Left: near-side gathered hair and tunic overlap are visible; pouch is behind torso edge.</text><text x="16" y="126" class="note">Right: far-side pouch is hidden; shifted hip and curved tunic hem remain distinct.</text><text x="16" y="148" class="tiny">Pouch is attached to hip; hand remains separate with visible negative space.</text></g>
+<line x1="40" y1="844" x2="1560" y2="844" class="rule"/>
+<text x="40" y="877" class="name">Directional verification key</text>
+<text x="40" y="904" class="note">Each of the 12 silhouettes has its own path construction. Back views expose rear garment/helmet/hair geometry; profile views use side-on head, torso, arm and leg contours.</text>
+<text x="40" y="929" class="note">Prop/gear visibility is intentionally directional: visible near-side contacts are drawn; far-side or rear occlusion is documented rather than falsely duplicated.</text>
+<text x="40" y="954" class="note">Face studies are geometric construction prompts, not finished portraits. They show front and profile facial planes, eye spacing, brow, nose, jaw and hair/headwear differences.</text>
+<text x="40" y="979" class="note">No 28×42 renderer captures are claimed. The separate matched-scale roster comparison remains the existing Revision 02 file and is preserved unchanged.</text>
+<text x="40" y="1018" class="tiny">DESIGN-ONLY / NOT APPROVED · no renderer integration, production colour art, browser QA, QA baseline edits or golden snapshot changes.</text>
+</svg>
