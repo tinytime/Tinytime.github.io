@@ -32,7 +32,7 @@
 
 The last completed evidence, Runs #695 and #697, tested **revision 15**, not revision 18. Their 24/24 projection and 12/12 body-preservation results must not be attributed to revision 18.
 
-Fresh revision-18 Actions execution, artifact retrieval, and manual inspection are outstanding. Once available, inspect:
+Static source validation is complete but is not raster QA: the SVG has 24 direction labels and balanced tags; all 12 body-only/prop-on first-path pairs are identical; Painter's left-profile hand/handle/ferrule/bristle chain is present and the right-profile brush remains hidden; Slicker's rear yoke/hem seams and face-side hood opening are present; Sailor's coil contact bridge is present. Fresh revision-18 Actions execution, artifact retrieval, and manual inspection are outstanding. Once available, inspect:
 - all 24 source views at native 64×96 and independently rasterized direct 28×42;
 - nearest-neighbour enlargements for detached components, clipping and overlap;
 - all 12 body-only/prop-on pairs, requiring zero removed body pixels;
