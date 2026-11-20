@@ -4,8 +4,8 @@
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `npc-granny-baseline-overhaul`  
 **Roster positions:** #12 Sailor, #13 Slicker, #14 Painter  
-**Stage:** identity and silhouette preflight only  
-**Status:** proposed directions for owner review; no silhouettes, palettes, construction families or renderer implementations are approved yet.
+**Stage:** identity preflight; Sailor silhouette exploration authorized only  
+**Status:** owner approved the refined role directions on 2026-11-20 and authorized Sailor (#12) silhouette exploration only. The Sailor study is a review candidate, not an approved silhouette. Slicker (#13) and Painter (#14) remain queued; no palette, construction family or renderer implementation is approved.
 
 ## Batch objective and order
 
@@ -15,7 +15,7 @@ Develop three original civilian identities that are immediately distinguishable 
 2. **Slicker (#13)** — establish a weatherwear/rain-slicker identity with a distinctly different torso and head silhouette from Sailor, Fisher, Courier, Coach and Hacker.
 3. **Painter (#14)** — establish an artist/work-painter identity that does not collapse into Cook's apron, Welder's tool silhouette, or the generic Trades worker.
 
-The sequence is a proposed production order, not permission to skip the owner silhouette gate. Complete and review one character's four-view silhouette and construction card before locking the next character's silhouette. Do not start renderer implementation in this preflight.
+The sequence is a production order, not permission to skip the owner silhouette gate. The owner approved the refined role directions and authorized Sailor exploration only on 2026-11-20. Complete Sailor's body-only and prop-on four-view silhouettes, construction card and matched-scale comparisons, then stop for owner review. Do not start Slicker or Painter exploration until Sailor's silhouette/construction card is approved. No renderer implementation is authorized.
 
 ## Source-of-truth context
 
@@ -89,15 +89,32 @@ Use the owner-ratified [Civilian Vector Construction Standard](../../CIVILIAN-VE
 
 For each character, produce:
 
-1. An identity brief with personality, pose, head/face cues, role construction, signature prop and palette hypothesis.
-2. Four solid-black silhouettes: front, back, left profile and right profile. Compare at the same scale against Granny and the closest existing roster figures before colour work.
-3. A construction card with a qualitative build descriptor, pose class, visible silhouette/baseline notes, prop footprint, character-relative handedness, near/far anatomy and exactly three must-survive cues.
-4. A matched-scale face comparison against the two closest current roster faces, using native 64×96 front/profile crops and geometric distinctions. Exclude skin tone, hair colour and headwear as the sole differences.
-5. A roster shell-family audit update. Keep each new family UNASSIGNED until silhouette exploration and owner approval; no numeric family quotas.
-6. An explicit prop-contact/handedness table for all four directions. Profiles must show one intentional near-side anatomy plane and occlude the far arm unless the pose clearly justifies it.
-7. Black-silhouette comparison evidence and a rendered sheet for owner review. Do not polish gradients before silhouette and construction approval.
+1. Two complete four-view silhouette sets: body-only (no props) and prop-on. The body-only set controls identity; the prop-on set tests optional prop integration.
+2. An identity brief with personality, pose, head/face cues, role construction, signature prop and palette hypothesis.
+3. Four solid-black silhouettes per set: front, back, left profile and right profile. Compare at matched scale against Granny and the closest existing roster figures before colour work.
+4. A construction card with a qualitative build descriptor, pose class, visible silhouette/baseline notes, prop footprint, character-relative handedness, near/far anatomy and exactly three must-survive cues.
+5. A matched-scale face comparison against the two closest current roster faces, using native 64×96 front/profile crops and geometric distinctions. Exclude skin tone, hair colour and headwear as the sole differences.
+6. A roster shell-family audit update. Keep each new family UNASSIGNED until silhouette exploration and owner approval; no numeric family quotas.
+7. An explicit prop-contact/handedness table for all four directions. Profiles must show one intentional near-side anatomy plane and occlude the far arm unless the pose clearly justifies it.
+8. Black-silhouette comparison evidence and a rendered sheet for owner review. Do not polish gradients before silhouette and construction approval.
 
 After silhouette approval and colour design approval, production proceeds one character at a time. Each renderer needs dedicated character-specific paths and four directional constructions. Internal QA must inspect native 64×96 and direct-rendered 28×42 captures, not resized native art; inspect enlarged details, neutral-grey backgrounds, gallery, live town context, props/contact, face crops and regressions. Run relevant tests and inspect the actual artifacts before the next character begins.
+
+## Owner decision and execution refinements — 2026-11-20
+
+The owner approved the refined role directions and explicitly authorized Sailor (#12) silhouette exploration only. The approval does not approve a final silhouette, face, prop, palette or construction family, and does not authorize renderer implementation. Slicker and Painter remain queued.
+
+Three shared QA refinements apply to Sailor:
+- Produce both body-only and prop-on four-view silhouette sets. Identity must read in the body-only set; the prop-on set is a secondary interaction check.
+- Choose the two closest existing face references from actual matched-scale face crops before finalizing new cues. Compare head/jaw proportions, brow, eye geometry/placement, nose/profile, cheek and mouth/expression; colour and headwear do not count.
+- Establish near/far arm anatomy before adding any prop. Then document grip, contact and character-relative handedness in all four directions.
+
+Sailor-specific emphasis:
+- Prioritize raised collar, compact cap contour, leg stance, shoulder-to-waist construction and arm negative spaces.
+- Compare front and both profiles against Clinic first; also compare Coach, Guard and Fisher at matched scale. The historical Clinic/Sailor front overlap is a human-review prompt, not a numeric threshold.
+- Rope coil remains optional and cannot carry the identity.
+
+See [Sailor silhouette exploration 01](SAILOR-SILHOUETTE-EXPLORATION-01.svg) and [Sailor construction card exploration 01](SAILOR-CONSTRUCTION-CARD-EXPLORATION-01.md). Both are preliminary review material, not approval.
 
 ## Protected decisions and exclusions
 
@@ -105,11 +122,11 @@ After silhouette approval and colour design approval, production proceeds one ch
 - Do not change golden snapshots or snapshot provenance.
 - Do not introduce new numeric proportion targets, score thresholds or semantic calibration.
 - Do not reuse the legacy Trades renderer as a vector template.
-- Do not treat these hypotheses, palette suggestions, props or construction families as owner-approved.
+- Do not treat unapproved silhouettes, face cues, palette suggestions, props or construction families as owner-approved.
 - Do not start the remaining roster (#15–23) during this batch.
 
 ## Handoff state
 
 - Previous batch #9–11: owner-approved by the project owner on 2026-11-20. Tech is a production-renderer character; Hacker and Fisher are approved finished design-stage characters. This approval does not imply Hacker/Fisher production renderer integration.
-- Fourth batch #12–14: preflight prepared; owner review of the identity/silhouette direction is pending.
-- First recommended action: owner reviews the three role hypotheses and approves or revises them; then ChatGPT produces the four-view black silhouette exploration and construction cards before any renderer work.
+- Fourth batch #12–14: refined role directions owner-approved; Sailor #12 silhouette exploration authorized and underway. Slicker/Painter remain queued; all three vector construction families remain UNASSIGNED.
+- Next action: owner reviews Sailor's two silhouette sets, construction card, face comparison and prop-contact evidence. Stop at this gate; no renderer work.
