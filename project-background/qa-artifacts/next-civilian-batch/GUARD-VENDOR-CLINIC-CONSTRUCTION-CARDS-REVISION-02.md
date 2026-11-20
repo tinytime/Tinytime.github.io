@@ -1,6 +1,6 @@
 # Guard / Vendor / Clinic Worker — silhouette revision 02 construction cards
 
-**Status:** Revision 02 designs APPROVED by the project owner on 2026-11-19. Renderer production for Guard, Vendor and Clinic Worker is authorized. The implementation is now in progress; these construction cards remain the binding design specification. Browser QA and visual acceptance are still pending.
+**Status:** Revision 02 designs APPROVED by the project owner on 2026-11-19. Dedicated renderers are implemented. Run #620 targeted QA and visual inspection passed; ten pairwise silhouette-overlap triggers remain for independent Claude review. Final owner completion approval is pending. These cards remain the binding design specification.
 
 ## Revision history and retained direction
 
@@ -9,7 +9,7 @@ Revision 01 was returned because all three figures shared an upright mannequin, 
 - Vendor: forward customer pitch, rotated shoulder line, reaching/support arm, open waistcoat negative space and advanced leading foot.
 - Clinic Worker: narrow tapered torso, shifted hip, angled feet, asymmetric wrap tunic and separated pouch/hand relationship.
 
-The focused follow-up replaces the repeated/mirrored directional placements with twelve separately authored silhouette constructions: front, back, left profile and right profile for each character. It does not reopen the overall concept direction.
+The focused follow-up replaces the repeated/mirrored directional placements with twelve separately authored silhouette constructions: front, back, left profile and right profile for each character. It does not reopen the overall concept direction. Production evidence and human-review triggers are recorded in [Renderer QA and Claude Review](GUARD-VENDOR-CLINIC-RENDERER-QA-AND-CLAUDE-REVIEW.md).
 
 ## Guard — protective wedge / articulated braced stance
 
