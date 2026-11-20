@@ -4,7 +4,8 @@
 
 - Run #602 tests renderer commit `880cad6bf937d8bfc1e004fe81cbd6854c522d23`, which addresses only Usher U4 profile clipboard contact. The Cook C1 and Usher U2 proposals are explicitly declined/deferred by the owner and must not be implemented.
 - Required visual inspection: Usher left/right native 64×96 and direct 28×42 captures; confirm a single connected near-arm/hand carries the clipboard, far hand is hidden, board remains readable, and no edge contacts/detached components appear. Compare against Run #600 and record exact evidence.
-- If U4 passes, prepare an updated five-character package for Claude. Do not mark the five approved until Claude review and explicit owner approval.
+- U4 internal QA: [Run #602](https://github.com/tinytime/Tinytime.github.io/actions/runs/44657007100), artifact `14592969167`; 20/20 native and 20/20 direct game-scale captures, 92/92 integrity, zero edge contacts/detached components. The exact U4 before/after evidence and full docs are embedded in [Claude package artifact `14594041741`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44657601735/artifacts/14594041741).
+- The updated five-character package is prepared; Claude's independent re-review is the next gate. Do not mark the five approved until Claude review and explicit owner approval.
 - The revised construction standard is ready as a working method for planning/briefs, but remains unratified for production rollout. Remaining 17 civilians remain ON HOLD. No golden snapshots may be refreshed or approved without explicit owner authorization.
 
 
