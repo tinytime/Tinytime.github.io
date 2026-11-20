@@ -34,6 +34,8 @@ jobs:
         run: npm install --no-save playwright
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
+      - name: Check render script syntax
+        run: node --check qa/render-hacker-fisher-design.mjs
       - name: Render design and exact-scale captures
         run: node qa/render-hacker-fisher-design.mjs
       - name: Commit design presentation outputs
