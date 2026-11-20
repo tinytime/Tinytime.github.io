@@ -917,14 +917,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         // A distinct cuff bridges the sleeve to the gripping hand.
         path([[68,74],[76,75],[78,82],[73,86],[67,83]],'#C8B89F',ink,1.1);
         // The handle and pan are laid in first; the hand is painted last so its grip remains visible.
-        path([[75,85],[82,83],[89,84],[88,88],[80,90]],'#4B3434',ink,1.15);
-        line([[82,84],[88,84]],'#C18A62',1.5);
+        path([[70,85],[78,83],[89,84],[88,88],[77,90],[72,89]],'#4B3434',ink,1.25);
+        line([[80,84],[88,84.5]],'#C18A62',1.6);
         path([[84,78],[96,78],[98,82],[96,94],[91,98],[85,96],[81,88]],'#B95B3C',ink,1.8);
         ell(90,81,8,3.2,'#E5A06B',ink,1.4);
         ell(90,81,5.2,1.6,'#4C3540',null);
         line([[85,84],[88,92],[93,94]],'#F2B17C',1.2);
-        path([[73,82],[79,80],[84,84],[84,90],[80,94],[74,91],[71,87]],skin,ink,1.25);
-        line([[75,87],[80,88]],'#8D5944',1);line([[76,90],[80,91]],'#8D5944',.8);
+        path([[68,82],[74,80],[80,84],[80,90],[76,94],[70,91],[67,87]],skin,ink,1.25);
+        line([[69,87],[75,88]],'#8D5944',1);line([[70,90],[75,91]],'#8D5944',.8);
       }else{
         // Rear coat yoke, apron straps and tied bow; no front-only details leak through.
         path([[27,54],[39,47],[61,47],[73,54],[71,68],[29,68]],'#D6C2A3',ink,1.2);
@@ -945,14 +945,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[62,56],[69,60],[72,74],[74,81],[70,87],[64,84],[66,77]],coat);
       // Visible cuff, forearm and curled hand form one continuous grip.
       path([[65,79],[72,79],[75,84],[70,88],[64,85]],'#C8B89F',ink,1.05);
-      line([[75,86],[88,87]],'#4B3434',4.2);
-      line([[82,85.8],[88,86.4]],'#C18A62',1.35);
-      g.save();g.translate(91,88);g.rotate(-.25);
+      line([[72,86],[88,87]],'#4B3434',4.4);
+      line([[81,85.8],[88,86.4]],'#C18A62',1.5);
+      g.save();g.translate(91,88);
       ell(0,0,8,6.5,'#B95B3C',ink,1.5);ell(0,-.5,5.8,4.2,'#3E2C34',null);
       line([[-6,-3],[4,-4.5]],'#F2B17C',1);g.restore();
       // Hand overlaps the handle after the pan is drawn, with visible curled fingers.
-      path([[70,82],[76,81],[81,85],[81,91],[77,94],[71,91],[68,86]],skin,ink,1.2);
-      line([[72,87],[78,88]],'#8D5944',1);line([[73,90],[78,91]],'#8D5944',.8);
+      path([[67,82],[73,81],[79,85],[79,91],[75,94],[69,91],[66,86]],skin,ink,1.2);
+      line([[68,87],[74,88]],'#8D5944',1);line([[69,90],[74,91]],'#8D5944',.8);
     }
     // Head: broad rounded face, cropped dark curls, and a tall pleated toque.
     if(!side){
@@ -963,7 +963,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         ell(44.5,31,1.35,1.9,'#241725',null);ell(55.5,31,1.35,1.9,'#241725',null);
         ell(44.9,30.3,.42,.48,'#FFFFFF',null);ell(55.9,30.3,.42,.48,'#FFFFFF',null);
         // Cook's friendly, broad-cheeked expression: softly arched brows and a full smile.
-        line([[40,26.5],[44,24.8],[47,26]],'#49302B',1.8);line([[53,26],[56,24.8],[60,26.5]],'#49302B',1.8);
+        line([[40,28.7],[44,27.8],[47,28.8]],'#49302B',1.8);line([[53,28.8],[56,27.8],[60,28.7]],'#49302B',1.8);
         path([[47,33],[49,32],[53,34],[51,37],[48,37]],'#A5654D',null);
         line([[43.5,40],[47,42.5],[52,43],[56.5,40]],'#713D3A',1.8);
         line([[39.5,37.5],[41.5,38.5]],'#C17D62',1);line([[58.5,38.5],[60.5,37.5]],'#C17D62',1);
@@ -1107,7 +1107,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[38,26],[39,18],[47,14],[59,18],[63,25],[59,27],[53,23],[46,25],[41,29]],'#29252B',ink,1.3);
         ell(44.5,31,1.45,2.1,'#171725',null);ell(56,30.5,1.7,2.25,'#171725',null);ell(44.9,30.2,.45,.5,'#FFF',null);ell(56.5,29.8,.48,.5,'#FFF',null);
         // Courier's alert, asymmetrical gaze and sharper nose distinguish the messenger.
-        line([[41,26],[46,24.5],[48,25.5]],'#35242A',1.75);line([[53,24.5],[59.5,26]],'#35242A',1.45);
+        line([[41,29.6],[46,28.8],[48,29.5]],'#35242A',1.75);line([[53,29],[59.5,29.8]],'#35242A',1.45);
         path([[48,33],[47,37],[52,36]],'#805442',null);
         line([[45,41],[50,40],[55,41]],'#633D3C',1.2);
       }else{
