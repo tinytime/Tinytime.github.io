@@ -86,7 +86,7 @@ try {
       for(let k=0;k<b.length;k+=4) if(b[k]<70&&b[k+1]<70&&b[k+2]<70&&p[k]>150&&p[k+1]>150&&p[k+2]>150) removed++;
       bodyPreservationAudit.push({character,direction,removedBodyPixels:removed,pass:removed===0});
     }
-    if(bodyPreservationAudit.some(x=>!x.pass)) throw new Error('A prop-on view removes body-only silhouette pixels');
+    // Preserve per-view failure detail in the artifact before failing the gate.
     const profilePropAudit=[];
     // Designated near-side views: the tool must create a visible silhouette delta
     // in the prop's expected side region. Far-side occlusion remains a manual
@@ -152,7 +152,7 @@ try {
       const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(im,0,0,c.width,c.height);return c.toDataURL('image/png');
     };
     for(const [key,item] of Object.entries(data)) item.enlarged4x=enlarge(item.native,4);
-    return {data,sheets:sheetsOut,profilePropAudit};
+    return {data,sheets:sheetsOut,profilePropAudit,bodyPreservationAudit};
   },svg);
   const writeData=(file,dataUrl)=>fs.writeFileSync(file,Buffer.from(dataUrl.split(',')[1],'base64'));
   for(const [key,item] of Object.entries(svgData.data)){
@@ -161,6 +161,9 @@ try {
     writeData(path.join(out,key+'-enlarged-4x.png'),item.enlarged4x);
   }
   for(const [key,url] of Object.entries(svgData.sheets))writeData(path.join(out,key+'-comparison.png'),url);
+  fs.writeFileSync(path.join(out,'body-preservation-audit.json'),JSON.stringify(svgData.bodyPreservationAudit,null,2)+'\\n');
+  console.log(JSON.stringify({bodyPreservationAudit:svgData.bodyPreservationAudit}));
+  if(svgData.bodyPreservationAudit.some(x=>!x.pass))throw new Error('Body-only silhouette pixels removed by prop-on view: '+JSON.stringify(svgData.bodyPreservationAudit.filter(x=>!x.pass)));
   fs.writeFileSync(path.join(out,'profile-prop-audit.json'),JSON.stringify(svgData.profilePropAudit,null,2)+'\\n');
   console.log(JSON.stringify({profilePropAudit:svgData.profilePropAudit}));
   if(svgData.profilePropAudit.some(x=>!x.pass))throw new Error('Prop-on projection removes body-only pixels; anatomy must be preserved');
@@ -310,8 +313,8 @@ try {
   const report={
     status:'design_source_projection_only',
     revision:12,
-    bodyPreservationAudit,
-    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-11.svg',
+    bodyPreservationAudit:svgData.bodyPreservationAudit,
+    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-12.svg',
     figureFields:24,
     nativeCaptures:Object.keys(svgData.data).length,
     direct28x42Captures:Object.values(svgData.data).filter(x=>x.direct).length,
