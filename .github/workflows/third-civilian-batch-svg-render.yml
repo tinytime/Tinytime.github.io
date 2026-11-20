@@ -1,0 +1,57 @@
+name: Third Civilian Batch SVG Render
+
+on:
+  push:
+    branches:
+      - npc-granny-baseline-overhaul
+    paths:
+      - 'project-background/qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg'
+      - 'qa/render-third-batch-silhouettes.mjs'
+      - '.github/workflows/third-civilian-batch-svg-render.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: third-civilian-svg-render-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out approved source branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: npm install --no-save playwright
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Render canonical SVG at exact 3x scale
+        run: node qa/render-third-batch-silhouettes.mjs
+      - name: Commit rendered PNG to the working branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add project-background/qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-ROUND-05-3X.png
+          if git diff --cached --quiet; then
+            echo "Rendered PNG is already current."
+          else
+            git commit -m "Render Tech Hacker Fisher round 05 silhouette sheet at 3x"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
+      - name: Upload render evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tech-hacker-fisher-round-05-svg-render
+          path: project-background/qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-ROUND-05-3X.png
+          if-no-files-found: error
+          retention-days: 30
