@@ -34,10 +34,7 @@ Use this manifest for every independent review package. Mark each row `included`
 - Do not mark any civilian approved based on package completeness or a reviewer recommendation.
 ## Self-contained package build
 
-- GitHub Actions package run: [Run `44657601735`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44657601735)
-- Artifact: [14594041741](https://github.com/tinytime/Tinytime.github.io/actions/runs/44657601735/artifacts/14594041741)
-- The nested ZIP embeds the complete current project documents, Run #600 and Run #602 evidence archives, U4 before/after profile sheets at native and direct game scale, and the Run #602 Claude re-review brief.
-- Package workflow completed successfully; archive integrity verified locally. No required document is represented only by a link.
+The GitHub Actions workflow packages the complete current project documents, Run #600 and Run #602 evidence archives, U4 before/after profile sheets at native and direct game scale, and the Run #602 Claude re-review brief. Verify the latest successful artifact from the [package workflow run history](https://github.com/tinytime/Tinytime.github.io/actions/workflows/vapor-city-review-documents-package.yml). The package ZIP must pass integrity verification and its nested project ZIP must be tested before distribution.
 
 ## Current owner dispositions
 
