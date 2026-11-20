@@ -103,12 +103,12 @@ For consistent comparative reporting, use this proposed allocation only as a non
 | Clothing construction | 10 |
 | Props and physical interaction | 15 |
 | Palette and value hierarchy | 10 |
-| Vector craftsmanship and finish | 10 |
+| Vector craftsmanship and finish | 5 |
 | Four-direction consistency | 5 |
-| Direct game-scale readability | 5 |
+| Direct game-scale readability | 10 |
 | **Total** | **100** |
 
-These weights are proposed, not ratified. Do not use the former suggested score bands, category floors, or this revised allocation as automatic acceptance gates. Do not invent a pass mark. Any score must be accompanied by evidence-backed rationale and P0–P3 findings. A high score never constitutes internal QA, Claude review or owner approval. Revisit weights only after multiple characters have been reviewed consistently and the owner has ratified the method.
+These weights are proposed, not ratified. This revised allocation supersedes earlier scorecard weights: vector craft is 5 and direct game-scale readability is 10. Do not use former score bands, category floors, or this allocation as automatic acceptance gates. Do not invent a pass mark. Any score must be accompanied by evidence-backed rationale and P0–P3 findings. A high score never constitutes internal QA, Claude review or owner approval. Revisit weights only after multiple characters have been reviewed consistently and the owner has ratified the method.
 
 ### I. Acceptance blockers and approval discipline
 
@@ -430,7 +430,7 @@ For every metric, store the measurement definition, source image/canvas, directi
 1. Keep current proven QA gates intact.
 2. Do not introduce new hard-fail proportion thresholds until measurements have been collected across the existing five review characters and Granny using one consistent method.
 3. Calibrate thresholds against actual successful and failed examples; record false positives and false negatives.
-4. Treat silhouette IoU as a review trigger until the team has validated a threshold that distinguishes genuinely duplicate designs from legitimate pose/prop similarities.
+4. Treat silhouette IoU as a diagnostic human-review trigger, not an artistic pass/fail gate. A numeric trigger may prompt inspection, but must not become a universal approval threshold or cause design distortion.
 5. Never weaken or remove an existing gate merely to obtain a green workflow.
 6. Report targeted character results separately from global legacy failures, unapproved snapshots, and unrelated asset errors.
 
@@ -467,8 +467,8 @@ This standard itself remains a **draft** until Claude has reviewed it and the pr
 - Compare ratios by pose category (standing, running/airborne, seated, etc.) rather than pooling unlike poses.
 - Test whether the draft proportion bands accept intentional designs without admitting visibly weak anatomy.
 - Review the 100-point rubric against Granny and the five candidate designs; record why scores differ.
-- Validate silhouette IoU against human judgments and identify whether the current 0.85/0.90 limits are suitable for different pose classes.
-- Only then propose locked thresholds and automate hard failures.
+- Record how often the 0.85 review trigger produces genuine collisions, acceptable shared body mass, or inconclusive cases; use this to improve reviewer guidance, not to establish a universal artistic pass/fail threshold.
+- Keep automated hard failures limited to objective technical integrity checks. Do not automate artistic approval from proportions, silhouette IoU or the visual scorecard.
 
 ### Correction-round evidence and roster-level variety
 
