@@ -1,14 +1,41 @@
-## Revision 18 — Claude correction implementation; fresh QA pending (2026-11-20)
+## Revision 18 — correction pass captured; design-source QA and visual inspection complete (2026-11-20)
 
-- Latest design-source commit at documentation update: `50e267b01a76de1b95e31b766dc332da896ce543`. Source: [revision 18](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg). The evidence builder now requires revision 18 and reads the revision-18 SVG.
-- **Painter profile attachment:** both left/right profile head-to-torso paths now include a continuous neck/shoulder connection; the detached-head gap noted at native rows 14–16 is addressed in source. The left-profile near-side leg is moved rearward in both body-only and prop-on views to open a visible gap between the brush mass and thigh. The brush includes a ferrule band and separated bristle strokes. Right-profile prop remains hidden. Direct 28×42 readability and body-preservation audit are not yet re-run.
-- **Slicker rainwear:** rear yoke and hem seams provide a back-view rainwear cue; the face-side hood opening is shaped to open toward the face in profile; the front storm closure is shortened to avoid splitting the torso. The matched face study changes Slicker's front hood silhouette so it no longer depicts a flat cap.
-- **Sailor:** the existing thicker front coil/palm bridge and profile arm gaps are retained. Fresh direct-scale verification of the coil contact and 1–2px profile gaps remains pending.
-- **Faces:** the face study distinguishes Slicker's close-set, level brow and narrow hood-framed face from Painter's lifted asymmetric brow, squarer cheek/jaw and shorter nose. Native/direct capture and human readability review remain pending.
-- **Source history:** revision 18 SVG created in commit `46a0457fb841c8981395f36b4b54eedfec8fb888`; evidence builder retargeted in `0d83656aa40aa2b9eb492dda909a2ed2c0768e98`; latest ferrule/bristle polish is `50e267b01a76de1b95e31b766dc332da896ce543`.
-- The last completed evidence (Runs #695 and #697) tested revision 15, **not revision 18**. No test result is carried forward as proof for this source. Static source audit (not a render test): the revision-18 SVG is well-formed under tag-balance validation (24 direction labels; no unclosed/mismatched tags). The first body path matches exactly in all 12 body-only/prop-on pairs, including Painter's revised left-profile leg. Painter's left-profile brush has hand/handle/ferrule/bristle components; the right-profile prop view contains none. Slicker's rear yoke/hem seams and face-side hood cut, and Sailor's coil contact bridge, are present in source. The evidence builder targets revision 18. Fresh Actions execution, artifact retrieval and visual inspection are still outstanding. No renderer integration, approved art, snapshots or provenance changed.
+**Current source:** [revision 18 SVG](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg)  
+**Exact tested commit:** `4045675e71854b08b2e2fb1ab5c879d7b2ea2ab6`  
+**Actions:** [Run #721](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910) · [artifact 14656889410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910/artifacts/14656889410)
 
----
+### Focused correction history
+
+- `a6a70e530328598a2f1663eb63587f88be780612`: narrowed/shifted Painter's front brush ferrule to eliminate the two-pixel body overlap flagged by Run #715.
+- `cf65450591d673008a7a9262fe4cea4fd2bf2bd7`: body-preservation passed, but the direct 28×42 Painter left-profile prop projection exposed a second disconnected component (16 pixels) at the brush/hand assembly.
+- `4045675e71854b08b2e2fb1ab5c879d7b2ea2ab6`: connected the Painter profile brush handle to the bristle fan at direct scale. Run #721 is the exact-source retest.
+
+### Automated design-source evidence
+
+Run #721 design projection and semantic proportion/annotation steps both PASS.
+
+- 24/24 native 64×96 projections, 24/24 independently rasterized direct 28×42 projections, and 24/24 enlarged nearest-neighbour projections.
+- 69 roster face crops and six matched 40×38 face-comparison rows.
+- All 12 body-only/prop-on pairs preserve every body pixel (`removedBodyPixels=0`).
+- Painter body-only and prop-on connectivity: one connected component in all four directions at both native and direct scales.
+- Profile prop audit: Sailor/right +172 added pixels; Painter/left +161 total / +159 expected-region pixels. Counts are descriptive; no arbitrary acceptance threshold is applied.
+
+### Manual artifact inspection
+
+Inspected actual `body-native-comparison.png`, `body-direct-comparison.png`, `prop-native-comparison.png`, `prop-direct-comparison.png`, `prop-front-group-comparison.png`, `sailor-welder-back-silhouette-comparison.png`, `matched-face-comparisons-native-40x38.png`, and enlarged Painter/Sailor details.
+
+- **Sailor:** all four body and prop directions are present at native/direct scale; rear silhouette is visibly distinct from the legacy Welder comparison. Front coil reads as a loop, but the hand-to-rope grasp remains subtle and should be explicitly challenged by Claude and the owner.
+- **Slicker:** front/back/profile hood and rain-shell silhouette read as weatherwear; rear yoke/hem and shortened storm closure remain visible. No separate umbrella is used.
+- **Painter:** head/neck joins and body-only anatomy are connected; brush/hand/handle/ferrule/bristle construction now forms one component at both scales in all directions. The compact hand/tool cluster remains dense at 28×42 and is retained as a reviewer/owner scrutiny point, not claimed fully resolved.
+- Face comparison rows are grayscale/geometric studies against existing rendered roster faces; they are not final character face art or approval.
+- Five-civilian review evidence: 20/20 native captures and 20/20 direct 28×42 captures; directional integrity 92/92; role debug 12/12; prop audit 10 archetypes; gallery rendered. The town-ground composite is a diagnostic overlay, not live spawn/placement proof.
+
+### Separate full-workflow failure and evidence boundary
+
+Run #721 overall FAILS at game-browser diagnostics, not at the revision-18 design projection or semantic validation. The golden snapshot gate reports 1 match / 23 changed because baseline provenance remains explicitly unapproved. Existing audio/resource HTTP 404s also remain; `pageErrors` and `scriptErrors` are empty. The five-civilian summary records the failed golden gate. No snapshots or provenance were changed. Do not weaken or bypass this gate.
+
+**Disposition:** revision-18 design-source automated checks PASS and actual evidence images have been visually inspected. Overall browser QA remains FAIL. This is not renderer integration, live town spawn validation, independent Claude review, or owner approval. No production renderer, approved character art, golden snapshots or provenance changed. Sailor, Slicker and Painter remain design-stage candidates; construction families UNASSIGNED; Claude re-review and owner approval pending; #15–23 remain held.
+
 
 ## Revision 15 — internal QA and cross-roster comparison complete (2026-11-20)
 
