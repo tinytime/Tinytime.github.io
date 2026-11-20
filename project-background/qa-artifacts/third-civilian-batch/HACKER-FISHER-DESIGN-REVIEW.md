@@ -56,6 +56,11 @@ The SVG contains the combined comparison sheet and scale section for all eight d
 - Source checks: eight unique directional art groups, unique SVG IDs and resolved fragment references; source round-05 SVG unchanged.
 - General Browser QA Run #647 was triggered by the source commit. It failed its pre-existing game-browser diagnostics: unapproved golden-snapshot comparison (1 match / 23 changed) and existing audio/resource HTTP 404 errors. The same run still generated and uploaded its wider evidence. This general game QA is not a Hacker/Fisher renderer test; neither character is integrated into the game renderer yet. No snapshots or provenance were changed.
 
+## Visual inspection and correction history
+
+- Playwright Render Run #6 rendered the previous source revision and produced the first 1×/3× sheets, native crops, direct 28×42 projections and true 4× nearest-neighbour captures. ChatGPT visually inspected all four outputs. The review found an accidental second slate-like rectangle in Hacker's front view; the source now removes that duplicate and adds a visible grip on the single viewer-left slate (`2b08e60d4814846923e133503f965532bde055ad`).
+- The Run #6 PNGs predate that final correction and are superseded. Render Run #7 is pending while its Chromium-install step runs; do not treat the old PNGs as final evidence. Regenerate and inspect the outputs against the latest SVG before owner review.
+
 ## Remaining gates / unresolved issues
 
 1. **Owner acceptance of the finished design-stage artwork** is pending.
