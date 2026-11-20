@@ -12,7 +12,7 @@
 - Construction cards: [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md)
 - Internal QA log: [FOURTH-BATCH-INTERNAL-QA-LOG.md](FOURTH-BATCH-INTERNAL-QA-LOG.md)
 - Evidence builder: `qa/build-fourth-batch-design-evidence.mjs` (now requires revision 18)
-- Latest source commit: `78fa6ad9b9ef2fef368ecc42cd3ff562e9f02f1f`
+- Latest source commit: `50e267b01a76de1b95e31b766dc332da896ce543`
 - Revision-18 source creation: `46a0457fb841c8981395f36b4b54eedfec8fb888`
 - Evidence-builder retarget: `0d83656aa40aa2b9eb492dda909a2ed2c0768e98`
 
