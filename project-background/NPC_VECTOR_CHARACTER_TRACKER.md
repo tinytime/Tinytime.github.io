@@ -1,5 +1,56 @@
 # NPC Vector Character Design Tracker
 
+## P2 renderer iterations and internal QA — 2026-11-20
+
+**Current renderer source:** `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb`.  
+**Evidence:** [Run #599](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650509863), artifact `14590034123`.  
+**Evidence-package enhancement:** [Run #600](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650864326) is running on QA evidence-builder commit `90c5d266279c61461b460b024ee96e71f327e081`; renderer source remains `3d1ec4b`.
+
+### Implementation and correction history
+
+- `2b45201`: first targeted pass for Usher shoe value, Cook pan/hand and the three face designs. Run #596 confirmed syntax/module, 20/20 native, 20/20 direct 28×42, 92/92 integrity, 12/12 role-debug and prop audit. Human inspection showed Cook's pan still read too much like a mug.
+- `7d95cce`: made Cook's grip/handle longer and shifted the hand; lowered Cook/Courier brows to exposed face regions. Run #597 caught Cook left/right edge contacts; rejected as not ready.
+- `48a74ca`: reshaped the Cook pan profile and moved it inward; added exposed facial cues for Usher and Courier. Run #598 caught a Cook front edge contact; rejected as not ready.
+- `3d1ec4b`: flattened the front sauté-pan bowl and drew the handle visibly over its lower edge before the gripping hand. Run #599 then passed 92/92 directional integrity with zero edge contacts, 20/20 direct game-scale captures, 12/12 role-debug, prop audit and gallery. Syntax/module checks pass; page/script errors are zero.
+- Claude's F1, U1 and C1 are **implemented, internally inspected and pending independent re-review**, not approved. X1 is documented and visually supported; no Coach/Courier torso changes were made.
+
+### Before/after pixel-diff summary
+
+Compared Run #595 baseline captures (renderer `c354abf`) with Run #599 (renderer `3d1ec4b`). Counts are changed pixels per exact image, not quality scores:
+
+| Character / view | Native 64×96 changed pixels | Direct 28×42 changed pixels |
+|---|---:|---:|
+| Usher front | 120 | 48 |
+| Usher back | 0 | 0 |
+| Usher left | 111 | 34 |
+| Usher right | 111 | 34 |
+| Cook front | 276 | 83 |
+| Cook back | 0 | 0 |
+| Cook left | 221 | 66 |
+| Cook right | 221 | 65 |
+| Courier front | 70 | 25 |
+| Courier back | 9 | 6 |
+| Courier left | 42 | 19 |
+| Courier right | 42 | 17 |
+| Coach all four | 0 | 0 |
+| Referee all four | 0 | 0 |
+
+The pixel diffs localize the changes. Review the same-named native and direct game-scale PNGs in the two run artifacts for actual before/after comparison. Coach/Courier rear images are unchanged; X1 is handled by documented construction rationale and side-by-side evidence, not by artificially changing the silhouettes.
+
+### Run #599 overall result and known gates
+
+The browser job still concludes FAILED because the existing diagnostics count 180 expected missing-audio resource 404s; pageErrors=0 and scriptErrors=0. The global 23-civilian silhouette gate remains at Clinic/Sailor front IoU 0.9094292803970223, outside this correction group. Golden snapshots remain unapproved (1 match / 23 changed). No snapshots were refreshed or approved. These are not evidence that the P2 character corrections failed.
+
+### Visual inspection
+
+- Usher: both profile shoes are now dark and clearly separated from the pale trouser planes at direct 28×42.
+- Cook: front pan is now a shallow skillet rather than a tall cup shape; side views retain a separate pan profile and connected grip. No edge clipping or detached components remain in Run #599.
+- Courier/Usher/Cook: front and profile face construction now has purposeful character-specific differences; the three faces remain small at 28×42, so Claude must verify that the distinctions are sufficient rather than relying on automated face hashes.
+- Coach/Courier: rear comparison visibly distinguishes Coach's straight jacket hem and exposed side elbow/hand negative spaces from Courier's A-line coat and arms integrated into the coat; cap/hair and shoe values reinforce the distinction.
+- Referee: pixel-identical to Run #595 in all four directions and both scales; preserved.
+
+**Disposition:** all five remain NOT APPROVED. Send the corrected evidence to Claude after Run #600 is verified. Owner approval remains the final gate; Runner and the remaining 17 remain excluded/on hold.
+
 ## Owner-authorized P2 correction pass — 2026-11-20
 
 The owner has authorized implementation of all four P2 areas from Claude's Run #595 review.
