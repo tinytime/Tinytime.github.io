@@ -42,7 +42,7 @@ The browser log contains 135 existing audio-resource 404 responses. These are se
 
 ## Mandatory human-review triggers
 
-The pairwise silhouette diagnostics are technically complete and pass their diagnostic validity check. Ten full-body pairs cross the established IoU review threshold (0.85). This threshold is a **human-review trigger**, not an automatic art rejection. Torso-only IoU is materially lower, showing that torso construction is more distinct than the combined head/limb silhouette alone.
+The pairwise silhouette diagnostics are technically complete and pass their diagnostic validity check. Nine full-body pairs cross the established IoU review threshold (0.85). This threshold is a **human-review trigger**, not an automatic art rejection. Torso-only IoU is materially lower, showing that torso construction is more distinct than the combined head/limb silhouette alone.
 
 | Direction | Pair | Full-body IoU | Torso-only IoU |
 |---|---|---:|---:|
@@ -69,7 +69,7 @@ Claude should inspect these exact comparisons in the native and game-scale captu
 6. [Browser QA implementation](https://github.com/tinytime/Tinytime.github.io/blob/npc-granny-baseline-overhaul/qa/vapor-city-browser-qa.mjs)
 7. [Run #622 screenshots and report](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670705401/artifacts/14599434590)
 
-The Run #622 artifact contains the 12 individual native 64×96 PNGs, 12 individual direct 28×42 PNGs, full NPC gallery captures, town screenshot, and machine-readable QA report.
+The Run #622 artifact contains the 12 individual native 64×96 PNGs, 12 individual direct 28×42 PNGs using the corrected 39px anchor, full NPC gallery captures, town screenshot, and machine-readable QA report.
 
 ## Claude review criteria
 
@@ -78,7 +78,7 @@ The Run #622 artifact contains the 12 individual native 64×96 PNGs, 12 individu
 - Inspect Guard's rear-harness radio visibility and front occlusion; front bracer placement and profile near/far-arm occlusion.
 - Inspect Vendor's hand-to-tray contact, far-side tray occlusion, sash continuity, and forward-pitched stance.
 - Inspect Clinic Worker's wrap overlap, low rear hair gathering, pouch attachment and separation from the hand.
-- Review the ten overlap-trigger pairs above, using torso-only metrics as supporting evidence rather than a substitute for visual judgment.
+- Review the nine overlap-trigger pairs above, using torso-only metrics as supporting evidence rather than a substitute for visual judgment.
 - Check clipping, edge clearance, detached components, face uniqueness, prop readability and consistency across directions.
 - Return actionable findings per character/direction. Do not approve golden snapshots or change the design scope.
 
