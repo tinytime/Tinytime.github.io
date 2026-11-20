@@ -5,7 +5,7 @@
 - **Five-character approval:** Usher, Cook, Courier, Coach and Referee are owner-approved and complete following Claude Run #603. Preserve their accepted/deferred dispositions; no renderer changes without renewed owner authorization.
 - **Run #603 provenance:** renderer `2c00cfca09cc12ea19a72662c235beed2e9a19cb`; [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact 14593339734. Targeted checks passed; overall Actions failed on snapshots 1/23 changed and 180 existing audio 404s. No golden snapshots refreshed or approved.
 - **Construction standard:** ratified by the owner on 2026-11-19; it governs future civilian production.
-- **Next batch:** Guard, Vendor and Clinic worker. Draft briefs, the shell-family register and the [owner preflight proposal](qa-artifacts/next-civilian-batch/OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md) are prepared. The preflight is a proposal, not rendered silhouette evidence or production approval. Renderer implementation remains on hold until the owner accepts the proposed direction and reviews the NPC Designer's actual four-view black silhouettes.
+- **Next batch:** Guard, Vendor and Clinic worker. Draft briefs, the shell-family register and the [owner preflight proposal](qa-artifacts/next-civilian-batch/OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md) are prepared. The owner approved all three written directions on 2026-11-20. NPC Designer is authorized to produce four-view black silhouette explorations and construction cards; renderer implementation remains on hold until the owner reviews and approves those actual silhouettes.
 - **Runner:** built but excluded from Run #603; pending focused review and owner decision.
 - **Remaining unstarted roster:** remains ON HOLD for renderer production pending character-specific owner-approved silhouette/brief preflight.
 
@@ -194,10 +194,10 @@ The five approved designs are complete. Runner remains built but pending a focus
 | 2 | Coach | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. | Claude Run #603: 7.5/10; no P0/P1; owner approved | Forest-green team jacket, cream shoulder yoke, silver-templed hair, marked clipboard and gold whistle. Preserve accepted rear construction. |
 | 3 | Referee | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. | Claude Run #603: 8.5/10; no P0/P1; owner approved | Black/ivory striped official shirt, vermilion shorts, tall socks, whistle and raised yellow card. |
 | 4 | Courier | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. | Claude Run #603: 8.5/10; no P0/P1; owner approved | Messenger A-line shell, parcel, satchel and cross-body strap; preserve accepted construction. |
-| 5 | Guard | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 6 | Vendor | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
+| 5 | Guard | **SILHOUETTE EXPLORATION AUTHORIZED — NOT RENDERER-APPROVED** | Pending | Pending | Written direction approved 2026-11-20; four-view black silhouette/card due for owner review. |
+| 6 | Vendor | **SILHOUETTE EXPLORATION AUTHORIZED — NOT RENDERER-APPROVED** | Pending | Pending | Written direction approved 2026-11-20; four-view black silhouette/card due for owner review. |
 | 7 | Cook | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. Preserve C1 as deferred/accepted; no renderer change. | Claude Run #603: 7.5/10; no P0/P1; owner approved | Rounded chef toque/curl mass, ivory coat, terracotta apron and compact handled copper pan. |
-| 8 | Clinic worker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
+| 8 | Clinic worker | **SILHOUETTE EXPLORATION AUTHORIZED — NOT RENDERER-APPROVED** | Pending | Pending | Written direction approved 2026-11-20; four-view black silhouette/card due for owner review. |
 | 9 | Tech | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 10 | Hacker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 11 | Fisher | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
