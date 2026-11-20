@@ -1,3 +1,14 @@
+## Latest internal QA status — revision 09 in revalidation (2026-11-20)
+
+The current parallel design-source study is [revision 09](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg). The previous Claude-ready claim is withdrawn; do not send superseded review package 01.
+
+- Run #673 [44777304508](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777304508), artifact [14649699220](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777304508/artifacts/14649699220), tested revision 07 at `f6d9e2dc84c3309489085f530f686fed195cd42c`. It generated all 24 native 64×96 and 24 direct 28×42 projections. Near-side prop-presence assertions passed; visual review then found Slicker's umbrella and Painter's brush too close to the left-profile crop edge.
+- Run #674 [44777818302](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302), artifact [14650547538](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302/artifacts/14650547538), tested revision 08 before the latest crop corrections. The Sailor/Welder matched rear comparison was visually distinct; its high overlap diagnostic remains a human-review prompt only.
+- Painter's left-profile brush was shifted inward in commit `3f5271a82f89a0882b5c24a5667db3907b01c874`. Slicker's left-profile umbrella, hand and handle cluster was shifted inward in revision 09 / commit `b70582e3ff4141e18c345ee68c9c968aef027d21`. The evidence builder targets revision 09 in commit `c74219986db2466122fe08ff3ad0bdcb012b5264`. A fresh artifact against this exact latest HEAD is required before considering the crop correction verified.
+- Both completed runs failed the global browser gate: unapproved golden snapshot baseline (1 match / 23 changed) and audio-resource HTTP 404s. Page/script errors were empty. No snapshots or provenance were changed.
+
+All three remain design-stage only. Construction families remain UNASSIGNED; no silhouette, face, prop, handedness or palette has owner approval. Renderer implementation is NOT AUTHORIZED. Do not begin #15–23.
+
 ## Current internal QA and independent review handoff — revision 08 (2026-11-20)
 
 The internal design-source pass is complete for Sailor (#12), Slicker (#13) and Painter (#14). The exact-output Claude review package is [SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md). Package 01 is superseded.
