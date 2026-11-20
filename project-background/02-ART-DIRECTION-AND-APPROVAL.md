@@ -5,8 +5,7 @@
 - **First five:** Usher, Cook, Courier, Coach and Referee are owner-approved and complete. Preserve Cook C1 (deferred), Usher U2 (declined), Usher U4 (resolved) and Coach/Courier rear X1 (accepted). No edits without renewed owner authorization.
 - **Style:** Claude withdrew the earlier blanket-outline criticism. Do not apply a blanket outline pass. Granny remains a craft benchmark, not a template.
 - **Construction standard:** the revised Civilian Vector Construction Standard was ratified by the owner on 2026-11-19 and governs future civilian work.
-- **Next preflight:** Guard, Vendor and Clinic worker are the next proposed batch. The owner approved the identity, silhouette, face, prop and palette directions in the [preflight proposal](qa-artifacts/next-civilian-batch/OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md) on 2026-11-20. NPC Designer is authorized to create the actual four-view black silhouette explorations and construction cards; these are not yet rendered character art or renderer production approval.
-- **Production gate:** do not change renderer code until the NPC Designer supplies the actual four-view black silhouette exploration and the owner approves it.
+- **Approved next batch:** Guard, Vendor and Clinic Worker Revision 02 four-view silhouettes, face studies, construction cards, palette directions and prop/contact approaches were explicitly approved by the owner on 2026-11-19. Dedicated renderer production is authorized for these three only. Renderer implementation is underway; actual render QA, internal visual inspection, Claude review and final completion approval remain outstanding.
 - **Runner:** built, excluded from Claude Run #603 and still pending a focused review and owner decision.
 
 ## Historical build and approval status — 2026-11-19
