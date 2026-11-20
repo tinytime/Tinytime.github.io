@@ -233,7 +233,8 @@ try {
     enlargedNearestNeighbourCaptures:Object.values(svgData.data).filter(x=>x.enlarged4x).length,
     rasterization:'SVG viewport reset to each 64x96 figure field, then independently rasterized at exact 64x96 and exact 28x42 output dimensions; direct 28x42 is a separate vector rasterization',
     rosterFaceCrops:rosterFaces.length,
-    newFaceDesignCrops:faceDesigns.length,\n    matchedFaceComparisonRows:faceComparisons.length,
+    newFaceDesignCrops:faceDesigns.length,
+    matchedFaceComparisonRows:faceComparisons.length,
     rosterFaceDirections:[...new Set(rosterFaces.map(x=>x.direction))],
     faceCropDimensions:{width:40,height:38,source:'current game directional snapshot hook, native 64x96'},
     note:'The roster face sheet is for human geometric comparison only. Closest two faces per new character and defining cues remain unselected until visual inspection.'
