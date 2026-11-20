@@ -6,7 +6,7 @@ Prepared:
 - [Tech/Hacker/Fisher design preflight](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md)
 - [Four-view silhouette exploration SVG](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg)
 
-The concepts are proposals, not approved designs. Owner silhouette approval is required before renderer implementation. No renderer code, approved civilian art or golden snapshots changed during preparation.
+The round-04 concepts incorporate the owner's latest corrections and are ready for owner silhouette review, not approved designs. Owner silhouette approval is required before renderer implementation. No renderer code, approved civilian art or golden snapshots changed during preparation.
 
 
 
