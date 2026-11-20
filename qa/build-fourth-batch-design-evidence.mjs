@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-03.svg');
+const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-04.svg');
 const htmlPath = path.join(root, 'VaporCity_HD2D_Hybrid_Test.html');
 const spritePath = path.join(root, 'npc_sprites.js');
 const out = path.join(root, 'qa-output/fourth-batch-design');
@@ -75,7 +75,7 @@ try {
       for(let i=0;i<keys.length;i++){
         const item=data[keys[i]],src=scale==='native'?item.native:item.direct,img2=new Image();
         const x=gap+(i%columns)*(cellW+gap),y=gap+Math.floor(i/columns)*(cellH+gap);
-        ctx.fillStyle='#fff';ctx.font='bold 13px sans-serif';ctx.fillText(keys[i].replaceAll('-',' ').toUpperCase(),x,y+13);
+        ctx.fillStyle='#fff';ctx.font='bold 10px sans-serif';const parts=keys[i].split('-');ctx.fillText(parts[0].toUpperCase()+' / '+parts[2][0].toUpperCase(),x,y+13);
         const im=new Image();im.src=src;
         // Decode is synchronous after the promise below; use predecoded cache.
         const decoded=decodedImages.get(src);ctx.drawImage(decoded,x,y+20,cellW,cellH);
