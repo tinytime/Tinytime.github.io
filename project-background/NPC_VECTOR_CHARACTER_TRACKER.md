@@ -1,13 +1,14 @@
-## Fourth civilian batch — prop-contact correction / revalidation (2026-11-20)
+## Fourth civilian batch — revision 08 internal QA passed; Claude review package ready (2026-11-20)
 
-Sailor (#12), Slicker (#13) and Painter (#14) remain active in parallel design-stage exploration. The earlier “internal QA complete / Claude package ready” status is withdrawn after direct inspection of Run #665 and a stronger automated near/far prop audit.
+Sailor (#12), Slicker (#13) and Painter (#14) remain in parallel **design-stage** exploration. The fresh internal pass is complete and the exact-output independent review package is [SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md). Package 01 is superseded and must not be sent.
 
-- Current silhouette source: [revision 06](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-06.svg). Construction families remain UNASSIGNED.
-- [Run #670](https://github.com/tinytime/Tinytime.github.io/actions/runs/44776178822), artifact [14650042107](https://github.com/tinytime/Tinytime.github.io/actions/runs/44776178822/artifacts/14650042107), tested `65fb26fd2635bb178c2298826da2c729db01db03`. New audit exposed Slicker’s far-side umbrella still visible and Painter’s profile grip region insufficient. This is a design-source QA failure, not an owner decision.
-- Follow-up commit `388efaff3d545a84e2b768f2fead9ee3609d3e1c` removes the Slicker far-side umbrella and increases Painter’s near-side hand contact. Run against this exact source and manual artifact inspection are pending.
-- Run #665’s visual evidence also showed Sailor’s coil detached from the hand and Slicker’s umbrella too subtle at direct 28×42. Revision 06 addresses these, but has not yet passed fresh capture/inspection.
-- Face comparison labels are now legible; face geometry remains an independent-review question. The previous Claude package 01 is superseded and must not be sent.
-- No palette, production renderer, gallery/town integration or golden snapshot work is authorized. #15–23 remain held.
+- Current source: [silhouette exploration 08](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg); construction hypotheses: [cards 01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md); face study: [geometry 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg).
+- Latest validation: [Run #674](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302), artifact [14650547538](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302/artifacts/14650547538), exact tested commit `c004c4e9b231803bc3977b9d418f104e223dc417`.
+- Design-source projection generation and semantic validation PASS: 24/24 native 64×96, 24/24 independently vector-rasterized direct 28×42, 24/24 enlarged 4×; 69 roster face crops and six matched face-comparison rows. Design-stage prop audit PASS for Sailor near-side right profile, Slicker near-side left profile and Painter near-side left profile.
+- Internal visual inspection of body-only and prop-on native/direct sheets, enlarged profile views, matched face rows and a new proposed-Sailor/live-Welder rear comparison is complete. Sailor's body reads narrow/upright and differs from Welder's broad/blockier rear silhouette; Slicker's folded umbrella and Painter's broadened brush head now read more clearly at small scale. Exact caveats and review questions are in package 02.
+- Overall Browser QA remains FAILED on the unapproved golden-snapshot baseline (1 match / 23 changed) and existing 180 audio/resource HTTP 404 console entries. `pageErrors` and `scriptErrors` are empty. These are global harness gates; no golden snapshots or provenance were changed.
+- The 23-pair silhouette IoU review triggers (including legacy Sailor/Welder back 0.889) are human-review prompts, not automatic rejection thresholds. The matched proposed Sailor/Welder rear comparison is included in artifact 14650547538.
+- All three construction families remain UNASSIGNED. No final silhouette, face, prop or palette is owner-approved; production renderer implementation is NOT AUTHORIZED. #15–23 remain on hold pending Claude's independent review and explicit owner approval.
 
 ## Fourth civilian batch — Sailor exploration authorized (2026-11-20)
 
