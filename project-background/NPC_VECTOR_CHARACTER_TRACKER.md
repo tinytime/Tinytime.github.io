@@ -1,3 +1,12 @@
+## Fourth civilian batch — revision 09 internal QA complete (2026-11-20)
+
+Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; none is owner-approved. Internal QA and visual inspection of revision 09 are complete. [Claude review package 03](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-03.md) is prepared against exact source commit `c74219986db2466122fe08ff3ad0bdcb012b5264`.
+
+- [Run #677](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801), artifact [14650099995](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995): 24/24 native 64×96, 24/24 direct 28×42, 24/24 enlarged; semantic validation passed. Profile prop presence: Sailor 172, Slicker 295 (272 prop-region), Painter 237 (95 prop-region).
+- Visual review covered all three body-only/prop-on four-view sets, direct game-scale sheets, enlarged profile details, six matched face rows and the proposed Sailor/Welder rear comparison. Slicker/Painter props were moved inward from crop edges; their direct-scale readability remains explicit Claude questions.
+- Overall Browser QA failure is global: unapproved golden snapshots (1 match / 23 changed) and 180 existing audio-resource 404 console entries. Page/script errors empty; no snapshots/provenance changed.
+- All three construction families remain UNASSIGNED. Renderer implementation is NOT AUTHORIZED. #15–23 remain on hold.
+
 ## Fourth civilian batch — internal design evidence ready for Claude review (2026-11-20)
 
 Sailor (#12), Slicker (#13) and Painter (#14) remain in design stage. Current evidence package 02 is ready for independent Claude critique; this is not final approval.
