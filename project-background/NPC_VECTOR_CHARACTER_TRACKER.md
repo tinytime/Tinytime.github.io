@@ -4,7 +4,7 @@
 
 - **Cook C1 (profile pan handle/contact):** owner explicitly says ignore; retain current implementation. No Cook renderer change is authorized.
 - **Usher U2 (generic silhouette):** owner explicitly says ignore; retain current silhouette. No silhouette redesign is authorized.
-- **Usher U4 (profile clipboard contact):** owner authorizes correction. Renderer commit `880cad6bf937d8bfc1e004fe81cbd6854c522d23` changes the profile to one connected near-arm/hand carrying the clipboard and hides the far hand. Cook's unrelated edit from the preceding commit was reverted in the same renderer commit. Run #602 exact-source QA and internal visual inspection confirm U4 is resolved.
+- **Usher U4 (profile clipboard contact):** owner authorizes correction. Renderer commit `2c00cfca09cc12ea19a72662c235beed2e9a19cb` changes the profile to one connected near-arm/hand carrying the clipboard and hides the far hand. Cook's pre-existing renderer block was preserved exactly as it stood at the starting branch head. Run #603 exact-source QA and internal visual inspection confirm U4 is resolved.
 - **Accepted exception:** Coach/Courier rear remains accepted as-is. Preserve the rationale in [the accepted-exception register](qa-artifacts/five-civilian-corrections/ACCEPTED-EXCEPTIONS.md).
 - **Current visual correction state:** U4 is internally resolved by Run #602. Cook C1 and Usher U2 are owner-declined/deferred, not open work. Updated Claude re-review and owner approval remain pending.
 - **Five-character release state:** Usher, Cook, Courier, Coach and Referee remain NOT APPROVED pending updated Claude review and explicit owner approval. Runner remains outside this review.
