@@ -2,6 +2,10 @@
 
 ## Owner approval and Run #603 closeout — 2026-11-20
 
+## Owner authorization — Tech/Hacker/Fisher renderer implementation (2026-11-20)
+
+The owner explicitly approved renderer implementation for the round-05 Tech/Hacker/Fisher silhouettes. This supersedes the earlier preparation-only authorization below. Build one character at a time: Tech first, then Hacker, then Fisher. Each renderer must pass internal four-direction native 64×96 and direct 28×42 QA plus visual inspection before starting the next character. This approval authorizes implementation, not acceptance of rendered output, independent review or golden snapshot changes.
+
 ## Owner-directed progression exception — third-batch preparation (2026-11-20)
 
 The owner explicitly directed ChatGPT to proceed with preparing Tech, Hacker and Fisher without returning the prior Guard/Vendor/Clinic Run #629 output to Claude. This authorizes the third-batch design preflight only. It does not retroactively complete or waive the historical exact-output Claude review record for Run #629, and it does not approve the new silhouettes or authorize renderer implementation. The owner must approve the Tech/Hacker/Fisher construction preflight before their renderer work begins. Preserve this distinction in status reporting.
