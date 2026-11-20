@@ -1,5 +1,7 @@
 # Fourth civilian batch — Claude independent review package
 
+> **SUPERSEDED — DO NOT SEND TO CLAUDE.** This package reviews the older revision-05 / Run #664 evidence. Run #665 and subsequent direct visual inspection exposed unresolved prop-contact and handedness issues. The current source is revision 06; its correction commit 388efaff3d545a84e2b768f2fead9ee3609d3e1c still requires a fresh QA run and visual inspection. A new exact-output package will be prepared only after internal QA passes.
+
 **Prepared:** 2026-11-20  
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `npc-granny-baseline-overhaul`  
