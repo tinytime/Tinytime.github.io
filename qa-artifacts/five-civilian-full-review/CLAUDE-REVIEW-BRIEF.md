@@ -6,7 +6,7 @@
 
 - Repository: https://github.com/tinytime/Tinytime.github.io
 - Branch: `npc-granny-baseline-overhaul`
-- Current documentation/package head before this brief update: `15209875b095e8b0feacec351ac33529f69a8479`
+- Review package documentation: current branch head, with the renderer and evidence commits pinned separately below.
 - **Exact renderer source:** `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb` (P2 renderer changes; this is the source to inspect).
 - **QA evidence-builder commit:** `90c5d266279c61461b460b024ee96e71f327e081` (adds black silhouettes and town-ground composite; does not change renderer drawing).
 - **Before/baseline:** [Run #595](https://github.com/tinytime/Tinytime.github.io/actions/runs/44645116652), artifact `14587318765`, renderer `c354abfa3d78b46dc982a03d2c5d1ece0c918257`.
