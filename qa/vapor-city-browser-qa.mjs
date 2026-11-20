@@ -212,7 +212,7 @@ try {
       const rx=(width/2-OWT/2)/OWT,baseline=height===96?83:39;
       const ry=(baseline-(OWT-5))/OWT;
       const npc={id:'techgirl',civ:'tech',x:0,y:0,rx,ry};
-      renderer(0,0,direction,false,npc,0,0,ctx,{roleDebugLayers:true});
+      renderer(0,0,direction,false,npc,0,0,ctx,{});
       const data=ctx.getImageData(0,0,width,height).data;
       let opaque=0,minX=width,minY=height,maxX=-1,maxY=-1;
       const touches={left:false,right:false,top:false,bottom:false};
@@ -229,12 +229,6 @@ try {
     };
     const native=directions.map(d=>render(nativeRenderer,d,64,96,nativeOWT));
     const gameScale=directions.map(d=>render(gameScaleRenderer,d,28,42,gameScaleOWT));
-    const sheet=(items,width,height)=>{
-      const out=document.createElement('canvas');out.width=width*4;out.height=(height+18);
-      const ctx=out.getContext('2d');ctx.fillStyle='#777982';ctx.fillRect(0,0,out.width,out.height);
-      items.forEach((item,i)=>{const img=new Image();});
-      return {dataUrl:null,items:items.map(x=>x.neutralGrey)};
-    };
     return {native,gameScale,directions,labels};
   });
   const techNativeDir=path.join(out,'tech-native-64x96');
