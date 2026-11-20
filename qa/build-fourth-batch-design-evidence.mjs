@@ -1,4 +1,4 @@
-// Fourth-batch design-source evidence for revision 21 (Sailor connected rope coil with detached highlight removed, Painter flat wedge brush and wrapped grip; preservation-gated). QA projection utility only:
+// Fourth-batch design-source evidence for revision 22 (Sailor connected rope coil with detached highlight removed, Painter flat wedge brush and wrapped grip; preservation-gated). QA projection utility only:
 // it rasterizes approved-stage SVG hypotheses and captures existing roster faces.
 // It does not load or alter any production renderer for Sailor/Slicker/Painter.
 import fs from 'node:fs';
@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg');
+const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-22.svg');
 const htmlPath = path.join(root, 'VaporCity_HD2D_Hybrid_Test.html');
 const spritePath = path.join(root, 'npc_sprites.js');
 const out = path.join(root, 'qa-output/fourth-batch-design');
@@ -69,7 +69,7 @@ try {
       data[key]=item;
     }
     const sourceDirectionLabels=(source.match(/class="lab">/g)||[]).length;
-    if(!source.includes('EXPLORATION 21') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
+    if(!source.includes('EXPLORATION 22') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
     // Every civilian's body-only anatomy and prop-on construction must be one
     // continuous dark silhouette in native and independently rasterized
     // direct game-scale projections. Eight-neighbour connectivity is used;
