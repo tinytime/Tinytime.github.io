@@ -209,10 +209,10 @@ The five approved designs are complete. Runner remains built but pending a focus
 | 2 | Coach | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. | Claude Run #603: 7.5/10; no P0/P1; owner approved | Forest-green team jacket, cream shoulder yoke, silver-templed hair, marked clipboard and gold whistle. Preserve accepted rear construction. |
 | 3 | Referee | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. | Claude Run #603: 8.5/10; no P0/P1; owner approved | Black/ivory striped official shirt, vermilion shorts, tall socks, whistle and raised yellow card. |
 | 4 | Courier | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. | Claude Run #603: 8.5/10; no P0/P1; owner approved | Messenger A-line shell, parcel, satchel and cross-body strap; preserve accepted construction. |
-| 5 | Guard | **DESIGN APPROVED — RENDERER IN PROGRESS** | Pending | Pending | Revision 02 approved 2026-11-19; bespoke vector path implemented; native/direct game-scale QA pending. |
-| 6 | Vendor | **DESIGN APPROVED — RENDERER IN PROGRESS** | Pending | Pending | Revision 02 approved 2026-11-19; bespoke vector path implemented; native/direct game-scale QA pending. |
+| 5 | Guard | **DESIGN APPROVED — TARGETED QA PASS / CLAUDE REVIEW PENDING** | Pending | Pending | Run #620: 4/4 native and 4/4 direct 28×42 captures; zero edge contacts; helmet clipping fixed. |
+| 6 | Vendor | **DESIGN APPROVED — TARGETED QA PASS / CLAUDE REVIEW PENDING** | Pending | Pending | Run #620: 4/4 native and 4/4 direct 28×42 captures; zero edge contacts; tray clipping fixed; pairwise overlap review required. |
 | 7 | Cook | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. Preserve C1 as deferred/accepted; no renderer change. | Claude Run #603: 7.5/10; no P0/P1; owner approved | Rounded chef toque/curl mass, ivory coat, terracotta apron and compact handled copper pan. |
-| 8 | Clinic worker | **DESIGN APPROVED — RENDERER IN PROGRESS** | Pending | Pending | Revision 02 approved 2026-11-19; bespoke vector path implemented; native/direct game-scale QA pending. |
+| 8 | Clinic worker | **DESIGN APPROVED — TARGETED QA PASS / CLAUDE REVIEW PENDING** | Pending | Pending | Run #620: 4/4 native and 4/4 direct 28×42 captures; pouch/hand separation inspected. |
 | 9 | Tech | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 10 | Hacker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 11 | Fisher | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
