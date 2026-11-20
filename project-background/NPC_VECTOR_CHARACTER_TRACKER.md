@@ -1,5 +1,10 @@
 ## Tech, Hacker and Fisher — round-05 silhouette render (2026-11-20)
 
+**Owner approval update (2026-11-20):** Renderer implementation for this batch is explicitly approved. Tech (#9) is first; Hacker (#10) and Fisher (#11) must wait until Tech's renderer QA and visual inspection are complete.
+
+**Tech implementation:** dedicated `drawTechVector` added and wired to `tech` in `npc_sprites.js` commit `67b397242996f675c4a257415e4620fa0d3a40ca`. Dedicated Tier-A capture QA added in `qa/vapor-city-browser-qa.mjs` commit `2eab7e84027f088ed8f9f7be5740547f590aa13d`. Run [44740192417](https://github.com/tinytime/Tinytime.github.io/actions/runs/44740192417) is in progress. Renderer QA and manual inspection remain pending; no approval of rendered Tech art is implied yet. No golden snapshots changed.
+
+
 - **Art inspection:** PASS for all 12 silhouette views. Reviewer comparison reported black-silhouette IoU 0.997 against an independent render; the small difference was attributed to anti-aliasing. Tech's ear-cup cue, left-profile meter contact, Fisher's short right-profile hood lip, dark rear yoke with seams, and dark resting right-profile hand with knuckle seam were confirmed.
 - **Text correction:** the first 3× PNG had two clipped text blocks at the right edge. Both were wrapped in the canonical SVG in commit `e25ac611ee17d12771cbf2815001b78f43090d7f`.
 - **Final sheet render:** GitHub Actions [Run #2](https://github.com/tinytime/Tinytime.github.io/actions/runs/44739247661) succeeded. Chromium rendered exact 3× scale: 4800×3540 pixels. The generated PNG was retrieved and visually inspected; both wrapped text blocks are complete and clear of the right canvas edge. Artifact `14630192008`.
