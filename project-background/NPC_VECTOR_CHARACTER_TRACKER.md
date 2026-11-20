@@ -672,3 +672,19 @@ The sheet's visual layout is now readable, but body-mask candidate fit remains w
 - Browser QA Run #594 is in progress against exact renderer source `a5a22da39a28e51121326d8cc0fc07f36ac1d51d`: [run](https://github.com/tinytime/Tinytime.github.io/actions/runs/44644810758). Do not treat Run #593 as verification of this follow-up.
 - Run #593's overall workflow concluded FAILED on the full-roster civilian silhouette gate (maximum rendered IoU 0.9094292803970223; Coach/Courier back 0.8909718796250616) and unapproved golden snapshots (1 match / 23 changed). Page and script errors were zero. Missing audio resource 404s are expected branch noise and non-blocking; no audio assets were added.
 - No golden snapshots or provenance were modified. No semantic annotation candidates were promoted. No character is approved by this correction pass; internal QA, Claude's updated comparative review and explicit owner approval remain required.
+
+
+## Claude comparative re-review — Runs #599/#600 and owner decisions (2026-11-20)
+
+The owner supplied Claude's completed five-character comparative findings. This record summarizes the reviewer report as received; ChatGPT has not independently re-opened every image in this turn.
+
+- **Claude verdict:** ready with disclosed minor issues; no P0/P1 defects; craft scores vs Granny: Usher 6.5, Cook 7.0, Courier 6.5, Coach 6.0, Referee 7.5. None of the five is approved.
+- **U1 Usher footwear:** resolved at native and direct 28×42 scales.
+- **F1 face individuality:** partly resolved at native scale. Owner decision: facial individuality does not need to survive at direct 28×42; do not treat failure of tiny face cues at that scale as a defect or require a new correction for this reason. Preserve useful native-scale character expression.
+- **X1 Coach/Courier rear:** reviewer classified as acceptable shared body mass with distinct role construction, marginally. Owner decision: accept the Coach/Courier rear as-is; no torso redesign or IoU-driven change.
+- **C1 Cook pan:** partly resolved, remains an objective P2 in Claude's report. Pan reads as shallow dish, but handle shaft is not visibly continuous from hand to pan; grip fuses at 28×42. Reviewer suggests extending handle about 3–4 native pixels with hand over its end and pan beyond.
+- **U2 Usher silhouette:** new P2 in Claude's report. Black silhouette reads as a generic column, especially front/back; reviewer suggests one additional silhouette-level feature. Owner disposition not yet recorded.
+- **K1 Coach pale arc/banded rear hair, C2 Cook rear hand posture, U3 Usher profile shoe shape:** P3 observations, not blockers absent owner direction.
+- **Evidence limits recorded by reviewer:** Run #599/#600 captures inspected; walk frames not inspected; black sheet is alpha-derived rather than semantic anatomy; town-ground composite is diagnostic, not proof of live named-NPC spawn. Reviewer did not inspect the written identity/proportion cards or internal QA rationale in that session.
+- **Version 2.1 audit:** Parts Seven/Eight remain unperformed pending reviewer access to the exact 64,953-byte current standard and supporting documents. The current branch standard includes the Version 2.1 independent-review response section; do not infer the audit from summaries.
+- **Next:** resolve C1 and decide whether to address U2. Keep all five NOT APPROVED until internal QA, completed independent review (including the Version 2.1 audit), and explicit owner approval. Remaining 17 stay ON HOLD; Runner remains excluded. No golden snapshots refreshed or approved.
