@@ -22,9 +22,9 @@
 | 6 | Vendor | Vendor | Forward-leaning stall-service / tray-presenting stance (owner-approved Revision 02) | Owner-approved Revision 02; renderer implementation in progress |
 | 7 | Cook | Vendor | Broad chef-coat / apron-front construction | **Owner-approved** |
 | 8 | Clinic worker | Clinic | Tapered wrap tunic / offset-hip stance (owner-approved Revision 02) | Owner-approved Revision 02; renderer implementation in progress |
-| 9 | Tech | Clinic | UNASSIGNED | Reserve; do not assume shared clinic coat shell |
-| 10 | Hacker | Clinic | UNASSIGNED | Reserve; do not assume shared clinic coat shell |
-| 11 | Fisher | Trades | UNASSIGNED | Legacy grouping only |
+| 9 | Tech | Clinic | **PROPOSED (owner review pending):** compact forward-leaning field-maintenance harness / split utility shell | First-pass four-view concept in third-civilian-batch preflight; not approved; do not implement renderer yet |
+| 10 | Hacker | Clinic | **PROPOSED (owner review pending):** narrow folded-in cropped asymmetric drape-shell | First-pass four-view concept in third-civilian-batch preflight; not approved; do not implement renderer yet |
+| 11 | Fisher | Trades | **PROPOSED (owner review pending):** broad short oilskin smock / wide braced deck stance | First-pass four-view concept in third-civilian-batch preflight; not approved; do not implement renderer yet |
 | 12 | Sailor | Trades | UNASSIGNED | Legacy grouping only |
 | 13 | Slicker | Trades | UNASSIGNED | Legacy grouping only |
 | 14 | Painter | Trades | UNASSIGNED | Legacy grouping only |
@@ -49,3 +49,14 @@ The six existing vector renderers are not one template: Runner has a dynamic ath
 - **Clinic worker:** legacy cues include hair-band, medical kit and rear yoke. Explore clinical-work silhouette that does not default to a generic long lab coat or copy Cook/Usher. Medical kit is optional; validate interaction/contact before locking it.
 
 Update each UNASSIGNED entry only after actual four-view silhouette evidence exists.
+
+
+## Third-batch silhouette exploration — Tech, Hacker and Fisher (2026-11-20)
+
+The owner directed the project to move forward without sending the Run #629 Guard/Vendor/Clinic output back to Claude. This authorizes preparation of the next batch; it does not retroactively record a Claude verdict or mark that earlier independent review as completed.
+
+- **Tech:** proposed compact forward-leaning field-maintenance harness / split utility shell; swept-back undercut and ear cup; low diagnostic-meter interaction.
+- **Hacker:** proposed narrow folded-in stance / cropped asymmetric drape-shell; uneven fringe and exposed temple; one-hand low slate interaction.
+- **Fisher:** proposed broad short oilskin smock / braced deck stance; low hood with rear neck flap; low-held net basket interaction.
+
+The concepts and their separately authored four-view black silhouette studies are in [Tech/Hacker/Fisher preflight](../third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md) and [silhouette sheet](../third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg). These are proposals only. Keep all three out of renderer implementation until the owner approves or revises the silhouettes and construction cards. Do not treat the proposed families as current approved assignments.
