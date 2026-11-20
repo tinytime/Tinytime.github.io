@@ -199,7 +199,7 @@ try {
   if(svgData.anatomyConnectivityAudit.some(x=>!x.pass))throw new Error('Civilian anatomy/prop contact is disconnected: '+JSON.stringify(svgData.anatomyConnectivityAudit.filter(x=>!x.pass)));
 
   // Capture the proposed new face designs at exact 40x38 crop size.
-  const faceStudyPath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg');
+  const faceStudyPath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-03.svg');
   const faceStudySvg = fs.readFileSync(faceStudyPath, 'utf8');
   const faceDesigns = await page.evaluate(async source => {
     const img = new Image();
