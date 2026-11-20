@@ -335,6 +335,25 @@ try {
   townSceneState.pass = townSceneState.mapId === 'street' && townSceneState.grannyPresent;
   await page.screenshot({ path: path.join(out, 'game-town-1x.png'), fullPage: true });
 
+  // Tech-specific town smoke: clone the real Granny NPC runtime shape, then
+  // explicitly spawn Tech on the live street map for an attributable capture.
+  const techTownCaptureAudit = await page.evaluate(() => {
+    const map=window.SG?.M?.();
+    if(!map||!Array.isArray(map.npcs))return {pass:false,error:'Street NPC list unavailable'};
+    const granny=map.npcs.find(n=>n.id==='granny');
+    if(!granny)return {pass:false,error:'Granny runtime NPC unavailable as spawn template'};
+    const tech=Object.assign({},granny,{
+      id:'techgirl',civ:'tech',x:(granny.x??19)+1,y:granny.y??23,
+      rx:null,ry:null,d:'d',dir:'d',direction:'d'
+    });
+    map.npcs.push(tech);
+    const present=map.npcs.some(n=>n.id==='techgirl'&&n.civ==='tech');
+    return {pass:map.id==='street'&&present,mapId:map.id,spawnedId:tech.id,civ:tech.civ,
+      x:tech.x,y:tech.y,direction:tech.d,npcCount:map.npcs.length};
+  });
+  await page.waitForTimeout(700);
+  await page.screenshot({ path: path.join(out, 'game-town-tech-spawn-1x.png'), fullPage: true });
+
   const atlasOnInitialState = await page.evaluate(() => window.PXA?.info?.() || null);
   await page.screenshot({ path: path.join(out, 'town-atlas-on.png'), fullPage: true });
   const atlasOffState = await page.evaluate(() => {
@@ -777,6 +796,47 @@ try {
     roleLegendCount:roleDebugRoles.length,
     perViewLegendCounts:roleDebugCapture.items.map(item=>({civ:item.civ,direction:item.direction,count:item.roleLegend.length})),
     path:'runner-coach-ref-cook-courier-usher-role-debug-8x.png'};
+  // Dedicated Tech role-debug evidence; kept separate from the legacy
+  // six-civilian sheet so the historical 12-view audit remains unchanged.
+  const techRoleDebugCapture = await page.evaluate(() => {
+    const all=window.SG.npcRenderDirectionalSnapshots({roleDebugLayers:true});
+    return all.filter(item=>item.civ==='tech').map(item=>({
+      civ:item.civ,direction:item.direction,dataUrl:item.dataUrl,roleLegend:item.roleLegend||[]
+    }));
+  });
+  const techRoleDebugSheet = await page.evaluate(async items => {
+    const order=['front','back','left','right'],cellW=512,cellH=768,gap=24,legendH=210;
+    const canvas=document.createElement('canvas');canvas.width=cellW*2+gap*3;
+    canvas.height=cellH*2+gap*3+legendH;
+    const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+    ctx.fillStyle='#252733';ctx.fillRect(0,0,canvas.width,canvas.height);
+    for(let i=0;i<order.length;i++){
+      const item=items.find(x=>String(x.direction).toLowerCase()===order[i]||
+        ({d:'front',u:'back',l:'left',r:'right'})[String(x.direction).toLowerCase()]===order[i]);
+      if(!item)continue;
+      const img=new Image();img.src=item.dataUrl;await img.decode();
+      const x=gap+(i%2)*(cellW+gap),y=gap+Math.floor(i/2)*(cellH+gap);
+      ctx.drawImage(img,x,y,cellW,cellH);
+      ctx.fillStyle='#fff';ctx.font='bold 24px monospace';ctx.textAlign='left';
+      ctx.fillText('TECH / '+order[i].toUpperCase(),x,y+cellH+30);
+    }
+    const roles=[...new Map(items.flatMap(x=>x.roleLegend).map(r=>[r.role,r])).values()];
+    const y=gap*2+cellH*2+24;ctx.fillStyle='#fff';ctx.font='bold 18px monospace';
+    ctx.fillText('TECH ROLE KEY',gap,y);
+    roles.forEach((role,i)=>{const x=gap+(i%3)*330,yy=y+30+Math.floor(i/3)*30;
+      ctx.fillStyle=role.color;ctx.fillRect(x,yy-13,18,18);
+      ctx.fillStyle='#fff';ctx.font='14px monospace';ctx.fillText(role.role,x+26,yy+1);
+    });
+    return canvas.toDataURL('image/png');
+  },techRoleDebugCapture);
+  fs.writeFileSync(path.join(out,'tech-role-debug-four-directions-8x.png'),
+    Buffer.from(techRoleDebugSheet.split(',')[1],'base64'));
+  const techRoleDebugRoles=[...new Set(techRoleDebugCapture.flatMap(item=>item.roleLegend.map(role=>role.role)))].sort();
+  const techRoleDebugAudit={
+    pass:techRoleDebugCapture.length===4&&techRoleDebugCapture.every(item=>item.roleLegend.length>0)&&techRoleDebugRoles.length>=5,
+    captured:techRoleDebugCapture.length,expected:4,directions:techRoleDebugCapture.map(item=>item.direction),
+    roleLegend:techRoleDebugRoles,path:'tech-role-debug-four-directions-8x.png',scale:8
+  };
   const roleDebugRowWidthReport = await page.evaluate(() => {
     const table=window.NPC_SPRITES?.TABLES?.CIV_TORSO_MASKS;
     if(!table)throw new Error('Civilian torso mask table is unavailable for row-width diagnostics');
@@ -1552,6 +1612,7 @@ try {
     townClickAttempted,
     townClickError,
     townSceneState,
+    techTownCaptureAudit,
     grannyMeasurements,
     grannyRuntimeRef,
     grannyMeasurementCheck,
@@ -1564,6 +1625,7 @@ try {
     gameScaleNpcCaptureAudit,
     approvedBatchCaptureAudit,
     techRendererCaptureAudit,
+    techRoleDebugAudit,
     roleDebugAudit,
     roleDebugRowWidthReport,
     civilianVisualIntegrityAudit,
@@ -1604,7 +1666,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !techRendererCaptureAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !civilianFaceDistinctnessAudit.pass || !gameScaleNpcCaptureAudit.pass || !roleDebugAudit.pass || !civilianVisualIntegrityAudit.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !techRendererCaptureAudit.pass || !techRoleDebugAudit.pass || !techTownCaptureAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !civilianFaceDistinctnessAudit.pass || !gameScaleNpcCaptureAudit.pass || !roleDebugAudit.pass || !civilianVisualIntegrityAudit.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
