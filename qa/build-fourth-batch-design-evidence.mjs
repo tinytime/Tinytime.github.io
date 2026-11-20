@@ -260,6 +260,34 @@ try {
   },rosterFaces);
   writeData(path.join(out,'roster-face-crops-contact-sheet.png'),faceSheet);
 
+  // Matched-scale rear silhouette comparison: the proposed Sailor body-only
+  // rear view against the live roster Welder rear view. This is a human
+  // differentiation aid; it does not assign a family or make an approval.
+  const welderBackDataUrl = await page.evaluate(() => {
+    const snapshots=window.SG.npcRenderDirectionalSnapshots();
+    const item=snapshots.find(x=>x.civ==='welder' && x.direction==='back');
+    if(!item || !item.dataUrl) throw new Error('Welder back directional snapshot unavailable');
+    return item.dataUrl;
+  });
+  writeData(path.join(out,'welder-back-native-64x96.png'),welderBackDataUrl);
+  const sailorWelderBackSheet = await page.evaluate(async ({sailorUrl,welderUrl}) => {
+    const load=async src=>{const im=new Image();im.src=src;await im.decode();return im;};
+    const sailor=await load(sailorUrl),welder=await load(welderUrl);
+    const c=document.createElement('canvas');c.width=320;c.height=164;
+    const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
+    x.fillStyle='#fff';x.font='bold 11px sans-serif';x.fillText('PROPOSED SAILOR / BACK',12,14);x.fillText('LIVE WELDER / BACK',172,14);
+    x.drawImage(sailor,12,24,128,128);
+    const mask=document.createElement('canvas');mask.width=welder.naturalWidth;mask.height=welder.naturalHeight;
+    const m=mask.getContext('2d',{willReadFrequently:true});m.drawImage(welder,0,0);
+    const pixels=m.getImageData(0,0,mask.width,mask.height);
+    for(let i=0;i<pixels.data.length;i+=4){
+      if(pixels.data[i+3]>0){pixels.data[i]=8;pixels.data[i+1]=10;pixels.data[i+2]=14;}
+    }
+    m.putImageData(pixels,0,0);x.drawImage(mask,172,24,128,128);
+    return c.toDataURL('image/png');
+  },{sailorUrl:svgData.data['sailor-body-back'].native,welderUrl:welderBackDataUrl});
+  writeData(path.join(out,'sailor-welder-back-silhouette-comparison.png'),sailorWelderBackSheet);
+
   const report={
     status:'design_source_projection_only',
     source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg',
