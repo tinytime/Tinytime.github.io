@@ -1,3 +1,7 @@
+## Next civilian batch — preflight only (2026-11-20)
+
+The owner approved batch #9–11: Tech's production-renderer art and Hacker/Fisher finished design art. Hacker/Fisher have not been integrated as dedicated production renderers. The next set is Sailor (#12), Slicker (#13), Painter (#14). Their preflight is [SAILOR-SLICKER-PAINTER-PREFLIGHT.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md). Legacy Trades metadata is reference context only; do not reuse the legacy shared Trades renderer or its wrench/tool-pocket layout as a vector template. No renderer changes are authorized until each silhouette and construction card is owner-approved.
+
 ## Third-batch reviewer correction implementation — 2026-11-20
 
 Current handoff: [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md](qa-artifacts/third-civilian-batch/THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md).
