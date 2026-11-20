@@ -1,0 +1,60 @@
+name: Hacker and Fisher Design SVG Render
+
+on:
+  push:
+    branches:
+      - npc-granny-baseline-overhaul
+    paths:
+      - 'project-background/qa-artifacts/third-civilian-batch/HACKER-FISHER-FINISHED-DESIGN-STUDY.svg'
+      - 'qa/render-hacker-fisher-design.mjs'
+      - '.github/workflows/hacker-fisher-design-render.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hacker-fisher-design-render-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out design source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: npm install --no-save playwright
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Render design and exact-scale captures
+        run: node qa/render-hacker-fisher-design.mjs
+      - name: Commit design presentation outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+actions@users.noreply.github.com"
+          git add project-background/qa-artifacts/third-civilian-batch/HACKER-FISHER-*-DESIGN*.png
+          git add project-background/qa-artifacts/third-civilian-batch/HACKER-FISHER-DESIGN-RENDER-REPORT.json
+          if git diff --cached --quiet; then
+            echo "Design presentation outputs are already current."
+          else
+            git commit -m "Render Hacker and Fisher design presentation sheets"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
+      - name: Upload rendered design evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hacker-fisher-finished-design-render
+          path: |
+            project-background/qa-artifacts/third-civilian-batch/HACKER-FISHER-*-DESIGN*.png
+            project-background/qa-artifacts/third-civilian-batch/HACKER-FISHER-DESIGN-RENDER-REPORT.json
+          if-no-files-found: error
+          retention-days: 30
