@@ -1739,8 +1739,12 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
           line([[60,76],[69,78]],'#B38B50',1.7);
           path([[63,81],[69,79],[73,83],[70,88],[64,87]],skin,ink,1);
         }else{
-          // Far-side bent arm is occluded by the torso in the right profile.
+          // The far-side braced arm remains occluded; the near-side arm is
+          // visible as a separate sleeve/hand edge so the profile is not a
+          // featureless column. The bracer remains character-right only.
           path([[43,55],[50,56],[53,66],[51,76],[45,80],[40,74]],shell,ink,1.2);
+          path([[61,57],[67,60],[72,71],[76,78],[73,83],[67,82],[62,73]],shell,ink,1.25);
+          path([[71,79],[77,79],[80,84],[77,88],[71,86]],skin,ink,1);
         }
       }else{
         path([[38,55],[49,50],[62,53],[66,65],[62,73],[40,73]],'#2B3A4B',ink,1.2);
@@ -1776,9 +1780,10 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[46,20],[55,19],[63,25],[65,32],[60,39],[52,43],[43,39],[40,29]],grad(42,21,64,44,[[0,'#E4B28D'],[1,skin]]),ink,1.4);
         path([[39,22],[41,15],[49,12],[59,14],[65,21],[63,25],[48,21]],'#111A25',ink,1.5);
         path([[43,19],[65,19],[68,24],[44,24]],'#596B7E',ink,1.3);
-        ell(59,30,1.1,1.5,'#171725',null);
+        // Enlarge the profile eye to a reliable one-pixel cue at 28×42.
+        ell(59,30,1.8,1.8,'#171725',null);
         path([[62,31],[68,34],[64,37],[60,36]],skin,ink,1);
-        line([[53,27],[60,26]],'#171725',1.4);
+        line([[53,27],[60,26]],'#171725',2.2);
         line([[55,41],[61,40]],'#754A3B',1);
       }else{
         path([[39,20],[43,10],[56,9],[65,18],[64,28],[44,28]],'#111A25',ink,1.5);
@@ -1874,9 +1879,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
           path([[81,75],[94,75],[95,79],[93,82],[80,82]],'#D6C7A7',ink,1.3);
           line([[82,78],[93,78]],'#8D735B',1);
         }else{
-          // Far-side tray and hand are hidden behind the torso; only the
-          // shoulder/upper-arm pitch remains visible at the rear contour.
-          path([[61,57],[68,61],[72,73],[68,81],[63,77]],vest,ink,1.2);
+          // The far-side tray remains mostly occluded, but its forward lip
+          // and supporting hand project just beyond the torso in this view.
+          // This preserves the same market-service read without drawing a
+          // second full tray or breaking the character-left prop placement.
+          path([[61,57],[68,61],[73,72],[79,78],[84,78],[85,83],[79,86],[71,82],[63,73]],vest,ink,1.25);
+          path([[78,78],[85,77],[89,80],[88,84],[81,86],[77,83]],skin,ink,1);
+          path([[82,74],[95,74],[96,78],[94,81],[83,81],[80,78]],'#D6C7A7',ink,1.25);
+          line([[84,77],[94,77]],'#8D735B',1);
         }
       }else{
         path([[39,56],[49,51],[64,56],[68,70],[62,96],[31,98]],'#38263A',ink,1.3);
@@ -1907,8 +1917,9 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[43,25],[49,20],[59,23],[65,31],[62,39],[54,44],[45,41],[40,33]],grad(42,22,64,44,[[0,'#F0C29D'],[1,skin]]),ink,1.3);
         ell(45,34,2.2,3,'#B77F62',ink,.8);
         path([[59,30],[66,33],[70,37],[65,39],[60,36]],skin,ink,1);
-        ell(61,31,1.1,1.4,'#171725',null);
-        line([[56,27],[62,27]],'#49302B',1.4);line([[56,41],[62,40]],'#814B49',1.2);
+        // A full one-pixel eye and firmer brow survive the direct 28×42 read.
+        ell(61,31,1.8,1.8,'#171725',null);
+        line([[56,27],[62,27]],'#49302B',2.2);line([[56,41],[62,40]],'#814B49',1.2);
       }
       path([[39,24],[44,15],[54,14],[64,21],[67,26],[56,28],[43,26]],'#4B3048',ink,1.5);
       path([[39,24],[54,22],[69,25],[68,29],[50,28],[40,27]],'#D8A247',ink,1.1);
@@ -2025,7 +2036,12 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     }
     // Low rear coil and side tie are visible from back/profile, not a high bun.
     if(back){ell(57,35,5.2,5.5,'#35252B',ink,1.2);line([[59,31],[65,28],[67,31]],plum,1.5);}
-    else if(side){ell(58,37,4.2,4.5,'#35252B',ink,1.1);line([[60,35],[66,31],[68,34]],plum,1.4);}
+    else if(side){
+      // Place the low coil on the rear side of the skull in both profiles:
+      // viewer-right when facing left, viewer-left when facing right.
+      ell(42,37,4.6,4.8,'#35252B',ink,1.1);
+      line([[40,35],[34,31],[32,34]],plum,1.4);
+    }
     g.save();g.globalAlpha=.54;g.shadowBlur=.7/scale;g.shadowColor='rgba(113,190,211,.3)';
     line([[33,55],[41,50],[47,49]],'rgba(181,213,201,.85)',1/scale);
     g.shadowColor='rgba(216,162,71,.2)';line([[61,55],[68,60],[71,67]],'rgba(181,213,201,.65)',1/scale);
