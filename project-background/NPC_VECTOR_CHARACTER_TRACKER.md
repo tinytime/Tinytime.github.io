@@ -1,3 +1,13 @@
+## Third-batch combined Claude review — 2026-11-20
+
+**Review package ready:** [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE.md](qa-artifacts/third-civilian-batch/THIRD-BATCH-CLAUDE-REVIEW-PACKAGE.md).
+
+- Tech (#9): production renderer internally QA-passed and visually inspected in Run #644 / artifact `14634020084`; exact tested source `579f0fff61b8cfd4e416cc59381187b162d3b8ca`.
+- Hacker (#10) and Fisher (#11): finished design-stage internal QA passed using corrected Playwright Run #7 / artifact `14634776106`; source `2b08e60d4814846923e133503f965532bde055ad`. No additional render required.
+- Claude's independent review is pending for the three-character package. Owner acceptance is pending for Tech's rendered output and Hacker/Fisher's finished design artwork.
+- Hacker/Fisher renderer implementation remains held until Tech's independent review and owner rendered-art approval, and owner acceptance of Hacker/Fisher designs.
+- Preserve the evidence boundary: Hacker/Fisher scale captures are design projections, not production renderer output.
+
 ## Hacker (#10) and Fisher (#11) — finished design-stage vector study (2026-11-20)
 
 - Finished colour design: [HACKER-FISHER-FINISHED-DESIGN-STUDY.svg](qa-artifacts/third-civilian-batch/HACKER-FISHER-FINISHED-DESIGN-STUDY.svg); design handoff: [HACKER-FISHER-DESIGN-REVIEW.md](qa-artifacts/third-civilian-batch/HACKER-FISHER-DESIGN-REVIEW.md).
