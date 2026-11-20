@@ -1,3 +1,12 @@
+## Third-batch reviewer corrections — 2026-11-20
+
+**Updated independent review package:** [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md](qa-artifacts/third-civilian-batch/THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md). Claude's first verdicts have been addressed: Tech's field shell is darker/desaturated petrol with a squared storm-flap shoulder; Hacker's front chest is narrowed, bare forearm separated, left-profile drape tapered and temple/earbud cues strengthened; Fisher's rear smock is ochre rather than a dark cape-like block, the unexplained leg bar is gone, and the right-profile pouch is integrated into the garment.
+
+- Tech targeted browser QA: [Run #648](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752105957), artifact [14635417540](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752105957/artifacts/14635417540), exact tested renderer source cea601503504c6b23527452a66cc64c3cb93e7a7. Targeted 4/4 native, 4/4 direct game-scale, zero edge contacts, role-debug 4/4, town spawn/close-up present; wider integrity 92/92, face uniqueness 23/23, gallery/prop/Granny checks pass, page/script errors 0. Actual Tech/Clinic game-scale comparison and town crop inspected.
+- Hacker/Fisher design render: [Run #9](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752401697), artifact [14636805512](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752401697/artifacts/14636805512), SVG SHA-256 5e20a05a445b4684c3a212bf6e55fd61b3abb230c557e5d7ab85842a6ab03a52. Render succeeded; all eight views recaptured at native 64×96 and direct design-projection 28×42, with 4× nearest-neighbour enlargements. Actual full sheet and directional montages inspected. These remain design-stage captures, not production renderer evidence.
+- Browser QA Run #648 overall remains FAILED on the unapproved golden snapshot baseline (1 match / 23 changed) and existing 180 audio/resource HTTP 404 console errors. No snapshots/provenance changed. These are global gates, not new character-specific defects.
+- Claude re-review pending; owner acceptance pending. Hacker/Fisher production renderer implementation remains held until Tech independent review and owner rendered-art approval, plus owner acceptance of their finished designs.
+
 ## Hacker and Fisher design-stage delivery — 2026-11-20
 ## Third-batch independent review handoff — 2026-11-20
 
