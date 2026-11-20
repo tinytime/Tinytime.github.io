@@ -197,8 +197,9 @@ try {
         for(let col=0;col<3;col++){
           const px=gap+col*(cellW+gap),py=gap+r*(cellH+labelH+gap);
           const im=new Image();im.src=images[col];await im.decode();
-          x.fillStyle='#fff';x.font='bold 10px sans-serif';
-          const label=col===0?'NEW '+row.key.toUpperCase():row.candidates[col-1].toUpperCase()+' / '+row.direction.toUpperCase();
+          x.fillStyle='#fff';x.font=scale===1?'bold 6px sans-serif':'bold 10px sans-serif';
+          const shortDirection=row.direction[0].toUpperCase();
+          const label=col===0?'NEW '+row.key.split('-')[0].toUpperCase()+' '+shortDirection:row.candidates[col-1].toUpperCase()+' '+shortDirection;
           x.fillText(label,px,py+11);
           x.drawImage(im,px,py+labelH,cellW,cellH);
         }
