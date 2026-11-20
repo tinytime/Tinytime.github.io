@@ -1,3 +1,12 @@
+## Third-batch corrections — new review evidence (2026-11-20)
+
+Use [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md](qa-artifacts/third-civilian-batch/THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md) as the current Claude handoff.
+
+- Tech #9 targeted renderer QA: [Run #648](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752105957), artifact [14635417540](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752105957/artifacts/14635417540), exact source cea601503504c6b23527452a66cc64c3cb93e7a7. Native/direct 4/4, zero edge contacts, role-debug 4/4, live town spawn/close-up present; wider integrity 92/92, face uniqueness 23/23, gallery/prop/Granny checks pass, page/script errors 0. Actual Tech/Clinic 28×42 comparison and town close-up visually inspected.
+- Overall Run #648 failed on unapproved golden snapshot baseline (1 match / 23 changed) and 180 existing audio/resource 404 console errors. Do not refresh or approve snapshots; none changed.
+- Hacker/Fisher finished design render: [Run #9](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752401697), artifact [14636805512](https://github.com/tinytime/Tinytime.github.io/actions/runs/44752401697/artifacts/14636805512), exact SVG SHA-256 5e20a05a445b4684c3a212bf6e55fd61b3abb230c557e5d7ab85842a6ab03a52. Render passed; all four directions per character at 64×96 and direct 28×42 design-projection, plus 4× enlargements. Actual full sheet and captures visually inspected. Not production renderer output.
+- Claude re-review pending; owner acceptance pending for Tech rendered art and Hacker/Fisher finished design art. Hacker/Fisher production renderers remain held.
+
 ## Combined third-batch Claude handoff — 2026-11-20
 
 - **Review package:** [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE.md](qa-artifacts/third-civilian-batch/THIRD-BATCH-CLAUDE-REVIEW-PACKAGE.md).
