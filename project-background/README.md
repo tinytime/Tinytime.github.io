@@ -2,7 +2,7 @@
 
 ## Current Guard, Vendor and Clinic QA status — 2026-11-20
 
-The corrected three-character batch is at [Run #626](https://github.com/tinytime/Tinytime.github.io/actions/runs/44673031471), tested commit `8cc6836d4eff0a3cb8fcd997373da17769564e20`, artifact `14599664923`. ChatGPT inspected all 12 native 64×96 and 12 direct 28×42 directional captures. Targeted profile cues are visible and the 92-view directional/edge/component integrity checks pass. Workflow remains FAILED on the unapproved golden-snapshot gate (1 match / 23 changed) and 180 existing audio/resource 404 console errors; no golden snapshots were changed. Claude's corrected-output re-review and owner approval remain pending. The remaining 17 civilians stay on hold.
+The latest completed QA remains [Run #626](https://github.com/tinytime/Tinytime.github.io/actions/runs/44673031471), tested commit `8cc6836d4eff0a3cb8fcd997373da17769564e20`, artifact `14599664923`. Claude reviewed that output and requested a final focused pass on Guard's right-profile forearm, Guard/Vendor profile face cues, and Clinic's near-side kit strap. Those changes are committed in `6a1fd2a4fbad50dfe39d0fc27ec14c674ecf394b`; fresh browser QA and visual inspection are pending. Run #626's overall failure remains attributable to the unapproved golden-snapshot gate (1 match / 23 changed) and 180 existing audio/resource 404 console errors; no golden snapshots were changed. The remaining 17 civilians stay on hold.
 
 ## Claude targeted re-review and follow-up — 2026-11-20
 
