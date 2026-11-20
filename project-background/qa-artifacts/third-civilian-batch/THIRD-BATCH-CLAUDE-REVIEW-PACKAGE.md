@@ -1,3 +1,5 @@
+> **Superseded handoff:** use [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md](THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md) for the current post-correction evidence and re-review request. This original package records the pre-first-review submission.
+
 # Third civilian batch — independent Claude review package
 
 **Characters:** Tech (#9), Hacker (#10), Fisher (#11)  
