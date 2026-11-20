@@ -1,3 +1,18 @@
+## Revision 14 — QA evidence inspected; owner review pending
+
+**Source:** [silhouette exploration 14](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-14.svg)  
+**QA:** [Run #691](https://github.com/tinytime/Tinytime.github.io/actions/runs/44786466007) · [artifact 14654237640](https://github.com/tinytime/Tinytime.github.io/actions/runs/44786466007/artifacts/14654237640) · tested commit `6d0c27e71d17e0eaa20eb069926fee323bd255a7`
+
+- **Painter arm/prop:** the left-profile body-only arm and hand are identical to prop-on; all 12 body-only/prop-on comparisons remove zero body pixels. The flared brush head and hand contact are present. The direct-scale tool/hand cluster remains dense and is flagged for owner scrutiny, not represented as fully resolved.
+- **Slicker weather cue:** the separate umbrella is removed. The integrated face-framing hood opening, profile brow/rear flap and diagonal storm closure read as clothing details; forward pitch and asymmetric smock remain visible.
+- **Sailor:** the front coil-to-palm bridge is thickened; rear and profile views retain arm/torso negative-space breaks.
+- **Painter head/face:** knit beanie remains distinct from Sailor's brimmed cap; asymmetric brow, squarer cheek/jaw and shorter blunt profile nose appear in the matched geometric face study.
+- **Evidence:** 24/24 native 64×96 and 24/24 independently rasterized direct 28×42 projections; six matched face rows; 12/12 zero-body-removal checks. Manual artifact inspection is complete for the source-projection sheets. These are not final game-rendered sprites.
+- **CI caveat:** overall workflow remains failed at game-browser diagnostics: the golden snapshot baseline is explicitly unapproved (1/24 match, 23/24 changed) and 180 resource 404 console entries were logged. Page/script errors are empty. Do not refresh/approve snapshots without owner authorization.
+- **Status:** design-source QA passed; visual source study inspected; independent reviewer/owner approval pending. No renderer, approved art, or golden snapshots changed.
+
+---
+
 ## Revision 14 — final Claude correction pass; browser QA pending
 
 **Source:** [silhouette exploration 14](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-14.svg)
