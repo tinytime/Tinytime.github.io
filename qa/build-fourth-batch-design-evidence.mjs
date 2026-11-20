@@ -184,24 +184,23 @@ try {
   }));
   if(faceComparisons.some(x=>!x.design || x.refs.some(y=>!y))) throw new Error('Matched face comparison crop missing');
   const faceComparisonData = await page.evaluate(async rows=>{
-    const make=(scale)=>{
-      const gap=12,cellW=40*scale,cellH=38*scale,labelH=18,cols=3;
-      const c=document.createElement('canvas');c.width=gap+cols*(cellW+gap);c.height=gap+rows.length*(cellH+labelH+gap);
-      const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
-      return c;
-    };
     const draw=async(scale)=>{
-      const c=make(scale),x=c.getContext('2d'),gap=12,cellW=40*scale,cellH=38*scale,labelH=18;
+      const gap=12,cellW=40*scale,cellH=38*scale,headH=14*scale,labelH=10*scale,cols=3;
+      const rowH=headH+labelH+cellH+gap;
+      const c=document.createElement('canvas');c.width=gap+cols*(cellW+gap);c.height=gap+rows.length*rowH;
+      const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
       for(let r=0;r<rows.length;r++){
         const row=rows[r],images=[row.design,...row.refs];
+        const py=gap+r*rowH;
+        x.fillStyle='#fff';x.font=scale===1?'bold 8px sans-serif':'bold 12px sans-serif';
+        x.fillText(row.key.split('-')[0].toUpperCase()+' / '+row.direction.toUpperCase(),gap,py+9*scale);
         for(let col=0;col<3;col++){
-          const px=gap+col*(cellW+gap),py=gap+r*(cellH+labelH+gap);
+          const px=gap+col*(cellW+gap),labelY=py+headH;
           const im=new Image();im.src=images[col];await im.decode();
           x.fillStyle='#fff';x.font=scale===1?'bold 6px sans-serif':'bold 10px sans-serif';
-          const shortDirection=row.direction[0].toUpperCase();
-          const label=col===0?'NEW '+row.key.split('-')[0].toUpperCase()+' '+shortDirection:row.candidates[col-1].toUpperCase()+' '+shortDirection;
-          x.fillText(label,px,py+11);
-          x.drawImage(im,px,py+labelH,cellW,cellH);
+          const label=col===0?'NEW':col===1?'REF A':'REF B';
+          x.fillText(label,px,labelY+8*scale);
+          x.drawImage(im,px,labelY+labelH,cellW,cellH);
         }
       }
       return c.toDataURL('image/png');
