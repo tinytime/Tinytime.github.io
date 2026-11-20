@@ -1,6 +1,6 @@
 ## Fourth-batch owner authorization update — parallel exploration (2026-11-20)
 
-The owner has superseded the earlier Sailor-only authorization and explicitly approved simultaneous design-stage exploration for Sailor (#12), Slicker (#13) and Painter (#14). See [parallel silhouette exploration 02](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-02.svg) and [parallel construction cards/report 01](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md).
+The owner has superseded the earlier Sailor-only authorization and explicitly approved simultaneous design-stage exploration for Sailor (#12), Slicker (#13) and Painter (#14). See [parallel silhouette exploration 02](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-03.svg) and [parallel construction cards/report 01](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md).
 
 All three remain **UNASSIGNED** in the current vector construction-family column. Their proposed descriptors are planning notes only and must not be promoted until each character's own silhouette/construction is approved. No quotas or numeric thresholds are introduced. Renderer implementation is not authorized.
 
