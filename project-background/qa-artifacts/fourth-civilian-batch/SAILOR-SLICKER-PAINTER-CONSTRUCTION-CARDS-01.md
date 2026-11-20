@@ -10,7 +10,7 @@
 
 Revision 05 adds explicit contact bridges between each near-side profile hand and its prop, keeps props hidden on far-side profiles, and preserves Painter's rear-view reaching arm. It remains a proposal pending native/direct raster inspection and comparative review.
 
-The required matched-scale face-crop comparisons have **not** been completed. No two closest faces are selected for any character. This report deliberately does not guess based on role or headwear. Capture actual roster front/profile face crops at 64×96, compare geometric features, then name the two closest faces and select exactly two defining cues for each new face.
+Matched-scale roster face crops were captured from the existing directional snapshot hook (front and both profiles) and inspected as a human comparison sheet. The new grayscale face study is [FACE-GEOMETRY-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg); the evidence workflow now emits exact 40×38 design crops beside the existing roster 40×38 crops. Selected closest-face comparison pairs and exactly two proposed defining cues per character are recorded below. These remain face-design proposals, not owner approval.
 
 ## #12 Sailor — proposed construction card
 
@@ -18,7 +18,8 @@ The required matched-scale face-crop comparisons have **not** been completed. No
 - **Qualitative build:** narrow upright deckhand; short squared deck coat, raised split collar, compact cap, vertically structured torso. Not a broad smock and not Fisher's wide stance.
 - **Pose class:** planted, slightly staggered, upright; arm-to-torso negative-space breaks.
 - **Baseline:** both feet grounded; modest stagger rather than a wide braced stance.
-- **Head/face:** cap brim must clear and relate visibly to the ear in both profiles. Strong brow shelf and long/hooked nose remain hypotheses only. Exactly two final face cues are deferred until geometric comparison.
+- **Head/face:** cap brim clears the ear in both profiles. Exactly two proposed defining cues: (1) strong, straight brow shelf; (2) long hooked nose with a tapered cheek-to-jaw plane.
+- **Closest roster faces (matched crops):** Clinic and Guard. Clinic is closest in elongated profile/nose projection; Sailor's jaw is squarer. Guard is closest in brow shelf and jaw plane; Sailor's nose is longer and more hooked.
 - **Garment:** squared cropped hem; collar visibly frames neck; shoulder-to-waist contour must separate from Clinic's tapered wrap tunic and Coach's athletic jacket.
 - **Proposed construction family:** **PROPOSED — narrow cropped deck-coat / upright deckhand**. Current family remains **UNASSIGNED**.
 - **Prop footprint:** optional compact mooring-line coil; subordinate to torso, held low by character-left hand. Remove or simplify if not legible at direct 28×42.
@@ -44,7 +45,8 @@ The required matched-scale face-crop comparisons have **not** been completed. No
 - **Qualitative build:** compact forward-pitched figure whose long waterproof shell is the body construction, not a generic body with a coat over it. Low shaped hood or bucket-brim, visible face opening, shell overlap and curved/asymmetric hem.
 - **Pose class:** forward-leaning compact stance; elbows and lower shell create intentional negative spaces.
 - **Baseline:** compact grounded feet beneath a longer shell; avoid Fisher's broad planted deck stance.
-- **Head/face:** angular brow/eye set, tucked chin or distinctive cheek/nose profile; preserve exposed face plane under hood/brim. Profile eye must remain readable at 28×42. Two final face cues await actual crop comparison.
+- **Head/face:** exposed face plane beneath hood; profile eye remains readable at 28×42. Exactly two proposed defining cues: (1) sharply angled brow/eye set; (2) compressed tucked chin with a short projecting nose/cheek break.
+- **Closest roster faces (matched crops):** Hacker and Courier. Hacker is closest in compact lower-face and angled eye line; Slicker's chin is more tucked. Courier is closest in nose/cheek projection; Slicker's nose is shorter and brow more acute.
 - **Garment:** shell wraps the torso with a clear closure/overlap; hem curves asymmetrically and remains a defining contour from front, back and both profiles.
 - **Proposed construction family:** **PROPOSED — forward-pitched long rain-shell / hooded commuter**. Current family remains **UNASSIGNED**.
 - **Prop footprint:** optional compact folded umbrella in character-right hand. It must remain shorter than the torso and never dominate the silhouette. An integrated hood/closure may replace it.
@@ -70,7 +72,8 @@ The required matched-scale face-crop comparisons have **not** been completed. No
 - **Qualitative build:** open reaching figure in an asymmetrical loose work-smock or cropped coverall; one rolled sleeve, offset pocket/tool break, distinct beanie plus swept forelock. Avoid Cook's apron wedge and Welder's protective equipment.
 - **Pose class:** open reaching / weight-shifted pose; one arm extended with a controlled brush grip, opposite arm relaxed or bent.
 - **Baseline:** uneven weight distribution with separated legs; not Fisher's braced stance or Slicker's compact stance.
-- **Head/face:** beanie/hair tuft contour and angular brow/nose/eye expression. Final two face cues await actual roster face comparison.
+- **Head/face:** beanie and swept forelock are silhouette context, not face uniqueness. Exactly two proposed defining cues: (1) lifted asymmetric brow; (2) long angular nose bridge with a sharper cheek plane.
+- **Closest roster faces (matched crops):** Cook and Busker. Cook is closest in midface width; Painter's jaw tapers more and nose bridge is longer. Busker is closest in open expression; Painter's brow is more asymmetric and cheek plane sharper.
 - **Garment:** asymmetrical smock cut, rolled sleeve and offset hem/pocket plane; do not rely on paint splatters or palette for identity.
 - **Proposed construction family:** **PROPOSED — open asymmetrical sign-painter smock / reaching pose**. Current family remains **UNASSIGNED**.
 - **Prop footprint:** short broad brush in character-right hand. Brush tip and handle must form one continuous object with a visible hand contact chain. Paint tin/palette remains optional and is not included in this first silhouette hypothesis.
