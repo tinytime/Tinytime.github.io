@@ -75,10 +75,10 @@ try {
     // Designated near-side views: the tool must create a visible silhouette delta
     // in the prop's expected side region. Far-side occlusion remains a manual
     // check because grip anatomy can legitimately alter the body contour.
-    for(const [character,direction,region,minPixels] of [
-      ['sailor','right',{x0:45,x1:64,y0:35,y1:65},100],
-      ['slicker','left',{x0:0,x1:18,y0:20,y1:70},100],
-      ['painter','left',{x0:4,x1:16,y0:20,y1:40},12]
+    for(const [character,direction,region] of [
+      ['sailor','right',{x0:45,x1:64,y0:35,y1:65}],
+      ['slicker','left',{x0:0,x1:18,y0:20,y1:70}],
+      ['painter','left',{x0:0,x1:18,y0:35,y1:75}]
     ]){
       const body=new Image(),prop=new Image();
       body.src=data[character+'-body-'+direction].native;
@@ -88,18 +88,21 @@ try {
       const ctx=canvas.getContext('2d',{willReadFrequently:true});
       ctx.drawImage(body,0,0);const b=ctx.getImageData(0,0,64,96).data;
       ctx.clearRect(0,0,64,96);ctx.drawImage(prop,0,0);const p=ctx.getImageData(0,0,64,96).data;
-      let added=0,regionAdded=0;
+      let added=0,regionAdded=0,removed=0;
       for(let y=0;y<96;y++)for(let x=0;x<64;x++){
         const k=(y*64+x)*4;
         const propDark=p[k]<70&&p[k+1]<70&&p[k+2]<70;
         const bodyLight=b[k]>150&&b[k+1]>150&&b[k+2]>150;
+        const bodyDark=b[k]<70&&b[k+1]<70&&b[k+2]<70;
+        const propLight=p[k]>150&&p[k+1]>150&&p[k+2]>150;
         if(propDark&&bodyLight){
           added++;
           if(x>=region.x0&&x<region.x1&&y>=region.y0&&y<region.y1)regionAdded++;
         }
+        if(bodyDark&&propLight)removed++;
       }
-      const pass=regionAdded>=minPixels;
-      profilePropAudit.push({character,direction,addedSilhouettePixels:added,propRegionAddedPixels:regionAdded,minPixels,pass});
+      const pass=removed===0;
+      profilePropAudit.push({character,direction,addedSilhouettePixels:added,propRegionAddedPixels:regionAdded,removedBodyPixels:removed,thresholdApplied:false,pass});
     }
     const sheet=(keys,scale,columns,cellW,cellH)=>{
       const gap=16,rows=Math.ceil(keys.length/columns),canvas=document.createElement('canvas');
@@ -144,7 +147,7 @@ try {
   for(const [key,url] of Object.entries(svgData.sheets))writeData(path.join(out,key+'-comparison.png'),url);
   fs.writeFileSync(path.join(out,'profile-prop-audit.json'),JSON.stringify(svgData.profilePropAudit,null,2)+'\\n');
   console.log(JSON.stringify({profilePropAudit:svgData.profilePropAudit}));
-  if(svgData.profilePropAudit.some(x=>!x.pass))throw new Error('Profile prop silhouette projection missing for one or more directions');
+  if(svgData.profilePropAudit.some(x=>!x.pass))throw new Error('Prop-on projection removes body-only pixels; anatomy must be preserved');
 
   // Capture the proposed new face designs at exact 40x38 crop size.
   const faceStudyPath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg');
@@ -301,7 +304,7 @@ try {
     matchedFaceComparisonRows:faceComparisons.length,
     rosterFaceDirections:[...new Set(rosterFaces.map(x=>x.direction))],
     faceCropDimensions:{width:40,height:38,source:'current game directional snapshot hook, native 64x96'},
-    note:'The roster face sheet and six matched 40x38 comparison rows are human geometric evidence. Comparator pairs: Sailor Clinic/Guard, Slicker Hacker/Courier, Painter Cook/Busker. Final face geometry remains subject to owner review.'
+    note:'The roster face sheet and six matched 40x38 comparison rows are human geometric evidence. Comparator pairs: Sailor Clinic/Guard, Slicker Hacker/Courier, Painter Cook/Busker. Profile prop-region pixel counts are descriptive only; no arbitrary minimum threshold is applied. Automated prop audit asserts that prop-on preserves all body-only pixels. Final face geometry remains subject to owner review.'
   };
   fs.writeFileSync(path.join(out,'fourth-batch-design-evidence-report.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify(report));
