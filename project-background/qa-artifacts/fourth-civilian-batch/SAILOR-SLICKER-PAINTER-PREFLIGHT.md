@@ -1,35 +1,13 @@
-## Latest internal QA status — revision 09 validated; Claude package 03 prepared (2026-11-20)
+## Latest internal QA status — revision 10 validated; Claude package 04 prepared (2026-11-20)
 
-The current parallel design-source study is [revision 09](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg). Internal design-source capture and visual inspection are complete. The exact-output review package is [Claude review package 03](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-03.md); packages 01 and 02 are superseded.
+The current parallel design-source study is [revision 10](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-10.svg). Internal design-source capture and visual inspection are complete. The exact-output review package is [Claude review package 04](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md); packages 01–03 are superseded.
 
-- Exact tested source commit: `c74219986db2466122fe08ff3ad0bdcb012b5264`.
-- [Run #677](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801), artifact [14650099995](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995). Design-source capture/semantic validation passed: 24/24 native 64×96, 24/24 direct 28×42, 24/24 enlarged; 69 roster face crops and six matched face rows.
-- Profile prop audit: Sailor right 172 added pixels; Slicker left 295 (272 prop-region); Painter left 237 (95 prop-region). All checks passed. Actual sheets and enlarged profiles were visually inspected. Revision 09 shifts Slicker's umbrella/hand/handle inward; Painter's brush had already been shifted inward in revision 08. Direct-scale object identity/contact remain specific Claude review questions.
+- Exact tested source commit: 8ae6a47055c6c75e361738b21c01d8b07b6830b4. The SVG's internal title was corrected metadata-only after the run in commit f7efb67c3fdfcd38899c9d29996b1ed3e1310322; geometry is unchanged.
+- [Run #678](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334), artifact [14650399818](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334/artifacts/14650399818). Design-source capture/semantic validation passed: 24/24 native 64×96, 24/24 direct 28×42, 24/24 enlarged; 69 roster face crops and six matched face rows.
+- Profile prop audit passed: Sailor right 172 added/172 region; Slicker left 295 added/272 region; Painter left 237 added/95 region. Actual sheets and enlarged views were inspected. Revision 10 clarifies Slicker's umbrella shaft/canopy in front and back; direct game-scale identity is stronger. Sailor's rope-loop grasp remains a Claude review question; Painter's near-side brush grip and crop placement are clearer.
 - Proposed Sailor rear silhouette is visibly narrower and more vertically structured than Welder's broad squared rear silhouette in the matched comparison.
 - Browser QA overall failed only at global gates: unapproved golden snapshots (1 match / 23 changed) and 135 existing audio/resource HTTP 404 console entries. Page/script errors are empty; no golden snapshots or provenance changed.
-- All three remain design-stage only. Construction families UNASSIGNED; no silhouette, face, prop, handedness or palette has owner approval. Renderer implementation is NOT AUTHORIZED. Do not begin #15–23.
-
-## Latest internal QA status — revision 09 in revalidation (2026-11-20)
-
-The current parallel design-source study is [revision 09](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg). The previous Claude-ready claim is withdrawn; do not send superseded review package 01.
-
-- Run #673 [44777304508](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777304508), artifact [14649699220](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777304508/artifacts/14649699220), tested revision 07 at `f6d9e2dc84c3309489085f530f686fed195cd42c`. It generated all 24 native 64×96 and 24 direct 28×42 projections. Near-side prop-presence assertions passed; visual review then found Slicker's umbrella and Painter's brush too close to the left-profile crop edge.
-- Run #674 [44777818302](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302), artifact [14650547538](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302/artifacts/14650547538), tested revision 08 before the latest crop corrections. The Sailor/Welder matched rear comparison was visually distinct; its high overlap diagnostic remains a human-review prompt only.
-- Painter's left-profile brush was shifted inward in commit `3f5271a82f89a0882b5c24a5667db3907b01c874`. Slicker's left-profile umbrella, hand and handle cluster was shifted inward in revision 09 / commit `b70582e3ff4141e18c345ee68c9c968aef027d21`. The evidence builder targets revision 09 in commit `c74219986db2466122fe08ff3ad0bdcb012b5264`. A fresh artifact against this exact latest HEAD is required before considering the crop correction verified.
-- Both completed runs failed the global browser gate: unapproved golden snapshot baseline (1 match / 23 changed) and audio-resource HTTP 404s. Page/script errors were empty. No snapshots or provenance were changed.
-
-All three remain design-stage only. Construction families remain UNASSIGNED; no silhouette, face, prop, handedness or palette has owner approval. Renderer implementation is NOT AUTHORIZED. Do not begin #15–23.
-
-## Current internal QA and independent review handoff — revision 08 (2026-11-20)
-
-The internal design-source pass is complete for Sailor (#12), Slicker (#13) and Painter (#14). The exact-output Claude review package is [SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md). Package 01 is superseded.
-
-- Current source: [silhouette exploration 08](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg); [construction cards 01](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md); [face geometry study 02](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg).
-- Exact evidence: [Run #674](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302), artifact [14650547538](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302/artifacts/14650547538), tested commit `c004c4e9b231803bc3977b9d418f104e223dc417`.
-- Design-source captures: 24/24 native 64×96, 24/24 independently vector-rasterized direct 28×42, 24/24 enlarged 4×. Matched face comparisons, profile prop checks and proposed Sailor/Welder rear comparison are included.
-- Manual inspection: body-only silhouettes are distinct at native and direct scale; near-side props and character-relative handedness are present; far-side profile props are hidden; profile prop shapes and contact were visually inspected. Sailor/Welder rear comparison shows the proposed Sailor's narrower deck-coat construction distinct from Welder's broader blockier silhouette. Face geometry remains a principal independent-review question.
-- Overall Browser QA still fails only at global gates: unapproved snapshots (1 match / 23 changed) and 135 existing audio/resource HTTP 404 console entries. Page/script errors are empty. No snapshots or provenance changed.
-- No silhouette, face, prop, palette or construction family is owner-approved. All construction families remain UNASSIGNED; renderer work is NOT AUTHORIZED; #15–23 remain on hold.
+- All three remain design-stage only. Construction families UNASSIGNED; no silhouette, face, prop or palette has owner approval. Renderer implementation is NOT AUTHORIZED. #15–23 remain on hold pending independent review and owner approval.
 
 # Fourth civilian batch — Sailor, Slicker and Painter preflight
 
