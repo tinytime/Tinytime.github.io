@@ -911,13 +911,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[64,53],[73,54],[77,68],[75,78],[78,84],[73,89],[68,84],[70,77],[66,69]],coat);
         // A distinct cuff bridges the sleeve to the gripping hand.
         path([[68,74],[76,75],[78,82],[73,86],[67,83]],'#C8B89F',ink,1.1);
-        path([[72,81],[79,80],[83,84],[82,90],[76,92],[71,87]],skin,ink,1.2);
-        // The pan handle begins inside the curled grip; its bowl sits lower at waist height.
+        // The handle and pan are laid in first; the hand is painted last so its grip remains visible.
         path([[77,85],[81,83],[86,85],[82,89],[78,90]],'#4B3434',ink,1.1);
         path([[82,78],[94,78],[96,82],[94,94],[89,98],[83,96],[79,88]],'#B95B3C',ink,1.8);
         ell(88,81,8,3.2,'#E5A06B',ink,1.4);
         ell(88,81,5.2,1.6,'#4C3540',null);
         line([[83,84],[86,92],[91,94]],'#F2B17C',1.2);
+        path([[73,82],[79,80],[84,84],[84,90],[80,94],[74,91],[71,87]],skin,ink,1.25);
+        line([[75,87],[80,88]],'#8D5944',1);line([[76,90],[80,91]],'#8D5944',.8);
       }else{
         // Rear coat yoke, apron straps and tied bow; no front-only details leak through.
         path([[27,54],[39,47],[61,47],[73,54],[71,68],[29,68]],'#D6C2A3',ink,1.2);
@@ -938,11 +939,13 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[62,56],[69,60],[72,74],[74,81],[70,87],[64,84],[66,77]],coat);
       // Visible cuff, forearm and curled hand form one continuous grip.
       path([[65,79],[72,79],[75,84],[70,88],[64,85]],'#C8B89F',ink,1.05);
-      path([[70,82],[76,82],[80,86],[78,91],[72,90],[68,86]],skin,ink,1.15);
       line([[76,86],[84,87]],'#4B3434',4);
       g.save();g.translate(89,88);g.rotate(-.25);
       ell(0,0,9,6.5,'#B95B3C',ink,1.5);ell(0,-.5,6.6,4.2,'#3E2C34',null);
       line([[-6,-3],[4,-4.5]],'#F2B17C',1);g.restore();
+      // Hand overlaps the handle after the pan is drawn, with visible curled fingers.
+      path([[70,82],[76,81],[81,85],[81,91],[77,94],[71,91],[68,86]],skin,ink,1.2);
+      line([[72,87],[78,88]],'#8D5944',1);line([[73,90],[78,91]],'#8D5944',.8);
     }
     // Head: broad rounded face, cropped dark curls, and a tall pleated toque.
     if(!side){
@@ -1416,8 +1419,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[34,23],[38,17],[47,16],[61,18],[67,23],[65,27],[35,27]],'#263B35',ink,1.4);
       path([[32,25],[68,25],[66,27],[34,27]],'#D6B85D',ink,1.1);
       line([[43,19],[57,19]],'#526C58',.9);
-      path([[36,25],[40,22],[43,25],[42,31],[39,33],[36,30]],'#AEB5A8',null);
-      path([[64,25],[60,22],[57,25],[58,31],[61,33],[64,30]],'#AEB5A8',null);
+
     }else{
       if(back){
         ell(50,30,12,14,'#5B6260',ink,1.5);
