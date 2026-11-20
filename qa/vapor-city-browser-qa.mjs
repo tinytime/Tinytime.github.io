@@ -353,6 +353,10 @@ try {
   });
   await page.waitForTimeout(700);
   await page.screenshot({ path: path.join(out, 'game-town-tech-spawn-1x.png'), fullPage: true });
+  // The full-map capture proves the NPC-list spawn but is too wide for a visual read.
+  // Capture the same live in-world Tech at native 1x framing; this is a crop, not a resize.
+  const techTownCloseupClip = { x: 870, y: 370, width: 120, height: 120 };
+  await page.screenshot({ path: path.join(out, 'game-town-tech-spawn-closeup-1x.png'), clip: techTownCloseupClip });
 
   const atlasOnInitialState = await page.evaluate(() => window.PXA?.info?.() || null);
   await page.screenshot({ path: path.join(out, 'town-atlas-on.png'), fullPage: true });
@@ -1613,6 +1617,7 @@ try {
     townClickError,
     townSceneState,
     techTownCaptureAudit,
+    techTownCloseup: { path: 'game-town-tech-spawn-closeup-1x.png', clip: techTownCloseupClip, scale: 'native 1x in-world screenshot crop; not enlarged' },
     grannyMeasurements,
     grannyRuntimeRef,
     grannyMeasurementCheck,
