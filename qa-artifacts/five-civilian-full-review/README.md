@@ -1,3 +1,21 @@
+# Current five-civilian P2 correction package — 2026-11-20
+
+This section supersedes historical evidence/status below.
+
+- **Current renderer:** `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb`.
+- **Baseline:** [Run #595](https://github.com/tinytime/Tinytime.github.io/actions/runs/44645116652), artifact 14587318765.
+- **Corrected captures:** [Run #599](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650509863), artifact 14590034123.
+- **Expanded review package:** [Run #600](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650864326), artifact 14591690387. It contains all 20 native and 20 direct 28×42 captures, both contact sheets, the black silhouette sheet, town-ground diagnostic composite, Coach/Courier comparisons, Cook prop-contact views, Usher readability sheet, role-debug, gallery/town context and report.
+- **Independent review prompt:** [CLAUDE-REVIEW-BRIEF.md](CLAUDE-REVIEW-BRIEF.md) — updated to re-evaluate the four owner-authorized P2 areas.
+- **Internal QA and pixel-diff report:** [RUN-599-600-INTERNAL-QA.md](../../project-background/qa-artifacts/five-civilian-corrections/RUN-599-600-INTERNAL-QA.md).
+- **Identity/proportion cards:** [IDENTITY-AND-PROPORTION-CARDS.md](../../project-background/qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md).
+
+Run #599's targeted QA passed: syntax/module, 92/92 directional integrity with zero edge contacts, 20/20 direct game-scale captures, 12/12 role-debug, prop audit and gallery; pageErrors=0 and scriptErrors=0. Run #600 successfully generated the expanded sheets. The Actions workflows still conclude FAILED on the expected missing-audio 404 diagnostics, global Clinic/Sailor front silhouette gate (IoU 0.909429), and unapproved golden snapshots (1 match / 23 changed). These are not character-specific P2 defects. No snapshots were refreshed or approved.
+
+**Internal visual disposition:** the four P2 areas are implemented and pass targeted internal visual inspection. Claude must independently verify face individuality and the Coach/Courier rationale. All five remain NOT APPROVED; owner approval is still required. Runner is excluded and the remaining 17 remain on hold. The town-ground composite is diagnostic only, not proof of live named-NPC spawn.
+
+---
+
 # Five-Civilian Vector Review — Claude
 
 ## Purpose and scope
