@@ -172,10 +172,10 @@ Run #678 overall concluded **FAILURE** at the global browser diagnostics gate:
 **Internal design-source QA: PASS WITH REVIEW QUESTIONS.** Claude package 04 is prepared with the exact revision-10 source and Run #678 artifact. This is ready for independent comparative review, not owner approval. No silhouette, face, prop, palette or construction family is approved. All three construction families remain UNASSIGNED. Production renderer implementation is NOT AUTHORIZED. Roster positions #15–23 remain on hold pending Claude's review and explicit owner approval.
 
 
-## Revision 19 — preflight disposition (2026-11-20)
+## Revision 21 — preflight disposition (2026-11-20)
 
-- Source: [revision 19 SVG](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg), artwork commit `44d133b65c8ebd6aa3c207e03960d85034df193b`.
-- Handedness follows construction-standard §F2. Sailor remains character-left (front viewer-right, rear viewer-left, near-side right profile); Painter remains character-right (front viewer-left, rear viewer-right, near-side left profile). Far-side profile props remain hidden. No mirroring inversion is applied.
-- Sailor rope coil/grip and Painter compact wedge brush are revised. Slicker is preserved with no geometry changes.
-- **Preflight status: NOT YET QA-READY.** Revision-19 native 64×96 and independent direct 28×42 captures have not been generated or inspected. Enlarged contact views, anatomy/contact, Painter garment transition, frame-edge clearance and roster differentiation remain to be checked. No arbitrary thresholds; connectivity alone is not proof of grip.
-- Do not prepare Claude review package until internal QA is complete and passing. Owner approval remains pending; renderer work remains unauthorized.
+- Source: [revision 21 SVG](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg), exact artwork commit bf3ee2055cf8e025df72e191f29b78b336666a5a.
+- Handedness remains as documented: Sailor character-left (front viewer-right, rear viewer-left, visible in right profile); Painter character-right (front viewer-left, rear viewer-right, visible in left profile). Far-side props hidden; no mirroring inversion.
+- Revision-21 design-source capture and focused internal QA passed: 12/12 body preservation, 48/48 connectivity, 2/2 profile prop contact. Native/direct and enlarged captures were inspected. Slicker is preserved unchanged from revision 18.
+- **Preflight: READY FOR INDEPENDENT CLAUDE REVIEW**, not owner-approved. Grip clarity, prop recognition and set differentiation remain review questions. No palette finalization or production renderer implementation is authorized.
+

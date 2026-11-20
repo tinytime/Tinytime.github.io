@@ -233,3 +233,11 @@ No silhouette, face, prop, handedness, palette or construction family is approve
 - Slicker: eight body/prop directional panels remain byte-identical to revision 18.
 - Overall workflow remains FAIL at the separate browser diagnostics step (audio HTTP 404 and golden gate 1/23). No golden snapshots changed. This is not a design-source failure.
 - Design-source internal QA passed; Claude review and owner approval remain outstanding. No renderer authorization.
+
+
+## Revision 21 — exact-source QA addendum
+
+- Tested source bf3ee2055cf8e025df72e191f29b78b336666a5a; Run #807 artifact [14664895227](https://github.com/tinytime/Tinytime.github.io/actions/runs/44807994778/artifacts/14664895227).
+- Focused checks: body preservation 12/12 with zero removed pixels; anatomy/connectivity 48/48; profile prop contact 2/2. 24 native 64×96, 24 independently rasterized direct 28×42 and 24 enlarged projections rendered.
+- Sailor coil reads as a compact multi-turn rope coil in front/back and near-side right profile; Painter brush reads as a flat wedge brush in front/back and near-side left profile. Both still require independent judgment on grip clarity at direct scale.
+- Slicker remains byte-identical to revision 18 across all eight directional body/prop panels. No renderer implementation or golden snapshot changes.
