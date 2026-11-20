@@ -1,6 +1,6 @@
 # Next Vector Batch — Guard, Vendor and Clinic Worker
 
-**Status:** first four-view silhouette exploration and construction cards committed for owner review; renderer production is not authorized. See the [owner preflight proposal](OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md), [silhouette sheet](GUARD-VENDOR-CLINIC-SILHOUETTE-EXPLORATION.svg) and [construction cards](GUARD-VENDOR-CLINIC-CONSTRUCTION-CARDS.md).  
+**Status:** revision 02 design package committed for owner review after the first exploration was returned for revision; renderer production is not authorized. See the [owner preflight proposal](OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md), [revision 02 four-view and face-study sheet](GUARD-VENDOR-CLINIC-SILHOUETTE-REVISION-02.svg), [matched roster comparison](GUARD-VENDOR-CLINIC-ROSTER-COMPARISON-REVISION-02.svg) and [revision 02 construction cards](GUARD-VENDOR-CLINIC-CONSTRUCTION-CARDS-REVISION-02.md).  
 **Batch order:** Guard, Vendor and Clinic worker — first three unstarted entries in the live roster.  
 **Roster context:** 23 types; five owner-approved; Runner built but excluded from the five-character approval and pending focused review; 17 roster entries remain unstarted/on hold.  
 **Reference:** Granny Volt is the 10/10 craft benchmark, never a template.
@@ -17,9 +17,20 @@
 - Town composites are diagnostic context only unless the named character is explicitly spawned and captured.
 - The construction standard was ratified by the owner on 2026-11-19. The written direction and first actual silhouette exploration are ready for owner review. Do not begin renderer implementation until the owner explicitly accepts the actual four-view silhouettes.
 
-## Current silhouette exploration status
+## Current silhouette exploration status — revision 02
 
-The first matched-scale black four-view sheet and detailed construction cards are now present in the linked artifacts above. This is an initial design proposal, not final approved silhouette art. The SVG uses a common 64×96 design field and shows all four directions; it is not a native renderer capture or direct game-scale screenshot. Prop contacts are proposed construction relationships and remain subject to owner review and later production QA.
+The first exploration was returned for revision because the three figures shared a common mannequin-like torso, arm and stance construction. Revision 02 changes the underlying bodies and weight distribution rather than relying on headwear or accessories:
+
+- Guard: broad protective wedge, braced character-right forearm, offset bent-knee stance and heavier boots.
+- Vendor: forward customer pitch, rotated shoulder line, advanced leading foot, open waistcoat negative space and explicit wrist/palm support beneath the shallow tray.
+- Clinic Worker: narrow tapered torso, shifted hip, angled feet, short asymmetric wrap tunic and separated pouch/hand relationship.
+
+Current deliverables:
+- [Revision 02 four-view silhouettes and face-construction studies](GUARD-VENDOR-CLINIC-SILHOUETTE-REVISION-02.svg)
+- [Matched front-silhouette comparison against Granny, the five approved civilians, Runner and this batch](GUARD-VENDOR-CLINIC-ROSTER-COMPARISON-REVISION-02.svg)
+- [Revision 02 construction cards with shell-family and palette proposals, three must-survive items, face comparisons and per-view contact/handedness records](GUARD-VENDOR-CLINIC-CONSTRUCTION-CARDS-REVISION-02.md)
+
+The 28×42 panels are raster downsamplings of the design silhouettes, not direct game-renderer captures. Existing roster comparison silhouettes come from Run #603's exact 64×96 browser artifact. No new character has been rendered through the game; prop contacts remain design proposals. The package is still NOT APPROVED and renderer production remains blocked pending explicit owner acceptance.
 
 ## 1. Guard — security / protective role
 
