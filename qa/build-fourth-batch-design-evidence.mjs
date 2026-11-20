@@ -70,6 +70,35 @@ try {
     }
     const sourceDirectionLabels=(source.match(/class="lab">/g)||[]).length;
     if(!source.includes('EXPLORATION 18') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
+    // Painter's body-only anatomy and brush contact chain must be one
+    // continuous dark silhouette in native and independently rasterized
+    // direct game-scale projections. Eight-neighbour connectivity is used;
+    // no similarity or minimum-size threshold is applied.
+    const painterConnectivityAudit=[];
+    for(const mode of ['body','prop']) for(const direction of directions) for(const scale of ['native','direct']) {
+      const src=data['painter-'+mode+'-'+direction][scale];
+      const im=new Image();im.src=src;await im.decode();
+      const width=im.naturalWidth,height=im.naturalHeight;
+      const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
+      const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(im,0,0);
+      const rgba=ctx.getImageData(0,0,width,height).data;
+      const dark=new Uint8Array(width*height),seen=new Uint8Array(width*height);
+      for(let i=0;i<dark.length;i++){const k=i*4;dark[i]=rgba[k]<70&&rgba[k+1]<70&&rgba[k+2]<70?1:0;}
+      let components=0;
+      for(let i=0;i<dark.length;i++) if(dark[i]&&!seen[i]) {
+        components++;const stack=[i];seen[i]=1;
+        while(stack.length){const at=stack.pop(),x=at%width,y=Math.floor(at/width);
+          for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){
+            if(!dx&&!dy)continue;const nx=x+dx,ny=y+dy;
+            if(nx<0||ny<0||nx>=width||ny>=height)continue;
+            const ni=ny*width+nx;if(dark[ni]&&!seen[ni]){seen[ni]=1;stack.push(ni);}
+          }
+        }
+      }
+      painterConnectivityAudit.push({character:'painter',mode,direction,scale,width,height,connectedComponents:components,pass:components===1});
+    }
+    console.log(JSON.stringify({painterConnectivityAudit}));
+    if(painterConnectivityAudit.some(x=>!x.pass))throw new Error('Painter anatomy/prop contact is disconnected: '+JSON.stringify(painterConnectivityAudit.filter(x=>!x.pass)));
     // Profile-region pixel counts are descriptive only; no arbitrary minimum
     // is imposed. Body-only geometry must remain present in every prop-on view.
     const bodyPreservationAudit=[];
@@ -312,6 +341,7 @@ try {
     status:'design_source_projection_only',
     revision:18,
     bodyPreservationAudit:svgData.bodyPreservationAudit,
+    painterConnectivityAudit:svgData.painterConnectivityAudit,
     integratedWeatherDetail:'Face-side-open rain hood, rear yoke/hem seams, shortened storm closure and separated brush bristles; no separate umbrella',
     source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg',
     figureFields:24,
