@@ -2,9 +2,9 @@
 
 **Date:** 2026-11-20  
 **Characters:** Sailor #12, Slicker #13, Painter #14  
-**Current source:** [silhouette exploration 08](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg)  
-**Current review package:** [Claude review package 02](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md)  
-**Exact source tested by latest run:** `c004c4e9b231803bc3977b9d418f104e223dc417`
+**Current source:** [silhouette exploration 10](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-10.svg)  
+**Current review package:** [Claude review package 04](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md)  
+**Exact source tested by latest run:** `8ae6a47055c6c75e361738b21c01d8b07b6830b4`
 
 ## Run history and corrections
 
@@ -64,3 +64,17 @@ These global failures do not mean the new design-source projections failed. Sail
 **Internal design-source QA: PASS WITH REVIEW QUESTIONS.** Ready for Claude's independent comparative review. Not owner-approved.
 
 All three construction families remain UNASSIGNED. No final silhouette, face, prop or palette is approved. Production renderer implementation is NOT AUTHORIZED. Roster positions #15–23 remain on hold until Claude's review is assessed and the owner explicitly approves the next gate.
+
+
+## Run #678 — revision 10 current authoritative evidence (2026-11-20)
+
+- Exact source commit: `8ae6a47055c6c75e361738b21c01d8b07b6830b4`; source [revision 10](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-10.svg).
+- [Run #678](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334), artifact [14650399818](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334/artifacts/14650399818).
+- Design-source projection and semantic validation passed: 24/24 native 64×96, 24/24 direct 28×42, 24/24 4× nearest-neighbour images; 69 roster face crops, six new face crops and six matched face rows.
+- Profile prop audit passed: Sailor/right 172 total / 172 in expected region; Slicker/left 295 total / 272 in expected region; Painter/left 237 total / 95 in expected region.
+- Browser checks: directional integrity 92/92; direct 28×42 assertion 20/20; role debug 12/12; prop audit 10 archetypes; gallery rendered. Golden snapshot gate remains 1 match / 23 changed. Existing audio/resource 404 console errors: 135. pageErrors=0; scriptErrors=0. No golden snapshots or provenance changed.
+- Visual inspection of all 24 native/direct/enlarged fields: Sailor's coil is held front/back/right profile only; Slicker's umbrella front/back/left profile only; Painter's brush front/back/left profile only. All far-side props are occluded. Body-only silhouettes are distinct at 28×42. The corrected native-aspect-ratio Sailor/Welder rear comparison supports clear proposed-silhouette differentiation.
+- Face comparison labels and comparator names are legible. Faces remain provisional and are explicitly submitted for independent geometric-identity critique.
+- Town/gallery screenshots were inspected as existing-scene smoke evidence only; these three characters are not installed in production renderers or live spawn/gallery systems.
+
+**Current disposition: INTERNAL DESIGN-SOURCE QA PASS WITH REVIEW QUESTIONS.** Claude package 04 is prepared. No owner approval or renderer authorization. All construction families remain UNASSIGNED; #15–23 remain held.
