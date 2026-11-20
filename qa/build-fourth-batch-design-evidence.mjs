@@ -237,7 +237,7 @@ try {
     matchedFaceComparisonRows:faceComparisons.length,
     rosterFaceDirections:[...new Set(rosterFaces.map(x=>x.direction))],
     faceCropDimensions:{width:40,height:38,source:'current game directional snapshot hook, native 64x96'},
-    note:'The roster face sheet is for human geometric comparison only. Closest two faces per new character and defining cues remain unselected until visual inspection.'
+    note:'The roster face sheet and six matched 40x38 comparison rows are human geometric evidence. Comparator pairs: Sailor Clinic/Guard, Slicker Hacker/Courier, Painter Cook/Busker. Final face geometry remains subject to owner review.'
   };
   fs.writeFileSync(path.join(out,'fourth-batch-design-evidence-report.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify(report));
