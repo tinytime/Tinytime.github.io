@@ -135,6 +135,53 @@ try {
   const npcSpriteModuleLoaded = await page.evaluate(() => !!window.NPC_SPRITES &&
     typeof window.NPC_SPRITES.createGrannyRenderer === 'function' &&
     typeof window.NPC_SPRITES.createCivRenderer === 'function');
+  // Dedicated Tier A evidence for the owner-approved Guard / Vendor / Clinic batch.
+  // Instantiate the real civilian renderer factory and call its live owCiv dispatch
+  // at native 64x96 and direct 28x42 tile scale; the latter is not a resized PNG.
+  const approvedBatchCapture = await page.evaluate(() => {
+    const renderer = window.NPC_SPRITES.createCivRenderer({
+      CIV:{}, HB_CIV:{}, GRANNY_REF:{}, OWT:36, og:null, drawGrannyVoltSprite:()=>{}
+    });
+    const directions = ['d','u','l','r'];
+    const civilians = ['guard','vendor','clinic'];
+    const render = (civ,direction,width,height,OWT) => {
+      const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
+      const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+      const rx=(width/2-OWT/2)/OWT;
+      const baseline=height;
+      const ry=(baseline-(OWT-5))/OWT;
+      const npc={id:civ,civ,x:0,y:0,rx,ry};
+      renderer(0,0,direction,false,npc,0,0,ctx,{roleDebugLayers:true});
+      return {civ,direction,width,height,dataUrl:canvas.toDataURL('image/png')};
+    };
+    const native=[],gameScale=[];
+    for(const civ of civilians)for(const direction of directions){
+      native.push(render(civ,direction,64,96,36/0.28));
+      gameScale.push(render(civ,direction,28,42,36));
+    }
+    return {native,gameScale};
+  });
+  const approvedBatchNativeDir=path.join(out,'approved-next-batch-native-64x96');
+  const approvedBatchGameDir=path.join(out,'approved-next-batch-game-scale-28x42');
+  fs.mkdirSync(approvedBatchNativeDir,{recursive:true});
+  fs.mkdirSync(approvedBatchGameDir,{recursive:true});
+  for(const item of approvedBatchCapture.native)fs.writeFileSync(path.join(approvedBatchNativeDir,item.civ+'-'+item.direction+'.png'),Buffer.from(item.dataUrl.split(',')[1],'base64'));
+  for(const item of approvedBatchCapture.gameScale)fs.writeFileSync(path.join(approvedBatchGameDir,item.civ+'-'+item.direction+'.png'),Buffer.from(item.dataUrl.split(',')[1],'base64'));
+  const approvedBatchCaptureAudit={
+    civilians:['guard','vendor','clinic'],
+    directions:['front','back','left','right'],
+    nativeExpected:12,nativeCaptured:approvedBatchCapture.native.length,
+    gameScaleExpected:12,gameScaleCaptured:approvedBatchCapture.gameScale.length,
+    nativeDimensions:approvedBatchCapture.native.map(({civ,direction,width,height})=>({civ,direction,width,height})),
+    gameScaleDimensions:approvedBatchCapture.gameScale.map(({civ,direction,width,height})=>({civ,direction,width,height})),
+    pass:approvedBatchCapture.native.length===12&&approvedBatchCapture.gameScale.length===12&&
+      approvedBatchCapture.native.every(item=>item.width===64&&item.height===96&&item.dataUrl.startsWith('data:image/png'))&&
+      approvedBatchCapture.gameScale.every(item=>item.width===28&&item.height===42&&item.dataUrl.startsWith('data:image/png'))&&
+      new Set(approvedBatchCapture.native.map(item=>item.civ+'|'+item.direction)).size===12&&
+      new Set(approvedBatchCapture.gameScale.map(item=>item.civ+'|'+item.direction)).size===12,
+    captureMethod:'Direct createCivRenderer/owCiv render at native 64x96 and live OWT=36 / vector scale=0.28 for 28x42; no resize.'
+  };
+
   const grannyBeforeAfterDataUrl = await page.evaluate(() => {
     const OWT = 36 / 0.28;
     const directions = ['d', 'u', 'l', 'r'];
@@ -1439,6 +1486,7 @@ try {
     npcBodyCheck,
     civilianFaceDistinctnessAudit,
     gameScaleNpcCaptureAudit,
+    approvedBatchCaptureAudit,
     roleDebugAudit,
     roleDebugRowWidthReport,
     civilianVisualIntegrityAudit,
