@@ -2,8 +2,8 @@
 
 ## Current authority — 2026-11-20
 
-- **Third batch prepared:** Tech, Hacker and Fisher now have individual design briefs and first-pass four-direction silhouette concepts. Owner directed ChatGPT to proceed without sending the prior Run #629 output back to Claude; this does not fabricate a Claude verdict or erase its pending historical status. The new silhouettes are not yet owner-approved, so renderer implementation remains gated on owner preflight. See `qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md` and the companion SVG.
-- **Scope protection:** no Tech/Hacker/Fisher renderer code, approved civilian art, golden snapshots or baselines were changed during preflight.
+- **Third batch preflight — round 04 ready for owner review:** Tech, Hacker and Fisher have individual design briefs and revised four-direction silhouette concepts. Round 04 incorporates the owner's latest corrections to Fisher's rear yoke/hood, profile prop visibility, Tech's four-view head cue and Hacker's far-side drape occlusion. The concepts are ready for owner silhouette review but are not approved; renderer implementation remains gated on explicit owner acceptance. See `qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md` and the companion SVG. See `qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md` and the companion SVG.
+- **Scope protection:** no Tech/Hacker/Fisher renderer code, approved civilian art, golden snapshots or baselines were changed during round-04 silhouette preparation.
 
 - Owner approval for the rendered Guard, Vendor and Clinic Worker batch was received on 2026-11-20, based on Run #629. Internal QA/visual inspection are complete; Claude's independent review of the exact final artifact remains pending. The remaining 17 stay on hold until that required review is recorded. (updated after Run #628)
 
