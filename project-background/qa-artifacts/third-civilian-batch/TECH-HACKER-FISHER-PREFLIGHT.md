@@ -1,6 +1,6 @@
 # Next Civilian Batch — Tech, Hacker and Fisher
 
-**Status:** preparation authorized by the project owner on 2026-11-20. First-pass silhouette sheet rejected in reviewer feedback dated 2026-11-20; correction round 02 is now the active proposal and remains NOT APPROVED pending owner review. This package establishes character-specific design briefs and first-pass directional silhouette concepts. It does not constitute approval of the silhouettes or authorize renderer implementation. Submit this package to the owner for silhouette/design approval before coding the three renderers.
+**Status:** preparation authorized by the project owner on 2026-11-20. First-pass silhouette sheet rejected in reviewer feedback dated 2026-11-20; correction round 03 is now the active proposal and remains NOT APPROVED pending owner review. This package establishes character-specific design briefs and revised directional silhouette concepts. It does not constitute approval of the silhouettes or authorize renderer implementation. Submit this package to the owner for silhouette/design approval before coding the three renderers.
 
 **Batch order:** Tech (#9), Hacker (#10), Fisher (#11).  
 **Builder:** ChatGPT. **Final decision authority:** project owner.  
@@ -29,7 +29,7 @@ Reviewer correction: the first sheet was rejected because all three read as one 
 | Hacker | clinic archetype; hood head style | Narrow, folded-in silhouette with cropped asymmetric drape-shell, exposed forearm and tucked-in stance; deliberate negative space around face and hands | Generic hoodie recolour, Tech's utility harness, Courier's A-line messenger shell |
 | Fisher | trades archetype; work-cap style | Low, wide oilskin smock / bib-front shell, braced legs and substantial deck boots; one low-held net/float interaction | Sailor's newsboy-cap/naval look, Trades generic work jacket, fishing rod as sole identity |
 
-These remain proposals, not locked designs. The attached correction-round-02 SVG replaces the rejected first-pass silhouette sheet. Fisher is now directed to the widest base and longest flared smock; Tech to a forward lean and narrow waist; Hacker to the narrowest body with one-sided drape. Palette is deferred until black-silhouette separation is accepted.
+These remain proposals, not locked designs. The attached correction-round-03 SVG incorporates reviewer feedback: Tech and Fisher front/back prop placement is explicitly mirrored for character-left; Hacker slate remains character-right; Tech and Hacker gain distinct stepped head notches; Fisher's hood is reduced and its brow lip clarified; Fisher's back yoke is a solid garment plane with seam; Tech's flared trouser leg is reduced; Hacker's right profile gains its asymmetric hanging panel. Fisher remains the widest base and longest smock; Tech retains forward lean and narrow waist; Hacker remains the narrowest body. Palette direction is updated below.
 
 ---
 
@@ -89,7 +89,7 @@ These remain proposals, not locked designs. The attached correction-round-02 SVG
 
 **Prop/contact plan:** slate held low in character-right hand (front: viewer-left); character-left arm is tucked/partly occluded by the drape. In profiles, show the near wrist and slate edge only when physically supported; far-side hand stays occluded. Rear view must not duplicate the slate or invent a second hand.
 
-**Palette direction:** muted aubergine/ink plum, charcoal-black shadow, cool dusty lilac fabric plane and a small electric-lime or acid-cyan device accent. Avoid Guard graphite/ochre, Vendor berry/saffron and Tech petrol/copper. Do not rely on neon to establish the role.
+**Palette direction:** charcoal, cool lilac and a restrained slate-blue accent. Avoid Vendor's plum/berry family and do not rely on neon to establish the role.
 
 **Face/head check:** exposed temple and eye must remain visible in both profiles; the hood, if retained, is a secondary drape not a face mask. Avoid an anonymous blank dark face.
 
@@ -120,7 +120,7 @@ These remain proposals, not locked designs. The attached correction-round-02 SVG
 
 **Prop/contact plan:** compact net basket held in character-left hand (front: viewer-right), below waist level. Character-right hand rests near the hip/float line. Profiles must show one near-side grip only; far-side and rear views use occlusion, not mirrored duplicate basket rims or hands. Keep all prop geometry inside the 64×96 sprite field.
 
-**Palette direction:** muted storm-teal/oilskin green, dark marine charcoal, weathered canvas/salt-grey and a restrained rust-orange float accent. Avoid Clinic teal/sea-glass, Tech petrol/copper and Sailor's likely navy/ivory direction. Large value planes must remain distinct at direct game scale.
+**Palette direction:** weathered ochre and rust oilskin, dark charcoal and weathered canvas/salt-grey. Avoid the blue-green cluster occupied by Tech, Clinic sea-glass and Guard navy. Large value planes must remain distinct at direct game scale.
 
 **Face/head check:** hood must frame, not hide, the face. The brow, eye, nose and chin must remain visible in both profiles; do not solve the role with a blank hood silhouette.
 
@@ -137,8 +137,14 @@ These remain proposals, not locked designs. The attached correction-round-02 SVG
 
 ## Evidence status
 
-- The SVG is a first-pass design exploration only; its four silhouettes per character are separately authored, not mirrored copies.
+- The SVG is a correction-round-03 design exploration only. Front/back views are separately checked for character-relative handedness; mirrored transformations are used only where required to place the character-relative prop on the correct viewer side. Profile studies retain their own near/far anatomy.
 - No game renderer has been changed for Tech, Hacker or Fisher.
 - No direct renderer captures, game-scale face crops, prop-contact audit or town spawn evidence exist yet for these three.
 - No owner silhouette approval is implied by preparing this package.
+
+### Reviewer feedback and correction round 03 — 2026-11-20
+
+The reviewer judged round 02 a substantial improvement: body geometry and role separation were now distinct; Tech's rear harness, Hacker's harness-free back, Hacker's one-sided drape and palette separation were accepted. Four remaining issues were identified: front/back handedness was inconsistent; Fisher's rear yoke read as a white torso hole; Tech and Hacker head-read cues lacked distinct black-silhouette notches; and Fisher's hood/head was oversized and merged into the shoulders, with an ambiguous profile projection. Minor issues were Tech's flared trouser leg and Hacker's generic right profile.
+
+Round 03 updates the SVG to address those findings. In particular, Tech/Fisher character-left props are shown viewer-right in front and viewer-left in back; Hacker's character-right slate is viewer-left in front and viewer-right in back. Fisher's yoke is a solid garment plane with a seam, hood dimensions are reduced and the profile lip shortened. These are still design-sheet studies only. The reviewer has not yet confirmed round 03, and owner approval remains pending.
 - No golden snapshots, existing approved civilian renderers or legacy dispatch behavior were changed.
