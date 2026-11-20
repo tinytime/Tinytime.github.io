@@ -2,14 +2,13 @@
 
 ## Current authority — 2026-11-20
 
-- **Run #603 independent review:** Claude recommends the five for owner review, reports no P0/P1 defects, verifies U4 at native and direct game scale, and withdraws the earlier outline criticism. Full scope limitations and findings are in [the Run #603 review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-603.md).
-- **Owner approval:** Usher, Cook, Courier, Coach and Referee are **APPROVED — first five-character batch complete**. Preserve Cook C1 (deferred), Usher U2 (declined), U4 (resolved) and Coach/Courier X1 (accepted).
-- **QA provenance:** Run #603 tested renderer 2c00cfca09cc12ea19a72662c235beed2e9a19cb, artifact 14593339734. Targeted results passed: 20/20 native, 20/20 direct 28×42, 92/92 integrity, zero edge contacts/detached large components, role-debug 12/12, prop audit/gallery, page/script errors 0. Overall Actions failure remains recorded: snapshots 1/23 changed and 180 existing audio 404s. No snapshots refreshed/approved.
-- **Evidence limits:** Claude viewed the 40 captures as five assembled sheets, not 40 separate images; did not inspect docs 01/03/04, tracker, six-civilian audit, history, Cook prop-contact, role-debug, torso diagnostics, gallery or separate town captures. No walk-frame sheet was supplied. Do not overstate the review as a complete repository audit.
-- **Construction standard:** F2–F7 have been revised; the shell-family register and next-batch briefs are prepared. The standard is not yet marked ratified; that remains an explicit owner decision.
-- **Next batch:** Guard, Vendor and Clinic worker draft briefs are ready. No renderer implementation is authorized until standard ratification and silhouette preflight. Runner remains built but unreviewed in this five-character round.
+- **Run #603:** Claude's independent review recommended the five-character set for owner review, reported no P0/P1 defects and verified Usher U4. The scope limitations and findings remain documented in the [Run #603 review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-603.md).
+- **Owner approval:** Usher, Cook, Courier, Coach and Referee are owner-approved and complete. Preserve Cook C1 (deferred), Usher U2 (declined), U4 (resolved) and Coach/Courier X1 (accepted).
+- **QA provenance:** Run #603 tested renderer `2c00cfca09cc12ea19a72662c235beed2e9a19cb`, artifact 14593339734. Targeted results passed: 20/20 native, 20/20 direct 28×42, 92/92 integrity, zero edge contacts/detached large components, role-debug 12/12, prop audit/gallery, page/script errors 0. Overall Actions concluded failure on snapshots (1 match / 23 changed) and 180 existing audio 404s. No snapshots refreshed or approved.
+- **Construction standard:** owner-ratified on 2026-11-19; it is the governing standard for new civilian production.
+- **Next batch:** Guard, Vendor and Clinic worker. The [owner preflight proposal](qa-artifacts/next-civilian-batch/OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md) is prepared for owner review. It is a written design proposal, not rendered silhouette evidence. Renderer production remains blocked until the owner accepts the direction and reviews the NPC Designer's actual four-view black silhouettes.
+- **Runner:** built but excluded from the Run #603 five-character review; pending focused review and owner decision.
 - **Golden snapshots:** none were refreshed or approved. Keep overall Actions failure distinct from targeted character evidence and visual approval.
-
 
 ## Claude Run #600 re-review findings — historical; owner dispositions recorded above
 
