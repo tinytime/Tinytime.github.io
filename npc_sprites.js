@@ -702,10 +702,10 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
   const grad = (x1, y1, x2, y2, stops) => { const z = g.createLinearGradient(x1, y1, x2, y2); for (const [p, c] of stops) z.addColorStop(p, c); return z; };
   const line = (pts, color, width = 2) => { g.beginPath(); g.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]); g.strokeStyle = color; g.lineWidth = width; g.lineCap = 'round'; g.lineJoin = 'round'; g.stroke(); };
   const jacketG = (x1, x2) => grad(x1, 50, x2, 98, [[0, '#718DAF'], [.4, '#294B70'], [1, '#142A43']]);
-  const pantsL = grad(36, 93, 48, 130, [[0, '#667F9D'], [.5, '#344E6B'], [1, '#172A40']]);
-  const pantsR = grad(52, 93, 64, 130, [[0, '#536F8D'], [.5, '#2A4562'], [1, '#13263B']]);
+  const pantsL = grad(36, 93, 48, 130, [[0, '#A9BED0'], [.48, '#7189A3'], [1, '#3D536B']]);
+  const pantsR = grad(52, 93, 64, 130, [[0, '#91A9C0'], [.48, '#647E99'], [1, '#344B64']]);
   const sleeveG = (x1, x2) => grad(x1, 54, x2, 86, [[0, '#8AA5C1'], [.5, '#3F6284'], [1, '#1C3855']]);
-  const shoe = '#2B2340';
+  const shoe = grad(34, 130, 66, 136, [[0, '#777B8B'], [1, '#414357']]);
   const ell = (cx, cy, rx, ry, fill, stroke = ink, lw = 1.6, rot = 0) => { g.beginPath(); g.ellipse(cx, cy, rx, ry, rot, 0, Math.PI * 2); g.fillStyle = fill; g.fill(); if (stroke) { g.strokeStyle = stroke; g.lineWidth = lw; g.stroke(); } };
   const board = (x, y, w, h, face) => {
     path([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], face ? '#EDE8D8' : grad(x, y, x + w, y + h, [[0, '#D89A5A'], [1, '#8F5B33']]), ink, 1.4);
@@ -753,11 +753,12 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       path([[60, 50], [51, 62], [54, 66], [62, 55]], '#1C3855', ink, 1.2);
       line([[41, 52], [48, 61]], pink, 2.4); line([[59, 52], [52, 61]], pink, 2.4);
       line([[50, 62], [50, 98]], '#241632', 1.5);
-      [72, 82, 92].forEach(y => { ell(50, y, 1.3, 1.3, '#FFD0EE', null); });
+      [72, 82, 92].forEach(y => { ell(50, y, 1.0, 1.0, '#B8C6D4', null); });
       // name badge
-      path([[38, 65], [48, 65], [48, 73], [38, 73]], '#FFE1F4', ink, 1.2); line([[40, 69], [46, 69]], pinkLo, 2);
+      path([[56, 65], [66, 65], [66, 74], [56, 74]], '#E6D5A4', ink, 1.2); path([[59, 67], [63, 67], [63, 72], [59, 72]], '#314C67', null); line([[57, 75], [65, 75]], '#B7C7D6', 1);
       // hem trim
       line([[34, 97], [50, 99], [66, 97]], pink, 3);
+      path([[36, 99], [64, 99], [64, 103], [36, 103]], '#8FA6BC', ink, 1); path([[48, 99], [53, 99], [53, 103], [48, 103]], '#D6A84F', ink, .8);
       // hanging right arm (viewer-left)
       path([[33, 55], [38, 54], [37, 72], [36, 88], [30, 88], [31, 72]], sleeveG(30, 38), ink, 1.4);
       line([[30.5, 85], [36.5, 85]], pink, 3);
@@ -788,6 +789,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     path([[44, 40], [54, 40], [55, 50], [43, 50]], '#B97F5C', ink, 1.4);
     path([[43, 53], [49, 48], [57, 50], [61, 56], [60, 84], [62, 99], [38, 99], [41, 84], [40, 60]], grad(40, 50, 62, 98, [[0, '#718DAF'], [.45, '#294B70'], [1, '#142A43']]), ink, 1.8);
     line([[39, 97], [50, 99], [61, 97]], pink, 3);
+    path([[41, 99], [60, 99], [60, 102], [41, 102]], '#8FA6BC', ink, .9);
     path([[38, 94], [43, 96], [41, 105], [37, 101]], '#172A40', ink, 1.2);   // short rear tail
     line([[56, 56], [57, 96]], '#241632', 1.3);
     ell(57, 74, 1.2, 1.2, '#FFD0EE', null); ell(57, 84, 1.2, 1.2, '#FFD0EE', null);
@@ -906,14 +908,16 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         // Sleeves and hands: left arm rests at hip; right arm presents the pan.
         path([[27,54],[36,53],[34,77],[31,89],[23,88],[24,69]],coat);
         path([[27,86],[34,86],[35,94],[28,95]],skin);
-        path([[64,53],[73,54],[77,70],[74,84],[67,83],[66,68]],coat);
-        path([[68,79],[75,80],[76,87],[69,88]],skin);
-        // Pan is a strong silhouette prop: dark rim, warm copper bowl, long handle.
-        path([[68,81],[71,78],[80,70],[84,72],[74,83],[70,86]],'#4B3434',ink,1.1);
-        path([[77,62],[91,62],[94,66],[92,77],[88,82],[80,80],[76,73]],'#B95B3C',ink,1.8);
-        ell(85,65,8,3.2,'#E5A06B',ink,1.4);
-        ell(85,65,5.2,1.6,'#4C3540',null);
-        line([[80,68],[83,75],[88,77]],'#F2B17C',1.2);
+        path([[64,53],[73,54],[77,68],[75,78],[78,84],[73,89],[68,84],[70,77],[66,69]],coat);
+        // A distinct cuff bridges the sleeve to the gripping hand.
+        path([[68,74],[76,75],[78,82],[73,86],[67,83]],'#C8B89F',ink,1.1);
+        path([[72,81],[79,80],[83,84],[82,90],[76,92],[71,87]],skin,ink,1.2);
+        // The pan handle begins inside the curled grip; its bowl sits lower at waist height.
+        path([[77,85],[81,83],[86,85],[82,89],[78,90]],'#4B3434',ink,1.1);
+        path([[82,78],[94,78],[96,82],[94,94],[89,98],[83,96],[79,88]],'#B95B3C',ink,1.8);
+        ell(88,81,8,3.2,'#E5A06B',ink,1.4);
+        ell(88,81,5.2,1.6,'#4C3540',null);
+        line([[83,84],[86,92],[91,94]],'#F2B17C',1.2);
       }else{
         // Rear coat yoke, apron straps and tied bow; no front-only details leak through.
         path([[27,54],[39,47],[61,47],[73,54],[71,68],[29,68]],'#D6C2A3',ink,1.2);
@@ -931,11 +935,12 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       line([[45,62],[44,97]],'#F0A078',1.5);
       line([[59,62],[61,97]],'#7D3440',1.5);
       // Far arm is occluded by the torso; keep only the near pan-holding arm.
-      path([[62,56],[68,60],[69,79],[65,84],[61,79]],coat);
-      // Pan profile remains visible at the forward hand, not fused to the torso.
-      ell(67,81,2.8,3,skin,ink,1);
-      line([[67,80],[78,75]],'#4B3434',4);
-      g.save();g.translate(87,72);g.rotate(-.35);
+      path([[62,56],[69,60],[72,74],[74,81],[70,87],[64,84],[66,77]],coat);
+      // Visible cuff, forearm and curled hand form one continuous grip.
+      path([[65,79],[72,79],[75,84],[70,88],[64,85]],'#C8B89F',ink,1.05);
+      path([[70,82],[76,82],[80,86],[78,91],[72,90],[68,86]],skin,ink,1.15);
+      line([[76,86],[84,87]],'#4B3434',4);
+      g.save();g.translate(89,88);g.rotate(-.25);
       ell(0,0,9,6.5,'#B95B3C',ink,1.5);ell(0,-.5,6.6,4.2,'#3E2C34',null);
       line([[-6,-3],[4,-4.5]],'#F2B17C',1);g.restore();
     }
@@ -947,7 +952,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         [38,41,59,62].forEach((x,i)=>ell(x,38+(i%2),3.2,5,'#38242A',ink,.8));
         ell(44,31,1.8,2.5,'#241725',null);ell(56,31,1.8,2.5,'#241725',null);
         ell(44.6,30.2,.55,.55,'#FFFFFF',null);ell(56.6,30.2,.55,.55,'#FFFFFF',null);
-        line([[41,26],[46,26]],'#59372E',1.3);line([[54,26],[59,26]],'#59372E',1.3);
+        line([[40,27],[46,25]],'#59372E',1.3);line([[54,25],[60,27]],'#59372E',1.3);
         line([[49,33],[48,36],[51,36]],'#945D48',1);
         line([[45,41],[50,43],[55,41]],'#713D3A',1.5);
       }else{
@@ -1317,7 +1322,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     }
     path([[43,39],[57,39],[57,53],[43,53]],skin);
     // Jacket body and visible side seams.
-    if(!side)path([[34,51],[43,47],[58,47],[68,53],[71,87],[67,101],[31,101],[28,87]],jacket,ink,2);
+    if(!side)path([[35,51],[43,47],[58,47],[65,52],[66,95],[64,101],[36,101],[34,95]],jacket,ink,2);
     if(back){
       path([[35,53],[43,49],[58,49],[66,54],[62,61],[50,64],[38,61]],'#D8D7B8',ink,1.3);
       path([[39,68],[50,74],[61,68],[63,96],[37,96]],'#24583F',null);
@@ -1394,7 +1399,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       ell(50,30,12.5,14.5,grad(38,16,63,45,[[0,'#D99C76'],[.55,skin],[1,'#754632']]),ink,1.6);
       if(!back){
         path([[37,22],[39,15],[48,13],[58,16],[64,22],[61,27],[39,27]],'#5B6260',ink,1.2);
-        ell(40,20,3.2,3.4,'#AEB5A8',null);ell(60,20,3.2,3.4,'#AEB5A8',null);
+        path([[37,26],[39,26],[39,32],[38,34],[37,31]],'#AEB5A8',null);path([[63,26],[61,26],[61,32],[62,34],[63,31]],'#AEB5A8',null);
         ell(44,31,2,2.6,ink,null);ell(56,31,2,2.6,ink,null);ell(44.7,30.1,.65,.65,'#FFF',null);ell(56.7,30.1,.65,.65,'#FFF',null);
         line([[41,26],[47,25]],'#49332D',1.3);line([[53,25],[59,26]],'#49332D',1.3);
         line([[49,33],[47,37],[52,37]],'#80513D',1);
@@ -1403,14 +1408,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       }else{
         // Rear hair: silver-templed charcoal hair with a shaped nape beneath the cap.
         path([[37,23],[40,19],[45,20],[50,22],[55,20],[61,19],[64,24],[63,35],[59,41],[54,43],[50,40],[46,43],[41,40],[37,34]],'#59615D',ink,1.25);
-        path([[39,25],[44,23],[47,27],[45,34],[41,38],[38,34]],'#AEB5A8',null);
-        path([[56,27],[60,23],[63,26],[62,34],[58,39],[55,35]],'#AEB5A8',null);
+        path([[41,29],[43,29],[44,35],[42,38],[41,34]],'#AEB5A8',null);
+        path([[57,29],[59,29],[59,34],[58,38],[56,35]],'#AEB5A8',null);
         line([[45,30],[46,37]],'#D2D0C3',1.1);line([[53,29],[52,38]],'#D2D0C3',1.1);
         path([[42,39],[46,42],[49,40],[52,42],[56,39],[59,40],[56,44],[44,44]],'#343B38',ink,.8);
       }
       path([[34,23],[38,17],[47,16],[61,18],[67,23],[65,27],[35,27]],'#263B35',ink,1.4);
       path([[32,25],[68,25],[66,27],[34,27]],'#D6B85D',ink,1.1);
-      line([[43,19],[57,19]],'#DDE0CF',1);
+      line([[43,19],[57,19]],'#526C58',.9);
       path([[36,25],[40,22],[43,25],[42,31],[39,33],[36,30]],'#AEB5A8',null);
       path([[64,25],[60,22],[57,25],[58,31],[61,33],[64,30]],'#AEB5A8',null);
     }else{
@@ -1426,7 +1431,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         // A true side-profile head: a shaped rear cranium, projecting
         // forehead/nose and one visible eye, not a front oval turned sideways.
         path([[35,24],[38,18],[45,18],[49,23],[47,34],[44,41],[38,39],[34,32]],'#59615D',ink,1.1);
-        path([[36,26],[40,21],[44,23],[43,32],[39,37],[35,33]],'#AEB5A8',null);
+        path([[36,28],[39,27],[40,33],[38,37],[36,34]],'#AEB5A8',null);
         path([[42,18],[52,16],[59,19],[63,24],[62,30],[67,33],[63,37],[61,41],[53,44],[45,42],[40,37],[38,29],[39,22]],
           grad(38,16,63,45,[[0,'#D99C76'],[.55,skin],[1,'#754632']]),ink,1.5);
         path([[38,22],[42,16],[55,16],[63,22],[66,25],[64,27],[40,27]],'#5B6260',ink,1);
@@ -1439,7 +1444,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         // The visor projects forward, making the profile direction explicit.
         path([[37,23],[42,16],[54,16],[62,20],[66,25],[64,27],[39,27]],'#263B35',ink,1.3);
         path([[49,25],[67,25],[66,28],[49,28]],'#D6B85D',ink,1);
-        line([[44,19],[55,19]],'#DDE0CF',.9);
+        line([[44,19],[55,19]],'#526C58',.8);
       }
     }
     // Shared restrained warm/cool rim recipe for face and shoulder readability.
