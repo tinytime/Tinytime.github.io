@@ -3,7 +3,7 @@
 **Status:** correction-round working briefs; qualitative proportion intent only.  
 **Scope:** Usher, Cook, Courier, Coach and Referee. Runner is excluded.  
 **Source baseline:** Run #595 renderer `c354abfa3d78b46dc982a03d2c5d1ece0c918257`.  
-**Correction implementation under test:** `2b45201eb762a939547f5c8414ae9f44e5dc0d22`.
+**Latest correction renderer:** `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb` (Run #599).
 
 These are design-intent cards, not verified semantic measurements. Do not infer or publish body/head ratios from them. The six source-annotated semantic records remain unverified; Granny remains `reference_only`. Granny is a craft benchmark, not a proportion template.
 
@@ -62,6 +62,10 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 - **No numeric proportion targets:** preserve current character-specific athletic construction.
 
 ## Correction-round acceptance record
+
+Run #599 is the current renderer evidence: [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650509863), artifact 14590034123. Run #600 adds the black silhouette and town-ground diagnostic sheets. Before/after pixel-diff counts are recorded in the NPC tracker. The town-ground composition is diagnostic only and is not a live named-NPC spawn proof.
+
+
 
 For each finding, attach before/after native 64×96 and direct 28×42 captures, direction, exact source commit and pixel-diff summary. Pixel diffs are change locators, not quality scores. Inspect the direct game-scale captures on both neutral grey and actual town/night backgrounds. Include a solid-black four-direction silhouette sheet and character-specific town spawn evidence where the harness supports it; otherwise mark the evidence unavailable.
 
