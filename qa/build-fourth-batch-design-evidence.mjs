@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg');
+const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg');
 const htmlPath = path.join(root, 'VaporCity_HD2D_Hybrid_Test.html');
 const spritePath = path.join(root, 'npc_sprites.js');
 const out = path.join(root, 'qa-output/fourth-batch-design');
@@ -69,7 +69,7 @@ try {
       data[key]=item;
     }
     const sourceDirectionLabels=(source.match(/class="lab">/g)||[]).length;
-    if(!source.includes('EXPLORATION 18') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
+    if(!source.includes('EXPLORATION 19') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
     // Every civilian's body-only anatomy and prop-on construction must be one
     // continuous dark silhouette in native and independently rasterized
     // direct game-scale projections. Eight-neighbour connectivity is used;
@@ -346,7 +346,7 @@ try {
     bodyPreservationAudit:svgData.bodyPreservationAudit,
     anatomyConnectivityAudit:svgData.anatomyConnectivityAudit,
     integratedWeatherDetail:'Face-side-open rain hood, rear yoke/hem seams, shortened storm closure and separated brush bristles; no separate umbrella',
-    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg',
+    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg',
     figureFields:24,
     nativeCaptures:Object.keys(svgData.data).length,
     direct28x42Captures:Object.values(svgData.data).filter(x=>x.direct).length,
