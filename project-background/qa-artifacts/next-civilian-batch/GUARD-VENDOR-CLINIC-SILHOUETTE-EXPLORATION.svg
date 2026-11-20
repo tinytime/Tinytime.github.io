@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1240" viewBox="0 0 1600 1240">
 <title>Guard, Vendor and Clinic Worker — four-view black silhouette exploration</title>
 <desc>Design-stage black silhouettes, front, back, left and right, at matched scale. Not production art.</desc>
 <rect width="1600" height="1120" fill="#f1f0eb"/>
@@ -130,8 +130,8 @@
 <g transform="translate(105 42) scale(2.65)"><use href="#guard-front"/></g>
 <g transform="translate(365 42) scale(2.65)"><use href="#guard-back"/></g>
 <g transform="translate(625 42) scale(2.65)"><use href="#guard-profile"/></g>
-<g transform="translate(885 42) scale(-2.65 2.65)"><use href="#guard-profile"/></g>
-<text x="145" y="310" class="v">FRONT</text><text x="405" y="310" class="v">BACK</text><text x="665" y="310" class="v">LEFT</text><text x="925" y="310" class="v">RIGHT</text>
+<g transform="translate(1235 42) scale(-2.65 2.65)"><use href="#guard-profile"/></g>
+<text x="145" y="310" class="v">FRONT</text><text x="405" y="310" class="v">BACK</text><text x="665" y="310" class="v">LEFT</text><text x="1085" y="310" class="v">RIGHT</text>
 </g>
 <line x1="48" y1="490" x2="1552" y2="490" class="rule"/>
 <g transform="translate(50 520)">
