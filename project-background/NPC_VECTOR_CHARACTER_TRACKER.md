@@ -5,9 +5,19 @@
 - **Focused design-source checks PASS:** 24/24 native 64×96, 24/24 independently rasterized direct 28×42, 24/24 enlarged captures; body preservation 12/12 with zero removed pixels; anatomy/prop connectivity 48/48; profile prop contact 2/2; semantic proportion/annotation validation passed. Slicker remains byte-identical to revision 18 across all eight body/prop direction panels.
 - **Separate full workflow FAIL:** game-browser diagnostics failed with 135 audio/resource HTTP 404 responses plus 45 corresponding sound-load messages; pageErrors=0 and scriptErrors=0. Golden snapshot gate remains 1 match / 23 changed and unapproved. No golden snapshots or provenance were modified.
 - **Additional ChatGPT artifact inspection:** opened the actual native and direct body/prop comparison sheets, matched-face comparison sheet, and enlarged Sailor-front and Painter-front/left-profile prop crops. The overall silhouettes remain directionally coherent; Sailor's hand/coil read is still compact and merits close direct-scale reviewer scrutiny; Painter's brush is identifiable but the hand/handle/head cluster is dense at game scale. Face studies remain provisional grayscale geometry. This is a limited supplementary inspection, not a complete all-crops reviewer verdict or approval.
-- **Handoff:** review package 06 is pinned to this exact source/run/artifact and remains prepared but not sent to Claude. No independent Claude verdict or owner art approval exists. All construction families remain UNASSIGNED; no palette or renderer work is authorized; #15–23 remain held.
+- **Handoff:** the owner has approved the revision 21 silhouettes for Sailor (#12), Slicker (#13) and Painter (#14), following the owner's report of Claude approval. The Claude verdict itself is not yet recorded in GitHub; see the owner-approval record below. Construction-card/family and anatomy/pose/clothing/prop design work is now authorized. Palette/colour rendering, production renderer work, golden snapshot/provenance changes and roster #15–23 remain unauthorized/on hold.
 
 ---
+
+## Owner silhouette approval — Sailor #12, Slicker #13 and Painter #14 (2026-11-20)
+
+The owner has explicitly approved the **revision 21 silhouettes** for all three characters, following the owner's report that Claude approved the latest silhouette round. This approval is limited to the silhouette/design gate and authorizes progression into the next design stage: finalize the three identity/construction cards, assign and justify construction families, and develop anatomy/pose and clothing/prop integration against the approved silhouettes.
+
+- **Approved design source:** revision 21 SVG, blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`; exact tested artwork source commit `be1c0c012894ccae23b4cbce2ad06e523fb460c5`.
+- **Evidence:** [Actions Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056), artifact [14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854). Focused design-source checks passed; the overall workflow remains failed on the separate global browser-resource 404 and unapproved golden-snapshot gates described below.
+- **Claude record:** approval is recorded here as reported by the owner in the project conversation. The actual Claude verdict/package response has not yet been added to GitHub, so its detailed findings and exact reviewed-source identity are not independently documented here. Attach or transcribe that verdict when available; do not invent review details.
+- **Next authorized stage:** identity/construction cards, construction-family assignment, anatomy/pose and clothing/prop integration. Keep the approved silhouette contours as the baseline; any material silhouette change returns for review.
+- **Not authorized by this decision:** palette/colour rendering, production renderer implementation/integration, golden snapshot or provenance changes, and work on roster #15–23. Face studies remain provisional unless separately approved.
 
 ## Fourth civilian batch — revision 21 exact-source internal design QA (2026-11-20)
 
