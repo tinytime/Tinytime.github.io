@@ -1,3 +1,7 @@
+## Latest QA harness follow-up — Run #649 (2026-11-20)
+
+The QA harness now includes Tech in the vector civilian classification and expected counts. [Run #649](https://github.com/tinytime/Tinytime.github.io/actions/runs/44753230689), artifact [14636147603](https://github.com/tinytime/Tinytime.github.io/actions/runs/44753230689/artifacts/14636147603), tested `2d963db5e0b54f1f7b9afd652b33c053aa168c1b`. Directional integrity 92/92, direct 28×42 assertion 20/20, role debug 12/12, prop audit 10 archetypes, gallery and silhouette diagnostic inventory pass; page/script errors 0. Overall Actions failed only at the unapproved golden snapshot gate (1 match / 23 changed) and existing audio/resource 404 diagnostics. No snapshots or provenance changed.
+
 ## Next civilian batch — preflight only (2026-11-20)
 
 The owner approved batch #9–11: Tech's production-renderer art and Hacker/Fisher finished design art. Hacker/Fisher have not been integrated as dedicated production renderers. The next set is Sailor (#12), Slicker (#13), Painter (#14). Their preflight is [SAILOR-SLICKER-PAINTER-PREFLIGHT.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md). Legacy Trades metadata is reference context only; do not reuse the legacy shared Trades renderer or its wrench/tool-pocket layout as a vector template. No renderer changes are authorized until each silhouette and construction card is owner-approved.
