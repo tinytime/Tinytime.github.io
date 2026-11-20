@@ -948,14 +948,17 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
       line([[59,62],[61,97]],'#7D3440',1.5);
       // Far arm is occluded by the torso; keep only the near pan-holding arm.
       path([[62,56],[69,60],[72,74],[74,81],[70,87],[64,84],[66,77]],coat);
-      // Visible cuff, forearm and curled hand form one continuous grip.
+      // Visible cuff and forearm lead into the near hand.
       path([[65,79],[72,79],[75,84],[70,88],[64,85]],'#C8B89F',ink,1.05);
-      line([[72,86],[84,87]],'#4B3434',4.2);
-      line([[78,85.8],[84,86.4]],'#C18A62',1.4);
+      // Draw the shallow pan bowl first. Layer the handle over the bowl so
+      // a short shaft remains visible between the gripping fingers and rim.
       g.save();g.translate(87,88);
       ell(0,0,7,4.5,'#B95B3C',ink,1.5);ell(0,-.3,5.2,2.4,'#3E2C34',null);
       line([[-6,-3],[4,-4.5]],'#F2B17C',1);g.restore();
-      // Hand overlaps the handle after the pan is drawn, with visible curled fingers.
+      // Keep roughly 3 native pixels of handle shaft exposed beyond the fingers.
+      line([[72,86],[84,87]],'#4B3434',4.2);
+      line([[78,85.8],[84,86.4]],'#C18A62',1.4);
+      // Paint the hand last so it grips the handle end without hiding its shaft.
       path([[67,82],[73,81],[79,85],[79,91],[75,94],[69,91],[66,86]],skin,ink,1.2);
       line([[68,87],[74,88]],'#8D5944',1);line([[69,90],[74,91]],'#8D5944',.8);
     }
