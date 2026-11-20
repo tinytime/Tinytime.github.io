@@ -6,7 +6,7 @@
 - Visual inspection completed: Usher left/right native 64×96 and direct 28×42 captures confirm a single connected near-arm/hand carries the clipboard, the far hand is hidden, the board remains readable, and no edge contacts/detached components appear. See the Run #603 internal QA record.
 - U4 internal QA: [Run #603](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact `14593339734`; 20/20 native and 20/20 direct game-scale captures, 92/92 integrity, zero edge contacts/detached components. The exact U4 before/after evidence and full docs are embedded in [Claude review package workflow](https://github.com/tinytime/Tinytime.github.io/actions/workflows/vapor-city-review-documents-package.yml).
 - The updated five-character package is prepared; Claude's independent re-review is the next gate. Do not mark the five approved until Claude review and explicit owner approval.
-- The revised construction standard is ready as a working method for planning/briefs, but remains unratified for production rollout. Remaining 17 civilians remain ON HOLD. No golden snapshots may be refreshed or approved without explicit owner authorization.
+- The revised construction standard is ready for final independent review and owner ratification, but not yet authorized for individual next-civilian briefs or production. Remaining 17 civilians remain ON HOLD. No golden snapshots may be refreshed or approved without explicit owner authorization.
 
 
 
