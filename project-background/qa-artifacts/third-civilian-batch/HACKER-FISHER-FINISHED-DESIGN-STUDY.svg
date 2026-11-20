@@ -33,14 +33,13 @@
   <path d="M25 21 L20 26 19 39 23 43 27 36 28 48 25 62 30 65 35 55 37 47 40 48 42 62 47 64 50 60 46 43 46 29 40 22 33 20Z" class="hbase ink"/>
   <path d="M25 23 Q34 18 42 24 L45 39 39 47 29 45 24 36Z" class="hshell ink"/>
   <path d="M27 10 Q34 7 40 11 L41 15 36 20 31 19 27 15Z" class="hskin ink"/>
-  <path d="M24 13 L29 7 33 9 38 6 43 12 39 14 35 12 31 16 27 15Z" class="hdeep ink"/>
+  <path d="M24 11 L29 6 33 8 38 5 43 11 39 12 35 10 31 13 27 13Z" class="hdeep ink"/>
   <path d="M28 12 L32 11 M35 12 L40 13" stroke="#34313c" stroke-width="1.2" fill="none"/>
   <path d="M29 14 L32 14.5 M36 15 L39 15" stroke="#24232b" stroke-width="1.25" fill="none"/>
   <path d="M34 15 L33 17 35 17" stroke="#9a7165" stroke-width="0.9" fill="none"/>
   <path d="M32 19 Q35 18 37 19" stroke="#815f59" stroke-width="1.1" fill="none"/>
   <circle cx="25" cy="16" r="1.8" fill="#8f9eb0" stroke="#171a20" stroke-width="0.8"/>
   <path d="M6 54 L15 53 16 61 8 64 4 60Z" class="hprop ink"/><path d="M7 55 L13 55 13 59 7 60Z" class="hglass"/>
-  <path d="M40 47 L46 51 47 58 41 60 37 54Z" class="hskin ink"/>
   <!-- Character-right is the near side in this profile; slate meets the wrist. -->
   <path d="M42 56 L51 56 53 64 44 65Z" class="hprop ink"/>
   <path d="M44 58 L49 58 50 62 45 62Z" class="hglass"/>
