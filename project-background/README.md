@@ -1,3 +1,13 @@
+## Next civilian batch — Tech, Hacker and Fisher (2026-11-20)
+
+The project owner directed ChatGPT to move forward without sending the prior Guard/Vendor/Clinic Run #629 output back to Claude. The exact-output Claude review remains historically unrecorded; this instruction authorizes next-batch preparation and does not imply a reviewer verdict.
+
+Prepared:
+- [Tech/Hacker/Fisher design preflight](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md)
+- [Four-view silhouette exploration SVG](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg)
+
+The concepts are proposals, not approved designs. Owner silhouette approval is required before renderer implementation. No renderer code, approved civilian art or golden snapshots changed during preparation.
+
 
 
 ## Current Guard, Vendor and Clinic QA status — Run #629 (2026-11-20)
