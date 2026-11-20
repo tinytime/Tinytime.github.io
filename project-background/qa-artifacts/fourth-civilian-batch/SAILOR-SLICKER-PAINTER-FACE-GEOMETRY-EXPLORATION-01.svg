@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560">
+<rect width="1200" height="560" fill="#efeee9"/>
+<style>
+.h{font:700 25px sans-serif;fill:#202124}.n{font:700 18px sans-serif;fill:#222}.s{font:13px sans-serif;fill:#555}.panel{fill:#e4e2dc;stroke:#c8c5bd}.hat{fill:#55585d;stroke:#242629;stroke-width:1.5}.face{fill:#c9c5bd;stroke:#292a2c;stroke-width:1.5}.hair{fill:#45474b;stroke:#242629;stroke-width:1.5}.feature{fill:none;stroke:#17191c;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.eye{fill:#111}
+</style>
+<text x="30" y="38" class="h">FOURTH BATCH — FACE GEOMETRY EXPLORATION 01</text>
+<text x="30" y="62" class="s">Neutral grayscale construction study · headwear is context only · compare face shape and feature geometry at matched crop scale · proposals, not approval</text>
+<!-- Sailor -->
+<text x="30" y="103" class="n">SAILOR #12 — defining cues: strong brow shelf + long hooked nose</text>
+<g transform="translate(30 118)"><rect width="110" height="120" class="panel"/>
+<path class="hat" d="M28 17 Q53 0 78 16 L81 26 L25 26Z M19 25 L88 25 L91 31 L17 31Z"/>
+<path class="hair" d="M27 30 L34 30 L34 41 L28 43Z M76 30 L82 31 L81 42 L75 43Z"/>
+<path class="face" d="M34 31 Q53 26 73 32 L76 52 L71 71 L62 84 L50 87 L39 78 L31 61 L31 43Z"/>
+<path class="feature" d="M34 45 L47 43 L51 46 M57 43 L72 44 L75 47 M37 51 L47 51 M60 51 L69 51 M53 48 L52 60 L57 64 L52 68 M43 74 Q53 77 62 72"/>
+<path class="feature" d="M31 40 Q51 35 76 40" stroke-width="4"/>
+<circle class="eye" cx="43" cy="51" r="2.3"/><circle class="eye" cx="65" cy="51" r="2.3"/>
+<text x="55" y="111" text-anchor="middle" class="s">FRONT</text></g>
+<g transform="translate(155 118)"><rect width="110" height="120" class="panel"/>
+<path class="hat" d="M32 17 Q51 0 75 16 L79 25 L35 25Z M25 25 L88 25 L90 31 L24 31Z"/>
+<path class="hair" d="M67 30 L78 32 L78 45 L68 47Z"/>
+<path class="face" d="M40 31 Q61 27 74 36 L77 48 L69 52 L66 63 L60 77 L47 83 L39 75 L42 63 L38 54 L29 49 L37 45 L37 37Z"/>
+<path class="feature" d="M43 44 Q55 40 66 44 M42 49 L51 48 M44 53 L50 53 M40 55 L29 58 L24 56 L30 53 M43 70 Q51 74 59 69"/>
+<circle class="eye" cx="47" cy="52" r="2.2"/>
+<text x="55" y="111" text-anchor="middle" class="s">PROFILE</text></g>
+<text x="290" y="138" class="s">Closest roster faces selected from native 64×96 crops:</text><text x="290" y="160" class="n">Clinic + Guard</text>
+<text x="290" y="185" class="s">Clinic: similar elongated profile / nose projection; Sailor's jaw is squarer and brow heavier.</text>
+<text x="290" y="207" class="s">Guard: comparable brow shelf; Sailor's cheek taper and hooked nose are longer and more angular.</text>
+<text x="290" y="229" class="s">Do not borrow Clinic's hairline or Guard's head silhouette.</text>
+<!-- Slicker -->
+<text x="30" y="285" class="n">SLICKER #13 — defining cues: angular brow/eye set + tucked chin / nose-cheek break</text>
+<g transform="translate(30 300)"><rect width="110" height="120" class="panel"/>
+<path class="hat" d="M17 18 L31 7 L73 7 L91 20 L84 29 L22 29Z"/>
+<path class="face" d="M32 28 Q52 23 72 31 L75 48 L69 64 L63 75 L54 80 L41 75 L33 64 L29 48Z"/>
+<path class="feature" d="M34 43 L48 39 L52 43 M57 40 L72 43 M37 48 L47 48 M61 48 L68 49 M54 44 L51 56 L58 59 L55 63 M43 69 Q52 72 61 67"/>
+<circle class="eye" cx="43" cy="48" r="2.2"/><circle class="eye" cx="64" cy="49" r="2.2"/>
+<text x="55" y="111" text-anchor="middle" class="s">FRONT</text></g>
+<g transform="translate(155 300)"><rect width="110" height="120" class="panel"/>
+<path class="hat" d="M16 18 L30 7 L74 7 L91 20 L85 29 L20 29Z"/>
+<path class="face" d="M39 29 Q59 25 73 34 L76 46 L68 51 L64 61 L59 71 L49 76 L41 70 L43 61 L39 54 L27 51 L35 46 L35 36Z"/>
+<path class="feature" d="M40 43 L58 40 L67 43 M41 49 L50 48 M39 52 L28 55 L34 58 M43 66 Q50 68 57 64"/>
+<circle class="eye" cx="46" cy="49" r="2.2"/>
+<text x="55" y="111" text-anchor="middle" class="s">PROFILE</text></g>
+<text x="290" y="320" class="s">Closest roster faces selected from native 64×96 crops:</text><text x="290" y="342" class="n">Hacker + Courier</text>
+<text x="290" y="367" class="s">Hacker: comparable compact lower face and angled eye line; Slicker has a more tucked chin.</text>
+<text x="290" y="389" class="s">Courier: comparable nose / cheek projection; Slicker's nose is shorter and the brow more acute.</text>
+<text x="290" y="411" class="s">Do not borrow Hacker's fringe or Courier's cap.</text>
+<!-- Painter -->
+<text x="30" y="467" class="n">PAINTER #14 — defining cues: lifted asymmetric brow + long angular nose bridge</text>
+<g transform="translate(30 482)"><rect width="110" height="120" class="panel"/>
+<path class="hat" d="M24 17 Q50 0 79 15 L83 27 L22 27Z"/>
+<path class="hair" d="M30 26 Q45 17 54 27 L49 35 L36 33Z"/>
+<path class="face" d="M34 31 Q54 25 73 32 L76 51 L70 69 L60 82 L48 84 L37 74 L31 57Z"/>
+<path class="feature" d="M34 44 Q45 36 51 43 M58 43 L72 46 M37 50 L47 49 M62 51 L69 52 M54 45 L51 61 L57 66 L52 68 M42 72 Q53 76 64 69"/>
+<circle class="eye" cx="43" cy="50" r="2.2"/><circle class="eye" cx="65" cy="52" r="2.2"/>
+<text x="55" y="111" text-anchor="middle" class="s">FRONT</text></g>
+<g transform="translate(155 482)"><rect width="110" height="120" class="panel"/>
+<path class="hat" d="M27 17 Q51 0 79 16 L82 27 L26 27Z"/>
+<path class="hair" d="M35 27 Q48 15 60 24 L54 35 L39 34Z"/>
+<path class="face" d="M42 31 Q62 26 75 36 L77 48 L68 52 L65 63 L58 77 L47 81 L40 72 L43 61 L37 54 L28 50 L37 46 L38 37Z"/>
+<path class="feature" d="M43 44 Q56 37 68 44 M43 49 L52 47 M41 53 L29 57 L35 60 M44 69 Q52 72 59 67"/>
+<circle class="eye" cx="47" cy="51" r="2.2"/>
+<text x="55" y="111" text-anchor="middle" class="s">PROFILE</text></g>
+<text x="290" y="502" class="s">Closest roster faces selected from native 64×96 crops:</text><text x="290" y="524" class="n">Cook + Busker</text>
+<text x="290" y="549" class="s">Cook: comparable midface width; Painter's jaw tapers more and nose bridge is longer.</text>
+<text x="290" y="571" class="s">Busker: comparable open expression; Painter's brow is asymmetric and cheek plane sharper.</text>
+<text x="290" y="593" class="s">Do not borrow Cook's moustache or Busker's youthful head proportions.</text>
+</svg>
