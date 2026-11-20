@@ -57,7 +57,7 @@ Classify the interaction as handheld/gripped, supported, body-attached, worn/car
 
 A technically non-identical face is not necessarily an individually designed face. Each identity brief must specify at least two intentional facial/head identity cues beyond skin tone, hair color or headwear. Appropriate cues include eye shape/spacing, brow shape, nose/profile contour, mouth/expression, facial proportions, hairline, sideburns, ear placement or age cues.
 
-Review front and both profiles for facial identity; review the rear for deliberate hair, nape and headwear construction. Avoid one shared face template with token one-pixel edits. Do not force every face to be radically different: the requirement is purposeful character-specific construction that reads at game scale.
+Review front and both profiles for facial identity; review the rear for deliberate hair, nape and headwear construction. Each identity brief specifies at least two purposeful face-construction cues, each named by type (eye geometry/spacing, brow, nose/profile, cheek/jaw, mouth/expression or facial proportions) and distinct from the two closest roster faces. Skin tone, hair colour and headwear alone do not count. Judge interior features at native 64×96; they are not required to survive direct 28×42. At 28×42, at least one deliberate head-read cue must remain visible: hair mass/hairline, sideburns, headwear profile, age cue or head shape. Identify it in the must-survive list. Do not count token one-pixel edits or rely on a shared face template.
 
 ### E. Rasterized value, shape hierarchy and game-scale acceptance
 
@@ -71,6 +71,8 @@ At game scale, inspect at minimum:
 - signature prop and role identifier;
 - whether small details remain intentional marks or collapse into noise.
 
+Every identity card must list exactly three must-survive items: (1) a silhouette/construction feature, (2) the signature prop or role-identifying interaction, and (3) a palette, headwear or other major shape block. Also list details intentionally allowed to disappear at 28×42. Test must-survive items on the direct 28×42 silhouette sheet where applicable, the neutral-grey capture and town/night capture.
+
 Important adjacent forms must remain distinguishable through value, outline, shape, spacing or another deliberate cue. Do not require a universal contrast ratio without calibrated evidence. Simplify, enlarge or remove details that become noise. Do not add detail merely because it is visible at 64 × 96. Record any intentional detail that is not expected to survive game scale and ensure it is not the sole role identifier.
 
 Shape hierarchy must be deliberate: outer silhouette first, major construction forms second, small decorative detail last. Outlines, internal lines, gradients and highlights should reinforce that hierarchy. Granny's bold outline and restrained detail are quality lessons, not a universal stroke-width or shading template; each design must remain cohesive at both scales.
@@ -78,10 +80,12 @@ Shape hierarchy must be deliberate: outer silhouette first, major construction f
 ### F. Review severity and evidence format
 
 Use a consistent finding severity:
-- **P0 — Critical:** character cannot function/read as intended, major render corruption, or fundamental identity failure. Stop approval and correct.
-- **P1 — Major:** clear construction, prop-contact, identity, directional or game-scale readability defect. Must be corrected before the character/group advances to owner approval.
-- **P2 — Minor:** noticeable quality weakness that should be corrected where practical or explicitly accepted with rationale.
-- **P3 — Polish:** subjective refinement or low-impact preference; optional unless it exposes a real defect.
+- **P0 — Critical:** major render corruption, unusable character, or fundamental identity failure.
+- **P1 — Major:** at normal 1× game presentation, a viewer is likely to misread the role, signature prop/object or defining construction; or a continuity/directional defect prevents intended use.
+- **P2 — Minor:** role and object still read correctly at 1×, but a visible construction/finish flaw is apparent under 4× inspection. Correct where practical or record an explicit owner-accepted exception.
+- **P3 — Polish/preference:** noticeable only to a close reviewer, or a subjective preference without demonstrated impact.
+
+A finding is objective only when it cites a visible fact and exact image location, direction and scale. If it cannot be tied to observable evidence or is preference-only, classify it as P3.
 
 Every finding must name the character, direction, evidence scale/source, exact visible issue, why it matters, proposed correction and severity. Separate objective defects from subjective preferences. Reviewers must also record **what should not change** so successful identity decisions are protected from unnecessary redesign. A score or automated audit finding must never substitute for image evidence.
 
@@ -160,6 +164,19 @@ Claude completed the independent Run #595 visual review of Usher, Cook, Courier,
 - **Mirrored props:** document anatomical handedness and character-relative prop side. Mirroring is acceptable only if the prop remains on the correct character-relative side in each view.
 - **Semantic measurements:** retain the framework as diagnostic. Do not use unverified masks, candidate measurements or Granny-derived assumptions as hard gates or proportion calibration. Granny remains reference_only until semantic boundaries are verified.
 - **History:** preserve existing historical run records. Future detailed run logs may live in a dedicated QA log.
+
+## Run #600 re-review authority — 2026-11-20
+
+Claude's independent re-review verdict is **Ready with disclosed minor issues** for the five-character batch and **Retain with revisions** for Version 2.1. These are reviewer recommendations, not owner approval or standard ratification. See [CLAUDE-REREVIEW-RUN-600.md](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md) for detailed findings and evidence limits.
+
+- No P0/P1 defects were reported. All five characters remain **NOT APPROVED**.
+- New P2 findings: Cook profile pan handle/contact (C1); Usher profile clipboard/arm continuity (U4); Usher generic silhouette (U2). These require owner disposition before new renderer edits.
+- Coach/Courier rear is accepted as shared body mass with distinct role construction. Preserve the rationale; no torso redesign.
+- Run #600 did not include walk frames. Animated characters require at least two frames per direction in the next review package.
+- The 0.85 IoU value is a human-review trigger only. Every report must state mask basis, alpha threshold, prop inclusion/exclusion, direction and scale.
+- The scorecard remains provisional and non-gating. Do not use an undefined “/10 versus Granny” scale.
+- Town-ground composite is diagnostic only, not proof of named-character spawning. The black silhouette sheet is alpha-derived, not semantic anatomy.
+- The remaining 17 civilians remain **ON HOLD**. Do not refresh or approve golden snapshots without explicit owner authorization.
 
 ## Operational process addendum — 2026-11-19 (current authority)
 
@@ -304,7 +321,7 @@ These bands are not additive and must not be summed to 100%. Anatomy is measured
 
 Before detailed vector construction, create a short specification with:
 - intended height/build category and pose category;
-- target head/body and shoulder/body ratios;
+- intended build descriptor (no numeric targets);
 - torso and leg landmarks;
 - intended shoulder, hip, and foot-contact shape;
 - asymmetry and handedness;
@@ -326,7 +343,11 @@ The silhouette must:
 - avoid accidental tangencies, detached components, or fused limbs/props;
 - remain recognizable from front, back, and both profiles.
 
-A prop can contribute to the silhouette, but it cannot be the only thing making an otherwise generic body recognizable. Compare the roster pairwise and inspect the most similar pairs manually. Automated intersection-over-union (IoU) is a review trigger, not a substitute for judgment. Any pair at or above 0.85 IoU in any direction at native 64×96 or direct 28×42, or any pair a reviewer judges visually similar, requires a recorded human conclusion. This is not an automatic failure threshold and must not cause design distortion. Show the exact pair/direction at both scales and classify it as genuine identity collision, acceptable shared body mass with distinct role construction, or inconclusive. A meaningful construction distinction must be visible at direct game scale and cannot consist only of color, emblem or badge.
+A prop can contribute to the full character silhouette, but cannot be the only thing making an otherwise generic body recognizable. IoU is a human-review trigger, not a pass/fail gate or design target. Any pair at or above 0.85 IoU at native 64×96 or direct 28×42, or any pair a reviewer judges visually similar, requires a recorded human conclusion.
+
+Every IoU result must declare its mask basis: (1) rendered full-character alpha uses pixels with alpha > 0, includes visible clothing, hair, limbs and visible handheld/worn props, and excludes background; (2) torso construction masks use the named renderer torso-mask rows and exclude head, arms, legs and props. These measures are not interchangeable. State alpha threshold, crop, transform, direction and scale; never compare values from different mask families or exclusion rules.
+
+Show the exact pair/direction at both scales and classify it as genuine identity collision, acceptable shared body mass with distinct role construction, or inconclusive. A meaningful construction distinction must be visible at direct game scale and cannot consist only of colour, emblem or badge.
 
 ## 6. Anatomy, face, clothing, and props
 
@@ -460,7 +481,7 @@ A character remains **NOT APPROVED** until:
 - required corrections are implemented and retested;
 - the project owner explicitly approves.
 
-This standard itself remains a **draft** until Claude has reviewed it and the project owner ratifies it. The first five-character review should be used to test whether the ranges, scorecard, and automated measurements are practical. Keep the remaining 20 characters on hold until the existing review/approval gate is satisfied.
+This standard remains a **draft** until the project owner ratifies the revised rules. Keep the remaining 17 civilians on hold until the five-character correction set, standard and direction have passed internal QA, independent review and explicit owner approval.
 
 ## 13. Calibration tasks before locking numeric thresholds
 
