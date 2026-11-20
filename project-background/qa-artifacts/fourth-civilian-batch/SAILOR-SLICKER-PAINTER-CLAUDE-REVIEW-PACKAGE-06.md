@@ -3,7 +3,7 @@
 **Prepared:** 2026-11-20  
 **Repository:** tinytime/Tinytime.github.io  
 **Branch:** npc-granny-baseline-overhaul  
-**Exact reviewed design source commit:** bf3ee2055cf8e025df72e191f29b78b336666a5a  
+**Exact reviewed design source commit:** be1c0c012894ccae23b4cbce2ad06e523fb460c5  
 **Current source:** [revision 21 SVG](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg)  
 **Exact evidence:** [Run #808](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663) · [artifact 14663163320](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663/artifacts/14663163320)  
 **Stage:** design-source silhouettes, body/prop construction and geometric face studies only
@@ -21,7 +21,7 @@ Please review only the exact revision-21 source and evidence cited here. Do not 
 - Revision 21 SVG: [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg)
 - Exact-source Actions run: [Run #808](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663)
 - Artifact: [14663163320 — vapor-city-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663/artifacts/14663163320)
-- Tested design-source commit: bf3ee2055cf8e025df72e191f29b78b336666a5a
+- Tested design-source commit: be1c0c012894ccae23b4cbce2ad06e523fb460c5
 - Construction cards: [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md)
 - Owner-approved role hypotheses/constraints: [preflight](SAILOR-SLICKER-PAINTER-PREFLIGHT.md)
 - Internal QA log: [FOURTH-BATCH-INTERNAL-QA-LOG.md](FOURTH-BATCH-INTERNAL-QA-LOG.md)

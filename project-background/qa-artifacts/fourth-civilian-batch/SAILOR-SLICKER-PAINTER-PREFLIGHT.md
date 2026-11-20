@@ -1,6 +1,6 @@
 ## Latest internal QA status — revision 21 exact-source evidence (2026-11-20)
 
-Current design source: [revision 21](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg), source commit `bf3ee2055cf8e025df72e191f29b78b336666a5a`. Exact tested branch commit `5beb3709dd5080313e6ddea5248ef8698f74dd51`; [Run #808](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663), artifact [14663163320](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663/artifacts/14663163320).
+Current design source: [revision 21](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg), source commit `be1c0c012894ccae23b4cbce2ad06e523fb460c5`. Exact tested branch commit `5beb3709dd5080313e6ddea5248ef8698f74dd51`; [Run #808](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663), artifact [14663163320](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663/artifacts/14663163320).
 
 Design-source projections and semantic validation passed: 24/24 native 64×96, 24/24 independently rasterized direct 28×42, 24/24 enlarged; 12/12 body-preservation checks with zero removed pixels; 48/48 anatomy/prop connectivity checks; 69 roster face crops and six matched face rows. Actual native/direct body and prop sheets, matched face comparisons, Sailor/Welder rear comparison and enlarged Sailor/Painter details were inspected. Sailor's coil remains connected front/back/right-near profile, but the exact grasp is subtle at direct scale. Painter's flat brush remains connected; the compact tool/hand cluster is dense at direct scale. Slicker is preserved unchanged from revision 18.
 
@@ -170,7 +170,7 @@ Run #678 overall concluded **FAILURE** at the global browser diagnostics gate:
 
 ## Revision 21 — preflight disposition (2026-11-20)
 
-- Source: [revision 21 SVG](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg), exact artwork commit bf3ee2055cf8e025df72e191f29b78b336666a5a.
+- Source: [revision 21 SVG](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg), exact artwork commit be1c0c012894ccae23b4cbce2ad06e523fb460c5.
 - Handedness remains as documented: Sailor character-left (front viewer-right, rear viewer-left, visible in right profile); Painter character-right (front viewer-left, rear viewer-right, visible in left profile). Far-side props hidden; no mirroring inversion.
 - Revision-21 design-source capture and focused internal QA passed: 12/12 body preservation, 48/48 connectivity, 2/2 profile prop contact. Native/direct and enlarged captures were inspected. Slicker is preserved unchanged from revision 18.
 - **Preflight: READY FOR INDEPENDENT CLAUDE REVIEW**, not owner-approved. Grip clarity, prop recognition and set differentiation remain review questions. No palette finalization or production renderer implementation is authorized.
