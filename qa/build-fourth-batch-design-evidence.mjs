@@ -72,11 +72,13 @@ try {
     // the source projection. This is a geometry-presence check, not proof of
     // a readable grip; human visual review remains mandatory.
     const profilePropAudit=[];
-    // Check the designated near-side prop projections. Far-side anatomy is
-    // reviewed visually: the prop-on body construction may legitimately alter
-    // hand/arm pixels, so whole-image equality is not a reliable occlusion test.
-    for(const [character,direction] of [
-      ['sailor','right'],['slicker','left'],['painter','left']
+    // Designated near-side views: the tool must create a visible silhouette delta
+    // in the prop's expected side region. Far-side occlusion remains a manual
+    // check because grip anatomy can legitimately alter the body contour.
+    for(const [character,direction,region,minPixels] of [
+      ['sailor','right',{x0:45,x1:64,y0:35,y1:65},100],
+      ['slicker','left',{x0:0,x1:18,y0:20,y1:70},100],
+      ['painter','left',{x0:4,x1:16,y0:20,y1:40},12]
     ]){
       const body=new Image(),prop=new Image();
       body.src=data[character+'-body-'+direction].native;
@@ -93,11 +95,11 @@ try {
         const bodyLight=b[k]>150&&b[k+1]>150&&b[k+2]>150;
         if(propDark&&bodyLight){
           added++;
-          if(character==='painter'&&x>=4&&x<16&&y>=20&&y<40)regionAdded++;
+          if(x>=region.x0&&x<region.x1&&y>=region.y0&&y<region.y1)regionAdded++;
         }
       }
-      const pass=added>=3 && (character!=='painter'||regionAdded>=12);
-      profilePropAudit.push({character,direction,addedSilhouettePixels:added,propRegionAddedPixels:regionAdded,pass});
+      const pass=regionAdded>=minPixels;
+      profilePropAudit.push({character,direction,addedSilhouettePixels:added,propRegionAddedPixels:regionAdded,minPixels,pass});
     }
     const sheet=(keys,scale,columns,cellW,cellH)=>{
       const gap=16,rows=Math.ceil(keys.length/columns),canvas=document.createElement('canvas');
