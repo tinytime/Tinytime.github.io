@@ -1,3 +1,7 @@
+## Owner approval and next handoff — 2026-11-20
+
+Owner approved Tech/Hacker/Fisher batch #9–11. Tech's production-renderer art is approved; Hacker/Fisher are approved finished designs only and are not production-renderer integrations. Claude's post-correction re-review has not been separately logged. The next batch is Sailor (#12), Slicker (#13), Painter (#14). Their identity/silhouette preflight is [SAILOR-SLICKER-PAINTER-PREFLIGHT.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md). Current status is preflight prepared, owner direction approval pending; no renderer work has started.
+
 ## Third-batch corrections — new review evidence (2026-11-20)
 
 Use [THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md](qa-artifacts/third-civilian-batch/THIRD-BATCH-CLAUDE-REVIEW-PACKAGE-REVISION-02.md) as the current Claude handoff.
