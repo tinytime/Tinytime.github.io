@@ -1,6 +1,6 @@
 # Guard / Vendor / Clinic Worker — silhouette revision 02 construction cards
 
-**Status:** Revision 02 designs APPROVED by the project owner on 2026-11-19. Dedicated renderers are implemented. Run #620 targeted QA and visual inspection passed; ten pairwise silhouette-overlap triggers remain for independent Claude review. Final owner completion approval is pending. These cards remain the binding design specification.
+**Status:** Revision 02 designs APPROVED by the project owner on 2026-11-19. Dedicated renderers are implemented. Run #622 targeted QA and visual inspection passed; nine pairwise silhouette-overlap triggers remain for independent Claude review. Final owner completion approval is pending. These cards remain the binding design specification.
 
 ## Revision history and retained direction
 
