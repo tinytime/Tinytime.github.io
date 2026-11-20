@@ -11,7 +11,7 @@
 
 The owner approved the role directions and simultaneous design-stage exploration for Sailor (#12), Slicker (#13) and Painter (#14). The owner has **not** approved any final silhouette, face, prop, palette or construction family. Production renderer implementation is **not authorized**.
 
-Please review the exact revision-08 source and Run #677 evidence below. This package replaces packages 01 and 02, which describe older source revisions. Do not review or cite package 01 as current evidence.
+Please review the exact revision-09 source and Run #677 evidence below. This package replaces packages 01 and 02, which describe older source revisions. Do not review or cite package 01 as current evidence.
 
 Granny Volt is the approved 10/10 craft-quality benchmark, not a visual template. Each civilian must retain an original silhouette, face geometry, clothing construction, prop and personality. The three characters must be judged individually and as a set against the closest existing roster figures.
 
@@ -20,7 +20,7 @@ Granny Volt is the approved 10/10 craft-quality benchmark, not a visual template
 - Browser/design QA: [Run #677](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801)
 - Artifact: [14650099995 — vapor-city-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995)
 - Exact tested commit: `c74219986db2466122fe08ff3ad0bdcb012b5264`
-- Source SVG: [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg)
+- Source SVG: [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg)
 - Construction cards: [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md)
 - Face geometry study: [SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg)
 - Owner-approved role directions and constraints: [preflight](SAILOR-SLICKER-PAINTER-PREFLIGHT.md)
@@ -39,7 +39,7 @@ The artifact contains 24 body-only / prop-on figure fields rendered at native 64
 - 24/24 independent direct 28×42 projections.
 - 24/24 enlarged nearest-neighbour inspection images.
 - 69 roster face crops and six matched face-comparison rows.
-- Profile prop-presence/contact audit: Sailor right profile 172 added pixels (172 in the prop region); Slicker left profile 295 added pixels (272 in the prop region); Painter left profile 237 added pixels (95 in the prop region). All three designated near-side profile checks passed. All designated near-side checks passed their region checks.
+- Profile prop-presence/contact audit: Sailor right profile 172 added pixels (172 in the prop region); Slicker left profile 295 added pixels (272 in the prop region); Painter left profile 237 added pixels (95 in the prop region). All three designated near-side profile checks passed their region checks.
 - Browser report: directional integrity 92/92; existing five-civilian direct 28×42 capture assertion 20/20; role debug 12/12; prop audit 10 archetypes; gallery rendered; silhouette diagnostic inventory completed.
 
 **Manual visual inspection: PASS WITH REVIEW QUESTIONS.**
@@ -55,7 +55,7 @@ The artifact contains 24 body-only / prop-on figure fields rendered at native 64
 Run #674 overall concluded **FAILURE** at the global browser diagnostics gate:
 
 - Golden snapshot gate: **1 match / 23 changed**, no missing snapshots. Baseline approval metadata remains unapproved.
-- Existing audio/resource diagnostics: 180 console 404 entries. `pageErrors` and `scriptErrors` are empty.
+- Existing audio/resource diagnostics: 135 console 404 entries. `pageErrors` and `scriptErrors` are empty.
 - No golden snapshots or provenance were modified.
 - The design-source evidence generation, semantic proportion/annotation validation, Granny semantic overlay, six-civilian annotation overlay, five-civilian review sheet and artifact upload completed successfully.
 
