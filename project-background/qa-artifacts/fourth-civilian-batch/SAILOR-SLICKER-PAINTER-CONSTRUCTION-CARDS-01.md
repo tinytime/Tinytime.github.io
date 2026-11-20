@@ -1,3 +1,13 @@
+## Revision 15 — final hem-asymmetry refinement; browser QA pending
+
+**Source:** [silhouette exploration 15](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-15.svg)
+
+- **Slicker:** added a longer character-left storm flap, mirrored correctly in front/rear views, to make the asymmetric rain-smock hem legible at 28×42. The integrated face-framing hood, diagonal closure, broad pear mass and forward-leaning profile remain.
+- **Painter:** revision-14 left-profile arm/hand is shared exactly between body-only and prop-on; the hand supports a flared, bristled brush below the face. The direct-scale tool/hand cluster is still dense and should receive owner scrutiny.
+- **Sailor:** thickened front coil-to-palm bridge and rear/profile arm negative-space breaks remain.
+- **Audit:** all 12 body-only/prop-on pairs must preserve every body pixel; no arbitrary profile pixel minimum is used. Only Sailor and Painter have separate props; Slicker uses integrated weather clothing.
+- **Status:** design-stage proposal only. Revision-15 browser capture and manual inspection are pending; no renderer, approved art or golden snapshots changed.
+
 ## Revision 14 — QA evidence inspected; owner review pending
 
 **Source:** [silhouette exploration 14](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-14.svg)  

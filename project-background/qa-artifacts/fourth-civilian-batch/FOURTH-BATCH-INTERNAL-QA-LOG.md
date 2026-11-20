@@ -1,3 +1,9 @@
+## Revision 15 — final hem-asymmetry refinement (2026-11-20)
+
+- Run #691 revision-14 direct 28×42 review showed Slicker's rear view still read as a rounded smock with weak hem asymmetry. Added a longer character-left storm flap, mirrored in front/rear views, so the garment's uneven hem is visible at game scale. This is a focused design-source change; the integrated hood and diagonal closure remain.
+- Painter's revision-14 arm/hand/brush construction is retained: the left-profile arm and hand are shared between body-only and prop-on; all 12 body-preservation pairs passed. The direct-scale tool/hand cluster remains dense and is flagged for owner review.
+- Revision-15 source capture and body-preservation recheck are pending. No production renderer, approved art, golden snapshots or provenance changed.
+
 ## Revision 14 — fresh QA and manual artifact inspection (2026-11-20)
 
 - [Run #691](https://github.com/tinytime/Tinytime.github.io/actions/runs/44786466007) tested revision-14 source at commit `6d0c27e71d17e0eaa20eb069926fee323bd255a7`; artifact [14654237640](https://github.com/tinytime/Tinytime.github.io/actions/runs/44786466007/artifacts/14654237640). The run's initial revision-14 attempt failed on an unescaped apostrophe in the evidence script; follow-up commit `beb81f182bd0a520db8765ca67955ae55ce414ce` corrected it, and Run #691 then passed the design projection, semantic proportion/annotation validation, Granny overlay, six-civilian annotation overlay, five-civilian review sheet and artifact upload.
