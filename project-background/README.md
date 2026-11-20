@@ -1,8 +1,8 @@
 
 
-## Current Guard, Vendor and Clinic QA status — Run #628 (2026-11-20)
+## Current Guard, Vendor and Clinic QA status — Run #629 (2026-11-20)
 
-The latest completed QA is [Run #628](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700298485), testing commit `a8f3689abfe50be5c6fb544789d0f26fb2d41e9f`, artifact `14612581539`. Vendor profile eye/brow placement was corrected and internally inspected at native 64×96 and direct 28×42; Guard and Clinic profile details remain intact. Targeted capture, integrity, face-distinctness, prop and gallery checks pass. Overall Actions remains failed on the unapproved golden-snapshot gate (1 match / 23 changed) and 180 existing audio/resource 404 console errors; no golden snapshots were changed. Claude's exact-output review and owner approval are pending. The remaining 17 civilians stay on hold.
+The latest completed QA is [Run #629](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700724613), testing commit `2bc1629edd82afc1a50ac7a4ab882b428dbd0c32`, artifact `14613105475`. Vendor's final profile eye placement was verified in left/right profiles at native 64×96 and direct 28×42; Guard and Clinic profile details remain intact. Targeted capture, integrity, face-distinctness, prop and gallery checks pass. Overall Actions remains failed on the unapproved golden-snapshot gate (1 match / 23 changed) and 180 existing audio/resource 404 console errors; no golden snapshots were changed. Owner approval for the rendered batch was received 2026-11-20. Claude's exact-output review remains pending; the remaining 17 civilians stay on hold until that required review is logged.
 
 ## Claude targeted re-review and follow-up — 2026-11-20
 
@@ -31,3 +31,13 @@ Run #628 tested `a8f3689` ([Actions](https://github.com/tinytime/Tinytime.github
 ## Latest QA — Guard, Vendor and Clinic Run #629 (2026-11-20)
 
 Vendor's final profile-eye placement correction is implemented and visually verified at native and direct game scales. [Run #629](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700724613), artifact [14613105475](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700724613/artifacts/14613105475), passes targeted vector capture/integrity checks but overall Actions remains failed on the unapproved golden snapshot gate and existing audio/resource 404s. No snapshots changed. Claude's independent review and owner approval remain pending; the remaining 17 civilians remain on hold.
+
+
+## Guard, Vendor and Clinic — Run #629 and owner decision (2026-11-20)
+
+- Final renderer source for this round: [`2bc1629edd82afc1a50ac7a4ab882b428dbd0c32`](https://github.com/tinytime/Tinytime.github.io/commit/2bc1629edd82afc1a50ac7a4ab882b428dbd0c32). The final focused change moved Vendor's profile eye/brow inward onto the visible cheek plane after Run #628's automated face-distinctness checks passed but manual direct-game-scale inspection found the mark insufficiently legible.
+- Browser QA: [Run #629](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700724613), [artifact 14613105475](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700724613/artifacts/14613105475). Targeted vector/capture checks pass; overall Actions remains failed on the unapproved golden snapshot baseline (1 match / 23 changed) and existing audio/resource 404 console errors. No golden snapshots or provenance were changed.
+- Inspected the exact Run #629 artifact: 12/12 native 64×96 and 12/12 direct 28×42 captures for Guard/Vendor/Clinic; Vendor's left and right profile eye now reads in both scales. Guard's near-side forearm/bracer/hand and Clinic's right-profile cord/coil remain present. Directional integrity 92/92, zero edge contacts and detached components, face distinctness 23/23 at both scales, prop audit, gallery, town smoke and Granny directional checks pass. pageErrors=0; scriptErrors=0.
+- **Owner decision:** the project owner explicitly approved the rendered Guard, Vendor and Clinic Worker batch on 2026-11-20 after the Run #629 evidence review.
+- **Independent-review record:** Claude's final independent review of this exact Run #629 commit/artifact is not yet recorded in the repository. Per the governing approval process, retain that as the outstanding independent-review gate; do not label the batch fully closed or release the remaining 17 until the exact-output review is logged. This records the owner's approval without fabricating reviewer sign-off.
+- No golden snapshots changed. Existing global Actions blockers are tracked separately from the passing character-specific evidence.
