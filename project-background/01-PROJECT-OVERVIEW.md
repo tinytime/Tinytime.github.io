@@ -44,13 +44,12 @@ The builder should provide Claude with the actual rendered sheets, comparative i
 
 ## Current agreed plan
 
-The project owner approved the first batch—Usher, Cook, and Courier—on 2026-11-19 and authorized the next group of three:
+1. **Completed and owner-approved:** Usher, Cook, Courier, Coach and Referee. Claude Run #603 recommends owner review with no P0/P1 defects; the owner approved all five on 2026-11-20. Preserve their renderers and accepted exceptions.
+2. **Built but not approved:** Runner. It was excluded from the Run #603 five-character review and requires a separate focused review before it can be counted as complete.
+3. **Next draft batch:** Guard, Vendor and Clinic worker. Their draft briefs and the roster shell-family audit are in qa-artifacts/next-civilian-batch/.
+4. **Production gate:** the revised construction standard has not yet been separately ratified by the owner. Do not begin renderer production for Guard, Vendor or Clinic worker until standard ratification and silhouette/brief preflight approval.
+5. **Remaining roster:** the 17 unstarted characters remain on production hold. Complete one character at a time with four-direction/native and direct game-scale evidence, internal QA, independent review and explicit owner approval.
 
-1. **Runner** — built and internally checked; dedicated vector renderer integrated and actual four-direction, role-debug, gallery and town evidence inspected.
-2. **Coach** — built with a dedicated vector renderer; targeted internal QA passed after side-profile facial refinement.
-3. **Referee** — built and internally checked; four-direction, role-debug, gallery and town evidence inspected.
-
-Complete and internally inspect each character in four directions, at native/enlarged scale, and in town/gallery context before moving to the next character. The owner initially expanded review to all six, then reduced the review to five to fit Claude's usage limit: Usher, Cook, Courier, Coach and Referee. Runner is intentionally excluded for this round because it shares the athletic archetype with Coach and Referee; Runner is not deleted or rejected and remains pending a later focused review. Claude must compare the five against Granny Volt, provide individual verdicts and a five-character ranking, and derive a reusable Civilian Vector Build Standard. Evaluate Claude's findings and obtain owner approval before starting the remaining 20.
 
 ## Scope and counts
 
@@ -70,9 +69,9 @@ The repository's automated inventory currently describes 24 live civilian archet
 
 ## Current state at handoff
 
-The Usher vector renderer is integrated in `npc_sprites.js`. The previous browser QA run (#393) showed the targeted usher checks passing, but the overall workflow still failed for separate snapshot-approval and legacy silhouette-audit gates. See [QA, known issues, and handoff](04-QA-AND-HANDOFF.md).
+The five-character art review is complete. Usher, Cook, Courier, Coach and Referee are **APPROVED by the owner**. Run #603 tested renderer source 2c00cfca09cc12ea19a72662c235beed2e9a19cb; targeted checks passed, while the overall Actions conclusion remains failed on the unapproved snapshot baseline and existing audio 404s. See the current [QA handoff](04-QA-AND-HANDOFF.md) and [NPC tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
 
-Usher, Cook, and Courier were owner-approved and then reopened by the owner on 2026-11-19 for Claude-recommended corrections. Runner, Coach and Referee are built and remain NOT APPROVED pending the full six-civilian Claude review and owner acceptance. Run #457 verifies all six native directional sheets and includes direct game-scale captures for Runner/Coach/Referee. Targeted visual integrity passes; the Courier body/baseline audit still flags a 2px delta against a 1px vector threshold, and global silhouette/snapshot/audio gates still fail. The live status is maintained in [the character tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
+Runner is built but excluded from Claude Run #603 and remains pending a focused review. The next draft production batch is Guard, Vendor and Clinic worker; no renderer implementation begins until the construction standard is separately ratified and the silhouette/brief preflight is accepted. The approved five's art and accepted exceptions are protected from unrequested changes.
 
 
 ## Latest six-civilian polish and QA — 2026-11-19

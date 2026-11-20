@@ -319,7 +319,7 @@ For every metric, store the measurement definition, source image/canvas, directi
 5. **Clothing and props:** construct garments and integrate props with hands/attachment points.
 6. **Face and head identity:** create deliberate front, profile, and rear head construction.
 7. **Colour and rendering:** assign palette roles, values, material shading, highlights, and controlled vector detail.
-8. **Directional/game-scale QA:** capture all directions and scales, inspect actual artifacts on neutral-grey and town/night backgrounds, review walk/animation frames where applicable, run metrics and document findings.
+8. **Directional/game-scale QA:** capture all directions and scales; inspect direct game-scale captures on fixed neutral-grey backgrounds; treat town/night composites as contextual regression evidence unless the named character is individually spawned and captured; review walk/animation frames where applicable; run metrics and document findings.
 
 Do not spend time polishing gradients before the silhouette and proportions are approved internally.
 

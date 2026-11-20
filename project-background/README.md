@@ -19,6 +19,7 @@ This folder is the starting point for anyone taking over work on the Vapor City 
 3. **[Technical implementation](03-TECHNICAL-IMPLEMENTATION.md)** — where the renderer lives, how vector NPCs are integrated, and which files matter.
 4. **[QA, known issues, and handoff](04-QA-AND-HANDOFF.md)** — how to test, interpret failures, and continue safely.
 5. **[NPC vector character tracker](NPC_VECTOR_CHARACTER_TRACKER.md)** — live roster and per-character approval status.
+6. **[Next civilian batch package](qa-artifacts/next-civilian-batch/BATCH-1-GUARD-VENDOR-CLINIC-WORKER.md)** — draft briefs for Guard, Vendor and Clinic worker plus [the 23-character shell-family audit](qa-artifacts/next-civilian-batch/ROSTER-SHELL-FAMILY-AUDIT.md).
 6. **[Civilian Vector Construction Standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md)** — Granny Volt's measured reference geometry, shared technical rules, provisional proportion bands, staged build pipeline, scorecard, and QA calibration plan.
 7. **[Six-Civilian Construction Standard Audit](SIX-CIVILIAN-CONSTRUCTION-AUDIT.md)** — first application of the draft standard to Usher, Cook, Courier, Runner, Coach, and Referee, including rendered evidence, provisional scorecards, verified QA measurements, and calibration gaps.
 8. **[Semantic Civilian Anatomy Annotation Guide](../qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md)** — exact coordinate convention, body/headwear/prop masks, required landmarks, Runner joint annotations, and the human annotation workflow.

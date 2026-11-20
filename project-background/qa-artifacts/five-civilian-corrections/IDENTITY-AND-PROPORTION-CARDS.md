@@ -3,7 +3,7 @@
 **Status:** owner-approved identity cards; qualitative proportion intent only. No numeric semantic measurements are claimed.  
 **Scope:** Usher, Cook, Courier, Coach and Referee. Runner is excluded.  
 **Source baseline:** Run #595 renderer `c354abfa3d78b46dc982a03d2c5d1ece0c918257`.  
-**Latest correction renderer:** `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb` (Run #599).
+**Latest approved renderer:** `2c00cfca09cc12ea19a72662c235beed2e9a19cb` (Run #603; Usher U4 only).
 
 These are design-intent cards, not verified semantic measurements. Do not infer or publish body/head ratios from them. The six source-annotated semantic records remain unverified; Granny remains `reference_only`. Granny is a craft benchmark, not a proportion template.
 
@@ -27,7 +27,7 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 - **Handedness/prop side:** pan is presented by the character's **left** hand (front view: viewer-right); profile views preserve the same character-relative hand/prop relationship. This corrects the earlier anatomical label. C1 profile handle/contact remains deferred/accepted as-is by the owner; do not edit the renderer.
 
 - **Role/personality:** warm, confident, generous, practiced and approachable.
-- **Silhouette/proportion intent:** broad planted stance, substantial shoulders, rounded face, tall pleated toque, double-breasted coat and broad terracotta apron wedge. The pan arm is an intentional outward gesture; preserve the connected sleeve/cuff/forearm/hand chain.
+- **Silhouette/proportion intent:** broad planted stance, substantial shoulders, rounded face, rounded chef toque/curl mass, double-breasted coat and broad terracotta apron wedge. The pan arm is an intentional outward gesture; preserve the connected sleeve/cuff/forearm/hand chain.
 - **Head/face identity cues:** broad cheek construction; softly arched, heavier brows; broad nose; full, friendly smile with cheek creases. The smile and cheek construction should survive as a clear expression rather than tiny decoration.
 - **Clothing/palette:** warm ivory chef coat, terracotta apron, dark planted trousers, dark shoes and pale toque.
 - **Signature role identifiers:** rounded toque/curl mass, terracotta apron and compact handled copper pan. At direct game scale the pan can read bowl-like; this is a documentation note, not an open art correction.
@@ -92,6 +92,6 @@ Run #599 is the current renderer evidence: [Actions](https://github.com/tinytime
 
 
 
-For each finding, attach before/after native 64×96 and direct 28×42 captures, direction, exact source commit and pixel-diff summary. Pixel diffs are change locators, not quality scores. Inspect the direct game-scale captures on both neutral grey and actual town/night backgrounds. Include a solid-black four-direction silhouette sheet and character-specific town spawn evidence where the harness supports it; otherwise mark the evidence unavailable.
+For each finding, attach before/after native 64×96 and direct 28×42 captures, direction, exact source commit and pixel-diff summary. Pixel diffs are change locators, not quality scores. Inspect direct game-scale captures on fixed neutral-grey backgrounds. A town/night composite is contextual regression evidence only unless the named character is explicitly spawned and individually captured at direct 28×42; otherwise mark character-specific town evidence unavailable. Include a solid-black four-direction silhouette sheet.
 
 All five characters are **OWNER-APPROVED** as of 2026-11-20. This status does not ratify the construction standard or authorize edits to accepted designs.

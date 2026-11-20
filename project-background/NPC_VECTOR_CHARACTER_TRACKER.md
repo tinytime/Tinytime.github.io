@@ -151,7 +151,7 @@ A passing automated test alone does not mean the design is approved. Do not appr
 
 Reference image: [Granny vs. vector Usher at 4×](../docs/granny_vs_vector_usher_4x.png). Measured scale and directional reference: [qa/granny-ref.json](../qa/granny-ref.json).
 
-## First three-character vector batch — previously owner approved; reopened for revision
+## Historical first three-character vector batch — previously owner approved; reopened for revision
 
 The first review batch is three characters total. Once all three are built and internally checked, send the complete set to Claude for a comparative review alongside Granny Volt.
 
@@ -161,7 +161,7 @@ The first review batch is three characters total. Once all three are built and i
 | Cook | Food service / chef | **REOPENED — REVISION IN PROGRESS** (prior owner approval retained in history) | Run `44537588645` / commit `5ed3f49`: palette, body/baseline, face, role-debug, prop, four-direction visual-integrity, town and gallery checks passed; 4× directional renders inspected. Overall workflow failed on unrelated global silhouette and unapproved golden-snapshot gates; audio asset 404s also logged. | Comparative review history recorded; owner accepted batch | Dedicated vector path: tall pleated toque, double-breasted cream coat, terracotta apron with ties/pocket, copper sauté pan. Latest refinement widens coat/apron silhouette and connects the pan grip visibly to the hand. First batch is owner-approved; no golden snapshots changed. |
 | Courier | Delivery / messenger | **REOPENED — REVISION IN PROGRESS** (prior owner approval retained in history) | Run #410 / source commit `98dbcda2a32fa506ba355f12ddd449db3322a4b4`: syntax/module, 3-vector palette, body/baseline/contrast, 23-unique-face, 92-capture visual-integrity, prop, role-debug, town and gallery checks passed. Actual native 64×96 front/back/left/right captures and 4× role-debug/gallery evidence inspected. | Focused correction re-review package prepared; owner accepted corrected batch | Profile face is visible in both side views; compact messenger satchel is consistent across views and sits on viewer-right in the rear view (character's right hip); detached hem stripe removed. Overall workflow failed only on global legacy silhouette and unapproved golden-snapshot gates. 23 snapshots differ, 1 matches; no refresh/approval. No page/script errors; 135 audio-resource 404s. |
 
-## Next character batch: Runner, Coach, Referee
+## Historical next character batch: Runner, Coach, Referee — 2026-11-19
 
 The project owner approved the first batch (Usher, Cook, Courier) on 2026-11-19 and authorized the next three-character group. Runner, Coach, and Referee are built and have passed the targeted visual checks, with the Courier baseline audit still flagged in the latest combined six-civilian run. Run #457 tested exact source `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`; artifact `14563778383` was inspected. All 24 native views for the six completed civilians and 12 direct 28×42 captures for Runner/Coach/Referee were inspected. Runner's side stride has two legs/two feet; Cook's toque has clear top headroom. All three remain NOT APPROVED pending Claude comparative review and owner acceptance. The standard town screenshot does not explicitly spawn Coach or Referee, so it is scene-regression evidence rather than character-specific live-town proof.
 
