@@ -5,7 +5,7 @@
 - **First five:** Usher, Cook, Courier, Coach and Referee are owner-approved and complete. Preserve Cook C1 (deferred), Usher U2 (declined), Usher U4 (resolved) and Coach/Courier rear X1 (accepted). No edits without renewed owner authorization.
 - **Style:** Claude withdrew the earlier blanket-outline criticism. Do not apply a blanket outline pass. Granny remains a craft benchmark, not a template.
 - **Construction standard:** the revised Civilian Vector Construction Standard was ratified by the owner on 2026-11-19 and governs future civilian work.
-- **Approved next batch:** Guard, Vendor and Clinic Worker Revision 02 four-view silhouettes, face studies, construction cards, palette directions and prop/contact approaches were explicitly approved by the owner on 2026-11-19. Dedicated renderer production is authorized for these three only. Renderer implementation is underway; actual render QA, internal visual inspection, Claude review and final completion approval remain outstanding.
+- **Approved next batch:** Guard, Vendor and Clinic Worker Revision 02 four-view silhouettes, face studies, construction cards, palette directions and prop/contact approaches were explicitly approved by the owner on 2026-11-19. Dedicated renderers are implemented. Run #620 targeted QA and visual inspection passed; ten pairwise silhouette-overlap triggers remain for Claude's independent human review. Final owner completion approval is still pending. See the [renderer QA and Claude review package](qa-artifacts/next-civilian-batch/GUARD-VENDOR-CLINIC-RENDERER-QA-AND-CLAUDE-REVIEW.md).
 - **Runner:** built, excluded from Claude Run #603 and still pending a focused review and owner decision.
 
 ## Historical build and approval status — 2026-11-19
@@ -115,7 +115,7 @@ A character is approved only when all of the following are true:
 7. Any required corrections have been implemented and rechecked.
 8. The project owner has accepted the result.
 
-Until then, keep the tracker status at **NOT APPROVED**, even if code is integrated or automated tests pass.
+For each character, keep the tracker status at **NOT APPROVED / NOT COMPLETE** until design approval, renderer implementation, internal QA, required Claude review and final owner approval are all satisfied.
 
 ## Visual review questions
 
