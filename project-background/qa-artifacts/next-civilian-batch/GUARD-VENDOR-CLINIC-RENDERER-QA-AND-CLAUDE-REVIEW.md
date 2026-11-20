@@ -1,10 +1,11 @@
 # Guard / Vendor / Clinic Worker — Renderer QA and Claude Review Package
 
 **Owner design approval:** 2026-11-19  
-**Implementation source commit:** [91bb65b531da36b4bdf082afc4578701f5f55a0c](https://github.com/tinytime/Tinytime.github.io/commit/91bb65b531da36b4bdf082afc4578701f5f55a0c)  
+**Renderer source commit:** [b5762ab47868de96389d75f82517c57d481cd3ed](https://github.com/tinytime/Tinytime.github.io/commit/b5762ab47868de96389d75f82517c57d481cd3ed)
+**QA harness commit:** [87eac9cd0a2b23a706f57df3e570ca3669c94c53](https://github.com/tinytime/Tinytime.github.io/commit/87eac9cd0a2b23a706f57df3e570ca3669c94c53)  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Browser QA:** [Run #620](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670437346)  
-**Artifact:** [Download the complete Run #620 evidence package](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670437346/artifacts/14599214667)
+**Browser QA:** [Run #622](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670705401)  
+**Artifact:** [Download the complete Run #622 evidence package](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670705401/artifacts/14599434590)
 
 ## Scope and status
 
@@ -14,13 +15,13 @@ The owner approved the Revision 02 designs for Guard, Vendor and Clinic Worker. 
 - `drawVendorVector` — forward-pitched stall worker, split waistcoat, open shirt, offset sash, tray supported by the hand.
 - `drawClinicVector` — tapered wrap tunic, offset hip stance, low rear hair coil/side tie, separate character-left medical pouch.
 
-The browser QA pass exposed and then verified fixes for two clipping defects: Guard's helmet touched the native top edge; Vendor's left-profile tray touched the native left edge. Both are corrected in source commit 91bb65b.
+The first renderer pass exposed two clipping defects: Guard's helmet touched the native top edge; Vendor's left-profile tray touched the native left edge. They were corrected and further refined in renderer commit b5762ab. Run #622 verified zero edge contacts. The direct 28×42 capture anchor was corrected to the live game sprite baseline (39px) in QA harness commit 87eac9c.
 
 **Current status:** design approved; renderer implemented; targeted QA and visual inspection passed; independent Claude review and final owner completion approval are still pending. Do not begin the remaining 20 civilians yet.
 
 ## Exact QA evidence
 
-Run #620 tested source commit `91bb65b531da36b4bdf082afc4578701f5f55a0c`.
+Run #622 tested renderer commit `b5762ab47868de96389d75f82517c57d481cd3ed` and QA harness commit `87eac9cd0a2b23a706f57df3e570ca3669c94c53`.
 
 | Check | Result |
 |---|---|
@@ -28,7 +29,7 @@ Run #620 tested source commit `91bb65b531da36b4bdf082afc4578701f5f55a0c`.
 | Dedicated new-batch direct game-scale captures | 12/12, all 28×42; rendered directly through `owCiv`, not resized |
 | Full roster face distinctness | 23/23 unique at native and game scale |
 | Palette audit | Pass; 23 civilians, 14 legacy pixel renderers, 9 vector renderers |
-| Body proportion / baseline audit | Pass; max height deviation 0.4375 px; max baseline delta 1 |
+| Body proportion / baseline audit | Pass; max height deviation 0.875 px; max baseline delta 1 |
 | Directional visual integrity | Pass; 92/92 captures checked; no edge contacts; no detached large components |
 | Prop/archetype audit | Pass |
 | NPC gallery | Pass; full 40-cell gallery rendered, including Field Clinic, City Guard and Street Vendor in all four directions |
@@ -37,7 +38,7 @@ Run #620 tested source commit `91bb65b531da36b4bdf082afc4578701f5f55a0c`.
 | Golden snapshot gate | Not passed: existing provenance remains `unapproved`. No snapshot was refreshed, approved or replaced |
 | Workflow conclusion | Failure only because the established golden-snapshot approval gate is still unapproved; the targeted renderer checks above passed |
 
-The browser log also contains 135 existing audio-resource 404 responses. These are separate from the new renderer code; no page errors or JavaScript errors were reported.
+The browser log contains 135 existing audio-resource 404 responses. These are separate from the new renderer code; no page errors or JavaScript errors were reported. Direct game-scale captures now use the 39px live sprite anchor.
 
 ## Mandatory human-review triggers
 
@@ -46,15 +47,15 @@ The pairwise silhouette diagnostics are technically complete and pass their diag
 | Direction | Pair | Full-body IoU | Torso-only IoU |
 |---|---|---:|---:|
 | Back/up | Courier / Vendor | 0.8929 | 0.2656 |
-| Back/up | Guard / Vendor | 0.8905 | 0.4390 |
+| Back/up | Guard / Vendor | 0.8893 | 0.4390 |
 | Profile right | Vendor / Clinic | 0.8879 | 0.5329 |
-| Back/up | Courier / Guard | 0.8776 | 0.3345 |
+| Back/up | Courier / Guard | 0.8771 | 0.3345 |
 | Back/up | Vendor / Clinic | 0.8686 | 0.5402 |
-| Profile left | Courier / Vendor | 0.8670 | 0.1552 |
+
 | Front | Vendor / Clinic | 0.8654 | 0.5664 |
-| Front | Guard / Clinic | 0.8583 | 0.6621 |
-| Profile right | Guard / Clinic | 0.8582 | 0.5980 |
-| Profile left | Guard / Clinic | 0.8517 | 0.5980 |
+| Front | Guard / Clinic | 0.8624 | 0.6621 |
+| Profile right | Guard / Clinic | 0.8550 | 0.5980 |
+| Back/up | Guard / Clinic | 0.8546 | 0.6405 |
 
 Claude should inspect these exact comparisons in the native and game-scale captures, especially the Vendor/Courier back and profile pairs and the Vendor/Clinic profile pair. Determine whether the distinct torso construction, face, headwear, prop/contact and personality cues are sufficient at actual game scale, or whether a valid silhouette refinement is needed. Do not treat the numeric trigger alone as a rejection.
 
@@ -66,9 +67,9 @@ Claude should inspect these exact comparisons in the native and game-scale captu
 4. [Owner-approved preflight and criteria](OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md)
 5. [Renderer implementation source](https://github.com/tinytime/Tinytime.github.io/blob/npc-granny-baseline-overhaul/npc_sprites.js)
 6. [Browser QA implementation](https://github.com/tinytime/Tinytime.github.io/blob/npc-granny-baseline-overhaul/qa/vapor-city-browser-qa.mjs)
-7. [Run #620 screenshots and report](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670437346/artifacts/14599214667)
+7. [Run #622 screenshots and report](https://github.com/tinytime/Tinytime.github.io/actions/runs/44670705401/artifacts/14599434590)
 
-The Run #620 artifact contains the 12 individual native 64×96 PNGs, 12 individual direct 28×42 PNGs, full NPC gallery captures, town screenshot, and machine-readable QA report.
+The Run #622 artifact contains the 12 individual native 64×96 PNGs, 12 individual direct 28×42 PNGs, full NPC gallery captures, town screenshot, and machine-readable QA report.
 
 ## Claude review criteria
 
