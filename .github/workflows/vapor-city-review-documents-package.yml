@@ -36,6 +36,7 @@ jobs:
           cp project-background/qa-artifacts/five-civilian-corrections/RUN-599-600-INTERNAL-QA.md package/project-background/qa-artifacts/five-civilian-corrections/
           cp project-background/qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md package/project-background/qa-artifacts/five-civilian-corrections/
           cp project-background/qa-artifacts/five-civilian-corrections/REVIEW-PACKAGE-MANIFEST.md package/project-background/qa-artifacts/five-civilian-corrections/
+          cp project-background/qa-artifacts/five-civilian-corrections/ACCEPTED-EXCEPTIONS.md package/project-background/qa-artifacts/five-civilian-corrections/
           mkdir -p package/project-background/qa-artifacts/standard-history
           cp project-background/qa-artifacts/standard-history/REVIEW-AND-VERSION-HISTORY.md package/project-background/qa-artifacts/standard-history/
           cp qa-artifacts/five-civilian-full-review/CLAUDE-REVIEW-BRIEF.md package/qa-artifacts/five-civilian-full-review/
