@@ -35,9 +35,9 @@ The owner approved the refined role directions for Sailor, Slicker and Painter, 
 | 9 | Tech | Clinic | Compact forward-leaning field-maintenance harness / split utility shell | Owner-approved batch #9–11 (2026-11-20); dedicated production renderer implemented and owner-approved at rendered-art stage |
 | 10 | Hacker | Clinic | Narrow folded-in cropped asymmetric drape-shell | Owner-approved finished design-stage art (2026-11-20); production renderer not yet implemented |
 | 11 | Fisher | Trades | Broad short oilskin smock / wide braced deck stance | Owner-approved finished design-stage art (2026-11-20); production renderer not yet implemented |
-| 12 | Sailor | Trades | UNASSIGNED | Owner-approved role direction; silhouette exploration authorized only; owner silhouette approval pending |
-| 13 | Slicker | Trades | UNASSIGNED | Owner-approved role direction; queued pending Sailor silhouette/construction approval |
-| 14 | Painter | Trades | UNASSIGNED | Owner-approved role direction; queued pending Sailor silhouette/construction approval |
+| 12 | Sailor | Trades | UNASSIGNED | PROPOSED planning descriptor: narrow cropped deck-coat / upright deckhand; parallel silhouette exploration authorized; owner approval pending |
+| 13 | Slicker | Trades | UNASSIGNED | PROPOSED planning descriptor: forward-pitched long rain-shell / hooded commuter; parallel silhouette exploration authorized; owner approval pending |
+| 14 | Painter | Trades | UNASSIGNED | PROPOSED planning descriptor: open asymmetrical sign-painter smock / reaching pose; parallel silhouette exploration authorized; owner approval pending |
 | 15 | Welder | Trades | UNASSIGNED | Legacy grouping only |
 | 16 | Kid | Youth | UNASSIGNED | Legacy grouping only |
 | 17 | Kid 2 | Youth | UNASSIGNED | Legacy grouping only |
