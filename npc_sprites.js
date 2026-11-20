@@ -920,13 +920,14 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         // A distinct cuff bridges the sleeve to the gripping hand.
         path([[68,74],[76,75],[78,82],[73,86],[67,83]],'#C8B89F',ink,1.1);
         // The handle and pan are laid in first; the hand is painted last so its grip remains visible.
-        path([[70,85],[78,83],[88,84],[87,88],[77,90],[72,89]],'#4B3434',ink,1.25);
-        line([[79,84],[87,84.5]],'#C18A62',1.6);
         // Shallow, wide sauté pan: an obvious oval rim and low-sided bowl, not a mug.
-        path([[82,81],[98,81],[99,85],[97,93],[92,96],[85,94],[80,87]],'#B95B3C',ink,1.8);
-        ell(90,82,9,2.8,'#E5A06B',ink,1.4);
-        ell(90,82,6.4,1.25,'#4C3540',null);
-        line([[84,86],[88,92],[93,93]],'#F2B17C',1.2);
+        path([[79,82],[95,82],[96,85],[94,90],[90,93],[82,92],[77,87]],'#B95B3C',ink,1.8);
+        // Draw the long handle over the lower pan edge; the hand is painted last to show the grip.
+        path([[70,86],[78,84],[88,85],[87,89],[77,91],[72,90]],'#4B3434',ink,1.25);
+        line([[80,85],[88,85.5]],'#C18A62',1.6);
+        ell(87,83,9,2.8,'#E5A06B',ink,1.4);
+        ell(87,83,6.4,1.25,'#4C3540',null);
+        line([[81,87],[85,91],[90,91.5]],'#F2B17C',1.2);
         path([[68,82],[74,80],[80,84],[80,90],[76,94],[70,91],[67,87]],skin,ink,1.25);
         line([[69,87],[75,88]],'#8D5944',1);line([[70,90],[75,91]],'#8D5944',.8);
       }else{
