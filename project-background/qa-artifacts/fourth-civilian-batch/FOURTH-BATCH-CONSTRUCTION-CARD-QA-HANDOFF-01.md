@@ -73,3 +73,19 @@ Return per character:
 - concrete corrections and exact card section references.
 
 Do not mark final art approved. After internal QA, present the cards and findings to the owner. Do not begin production renderer implementation or roster #15–23 work.
+
+
+## Internal QA disposition — card 02 (2026-11-20)
+
+**Overall: CHANGES REQUIRED before owner-facing card review is treated as clean.** The card content is substantially complete and the revision-21 silhouette baseline is correctly protected, but the family labels must remain proposed and the roster register must retain UNASSIGNED current-family status until explicit owner approval.
+
+- **Sailor #12 — card completeness: PASS WITH OPEN DESIGN QUESTIONS.** Role, anatomy chain, four-view handedness, rope contact/occlusion, exactly three must-survive items and QA risks are present. The rope grip remains a visual risk already identified by Run #810's limited crop inspection. Clinic/Guard face distinctions remain hypotheses pending the required matched native front/profile evidence.
+- **Slicker #13 — card completeness: PASS WITH OPEN DESIGN QUESTIONS.** Integrated hood/shell construction, four-view garment logic, no-prop constraint, three must-survive items and risks are present. Two nearest face comparators are correctly left unresolved pending matched-crop review; Fisher/Courier are candidates only.
+- **Painter #14 — card completeness: PASS WITH OPEN DESIGN QUESTIONS.** Role, anatomy chain, handedness, brush contact and occlusion, three must-survive items and risks are present. The hand/handle/ferrule/bristle cluster remains a direct-scale scrutiny point. Cook/Busker face distinctions remain hypotheses pending matched native front/profile evidence.
+- **Family governance correction:** the three family labels are proposed descriptors, not current/approved vector-family assignments. The roster register must keep #12–14 as UNASSIGNED in its current-family column until owner approval. Updated card, tracker and roster register accordingly.
+- **Face-comparison gate:** the cards correctly avoid locking Slicker's comparators, but the Sailor/Painter named pairs and geometric distinctions must remain provisional until the F6 method is evidenced with matched native 64×96 front/profile crops and concrete differences. No face geometry is approved by this QA.
+- **Silhouette preservation:** no proposed card instruction authorizes changing revision-21 contours. Any material outer-contour deviation must return to the owner as a separate decision.
+- **Evidence boundary:** Run #810 validates the revision-21 silhouette source, not the new construction cards or future garment/face/prop detail. This document review does not constitute visual QA of new vector geometry.
+- **Approval boundary:** no final art, palette, renderer, gallery/town integration, golden snapshot/provenance work, or roster #15–23 work is approved by this disposition.
+
+Next gate: owner reviews the corrected cards and proposed family descriptors. After owner approval of the construction direction, build the detailed design-stage vector studies and collect the full four-direction/native/direct-scale evidence required by the standard.
