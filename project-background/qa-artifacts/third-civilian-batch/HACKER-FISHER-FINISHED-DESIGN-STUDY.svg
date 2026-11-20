@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1080" viewBox="0 0 1680 1080" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1720" viewBox="0 0 1680 1720" role="img" aria-labelledby="title desc">
 <title id="title">Hacker and Fisher — finished vector design study</title>
 <desc id="desc">Eight original four-direction civilian vector designs developed over the approved round-05 silhouettes. Design-stage artwork only; not game-renderer captures.</desc>
 <defs>
@@ -27,7 +27,7 @@
 <text x="54" y="160" class="sub">Charcoal · cool lilac · slate blue · character-right hand slate</text>
 <!-- Hacker panels -->
 <g transform="translate(54 180)">
- <g transform="translate(0 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">FRONT</text><g transform="translate(72 38) scale(2.4 2.4)">
+ <g transform="translate(0 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">FRONT</text><g id="hacker-front-art" transform="translate(72 38) scale(2.4 2.4)">
   <use href="#hFront" class="hbody ink"/>
   <path d="M18 24 L10 34 9 58 14 66 20 60 21 42 26 33Z" class="hshell ink"/>
   <path d="M25 21 L20 26 19 39 23 43 27 36 28 48 25 62 30 65 35 55 37 47 40 48 42 62 47 64 50 60 46 43 46 29 40 22 33 20Z" class="hbase ink"/>
@@ -43,7 +43,7 @@
   <path d="M44 58 L49 58 50 62 45 62Z" class="hglass"/>
   <path d="M20 48 L25 48 27 62 25 66 20 62Z" class="hlight ink"/>
  </g></g>
- <g transform="translate(252 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">BACK</text><g transform="translate(72 38) scale(2.4 2.4)">
+ <g transform="translate(252 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">BACK</text><g id="hacker-back-art" transform="translate(72 38) scale(2.4 2.4)">
   <use href="#hBack" class="hbody ink"/>
   <path d="M24 22 Q34 17 43 23 L46 43 40 52 28 50 22 38Z" class="hshell ink"/>
   <path d="M25 25 Q34 21 42 26 L40 43 29 46 24 37Z" class="hbase ink"/>
@@ -52,20 +52,20 @@
   <path d="M40 28 L48 32 50 52 56 69 50 77 45 64 43 48Z" class="hskin ink"/>
   <path d="M29 50 L41 49 42 56 29 57Z" class="hlight ink"/>
   <!-- Character-right hand is viewer-right from the rear; slate is not duplicated. -->
+  <path d="M47 64 L53 65 56 70 52 73 47 70Z" class="hskin ink"/>
   <path d="M49 68 L59 69 60 78 50 79Z" class="hprop ink"/>
   <path d="M51 71 L57 71 57 76 51 76Z" class="hglass"/>
  </g></g>
- <g transform="translate(504 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">LEFT PROFILE</text><g transform="translate(72 38) scale(2.4 2.4)">
+ <g transform="translate(504 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">LEFT PROFILE</text><g id="hacker-left-art" transform="translate(72 38) scale(2.4 2.4)">
   <use href="#hLeft" class="hbody ink"/>
   <path d="M27 21 L22 27 21 40 25 44 28 37 29 49 26 63 31 66 37 56 39 48 43 48 46 62 51 63 53 58 48 43 47 29 41 22 34 20Z" class="hshell ink"/>
   <path d="M29 9 Q36 5 43 12 L42 20 35 23 28 19Z" class="hskin ink"/>
   <path d="M25 12 L31 7 37 8 40 12 34 13 30 17 26 16Z" class="hdeep ink"/>
   <path d="M32 15 L36 15" stroke="#24232b" stroke-width="1.4"/>
   <path d="M34 17 L38 18 35 19" stroke="#a36f62" stroke-width="1" fill="none"/>
-  <path d="M22 49 L27 51 28 59 23 61Z" class="hskin ink"/>
-  <path d="M18 48 L25 48 25 55 18 55Z" class="hprop ink"/>
+
  </g></g>
- <g transform="translate(756 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">RIGHT PROFILE</text><g transform="translate(72 38) scale(2.4 2.4)">
+ <g transform="translate(756 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">RIGHT PROFILE</text><g id="hacker-right-art" transform="translate(72 38) scale(2.4 2.4)">
   <use href="#hRight" class="hbody ink"/>
   <path d="M28 21 L23 27 22 40 26 44 29 37 30 49 27 63 32 66 38 56 40 48 44 48 47 62 52 63 54 58 49 43 48 29 42 22 35 20Z" class="hshell ink"/>
   <path d="M30 9 Q37 5 44 12 L43 20 36 23 29 19Z" class="hskin ink"/>
@@ -73,6 +73,9 @@
   <path d="M34 15 L38 15" stroke="#24232b" stroke-width="1.4"/>
   <path d="M36 17 L40 18 37 19" stroke="#a36f62" stroke-width="1" fill="none"/>
   <path d="M40 27 L46 33 48 47 44 51 40 42Z" class="hlight ink"/>
+  <path d="M43 45 L48 49 51 55 48 58 43 54 40 49Z" class="hskin ink"/>
+  <path d="M48 55 L58 56 61 64 51 66 47 61Z" class="hprop ink"/>
+  <path d="M50 57 L57 58 58 62 51 63Z" class="hglass"/>
   <path d="M40 47 L46 51 47 58 41 60 37 54Z" class="hskin ink"/>
  </g></g>
 </g>
@@ -86,7 +89,8 @@
 <text x="54" y="575" class="name">FISHER — weathered, patient, grounded</text>
 <text x="54" y="598" class="sub">Weathered ochre · rust · canvas · salt-grey · character-left hand basket</text>
 <g transform="translate(54 620)">
- <g transform="translate(0 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">FRONT</text><g transform="translate(72 38) scale(2.4 2.4)">
+ <g transform="translate(0 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">FRONT</text><g id="fisher-front-art" transform="translate(72 38) scale(2.4 2.4)">
+  <g transform="translate(64 0) scale(-1 1)">
   <use href="#fFront" class="fbody ink"/>
   <path d="M18 26 L8 34 5 52 12 58 18 46 20 58 12 76 9 84 22 88 31 78 33 61 40 61 44 79 55 88 63 83 58 69 51 51 50 34 43 27 32 26 25 30Z" class="fshell ink"/>
   <path d="M22 12 Q29 6 39 10 L43 17 40 23 22 23 18 17Z" class="fdeep ink"/>
@@ -101,8 +105,9 @@
   <path d="M14 55 L16 58 13 62 9 61Z" class="fskin ink"/>
   <path d="M21 73 L30 78 25 90 14 93 5 90 7 85Z" class="fdeep ink"/>
   <path d="M40 73 L54 76 61 88 61 94 48 94 40 87Z" class="fdeep ink"/>
+  </g>
  </g></g>
- <g transform="translate(252 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">BACK</text><g transform="translate(72 38) scale(2.4 2.4)">
+ <g transform="translate(252 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">BACK</text><g id="fisher-back-art" transform="translate(72 38) scale(2.4 2.4)">
   <use href="#fBack" class="fbody ink"/>
   <path d="M18 26 L8 34 5 52 12 58 18 46 20 58 12 76 9 84 22 88 31 78 33 61 40 61 44 79 55 88 63 83 58 69 51 51 50 34 43 27 32 26 25 30Z" class="fshell ink"/>
   <path d="M22 12 Q29 6 39 10 L43 17 40 23 22 23 18 17Z" class="fdeep ink"/>
@@ -117,7 +122,7 @@
   <path d="M7 65 L15 70 M5 69 L13 73" class="fline"/>
   <path d="M15 58 L19 60 18 65 13 65Z" class="fskin ink"/>
  </g></g>
- <g transform="translate(504 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">LEFT PROFILE</text><g transform="translate(72 38) scale(2.4 2.4)">
+ <g transform="translate(504 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">LEFT PROFILE</text><g id="fisher-left-art" transform="translate(72 38) scale(2.4 2.4)">
   <use href="#fLeft" class="fbody ink"/>
   <path d="M22 27 L14 34 12 51 17 57 22 46 24 60 17 77 15 85 28 88 38 77 39 61 45 60 49 78 59 85 63 79 57 62 54 39 46 28 35 26Z" class="fshell ink"/>
   <path d="M27 9 Q35 5 42 13 L41 21 34 24 25 21 23 14Z" class="fdeep ink"/>
@@ -131,7 +136,7 @@
   <path d="M10 65 Q15 61 22 65 M10 70 L22 70 M11 75 L23 75" class="fline"/>
   <path d="M15 57 L20 57 21 63 16 65Z" class="fskin ink"/>
  </g></g>
- <g transform="translate(756 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">RIGHT PROFILE</text><g transform="translate(72 38) scale(2.4 2.4)">
+ <g transform="translate(756 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">RIGHT PROFILE</text><g id="fisher-right-art" transform="translate(72 38) scale(2.4 2.4)">
   <use href="#fRight" class="fbody ink"/>
   <path d="M23 27 L15 34 13 51 18 57 23 46 25 60 18 77 16 85 29 88 39 77 40 61 46 60 50 78 60 85 63 79 58 62 55 39 47 28 36 26Z" class="fshell ink"/>
   <path d="M28 9 Q36 5 43 13 L42 21 35 24 26 21 24 14Z" class="fdeep ink"/>
@@ -151,4 +156,49 @@
 <text x="1100" y="945" class="small">Closest comparisons: Guard (softer jaw corner)</text><text x="1100" y="964" class="small">and Cook (longer weathered cheek-to-chin plane).</text>
 <text x="54" y="1000" class="small">DESIGN-STAGE VECTOR ART · not direct game-rendered 28×42 evidence · handedness follows character-relative construction labels</text>
 <text x="54" y="1030" class="small">Round-05 silhouettes preserved as the base construction. No renderer, existing civilian art, or golden snapshot changes.</text>
+
+<rect x="40" y="1070" width="1600" height="610" rx="12" fill="#202630" stroke="#4a5360"/>
+<text x="54" y="1110" class="name">SCALE READABILITY — design-stage projection, not game-renderer evidence</text>
+<text x="54" y="1134" class="small">Native 64×96 · direct vector raster preview at 28×42 · 4× crisp-edge enlargement of the 28×42 projection</text>
+<rect x="54" y="1150" width="378" height="240" rx="8" class="panel"/>
+<text x="66" y="1172" class="dir">HACKER · FRONT</text>
+<text x="66" y="1192" class="small">64×96</text><use href="#hacker-front-art" transform="translate(36.000 1188.167) scale(0.416667)"/>
+<text x="152" y="1192" class="small">28×42</text><use href="#hacker-front-art" transform="translate(138.875 1223.073) scale(0.182292)"/>
+<text x="208" y="1192" class="small">4× crisp-edge</text><g shape-rendering="crispEdges"><use href="#hacker-front-art" transform="translate(155.500 1176.292) scale(0.729167)"/></g>
+<rect x="448" y="1150" width="378" height="240" rx="8" class="panel"/>
+<text x="460" y="1172" class="dir">HACKER · BACK</text>
+<text x="460" y="1192" class="small">64×96</text><use href="#hacker-back-art" transform="translate(430.000 1188.167) scale(0.416667)"/>
+<text x="546" y="1192" class="small">28×42</text><use href="#hacker-back-art" transform="translate(532.875 1223.073) scale(0.182292)"/>
+<text x="602" y="1192" class="small">4× crisp-edge</text><g shape-rendering="crispEdges"><use href="#hacker-back-art" transform="translate(549.500 1176.292) scale(0.729167)"/></g>
+<rect x="842" y="1150" width="378" height="240" rx="8" class="panel"/>
+<text x="854" y="1172" class="dir">HACKER · LEFT PROFILE</text>
+<text x="854" y="1192" class="small">64×96</text><use href="#hacker-left-art" transform="translate(824.000 1188.167) scale(0.416667)"/>
+<text x="940" y="1192" class="small">28×42</text><use href="#hacker-left-art" transform="translate(926.875 1223.073) scale(0.182292)"/>
+<text x="996" y="1192" class="small">4× crisp-edge</text><g shape-rendering="crispEdges"><use href="#hacker-left-art" transform="translate(943.500 1176.292) scale(0.729167)"/></g>
+<rect x="1236" y="1150" width="378" height="240" rx="8" class="panel"/>
+<text x="1248" y="1172" class="dir">HACKER · RIGHT PROFILE</text>
+<text x="1248" y="1192" class="small">64×96</text><use href="#hacker-right-art" transform="translate(1218.000 1188.167) scale(0.416667)"/>
+<text x="1334" y="1192" class="small">28×42</text><use href="#hacker-right-art" transform="translate(1320.875 1223.073) scale(0.182292)"/>
+<text x="1390" y="1192" class="small">4× crisp-edge</text><g shape-rendering="crispEdges"><use href="#hacker-right-art" transform="translate(1337.500 1176.292) scale(0.729167)"/></g>
+<rect x="54" y="1430" width="378" height="240" rx="8" class="panel"/>
+<text x="66" y="1452" class="dir">FISHER · FRONT</text>
+<text x="66" y="1472" class="small">64×96</text><use href="#fisher-front-art" transform="translate(36.000 1468.167) scale(0.416667)"/>
+<text x="152" y="1472" class="small">28×42</text><use href="#fisher-front-art" transform="translate(138.875 1503.073) scale(0.182292)"/>
+<text x="208" y="1472" class="small">4× crisp-edge</text><g shape-rendering="crispEdges"><use href="#fisher-front-art" transform="translate(155.500 1456.292) scale(0.729167)"/></g>
+<rect x="448" y="1430" width="378" height="240" rx="8" class="panel"/>
+<text x="460" y="1452" class="dir">FISHER · BACK</text>
+<text x="460" y="1472" class="small">64×96</text><use href="#fisher-back-art" transform="translate(430.000 1468.167) scale(0.416667)"/>
+<text x="546" y="1472" class="small">28×42</text><use href="#fisher-back-art" transform="translate(532.875 1503.073) scale(0.182292)"/>
+<text x="602" y="1472" class="small">4× crisp-edge</text><g shape-rendering="crispEdges"><use href="#fisher-back-art" transform="translate(549.500 1456.292) scale(0.729167)"/></g>
+<rect x="842" y="1430" width="378" height="240" rx="8" class="panel"/>
+<text x="854" y="1452" class="dir">FISHER · LEFT PROFILE</text>
+<text x="854" y="1472" class="small">64×96</text><use href="#fisher-left-art" transform="translate(824.000 1468.167) scale(0.416667)"/>
+<text x="940" y="1472" class="small">28×42</text><use href="#fisher-left-art" transform="translate(926.875 1503.073) scale(0.182292)"/>
+<text x="996" y="1472" class="small">4× crisp-edge</text><g shape-rendering="crispEdges"><use href="#fisher-left-art" transform="translate(943.500 1456.292) scale(0.729167)"/></g>
+<rect x="1236" y="1430" width="378" height="240" rx="8" class="panel"/>
+<text x="1248" y="1452" class="dir">FISHER · RIGHT PROFILE</text>
+<text x="1248" y="1472" class="small">64×96</text><use href="#fisher-right-art" transform="translate(1218.000 1468.167) scale(0.416667)"/>
+<text x="1334" y="1472" class="small">28×42</text><use href="#fisher-right-art" transform="translate(1320.875 1503.073) scale(0.182292)"/>
+<text x="1390" y="1472" class="small">4× crisp-edge</text><g shape-rendering="crispEdges"><use href="#fisher-right-art" transform="translate(1337.500 1456.292) scale(0.729167)"/></g>
+<text x="54" y="1690" class="small">The 28×42 and enlarged views are vector design projections. Production acceptance still requires direct captures from the game renderer.</text>
 </svg>
