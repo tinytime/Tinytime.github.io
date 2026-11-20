@@ -1,18 +1,23 @@
 # Vapor City Civilian Vector Construction Standard
 
-## Decision addendum — silhouette diagnostics and rollout gate (2026-11-20)
+## Owner approval and Run #603 closeout — 2026-11-20
 
-This section supersedes older status statements below where they conflict. Historical run notes remain unchanged as historical records.
+This is the current authority for approval and rollout; historical run notes remain unchanged below.
 
-- **Construction standard:** Claude reviewed Version 2.1 in Run #600 and recommended retaining it with revisions. The revised working method is now consolidated: eight-stage build pipeline, Tier A mandatory evidence, Tier B diagnostic silhouette triggers, Tier C semantic calibration suspended, face cues by construction type, exactly three must-survive items, prop-contact/handedness records, accepted exceptions and a package manifest. Historical numeric proportion bands are moved to Appendix A and are not active rules. The 100-point scorecard is non-gating. **Ready for final independent review and owner ratification; not yet authorized for individual next-civilian briefs or production.**
-- **Owner dispositions from 2026-11-20:** Cook profile handle/contact C1 is explicitly deferred/accepted as-is; do not edit it. Usher silhouette U2 is explicitly declined; do not edit it. Usher profile clipboard contact U4 is authorized for correction and is implemented in renderer commit `2c00cfca09cc12ea19a72662c235beed2e9a19cb`; Run #603 [tested the exact source](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact `14593339734`; internal inspection confirms U4 resolved at both scales. No other changes to these three decisions without renewed authorization.
-- **Silhouette recommendation:** pairwise full-character/torso IoU at or above 0.85 is a human-review trigger only, never an artistic pass/fail gate. Report exact pair/direction, mask basis, alpha threshold, both actual scales and human disposition. Do not reshape art to optimize IoU. Preserve Coach/Courier rear as the accepted exception; see the register.
-- **Current first-review group:** Usher, Cook, Courier, Coach and Referee. Runner remains excluded from this review round. Their earlier approval states are historical only; all five remain NOT APPROVED pending updated Claude review and explicit owner approval.
-- **Current evidence package:** the self-contained [Claude re-review package workflow](https://github.com/tinytime/Tinytime.github.io/actions/workflows/vapor-city-review-documents-package.yml) includes the complete current docs, Run #600/603 evidence ZIPs, and U4 before/after sheets. Claude's updated review is still pending.
-- **Release decision:** the remaining 17 civilians remain **ON HOLD for production**. Do not begin individual next-civilian briefs or production until Claude has reviewed the final five-character evidence and standard, and the owner explicitly ratifies the standard and approves the first-batch direction.
-- **Latest Granny diagnostic QA:** Run #591 verified the landmark-sheet presentation and output manifest, plus the targeted semantic, capture, overlay, directional, gallery and town checks. Granny's semantic polygon/landmark candidates remain unverified; pixel-derived contours matching renderer alpha do not prove anatomical correctness. Granny remains `reference_only`; no ratio calibration or candidate promotion is authorized.
-- **Workflow interpretation:** the #591 GitHub Actions run itself concluded FAILED. Its substantive blockers include the global silhouette gate and unapproved golden snapshots (1 match / 23 changed). Missing audio assets/404s are expected on this branch and are non-blocking environment noise for project assessment; do not spend time adding/fixing audio or count those 404s as a character defect. Do not rewrite the historical Actions conclusion. No golden snapshots were refreshed or approved.
-- **Next sequence:** submit the Run #603 exact-source evidence and revised standard for Claude's independent re-review; resolve only any valid authorized findings; obtain explicit owner ratification and first-batch approval; only then release the remaining roster.
+- **Five-character art:** Usher, Cook, Courier, Coach and Referee are explicitly **APPROVED by the project owner**. Claude Run #603 recommended owner review, found no P0/P1 defects and verified Usher U4; it did not itself grant owner approval.
+- **Preservation:** Cook C1 is deferred/accepted as-is; Usher U2 is declined; U4 is implemented/resolved; Coach/Courier rear X1 is accepted. Preserve the five approved designs unless the owner authorizes a new change.
+- **Outline/style:** Claude withdrew its earlier claim that the five lacked Granny's outline. No blanket outline pass is warranted. A blind value-hierarchy/style comparison may be run later as an optional experiment, not a release gate.
+- **F2 — handedness convention:** character-relative anatomy is authoritative. For a front-facing character, character-left appears viewer-right and character-right appears viewer-left; rear view reverses. Record both labels per direction. In profiles, record near/far relative to facing direction.
+- **F3 — three must-survive items:** every card has exactly three items. The required direct-28×42 head-read cue is one of those three, not a fourth item.
+- **F4 — backdrop evidence:** direct in-game 28×42 captures on fixed neutral-grey backgrounds are mandatory. Town/night composite is contextual regression evidence only unless the named character is explicitly spawned and individually captured at direct 28×42; otherwise mark character-specific town evidence unavailable.
+- **F5 — shell-family register:** maintain the roster-wide shell-family audit before production of the remaining 17. Legacy archetype grouping is reference context, not a vector template. Record actual vector family only after silhouette exploration; unbuilt characters remain UNASSIGNED. No arbitrary family quota.
+- **F6 — closest-face method:** compare new native 64×96 front/profile face crops against current roster using head/jaw proportions, eye placement/geometry, brow shape, nose/profile, cheek and mouth/expression. Exclude skin tone, hair colour, headwear and palette. Name the two closest faces, show matched-scale crops and state concrete geometric differences. This is a documented human comparison, not a numeric gate.
+- **F7 — Cook card accuracy:** describe the approved render as a rounded chef-toque/curl mass and compact handled copper pan; note that the pan can read bowl-like at direct game scale. Documentation only; Cook's renderer remains unchanged.
+- **Normative structure:** §§1–13 contain current rules. Dated reviewer/QA outcomes are historical evidence, not additional rules.
+- **Current standard status:** revised in response to Claude F2–F7; **awaiting explicit owner ratification as a separate decision**. Approval of the five artworks does not silently ratify the standard.
+- **Next-batch preparation:** draft briefs for Guard, Vendor and Clinic worker and the 23-character shell-family register are linked in §14. Planning only; no renderer production begins until standard ratification and silhouette preflight are accepted.
+- **Runner:** built but excluded from Claude Run #603; pending focused review and not part of the five-character approval.
+- **Run #603:** [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact 14593339734. Targeted results passed; overall Actions failure remains due to unapproved snapshots (1 match / 23 changed) and 180 existing audio 404s. No golden snapshots were refreshed or approved.
 
 
 ## Historical review and run records
@@ -187,7 +192,7 @@ Show the exact pair/direction at both scales and classify it as genuine identity
 - Front, side, and rear head construction must be considered independently.
 - Profiles need a readable forehead/nose/chin contour and correctly placed visible eye/ear details where appropriate.
 - Back views need deliberate hair/headwear/nape construction rather than a blank head fallback.
-- Each identity brief specifies at least two purposeful face-construction cues, named by type (eye geometry/spacing, brow, nose/profile, cheek/jaw, mouth/expression or facial proportions) and distinct from the two closest roster faces. Skin tone, hair colour and headwear alone do not count.
+- Each identity brief specifies at least two purposeful face-construction cues, named by type (eye geometry/spacing, brow, nose/profile, cheek/jaw, mouth/expression or facial proportions) and distinct from the two closest roster faces. Determine the two closest faces by comparing matched native 64×96 front/profile crops for head/jaw proportions, eye placement/geometry, brow shape, nose/profile, cheek and mouth/expression. Exclude skin tone, hair colour, headwear and palette. Name the two comparators, show the crops, and state concrete geometric differences; this is a human comparison, not a numeric similarity gate. Skin tone, hair colour and headwear alone do not count.
 - Judge interior facial features at native 64×96 and in front/profile views. Interior facial marks are not required to survive direct 28×42.
 - At direct 28×42, at least one deliberate head-read cue must remain visible: hair mass/hairline, sideburns, headwear profile, age cue or head shape. Name it in the character's must-survive list.
 - Do not count token one-pixel edits or rely on a shared face template.
@@ -238,9 +243,9 @@ Use three evidence tiers:
 2. Enlarged nearest-neighbour views for edge/path inspection.
 3. Direct in-game 28 × 42 captures in all four directions; derived resizes do not qualify.
 4. A separately inspectable solid-black silhouette sheet for all four directions.
-5. Direct 28 × 42 captures on fixed neutral-grey and town-ground/night backdrops. Record exact backdrop asset/configuration and preserve it between review rounds.
+5. Direct 28 × 42 captures on a fixed neutral-grey backdrop. Record exact backdrop asset/configuration and preserve it between review rounds. Town/night evidence is contextual regression evidence only unless the named character is explicitly spawned and individually captured at direct 28 × 42; otherwise mark character-specific town evidence unavailable.
 6. A prop-contact table for every visible direction: arm/hand continuity, grip/support point, occlusion order, handedness and character-relative prop side.
-7. Exactly three must-survive items on each identity card (silhouette/construction feature, signature prop/interaction, palette/headwear/major shape block), plus a list of details allowed to disappear.
+7. Exactly three must-survive items on each identity card (silhouette/construction feature, signature prop/interaction, palette/headwear/major shape block). The direct-28×42 head-read cue must be named within one of these three items, not added as a fourth. Also list details allowed to disappear.
 8. For animated/walking characters, a minimum two-frame-per-direction sheet (front, back, left, right) showing limb continuity, prop/hand stability, silhouette flicker and direction transitions. Static-only characters must record not-applicable.
 9. Before/after side-by-side evidence for every correction finding, exact renderer commit, direction, native and direct game-scale captures, and pixel-diff method/threshold.
 10. A package completeness manifest listing every required document, artifact, direction, scale, background, frame set, source commit and unavailable item.
@@ -249,7 +254,7 @@ Use three evidence tiers:
 **Tier B — diagnostic roster audit**
 - Pairwise full-character and torso-mask IoU tables with exact mask basis, alpha threshold, direction and scale.
 - Every pair at or above 0.85 is review_required, not fail; include paired images and a human disposition.
-- Maintain a torso/garment-shell family table and accepted-exception register. No numeric cap; document recurrence and meaningful construction distinctions.
+- Maintain the roster-wide torso/garment-shell family table and accepted-exception register. No numeric cap; document recurrence and meaningful construction distinctions. Record legacy archetype groupings separately from actual vector construction families; leave unbuilt characters UNASSIGNED until silhouette exploration.
 
 **Tier C — suspended semantic calibration**
 - Keep source-annotated anatomy polygons and mask-fit diagnostics out of acceptance decisions and ratio calibration until a design decision requires them and the owner reauthorizes the work.
@@ -329,7 +334,7 @@ A character remains **NOT APPROVED** until:
 - required corrections are implemented and retested;
 - the project owner explicitly approves.
 
-This standard remains a **draft** until the project owner ratifies the revised rules. Keep the remaining 17 civilians on hold until the five-character correction set, standard and direction have passed internal QA, independent review and explicit owner approval.
+This standard remains a **draft** until the project owner explicitly ratifies the revised rules as a separate decision. The five artworks are owner-approved, but that does not ratify the standard. Keep renderer production for the remaining 17 on hold until standard ratification and next-batch silhouette/brief preflight.
 
 ## 13. Calibration status and future evidence requirements
 
@@ -348,11 +353,14 @@ Every correction round includes before/after side-by-side comparisons for each f
 
 Maintain a roster-level audit of recurring torso/garment-shell families before starting the remaining 17 civilians. Record family tags, recurrence and whether construction remains meaningfully distinct; do not impose an arbitrary numeric cap. A shared shell family is a review prompt, not an automatic failure.
 
-For mirrored left/right views, document anatomical handedness and the character-relative side carrying each prop. Mirroring is acceptable only when anatomy and prop side remain correct in each view. Maintain an accepted-exception register with exact pair/direction, evidence scales, rationale and owner disposition.
+For mirrored left/right views, character-relative anatomy is authoritative. In a front view, character-left appears viewer-right and character-right appears viewer-left; the rear view reverses. Record both labels per direction and near/far relative to profile facing. Mirroring is acceptable only when anatomy and prop side remain correct in each view. Maintain an accepted-exception register with exact pair/direction, evidence scales, rationale and owner disposition.
 
 ## 14. Source references
 
 - Historical review outcomes and dated run records: [Construction Standard — Historical Review and Run Log](qa-artifacts/standard-history/REVIEW-AND-VERSION-HISTORY.md).
+- Run #603 five-character independent review: [Claude re-review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-603.md).
+- Roster shell-family audit: [23-character shell-family register](qa-artifacts/next-civilian-batch/ROSTER-SHELL-FAMILY-AUDIT.md).
+- Next-batch draft briefs: [Guard, Vendor and Clinic worker](qa-artifacts/next-civilian-batch/BATCH-1-GUARD-VENDOR-CLINIC-WORKER.md).
 - Current five-civilian Run #600 independent review: [Claude re-review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md).
 - Required package manifest: [Review Package Completeness Manifest](qa-artifacts/five-civilian-corrections/REVIEW-PACKAGE-MANIFEST.md).
 - Accepted exception register: [Five-Civilian Accepted-Exception Register](qa-artifacts/five-civilian-corrections/ACCEPTED-EXCEPTIONS.md).

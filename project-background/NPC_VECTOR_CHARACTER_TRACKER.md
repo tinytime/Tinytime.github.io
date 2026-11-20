@@ -1,18 +1,17 @@
 # NPC Vector Character Design Tracker
 
-## Current owner dispositions and U4 correction — 2026-11-20
+## Current owner decisions and release status — 2026-11-20
 
-- **Cook C1 (profile pan handle/contact):** owner explicitly says ignore; retain current implementation. No Cook renderer change is authorized.
-- **Usher U2 (generic silhouette):** owner explicitly says ignore; retain current silhouette. No silhouette redesign is authorized.
-- **Usher U4 (profile clipboard contact):** owner authorizes correction. Renderer commit `2c00cfca09cc12ea19a72662c235beed2e9a19cb` changes the profile to one connected near-arm/hand carrying the clipboard and hides the far hand. Cook's pre-existing renderer block was preserved exactly as it stood at the starting branch head. Run #603 exact-source QA and internal visual inspection confirm U4 is resolved.
-- **Accepted exception:** Coach/Courier rear remains accepted as-is. Preserve the rationale in [the accepted-exception register](qa-artifacts/five-civilian-corrections/ACCEPTED-EXCEPTIONS.md).
-- **Current visual correction state:** U4 is internally resolved by Run #603. Cook C1 and Usher U2 are owner-declined/deferred, not open work. Updated Claude re-review and owner approval remain pending.
-- **Five-character release state:** Usher, Cook, Courier, Coach and Referee remain NOT APPROVED pending updated Claude review and explicit owner approval. Runner remains outside this review.
-- **Construction standard:** revised working method is ready for final independent review and owner ratification; do not begin individual next-civilian briefs or production until the owner approves the standard and first-batch direction. Self-contained Claude package: [Claude review package workflow](https://github.com/tinytime/Tinytime.github.io/actions/workflows/vapor-city-review-documents-package.yml). See the [standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md).
-- **QA baseline:** Run #601 verified the IoU diagnostic trigger behavior; 0.85 is human review only. Do not refresh or approve golden snapshots without explicit authorization.
+- **Five-character approval:** the owner explicitly approved **Usher, Cook, Courier, Coach and Referee** after Claude's Run #603 independent review. These five are **APPROVED — first five-character batch complete**.
+- **Claude Run #603:** no P0/P1 defects; ready for owner review. U4 resolved at native and direct 28×42. Reviewer scope limitations, F1–F11 findings and scores are recorded in [the independent review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-603.md).
+- **Preserve owner dispositions:** Cook C1 deferred/accepted as-is; Usher U2 declined; Usher U4 implemented/resolved; Coach/Courier rear X1 accepted. No renderer changes to the approved five without renewed owner authorization.
+- **Run #603 provenance:** renderer 2c00cfca09cc12ea19a72662c235beed2e9a19cb; [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact 14593339734. Targeted checks passed; overall Actions failure on snapshots 1/23 changed and 180 existing audio 404s. No golden snapshots refreshed or approved.
+- **Construction standard:** revised for F2–F7; explicit owner ratification remains a separate outstanding decision. Approval of the five artworks does not silently ratify the standard.
+- **Next batch planning:** draft briefs prepared for Guard, Vendor and Clinic worker; see [batch brief](qa-artifacts/next-civilian-batch/BATCH-1-GUARD-VENDOR-CLINIC-WORKER.md) and [shell-family audit](qa-artifacts/next-civilian-batch/ROSTER-SHELL-FAMILY-AUDIT.md). No renderer implementation is authorized until standard ratification and silhouette preflight.
+- **Runner:** built but excluded from Claude Run #603; pending focused review and owner decision. Not included in the five approvals.
+- **Remaining 17 unstarted roster entries:** ON HOLD for renderer production until the standard is ratified and batch silhouette/brief preflight is accepted.
 
 
- 
 ## Claude independent re-review — Run #600 (2026-11-20)
 
 - Verdict: **Ready with disclosed minor issues**; no P0/P1 findings. Not owner approval.
@@ -190,17 +189,17 @@ Status has now changed by explicit owner instruction: Usher, Cook and Courier ar
 
 ## Full civilian roster
 
-All other designs remain unapproved until their own design and review are complete.
+The five approved designs are complete. Runner remains built but pending a focused review. All other designs remain unapproved until their own design and review are complete.
 
 | # | Character | Current design status | Internal QA | Claude review | Notes |
 |---:|---|---|---|---|---|
-| 1 | Runner | **BUILT — VISUAL INTEGRITY PASSED; NOT APPROVED** | Run #457 (`44592153167`), source `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`, artifact `14563778383`. Native 64×96 four-direction capture inspected; direct 28×42 captures also inspected. Runner stride reads as two legs/two feet; visual integrity 92/92 and role-debug/game-scale capture audits pass. | Pending — full six-civilian comparative review | Mid-stride coral sprinter with bib 07, sweatband, stopwatch and technical shoes. One trailing-leg draw only; no third foot. |
-| 2 | Coach | **BUILT — VISUAL INTEGRITY PASSED; NOT APPROVED** | Run #457, exact source/artifact above. Native 64×96 four-direction capture and direct 28×42 game-scale capture inspected. Role-debug, face distinctness, prop, visual integrity 92/92 and silhouette-quality 180/180 pass. | Pending — full six-civilian comparative review | Forest-green team jacket, cream shoulder yoke, silver-templed hair, marked clipboard and gold whistle. |
-| 3 | Referee | **BUILT — VISUAL INTEGRITY PASSED; NOT APPROVED** | Run #457, exact source/artifact above. Native 64×96 four-direction capture and direct 28×42 game-scale capture inspected. Role-debug, face distinctness, prop, visual integrity 92/92 and silhouette-quality 180/180 pass. | Pending — full six-civilian comparative review | Black/ivory striped official shirt, vermilion shorts, tall socks, whistle and raised yellow card. Card remains on forward/face side in both profiles. |
-| 4 | Courier | **REOPENED — REVISION IN PROGRESS** (prior approval is historical) | Run #457 includes fresh native four-direction capture. Visual integrity 92/92 and face/prop checks pass, but NPC body/baseline audit flags Courier baseline delta 2 vs vector threshold 1; tracked separately from owner approval. | Focused correction package prepared; owner accepted batch | Third character in the first approved batch; profile retains the forward lean. |
+| 1 | Runner | **BUILT — PENDING FOCUSED REVIEW; NOT APPROVED** | Run #457 (`44592153167`), source `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0`, artifact `14563778383`. Native 64×96 four-direction capture inspected; direct 28×42 captures also inspected. Runner stride reads as two legs/two feet; visual integrity 92/92 and role-debug/game-scale capture audits pass. | Pending — full six-civilian comparative review | Mid-stride coral sprinter with bib 07, sweatband, stopwatch and technical shoes. One trailing-leg draw only; no third foot. |
+| 2 | Coach | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. | Claude Run #603: 7.5/10; no P0/P1; owner approved | Forest-green team jacket, cream shoulder yoke, silver-templed hair, marked clipboard and gold whistle. Preserve accepted rear construction. |
+| 3 | Referee | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. | Claude Run #603: 8.5/10; no P0/P1; owner approved | Black/ivory striped official shirt, vermilion shorts, tall socks, whistle and raised yellow card. |
+| 4 | Courier | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. | Claude Run #603: 8.5/10; no P0/P1; owner approved | Messenger A-line shell, parcel, satchel and cross-body strap; preserve accepted construction. |
 | 5 | Guard | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 6 | Vendor | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 7 | Cook | **REOPENED — REVISION IN PROGRESS** (prior approval is historical) | Run #457 fresh four-direction capture confirms transparent toque headroom and visual integrity; no Cook edge contacts. Overall workflow still has Courier baseline and global legacy gates. | Comparative review history recorded; owner accepted batch | Second character in the first approved batch; revised pan opening remains visible in profile. |
+| 7 | Cook | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 native/direct-scale sheets reviewed by Claude. Preserve C1 as deferred/accepted; no renderer change. | Claude Run #603: 7.5/10; no P0/P1; owner approved | Rounded chef toque/curl mass, ivory coat, terracotta apron and compact handled copper pan. |
 | 8 | Clinic worker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 9 | Tech | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 10 | Hacker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
@@ -215,8 +214,14 @@ All other designs remain unapproved until their own design and review are comple
 | 19 | Busker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 20 | Dancer | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
 | 21 | Broker | **NOT STARTED — NOT APPROVED** | Pending | Pending | |
-| 22 | Usher | **REOPENED — REVISION IN PROGRESS** (prior approval is historical) | Targeted checks passed | Comparative review history recorded; owner accepted batch | First character in the first approved batch. |
+| 22 | Usher | **APPROVED — OWNER SIGN-OFF 2026-11-20** | Run #603 exact-source QA; U4 resolved at native and direct 28×42. | Claude Run #603: 7.5/10; no P0/P1; owner approved | Formal navy uniform, peaked cap, clipboard and brass trim. Preserve U2 silhouette; U4 resolved. |
 | 23 | Fan | **NOT STARTED — NOT APPROVED** | Pending | Pending | Fan variants will share the approved base design while retaining their variant-specific identity. |
+
+## Owner approval and Run #603 closeout — 2026-11-20
+
+- Owner approved Usher, Cook, Courier, Coach and Referee. First five-character batch is complete. Claude Run #603 recommended owner review with no P0/P1; this log records the distinct owner approval.
+- Claude withdrew the outline criticism; no blanket outline pass. F2–F7 documentation/process revisions are recorded in the current standard. The standard still awaits explicit owner ratification.
+- Next planning batch: Guard, Vendor and Clinic worker. Draft briefs and roster shell-family register are prepared. Runner remains pending focused review; no renderer production is authorized until standard ratification and silhouette preflight.
 
 ## Ongoing decisions and review log
 
