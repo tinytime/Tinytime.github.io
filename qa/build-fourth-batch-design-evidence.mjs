@@ -68,7 +68,8 @@ try {
       const key=item.character+'-'+item.mode+'-'+item.direction;
       data[key]=item;
     }
-    if(!source.includes('EXPLORATION 11') || directions.length!==4) throw new Error('Unexpected fourth-batch source revision/direction set');
+    const sourceDirectionLabels=(source.match(/class="lab">/g)||[]).length;
+    if(!source.includes('EXPLORATION 11') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
     // Profile-region pixel counts are descriptive only; no arbitrary minimum
     // is imposed. Body-only geometry must remain present in every prop-on view.
     const bodyPreservationAudit=[];
