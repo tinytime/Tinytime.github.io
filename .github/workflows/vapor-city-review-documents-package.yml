@@ -107,3 +107,4 @@ jobs:
 # Include Run 602 U4 brief and current owner dispositions.
 # Rebuild after final current-authority and manifest updates.
 # Package the verified Run 602 handoff with current tracker and standard.
+# Final refresh after current authority cleanup.
