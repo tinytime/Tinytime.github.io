@@ -18,7 +18,7 @@
     const CIV_HEAD_STYLES=Object.freeze({
       runner:'round-fringe',coach:'visor',ref:'cap-profile',courier:'cap-profile',
       guard:'helmet',vendor:'hat',cook:'chef-hat',
-      clinic:'hair-band',tech:'visor',hacker:'hood',
+      clinic:'hair-band',tech:'swept-undercut-ear-cup',hacker:'hood',
       fisher:'work-cap',sailor:'newsboy-cap',slicker:'bucket-hat',painter:'beanie',welder:'welder-mask',
       kid:'hood',kid2:'pom-beanie',mouse:'mouse-ears',
       busker:'beanie',dancer:'hair-band',broker:'newsboy-cap',usher:'cap-profile'
@@ -1937,6 +1937,139 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     g.restore();g.restore();
   }
 
+  // Tech: forward-loaded field systems maintainer. This is a bespoke renderer,
+  // not a Clinic archetype recolour: compact pitched shell, crossing service
+  // harness, stepped undercut/ear cup and a character-left diagnostic meter.
+  function drawTechVector(n, dir, ctx, OWT, opts) {
+    opts=opts||{}; const g=ctx, scale=OWT/36*.28;
+    const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2, sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
+    const back=dir==='u', side=dir==='l'||dir==='r', left=dir==='l';
+    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
+    if(left){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
+    const ink='#171725', skin='#C98A70';
+    const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
+    const path=(p,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.lineCap='round';g.stroke();}};
+    const line=(p,c,w=1.4)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.stroke();};
+    const ell=(x,y,rx,ry,fill,stroke=ink,w=1.2)=>{g.beginPath();g.ellipse(x,y,rx,ry,0,0,Math.PI*2);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.stroke();}};
+    const shell=grad(29,47,69,103,[[0,'#397B78'],[.42,'#185B5A'],[1,'#103A40']]);
+    const shellHi='#66A19A', shellDark='#123C42', graphite=grad(32,98,65,136,[[0,'#38434A'],[1,'#202A31']]);
+    const copper=grad(14,68,28,88,[[0,'#F0B45F'],[1,'#A85F32']]);
+    const boot=grad(25,130,66,139,[[0,'#667078'],[1,'#29343B']]);
+    if(!side){
+      // Forward pitched upper body, tight waist and deliberately offset legs.
+      path([[34,99],[47,101],[45,117],[42,132],[29,132],[31,116]],graphite);
+      path([[51,98],[64,95],[67,111],[63,124],[69,132],[55,134],[52,120]],graphite);
+      path([[28,129],[42,129],[45,134],[44,138],[25,138],[23,134]],boot);
+      path([[56,129],[67,128],[73,133],[72,138],[54,138],[53,134]],boot);
+      line([[27,135],[42,135]],'#A2B0B3',1);line([[57,135],[69,135]],'#A2B0B3',1);
+    }else{
+      path([[37,98],[53,97],[55,113],[59,128],[57,134],[41,134],[39,117]],graphite);
+      path([[40,130],[57,130],[64,134],[64,138],[37,138]],boot);
+      line([[41,135],[60,135]],'#A2B0B3',1);
+    }
+    path([[43,39],[56,39],[57,52],[42,52]],skin);
+    if(!side){
+      // Offset shoulder and narrow waist; no broad clinic tunic or apron plane.
+      path([[32,54],[42,47],[59,49],[70,57],[66,91],[72,101],[28,102],[33,84]],shell,ink,1.9);
+      if(!back){
+        path([[42,49],[50,57],[58,49],[55,46],[50,51],[45,46]],'#D6E2D7',ink,1.1);
+        path([[32,57],[42,51],[48,61],[43,78],[34,91],[28,83]],shellDark,ink,1.2);
+        path([[59,52],[68,58],[70,82],[64,91],[54,78],[56,63]],shell,ink,1.2);
+        // Crossing equipment harness is structural and visibly wraps the torso.
+        path([[37,52],[42,51],[62,94],[57,97]],'#303C42',ink,1.1);
+        path([[62,53],[66,56],[43,97],[38,95]],'#303C42',ink,1.1);
+        line([[43,65],[57,89]],'#9BB8AE',1.2);line([[59,64],[45,90]],'#9BB8AE',1.2);
+        path([[47,70],[55,69],[57,78],[49,80]],'#B7C5B8',ink,1);
+        path([[49,72],[54,72],[55,77],[50,78]],'#253D40',null);
+        // Character-left arm and hand approach the meter; the tool is attached.
+        path([[29,58],[36,56],[38,74],[34,84],[29,82],[27,70]],shell,ink,1.2);
+        path([[28,80],[35,80],[36,86],[31,89],[27,86]],skin,ink,1);
+        path([[65,58],[72,60],[76,78],[73,88],[68,87],[67,73]],shell,ink,1.2);
+        path([[70,85],[76,86],[77,92],[72,94],[69,91]],skin,ink,1);
+        // Palm-sized diagnostic meter in character-left hand (viewer-right).
+        path([[67,69],[78,68],[80,84],[69,86]],copper,ink,1.3);
+        path([[69,71],[76,70],[77,77],[70,78]],'#243E43',ink,.9);
+        line([[71,73],[75,72]],'#F4D28E',1);line([[71,76],[74,75]],'#F4D28E',.8);
+        line([[72,81],[76,80]],'#7B4430',1);
+      }else{
+        // Rear X harness remains a continuous garment-mounted construction.
+        path([[32,56],[42,50],[60,51],[69,58],[66,92],[72,101],[28,102]],shellDark,ink,1.8);
+        path([[36,55],[64,55],[66,65],[34,65]],'#2B6868',ink,1);
+        path([[37,53],[42,52],[63,94],[58,97]],'#303C42',ink,1.1);
+        path([[63,53],[67,56],[42,97],[37,95]],'#303C42',ink,1.1);
+        line([[42,68],[58,90]],'#9BB8AE',1.1);line([[59,68],[43,90]],'#9BB8AE',1.1);
+        path([[29,79],[39,78],[42,91],[38,99],[27,99],[25,90]],'#263F43',ink,1.1);
+        line([[31,83],[38,83]],'#83A9A2',1);
+        path([[65,58],[72,60],[75,84],[69,92],[64,84]],shell,ink,1.2);
+      }
+      // Split short utility flap, never a long clinic tunic.
+      path([[31,91],[48,94],[50,102],[28,102]],'#17484B',ink,1.1);
+      path([[51,94],[68,91],[72,101],[50,102]],'#17484B',ink,1.1);
+    }else{
+      // Narrow side plane keeps the pitched torso and compact waist.
+      path([[38,53],[48,48],[62,52],[68,62],[64,89],[71,101],[29,102],[35,85]],shell,ink,1.8);
+      if(!back){
+        path([[42,54],[52,55],[57,67],[51,82],[37,91],[32,85]],'#286C68',ink,1);
+        line([[45,56],[58,88]],'#303C42',3.2);line([[48,57],[61,87]],'#9BB8AE',.9);
+        path([[34,91],[64,90],[69,101],[30,102]],shellDark,ink,1.1);
+        // Tool-side arm/wrist is continuous with the torso; left profile only.
+        if(left){
+          path([[33,57],[40,56],[43,73],[39,83],[34,84],[31,72]],shell,ink,1.2);
+          path([[34,81],[40,81],[42,87],[37,90],[33,87]],skin,ink,1);
+          path([[36,72],[47,70],[50,84],[39,88],[35,84]],copper,ink,1.2);
+          path([[38,74],[45,73],[47,79],[39,81]],'#243E43',ink,.8);
+          line([[40,76],[44,75]],'#F4D28E',.9);
+        }else{
+          path([[61,58],[68,60],[72,77],[69,88],[64,88],[63,73]],shell,ink,1.2);
+          path([[64,86],[70,86],[71,92],[66,94],[63,91]],skin,ink,1);
+        }
+      }else{
+        path([[39,55],[50,51],[62,55],[65,70],[61,96],[31,98]],shellDark,ink,1.2);
+        line([[42,67],[62,67]],'#8DB4AB',1);
+        line([[50,54],[50,96]],'#123C42',1.1);
+        path([[43,55],[48,55],[60,92],[56,94]],'#303C42',1.1);
+        path([[60,55],[64,58],[47,94],[43,92]],'#303C42',1.1);
+      }
+    }
+    // Swept-back undercut: stepped ridge, open brow/eye and compact ear cup.
+    if(!side){
+      if(!back){
+        ell(50,31,12.2,14.2,grad(38,17,62,44,[[0,'#E7B99A'],[1,skin]]),ink,1.5);
+        ell(44.5,31,1.25,1.7,ink,null);ell(55.5,31,1.25,1.7,ink,null);
+        line([[40,27],[45,26],[48,28]],'#44313A',1.3);line([[52,27],[59,26]],'#44313A',1.3);
+        line([[45,42],[50,43],[55,41]],'#85564B',1.1);
+        path([[37,22],[40,13],[48,11],[54,13],[59,11],[64,18],[61,23],[55,20],[49,19],[44,23]],'#252832',ink,1.4);
+        path([[39,20],[44,16],[48,17],[45,22]],'#56606A',null);
+        // Compact character-left ear-protection cup.
+        path([[59,25],[66,25],[68,30],[65,35],[59,34]],'#59656B',ink,1.1);
+        ell(64,30,1.8,2.1,'#A8B8B5',ink,.8);
+      }else{
+        ell(50,31,12,14,'#252832',ink,1.4);
+        path([[38,19],[43,14],[54,13],[63,20],[61,25],[42,25]],'#252832',ink,1.1);
+        line([[40,22],[43,39]],'#56606A',1);line([[50,19],[51,40]],'#56606A',1);line([[60,22],[57,39]],'#56606A',1);
+        path([[60,25],[66,26],[67,32],[63,35],[59,33]],'#59656B',ink,1);
+      }
+    }else{
+      ell(50,31,11,13,'#252832',ink,1.3);
+      if(!back){
+        path([[42,22],[47,17],[56,18],[63,25],[62,32],[55,39],[45,38],[40,31]],grad(41,19,64,41,[[0,'#E7B99A'],[1,skin]]),ink,1.2);
+        ell(59,29.5,1.15,1.45,ink,null);
+        path([[60,30],[66,32],[63,35],[58,34]],skin,ink,.9);
+        line([[55,26],[62,25]],'#44313A',1.3);line([[54,40],[60,39]],'#85564B',1);
+      }
+      // Stepped swept-back ridge and visible compact ear cup in both profiles.
+      path([[39,23],[43,15],[51,14],[59,17],[64,23],[60,26],[53,22],[46,23]],'#252832',ink,1.2);
+      path([[59,25],[65,25],[67,30],[64,34],[59,33]],'#59656B',ink,1);
+      ell(63,29.5,1.5,1.8,'#A8B8B5',ink,.7);
+    }
+    // Copper instrument glint and restrained petrol edge highlights.
+    g.save();g.globalAlpha=.55;g.shadowBlur=.7/scale;g.shadowColor='rgba(240,180,95,.28)';
+    if(!back){line([[32,55],[40,50],[47,49]],'rgba(137,196,181,.8)',1/scale);}
+    line([[60,54],[68,59],[71,66]],'rgba(102,161,154,.65)',1/scale);
+    g.restore();g.restore();
+  }
+
+
   // Clinic Worker: calm offset-hip stance, tapered wrap tunic, gathered low
   // hair coil/side tie and character-left hip pouch separate from the hand.
   function drawClinicVector(n, dir, ctx, OWT, opts) {
@@ -2067,8 +2200,8 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
       const kind=n.civ;
       if(n.id==='granny'){drawGrannyVoltSprite(n,dir,moving,tm,ph,ctxOverride);return}
-      if(kind==='cook'||kind==='usher'||kind==='courier'||kind==='runner'||kind==='coach'||kind==='ref'||kind==='guard'||kind==='vendor'||kind==='clinic'){
-        const drawVector=kind==='cook'?drawCookVector:(kind==='usher'?drawUsherVector:(kind==='courier'?drawCourierVector:(kind==='runner'?drawRunnerVector:(kind==='coach'?drawCoachVector:(kind==='ref'?drawRefVector:(kind==='guard'?drawGuardVector:(kind==='vendor'?drawVendorVector:drawClinicVector)))))));
+      if(kind==='cook'||kind==='usher'||kind==='courier'||kind==='runner'||kind==='coach'||kind==='ref'||kind==='guard'||kind==='vendor'||kind==='clinic'||kind==='tech'){
+        const drawVector=kind==='cook'?drawCookVector:(kind==='usher'?drawUsherVector:(kind==='courier'?drawCourierVector:(kind==='runner'?drawRunnerVector:(kind==='coach'?drawCoachVector:(kind==='ref'?drawRefVector:(kind==='guard'?drawGuardVector:(kind==='vendor'?drawVendorVector:(kind==='tech'?drawTechVector:drawClinicVector))))))));
         drawVector(n,dir,ctxOverride||og,OWT,{moving,tm,ph});
         const qaCanvas=owCiv._vectorSnapshotCanvas||(owCiv._vectorSnapshotCanvas=document.createElement('canvas'));
         if(qaCanvas.width!==64)qaCanvas.width=64;if(qaCanvas.height!==96)qaCanvas.height=96;
