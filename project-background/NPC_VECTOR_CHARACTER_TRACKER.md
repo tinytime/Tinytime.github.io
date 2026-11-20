@@ -4,7 +4,7 @@
 
 **Current renderer source:** `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb`.  
 **Evidence:** [Run #599](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650509863), artifact `14590034123`.  
-**Evidence-package enhancement:** [Run #600](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650864326) is running on QA evidence-builder commit `90c5d266279c61461b460b024ee96e71f327e081`; renderer source remains `3d1ec4b`.
+**Expanded evidence package:** [Run #600](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650864326), artifact `14591690387`, generated the black silhouette sheet and town-ground composite on QA evidence-builder commit `90c5d266279c61461b460b024ee96e71f327e081`; renderer source remains `3d1ec4b`.
 
 ### Implementation and correction history
 
@@ -49,7 +49,7 @@ The browser job still concludes FAILED because the existing diagnostics count 18
 - Coach/Courier: rear comparison visibly distinguishes Coach's straight jacket hem and exposed side elbow/hand negative spaces from Courier's A-line coat and arms integrated into the coat; cap/hair and shoe values reinforce the distinction.
 - Referee: pixel-identical to Run #595 in all four directions and both scales; preserved.
 
-**Disposition:** all five remain NOT APPROVED. Send the corrected evidence to Claude after Run #600 is verified. Owner approval remains the final gate; Runner and the remaining 17 remain excluded/on hold.
+**Internal QA record:** [RUN-599-600-INTERNAL-QA.md](qa-artifacts/five-civilian-corrections/RUN-599-600-INTERNAL-QA.md). **Disposition:** targeted P2 corrections pass internal visual QA; all five remain NOT APPROVED. Send the corrected evidence to Claude for independent re-review. Owner approval remains the final gate; Runner and the remaining 17 remain excluded/on hold.
 
 ## Owner-authorized P2 correction pass — 2026-11-20
 
@@ -62,7 +62,7 @@ The owner has authorized implementation of all four P2 areas from Claude's Run #
 
 **Renderer change:** `2b45201eb762a939547f5c8414ae9f44e5dc0d22` (npc_sprites.js).  
 **Identity/proportion cards:** [IDENTITY-AND-PROPORTION-CARDS.md](qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md).  
-**QA:** Run #596 is running against the renderer commit. Its result and actual images must be inspected before claiming these P2s resolved.  
+**QA:** Run #599 tests renderer `3d1ec4b`; Run #600 adds the black silhouette and town-ground diagnostic sheets. See the current internal QA record and artifact links above.  
 **Status:** corrections implemented in source, visual validation pending. All five characters remain NOT APPROVED. Referee is intentionally unchanged. Runner and the remaining 17 are out of scope. No snapshots or approvals changed.
 
 
