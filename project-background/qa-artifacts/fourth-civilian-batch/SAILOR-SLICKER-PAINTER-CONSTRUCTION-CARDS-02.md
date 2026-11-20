@@ -67,7 +67,7 @@ Purposeful geometric cues:
 1. A strong, slightly shelf-like brow with a focused, level eye line.
 2. A longer, gently hooked profile nose and a defined chin-to-neck break; keep the cheek plane lean rather than broad.
 
-The existing matched-face study names **Clinic** and **Guard** as the closest geometric comparison prompts. Distinguish Sailor from Clinic through a firmer brow shelf and less elongated lower-face transition; distinguish Sailor from Guard through a narrower cheek/jaw and less squared lower-face plane. These are hypotheses to confirm against matched native 64×96 crops before face geometry is finalized. Do not borrow their hairlines, facial hair, headwear or palettes.
+The matched native-source face-crop review confirms **Clinic** and **Guard** as Sailor's two closest roster comparators. Sailor's front brow is a stronger continuous shelf; the profile nose projects farther with a slight downward hook and the cheek-to-chin transition stays leaner. Clinic's lower face is rounder; Guard's lower cheek/jaw plane is squarer. Headwear, hair colour, facial hair and palette were excluded from the comparison.
 
 Back view: cap crown, lower band and nape/hair edge must be deliberately constructed; do not use a blank head fallback.
 
@@ -153,7 +153,7 @@ Purposeful geometric cues:
 1. Close-set eyes beneath a nearly level, compact brow line.
 2. A tucked chin and compressed, softly closed mouth, with a restrained cheek plane.
 
-The exact two closest roster faces are **not yet established by a recorded matched-crop comparison**. QA must compare Slicker's native 64×96 front and both profiles against likely nearby face candidates (start with Fisher and Courier, then select the two genuinely closest by geometry). Exclude hood/headwear, hair colour and palette from the face comparison. Record actual comparators and concrete differences before finalizing the face.
+The matched native-source face-crop review selected **Hacker** and **Courier** as Slicker's two closest roster comparators; Fisher was included in the roster-wide face crop contact sheet and was not closer by the face geometry under review. The new face study tightens Slicker's front eye spacing, keeps the brow nearly level, shortens the profile nose and tucks the chin. Hacker's facial block is squarer with wider feature spacing; Courier's cheek-to-chin line and profile nose project farther. Slicker's face remains narrower through the lower cheek with a more compressed mouth. Hood shape, headwear, hair colour and palette were excluded from this comparison.
 
 Back view: hood crown, rear hood seam and nape/neck transition must be deliberate. The back of the hood should have its own construction rather than simply mirroring the front opening.
 
@@ -239,7 +239,7 @@ Purposeful geometric cues:
 1. A pronounced lifted/asymmetric brow break that gives Painter an alert, questioning look.
 2. Squarer cheek/jaw planes and a shorter, blunter profile nose than Sailor's hooked profile.
 
-The existing matched-face study names **Cook** and **Busker** as the closest geometric comparison prompts. Distinguish Painter from Cook with the lifted brow and less rounded midface; distinguish Painter from Busker with a squarer lower-face plane and a more restrained, concentrated mouth. Confirm both against matched native 64×96 front/profile crops. Do not borrow their hairlines, facial hair, headwear or palettes.
+The matched native-source face-crop review confirms **Cook** and **Busker** as Painter's two closest roster comparators. Painter retains a pronounced lifted/asymmetric brow, a squarer lower-face turn and a shorter, blunter profile nose. Cook's midface is rounder; Busker's lower face reads more open through the mouth and less squared at the jaw. Hairline, facial hair, headwear and palette were excluded from the comparison.
 
 Back view: knit cap cuff, crown shaping and nape/hair transition should be designed, not left blank.
 
