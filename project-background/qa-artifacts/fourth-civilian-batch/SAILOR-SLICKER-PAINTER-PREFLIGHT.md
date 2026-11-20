@@ -14,8 +14,8 @@ All three construction families remain UNASSIGNED. The silhouettes, faces, props
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `npc-granny-baseline-overhaul`  
 **Roster positions:** #12 Sailor, #13 Slicker, #14 Painter  
-**Stage:** identity preflight; Sailor silhouette exploration authorized only  
-**Status:** owner approved the refined role directions on 2026-11-20 and authorized Sailor (#12) silhouette exploration only. The Sailor study is a review candidate, not an approved silhouette. Slicker (#13) and Painter (#14) remain queued; no palette, construction family or renderer implementation is approved.
+**Stage:** parallel identity refinement and silhouette exploration for all three (current authority)  
+**Status:** owner approved the three role directions and authorized simultaneous exploration on 2026-11-20. Sailor, Slicker and Painter are all active design-stage work; none has an approved silhouette, palette, construction family or renderer.
 
 ## Batch objective and order
 
@@ -25,7 +25,7 @@ Develop three original civilian identities that are immediately distinguishable 
 2. **Slicker (#13)** — establish a weatherwear/rain-slicker identity with a distinctly different torso and head silhouette from Sailor, Fisher, Courier, Coach and Hacker.
 3. **Painter (#14)** — establish an artist/work-painter identity that does not collapse into Cook's apron, Welder's tool silhouette, or the generic Trades worker.
 
-The sequence is a production order, not permission to skip the owner silhouette gate. The owner approved the refined role directions and authorized Sailor exploration only on 2026-11-20. Complete Sailor's body-only and prop-on four-view silhouettes, construction card and matched-scale comparisons, then stop for owner review. Do not start Slicker or Painter exploration until Sailor's silhouette/construction card is approved. No renderer implementation is authorized.
+The owner has explicitly superseded the historical one-at-a-time sequence. Work on all three simultaneously and submit one coordinated comparison package. Each character advances independently only after its own owner silhouette/construction approval. No renderer implementation is authorized.
 
 ## Source-of-truth context
 
@@ -97,7 +97,7 @@ The sequence is a production order, not permission to skip the owner silhouette 
 
 Use the owner-ratified [Civilian Vector Construction Standard](../../CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md), especially its eight-stage pipeline and §13A directional/face requirements.
 
-Under the current owner authorization, apply the following deliverables to Sailor (#12) only. Do not begin Slicker or Painter until Sailor's silhouette/construction gate is approved.
+Under the current owner authorization, apply the shared deliverables to Sailor, Slicker and Painter in parallel.
 
 For Sailor, produce:
 
@@ -114,7 +114,7 @@ After silhouette approval and colour design approval, production proceeds one ch
 
 ## Owner decision and execution refinements — 2026-11-20
 
-The owner approved the refined role directions and explicitly authorized Sailor (#12) silhouette exploration only. The approval does not approve a final silhouette, face, prop, palette or construction family, and does not authorize renderer implementation. Slicker and Painter remain queued.
+The owner approved the refined role directions and explicitly authorized parallel exploration for Sailor (#12), Slicker (#13) and Painter (#14). The approval does not approve a final silhouette, face, prop, palette or construction family, and does not authorize renderer implementation.
 
 Three shared QA refinements apply to Sailor:
 - Produce both body-only and prop-on four-view silhouette sets. Identity must read in the body-only set; the prop-on set is a secondary interaction check.
