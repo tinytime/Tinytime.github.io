@@ -126,6 +126,41 @@ Keep technical QA, semantic measurement status, visual scorecard, review finding
 > This document establishes a repeatable design and measurement process. It does not authorize renderer changes, approve any pending character, refresh golden snapshots, or release the remaining 20 characters from their current hold.
 
 
+## Version 2.1 independent-review response — 2026-11-19
+
+Claude completed the independent Run #595 visual review of Usher, Cook, Courier, Coach and Referee. This response tightens the draft standard; it does not approve any character, ratify the standard, authorize renderer edits, or release the remaining 17 civilians.
+
+### Round #595 outcome and evidence boundary
+
+- **Batch verdict:** Claude recommends **ready for owner review**, with P2 findings disclosed first. This is a reviewer recommendation, not owner approval. No P0/P1 findings remain.
+- **Resolved round-one P1s:** Coach's head/cap read, Cook's connected forearm/hand/pan construction, and Usher's coat/trouser/shoe separation.
+- **Coach/Courier rear:** reclassified from P1 to P2: acceptable shared body mass with distinct role construction, marginally. The reviewer cites Coach's straight hem and visible elbow/hand negative spaces, Courier's A-line coat and arms integrated into the coat, different cap/hair construction, and shoe values. Retain the exact comparison and rationale; owner disposition is still required.
+- **P2 findings:** F1 facial individuality for Courier, Usher and Cook; U1 Usher profile shoe separation; C1 Cook pan/hand and handle readability; X1 documented Coach/Courier rear rationale.
+- **P3 observations:** Cook rear hand continuity; faint pale arc behind Coach's ear; cyan/orange rim-fringe preference; mirrored near-side prop convention; Referee plain back. These are optional polish unless a concrete defect is demonstrated.
+- **Evidence limits:** Claude inspected all 20 native 64×96 and 20 direct 28×42 captures and supplied composites. The ZIP lacked the solid-black silhouette sheet, identity briefs, proportion cards and Actions logs. Claude did not inspect repository source or supporting docs 02/04. The town image does not prove all five characters were individually spawned.
+- **QA context:** Run #595 tested renderer c354abfa3d78b46dc982a03d2c5d1ece0c918257; [Actions run](https://github.com/tinytime/Tinytime.github.io/actions/runs/44645116652), artifact 14587318765. Targeted checks passed; overall workflow FAILED on the global Clinic/Sailor front silhouette gate and unapproved golden snapshots. Expected audio 404s are non-blocking noise. No snapshots were refreshed or approved.
+- **Disposition:** all five remain NOT APPROVED pending owner decision and P2 disposition. Runner remains excluded; the remaining 17 remain ON HOLD.
+
+| Character | Claude score | Result |
+|---|---:|---|
+| Referee | 7.5/10 | Strongest; no change warranted |
+| Cook | 7/10 | P2 pan/hand readability; P3 rear-hand continuity |
+| Courier | 6.5/10 | P2 face individuality; X1 shared rear rationale |
+| Coach | 6/10 | X1 shared rear rationale; P3 pale arc behind ear |
+| Usher | 6/10 | P2 profile shoe separation and face individuality |
+
+### Version 2.1 requirements adopted for the draft
+
+- **Silhouette trigger:** any pair at or above 0.85 IoU in any direction at native 64×96 or direct 28×42, or any pair a reviewer judges similar, requires recorded human review. This is not an automatic failure threshold. Show the exact pair/direction at both scales and classify it as genuine identity collision, acceptable shared body mass with distinct role construction, or inconclusive. A meaningful distinction must be visible at game scale and cannot consist only of color, emblem or badge.
+- **Face identity:** each identity brief specifies at least two purposeful cues beyond skin tone, hair color and headwear. Cues must be inspectable in native front/profile views; at least one must survive at direct 28×42 or be expressed as a readable profile contour. Do not count token one-pixel changes; allow structural cues appropriate to the small face area.
+- **Game-scale environments:** inspect direct 28×42 captures on neutral grey and actual town ground/night lighting. Neither replaces the other.
+- **Animation:** inspect walk/animation frames for animated characters; record not-applicable for static-only characters.
+- **Correction evidence:** every correction round includes before/after evidence for each finding, exact source commit, direction, native and direct game-scale captures, and a pixel-diff summary. Diffs locate changes; they are not quality scores.
+- **Roster variety:** maintain a roster-level torso/garment-shell family audit. Do not impose an arbitrary numeric cap; record recurrence and whether construction remains meaningfully distinct.
+- **Mirrored props:** document anatomical handedness and character-relative prop side. Mirroring is acceptable only if the prop remains on the correct character-relative side in each view.
+- **Semantic measurements:** retain the framework as diagnostic. Do not use unverified masks, candidate measurements or Granny-derived assumptions as hard gates or proportion calibration. Granny remains reference_only until semantic boundaries are verified.
+- **History:** preserve existing historical run records. Future detailed run logs may live in a dedicated QA log.
+
 ## Operational process addendum — 2026-11-19 (current authority)
 
 This section records process changes made after the first draft. Where an earlier section or dated historical note conflicts with this addendum, follow this addendum for current work. Historical notes are retained as history, not as current status.
@@ -251,7 +286,7 @@ For each character, record the following from the rendered front view and verify
 
 ### 4.2 Provisional exploration bands
 
-The following are **draft exploration bands**, not locked acceptance thresholds. They are intentionally broad and must be tested against the five-character review set and Granny before automation or enforcement.
+The following are **unvalidated reviewer prompts**, not target proportions or acceptance thresholds. They are not derived from Granny Volt's 30.4% legacy head/body reference. Do not pull a design toward these values. Keep them diagnostic until the measurement convention is harmonized and a varied set of pose-aware characters has verified semantic measurements.
 
 | Metric | Draft exploration band | Denominator / notes |
 |---|---:|---|
@@ -263,7 +298,7 @@ The following are **draft exploration bands**, not locked acceptance thresholds.
 
 These bands are not additive and must not be summed to 100%. Anatomy is measured using landmarks and overlapping rendered regions; clothing, hair, footwear, and pose can alter visible boundaries. A deliberate character design may fall outside a band if the silhouette remains believable, readable, and internally coherent. Record the reason and have it reviewed.
 
-**Do not automatically fail a character for an out-of-band proportion.** First validate the measurement convention, pose category, and intended design. A numeric range is a diagnostic prompt, not an art director.
+**Do not automatically fail or redesign a character for an out-of-band proportion.** First validate the measurement convention, pose category, and intended design. These ranges are not derived from Granny and must never normalize the roster toward her proportions. Candidate semantic values remain diagnostic; do not calibrate or promote unverified values.
 
 ### 4.3 Per-character proportion card
 
@@ -291,7 +326,7 @@ The silhouette must:
 - avoid accidental tangencies, detached components, or fused limbs/props;
 - remain recognizable from front, back, and both profiles.
 
-A prop can contribute to the silhouette, but it cannot be the only thing making an otherwise generic body recognizable. Compare the roster pairwise and inspect the most similar pairs manually. Automated intersection-over-union (IoU) is a flag for review, not a substitute for judgment: high overlap may reveal a genuine duplicate, while pose or prop differences can also make two characters distinct despite similar body masses.
+A prop can contribute to the silhouette, but it cannot be the only thing making an otherwise generic body recognizable. Compare the roster pairwise and inspect the most similar pairs manually. Automated intersection-over-union (IoU) is a review trigger, not a substitute for judgment. Any pair at or above 0.85 IoU in any direction at native 64×96 or direct 28×42, or any pair a reviewer judges visually similar, requires a recorded human conclusion. This is not an automatic failure threshold and must not cause design distortion. Show the exact pair/direction at both scales and classify it as genuine identity collision, acceptable shared body mass with distinct role construction, or inconclusive. A meaningful construction distinction must be visible at direct game scale and cannot consist only of color, emblem or badge.
 
 ## 6. Anatomy, face, clothing, and props
 
@@ -307,6 +342,7 @@ A prop can contribute to the silhouette, but it cannot be the only thing making 
 - Front, side, and rear head construction must be considered independently.
 - Profiles need a readable forehead/nose/chin contour and correctly placed visible eye/ear details where appropriate.
 - Back views need deliberate hair/headwear/nape construction rather than a blank head fallback.
+- Each identity brief specifies at least two purposeful facial/head cues beyond skin tone, hair color and headwear. Cues must be inspectable in native front/profile views; at least one must survive at direct 28×42 or be expressed as a readable profile contour. Do not count token one-pixel changes; cues may be structural rather than tiny interior marks.
 - Facial details must survive actual game scale; do not add detail that collapses into noise.
 
 ### Clothing
@@ -357,24 +393,18 @@ This scorecard is a structured review aid, not a replacement for the approval ga
 
 | Category | Weight |
 |---|---:|
-| Silhouette and proportions | 20 |
-| Head, face, and expression | 15 |
-| Anatomy and pose | 15 |
-| Clothing construction | 15 |
-| Props and accessories | 10 |
-| Palette and value contrast | 10 |
-| Lighting and shading | 10 |
+| Identity and silhouette | 20 |
+| Anatomy and construction | 15 |
+| Face and expression | 10 |
+| Clothing construction | 10 |
+| Props and physical interaction | 15 |
+| Palette and value hierarchy | 10 |
+| Vector craftsmanship and finish | 5 |
 | Four-direction consistency | 5 |
+| Direct game-scale readability | 10 |
 | **Total** | **100** |
 
-Suggested scoring interpretation:
-- 90–100: strong candidate for independent review;
-- 80–89: promising, but targeted polish is expected;
-- below 80: revise before independent review.
-
-Suggested category floor: 75% of each category's available points. A high total cannot compensate for a failed face, silhouette, anatomy, or prop integration category.
-
-**These weights, score bands, and category floors are provisional.** Claude and the project owner must review them before they become mandatory. A score of 90+ never constitutes Claude review or owner approval.
+This allocation supersedes the earlier proposed weights. It is a non-gating discussion aid only. **All former score bands, category floors and pass thresholds are withdrawn.** Do not invent a pass mark. Explain scores with actual image evidence. A high score cannot override a verified P0/P1 defect or substitute for internal QA, independent review or owner approval.
 
 ## 10. Automated QA metrics and failure policy
 
@@ -406,14 +436,14 @@ For every metric, store the measurement definition, source image/canvas, directi
 
 ## 11. Eight-stage production pipeline
 
-1. **Identity brief:** role, personality, age/read, posture, silhouette concept, signature prop, palette direction.
+1. **Identity brief:** role, personality, age/read, posture, silhouette concept, signature prop, palette direction, purposeful face/head cues and intended torso/garment construction family.
 2. **Silhouette:** four solid-black directional views; compare against Granny and the roster before detail work.
 3. **Proportion card:** record body landmarks, ratios, pose category, baseline, prop footprint, and intentional exceptions.
 4. **Anatomy and pose:** establish believable connected forms and negative spaces.
 5. **Clothing and props:** construct garments and integrate props with hands/attachment points.
 6. **Face and head identity:** create deliberate front, profile, and rear head construction.
 7. **Colour and rendering:** assign palette roles, values, material shading, highlights, and controlled vector detail.
-8. **Directional/game-scale QA:** capture all directions and scales, inspect actual artifacts, run metrics, and document findings.
+8. **Directional/game-scale QA:** capture all directions and scales, inspect actual artifacts on neutral-grey and town/night backgrounds, review walk/animation frames where applicable, run metrics and document findings.
 
 Do not spend time polishing gradients before the silhouette and proportions are approved internally.
 
@@ -439,6 +469,16 @@ This standard itself remains a **draft** until Claude has reviewed it and the pr
 - Review the 100-point rubric against Granny and the five candidate designs; record why scores differ.
 - Validate silhouette IoU against human judgments and identify whether the current 0.85/0.90 limits are suitable for different pose classes.
 - Only then propose locked thresholds and automate hard failures.
+
+### Correction-round evidence and roster-level variety
+
+Every correction round includes before/after comparisons for each finding, tied to the exact renderer commit, direction, native capture and direct game-scale capture. Report changed-pixel counts/regions as diagnostic locators, not quality scores. If no visual change occurred, explain why and show evidence of resolution.
+
+Maintain a roster-level audit of recurring torso/garment shell families. Record recurrence and whether construction remains meaningfully distinct; do not impose an arbitrary numeric cap before the roster provides evidence for one. A shared shell family is a review prompt, not an automatic failure.
+
+For mirrored left/right views, document anatomical handedness and the character-relative side carrying each prop. Mirroring is acceptable only when anatomy and prop side remain correct in each view.
+
+Retain semantic measurement tools as diagnostics, but do not use unverified candidate annotations, mask-fit metrics or Granny-derived assumptions as artistic acceptance gates or proportion calibration. Preserve historical run records; future detailed run logs may be maintained in a dedicated QA log.
 
 ## 14. Source references
 
