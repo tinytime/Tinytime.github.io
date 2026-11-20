@@ -7,9 +7,11 @@ const sourcePath = resolve(root, 'project-background/qa-artifacts/third-civilian
 const outputPath = resolve(root, 'project-background/qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-ROUND-05-3X.png');
 const svg = await readFile(sourcePath, 'utf8');
 
-const dimensions = svg.match(/<svg\\b[^>]*\\bwidth=["'](\\d+)["'][^>]*\\bheight=["'](\\d+)["'][^>]*\\bviewBox=["']([^"']+)["']/s);
-if (!dimensions) throw new Error('Could not validate SVG width, height and viewBox.');
-const [, widthText, heightText, viewBox] = dimensions;
+const svgOpen = svg.match(/<svg\\b([^>]*)>/s)?.[1];
+const widthText = svgOpen?.match(/\\bwidth=["'](\\d+)["']/)?.[1];
+const heightText = svgOpen?.match(/\\bheight=["'](\\d+)["']/)?.[1];
+const viewBox = svgOpen?.match(/\\bviewBox=["']([^"']+)["']/)?.[1];
+if (!widthText || !heightText || !viewBox) throw new Error('Could not validate SVG width, height and viewBox.');
 const width = Number(widthText);
 const height = Number(heightText);
 if (width !== 1600 || height !== 1180 || viewBox.trim() !== '0 0 1600 1180') {
