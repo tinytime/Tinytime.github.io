@@ -805,7 +805,7 @@ try {
     }));
   });
   const techRoleDebugSheet = await page.evaluate(async items => {
-    const order=['front','back','left','right'],cellW=512,cellH=768,gap=24,legendH=210;
+    const order=['front','back','left','right'],cellW=512,cellH=768,gap=24,legendH=260;
     const canvas=document.createElement('canvas');canvas.width=cellW*2+gap*3;
     canvas.height=cellH*2+gap*3+legendH;
     const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
@@ -821,7 +821,7 @@ try {
       ctx.fillText('TECH / '+order[i].toUpperCase(),x,y+cellH+30);
     }
     const roles=[...new Map(items.flatMap(x=>x.roleLegend).map(r=>[r.role,r])).values()];
-    const y=gap*2+cellH*2+24;ctx.fillStyle='#fff';ctx.font='bold 18px monospace';
+    const y=gap*2+cellH*2+72;ctx.fillStyle='#fff';ctx.font='bold 18px monospace';
     ctx.fillText('TECH ROLE KEY',gap,y);
     roles.forEach((role,i)=>{const x=gap+(i%3)*330,yy=y+30+Math.floor(i/3)*30;
       ctx.fillStyle=role.color;ctx.fillRect(x,yy-13,18,18);
