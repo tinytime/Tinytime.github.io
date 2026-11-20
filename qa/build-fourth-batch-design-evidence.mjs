@@ -169,6 +169,47 @@ try {
   });
   const faceDir=path.join(out,'roster-face-crops-native-64x96');fs.mkdirSync(faceDir,{recursive:true});
   for(const item of rosterFaces)writeData(path.join(faceDir,item.civ+'-'+item.direction+'.png'),item.dataUrl);
+  const faceComparisonRows = [
+    {key:'sailor-front',direction:'front',candidates:['clinic','guard']},
+    {key:'sailor-profile',direction:'left',candidates:['clinic','guard']},
+    {key:'slicker-front',direction:'front',candidates:['hacker','courier']},
+    {key:'slicker-profile',direction:'left',candidates:['hacker','courier']},
+    {key:'painter-front',direction:'front',candidates:['cook','busker']},
+    {key:'painter-profile',direction:'left',candidates:['cook','busker']}
+  ];
+  const faceComparisons = faceComparisonRows.map(row => ({
+    ...row,
+    design:faceDesigns.find(x=>x.key===row.key).dataUrl,
+    refs:row.candidates.map(civ=>rosterFaces.find(x=>x.civ===civ && x.direction===row.direction)?.dataUrl)
+  }));
+  if(faceComparisons.some(x=>!x.design || x.refs.some(y=>!y))) throw new Error('Matched face comparison crop missing');
+  const faceComparisonData = await page.evaluate(async rows=>{
+    const make=(scale)=>{
+      const gap=12,cellW=40*scale,cellH=38*scale,labelH=18,cols=3;
+      const c=document.createElement('canvas');c.width=gap+cols*(cellW+gap);c.height=gap+rows.length*(cellH+labelH+gap);
+      const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
+      return c;
+    };
+    const draw=async(scale)=>{
+      const c=make(scale),x=c.getContext('2d'),gap=12,cellW=40*scale,cellH=38*scale,labelH=18;
+      for(let r=0;r<rows.length;r++){
+        const row=rows[r],images=[row.design,...row.refs];
+        for(let col=0;col<3;col++){
+          const px=gap+col*(cellW+gap),py=gap+r*(cellH+labelH+gap);
+          const im=new Image();im.src=images[col];await im.decode();
+          x.fillStyle='#fff';x.font='bold 10px sans-serif';
+          const label=col===0?'NEW '+row.key.toUpperCase():row.candidates[col-1].toUpperCase()+' / '+row.direction.toUpperCase();
+          x.fillText(label,px,py+11);
+          x.drawImage(im,px,py+labelH,cellW,cellH);
+        }
+      }
+      return c.toDataURL('image/png');
+    };
+    return {native:await draw(1),enlarged3x:await draw(3)};
+  },faceComparisons);
+  writeData(path.join(out,'matched-face-comparisons-native-40x38.png'),faceComparisonData.native);
+  writeData(path.join(out,'matched-face-comparisons-3x.png'),faceComparisonData.enlarged3x);
+
   const faceSheet=await page.evaluate(async items=>{
     const gap=12,cellW=160,cellH=170,cols=8,rows=Math.ceil(items.length/cols);
     const c=document.createElement('canvas');c.width=gap+cols*(cellW+gap);c.height=gap+rows*(cellH+gap);
@@ -192,7 +233,7 @@ try {
     enlargedNearestNeighbourCaptures:Object.values(svgData.data).filter(x=>x.enlarged4x).length,
     rasterization:'SVG viewport reset to each 64x96 figure field, then independently rasterized at exact 64x96 and exact 28x42 output dimensions; direct 28x42 is a separate vector rasterization',
     rosterFaceCrops:rosterFaces.length,
-    newFaceDesignCrops:faceDesigns.length,
+    newFaceDesignCrops:faceDesigns.length,\n    matchedFaceComparisonRows:faceComparisons.length,
     rosterFaceDirections:[...new Set(rosterFaces.map(x=>x.direction))],
     faceCropDimensions:{width:40,height:38,source:'current game directional snapshot hook, native 64x96'},
     note:'The roster face sheet is for human geometric comparison only. Closest two faces per new character and defining cues remain unselected until visual inspection.'
