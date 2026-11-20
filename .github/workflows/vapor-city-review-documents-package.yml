@@ -112,3 +112,4 @@ jobs:
 # Final package refresh after Run 603 documentation and manifest updates.
 # Rebuild after final overview correction; package must match branch head.
 # Ensure the final artifact includes the latest README, tracker, standard, and manifest.
+# Refresh after owner-facing readiness language was clarified.
