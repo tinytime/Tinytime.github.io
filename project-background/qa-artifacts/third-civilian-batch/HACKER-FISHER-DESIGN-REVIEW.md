@@ -68,3 +68,60 @@ The SVG contains the combined comparison sheet and scale section for all eight d
 3. No Hacker/Fisher renderer work, game QA, golden snapshot change or production approval is implied by this design-stage package.
 
 No specific unresolved construction defect was found during the design-source visual inspection.
+
+## Internal QA review — corrected Playwright Run #7 (2026-11-20)
+
+**Disposition: INTERNAL DESIGN QA PASS — MINOR READABILITY NOTES — OWNER FINISHED-ART ACCEPTANCE PENDING.**
+
+Internal QA used the exact corrected Run #7 artifact, not Run #6:
+- Workflow: [Playwright Run #7](https://github.com/tinytime/Tinytime.github.io/actions/runs/44748083989)
+- Tested source: `2b08e60d4814846923e133503f965532bde055ad`
+- Artifact: [14634776106](https://github.com/tinytime/Tinytime.github.io/actions/runs/44748083989/artifacts/14634776106)
+- Source SVG SHA-256: `c322e8c44a04478e59b8bc7319203213577d7ce3100c13fdc3de56e0f9e0565c`
+
+### Artifact and workflow verification
+
+The run's Playwright/Chromium setup, Node syntax validation, full SVG render, capture generation and artifact upload all succeeded. The only failed step was the optional commit/push of presentation PNGs, which hit a non-fast-forward branch race. This does not invalidate the successfully uploaded artifact. Corrected PNGs are not committed as repository files; the artifact is the authoritative visual evidence for this review.
+
+The JSON render report confirms:
+- Full 1680×1720 design sheet rendered completely.
+- Eight directional captures: Hacker and Fisher, front/back/left/right.
+- Each direction has a native 64×96 capture and a direct 28×42 design projection.
+- A true 4× nearest-neighbour enlargement was generated from the direct 28×42 projections.
+- This is design-stage SVG output, not production game-renderer output.
+
+### Visual review findings
+
+**Hacker — PASS**
+- Narrow, folded-in body and asymmetric drape-shell remain distinct from Fisher's broad, braced construction.
+- Broken side-swept fringe, exposed temple and asymmetric earbud are present; face remains open.
+- The single slate is correctly placed in the character-right hand: front viewer-left, rear viewer-right, right profile only. Left profile correctly hides the far-side slate.
+- The corrected front view contains one device, with the supporting hand visibly overlapping its rim. Rear and right-profile hand/device relationships remain coherent.
+- At 28×42 the slate is small but survives as a clear pale hand-held cue. Face expression detail compresses, as expected at this scale, but the hair/head and drape silhouette remain readable.
+- No visible clipping, detached components, duplicated device or duplicated limbs.
+
+**Fisher — PASS**
+- Broad, low waterproof smock, substantial boots and braced stance remain distinct from Hacker.
+- Low oilskin hood frames rather than obscures the face; diagonal bib closure survives all four directions.
+- Basket handedness is correct: front viewer-right, rear viewer-left and left profile only. Right profile correctly has no basket.
+- Basket remains connected to the supporting wrist/hand in the views where it is shown. The dark rear yoke and seam read as garment construction, not a pale torso hole.
+- The compact basket/net cue and broad oilskin silhouette survive direct 28×42 projection.
+- No visible clipping, detached components, duplicate basket or duplicate limbs.
+
+### Minor notes for owner/design consideration
+
+1. Hacker's slate is necessarily compact at 28×42. It remains identifiable, but renderer-stage implementation should preserve the hand-over-rim contact rather than enlarge the device at the expense of the character silhouette.
+2. Fisher's right-profile hip detail is visually close to a small pouch/net attachment. It does not duplicate the basket and does not violate the approved handedness plan, but renderer implementation should keep it subordinate and clearly integrated into the garment.
+3. Facial micro-expression detail is less legible at 28×42 than at native scale for both characters. The major head cues and face openings survive; do not solve this by adding oversized facial marks.
+
+No blocking design-stage defect was found. The internal QA disposition is limited to the finished design-source evidence and does not certify game integration, production renderer geometry, town/gallery behavior or production-scale captures.
+
+### Gates and next step
+
+- Internal design QA: **PASS**.
+- Finished colour-art owner acceptance: **PENDING**.
+- Hacker/Fisher renderer implementation: **NOT STARTED / HELD**.
+- Tech-first prerequisite: Tech's independent exact-output review and owner rendered-art approval remain outstanding.
+- Golden snapshots and provenance: **UNCHANGED**.
+
+No additional render is required for this internal design QA handoff. The owner may now make the finished-art acceptance decision using Run #7 artifact 14634776106.
