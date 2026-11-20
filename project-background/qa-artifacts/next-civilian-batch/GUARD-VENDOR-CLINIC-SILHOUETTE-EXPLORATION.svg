@@ -60,7 +60,7 @@
 <path d="M13 86 L27 86 L28 92 L26 94 L8 94 L7 91 L10 88Z M37 86 L51 86 L54 89 L57 92 L55 94 L37 94 L36 91Z"/>
 <!-- shallow tray close to waist; hand visibly supports underside -->
 <path d="M43 46 L57 45 L60 48 L58 52 L44 53Z M46 53 L56 53 L55 57 L47 57Z"/>
-<path d="M50 42 Q53 40 55 43 L56 47 L52 49 L49 46Z"/>
+<path d="M50 49 Q54 49 56 52 L56 56 L52 58 L49 55Z"/>
 </g>
 <g id="vendor-back" class="s">
 <path d="M23 13 Q23 5 32 5 Q41 5 42 14 L41 22 Q39 28 32 28 Q25 27 23 21Z"/>
@@ -82,7 +82,7 @@
 <path d="M24 57 L32 58 L30 82 L27 89 L14 90 L12 87 L17 81 L17 64Z M33 57 L42 56 L44 65 L46 82 L51 87 L49 90 L35 90 L32 84Z"/>
 <path d="M14 86 L28 86 L29 92 L27 94 L9 94 L8 91 L11 88Z M36 86 L50 86 L54 91 L52 94 L35 94 L34 91Z"/>
 <path d="M41 45 L57 45 L60 49 L57 52 L42 52Z M45 52 L56 52 L55 56 L46 56Z"/>
-<path d="M48 41 Q52 39 54 43 L55 47 L51 49 L47 46Z"/>
+<path d="M48 50 Q52 49 55 52 L55 56 L51 58 L47 55Z"/>
 </g>
 
 <!-- CLINIC: swept gathered hair with low bun, short asymmetric wrap tunic, visible trousers, hip care pouch -->
