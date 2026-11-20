@@ -12,6 +12,7 @@ Use this manifest for every independent review package. Mark each row `included`
 | Identity/proportion cards | included | `IDENTITY-AND-PROPORTION-CARDS.md` |
 | Internal QA record | included | `RUN-599-600-INTERNAL-QA.md` |
 | Independent review log | included | `CLAUDE-REREVIEW-RUN-600.md` |
+| Accepted-exception register | included | `ACCEPTED-EXCEPTIONS.md` |
 | Native four-direction captures | included | Run #600 artifact; record all 20 filenames |
 | Direct 28×42 four-direction captures | included | Run #600 artifact; record all 20 filenames |
 | Black silhouette sheet | included | Alpha-derived; not anatomical segmentation |
