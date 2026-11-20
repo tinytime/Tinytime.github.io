@@ -30,6 +30,14 @@ This section supersedes older status statements below where they conflict. Histo
 - **Next sequence:** finish and render the five-character correction pass; update the five-character evidence package against the current source; run and inspect fresh QA artifacts; submit that exact evidence to Claude; resolve valid findings; obtain owner approval; only then release the remaining roster.
 
 
+## Run #600 expanded review evidence — 2026-11-20
+
+- [Actions run #600](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650864326), artifact `14591690387`, QA evidence-builder commit `90c5d266279c61461b460b024ee96e71f327e081`; the renderer source remains `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb`.
+- Evidence builder succeeded and added `five-civilian-black-silhouette-4x-contact-sheet.png` (native alpha silhouettes) and `five-civilian-town-ground-composite.png` (direct 28×42 sprites composited over the captured night-town screenshot).
+- The town-ground composite is diagnostic only, not proof of a live named-NPC spawn. The black silhouette sheet is a shape aid, not a semantic anatomy mask.
+- The underlying renderer QA metrics remain as recorded in Run #599: 92/92 directional integrity, zero edge contacts, 20/20 direct 28×42, 12/12 role-debug, prop/gallery pass, zero page/script errors. The workflow's unrelated audio/global silhouette/unapproved snapshot gates remain failed.
+- [Internal QA record and before/after pixel diffs](qa-artifacts/five-civilian-corrections/RUN-599-600-INTERNAL-QA.md).
+
 ## Run #599 P2 correction QA — 2026-11-20
 
 - Exact renderer source: `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb`.
