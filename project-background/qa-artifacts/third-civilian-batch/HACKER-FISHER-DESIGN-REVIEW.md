@@ -1,6 +1,6 @@
 # Hacker (#10) and Fisher (#11) — finished design-stage review package
 
-**Status:** finished design-stage candidate; Playwright design rendering and internal visual inspection complete on 2026-11-20. Awaiting owner acceptance of the finished colour artwork. This package does not authorize renderer implementation.
+**Status:** corrected Playwright design rendering and internal visual inspection complete on 2026-11-20 (Run #7). Awaiting owner acceptance of the finished colour artwork. This package does not authorize renderer implementation.
 
 ## Authoritative construction and scope
 
@@ -41,12 +41,12 @@
 
 The SVG contains the combined comparison sheet and scale section for all eight directional designs. Reproducible Playwright render workflow:
 
-- [Run #6 — successful design render](https://github.com/tinytime/Tinytime.github.io/actions/runs/44747910509), tested source `71e3e8a674e887715613faa8e687a36b0e34a9d8`.
-- [Render artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/44747910509/artifacts/14633573148).
-- Committed outputs: 1× and 3× full sheets; eight native 64×96 crops; eight direct 28×42 vector projections; eight 28×42 crops enlarged 4× with smoothing disabled (nearest-neighbour); JSON report with source hash and capture geometry.
-- Render outputs are committed on the working branch in commit `b0216c079b3969469c3192366b57f98b619c2213`.
+- [Run #7 — corrected design render](https://github.com/tinytime/Tinytime.github.io/actions/runs/44748083989), tested corrected source `2b08e60d4814846923e133503f965532bde055ad` (SVG SHA-256 `c322e8c44a04478e59b8bc7319203213577d7ce3100c13fdc3de56e0f9e0565c`).
+- [Run #7 artifact 14634776106](https://github.com/github.com/tinytime/Tinytime.github.io/actions/runs/44748083989/artifacts/14634776106) contains the 1×/3× full sheets, eight native 64×96 captures, eight direct 28×42 projections, eight 4× nearest-neighbour enlargements, and JSON report.
+- Playwright/Chromium install, Node syntax check, SVG render and capture generation all passed. Artifact upload passed. The workflow's presentation-output commit/push step failed because the working branch advanced after checkout (`non-fast-forward`); therefore Run #7 PNGs are available in the GitHub Actions artifact but are not yet committed as repository files. Run #6 PNGs remain superseded.
+- The render report confirms eight direction captures at both 64×96 and 28×42. The source is explicitly design-stage vector, not game-renderer output.
 
-**Internal visual inspection:** ChatGPT inspected the full 1× sheet, native directional contact sheet, direct 28×42 contact sheet and 4× nearest-neighbour sheet. The eight views retain clearly different body envelopes (Hacker narrow/folded; Fisher broad/braced). Hacker's slate appears front viewer-left, rear viewer-right and near-side right profile only; no far-side slate appears in left profile. Fisher's basket appears front viewer-right, rear viewer-left and near-side left profile only; no basket appears in right profile. Hacker's fringe does not cover the visible profile eye; Fisher's hood leaves the profile face visible. No visible clipping, detached limbs or duplicate props were found in these design-source captures.
+**Internal visual inspection — corrected Run #7 artifact:** ChatGPT inspected the full 1× sheet, native 64×96 montage, direct 28×42 montage and 4× nearest-neighbour enlargement. Hacker's front view now contains one slate only, with the supporting hand overlapping its upper rim; rear and right-profile slate placement is consistent, and the left profile correctly hides the far-side device. Fisher's basket appears front viewer-right, rear viewer-left and left profile only; the right profile has no basket. The narrow/folded Hacker and broad/braced Fisher envelopes remain distinct. Face and outfit cues remain present at native scale; the direct 28×42 projection is small, so the 4× crisp-edge enlargement was used for detailed game-scale design-readability inspection. No visible edge clipping, detached large components, duplicate limbs or duplicate props were found in the inspected design-source outputs.
 
 **Evidence boundary:** these are captures from the finished design SVG, not direct game-renderer captures. They do not prove game integration, live town spawning, production renderer contact geometry or production QA. Direct game-renderer 28×42 capture, gallery/town integration and renderer QA belong to the later implementation gate.
 
@@ -59,7 +59,7 @@ The SVG contains the combined comparison sheet and scale section for all eight d
 ## Visual inspection and correction history
 
 - Playwright Render Run #6 rendered the previous source revision and produced the first 1×/3× sheets, native crops, direct 28×42 projections and true 4× nearest-neighbour captures. ChatGPT visually inspected all four outputs. The review found an accidental second slate-like rectangle in Hacker's front view; the source now removes that duplicate and adds a visible grip on the single viewer-left slate (`2b08e60d4814846923e133503f965532bde055ad`).
-- The Run #6 PNGs predate that final correction and are superseded. Render Run #7 is pending while its Chromium-install step runs; do not treat the old PNGs as final evidence. Regenerate and inspect the outputs against the latest SVG before owner review.
+- The Run #6 PNGs predate that final correction and are superseded. Run #7 completed the corrected render and artifact upload; only the automated commit/push of its PNGs failed due to a branch race. The corrected artifact was retrieved and visually inspected. Its evidence remains design-stage only.
 
 ## Remaining gates / unresolved issues
 
