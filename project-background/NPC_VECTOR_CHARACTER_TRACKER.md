@@ -18,7 +18,7 @@
 - **Shell-family proposals:** Guard — protective wedge / articulated braced stance; Vendor — forward-leaning stall-service / tray-presenting stance; Clinic Worker — tapered wrap tunic / offset-hip stance. All remain proposals pending owner approval.
 - **Status:** revision 02 is a design exploration only. It has not been rendered through the game, direct 28×42 renderer captures do not exist, and prop contacts are not renderer-verified. No renderer/game code, production colour art, QA baselines or golden snapshots changed. No character is approved or complete.
 - **Current blocking issue:** the earlier revision 02 SVG reused the front geometry for back/left and mirrored it for right. The current focused directional-construction revision replaces those placements with distinct view-specific paths. The roster comparison is already present; it is not an outstanding deliverable.
-- **Next gate:** owner review of the corrected directional silhouettes and face studies. Do not begin renderer implementation until explicit owner approval.
+- **Next gate:** the corrected directional silhouettes, face studies, construction cards and matched-scale roster comparison are committed and ready for owner design review. The comparison scaling and Guard radio documentation have been reconciled. Package remains NOT APPROVED; do not begin renderer implementation until explicit owner approval.
 
 ## Guard / Vendor / Clinic Worker silhouette exploration — revision 01 history
 
