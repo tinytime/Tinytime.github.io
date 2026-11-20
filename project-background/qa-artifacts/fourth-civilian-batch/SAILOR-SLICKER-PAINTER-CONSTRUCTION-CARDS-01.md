@@ -4,11 +4,11 @@
 **Characters:** Sailor #12 · Slicker #13 · Painter #14  
 **Stage:** parallel silhouette exploration / construction hypotheses  
 **Approval:** role directions and simultaneous exploration authorized; no silhouette, face, prop, palette or construction family approved  
-**Source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-01.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-01.svg)
+**Source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-01.svg)
 
 ## Evidence status
 
-The source SVG is a first coordinated black-silhouette exploration sheet. It is not a final construction package. The three bodies are presented at a shared 64×96 design coordinate field; the source still requires correction/validation of rear-view construction, mirrored profile facing, per-view prop visibility, exact 64×96 raster output and direct 28×42 raster output before it can be called complete. Do not treat the current sheet's repeated profile/body geometry as approved.
+The source SVG is a coordinated second black-silhouette exploration sheet. It encodes a shared 64×96 local figure field, mirrored right-profile facing, and role-specific prop visibility/handedness. It remains a proposal: rear silhouettes currently use the same outer body contour as the front, and the sheet has not yet been rasterized and visually inspected at native 64×96 or direct 28×42. Treat the profile/contact geometry as a design hypothesis until those captures are checked.
 
 The required matched-scale face-crop comparisons have **not** been completed. No two closest faces are selected for any character. This report deliberately does not guess based on role or headwear. Capture actual roster front/profile face crops at 64×96, compare geometric features, then name the two closest faces and select exactly two defining cues for each new face.
 
