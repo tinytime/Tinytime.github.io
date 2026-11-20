@@ -1,3 +1,14 @@
+## Fourth civilian batch — construction card approval and design study 01 (2026-11-20)
+
+The owner approved construction cards 02 and the three family assignments. Current vector family register now records:
+- #12 Sailor — Narrow Deck-Coat / Vertical Utility Shell
+- #13 Slicker — Integrated Hooded Rain-Smock Shell
+- #14 Painter — Offset Artisan Smock / Reaching-Arm Shell
+
+Design-stage vector study 01 reuses revision-21 silhouette geometry and adds black-only internal garment construction proposals. It is not final face art, palette, renderer output or approved finished art. Internal QA must inspect all 12 direction panels and the exact source SVG. Next gates include matched face crops and four-direction direct-scale review. No renderer integration, golden snapshot/provenance changes or #15–23 work is authorized.
+
+---
+
 ## Construction-card QA handoff — fourth batch (2026-11-20)
 
 [Internal QA handoff 01](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-CONSTRUCTION-CARD-QA-HANDOFF-01.md) defines the card-completeness and character-specific review questions for Sailor #12, Slicker #13 and Painter #14. Review [construction cards 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md) against the approved revision-21 silhouette source only. Run #810 validates the silhouette source, not the newly authored cards or future face/garment/prop details. Internal QA and owner review are pending; no art approval is implied.
