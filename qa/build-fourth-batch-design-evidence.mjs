@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-11.svg');
+const sourcePath = path.join(root, 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-12.svg');
 const htmlPath = path.join(root, 'VaporCity_HD2D_Hybrid_Test.html');
 const spritePath = path.join(root, 'npc_sprites.js');
 const out = path.join(root, 'qa-output/fourth-batch-design');
@@ -69,7 +69,7 @@ try {
       data[key]=item;
     }
     const sourceDirectionLabels=(source.match(/class="lab">/g)||[]).length;
-    if(!source.includes('EXPLORATION 11') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
+    if(!source.includes('EXPLORATION 12') || directions.length!==4 || sourceDirectionLabels!==24) throw new Error('Unexpected fourth-batch source revision or incomplete 24-view label set');
     // Profile-region pixel counts are descriptive only; no arbitrary minimum
     // is imposed. Body-only geometry must remain present in every prop-on view.
     const bodyPreservationAudit=[];
@@ -309,7 +309,7 @@ try {
 
   const report={
     status:'design_source_projection_only',
-    revision:11,
+    revision:12,
     bodyPreservationAudit,
     source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-11.svg',
     figureFields:24,
