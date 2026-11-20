@@ -53,3 +53,13 @@ ChatGPT implemented that focused pass in `npc_sprites.js` commit `6a1fd2a4fbad50
 - **Owner decision:** the project owner explicitly approved the rendered Guard, Vendor and Clinic Worker batch on 2026-11-20 after the Run #629 evidence review.
 - **Independent-review record:** Claude's final independent review of this exact Run #629 commit/artifact is not yet recorded in the repository. Per the governing approval process, retain that as the outstanding independent-review gate; do not label the batch fully closed or release the remaining 17 until the exact-output review is logged. This records the owner's approval without fabricating reviewer sign-off.
 - No golden snapshots changed. Existing global Actions blockers are tracked separately from the passing character-specific evidence.
+
+
+## Third civilian batch preparation — Tech, Hacker and Fisher (2026-11-20)
+
+- The owner explicitly directed ChatGPT to proceed with preparing the next batch without returning the prior Guard/Vendor/Clinic Run #629 output to Claude. This instruction is recorded as authorization to advance preparation; it does not imply that Claude reviewed or approved Run #629. Its exact-output independent-review status remains historically pending.
+- Prepared individual role/personality, silhouette, face, must-survive, palette and prop-contact briefs for **Tech (#9), Hacker (#10) and Fisher (#11)**.
+- Added first-pass separately authored front/back/left/right black silhouette concepts. These are design exploration only, not game-renderer captures and not owner-approved final silhouettes.
+- No renderer code, existing civilian art, golden snapshot or baseline was changed.
+- Next gate: owner review of the three concepts and construction cards. Implement one character at a time only after explicit silhouette approval.
+- Package: [Tech/Hacker/Fisher preflight](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md); [four-view silhouette exploration](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg).
