@@ -1,6 +1,6 @@
 # Next Civilian Batch — Tech, Hacker and Fisher
 
-**Status:** preparation authorized by the project owner on 2026-11-20. First-pass silhouette sheet rejected in reviewer feedback dated 2026-11-20; correction round 05 is now the active proposal and remains NOT APPROVED pending owner review. This package establishes character-specific design briefs and revised directional silhouette concepts. It does not constitute approval of the silhouettes or authorize renderer implementation. Submit this package to the owner for silhouette/design approval before coding the three renderers.
+**Status:** the project owner accepted the round-05 silhouette direction on 2026-11-20. GitHub Actions [Run #1](https://github.com/tinytime/Tinytime.github.io/actions/runs/44738396316) generated the canonical SVG render at exact 3× scale (4800×3540) and committed `TECH-HACKER-FISHER-SILHOUETTE-ROUND-05-3X.png`. The workflow's render and dimension checks passed. ChatGPT's visual inspection of the PNG is still required before renderer implementation begins. This package establishes the accepted character-specific design direction and the production gate; it does not represent rendered game art or renderer QA.
 
 **Batch order:** Tech (#9), Hacker (#10), Fisher (#11).  
 **Builder:** ChatGPT. **Final decision authority:** project owner.  
