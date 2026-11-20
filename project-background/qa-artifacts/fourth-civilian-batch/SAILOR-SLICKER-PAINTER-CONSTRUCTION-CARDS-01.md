@@ -1,7 +1,7 @@
 ## Revision 18 — Claude corrections implemented; validation pending
 
 **Source:** [silhouette exploration 18](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg)  
-**Current source commit:** `50e267b01a76de1b95e31b766dc332da896ce543`  
+**Latest design-source commit:** `50e267b01a76de1b95e31b766dc332da896ce543`  
 **Status:** design-source correction pass implemented; fresh Actions capture and visual inspection pending.
 
 - **Sailor #12:** retain the thicker front coil-to-palm bridge and rear/profile arm separation. Confirm the front contact and profile slits at direct 28×42 during fresh capture.
