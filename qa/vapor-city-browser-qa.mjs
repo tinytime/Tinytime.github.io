@@ -196,6 +196,74 @@ try {
     captureMethod:'Direct createCivRenderer/owCiv render at native 64x96 and live OWT=36 / vector scale=0.28 for 28x42; no resize.'
   };
 
+  // Dedicated first-renderer evidence for Tech. Keep this separate from the
+  // already owner-approved Guard/Vendor/Clinic batch: 4 directions at native
+  // 64x96 and direct live 28x42, plus neutral-grey contact sheets.
+  const techRendererCapture = await page.evaluate(() => {
+    const makeRenderer = OWT => window.NPC_SPRITES.createCivRenderer({
+      CIV:{}, HB_CIV:{}, GRANNY_REF:{}, OWT, og:null, drawGrannyVoltSprite:()=>{}
+    });
+    const nativeOWT=36*0.625/0.28,gameScaleOWT=36;
+    const nativeRenderer=makeRenderer(nativeOWT),gameScaleRenderer=makeRenderer(gameScaleOWT);
+    const directions=['d','u','l','r'],labels=['FRONT','BACK','LEFT PROFILE','RIGHT PROFILE'];
+    const render=(renderer,direction,width,height,OWT)=>{
+      const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
+      const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+      const rx=(width/2-OWT/2)/OWT,baseline=height===96?83:39;
+      const ry=(baseline-(OWT-5))/OWT;
+      const npc={id:'techgirl',civ:'tech',x:0,y:0,rx,ry};
+      renderer(0,0,direction,false,npc,0,0,ctx,{roleDebugLayers:true});
+      const data=ctx.getImageData(0,0,width,height).data;
+      let opaque=0,minX=width,minY=height,maxX=-1,maxY=-1;
+      const touches={left:false,right:false,top:false,bottom:false};
+      for(let y=0;y<height;y++)for(let x=0;x<width;x++){
+        if(data[(y*width+x)*4+3]===0)continue;
+        opaque++;minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);
+        if(x===0)touches.left=true;if(x===width-1)touches.right=true;
+        if(y===0)touches.top=true;if(y===height-1)touches.bottom=true;
+      }
+      const transparent=canvas.toDataURL('image/png');
+      const grey=document.createElement('canvas');grey.width=width;grey.height=height;
+      const gc=grey.getContext('2d');gc.fillStyle='#777982';gc.fillRect(0,0,width,height);gc.drawImage(canvas,0,0);
+      return {civ:'tech',direction,width,height,opaque,bounds:opaque?{minX,minY,maxX,maxY}:null,touches,transparent,neutralGrey:grey.toDataURL('image/png')};
+    };
+    const native=directions.map(d=>render(nativeRenderer,d,64,96,nativeOWT));
+    const gameScale=directions.map(d=>render(gameScaleRenderer,d,28,42,gameScaleOWT));
+    const sheet=(items,width,height)=>{
+      const out=document.createElement('canvas');out.width=width*4;out.height=(height+18);
+      const ctx=out.getContext('2d');ctx.fillStyle='#777982';ctx.fillRect(0,0,out.width,out.height);
+      items.forEach((item,i)=>{const img=new Image();});
+      return {dataUrl:null,items:items.map(x=>x.neutralGrey)};
+    };
+    return {native,gameScale,directions,labels};
+  });
+  const techNativeDir=path.join(out,'tech-native-64x96');
+  const techGameDir=path.join(out,'tech-direct-game-scale-28x42');
+  fs.mkdirSync(techNativeDir,{recursive:true});fs.mkdirSync(techGameDir,{recursive:true});
+  for(const item of techRendererCapture.native){
+    fs.writeFileSync(path.join(techNativeDir,'tech-'+item.direction+'.png'),Buffer.from(item.transparent.split(',')[1],'base64'));
+    fs.writeFileSync(path.join(techNativeDir,'tech-'+item.direction+'-neutral-grey.png'),Buffer.from(item.neutralGrey.split(',')[1],'base64'));
+  }
+  for(const item of techRendererCapture.gameScale){
+    fs.writeFileSync(path.join(techGameDir,'tech-'+item.direction+'.png'),Buffer.from(item.transparent.split(',')[1],'base64'));
+    fs.writeFileSync(path.join(techGameDir,'tech-'+item.direction+'-neutral-grey.png'),Buffer.from(item.neutralGrey.split(',')[1],'base64'));
+  }
+  const techRendererCaptureAudit={
+    directions:['front','back','left','right'],
+    nativeExpected:4,nativeCaptured:techRendererCapture.native.length,
+    gameScaleExpected:4,gameScaleCaptured:techRendererCapture.gameScale.length,
+    nativeBounds:techRendererCapture.native.map(({direction,opaque,bounds,touches})=>({direction,opaque,bounds,touches})),
+    gameScaleBounds:techRendererCapture.gameScale.map(({direction,opaque,bounds,touches})=>({direction,opaque,bounds,touches})),
+    edgeContacts:[...techRendererCapture.native,...techRendererCapture.gameScale]
+      .filter(item=>Object.values(item.touches).some(Boolean))
+      .map(({direction,width,height,touches})=>({direction,width,height,touches})),
+    pass:techRendererCapture.native.length===4&&techRendererCapture.gameScale.length===4&&
+      techRendererCapture.native.every(item=>item.width===64&&item.height===96&&item.opaque>0&&item.transparent.startsWith('data:image/png'))&&
+      techRendererCapture.gameScale.every(item=>item.width===28&&item.height===42&&item.opaque>0&&item.transparent.startsWith('data:image/png'))&&
+      [...techRendererCapture.native,...techRendererCapture.gameScale].every(item=>!Object.values(item.touches).some(Boolean)),
+    captureMethod:'Direct createCivRenderer/owCiv dispatch; native OWT=36*0.625/0.28 at 64x96 and live OWT=36 at 28x42. Neutral-grey variants are composited directly, not resized.'
+  };
+
   const grannyBeforeAfterDataUrl = await page.evaluate(() => {
     const OWT = 36 / 0.28;
     const directions = ['d', 'u', 'l', 'r'];
@@ -1501,6 +1569,7 @@ try {
     civilianFaceDistinctnessAudit,
     gameScaleNpcCaptureAudit,
     approvedBatchCaptureAudit,
+    techRendererCaptureAudit,
     roleDebugAudit,
     roleDebugRowWidthReport,
     civilianVisualIntegrityAudit,
@@ -1541,7 +1610,7 @@ try {
   };
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
-  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !civilianFaceDistinctnessAudit.pass || !gameScaleNpcCaptureAudit.pass || !roleDebugAudit.pass || !civilianVisualIntegrityAudit.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
+  if (!sourceCommitSha || !syntaxCheck.ok || !npcSpriteSyntaxCheck.ok || !npcSpriteModuleLoaded || !npcInventoryCheck.ok || !liveArchetypeUsageAudit.pass || !techRendererCaptureAudit.pass || !pixelPackDirectionGuard || !atlasVerticalFallbackAudit.pass || !atlasComparisonAudit.pass || !grannyRefGeneratorCheck.ok || !townSceneState.pass || !grannyMeasurementCheck.pass || !npcPaletteCheck.pass || !paletteDifferentiation.pass || !npcBodyCheck.pass || !civilianFaceDistinctnessAudit.pass || !gameScaleNpcCaptureAudit.pass || !roleDebugAudit.pass || !civilianVisualIntegrityAudit.pass || !npcPropAudit.pass || !fanVariantAudit.pass || !fanHeadroomCheck.pass || !fanVariantRenderedPropCheck.pass || !snapshotCheck.pass || !torsoMaskIntegrityAudit.pass || !silhouetteQualityCheck.pass || !civilianTypeSilhouetteAudit.pass || !fanVariantSilhouetteAudit.pass || !galleryExists || galleryRenderError || !canvasMetrics?.grannyDirectionalVisualCheck?.pass || (atlasOverrideIds.length > 0 && (pixelPackAtlasCaptureError || pixelPackAtlasCaptures.length !== atlasOverrideIds.length || pixelPackAtlasCaptures.some(item => item.error))) || pageErrors.length || scriptErrors.length || (canvasMetrics?.cellGrid?.nonEmptyCells !== 40)) process.exitCode = 1;
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));
