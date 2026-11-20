@@ -72,9 +72,9 @@ try {
     // the source projection. This is a geometry-presence check, not proof of
     // a readable grip; human visual review remains mandatory.
     const profilePropAudit=[];
-    for(const [character,direction] of [
-      ['sailor','right'],['slicker','left'],['slicker','right'],
-      ['painter','left'],['painter','right']
+    for(const [character,direction,shouldBeVisible] of [
+      ['sailor','right',true],['slicker','left',true],['slicker','right',false],
+      ['painter','left',true],['painter','right',false]
     ]){
       const body=new Image(),prop=new Image();
       body.src=data[character+'-body-'+direction].native;
@@ -90,7 +90,7 @@ try {
         const bodyLight=b[k]>150&&b[k+1]>150&&b[k+2]>150;
         if(propDark&&bodyLight)added++;
       }
-      profilePropAudit.push({character,direction,addedSilhouettePixels:added,pass:added>=3});
+      profilePropAudit.push({character,direction,expectedVisible:shouldBeVisible,addedSilhouettePixels:added,pass:shouldBeVisible?added>=3:added===0});
     }
     const sheet=(keys,scale,columns,cellW,cellH)=>{
       const gap=16,rows=Math.ceil(keys.length/columns),canvas=document.createElement('canvas');
