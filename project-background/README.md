@@ -1,5 +1,16 @@
 ## Fourth civilian batch — revision 10 internal QA complete; Claude package 04 prepared (2026-11-20)
 
+Sailor (#12), Slicker (#13) and Painter (#14) have completed the current design-source capture and internal visual inspection. [Claude review package 04](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md) supersedes packages 01–03.
+
+- Current source: [revision 10](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-10.svg); exact tested source commit `8ae6a47055c6c75e361738b21c01d8b07b6830b4`.
+- Exact evidence: [Run #678](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334), artifact [14650399818](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334/artifacts/14650399818). Design-source capture/semantic validation passed: 24/24 native 64×96, 24/24 independently rasterized direct 28×42, 24/24 enlarged 4×; 69 roster face crops and six matched face-comparison rows.
+- Profile prop-region checks passed: Sailor right 172, Slicker left 272, Painter left 95 added pixels. Visual inspection covered body-only/prop-on sheets, direct-scale projections, enlarged profiles, face comparisons and Sailor/Welder rear comparison. Revision 10 clarifies Slicker's folded umbrella canopy/shaft in front/back while retaining left-profile near-side visibility; Painter's broad brush remains crop-safe and the Sailor rope loop is connected through a palm/forearm bridge. Claude should independently judge small-scale identity, grip and subordination.
+- Browser QA overall remains FAILED at global diagnostics: unapproved golden snapshot baseline (1 match / 23 changed) and 135 existing audio/resource HTTP 404 console entries. Page/script errors are empty. No golden snapshots or provenance changed.
+- These are design-source projections only, not production-renderer QA, live-town spawn proof or gallery integration for the new civilians.
+- All three construction families remain UNASSIGNED. No silhouette, face, prop or palette is owner-approved. Renderer work is NOT AUTHORIZED; #15–23 remain held pending independent review and explicit owner approval.
+
+## Fourth civilian batch — revision 10 internal QA complete; Claude package 04 prepared (2026-11-20)
+
 Sailor (#12), Slicker (#13) and Painter (#14) have completed internal design-source capture and visual inspection. The current independent-review package is [Claude review package 04](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md). Packages 01–03 are superseded.
 
 - Current source: [silhouette exploration 10](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-10.svg). Exact tested source commit: `8ae6a47055c6c75e361738b21c01d8b07b6830b4`. The SVG title was corrected metadata-only after the run in commit `f7efb67c3fdfcd38899c9d29996b1ed3e1310322`; no geometry changed.
