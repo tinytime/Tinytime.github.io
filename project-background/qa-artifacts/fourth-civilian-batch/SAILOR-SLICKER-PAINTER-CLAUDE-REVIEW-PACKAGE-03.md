@@ -20,7 +20,7 @@ Granny Volt is the approved 10/10 craft-quality benchmark, not a visual template
 - Browser/design QA: [Run #677](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801)
 - Artifact: [14650099995 — vapor-city-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995)
 - Exact tested commit: `c74219986db2466122fe08ff3ad0bdcb012b5264`
-- Source SVG: [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg)
+- Source SVG: [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg)
 - Construction cards: [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md)
 - Face geometry study: [SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg)
 - Owner-approved role directions and constraints: [preflight](SAILOR-SLICKER-PAINTER-PREFLIGHT.md)
@@ -52,10 +52,10 @@ The artifact contains 24 body-only / prop-on figure fields rendered at native 64
 
 ## Browser workflow disposition and evidence boundaries
 
-Run #674 overall concluded **FAILURE** at the global browser diagnostics gate:
+Run #677 overall concluded **FAILURE** at the global browser diagnostics gate:
 
 - Golden snapshot gate: **1 match / 23 changed**, no missing snapshots. Baseline approval metadata remains unapproved.
-- Existing audio/resource diagnostics: 135 console 404 entries. `pageErrors` and `scriptErrors` are empty.
+- Existing audio/resource diagnostics: 180 console 404 entries. `pageErrors` and `scriptErrors` are empty.
 - No golden snapshots or provenance were modified.
 - The design-source evidence generation, semantic proportion/annotation validation, Granny semantic overlay, six-civilian annotation overlay, five-civilian review sheet and artifact upload completed successfully.
 
