@@ -2,6 +2,10 @@
 
 ## Current authority — 2026-11-20
 
+- **Third batch owner decision:** owner approved Tech (#9), Hacker (#10) and Fisher (#11) on 2026-11-20. Tech's production-renderer art is approved; Hacker and Fisher are approved at finished design-stage only, with production renderer work not yet done. Claude's post-correction review is not separately recorded.
+- **Fourth batch preflight:** Sailor (#12), Slicker (#13), Painter (#14). Identity hypotheses and silhouette planning are in [the preflight](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md). Proposed directions only; their vector shell families remain UNASSIGNED until silhouette exploration and owner approval. Renderer work is not authorized by this preflight.
+
+
 - **Third batch preflight — round 05:** Art-silhouette inspection passed across all 12 views (reported black-silhouette IoU 0.997; anti-aliasing accounts for the small pixel difference). The first 3× sheet's two clipped text blocks were wrapped in SVG commit `e25ac611ee17d12771cbf2815001b78f43090d7f`; [Run #2](https://github.com/tinytime/Tinytime.github.io/actions/runs/44739247661) successfully regenerated the 4800×3540 PNG, which ChatGPT visually checked for complete text and right-edge clearance. The review sheet is render-complete. Explicit owner silhouette approval remains required before renderer implementation. The separate Guard/Vendor/Clinic Run #629 Claude review remains historically unrecorded.
 - Tech, Hacker and Fisher must not share a generic technology-worker shell: Tech is a field-maintenance specialist, Hacker a guarded digital operator, Fisher a waterfront net worker. Their silhouette, garment volume, posture, head construction and prop integration must distinguish them before palette/detail work.
 
