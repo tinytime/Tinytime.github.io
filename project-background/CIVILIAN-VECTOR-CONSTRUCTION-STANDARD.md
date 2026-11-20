@@ -2,6 +2,10 @@
 
 ## Owner approval and Run #603 closeout — 2026-11-20
 
+## Latest rendered-batch decision — Guard, Vendor and Clinic (2026-11-20)
+
+The owner has approved the rendered Guard/Vendor/Clinic batch based on Run #629. The exact-output Claude independent review is still pending; under §12 and §13A the batch remains review-gated for formal closeout and the remaining 17 civilians remain on hold. See the Run #629 closeout record below and the linked review package.
+
 This is the current authority for approval and rollout; historical run notes remain unchanged below.
 
 - **Five-character art:** Usher, Cook, Courier, Coach and Referee are explicitly **APPROVED by the project owner**. Claude Run #603 recommended owner review, found no P0/P1 defects and verified Usher U4; it did not itself grant owner approval.
@@ -19,6 +23,17 @@ This is the current authority for approval and rollout; historical run notes rem
 - **Runner:** built but excluded from Claude Run #603; pending focused review and not part of the five-character approval.
 - **Run #603:** [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact 14593339734. Targeted results passed; overall Actions failure remains due to unapproved snapshots (1 match / 23 changed) and 180 existing audio 404s. No golden snapshots were refreshed or approved.
 
+
+## Guard, Vendor and Clinic — Run #629 closeout (2026-11-20)
+
+## Guard, Vendor and Clinic — Run #629 and owner decision (2026-11-20)
+
+- Final renderer source for this round: [`2bc1629edd82afc1a50ac7a4ab882b428dbd0c32`](https://github.com/tinytime/Tinytime.github.io/commit/2bc1629edd82afc1a50ac7a4ab882b428dbd0c32). The final focused change moved Vendor's profile eye/brow inward onto the visible cheek plane after Run #628's automated face-distinctness checks passed but manual direct-game-scale inspection found the mark insufficiently legible.
+- Browser QA: [Run #629](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700724613), [artifact 14613105475](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700724613/artifacts/14613105475). Targeted vector/capture checks pass; overall Actions remains failed on the unapproved golden snapshot baseline (1 match / 23 changed) and existing audio/resource 404 console errors. No golden snapshots or provenance were changed.
+- Inspected the exact Run #629 artifact: 12/12 native 64×96 and 12/12 direct 28×42 captures for Guard/Vendor/Clinic; Vendor's left and right profile eye now reads in both scales. Guard's near-side forearm/bracer/hand and Clinic's right-profile cord/coil remain present. Directional integrity 92/92, zero edge contacts and detached components, face distinctness 23/23 at both scales, prop audit, gallery, town smoke and Granny directional checks pass. pageErrors=0; scriptErrors=0.
+- **Owner decision:** the project owner explicitly approved the rendered Guard, Vendor and Clinic Worker batch on 2026-11-20 after the Run #629 evidence review.
+- **Independent-review record:** Claude's final independent review of this exact Run #629 commit/artifact is not yet recorded in the repository. Per the governing approval process, retain that as the outstanding independent-review gate; do not label the batch fully closed or release the remaining 17 until the exact-output review is logged. This records the owner's approval without fabricating reviewer sign-off.
+- No golden snapshots changed. Existing global Actions blockers are tracked separately from the passing character-specific evidence.
 
 ## Historical review and run records
 
@@ -354,6 +369,40 @@ Every correction round includes before/after side-by-side comparisons for each f
 Maintain a roster-level audit of recurring torso/garment-shell families before starting the remaining 17 civilians. Record family tags, recurrence and whether construction remains meaningfully distinct; do not impose an arbitrary numeric cap. A shared shell family is a review prompt, not an automatic failure.
 
 For mirrored left/right views, character-relative anatomy is authoritative. In a front view, character-left appears viewer-right and character-right appears viewer-left; the rear view reverses. Record both labels per direction and near/far relative to profile facing. Mirroring is acceptable only when anatomy and prop side remain correct in each view. Maintain an accepted-exception register with exact pair/direction, evidence scales, rationale and owner disposition.
+
+
+
+## 13A. Lessons ratified from the Guard/Vendor/Clinic correction round
+
+These are repeatable construction and evidence requirements derived from the Run #624–#629 profile-correction cycle. They clarify the existing silhouette-first pipeline; they do not introduce numeric art targets or relax approval gates.
+
+### Silhouette and directional anatomy
+
+- A profile must read as one intentional near-side anatomy plane. Keep the near arm/hand and its bracer or prop-support relationship visible where the pose requires it; occlude the far arm unless a deliberate pose clearly establishes a separate plane. Do not let two arms stack into one ambiguous edge.
+- Distinguish adjacent roster silhouettes through actual construction: headwear/hair contour, torso/garment shell, stance, limb placement and prop-support geometry. Palette or a small emblem alone cannot resolve a generic or overlapping silhouette.
+- A profile prop must remain inside the sprite bounds and show a believable contact chain. For a tray or carried object, expose enough of the lip/edge and supporting hand to communicate both object and grip; move the construction inward rather than allowing a defining cue to clip at the canvas edge.
+- Record character-relative near/far anatomy and prop handedness for each direction. Mirrored output must preserve the intended anatomical side, not merely mirror pixels.
+
+### Face construction and game-scale legibility
+
+- Profile eye/brow marks must sit on the visible cheek/face plane, forward of and clear of headwear brims, ears and hair masses. A mark placed behind an occluder or on the wrong face plane can exist in source and still disappear in the render.
+- Do not accept a profile face because a uniqueness metric passes. Inspect both left and right profile crops at native 64×96 and direct 28×42. Automated face-distinctness is a screening check; human visual legibility is authoritative.
+- Use the direct renderer's 28×42 capture, not a resized native image. Details should survive the actual game-scale rendering path; if they only read enlarged, revise placement/shape or deliberately simplify them.
+- Judge the complete face construction (head/jaw, eye placement/geometry, brow, nose/profile, cheek and expression), not an isolated token pixel. Keep face cues character-specific and do not converge on one generic face system.
+
+### Correction-round evidence and diagnosis
+
+- Every focused visual correction must be followed by a fresh browser run against the exact renderer commit. Inspect the resulting artifact, not an earlier run or source code alone.
+- For a profile-only correction, compare before/after captures and confirm unaffected front/back views remain unchanged. Still perform the full four-direction and two-scale regression review so unintended changes are caught.
+- A complete visual review includes enlarged/native 64×96 and direct 28×42 views, all four directions, relevant prop-contact details, gallery/town context and any named character-specific contextual capture. Contact sheets aid comparison but do not replace opening small or ambiguous face/hand crops.
+- Treat 0.85 pairwise silhouette IoU as a human-review prompt only. Review the exact pair, direction, mask definition and visible construction. Record accepted differentiation and rationale; do not reshape a character solely to improve a metric.
+- Report character-specific capture/integrity results separately from unrelated project-wide failures such as unapproved golden snapshots or legacy resource 404s. A red overall workflow is not proof of a character defect; passing targeted checks is not by itself visual approval.
+
+### Approval record
+
+- Distinguish design/brief approval, rendered-character owner approval, internal QA, independent Claude review and final completion status. Record who approved what, on which exact renderer commit and artifact, and on what date.
+- The owner may explicitly approve the rendered art, but the batch is not marked fully closed while a required independent review of the exact final output remains unrecorded. Do not imply Claude approval from an owner decision, automated checks or prior review of an earlier commit.
+- Keep remaining roster work on hold until the defined gates are satisfied. Do not modify golden snapshots or provenance without explicit owner authorization.
 
 ## 14. Source references
 
