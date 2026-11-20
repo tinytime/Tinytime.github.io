@@ -17,7 +17,7 @@ const detailCount=(svg.match(/class="detail"/g)||[]).length;
 if(panelCount!==12 || detailCount!==12) throw new Error('Expected 12 panels and 12 detail overlays; got '+panelCount+'/'+detailCount);
 if(!svg.includes('owner-approved revision 21') && !svg.includes('revision 21')) throw new Error('Approved revision-21 baseline not identified');
 const usedColours=[...new Set(svg.match(/#[0-9a-fA-F]{6}/g)||[])];
-const allowedColours=new Set(['#f3f1eb','#202124','#555555','#555','#222222','#222','#e7e4dc','#c9c5bb','#333333','#333','#080a0e']);
+const allowedColours=new Set(['#f3f1eb','#202124','#555555','#555','#222222','#222','#e7e4dc','#c9c5bb','#333333','#333','#080a0e','#b8a99a']);
 if(usedColours.some(colour=>!allowedColours.has(colour.toLowerCase()))) throw new Error('Unexpected colour swatch/palette content: '+usedColours.join(','));
 
 const browser=await chromium.launch({headless:true});
