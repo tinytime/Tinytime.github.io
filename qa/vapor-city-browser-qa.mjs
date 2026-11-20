@@ -142,7 +142,7 @@ try {
     const makeRenderer = OWT => window.NPC_SPRITES.createCivRenderer({
       CIV:{}, HB_CIV:{}, GRANNY_REF:{}, OWT, og:null, drawGrannyVoltSprite:()=>{}
     });
-    const nativeRenderer=makeRenderer(36/0.28),gameScaleRenderer=makeRenderer(36);
+    const nativeOWT=36*0.625/0.28,gameScaleOWT=36;\n    const nativeRenderer=makeRenderer(nativeOWT),gameScaleRenderer=makeRenderer(gameScaleOWT);
     const directions = ['d','u','l','r'];
     const civilians = ['guard','vendor','clinic'];
     const render = (renderer,civ,direction,width,height,OWT) => {
@@ -157,8 +157,8 @@ try {
     };
     const native=[],gameScale=[];
     for(const civ of civilians)for(const direction of directions){
-      native.push(render(nativeRenderer,civ,direction,64,96,36/0.28));
-      gameScale.push(render(gameScaleRenderer,civ,direction,28,42,36));
+      native.push(render(nativeRenderer,civ,direction,64,96,nativeOWT));
+      gameScale.push(render(gameScaleRenderer,civ,direction,28,42,gameScaleOWT));
     }
     return {native,gameScale};
   });
