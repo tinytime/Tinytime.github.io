@@ -1,3 +1,13 @@
+## Fourth civilian batch — owner direction approval and Sailor exploration (2026-11-20)
+
+The owner approved the refined Sailor/Slicker/Painter role directions and authorized **Sailor (#12) silhouette exploration only**. Shared QA refinements: body-only plus prop-on four-view silhouette sets; evidence-based comparison against the two closest existing faces before finalizing face cues; and near/far anatomy established before adding props. Sailor must receive matched-scale comparison against Clinic (highest priority), Coach, Guard and Fisher, with particular attention to raised collar, cap contour, leg stance, shoulder-to-waist construction and arm negative spaces. The mooring-line coil is optional and cannot carry identity.
+
+- [Sailor silhouette exploration 01](qa-artifacts/fourth-civilian-batch/SAILOR-SILHOUETTE-EXPLORATION-01.svg) — preliminary body-only and prop-on four-view studies; not approved art.
+- [Sailor construction card exploration 01](qa-artifacts/fourth-civilian-batch/SAILOR-CONSTRUCTION-CARD-EXPLORATION-01.md) — provisional construction/contact notes and face-reference comparison plan.
+- [Fourth-batch preflight](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md) — updated with owner decision and QA refinements.
+
+**Gate:** Sailor silhouette/construction review is pending. Slicker (#13) and Painter (#14) remain queued. All three construction families remain UNASSIGNED. No palette or renderer work is authorized; no golden snapshots or provenance changed.
+
 ## Latest browser QA harness checkpoint — Run #649 (2026-11-20)
 
 [Run #649](https://github.com/tinytime/Tinytime.github.io/actions/runs/44753230689), artifact [14636147603](https://github.com/tinytime/Tinytime.github.io/actions/runs/44753230689/artifacts/14636147603), tested commit `2d963db5e0b54f1f7b9afd652b33c053aa168c1b` after Tech was added to the vector-civilian QA contract. Directional integrity 92/92, direct 28×42 assertion 20/20, role-debug 12/12, prop audit 10 archetypes, gallery render and silhouette diagnostic inventory pass; page/script errors are zero. Overall workflow remains failed on unapproved golden snapshots (1 match / 23 changed) and existing audio/resource 404s. No golden snapshots/provenance changed.
