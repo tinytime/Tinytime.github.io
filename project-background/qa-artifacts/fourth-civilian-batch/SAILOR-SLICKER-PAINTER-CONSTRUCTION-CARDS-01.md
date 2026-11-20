@@ -4,11 +4,11 @@
 **Characters:** Sailor #12 · Slicker #13 · Painter #14  
 **Stage:** parallel silhouette exploration / construction hypotheses  
 **Approval:** role directions and simultaneous exploration authorized; no silhouette, face, prop, palette or construction family approved  
-**Source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-03.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-03.svg)
+**Source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-04.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-04.svg)
 
 ## Evidence status
 
-Revision 03 introduces separate rear body contours and explicit left/right profile construction, and corrects near-side prop visibility using character-relative handedness. The source is still a proposal and requires raster capture, native/direct-scale inspection, and contact/edge review before its geometry can be accepted.
+Revision 04 corrects profile prop contact positions, keeps each prop on the near-side profile only, and gives Painter a rear-view reaching arm that matches character-relative handedness. It remains a proposal pending native/direct raster inspection and comparative review.
 
 The required matched-scale face-crop comparisons have **not** been completed. No two closest faces are selected for any character. This report deliberately does not guess based on role or headwear. Capture actual roster front/profile face crops at 64×96, compare geometric features, then name the two closest faces and select exactly two defining cues for each new face.
 
