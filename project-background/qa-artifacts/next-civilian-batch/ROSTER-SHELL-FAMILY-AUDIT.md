@@ -40,9 +40,9 @@ Historical status only: the owner initially authorized Sailor first. This was su
 | 9 | Tech | Clinic | Compact forward-leaning field-maintenance harness / split utility shell | Owner-approved batch #9–11 (2026-11-20); dedicated production renderer implemented and owner-approved at rendered-art stage |
 | 10 | Hacker | Clinic | Narrow folded-in cropped asymmetric drape-shell | Owner-approved finished design-stage art (2026-11-20); production renderer not yet implemented |
 | 11 | Fisher | Trades | Broad short oilskin smock / wide braced deck stance | Owner-approved finished design-stage art (2026-11-20); production renderer not yet implemented |
-| 12 | Sailor | Trades | UNASSIGNED | PROPOSED planning descriptor: narrow cropped deck-coat / upright deckhand; parallel silhouette exploration authorized; owner approval pending |
-| 13 | Slicker | Trades | UNASSIGNED | PROPOSED planning descriptor: forward-pitched long rain-shell / hooded commuter; parallel silhouette exploration authorized; owner approval pending |
-| 14 | Painter | Trades | UNASSIGNED | PROPOSED planning descriptor: open asymmetrical sign-painter smock / reaching pose; parallel silhouette exploration authorized; owner approval pending |
+| 12 | Sailor | Trades | UNASSIGNED | Proposed card family: Narrow Deck-Coat / Vertical Utility Shell; owner approval of construction card pending |
+| 13 | Slicker | Trades | UNASSIGNED | Proposed card family: Integrated Hooded Rain-Smock Shell; owner approval of construction card pending |
+| 14 | Painter | Trades | UNASSIGNED | Proposed card family: Offset Artisan Smock / Reaching-Arm Shell; owner approval of construction card pending |
 | 15 | Welder | Trades | UNASSIGNED | Legacy grouping only |
 | 16 | Kid | Youth | UNASSIGNED | Legacy grouping only |
 | 17 | Kid 2 | Youth | UNASSIGNED | Legacy grouping only |
@@ -63,7 +63,7 @@ The six existing vector renderers are not one template: Runner has a dynamic ath
 - **Vendor:** legacy cues include hat, bowl and apron ties. Explore market/service-worker silhouette with different torso volume and garment logic from Cook. Do not reuse Cook's toque, chef coat, apron wedge or pan presentation. Bowl is optional.
 - **Clinic worker:** legacy cues include hair-band, medical kit and rear yoke. Explore clinical-work silhouette that does not default to a generic long lab coat or copy Cook/Usher. Medical kit is optional; validate interaction/contact before locking it.
 
-Update each UNASSIGNED entry only after actual four-view silhouette evidence exists.
+Update each UNASSIGNED current-family cell only after explicit owner approval. Proposed descriptors may be recorded in planning notes, but do not promote them to current vector families before approval.
 
 
 ## Third-batch silhouette exploration — Tech, Hacker and Fisher (2026-11-20)
