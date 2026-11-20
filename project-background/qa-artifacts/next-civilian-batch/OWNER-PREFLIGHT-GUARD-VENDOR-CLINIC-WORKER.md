@@ -174,16 +174,16 @@ Only after the owner accepts that silhouette exploration should the team begin r
 
 ## Evidence status and limitations
 
-- This document is a **design preflight proposal**, not a rendered silhouette sheet. It contains proposed construction directions and four-view requirements; it does not claim that the silhouettes have been visually rendered or measured.
-- No native 64×96 or direct 28×42 character captures exist for these unbuilt characters.
-- No prop-contact table can be marked verified until actual views exist.
-- No roster shell-family assignment is made here; each remains UNASSIGNED until actual four-view silhouette evidence exists.
-- No production art, renderer code, game code, QA baseline or golden snapshot has been changed.
+- The original proposal remains a **design preflight**, while the NPC Designer's first actual four-view black silhouette exploration is now linked above with completed construction cards.
+- The SVG is authored on a common 64×96 construction field; it is not a browser-renderer capture and has not been validated as direct 28×42 output. No native renderer captures exist for these unbuilt characters.
+- Prop-contact relationships are documented design proposals, not verified renderer contacts; the later production QA prop-contact table remains outstanding.
+- No roster shell-family assignment is made here; each remains UNASSIGNED pending owner approval and the later roster-wide comparison.
+- No production colour art, renderer code, game code, QA baseline or golden snapshot has been changed.
 
 
 ## Current production gate
 
-**Authorized now:** NPC Designer silhouette exploration and construction-card preparation for Guard, Vendor and Clinic Worker.
+**Completed for owner review:** first NPC Designer silhouette exploration and construction cards for Guard, Vendor and Clinic Worker.
 
 **Still not authorized:** production vector rendering, changes to `npc_sprites.js` or other live game code, golden snapshot changes, or marking any of the three characters complete. Return the actual four-view black silhouettes and cards to the owner for approval first.
 
