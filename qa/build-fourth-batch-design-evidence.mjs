@@ -346,7 +346,7 @@ try {
     bodyPreservationAudit:svgData.bodyPreservationAudit,
     anatomyConnectivityAudit:svgData.anatomyConnectivityAudit,
     integratedWeatherDetail:'Slicker revision-18 rainwear construction preserved unchanged; Painter revision-21 flat wedge brush with paired side darts; Sailor revised connected rope coil and second winding cue; no separate umbrella',
-    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-19.svg',
+    source:'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg',
     figureFields:24,
     nativeCaptures:Object.keys(svgData.data).length,
     direct28x42Captures:Object.values(svgData.data).filter(x=>x.direct).length,
