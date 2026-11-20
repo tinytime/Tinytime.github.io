@@ -1,4 +1,4 @@
-> **SUPERSEDED:** Use the exact-source Run #603 QA and Claude re-review brief instead. Run #602 tested an intermediate source that temporarily restored Cook's pre-existing edit; the current owner instruction is to preserve the branch-start Cook code. Run #603 is the authoritative U4 evidence.
+> **SUPERSEDED:** Use the exact-source Run #603 QA and Claude re-review brief instead. Run #602 tested an intermediate source whose Cook renderer differed from the task-start branch head. The owner instructed us to preserve the task-start Cook code. Run #603 is the authoritative exact-source U4 evidence.
 
 # Claude Independent Re-review Brief — Run #602 / U4 and Revised Construction Standard
 
