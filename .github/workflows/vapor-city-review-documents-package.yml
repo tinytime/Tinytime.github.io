@@ -26,14 +26,14 @@ jobs:
           repository: ${{ github.repository }}
           run-id: 44650864326
           path: package/run-600-evidence
-      - name: Download Run 602 U4 evidence
+      - name: Download Run 603 U4 evidence
         uses: actions/download-artifact@v4
         with:
           name: vapor-city-browser-qa
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
-          run-id: 44657007100
-          path: package/run-602-evidence
+          run-id: 44658311124
+          path: package/run-603-evidence
       - name: Build exact-source U4 before-after sheets
         run: |
           python -m pip install --quiet pillow
@@ -41,7 +41,7 @@ jobs:
           from PIL import Image, ImageDraw, ImageFont
           from pathlib import Path
           base = Path("package/run-600-evidence")
-          current = Path("package/run-602-evidence")
+          current = Path("package/run-603-evidence")
           out = Path("package")
           font = ImageFont.load_default()
           for folder, suffix, scale in [
@@ -50,7 +50,7 @@ jobs:
           ]:
               panels = []
               for direction in ("left", "right"):
-                  for label, root in (("BEFORE — Run 600", base), ("AFTER — Run 602", current)):
+                  for label, root in (("BEFORE — Run 600", base), ("AFTER — Run 603", current)):
                       p = root / folder / f"usher-{direction}.png"
                       im = Image.open(p).convert("RGBA")
                       im = im.resize((im.width * scale, im.height * scale), Image.Resampling.NEAREST)
@@ -84,9 +84,9 @@ jobs:
           cp project-background/SIX-CIVILIAN-CONSTRUCTION-AUDIT.md package/project-background/
           cp project-background/qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md package/project-background/qa-artifacts/five-civilian-corrections/
           cp project-background/qa-artifacts/five-civilian-corrections/RUN-599-600-INTERNAL-QA.md package/project-background/qa-artifacts/five-civilian-corrections/
-          cp project-background/qa-artifacts/five-civilian-corrections/RUN-602-USHER-U4-INTERNAL-QA.md package/project-background/qa-artifacts/five-civilian-corrections/
+          cp project-background/qa-artifacts/five-civilian-corrections/RUN-603-USHER-U4-INTERNAL-QA.md package/project-background/qa-artifacts/five-civilian-corrections/
           cp project-background/qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md package/project-background/qa-artifacts/five-civilian-corrections/
-          cp project-background/qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-BRIEF-RUN-602.md package/project-background/qa-artifacts/five-civilian-corrections/
+          cp project-background/qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-BRIEF-RUN-603.md package/project-background/qa-artifacts/five-civilian-corrections/
           cp project-background/qa-artifacts/five-civilian-corrections/REVIEW-PACKAGE-MANIFEST.md package/project-background/qa-artifacts/five-civilian-corrections/
           cp project-background/qa-artifacts/five-civilian-corrections/ACCEPTED-EXCEPTIONS.md package/project-background/qa-artifacts/five-civilian-corrections/
           mkdir -p package/project-background/qa-artifacts/standard-history
@@ -95,7 +95,7 @@ jobs:
           cp qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md package/qa/
           printf 'Repository: %s\nBranch: %s\nCommit: %s\n' "$GITHUB_REPOSITORY" "${GITHUB_REF_NAME}" "${GITHUB_SHA}" > package/SOURCE-MANIFEST.txt
           find package -type f -print | sort >> package/SOURCE-MANIFEST.txt
-          zip -qr vapor-city-project-documents.zip package/run-600-evidence package/run-602-evidence package/usher-u4-before-after-native.png package/usher-u4-before-after-game-scale.png package/project-background package/qa-artifacts package/qa package/SOURCE-MANIFEST.txt
+          zip -qr vapor-city-project-documents.zip package/run-600-evidence package/run-603-evidence package/usher-u4-before-after-native.png package/usher-u4-before-after-game-scale.png package/project-background package/qa-artifacts package/qa package/SOURCE-MANIFEST.txt
       - uses: actions/upload-artifact@v4
         with:
           name: vapor-city-project-documents
