@@ -2,18 +2,19 @@
 
 ## Current decision and readiness — 2026-11-20
 
-This section supersedes older status statements below where they conflict. Historical run notes remain unchanged.
+This section is current authority and supersedes older status statements below where they conflict.
 
-- **Owner authorization:** all four Claude P2 areas are authorized: face identity for Courier/Usher/Cook; Usher profile shoe separation; Cook pan/hand readability; Coach/Courier rear distinction rationale.
-- **Renderer source:** `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb`. P2 source corrections are implemented. Run #599 tested this exact renderer; Run #600 packaged the additional evidence. Targeted integrity and capture checks pass, but independent re-review is still required.
-- **Latest QA evidence:** [Run #599](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650509863), artifact 14590034123. [Run #600](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650864326), artifact 14591690387, completed the expanded evidence builder: black silhouette sheet and town-ground composite. The town composite is diagnostic only, not a live NPC spawn.
-- **Identity/proportion cards:** [five-character correction cards](qa-artifacts/five-civilian-corrections/IDENTITY-AND-PROPORTION-CARDS.md) document identity cues and qualitative proportions; these are not verified semantic measurements.
-- **P2 status:** implemented and internally visually inspected; targeted corrections pass internal QA. Pending Claude's independent review. See [internal QA record](qa-artifacts/five-civilian-corrections/RUN-599-600-INTERNAL-QA.md). Run #599 passes syntax/module, 92/92 directional integrity with zero edge contacts, 20/20 direct 28×42 captures, 12/12 role-debug, prop audit and gallery. The browser job still fails on expected audio 404 diagnostics and unrelated global Clinic/Sailor silhouette and unapproved snapshot gates.
-- **Coach/Courier:** no torso redesign; documented rear distinction is supported by native and direct game-scale side-by-side evidence.
-- **Approval:** all five remain **NOT APPROVED** pending Claude review and explicit owner approval. Referee is unchanged. Runner is excluded; remaining 17 civilians stay **ON HOLD**.
-- **No snapshots or golden approvals have been changed.**
-- **Semantic status:** six civilian annotation sets remain source_annotated, not verified measured; Granny remains reference_only.
-- **Scope counts:** 23 civilian design roster entries; Granny separate; Runner built but excluded from this review; 17 remain on hold. Automated inventory's 24 live archetype mappings are a distinct technical count.
+- **Latest independent review:** Claude Run #600 re-review verdict is **Ready with disclosed minor issues**; no P0/P1 defects reported. This is not approval. See [full review log](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-600.md).
+- **Evidence:** Run #600 artifact `14591690387`; Run #599 artifact `14590034123`. Claude inspected all 20 native and 20 direct 28×42 captures; #599/#600 renders were byte-identical.
+- **Open visual P2s:** Cook profile pan handle/contact (C1); Usher profile clipboard/arm continuity (U4); Usher generic silhouette (U2). U4 and U2 are new findings and require owner disposition before renderer edits. C1 must be reconciled against current owner-authorized scope and prior owner decisions before editing.
+- **Accepted exception:** Coach/Courier rear is accepted as shared body mass with distinct role construction. Preserve the documented rationale; no torso redesign.
+- **Face rule:** require two distinct native-scale face-construction cues and one head-read cue at direct 28×42; interior facial marks need not survive game scale.
+- **Evidence gap:** Run #600 contains no walk frames. Next package must include at least two frames per direction for animated characters.
+- **Version 2.1:** retain with revisions; not yet ratified. IoU 0.85 is a human-review trigger only, with mask basis/alpha threshold declared.
+- **Renderer source:** `3d1ec4bcbac231e99e75d36f21e79a5fcf7fd4eb`. This documentation update does not change renderer art.
+- **QA:** targeted Run #599/#600 capture and integrity checks passed. Overall workflow remains failed on expected missing-audio diagnostics, global silhouette/snapshot gates. No snapshots were refreshed or approved.
+- **Approval:** all five remain **NOT APPROVED**. Runner is excluded; remaining 17 civilians stay **ON HOLD**.
+- **Semantic status:** candidate annotations remain source_annotated, not verified measured; Granny remains reference_only.
 
 
 
