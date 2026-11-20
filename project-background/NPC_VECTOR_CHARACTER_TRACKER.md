@@ -10,19 +10,19 @@ The owner-approved revision 21 silhouettes are now the fixed baseline for the ne
 
 - **Approved silhouette source:** commit `be1c0c012894ccae23b4cbce2ad06e523fb460c5`; SVG blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`; [revision 21 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg).
 - **Silhouette QA evidence:** [Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056), artifact [14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854). Focused design-source checks passed; overall browser workflow remains failed on unrelated global audio/resource 404 and unapproved golden-snapshot gates. No snapshots/provenance changed.
-- **Construction families assigned for this design proposal:** Sailor — Narrow Deck-Coat / Vertical Utility Shell; Slicker — Integrated Hooded Rain-Smock Shell; Painter — Offset Artisan Smock / Reaching-Arm Shell. These are descriptive, character-specific roster family tags, not reusable templates or quota targets.
+- **Proposed construction-family descriptors (not yet owner-approved):** Sailor — Narrow Deck-Coat / Vertical Utility Shell; Slicker — Integrated Hooded Rain-Smock Shell; Painter — Offset Artisan Smock / Reaching-Arm Shell. These are descriptive, character-specific roster family tags, not reusable templates or quota targets.
 - **Baseline protection:** no approved revision-21 SVG geometry was changed. Branch HEAD also contains a later revision-22 exploration (`f39f450a361668d60f3eb77f0e93ab804f848070`); it is a separate unapproved proposal and is not used as the baseline for these cards.
 - **Stage status:** cards submitted for internal QA and owner review. Face studies remain proposals. No final palette/rendering, production renderer/integration, golden snapshot/provenance work, or roster #15–23 work is authorized.
 
 ### Fourth-batch individual tracker entries — construction-card stage
 
-| Roster | Approved silhouette baseline | Assigned construction family | Current stage / disposition |
+| Roster | Approved silhouette baseline | Proposed construction family (current vector family remains UNASSIGNED) | Current stage / disposition |
 |---|---|---|---|
-| **#12 Sailor** | Revision 21 · artwork commit `be1c0c012894ccae23b4cbce2ad06e523fb460c5` · SVG blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602` | Narrow Deck-Coat / Vertical Utility Shell | Identity/construction card 02 drafted; rope grip and Clinic/Guard face differentiation are explicit QA questions; submitted for internal QA and owner review |
-| **#13 Slicker** | Revision 21 · same approved source | Integrated Hooded Rain-Smock Shell | Identity/construction card 02 drafted; rain-shell/hood construction preserved; nearest-face pair awaits matched-crop comparison; submitted for internal QA and owner review |
-| **#14 Painter** | Revision 21 · same approved source | Offset Artisan Smock / Reaching-Arm Shell | Identity/construction card 02 drafted; brush grip and direct-scale tool cluster are explicit QA questions; submitted for internal QA and owner review |
+| **#12 Sailor** | Revision 21 · artwork commit `be1c0c012894ccae23b4cbce2ad06e523fb460c5` · SVG blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602` | PROPOSED: Narrow Deck-Coat / Vertical Utility Shell | Identity/construction card 02 drafted; rope grip and Clinic/Guard face differentiation are explicit QA questions; submitted for internal QA and owner review |
+| **#13 Slicker** | Revision 21 · same approved source | PROPOSED: Integrated Hooded Rain-Smock Shell | Identity/construction card 02 drafted; rain-shell/hood construction preserved; nearest-face pair awaits matched-crop comparison; submitted for internal QA and owner review |
+| **#14 Painter** | Revision 21 · same approved source | PROPOSED: Offset Artisan Smock / Reaching-Arm Shell | Identity/construction card 02 drafted; brush grip and direct-scale tool cluster are explicit QA questions; submitted for internal QA and owner review |
 
-**Shared exact silhouette evidence:** [Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056) · [artifact 14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854). The three family names are new descriptive assignments for this batch, not reusable templates. The current branch's revision-22 exploration is unapproved and does not replace revision 21.
+**Shared exact silhouette evidence:** [Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056) · [artifact 14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854). The three family names are proposed descriptive tags for this batch, not approved current-family assignments or reusable templates. The register's Current vector construction family stays UNASSIGNED until owner approval. The current branch's revision-22 exploration is unapproved and does not replace revision 21.
 
 ---
 
