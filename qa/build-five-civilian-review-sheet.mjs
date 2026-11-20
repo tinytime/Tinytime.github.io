@@ -190,7 +190,7 @@ try {
     ['role debug', report.roleDebugAudit?.pass, report.roleDebugAudit?.captureCount + '/' + report.roleDebugAudit?.expected],
     ['prop audit', report.npcPropAudit?.pass, report.npcPropAudit?.archetypeCount + ' archetypes'],
     ['gallery', report.galleryVisualPass, 'rendered'],
-    ['civilian type silhouette gate', report.civilianTypeSilhouetteAudit?.pass, 'max IoU ' + report.civilianTypeSilhouetteAudit?.maxRenderedIoU],
+    ['silhouette diagnostic inventory', report.civilianTypeSilhouetteAudit?.pass, 'review triggers: ' + (report.civilianTypeSilhouetteAudit?.reviewPairs?.length ?? 0) + '; max IoU ' + report.civilianTypeSilhouetteAudit?.maxRenderedIoU],
     ['golden snapshot gate', report.snapshotCheck?.pass, (report.snapshotCheck?.matches ?? '?') + ' matches / ' + (report.snapshotCheck?.changed?.length ?? '?') + ' changed']
   ];
   const lines = [
@@ -208,6 +208,7 @@ try {
     '- Direct game-scale contact sheet: `five-civilian-game-scale-4x-contact-sheet.png` (' + gameScaleResult.width + '×' + gameScaleResult.height + ')',
     '- Black silhouette sheet: `five-civilian-black-silhouette-4x-contact-sheet.png` (' + silhouetteResult.width + '×' + silhouetteResult.height + '), generated from native-capture alpha.',
     '- Town-ground composite: ' + (townCompositeCreated ? '`five-civilian-town-ground-composite.png`' : 'not generated; town screenshot unavailable') + ' — diagnostic composition over the actual night-town screenshot, not live NPC spawn proof.',
+    '- Pairwise silhouette IoU: 0.85 is a human-review trigger only; full-character alpha uses alpha > 0 and includes visible held/worn props. Triggered pairs: ' + (report.civilianTypeSilhouetteAudit?.reviewPairs || []).slice(0, 5).map(x => x.direction + ' ' + x.pair.join('/') + ' ' + x.iou.toFixed(3)).join('; '),
     '- **This is an automated evidence index, not an artistic or visual approval.**',
     '',
     '## Automated checks',
