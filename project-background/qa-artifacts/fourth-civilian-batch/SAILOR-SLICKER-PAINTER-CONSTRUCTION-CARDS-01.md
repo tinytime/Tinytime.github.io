@@ -4,21 +4,23 @@
 **Characters:** Sailor #12 · Slicker #13 · Painter #14  
 **Stage:** parallel silhouette exploration / construction hypotheses  
 **Approval:** role directions and simultaneous exploration authorized; no silhouette, face, prop, palette or construction family approved  
-**Current source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg)
+**Current source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg)
 
-## Revision 08 internal QA update
+## Revision 09 internal QA update
 
-The latest internal design-source QA is [Run #674](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302), artifact [14650547538](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302/artifacts/14650547538), tested commit `c004c4e9b231803bc3977b9d418f104e223dc417`.
+The latest internal design-source QA is [Run #677](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801), artifact [14650099995](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995), tested source commit c74219986db2466122fe08ff3ad0bdcb012b5264.
 
-- Design-source generation and semantic validation passed: 24/24 native 64×96 projections, 24/24 separately rasterized direct 28×42 projections and 24/24 enlarged nearest-neighbour images.
-- Profile prop audit passed for Sailor right profile (172 added silhouette pixels), Slicker left profile (389) and Painter left profile (163). These are geometry-presence/contact checks, not artistic scores.
-- Manual inspection covered body-only and prop-on native/direct comparison sheets, enlarged profiles, face-comparison sheets, and proposed Sailor/live Welder rear silhouette comparison.
-- Sailor's mooring coil now reads as a compact loop with a palm/forearm bridge; Slicker's folded umbrella profile has a clearer canopy/handle shape and is hidden in the far-side profile; Painter's broad brush head and near-side grip are clearer and the far-side profile remains hidden.
-- Body-only identity remains the controlling test: Sailor narrow/upright, Slicker compact/long-shell/forward-pitched, Painter open/asymmetrical/reaching. Proposed Sailor rear silhouette is narrower and more vertically structured than Welder's broader blockier rear silhouette.
-- Face differentiation remains subject to Claude's independent critique. All three proposed face pairs have matched roster comparisons; no face is approved.
-- Overall Browser QA remains failed at the unapproved snapshot baseline (1 match / 23 changed) and 180 existing audio/resource HTTP 404 console entries; page/script errors are empty. No golden snapshots or provenance changed.
+- Design-source generation and semantic validation passed: 24/24 native 64×96 projections, 24/24 separately rasterized direct 28×42 projections, 24/24 enlarged nearest-neighbour images, 69 roster face crops and six matched face-comparison rows.
+- Near-side profile prop-region audit passed: Sailor right profile 172 added pixels (minimum 100), Slicker left profile 272 (minimum 100), Painter left profile 95 (minimum 12). These are geometry-presence checks, not artistic scores.
+- Manual inspection covered body-only and prop-on native/direct comparison sheets, enlarged profiles, matched face sheets, and the proposed Sailor/live Welder rear silhouette comparison.
+- Sailor's coil/hand bridge is visible and the loop is subordinate, but the exact grasp remains subtle at direct game scale; Claude should judge whether it reads as held rope rather than a loop beside the hip.
+- Slicker's left-profile umbrella was moved inward from the crop edge and reads more clearly as a folded umbrella in profile; the front/back direct 28×42 projections can still resemble a pouch/side mass. Claude should judge whether the front/back prop needs refinement or should be replaced by the approved integrated storm-flap/closure alternative. The far-side profile hides the umbrella.
+- Painter's broad brush and near-side grip read more clearly and are clear of the crop edge; the far-side right profile hides the brush.
+- Body-only identity remains the controlling test: Sailor narrow/upright, Slicker compact/long-shell/forward-pitched, Painter open/asymmetrical/reaching. Proposed Sailor rear silhouette is visibly differentiated from Welder's broader, boxier rear silhouette.
+- Face differentiation remains subject to Claude's independent critique. Matched comparisons pair Sailor with Clinic/Guard, Slicker with Hacker/Courier, and Painter with Cook/Busker. No face is approved.
+- Overall Browser QA remains failed at the unapproved snapshot baseline (1 match / 23 changed) and existing audio/resource HTTP 404 console entries; page/script errors are empty. Directional integrity 92/92, direct 28×42 assertion 20/20, role debug 12/12, archetype prop audit 10 and gallery render passed. No golden snapshots or provenance changed.
 
-**Current independent-review handoff:** [Claude review package 02](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md). The previous package 01 (Run #664 / revision 05) is superseded.
+**Current independent-review handoff:** [Claude review package 02](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-02.md). Package 01 and revision-08 package evidence are superseded by revision 09 / Run #677.
 
 ## #12 Sailor — proposed construction card
 
