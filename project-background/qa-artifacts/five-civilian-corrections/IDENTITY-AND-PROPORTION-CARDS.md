@@ -8,6 +8,9 @@
 These are design-intent cards, not verified semantic measurements. Do not infer or publish body/head ratios from them. The six source-annotated semantic records remain unverified; Granny remains `reference_only`. Granny is a craft benchmark, not a proportion template.
 
 ## Usher — venue attendant
+- **Must survive at 28×42:** peaked-cap/visor outer profile; clipboard as the role prop; navy jacket against light-trouser/slate-shoe value blocks.
+- **Allowed to vanish:** tiny clipboard ruling, button highlights, subtle eye glints and fine gold stitch marks.
+- **Handedness/prop side:** clipboard is designed for the character's left hand (front view: viewer-right). The current profile construction shows a clipboard hand beneath the board while the near arm hangs; this is the new U4 contact/continuity finding and remains unresolved pending owner disposition.
 
 - **Role/personality:** composed, observant, formal and quietly authoritative.
 - **Silhouette/proportion intent:** compact, upright uniform jacket; narrow waist; clean leg separation; light trousers; grounded stance. Side views should retain two readable trouser planes and a clearly distinct shoe mass.
@@ -19,6 +22,9 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 - **No numeric proportion targets:** use native render and direct game-scale readability, not Granny-derived ratios.
 
 ## Cook — chef / food service
+- **Must survive at 28×42:** tall pleated toque/curl mass; sauté pan and its hand-held presentation; terracotta apron wedge.
+- **Allowed to vanish:** tiny apron writing/stitches, eye highlights and fine pan rim reflections.
+- **Handedness/prop side:** pan is presented by the character's right hand (front view: viewer-right); profile views should preserve the same character-relative hand/prop relationship. Claude's C1 finding says the handle shaft/contact is not legible in left/right profiles; unresolved.
 
 - **Role/personality:** warm, confident, generous, practiced and approachable.
 - **Silhouette/proportion intent:** broad planted stance, substantial shoulders, rounded face, tall pleated toque, double-breasted coat and broad terracotta apron wedge. The pan arm is an intentional outward gesture; preserve the connected sleeve/cuff/forearm/hand chain.
@@ -30,6 +36,9 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 - **No numeric proportion targets:** use the character's broad, grounded kitchen-worker construction; do not normalize to Granny.
 
 ## Courier — messenger / delivery worker
+- **Must survive at 28×42:** A-line jacket shell; parcel with gripping hand; teal jacket against ochre/gold satchel/strap blocks.
+- **Allowed to vanish:** parcel label micro-detail, tiny strap stitch marks and eye highlights.
+- **Handedness/prop side:** parcel is carried in the character's right hand (front view: viewer-right); satchel sits on the character's right hip, with the cross-body strap running from the opposite/left shoulder to the right hip. Verify character-relative side after left/right view mirroring.
 
 - **Role/personality:** alert, quick, practical and focused; a working messenger rather than a generic athletic figure.
 - **Silhouette/proportion intent:** forward-ready but grounded posture; compact weatherproof jacket with a distinct A-line lower shell; cross-body satchel and parcel integrated into the pose. Retain negative space and visible hand/parcel contact.
@@ -41,6 +50,9 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 - **No numeric proportion targets:** retain its forward-ready compact construction; no Granny-derived ratios.
 
 ## Coach — veteran sideline tactician
+- **Must survive at 28×42:** straight-hem jacket construction; clipboard/whistle role props; cream yoke against forest-green jacket.
+- **Allowed to vanish:** tiny clipboard practice marks, micro-stitching and subtle silver hair highlights.
+- **Handedness/prop side:** clipboard is gripped by the character's right hand (front view: viewer-right); in profiles it is carried on the near arm. Whistle remains centered at the chest. The rear distinction from Courier is an accepted exception; preserve it.
 
 - **Role/personality:** experienced, measured, strategic and supportive.
 - **Silhouette/proportion intent:** athletic shoulders, grounded stance, straight-hem track jacket and visible side negative space at elbows/hands.
@@ -52,6 +64,9 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 - **No numeric proportion targets:** do not alter Coach's torso merely to reduce IoU.
 
 ## Referee — football official
+- **Must survive at 28×42:** raised yellow-card arm/card silhouette; black/ivory stripe rhythm; vermilion shorts and white sock blocks.
+- **Allowed to vanish:** tiny card text, minute whistle highlights and small rear stitching.
+- **Handedness/prop side:** yellow card is held in the character's left hand (front view: viewer-right; rear view: viewer-left), with the raised arm remaining on the forward/face side in profiles. Whistle/lanyard remains centered.
 
 - **Role/personality:** decisive, alert and impartial.
 - **Silhouette/proportion intent:** athletic base with a clear raised-card arm and visible negative space around the pose.
@@ -61,6 +76,16 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 - **Preserve:** raised arm/card, stripes, red shorts and white socks. No redesign or incidental changes.
 - **No numeric proportion targets:** preserve current character-specific athletic construction.
 
+## Cross-character handedness and character-relative prop-side register
+
+| Character | Primary hand | Prop/side convention | Rear/profile note |
+|---|---|---|---|
+| Usher | Left | Clipboard; front viewer-right | Profile carry/contact is under U4 review; do not treat as resolved |
+| Cook | Right | Sauté pan; front viewer-right | Preserve same character-relative hand in both profiles; C1 profile contact is under review |
+| Courier | Right | Parcel in right hand; satchel on right hip; strap from left shoulder to right hip | Confirm mirrored profile keeps the satchel on the correct character-relative side |
+| Coach | Right | Clipboard; front viewer-right; whistle centered | Profile clipboard is on near arm; rear accepted as distinct from Courier |
+| Referee | Left | Yellow card; front viewer-right, rear viewer-left | Raised card remains on forward/face side in profiles |
+ 
 ## Correction-round acceptance record
 
 Run #599 is the current renderer evidence: [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650509863), artifact 14590034123. Run #600 [artifact 14591690387](https://github.com/tinytime/Tinytime.github.io/actions/runs/44650864326) adds the black silhouette and town-ground diagnostic sheets. See [internal QA record](RUN-599-600-INTERNAL-QA.md) for metrics and before/after pixel diffs. Before/after pixel-diff counts are recorded in the NPC tracker. The town-ground composition is diagnostic only and is not a live named-NPC spawn proof.
