@@ -1656,6 +1656,139 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
   }
 
 
+  // Guard: compact protective wedge with braced character-right forearm,
+  // flexed offset stance, segmented shell and rear-harness radio.
+  function drawGuardVector(n, dir, ctx, OWT, opts) {
+    opts=opts||{}; const g=ctx, scale=OWT/36*.28;
+    const sx=(n.rx!=null?n.rx:n.x)*OWT+OWT/2, sy=(n.ry!=null?n.ry:n.y)*OWT+OWT-5;
+    const back=dir==='u', side=dir==='l'||dir==='r', flip=dir==='l';
+    g.save();g.translate(sx,sy);g.scale(scale,scale);g.translate(-50,-139);
+    if(flip){g.translate(50,0);g.scale(-1,1);g.translate(-50,0);}
+    const ink='#171725',skin='#C98A62';
+    const grad=(x1,y1,x2,y2,stops)=>{const z=g.createLinearGradient(x1,y1,x2,y2);stops.forEach(([p,c])=>z.addColorStop(p,c));return z;};
+    const path=(p,fill,stroke=ink,w=1.7)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.lineJoin='round';g.lineCap='round';g.stroke();}};
+    const line=(p,c,w=1.4)=>{g.beginPath();g.moveTo(p[0][0],p[0][1]);p.slice(1).forEach(v=>g.lineTo(v[0],v[1]));g.strokeStyle=c;g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.stroke();};
+    const ell=(x,y,rx,ry,fill,stroke=ink,w=1.3)=>{g.beginPath();g.ellipse(x,y,rx,ry,0,0,Math.PI*2);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=w;g.stroke();}};
+    const shell=grad(30,48,69,101,[[0,'#596B7E'],[.38,'#34465B'],[1,'#172331']]);
+    const plate=grad(34,53,65,82,[[0,'#71869A'],[1,'#29394B']]);
+    const trousers=grad(38,98,62,134,[[0,'#303B4B'],[1,'#111A25']]);
+    const boot=grad(32,129,67,138,[[0,'#596575'],[1,'#202A36']]);
+    if(!side){
+      // Offset planted stance: left leg carries weight, right knee is flexed outward.
+      path([[35,99],[48,101],[47,117],[44,132],[32,132],[33,116]],trousers);
+      path([[51,99],[64,96],[68,111],[65,124],[70,132],[57,134],[53,122]],trousers);
+      path([[31,129],[44,129],[47,134],[46,138],[29,138],[27,134]],boot);
+      path([[57,129],[68,128],[73,133],[72,137],[55,138],[54,134]],boot);
+      line([[31,135],[44,135]],'#8794A2',1);line([[58,135],[69,135]],'#8794A2',1);
+    }else{
+      // Side stance has one visible near leg; the flexed knee and heavy boot
+      // are independently composed for the left and right facing silhouettes.
+      path([[39,98],[55,98],[54,114],[59,127],[58,134],[43,134],[41,119]],trousers);
+      path([[42,130],[57,130],[64,134],[64,138],[39,138]],boot);
+      line([[43,135],[60,135]],'#8794A2',1);
+    }
+    path([[43,39],[57,39],[58,52],[42,52]],skin);
+    if(!side){
+      // Squared shoulder wedge and short segmented protective shell.
+      path([[27,54],[39,46],[61,46],[73,54],[70,73],[68,99],[31,99],[29,75]],shell,ink,2);
+      if(!back){
+        path([[38,48],[50,57],[62,48],[58,44],[50,51],[42,44]],'#A7B4C0',ink,1.2);
+        path([[34,57],[47,54],[50,67],[38,72]],plate,ink,1.2);
+        path([[52,54],[66,57],[62,72],[51,67]],'#263749',ink,1.2);
+        line([[50,57],[50,96]],'#111A25',1.5);
+        line([[37,74],[63,74]],'#8A9AA8',1.1);
+        path([[34,83],[66,83],[65,96],[35,96]],'#202E3E',ink,1.1);
+        path([[29,53],[37,51],[35,70],[30,82],[23,79],[24,64]],plate,ink,1.5);
+        path([[62,53],[71,54],[76,68],[74,76],[68,77],[65,66]],shell,ink,1.5);
+        // Character-right bracer (viewer-left) joins the bent forearm.
+        path([[24,76],[32,74],[38,79],[47,78],[53,71],[59,72],[60,80],[52,86],[39,87],[30,84]],'#34475C',ink,1.5);
+        path([[22,74],[32,72],[37,78],[34,86],[25,87],[20,82]],'#8797A5',ink,1.4);
+        line([[23,78],[34,80]],'#D0A66A',1.8);
+        path([[51,69],[59,68],[63,74],[59,80],[52,79]],skin,ink,1.1);
+        // Far arm hangs cleanly and does not duplicate the braced silhouette.
+        path([[67,58],[73,59],[75,80],[72,92],[66,92],[66,78]],shell,ink,1.4);
+        path([[66,91],[73,91],[73,97],[67,97]],skin,ink,1.1);
+        line([[35,97],[65,97]],'#B38B50',2);
+      }else{
+        path([[29,54],[39,48],[61,48],[71,54],[68,70],[32,70]],'#2B3A4B',ink,1.3);
+        path([[34,59],[50,55],[66,59],[63,68],[37,68]],plate,ink,1.1);
+        line([[50,55],[50,97]],'#111A25',1.5);
+        line([[34,70],[66,70]],'#111A25',1.2);
+        path([[31,71],[69,71],[68,98],[32,98]],shell,ink,1.2);
+        line([[38,76],[62,76]],'#718294',1);
+        path([[29,54],[36,53],[35,82],[29,90],[24,87],[25,69]],shell,ink,1.3);
+        path([[64,54],[71,54],[75,81],[70,90],[64,88]],shell,ink,1.3);
+        // Radio is clipped to rear gear harness only; it is absent from front.
+        path([[56,73],[67,73],[69,87],[57,88]],'#111A25',ink,1.2);
+        path([[58,75],[65,75],[65,83],[58,83]],'#596B7E',ink,1);
+        line([[61,76],[61,82]],'#B38B50',1);line([[66,70],[68,64],[71,63]],'#B38B50',1.2);
+        ell(62,80,1,1,'#00D7FF',null);
+        line([[34,97],[66,97]],'#B38B50',2);
+      }
+    }else{
+      // Side-on shell is narrower than the front wedge. Only the near braced
+      // arm is visible; the far-side arm/bracer is occluded behind the torso.
+      path([[39,52],[49,47],[61,51],[67,60],[65,82],[67,99],[35,99],[38,82]],shell,ink,1.8);
+      if(!back){
+        path([[42,52],[54,55],[61,66],[56,72],[43,66]],plate,ink,1.1);
+        line([[42,73],[61,73]],'#718294',1);
+        // Near-side arm bends forward into a single bracer, with no far arm.
+        path([[41,55],[49,56],[51,68],[59,75],[64,72],[68,78],[62,85],[52,83],[45,75]],shell,ink,1.4);
+        path([[59,72],[68,72],[72,80],[67,86],[58,82]],'#8797A5',ink,1.3);
+        line([[60,76],[69,78]],'#B38B50',1.7);
+        path([[63,81],[69,79],[73,83],[70,88],[64,87]],skin,ink,1);
+      }else{
+        path([[38,55],[49,50],[62,53],[66,65],[62,73],[40,73]],'#2B3A4B',ink,1.2);
+        line([[41,68],[63,68]],'#718294',1);
+        path([[40,56],[47,55],[47,83],[41,91],[35,87]],shell,ink,1.2);
+        path([[61,56],[67,58],[70,85],[64,91],[60,83]],shell,ink,1.2);
+        path([[55,74],[65,74],[66,87],[56,88]],'#111A25',ink,1.1);
+        path([[57,76],[63,76],[63,83],[57,83]],'#596B7E',ink,1);
+        line([[60,77],[60,82]],'#B38B50',1);
+      }
+      path([[38,97],[65,97],[65,101],[38,101]],'#202E3E',ink,1);
+    }
+    // Helmet: low brow shelf, squared jaw and compact chin.
+    if(!side){
+      if(!back){
+        ell(50,31,12,14,grad(38,17,62,44,[[0,'#E4B28D'],[.55,skin],[1,'#86553F']]),ink,1.7);
+        path([[36,23],[37,13],[44,8],[57,9],[64,17],[63,26],[57,22],[42,22]],'#111A25',ink,1.7);
+        path([[33,20],[67,20],[68,25],[32,25]],'#596B7E',ink,1.5);
+        path([[39,28],[45,27],[48,29]],'#090B10',ink,1);
+        ell(44,31,1.2,1.7,'#171725',null);ell(55,31,1.2,1.7,'#171725',null);
+        line([[40,27],[46,26]],'#171725',1.6);line([[53,26],[59,27]],'#171725',1.6);
+        path([[49,32],[47,37],[52,38]],'#9B6449',null);
+        line([[44,42],[50,43],[56,42]],'#754A3B',1.2);
+      }else{
+        ell(50,31,12,14,'#171D28',ink,1.5);
+        path([[36,22],[38,12],[45,8],[57,9],[64,18],[63,26],[37,26]],'#111A25',ink,1.5);
+        line([[42,16],[50,12],[59,17]],'#596B7E',1.1);
+        path([[43,44],[57,44],[56,49],[44,49]],skin,null);
+      }
+    }else{
+      ell(50,31,11,13,'#171D28',ink,1.5);
+      if(!back){
+        path([[46,20],[55,19],[63,25],[65,32],[60,39],[52,43],[43,39],[40,29]],grad(42,21,64,44,[[0,'#E4B28D'],[1,skin]]),ink,1.4);
+        path([[39,22],[41,12],[49,8],[59,11],[65,19],[63,25],[48,21]],'#111A25',ink,1.5);
+        path([[43,19],[65,19],[68,24],[44,24]],'#596B7E',ink,1.3);
+        ell(59,30,1.1,1.5,'#171725',null);
+        path([[62,31],[68,34],[64,37],[60,36]],skin,ink,1);
+        line([[53,27],[60,26]],'#171725',1.4);
+        line([[55,41],[61,40]],'#754A3B',1);
+      }else{
+        path([[39,20],[43,10],[56,9],[65,18],[64,28],[44,28]],'#111A25',ink,1.5);
+        line([[44,15],[56,12],[63,18]],'#596B7E',1);
+      }
+    }
+    // Restrained steel/ochre rim accents; no full-outline glow.
+    g.save();g.globalAlpha=.55;g.shadowBlur=.7/scale;g.shadowColor='rgba(179,139,80,.35)';
+    line([[30,54],[38,49],[45,48]],'rgba(179,139,80,.85)',1/scale);
+    g.shadowColor='rgba(41,210,211,.25)';
+    line([[60,52],[68,56],[71,64]],'rgba(113,190,211,.72)',1/scale);
+    g.restore();g.restore();
+  }
+
+
   function createCivRenderer({CIV,HB_CIV,GRANNY_REF,OWT,og,drawGrannyVoltSprite}) {
     const { CIV_TO_ARCHETYPE, CIV_HEAD_STYLES, ARCHETYPES, PALETTE_ROLES, ARCHETYPE_TORSO_MASKS, CIV_TORSO_MASKS, USHER_TORSO_MASKS, FAN_TORSO_MASKS, BASE_RIG_PARTS, makeArchetypeRig, ARCHETYPE_RIG_PARTS, CIV_RIG_PARTS, FAN_RIG_PARTS, ARCHETYPE_PROP_LAYERS, CIV_PROP_LAYERS, ARCHETYPE_PROP_SHAPES, PROP_ROLE_COLORS, FAN_VARIANT_PALETTES, FAN_VARIANT_HEADS, FAN_VARIANT_PROPS, ARCHETYPE_ACCESSORY_ROLES } = TABLES;
     function owCiv(x,y,dir,moving,n,tm,ph,ctxOverride,qaOptions){
