@@ -29,7 +29,7 @@ Please review only the exact revision-18 source and evidence cited here. Do not 
 - Body-only sheets: `fourth-batch-design/body-native-comparison.png`, `body-direct-comparison.png`
 - Prop-on sheets: `fourth-batch-design/prop-native-comparison.png`, `prop-direct-comparison.png`, `prop-front-group-comparison.png`
 - Sailor/Welder rear diagnostic: `fourth-batch-design/sailor-welder-back-silhouette-comparison.png`
-- Painter connectivity: `fourth-batch-design/painter-connectivity-audit.json`
+- All-civilian anatomy connectivity: `fourth-batch-design/anatomy-connectivity-audit.json`
 - Body preservation: `fourth-batch-design/body-preservation-audit.json`
 - Individual native, direct 28×42 and enlarged crops: `fourth-batch-design/{sailor,slicker,painter}-*.png`
 
