@@ -10,7 +10,7 @@
 
 **Review package:** [Tech renderer review package](qa-artifacts/third-civilian-batch/TECH-RENDERER-REVIEW-PACKAGE.md), updated to Run #644.
 
-**Owner approval update (2026-11-20):** Renderer implementation for this batch is explicitly approved. Tech (#9) is first; Hacker (#10) and Fisher (#11) must wait until Tech's renderer QA and visual inspection are complete.
+**Owner approval update (2026-11-20):** Round-05 Tech/Hacker/Fisher designs and renderer implementation are explicitly approved. Tech (#9) has now passed internal renderer QA and visual inspection in Run #644. Hacker (#10) and Fisher (#11) remain held until Tech's exact-output Claude review and owner rendered-art approval are complete.
 
 **Tech implementation:** dedicated `drawTechVector` added and wired to `tech` in `npc_sprites.js` commit `67b397242996f675c4a257415e4620fa0d3a40ca`. Dedicated Tier-A capture QA added in `qa/vapor-city-browser-qa.mjs` commit `2eab7e84027f088ed8f9f7be5740547f590aa13d`. Run [44740192417](https://github.com/tinytime/Tinytime.github.io/actions/runs/44740192417) is in progress. Renderer QA and manual inspection remain pending; no approval of rendered Tech art is implied yet. No golden snapshots changed.
 
@@ -80,9 +80,9 @@ ChatGPT implemented that focused pass in `npc_sprites.js` commit `6a1fd2a4fbad50
 ## Third civilian batch — Tech, Hacker and Fisher (2026-11-20)
 
 - Owner directed preparation to proceed without returning the prior Guard/Vendor/Clinic Run #629 output to Claude. This does not imply a Claude verdict on Run #629; its exact-output review remains historically unrecorded.
-- Prepared individual role/personality, silhouette, face, must-survive, palette and prop-contact briefs for **Tech (#9), Hacker (#10) and Fisher (#11)**.
-- Round 04 was reviewed at 3× and accepted except for Fisher's right-profile bill and Tech's left-profile meter contact. Round 05 shortens the right hood lip, brings Tech's meter against the torso with a connected forearm/wrist/hand chain, and reinforces Fisher's resting profile hand with a dark fill and subtle contour. All accepted round-04 construction is preserved.
-- Owner feedback confirmed the round-03 front-view handedness, Hacker fringe distinction, reduced Fisher head and reduced Tech trouser flare as fixed or substantially fixed. Round 05 is **awaiting internal 3× render check before owner silhouette review; not approved**.
-- No renderer code, existing civilian art, golden snapshot or baseline was changed. No game captures or renderer QA evidence exist for this batch yet.
-- Next gate: explicit owner approval of the silhouettes. Then implement Tech, Hacker and Fisher one at a time, with full native 64×96 and direct 28×42 four-direction QA and visual inspection after each character.
+- The owner approved the round-05 Tech/Hacker/Fisher silhouette package and renderer implementation on 2026-11-20.
+- Tech (#9) is implemented and internally QA-passed in Run #644 at source `579f0fff61b8cfd4e416cc59381187b162d3b8ca`, artifact `14634020084`. The current status and evidence are recorded at the top of this tracker and in the [Tech renderer review package](qa-artifacts/third-civilian-batch/TECH-RENDERER-REVIEW-PACKAGE.md).
+- Tech's remaining similarity diagnostics are human-review prompts only; the exact-output Claude review and owner rendered-art approval remain pending.
+- Hacker (#10) and Fisher (#11) renderer implementation remains on hold until Tech clears independent review and owner approval. Proceed one character at a time, with full native 64×96 and direct 28×42 four-direction QA and visual inspection after each.
+- No golden snapshots or provenance were changed.
 - Package: [Tech/Hacker/Fisher preflight](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md); [round-05 four-view silhouette exploration](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg).
