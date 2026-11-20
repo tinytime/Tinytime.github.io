@@ -1,3 +1,9 @@
+## Fourth-batch owner authorization — Sailor silhouette exploration only (2026-11-20)
+
+The owner approved the refined role directions for Sailor (#12), Slicker (#13) and Painter (#14), and authorized Sailor silhouette exploration only. The exploration must follow the body-only plus prop-on four-view evidence method, evidence-based comparison against the two closest actual roster faces before selecting new face cues, and anatomy-before-props construction with four-view contact/handedness documentation. Compare Sailor against Clinic first, then Coach, Guard and Fisher at matched scale. These are human-review comparisons, not numeric gates.
+
+Current exploration artifacts: [Sailor silhouette study 01](qa-artifacts/fourth-civilian-batch/SAILOR-SILHOUETTE-EXPLORATION-01.svg) and [construction card 01](qa-artifacts/fourth-civilian-batch/SAILOR-CONSTRUCTION-CARD-EXPLORATION-01.md). The silhouette is not approved; palette and renderer implementation remain unauthorized. Slicker and Painter remain queued. Keep all three construction families UNASSIGNED until their own silhouette gates pass.
+
 # Vapor City Civilian Vector Construction Standard
 
 ## Owner approval — third batch and fourth-batch preflight (2026-11-20)
