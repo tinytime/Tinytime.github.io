@@ -36,7 +36,7 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 - **No numeric proportion targets:** use the character's broad, grounded kitchen-worker construction; do not normalize to Granny.
 
 ## Courier — messenger / delivery worker
-- **Must survive at 28×42:** A-line jacket shell; parcel with gripping hand; teal jacket against ochre/gold satchel/strap blocks.
+- **Must survive at 28×42:** A-line jacket shell with storm-cap/head profile; parcel with gripping hand; teal jacket against ochre/gold satchel/strap blocks.
 - **Allowed to vanish:** parcel label micro-detail, tiny strap stitch marks and eye highlights.
 - **Handedness/prop side:** parcel is carried in the character's **left** hand (front view: viewer-right); satchel sits on the character's right hip (front view: viewer-left), with the cross-body strap running from the character's left shoulder (front view: viewer-right) to the right hip. Verify both labels after left/right view mirroring.
 
@@ -50,7 +50,7 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 - **No numeric proportion targets:** retain its forward-ready compact construction; no Granny-derived ratios.
 
 ## Coach — veteran sideline tactician
-- **Must survive at 28×42:** straight-hem jacket construction; clipboard/whistle role props; cream yoke against forest-green jacket.
+- **Must survive at 28×42:** straight-hem jacket and flat-cap/silver-temple head-read construction; clipboard/whistle role props; cream yoke against forest-green jacket.
 - **Allowed to vanish:** tiny clipboard practice marks, micro-stitching and subtle silver hair highlights.
 - **Handedness/prop side:** clipboard is gripped by the character's **left** hand (front view: viewer-right); in profiles it is carried on the near arm. Whistle remains centered at the chest. The rear distinction from Courier is an accepted exception; preserve it.
 
@@ -64,7 +64,7 @@ These are design-intent cards, not verified semantic measurements. Do not infer 
 - **No numeric proportion targets:** do not alter Coach's torso merely to reduce IoU.
 
 ## Referee — football official
-- **Must survive at 28×42:** raised yellow-card arm/card silhouette; black/ivory stripe rhythm; vermilion shorts and white sock blocks.
+- **Must survive at 28×42:** raised yellow-card arm/card silhouette and official cap/hair profile; black/ivory stripe rhythm; vermilion shorts and white sock blocks.
 - **Allowed to vanish:** tiny card text, minute whistle highlights and small rear stitching.
 - **Handedness/prop side:** yellow card is held in the character's left hand (front view: viewer-right; rear view: viewer-left), with the raised arm remaining on the forward/face side in profiles. Whistle/lanyard remains centered.
 

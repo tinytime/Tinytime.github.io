@@ -63,7 +63,7 @@ The repository's automated inventory currently describes 24 live civilian archet
 - Reuse the completed vector character designs across towns.
 - Make the 23 civilians individually recognizable; avoid a shared-body recolor approach.
 - Use Granny Volt as a 10/10 quality reference, not a template to copy.
-- Complete Usher, Cook, and Courier as the first owner-approved batch. Next group: Runner, Coach, Referee.
+- First five-character batch now owner-approved: Usher, Cook, Courier, Coach and Referee. Next draft production batch: Guard, Vendor and Clinic worker; Runner remains built but pending focused review.
 - Require internal QA and independent review for each new batch; record the project owner's explicit final approval.
 - Keep golden snapshot approval separate from automated QA. Never approve or refresh snapshots without explicit owner authorization.
 
@@ -74,7 +74,7 @@ The five-character art review is complete. Usher, Cook, Courier, Coach and Refer
 Runner is built but excluded from Claude Run #603 and remains pending a focused review. The next draft production batch is Guard, Vendor and Clinic worker; no renderer implementation begins until the construction standard is separately ratified and the silhouette/brief preflight is accepted. The approved five's art and accepted exceptions are protected from unrequested changes.
 
 
-## Latest six-civilian polish and QA — 2026-11-19
+## Historical six-civilian polish and QA — 2026-11-19
 
 The owner supplied review corrections for larger eye catchlights (Coach, Referee, Courier, Runner), Cook's toque and side-view pan, Runner's side stride, and Courier's forward lean. Inspection of the live renderer confirmed these design changes were already present in the source tested by run #453. The final renderer source `5e02024ea1fbeb5b56eb6492b64427b9ca44b4d0` keeps those changes, removes a redundant duplicate Runner leg draw, preserves Cook's existing eye treatment, and compresses the Cook toque crown vertically to ensure transparent headroom in all four views.
 

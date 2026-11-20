@@ -1,5 +1,13 @@
 # Six-Civilian Construction Standard Audit
 
+## Current approval and scope — 2026-11-20
+
+- The five-character review set (Usher, Cook, Courier, Coach and Referee) is **APPROVED by the project owner** following Claude's Run #603 recommendation. See the [Run #603 review record](qa-artifacts/five-civilian-corrections/CLAUDE-REREVIEW-RUN-603.md) and the [live NPC tracker](NPC_VECTOR_CHARACTER_TRACKER.md).
+- Runner is built but was excluded from Claude Run #603; it remains pending a focused review and is not included in the five approvals.
+- The remaining 17 unstarted roster entries remain on production hold. The next draft briefs are Guard, Vendor and Clinic worker.
+- This audit is a historical internal construction assessment, not a substitute for the current approval record or standard ratification. The revised construction standard still awaits separate explicit owner ratification.
+- No renderer changes, golden snapshot changes or snapshot approvals are part of this documentation closeout.
+
 ## Silhouette gate interpretation and release decision — 2026-11-19
 
 The full-roster silhouette audit's highest reported pair is Clinic/Sailor front (IoU 0.9094292803970223); Coach/Courier back is a secondary watch item (0.890479). Treat these as named human-review triggers, not proof of anatomical or design failure in the six-character pilot. The standard retains pairwise comparison and human inspection; it does not adopt a universal 0.90 artistic pass/fail threshold. Review both actual renders at native and direct game scale, then record whether the overlap is a genuine identity collision, an acceptable shared body mass with distinct role construction, or inconclusive. Keep this audit separate from semantic anatomy-mask fit and proportion measurement.
