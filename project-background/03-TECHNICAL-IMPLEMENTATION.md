@@ -2,8 +2,8 @@
 
 ## Current authority — 2026-11-20
 
-- Latest renderer commit: `880cad6bf937d8bfc1e004fe81cbd6854c522d23`. It changes only Usher profile clipboard contact/arm continuity and restores the unrelated Cook block to its prior implementation. Usher silhouette is unchanged.
-- Browser QA Run #602 tested the exact renderer commit. Actual left/right captures and contact sheets were inspected at native 64×96 and direct 28×42; U4 is internally resolved. Updated Claude review remains pending.
+- Latest renderer commit: `2c00cfca09cc12ea19a72662c235beed2e9a19cb`. It changes only Usher profile clipboard contact/arm continuity and preserves the pre-existing Cook renderer exactly as it stood at the starting branch head. Usher silhouette is unchanged.
+- Browser QA Run #603 tested the exact renderer commit. Actual left/right captures and contact sheets were inspected at native 64×96 and direct 28×42; U4 is internally resolved. Updated Claude review remains pending.
 - The construction standard's 0.85 silhouette IoU is a human-review trigger only; it is not a workflow/artistic failure. Semantic civilian proportion calibration is suspended. No golden snapshots may be changed without explicit owner authorization.
 
 
