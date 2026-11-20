@@ -1,3 +1,17 @@
+## Fourth civilian batch — revision 18 correction pass (2026-11-20)
+
+Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; **not owner-approved and not authorized for production-renderer implementation**. Current source is [silhouette exploration 18](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg), exact latest tested source commit `4045675e71854b08b2e2fb1ab5c879d7b2ea2ab6`.
+
+- **Fresh evidence:** [Run #721](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910), artifact [14656889410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910/artifacts/14656889410). Design-source projections and semantic validation passed: 24/24 native 64×96, 24/24 independently rasterized direct 28×42, 24/24 enlarged; 69 roster face crops and six matched face rows. Body preservation passed 12/12. Painter connectivity passed 16/16 across body/prop, four directions and both scales.
+- **Painter:** front ferrule overlap corrected. A later connectivity audit found the left-profile bristle fan detached at direct 28×42; the handle was extended/thickened into the fan. Latest direct-scale and native connectivity audits now pass. Profile prop audit: 140 added silhouette pixels, 138 in the intended prop region; descriptive only.
+- **Sailor:** front coil-to-palm bridge retained; right-profile coil present only on the character-relative near side. Profile prop audit: 172 added silhouette pixels, all in the expected region.
+- **Slicker:** separate umbrella remains removed. Integrated hood opening, rear yoke/hem seams and shortened storm closure remain in the source.
+- **Visual QA:** native/direct body and prop sheets, matched face comparisons, and enlarged key Sailor/Slicker/Painter detail crops have received focused inspection. Full individual-crop and roster-neighbour visual QA is still pending; do not call internal visual QA complete.
+- **Full workflow:** Run #721 failed only at the separate global browser diagnostics step after design/semantic validation passed. Golden baseline remains explicitly unapproved (1 match / 23 changed); existing resource/audio 404s persist; page/script errors were empty. Five-civilian regression checks passed 92/92 directional integrity, 20/20 direct game-scale captures, 12/12 role debug, 10 archetype prop audit and gallery render. No golden snapshots/provenance changed.
+- Claude review package 04 describes revision 10 and is stale. Prepare a new exact-revision-18 review package only after internal visual QA is complete. All construction families remain UNASSIGNED; no renderer implementation, owner approval or next-roster work is authorized.
+
+---
+
 ## Fourth civilian batch — revision 18 internal evidence captured; owner/reviewer gates pending (2026-11-20)
 
 Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; none is owner-approved. Renderer implementation is NOT AUTHORIZED. Current source: [silhouette exploration 18](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg). Exact tested source commit: `4045675e71854b08b2e2fb1ab5c879d7b2ea2ab6`.
