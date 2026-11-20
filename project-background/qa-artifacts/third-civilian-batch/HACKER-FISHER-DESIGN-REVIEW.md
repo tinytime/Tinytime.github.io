@@ -42,7 +42,7 @@
 The SVG contains the combined comparison sheet and scale section for all eight directional designs. Reproducible Playwright render workflow:
 
 - [Run #7 — corrected design render](https://github.com/tinytime/Tinytime.github.io/actions/runs/44748083989), tested corrected source `2b08e60d4814846923e133503f965532bde055ad` (SVG SHA-256 `c322e8c44a04478e59b8bc7319203213577d7ce3100c13fdc3de56e0f9e0565c`).
-- [Run #7 artifact 14634776106](https://github.com/github.com/tinytime/Tinytime.github.io/actions/runs/44748083989/artifacts/14634776106) contains the 1×/3× full sheets, eight native 64×96 captures, eight direct 28×42 projections, eight 4× nearest-neighbour enlargements, and JSON report.
+- [Run #7 artifact 14634776106](https://github.com/tinytime/Tinytime.github.io/actions/runs/44748083989/artifacts/14634776106) contains the 1×/3× full sheets, eight native 64×96 captures, eight direct 28×42 projections, eight 4× nearest-neighbour enlargements, and JSON report.
 - Playwright/Chromium install, Node syntax check, SVG render and capture generation all passed. Artifact upload passed. The workflow's presentation-output commit/push step failed because the working branch advanced after checkout (`non-fast-forward`); therefore Run #7 PNGs are available in the GitHub Actions artifact but are not yet committed as repository files. Run #6 PNGs remain superseded.
 - The render report confirms eight direction captures at both 64×96 and 28×42. The source is explicitly design-stage vector, not game-renderer output.
 
