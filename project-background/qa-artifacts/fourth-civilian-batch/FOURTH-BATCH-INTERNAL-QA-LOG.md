@@ -1,11 +1,11 @@
 ## Revision 18 — Claude correction implementation; fresh QA pending (2026-11-20)
 
-- Current branch head at documentation update: `78fa6ad9b9ef2fef368ecc42cd3ff562e9f02f1f`. Source: [revision 18](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg). The evidence builder now requires revision 18 and reads the revision-18 SVG.
+- Current branch head at documentation update: `50e267b01a76de1b95e31b766dc332da896ce543`. Source: [revision 18](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg). The evidence builder now requires revision 18 and reads the revision-18 SVG.
 - **Painter profile attachment:** both left/right profile head-to-torso paths now include a continuous neck/shoulder connection; the detached-head gap noted at native rows 14–16 is addressed in source. The left-profile near-side leg is moved rearward in both body-only and prop-on views to open a visible gap between the brush mass and thigh. The brush includes a ferrule band and separated bristle strokes. Right-profile prop remains hidden. Direct 28×42 readability and body-preservation audit are not yet re-run.
 - **Slicker rainwear:** rear yoke and hem seams provide a back-view rainwear cue; the face-side hood opening is shaped to open toward the face in profile; the front storm closure is shortened to avoid splitting the torso. The matched face study changes Slicker's front hood silhouette so it no longer depicts a flat cap.
 - **Sailor:** the existing thicker front coil/palm bridge and profile arm gaps are retained. Fresh direct-scale verification of the coil contact and 1–2px profile gaps remains pending.
 - **Faces:** the face study distinguishes Slicker's close-set, level brow and narrow hood-framed face from Painter's lifted asymmetric brow, squarer cheek/jaw and shorter nose. Native/direct capture and human readability review remain pending.
-- **Source history:** revision 18 SVG created in commit `46a0457fb841c8981395f36b4b54eedfec8fb888`; evidence builder retargeted in `0d83656aa40aa2b9eb492dda909a2ed2c0768e98`; latest ferrule/bristle polish is `78fa6ad9b9ef2fef368ecc42cd3ff562e9f02f1f`.
+- **Source history:** revision 18 SVG created in commit `46a0457fb841c8981395f36b4b54eedfec8fb888`; evidence builder retargeted in `0d83656aa40aa2b9eb492dda909a2ed2c0768e98`; latest ferrule/bristle polish is `50e267b01a76de1b95e31b766dc332da896ce543`.
 - The last completed evidence (Runs #695 and #697) tested revision 15, **not revision 18**. No test result is carried forward as proof for this source. Fresh revision-18 Actions run, artifact retrieval and visual inspection are outstanding. No renderer integration, approved art, snapshots or provenance changed.
 
 ---
