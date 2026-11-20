@@ -1,3 +1,15 @@
+## Fourth civilian batch — post-silhouette identity/construction cards 02 (2026-11-20)
+
+The owner-approved revision 21 silhouettes are now the fixed baseline for the next design stage. The three complete identity/construction cards are in [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md).
+
+- **Approved silhouette source:** commit `be1c0c012894ccae23b4cbce2ad06e523fb460c5`; SVG blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`; [revision 21 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg).
+- **Silhouette QA evidence:** [Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056), artifact [14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854). Focused design-source checks passed; overall browser workflow remains failed on unrelated global audio/resource 404 and unapproved golden-snapshot gates. No snapshots/provenance changed.
+- **Construction families assigned for this design proposal:** Sailor — Narrow Deck-Coat / Vertical Utility Shell; Slicker — Integrated Hooded Rain-Smock Shell; Painter — Offset Artisan Smock / Reaching-Arm Shell. These are descriptive, character-specific roster family tags, not reusable templates or quota targets.
+- **Baseline protection:** no approved revision-21 SVG geometry was changed. Branch HEAD also contains a later revision-22 exploration (`f39f450a361668d60f3eb77f0e93ab804f848070`); it is a separate unapproved proposal and is not used as the baseline for these cards.
+- **Stage status:** cards submitted for internal QA and owner review. Face studies remain proposals. No final palette/rendering, production renderer/integration, golden snapshot/provenance work, or roster #15–23 work is authorized.
+
+---
+
 ## Fourth civilian batch — revision 21 exact-source checkpoint, Run #810 (2026-11-20)
 
 The exact design-source run is [Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056), artifact [14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854), tested branch head `be1c0c012894ccae23b4cbce2ad06e523fb460c5` and revision-21 SVG blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`. Focused design checks passed (24 native, 24 direct 28×42, 24 enlarged; body preservation 12/12; connectivity 48/48; profile prop contact 2/2; semantic validation passed). The full browser workflow failed separately on 135 audio/resource 404s plus 45 sound-load messages and the unapproved 1/23 golden comparison; page/script errors are zero. No snapshots or provenance changed. ChatGPT's supplementary artifact inspection found Sailor's hand/coil compact at direct scale and Painter's brush identifiable but dense at direct scale. Package 06 is prepared, not sent; Claude review and owner approval remain pending. No renderer or palette work is authorized.
