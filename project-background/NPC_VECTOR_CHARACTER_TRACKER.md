@@ -1,3 +1,13 @@
+## Fourth civilian batch — Sailor exploration authorized (2026-11-20)
+
+- Owner approved the refined role directions for Sailor (#12), Slicker (#13) and Painter (#14), and authorized **Sailor silhouette exploration only**.
+- Sailor has preliminary body-only and prop-on four-view studies plus a construction-card exploration: [silhouette sheet](qa-artifacts/fourth-civilian-batch/SAILOR-SILHOUETTE-EXPLORATION-01.svg), [construction card](qa-artifacts/fourth-civilian-batch/SAILOR-CONSTRUCTION-CARD-EXPLORATION-01.md).
+- These are exploration candidates, not owner-approved silhouettes. Internal visual review and matched-scale roster comparisons remain to be completed before presenting the gate to the owner.
+- QA refinements: body-only and prop-on four-view sets; actual matched-scale face comparison against the two closest existing faces before finalizing cues; anatomy/near-far arm construction before props, with four-view contact/handedness evidence.
+- Sailor comparison priority: Clinic first (especially front and profiles, shoulder-to-waist contour and arm negative spaces), then Coach, Guard and Fisher. No numeric similarity threshold is introduced.
+- Slicker (#13) and Painter (#14) remain queued. Their vector families and Sailor's family remain UNASSIGNED.
+- No palette or renderer work, no changes to approved characters, and no golden snapshot/provenance changes.
+
 ## Fourth batch preflight — Sailor, Slicker and Painter (2026-11-20)
 
 **Next three characters:** #12 Sailor, #13 Slicker, #14 Painter. Identity briefs and proposed silhouette directions are prepared in [SAILOR-SLICKER-PAINTER-PREFLIGHT.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md). Their vector construction families remain UNASSIGNED until silhouette exploration and owner approval. These are hypotheses, not approved art.
