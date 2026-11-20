@@ -3,24 +3,24 @@
 **Prepared:** 2026-11-20  
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Exact reviewed source commit:** `c004c4e9b231803bc3977b9d418f104e223dc417`  
-**Current silhouette source:** [revision 08](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg)  
+**Exact reviewed source commit:** `c74219986db2466122fe08ff3ad0bdcb012b5264`  
+**Current silhouette source:** [revision 09](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg)  
 **Stage:** design-source silhouettes, face studies and prop-contact exploration only
 
 ## Review scope and authority
 
 The owner approved the role directions and simultaneous design-stage exploration for Sailor (#12), Slicker (#13) and Painter (#14). The owner has **not** approved any final silhouette, face, prop, palette or construction family. Production renderer implementation is **not authorized**.
 
-Please review the exact revision-08 source and Run #674 evidence below. This package replaces package 01, which described revision 05 / Run #664. Do not review or cite package 01 as current evidence.
+Please review the exact revision-09 source and Run #677 evidence below. This package replaces package 01, which described revision 05 / Run #664. Do not review or cite package 01 as current evidence.
 
 Granny Volt is the approved 10/10 craft-quality benchmark, not a visual template. Each civilian must retain an original silhouette, face geometry, clothing construction, prop and personality. The three characters must be judged individually and as a set against the closest existing roster figures.
 
 ## Exact evidence
 
-- Browser/design QA: [Run #674](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302)
-- Artifact: [14650547538 — vapor-city-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/44777818302/artifacts/14650547538)
-- Exact tested commit: `c004c4e9b231803bc3977b9d418f104e223dc417`
-- Source SVG: [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-08.svg)
+- Browser/design QA: [Run #677](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801)
+- Artifact: [14650099995 — vapor-city-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995)
+- Exact tested commit: `c74219986db2466122fe08ff3ad0bdcb012b5264`
+- Source SVG: [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-09.svg)
 - Construction cards: [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md](SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md)
 - Face geometry study: [SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-02.svg)
 - Owner-approved role directions and constraints: [preflight](SAILOR-SLICKER-PAINTER-PREFLIGHT.md)
@@ -29,7 +29,7 @@ Granny Volt is the approved 10/10 craft-quality benchmark, not a visual template
 - Enlarged individual directional PNGs: `fourth-batch-design/*-enlarged-4x.png`
 - Face comparisons: `fourth-batch-design/matched-face-comparisons-native-40x38.png` and `matched-face-comparisons-3x.png`
 
-The artifact contains 24 body-only / prop-on figure fields rendered at native 64×96, 24 independently vector-rasterized direct 28×42 projections, 24 4× nearest-neighbour enlargements, 69 current-roster face crops, six new face-design crops, six matched face-comparison rows, the profile prop audit, and the matched Sailor/Welder rear silhouette comparison. The direct 28×42 evidence is not resized from 64×96.
+The artifact contains 24 body-only / prop-on figure fields rendered at native 64×96, 24 independently vector-rasterized direct 28×42 projections, 24 4× nearest-neighbour enlargements, 69 current-roster face crops, six new face-design crops, six matched face-comparison rows, the profile prop audit, and the matched Sailor/Welder rear silhouette comparison. It also includes the updated inward-shifted Slicker near-side profile prop. The direct 28×42 evidence is not resized from 64×96.
 
 ## Internal QA disposition
 
@@ -39,20 +39,20 @@ The artifact contains 24 body-only / prop-on figure fields rendered at native 64
 - 24/24 independent direct 28×42 projections.
 - 24/24 enlarged nearest-neighbour inspection images.
 - 69 roster face crops and six matched face-comparison rows.
-- Profile prop-presence/contact audit: Sailor right profile 172 added pixels; Slicker left profile 389; Painter left profile 163. All designated near-side checks passed their region checks.
+- Profile prop-presence/contact audit: Sailor right profile: 172 added pixels in the expected region (minimum 100); Slicker left profile: 272 region pixels (minimum 100); Painter left profile: 95 region pixels (minimum 12). All designated near-side checks passed.
 - Browser report: directional integrity 92/92; existing five-civilian direct 28×42 capture assertion 20/20; role debug 12/12; prop audit 10 archetypes; gallery rendered; silhouette diagnostic inventory completed.
 
 **Manual visual inspection: PASS WITH REVIEW QUESTIONS.**
 
-- **Sailor:** narrow upright deck-coat body reads without the coil. The mooring coil is visible front (viewer-right), back (viewer-left) and right profile only; hidden in the left profile. Enlarged right-profile evidence shows the loop connected through a palm/forearm bridge. The new proposed rear silhouette is visibly narrower and more vertically structured than the live Welder rear silhouette: Sailor has a compact cap, cropped deck-coat mass, narrow leg stance and clear arm negative space; Welder retains a broader blockier torso and different shoulder/tool mass. The legacy Sailor/Welder full-character back IoU trigger (0.889) is a diagnostic on existing roster renderers, not a similarity score for the proposed vector Sailor. Please independently judge the proposed pair.
-- **Slicker:** compact forward-pitched long rain-shell body reads without the umbrella. The folded umbrella is visible front (viewer-left), back (viewer-right) and left profile only; hidden in the right profile. Revision 08 clarifies the folded canopy and handle. Direct-scale profile is more legible, though the prop still sits close to the shell and should be judged for whether it reads as a held umbrella rather than an attached side mass.
-- **Painter:** open asymmetrical reaching body reads without the brush. The brush is visible front (viewer-left), back (viewer-right) and left profile only; hidden in the right profile. Revision 08 broadens the profile brush head and retains a continuous grip/handle contact. Enlarged view now reads as a short broad brush; please judge its direct 28×42 clarity and whether the grip feels anatomically supported.
+- **Sailor:** narrow upright deck-coat body reads without the coil. The mooring coil is visible front (viewer-right), back (viewer-left) and right profile only; hidden in the left profile. Enlarged right-profile evidence shows the loop connected through a palm/forearm bridge. At direct 28×42 scale the exact grasp remains subtle; please judge whether it reads as held rope rather than a loop beside the hip. The new proposed rear silhouette is visibly narrower and more vertically structured than the live Welder rear silhouette: Sailor has a compact cap, cropped deck-coat mass, narrow leg stance and clear arm negative space; Welder retains a broader blockier torso and different shoulder/tool mass. The legacy Sailor/Welder full-character back IoU trigger (0.889) is a diagnostic on existing roster renderers, not a similarity score for the proposed vector Sailor. Please independently judge the proposed pair.
+- **Slicker:** compact forward-pitched long rain-shell body reads without the umbrella. The folded umbrella is visible front (viewer-left), back (viewer-right) and left profile only; hidden in the right profile. Revision 09 moves the profile item inward from the crop edge. The left profile reads more clearly as a folded umbrella, but front/back direct 28×42 views still lean toward a pouch/side-mass read. Decide whether to refine the front/back silhouette or replace the handheld item with the approved integrated storm-flap/closure alternative.
+- **Painter:** open asymmetrical reaching body reads without the brush. The brush is visible front (viewer-left), back (viewer-right) and left profile only; hidden in the right profile. Revision 09 retains the broad brush head and moves it clear of the crop edge. The near-side grip-region audit passes; judge its direct 28×42 clarity and whether the grip feels anatomically supported.
 - **Set:** the three body-only constructions remain visibly different: Sailor narrow/upright, Slicker compact/long-shell/forward-pitched, Painter open/asymmetrical/reaching. Please challenge any shared silhouette or generic construction.
 - **Faces:** the native face-comparison labels are readable. Proposed cues are Sailor's strong brow shelf and hooked profile nose/cheek plane; Slicker's angular brow/eye and tucked chin/short nose; Painter's asymmetric lifted brow and longer angular nose/cheek plane. The six matched 40×38 face rows compare Sailor with Clinic/Guard, Slicker with Hacker/Courier, and Painter with Cook/Busker. Face geometry remains provisional; assess actual identity separation rather than headwear, palette or expression alone.
 
 ## Browser workflow disposition and evidence boundaries
 
-Run #674 overall concluded **FAILURE** at the global browser diagnostics gate:
+Run #677 overall concluded **FAILURE** at the global browser diagnostics gate:
 
 - Golden snapshot gate: **1 match / 23 changed**, no missing snapshots. Baseline approval metadata remains unapproved.
 - Existing audio/resource diagnostics: 180 console 404 entries. `pageErrors` and `scriptErrors` are empty.
@@ -90,7 +90,7 @@ Please also provide:
 7. Set-level differentiation: whether all three are distinct from each other and the closest existing roster figures.
 8. Corrections ranked by severity. Avoid numeric IoU targets and do not recommend palette or renderer work before the silhouette/construction gate.
 
-Please review the exact commit and Run #674 artifact above. Do not modify repository files. Do not infer owner approval from this handoff.
+Please review the exact commit and Run #677 artifact above. Do not modify repository files. Do not infer owner approval from this handoff.
 
 ## Approval boundary and next gate
 
