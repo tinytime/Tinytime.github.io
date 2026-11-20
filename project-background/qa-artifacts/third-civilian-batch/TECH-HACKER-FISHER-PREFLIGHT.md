@@ -1,6 +1,6 @@
 # Next Civilian Batch — Tech, Hacker and Fisher
 
-**Status:** the round-05 silhouettes and corrected 3× review sheet passed visual inspection. The project owner explicitly approved renderer implementation on 2026-11-20. Tech (#9) is first; Hacker and Fisher remain gated on Tech's completed internal QA and visual inspection. The bespoke `drawTechVector` renderer is implemented in `67b397242996f675c4a257415e4620fa0d3a40ca`; dedicated native 64×96 and direct 28×42 four-direction capture QA is in `2eab7e84027f088ed8f9f7be5740547f590aa13d`. Browser QA Run [44740192417](https://github.com/tinytime/Tinytime.github.io/actions/runs/44740192417) is in progress. Rendered Tech art is not yet approved; no golden snapshots may be changed without explicit authorization.
+**Status:** round-05 silhouettes and corrected 3× review sheet passed visual inspection; the project owner approved renderer implementation on 2026-11-20. Tech (#9) is now implemented, internally QA-passed and visually inspected against Run #644 / artifact `14634020084`, tested source `579f0fff61b8cfd4e416cc59381187b162d3b8ca`. Tech's four directions pass native 64×96 and direct 28×42 captures, role-debug and explicit town spawn/close-up evidence. Profile and rear-shell refinements address the internal QA findings. Tech is ready for independent Claude review; rendered-art owner approval remains pending. Hacker (#10) and Fisher (#11) remain held until that review and owner approval. No golden snapshots were changed.
 
 **Batch order:** Tech (#9), Hacker (#10), Fisher (#11).  
 **Builder:** ChatGPT. **Final decision authority:** project owner.  
@@ -138,8 +138,8 @@ These remain proposals, not locked designs. The attached correction-round-05 SVG
 ## Evidence status
 
 - The SVG is a correction-round-05 design exploration only. Front/back views are separately checked for character-relative handedness; mirrored transformations are used only where required to place the character-relative prop on the correct viewer side. Profile studies retain their own near/far anatomy.
-- No game renderer has been changed for Tech, Hacker or Fisher.
-- No direct renderer captures, game-scale face crops, prop-contact audit or town spawn evidence exist yet for these three.
+- Tech renderer implementation, four-direction native/direct captures, profile face crops, prop-contact evidence, role-debug and live town spawn/close-up evidence are complete; see the Tech renderer review package.
+- Hacker and Fisher renderer implementations and renderer QA remain unstarted pending Tech's independent review and owner approval.
 - No owner silhouette approval is implied by preparing this package.
 
 ### Reviewer feedback and correction round 05 — 2026-11-20
