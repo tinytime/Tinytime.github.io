@@ -125,3 +125,8 @@ No blocking design-stage defect was found. The internal QA disposition is limite
 - Golden snapshots and provenance: **UNCHANGED**.
 
 No additional render is required for this internal design QA handoff. The owner may now make the finished-art acceptance decision using Run #7 artifact 14634776106.
+
+
+## Combined independent review handoff
+
+The finished design-stage artwork for Hacker and Fisher is now included with Tech (#9) in the [combined third-batch Claude review package](THIRD-BATCH-CLAUDE-REVIEW-PACKAGE.md). The corrected Run #7 artifact remains the authoritative visual evidence; no further render is required. Claude review and owner finished-art acceptance remain pending. This package preserves the distinction that Hacker/Fisher's 28×42 views are design projections, not production renderer captures.
