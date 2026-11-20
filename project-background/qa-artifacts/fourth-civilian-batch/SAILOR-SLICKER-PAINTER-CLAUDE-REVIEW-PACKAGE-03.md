@@ -1,3 +1,5 @@
+> **Superseded:** this package describes revision 09 / Run #677. Use [Claude review package 04](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md) for current revision 10 / Run #678 evidence.
+
 # Sailor, Slicker and Painter — independent Claude design review package 03
 
 **Prepared:** 2026-11-20  
