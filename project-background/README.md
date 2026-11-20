@@ -6,7 +6,7 @@ Prepared:
 - [Tech/Hacker/Fisher design preflight](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md)
 - [Four-view silhouette exploration SVG](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-EXPLORATION.svg)
 
-The owner accepted the round-05 silhouette direction on 2026-11-20. A reproducible GitHub Actions renderer now produces the canonical SVG at exact 3× scale; [Run #1](https://github.com/tinytime/Tinytime.github.io/actions/runs/44738396316) succeeded and committed the 4800×3540 PNG at [TECH-HACKER-FISHER-SILHOUETTE-ROUND-05-3X.png](qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-ROUND-05-3X.png). The PNG has been generated and dimension-validated by the workflow, but its visual inspection remains the next gate before renderer implementation. The original SVG remains canonical. No game renderer, approved civilian art or golden snapshot was changed.
+The round-05 art silhouettes passed visual inspection across all 12 views (reported black-silhouette IoU 0.997; minor difference attributed to anti-aliasing). The first 3× PNG exposed two clipped text blocks, so the canonical SVG was text-wrapped in commit `e25ac611ee17d12771cbf2815001b78f43090d7f`; [Run #2](https://github.com/tinytime/Tinytime.github.io/actions/runs/44739247661) is regenerating the 4800×3540 PNG. The review sheet remains not final until the replacement PNG is checked for unclipped text. Renderer implementation still requires explicit owner silhouette approval. No game renderer, approved civilian art or golden snapshot was changed.
 
 
 
