@@ -44,7 +44,7 @@ A capable, quietly upbeat harbour worker who knows ropes, knots and changing wat
 
 ## Construction-family assignment
 
-**Assigned family: Narrow Deck-Coat / Vertical Utility Shell (new roster family tag).**
+**Proposed family: Narrow Deck-Coat / Vertical Utility Shell (new roster family tag).**
 
 This family is defined by a close, vertically organized outer coat with a raised protective collar, restrained shoulder volume, a clear front opening/closure line and a relatively straight lower garment edge. It is not the broad rain-smock, apron, or boxy workshop jacket family. The narrow body mass and disciplined vertical seams support Sailor's rope-handling role and preserve separation from broad-bodied trades characters.
 
@@ -130,7 +130,7 @@ A thoughtful, practical city resident who is comfortable in drizzle and wind. Sl
 
 ## Construction-family assignment
 
-**Assigned family: Integrated Hooded Rain-Smock Shell (new roster family tag).**
+**Proposed family: Integrated Hooded Rain-Smock Shell (new roster family tag).**
 
 This family is defined by one continuous weather shell with an integrated hood, face opening, storm closure and shaped hem/yoke construction. It differs from the narrow vertical deck coat, waist-tied apron/smock silhouettes and rigid workshop jackets. The hood and shell must read as one garment system, not a separate hat pasted onto a generic torso.
 
@@ -216,7 +216,7 @@ A focused craftsperson who paints shop signs, wayfinding marks and small civic m
 
 ## Construction-family assignment
 
-**Assigned family: Offset Artisan Smock / Reaching-Arm Shell (new roster family tag).**
+**Proposed family: Offset Artisan Smock / Reaching-Arm Shell (new roster family tag).**
 
 This family is defined by a short, workmanlike smock with an offset front/side construction, paired shaping darts and a deliberately extended working arm. It is not a full apron, cook's chef shell, broad rain smock or rigid trades coat. The asymmetrical arm/brush relationship is a pose-and-garment system rather than a generic tunic with an accessory.
 
@@ -301,7 +301,7 @@ Back view: knit cap cuff, crown shaping and nape/hair transition should be desig
 | Slicker | Integrated Hooded Rain-Smock | Broad pear shell, forward-ready | Face-side-open hood | Integrated weather shell; no handheld prop |
 | Painter | Offset Artisan Smock / Reaching-Arm | Open reach, compact torso | Cuffed knit beanie | Character-right flat brush |
 
-These are three intentionally different garment systems and pose grammars. The three new family labels are descriptive assignments for this batch, not permission to create shared reusable templates. Record them in the roster family register and compare them with all existing civilians before any later character reuses a family.
+These are three intentionally different garment systems and pose grammars. The three family labels are proposed design-stage descriptors only; under the roster audit rules, the current vector construction family remains UNASSIGNED until the owner approves each character's silhouette/construction card. Record the proposals in the roster family register and compare them with all existing civilians before any later character reuses a family.
 
 ### Unresolved design questions for internal QA / owner review
 
