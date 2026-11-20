@@ -1,16 +1,17 @@
-## Latest internal QA status — revision 18 evidence captured; independent review requested (2026-11-20)
+## Latest internal QA status — revision 18 exact-source evidence refreshed (2026-11-20)
 
-Current design source: [revision 18](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg), exact tested commit `4045675e71854b08b2e2fb1ab5c879d7b2ea2ab6`. Design-source projections and semantic validation passed in [Run #721](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910); exact artifact [14656889410](https://github.com/tinytime/Tinytime.github.io/actions/runs/44794789910/artifacts/14656889410). Captures: 24/24 native 64×96, 24/24 independently rasterized direct 28×42, 24/24 enlarged; 69 roster face crops; six matched face rows. All 12 body-only/prop-on pairs preserve all body pixels. Painter body and prop projections each pass one-component connectivity in all directions at both scales. Actual evidence sheets and selected enlarged details have been visually inspected.
+Current design source: [revision 18](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-18.svg), exact tested commit 73774e27092de36fd88f45b0d5cb6c97f760c7ea. Design-source projections and semantic validation passed in [Run #730](https://github.com/tinytime/Tinytime.github.io/actions/runs/44796157551); exact artifact [14658967396](https://github.com/tinytime/Tinytime.github.io/actions/runs/44796157551/artifacts/14658967396). Captures: 24/24 native 64×96, 24/24 independently rasterized direct 28×42, 24/24 enlarged; 69 roster face crops and six matched face rows. All 12 body-only/prop-on pairs preserve every body pixel. Connected-anatomy audit passes 48/48 projections across Sailor, Slicker and Painter at both scales.
 
-**Current independent-review handoff:** [Claude review package 05](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-05.md), pinned to the exact source and Run #721 artifact. Package 04 is superseded.
+**Current independent-review handoff:** [Claude review package 05](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-05.md), refreshed to the exact Run #730 source and artifact. Package 04 is superseded.
 
-**Full-workflow caveat:** Run #721 overall failed at the separate game-browser diagnostics gate: golden snapshots remain unapproved (1 match / 23 changed) and existing audio/resource 404s remain. `pageErrors` and `scriptErrors` are empty. No snapshots/provenance changed. This is not a design-projection failure, but full browser QA is not green.
+**Full-workflow caveat:** Run #730 overall failed at the separate game-browser diagnostics gate: golden snapshots remain unapproved (1 match / 23 changed), and 180 existing audio/resource console 404s remain. pageErrors and scriptErrors are empty. No snapshots/provenance changed. This is not a design-projection failure, but full browser QA is not green.
 
-Sailor's coil-to-hand grasp remains subtle at direct scale; Painter's connected brush/hand cluster remains visually dense at direct scale. These are explicit Claude/owner scrutiny points. Slicker's integrated hood/rain-shell reads as clothing in the current four-view silhouette. Face comparisons remain geometric studies only.
+Sailor's coil-to-hand grasp remains subtle at direct scale; Painter's connected brush/hand cluster remains dense at direct scale. Slicker's integrated hood/rain-shell reads as clothing in the current four-view silhouette. Face comparisons remain geometric studies only.
 
 All three characters remain design-stage proposals; construction families UNASSIGNED; no silhouette, face, prop or palette is owner-approved. Renderer implementation is NOT AUTHORIZED. #15–23 remain on hold.
 
 ---
+
 
 # Fourth civilian batch — Sailor, Slicker and Painter preflight
 
