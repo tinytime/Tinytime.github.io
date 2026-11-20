@@ -139,8 +139,8 @@
 <g transform="translate(105 42) scale(2.65)"><use href="#vendor-front"/></g>
 <g transform="translate(365 42) scale(2.65)"><use href="#vendor-back"/></g>
 <g transform="translate(625 42) scale(2.65)"><use href="#vendor-profile"/></g>
-<g transform="translate(885 42) scale(-2.65 2.65)"><use href="#vendor-profile"/></g>
-<text x="145" y="310" class="v">FRONT</text><text x="405" y="310" class="v">BACK</text><text x="665" y="310" class="v">LEFT</text><text x="925" y="310" class="v">RIGHT</text>
+<g transform="translate(1235 42) scale(-2.65 2.65)"><use href="#vendor-profile"/></g>
+<text x="145" y="310" class="v">FRONT</text><text x="405" y="310" class="v">BACK</text><text x="665" y="310" class="v">LEFT</text><text x="1085" y="310" class="v">RIGHT</text>
 </g>
 <line x1="48" y1="868" x2="1552" y2="868" class="rule"/>
 <g transform="translate(50 898)">
@@ -148,7 +148,7 @@
 <g transform="translate(105 42) scale(2.65)"><use href="#clinic-front"/></g>
 <g transform="translate(365 42) scale(2.65)"><use href="#clinic-back"/></g>
 <g transform="translate(625 42) scale(2.65)"><use href="#clinic-profile"/></g>
-<g transform="translate(885 42) scale(-2.65 2.65)"><use href="#clinic-profile"/></g>
-<text x="145" y="310" class="v">FRONT</text><text x="405" y="310" class="v">BACK</text><text x="665" y="310" class="v">LEFT</text><text x="925" y="310" class="v">RIGHT</text>
+<g transform="translate(1235 42) scale(-2.65 2.65)"><use href="#clinic-profile"/></g>
+<text x="145" y="310" class="v">FRONT</text><text x="405" y="310" class="v">BACK</text><text x="665" y="310" class="v">LEFT</text><text x="1085" y="310" class="v">RIGHT</text>
 </g>
 </svg>
