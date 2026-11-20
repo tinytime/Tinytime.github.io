@@ -1,3 +1,12 @@
+## Fourth civilian batch — parallel Sailor/Slicker/Painter exploration (2026-11-20)
+
+The owner authorized **Sailor (#12), Slicker (#13) and Painter (#14) simultaneously** through identity refinement, four-view silhouette exploration and construction cards. This supersedes the earlier Sailor-only authorization note below.
+
+- [Parallel silhouette exploration 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-02.svg)
+- [Parallel construction cards and differentiation report 01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md)
+- Current status: preliminary source study exists; full evidence package is not yet complete. Matched-scale face crops, exact direct 28×42 raster projections, refined rear/profile anatomy and prop-contact validation remain outstanding.
+- Families remain UNASSIGNED; no palettes or production renderer work. #15–23 remain on hold. No approved NPC art, golden snapshots or snapshot provenance changed.
+
 ## Fourth civilian batch — owner direction approval and Sailor exploration (2026-11-20)
 
 The owner approved the refined Sailor/Slicker/Painter role directions and authorized **Sailor (#12) silhouette exploration only**. Shared QA refinements: body-only plus prop-on four-view silhouette sets; evidence-based comparison against the two closest existing faces before finalizing face cues; and near/far anatomy established before adding props. Sailor must receive matched-scale comparison against Clinic (highest priority), Coach, Guard and Fisher, with particular attention to raised collar, cap contour, leg stance, shoulder-to-waist construction and arm negative spaces. The mooring-line coil is optional and cannot carry identity.
