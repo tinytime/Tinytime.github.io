@@ -55,7 +55,7 @@ The artifact contains 24 body-only / prop-on figure fields rendered at native 64
 Run #677 overall concluded **FAILURE** at the global browser diagnostics gate:
 
 - Golden snapshot gate: **1 match / 23 changed**, no missing snapshots. Baseline approval metadata remains unapproved.
-- Existing audio/resource diagnostics: 180 console 404 entries. `pageErrors` and `scriptErrors` are empty.
+- Existing audio/resource diagnostics: 135 console 404 entries. `pageErrors` and `scriptErrors` are empty.
 - No golden snapshots or provenance were modified.
 - The design-source evidence generation, semantic proportion/annotation validation, Granny semantic overlay, six-civilian annotation overlay, five-civilian review sheet and artifact upload completed successfully.
 
