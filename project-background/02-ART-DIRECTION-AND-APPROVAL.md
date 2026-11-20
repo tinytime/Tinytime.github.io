@@ -1,3 +1,11 @@
+## Fourth civilian batch — revision 10 internal QA and Claude handoff (2026-11-20)
+
+The owner-authorized design-stage exploration for Sailor (#12), Slicker (#13) and Painter (#14) has passed internal design-source capture and visual inspection. [Claude review package 04](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md) supersedes packages 01–03 and is pinned to revision 10, exact source commit `8ae6a47055c6c75e361738b21c01d8b07b6830b4`, [Run #678](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334), artifact [14650399818](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334/artifacts/14650399818).
+
+The design-source capture and semantic checks passed (24/24 native 64×96, 24/24 direct 28×42, 24/24 enlarged). Manual inspection covers all body-only/prop-on directions, direct game-scale projections, enlarged prop profiles, matched face crops and Sailor/Welder rear comparison. Claude is specifically asked to judge Sailor's rope grasp, Slicker's folded umbrella recognition/grip, Painter's brush readability/contact, and face/silhouette differentiation. Browser workflow remains globally failed on the unapproved snapshot baseline (1/23) and 135 audio/resource 404 entries; page/script errors are empty. No snapshots/provenance changed.
+
+No silhouette, face, prop, palette or construction family is owner-approved. All three families remain UNASSIGNED. Production renderer implementation is NOT AUTHORIZED. Do not begin #15–23 before independent review and explicit owner approval.
+
 ## Fourth civilian batch — revision 09 internal QA and review handoff (2026-11-20)
 
 The owner-authorized design-stage exploration for Sailor (#12), Slicker (#13) and Painter (#14) is complete through internal QA. [Claude review package 03](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-03.md) records exact source commit `c74219986db2466122fe08ff3ad0bdcb012b5264` and [Run #677](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801) / artifact [14650099995](https://github.com/tinytime/Tinytime.github.io/actions/runs/44778420801/artifacts/14650099995). Internal visual inspection is complete; independent Claude critique is pending.
