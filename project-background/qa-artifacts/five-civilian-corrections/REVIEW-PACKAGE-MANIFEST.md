@@ -18,7 +18,7 @@ Use this manifest for every independent review package. Mark each row `included`
 | Black silhouette sheet | included | Alpha-derived; not anatomical segmentation |
 | Neutral-grey and town/night captures | included | Record exact background configuration |
 | Walk frames, two per direction | unavailable | Not present in Runs #600 or #603; required for any character with active walk animation, otherwise record not applicable |
-| Before/after sheets for each finding | included | U4 left/right native and direct 28×42 before/after sheets are embedded in Claude package artifact `14594041741`; source captures are in the Run #600 and Run #603 evidence ZIPs. Other accepted/declined findings need no new correction sheet. |
+| Before/after sheets for each finding | included | U4 left/right native and direct 28×42 before/after sheets are embedded in the latest successful Claude package artifact from the package workflow; source captures are in the Run #600 and Run #603 evidence ZIPs. Other accepted/declined findings need no new correction sheet. |
 | Named-character town spawn proof | unavailable | Town-ground composite is diagnostic only |
 | Role-debug evidence | included | Run #600 artifact |
 | QA report and logs | included | Run #600 artifact |
