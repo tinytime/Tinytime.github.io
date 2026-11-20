@@ -4,11 +4,11 @@
 **Characters:** Sailor #12 · Slicker #13 · Painter #14  
 **Stage:** parallel silhouette exploration / construction hypotheses  
 **Approval:** role directions and simultaneous exploration authorized; no silhouette, face, prop, palette or construction family approved  
-**Source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-02.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-02.svg)
+**Source study:** [SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-03.svg](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-03.svg)
 
 ## Evidence status
 
-The source SVG is a coordinated second black-silhouette exploration sheet. It encodes a shared 64×96 local figure field, mirrored right-profile facing, and role-specific prop visibility/handedness. It remains a proposal: rear silhouettes currently use the same outer body contour as the front, and the sheet has not yet been rasterized and visually inspected at native 64×96 or direct 28×42. Treat the profile/contact geometry as a design hypothesis until those captures are checked.
+Revision 03 introduces separate rear body contours and explicit left/right profile construction, and corrects near-side prop visibility using character-relative handedness. The source is still a proposal and requires raster capture, native/direct-scale inspection, and contact/edge review before its geometry can be accepted.
 
 The required matched-scale face-crop comparisons have **not** been completed. No two closest faces are selected for any character. This report deliberately does not guess based on role or headwear. Capture actual roster front/profile face crops at 64×96, compare geometric features, then name the two closest faces and select exactly two defining cues for each new face.
 
@@ -33,8 +33,8 @@ The required matched-scale face-crop comparisons have **not** been completed. No
 |---|---|---|---|---|---|
 | Front | Character-left | Viewer-right | Left arm, wrist and palm visible | Right arm separated on viewer-left | Coil seated in left palm; compact, low beside hip |
 | Back | Character-left | Viewer-left | Left arm/hand visible | Right arm separated/occluded as pose requires | Same single coil; no duplicate |
-| Left profile | Character-left, near-side | Near side | One visible left arm plane and hand | Right/far arm occluded | Coil touches palm/forearm; visible only if grip reads |
-| Right profile | Character-left, far-side | Far side | Right arm is near-side, empty | Left/far arm occluded | Coil hidden; no ghost coil |
+| Left profile | Character-left, far-side | Far side | Right arm is near-side and empty | Left/far arm occluded | Coil hidden; no ghost coil |
+| Right profile | Character-left, near-side | Near side | Left arm/hand visible | Right/far arm occluded | Coil touches palm/forearm; compact coil must remain legible |
 
 **Roster comparisons:** Clinic is highest-priority body comparison, then Coach, Guard and Fisher; Granny is craft benchmark only. Compare shoulder-to-waist contour, collar/neck opening, cap/ear relationship, leg stance and arm gaps. Do not optimize against IoU.
 
@@ -60,7 +60,7 @@ The required matched-scale face-crop comparisons have **not** been completed. No
 | Front | Character-right | Viewer-left | Right arm/wrist/palm visible | Left arm separated or shell-occluded | Folded umbrella rests in right palm; small vertical footprint |
 | Back | Character-right | Viewer-right | Right arm/hand visible | Left arm intentionally occluded by shell | Same single umbrella; no duplicate |
 | Left profile | Character-right, far-side | Far side | Left arm is near-side and empty | Right arm occluded | Umbrella hidden |
-| Right profile | Character-right, near-side | Near side | Right arm/hand visible | Left/far arm occluded | Umbrella held against near hand; grip must be clear |
+| Right profile | Character-right, far-side | Far side | Left arm is near-side and empty | Right/far arm occluded | Umbrella hidden |
 
 **Roster comparisons:** Fisher, Courier, Hacker, Coach and Sailor. Distinguish shell architecture and pose before prop: long asymmetric rain shell vs Fisher's broad short smock, Courier's A-line messenger coat, Hacker's cropped drape and Coach's athletic jacket.
 
@@ -85,8 +85,8 @@ The required matched-scale face-crop comparisons have **not** been completed. No
 |---|---|---|---|---|---|
 | Front | Character-right | Viewer-left | Right arm extended with hand | Left arm visible but secondary | Fingers wrap brush handle; brush broadside remains compact |
 | Back | Character-right | Viewer-right | Right arm/hand follows same reach | Left arm secondary/partly occluded | Same brush; rear placement reverses |
-| Left profile | Character-right, far-side | Far side | Left arm is near-side | Right arm/far hand occluded | Brush hidden |
-| Right profile | Character-right, near-side | Near side | Right arm, wrist and grip visible | Left/far arm occluded | Brush meets palm; no floating tip or detached handle |
+| Left profile | Character-right, near-side | Near side | Right arm/wrist/grip visible | Left/far arm occluded | Brush contacts right palm; handle and bristles form one supported object |
+| Right profile | Character-right, far-side | Far side | Left arm is near-side | Right/far arm occluded | Brush hidden |
 
 **Roster comparisons:** Cook, Welder, Busker, Hacker, Sailor and Slicker. Compare garment cut, sleeve construction, reach angle, head/jaw geometry and arm negative space. Cook's apron/pan, Welder's protective mask/gear, Busker's performer stance and Hacker's cropped drape are not templates.
 
