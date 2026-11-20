@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120">
+<title>Guard, Vendor and Clinic Worker — four-view black silhouette exploration</title>
+<desc>Design-stage black silhouettes, front, back, left and right, at matched scale. Not production art.</desc>
+<rect width="1600" height="1120" fill="#f1f0eb"/>
+<style>
+.h{font:700 30px sans-serif;fill:#202020}.sub{font:16px sans-serif;fill:#555}.v{font:700 15px sans-serif;fill:#666;letter-spacing:2px}.name{font:700 22px sans-serif;fill:#222}
+.s{fill:#101010;stroke:none}
+.rule{stroke:#d0cec7;stroke-width:2}
+</style>
+<text x="48" y="52" class="h">VAPOR CITY / CIVILIAN SILHOUETTE EXPLORATION</text>
+<text x="48" y="82" class="sub">Batch 1 · Guard / Vendor / Clinic Worker · black construction only · matched four-view study · 2026-11-20</text>
+<line x1="48" y1="108" x2="1552" y2="108" class="rule"/>
+<defs>
+<!-- GUARD: low protective helmet, squared shoulder armour, short belted overshirt, planted boots -->
+<g id="guard-front" class="s">
+<path d="M23 9 Q23 3 31 2 Q41 2 43 8 L44 13 L48 15 L46 19 L42 19 L41 25 Q39 28 32 28 Q25 27 23 23 L22 18 L17 17 L18 13 L23 12Z"/>
+<path d="M20 9 Q21 2 32 1 Q44 1 46 8 L47 12 L42 13 L41 9 Q32 6 24 10 L23 14 L18 13Z"/>
+<path d="M23 27 L16 29 L10 35 L13 43 L19 42 L20 51 L17 69 L20 73 L28 73 L31 54 L34 54 L37 73 L46 73 L49 69 L46 51 L45 42 L51 43 L55 35 L48 29 L41 27 L38 31 L26 31Z"/>
+<path d="M18 30 L10 34 L7 47 L12 50 L17 42 L22 37Z M47 30 L55 34 L58 47 L53 50 L48 42 L43 37Z"/>
+<path d="M25 31 L32 35 L39 31 L42 50 L32 54 L22 50Z"/>
+<path d="M19 49 L45 49 L45 55 L19 55Z M20 55 L44 55 L43 63 L21 63Z"/>
+<path d="M20 62 L30 63 L29 83 L27 89 L13 90 L11 87 L15 82 L17 66Z M34 63 L44 62 L47 66 L49 82 L53 87 L51 90 L37 90 L35 84Z"/>
+<path d="M13 86 L27 86 L28 92 L26 94 L8 94 L7 91 L10 88Z M37 86 L51 86 L54 89 L57 92 L55 94 L37 94 L36 91Z"/>
+<path d="M10 37 L17 36 L18 49 L14 55 L8 52Z"/>
+<path d="M49 37 L56 36 L58 52 L52 55 L48 49Z"/>
+</g>
+<g id="guard-back" class="s">
+<path d="M23 9 Q23 3 32 2 Q42 2 44 9 L44 18 Q42 27 33 28 Q24 27 22 18Z"/>
+<path d="M18 9 Q20 1 32 1 Q45 1 47 9 L47 15 L43 17 L42 10 Q32 6 23 10 L22 17 L18 15Z"/>
+<path d="M23 27 L16 29 L10 35 L13 44 L19 42 L20 51 L17 69 L20 73 L28 73 L31 54 L34 54 L37 73 L46 73 L49 69 L46 51 L45 42 L51 44 L55 35 L48 29 L41 27 L38 31 L26 31Z"/>
+<path d="M17 31 L9 36 L13 49 L19 45 L23 37Z M47 31 L55 36 L51 49 L45 45 L41 37Z"/>
+<path d="M24 32 L40 32 L43 48 L32 56 L21 48Z"/>
+<path d="M20 49 L44 49 L45 56 L19 56Z M20 56 L44 56 L43 63 L21 63Z"/>
+<path d="M20 62 L30 63 L29 83 L27 89 L13 90 L11 87 L15 82 L17 66Z M34 63 L44 62 L47 66 L49 82 L53 87 L51 90 L37 90 L35 84Z"/>
+<path d="M13 86 L27 86 L28 92 L26 94 L8 94 L7 91 L10 88Z M37 86 L51 86 L54 89 L57 92 L55 94 L37 94 L36 91Z"/>
+</g>
+<g id="guard-profile" class="s">
+<path d="M25 8 Q26 2 35 3 Q43 5 42 14 L39 19 L39 25 Q36 29 30 28 L25 24 L24 18 L17 16 L18 12 L25 12Z"/>
+<path d="M23 8 Q25 1 35 2 Q44 3 45 10 L42 13 L25 13 L19 15 L17 12Z"/>
+<path d="M27 27 L19 30 L15 38 L18 49 L20 55 L18 70 L22 74 L30 73 L32 53 L38 48 L42 37 L39 29 L34 27Z"/>
+<path d="M20 32 L13 38 L10 51 L15 54 L22 44 L26 37Z"/>
+<path d="M34 30 L42 34 L47 45 L44 50 L38 43Z"/>
+<path d="M23 31 L38 31 L42 49 L30 55 L21 49Z M20 50 L40 50 L39 57 L20 57Z"/>
+<path d="M21 57 L31 58 L30 82 L27 89 L14 90 L12 87 L17 81 L17 64Z M32 58 L41 56 L43 65 L45 82 L50 87 L48 90 L34 90 L31 84Z"/>
+<path d="M14 86 L28 86 L29 92 L27 94 L9 94 L8 91 L11 88Z M35 86 L49 86 L53 91 L51 94 L34 94 L33 91Z"/>
+<path d="M18 38 L25 36 L27 49 L22 55 L16 52Z"/>
+</g>
+
+<!-- VENDOR: sloped soft cap, open vest negative-space, rolled sleeves, narrow offset sash, shallow tray -->
+<g id="vendor-front" class="s">
+<path d="M23 13 Q23 5 32 5 Q41 5 42 14 L41 22 Q39 28 32 28 Q25 27 23 21Z"/>
+<path d="M21 12 Q23 4 33 3 Q42 4 44 11 L47 14 Q39 16 31 13 L21 16Z"/>
+<path d="M23 27 L17 30 L12 38 L16 47 L21 44 L22 53 L18 68 L21 73 L29 73 L32 54 L35 54 L38 73 L46 73 L49 68 L45 52 L45 43 L50 46 L55 39 L49 31 L41 28 L38 32 L26 32Z"/>
+<path d="M20 32 L15 38 L19 49 L24 46 L25 39Z M46 32 L52 37 L56 48 L51 51 L46 43Z"/>
+<path d="M25 31 L31 34 L32 50 L25 53 L22 43Z M39 31 L33 34 L33 50 L40 53 L43 43Z"/>
+<path d="M31 34 L33 34 L35 52 L31 52Z"/>
+<path d="M23 51 Q32 54 42 50 L43 57 Q32 61 22 57Z"/>
+<path d="M36 54 L44 55 L42 66 L34 64Z"/>
+<path d="M21 61 L30 63 L29 83 L26 89 L13 90 L11 87 L15 82 L17 66Z M35 63 L44 61 L47 66 L49 82 L53 87 L51 90 L37 90 L35 84Z"/>
+<path d="M13 86 L27 86 L28 92 L26 94 L8 94 L7 91 L10 88Z M37 86 L51 86 L54 89 L57 92 L55 94 L37 94 L36 91Z"/>
+<!-- shallow tray close to waist; hand visibly supports underside -->
+<path d="M43 46 L57 45 L60 48 L58 52 L44 53Z M46 53 L56 53 L55 57 L47 57Z"/>
+<path d="M50 42 Q53 40 55 43 L56 47 L52 49 L49 46Z"/>
+</g>
+<g id="vendor-back" class="s">
+<path d="M23 13 Q23 5 32 5 Q41 5 42 14 L41 22 Q39 28 32 28 Q25 27 23 21Z"/>
+<path d="M21 12 Q23 4 33 3 Q42 4 44 11 L47 14 Q39 16 31 13 L21 16Z"/>
+<path d="M23 27 L17 30 L12 38 L16 47 L21 44 L22 53 L18 68 L21 73 L29 73 L32 54 L35 54 L38 73 L46 73 L49 68 L45 52 L45 43 L50 46 L55 39 L49 31 L41 28 L38 32 L26 32Z"/>
+<path d="M20 32 L14 39 L19 50 L24 45 L25 37Z M46 32 L52 39 L47 50 L42 45 L41 37Z"/>
+<path d="M24 32 L40 32 L42 50 L32 55 L22 50Z"/>
+<path d="M21 50 Q32 55 43 50 L43 58 Q32 62 21 58Z"/>
+<path d="M26 58 L38 58 L36 67 L29 67Z M30 65 L34 65 L35 72 L31 75 L28 72Z"/>
+<path d="M21 61 L30 63 L29 83 L26 89 L13 90 L11 87 L15 82 L17 66Z M35 63 L44 61 L47 66 L49 82 L53 87 L51 90 L37 90 L35 84Z"/>
+<path d="M13 86 L27 86 L28 92 L26 94 L8 94 L7 91 L10 88Z M37 86 L51 86 L54 89 L57 92 L55 94 L37 94 L36 91Z"/>
+</g>
+<g id="vendor-profile" class="s">
+<path d="M25 13 Q25 5 34 5 Q42 6 42 15 L39 21 Q36 28 30 27 L25 22Z"/>
+<path d="M23 12 Q25 4 35 4 Q43 6 45 12 L50 15 Q39 17 31 13 L22 16Z"/>
+<path d="M27 27 L19 30 L15 38 L18 49 L22 53 L20 68 L23 73 L31 73 L33 53 L38 48 L42 37 L39 29 L34 27Z"/>
+<path d="M20 32 L13 39 L15 51 L21 53 L25 43Z M35 31 L43 34 L48 45 L44 49 L38 42Z"/>
+<path d="M24 31 L39 31 L42 49 L30 54 L21 49Z M24 50 Q32 54 41 50 L42 57 L23 57Z"/>
+<path d="M24 57 L32 58 L30 82 L27 89 L14 90 L12 87 L17 81 L17 64Z M33 57 L42 56 L44 65 L46 82 L51 87 L49 90 L35 90 L32 84Z"/>
+<path d="M14 86 L28 86 L29 92 L27 94 L9 94 L8 91 L11 88Z M36 86 L50 86 L54 91 L52 94 L35 94 L34 91Z"/>
+<path d="M41 45 L57 45 L60 49 L57 52 L42 52Z M45 52 L56 52 L55 56 L46 56Z"/>
+<path d="M48 41 Q52 39 54 43 L55 47 L51 49 L47 46Z"/>
+</g>
+
+<!-- CLINIC: swept gathered hair with low bun, short asymmetric wrap tunic, visible trousers, hip care pouch -->
+<g id="clinic-front" class="s">
+<path d="M23 12 Q24 4 32 4 Q41 4 42 13 L41 22 Q39 28 32 28 Q25 27 23 21Z"/>
+<path d="M22 12 Q23 4 31 3 Q40 2 44 9 L42 13 Q37 8 30 10 L24 16 L20 15Z"/>
+<path d="M40 8 Q47 7 47 13 Q47 18 42 19 L39 16Z"/>
+<path d="M23 27 L17 30 L12 39 L16 47 L21 44 L22 53 L18 69 L21 73 L29 73 L32 54 L35 54 L38 73 L46 73 L49 69 L45 52 L45 43 L50 46 L55 39 L49 31 L41 28 L38 32 L26 32Z"/>
+<path d="M20 32 L14 39 L18 50 L23 46 L25 38Z M46 32 L52 38 L56 49 L51 52 L46 43Z"/>
+<path d="M24 31 L41 31 L43 52 Q38 57 32 58 L21 54 L22 43Z"/>
+<path d="M39 32 L33 43 L42 53 L45 49 L42 39Z"/>
+<path d="M21 52 Q32 58 43 52 L42 61 Q31 65 20 59Z"/>
+<path d="M43 55 L52 56 L53 66 L44 68 L41 63Z"/>
+<path d="M21 61 L30 63 L29 83 L26 89 L13 90 L11 87 L15 82 L17 66Z M35 63 L44 61 L47 66 L49 82 L53 87 L51 90 L37 90 L35 84Z"/>
+<path d="M13 86 L27 86 L28 92 L26 94 L8 94 L7 91 L10 88Z M37 86 L51 86 L54 89 L57 92 L55 94 L37 94 L36 91Z"/>
+</g>
+<g id="clinic-back" class="s">
+<path d="M23 12 Q24 4 32 4 Q41 4 42 13 L41 22 Q39 28 32 28 Q25 27 23 21Z"/>
+<path d="M22 12 Q23 4 31 3 Q40 2 44 9 L42 13 Q37 8 30 10 L24 16 L20 15Z"/>
+<path d="M41 13 Q50 12 50 20 Q49 27 42 27 Q37 24 39 18Z"/>
+<path d="M23 27 L17 30 L12 39 L16 47 L21 44 L22 53 L18 69 L21 73 L29 73 L32 54 L35 54 L38 73 L46 73 L49 69 L45 52 L45 43 L50 46 L55 39 L49 31 L41 28 L38 32 L26 32Z"/>
+<path d="M20 32 L14 39 L18 50 L23 46 L25 38Z M46 32 L52 38 L56 49 L51 52 L46 43Z"/>
+<path d="M24 32 L40 32 L43 53 Q32 59 21 53Z"/>
+<path d="M21 53 Q32 59 43 53 L42 62 Q32 66 20 60Z"/>
+<path d="M43 55 L52 56 L53 66 L44 68 L41 63Z"/>
+<path d="M21 61 L30 63 L29 83 L26 89 L13 90 L11 87 L15 82 L17 66Z M35 63 L44 61 L47 66 L49 82 L53 87 L51 90 L37 90 L35 84Z"/>
+<path d="M13 86 L27 86 L28 92 L26 94 L8 94 L7 91 L10 88Z M37 86 L51 86 L54 89 L57 92 L55 94 L37 94 L36 91Z"/>
+</g>
+<g id="clinic-profile" class="s">
+<path d="M25 12 Q25 4 34 4 Q42 5 42 14 L39 21 Q36 28 30 27 L25 22Z"/>
+<path d="M23 12 Q24 4 33 3 Q42 2 45 9 L42 13 Q36 8 29 11 L24 16 L20 15Z"/>
+<path d="M39 11 Q48 9 49 17 Q48 25 41 26 L37 20Z"/>
+<path d="M27 27 L19 30 L15 39 L18 49 L22 53 L20 69 L23 73 L31 73 L33 53 L38 48 L42 37 L39 29 L34 27Z"/>
+<path d="M20 32 L13 39 L15 51 L21 53 L25 43Z M35 31 L43 35 L48 46 L44 50 L38 42Z"/>
+<path d="M24 31 L40 31 L42 52 Q32 57 21 52Z M37 33 L32 44 L42 52 L45 48Z"/>
+<path d="M22 52 Q32 57 42 52 L41 61 Q31 64 21 59Z"/>
+<path d="M42 55 L51 56 L52 66 L44 68 L41 63Z"/>
+<path d="M24 61 L32 62 L30 82 L27 89 L14 90 L12 87 L17 81 L17 65Z M33 62 L42 60 L44 65 L46 82 L51 87 L49 90 L35 90 L32 84Z"/>
+<path d="M14 86 L28 86 L29 92 L27 94 L9 94 L8 91 L11 88Z M36 86 L50 86 L54 91 L52 94 L35 94 L34 91Z"/>
+</g>
+</defs>
+<!-- rows -->
+<g transform="translate(50 142)">
+<text x="0" y="0" class="name">01 / GUARD</text><text x="0" y="26" class="sub">Protective overshirt · planted stance · low helmet</text>
+<g transform="translate(105 42) scale(2.65)"><use href="#guard-front"/></g>
+<g transform="translate(365 42) scale(2.65)"><use href="#guard-back"/></g>
+<g transform="translate(625 42) scale(2.65)"><use href="#guard-profile"/></g>
+<g transform="translate(885 42) scale(-2.65 2.65)"><use href="#guard-profile"/></g>
+<text x="145" y="310" class="v">FRONT</text><text x="405" y="310" class="v">BACK</text><text x="665" y="310" class="v">LEFT</text><text x="925" y="310" class="v">RIGHT</text>
+</g>
+<line x1="48" y1="490" x2="1552" y2="490" class="rule"/>
+<g transform="translate(50 520)">
+<text x="0" y="0" class="name">02 / VENDOR</text><text x="0" y="26" class="sub">Sloped market cap · open vest · narrow sash · shallow tray</text>
+<g transform="translate(105 42) scale(2.65)"><use href="#vendor-front"/></g>
+<g transform="translate(365 42) scale(2.65)"><use href="#vendor-back"/></g>
+<g transform="translate(625 42) scale(2.65)"><use href="#vendor-profile"/></g>
+<g transform="translate(885 42) scale(-2.65 2.65)"><use href="#vendor-profile"/></g>
+<text x="145" y="310" class="v">FRONT</text><text x="405" y="310" class="v">BACK</text><text x="665" y="310" class="v">LEFT</text><text x="925" y="310" class="v">RIGHT</text>
+</g>
+<line x1="48" y1="868" x2="1552" y2="868" class="rule"/>
+<g transform="translate(50 898)">
+<text x="0" y="0" class="name">03 / CLINIC WORKER</text><text x="0" y="26" class="sub">Swept-back gathered hair · short wrap tunic · hip care pouch</text>
+<g transform="translate(105 42) scale(2.65)"><use href="#clinic-front"/></g>
+<g transform="translate(365 42) scale(2.65)"><use href="#clinic-back"/></g>
+<g transform="translate(625 42) scale(2.65)"><use href="#clinic-profile"/></g>
+<g transform="translate(885 42) scale(-2.65 2.65)"><use href="#clinic-profile"/></g>
+<text x="145" y="310" class="v">FRONT</text><text x="405" y="310" class="v">BACK</text><text x="665" y="310" class="v">LEFT</text><text x="925" y="310" class="v">RIGHT</text>
+</g>
+</svg>
