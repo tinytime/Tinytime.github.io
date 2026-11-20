@@ -36,3 +36,9 @@ ChatGPT implemented that focused pass in `npc_sprites.js` commit `6a1fd2a4fbad50
 - Silhouette diagnostics are review prompts only: maximum full-character IoU 0.9065 (back Coach/Guard); 0.85 remains a human-review trigger, not a gate. Preserve previously accepted distinctions/exceptions and do not redesign solely to chase overlap values.
 - Global blockers: unapproved golden snapshot baseline (1 match / 23 changed, no missing) and 180 existing audio/resource HTTP 404 console errors across 46 URL entries. No golden snapshots or provenance changed.
 - Next: Claude independently reviews the exact Run #628 artifact/commit, especially Vendor profile facial marks at both scales and preservation of tray/hand, Guard and Clinic details. Then owner makes explicit final decision. The three-character batch is not approved complete; remaining 17 stay on hold.
+
+## Guard, Vendor and Clinic — Run #629 (2026-11-20)
+
+- Renderer commit `2bc1629edd82afc1a50ac7a4ab882b428dbd0c32` received fresh QA: [Run #629](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700724613), artifact [14613105475](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700724613/artifacts/14613105475). Overall Actions failed on global browser diagnostics (unapproved golden snapshots and existing audio/resource 404s); targeted vector checks pass.
+- Internal inspection confirms Vendor profile eye is now legible in left/right native 64×96 and direct 28×42 captures. Guard and Clinic profile details retained. Capture audit 12/12 at both scales, directional integrity 92/92, zero edge contacts/detached components, face uniqueness 23/23 at both scales, prop/gallery/town checks pass.
+- Claude independent review of Run #629 and owner approval remain pending. Do not start remaining 17 civilians or modify golden snapshots.
