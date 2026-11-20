@@ -198,7 +198,7 @@ try {
           const px=gap+col*(cellW+gap),labelY=py+headH;
           const im=new Image();im.src=images[col];await im.decode();
           x.fillStyle='#fff';x.font=scale===1?'bold 6px sans-serif':'bold 10px sans-serif';
-          const label=col===0?'NEW':col===1?'REF A':'REF B';
+          const label=col===0?'NEW':row.candidates[col-1].toUpperCase();
           x.fillText(label,px,labelY+8*scale);
           x.drawImage(im,px,labelY+labelH,cellW,cellH);
         }
