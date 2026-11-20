@@ -17,6 +17,7 @@ concurrency:
       - 'VaporCity_HD2D_Hybrid_Test.html'
       - 'npc_sprites.js'
       - 'qa/**'
+      - 'project-background/qa-artifacts/fourth-civilian-batch/**'
       - '.github/workflows/vapor-city-browser-qa.yml'
 
 jobs:
