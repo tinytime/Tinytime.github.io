@@ -1733,10 +1733,15 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[42,52],[54,55],[61,66],[56,72],[43,66]],plate,ink,1.1);
         line([[42,73],[61,73]],'#718294',1);
         // Near-side arm bends forward into a single bracer, with no far arm.
-        path([[41,55],[49,56],[51,68],[59,75],[64,72],[68,78],[62,85],[52,83],[45,75]],shell,ink,1.4);
-        path([[59,72],[68,72],[72,80],[67,86],[58,82]],'#8797A5',ink,1.3);
-        line([[60,76],[69,78]],'#B38B50',1.7);
-        path([[63,81],[69,79],[73,83],[70,88],[64,87]],skin,ink,1);
+        if(dir==='l'){
+          path([[41,55],[49,56],[51,68],[59,75],[64,72],[68,78],[62,85],[52,83],[45,75]],shell,ink,1.4);
+          path([[59,72],[68,72],[72,80],[67,86],[58,82]],'#8797A5',ink,1.3);
+          line([[60,76],[69,78]],'#B38B50',1.7);
+          path([[63,81],[69,79],[73,83],[70,88],[64,87]],skin,ink,1);
+        }else{
+          // Far-side bent arm is occluded by the torso in the right profile.
+          path([[43,55],[50,56],[53,66],[51,76],[45,80],[40,74]],shell,ink,1.2);
+        }
       }else{
         path([[38,55],[49,50],[62,53],[66,65],[62,73],[40,73]],'#2B3A4B',ink,1.2);
         line([[41,68],[63,68]],'#718294',1);
@@ -1862,11 +1867,17 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[39,55],[48,53],[52,72],[43,93],[31,98],[29,82]],vest,ink,1.3);
         path([[55,55],[65,60],[67,91],[57,97],[50,73]],vest,ink,1.3);
         line([[63,57],[57,71],[47,91]],'#D8A247',3.5);
-        // Near arm bends forward; wrist and palm support the tray underside.
-        path([[61,57],[69,62],[77,75],[84,80],[90,78],[93,84],[86,89],[76,86],[68,75]],vest,ink,1.3);
-        path([[82,80],[90,78],[95,81],[94,86],[87,89],[81,86]],skin,ink,1);
-        path([[85,75],[98,75],[99,79],[97,82],[84,82]],'#D6C7A7',ink,1.3);
-        line([[86,78],[97,78]],'#8D735B',1);
+        if(dir==='l'){
+          // Near arm bends forward; wrist and palm support the tray underside.
+          path([[61,57],[69,62],[77,75],[84,80],[90,78],[93,84],[86,89],[76,86],[68,75]],vest,ink,1.3);
+          path([[82,80],[90,78],[95,81],[94,86],[87,89],[81,86]],skin,ink,1);
+          path([[85,75],[98,75],[99,79],[97,82],[84,82]],'#D6C7A7',ink,1.3);
+          line([[86,78],[97,78]],'#8D735B',1);
+        }else{
+          // Far-side tray and hand are hidden behind the torso; only the
+          // shoulder/upper-arm pitch remains visible at the rear contour.
+          path([[61,57],[68,61],[72,73],[68,81],[63,77]],vest,ink,1.2);
+        }
       }else{
         path([[39,56],[49,51],[64,56],[68,70],[62,96],[31,98]],'#38263A',ink,1.3);
         line([[43,58],[48,77],[38,95]],'#D8A247',2.6);
@@ -1974,7 +1985,7 @@ function drawUsherVector(n, dir, ctx, OWT, opts) {
         path([[44,52],[55,55],[59,68],[51,80],[38,91],[33,86]],'#DDE9DE',ink,1.1);
         line([[46,57],[55,73],[39,92]],plum,2);
         path([[35,91],[64,90],[69,101],[30,102]],'#285D5B',ink,1.1);
-        if(dir==='r'){
+        if(dir==='l'){
           // Near-side character-left pouch is behind the torso edge in this view.
           path([[30,80],[40,80],[42,92],[37,98],[27,97],[25,89]],plum,ink,1.1);
         }
