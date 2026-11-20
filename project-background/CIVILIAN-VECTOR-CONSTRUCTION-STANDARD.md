@@ -1,3 +1,9 @@
+## Fourth-batch authorization clarification — parallel design stage only (2026-11-20)
+
+The owner explicitly authorized Sailor (#12), Slicker (#13) and Painter (#14) to be developed simultaneously through identity refinement, four-view silhouette exploration and construction cards. This is a task authorization, not a change to the ratified normative standard or its eight-stage pipeline. The prior Sailor-only authorization notes are superseded for current execution. All three families remain UNASSIGNED pending each character's own owner silhouette/construction approval. Production renderer work is not authorized.
+
+Current preliminary evidence is linked from [the fourth-batch preflight](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-PREFLIGHT.md), [parallel silhouette study](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-02.svg) and [construction cards/report](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-01.md). Face-crop and scale evidence remain outstanding; no approval is implied.
+
 ## Fourth-batch owner authorization — Sailor silhouette exploration only (2026-11-20)
 
 The owner approved the refined role directions for Sailor (#12), Slicker (#13) and Painter (#14), and authorized Sailor silhouette exploration only. The exploration must follow the body-only plus prop-on four-view evidence method, evidence-based comparison against the two closest actual roster faces before selecting new face cues, and anatomy-before-props construction with four-view contact/handedness documentation. Compare Sailor against Clinic first, then Coach, Guard and Fisher at matched scale. These are human-review comparisons, not numeric gates.
