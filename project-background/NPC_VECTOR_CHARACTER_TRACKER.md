@@ -5,17 +5,23 @@
 - **Five-character approval:** Usher, Cook, Courier, Coach and Referee are owner-approved and complete following Claude Run #603. Preserve their accepted/deferred dispositions; no renderer changes without renewed owner authorization.
 - **Run #603 provenance:** renderer `2c00cfca09cc12ea19a72662c235beed2e9a19cb`; [Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/44658311124), artifact 14593339734. Targeted checks passed; overall Actions failed on snapshots 1/23 changed and 180 existing audio 404s. No golden snapshots refreshed or approved.
 - **Construction standard:** ratified by the owner on 2026-11-19; it governs future civilian production.
-- **Next batch:** Guard, Vendor and Clinic worker. Draft briefs, the shell-family register and the [owner preflight proposal](qa-artifacts/next-civilian-batch/OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md) are prepared. The owner approved all three written directions on 2026-11-20. NPC Designer's first four-view black silhouette exploration and construction cards are committed for owner review; renderer implementation remains on hold until the owner reviews and approves those actual silhouettes.
+- **Next batch:** Guard, Vendor and Clinic worker. Draft briefs, the shell-family register and the [owner preflight proposal](qa-artifacts/next-civilian-batch/OWNER-PREFLIGHT-GUARD-VENDOR-CLINIC-WORKER.md) are prepared. The owner approved all three written directions on 2026-11-20. NPC Designer's first exploration was returned for revision. Revision 02 four-view silhouettes, face studies, 28×42 exploratory downsamplings, roster comparison and construction cards are committed for owner review; renderer implementation remains on hold pending approval of the revised silhouettes.
 - **Runner:** built but excluded from Run #603; pending focused review and owner decision.
 - **Remaining unstarted roster:** remains ON HOLD for renderer production pending character-specific owner-approved silhouette/brief preflight.
 
-## Guard / Vendor / Clinic Worker silhouette exploration — 2026-11-20
+## Guard / Vendor / Clinic Worker silhouette revision 02 — 2026-11-20
 
-- **Design artifacts committed:** [four-view black silhouette SVG](qa-artifacts/next-civilian-batch/GUARD-VENDOR-CLINIC-SILHOUETTE-EXPLORATION.svg) and [three construction cards](qa-artifacts/next-civilian-batch/GUARD-VENDOR-CLINIC-CONSTRUCTION-CARDS.md).
-- Each character has front, back, left and right profile silhouettes on a shared 64×96 construction basis. The cards document personality, garment/head construction, face geometry, exactly three must-survive items (including the 28×42 head-read cue), handedness, prop/contact logic, simplification and closest roster comparisons.
-- **Design-only status:** first exploration is ready for owner silhouette review; it is not production vector art or renderer implementation. No code, game files, golden snapshots or existing approved character art changed. No character is marked complete or approved.
-- **Open visual checks for owner review:** confirm Guard's helmet/shoulder mass, Vendor's tray support and open-vest negative space, and Clinic Worker's low hair gather/short wrap tunic remain distinct at the intended game scale. The current SVG is a construction exploration, not a captured 28×42 game render.
-- **Next gate:** revise silhouettes if requested; only explicit owner approval of the actual silhouettes unlocks renderer production, one character at a time.
+- **Review disposition:** the first exploration was returned for revision before renderer production. The review identified shared mannequin construction, weak Guard equipment silhouette, unreadable Vendor vest opening/pose/contact, insufficient Clinic wrap/stance separation, and missing face/comparison/shell-family/reduction evidence.
+- **Revision 02 deliverables:** [four-view silhouette and face-study sheet](qa-artifacts/next-civilian-batch/GUARD-VENDOR-CLINIC-SILHOUETTE-REVISION-02.svg), [matched roster comparison sheet](qa-artifacts/next-civilian-batch/GUARD-VENDOR-CLINIC-ROSTER-COMPARISON-REVISION-02.svg), and [revised construction cards](qa-artifacts/next-civilian-batch/GUARD-VENDOR-CLINIC-CONSTRUCTION-CARDS-REVISION-02.md).
+- **Construction changes:** Guard now has a broader protective wedge, braced character-right forearm and offset bent-knee stance; Vendor has a forward customer lean, advanced foot, open-waistcoat negative space and connected tray support; Clinic Worker has a tapered wrap tunic, shifted hip, angled feet and separated pouch/hand relationship.
+- **Evidence:** the comparison sheet uses actual 64×96 alpha silhouettes from Run #603 for Granny (body-only benchmark), the five owner-approved civilians and Runner, plus the three proposed front silhouettes. The four-view sheet adds face construction studies and 28×42 raster downsamplings from the design silhouettes.
+- **Shell-family proposals:** Guard — protective wedge / articulated braced stance; Vendor — forward-leaning stall-service / tray-presenting stance; Clinic Worker — tapered wrap tunic / offset-hip stance. All remain proposals pending owner approval.
+- **Status:** revision 02 is a design exploration only. It has not been rendered through the game, direct 28×42 renderer captures do not exist, and prop contacts are not renderer-verified. No renderer/game code, production colour art, QA baselines or golden snapshots changed. No character is approved or complete.
+- **Next gate:** owner review of the actual revision 02 four-view silhouettes. Do not begin renderer implementation until explicit owner approval.
+
+## Guard / Vendor / Clinic Worker silhouette exploration — revision 01 history
+
+The initial exploration and cards remain in Git history as the first submission. They were returned for revision and are superseded by revision 02 for current review.
 
 ## Claude independent re-review — Run #600 (2026-11-20)
 
