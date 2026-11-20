@@ -29,9 +29,9 @@
 <g transform="translate(54 180)">
  <g transform="translate(0 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">FRONT</text><g id="hacker-front-art" transform="translate(72 38) scale(2.4 2.4)">
   <use href="#hFront" class="hbody ink"/>
-  <path d="M18 24 L10 34 9 58 14 66 20 60 21 42 26 33Z" class="hshell ink"/>
+  <path d="M18 24 L13 34 12 47 16 52 19 43 24 33Z" class="hshell ink"/><path d="M16 45 L21 46 19 56 16 62 11 64 9 59 13 53Z" class="hskin ink"/>
   <path d="M25 21 L20 26 19 39 23 43 27 36 28 48 25 62 30 65 35 55 37 47 40 48 42 62 47 64 50 60 46 43 46 29 40 22 33 20Z" class="hbase ink"/>
-  <path d="M25 23 Q34 18 42 24 L45 39 39 47 29 45 24 36Z" class="hshell ink"/>
+  <path d="M27 24 Q34 20 40 24 L41 36 37 44 30 43 26 36Z" class="hshell ink"/>
   <path d="M27 10 Q34 7 40 11 L41 15 36 20 31 19 27 15Z" class="hskin ink"/>
   <path d="M24 11 L29 6 33 8 38 5 43 11 39 12 35 10 31 13 27 13Z" class="hdeep ink"/>
   <path d="M28 12 L32 11 M35 12 L40 13" stroke="#34313c" stroke-width="1.2" fill="none"/>
@@ -59,10 +59,12 @@
  </g></g>
  <g transform="translate(504 0)"><rect class="panel" width="240" height="310" rx="10"/><text x="16" y="24" class="dir">LEFT PROFILE</text><g id="hacker-left-art" transform="translate(72 38) scale(2.4 2.4)">
   <use href="#hLeft" class="hbody ink"/>
-  <path d="M27 21 L22 27 21 40 25 44 28 37 29 49 26 63 31 66 37 56 39 48 43 48 46 62 51 63 53 58 48 43 47 29 41 22 34 20Z" class="hshell ink"/>
+  <path d="M29 22 L24 29 23 40 26 44 29 38 31 49 28 62 34 65 39 56 41 48 44 48 47 62 52 63 54 58 49 43 48 29 42 22 35 20Z" class="hshell ink"/>
   <path d="M29 9 Q36 5 43 12 L42 20 35 23 28 19Z" class="hskin ink"/>
-  <path d="M25 12 L31 7 37 8 40 12 34 13 30 17 26 16Z" class="hdeep ink"/>
+  <path d="M25 12 L31 7 37 8 40 12 37 14 35 17 32 16 29 18 26 16Z" class="hdeep ink"/>
+  <path d="M35 14 L38 16 36 19 33 17Z" class="hskin ink"/>
   <path d="M32 15 L36 15" stroke="#24232b" stroke-width="1.4"/>
+  <circle cx="42" cy="18" r="1.8" fill="#8f9eb0" stroke="#171a20" stroke-width="0.8"/>
   <path d="M34 17 L38 18 35 19" stroke="#a36f62" stroke-width="1" fill="none"/>
 
  </g></g>
@@ -118,10 +120,9 @@
   <path d="M18 26 L8 34 5 52 12 58 18 46 20 58 12 76 9 84 22 88 31 78 33 61 40 61 44 79 55 88 63 83 58 69 51 51 50 34 43 27 32 26 25 30Z" class="fshell ink"/>
   <path d="M22 12 Q29 6 39 10 L43 17 40 23 22 23 18 17Z" class="fdeep ink"/>
   <path d="M20 15 Q30 8 41 15 L40 23 22 23Z" class="flight ink"/>
-  <path d="M14 30 L52 30 57 49 48 56 17 56 7 48Z" class="fdeep ink"/>
+  <path d="M14 30 L52 30 57 49 48 56 17 56 7 48Z" class="fshell ink"/>
   <path d="M9 32 Q32 29 54 32 M14 49 Q32 54 51 49" class="fline"/>
-  <path d="M30 56 L35 56 34 78 29 78Z" class="fcanvas ink"/>
-  <path d="M22 79 L32 80 30 86 20 86Z" class="fcanvas"/>
+  <path d="M14 48 Q32 53 51 48" fill="none" stroke="#72502F" stroke-width="2.2" stroke-linecap="round"/>
   <!-- Character-left is viewer-left from the rear: one basket rim and one grip. -->
   <path d="M4 62 L17 61 19 73 7 77 2 71Z" class="fprop ink"/>
   <path d="M4 64 Q10 60 16 64 L17 71 7 74Z" fill="none" stroke="#d1b98c" stroke-width="1.2"/>
@@ -150,8 +151,9 @@
   <path d="M29 18 L36 17 40 20 35 23 29 22Z" class="fskin ink"/>
   <path d="M34 19 L38 19" stroke="#282321" stroke-width="1.2"/>
   <path d="M37 20 L41 22 37 23" stroke="#8d6253" stroke-width="1" fill="none"/>
-  <path d="M40 54 L49 51 56 59 55 70 47 74 41 66Z" class="fdeep ink"/>
-  <path d="M43 59 Q48 56 52 61 L51 67" fill="none" stroke="#d4c4a4" stroke-width="1.2"/>
+  <path d="M40 54 L49 51 56 59 55 70 47 74 41 66Z" class="fshell ink"/>
+  <path d="M42 57 Q48 54 53 60 L52 67" fill="none" stroke="#72502F" stroke-width="1.6"/>
+  <path d="M43 62 L51 68" fill="none" stroke="#d7b47a" stroke-width="1"/>
  </g></g>
 </g>
 <text x="1100" y="655" class="note">Three must-survive cues</text>
