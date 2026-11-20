@@ -27,36 +27,25 @@ Run #601 ([Actions](https://github.com/tinytime/Tinytime.github.io/actions/runs/
 
 This section records process changes made after the first draft. Where an earlier section or dated historical note conflicts with this addendum, follow this addendum for current work. Historical notes are retained as history, not as current status.
 
-### Current build-and-measure sequence
+### Current operating loop
 
-1. **Start from GitHub, not a remembered handoff.** Verify the active branch and head SHA; read `project-background/README.md`, this standard, the art-direction/technical/QA documents, the live tracker, the six-civilian audit, and the semantic annotation guide. Inspect the current renderer and latest relevant Actions run before editing.
-2. **Define identity before geometry.** Write the character identity brief and four-direction silhouette concept. The design must be original; Granny is a quality benchmark, never a template.
-3. **Create the per-character proportion card.** Declare pose class (standing, dynamic/airborne, seated, etc.), anatomical landmarks, intentional asymmetries/handedness, body bounds, headwear/prop bounds, and exceptions. Do not copy Granny's measurements by default.
-4. **Construct all four views.** Build silhouette and anatomy before garment detail, face polish, palette and lighting. Side profiles normally show one near arm; dynamic poses must read as static sprites as well as in motion.
-5. **Capture actual renderer output.** Preserve the distinction between native 64×96 captures, direct in-game 28×42 captures, enlarged nearest-neighbour inspection sheets, role-debug/layer evidence, and derived resamples. Never describe a derived resample as a direct game-scale capture.
-6. **Annotate anatomy separately from accessories.** Use `qa/civilian-anatomy-landmarks.json` and `qa/CIVILIAN-ANATOMY-ANNOTATION-GUIDE.md`. For each direction, define the anatomical body polygon, head top/chin, shoulder landmarks/row, pelvis row and foot baseline. Define headwear and prop exclusion polygons separately; an empty list is an explicit declaration. Dynamic poses require bilateral shoulder, elbow, wrist, hip, knee and ankle landmarks. Do not calculate standing leg-region ratios for dynamic poses such as Runner.
-7. **Overlay and correct candidates against renders.** Run the semantic validator and overlay generator, then inspect every direction against the actual native captures. Refine polygons to pixel-tight boundaries, especially profile mirroring/foreshortening, hair/headwear, shoulder/arm transitions, prop/hand contact, pelvis/feet and dynamic joints. A structurally valid manifest or broadly aligned overlay is not proof of accurate measurement. Where exact renderer alpha masks exist, also report candidate-polygon IoU, precision and recall against the same transformed pixel grid; for props, report coverage of visible prop pixels without penalizing intentionally occluded geometry. Keep these metrics diagnostic until calibrated across multiple characters.
-8. **Promote only after verification.** Keep source-transcribed or spot-checked records in candidate states (for example `source_annotated`); they are not `measured`. Promote only after the relevant human visual verification is complete and provenance is recorded. Pending/candidate data may be reported descriptively but must not calibrate bands, create hard-fail gates, or support claims of Granny-to-NPC equivalence.
-9. **Harmonize Granny before comparison.** Treat `qa/granny-ref.json` and its established front/back values as legacy reference data. The historical side-view width values were copied rather than independently harmonized and must not be used as accepted semantic ratios. Capture and annotate front/back/left/right using one consistent body/prop convention; keep new profile values candidate-only until the rendered source paths and masks are verified. Never silently rewrite the approved legacy reference file.
-10. **Run full QA and inspect artifacts.** Run the established GitHub Actions workflow; inspect job steps/logs and download the actual artifact. Record targeted character results separately from global silhouette failures, snapshot approval gates, unrelated missing assets/audio, and script/page errors. Inspect gallery/town context, but do not claim a character-specific town check unless that character was actually spawned/captured.
-11. **Close the loop.** Fix valid issues, rerun the relevant workflow, update the tracker and handoff documents, and commit. Claude reviews actual rendered evidence independently; the owner makes the final approval decision. No character is approved from a score, code review, or green build alone.
+Use §11's eight-stage production pipeline as the single normative character-build sequence. The following operating loop adds project controls around it; it does not create a second, competing art process:
 
-### Semantic measurement rules now in force
+1. **Repository preflight:** verify the active branch/head, read the current project overview, art direction, technical implementation, QA handoff, tracker and this standard; inspect the live renderer and latest relevant Actions evidence.
+2. **Authorize scope:** confirm the named character(s), current owner dispositions, protected assets and explicit exclusions before editing. Do not infer approval from historical status.
+3. **Create the brief and construction card:** state role/personality, original silhouette, pose/build descriptor (no numeric targets), face cues, signature prop, handedness, three must-survive items, allowed-to-vanish details and likely shell family.
+4. **Build with identity first:** follow §11. Do not begin with numeric anatomy ratios or semantic polygon work. Keep props physically integrated and profile near/far arm logic clear.
+5. **Capture and inspect:** follow Tier A in §8, including all four native and direct 28×42 directions, fixed backdrops, black silhouettes, prop-contact table, applicable walk frames, before/after evidence and package manifest.
+6. **Run and interpret QA:** keep technical capture/integrity checks separate from human artistic judgments and Tier B IoU review triggers. Tier C semantic calibration remains suspended.
+7. **Close out:** correct valid findings, rerun, inspect actual artifacts, update tracker/docs, prepare Claude's independent review package where required, and wait for explicit owner approval. Never change golden snapshots without authorization.
 
-- Coordinate convention: Granny's 100×140 source space. The source renderer, transform, crop, direction, scale, and exclusion convention must be recorded for each capture.
-- Anatomical body, headwear and props are separate semantic regions. Props/accessories never inflate body-height or shoulder-width measurements. Granny's raised gripping hand/arm remains anatomy under the existing Granny convention; the umbrella canopy and shaft are excluded.
-- Four-direction completeness is mandatory. Profile views require direction-specific geometry and correct mirroring/foreshortening; do not copy front-view widths into profiles.
-- Candidate labels are meaningful provenance. `source_annotated`, spot-checked or candidate overlay status must never be reported as verified `measured` data.
-- The six current civilian annotations have candidate landmarks in all four directions. The 24/24 overlay from Run #534 was a coarse visual spot-check, not pixel-tight mask acceptance. All six remain candidates pending correction/verification; there are currently zero verified semantic civilian measurements.
-- Granny remains `reference_only` under the legacy convention. Her front/back baseline checks pass, but left/right semantic width harmonization remains unresolved. No Granny semantic ratios are accepted for direct comparison yet.
-- No proposed proportion band, score weight, category floor, or new threshold is a hard gate. Keep existing proven QA gates unchanged until comparable verified measurements and human review justify calibration.
+### Semantic measurement status — suspended
 
-### Current execution status at this addendum
-
-- Latest verified branch head when this addendum was written: `6a958bbbddac22ab77cfe5748d19089884f72496`.
-- [Browser QA Run #539](https://github.com/tinytime/Tinytime.github.io/actions/runs/44620273835) tested that exact commit and concluded **failure**. Semantic measurement validation passed; the six-civilian overlay generated all 24 native captures; the five-civilian review sheet found 20/20 native and 20/20 direct game-scale captures. The Granny four-direction capture step failed because `createGrannyRenderer` is not exposed to the browser script. Therefore no Granny capture or semantic overlay from that step is verified. The main game browser diagnostics also failed on established global checks; the full-roster silhouette gate, unapproved golden snapshots, and missing audio resources remain separate issues. No snapshots or approvals were changed.
-- Immediate measurement task: fix the Granny QA capture access using the live renderer implementation, rerun Actions, inspect all four actual Granny captures and overlay, then pixel-tight correct and verify the Granny semantic annotations. Do not compare candidate Granny profile values with the six civilians until harmonization is complete.
-- The active independent Claude review scope remains five characters: Usher, Cook, Courier, Coach and Referee. Runner is excluded from that submission only and remains pending a later focused review. The remaining 17 civilians stay on hold until independent review and owner approval.
+- Semantic civilian anatomy annotations remain source-derived candidates, not verified measurements. Granny's legacy front/back facts remain reference-only for calibration; her side-view widths are unresolved.
+- Do not refine polygons, calculate/promote ratios, or use semantic mask-fit scores for design acceptance unless a concrete technical/design decision requires it and the owner reauthorizes the work.
+- Visible-silhouette height, width, hem row, foot baseline and cross-direction agreement may be reported as descriptive diagnostics only, with exact pixel/mask definitions.
+- If an anatomical landmark is ever documented for a separately authorized task, clothing-occluded points must be marked inferred. Never compare different pose classes or mix clothing-inflated bounds with anatomical measures.
+- No provisional proportion bands or score weights are targets, pass marks or hard gates.
 
 ### Implementation references
 
@@ -146,21 +135,9 @@ For each character, record the following from the rendered front view and verify
 - **Limb widths and gaps:** record upper/lower arm and leg widths, plus visible negative-space gaps between limbs and torso.
 - **Prop footprint:** independent bounding box, attachment/hand-contact point, and whether the prop is part of the character's silhouette.
 
-### 4.2 Provisional exploration bands
+### 4.2 Numeric proportion bands — deferred appendix only
 
-The following are **unvalidated reviewer prompts**, not target proportions or acceptance thresholds. They are not derived from Granny Volt's 30.4% legacy head/body reference. Do not pull a design toward these values. Keep them diagnostic until the measurement convention is harmonized and a varied set of pose-aware characters has verified semantic measurements.
-
-| Metric | Draft exploration band | Denominator / notes |
-|---|---:|---|
-| Head height | 25–34% | Body height; exclude tall headwear and props |
-| Shoulder width | 24–34% | Body height; measure anatomical shoulder span |
-| Torso height | 30–40% | Body height; landmark-based, may overlap neck/junction conventions |
-| Leg region height | 38–48% | Body height; pose-aware, not a rigid vertical segment |
-| Visible neck height | 4–8% | Body height; may be partly occluded by clothing |
-
-These bands are not additive and must not be summed to 100%. Anatomy is measured using landmarks and overlapping rendered regions; clothing, hair, footwear, and pose can alter visible boundaries. A deliberate character design may fall outside a band if the silhouette remains believable, readable, and internally coherent. Record the reason and have it reviewed.
-
-**Do not automatically fail or redesign a character for an out-of-band proportion.** First validate the measurement convention, pose category, and intended design. These ranges are not derived from Granny and must never normalize the roster toward her proportions. Candidate semantic values remain diagnostic; do not calibrate or promote unverified values.
+No numeric proportion band is part of the active construction or acceptance standard. Semantic proportion calibration is suspended under §13. Historical exploration ranges are preserved in Appendix A for traceability only; they are unvalidated, must not appear as design targets, and must not be used to score, gate, or reshape a character.
 
 ### 4.3 Per-character proportion card
 
@@ -172,7 +149,7 @@ Before detailed vector construction, create a short specification with:
 - asymmetry and handedness;
 - silhouette-defining clothing/headwear;
 - prop bounds and hand/attachment points;
-- any intentional departures from the draft bands.
+- any intentional departures from the intended build descriptor or pose logic.
 
 Do not copy Granny's values by default. Set values that serve the character's role and silhouette.
 
@@ -385,5 +362,16 @@ For mirrored left/right views, document anatomical handedness and the character-
 - `qa/npc-scope-policy.json`: explicit scorecard scope; Granny is the reference baseline, not a normal civilian scorecard entry.
 - `project-background/02-ART-DIRECTION-AND-APPROVAL.md`: art-direction and approval policy.
 - `project-background/03-TECHNICAL-IMPLEMENTATION.md`: renderer integration and technical guardrails.
+## Appendix A. Historical unvalidated proportion prompts (not active rules)
 
+The ranges below appeared in an earlier draft as exploration prompts. Claude's Run #600 review recommends deferring numeric bands until semantic calibration is valid. They are retained only so prior discussions remain traceable. Do not use these values to construct, rank, approve, or reject any character.
 
+| Historical metric | Unvalidated exploration range | Original denominator / notes |
+|---|---:|---|
+| Head height | 25–34% | Body height; exclude tall headwear and props |
+| Shoulder width | 24–34% | Body height; measure anatomical shoulder span |
+| Torso height | 30–40% | Body height; landmark-based; overlaps neck/junction conventions |
+| Leg region height | 38–48% | Body height; pose-aware, not a rigid vertical segment |
+| Visible neck height | 4–8% | Body height; may be partly occluded by clothing |
+
+These ranges are not additive, were not validated against a varied pose-aware roster, and are not derived from Granny Volt. They are not targets, tolerances, scoring inputs, or automated checks.
