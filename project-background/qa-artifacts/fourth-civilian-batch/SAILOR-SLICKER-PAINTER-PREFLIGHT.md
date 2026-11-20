@@ -1,5 +1,15 @@
 ## Latest internal QA status — revision 10 validated; Claude package 04 prepared (2026-11-20)
 
+The current parallel design-source study is [revision 10](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-10.svg). Internal design-source capture and visual inspection are complete. [Claude review package 04](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md) supersedes packages 01–03.
+
+- Exact tested source commit: `8ae6a47055c6c75e361738b21c01d8b07b6830b4`.
+- [Run #678](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334), artifact [14650399818](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334/artifacts/14650399818). Design-source capture/semantic validation passed: 24/24 native 64×96, 24/24 direct 28×42, 24/24 enlarged; 69 roster face crops and six matched face rows.
+- Profile prop-region audit: Sailor right 172 added pixels; Slicker left 295 total / 272 prop-region; Painter left 237 total / 95 prop-region. All designated checks passed. Revision 10 clarifies Slicker's front/back umbrella canopy/shaft; Painter's brush remains crop-safe; Sailor's rope loop remains connected through the palm/forearm bridge. These object-recognition and grip qualities are explicitly escalated to Claude.
+- Browser QA overall failed at global gates: unapproved golden snapshots (1 match / 23 changed) and 135 existing audio/resource 404 console entries. Page/script errors are empty; no snapshots or provenance changed.
+- All three remain design-stage only. Construction families UNASSIGNED; no silhouette, face, prop, handedness or palette has owner approval. Renderer implementation is NOT AUTHORIZED. Do not begin #15–23.
+
+## Latest internal QA status — revision 10 validated; Claude package 04 prepared (2026-11-20)
+
 The current parallel design-source study is [revision 10](SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-10.svg). Internal design-source capture and visual inspection are complete. The exact-output review package is [Claude review package 04](SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md); packages 01–03 are superseded.
 
 - Exact tested source commit: 8ae6a47055c6c75e361738b21c01d8b07b6830b4. The SVG's internal title was corrected metadata-only after the run in commit f7efb67c3fdfcd38899c9d29996b1ed3e1310322; geometry is unchanged.
