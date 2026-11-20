@@ -2,6 +2,8 @@
 
 ## Current authority — 2026-11-20
 
+- **Guard, Vendor and Clinic rendered-art decision:** owner approval received 2026-11-20 on the Run #629 output (renderer `2bc1629edd82afc1a50ac7a4ab882b428dbd0c32`, artifact `14613105475`). Internal QA and visual inspection passed. Claude's independent review of this exact output remains unrecorded, so formal batch closeout and release of the remaining 17 stay gated.
+
 - **First five:** Usher, Cook, Courier, Coach and Referee are owner-approved and complete. Preserve Cook C1 (deferred), Usher U2 (declined), Usher U4 (resolved) and Coach/Courier rear X1 (accepted). No edits without renewed owner authorization.
 - **Style:** Claude withdrew the earlier blanket-outline criticism. Do not apply a blanket outline pass. Granny remains a craft benchmark, not a template.
 - **Construction standard:** the revised Civilian Vector Construction Standard was ratified by the owner on 2026-11-19 and governs future civilian work.
@@ -150,3 +152,12 @@ Runner's sprint pose must remain energetic, but the legs should read as athletic
 The [Civilian Vector Construction Standard](CIVILIAN-VECTOR-CONSTRUCTION-STANDARD.md) is the detailed implementation companion to this art direction. It adds a silhouette-first eight-stage pipeline, measurable proportion cards, independent prop/anatomy bounds, directional construction requirements, a provisional 100-point rubric, and proposed automated metrics. Granny's 100×140 source grid, 125-unit body height, 38-unit head height, 36-unit shoulder width, row-136 foot baseline, 0.28 scale, and `#171725` ink are recorded as actual measured reference values.
 
 These values are reference geometry, not mandatory proportions for every character. Proposed ratio bands and score thresholds remain provisional until Claude and the owner review calibration against the five-character evidence set. The standard does not supersede the existing approval gates.
+
+## Guard, Vendor and Clinic — Run #629 and owner decision (2026-11-20)
+
+- Final renderer source for this round: [`2bc1629edd82afc1a50ac7a4ab882b428dbd0c32`](https://github.com/tinytime/Tinytime.github.io/commit/2bc1629edd82afc1a50ac7a4ab882b428dbd0c32). The final focused change moved Vendor's profile eye/brow inward onto the visible cheek plane after Run #628's automated face-distinctness checks passed but manual direct-game-scale inspection found the mark insufficiently legible.
+- Browser QA: [Run #629](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700724613), [artifact 14613105475](https://github.com/tinytime/Tinytime.github.io/actions/runs/44700724613/artifacts/14613105475). Targeted vector/capture checks pass; overall Actions remains failed on the unapproved golden snapshot baseline (1 match / 23 changed) and existing audio/resource 404 console errors. No golden snapshots or provenance were changed.
+- Inspected the exact Run #629 artifact: 12/12 native 64×96 and 12/12 direct 28×42 captures for Guard/Vendor/Clinic; Vendor's left and right profile eye now reads in both scales. Guard's near-side forearm/bracer/hand and Clinic's right-profile cord/coil remain present. Directional integrity 92/92, zero edge contacts and detached components, face distinctness 23/23 at both scales, prop audit, gallery, town smoke and Granny directional checks pass. pageErrors=0; scriptErrors=0.
+- **Owner decision:** the project owner explicitly approved the rendered Guard, Vendor and Clinic Worker batch on 2026-11-20 after the Run #629 evidence review.
+- **Independent-review record:** Claude's final independent review of this exact Run #629 commit/artifact is not yet recorded in the repository. Per the governing approval process, retain that as the outstanding independent-review gate; do not label the batch fully closed or release the remaining 17 until the exact-output review is logged. This records the owner's approval without fabricating reviewer sign-off.
+- No golden snapshots changed. Existing global Actions blockers are tracked separately from the passing character-specific evidence.
