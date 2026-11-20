@@ -2,7 +2,7 @@
 
 ## Current authority — 2026-11-20
 
-- **Third batch preflight — round 05:** Tech, Hacker and Fisher have individual design briefs and revised four-direction silhouette concepts. Round 05 addresses the last two owner findings: Fisher's right-profile hood bill and Tech's left-profile meter contact. A 3× SVG render check is required before the single sheet is sent for owner silhouette approval. Renderer implementation remains gated on explicit owner acceptance. See `qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md` and the companion SVG. See `qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-PREFLIGHT.md` and the companion SVG.
+- **Third batch preflight — round 05:** The owner accepted the Tech/Hacker/Fisher silhouette direction on 2026-11-20. GitHub Actions [Run #1](https://github.com/tinytime/Tinytime.github.io/actions/runs/44738396316) generated and committed the exact 3× PNG (4800×3540) at `qa-artifacts/third-civilian-batch/TECH-HACKER-FISHER-SILHOUETTE-ROUND-05-3X.png`. Workflow generation and dimensions passed; visual inspection of the PNG remains required before renderer implementation. See the preflight brief and canonical SVG in `qa-artifacts/third-civilian-batch/`.
 - **Scope protection:** no Tech/Hacker/Fisher renderer code, approved civilian art, golden snapshots or baselines were changed during round-04 silhouette preparation.
 
 - Owner approval for the rendered Guard, Vendor and Clinic Worker batch was received on 2026-11-20, based on Run #629. Internal QA/visual inspection are complete; Claude's independent review of the exact final artifact remains pending. The remaining 17 stay on hold until that required review is recorded. (updated after Run #628)
