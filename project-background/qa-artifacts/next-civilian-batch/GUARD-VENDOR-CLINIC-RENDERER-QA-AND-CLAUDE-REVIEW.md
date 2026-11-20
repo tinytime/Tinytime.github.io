@@ -125,3 +125,29 @@ The three approved Revision 02 concepts, palettes, garments and must-survive ite
 
 **Follow-up QA:** Run #625 was triggered by the correction commit and is in progress at the time of this documentation update. Do not treat the code correction as visually verified until the new native/direct captures are inspected. Final owner completion approval remains pending.
 
+
+## Follow-up QA — Runs #625 and #626 (2026-11-20)
+
+### Run #625 — initial correction verification
+
+- [Actions Run #625](https://github.com/tinytime/Tinytime.github.io/actions/runs/44672166234); tested renderer commit `27c414b46d560ae9b4e2dd0f67b1936ce3d8f3c8`; artifact `14599579908`.
+- Semantic proportion/annotation validation passed. All 12 native 64×96 and 12 direct 28×42 Guard/Vendor/Clinic captures were generated. Role-debug 12/12, prop audit, full gallery, 92/92 directional integrity and zero detached large components passed.
+- The dedicated new-batch audit found one edge contact: Vendor right-profile tray touched the right edge at 28×42. ChatGPT inspected all 24 captures and confirmed the clipping. Browser diagnostics failed on console resource errors, including the known audio-resource 404s; pageErrors and scriptErrors were zero. No golden snapshots changed.
+
+### Vendor right-profile bounds correction
+
+Committed as [`8cc6836d4eff0a3cb8fcd997373da17769564e20`](https://github.com/tinytime/Tinytime.github.io/commit/8cc6836d4eff0a3cb8fcd997373da17769564e20). The supporting hand and tray lip were shifted inward by three native design units. The hand remains beneath the tray and the same single partially occluded tray is preserved; no concept, palette or other direction changed.
+
+### Run #626 — corrected capture verification
+
+- [Actions Run #626](https://github.com/tinytime/Tinytime.github.io/actions/runs/44673031471); tested exact source commit `8cc6836d4eff0a3cb8fcd997373da17769564e20`; [artifact `14599664923`](https://github.com/tinytime/Tinytime.github.io/actions/runs/44673031471/artifacts/14599664923).
+- **Dedicated batch capture audit PASS:** 12/12 native 64×96 and 12/12 direct 28×42, with zero edge contacts. **Directional integrity PASS:** 92/92, zero edge contacts, zero detached large components and 23/23 unique profile-face crops. Prop audit, role-debug 12/12, gallery render and town smoke check passed.
+- ChatGPT visually inspected all 12 native and all 12 direct game-scale captures, the full 23-civilian directional gallery, and the town screenshot. Vendor's right-profile tray now clears the sprite edge at both scales. The four Claude-directed corrections are visible: Guard's near-side profile arm/hand; Vendor's profile tray/hand; stronger Guard/Vendor profile eye/brow cues; and Clinic's rear-shifted low coil. No visible clipping or detached components were found in the inspected new-batch captures. The approved Revision 02 designs remain intact.
+- **Internal visual QA: PASS for this correction pass.** Overall Actions remains failed because browser diagnostics recorded 180 console errors (including 135 audio-resource HTTP 404s; pageErrors and scriptErrors are zero) and the golden snapshot comparison is still unapproved (1 match / 23 changed). No golden snapshots were refreshed, approved or replaced.
+
+### Remaining approval gates
+
+1. Claude's final independent comparative review of the corrected Run #626 captures and relevant construction evidence.
+2. Owner's explicit final approval of Guard, Vendor and Clinic Worker as completed rendered characters.
+
+Until both gates are complete, all three remain IN PRODUCTION / NOT COMPLETE. Do not start the remaining roster. Do not alter golden snapshots or their provenance.
