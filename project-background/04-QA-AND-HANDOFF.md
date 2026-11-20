@@ -1,4 +1,16 @@
-## Tech final QA — Run #643 (2026-11-20)
+## Tech final QA — Run #644 (2026-11-20)
+
+- Tested exact branch HEAD `579f0fff61b8cfd4e416cc59381187b162d3b8ca`: [Browser QA Run #644](https://github.com/tinytime/Tinytime.github.io/actions/runs/44746091189), artifact [14634020084](https://github.com/tinytime/Tinytime.github.io/actions/runs/44746091189/artifacts/14634020084).
+- Renderer corrections: `9f11ca2` sharpens the profile shell and reinforces the left-profile meter grip; `579f0ff` removes the rear hip-level pouch-like mass, adds a compact high-mounted service/tool loop, and shortens the split rear utility flap.
+- Tech-specific captures: 4/4 native 64×96 and 4/4 direct 28×42; zero edge contacts in all eight captures. Tech role-debug 4/4 with seven semantic role labels.
+- Live town evidence: explicit `techgirl` spawn with `civ:'tech'` on street map at (21,22), plus `game-town-tech-spawn-closeup-1x.png`, a 120×120 native 1× crop of the actual in-world render.
+- Wider checks: semantic annotation validation PASS; syntax/module/inventory PASS; directional integrity 92/92; visual integrity 92/92; zero detached large components; profile face uniqueness 23/23; general role-debug 12/12; prop audit PASS; gallery visual PASS; Granny directional check PASS. `pageErrors=[]`; `scriptErrors=[]`.
+- ChatGPT downloaded and visually inspected all four Tech directions at native and direct game scales, matching Clinic comparisons, Tech role-debug sheet, and actual town close-up. Both profile eye/brow cues remain readable at 28×42; left-profile meter/hand grip is discernible. Side-profile shell and rear service-loop/flap construction are now more distinct from Clinic's wrap tunic and hip kit. No visible clipping or edge contact.
+- Similarity diagnostics remain human-review prompts only: Clinic/Tech full-character IoU back 0.8775, front 0.8922, right 0.8562. The 0.85 trigger is not an automatic art gate.
+- Overall Actions **FAILED** at browser diagnostics. Snapshot gate: unapproved baseline, 1 match / 23 changed, no missing. Console diagnostics: 180 existing audio/resource HTTP 404 errors across 46 URL entries. Evidence builders and artifact upload succeeded. No golden snapshots or provenance were changed.
+- **Disposition:** Tech is built, targeted automated QA-passed, and visually inspected; ready for independent Claude exact-output review. Owner rendered-art approval remains pending. Hacker and Fisher remain held pending Claude review and owner approval. Full handoff: [Tech renderer review package](qa-artifacts/third-civilian-batch/TECH-RENDERER-REVIEW-PACKAGE.md).
+
+## Previous Tech QA — Run #643 (2026-11-20)
 
 - Tested exact branch HEAD `4c3f87ad7be831b83b9f5502911abee2602a3ea5`: [Browser QA Run #643](https://github.com/tinytime/Tinytime.github.io/actions/runs/44745345901), artifact [14633745010](https://github.com/tinytime/Tinytime.github.io/actions/runs/44745345901/artifacts/14633745010).
 - The evidence-only follow-up adds `game-town-tech-spawn-closeup-1x.png`, a 120×120 native 1× crop from the live street scene after explicitly spawning `techgirl` with `civ:'tech'`. The spawn audit passes at street map position (21,22), down-facing.
