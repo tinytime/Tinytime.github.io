@@ -1,3 +1,9 @@
+## Fourth civilian batch — revision 21 exact-source checkpoint, Run #810 (2026-11-20)
+
+The exact design-source run is [Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056), artifact [14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854), tested branch head `be1c0c012894ccae23b4cbce2ad06e523fb460c5` and revision-21 SVG blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`. Focused design checks passed (24 native, 24 direct 28×42, 24 enlarged; body preservation 12/12; connectivity 48/48; profile prop contact 2/2; semantic validation passed). The full browser workflow failed separately on 135 audio/resource 404s plus 45 sound-load messages and the unapproved 1/23 golden comparison; page/script errors are zero. No snapshots or provenance changed. ChatGPT's supplementary artifact inspection found Sailor's hand/coil compact at direct scale and Painter's brush identifiable but dense at direct scale. Package 06 is prepared, not sent; Claude review and owner approval remain pending. No renderer or palette work is authorized.
+
+---
+
 ## Fourth civilian batch — revision 21 exact-source internal design QA (2026-11-20)
 
 The owner-authorized parallel design-stage work for Sailor (#12), Slicker (#13) and Painter (#14) has reached **internal design-source QA PASS**. Independent Claude review and owner approval remain pending.
