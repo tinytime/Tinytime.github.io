@@ -1,3 +1,13 @@
+## Fourth civilian batch — revision 10 internal QA complete; Claude package 04 prepared (2026-11-20)
+
+Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; none is owner-approved. Internal QA and visual inspection of revision 10 are complete. [Claude review package 04](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md) supersedes packages 01–03.
+
+- Exact tested source commit `8ae6a47055c6c75e361738b21c01d8b07b6830b4`; [Run #678](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334), artifact [14650399818](https://github.com/tinytime/Tinytime.github.io/actions/runs/44779104334/artifacts/14650399818).
+- Design-source evidence: 24/24 native 64×96, 24/24 independently rasterized direct 28×42, 24/24 enlarged; 69 roster face crops and six matched face rows. Profile prop-region audit: Sailor 172, Slicker 272, Painter 95 added pixels; all passed.
+- Manual inspection covered all three body-only and prop-on four-view sets, direct-scale sheets, enlarged profiles, face comparisons and Sailor/Welder rear comparison. Revision 10 clarifies Slicker's front/back folded-umbrella silhouette; Claude should judge its direct-scale identity/contact. Sailor rope grasp and Painter brush contact/readability also remain reviewer questions.
+- Overall browser workflow failed only at global gates: unapproved golden snapshots (1 match / 23 changed) and 135 existing audio/resource 404 console entries. Page/script errors empty; no snapshots/provenance changed. This is design-source evidence, not production renderer or town integration QA.
+- All construction families remain UNASSIGNED. Renderer implementation NOT AUTHORIZED. #15–23 remain on hold.
+
 ## Fourth civilian batch — revision 10 internal QA complete (2026-11-20)
 
 Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; none is owner-approved. Internal capture and visual inspection of revision 10 are complete. [Claude review package 04](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md) is prepared against exact Run #678 evidence.
