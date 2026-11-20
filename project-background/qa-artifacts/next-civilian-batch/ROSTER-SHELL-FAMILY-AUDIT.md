@@ -40,9 +40,9 @@ Historical status only: the owner initially authorized Sailor first. This was su
 | 9 | Tech | Clinic | Compact forward-leaning field-maintenance harness / split utility shell | Owner-approved batch #9–11 (2026-11-20); dedicated production renderer implemented and owner-approved at rendered-art stage |
 | 10 | Hacker | Clinic | Narrow folded-in cropped asymmetric drape-shell | Owner-approved finished design-stage art (2026-11-20); production renderer not yet implemented |
 | 11 | Fisher | Trades | Broad short oilskin smock / wide braced deck stance | Owner-approved finished design-stage art (2026-11-20); production renderer not yet implemented |
-| 12 | Sailor | Trades | UNASSIGNED | Proposed card family: Narrow Deck-Coat / Vertical Utility Shell; owner approval of construction card pending |
-| 13 | Slicker | Trades | UNASSIGNED | Proposed card family: Integrated Hooded Rain-Smock Shell; owner approval of construction card pending |
-| 14 | Painter | Trades | UNASSIGNED | Proposed card family: Offset Artisan Smock / Reaching-Arm Shell; owner approval of construction card pending |
+| 12 | Sailor | Trades | Narrow Deck-Coat / Vertical Utility Shell (owner-approved 2026-11-20) | Construction card 02 and family approved; detailed design-stage vector study 01 in progress |
+| 13 | Slicker | Trades | Integrated Hooded Rain-Smock Shell (owner-approved 2026-11-20) | Construction card 02 and family approved; detailed design-stage vector study 01 in progress |
+| 14 | Painter | Trades | Offset Artisan Smock / Reaching-Arm Shell (owner-approved 2026-11-20) | Construction card 02 and family approved; detailed design-stage vector study 01 in progress |
 | 15 | Welder | Trades | UNASSIGNED | Legacy grouping only |
 | 16 | Kid | Youth | UNASSIGNED | Legacy grouping only |
 | 17 | Kid 2 | Youth | UNASSIGNED | Legacy grouping only |
