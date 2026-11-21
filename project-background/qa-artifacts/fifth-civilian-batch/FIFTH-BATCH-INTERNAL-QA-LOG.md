@@ -1,31 +1,32 @@
 ## Current design revision — internal QA PASS, owner review pending
 
-**Exact tested source commit:** `e3611fd918ca0b800a1d79616bd39357826f84b8`  
-**Current branch HEAD:** `57cff8e864dbee5ca240ac2a59f282bc04a7d39d` (documentation-only follow-up; Batch 5 art blobs are unchanged)  
+**Exact tested design-package commit:** `4864fc565c2e08e662394c2ea406c37a119d2d59`  
+**Current branch HEAD:** `9f3a23f402c03c3c3f3bd99e4b1ddb861ce91b51` (documentation-only follow-up; Batch 5 art and evidence-builder blobs are unchanged)  
 **Silhouette blob:** `5892e66018fed61ceb02c3b222738d14870ce524`  
 **Face/head blob:** `e3b5b58dbf8225f23453c8b097ef4c61343e4cd9`  
-**Design-card blob:** `7fef03ede5be76f08829ab57c0d740b5a377c300`  
+**Design-card blob:** `577af346658dd70fa99afe2825919fea4f64663b`  
+**Roster-comparison blob:** `c92fadb679f35ec343f9e929c9826d04d433f28b`  
 **Evidence-builder blob:** `98505716c117285dc7ef31c38adcac987931464b`
 
-### Run #22 — exact-source design evidence
+### Run #24 — exact-source design evidence
 
-- [GitHub Actions Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232)
-- [Artifact 14684738023](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232/artifacts/14684738023)
+- [GitHub Actions Run #24](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480)
+- [Artifact 14684123957](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480/artifacts/14684123957)
 - Dedicated design-evidence workflow: **PASS**.
 - Captures: 12 native 64×96 directional silhouettes, 12 independently rendered direct 28×42 silhouettes, 12 enlarged 4× diagnostics, six matched face crops and three full-roster silhouette comparison sheets.
 - Connectivity: all 24 native/direct silhouette views report exactly one connected black component and zero contacts with any frame edge.
-- Visual inspection: all four directions for Welder, Kid and Kid 2 were inspected at native, direct game scale and enlarged scale. The shortened Welder hose now reads as a compact connected cable rather than a loose ring; the torch/hand contact and rear cylinder are integrated. Kid's glider stays within the profile frame and remains visible on the intended near-side views. Kid 2's closed hardback is connected to both hands and its cover/spine/page-edge seams remain visible; the beanie clears the frame.
+- Visual inspection: all four directions for Welder, Kid and Kid 2 were inspected at native, direct game scale and enlarged scale. The shortened Welder hose reads as a compact connected cable rather than a loose ring; the torch/hand contact and rear cylinder are integrated. Kid's glider stays within the profile frame and remains visible on the intended near-side views. Kid 2's closed hardback is connected to both hands and its cover/spine/page-edge seams remain visible; the beanie clears the frame.
 - Full-roster comparison sheets cover the 15 existing designed civilians. Matched face rows compare Welder with Guard/Fisher, Kid with Dancer/Vendor, and Kid 2 with Clinic/Referee. The face/head study supplies distinct front/profile geometry for all three.
 
 ### Related full browser workflow
 
-[Run #939](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849914254) also completed the fifth-batch design-projection step successfully. The overall browser workflow failed at existing global audio-resource HTTP 404 diagnostics; its `pageErrors` and `scriptErrors` arrays were empty. This global audio failure is separate from the successful focused Batch 5 design-evidence workflow.
+[Run #939](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849914254) completed the fifth-batch design-projection step successfully. Its overall browser workflow failed at existing global audio-resource HTTP 404 diagnostics; its `pageErrors` and `scriptErrors` arrays were empty. The later [Run #945](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251491) also completed the Batch 5 projection step successfully but was cancelled before the unrelated global browser checks completed. These are separate from the successful focused Batch 5 design-evidence workflow.
 
 ### Disposition and boundaries
 
 **Internal design QA: PASS. Owner silhouette/construction approval: PENDING.** This package is ready for owner review of the three concepts together. All construction-family assignments remain **UNASSIGNED**.
 
-A separate provisional full-colour render SVG exists in the branch, but it is out of scope for this design stage, was not captured by Run #22, is not palette-approved and is not production art. No production renderer, town/gallery, golden snapshot or provenance change was made or authorized.
+A separate provisional full-colour render SVG exists in the branch, but it is out of scope for this design stage, was not captured by Run #24, is not palette-approved and is not production art. No production renderer, town/gallery, golden snapshot or provenance change was made or authorized.
 
 # Fifth Civilian Batch — Internal QA Log
 
@@ -39,9 +40,10 @@ The source files are pinned by exact Git blob SHA:
 
 | Input | Path | Git blob SHA |
 |---|---|---|
-| Design cards | `project-background/qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md` | `7fef03ede5be76f08829ab57c0d740b5a377c300` |
+| Design cards | `project-background/qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md` | `577af346658dd70fa99afe2825919fea4f64663b` |
 | Four-view silhouette sheet | `project-background/qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg` | `5892e66018fed61ceb02c3b222738d14870ce524` |
 | Face/head study | `project-background/qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg` | `e3b5b58dbf8225f23453c8b097ef4c61343e4cd9` |
+| Roster comparison | `project-background/qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-ROSTER-COMPARISON-01.md` | `c92fadb679f35ec343f9e929c9826d04d433f28b` |
 | Browser evidence builder | `qa/build-fifth-batch-design-evidence.mjs` | `98505716c117285dc7ef31c38adcac987931464b` |
 
 The exact tested artwork commit for Run #22 is `e3611fd918ca0b800a1d79616bd39357826f84b8`. Subsequent commits through current HEAD `57cff8e864dbee5ca240ac2a59f282bc04a7d39d` changed documentation only; the four Batch 5 source blobs above remain unchanged. The capture script pins the exact SVG blob IDs.
