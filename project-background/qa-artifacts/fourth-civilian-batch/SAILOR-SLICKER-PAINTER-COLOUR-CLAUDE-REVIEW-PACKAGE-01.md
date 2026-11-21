@@ -4,7 +4,11 @@
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `npc-granny-baseline-overhaul`  
 **Review stage:** non-production colour/material/rendering study  
-**Disposition:** ready for independent review; not final art approval or production-renderer authorization
+**Disposition:** HOLD — not ready to send for independent review. Internal visual QA is NOT PASS pending owner disposition of inherited Sailor rear-coil clipping; not final art approval or production-renderer authorization
+
+
+
+> **HOLD — do not send to Claude yet.** Reinspection of the exact Run #23 artifact found Sailor's rear rope coil clipped at the left frame edge in native 64×96 and direct 28×42 captures. The same clipping exists in the owner-approved revision-21 Run #810 artifact. No accepted exception is recorded. Stage 7 authorization protects revision-21 geometry, so the designer has not changed it. The owner must authorize a crop-safe correction or explicitly accept a documented exception before this package is sent. The direct contact-sheet labels also overlap; rebuild the overview before external review.
 
 ## Exact source and evidence
 
