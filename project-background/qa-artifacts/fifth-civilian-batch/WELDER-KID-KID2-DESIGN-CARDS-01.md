@@ -17,6 +17,10 @@ The three silhouettes use different posture logic and garment masses rather than
 
 These are proposals. No family assignment is promoted from UNASSIGNED.
 
+### Companion design sheets
+- [Four-view black silhouette exploration 01](WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg) — front, back, left and right.
+- [Face/head construction exploration 01](WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg) — front and profile geometry for each character.
+
 ---
 
 ## #15 Welder — identity and construction card
@@ -174,6 +178,8 @@ Book page lines, scarf knit ribs, tiny coat buttons, pom thread, seam topstitchi
 ---
 
 ## Cross-character roster comparison
+
+The following comparisons are design hypotheses from the current roster register and face-construction source, not a completed matched-scale visual audit. The closest-face candidates named above must still be shown as native 64×96 matched crops and reviewed without palette/headwear influence.
 
 | Existing roster contrast | Welder #15 | Kid #16 | Kid 2 #17 |
 |---|---|---|---|
