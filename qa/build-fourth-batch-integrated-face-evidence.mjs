@@ -25,7 +25,7 @@ const xByDirection={front:51,left:271,right:381},directions=['front','left','rig
 const browser=await chromium.launch({headless:true});
 try{
  const page=await browser.newPage({viewport:{width:1200,height:900},deviceScaleFactor:1});
- const result=await page.evaluate(async({source,people,directions,xByDirection})=>{
+ const result=await page.evaluate(async({source,baseSource,people,directions,xByDirection})=>{
   const render=async(x,y,w,h,src=source)=>{
    const svg=src.replace('width="1800" height="1330" viewBox="0 0 1800 1330"',`width="${w}" height="${h}" viewBox="${x} ${y} 64 96"`);
    const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await img.decode();
