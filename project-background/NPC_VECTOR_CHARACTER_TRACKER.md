@@ -1,3 +1,23 @@
+## Fifth civilian batch — design stage released (2026-11-21)
+
+The project owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for identity, silhouette and construction design. The fourth batch (Sailor #12 / Slicker #13 / Painter #14) is being handled separately; this release is independent and does not authorize changes to that work.
+
+- **Design cards:** [WELDER-KID-KID2-DESIGN-CARDS-01.md](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md).
+- **Four-view black silhouettes:** [WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg).
+- **Current stage:** first identity/construction proposals authored; internal visual/technical QA and owner review pending. Not approved.
+- **Proposed descriptors only:** Welder — Offset Leather Apron / Rear Gas-Rig Shell; Kid — Forward-Sprung Hooded Zip-Shell / Open-Stride Youth Build; Kid 2 — Wrapped Scarf-Coat / Close-Held Book Shell. All three current vector-family assignments remain **UNASSIGNED** until owner approval.
+- **Scope protection:** no production renderer, palette rendering, town/gallery integration, golden snapshot/provenance or existing approved civilian changes. No work on Mouse #18 or later characters is authorized.
+
+### Batch 5 current entries
+
+| # | Character | Current vector family | Proposed construction descriptor | Stage |
+|---:|---|---|---|---|
+| 15 | Welder | UNASSIGNED | Offset Leather Apron / Rear Gas-Rig Shell | Identity and four-view silhouette proposal |
+| 16 | Kid | UNASSIGNED | Forward-Sprung Hooded Zip-Shell / Open-Stride Youth Build | Identity and four-view silhouette proposal |
+| 17 | Kid 2 | UNASSIGNED | Wrapped Scarf-Coat / Close-Held Book Shell | Identity and four-view silhouette proposal |
+
+---
+
 ## Fourth civilian batch — Stage 7 colour/rendering design opened (2026-11-21)
 
 - **Scope:** Sailor #12, Slicker #13 and Painter #14 only. The owner confirmed Claude's approval of the Run #867 integrated grayscale face checkpoint and directed progression to Stage 7.
