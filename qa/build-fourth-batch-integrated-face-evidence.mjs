@@ -27,9 +27,22 @@ try{
  const page=await browser.newPage({viewport:{width:1200,height:900},deviceScaleFactor:1});
  const result=await page.evaluate(async({source,baseSource,people,directions,xByDirection})=>{
   const render=async(x,y,w,h,src=source)=>{
-   const svg=src.replace('width="1800" height="1330" viewBox="0 0 1800 1330"',`width="${w}" height="${h}" viewBox="${x} ${y} 64 96"`);
-   const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await img.decode();
-   const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=true;ctx.drawImage(img,0,0,w,h);return c.toDataURL('image/png');
+   const raster=async(svgSource)=>{
+    const svg=svgSource.replace('width="1800" height="1330" viewBox="0 0 1800 1330"',`width="${w}" height="${h}" viewBox="${x} ${y} 64 96"`);
+    const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await img.decode();
+    const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.imageSmoothingEnabled=true;ctx.drawImage(img,0,0,w,h);return {c,ctx};
+   };
+   const rendered=await raster(src),c=rendered.c,ctx=rendered.ctx;
+   if(src===source){
+    // Hard-clip every proposed face mark to the immutable revision-21 silhouette mask.
+    const approved=await raster(baseSource),face=ctx.getImageData(0,0,w,h),mask=approved.ctx.getImageData(0,0,w,h);
+    for(let i=0;i<face.data.length;i+=4){
+     const isBackground=mask.data[i]>215&&mask.data[i+1]>212&&mask.data[i+2]>205;
+     if(isBackground){face.data[i]=mask.data[i];face.data[i+1]=mask.data[i+1];face.data[i+2]=mask.data[i+2];face.data[i+3]=mask.data[i+3];}
+    }
+    ctx.putImageData(face,0,0);
+   }
+   return c.toDataURL('image/png');
   };
   const data=[],containmentAudit=[];
   for(const p of people)for(const d of directions){
