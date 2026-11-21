@@ -20,6 +20,7 @@ These are proposals. No family assignment is promoted from UNASSIGNED.
 ### Companion design sheets
 - [Four-view black silhouette exploration 01](WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg) — front, back, left and right.
 - [Face/head construction exploration 01](WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg) — front and profile geometry for each character.
+- [Full roster differentiation comparison 01](WELDER-KID-KID2-ROSTER-COMPARISON-01.md) — fifteen existing designed civilians, nearest silhouette risks and face comparator rationale.
 - [Full-roster comparison 01](WELDER-KID-KID2-ROSTER-COMPARISON-01.md) — differentiation against all currently designed civilians; matched visual crops remain pending.
 
 ---
