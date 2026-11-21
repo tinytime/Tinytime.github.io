@@ -6,12 +6,22 @@
 
 ## Current exact-source evidence
 
-- **Latest verified source commit:** `b68e51c1b0a087169a8e9be99e7542ee3fd2b8c1`.
-- **Latest focused evidence:** [Fifth Civilian Batch Design Evidence Run #33](https://github.com/tinytime/Tinytime.github.io/actions/runs/44851130276), artifact [14684359767](https://github.com/tinytime/Tinytime.github.io/actions/runs/44851130276/artifacts/14684359767).
+- **Latest verified source commit:** `47a7b0c08f764695472fa0728b70bb79816c77b1` (current art source; subsequent documentation-only commits do not change these blobs).
+- **Latest focused evidence:** [Fifth Civilian Batch Design Evidence Run #35](https://github.com/tinytime/Tinytime.github.io/actions/runs/44851212540), artifact [14685376816](https://github.com/tinytime/Tinytime.github.io/actions/runs/44851212540/artifacts/14685376816).
 - **Silhouette blob:** `5892e66018fed61ceb02c3b222738d14870ce524`.
 - **Corrected face/head blob:** `bbed7692680234c30591ea3a03d170c22d87a12f`.
 - **Run #32** ([artifact 14685396683](https://github.com/tinytime/Tinytime.github.io/actions/runs/44851094495/artifacts/14685396683)) captured the corrected footer; **Run #33** re-ran the same two source blobs. All 66 non-manifest files in the Run #32 and Run #33 artifacts match byte-for-byte.
 - **Run #31** exposed clipping in the face-study footer; that text was shortened, then verified in Runs #32 and #33.
+
+
+
+### Run #35 — exact current-source recheck
+
+- Tested commit: `47a7b0c08f764695472fa0728b70bb79816c77b1`.
+- Current source blobs: silhouette `5892e66018fed61ceb02c3b222738d14870ce524`; face/head `bbed7692680234c30591ea3a03d170c22d87a12f`; evidence builder `d62c849080b2d45f425cb2214c2be4c1a3d74063`.
+- [Run #35](https://github.com/tinytime/Tinytime.github.io/actions/runs/44851212540), [artifact 14685376816](https://github.com/tinytime/Tinytime.github.io/actions/runs/44851212540/artifacts/14685376816), completed successfully. All 24 native/direct prop-on silhouette projections report one connected component and zero edge contact. I visually inspected the native/direct sheets, enlarged views and matched face comparisons; the updated Kid expression reads more curious, and the sheet labels remain separated.
+- The builder still does not produce a separate body-only raster set or body-only matched-roster sheet. Body-only construction distinctions are described in the cards; the owner may request separate body-only evidence before approval.
+- Direct 28×42 images are independently rasterized from the design SVG, not in-game Tier A renderer captures.
 
 ## Captures and structural diagnostics
 
