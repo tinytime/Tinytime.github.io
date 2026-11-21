@@ -50,7 +50,48 @@ try{
  }
  write(path.join(out,'integrated-faces-native-64x96.png'),result.nativeSheet);
  write(path.join(out,'integrated-faces-direct-28x42.png'),result.directSheet);
- const manifest={stage:'non-production integrated grayscale face study',revision21_blob:blob,overlay:'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg',characters:people.map(x=>x.id),directions,counts:{native64x96:9,direct28x42:9,enlarged4x:9},protected:{revision21_source_modified:false,construction_source_modified:false,production_renderer_modified:false,golden_snapshots_modified:false}};
+ // Extract the same 40x38 head crop used by the existing F6 roster comparator.
+ const cropDir=path.join(out,'integrated-face-crops-40x38');fs.mkdirSync(cropDir,{recursive:true});
+ const crops=[];
+ for(const item of result.data){
+  const crop=await page.evaluate(async url=>{const im=new Image();im.src=url;await im.decode();const c=document.createElement('canvas');c.width=40;c.height=38;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(im,12,0,40,38,0,0,40,38);return c.toDataURL('image/png');},item.native);
+  write(path.join(cropDir,item.key+'.png'),crop);crops.push({key:item.key,dataUrl:crop});
+ }
+ const rows=[
+  {key:'sailor-front',direction:'front',candidates:['clinic','guard']},
+  {key:'sailor-left',direction:'left',candidates:['clinic','guard']},
+  {key:'slicker-front',direction:'front',candidates:['hacker','courier']},
+  {key:'slicker-left',direction:'left',candidates:['hacker','courier']},
+  {key:'painter-front',direction:'front',candidates:['cook','busker']},
+  {key:'painter-left',direction:'left',candidates:['cook','busker']}
+ ];
+ const compareData=rows.map(row=>({
+  ...row,design:crops.find(x=>x.key===row.key)?.dataUrl,
+  refs:row.candidates.map(c=>{const p=path.join(root,'qa-output/fourth-batch-design/roster-face-crops-native-64x96',c+'-'+row.direction+'.png');return 'data:image/png;base64,'+fs.readFileSync(p).toString('base64');})
+ }));
+ if(compareData.some(x=>!x.design||x.refs.some(y=>!y)))throw new Error('Integrated matched-face comparison crop missing');
+ const comparisons=await page.evaluate(async rows=>{
+  const draw=async scale=>{
+   const gap=12,cell=40*scale,cellH=38*scale,head=16*scale,label=12*scale,rowH=head+label+cellH+gap,cols=3;
+   const c=document.createElement('canvas');c.width=gap+cols*(cell+gap);c.height=gap+rows.length*rowH;
+   const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width);
+   const names=['INTEGRATED','ROSTER A','ROSTER B'];
+   for(let r=0;r<rows.length;r++){
+    const row=rows[r],imgs=[row.design,...row.refs],py=gap+r*rowH;
+    x.fillStyle='#fff';x.font=scale===1?'bold 8px sans-serif':'bold 12px sans-serif';x.fillText(row.key.toUpperCase(),gap,py+10*scale);
+    for(let col=0;col<3;col++){
+     const px=gap+col*(cell+gap),im=new Image();im.src=imgs[col];await im.decode();
+     x.fillStyle='#fff';x.font=scale===1?'7px sans-serif':'10px sans-serif';x.fillText(names[col],px,py+head+8*scale);
+     x.drawImage(im,px,py+head+label,cell,cellH);
+    }
+   }
+   return c.toDataURL('image/png');
+  };
+  return {native:await draw(1),enlarged:await draw(3)};
+ },compareData);
+ write(path.join(out,'integrated-matched-face-comparisons-native-40x38.png'),comparisons.native);
+ write(path.join(out,'integrated-matched-face-comparisons-3x.png'),comparisons.enlarged);
+ const manifest={stage:'non-production integrated grayscale face study',revision21_blob:blob,overlay:'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg',characters:people.map(x=>x.id),directions,counts:{native64x96:9,direct28x42:9,enlarged4x:9,integratedFaceCrops40x38:9,matchedFaceRows:6},protected:{revision21_source_modified:false,construction_source_modified:false,production_renderer_modified:false,golden_snapshots_modified:false}};
  fs.writeFileSync(path.join(out,'integrated-face-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
  console.log(JSON.stringify({manifest}));
 }finally{await browser.close();}
