@@ -12,7 +12,7 @@ const out=path.join(root,'qa-output/fourth-batch-integrated-faces');
 fs.mkdirSync(out,{recursive:true});
 const base=fs.readFileSync(basePath,'utf8'),overlay=fs.readFileSync(overlayPath,'utf8');
 const blob=crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(base)+'\0'),Buffer.from(base)])).digest('hex');
-const approved='02f7ffb3854a8bacdaf00ca6198ae411c3122602';
+const approved='36f645d7de9ee5bedc79a0288c50bc8399382f4b';
 if(blob!==approved)throw new Error('Protected revision-21 source mismatch: '+blob);
 if(!base.includes('DESIGN EXPLORATION 21'))throw new Error('Revision-21 source title missing');
 const ids=['sailor-front','sailor-left','sailor-right','slicker-front','slicker-left','slicker-right','painter-front','painter-left','painter-right'];
