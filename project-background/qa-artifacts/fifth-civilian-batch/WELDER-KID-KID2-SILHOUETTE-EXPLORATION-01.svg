@@ -41,7 +41,8 @@
    <path d="M10 53 L15 53 L15 62 L10 62 Z"/>
    <!-- torch body and short nozzle, connected to gloved hand -->
    <path d="M11 58 L15 59 L14 66 L11 66 Z M9 65 L16 65 L15 69 L9 69 Z"/>
-   <path d="M12 69 L12 73 L10 75 L9 73 L10 70 Z"/>
+   <!-- compact nozzle overlaps the torch body so no isolated tip survives direct 28x42 rendering -->
+   <path d="M11 65 L15 65 L14 71 L10 71 Z"/>
    <!-- hose rises from torch, curves to hip -->
    <path d="M10 62 Q5 58 7 53 Q9 50 13 52" fill="none" stroke="#000" stroke-width="2.4"/>
    <!-- harness/cylinder shoulder hint visible behind -->
@@ -98,7 +99,7 @@
    <!-- rear cylinder, bracket and hose -->
    <path d="M47 28 Q52 28 53 33 L53 50 Q53 56 49 57 L45 56 Q43 54 43 50 L43 34 Q43 29 47 28 Z"/>
    <path d="M47 25 L51 25 L52 29 L45 29 Z"/>
-   <path d="M47 56 Q53 61 48 66 L42 68" fill="none" stroke="#000" stroke-width="1.8"/>
+   <!-- hose route is occluded by the torso in this profile; no loose line end is exposed -->
    <!-- apron and rear shield -->
    <path d="M28 43 L44 43 L45 64 L40 70 L29 67 L25 58 Z"/>
    <path d="M41 28 L47 31 L46 39 L41 41 Z"/>
@@ -122,7 +123,7 @@
    <!-- rear cylinder -->
    <path d="M14 28 Q19 28 20 33 L20 50 Q20 56 16 57 L12 56 Q10 54 10 50 L10 34 Q10 29 14 28 Z"/>
    <path d="M13 25 L17 25 L19 29 L12 29 Z"/>
-   <path d="M13 56 Q8 61 14 67" fill="none" stroke="#000" stroke-width="1.8"/>
+   <!-- far-side hose is hidden behind the torso in this profile -->
    <path d="M18 43 L34 43 L36 64 L31 70 L20 67 L16 59 Z"/>
   </g></g>
 </g>
