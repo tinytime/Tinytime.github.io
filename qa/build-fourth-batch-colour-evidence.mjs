@@ -8,7 +8,7 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dir=path.join(root,'project-background/qa-artifacts/fourth-civilian-batch');
 const basePath=path.join(dir,'SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg');
 const facePath=path.join(dir,'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg');
-const studyPath=path.join(dir,'SAILOR-SLICKER-PAINTER-COLOUR-STUDY-02.svg');
+const studyPath=path.join(dir,'SAILOR-SLICKER-PAINTER-COLOUR-STUDY-03.svg');
 // Design-only projection: this script never loads or edits the production renderer.
 const out=path.join(root,'qa-output/fourth-batch-colour-study');
 fs.mkdirSync(out,{recursive:true});
@@ -28,6 +28,9 @@ const propFaceIds=faceIds.map(id=>id.replace(/^(sailor|slicker|painter)-/,'$1-pr
 for(const id of [...faceIds,...propFaceIds])if(!study.includes('id="'+id+'"'))throw new Error('Missing integrated face overlay '+id);
 const propFaceSkinRules=['#sailor-prop-front>path:first-child,#sailor-prop-left>g>path:first-child,#sailor-prop-right>path:first-child{fill:#B98264;stroke:#704B3D}','#slicker-prop-front>path:first-child,#slicker-prop-left>g>path:first-child,#slicker-prop-right>path:first-child{fill:#946B56;stroke:#5F463B}','#painter-prop-front>path:first-child,#painter-prop-left>g>path:first-child,#painter-prop-right>path:first-child{fill:#D3A078;stroke:#8B634D}'];
 for(const rule of propFaceSkinRules)if(!study.includes(rule))throw new Error('Missing character-specific prop-face skin rule '+rule);
+const materialGradients=['sailor-material','slicker-material','painter-material'];
+for(const id of materialGradients)if(!study.includes('id="'+id+'"'))throw new Error('Missing character material gradient '+id);
+for(const name of ['sailor','slicker','painter'])if(!study.includes('url(#'+name+'-material)'))throw new Error('Missing material value-plane assignment '+name);
 const panels=[
  ['sailor','front',51,128,false],['sailor','back',161,128,false],['sailor','left',271,128,false],['sailor','right',381,128,false],
  ['slicker','front',51,458,false],['slicker','back',161,458,false],['slicker','left',271,458,false],['slicker','right',381,458,false],
@@ -76,7 +79,7 @@ try{
   sourceCommit:process.env.GITHUB_SHA||null,baseBlob:blob(base),faceBlob:blob(face),
   studySha256:crypto.createHash('sha256').update(study).digest('hex'),
   captures:rendered.map(({character,direction,prop})=>({character,direction,prop,native:'64x96',direct:'28x42',enlarged:'4x'})),
-  assertions:{protectedBasePaths:basePaths.length,missingBasePaths:missingPaths.length,faceOverlays:faceIds.length,propFaceOverlays:propFaceIds.length,propFaceSkinRules:propFaceSkinRules.length,captureCount:rendered.length}
+  assertions:{protectedBasePaths:basePaths.length,missingBasePaths:missingPaths.length,faceOverlays:faceIds.length,propFaceOverlays:propFaceIds.length,propFaceSkinRules:propFaceSkinRules.length,materialGradients:materialGradients.length,captureCount:rendered.length}
  },null,2));
  console.log(JSON.stringify({pass:true,protectedBasePaths:basePaths.length,captures:rendered.length,native:rendered.length,direct:rendered.length,enlarged:rendered.length,output:out}));
 }finally{await browser.close();}
