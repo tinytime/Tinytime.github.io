@@ -1,0 +1,44 @@
+name: Fifth Civilian Batch Design Evidence
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fifth-batch-design-evidence-${{ github.ref }}
+  cancel-in-progress: true
+
+'on':
+  workflow_dispatch:
+  push:
+    branches:
+      - npc-granny-baseline-overhaul
+    paths:
+      - 'qa/build-fifth-batch-design-evidence.mjs'
+      - 'project-background/qa-artifacts/fifth-civilian-batch/**'
+      - 'npc_sprites.js'
+      - 'VaporCity_HD2D_Hybrid_Test.html'
+      - '.github/workflows/fifth-civilian-batch-design-evidence.yml'
+
+jobs:
+  design-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: npm install --no-save playwright
+      - name: Install Chromium
+        run: npx playwright install chromium
+      - name: Render exact-source batch five design evidence
+        run: node qa/build-fifth-batch-design-evidence.mjs
+      - name: Upload batch five design evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fifth-civilian-batch-design-evidence
+          path: qa-output/fifth-batch-design/
+          if-no-files-found: error
+          retention-days: 30
