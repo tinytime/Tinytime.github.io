@@ -20,6 +20,13 @@ The first colour study has completed exact-source browser capture, but is **not 
 - **Approval boundary:** internal design QA PASS; owner silhouette/construction approval is pending. Proposed family descriptors remain descriptive only; all three current vector-family assignments remain **UNASSIGNED**.
 - **Out of scope:** a separate provisional full-colour render file exists in the branch, but it is not captured by this design-evidence workflow, is not palette-approved and is not production art. No production renderer, town/gallery, golden snapshot or provenance changes are authorized.
 
+## Current checkpoint — Batch 4 Stage 7 colour study 05 (2026-11-21)
+
+[Colour study 05](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-05.svg) passed exact-source capture in [Run #23](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850288600), artifact [14684903417](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850288600/artifacts/14684903417). Checks confirmed 108/108 protected revision-21 paths, 18/18 body/prop face overlays, all 3 character-specific prop-face skin rules, all 3 material gradients and all 4 Slicker sleeve overrides. The run generated 24 panels at native 64×96, independently rasterized direct 28×42 and enlarged 4× scales. Manual review found Sailor's rope and Painter's brush readable but compact; Slicker's near-side sleeve remains a possible garment-plane ambiguity at direct scale.
+
+[Claude review package 01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-CLAUDE-REVIEW-PACKAGE-01.md) is prepared and pins the exact source/artifact. Independent review and owner final-art decision remain pending. No production renderer or game integration has begun; approved geometry and golden baselines remain untouched. See the [internal QA log](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTERNAL-QA-LOG.md).
+
+---
 ## Current checkpoint — Batch 4 Stage 7 colour study revision 03 (2026-11-21)
 
 Study 02 exact-source capture passed [Run #16](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849782903), artifact [14684742181](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849782903/artifacts/14684742181): 108/108 protected silhouette paths, all 18 body/prop face overlay groups, all 3 character-specific prop-face skin rules, and 24 panels captured at native 64×96, direct 28×42 and enlarged 4×. Manual review confirmed the restored prop-on faces and palette separation; compact direct-scale grip/face details remain under scrutiny.
