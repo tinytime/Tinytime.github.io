@@ -12,7 +12,7 @@ const out=path.join(root,'qa-output/fifth-batch-design');
 fs.mkdirSync(out,{recursive:true});
 const silhouette=fs.readFileSync(silhouettePath,'utf8');
 const face=fs.readFileSync(facePath,'utf8');
-const blobHash=text=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(text)+'\\0'),Buffer.from(text)])).digest('hex');
+const blobHash=text=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(text)+'\0'),Buffer.from(text)])).digest('hex');
 const sourceBlobs={silhouette:blobHash(silhouette),faceHead:blobHash(face)};
 const expected={silhouette:'c5af2903fb5b9e93d59a81409929e0fc88ecf285',faceHead:'147bb88a01b878f89a1eb41d7b65e8c0adf62f34'};
 for(const key of Object.keys(expected))if(sourceBlobs[key]!==expected[key])throw new Error(key+' source blob mismatch: '+sourceBlobs[key]);
@@ -77,6 +77,6 @@ try{
   counts:{characters:3,directionsPerCharacter:4,native64x96:12,direct28x42:12,enlarged4x:12,faceHeadViews:6},
   renderMethod:'Each native and direct-size image is rasterized from the source SVG vector at its target dimensions using an independent SVG viewBox render; direct 28x42 files are not resized from native captures.',
   scope:{productionRendererChanged:false,paletteArtworkChanged:false,goldenSnapshotsChanged:false,snapshotProvenanceChanged:false}};
- fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\\n');
+ fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
  console.log(JSON.stringify(manifest));
 }finally{await browser.close();}
