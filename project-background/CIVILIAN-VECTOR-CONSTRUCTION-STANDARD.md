@@ -1,3 +1,7 @@
+## Fourth civilian batch — integrated F6 face-stage checkpoint (2026-11-21)
+
+The owner-authorized grayscale face integration for Sailor #12, Slicker #13 and Painter #14 has passed internal design-stage QA with a direct 28×42 readability caveat. Exact tested source `006501416414f9c5fbeaba4b52a88fa64e849843`; [Actions Run #861](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845165418), artifact [14683171220](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845165418/artifacts/14683171220). The overlay is separate from the approved revision-21 silhouette/construction baseline; no production renderer, palette, golden snapshots or provenance were changed. See [integrated face QA](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md) and [Claude review package](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-CLAUDE-REVIEW-PACKAGE-01.md). Independent review and owner approval remain pending.
+
 ## Fourth civilian batch — revision 21 exact-source checkpoint, Run #810 (2026-11-20)
 
 - **Source and tested branch head:** `be1c0c012894ccae23b4cbce2ad06e523fb460c5`; revision-21 SVG blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`.
