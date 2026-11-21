@@ -8,6 +8,7 @@ on:
       - 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg'
       - 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg'
       - 'qa/build-fourth-batch-colour-evidence.mjs'
+      - '.github/workflows/fourth-batch-colour-study.yml'
   workflow_dispatch:
 jobs:
   colour-study:
