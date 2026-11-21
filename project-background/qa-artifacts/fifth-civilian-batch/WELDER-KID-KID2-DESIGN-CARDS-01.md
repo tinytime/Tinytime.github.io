@@ -37,7 +37,7 @@ A patient, meticulous repair specialist who pauses to inspect a join before comm
 - Face cue 1: a broad, nearly level brow shelf with a short downward notch at the outer end.
 - Face cue 2: a longer straight-to-hooked nose bridge and a squared lower cheek/jaw turn.
 - Expression: focused, slightly narrowed eyes; mouth closed, no grin.
-- Closest roster face comparisons: **Guard** and **Fisher**. Guard's sleepy eye and flat brow create a heavier, more relaxed mask; Welder's brow is more compressed and deliberate. Fisher's angry brow/frown pairing is more severe; Welder keeps a level mouth and longer nose bridge. Compare geometry only, excluding skin, hair, helmet and palette.
+- Closest roster face comparison candidates: **Guard** and **Fisher**. Guard's sleepy eye and flat brow create a heavier, more relaxed mask; Welder's brow is more compressed and deliberate. Fisher's angry brow/frown pairing is more severe; Welder keeps a level mouth and longer nose bridge. These are comparison hypotheses from current renderer face construction, not completed matched-crop findings. Validate with same-scale native roster face crops. Compare geometry only, excluding skin, hair, helmet and palette.
 
 ### Clothing / material logic
 - Main garment: short, split-front leather apron with a bib that narrows into a waist strap; the lower panels separate around the legs.
@@ -89,7 +89,7 @@ A curious, restless kid who is always halfway into the next idea. The pose is op
 - Face cue 1: broad cheek arc with a rounded lower jaw, wider than the chin.
 - Face cue 2: large, round-set eyes with shallow arched brows and a small open triangular mouth.
 - Expression: absorbed curiosity, eyes lifted toward the glider rather than a generic smile.
-- Closest roster face comparisons: **Dancer** and **Vendor**. Dancer's tall eyes and worried brow produce a more anxious expression; Kid uses rounder eye geometry, fuller cheeks and an open, curious mouth. Vendor's tall eyes and arched brow sit in a more mature, narrow-cheek face with a grin; Kid's lower-face mass is rounder and the mouth is smaller/open rather than a broad grin. Compare geometry only, excluding headwear, hair and palette.
+- Closest roster face comparison candidates: **Dancer** and **Vendor**. Dancer's tall eyes and worried brow produce a more anxious expression; Kid uses rounder eye geometry, fuller cheeks and an open, curious mouth. Vendor's tall eyes and arched brow sit in a more mature, narrow-cheek face with a grin; Kid's lower-face mass is rounder and the mouth is smaller/open rather than a broad grin. These are comparison hypotheses from current renderer face construction, not completed matched-crop findings. Validate with same-scale native roster face crops. Compare geometry only, excluding headwear, hair and palette.
 
 ### Clothing / material logic
 - Cropped zip hoodie with an integrated hood, raised collar and visibly different sleeve volumes.
@@ -140,7 +140,7 @@ A thoughtful, reserved kid who carries a small book close and watches before joi
 - Face cue 1: narrower, tapered jaw with a small chin point and fuller upper cheek.
 - Face cue 2: close-set eyes under short level brows, with a slight one-sided mouth lift.
 - Expression: observant, quietly amused; not sleepy, not broadly cheerful.
-- Closest roster face comparisons: **Clinic** and **Referee**. Clinic's close-set eyes sit under worried brows with a small neutral mouth; Kid 2 keeps the close spacing but uses level brows and an asymmetric smirk. Referee's close-set eyes and arched brows create a more alert, surprised read; Kid 2's jaw tapers more sharply and the mouth is a sideways lift rather than an open shape. Compare geometry only, excluding hair, headwear and palette.
+- Closest roster face comparison candidates: **Clinic** and **Referee**. Clinic's close-set eyes sit under worried brows with a small neutral mouth; Kid 2 keeps the close spacing but uses level brows and an asymmetric smirk. Referee's close-set eyes and arched brows create a more alert, surprised read; Kid 2's jaw tapers more sharply and the mouth is a sideways lift rather than an open shape. These are comparison hypotheses from current renderer face construction, not completed matched-crop findings. Validate with same-scale native roster face crops. Compare geometry only, excluding hair, headwear and palette.
 
 ### Clothing / material logic
 - Soft, longer cardigan-coat with separate front panels and a split hem.
