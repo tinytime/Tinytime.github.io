@@ -56,6 +56,16 @@ All 24 native/direct silhouette views report exactly one connected black compone
 
 The broader [Vapor City Browser QA Run #952](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850511163) is **FAILED**, not because the focused Batch 5 evidence step failed. The Batch 5 projection step passed. The overall browser workflow failed at global audio-resource HTTP 404 diagnostics and the golden snapshot gate (**1 match / 23 changed**); `pageErrors` and `scriptErrors` were empty. This is a separate shared-workflow result. No golden snapshots or provenance were changed, and none should be refreshed or approved without explicit owner authorization.
 
+
+
+### Run #952 — full browser QA, separate project-wide gate
+
+- [Vapor City Browser QA Run #952](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850511163)
+- [Artifact 14685201429](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850511163/artifacts/14685201429)
+- Tested commit: `fab33607dfa25922b8b93158ae48b9319153fa5c`.
+- Batch 5 design evidence and the review-sheet build succeeded. Global browser diagnostics failed: 1 of 24 golden snapshots matched and 23 differed; the baseline approval record is explicitly `unapproved`. The report also records multiple audio-resource HTTP 404s and no JavaScript errors.
+- No golden snapshots or provenance were modified. This global gate is separate from Batch 5 design-source QA and must not be bypassed or refreshed without explicit owner authorization.
+
 ## Approval and scope boundaries
 
 - All three current vector-family assignments remain **UNASSIGNED**.
