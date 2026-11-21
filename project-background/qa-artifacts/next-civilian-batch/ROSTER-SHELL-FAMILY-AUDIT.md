@@ -1,3 +1,13 @@
+## Fifth civilian batch — owner release and first design proposals (2026-11-21)
+
+The owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for identity, silhouette and construction design. The fourth batch is proceeding separately in another chat. The first proposals are:
+- [Identity/construction cards 01](../fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md)
+- [Four-view black silhouette exploration 01](../fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg)
+- [Face/head construction exploration 01](../fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg)
+
+Proposed descriptors: Welder — Offset Leather Apron / Rear Gas-Rig Shell; Kid — Forward-Sprung Hooded Zip-Shell / Open-Stride Youth Build; Kid 2 — Wrapped Scarf-Coat / Close-Held Book Shell. **All three current vector-family assignments remain UNASSIGNED.** Face comparator pairs are candidates pending matched-scale roster crops. Browser rendering, direct 28×42 captures, full matched-roster silhouette evidence and internal/owner review remain pending. No renderer, palette, town/gallery, golden snapshot/provenance or later-roster work is authorized.
+
+---
 ## Fourth civilian batch — revision 10 internal QA complete (2026-11-20)
 
 Sailor (#12), Slicker (#13) and Painter (#14) remain design-stage candidates; none is owner-approved. Internal capture and visual inspection of revision 10 are complete. [Claude review package 04](../fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CLAUDE-REVIEW-PACKAGE-04.md) is prepared against exact Run #678 evidence.
@@ -43,9 +53,9 @@ Historical status only: the owner initially authorized Sailor first. This was su
 | 12 | Sailor | Trades | Narrow Deck-Coat / Vertical Utility Shell (owner-approved 2026-11-20) | Construction card 02 and family approved; detailed design-stage vector study 01 in progress |
 | 13 | Slicker | Trades | Integrated Hooded Rain-Smock Shell (owner-approved 2026-11-20) | Construction card 02 and family approved; detailed design-stage vector study 01 in progress |
 | 14 | Painter | Trades | Offset Artisan Smock / Reaching-Arm Shell (owner-approved 2026-11-20) | Construction card 02 and family approved; detailed design-stage vector study 01 in progress |
-| 15 | Welder | Trades | UNASSIGNED | Legacy grouping only |
-| 16 | Kid | Youth | UNASSIGNED | Legacy grouping only |
-| 17 | Kid 2 | Youth | UNASSIGNED | Legacy grouping only |
+| 15 | Welder | Trades | UNASSIGNED | Proposed: Offset Leather Apron / Rear Gas-Rig Shell; owner design review pending |
+| 16 | Kid | Youth | UNASSIGNED | Proposed: Forward-Sprung Hooded Zip-Shell / Open-Stride Youth Build; owner design review pending |
+| 17 | Kid 2 | Youth | UNASSIGNED | Proposed: Wrapped Scarf-Coat / Close-Held Book Shell; owner design review pending |
 | 18 | Mouse | Youth | UNASSIGNED | Legacy grouping only |
 | 19 | Busker | Performer | UNASSIGNED | Legacy grouping only |
 | 20 | Dancer | Performer | UNASSIGNED | Legacy grouping only |
