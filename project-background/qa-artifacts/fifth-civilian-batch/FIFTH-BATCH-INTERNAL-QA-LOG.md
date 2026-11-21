@@ -1,17 +1,17 @@
 ## Current design revision — internal QA PASS, owner review pending
 
-**Exact tested design-package commit:** `4864fc565c2e08e662394c2ea406c37a119d2d59`  
-**Current branch HEAD:** `9f3a23f402c03c3c3f3bd99e4b1ddb861ce91b51` (documentation-only follow-up; Batch 5 art and evidence-builder blobs are unchanged)  
+**Exact tested design-package commit:** `9f3a23f402c03c3c3f3bd99e4b1ddb861ce91b51`  
+**Current branch HEAD:** `d48259ade991287af37df6e55b2212948fc68e18` (subsequent documentation/Batch 4 review updates only; Batch 5 art and evidence-builder blobs are unchanged)  
 **Silhouette blob:** `5892e66018fed61ceb02c3b222738d14870ce524`  
 **Face/head blob:** `e3b5b58dbf8225f23453c8b097ef4c61343e4cd9`  
 **Design-card blob:** `577af346658dd70fa99afe2825919fea4f64663b`  
 **Roster-comparison blob:** `c92fadb679f35ec343f9e929c9826d04d433f28b`  
 **Evidence-builder blob:** `98505716c117285dc7ef31c38adcac987931464b`
 
-### Run #24 — exact-source design evidence
+### Run #25 — exact-source design evidence
 
-- [GitHub Actions Run #24](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480)
-- [Artifact 14684123957](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480/artifacts/14684123957)
+- [GitHub Actions Run #25](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850393640)
+- [Artifact 14684184045](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850393640/artifacts/14684184045)
 - Dedicated design-evidence workflow: **PASS**.
 - Captures: 12 native 64×96 directional silhouettes, 12 independently rendered direct 28×42 silhouettes, 12 enlarged 4× diagnostics, six matched face crops and three full-roster silhouette comparison sheets.
 - Connectivity: all 24 native/direct silhouette views report exactly one connected black component and zero contacts with any frame edge.
@@ -26,13 +26,13 @@
 
 **Internal design QA: PASS. Owner silhouette/construction approval: PENDING.** This package is ready for owner review of the three concepts together. All construction-family assignments remain **UNASSIGNED**.
 
-A separate provisional full-colour render SVG exists in the branch, but it is out of scope for this design stage, was not captured by Run #24, is not palette-approved and is not production art. No production renderer, town/gallery, golden snapshot or provenance change was made or authorized.
+A separate provisional full-colour render SVG exists in the branch, but it is out of scope for this design stage, was not captured by Run #25, is not palette-approved and is not production art. No production renderer, town/gallery, golden snapshot or provenance change was made or authorized.
 
 # Fifth Civilian Batch — Internal QA Log
 
 **Scope:** Welder #15, Kid #16 and Kid 2 #17  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Status:** Design-stage internal QA in progress. Not review-ready, not independently reviewed, and not owner-approved.
+**Status:** Historical QA notes from earlier iterations; superseded by the current design revision summary above. Current internal design QA has passed; owner approval remains pending.
 
 ## Current source checkpoint
 
@@ -46,7 +46,7 @@ The source files are pinned by exact Git blob SHA:
 | Roster comparison | `project-background/qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-ROSTER-COMPARISON-01.md` | `c92fadb679f35ec343f9e929c9826d04d433f28b` |
 | Browser evidence builder | `qa/build-fifth-batch-design-evidence.mjs` | `98505716c117285dc7ef31c38adcac987931464b` |
 
-The exact tested artwork commit for Run #22 is `e3611fd918ca0b800a1d79616bd39357826f84b8`. Subsequent commits through current HEAD `57cff8e864dbee5ca240ac2a59f282bc04a7d39d` changed documentation only; the four Batch 5 source blobs above remain unchanged. The capture script pins the exact SVG blob IDs.
+The exact tested design-package commit for Run #25 is `9f3a23f402c03c3c3f3bd99e4b1ddb861ce91b51`. Subsequent commits through current HEAD `d48259ade991287af37df6e55b2212948fc68e18` changed documentation/Batch 4 review records only; the four Batch 5 source blobs above remain unchanged. The capture script pins the exact SVG blob IDs.
 
 ## Prior evidence and findings
 
