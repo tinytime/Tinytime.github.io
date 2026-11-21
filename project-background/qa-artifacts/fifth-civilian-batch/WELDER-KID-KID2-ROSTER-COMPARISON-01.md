@@ -1,7 +1,7 @@
 # Batch 5 — full current-roster comparison 01
 
 **Welder #15 · Kid #16 · Kid 2 #17**  
-**Status:** matched-scale design evidence completed in Run #24 and re-confirmed in Run #28; internal QA PASS, owner silhouette/construction approval pending.
+**Status:** matched-scale design evidence completed in Run #24 and corrected face/head evidence re-confirmed in Run #33; internal QA PASS, owner silhouette/construction approval pending.
 
 This comparison uses the current roster register and approved/active design descriptions. It does not pretend that unbuilt roster entries have finished vector art. The 15 existing designed civilians below are the relevant comparison set; unbuilt Mouse, Busker, Dancer, Broker and Fan remain future design prompts, not completed silhouette comparators.
 
