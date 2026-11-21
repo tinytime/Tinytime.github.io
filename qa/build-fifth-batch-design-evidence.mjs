@@ -28,7 +28,7 @@ const directions=[{id:'front',x:420},{id:'back',x:600},{id:'left',x:780},{id:'ri
 const browser=await chromium.launch({headless:true});
 try{
  const page=await browser.newPage({viewport:{width:1200,height:1000},deviceScaleFactor:1});
- const rendered=await page.evaluate(async({silhouette,face,people,directions})=>{
+ const rendered=await page.evaluate(async({silhouette,face,colour,people,directions})=>{
   const renderSvg=async(source,viewBox,width,height)=>{
    const svg=source.replace(/width="[^"]+" height="[^"]+" viewBox="[^"]+"/,'width="'+width+'" height="'+height+'" viewBox="'+viewBox+'"');
    const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await img.decode();
@@ -63,7 +63,7 @@ try{
    return c.toDataURL('image/png');
   };
   return {items,colourItems,fullSilhouette,fullColour,faceNative,faceEnlarged,nativeSheet:await sheet('native'),directSheet:await sheet('direct')};
- },{silhouette,face,people,directions});
+ },{silhouette,face,colour,people,directions});
  const write=(name,data)=>fs.writeFileSync(path.join(out,name),Buffer.from(data.split(',')[1],'base64'));
  for(const item of rendered.items){
   write(item.key+'-native-64x96.png',item.native);
