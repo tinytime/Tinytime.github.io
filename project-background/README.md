@@ -1,3 +1,9 @@
+## Fifth civilian batch — owner release and design work opened (2026-11-21)
+
+The owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for identity, silhouette and construction design. The fourth batch is being handled in a separate workstream. Batch 5 design cards 01 and four-view black silhouette exploration 01 are now authored under [fifth-civilian-batch](qa-artifacts/fifth-civilian-batch/). They are proposals only and await internal QA and owner review. Proposed family descriptors are not assignments; all three current vector families remain UNASSIGNED. No palette, production renderer, town/gallery, golden snapshot or provenance work is included. Do not begin Mouse #18 or later characters.
+
+---
+
 ## Fourth civilian batch — Stage 7 colour/rendering design opened (2026-11-21)
 
 The owner confirmed Claude's approval of the Run #867 integrated grayscale face checkpoint and directed progression to the next stage. This is recorded as owner-reported independent approval; the detailed Claude response has not been transcribed into the repository. Stage 7 is open for non-production colour/material/rendering studies for Sailor #12, Slicker #13 and Painter #14 only.
