@@ -14,13 +14,13 @@ const silhouette=fs.readFileSync(silhouettePath,'utf8');
 const face=fs.readFileSync(facePath,'utf8');
 const blobHash=text=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(text)+'\0'),Buffer.from(text)])).digest('hex');
 const sourceBlobs={silhouette:blobHash(silhouette),faceHead:blobHash(face)};
-const expected={silhouette:'c5af2903fb5b9e93d59a81409929e0fc88ecf285',faceHead:'147bb88a01b878f89a1eb41d7b65e8c0adf62f34'};
+const expected={silhouette:'9d701363c70e4fe2f42141d5f9e416d04e2f23c8',faceHead:'e3b5b58dbf8225f23453c8b097ef4c61343e4cd9'};
 for(const key of Object.keys(expected))if(sourceBlobs[key]!==expected[key])throw new Error(key+' source blob mismatch: '+sourceBlobs[key]);
 if(!silhouette.includes('Twelve original solid-black civilian silhouettes'))throw new Error('Silhouette sheet description mismatch');
 if((silhouette.match(/<g class="sil">/g)||[]).length!==12)throw new Error('Expected twelve silhouette direction groups');
 if(!face.includes('#15 WELDER')||!face.includes('#16 KID')||!face.includes('#17 KID 2'))throw new Error('Face/head sheet missing a character');
 const people=[{id:'welder',rowY:156},{id:'kid',rowY:384},{id:'kid2',rowY:614}];
-const directions=[{id:'front',x:176},{id:'back',x:426},{id:'left',x:676},{id:'right',x:926}];
+const directions=[{id:'front',x:420},{id:'back',x:600},{id:'left',x:780},{id:'right',x:960}];
 const browser=await chromium.launch({headless:true});
 try{
  const page=await browser.newPage({viewport:{width:1200,height:1000},deviceScaleFactor:1});
