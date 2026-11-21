@@ -36,6 +36,9 @@ jobs:
       - name: Build fourth-batch design-source projections and roster face crops
         if: always()
         run: node qa/build-fourth-batch-design-evidence.mjs
+      - name: Build integrated fourth-batch grayscale face projections
+        if: always()
+        run: node qa/build-fourth-batch-integrated-face-evidence.mjs
       - name: Render fourth-batch construction detail study and capture all directions
         run: node qa/render-fourth-batch-construction-detail-study.mjs
       - name: Validate semantic civilian proportion measurements and annotation manifest
