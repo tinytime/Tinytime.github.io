@@ -1,7 +1,7 @@
 # Batch 5 — full current-roster comparison 01
 
 **Welder #15 · Kid #16 · Kid 2 #17**  
-**Status:** matched-scale design evidence completed in Run #24 and corrected face/head evidence re-confirmed in Run #33; internal QA PASS, owner silhouette/construction approval pending.
+**Status:** matched-scale design evidence and corrected face/head source re-confirmed in [Run #35](https://github.com/tinytime/Tinytime.github.io/actions/runs/44851212540), artifact [14685376816](https://github.com/tinytime/Tinytime.github.io/actions/runs/44851212540/artifacts/14685376816); internal QA PASS, owner silhouette/construction approval pending. A separate body-only matched-roster sheet is not included; body-only shell/pose distinctions are documented in the design cards.
 
 This comparison uses the current roster register and approved/active design descriptions. It does not pretend that unbuilt roster entries have finished vector art. The 15 existing designed civilians below are the relevant comparison set; unbuilt Mouse, Busker, Dancer, Broker and Fan remain future design prompts, not completed silhouette comparators.
 
