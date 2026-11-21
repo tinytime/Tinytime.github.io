@@ -25,22 +25,43 @@ const xByDirection={front:51,left:271,right:381},directions=['front','left','rig
 const browser=await chromium.launch({headless:true});
 try{
  const page=await browser.newPage({viewport:{width:1200,height:900},deviceScaleFactor:1});
- const result=await page.evaluate(async({source,people,directions,xByDirection})=>{
-  const render=async(x,y,w,h)=>{
-   const svg=source.replace('width="1800" height="1330" viewBox="0 0 1800 1330"',`width="${w}" height="${h}" viewBox="${x} ${y} 64 96"`);
-   const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await img.decode();
-   const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=true;ctx.drawImage(img,0,0,w,h);return c.toDataURL('image/png');
+ const result=await page.evaluate(async({source,baseSource,people,directions,xByDirection})=>{
+  const render=async(x,y,w,h,src=source)=>{
+   const raster=async(svgSource)=>{
+    const svg=svgSource.replace('width="1800" height="1330" viewBox="0 0 1800 1330"',`width="${w}" height="${h}" viewBox="${x} ${y} 64 96"`);
+    const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await img.decode();
+    const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.imageSmoothingEnabled=true;ctx.drawImage(img,0,0,w,h);return {c,ctx};
+   };
+   const rendered=await raster(src),c=rendered.c,ctx=rendered.ctx;
+   if(src===source){
+    const approved=await raster(baseSource),face=ctx.getImageData(0,0,w,h),mask=approved.ctx.getImageData(0,0,w,h);
+    for(let i=0;i<face.data.length;i+=4){
+     const bg=mask.data[i]>215&&mask.data[i+1]>212&&mask.data[i+2]>205;
+     if(bg){face.data[i]=mask.data[i];face.data[i+1]=mask.data[i+1];face.data[i+2]=mask.data[i+2];face.data[i+3]=mask.data[i+3];}
+    }
+    ctx.putImageData(face,0,0);
+   }
+   return c.toDataURL('image/png');
   };
-  const data=[];
-  for(const p of people)for(const d of directions)data.push({key:p.id+'-'+d,label:p.id[0].toUpperCase()+'-'+d[0].toUpperCase(),native:await render(xByDirection[d],p.y,64,96),direct:await render(xByDirection[d],p.y,28,42)});
+  const data=[],containmentAudit=[];
+  for(const p of people)for(const d of directions){
+   const x=xByDirection[d],y=p.y,baseUrl=await render(x,y,64,96,baseSource),native=await render(x,y,64,96),direct=await render(x,y,28,42);
+   const a=new Image(),b=new Image();a.src=baseUrl;b.src=native;await a.decode();await b.decode();
+   const ca=document.createElement('canvas'),cb=document.createElement('canvas');ca.width=cb.width=64;ca.height=cb.height=96;
+   const xa=ca.getContext('2d',{willReadFrequently:true}),xb=cb.getContext('2d',{willReadFrequently:true});xa.drawImage(a,0,0);xb.drawImage(b,0,0);
+   const aa=xa.getImageData(0,0,64,96).data,bb=xb.getImageData(0,0,64,96).data;let outside=0;
+   for(let k=0;k<aa.length;k+=4){const bg=aa[k]>215&&aa[k+1]>212&&aa[k+2]>205;const changed=Math.abs(aa[k]-bb[k])+Math.abs(aa[k+1]-bb[k+1])+Math.abs(aa[k+2]-bb[k+2])>18;if(bg&&changed)outside++;}
+   containmentAudit.push({character:p.id,direction:d,overlayPixelsOutsideApprovedSilhouette:outside,pass:outside===0});
+   data.push({key:p.id+'-'+d,label:p.id[0].toUpperCase()+'-'+d[0].toUpperCase(),native,direct});
+  }
   const sheet=async(scale)=>{
    const w=scale==='native'?64:28,h=scale==='native'?96:42,g=12,lh=18,cols=3,c=document.createElement('canvas');
    c.width=g+cols*(w+g);c.height=g+3*(h+lh+g)+14;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);x.fillStyle='#fff';x.font='bold 7px sans-serif';x.fillText('S=Sailor K=Slicker P=Painter',g,9);
    for(let i=0;i<data.length;i++){const p=data[i],im=new Image();im.src=p[scale];await im.decode();const px=g+(i%3)*(w+g),py=g+14+Math.floor(i/3)*(h+lh+g);x.fillStyle='#fff';x.font='bold 9px sans-serif';x.fillText(p.label,px,py+11);x.drawImage(im,px,py+lh,w,h);}
    return c.toDataURL('image/png');
   };
-  return {data,nativeSheet:await sheet('native'),directSheet:await sheet('direct')};
- },{source:composite,people,directions,xByDirection});
+  return {data,containmentAudit,nativeSheet:await sheet('native'),directSheet:await sheet('direct')};
+ },{source:composite,baseSource:base,people,directions,xByDirection});
  const write=(p,url)=>fs.writeFileSync(p,Buffer.from(url.split(',')[1],'base64'));
  for(const item of result.data){
   write(path.join(out,item.key+'-64x96.png'),item.native);
@@ -92,7 +113,8 @@ try{
  write(path.join(out,'integrated-matched-face-comparisons-native-40x38.png'),comparisons.native);
  write(path.join(out,'integrated-matched-face-comparisons-3x.png'),comparisons.enlarged);
  
- const manifest={stage:'non-production integrated grayscale face study',revision21_blob:blob,overlay:'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg',characters:people.map(x=>x.id),directions,counts:{native64x96:9,direct28x42:9,enlarged4x:9,integratedFaceCrops40x38:9,matchedFaceRows:6},protected:{revision21_source_modified:false,construction_source_modified:false,production_renderer_modified:false,golden_snapshots_modified:false}};
+ if(result.containmentAudit.some(x=>!x.pass))throw new Error('Integrated face overlay extends outside approved revision-21 silhouette: '+JSON.stringify(result.containmentAudit.filter(x=>!x.pass)));
+ const manifest={stage:'non-production integrated grayscale face study',revision21_blob:blob,overlay:'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg',characters:people.map(x=>x.id),directions,counts:{native64x96:9,direct28x42:9,enlarged4x:9,integratedFaceCrops40x38:9,matchedFaceRows:6},containmentAudit:result.containmentAudit,protected:{revision21_source_modified:false,construction_source_modified:false,production_renderer_modified:false,golden_snapshots_modified:false}};
  fs.writeFileSync(path.join(out,'integrated-face-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
  console.log(JSON.stringify({manifest}));
 }finally{await browser.close();}
