@@ -10,13 +10,15 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dir=path.join(root,'project-background/qa-artifacts/fifth-civilian-batch');
 const silhouettePath=path.join(dir,'WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg');
 const facePath=path.join(dir,'WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg');
+const colourPath=path.join(dir,'WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg');
 const out=path.join(root,'qa-output/fifth-batch-design');
 fs.mkdirSync(out,{recursive:true});
 const silhouette=fs.readFileSync(silhouettePath,'utf8');
 const face=fs.readFileSync(facePath,'utf8');
+const colour=fs.readFileSync(colourPath,'utf8');
 const blobHash=text=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(text)+'\0'),Buffer.from(text)])).digest('hex');
-const sourceBlobs={silhouette:blobHash(silhouette),faceHead:blobHash(face)};
-const expected={silhouette:'aa6ec7e6acc5599c908cb366f3c257a7414dec4c',faceHead:'e3b5b58dbf8225f23453c8b097ef4c61343e4cd9'};
+const sourceBlobs={silhouette:blobHash(silhouette),faceHead:blobHash(face),fullColour:blobHash(colour)};
+const expected={silhouette:'aa6ec7e6acc5599c908cb366f3c257a7414dec4c',faceHead:'e3b5b58dbf8225f23453c8b097ef4c61343e4cd9',fullColour:'0220af96bea894fa675cb2c26bc1b1e415d443d5'};
 for(const key of Object.keys(expected))if(sourceBlobs[key]!==expected[key])throw new Error(key+' source blob mismatch: '+sourceBlobs[key]);
 if(!silhouette.includes('Twelve original solid-black civilian silhouettes'))throw new Error('Silhouette sheet description mismatch');
 if((silhouette.match(/<g class="sil">/g)||[]).length!==12)throw new Error('Expected twelve silhouette direction groups');
@@ -35,13 +37,16 @@ try{
    return c.toDataURL('image/png');
   };
   const items=[];
+  const colourItems=[];
   for(const person of people)for(const direction of directions){
    const x=direction.x,y=person.rowY;
    items.push({key:person.id+'-'+direction.id,
     native:await renderSvg(silhouette,x+' '+y+' 121.6 182.4',64,96),
     direct:await renderSvg(silhouette,x+' '+y+' 121.6 182.4',28,42)});
+   colourItems.push({key:person.id+'-'+direction.id,native:await renderSvg(colour,x+' '+y+' 121.6 182.4',64,96),direct:await renderSvg(colour,x+' '+y+' 121.6 182.4',28,42)});
   }
   const fullSilhouette=await renderSvg(silhouette,'0 0 1120 900',1120,900);
+  const fullColour=await renderSvg(colour,'0 0 1120 900',1120,900);
   const faceNative=await renderSvg(face,'0 0 1000 560',1000,560);
   const faceEnlarged=await renderSvg(face,'0 0 1000 560',2000,1120);
   const sheet=async(scale)=>{
@@ -57,7 +62,7 @@ try{
    }
    return c.toDataURL('image/png');
   };
-  return {items,fullSilhouette,faceNative,faceEnlarged,nativeSheet:await sheet('native'),directSheet:await sheet('direct')};
+  return {items,colourItems,fullSilhouette,fullColour,faceNative,faceEnlarged,nativeSheet:await sheet('native'),directSheet:await sheet('direct')};
  },{silhouette,face,people,directions});
  const write=(name,data)=>fs.writeFileSync(path.join(out,name),Buffer.from(data.split(',')[1],'base64'));
  for(const item of rendered.items){
@@ -72,6 +77,8 @@ try{
   write(item.key+'-enlarged-4x.png',enlarged);
  }
  write('silhouette-sheet-full-1120x900.png',rendered.fullSilhouette);
+ write('full-colour-sheet-1120x900.png',rendered.fullColour);
+ for(const item of rendered.colourItems){write(item.key+'-colour-native-64x96.png',item.native);write(item.key+'-colour-direct-28x42.png',item.direct);const enlarged=await page.evaluate(async url=>{const img=new Image();img.src=url;await img.decode();const c=document.createElement('canvas');c.width=256;c.height=384;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.drawImage(img,0,0,256,384);return c.toDataURL('image/png');},item.native);write(item.key+'-colour-enlarged-4x.png',enlarged);}
  write('silhouette-contact-native-64x96.png',rendered.nativeSheet);
  write('silhouette-contact-direct-28x42.png',rendered.directSheet);
  write('face-head-sheet-1000x560.png',rendered.faceNative);
@@ -239,7 +246,7 @@ try{
   await new Promise(resolve=>server.close(resolve));
  }
 
- const manifest={stage:'non-production identity/silhouette design projections',commit:process.env.GITHUB_SHA||null,sourceBlobs,connectivityDiagnostics,
+ const manifest={stage:'non-production full-colour design render and identity/silhouette projections',commit:process.env.GITHUB_SHA||null,sourceBlobs,connectivityDiagnostics,colourCounts:{characters:3,directionsPerCharacter:4,native64x96:rendered.colourItems.filter(x=>x.native).length,direct28x42:rendered.colourItems.filter(x=>x.direct).length,enlarged4x:12},
   counts:{characters:3,directionsPerCharacter:4,native64x96:12,direct28x42:12,enlarged4x:12,faceHeadViews:6},
   renderMethod:'Each native and direct-size image is rasterized from the source SVG vector at its target dimensions using an independent SVG viewBox render; direct 28x42 files are not resized from native captures.',
   scope:{productionRendererChanged:false,paletteArtworkChanged:false,goldenSnapshotsChanged:false,snapshotProvenanceChanged:false}};
