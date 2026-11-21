@@ -1,3 +1,9 @@
+## Fourth civilian batch — Stage 7 colour-study capture, revision 02 (2026-11-21)
+
+The isolated colour-study harness now targets `SAILOR-SLICKER-PAINTER-COLOUR-STUDY-02.svg`. It pins the approved revision-21 silhouette and integrated grayscale face blobs, validates all 108 protected silhouette paths, and requires all 9 body-only plus 9 prop-on face overlay groups. It captures 24 body/prop direction panels at native 64×96, independently rasterized direct 28×42 and enlarged 4× scales. Run #7 passed the previous study-01 harness but manual inspection found the prop-on panels omitted face overlays; study 02 restores the exact approved face geometry to those panels. The new exact-source run and artifact review are pending. This remains non-production artwork; no live renderer, town/gallery or golden snapshot/provenance changes are authorized by this study record.
+
+---
+
 ## Fourth civilian batch — isolated Stage 7 colour-study capture (2026-11-21)
 
 The colour study is a separate non-production SVG; it does not alter npc_sprites.js, production renderers, game scenes or golden snapshots. qa/build-fourth-batch-colour-evidence.mjs verifies the protected revision-21 silhouette and integrated grayscale face Git blob IDs, checks that every source silhouette path remains present, and captures the 24 four-direction/body-only/prop-on panels at native 64×96, independently rasterized direct 28×42 and enlarged 4× scales. The isolated workflow is .github/workflows/fourth-batch-colour-study.yml; its artifact is design evidence only, not production-renderer QA.
