@@ -75,6 +75,22 @@ try{
  write('silhouette-contact-direct-28x42.png',rendered.directSheet);
  write('face-head-sheet-1000x560.png',rendered.faceNative);
  write('face-head-sheet-enlarged-2x.png',rendered.faceEnlarged);
+ const connectivityDiagnostics=await page.evaluate(async items=>{
+  const out=[];
+  for(const item of items)for(const scale of ['native','direct']){
+   const im=new Image();im.src=item[scale];await im.decode();
+   const c=document.createElement('canvas');c.width=im.width;c.height=im.height;
+   const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(im,0,0);
+   const data=ctx.getImageData(0,0,c.width,c.height).data,w=c.width,h=c.height,mask=new Uint8Array(w*h);
+   let pixels=0,minX=w,minY=h,maxX=-1,maxY=-1;
+   for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=(y*w+x)*4;if(data[i]<100&&data[i+1]<100&&data[i+2]<100){mask[y*w+x]=1;pixels++;minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);}}
+   const seen=new Uint8Array(w*h),queue=new Int32Array(w*h),sizes=[];
+   for(let i=0;i<mask.length;i++){if(!mask[i]||seen[i])continue;let a=0,b=0,size=0;queue[b++]=i;seen[i]=1;while(a<b){const n=queue[a++],x=n%w,y=Math.floor(n/w);size++;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){if(!dx&&!dy)continue;const xx=x+dx,yy=y+dy;if(xx<0||yy<0||xx>=w||yy>=h)continue;const k=yy*w+xx;if(mask[k]&&!seen[k]){seen[k]=1;queue[b++]=k;}}}sizes.push(size);}
+   out.push({key:item.key,scale,width:w,height:h,opaquePixels:pixels,components:sizes.length,componentSizes:sizes.sort((a,b)=>b-a),bounds:pixels?{minX,minY,maxX,maxY}:null,edgeContacts:{left:Array.from({length:h},(_,y)=>mask[y*w]).some(Boolean),right:Array.from({length:h},(_,y)=>mask[y*w+w-1]).some(Boolean),top:Array.from(mask.slice(0,w)).some(Boolean),bottom:Array.from(mask.slice((h-1)*w)).some(Boolean)}});
+  }
+  return out;
+ },rendered.items);
+ fs.writeFileSync(path.join(out,'connectivity-diagnostics.json'),JSON.stringify(connectivityDiagnostics,null,2)+'\n');
 
  // Capture the approved/active roster as black silhouettes for matched native-scale comparison.
  // These are read-only snapshots from the current game renderer; the proposed batch art stays
@@ -139,12 +155,12 @@ try{
   // Matched face geometry comparisons: two closest roster candidates for each
   // proposed face, front and profile, at a shared 40x38 crop size.
   const faceRows=[
-   {key:'welder-front',person:'welder',direction:'front',box:[264,148,50,52],candidates:['guard','fisher']},
-   {key:'welder-profile',person:'welder',direction:'left',box:[441,147,48,55],candidates:['guard','fisher']},
-   {key:'kid-front',person:'kid',direction:'front',box:[256,289,63,52],candidates:['dancer','vendor']},
-   {key:'kid-profile',person:'kid',direction:'left',box:[450,285,50,53],candidates:['dancer','vendor']},
-   {key:'kid2-front',person:'kid2',direction:'front',box:[260,424,56,46],candidates:['clinic','ref']},
-   {key:'kid2-profile',person:'kid2',direction:'left',box:[449,416,41,54],candidates:['clinic','ref']}
+   {key:'welder-front',person:'welder',direction:'front',box:[468,148,50,52],candidates:['guard','fisher']},
+   {key:'welder-profile',person:'welder',direction:'left',box:[689,147,48,55],candidates:['guard','fisher']},
+   {key:'kid-front',person:'kid',direction:'front',box:[460,289,63,52],candidates:['dancer','vendor']},
+   {key:'kid-profile',person:'kid',direction:'left',box:[698,285,50,53],candidates:['dancer','vendor']},
+   {key:'kid2-front',person:'kid2',direction:'front',box:[464,424,56,46],candidates:['clinic','ref']},
+   {key:'kid2-profile',person:'kid2',direction:'left',box:[697,416,41,54],candidates:['clinic','ref']}
   ];
   const faceComparisons=await page.evaluate(async({face,rows,roster})=>{
    const rosterMap=new Map(roster.map(x=>[x.civ+'-'+x.direction,x.dataUrl]));
@@ -205,7 +221,7 @@ try{
   await new Promise(resolve=>server.close(resolve));
  }
 
- const manifest={stage:'non-production identity/silhouette design projections',commit:process.env.GITHUB_SHA||null,sourceBlobs,
+ const manifest={stage:'non-production identity/silhouette design projections',commit:process.env.GITHUB_SHA||null,sourceBlobs,connectivityDiagnostics,
   counts:{characters:3,directionsPerCharacter:4,native64x96:12,direct28x42:12,enlarged4x:12,faceHeadViews:6},
   renderMethod:'Each native and direct-size image is rasterized from the source SVG vector at its target dimensions using an independent SVG viewBox render; direct 28x42 files are not resized from native captures.',
   scope:{productionRendererChanged:false,paletteArtworkChanged:false,goldenSnapshotsChanged:false,snapshotProvenanceChanged:false}};
