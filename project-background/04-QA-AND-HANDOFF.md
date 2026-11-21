@@ -3,6 +3,7 @@
 Owner release is confirmed for Welder #15, Kid #16 and Kid 2 #17. Initial design artifacts:
 - [Identity and construction cards 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md)
 - [Four-view black silhouette exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg)
+- [Face/head construction exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg)
 
 The authored SVG source was checked for a single viewBox/root, balanced group tags, 12 character-direction cells and three character rows. This is source-level validation only; no browser render or direct 28×42 capture has yet been run or visually inspected. Matched-scale full-roster silhouette and face comparisons remain to be produced as evidence. Internal QA and owner review are pending. Do not implement renderers or change golden snapshots/provenance.
 
