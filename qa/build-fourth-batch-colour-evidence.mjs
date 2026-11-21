@@ -38,7 +38,7 @@ const browser=await chromium.launch({headless:true});
 try{
  const page=await browser.newPage({viewport:{width:900,height:700},deviceScaleFactor:1});
  const rendered=await page.evaluate(async({source,panels})=>{
-  const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(source);await img.decode();
+  const img=new Image();const svgUrl=URL.createObjectURL(new Blob([source],{type:'image/svg+xml'}));img.src=svgUrl;try{await img.decode();}finally{URL.revokeObjectURL(svgUrl);}
   const out=[];
   for(const [character,direction,x,y,prop] of panels){
    const capture=async(w,h)=>{
