@@ -1,3 +1,9 @@
+## Fourth civilian batch — Stage 7 colour study 01 (2026-11-21)
+
+The first non-production colour-study SVG is authored for Sailor #12, Slicker #13 and Painter #14. Protected revision-21 silhouette paths and integrated grayscale face overlays are used as inputs; the palette values remain proposals. An isolated Playwright capture harness and GitHub Actions workflow are committed. The harness is intended to produce 24 panels (body-only and prop-on, four directions across the three characters) at native 64×96, direct 28×42 and enlarged 4× sizes, with contact sheets and a manifest. Exact-source run completion and visual inspection are still pending. Do not treat the artwork as final, approve palettes, or move into production renderer integration until the owner reviews the actual evidence. No golden snapshots/provenance changes are authorized.
+
+---
+
 ## Fifth civilian batch — initial design package and QA boundary (2026-11-21)
 
 Owner release is confirmed for Welder #15, Kid #16 and Kid 2 #17. Initial design artifacts:
