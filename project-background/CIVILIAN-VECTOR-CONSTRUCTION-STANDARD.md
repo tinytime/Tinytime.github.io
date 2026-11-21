@@ -1,3 +1,9 @@
+## Fifth civilian batch — design-stage authorization (2026-11-21)
+
+The owner explicitly authorized identity, silhouette and construction design for Welder #15, Kid #16 and Kid 2 #17. This authorization does not modify the ratified construction standard or waive any required evidence. The initial cards and four-view black silhouette proposal are in [the fifth-batch design package](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md) and [silhouette exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg). The concepts remain proposals pending internal QA and owner review. Keep current vector families UNASSIGNED until approval; no renderer or palette work is authorized.
+
+---
+
 ## Fourth civilian batch — integrated F6 face-stage checkpoint (2026-11-21)
 
 The owner-authorized grayscale face integration for Sailor #12, Slicker #13 and Painter #14 has passed internal design-stage QA with a direct 28×42 readability caveat. Exact tested source `a857f7b4d2238ef8fd63da99465aa27ee11cafe0`; [Actions Run #867](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254), artifact [14682766863](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254/artifacts/14682766863). The overlay is separate from the approved revision-21 silhouette/construction baseline; no production renderer, palette, golden snapshots or provenance were changed. See [integrated face QA](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md) and [Claude review package](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-CLAUDE-REVIEW-PACKAGE-01.md). Independent review and owner approval remain pending.
