@@ -1,3 +1,15 @@
+## Batch 4 — Stage 7 visual QA disposition (2026-11-21)
+
+The first colour study has completed exact-source browser capture, but is **not visually approved or production-ready**.
+
+- Current colour-study source: [SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg).
+- Exact-source capture: [Run #13](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849522697), artifact [14684034037](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849522697/artifacts/14684034037); all 24 native, 24 direct 28×42 and 24 enlarged captures completed.
+- Manual visual inspection found the current artwork remains a largely flat silhouette recolour. The supplemental material-plane overlay attempt did not appear in the rendered output and is not counted as successful polish.
+- **Gate:** visual/material QA NOT PASS. Do not integrate into production renderer or claim final palette approval yet. The next action is to correct the overlay/layer placement, produce visible material planes and re-inspect all 12 body-only plus 12 prop-on views at both required scales.
+- Protected: revision-21 geometry, integrated grayscale face source, existing civilians, town/gallery integration and golden snapshots/provenance. Batch 5 remains separate.
+
+---
+
 ## Fifth civilian batch — full-colour render proposal authored (2026-11-21)
 
 [Full-colour directional render 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg) presents all 12 views with character-specific face, garment, prop and material colour overlays. Exact-source browser captures, native/direct-size inspection, structural checks and internal QA remain outstanding. This does not approve the silhouettes, family assignments or palette. No production renderer or golden snapshot changes.
