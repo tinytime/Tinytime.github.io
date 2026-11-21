@@ -1,3 +1,16 @@
+## Stage 7 colour study 01 — exact-source capture and visual findings (2026-11-21)
+
+- **Exact tested commit:** `293609aab1a678fbbf8d2995707e47cb4280f77b`.
+- **Source:** [colour study 01](SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg), blob `e30fa91e77249a40c15a73bb2787394eb15647d2`.
+- **Capture:** [Fourth Batch Colour Study Run #7](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849078081), artifact [14684716336](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849078081/artifacts/14684716336). Capture step and artifact upload passed.
+- **Integrity manifest:** protected revision-21 paths 108/108 present; zero missing; approved integrated grayscale face source blob matched; 24 panels captured at native 64×96, independently rasterized direct 28×42 and enlarged 4× (72 image files total).
+- **Manual artifact inspection:** native and direct contact sheets plus selected enlarged face/prop crops inspected. The three material palettes are clearly separated. Sailor's coil is recognizable but the hand-to-rope junction remains compact. Slicker's hooded rain shell reads clearly; its front face has strong dark brow/eye marks and needs direct-scale scrutiny. Painter's brush reads as a flat brush, but the grip/handle/head cluster is dense and should remain under scrutiny.
+- **Blocking defect found:** prop-on diagnostic panels did not contain the integrated grayscale face overlays, so the faces disappeared in all 12 prop-on views. This is a study-layout defect, not a change to the approved face geometry.
+- **Correction:** authored [colour study 02](SAILOR-SLICKER-PAINTER-COLOUR-STUDY-02.svg), duplicating the same approved face overlay geometry into the corresponding prop-on panel origins. The capture harness now checks all 9 body-only plus all 9 prop-on face overlays, and the isolated workflow watches study 02. No base silhouette, face geometry, production renderer, game scene, golden snapshot or provenance was changed.
+- **Current disposition:** study 01 is superseded. Study 02 requires fresh exact-source capture and full manual review before internal colour-study QA can pass. This is not final palette approval or production-renderer authorization.
+
+---
+
 ## F6 face geometry exploration 03 — source review checkpoint (2026-11-20)
 
 - **Current corrected source:** [face geometry exploration 03](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-03.svg), blob `47a68413538a619dd4560c44dd2dcf3783cc6f9b`, commit `18b4ba3120ae2ab269ca14eca7585cf6aeea9f50`.
