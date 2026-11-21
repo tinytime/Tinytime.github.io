@@ -8,7 +8,7 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dir=path.join(root,'project-background/qa-artifacts/fourth-civilian-batch');
 const basePath=path.join(dir,'SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg');
 const facePath=path.join(dir,'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg');
-const studyPath=path.join(dir,'SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg');
+const studyPath=path.join(dir,'SAILOR-SLICKER-PAINTER-COLOUR-STUDY-02.svg');
 // Design-only projection: this script never loads or edits the production renderer.
 const out=path.join(root,'qa-output/fourth-batch-colour-study');
 fs.mkdirSync(out,{recursive:true});
@@ -24,7 +24,8 @@ const basePaths=[...base.matchAll(/<path\b[^>]*d="([^"]+)"/g)].map(m=>m[1]);
 const missingPaths=basePaths.filter(d=>!study.includes('d="'+d+'"'));
 if(missingPaths.length)throw new Error('Colour study altered or omitted '+missingPaths.length+' protected base path(s)');
 const faceIds=['sailor-front','sailor-left','sailor-right','slicker-front','slicker-left','slicker-right','painter-front','painter-left','painter-right'];
-for(const id of faceIds)if(!study.includes('id="'+id+'"'))throw new Error('Missing integrated face overlay '+id);
+const propFaceIds=faceIds.map(id=>id.replace(/^(sailor|slicker|painter)-/,'$1-prop-'));
+for(const id of [...faceIds,...propFaceIds])if(!study.includes('id="'+id+'"'))throw new Error('Missing integrated face overlay '+id);
 const panels=[
  ['sailor','front',51,128,false],['sailor','back',161,128,false],['sailor','left',271,128,false],['sailor','right',381,128,false],
  ['slicker','front',51,458,false],['slicker','back',161,458,false],['slicker','left',271,458,false],['slicker','right',381,458,false],
@@ -73,7 +74,7 @@ try{
   sourceCommit:process.env.GITHUB_SHA||null,baseBlob:blob(base),faceBlob:blob(face),
   studySha256:crypto.createHash('sha256').update(study).digest('hex'),
   captures:rendered.map(({character,direction,prop})=>({character,direction,prop,native:'64x96',direct:'28x42',enlarged:'4x'})),
-  assertions:{protectedBasePaths:basePaths.length,missingBasePaths:missingPaths.length,faceOverlays:faceIds.length,captureCount:rendered.length}
+  assertions:{protectedBasePaths:basePaths.length,missingBasePaths:missingPaths.length,faceOverlays:faceIds.length,propFaceOverlays:propFaceIds.length,captureCount:rendered.length}
  },null,2));
  console.log(JSON.stringify({pass:true,protectedBasePaths:basePaths.length,captures:rendered.length,native:rendered.length,direct:rendered.length,enlarged:rendered.length,output:out}));
 }finally{await browser.close();}
