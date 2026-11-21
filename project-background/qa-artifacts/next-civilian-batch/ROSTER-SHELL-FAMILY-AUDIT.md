@@ -4,6 +4,7 @@ The owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for identity, si
 - [Identity/construction cards 01](../fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md)
 - [Four-view black silhouette exploration 01](../fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg)
 - [Face/head construction exploration 01](../fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg)
+- [Full-roster comparison 01](../fifth-civilian-batch/WELDER-KID-KID2-ROSTER-COMPARISON-01.md)
 
 Proposed descriptors: Welder — Offset Leather Apron / Rear Gas-Rig Shell; Kid — Forward-Sprung Hooded Zip-Shell / Open-Stride Youth Build; Kid 2 — Wrapped Scarf-Coat / Close-Held Book Shell. **All three current vector-family assignments remain UNASSIGNED.** Face comparator pairs are candidates pending matched-scale roster crops. Browser rendering, direct 28×42 captures, full matched-roster silhouette evidence and internal/owner review remain pending. No renderer, palette, town/gallery, golden snapshot/provenance or later-roster work is authorized.
 
