@@ -14,6 +14,13 @@ The first colour study has completed exact-source browser capture, but is **not 
 
 [Full-colour directional render 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg) presents all 12 views with character-specific face, garment, prop and material colour overlays. Exact-source browser captures, native/direct-size inspection, structural checks and internal QA remain outstanding. This does not approve the silhouettes, family assignments or palette. No production renderer or golden snapshot changes.
 
+## Current checkpoint — Batch 4 Stage 7 colour study revision 03 (2026-11-21)
+
+Study 02 exact-source capture passed [Run #16](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849782903), artifact [14684742181](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849782903/artifacts/14684742181): 108/108 protected silhouette paths, all 18 body/prop face overlay groups, all 3 character-specific prop-face skin rules, and 24 panels captured at native 64×96, direct 28×42 and enlarged 4×. Manual review confirmed the restored prop-on faces and palette separation; compact direct-scale grip/face details remain under scrutiny.
+
+[Colour study 03](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-03.svg) adds restrained character-specific material value gradients from the proposed shadow/base/light swatches. Its exact-source capture and visual inspection are pending. This is not final palette approval or production art. See the [internal QA log](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTERNAL-QA-LOG.md).
+
+---
 ## Current checkpoint — Batch 4 Stage 7 colour study revision 02 (2026-11-21)
 
 | # | Character | Stage 7 status | Candidate material direction | Gate |
