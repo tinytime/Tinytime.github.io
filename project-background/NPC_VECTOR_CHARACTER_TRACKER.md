@@ -1,3 +1,15 @@
+## Fourth civilian batch — Stage 7 colour/rendering design opened (2026-11-21)
+
+- **Scope:** Sailor #12, Slicker #13 and Painter #14 only. The owner confirmed Claude's approval of the Run #867 integrated grayscale face checkpoint and directed progression to Stage 7.
+- **Review record:** Claude approval is owner-reported. The detailed Claude response/findings have not yet been transcribed into GitHub.
+- **Approved input checkpoint:** Run #867, exact tested source `a857f7b4d2238ef8fd63da99465aa27ee11cafe0`, artifact [14682766863](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254/artifacts/14682766863). Internal QA PASS WITH GAME-SCALE READABILITY CAVEAT; overall Actions workflow failed at global audio 404 diagnostics and protected golden gate 1/23.
+- **Stage 7 brief:** [colour and rendering study 01](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-AND-RENDERING-STUDY-01.md), commit `fce6ddda8678f0bcfdf7d86c5840575b1b82cef9`. Candidate palettes only: Sailor harbour teal/hemp/brass; Slicker storm-slate/dark hood/ochre; Painter oxide-clay/indigo/wood.
+- **Current implementation status:** palette direction documented; actual colour-study artwork and captures NOT YET IMPLEMENTED or tested. Swatches are proposals, not final palette approval.
+- **Protected:** revision-21 silhouettes/construction geometry, integrated grayscale face inputs, golden snapshots/provenance. No production renderer integration, town/gallery work or #15–23 work is authorized by this stage opening.
+- **Next action:** author separate non-production colour variants for all four directions, preserve geometry, then exact-source automated and visual QA at native 64×96 and independently rendered direct 28×42. Submit exact evidence for owner approval before finalizing palette/finished art.
+
+---
+
 ## Fourth civilian batch — F6 face integration checkpoint (2026-11-21)
 
 - **Sailor #12, Slicker #13, Painter #14:** F6 grayscale face geometry integrated into separate revision-21 full-head studies; internal design-stage QA **PASS WITH GAME-SCALE READABILITY CAVEAT**.
