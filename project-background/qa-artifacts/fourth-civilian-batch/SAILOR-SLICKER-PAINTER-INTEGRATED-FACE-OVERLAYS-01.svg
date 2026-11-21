@@ -35,11 +35,11 @@
 <circle cx="29.5" cy="23" r="1.2" fill="#17191c" stroke="none"/><circle cx="37" cy="23" r="1.2" fill="#17191c" stroke="none"/>
 <path d="M33 21 L32.5 27 L34 28 M29.5 30.5 Q33 32 37 29.8" stroke-width="1.1"/>
 </g>
-<g id="painter-left" transform="translate(271 788)"><g transform="translate(64 0) scale(-1 1)">
+<g id="painter-left" transform="translate(271 788)"><g transform="translate(69 0) scale(-1 1)">
 <path d="M40 18 Q47 17 51 21 L54 25 L54 28 L53 30 L50 30.5 L47 35 L42 34 L39 29 L39 23Z" fill="#c9c5bd" stroke-width="1.25"/>
 <path d="M41 21 L46 18.8 L49 21" stroke-width="1.9"/><circle cx="46" cy="24" r="1.2" fill="#17191c" stroke="none"/><path d="M49 29 Q46.5 31 44.5 30" stroke-width="1.1"/>
 </g></g>
-<g id="painter-right" transform="translate(381 788)">
+<g id="painter-right" transform="translate(378 788)">
 <path d="M40 18 Q47 17 51 21 L54 25 L54 28 L53 30 L50 30.5 L47 35 L42 34 L39 29 L39 23Z" fill="#c9c5bd" stroke-width="1.25"/>
 <path d="M41 21 L46 18.8 L49 21" stroke-width="1.9"/><circle cx="46" cy="24" r="1.2" fill="#17191c" stroke="none"/><path d="M49 29 Q46.5 31 44.5 30" stroke-width="1.1"/>
 </g>
