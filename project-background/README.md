@@ -1,3 +1,11 @@
+## Fourth civilian batch — F6 face geometry revision and exact-source QA (2026-11-20)
+
+The owner-approved revision-21 silhouettes, construction cards and construction-family assignments remain the fixed baseline for Sailor #12, Slicker #13 and Painter #14. Face geometry exploration 03 is a grayscale proposal only. Source-render inspection found overlapping panel labels and an overlong annotation line; the layout/text have been corrected in the current SVG (blob `47a68413538a619dd4560c44dd2dcf3783cc6f9b`, commit `18b4ba3120ae2ab269ca14eca7585cf6aeea9f50`). The earlier browser run #833 tested the pre-correction commit `f0553859714904974cf576f3737fc299680c3ed2`; it does not validate the corrected SVG. Exact-source QA on the corrected HEAD is pending. See [face geometry internal QA record 01](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-FACE-GEOMETRY-INTERNAL-QA-01.md).
+
+F6 matched face pairs: Sailor—Clinic/Guard; Slicker—Hacker/Courier; Painter—Cook/Busker. The face study remains pending manual review of the exact artifact, including profile face-plane placement and direct 28×42 readability. No palette, renderer integration, golden snapshot/provenance change or #15–23 work is authorized.
+
+---
+
 ## Fourth civilian batch — construction detail study approved; face F6 refinement underway (2026-11-20)
 
 The owner approved construction detail study 01 for Sailor #12, Slicker #13 and Painter #14. The exact SVG and all 12 four-direction panels were rendered and captured by [Browser QA Run #831](https://github.com/tinytime/Tinytime.github.io/actions/runs/44824014197), artifact [14672658525](https://github.com/tinytime/Tinytime.github.io/actions/runs/44824014197/artifacts/14672658525). The construction-detail capture step passed: 12/12 panels, 12/12 detail overlays, and native 64×96, direct 28×42 and enlarged diagnostic captures. The approved revision-21 silhouette remains the base.
