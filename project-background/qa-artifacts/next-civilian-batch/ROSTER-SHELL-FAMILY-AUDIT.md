@@ -6,7 +6,7 @@ The owner released Welder #15, Kid #16 and Kid 2 #17. The package includes:
 - [Face/head construction exploration 01](../fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg)
 - [Full-roster comparison 01](../fifth-civilian-batch/WELDER-KID-KID2-ROSTER-COMPARISON-01.md)
 
-[Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023], tested source commit `e3611fd918ca0b800a1d79616bd39357826f84b8). All 12 native and 12 direct silhouette views passed connectivity/edge diagnostics; matched face crops and three full-roster comparison sheets were generated and visually inspected. **Internal design QA PASS; owner approval pending.** Proposed descriptors remain unassigned family proposals. The provisional full-colour SVG is out of scope, uncaptured and unapproved; no renderer, palette, town/gallery or baseline work is authorized.
+[Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480), artifact [14684123957], tested source commit `4864fc565c2e08e662394c2ea406c37a119d2d59). All 12 native and 12 direct silhouette views passed connectivity/edge diagnostics; matched face crops and three full-roster comparison sheets were generated and visually inspected. **Internal design QA PASS; owner approval pending.** Proposed descriptors remain unassigned family proposals. The provisional full-colour SVG is out of scope, uncaptured and unapproved; no renderer, palette, town/gallery or baseline work is authorized.
 
 
 ---

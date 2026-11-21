@@ -43,7 +43,7 @@ These are the two closest current roster face-construction comparisons selected 
 
 ## Matched-scale evidence outputs
 
-Exact-source evidence was captured in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232/artifacts/14684738023), on design source commit `e3611fd918ca0b800a1d79616bd39357826f84b8`. The dedicated Playwright evidence builder produced three separate native 64×96 matched silhouette sheets, one for each proposed character:
+Exact-source evidence was captured in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480), artifact [14684123957](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480/artifacts/14684123957), on design source commit `4864fc565c2e08e662394c2ea406c37a119d2d59`. The dedicated Playwright evidence builder produced three separate native 64×96 matched silhouette sheets, one for each proposed character:
 - `roster-silhouette-comparison-welder-native-64x96.png`
 - `roster-silhouette-comparison-kid-native-64x96.png`
 - `roster-silhouette-comparison-kid2-native-64x96.png`

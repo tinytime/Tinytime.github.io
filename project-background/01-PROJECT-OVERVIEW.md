@@ -1,6 +1,6 @@
 ## Fifth civilian batch — identity/silhouette/construction design review (2026-11-21)
 
-The owner released Welder #15, Kid #16 and Kid 2 #17. The three concepts now have identity/construction cards, four-view black silhouettes, face/head studies and a full-roster comparison. Exact-source internal design QA passed in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023]. The designs are submitted for owner silhouette/construction approval; all vector-family assignments remain UNASSIGNED. Palette, production renderer, town/gallery, golden snapshots and provenance remain out of scope. A separate provisional full-colour file in the branch is uncaptured and unapproved.
+The owner released Welder #15, Kid #16 and Kid 2 #17. The three concepts now have identity/construction cards, four-view black silhouettes, face/head studies and a full-roster comparison. Exact-source internal design QA passed in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480), artifact [14684123957]. The designs are submitted for owner silhouette/construction approval; all vector-family assignments remain UNASSIGNED. Palette, production renderer, town/gallery, golden snapshots and provenance remain out of scope. A separate provisional full-colour file in the branch is uncaptured and unapproved.
 
 ## Fourth civilian batch — post-silhouette identity/construction cards 02 (2026-11-20)
 

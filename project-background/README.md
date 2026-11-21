@@ -11,7 +11,7 @@ Colour study 01 was captured in [Run #7](https://github.com/tinytime/Tinytime.gi
 
 ## Fifth civilian batch — design-stage internal QA passed (2026-11-21)
 
-Welder #15, Kid #16 and Kid 2 #17 have complete identity/construction cards, four-view black silhouettes, face/head studies and a full-roster comparison. Exact-source design evidence passed in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023]. Internal design QA is complete; owner silhouette/construction approval is pending. All vector-family assignments remain UNASSIGNED. A separate provisional full-colour SVG is present but out of scope, uncaptured and unapproved. No production renderer, palette approval, town/gallery, golden snapshot or provenance changes.
+Welder #15, Kid #16 and Kid 2 #17 have complete identity/construction cards, four-view black silhouettes, face/head studies and a full-roster comparison. Exact-source design evidence passed in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480), artifact [14684123957]. Internal design QA is complete; owner silhouette/construction approval is pending. All vector-family assignments remain UNASSIGNED. A separate provisional full-colour SVG is present but out of scope, uncaptured and unapproved. No production renderer, palette approval, town/gallery, golden snapshot or provenance changes.
 
 
 ---
