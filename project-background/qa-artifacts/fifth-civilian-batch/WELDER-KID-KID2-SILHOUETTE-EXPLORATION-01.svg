@@ -236,10 +236,13 @@
    <path d="M23 34 L44 34 L46 62 L39 68 L26 65 L21 58 Z"/>
    <!-- near arms and book held at sternum -->
    <!-- one near-side arm supports the fore-edge; far hand is occluded -->
-   <path d="M32 37 L39 40 L42 48 L39 54 L35 51 L34 45 Z"/>
-   <path d="M31 40 Q36 37 41 40 L41 53 Q36 51 31 54 Z"/>
-   <path d="M30 41 L31 54 L28 55 L27 42 Z"/>
-   <path d="M27 46 L32 46 L34 52 L30 56 L26 53 Z"/>
+   <!-- near-side arm brings the book forward; far hand remains hidden -->
+   <path d="M40 35 L34 39 L30 45 L25 48 L24 53 L29 55 L34 49 L42 43 Z"/>
+   <!-- narrow fore-edge and page edge remain visible in left-facing profile -->
+   <path d="M17 39 Q22 37 27 40 L27 55 Q22 52 17 55 Z"/>
+   <path d="M17 39 Q22 37 27 40 L27 55 Q22 52 17 55 Z" fill="none" stroke="#fff" stroke-width="2.2"/>
+   <path d="M26 40 L27 54 L24 55 L23 41 Z"/>
+   <path d="M14 46 L19 45 L21 51 L17 56 L13 53 Z"/>
    <path d="M26 62 L43 63 L42 72 L35 75 L28 72 Z"/>
    <path d="M28 71 L34 73 L31 88 L27 91 L21 89 L24 82 Z M36 73 L43 71 L46 85 L49 89 L44 92 L37 88 Z"/>
    <path d="M21 88 L28 88 L29 93 L17 93 L16 91 Z M43 88 L49 88 L52 92 L50 93 L39 93 Z"/>
