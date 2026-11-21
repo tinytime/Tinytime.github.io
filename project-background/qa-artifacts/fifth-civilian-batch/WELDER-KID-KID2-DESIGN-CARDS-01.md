@@ -21,7 +21,7 @@ These are proposals. No family assignment is promoted from UNASSIGNED.
 - [Four-view black silhouette exploration 01](WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg) — front, back, left and right.
 - [Face/head construction exploration 01](WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg) — front and profile geometry for each character.
 - [Full roster differentiation comparison 01](WELDER-KID-KID2-ROSTER-COMPARISON-01.md) — fifteen existing designed civilians, nearest silhouette risks and face comparator rationale.
-- [Full-roster comparison 01](WELDER-KID-KID2-ROSTER-COMPARISON-01.md) — differentiation against all 15 existing designed civilians; matched native/direct silhouette sheets and six same-scale face rows were captured and inspected in Run #22.
+- [Full-roster comparison 01](WELDER-KID-KID2-ROSTER-COMPARISON-01.md) — differentiation against all 15 existing designed civilians; matched native/direct silhouette sheets and six same-scale face rows were captured and inspected in Run #31.
 
 ---
 
@@ -43,7 +43,7 @@ A patient, meticulous repair specialist who pauses to inspect a join before comm
 - Face cue 1: a broad, nearly level brow shelf with a short downward notch at the outer end.
 - Face cue 2: a longer straight-to-hooked nose bridge and a squared lower cheek/jaw turn.
 - Expression: focused, slightly narrowed eyes; mouth closed, no grin.
-- Closest roster face comparison candidates: **Guard** and **Fisher**. Guard's sleepy eye and flat brow create a heavier, more relaxed mask; Welder's brow is more compressed and deliberate. Fisher's angry brow/frown pairing is more severe; Welder keeps a level mouth and longer nose bridge. Matched 40×38 native face crops were captured and inspected in Run #22. The comparisons support the intended differences: Welder's compressed level brow, longer hooked bridge and squared jaw remain distinct from Guard's relaxed brow and Fisher's more severe frown. Compare geometry only, excluding skin, hair, helmet and palette.
+- Closest roster face comparison candidates: **Guard** and **Fisher**. Guard's sleepy eye and flat brow create a heavier, more relaxed mask; Welder's brow is more compressed and deliberate. Fisher's angry brow/frown pairing is more severe; Welder keeps a level mouth and longer nose bridge. Matched 40×38 native face crops were captured and inspected in Run #31. The comparisons support the intended differences: Welder's compressed level brow, longer hooked bridge and squared jaw remain distinct from Guard's relaxed brow and Fisher's more severe frown. Compare geometry only, excluding skin, hair, helmet and palette.
 
 ### Clothing / material logic
 - Main garment: short, split-front leather apron with a bib that narrows into a waist strap; the lower panels separate around the legs.
@@ -98,7 +98,7 @@ A curious, restless kid who is always halfway into the next idea. The pose is op
 - Face cue 1: broad cheek arc with a rounded lower jaw, wider than the chin.
 - Face cue 2: large, round-set eyes with shallow arched brows and a small open triangular mouth.
 - Expression: absorbed curiosity, eyes lifted toward the glider rather than a generic smile.
-- Closest roster face comparison candidates: **Dancer** and **Vendor**. Dancer's tall eyes and worried brow produce a more anxious expression; Kid uses rounder eye geometry, fuller cheeks and an open, curious mouth. Vendor's tall eyes and arched brow sit in a more mature, narrow-cheek face with a grin; Kid's lower-face mass is rounder and the mouth is smaller/open rather than a broad grin. Matched 40×38 native face crops were captured and inspected in Run #22. Kid's rounder eye openings, fuller cheek arc and smaller open mouth remain distinct from Dancer's worried brow and Vendor's more mature grin. Dancer is used only as a current renderer face-construction reference; no unbuilt Dancer silhouette is treated as completed artwork. Compare geometry only, excluding headwear, hair and palette.
+- Closest roster face comparison candidates: **Dancer** and **Vendor**. Dancer's tall eyes and worried brow produce a more anxious expression; Kid uses rounder eye geometry, fuller cheeks and an open, curious mouth. Vendor's tall eyes and arched brow sit in a more mature, narrow-cheek face with a grin; Kid's lower-face mass is rounder and the mouth is smaller/open rather than a broad grin. Matched 40×38 native face crops were captured and inspected in Run #31. Kid's rounder eye openings, fuller cheek arc and smaller open mouth remain distinct from Dancer's worried brow and Vendor's more mature grin. Dancer is used only as a current renderer face-construction reference; no unbuilt Dancer silhouette is treated as completed artwork. Compare geometry only, excluding headwear, hair and palette.
 
 ### Clothing / material logic
 - Cropped zip hoodie with an integrated hood, raised collar and visibly different sleeve volumes.
@@ -152,7 +152,7 @@ A thoughtful, reserved kid who carries a small book close and watches before joi
 - Face cue 1: narrower, tapered jaw with a small chin point and fuller upper cheek.
 - Face cue 2: close-set eyes under short level brows, with a slight one-sided mouth lift.
 - Expression: observant, quietly amused; not sleepy, not broadly cheerful.
-- Closest roster face comparison candidates: **Clinic** and **Referee**. Clinic's close-set eyes sit under worried brows with a small neutral mouth; Kid 2 keeps the close spacing but uses level brows and an asymmetric smirk. Referee's close-set eyes and arched brows create a more alert, surprised read; Kid 2's jaw tapers more sharply and the mouth is a sideways lift rather than an open shape. Matched 40×38 native face crops were captured and inspected in Run #22. Kid 2's short level brows, tapered chin and asymmetric smirk remain distinct from Clinic's worried/neutral mouth and Referee's more arched, surprised expression. Compare geometry only, excluding hair, headwear and palette.
+- Closest roster face comparison candidates: **Clinic** and **Referee**. Clinic's close-set eyes sit under worried brows with a small neutral mouth; Kid 2 keeps the close spacing but uses level brows and an asymmetric smirk. Referee's close-set eyes and arched brows create a more alert, surprised read; Kid 2's jaw tapers more sharply and the mouth is a sideways lift rather than an open shape. Matched 40×38 native face crops were captured and inspected in Run #31. Kid 2's short level brows, tapered chin and asymmetric smirk remain distinct from Clinic's worried/neutral mouth and Referee's more arched, surprised expression. Compare geometry only, excluding hair, headwear and palette.
 
 ### Clothing / material logic
 - Soft, longer cardigan-coat with separate front panels and a split hem.
@@ -210,6 +210,6 @@ The three matched-scale prop-on roster sheets compare each proposal against the 
 
 - This is a first-pass identity/construction proposal. The silhouette SVG is a four-view black-only exploration, not production renderer geometry.
 - Face proposals are geometric directions for later integrated grayscale studies. No production facial renderer changes are included.
-- Exact-source native 64×96 and independently rendered direct 28×42 captures, enlarged details, prop-on roster comparisons, face-reference crops, connectivity diagnostics and manual visual inspection passed in [Run #24](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480) and were re-confirmed in [Run #28](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850511145). Body-only matched comparison remains an open review limitation; owner silhouette/construction review is still required.
+- Exact-source native 64×96 and independently rendered direct 28×42 captures, enlarged details, prop-on roster comparisons, face-reference crops, connectivity diagnostics and manual visual inspection passed in [Run #24](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850966072) and were re-confirmed in [Run #28](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850511145). Body-only matched comparison remains an open review limitation; owner silhouette/construction review is still required.
 - The full-colour draft SVG in the repository is held, unapproved and excluded from the evidence builder. No palette rendering/approval, production renderer, gallery/town integration, golden snapshot or provenance work is authorized by this package.
 - The next design review should challenge the three concepts together, with special attention to Welder's cylinder/hose support, Kid's glider grip and Kid 2's two-hand book contact.
