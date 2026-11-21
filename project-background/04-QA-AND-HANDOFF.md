@@ -1,3 +1,9 @@
+## Fourth civilian batch — corrected F6 face-crop QA (2026-11-20)
+
+Exact-source corrected face exploration 03 was tested in [Run #839](https://github.com/tinytime/Tinytime.github.io/actions/runs/44841485275), artifact [14681366588](https://github.com/tinytime/Tinytime.github.io/actions/runs/44841485275/artifacts/14681366588), for source commit `ab95cc5da377ffe2c929f5ebc0d9fc3cdf59b5e0`. Targeted design-source projections/roster face crops, construction-detail captures and semantic annotation validation passed. Manual inspection confirms six clean aligned 40×38 crops and valid matched comparisons. Intended face cues read at crop scale; Slicker's closer eye spacing is comparatively subtle. Direct 28×42 face readability and full-head placement/occlusion remain untested. The overall browser workflow fails on global audio/resource 404 diagnostics; the golden comparison is 1 match / 23 changed and remains protected. No golden snapshots/provenance changed. Face-stage internal QA is incomplete; no Claude review or owner face approval. No palette/renderer work or #15–23 work is authorized. See the [face geometry internal QA record](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-FACE-GEOMETRY-INTERNAL-QA-01.md).
+
+---
+
 ## Fourth civilian batch — construction card approval and design study 01 (2026-11-20)
 
 The owner approved construction cards 02 and the three family assignments. Current vector family register now records:
