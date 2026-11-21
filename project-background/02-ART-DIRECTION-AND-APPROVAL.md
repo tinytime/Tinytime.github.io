@@ -1,3 +1,7 @@
+## Fourth civilian batch — F6 integrated face proposal review boundary (2026-11-21)
+
+The grayscale face proposals are integrated into the revision-21 full-head design studies and have passed internal QA. The [Claude review package](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-CLAUDE-REVIEW-PACKAGE-01.md) is prepared but not sent; owner approval remains pending. See [internal QA record](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md). The owner-approved outer silhouette and construction source remain unchanged. Palette and production renderer work remain unauthorized.
+
 ## Fourth civilian batch — construction detail approval and F6 face refinement (2026-11-20)
 
 The owner approved construction detail study 01. Exact source QA and browser captures passed for all 12 direction panels; see [Run #831](https://github.com/tinytime/Tinytime.github.io/actions/runs/44824014197), artifact [14672658525](https://github.com/tinytime/Tinytime.github.io/actions/runs/44824014197/artifacts/14672658525). The overall workflow still fails at the pre-existing global browser audio-resource 404 diagnostics; no pageErrors or scriptErrors were reported, and no golden snapshot/provenance changes were made.
