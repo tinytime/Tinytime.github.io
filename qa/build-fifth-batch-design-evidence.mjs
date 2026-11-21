@@ -1,3 +1,4 @@
+// Isolated Batch 5 design evidence: vector projections and matched current-roster comparisons only.
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
