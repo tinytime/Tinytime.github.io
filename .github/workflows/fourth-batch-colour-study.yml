@@ -4,7 +4,7 @@ on:
     branches:
       - npc-granny-baseline-overhaul
     paths:
-      - 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-03.svg'
+      - 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-04.svg'
       - 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg'
       - 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg'
       - 'qa/build-fourth-batch-colour-evidence.mjs'
