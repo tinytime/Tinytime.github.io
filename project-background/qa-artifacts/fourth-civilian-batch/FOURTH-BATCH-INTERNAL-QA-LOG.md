@@ -1,3 +1,13 @@
+## Stage 7 colour study — exact-source Run #13 and visual inspection (2026-11-21)
+
+- **Tested source commit:** `5bc43dbbe80e5258777ed473772475927d9e6ce7`; colour-study SVG blob `7858b127719d27f91c4bbc258ab51aa3402dc755`; protected revision-21 silhouette blob `36f645d7de9ee5bedc79a0288c50bc8399382f4b`; protected integrated-face blob `59c71c823c2b42cd1ea039f724fce0c05e6dcc37`.
+- **Focused capture workflow:** [Run #13](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849522697), artifact [14684034037](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849522697/artifacts/14684034037). Exact-source capture completed successfully: 24/24 native 64×96, 24/24 independently rendered direct 28×42 and 24/24 enlarged 4× images. Protected base paths remained present; no production renderer or golden snapshot was touched.
+- **Manual inspection:** opened the actual native and direct contact sheets plus enlarged Sailor-front, Slicker-front and Painter-front/left-profile captures. The faces and outer silhouettes remain legible, and the three base garment hues separate the characters. However, the first colour pass is still essentially a flat recolour of the silhouette: it lacks the required character-specific base/shadow/light material planes, and garment/prop contact clusters remain under-described. The attempted supplemental material overlay groups are not visible in the rendered artifact; do not count them as a visual improvement.
+- **Disposition:** focused source/capture QA PASS; visual/material QA **NOT PASS**. This is not production-ready art, not final palette approval and not production-renderer QA. Run #13 is design evidence only. The subsequent Blob-URL capture-harness adjustment is a technical reliability fix; it does not improve artwork.
+- **Next required work:** correct the colour-study layer placement so that Sailor's coat/rope, Slicker's hood/rain-shell/umbrella and Painter's smock/trousers/brush have distinct readable material planes; rerun exact-source captures; inspect all 12 body-only and 12 prop-on views at native and direct scale. Only then proceed to production renderer implementation and game-scene QA. Preserve revision-21 geometry, the approved face input and all golden baselines.
+
+---
+
 ## Stage 7 colour study 01 — exact-source capture and visual findings (2026-11-21)
 
 - **Exact tested commit:** `293609aab1a678fbbf8d2995707e47cb4280f77b`.
