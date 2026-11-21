@@ -1,3 +1,9 @@
+## Fifth civilian batch — explicit owner release (2026-11-21)
+
+The owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for the identity, silhouette and construction design stage. This release is separate from the fourth-batch work proceeding in another chat. The initial concepts and four-view black silhouettes are proposals, not approval. Submit the three concepts together for internal review and owner silhouette/construction decision. Preserve the roster-family register as UNASSIGNED until that decision. Do not begin palette rendering, production renderer implementation, gallery/town placement, golden snapshot/provenance changes, or the next batch.
+
+---
+
 ## Fourth civilian batch — Stage 7 colour/rendering design authorization (2026-11-21)
 
 The owner confirmed Claude's approval of the Run #867 integrated grayscale face checkpoint and directed progression to Stage 7 for Sailor #12, Slicker #13 and Painter #14. Record the Claude verdict as owner-reported; the detailed reviewer response has not yet been transcribed into GitHub.
