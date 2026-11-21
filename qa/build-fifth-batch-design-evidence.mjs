@@ -29,7 +29,11 @@ try{
  const rendered=await page.evaluate(async({silhouette,face,people,directions})=>{
   const renderSvg=async(source,viewBox,width,height)=>{
    const svg=source.replace(/width="[^"]+" height="[^"]+" viewBox="[^"]+"/,'width="'+width+'" height="'+height+'" viewBox="'+viewBox+'"');
-   const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await img.decode();
+   const parsed=new DOMParser().parseFromString(svg,'image/svg+xml');
+   const parseError=parsed.getElementsByTagName('parsererror')[0];
+   if(parseError)throw new Error('Malformed SVG source: '+parseError.textContent.slice(0,500));
+   const img=new Image(),blobUrl=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}));
+   try{img.src=blobUrl;await img.decode();}catch(error){throw new Error('SVG image decode failed for viewBox '+viewBox+': '+error.message);}finally{URL.revokeObjectURL(blobUrl);}
    const c=document.createElement('canvas');c.width=width;c.height=height;
    const ctx=c.getContext('2d');ctx.clearRect(0,0,width,height);ctx.drawImage(img,0,0,width,height);
    return c.toDataURL('image/png');
