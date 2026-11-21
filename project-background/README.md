@@ -1,3 +1,11 @@
+## Fourth civilian batch — corrected F6 face-crop QA (2026-11-20)
+
+The corrected face exploration 03 source was tested on exact commit `ab95cc5da377ffe2c929f5ebc0d9fc3cdf59b5e0` in [Browser QA Run #839](https://github.com/tinytime/Tinytime.github.io/actions/runs/44841485275), artifact [14681366588](https://github.com/tinytime/Tinytime.github.io/actions/runs/44841485275/artifacts/14681366588). The exact-source design projection/roster face-crop, construction-detail capture and semantic annotation steps passed. Manual inspection confirms all six 40×38 face crops are now correctly aligned and the matched F6 comparisons are valid. At crop scale, Sailor's brow/profile nose, Slicker's compact eye/brow/lower-face geometry and Painter's asymmetric brow/jaw/profile nose distinctions are visible; Slicker's eye-spacing cue is the most subtle. This is not a direct 28×42 or full-head renderer test. Face-stage QA remains incomplete pending actual renderer-scale and full-head placement/occlusion evidence. The overall workflow remains failed at the global browser diagnostics (audio/resource 404s); golden comparison is 1 match / 23 changed and remains protected. No snapshots/provenance changed. No Claude review, owner face approval, palette or renderer work has occurred.
+
+See [face geometry internal QA record 01](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-FACE-GEOMETRY-INTERNAL-QA-01.md) for artifact-level findings and boundaries.
+
+---
+
 ## Fourth civilian batch — F6 face geometry revision and exact-source QA (2026-11-20)
 
 The owner-approved revision-21 silhouettes, construction cards and construction-family assignments remain the fixed baseline for Sailor #12, Slicker #13 and Painter #14. Face geometry exploration 03 is a grayscale proposal only. Source-render inspection found overlapping panel labels and an overlong annotation line; the layout/text have been corrected in the current SVG (blob `47a68413538a619dd4560c44dd2dcf3783cc6f9b`, commit `18b4ba3120ae2ab269ca14eca7585cf6aeea9f50`). The earlier browser run #833 tested the pre-correction commit `f0553859714904974cf576f3737fc299680c3ed2`; it does not validate the corrected SVG. Exact-source QA on the corrected HEAD is pending. See [face geometry internal QA record 01](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-FACE-GEOMETRY-INTERNAL-QA-01.md).
