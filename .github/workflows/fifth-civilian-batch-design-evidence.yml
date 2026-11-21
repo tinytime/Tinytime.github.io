@@ -5,7 +5,7 @@ permissions:
 
 concurrency:
   group: fifth-batch-design-evidence-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 'on':
   workflow_dispatch:
@@ -15,8 +15,6 @@ concurrency:
     paths:
       - 'qa/build-fifth-batch-design-evidence.mjs'
       - 'project-background/qa-artifacts/fifth-civilian-batch/**'
-      - 'npc_sprites.js'
-      - 'VaporCity_HD2D_Hybrid_Test.html'
       - '.github/workflows/fifth-civilian-batch-design-evidence.yml'
 
 jobs:
