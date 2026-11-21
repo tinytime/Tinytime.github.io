@@ -20,7 +20,7 @@ const expectedBase='36f645d7de9ee5bedc79a0288c50bc8399382f4b';
 const expectedFace='59c71c823c2b42cd1ea039f724fce0c05e6dcc37';
 if(blob(base)!==expectedBase)throw new Error('Protected revision-21 silhouette source mismatch: '+blob(base));
 if(blob(face)!==expectedFace)throw new Error('Integrated grayscale face source mismatch: '+blob(face));
-const basePaths=[...base.matchAll(/<path\\b[^>]*d="([^"]+)"/g)].map(m=>m[1]);
+const basePaths=[...base.matchAll(/<path\b[^>]*d="([^"]+)"/g)].map(m=>m[1]);
 const missingPaths=basePaths.filter(d=>!study.includes('d="'+d+'"'));
 if(missingPaths.length)throw new Error('Colour study altered or omitted '+missingPaths.length+' protected base path(s)');
 const faceIds=['sailor-front','sailor-left','sailor-right','slicker-front','slicker-left','slicker-right','painter-front','painter-left','painter-right'];
