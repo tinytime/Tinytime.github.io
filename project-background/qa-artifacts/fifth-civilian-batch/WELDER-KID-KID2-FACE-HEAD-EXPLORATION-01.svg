@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img" aria-labelledby="title desc">
+<title id="title">Batch 5 face and head construction proposals 01</title>
+<desc id="desc">Black-line front and profile head construction proposals for Welder, Kid and Kid 2, with original geometric cues and head-read structures.</desc>
+<rect width="1000" height="560" fill="#fff"/>
+<style>
+ .h{font:700 24px system-ui,sans-serif;fill:#111}.s{font:13px system-ui,sans-serif;fill:#555}
+ .n{font:700 16px system-ui,sans-serif;fill:#111}.d{font:600 12px system-ui,sans-serif;fill:#555;letter-spacing:1px}
+ .ink{fill:none;stroke:#000;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+ .heavy{fill:none;stroke:#000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+ .solid{fill:#000;stroke:none}
+ .fine{fill:none;stroke:#000;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+ .rule{stroke:#ddd;stroke-width:1}
+</style>
+<text x="32" y="38" class="h">BATCH 05 · FACE / HEAD CONSTRUCTION PROPOSALS 01</text>
+<text x="32" y="61" class="s">Black-line geometry studies · identity cues are proposals, not finished facial art</text>
+<g class="d" text-anchor="middle"><text x="285" y="94">FRONT</text><text x="480" y="94">PROFILE</text></g>
+<line x1="32" y1="108" x2="968" y2="108" class="rule"/>
+<!-- Welder -->
+<text x="32" y="138" class="n">#15 WELDER</text><text x="32" y="158" class="s">Raised hinged visor · exposed focused face</text>
+<g transform="translate(236 112)">
+ <g class="ink">
+  <path d="M28 39 Q28 17 50 15 Q72 14 78 38 L76 63 Q72 84 53 88 Q34 84 29 64 Z"/>
+  <path d="M28 44 Q22 40 21 52 Q22 61 30 60 M76 45 Q84 42 85 53 Q83 62 76 61"/>
+  <path d="M33 47 L47 47 M59 47 L73 47" class="heavy"/>
+  <path d="M40 55 L48 55 M60 55 L68 55" class="fine"/>
+  <path d="M54 51 L53 64 L58 66" />
+  <path d="M47 74 Q54 72 62 74" class="fine"/>
+  <path d="M21 29 L18 12 L77 12 L83 19 L79 28" class="heavy"/>
+  <path d="M78 22 L89 25 L88 36 L79 38" class="ink"/>
+  <circle cx="79" cy="39" r="3" class="solid"/>
+ </g>
+ <text x="53" y="110" class="s" text-anchor="middle">Brow shelf + squared jaw</text>
+</g>
+<g transform="translate(422 112)">
+ <g class="ink">
+  <path d="M54 20 Q36 18 30 35 L28 53 L19 60 L28 66 L32 80 Q44 91 60 83 L67 68 L68 43 Q66 24 54 20 Z"/>
+  <path d="M27 30 L18 14 L71 14 L77 22 L67 29" class="heavy"/>
+  <path d="M27 35 L18 40 L16 47 L27 50" class="ink"/>
+  <path d="M35 47 L43 47" class="heavy"/>
+  <path d="M29 52 L18 56 L25 60" />
+  <path d="M25 68 L37 69" class="fine"/>
+  <circle cx="26" cy="37" r="3" class="solid"/>
+  <path d="M65 24 L73 27 L73 34" class="fine"/>
+ </g>
+ <text x="48" y="110" class="s" text-anchor="middle">Long bridge + hinge</text>
+</g>
+<line x1="32" y1="242" x2="968" y2="242" class="rule"/>
+<!-- Kid -->
+<text x="32" y="272" class="n">#16 KID</text><text x="32" y="292" class="s">Deep asymmetric hood opening · open curious expression</text>
+<g transform="translate(236 245)">
+ <g class="ink">
+  <path d="M19 55 Q14 25 39 16 Q63 8 83 29 Q92 48 83 78 Q72 96 51 96 Q27 91 19 70 Z"/>
+  <path d="M18 58 Q12 27 39 13 Q64 2 86 27 L91 55 L78 47 L69 31 L55 44 L43 30 L30 55 Z" class="heavy"/>
+  <path d="M31 58 Q38 53 47 58 M62 58 Q71 53 78 58" class="heavy"/>
+  <path d="M34 65 Q39 63 44 65 M65 65 Q70 63 75 65" class="fine"/>
+  <path d="M54 62 L52 73 L57 75" />
+  <path d="M49 81 L55 79 L61 81" class="fine"/>
+  <path d="M23 67 Q18 71 26 78 M81 67 Q87 72 79 79" class="fine"/>
+ </g>
+ <text x="52" y="118" class="s" text-anchor="middle">Full cheek + round eyes</text>
+</g>
+<g transform="translate(422 245)">
+ <g class="ink">
+  <path d="M71 20 Q48 12 33 29 Q23 43 29 67 Q34 87 54 92 L68 85 L73 66 L86 58 L74 52 L76 35 Z"/>
+  <path d="M70 18 Q48 4 31 24 L19 47 L33 43 L42 29 L53 39 L65 29 L78 37" class="heavy"/>
+  <path d="M31 52 L42 52" class="heavy"/>
+  <path d="M29 57 L18 62 L28 67" />
+  <path d="M27 75 Q34 73 40 76" class="fine"/>
+  <circle cx="34" cy="45" r="3" class="solid"/>
+ </g>
+ <text x="48" y="118" class="s" text-anchor="middle">Forward fringe break</text>
+</g>
+<line x1="32" y1="375" x2="968" y2="375" class="rule"/>
+<!-- Kid2 -->
+<text x="32" y="405" class="n">#17 KID 2</text><text x="32" y="425" class="s">Tapered jaw · close eyes · scarf-framed head</text>
+<g transform="translate(236 378)">
+ <g class="ink">
+  <path d="M25 52 Q24 27 51 24 Q78 25 80 51 L76 76 Q67 91 52 91 Q35 88 28 75 Z"/>
+  <path d="M21 43 Q22 20 51 19 Q80 20 84 43 L80 49 Q52 40 24 49 Z" class="heavy"/>
+  <circle cx="52" cy="9" r="6" class="ink"/>
+  <path d="M38 57 L47 57 M57 57 L66 57" class="heavy"/>
+  <path d="M39 63 L46 63 M58 63 L65 63" class="fine"/>
+  <path d="M52 58 L51 70 L55 72" />
+  <path d="M52 79 Q58 75 64 78" class="fine"/>
+  <path d="M24 80 Q52 88 80 80 L85 98 L18 98 Z" class="heavy"/>
+  <path d="M24 83 L80 83" class="fine"/>
+ </g>
+ <text x="52" y="120" class="s" text-anchor="middle">Narrow chin + level brows</text>
+</g>
+<g transform="translate(422 378)">
+ <g class="ink">
+  <path d="M65 24 Q43 18 31 37 Q26 50 31 68 Q37 86 57 89 L69 80 L72 61 L83 55 L71 49 L72 34 Z"/>
+  <path d="M29 28 Q30 14 51 14 Q72 14 76 30 L74 36 L31 36 Z" class="heavy"/>
+  <circle cx="53" cy="7" r="6" class="ink"/>
+  <path d="M31 51 L42 51" class="heavy"/>
+  <path d="M30 56 L19 60 L29 65" />
+  <path d="M29 76 Q37 72 43 76" class="fine"/>
+  <path d="M22 82 Q49 92 76 82 L80 99 L18 99 Z" class="heavy"/>
+ </g>
+ <text x="48" y="120" class="s" text-anchor="middle">Scarf collar + tapered profile</text>
+</g>
+<text x="32" y="542" class="s">Roster face matches are provisional comparison targets; matched native-scale roster crops are still required before these cues are locked.</text>
+</svg>
