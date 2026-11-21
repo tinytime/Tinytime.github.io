@@ -17,7 +17,8 @@ if(blob!==approved)throw new Error('Protected revision-21 source mismatch: '+blo
 if(!base.includes('DESIGN EXPLORATION 21'))throw new Error('Revision-21 source title missing');
 const ids=['sailor-front','sailor-left','sailor-right','slicker-front','slicker-left','slicker-right','painter-front','painter-left','painter-right'];
 for(const id of ids)if(!overlay.includes('id="'+id+'"'))throw new Error('Missing overlay '+id);
-const inner=overlay.slice(overlay.indexOf('>')+1,overlay.lastIndexOf('</svg>'));
+const svgOpen=overlay.indexOf('<svg');
+const inner=overlay.slice(overlay.indexOf('>',svgOpen)+1,overlay.lastIndexOf('</svg>'));
 const composite=base.replace('</svg>',inner+'</svg>');
 const people=[{id:'sailor',label:'SAILOR #12',y:128},{id:'slicker',label:'SLICKER #13',y:458},{id:'painter',label:'PAINTER #14',y:788}];
 const xByDirection={front:51,left:271,right:381},directions=['front','left','right'];
