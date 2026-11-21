@@ -26,13 +26,22 @@ const browser=await chromium.launch({headless:true});
 try{
  const page=await browser.newPage({viewport:{width:1200,height:900},deviceScaleFactor:1});
  const result=await page.evaluate(async({source,people,directions,xByDirection})=>{
-  const render=async(x,y,w,h)=>{
-   const svg=source.replace('width="1800" height="1330" viewBox="0 0 1800 1330"',`width="${w}" height="${h}" viewBox="${x} ${y} 64 96"`);
+  const render=async(x,y,w,h,src=source)=>{
+   const svg=src.replace('width="1800" height="1330" viewBox="0 0 1800 1330"',`width="${w}" height="${h}" viewBox="${x} ${y} 64 96"`);
    const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await img.decode();
    const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=true;ctx.drawImage(img,0,0,w,h);return c.toDataURL('image/png');
   };
-  const data=[];
-  for(const p of people)for(const d of directions)data.push({key:p.id+'-'+d,label:p.id[0].toUpperCase()+'-'+d[0].toUpperCase(),native:await render(xByDirection[d],p.y,64,96),direct:await render(xByDirection[d],p.y,28,42)});
+  const data=[],containmentAudit=[];
+  for(const p of people)for(const d of directions){
+   const x=xByDirection[d],y=p.y,baseUrl=await render(x,y,64,96,baseSource),compositeUrl=await render(x,y,64,96);
+   const a=new Image(),b=new Image();a.src=baseUrl;b.src=compositeUrl;await a.decode();await b.decode();
+   const ca=document.createElement('canvas'),cb=document.createElement('canvas');ca.width=cb.width=64;ca.height=cb.height=96;
+   const xa=ca.getContext('2d',{willReadFrequently:true}),xb=cb.getContext('2d',{willReadFrequently:true});xa.drawImage(a,0,0);xb.drawImage(b,0,0);
+   const aa=xa.getImageData(0,0,64,96).data,bb=xb.getImageData(0,0,64,96).data;let outside=0;
+   for(let k=0;k<aa.length;k+=4){const bg=aa[k]>215&&aa[k+1]>212&&aa[k+2]>205;const changed=Math.abs(aa[k]-bb[k])+Math.abs(aa[k+1]-bb[k+1])+Math.abs(aa[k+2]-bb[k+2])>18;if(bg&&changed)outside++;}
+   containmentAudit.push({character:p.id,direction:d,overlayPixelsOutsideApprovedSilhouette:outside,pass:outside===0});
+   data.push({key:p.id+'-'+d,label:p.id[0].toUpperCase()+'-'+d[0].toUpperCase(),native:await render(xByDirection[d],p.y,64,96),direct:await render(xByDirection[d],p.y,28,42)});
+  }
   const sheet=async(scale)=>{
    const w=scale==='native'?64:28,h=scale==='native'?96:42,g=12,lh=18,cols=3,c=document.createElement('canvas');
    c.width=g+cols*(w+g);c.height=g+3*(h+lh+g)+14;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);x.fillStyle='#fff';x.font='bold 7px sans-serif';x.fillText('S=Sailor K=Slicker P=Painter',g,9);
@@ -40,7 +49,7 @@ try{
    return c.toDataURL('image/png');
   };
   return {data,nativeSheet:await sheet('native'),directSheet:await sheet('direct')};
- },{source:composite,people,directions,xByDirection});
+ },{source:composite,baseSource:base,people,directions,xByDirection});
  const write=(p,url)=>fs.writeFileSync(p,Buffer.from(url.split(',')[1],'base64'));
  for(const item of result.data){
   write(path.join(out,item.key+'-64x96.png'),item.native);
@@ -91,7 +100,8 @@ try{
  },compareData);
  write(path.join(out,'integrated-matched-face-comparisons-native-40x38.png'),comparisons.native);
  write(path.join(out,'integrated-matched-face-comparisons-3x.png'),comparisons.enlarged);
- const manifest={stage:'non-production integrated grayscale face study',revision21_blob:blob,overlay:'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg',characters:people.map(x=>x.id),directions,counts:{native64x96:9,direct28x42:9,enlarged4x:9,integratedFaceCrops40x38:9,matchedFaceRows:6},protected:{revision21_source_modified:false,construction_source_modified:false,production_renderer_modified:false,golden_snapshots_modified:false}};
+ if(containmentAudit.some(x=>!x.pass))throw new Error('Integrated face overlay extends outside the approved revision-21 silhouette: '+JSON.stringify(containmentAudit.filter(x=>!x.pass)));
+ const manifest={stage:'non-production integrated grayscale face study',revision21_blob:blob,overlay:'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg',characters:people.map(x=>x.id),directions,counts:{native64x96:9,direct28x42:9,enlarged4x:9,integratedFaceCrops40x38:9,matchedFaceRows:6},containmentAudit,protected:{revision21_source_modified:false,construction_source_modified:false,production_renderer_modified:false,golden_snapshots_modified:false}};
  fs.writeFileSync(path.join(out,'integrated-face-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
  console.log(JSON.stringify({manifest}));
 }finally{await browser.close();}
