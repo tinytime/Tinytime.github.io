@@ -9,7 +9,7 @@ const dir=path.join(root,'project-background/qa-artifacts/fourth-civilian-batch'
 const basePath=path.join(dir,'SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg');
 const facePath=path.join(dir,'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg');
 const studyPath=path.join(dir,'SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg');
-const out=path.join(root,'qa-output/fourth-batch-colour-study');
+// Design-only projection: this script never loads or edits the production renderer.\nconst out=path.join(root,'qa-output/fourth-batch-colour-study');
 fs.mkdirSync(out,{recursive:true});
 const base=fs.readFileSync(basePath,'utf8');
 const face=fs.readFileSync(facePath,'utf8');
