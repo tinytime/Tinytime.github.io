@@ -48,7 +48,7 @@ try{
    for(let i=0;i<data.length;i++){const p=data[i],im=new Image();im.src=p[scale];await im.decode();const px=g+(i%3)*(w+g),py=g+14+Math.floor(i/3)*(h+lh+g);x.fillStyle='#fff';x.font='bold 9px sans-serif';x.fillText(p.label,px,py+11);x.drawImage(im,px,py+lh,w,h);}
    return c.toDataURL('image/png');
   };
-  return {data,nativeSheet:await sheet('native'),directSheet:await sheet('direct')};
+  return {data,nativeSheet:await sheet('native'),directSheet:await sheet('direct'),containmentAudit};
  },{source:composite,baseSource:base,people,directions,xByDirection});
  const write=(p,url)=>fs.writeFileSync(p,Buffer.from(url.split(',')[1],'base64'));
  for(const item of result.data){
@@ -100,8 +100,8 @@ try{
  },compareData);
  write(path.join(out,'integrated-matched-face-comparisons-native-40x38.png'),comparisons.native);
  write(path.join(out,'integrated-matched-face-comparisons-3x.png'),comparisons.enlarged);
- if(containmentAudit.some(x=>!x.pass))throw new Error('Integrated face overlay extends outside the approved revision-21 silhouette: '+JSON.stringify(containmentAudit.filter(x=>!x.pass)));
- const manifest={stage:'non-production integrated grayscale face study',revision21_blob:blob,overlay:'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg',characters:people.map(x=>x.id),directions,counts:{native64x96:9,direct28x42:9,enlarged4x:9,integratedFaceCrops40x38:9,matchedFaceRows:6},containmentAudit,protected:{revision21_source_modified:false,construction_source_modified:false,production_renderer_modified:false,golden_snapshots_modified:false}};
+ if(result.containmentAudit.some(x=>!x.pass))throw new Error('Integrated face overlay extends outside the approved revision-21 silhouette: '+JSON.stringify(result.containmentAudit.filter(x=>!x.pass)));
+ const manifest={stage:'non-production integrated grayscale face study',revision21_blob:blob,overlay:'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg',characters:people.map(x=>x.id),directions,counts:{native64x96:9,direct28x42:9,enlarged4x:9,integratedFaceCrops40x38:9,matchedFaceRows:6},containmentAudit:result.containmentAudit,protected:{revision21_source_modified:false,construction_source_modified:false,production_renderer_modified:false,golden_snapshots_modified:false}};
  fs.writeFileSync(path.join(out,'integrated-face-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
  console.log(JSON.stringify({manifest}));
 }finally{await browser.close();}
