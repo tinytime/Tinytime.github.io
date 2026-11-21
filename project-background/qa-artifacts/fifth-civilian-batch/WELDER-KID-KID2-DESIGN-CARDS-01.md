@@ -50,6 +50,9 @@ A patient, meticulous repair specialist who pauses to inspect a join before comm
 - Cylinder straps cross the upper back and terminate at a waist bracket; do not draw unsupported diagonal bands.
 - No decorative badges, sparks or colour coding are required for identity.
 
+### Palette proposal — later colour stage only
+Soot charcoal and dark iron for the protective workwear, worn saddle-brown leather for the apron, and restrained oxidized-copper/steel notes for the regulator and torch. Keep bright warning colour out of the identity solution; the raised visor and gas rig must carry the read without a high-visibility accent. No swatches or colour rendering are authorized in this stage.
+
 ### Prop, contact and handedness plan
 - **Torch:** character-right hand. Front view therefore places the torch on viewer-left; rear view places that hand on viewer-right. It is visible in the **left profile** (character-right side is near when facing left) and hidden in the right profile, where it is the far-side hand.
 - **Cylinder:** fixed to the back harness, centered just off the spine toward character-left to avoid a perfect mirror-balanced pack. Visible in back and both profiles as the body turn permits; not drawn as a second handheld object.
@@ -101,6 +104,9 @@ A curious, restless kid who is always halfway into the next idea. The pose is op
 - Plain low-profile shoes; no heavy boot or workwear cues.
 - No backpack: the forward gesture and glider already supply the interaction; a second prop would clutter the youth silhouette.
 
+### Palette proposal — later colour stage only
+A weathered mid-tone blue or blue-green hoodie, warm neutral trousers and a small coral or ochre paper glider. The glider accent should be the only high-energy colour note; the character must remain recognizable in monochrome. No swatches or colour rendering are authorized in this stage.
+
 ### Prop, contact and handedness plan
 - **Paper glider:** character-right hand. Front view places it on viewer-left; rear view on viewer-right. It is visible in the left profile and hidden in the right profile because the carrying hand is far-side in that view.
 - **Grip:** thumb and curled fingers close around the central folded keel; the wrist aligns with the forearm. Keep the wing plane above the fist, not behind the head.
@@ -151,6 +157,9 @@ A thoughtful, reserved kid who carries a small book close and watches before joi
 - Scarf is a wrapped garment with a visible overlap and one short tucked end; avoid a long loose tail that merges with the book or coat.
 - Trousers are straight and slightly gathered at the shoe; feet remain close without fusing.
 - No backpack or second accessory; the book is the one intentional interaction.
+
+### Palette proposal — later colour stage only
+A muted plum or aubergine coat, deep moss/teal scarf and warm parchment book cover, with quiet dark footwear. Keep the value grouping soft and calm, distinct from Busker's performer blues and from Usher's formal civic palette. No swatches or colour rendering are authorized in this stage.
 
 ### Prop, contact and handedness plan
 - **Book:** supported by both hands at the upper chest. Front view shows both hands; back view hides the book behind the torso. In either profile, show only the near-side hand and the book's fore-edge, with the far hand hidden behind the cover/torso.
