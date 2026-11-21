@@ -1,3 +1,15 @@
+## Fourth civilian batch — Stage 7 colour/rendering design authorization (2026-11-21)
+
+The owner confirmed Claude's approval of the Run #867 integrated grayscale face checkpoint and directed progression to Stage 7 for Sailor #12, Slicker #13 and Painter #14. Record the Claude verdict as owner-reported; the detailed reviewer response has not yet been transcribed into GitHub.
+
+The first-pass non-production brief is [SAILOR-SLICKER-PAINTER-COLOUR-AND-RENDERING-STUDY-01.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-AND-RENDERING-STUDY-01.md). Candidate swatches are not locked values or final palette approval.
+
+**Authorized now:** isolated design-stage colour/material/rendering studies for the three named characters, preserving approved revision-21 silhouette/construction geometry and approved grayscale face inputs. Four-direction study, native 64×96 and independently rendered direct 28×42 evidence are required.
+
+**Still not authorized:** production renderer/code integration, live town/gallery placement or spawn work, golden snapshot/provenance changes, and roster #15–23. Final palette/finished-art approval remains a separate owner decision after exact-source QA. Granny Volt remains a finish benchmark, not a template.
+
+---
+
 ## Fourth civilian batch — F6 integrated face proposal review boundary (2026-11-21)
 
 The grayscale face proposals are integrated into the revision-21 full-head design studies and have passed internal QA. The [Claude review package](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-CLAUDE-REVIEW-PACKAGE-01.md) is prepared but not sent; owner approval remains pending. See [internal QA record](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md). The owner-approved outer silhouette and construction source remain unchanged. Palette and production renderer work remain unauthorized.
