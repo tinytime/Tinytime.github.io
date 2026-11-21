@@ -1,3 +1,12 @@
+## Fourth civilian batch — F6 face integration checkpoint (2026-11-21)
+
+- **Sailor #12, Slicker #13, Painter #14:** F6 grayscale face geometry integrated into separate revision-21 full-head studies; internal design-stage QA **PASS WITH GAME-SCALE READABILITY CAVEAT**.
+- **Evidence:** exact source `006501416414f9c5fbeaba4b52a88fa64e849843`; [Actions Run #861](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845165418), artifact [14683171220](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845165418/artifacts/14683171220); [internal QA record](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md).
+- **Independent review:** Claude package prepared but not sent; not reviewed.
+- **Owner approval:** pending. No final face approval, palette approval, production renderer authorization, or approval to start characters #15–23.
+- **Protected:** revision-21 silhouette/construction sources and all golden snapshots/provenance unchanged.
+- **Global workflow:** failed at existing audio-resource HTTP 404 diagnostics; page/script error arrays empty; golden snapshot gate 1 match / 23 changed.
+
 ## Fourth civilian batch — F6 owner decision package 01 (2026-11-20)
 
 The focused owner decision package is [SAILOR-SLICKER-PAINTER-FACE-OWNER-DECISION-PACKAGE-01.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-OWNER-DECISION-PACKAGE-01.md). It recommends one limited, non-production next step: integrate the grayscale face proposals into approved revision-21 full-head studies and capture front plus both profiles at native 64×96 and independently rendered direct 28×42, with enlarged diagnostics. This is an authorization request only; no face approval, Claude review, production renderer work or palette work is implied. The six matched 40×38 crops passed visual comparison, but full-head placement, occlusion and direct game-scale readability remain untested. Wait for the owner's decision before proceeding.
