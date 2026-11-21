@@ -1,3 +1,9 @@
+## Fourth civilian batch — isolated Stage 7 colour-study capture (2026-11-21)
+
+The colour study is a separate non-production SVG; it does not alter npc_sprites.js, production renderers, game scenes or golden snapshots. qa/build-fourth-batch-colour-evidence.mjs verifies the protected revision-21 silhouette and integrated grayscale face Git blob IDs, checks that every source silhouette path remains present, and captures the 24 four-direction/body-only/prop-on panels at native 64×96, independently rasterized direct 28×42 and enlarged 4× scales. The isolated workflow is .github/workflows/fourth-batch-colour-study.yml; its artifact is design evidence only, not production-renderer QA.
+
+---
+
 ## Fifth civilian batch — non-production design evidence capture (2026-11-21)
 
 A dedicated Playwright evidence builder, `qa/build-fifth-batch-design-evidence.mjs`, captures the authored Welder/Kid/Kid 2 silhouette and face/head SVG proposals without changing `npc_sprites.js` or any production renderer. The browser QA workflow now watches `project-background/qa-artifacts/fifth-civilian-batch/**` and runs this capture step before the existing checks. It verifies exact source Git blob IDs and emits native 64×96 and independently rendered direct 28×42 vector projections, enlarged diagnostics, contact sheets, face/head sheet captures and a manifest under `qa-output/fifth-batch-design/`. These are design-source projections, not production renderer captures or approval evidence. Golden snapshots and provenance remain outside this task.
