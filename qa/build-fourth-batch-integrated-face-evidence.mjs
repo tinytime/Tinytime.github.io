@@ -54,7 +54,7 @@ try{
  const cropDir=path.join(out,'integrated-face-crops-40x38');fs.mkdirSync(cropDir,{recursive:true});
  const crops=[];
  for(const item of result.data){
-  const crop=await page.evaluate(async url=>{const im=new Image();im.src=url;await im.decode();const c=document.createElement('canvas');c.width=40;c.height=38;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(im,item.key.endsWith('-front')?12:0,0,40,38,0,0,40,38);return c.toDataURL('image/png');},item.native);
+  const crop=await page.evaluate(async(url,key)=>{const im=new Image();im.src=url;await im.decode();const c=document.createElement('canvas');c.width=40;c.height=38;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(im,key.endsWith('-front')?12:0,0,40,38,0,0,40,38);return c.toDataURL('image/png');},item.native,item.key);
   write(path.join(cropDir,item.key+'.png'),crop);crops.push({key:item.key,dataUrl:crop});
  }
  const rows=[
