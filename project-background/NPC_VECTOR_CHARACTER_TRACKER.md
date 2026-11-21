@@ -1,3 +1,13 @@
+## Current fourth-batch checkpoint — corrected F6 face-crop QA (2026-11-20)
+
+- Exact corrected face source: `ab95cc5da377ffe2c929f5ebc0d9fc3cdf59b5e0`; corrected SVG blob `dc68b54e86b0d5a434ccebb22b34d9ac8e27bc76`.
+- [Browser QA Run #839](https://github.com/tinytime/Tinytime.github.io/actions/runs/44841485275), artifact [14681366588](https://github.com/tinytime/Tinytime.github.io/actions/runs/44841485275/artifacts/14681366588): exact-source design projections/roster face crops, construction-detail capture and semantic validation passed; overall browser job failed on global audio/resource 404 diagnostics. Golden comparison remains 1/23 and protected; no snapshots/provenance changed.
+- Manual artifact inspection confirms the six matched 40×38 face crops are now correctly aligned. Sailor and Painter's intended geometry reads at crop scale; Slicker's closer eye spacing is the most subtle cue. These are grayscale design comparisons, not renderer output.
+- Direct 28×42 face readability and full-head placement/occlusion remain untested. Face-stage internal QA is incomplete; proposal not sent to Claude and not owner-approved. No palette/renderer work or #15–23 work authorized.
+- Full findings: [internal QA record 01](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-FACE-GEOMETRY-INTERNAL-QA-01.md).
+
+---
+
 ## Current fourth-batch checkpoint — F6 face geometry (2026-11-20)
 
 Sailor #12, Slicker #13 and Painter #14 have owner-approved revision-21 silhouettes, construction cards 02 and character-specific construction-family assignments. The previous construction-card QA handoff at the top of this file is superseded by the current face-stage work.
