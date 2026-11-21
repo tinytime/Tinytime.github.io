@@ -6,7 +6,7 @@
 **Exact tested source commit:** `a857f7b4d2238ef8fd63da99465aa27ee11cafe0`  
 **Approved revision-21 silhouette baseline:** `be1c0c012894ccae23b4cbce2ad06e523fb460c5`  
 **Revision-21 source blob verified by the capture script:** `36f645d7de9ee5bedc79a0288c50bc8399382f4b`  
-**Actions run:** [#861](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254)  
+**Actions run:** [#867](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254)  
 **Artifact:** [vapor-city-browser-qa — 14682766863](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254/artifacts/14682766863)
 
 ## Verdict

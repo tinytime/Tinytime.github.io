@@ -4,7 +4,7 @@
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `npc-granny-baseline-overhaul`  
 **Exact source commit tested:** `a857f7b4d2238ef8fd63da99465aa27ee11cafe0`  
-**Actions run:** [#861](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254)  
+**Actions run:** [#867](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254)  
 **Evidence artifact:** [vapor-city-browser-qa — 14682766863](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254/artifacts/14682766863)
 
 ## Review status
