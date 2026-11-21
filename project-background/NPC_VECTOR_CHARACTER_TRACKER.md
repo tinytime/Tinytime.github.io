@@ -2,6 +2,17 @@
 
 [Full-colour directional render 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg) presents all 12 views with character-specific face, garment, prop and material colour overlays. Exact-source browser captures, native/direct-size inspection, structural checks and internal QA remain outstanding. This does not approve the silhouettes, family assignments or palette. No production renderer or golden snapshot changes.
 
+## Current checkpoint — Batch 4 Stage 7 colour study revision 02 (2026-11-21)
+
+| # | Character | Stage 7 status | Candidate material direction | Gate |
+|---:|---|---|---|---|
+| 12 | Sailor | Colour study 02 authored; prop-on face overlays restored | Harbour teal, hemp rope, aged brass | Exact-source capture and manual review pending |
+| 13 | Slicker | Colour study 02 authored; prop-on face overlays restored | Storm-slate shell, dark hood, restrained ochre | Exact-source capture and manual review pending |
+| 14 | Painter | Colour study 02 authored; prop-on face overlays restored | Oxide-clay smock, indigo, wood/metal brush | Exact-source capture and manual review pending |
+
+[Colour study 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-02.svg) repeats the approved grayscale face overlays in the prop-on diagnostic panels. Run #7 exposed their absence from study 01; the corrected exact-source capture is pending. The QA harness now validates all 18 face-overlay placements and 108 protected silhouette paths. See [internal QA log](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTERNAL-QA-LOG.md). This is still non-production study art; no final palette, production renderer, game-scene, snapshot or provenance approval is implied.
+
+---
 ## Current checkpoint — Batch 4 Stage 7 colour study authored (2026-11-21)
 
 | # | Character | Stage 7 status | Candidate material direction | Gate |
