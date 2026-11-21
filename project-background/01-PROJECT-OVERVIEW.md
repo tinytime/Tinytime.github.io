@@ -1,14 +1,6 @@
-## Fifth civilian batch — full-colour directional render authored (2026-11-21)
+## Fifth civilian batch — identity/silhouette/construction design review (2026-11-21)
 
-A consolidated non-production render proposal is now authored for Welder #15, Kid #16 and Kid 2 #17: [full-colour render 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg). It presents front, back, left and right views for all three characters, retaining the current silhouette geometry and adding distinct skin, clothing, prop and material colour layers. This is not final approval. Exact-source browser captures, native 64×96 and direct 28×42 inspection, structural checks and internal QA remain required. No production renderer, town/gallery, golden snapshot or provenance changes are included.
-
----
-
-## Fifth civilian batch — design-stage release (2026-11-21)
-
-The owner explicitly authorized design-stage work for Welder #15, Kid #16 and Kid 2 #17. This proceeds independently of the fourth-batch work being handled in a separate chat. The first identity/construction cards and four-view black silhouette proposals are in [the fifth-batch design package](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md) and [silhouette exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg), plus [face/head exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg). They are not approved. Internal QA and owner silhouette/construction review remain outstanding. All three vector-family assignments remain UNASSIGNED. Renderer, palette, town/gallery and golden snapshot work remain out of scope.
-
----
+The owner released Welder #15, Kid #16 and Kid 2 #17. The three concepts now have identity/construction cards, four-view black silhouettes, face/head studies and a full-roster comparison. Exact-source internal design QA passed in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023]. The designs are submitted for owner silhouette/construction approval; all vector-family assignments remain UNASSIGNED. Palette, production renderer, town/gallery, golden snapshots and provenance remain out of scope. A separate provisional full-colour file in the branch is uncaptured and unapproved.
 
 ## Fourth civilian batch — post-silhouette identity/construction cards 02 (2026-11-20)
 

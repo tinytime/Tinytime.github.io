@@ -4,16 +4,21 @@ The first non-production colour-study SVG is authored for Sailor #12, Slicker #1
 
 ---
 
-## Fifth civilian batch — initial design package and QA boundary (2026-11-21)
+## Fifth civilian batch — identity/silhouette/construction internal QA pass (2026-11-21)
 
-Owner release is confirmed for Welder #15, Kid #16 and Kid 2 #17. Initial design artifacts:
+Owner release is confirmed for Welder #15, Kid #16 and Kid 2 #17. The design package is:
 - [Identity and construction cards 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md)
 - [Four-view black silhouette exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg)
 - [Face/head construction exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg)
 - [Full-roster comparison 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-ROSTER-COMPARISON-01.md)
-- [Design cards and roster comparison notes](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md)
+- [Internal QA log](qa-artifacts/fifth-civilian-batch/FIFTH-BATCH-INTERNAL-QA-LOG.md)
 
-The authored silhouette SVG was checked for a single root/viewBox, balanced group tags, 12 character-direction cells, three character rows and solid-black silhouette styling. The cards were source-audited for two explicit face geometry cues per character, exactly three must-survive features per character (including the direct-28×42 head-read cue), explicit palette proposals reserved for the later colour stage, and all three current-family fields remaining UNASSIGNED. The face/head SVG contains front and profile geometry for all three characters; both SVGs have balanced group structure and no external asset dependencies. Run #883 ([workflow](https://github.com/tinytime/Tinytime.github.io/actions/runs/44847586755), artifact `14684365547`, exact source `d5c78933a95152276ec96c84b98d393303889eef`) generated the full 12-direction native/direct/enlarged capture set and face/head sheet. Manual inspection confirmed Kid's softened curious expression, improved Welder rear equipment placement, and a visible Kid 2 book in front and right profile; Kid 2's left profile still lacked the book. The left-profile prop/contact correction is now committed and awaits exact-source rerender. Run #883's overall workflow failed at the existing global browser diagnostics; the fifth-batch projection step itself passed. This artifact predates the latest left-profile correction and must not be treated as final. Matched-scale full-roster silhouette and face comparisons remain to be produced as evidence. The review-documents packaging workflow passed in [Run #244](https://github.com/tinytime/Tinytime.github.io/actions/runs/44846959736), exact package commit `3187f0580a182e860d7a7550b8b86a6206a05ffc`; this is a documentation-package check, not browser/art QA. Internal QA and owner review are pending. Do not implement renderers or change golden snapshots/provenance.
+Exact-source evidence passed in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023], source commit `e3611fd918ca0b800a1d79616bd39357826f84b8`. All 12 native 64×96 and 12 direct 28×42 captures, enlarged diagnostics, six matched face crops and three full-roster silhouette sheets were produced. Connectivity diagnostics report one connected component and no edge contacts for all 24 native/direct silhouette views. ChatGPT manually inspected the actual silhouette, direct-scale, enlarged and matched-comparison sheets.
+
+The separate full browser workflow [Run #939](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849914254) included a successful fifth-batch design-projection step. Its overall workflow failed at the existing global audio-resource HTTP 404 diagnostics; `pageErrors` and `scriptErrors` were empty. This is separate from the successful focused Batch 5 design-evidence workflow.
+
+**Disposition:** internal design QA PASS; owner silhouette/construction approval pending. No palette approval, production renderer, town/gallery, golden snapshot or provenance changes. All construction-family assignments remain UNASSIGNED. The provisional full-colour SVG present in the branch is out of scope, uncaptured and unapproved.
+
 
 ---
 

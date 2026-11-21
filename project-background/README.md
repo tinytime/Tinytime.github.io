@@ -9,9 +9,10 @@ Colour study 01 was captured in [Run #7](https://github.com/tinytime/Tinytime.gi
 
 ---
 
-## Fifth civilian batch — full-colour directional render authored (2026-11-21)
+## Fifth civilian batch — design-stage internal QA passed (2026-11-21)
 
-A consolidated non-production render proposal is now authored for Welder #15, Kid #16 and Kid 2 #17: [full-colour render 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg). It presents front, back, left and right views for all three characters, retaining the current silhouette geometry and adding distinct skin, clothing, prop and material colour layers. This is not final approval. Exact-source browser captures, native 64×96 and direct 28×42 inspection, structural checks and internal QA remain required. No production renderer, town/gallery, golden snapshot or provenance changes are included.
+Welder #15, Kid #16 and Kid 2 #17 have complete identity/construction cards, four-view black silhouettes, face/head studies and a full-roster comparison. Exact-source design evidence passed in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023]. Internal design QA is complete; owner silhouette/construction approval is pending. All vector-family assignments remain UNASSIGNED. A separate provisional full-colour SVG is present but out of scope, uncaptured and unapproved. No production renderer, palette approval, town/gallery, golden snapshot or provenance changes.
+
 
 ---
 

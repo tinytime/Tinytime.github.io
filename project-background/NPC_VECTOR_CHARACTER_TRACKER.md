@@ -10,9 +10,15 @@ The first colour study has completed exact-source browser capture, but is **not 
 
 ---
 
-## Fifth civilian batch — full-colour render proposal authored (2026-11-21)
+## Fifth civilian batch — identity/silhouette/construction internal QA pass (2026-11-21)
 
-[Full-colour directional render 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg) presents all 12 views with character-specific face, garment, prop and material colour overlays. Exact-source browser captures, native/direct-size inspection, structural checks and internal QA remain outstanding. This does not approve the silhouettes, family assignments or palette. No production renderer or golden snapshot changes.
+[Design cards 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md), [four-view silhouette exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg), [face/head exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg), and [full-roster comparison 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-ROSTER-COMPARISON-01.md) are authored for Welder #15, Kid #16 and Kid 2 #17.
+
+- **Exact tested design source:** commit `e3611fd918ca0b800a1d79616bd39357826f84b8`; [Fifth Civilian Batch Design Evidence Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232/artifacts/14684738023).
+- **Evidence:** 12 native 64×96 and 12 independently rendered direct 28×42 directional silhouettes; 12 enlarged views; six matched face crops; three full-roster silhouette comparison sheets covering the 15 existing designed civilians. All 24 native/direct silhouette diagnostics report one connected component and zero frame-edge contacts.
+- **Manual review:** Welder's raised visor, split apron, rear gas cylinder and hand-held torch read as a distinct industrial worker; Kid's hood, forward-sprung pose and paper glider distinguish the first youth; Kid 2's pom beanie, wrapped scarf-coat, inward posture and closed hardback distinguish the second youth. The three faces remain distinct against their matched roster pairs.
+- **Approval boundary:** internal design QA PASS; owner silhouette/construction approval is pending. Proposed family descriptors remain descriptive only; all three current vector-family assignments remain **UNASSIGNED**.
+- **Out of scope:** a separate provisional full-colour render file exists in the branch, but it is not captured by this design-evidence workflow, is not palette-approved and is not production art. No production renderer, town/gallery, golden snapshot or provenance changes are authorized.
 
 ## Current checkpoint — Batch 4 Stage 7 colour study revision 03 (2026-11-21)
 

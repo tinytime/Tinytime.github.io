@@ -1,12 +1,13 @@
-## Fifth civilian batch — owner release and first design proposals (2026-11-21)
+## Fifth civilian batch — identity/silhouette/construction internal QA pass (2026-11-21)
 
-The owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for identity, silhouette and construction design. The fourth batch is proceeding separately in another chat. The first proposals are:
+The owner released Welder #15, Kid #16 and Kid 2 #17. The package includes:
 - [Identity/construction cards 01](../fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md)
-- [Four-view black silhouette exploration 01](../fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg)
+- [Four-view silhouette exploration 01](../fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg)
 - [Face/head construction exploration 01](../fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg)
 - [Full-roster comparison 01](../fifth-civilian-batch/WELDER-KID-KID2-ROSTER-COMPARISON-01.md)
 
-Proposed descriptors: Welder — Offset Leather Apron / Rear Gas-Rig Shell; Kid — Forward-Sprung Hooded Zip-Shell / Open-Stride Youth Build; Kid 2 — Wrapped Scarf-Coat / Close-Held Book Shell. **All three current vector-family assignments remain UNASSIGNED.** Face comparator pairs are candidates pending matched-scale roster crops. Browser rendering, direct 28×42 captures, full matched-roster silhouette evidence and internal/owner review remain pending. No renderer, palette, town/gallery, golden snapshot/provenance or later-roster work is authorized.
+[Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023], tested source commit `e3611fd918ca0b800a1d79616bd39357826f84b8). All 12 native and 12 direct silhouette views passed connectivity/edge diagnostics; matched face crops and three full-roster comparison sheets were generated and visually inspected. **Internal design QA PASS; owner approval pending.** Proposed descriptors remain unassigned family proposals. The provisional full-colour SVG is out of scope, uncaptured and unapproved; no renderer, palette, town/gallery or baseline work is authorized.
+
 
 ---
 ## Fourth civilian batch — revision 10 internal QA complete (2026-11-20)
