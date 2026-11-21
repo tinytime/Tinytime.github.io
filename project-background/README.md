@@ -1,3 +1,13 @@
+## Fourth civilian batch — Stage 7 colour/rendering design opened (2026-11-21)
+
+The owner confirmed Claude's approval of the Run #867 integrated grayscale face checkpoint and directed progression to the next stage. This is recorded as owner-reported independent approval; the detailed Claude response has not been transcribed into the repository. Stage 7 is open for non-production colour/material/rendering studies for Sailor #12, Slicker #13 and Painter #14 only.
+
+The first-pass palette and rendering brief is [SAILOR-SLICKER-PAINTER-COLOUR-AND-RENDERING-STUDY-01.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-AND-RENDERING-STUDY-01.md), commit `fce6ddda8678f0bcfdf7d86c5840575b1b82cef9`. Candidate palettes: Sailor harbour-teal/hemp/brass; Slicker storm-slate/dark hood/ochre; Painter oxide-clay/indigo/wood. These are proposals, not final approvals. No colour artwork/captures or production renderer changes have been completed. Approved revision-21 silhouette/construction and Run #867 grayscale face inputs remain protected. Next: create isolated four-direction colour-study variants and run exact-source QA.
+
+Run #867 remains an owner-approved design checkpoint, not a globally green Actions run: the overall workflow failed at global audio-resource 404 diagnostics and the protected golden gate (1 match / 23 changed).
+
+---
+
 ## Fourth civilian batch — integrated F6 face study QA (2026-11-21)
 
 The owner-authorized grayscale face integration for Sailor #12, Slicker #13 and Painter #14 has passed internal design-stage QA with a direct-game-scale readability caveat. Exact tested source: `a857f7b4d2238ef8fd63da99465aa27ee11cafe0`. See [Actions Run #867](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254), artifact [14682766863](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254/artifacts/14682766863), [internal QA record](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md), and [Claude review package](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-CLAUDE-REVIEW-PACKAGE-01.md).
