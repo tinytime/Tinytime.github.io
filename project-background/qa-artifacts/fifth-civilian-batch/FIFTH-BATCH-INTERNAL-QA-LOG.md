@@ -12,7 +12,7 @@
 - [Artifact 14684123957](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480/artifacts/14684123957)
 - Tested artwork commit: `4864fc565c2e08e662394c2ea406c37a119d2d59`
 - Silhouette blob: `5892e66018fed61ceb02c3b222738d14870ce524`
-- Face/head blob: `e3b5b58dbf8225f23453c8b097ef4c61343e4cd9`
+- Face/head blob at Run #24: `e3b5b58dbf8225f23453c8b097ef4c61343e4cd9`
 
 ### Run #28 — documentation-commit recheck
 
@@ -21,6 +21,17 @@
 - Tested documentation commit: `fab33607dfa25922b8b93158ae48b9319153fa5c`
 - Both SVG source blobs are identical to Run #24.
 - All 66 non-manifest artifact files match Run #24 byte-for-byte; only the manifest's tested commit field differs.
+
+
+
+### Run #31 — current face-study source and evidence recheck
+
+- [Fifth Civilian Batch Design Evidence Run #31](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850966072)
+- [Artifact 14684849806](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850966072/artifacts/14684849806)
+- Tested commit: `83af4bfea94664bc57808146337636e4172f3076`.
+- Silhouette blob remains `5892e66018fed61ceb02c3b222738d14870ce524`; face/head blob is now `a3335e74ff9d7e58b91080557da9d4c04ff3c070`; evidence-builder blob is `8ce86a60ff48bed909b7d565c37c786462540770`.
+- The face-sheet footer was corrected to state that matched native-scale roster crops are present in the companion evidence. No face geometry or silhouette paths changed.
+- Run conclusion: success. All 24 native/direct prop-on silhouette views again report one connected component and zero frame-edge contact. The capture includes 12 native, 12 independently rasterized direct 28×42 and 12 enlarged views, six face/head views and roster comparisons. Direct 28×42 outputs remain design-source projections, not in-game Tier A captures.
 
 ## Captures and structural diagnostics
 
@@ -65,6 +76,16 @@ The broader [Vapor City Browser QA Run #952](https://github.com/tinytime/Tinytim
 - Tested commit: `fab33607dfa25922b8b93158ae48b9319153fa5c`.
 - Batch 5 design evidence and the review-sheet build succeeded. Global browser diagnostics failed: 1 of 24 golden snapshots matched and 23 differed; the baseline approval record is explicitly `unapproved`. The report also records multiple audio-resource HTTP 404s and no JavaScript errors.
 - No golden snapshots or provenance were modified. This global gate is separate from Batch 5 design-source QA and must not be bypassed or refreshed without explicit owner authorization.
+
+
+
+### Run #955 — latest full browser QA, separate project-wide gate
+
+- [Vapor City Browser QA Run #955](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850966073)
+- [Artifact 14684564044](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850966073/artifacts/14684564044)
+- Tested current commit: `83af4bfea94664bc57808146337636e4172f3076`.
+- Batch 5 design projections, other capture steps and the review-sheet build succeeded. Game browser diagnostics failed: 1 of 24 golden snapshots matched and 23 differed against the explicitly unapproved baseline. The report records 180 console errors, principally missing audio assets (HTTP 404); pageErrors and scriptErrors are empty.
+- No golden snapshots or provenance were changed. This global failure is separate from the focused Batch 5 design-evidence pass; do not refresh or approve the baseline without explicit owner authorization.
 
 ## Approval and scope boundaries
 
