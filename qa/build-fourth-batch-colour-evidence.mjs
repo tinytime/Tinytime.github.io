@@ -26,6 +26,8 @@ if(missingPaths.length)throw new Error('Colour study altered or omitted '+missin
 const faceIds=['sailor-front','sailor-left','sailor-right','slicker-front','slicker-left','slicker-right','painter-front','painter-left','painter-right'];
 const propFaceIds=faceIds.map(id=>id.replace(/^(sailor|slicker|painter)-/,'$1-prop-'));
 for(const id of [...faceIds,...propFaceIds])if(!study.includes('id="'+id+'"'))throw new Error('Missing integrated face overlay '+id);
+const propFaceSkinRules=['#sailor-prop-front>path:first-child{fill:#B98264;stroke:#704B3D}','#slicker-prop-front>path:first-child{fill:#946B56;stroke:#5F463B}','#painter-prop-front>path:first-child{fill:#D3A078;stroke:#8B634D}'];
+for(const rule of propFaceSkinRules)if(!study.includes(rule))throw new Error('Missing character-specific prop-face skin rule '+rule);
 const panels=[
  ['sailor','front',51,128,false],['sailor','back',161,128,false],['sailor','left',271,128,false],['sailor','right',381,128,false],
  ['slicker','front',51,458,false],['slicker','back',161,458,false],['slicker','left',271,458,false],['slicker','right',381,458,false],
@@ -74,7 +76,7 @@ try{
   sourceCommit:process.env.GITHUB_SHA||null,baseBlob:blob(base),faceBlob:blob(face),
   studySha256:crypto.createHash('sha256').update(study).digest('hex'),
   captures:rendered.map(({character,direction,prop})=>({character,direction,prop,native:'64x96',direct:'28x42',enlarged:'4x'})),
-  assertions:{protectedBasePaths:basePaths.length,missingBasePaths:missingPaths.length,faceOverlays:faceIds.length,propFaceOverlays:propFaceIds.length,captureCount:rendered.length}
+  assertions:{protectedBasePaths:basePaths.length,missingBasePaths:missingPaths.length,faceOverlays:faceIds.length,propFaceOverlays:propFaceIds.length,propFaceSkinRules:propFaceSkinRules.length,captureCount:rendered.length}
  },null,2));
  console.log(JSON.stringify({pass:true,protectedBasePaths:basePaths.length,captures:rendered.length,native:rendered.length,direct:rendered.length,enlarged:rendered.length,output:out}));
 }finally{await browser.close();}
