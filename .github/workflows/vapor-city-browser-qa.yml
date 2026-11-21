@@ -18,6 +18,7 @@ concurrency:
       - 'npc_sprites.js'
       - 'qa/**'
       - 'project-background/qa-artifacts/fourth-civilian-batch/**'
+      - 'project-background/qa-artifacts/fifth-civilian-batch/**'
       - '.github/workflows/vapor-city-browser-qa.yml'
 
 jobs:
@@ -33,6 +34,9 @@ jobs:
         run: npm install --no-save playwright
       - name: Install Chromium
         run: npx playwright install chromium
+      - name: Build fifth-batch silhouette and face/head design projections
+        if: always()
+        run: node qa/build-fifth-batch-design-evidence.mjs
       - name: Build fourth-batch design-source projections and roster face crops
         if: always()
         run: node qa/build-fourth-batch-design-evidence.mjs
