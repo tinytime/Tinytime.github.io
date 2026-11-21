@@ -43,7 +43,7 @@
    <path d="M11 58 L15 59 L14 66 L11 66 Z M9 65 L16 65 L15 69 L9 69 Z"/>
    <path d="M12 69 L12 73 L10 75 L9 73 L10 70 Z"/>
    <!-- hose rises from torch, curves to hip -->
-   <path d="M10 62 Q5 58 7 53 Q9 50 13 52" fill="none" stroke="#000" stroke-width="1.7"/>
+   <path d="M10 62 Q5 58 7 53 Q9 50 13 52" fill="none" stroke="#000" stroke-width="2.4"/>
    <!-- harness/cylinder shoulder hint visible behind -->
    <path d="M41 25 L45 26 L47 32 L43 34 L40 30 Z"/>
   </g>
@@ -65,7 +65,7 @@
    <!-- apron rear waist wrap and split skirt -->
    <path d="M22 51 L42 51 L43 64 L38 70 L32 67 L26 71 L20 64 Z"/>
    <!-- hose follows the belt line from the left-side regulator to the right-hand torch -->
-   <path d="M16 58 Q8 65 20 67 Q35 68 49 58" fill="none" stroke="#000" stroke-width="1.8"/>
+   <path d="M16 58 Q8 65 20 67 Q35 68 49 58" fill="none" stroke="#000" stroke-width="2.4"/>
    <!-- character-right arm, glove and torch are visible on viewer-right in the rear view -->
    <path d="M41 31 L47 34 L50 43 L51 48 L47 51 L44 45 L42 39 Z"/>
    <path d="M47 46 L52 46 L54 51 L51 55 L47 53 Z"/>
@@ -221,7 +221,7 @@
    <path d="M20 88 L27 88 L28 93 L16 93 L15 91 Z M40 88 L46 87 L50 91 L49 93 L37 93 Z"/>
   </g></g>
  <g transform="translate(600 34) scale(1.9)"><g class="sil">
-   <circle cx="31" cy="2" r="3.5"/>
+   <circle cx="31" cy="7" r="3.5"/>
    <path d="M20 11 Q21 4 31 4 Q42 4 43 13 L41 18 L22 18 Z"/>
    <path d="M21 12 Q31 7 42 12 L43 17 L21 17 Z"/>
    <!-- back-of-head and nape connect the beanie to the scarf collar; no detached headwear -->
