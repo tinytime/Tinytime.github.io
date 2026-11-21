@@ -82,7 +82,7 @@ try{
     for(let col=0;col<3;col++){
      const px=gap+col*(cell+gap),im=new Image();im.src=imgs[col];await im.decode();
      x.fillStyle='#fff';x.font=scale===1?'7px sans-serif':'10px sans-serif';x.fillText(names[col],px,py+head+8*scale);
-     x.drawImage(im,px,py+head+label,cell,cellH);
+     if(col===0)x.drawImage(im,px,py+head+label,cell,cellH);else x.drawImage(im,row.direction==='front'?12:0,0,40,38,px,py+head+label,cell,cellH);
     }
    }
    return c.toDataURL('image/png');
