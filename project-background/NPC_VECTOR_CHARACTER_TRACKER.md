@@ -1,3 +1,14 @@
+## Current fourth-batch checkpoint — F6 face geometry (2026-11-20)
+
+Sailor #12, Slicker #13 and Painter #14 have owner-approved revision-21 silhouettes, construction cards 02 and character-specific construction-family assignments. The previous construction-card QA handoff at the top of this file is superseded by the current face-stage work.
+
+- Face proposal: [exploration 03](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-03.svg), current corrected SVG blob `47a68413538a619dd4560c44dd2dcf3783cc6f9b`.
+- F6 closest face pairs: Sailor—Clinic/Guard; Slicker—Hacker/Courier; Painter—Cook/Busker.
+- [Internal QA record 01](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-FACE-GEOMETRY-INTERNAL-QA-01.md) records the source audit, identified layout defect and correction. Exact corrected-source browser artifact and manual face-scale review remain pending.
+- Face proposal is not owner-approved. No palette, renderer integration, golden snapshot/provenance work or roster #15–23 is authorized.
+
+---
+
 ## Construction-card QA handoff — fourth batch (2026-11-20)
 
 [Internal QA handoff 01](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-CONSTRUCTION-CARD-QA-HANDOFF-01.md) defines the card-completeness and character-specific review questions for Sailor #12, Slicker #13 and Painter #14. Review [construction cards 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md) against the approved revision-21 silhouette source only. Run #810 validates the silhouette source, not the newly authored cards or future face/garment/prop details. Internal QA and owner review are pending; no art approval is implied.
