@@ -16,7 +16,7 @@ const silhouette=fs.readFileSync(silhouettePath,'utf8');
 const face=fs.readFileSync(facePath,'utf8');
 const blobHash=text=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(text)+'\0'),Buffer.from(text)])).digest('hex');
 const sourceBlobs={silhouette:blobHash(silhouette),faceHead:blobHash(face)};
-const expected={silhouette:'8bc0b82833c6efd83a4f1fd3f9fe1a7955313843',faceHead:'e3b5b58dbf8225f23453c8b097ef4c61343e4cd9'};
+const expected={silhouette:'aa6ec7e6acc5599c908cb366f3c257a7414dec4c',faceHead:'e3b5b58dbf8225f23453c8b097ef4c61343e4cd9'};
 for(const key of Object.keys(expected))if(sourceBlobs[key]!==expected[key])throw new Error(key+' source blob mismatch: '+sourceBlobs[key]);
 if(!silhouette.includes('Twelve original solid-black civilian silhouettes'))throw new Error('Silhouette sheet description mismatch');
 if((silhouette.match(/<g class="sil">/g)||[]).length!==12)throw new Error('Expected twelve silhouette direction groups');
@@ -112,7 +112,7 @@ try{
   await page.addScriptTag({path:spritePath});
   const roster=await page.evaluate(async()=>{
    if(!window.SG||typeof window.SG.npcRenderDirectionalSnapshots!=='function')throw new Error('Existing roster directional snapshot hook unavailable');
-   const ids=['runner','coach','ref','courier','guard','vendor','cook','clinic','tech','hacker','fisher','sailor','slicker','painter','usher'];
+   const ids=['runner','coach','ref','courier','guard','vendor','cook','clinic','tech','hacker','fisher','sailor','slicker','painter','usher','dancer'];
    const dirs={d:'front',u:'back',l:'left',r:'right',front:'front',back:'back',left:'left',right:'right'};
    const snapshots=window.SG.npcRenderDirectionalSnapshots(),rows=[];
    for(const civ of ids)for(const [rawDir,direction] of Object.entries(dirs)){
@@ -191,19 +191,22 @@ try{
      const im=new Image();im.src=src;await im.decode();
      const c=document.createElement('canvas');c.width=40;c.height=38;
      const ctx=c.getContext('2d',{willReadFrequently:true});ctx.fillStyle='#fff';ctx.fillRect(0,0,40,38);ctx.imageSmoothingEnabled=false;
-     ctx.drawImage(im,20,6,24,16,0,0,40,38);
+     const crop=row.direction==='front'?[26,7,14,12]:[20,7,24,12];
+     ctx.drawImage(im,crop[0],crop[1],crop[2],crop[3],0,0,40,38);
      const px=ctx.getImageData(0,0,40,38);
      for(let k=0;k<px.data.length;k+=4){const lum=Math.round(.2126*px.data[k]+.7152*px.data[k+1]+.0722*px.data[k+2]);px.data[k]=lum;px.data[k+1]=lum;px.data[k+2]=lum;px.data[k+3]=255;}
      ctx.putImageData(px,0,0);refs.push(c.toDataURL('image/png'));
     }
     out.push({...row,design,refs});
    }
+   if(out.some(row=>row.refs.some(ref=>!ref)))throw new Error('Matched face comparison candidate crop missing: '+JSON.stringify(out.filter(row=>row.refs.some(ref=>!ref)).map(row=>row.key)));
    const gap=12,cellW=40,cellH=38,labelH=14,rowH=cellH+labelH+gap,cols=3;
    const c=document.createElement('canvas');c.width=gap+cols*(cellW+gap);c.height=gap+out.length*rowH;
    const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
    for(let r=0;r<out.length;r++){
     const row=out[r],images=[row.design,...row.refs],py=gap+r*rowH;
-    x.fillStyle='#fff';x.font='bold 8px sans-serif';x.fillText(row.key.toUpperCase(),gap,py+9);
+    const shortLabel=({welder:'W',kid:'K',kid2:'K2'}[row.person]||row.person.toUpperCase())+'-'+(row.direction==='front'?'F':'P');
+    x.fillStyle='#fff';x.font='bold 8px sans-serif';x.fillText(shortLabel,gap,py+9);
     for(let col=0;col<3;col++){
      const px=gap+col*(cellW+gap);
      x.fillStyle='#fff';x.font='bold 7px sans-serif';x.fillText(col===0?'NEW':row.candidates[col-1].toUpperCase(),px,py+labelH);
