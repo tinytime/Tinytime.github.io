@@ -33,7 +33,7 @@ This comparison uses the current roster register and approved/active design desc
 
 ## Face comparison candidates
 
-These are the two closest current roster face-construction comparisons selected for each proposed character. The matched 40×38 crop sheet was produced and visually inspected in Run #22. Dancer is used only as a current renderer face-construction reference; no unbuilt Dancer silhouette is treated as completed artwork.
+These are the two closest current roster face-construction comparisons selected for each proposed character. The matched 40×38 crop sheet was produced and visually inspected in Run #31. Dancer is used only as a current renderer face-construction reference; no unbuilt Dancer silhouette is treated as completed artwork.
 
 | New character | Two comparison candidates | Distinguishing geometry proposed |
 |---|---|---|
@@ -43,7 +43,7 @@ These are the two closest current roster face-construction comparisons selected 
 
 ## Matched-scale evidence outputs
 
-Exact-source evidence was captured in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480), artifact [14684123957](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850251480/artifacts/14684123957), on design source commit `4864fc565c2e08e662394c2ea406c37a119d2d59`. The dedicated Playwright evidence builder produced three separate native 64×96 matched silhouette sheets, one for each proposed character:
+Exact-source evidence was captured in [Run #31](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850966072), artifact [14684849806](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850966072/artifacts/14684849806), on design source commit `4864fc565c2e08e662394c2ea406c37a119d2d59`. The dedicated Playwright evidence builder produced three separate native 64×96 matched silhouette sheets, one for each proposed character:
 - `roster-silhouette-comparison-welder-native-64x96.png`
 - `roster-silhouette-comparison-kid-native-64x96.png`
 - `roster-silhouette-comparison-kid2-native-64x96.png`
@@ -52,7 +52,7 @@ Each sheet places the proposed silhouette beside the 15 existing designed roster
 
 The builder also produces `matched-face-comparisons-native-40x38.png` and `matched-face-comparisons-enlarged-3x.png`, with six matched rows (front and profile for each proposed character) and the two named face comparators per character. These are geometry studies, not automated similarity scores.
 
-Run #23 re-ran the same exact silhouette/face source blobs at current branch HEAD; all 66 non-manifest artifact files match Run #22 byte-for-byte. Granny Volt remains the craftsmanship benchmark, not a silhouette or face template, and is not included in the 64×96 roster comparison grid.
+Run #23 re-ran the same exact silhouette/face source blobs at current branch HEAD; all 66 non-manifest artifact files match Run #31 byte-for-byte. Granny Volt remains the craftsmanship benchmark, not a silhouette or face template, and is not included in the 64×96 roster comparison grid.
 
 ## Evidence boundary
 
