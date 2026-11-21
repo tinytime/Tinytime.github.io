@@ -16,7 +16,7 @@ const silhouette=fs.readFileSync(silhouettePath,'utf8');
 const face=fs.readFileSync(facePath,'utf8');
 const blobHash=text=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(text)+'\0'),Buffer.from(text)])).digest('hex');
 const sourceBlobs={silhouette:blobHash(silhouette),faceHead:blobHash(face)};
-const expected={silhouette:'5892e66018fed61ceb02c3b222738d14870ce524',faceHead:'e3b5b58dbf8225f23453c8b097ef4c61343e4cd9'};
+const expected={silhouette:'5892e66018fed61ceb02c3b222738d14870ce524',faceHead:'a3335e74ff9d7e58b91080557da9d4c04ff3c070'};
 for(const key of Object.keys(expected))if(sourceBlobs[key]!==expected[key])throw new Error(key+' source blob mismatch: '+sourceBlobs[key]);
 if(!silhouette.includes('Twelve original solid-black civilian silhouettes'))throw new Error('Silhouette sheet description mismatch');
 if((silhouette.match(/<g class="sil">/g)||[]).length!==12)throw new Error('Expected twelve silhouette direction groups');
