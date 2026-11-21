@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
@@ -49,7 +50,8 @@ try{
    for(let i=0;i<items.length;i++){
     const item=items[i],url=isNative?item.native:item.direct,im=new Image();im.src=url;await im.decode();
     const x=g+(i%cols)*(w+g),y=g+Math.floor(i/cols)*(h+label+g);
-    ctx.fillStyle='#fff';ctx.font='bold 8px sans-serif';ctx.fillText(item.key.toUpperCase(),x,y+10);
+    const shortLabel={welder:'W',kid:'K',kid2:'K2'}[item.key.split('-')[0]]+'-'+({front:'F',back:'B',left:'L',right:'R'}[item.key.split('-')[1]]);
+    ctx.fillStyle='#fff';ctx.font='bold 7px sans-serif';ctx.fillText(shortLabel,x,y+10);
     ctx.drawImage(im,x,y+label,w,h);
    }
    return c.toDataURL('image/png');
@@ -73,6 +75,136 @@ try{
  write('silhouette-contact-direct-28x42.png',rendered.directSheet);
  write('face-head-sheet-1000x560.png',rendered.faceNative);
  write('face-head-sheet-enlarged-2x.png',rendered.faceEnlarged);
+
+ // Capture the approved/active roster as black silhouettes for matched native-scale comparison.
+ // These are read-only snapshots from the current game renderer; the proposed batch art stays
+ // a separate vector source and is never installed into npc_sprites.js.
+ const htmlPath=path.join(root,'VaporCity_HD2D_Hybrid_Test.html');
+ const spritePath=path.join(root,'npc_sprites.js');
+ const server=createServer((req,res)=>{
+  const url=new URL(req.url,'http://127.0.0.1');
+  const file=path.join(root,decodeURIComponent(url.pathname.slice(1)));
+  if(!file.startsWith(root)||!fs.existsSync(file)||fs.statSync(file).isDirectory()){res.writeHead(404);res.end('Not found');return;}
+  const ext=path.extname(file),types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.svg':'image/svg+xml'};
+  res.writeHead(200,{'content-type':types[ext]||'application/octet-stream'});fs.createReadStream(file).pipe(res);
+ });
+ await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve);});
+ try {
+  await page.goto('http://127.0.0.1:'+server.address().port+'/VaporCity_HD2D_Hybrid_Test.html',{waitUntil:'load',timeout:60000});
+  await page.waitForTimeout(1200);
+  await page.addScriptTag({path:spritePath});
+  const roster=await page.evaluate(async()=>{
+   if(!window.SG||typeof window.SG.npcRenderDirectionalSnapshots!=='function')throw new Error('Existing roster directional snapshot hook unavailable');
+   const ids=['runner','coach','ref','courier','guard','vendor','cook','clinic','tech','hacker','fisher','sailor','slicker','painter','usher','granny'];
+   const dirs={d:'front',u:'back',l:'left',r:'right',front:'front',back:'back',left:'left',right:'right'};
+   const snapshots=window.SG.npcRenderDirectionalSnapshots(),rows=[];
+   for(const civ of ids)for(const [rawDir,direction] of Object.entries(dirs)){
+    const item=snapshots.find(x=>String(x.civ).toLowerCase()===civ&&String(x.direction).toLowerCase()===rawDir);
+    if(!item||!item.dataUrl)continue;
+    const im=new Image();im.src=item.dataUrl;await im.decode();
+    const c=document.createElement('canvas');c.width=64;c.height=96;
+    const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(im,0,0,64,96);
+    const px=ctx.getImageData(0,0,64,96);
+    for(let k=0;k<px.data.length;k+=4)if(px.data[k+3]>0){px.data[k]=0;px.data[k+1]=0;px.data[k+2]=0;}
+    ctx.putImageData(px,0,0);
+    rows.push({civ,direction,dataUrl:c.toDataURL('image/png')});
+   }
+   return rows;
+  });
+  const rosterIds=['runner','coach','ref','courier','guard','vendor','cook','clinic','tech','hacker','fisher','sailor','slicker','painter','usher','granny'];
+  const directions2=['front','back','left','right'];
+  const rosterByKey=new Map(roster.map(x=>[x.civ+'-'+x.direction,x.dataUrl]));
+  const comparisonSheets=await page.evaluate(async({roster,items,rosterIds,directions})=>{
+   const rosterMap=new Map(roster.map(x=>[x.civ+'-'+x.direction,x.dataUrl]));
+   const proposed=new Map(items.map(x=>[x.key,x.native]));
+   const out={};
+   for(const person of ['welder','kid','kid2']){
+    const gap=10,labelH=13,cellW=64,cellH=96,cols=4,rows=rosterIds.length+1;
+    const c=document.createElement('canvas');c.width=gap+cols*(cellW+gap);c.height=gap+rows*(cellH+labelH+gap);
+    const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
+    const all=[{id:person,label:person.toUpperCase()+' #'+({welder:15,kid:16,kid2:17}[person]),proposed:true},...rosterIds.map(id=>({id,label:id.toUpperCase()}))];
+    for(let r=0;r<all.length;r++)for(let d=0;d<directions.length;d++){
+     const item=all[r],dir=directions[d],url=item.proposed?proposed.get(person+'-'+dir):rosterMap.get(item.id+'-'+dir);
+     const px=gap+d*(cellW+gap),py=gap+r*(cellH+labelH+gap);
+     x.fillStyle='#fff';x.font='bold 8px sans-serif';x.fillText(item.label,px,py+9);
+     if(url){const im=new Image();im.src=url;await im.decode();x.drawImage(im,px,py+labelH,cellW,cellH);}
+     else{x.strokeStyle='#bbb';x.strokeRect(px,py+labelH,cellW,cellH);x.fillStyle='#ddd';x.font='7px sans-serif';x.fillText('NO SNAPSHOT',px+2,py+labelH+12);}
+    }
+    out[person]=c.toDataURL('image/png');
+   }
+   return out;
+  },{roster,items:rendered.items,rosterIds,directions:directions2});
+  for(const [person,url] of Object.entries(comparisonSheets))write('roster-silhouette-comparison-'+person+'-native-64x96.png',url);
+
+  // Matched face geometry comparisons: two closest roster candidates for each
+  // proposed face, front and profile, at a shared 40x38 crop size.
+  const faceRows=[
+   {key:'welder-front',person:'welder',direction:'front',box:[264,148,50,52],candidates:['guard','fisher']},
+   {key:'welder-profile',person:'welder',direction:'left',box:[441,147,48,55],candidates:['guard','fisher']},
+   {key:'kid-front',person:'kid',direction:'front',box:[256,289,63,52],candidates:['dancer','vendor']},
+   {key:'kid-profile',person:'kid',direction:'left',box:[450,285,50,53],candidates:['dancer','vendor']},
+   {key:'kid2-front',person:'kid2',direction:'front',box:[260,424,56,46],candidates:['clinic','ref']},
+   {key:'kid2-profile',person:'kid2',direction:'left',box:[449,416,41,54],candidates:['clinic','ref']}
+  ];
+  const faceComparisons=await page.evaluate(async({face,rows,roster})=>{
+   const rosterMap=new Map(roster.map(x=>[x.civ+'-'+x.direction,x.dataUrl]));
+   const cropSvg=async(box)=>{
+    const [x,y,w,h]=box;
+    const svg=face.replace(/width="[^"]+" height="[^"]+" viewBox="[^"]+"/,'width="40" height="38" viewBox="'+x+' '+y+' '+w+' '+h+'"');
+    const im=new Image();im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);await im.decode();
+    const c=document.createElement('canvas');c.width=40;c.height=38;c.getContext('2d').drawImage(im,0,0,40,38);return c.toDataURL('image/png');
+   };
+   const out=[];
+   for(const row of rows){
+    const design=await cropSvg(row.box),refs=[];
+    for(const civ of row.candidates){
+     const src=rosterMap.get(civ+'-'+row.direction);
+     if(!src){refs.push(null);continue;}
+     const im=new Image();im.src=src;await im.decode();
+     const c=document.createElement('canvas');c.width=40;c.height=38;
+     const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;
+     ctx.drawImage(im,20,6,24,16,0,0,40,38);refs.push(c.toDataURL('image/png'));
+    }
+    out.push({...row,design,refs});
+   }
+   const gap=12,cellW=40,cellH=38,labelH=14,rowH=cellH+labelH+gap,cols=3;
+   const c=document.createElement('canvas');c.width=gap+cols*(cellW+gap);c.height=gap+out.length*rowH;
+   const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
+   for(let r=0;r<out.length;r++){
+    const row=out[r],images=[row.design,...row.refs],py=gap+r*rowH;
+    x.fillStyle='#fff';x.font='bold 8px sans-serif';x.fillText(row.key.toUpperCase(),gap,py+9);
+    for(let col=0;col<3;col++){
+     const px=gap+col*(cellW+gap);
+     x.fillStyle='#fff';x.font='bold 7px sans-serif';x.fillText(col===0?'NEW':row.candidates[col-1].toUpperCase(),px,py+labelH);
+     if(images[col]){const im=new Image();im.src=images[col];await im.decode();x.drawImage(im,px,py+labelH,cellW,cellH);}
+    }
+   }
+   const enlarged=document.createElement('canvas');enlarged.width=c.width*3;enlarged.height=c.height*3;
+   const ec=enlarged.getContext('2d');ec.imageSmoothingEnabled=false;ec.drawImage(c,0,0,enlarged.width,enlarged.height);
+   return {native:c.toDataURL('image/png'),enlarged3x:enlarged.toDataURL('image/png'),rows:out};
+  },{face,rows:faceRows,roster});
+  write('matched-face-comparisons-native-40x38.png',faceComparisons.native);
+  write('matched-face-comparisons-enlarged-3x.png',faceComparisons.enlarged3x);
+  const faceDir=path.join(out,'matched-face-crops');fs.mkdirSync(faceDir,{recursive:true});
+  for(const row of faceComparisons.rows){
+   const save=(filename,url)=>fs.writeFileSync(path.join(faceDir,filename),Buffer.from(url.split(',')[1],'base64'));
+   save(row.key+'-new.png',row.design);
+   row.refs.forEach((url,i)=>{if(url)save(row.key+'-'+row.candidates[i]+'.png',url);});
+  }
+  const rosterManifest={
+   existingRosterIds:rosterIds,
+   directionCount:directions2.length,
+   availableRosterSnapshots:roster.length,
+   matchedNativeSilhouetteSheets:Object.keys(comparisonSheets),
+   matchedFaceRows:faceComparisons.rows.length,
+   faceCropSize:{width:40,height:38},
+   note:'Roster art is captured from current renderer snapshots and converted to black alpha silhouettes; new batch art is rasterized from its own SVG source. These are comparative design aids, not approval evidence.'
+  };
+  fs.writeFileSync(path.join(out,'roster-comparison-manifest.json'),JSON.stringify(rosterManifest,null,2)+'\\n');
+ } finally {
+  await new Promise(resolve=>server.close(resolve));
+ }
+
  const manifest={stage:'non-production identity/silhouette design projections',commit:process.env.GITHUB_SHA||null,sourceBlobs,
   counts:{characters:3,directionsPerCharacter:4,native64x96:12,direct28x42:12,enlarged4x:12,faceHeadViews:6},
   renderMethod:'Each native and direct-size image is rasterized from the source SVG vector at its target dimensions using an independent SVG viewBox render; direct 28x42 files are not resized from native captures.',
