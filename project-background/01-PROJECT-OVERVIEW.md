@@ -1,3 +1,9 @@
+## Fifth civilian batch — full-colour directional render authored (2026-11-21)
+
+A consolidated non-production render proposal is now authored for Welder #15, Kid #16 and Kid 2 #17: [full-colour render 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg). It presents front, back, left and right views for all three characters, retaining the current silhouette geometry and adding distinct skin, clothing, prop and material colour layers. This is not final approval. Exact-source browser captures, native 64×96 and direct 28×42 inspection, structural checks and internal QA remain required. No production renderer, town/gallery, golden snapshot or provenance changes are included.
+
+---
+
 ## Fifth civilian batch — design-stage release (2026-11-21)
 
 The owner explicitly authorized design-stage work for Welder #15, Kid #16 and Kid 2 #17. This proceeds independently of the fourth-batch work being handled in a separate chat. The first identity/construction cards and four-view black silhouette proposals are in [the fifth-batch design package](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md) and [silhouette exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg), plus [face/head exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg). They are not approved. Internal QA and owner silhouette/construction review remain outstanding. All three vector-family assignments remain UNASSIGNED. Renderer, palette, town/gallery and golden snapshot work remain out of scope.

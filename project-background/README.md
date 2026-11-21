@@ -1,3 +1,9 @@
+## Fifth civilian batch — full-colour directional render authored (2026-11-21)
+
+A consolidated non-production render proposal is now authored for Welder #15, Kid #16 and Kid 2 #17: [full-colour render 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg). It presents front, back, left and right views for all three characters, retaining the current silhouette geometry and adding distinct skin, clothing, prop and material colour layers. This is not final approval. Exact-source browser captures, native 64×96 and direct 28×42 inspection, structural checks and internal QA remain required. No production renderer, town/gallery, golden snapshot or provenance changes are included.
+
+---
+
 ## Fourth civilian batch — Stage 7 colour study authored; exact-source QA pending (2026-11-21)
 
 Stage 7 has begun for Sailor #12, Slicker #13 and Painter #14. The non-production colour study [SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg) was last refined in commit `ae755da074256901fba6ffc5e7a547fe56557c66` and is derived from the protected revision-21 silhouette and integrated grayscale face overlays. It carries the first-pass character palette separation and material swatches. These are proposals only; no palette or finished art is approved.

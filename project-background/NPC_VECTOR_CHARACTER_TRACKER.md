@@ -1,3 +1,7 @@
+## Fifth civilian batch — full-colour render proposal authored (2026-11-21)
+
+[Full-colour directional render 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg) presents all 12 views with character-specific face, garment, prop and material colour overlays. Exact-source browser captures, native/direct-size inspection, structural checks and internal QA remain outstanding. This does not approve the silhouettes, family assignments or palette. No production renderer or golden snapshot changes.
+
 ## Current checkpoint — Batch 4 Stage 7 colour study authored (2026-11-21)
 
 | # | Character | Stage 7 status | Candidate material direction | Gate |
