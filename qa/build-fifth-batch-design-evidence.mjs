@@ -178,12 +178,12 @@ try{
   // Matched face geometry comparisons: two closest roster candidates for each
   // proposed face, front and profile, at a shared 40x38 crop size.
   const faceRows=[
-   {key:'welder-front',person:'welder',direction:'front',box:[468,148,50,52],candidates:['guard','fisher']},
-   {key:'welder-profile',person:'welder',direction:'left',box:[689,147,48,55],candidates:['guard','fisher']},
-   {key:'kid-front',person:'kid',direction:'front',box:[460,289,63,52],candidates:['dancer','vendor']},
-   {key:'kid-profile',person:'kid',direction:'left',box:[698,285,50,53],candidates:['dancer','vendor']},
-   {key:'kid2-front',person:'kid2',direction:'front',box:[464,424,56,46],candidates:['clinic','ref']},
-   {key:'kid2-profile',person:'kid2',direction:'left',box:[697,416,41,54],candidates:['clinic','ref']}
+   {key:'welder-front',person:'welder',direction:'front',box:[464,136,62,64],candidates:['guard','fisher']},
+   {key:'welder-profile',person:'welder',direction:'left',box:[684,134,66,68],candidates:['guard','fisher']},
+   {key:'kid-front',person:'kid',direction:'front',box:[458,267,74,74],candidates:['dancer','vendor']},
+   {key:'kid-profile',person:'kid',direction:'left',box:[686,265,72,72],candidates:['dancer','vendor']},
+   {key:'kid2-front',person:'kid2',direction:'front',box:[456,396,72,72],candidates:['clinic','ref']},
+   {key:'kid2-profile',person:'kid2',direction:'left',box:[684,395,70,72],candidates:['clinic','ref']}
   ];
   const faceComparisons=await page.evaluate(async({face,rows,roster})=>{
    const rosterMap=new Map(roster.map(x=>[x.civ+'-'+x.direction,x.faceDataUrl]));
