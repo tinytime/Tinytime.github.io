@@ -10,15 +10,13 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dir=path.join(root,'project-background/qa-artifacts/fifth-civilian-batch');
 const silhouettePath=path.join(dir,'WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg');
 const facePath=path.join(dir,'WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg');
-const colourPath=path.join(dir,'WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg');
 const out=path.join(root,'qa-output/fifth-batch-design');
 fs.mkdirSync(out,{recursive:true});
 const silhouette=fs.readFileSync(silhouettePath,'utf8');
 const face=fs.readFileSync(facePath,'utf8');
-const colour=fs.readFileSync(colourPath,'utf8');
 const blobHash=text=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(text)+'\0'),Buffer.from(text)])).digest('hex');
-const sourceBlobs={silhouette:blobHash(silhouette),faceHead:blobHash(face),fullColour:blobHash(colour)};
-const expected={silhouette:'1af8f31118380df10fc8166994a0f34c2bd80bbd',faceHead:'e3b5b58dbf8225f23453c8b097ef4c61343e4cd9',fullColour:'e1a77485f8b989358c4ef72f68c5521937e97a2d'};
+const sourceBlobs={silhouette:blobHash(silhouette),faceHead:blobHash(face)};
+const expected={silhouette:'d944b996d47b2adfb4d078c2939bc50e329d632c',faceHead:'e3b5b58dbf8225f23453c8b097ef4c61343e4cd9'};
 for(const key of Object.keys(expected))if(sourceBlobs[key]!==expected[key])throw new Error(key+' source blob mismatch: '+sourceBlobs[key]);
 if(!silhouette.includes('Twelve original solid-black civilian silhouettes'))throw new Error('Silhouette sheet description mismatch');
 if((silhouette.match(/<g class="sil">/g)||[]).length!==12)throw new Error('Expected twelve silhouette direction groups');
@@ -28,7 +26,7 @@ const directions=[{id:'front',x:420},{id:'back',x:600},{id:'left',x:780},{id:'ri
 const browser=await chromium.launch({headless:true});
 try{
  const page=await browser.newPage({viewport:{width:1200,height:1000},deviceScaleFactor:1});
- const rendered=await page.evaluate(async({silhouette,face,colour,people,directions})=>{
+ const rendered=await page.evaluate(async({silhouette,face,people,directions})=>{
   const renderSvg=async(source,viewBox,width,height)=>{
    const svg=source.replace(/width="[^"]+" height="[^"]+" viewBox="[^"]+"/,'width="'+width+'" height="'+height+'" viewBox="'+viewBox+'"');
    const parsed=new DOMParser().parseFromString(svg,'image/svg+xml');
@@ -41,16 +39,13 @@ try{
    return c.toDataURL('image/png');
   };
   const items=[];
-  const colourItems=[];
   for(const person of people)for(const direction of directions){
    const x=direction.x,y=person.rowY;
    items.push({key:person.id+'-'+direction.id,
     native:await renderSvg(silhouette,x+' '+y+' 121.6 182.4',64,96),
     direct:await renderSvg(silhouette,x+' '+y+' 121.6 182.4',28,42)});
-   colourItems.push({key:person.id+'-'+direction.id,native:await renderSvg(colour,x+' '+y+' 121.6 182.4',64,96),direct:await renderSvg(colour,x+' '+y+' 121.6 182.4',28,42)});
   }
   const fullSilhouette=await renderSvg(silhouette,'0 0 1120 900',1120,900);
-  const fullColour=await renderSvg(colour,'0 0 1120 900',1120,900);
   const faceNative=await renderSvg(face,'0 0 1000 560',1000,560);
   const faceEnlarged=await renderSvg(face,'0 0 1000 560',2000,1120);
   const sheet=async(scale)=>{
@@ -66,8 +61,8 @@ try{
    }
    return c.toDataURL('image/png');
   };
-  return {items,colourItems,fullSilhouette,fullColour,faceNative,faceEnlarged,nativeSheet:await sheet('native'),directSheet:await sheet('direct')};
- },{silhouette,face,colour,people,directions});
+  return {items,fullSilhouette,faceNative,faceEnlarged,nativeSheet:await sheet('native'),directSheet:await sheet('direct')};
+ },{silhouette,face,people,directions});
  const write=(name,data)=>fs.writeFileSync(path.join(out,name),Buffer.from(data.split(',')[1],'base64'));
  for(const item of rendered.items){
   write(item.key+'-native-64x96.png',item.native);
@@ -81,8 +76,6 @@ try{
   write(item.key+'-enlarged-4x.png',enlarged);
  }
  write('silhouette-sheet-full-1120x900.png',rendered.fullSilhouette);
- write('full-colour-sheet-1120x900.png',rendered.fullColour);
- for(const item of rendered.colourItems){write(item.key+'-colour-native-64x96.png',item.native);write(item.key+'-colour-direct-28x42.png',item.direct);const enlarged=await page.evaluate(async url=>{const img=new Image();img.src=url;await img.decode();const c=document.createElement('canvas');c.width=256;c.height=384;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.drawImage(img,0,0,256,384);return c.toDataURL('image/png');},item.native);write(item.key+'-colour-enlarged-4x.png',enlarged);}
  write('silhouette-contact-native-64x96.png',rendered.nativeSheet);
  write('silhouette-contact-direct-28x42.png',rendered.directSheet);
  write('face-head-sheet-1000x560.png',rendered.faceNative);
@@ -202,7 +195,7 @@ try{
      const im=new Image();im.src=src;await im.decode();
      const c=document.createElement('canvas');c.width=40;c.height=38;
      const ctx=c.getContext('2d',{willReadFrequently:true});ctx.fillStyle='#fff';ctx.fillRect(0,0,40,38);ctx.imageSmoothingEnabled=false;
-     const crop=row.direction==='front'?[26,10,14,9]:[20,10,24,9];
+     const crop=row.direction==='front'?[26,12,14,7]:[20,12,24,7];
      ctx.drawImage(im,crop[0],crop[1],crop[2],crop[3],0,0,40,38);
      const px=ctx.getImageData(0,0,40,38);
      for(let k=0;k<px.data.length;k+=4){const lum=Math.round(.2126*px.data[k]+.7152*px.data[k+1]+.0722*px.data[k+2]);px.data[k]=lum;px.data[k+1]=lum;px.data[k+2]=lum;px.data[k+3]=255;}
@@ -211,16 +204,16 @@ try{
     out.push({...row,design,refs});
    }
    if(out.some(row=>row.refs.some(ref=>!ref)))throw new Error('Matched face comparison candidate crop missing: '+JSON.stringify(out.filter(row=>row.refs.some(ref=>!ref)).map(row=>row.key)));
-   const gap=12,cellW=40,cellH=38,labelH=26,rowH=cellH+labelH+gap,cols=3;
-   const c=document.createElement('canvas');c.width=gap+cols*(cellW+gap);c.height=gap+out.length*rowH;
+   const gap=8,gutter=64,cellW=40,cellH=38,labelH=16,rowH=cellH+labelH+gap,cols=3;
+   const c=document.createElement('canvas');c.width=gutter+cols*(cellW+gap)+gap;c.height=gap+out.length*rowH;
    const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
    for(let r=0;r<out.length;r++){
     const row=out[r],images=[row.design,...row.refs],py=gap+r*rowH;
-    const shortLabel=({welder:'W',kid:'K',kid2:'K2'}[row.person]||row.person.toUpperCase())+'-'+(row.direction==='front'?'F':'P');
-    x.fillStyle='#fff';x.font='bold 8px sans-serif';x.fillText(shortLabel,gap,py+9);
+    const shortLabel=({welder:'WELDER',kid:'KID',kid2:'KID2'}[row.person]||row.person.toUpperCase())+' '+(row.direction==='front'?'FRONT':'PROFILE');
+    x.fillStyle='#fff';x.font='bold 7px sans-serif';x.fillText(shortLabel,gap,py+10);
     for(let col=0;col<3;col++){
-     const px=gap+col*(cellW+gap);
-     x.fillStyle='#fff';x.font='bold 7px sans-serif';x.fillText(col===0?'NEW':row.candidates[col-1].toUpperCase(),px,py+20);
+     const px=gutter+gap+col*(cellW+gap);
+     x.fillStyle='#fff';x.font='bold 7px sans-serif';x.fillText(col===0?'NEW':row.candidates[col-1].toUpperCase(),px,py+10);
      if(images[col]){const im=new Image();im.src=images[col];await im.decode();x.drawImage(im,px,py+labelH,cellW,cellH);}
     }
    }
@@ -245,15 +238,14 @@ try{
    faceCropSize:{width:40,height:38},
    note:'The 15 existing 64x96 roster civilians are captured from current renderer snapshots and converted to black alpha silhouettes; Granny Volt is reviewed separately through her dedicated 100x140 renderer and is a craftsmanship benchmark, not a silhouette template. New batch art is rasterized from its own SVG source. These are comparative design aids, not approval evidence.'
   };
-  fs.writeFileSync(path.join(out,'roster-comparison-manifest.json'),JSON.stringify(rosterManifest,null,2)+'\\n');
+  fs.writeFileSync(path.join(out,'roster-comparison-manifest.json'),JSON.stringify(rosterManifest,null,2)+'\n');
  } finally {
   await new Promise(resolve=>server.close(resolve));
  }
 
- const manifest={stage:'non-production full-colour directional render and identity/silhouette/face evidence',commit:process.env.GITHUB_SHA||null,sourceBlobs,connectivityDiagnostics,colourCounts:{characters:3,directionsPerCharacter:4,native64x96:rendered.colourItems.length,direct28x42:rendered.colourItems.length,enlarged4x:12},
-  counts:{characters:3,directionsPerCharacter:4,native64x96:12,direct28x42:12,enlarged4x:12,faceHeadViews:6},
+ const manifest={stage:'non-production identity, silhouette, face and roster-comparison design evidence',commit:process.env.GITHUB_SHA||null,sourceBlobs,connectivityDiagnostics,counts:{characters:3,directionsPerCharacter:4,native64x96:12,direct28x42:12,enlarged4x:12,faceHeadViews:6},
   renderMethod:'Each native and direct-size image is rasterized from the source SVG vector at its target dimensions using an independent SVG viewBox render; direct 28x42 files are not resized from native captures.',
-  scope:{productionRendererChanged:false,paletteApproved:false,colourRenderProposalPresent:true,colourRenderCaptured:true,goldenSnapshotsChanged:false,snapshotProvenanceChanged:false}};
+  scope:{productionRendererChanged:false,paletteApproved:false,colourRenderProposalPresentButOutOfScope:true,colourRenderCaptured:false,goldenSnapshotsChanged:false,snapshotProvenanceChanged:false}};
  fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
  console.log(JSON.stringify(manifest));
 }finally{await browser.close();}
