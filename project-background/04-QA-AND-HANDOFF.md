@@ -1,3 +1,13 @@
+## Fifth civilian batch — initial design package and QA boundary (2026-11-21)
+
+Owner release is confirmed for Welder #15, Kid #16 and Kid 2 #17. Initial design artifacts:
+- [Identity and construction cards 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md)
+- [Four-view black silhouette exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg)
+
+The authored SVG source was checked for a single viewBox/root, balanced group tags, 12 character-direction cells and three character rows. This is source-level validation only; no browser render or direct 28×42 capture has yet been run or visually inspected. Matched-scale full-roster silhouette and face comparisons remain to be produced as evidence. Internal QA and owner review are pending. Do not implement renderers or change golden snapshots/provenance.
+
+---
+
 ## Fourth civilian batch — integrated face QA and handoff (2026-11-21)
 
 Internal design-stage QA passed for the owner-authorized grayscale integration of Sailor #12, Slicker #13 and Painter #14. Exact tested source `a857f7b4d2238ef8fd63da99465aa27ee11cafe0`; [Run #867](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254), artifact [14682766863](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254/artifacts/14682766863). The evidence includes all three directions at native 64×96 and direct 28×42, enlarged diagnostics and matched roster comparisons. Native/direct contact sheets, matched comparison sheets and selected enlarged individual views were manually inspected. See [internal QA](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md) and [Claude package](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-CLAUDE-REVIEW-PACKAGE-01.md). Overall browser diagnostics remain red due existing audio 404s and golden 1/23; no snapshots changed. Claude review and owner approval remain pending.
