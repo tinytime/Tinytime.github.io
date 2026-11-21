@@ -31,7 +31,7 @@ for(const rule of propFaceSkinRules)if(!study.includes(rule))throw new Error('Mi
 const materialGradients=['sailor-material','slicker-material','painter-material'];
 for(const id of materialGradients)if(!study.includes('id="'+id+'"'))throw new Error('Missing character material gradient '+id);
 for(const name of ['sailor','slicker','painter'])if(!study.includes('url(#'+name+'-material)'))throw new Error('Missing material value-plane assignment '+name);
-if(!study.includes('/* Slicker\'s dark near-side sleeve/arm is garment shadow, not a handheld object. */'))throw new Error('Missing Slicker sleeve-vs-prop clarification');
+if(!study.includes('continuous rain shell; keep it in the shell base material.'))throw new Error('Missing Slicker integrated sleeve clarification');
 for(const pos of ['translate(35 450)','translate(35 608)','translate(145 450)','translate(145 608)'])if(!study.includes('g[transform="'+pos+'"] .sil>path:last-child'))throw new Error('Missing Slicker integrated sleeve shading '+pos);
 if(!study.includes('{fill:#536B78!important;stroke:#354B58!important}'))throw new Error('Slicker sleeve is not integrated with the rain-shell base material');
 const panels=[
