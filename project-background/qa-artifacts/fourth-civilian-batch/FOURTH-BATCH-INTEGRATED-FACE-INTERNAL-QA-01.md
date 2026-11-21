@@ -3,11 +3,11 @@
 **Prepared:** 2026-11-21  
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Exact tested source commit:** `006501416414f9c5fbeaba4b52a88fa64e849843`  
+**Exact tested source commit:** `a857f7b4d2238ef8fd63da99465aa27ee11cafe0`  
 **Approved revision-21 silhouette baseline:** `be1c0c012894ccae23b4cbce2ad06e523fb460c5`  
 **Revision-21 source blob verified by the capture script:** `36f645d7de9ee5bedc79a0288c50bc8399382f4b`  
-**Actions run:** [#861](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845165418)  
-**Artifact:** [vapor-city-browser-qa — 14683171220](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845165418/artifacts/14683171220)
+**Actions run:** [#861](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254)  
+**Artifact:** [vapor-city-browser-qa — 14682766863](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254/artifacts/14682766863)
 
 ## Verdict
 
@@ -27,7 +27,7 @@ The capture script verifies the approved revision-21 SVG source blob before rend
 
 ## Automated evidence — exact source
 
-Run #861 completed the following focused steps successfully:
+Run #867 completed the following focused steps successfully:
 - Fourth-batch design-source projections and roster face crops.
 - Integrated fourth-batch grayscale face projections.
 - Construction-detail study captures.
@@ -51,7 +51,7 @@ The direct 28×42 images are independent captures, not resized native images.
 
 ## Manual visual inspection
 
-Inspected the actual Run #861 artifact:
+Inspected the actual Run #867 artifact:
 - `integrated-faces-native-64x96.png`
 - `integrated-faces-direct-28x42.png`
 - all nine individual native captures
@@ -63,7 +63,7 @@ Inspected the actual Run #861 artifact:
 
 Findings:
 - **Sailor #12:** The stronger front brow shelf and distinctive profile nose/leaner lower-face transition are integrated. The brow reads as two separated strokes rather than a single uninterrupted contour. Both profile directions preserve correct nose orientation and remain visible under the cap.
-- **Slicker #13:** The compact brow and closer-set front eyes are visible. The profile face plane was lowered into the visible head opening after an initial capture showed it too high beneath the hood. Corrected left and right profiles now show the eye, nose and mouth plane without the hood swallowing the face. At direct 28×42, the profile eye/brow cue remains the least pronounced and deserves explicit independent scrutiny.
+- **Slicker #13:** The compact brow and closer-set front eyes are visible. The left and right profile studies align the face plane with the hood opening; the hood remains a distinct mass above and behind the face rather than swallowing it. At direct 28×42, the profile eye/brow cue remains the least pronounced and deserves explicit independent scrutiny.
 - **Painter #14:** The lifted asymmetric front brow, squarer jaw turn and shorter/blunter profile nose are integrated. The beanie/hair silhouette does not obscure the face. Both profile directions read coherently.
 - Across the nine native views, face marks remain within the visible head openings; no face geometry was found to clip through the cap, hood or beanie.
 - At direct 28×42, identity is carried mainly by eye/brow placement and nose/jaw silhouette. Fine mouth marks compress. This is acceptable for internal review evidence but remains a review question rather than final approval.

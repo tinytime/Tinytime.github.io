@@ -1,3 +1,7 @@
+## Owner authorization received — integrated F6 face study (2026-11-21)
+
+The owner authorized the limited non-production integrated grayscale face study for Sailor #12, Slicker #13 and Painter #14. That work has passed internal QA with a direct 28×42 readability caveat. Exact tested source `a857f7b4d2238ef8fd63da99465aa27ee11cafe0`; [Actions Run #867](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254), artifact [14682766863](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254/artifacts/14682766863). See [integrated face internal QA](FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md) and [Claude independent review package](SAILOR-SLICKER-PAINTER-FACE-CLAUDE-REVIEW-PACKAGE-01.md). The Claude package is prepared but not sent. This authorization is not face-art approval and does not authorize palette, production renderer integration, golden snapshot changes, or characters #15–23.
+
 ## Owner decision recorded — 2026-11-21
 
 **Decision:** Option 1 authorized — proceed with the limited integrated grayscale design-stage face projections only. This authorization was given in the project conversation after presentation of this decision package.

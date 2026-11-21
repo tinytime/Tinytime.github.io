@@ -3,9 +3,9 @@
 **Purpose:** Independent comparative review of the integrated grayscale face proposals.  
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `npc-granny-baseline-overhaul`  
-**Exact source commit tested:** `006501416414f9c5fbeaba4b52a88fa64e849843`  
-**Actions run:** [#861](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845165418)  
-**Evidence artifact:** [vapor-city-browser-qa — 14683171220](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845165418/artifacts/14683171220)
+**Exact source commit tested:** `a857f7b4d2238ef8fd63da99465aa27ee11cafe0`  
+**Actions run:** [#861](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254)  
+**Evidence artifact:** [vapor-city-browser-qa — 14682766863](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254/artifacts/14682766863)
 
 ## Review status
 

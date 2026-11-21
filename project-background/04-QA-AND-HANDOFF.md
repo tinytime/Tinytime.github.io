@@ -1,10 +1,10 @@
 ## Fourth civilian batch — integrated face QA and handoff (2026-11-21)
 
-Internal design-stage QA passed for the owner-authorized grayscale integration of Sailor #12, Slicker #13 and Painter #14. Exact tested source `006501416414f9c5fbeaba4b52a88fa64e849843`; [Run #861](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845165418), artifact [14683171220](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845165418/artifacts/14683171220). The evidence includes all three directions at native 64×96 and direct 28×42, enlarged diagnostics and matched roster comparisons. See [internal QA](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md) and [Claude package](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-CLAUDE-REVIEW-PACKAGE-01.md). Overall browser diagnostics remain red due existing audio 404s and golden 1/23; no snapshots changed. Claude review and owner approval remain pending.
+Internal design-stage QA passed for the owner-authorized grayscale integration of Sailor #12, Slicker #13 and Painter #14. Exact tested source `a857f7b4d2238ef8fd63da99465aa27ee11cafe0`; [Run #867](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254), artifact [14682766863](https://github.com/tinytime/Tinytime.github.io/actions/runs/44845374254/artifacts/14682766863). The evidence includes all three directions at native 64×96 and direct 28×42, enlarged diagnostics and matched roster comparisons. See [internal QA](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md) and [Claude package](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-CLAUDE-REVIEW-PACKAGE-01.md). Overall browser diagnostics remain red due existing audio 404s and golden 1/23; no snapshots changed. Claude review and owner approval remain pending.
 
 ## Fourth civilian batch — F6 owner decision package 01 (2026-11-20)
 
-The focused owner decision package is [SAILOR-SLICKER-PAINTER-FACE-OWNER-DECISION-PACKAGE-01.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-OWNER-DECISION-PACKAGE-01.md). It recommends one limited, non-production next step: integrate the grayscale face proposals into approved revision-21 full-head studies and capture front plus both profiles at native 64×96 and independently rendered direct 28×42, with enlarged diagnostics. This is an authorization request only; no face approval, Claude review, production renderer work or palette work is implied. The six matched 40×38 crops passed visual comparison, but full-head placement, occlusion and direct game-scale readability remain untested. Wait for the owner's decision before proceeding.
+The focused owner decision package is [SAILOR-SLICKER-PAINTER-FACE-OWNER-DECISION-PACKAGE-01.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-OWNER-DECISION-PACKAGE-01.md). It recommends one limited, non-production next step: integrate the grayscale face proposals into approved revision-21 full-head studies and capture front plus both profiles at native 64×96 and independently rendered direct 28×42, with enlarged diagnostics. This is an authorization request only; no face approval, Claude review, production renderer work or palette work is implied. The six matched 40×38 crops passed visual comparison, but full-head placement, occlusion and direct game-scale readability remain untested. The owner subsequently authorized the limited integrated grayscale face study; see the current checkpoint above.
 
 ---
 
@@ -35,7 +35,7 @@ Design-stage vector study 01 reuses revision-21 silhouette geometry and adds bla
 
 The owner-approved revision 21 silhouettes are now the fixed baseline for the next design stage. The three complete identity/construction cards are in [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md).
 
-- **Approved silhouette source:** commit `be1c0c012894ccae23b4cbce2ad06e523fb460c5`; SVG blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`; [revision 21 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg).
+- **Approved silhouette source:** commit `be1c0c012894ccae23b4cbce2ad06e523fb460c5`; SVG blob `36f645d7de9ee5bedc79a0288c50bc8399382f4b`; [revision 21 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg).
 - **Silhouette QA evidence:** [Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056), artifact [14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854). Focused design-source checks passed; overall browser workflow remains failed on unrelated global audio/resource 404 and unapproved golden-snapshot gates. No snapshots/provenance changed.
 - **Construction families assigned for this design proposal:** Sailor — Narrow Deck-Coat / Vertical Utility Shell; Slicker — Integrated Hooded Rain-Smock Shell; Painter — Offset Artisan Smock / Reaching-Arm Shell. These are descriptive, character-specific roster family tags, not reusable templates or quota targets.
 - **Baseline protection:** no approved revision-21 SVG geometry was changed. Branch HEAD also contains a later revision-22 exploration (`f39f450a361668d60f3eb77f0e93ab804f848070`); it is a separate unapproved proposal and is not used as the baseline for these cards.
@@ -45,7 +45,7 @@ The owner-approved revision 21 silhouettes are now the fixed baseline for the ne
 
 ## Fourth civilian batch — revision 21 exact-source checkpoint, Run #810 (2026-11-20)
 
-- **Source and tested branch head:** `be1c0c012894ccae23b4cbce2ad06e523fb460c5`; revision-21 SVG blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`.
+- **Source and tested branch head:** `be1c0c012894ccae23b4cbce2ad06e523fb460c5`; revision-21 SVG blob `36f645d7de9ee5bedc79a0288c50bc8399382f4b`.
 - **Exact evidence:** [Actions Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056), artifact [14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854).
 - **Focused design-source checks PASS:** 24/24 native 64×96, 24/24 independently rasterized direct 28×42, 24/24 enlarged captures; body preservation 12/12 with zero removed pixels; anatomy/prop connectivity 48/48; profile prop contact 2/2; semantic proportion/annotation validation passed. Slicker remains byte-identical to revision 18 across all eight body/prop direction panels.
 - **Separate full workflow FAIL:** game-browser diagnostics failed with 135 audio/resource HTTP 404 responses plus 45 corresponding sound-load messages; pageErrors=0 and scriptErrors=0. Golden snapshot gate remains 1 match / 23 changed and unapproved. No golden snapshots or provenance were modified.
@@ -58,7 +58,7 @@ The owner-approved revision 21 silhouettes are now the fixed baseline for the ne
 
 The owner-authorized parallel design-stage work for Sailor (#12), Slicker (#13) and Painter (#14) has reached **internal design-source QA PASS**. Independent Claude review and owner approval remain pending.
 
-- **Exact tested commit:** `5beb3709dd5080313e6ddea5248ef8698f74dd51` (revision 21 SVG source blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`).
+- **Exact tested commit:** `5beb3709dd5080313e6ddea5248ef8698f74dd51` (revision 21 SVG source blob `36f645d7de9ee5bedc79a0288c50bc8399382f4b`).
 - **Source:** [revision 21 SVG](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg).
 - **Exact evidence:** [Run #808](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663) · [artifact 14663163320](https://github.com/tinytime/Tinytime.github.io/actions/runs/44808523663/artifacts/14663163320).
 - **Design projections:** 24/24 native 64×96, 24/24 independently rendered direct 28×42, and 24/24 enlarged 4× views across body-only/prop-on states and all four directions.
