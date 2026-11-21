@@ -1,6 +1,6 @@
 ## Batch 4 — Stage 7 study 05 reinspection disposition (2026-11-21)
 
-<badge color="danger">Internal visual QA NOT PASS</badge>
+**Internal visual QA: NOT PASS.**
 
 - Focused capture passed in [Run #23](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850288600), artifact [14684903417](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850288600/artifacts/14684903417), but reinspection of the actual native 64×96 and direct 28×42 captures found Sailor's rear-view rope coil clipped at the left frame edge.
 - The same clipping exists in the owner-approved revision-21 silhouette in [Run #810](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056), artifact [14664701854](https://github.com/tinytime/Tinytime.github.io/actions/runs/44809023056/artifacts/14664701854). It is inherited, not introduced by Stage 7. No accepted exception is recorded.
