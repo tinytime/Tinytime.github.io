@@ -1,3 +1,7 @@
+## Fourth civilian batch — integrated face study technical boundary (2026-11-21)
+
+The F6 face projections are authored as a separate grayscale, non-production overlay and captured by `qa/build-fourth-batch-integrated-face-evidence.mjs`. The script verifies the approved revision-21 source blob before rendering and produces nine native 64×96 views, nine direct 28×42 views, nine enlarged diagnostics, nine face crops and six matched comparison rows. The production renderer and revision-21 silhouette/construction source are not modified. Exact-source evidence is Run #861 at `006501416414f9c5fbeaba4b52a88fa64e849843`; see the [internal QA record](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md).
+
 ## Fourth civilian batch — post-silhouette identity/construction cards 02 (2026-11-20)
 
 The owner-approved revision 21 silhouettes are now the fixed baseline for the next design stage. The three complete identity/construction cards are in [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md).
