@@ -132,7 +132,18 @@ try{
   const rosterByKey=new Map(roster.map(x=>[x.civ+'-'+x.direction,x.dataUrl]));
   const comparisonSheets=await page.evaluate(async({roster,items,rosterIds,directions})=>{
    const rosterMap=new Map(roster.map(x=>[x.civ+'-'+x.direction,x.dataUrl]));
-   const proposed=new Map(items.map(x=>[x.key,x.native]));
+   const proposed=new Map();
+   for(const item of items){
+    const im=new Image();im.src=item.native;await im.decode();
+    const cv=document.createElement('canvas');cv.width=64;cv.height=96;
+    const cx=cv.getContext('2d',{willReadFrequently:true});cx.drawImage(im,0,0,64,96);
+    const px=cx.getImageData(0,0,64,96);
+    for(let k=0;k<px.data.length;k+=4){
+     const lum=(px.data[k]+px.data[k+1]+px.data[k+2])/3;
+     px.data[k]=0;px.data[k+1]=0;px.data[k+2]=0;px.data[k+3]=Math.round(255-lum);
+    }
+    cx.putImageData(px,0,0);proposed.set(item.key,cv.toDataURL('image/png'));
+   }
    const out={};
    for(const person of ['welder','kid','kid2']){
     const gap=10,labelH=13,cellW=64,cellH=96,cols=4,rows=rosterIds.length+1;
@@ -178,8 +189,11 @@ try{
      if(!src){refs.push(null);continue;}
      const im=new Image();im.src=src;await im.decode();
      const c=document.createElement('canvas');c.width=40;c.height=38;
-     const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;
-     ctx.drawImage(im,20,6,24,16,0,0,40,38);refs.push(c.toDataURL('image/png'));
+     const ctx=c.getContext('2d',{willReadFrequently:true});ctx.fillStyle='#fff';ctx.fillRect(0,0,40,38);ctx.imageSmoothingEnabled=false;
+     ctx.drawImage(im,20,6,24,16,0,0,40,38);
+     const px=ctx.getImageData(0,0,40,38);
+     for(let k=0;k<px.data.length;k+=4){const lum=Math.round(.2126*px.data[k]+.7152*px.data[k+1]+.0722*px.data[k+2]);px.data[k]=lum;px.data[k+1]=lum;px.data[k+2]=lum;px.data[k+3]=255;}
+     ctx.putImageData(px,0,0);refs.push(c.toDataURL('image/png'));
     }
     out.push({...row,design,refs});
    }
