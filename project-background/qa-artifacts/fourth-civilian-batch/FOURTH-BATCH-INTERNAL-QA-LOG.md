@@ -1,3 +1,15 @@
+## Stage 7 colour study 05 — exact-source capture PASS; independent review package prepared (2026-11-21)
+
+- **Exact tested commit:** `6531181acb141e33fb48bde12d773c96fba4cff8`.
+- **Current artwork source:** [colour study 05](SAILOR-SLICKER-PAINTER-COLOUR-STUDY-05.svg), blob `905081e8021f6a6d4affdf53344525283b315c3e`.
+- **Evidence:** [Fourth Batch Colour Study Run #23](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850288600), artifact [14684903417](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850288600/artifacts/14684903417). Focused capture workflow completed successfully.
+- **Automated integrity:** 108/108 approved revision-21 silhouette paths retained; zero missing; 9/9 body-only and 9/9 prop-on face overlays; 3/3 character-specific prop-face skin rules; 3/3 material gradients; 4/4 Slicker sleeve material overrides; 24 panels captured at native 64×96, independently rasterized direct 28×42 and enlarged 4× (72 PNG captures).
+- **Manual inspection:** inspected native and direct contact sheets and selected enlarged face/prop/sleeve crops. Sailor's rope coil and hand remain recognizable but compact. Painter's flat brush remains identifiable; the hand/handle/head cluster is dense but connected in the inspected views. Slicker's shell/hood reads as rainwear; its near-side arm remains a possible ambiguous garment plane at direct scale, even after matching it to the shell base material. This is explicitly called out for independent review; no handheld prop is intended.
+- **Review package:** [Claude review package 01](SAILOR-SLICKER-PAINTER-COLOUR-CLAUDE-REVIEW-PACKAGE-01.md) pins the exact source, run, artifact, criteria and unresolved Slicker question. It is prepared, not yet independently reviewed.
+- **Current disposition:** focused colour-study capture PASS; internal visual review complete with the above carry-forward question. No final palette or finished-art approval is claimed. No production renderer, `npc_sprites.js`, town/gallery, golden snapshot or provenance changes have been made. Await independent Claude review and owner final-art decision before production implementation.
+
+---
+
 ## Stage 7 colour study 02 — face-on-prop correction verified; study 03 in progress (2026-11-21)
 
 - **Exact capture source:** [Run #16](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849782903), tested commit `14cfd8ecf31b033ddc89b218481cf0643c236df8`, artifact [14684742181](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849782903/artifacts/14684742181).
