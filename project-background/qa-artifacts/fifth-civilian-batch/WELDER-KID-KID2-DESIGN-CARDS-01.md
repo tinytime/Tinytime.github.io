@@ -20,6 +20,7 @@ These are proposals. No family assignment is promoted from UNASSIGNED.
 ### Companion design sheets
 - [Four-view black silhouette exploration 01](WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg) — front, back, left and right.
 - [Face/head construction exploration 01](WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg) — front and profile geometry for each character.
+- [Full-roster comparison 01](WELDER-KID-KID2-ROSTER-COMPARISON-01.md) — differentiation against all currently designed civilians; matched visual crops remain pending.
 
 ---
 
@@ -55,7 +56,7 @@ Soot charcoal and dark iron for the protective workwear, worn saddle-brown leath
 
 ### Prop, contact and handedness plan
 - **Torch:** character-right hand. Front view therefore places the torch on viewer-left; rear view places that hand on viewer-right. It is visible in the **left profile** (character-right side is near when facing left) and hidden in the right profile, where it is the far-side hand.
-- **Cylinder:** fixed to the back harness, centered just off the spine toward character-left to avoid a perfect mirror-balanced pack. Visible in back and both profiles as the body turn permits; not drawn as a second handheld object.
+- **Cylinder:** fixed to the back harness, centered just off the spine toward character-left to avoid a perfect mirror-balanced pack. It is visible on viewer-left in the rear view and at the rear edge in both profiles; in front it may only peek beyond the character-left shoulder. It is not a second handheld object.
 - **Hose:** regulator outlet to a short clipped route along character-right hip, then a controlled curve into the torch grip. No free loop crosses the leg gap or floats away from the hand.
 - **Near/far anatomy:** in profile, show one near arm and suppress the far arm unless a clear separate plane is necessary. The cylinder remains behind the torso silhouette and must not replace the far arm as an ambiguous limb.
 
@@ -162,7 +163,7 @@ A thoughtful, reserved kid who carries a small book close and watches before joi
 A muted plum or aubergine coat, deep moss/teal scarf and warm parchment book cover, with quiet dark footwear. Keep the value grouping soft and calm, distinct from Busker's performer blues and from Usher's formal civic palette. No swatches or colour rendering are authorized in this stage.
 
 ### Prop, contact and handedness plan
-- **Book:** supported by both hands at the upper chest. Front view shows both hands; back view hides the book behind the torso. In either profile, show only the near-side hand and the book's fore-edge, with the far hand hidden behind the cover/torso.
+- **Book:** supported by both hands at the upper chest. Front view shows both hands and a deliberately separated page-edge/gutter negative space so the book does not disappear into the coat; back view hides the book behind the torso. In either profile, show only the near-side hand and the book's fore-edge, with the far hand hidden behind the cover/torso.
 - **Contact:** left hand supports the lower viewer-right corner in front view; right hand supports the lower viewer-left corner. The spine is centered, with the thumbs on the front cover and fingers wrapping behind.
 - **Near/far anatomy:** both arms are visible in front because they form a deliberate two-hand hold. In profile, the arm on the side facing the viewer is the only clearly drawn arm.
 - Keep book corners inside the chest/arm envelope; do not let the book float beyond the hands.
