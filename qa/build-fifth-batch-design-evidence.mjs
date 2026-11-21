@@ -123,7 +123,7 @@ try{
     const px=ctx.getImageData(0,0,64,96);
     for(let k=0;k<px.data.length;k+=4)if(px.data[k+3]>0){px.data[k]=0;px.data[k+1]=0;px.data[k+2]=0;}
     ctx.putImageData(px,0,0);
-    rows.push({civ,direction,dataUrl:c.toDataURL('image/png')});
+    rows.push({civ,direction,dataUrl:c.toDataURL('image/png'),faceDataUrl:item.dataUrl});
    }
    return rows;
   });
@@ -174,7 +174,7 @@ try{
    {key:'kid2-profile',person:'kid2',direction:'left',box:[697,416,41,54],candidates:['clinic','ref']}
   ];
   const faceComparisons=await page.evaluate(async({face,rows,roster})=>{
-   const rosterMap=new Map(roster.map(x=>[x.civ+'-'+x.direction,x.dataUrl]));
+   const rosterMap=new Map(roster.map(x=>[x.civ+'-'+x.direction,x.faceDataUrl]));
    const cropSvg=async(box)=>{
     const [x,y,w,h]=box;
     const svg=face.replace(/width="[^"]+" height="[^"]+" viewBox="[^"]+"/,'width="40" height="38" viewBox="'+x+' '+y+' '+w+' '+h+'"');
