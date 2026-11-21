@@ -11,7 +11,7 @@ const overlayPath=path.join(root,'project-background/qa-artifacts/fourth-civilia
 const out=path.join(root,'qa-output/fourth-batch-integrated-faces');
 fs.mkdirSync(out,{recursive:true});
 const base=fs.readFileSync(basePath,'utf8'),overlay=fs.readFileSync(overlayPath,'utf8');
-const blob=crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(base)+'\\0'),Buffer.from(base)])).digest('hex');
+const blob=crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(base)+'\0'),Buffer.from(base)])).digest('hex');
 const approved='02f7ffb3854a8bacdaf00ca6198ae411c3122602';
 if(blob!==approved)throw new Error('Protected revision-21 source mismatch: '+blob);
 if(!base.includes('DESIGN EXPLORATION 21'))throw new Error('Revision-21 source title missing');
@@ -50,6 +50,6 @@ try{
  write(path.join(out,'integrated-faces-native-64x96.png'),result.nativeSheet);
  write(path.join(out,'integrated-faces-direct-28x42.png'),result.directSheet);
  const manifest={stage:'non-production integrated grayscale face study',revision21_blob:blob,overlay:'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg',characters:people.map(x=>x.id),directions,counts:{native64x96:9,direct28x42:9,enlarged4x:9},protected:{revision21_source_modified:false,construction_source_modified:false,production_renderer_modified:false,golden_snapshots_modified:false}};
- fs.writeFileSync(path.join(out,'integrated-face-manifest.json'),JSON.stringify(manifest,null,2)+'\\n');
+ fs.writeFileSync(path.join(out,'integrated-face-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
  console.log(JSON.stringify({manifest}));
 }finally{await browser.close();}
