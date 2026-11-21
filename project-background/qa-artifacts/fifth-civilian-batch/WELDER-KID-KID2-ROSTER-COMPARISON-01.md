@@ -1,7 +1,7 @@
 # Batch 5 — full current-roster comparison 01
 
 **Welder #15 · Kid #16 · Kid 2 #17**  
-**Status:** design-stage comparison hypothesis; visual matched-scale evidence pending.
+**Status:** matched-scale design evidence completed in Run #22; internal QA PASS, owner silhouette/construction approval pending.
 
 This comparison uses the current roster register and approved/active design descriptions. It does not pretend that unbuilt roster entries have finished vector art. The 15 existing designed civilians below are the relevant comparison set; unbuilt Mouse, Busker, Dancer, Broker and Fan remain future design prompts, not completed silhouette comparators.
 
@@ -33,7 +33,7 @@ This comparison uses the current roster register and approved/active design desc
 
 ## Face comparison candidates
 
-These are provisional geometry candidates drawn from the current renderer's face-construction definitions. They are not confirmed nearest matches until the matched-scale crop sheet is produced and inspected.
+These are the two closest current roster face-construction comparisons selected for each proposed character. The matched 40×38 crop sheet was produced and visually inspected in Run #22. Dancer is used only as a current renderer face-construction reference; no unbuilt Dancer silhouette is treated as completed artwork.
 
 | New character | Two comparison candidates | Distinguishing geometry proposed |
 |---|---|---|
@@ -43,7 +43,7 @@ These are provisional geometry candidates drawn from the current renderer's face
 
 ## Matched-scale evidence outputs
 
-The dedicated Playwright evidence builder produces three separate native 64×96 matched silhouette sheets, one for each proposed character:
+Exact-source evidence was captured in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232/artifacts/14684738023), on design source commit `e3611fd918ca0b800a1d79616bd39357826f84b8`. The dedicated Playwright evidence builder produced three separate native 64×96 matched silhouette sheets, one for each proposed character:
 - `roster-silhouette-comparison-welder-native-64x96.png`
 - `roster-silhouette-comparison-kid-native-64x96.png`
 - `roster-silhouette-comparison-kid2-native-64x96.png`
@@ -52,11 +52,11 @@ Each sheet places the proposed silhouette beside the 15 existing designed roster
 
 The builder also produces `matched-face-comparisons-native-40x38.png` and `matched-face-comparisons-enlarged-3x.png`, with six matched rows (front and profile for each proposed character) and the two named face comparators per character. These are geometry studies, not automated similarity scores.
 
-Granny Volt is handled separately through her dedicated 100×140 renderer capture. She remains the craftsmanship benchmark, not a silhouette template, and is not forced into the 64×96 roster grid.
+Granny Volt remains the craftsmanship benchmark, not a silhouette or face template, and is not included in the 64×96 roster comparison grid.
 
 ## Evidence boundary
 
 - The written roster matrix is design rationale; the matched-scale visual evidence is supplied by the outputs listed above.
-- The matched-scale roster silhouette and face sheets must be generated from the exact source commit and visually inspected before the concepts are presented for final owner silhouette approval.
-- Direct 28×42 game-scale captures must be independently rendered from the design source; enlarged or resized images do not substitute.
+- The matched-scale roster silhouette and face sheets were generated from the exact source commit and visually inspected. The concepts are now ready for owner silhouette/construction approval.
+- Direct 28×42 game-scale captures were independently rendered from the design source; enlarged or resized images were not substituted.
 - No family assignments are promoted. Welder, Kid and Kid 2 remain **UNASSIGNED**.
