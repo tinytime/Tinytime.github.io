@@ -1,3 +1,17 @@
+## Current checkpoint — Batch 4 Stage 7 colour study authored (2026-11-21)
+
+| # | Character | Stage 7 status | Candidate material direction | Gate |
+|---:|---|---|---|---|
+| 12 | Sailor | First non-production colour study authored | Harbour teal, hemp rope, aged brass | Exact-source captures and visual QA pending |
+| 13 | Slicker | First non-production colour study authored | Storm-slate shell, dark hood, restrained ochre | Exact-source captures and visual QA pending |
+| 14 | Painter | First non-production colour study authored | Oxide-clay smock, indigo trousers, wood/metal brush | Exact-source captures and visual QA pending |
+
+Study source: [SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg). It preserves the revision-21 source path geometry and adds the integrated grayscale face overlays plus proposed colour/material styling. The capture harness and isolated GitHub Actions workflow are in place. No screenshots have yet been manually inspected; no palette or finished art approval is implied.
+
+Protected inputs: revision-21 silhouette SVG blob 36f645d7de9ee5bedc79a0288c50bc8399382f4b; integrated face overlay blob 59c71c823c2b42cd1ea039f724fce0c05e6dcc37. Production renderer and all golden snapshots/provenance remain untouched. Stage 7 scope is limited to these three characters.
+
+---
+
 ## Fifth civilian batch — design stage released (2026-11-21)
 
 The project owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for identity, silhouette and construction design. The fourth batch (Sailor #12 / Slicker #13 / Painter #14) is being handled separately; this release is independent and does not authorize changes to that work.
