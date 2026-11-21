@@ -1,3 +1,14 @@
+## Stage 7 colour study 02 — face-on-prop correction verified; study 03 in progress (2026-11-21)
+
+- **Exact capture source:** [Run #16](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849782903), tested commit `14cfd8ecf31b033ddc89b218481cf0643c236df8`, artifact [14684742181](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849782903/artifacts/14684742181).
+- **Study source:** [colour study 02](SAILOR-SLICKER-PAINTER-COLOUR-STUDY-02.svg), including the approved grayscale face overlays repeated in all prop-on views and character-specific skin-tone rules.
+- **Automated integrity:** 108/108 protected revision-21 silhouette paths retained; zero missing; 9 body-only and 9 prop-on face overlays present; all 3 character-specific prop-face skin palette rules present; 24 panels captured at native 64×96, independently rasterized direct 28×42 and enlarged 4× (72 PNG captures).
+- **Manual visual inspection:** inspected the actual native/direct contact sheets and selected 4× prop/face crops. Prop-on faces are now present and correctly use their character-specific skin palette. The Sailor coil remains a warm secondary accent, Slicker's dark rain-shell and parcel remain distinct, and Painter's brush remains identifiable. No obvious canvas-edge clipping was found in the inspected views. At direct 28×42, small face and grip details remain compact and are not considered independently approved by this capture.
+- **Follow-on finish:** authored [colour study 03](SAILOR-SLICKER-PAINTER-COLOUR-STUDY-03.svg) with restrained character-specific material value gradients using the already proposed shadow/base/light swatches. The exact-source capture harness now also checks the three gradient definitions and their assignments. Run #17/#18 are the exact-source runs for this new study; their results and artifact review are pending.
+- **Current disposition:** study 02 is a verified intermediate correction, not final art. Study 03 remains a non-production proposal. No production renderer, game scene, golden snapshot or provenance has been changed.
+
+---
+
 ## Stage 7 colour study — exact-source Run #13 and visual inspection (2026-11-21)
 
 - **Tested source commit:** `5bc43dbbe80e5258777ed473772475927d9e6ce7`; colour-study SVG blob `7858b127719d27f91c4bbc258ab51aa3402dc755`; protected revision-21 silhouette blob `36f645d7de9ee5bedc79a0288c50bc8399382f4b`; protected integrated-face blob `59c71c823c2b42cd1ea039f724fce0c05e6dcc37`.
