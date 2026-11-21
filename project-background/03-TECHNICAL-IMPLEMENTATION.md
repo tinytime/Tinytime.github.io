@@ -1,3 +1,8 @@
+## Fourth civilian batch — Stage 7 material finish study, revision 03 (2026-11-21)
+
+The colour capture harness now targets `SAILOR-SLICKER-PAINTER-COLOUR-STUDY-03.svg`. It pins the approved revision-21 silhouette and integrated grayscale face blobs; validates all 108 protected silhouette paths, 9 body-only and 9 prop-on face overlay groups, 3 character-specific prop-face skin rules, and 3 character-specific material gradients; then captures 24 body/prop direction panels at native 64×96, independently rasterized direct 28×42 and enlarged 4× scales. Study 02 passed exact-source capture in Run #16, artifact 14684742181, and manual review confirmed the prop-on face correction. Study 03's exact-source capture and manual inspection are pending. This remains non-production artwork; no live renderer, town/gallery or golden snapshot/provenance changes have been made.
+
+---
 ## Fourth civilian batch — Stage 7 colour-study capture, revision 02 (2026-11-21)
 
 The isolated colour-study harness now targets `SAILOR-SLICKER-PAINTER-COLOUR-STUDY-02.svg`. It pins the approved revision-21 silhouette and integrated grayscale face blobs, validates all 108 protected silhouette paths, and requires all 9 body-only plus 9 prop-on face overlay groups. It captures 24 body/prop direction panels at native 64×96, independently rasterized direct 28×42 and enlarged 4× scales. Run #7 passed the previous study-01 harness but manual inspection found the prop-on panels omitted face overlays; study 02 restores the exact approved face geometry to those panels. The new exact-source run and artifact review are pending. This remains non-production artwork; no live renderer, town/gallery or golden snapshot/provenance changes are authorized by this study record.
