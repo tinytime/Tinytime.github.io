@@ -83,7 +83,7 @@ try{
   const draw=async scale=>{
    const gap=12,cell=40*scale,cellH=38*scale,head=16*scale,label=12*scale,rowH=head+label+cellH+gap,cols=3;
    const c=document.createElement('canvas');c.width=gap+cols*(cell+gap);c.height=gap+rows.length*rowH;
-   const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width);
+   const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
    const names=['INTEGRATED','ROSTER A','ROSTER B'];
    for(let r=0;r<rows.length;r++){
     const row=rows[r],imgs=[row.design,...row.refs],py=gap+r*rowH;
