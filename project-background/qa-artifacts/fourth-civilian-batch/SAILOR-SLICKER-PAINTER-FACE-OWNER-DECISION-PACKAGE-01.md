@@ -1,3 +1,9 @@
+## Owner decision recorded — 2026-11-21
+
+**Decision:** Option 1 authorized — proceed with the limited integrated grayscale design-stage face projections only. This authorization was given in the project conversation after presentation of this decision package.
+
+The authorized work has been completed and internally QA'd. See [FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md](FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md) and [SAILOR-SLICKER-PAINTER-FACE-CLAUDE-REVIEW-PACKAGE-01.md](SAILOR-SLICKER-PAINTER-FACE-CLAUDE-REVIEW-PACKAGE-01.md). It does **not** approve final face geometry, palette, production renderer integration, golden snapshot changes, or characters #15–23. Independent Claude review and final owner approval remain pending.
+
 # Sailor, Slicker and Painter — F6 face-stage owner decision package 01
 
 **Prepared:** 2026-11-20 (QA evidence completed 2026-11-21 UTC)  
