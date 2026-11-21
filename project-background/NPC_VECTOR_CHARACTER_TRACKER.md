@@ -1,3 +1,9 @@
+## Fourth civilian batch — F6 owner decision package 01 (2026-11-20)
+
+The focused owner decision package is [SAILOR-SLICKER-PAINTER-FACE-OWNER-DECISION-PACKAGE-01.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-FACE-OWNER-DECISION-PACKAGE-01.md). It recommends one limited, non-production next step: integrate the grayscale face proposals into approved revision-21 full-head studies and capture front plus both profiles at native 64×96 and independently rendered direct 28×42, with enlarged diagnostics. This is an authorization request only; no face approval, Claude review, production renderer work or palette work is implied. The six matched 40×38 crops passed visual comparison, but full-head placement, occlusion and direct game-scale readability remain untested. Wait for the owner's decision before proceeding.
+
+---
+
 ## Current fourth-batch checkpoint — corrected F6 face-crop QA (2026-11-20)
 
 - Exact corrected face source: `ab95cc5da377ffe2c929f5ebc0d9fc3cdf59b5e0`; corrected SVG blob `dc68b54e86b0d5a434ccebb22b34d9ac8e27bc76`.
