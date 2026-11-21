@@ -54,12 +54,10 @@ The direct 28×42 images are independent captures, not resized native images.
 Inspected the actual Run #867 artifact:
 - `integrated-faces-native-64x96.png`
 - `integrated-faces-direct-28x42.png`
-- all nine individual native captures
-- all nine direct 28×42 captures
-- all nine enlarged 4× diagnostics
+- native 64×96 and direct 28×42 contact sheets (all nine views at each scale)
 - `integrated-matched-face-comparisons-native-40x38.png`
 - `integrated-matched-face-comparisons-3x.png`
-- individual Slicker left-profile enlarged diagnostic
+- selected enlarged individual views, including Sailor, Slicker and Painter profile captures
 
 Findings:
 - **Sailor #12:** The stronger front brow shelf and distinctive profile nose/leaner lower-face transition are integrated. The brow reads as two separated strokes rather than a single uninterrupted contour. Both profile directions preserve correct nose orientation and remain visible under the cap.
