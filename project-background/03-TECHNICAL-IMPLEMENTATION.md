@@ -1,3 +1,8 @@
+## Fourth civilian batch — Stage 7 colour study 05 exact-source capture (2026-11-21)
+
+The final current study source is `SAILOR-SLICKER-PAINTER-COLOUR-STUDY-05.svg`. [Run #23](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850288600), artifact 14684903417, passed the isolated capture: 108/108 protected revision-21 paths, 18/18 face overlays, 3/3 character-specific prop-face skin rules, 3/3 material gradients, 4/4 Slicker sleeve overrides, and 24 panels at native 64×96, direct 28×42 and enlarged 4×. The exact-source artifact was manually inspected. Claude review package 01 is prepared; independent review and owner final-art approval remain pending. Production renderer integration, game-scene changes and golden snapshot/provenance changes have not begun.
+
+---
 ## Fourth civilian batch — Stage 7 material finish study, revision 03 (2026-11-21)
 
 The colour capture harness now targets `SAILOR-SLICKER-PAINTER-COLOUR-STUDY-03.svg`. It pins the approved revision-21 silhouette and integrated grayscale face blobs; validates all 108 protected silhouette paths, 9 body-only and 9 prop-on face overlay groups, 3 character-specific prop-face skin rules, and 3 character-specific material gradients; then captures 24 body/prop direction panels at native 64×96, independently rasterized direct 28×42 and enlarged 4× scales. Study 02 passed exact-source capture in Run #16, artifact 14684742181, and manual review confirmed the prop-on face correction. Study 03's exact-source capture and manual inspection are pending. This remains non-production artwork; no live renderer, town/gallery or golden snapshot/provenance changes have been made.
