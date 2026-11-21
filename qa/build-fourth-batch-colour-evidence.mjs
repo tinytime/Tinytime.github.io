@@ -8,7 +8,7 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dir=path.join(root,'project-background/qa-artifacts/fourth-civilian-batch');
 const basePath=path.join(dir,'SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg');
 const facePath=path.join(dir,'SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg');
-const studyPath=path.join(dir,'SAILOR-SLICKER-PAINTER-COLOUR-STUDY-03.svg');
+const studyPath=path.join(dir,'SAILOR-SLICKER-PAINTER-COLOUR-STUDY-04.svg');
 // Design-only projection: this script never loads or edits the production renderer.
 const out=path.join(root,'qa-output/fourth-batch-colour-study');
 fs.mkdirSync(out,{recursive:true});
@@ -31,6 +31,8 @@ for(const rule of propFaceSkinRules)if(!study.includes(rule))throw new Error('Mi
 const materialGradients=['sailor-material','slicker-material','painter-material'];
 for(const id of materialGradients)if(!study.includes('id="'+id+'"'))throw new Error('Missing character material gradient '+id);
 for(const name of ['sailor','slicker','painter'])if(!study.includes('url(#'+name+'-material)'))throw new Error('Missing material value-plane assignment '+name);
+if(!study.includes('/* Slicker\'s dark near-side sleeve/arm is garment shadow, not a handheld object. */'))throw new Error('Missing Slicker sleeve-vs-prop clarification');
+for(const pos of ['translate(35 450)','translate(35 608)','translate(145 450)','translate(145 608)'])if(!study.includes('g[transform="'+pos+'"] .sil>path:last-child'))throw new Error('Missing Slicker integrated sleeve shading '+pos);
 const panels=[
  ['sailor','front',51,128,false],['sailor','back',161,128,false],['sailor','left',271,128,false],['sailor','right',381,128,false],
  ['slicker','front',51,458,false],['slicker','back',161,458,false],['slicker','left',271,458,false],['slicker','right',381,458,false],
@@ -79,7 +81,7 @@ try{
   sourceCommit:process.env.GITHUB_SHA||null,baseBlob:blob(base),faceBlob:blob(face),
   studySha256:crypto.createHash('sha256').update(study).digest('hex'),
   captures:rendered.map(({character,direction,prop})=>({character,direction,prop,native:'64x96',direct:'28x42',enlarged:'4x'})),
-  assertions:{protectedBasePaths:basePaths.length,missingBasePaths:missingPaths.length,faceOverlays:faceIds.length,propFaceOverlays:propFaceIds.length,propFaceSkinRules:propFaceSkinRules.length,materialGradients:materialGradients.length,captureCount:rendered.length}
+  assertions:{protectedBasePaths:basePaths.length,missingBasePaths:missingPaths.length,faceOverlays:faceIds.length,propFaceOverlays:propFaceIds.length,propFaceSkinRules:propFaceSkinRules.length,materialGradients:materialGradients.length,slickerSleeveOverrides:4,captureCount:rendered.length}
  },null,2));
  console.log(JSON.stringify({pass:true,protectedBasePaths:basePaths.length,captures:rendered.length,native:rendered.length,direct:rendered.length,enlarged:rendered.length,output:out}));
 }finally{await browser.close();}
