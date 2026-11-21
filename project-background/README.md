@@ -1,6 +1,6 @@
 ## Fifth civilian batch — owner release and design work opened (2026-11-21)
 
-The owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for identity, silhouette and construction design. The fourth batch is being handled in a separate workstream. Batch 5 design cards 01 and four-view black silhouette exploration 01 are now authored under [fifth-civilian-batch](qa-artifacts/fifth-civilian-batch/). They are proposals only and await internal QA and owner review. Proposed family descriptors are not assignments; all three current vector families remain UNASSIGNED. No palette, production renderer, town/gallery, golden snapshot or provenance work is included. Do not begin Mouse #18 or later characters.
+The owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for identity, silhouette and construction design. The fourth batch is being handled in a separate workstream. Batch 5 design cards 01, four-view black silhouette exploration 01 and face/head construction exploration 01 are now authored under [fifth-civilian-batch](qa-artifacts/fifth-civilian-batch/). They are proposals only and await internal QA and owner review. Proposed family descriptors are not assignments; all three current vector families remain UNASSIGNED. No palette, production renderer, town/gallery, golden snapshot or provenance work is included. Do not begin Mouse #18 or later characters.
 
 ---
 
