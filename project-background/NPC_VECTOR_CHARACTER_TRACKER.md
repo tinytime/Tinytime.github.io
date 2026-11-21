@@ -4,6 +4,7 @@ The project owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for iden
 
 - **Design cards:** [WELDER-KID-KID2-DESIGN-CARDS-01.md](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md).
 - **Four-view black silhouettes:** [WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg).
+- **Face/head geometry:** [WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg).
 - **Current stage:** first identity/construction proposals authored; internal visual/technical QA and owner review pending. Not approved.
 - **Proposed descriptors only:** Welder — Offset Leather Apron / Rear Gas-Rig Shell; Kid — Forward-Sprung Hooded Zip-Shell / Open-Stride Youth Build; Kid 2 — Wrapped Scarf-Coat / Close-Held Book Shell. All three current vector-family assignments remain **UNASSIGNED** until owner approval.
 - **Scope protection:** no production renderer, palette rendering, town/gallery integration, golden snapshot/provenance or existing approved civilian changes. No work on Mouse #18 or later characters is authorized.
