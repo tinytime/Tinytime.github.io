@@ -16,7 +16,7 @@ const blobHash=text=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from
 const sourceBlobs={silhouette:blobHash(silhouette),faceHead:blobHash(face)};
 const expected={silhouette:'c5af2903fb5b9e93d59a81409929e0fc88ecf285',faceHead:'147bb88a01b878f89a1eb41d7b65e8c0adf62f34'};
 for(const key of Object.keys(expected))if(sourceBlobs[key]!==expected[key])throw new Error(key+' source blob mismatch: '+sourceBlobs[key]);
-if(!silhouette.includes('12 original solid-black civilian silhouettes'))throw new Error('Silhouette sheet description mismatch');
+if(!silhouette.includes('Twelve original solid-black civilian silhouettes'))throw new Error('Silhouette sheet description mismatch');
 if((silhouette.match(/<g class="sil">/g)||[]).length!==12)throw new Error('Expected twelve silhouette direction groups');
 if(!face.includes('#15 WELDER')||!face.includes('#16 KID')||!face.includes('#17 KID 2'))throw new Error('Face/head sheet missing a character');
 const people=[{id:'welder',rowY:156},{id:'kid',rowY:384},{id:'kid2',rowY:614}];
