@@ -18,7 +18,7 @@ concurrency:
       - 'npc_sprites.js'
       - 'qa/**'
       - 'project-background/qa-artifacts/fourth-civilian-batch/**'
-      - 'project-background/qa-artifacts/fifth-civilian-batch/**'
+      - 'project-background/qa-artifacts/fifth-civilian-batch/**' # Batch 5 design-source evidence
       - '.github/workflows/vapor-city-browser-qa.yml'
 
 jobs:
