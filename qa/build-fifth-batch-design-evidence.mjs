@@ -111,7 +111,7 @@ try{
   await page.addScriptTag({path:spritePath});
   const roster=await page.evaluate(async()=>{
    if(!window.SG||typeof window.SG.npcRenderDirectionalSnapshots!=='function')throw new Error('Existing roster directional snapshot hook unavailable');
-   const ids=['runner','coach','ref','courier','guard','vendor','cook','clinic','tech','hacker','fisher','sailor','slicker','painter','usher','granny'];
+   const ids=['runner','coach','ref','courier','guard','vendor','cook','clinic','tech','hacker','fisher','sailor','slicker','painter','usher'];
    const dirs={d:'front',u:'back',l:'left',r:'right',front:'front',back:'back',left:'left',right:'right'};
    const snapshots=window.SG.npcRenderDirectionalSnapshots(),rows=[];
    for(const civ of ids)for(const [rawDir,direction] of Object.entries(dirs)){
@@ -127,7 +127,7 @@ try{
    }
    return rows;
   });
-  const rosterIds=['runner','coach','ref','courier','guard','vendor','cook','clinic','tech','hacker','fisher','sailor','slicker','painter','usher','granny'];
+  const rosterIds=['runner','coach','ref','courier','guard','vendor','cook','clinic','tech','hacker','fisher','sailor','slicker','painter','usher'];
   const directions2=['front','back','left','right'];
   const rosterByKey=new Map(roster.map(x=>[x.civ+'-'+x.direction,x.dataUrl]));
   const comparisonSheets=await page.evaluate(async({roster,items,rosterIds,directions})=>{
@@ -214,7 +214,7 @@ try{
    matchedNativeSilhouetteSheets:Object.keys(comparisonSheets),
    matchedFaceRows:faceComparisons.rows.length,
    faceCropSize:{width:40,height:38},
-   note:'Roster art is captured from current renderer snapshots and converted to black alpha silhouettes; new batch art is rasterized from its own SVG source. These are comparative design aids, not approval evidence.'
+   note:'The 15 existing 64x96 roster civilians are captured from current renderer snapshots and converted to black alpha silhouettes; Granny Volt is reviewed separately through her dedicated 100x140 renderer and is a craftsmanship benchmark, not a silhouette template. New batch art is rasterized from its own SVG source. These are comparative design aids, not approval evidence.'
   };
   fs.writeFileSync(path.join(out,'roster-comparison-manifest.json'),JSON.stringify(rosterManifest,null,2)+'\\n');
  } finally {
