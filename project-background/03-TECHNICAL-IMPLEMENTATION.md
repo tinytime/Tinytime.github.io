@@ -1,3 +1,9 @@
+## Fifth civilian batch — non-production design evidence capture (2026-11-21)
+
+A dedicated Playwright evidence builder, `qa/build-fifth-batch-design-evidence.mjs`, captures the authored Welder/Kid/Kid 2 silhouette and face/head SVG proposals without changing `npc_sprites.js` or any production renderer. The browser QA workflow now watches `project-background/qa-artifacts/fifth-civilian-batch/**` and runs this capture step before the existing checks. It verifies exact source Git blob IDs and emits native 64×96 and independently rendered direct 28×42 vector projections, enlarged diagnostics, contact sheets, face/head sheet captures and a manifest under `qa-output/fifth-batch-design/`. These are design-source projections, not production renderer captures or approval evidence. Golden snapshots and provenance remain outside this task.
+
+---
+
 ## Fourth civilian batch — integrated face study technical boundary (2026-11-21)
 
 The F6 face projections are authored as a separate grayscale, non-production overlay and captured by `qa/build-fourth-batch-integrated-face-evidence.mjs`. The script verifies the approved revision-21 source blob before rendering and produces nine native 64×96 views, nine direct 28×42 views, nine enlarged diagnostics, nine face crops and six matched comparison rows. The production renderer and revision-21 silhouette/construction source are not modified. Exact-source evidence is Run #861 at `006501416414f9c5fbeaba4b52a88fa64e849843`; see the [internal QA record](qa-artifacts/fourth-civilian-batch/FOURTH-BATCH-INTEGRATED-FACE-INTERNAL-QA-01.md).
