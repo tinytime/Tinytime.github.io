@@ -164,7 +164,7 @@ A thoughtful, reserved kid who carries a small book close and watches before joi
 A muted plum or aubergine coat, deep moss/teal scarf and warm parchment book cover, with quiet dark footwear. Keep the value grouping soft and calm, distinct from Busker's performer blues and from Usher's formal civic palette. No swatches or colour rendering are authorized in this stage.
 
 ### Prop, contact and handedness plan
-- **Book:** supported by both hands at the upper chest. Front view shows both hands and a deliberately separated page-edge/gutter negative space so the book does not disappear into the coat; back view hides the book behind the torso. In either profile, show only the near-side hand and the book's fore-edge, with the far hand hidden behind the cover/torso.
+- **Book:** a small closed hardback held against the upper chest with both hands. Front view shows a single cover silhouette, a clear spine and page-edge seam, and both hands gripping the side edges; back view hides the book behind the torso. In either profile, show only the near-side hand and the book's fore-edge, with the far hand hidden behind the cover/torso.
 - **Contact:** left hand supports the lower viewer-right corner in front view; right hand supports the lower viewer-left corner. The spine is centered, with the thumbs on the front cover and fingers wrapping behind.
 - **Near/far anatomy:** both arms are visible in front because they form a deliberate two-hand hold. In profile, the arm on the side facing the viewer is the only clearly drawn arm.
 - Keep book corners inside the chest/arm envelope; do not let the book float beyond the hands.

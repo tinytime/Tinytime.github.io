@@ -44,7 +44,7 @@
    <!-- compact nozzle overlaps the torch body so no isolated tip survives direct 28x42 rendering -->
    <path d="M11 65 L15 65 L14 71 L10 71 Z"/>
    <!-- hose rises from torch, curves to hip -->
-   <path d="M10 62 Q5 58 7 53 Q9 50 13 52" fill="none" stroke="#000" stroke-width="2.4"/>
+   <path d="M12 62 Q9 60 10 56 Q11 53 13 52" fill="none" stroke="#000" stroke-width="2.4"/>
    <!-- harness/cylinder shoulder hint visible behind -->
    <path d="M41 25 L45 26 L47 32 L43 34 L40 30 Z"/>
   </g>
@@ -211,9 +211,9 @@
    <path d="M21 35 L29 38 L28 64 L19 62 L17 48 Z M40 35 L32 38 L34 64 L44 62 L46 48 Z"/>
    <path d="M29 37 L34 37 L35 63 L29 63 Z"/>
    <!-- book held with both hands against chest -->
-   <path d="M22 39 Q28 36 33 40 L33 56 Q27 52 22 56 Z M34 40 Q40 36 45 39 L45 56 Q39 52 34 56 Z"/>
-   <path d="M33 40 L34 56 L32 57 L31 41 Z"/>
-   <path d="M22 39 Q28 36 33 40 L33 56 Q27 52 22 56 Z M34 40 Q40 36 45 39 L45 56 Q39 52 34 56 Z" fill="none" stroke="#fff" stroke-width="2.2"/>
+   <path d="M22 39 Q23 37 26 38 L44 38 Q47 39 47 42 L47 53 Q46 56 43 56 L25 56 Q22 55 22 52 Z"/>
+   <path d="M22 39 Q23 37 26 38 L44 38 Q47 39 47 42 L47 53 Q46 56 43 56 L25 56 Q22 55 22 52 Z" fill="none" stroke="#fff" stroke-width="2.2"/>
+   <path d="M28 39 L28 55 M43 40 L43 54" fill="none" stroke="#fff" stroke-width="1.5"/>
    <path d="M22 47 L26 47 L28 53 L24 56 L20 53 Z M42 47 L46 47 L48 53 L44 56 L40 53 Z"/>
    <!-- close-set elbows and hands -->
    <path d="M17 42 L22 44 L25 51 L22 55 L18 52 L15 47 Z M43 42 L47 44 L49 50 L46 54 L42 51 L40 46 Z"/>
