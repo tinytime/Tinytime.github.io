@@ -1,3 +1,22 @@
+## Current design revision — exact-source rerender required
+
+**Current source commit:** `9e70682fd65606a05543cfc774d34a8cfa1e7e40`  
+**Current silhouette source blob:** `9d66d21fa2126568ccad8bc8ccc0575f45ee66eb`  
+**Face/head source blob:** `e3b5b58dbf8225f23453c8b097ef4c61343e4cd9`  
+**Evidence builder blob:** `7d1a8d9d11e9b7f0574d1d1114f2940e08257709`
+
+The previous successful design-evidence capture was [Run #19](https://github.com/github.com/tinytime/Tinytime.github.io/actions/runs/44849382535), artifact `14683888322`, tested commit `5340d66ea9c83152d92e6b0a92d0fef9cc9a6df9`. It generated all 12 native 64×96 and 12 independently rendered direct 28×42 silhouette views, enlarged diagnostics, full-roster silhouette comparison sheets and matched 40×38 face comparisons. Manual inspection found no edge contacts and no disconnected black components in its connectivity report. The direct-scale silhouettes were legible and the full-roster comparisons showed distinct body/prop reads.
+
+Manual review of Run #19 nevertheless identified two design-read refinements:
+- Welder's large front hose loop read like a ring rather than a cable route from torch to the body.
+- Kid 2's two-page open-book shape resembled spectacles at 4× diagnostic scale.
+
+Those two points have been revised in the current source: Welder's exposed hose segment is shortened to a compact connected curve; Kid 2 now holds a single closed hardback with a visible cover, spine and page-edge seam. The design card was updated to match. **Run #19 does not test these latest changes.** A fresh exact-source render and inspection is required before internal QA can pass.
+
+The current evidence builder intentionally captures identity, silhouette, face and roster-comparison evidence only. A separate provisional full-colour render file exists in the branch, but it is **out of scope for this stage**, is not captured by this evidence run, and is not palette-approved or production art. Do not use it to infer palette approval.
+
+**Current disposition:** internal design QA remains open pending exact-source rerender and visual inspection. Construction-family assignments remain UNASSIGNED. No production renderer, golden snapshot or provenance change is authorized.
+
 # Fifth Civilian Batch — Internal QA Log
 
 **Scope:** Welder #15, Kid #16 and Kid 2 #17  
