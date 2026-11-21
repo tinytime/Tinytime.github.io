@@ -1,3 +1,9 @@
+## Fourth civilian batch — corrected colour study 02 in QA (2026-11-21)
+
+Colour study 01 was captured in [Run #7](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849078081), artifact [14684716336](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849078081/artifacts/14684716336). The capture verified all 108 revision-21 silhouette paths and generated 24 panels at native 64×96, independently rasterized direct 28×42 and enlarged 4× scales. Manual inspection found that prop-on diagnostic panels omitted the approved face overlays. The issue is corrected in [colour study 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-02.svg); the harness now checks all 18 body/prop face placements. Exact-source capture and manual review of study 02 are pending. No approved geometry, production renderer, game scenes, golden snapshots or provenance have been changed.
+
+---
+
 ## Fifth civilian batch — full-colour directional render authored (2026-11-21)
 
 A consolidated non-production render proposal is now authored for Welder #15, Kid #16 and Kid 2 #17: [full-colour render 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FULL-COLOUR-RENDER-01.svg). It presents front, back, left and right views for all three characters, retaining the current silhouette geometry and adding distinct skin, clothing, prop and material colour layers. This is not final approval. Exact-source browser captures, native 64×96 and direct 28×42 inspection, structural checks and internal QA remain required. No production renderer, town/gallery, golden snapshot or provenance changes are included.
