@@ -1,3 +1,9 @@
+## Fifth civilian batch — design-stage release (2026-11-21)
+
+The owner explicitly authorized design-stage work for Welder #15, Kid #16 and Kid 2 #17. This proceeds independently of the fourth-batch work being handled in a separate chat. The first identity/construction cards and four-view black silhouette proposals are in [the fifth-batch design package](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md) and [silhouette exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg). They are not approved. Internal QA and owner silhouette/construction review remain outstanding. All three vector-family assignments remain UNASSIGNED. Renderer, palette, town/gallery and golden snapshot work remain out of scope.
+
+---
+
 ## Fourth civilian batch — post-silhouette identity/construction cards 02 (2026-11-20)
 
 The owner-approved revision 21 silhouettes are now the fixed baseline for the next design stage. The three complete identity/construction cards are in [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md).
