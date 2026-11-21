@@ -1,3 +1,13 @@
+## Fourth civilian batch — Stage 7 colour study authored; exact-source QA pending (2026-11-21)
+
+Stage 7 has begun for Sailor #12, Slicker #13 and Painter #14. The non-production colour study [SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg) is derived from the protected revision-21 silhouette and integrated grayscale face overlays. It carries the first-pass character palette separation and material swatches. These are proposals only; no palette or finished art is approved.
+
+A dedicated capture harness [build-fourth-batch-colour-evidence.mjs](../qa/build-fourth-batch-colour-evidence.mjs) and isolated workflow [Fourth Batch Colour Study](../.github/workflows/fourth-batch-colour-study.yml) were added. The harness verifies the revision-21 and integrated-face Git blob IDs and checks that all protected silhouette path geometry remains present, then captures 24 body/prop direction panels at native 64×96, direct 28×42 and enlarged 4× scales. The workflow has not yet been inspected and no capture artifact has yet been visually reviewed. Exact-source QA and actual render inspection are the next gate.
+
+No production renderer, npc_sprites.js, live town/gallery integration, golden snapshots/provenance or civilians #15–23 were changed by this Stage 7 work. Run #867's owner-reported Claude approval is the authorization checkpoint; its overall Actions status remains failed on the unrelated global audio 404 and protected golden gate (1/23).
+
+---
+
 ## Fifth civilian batch — owner release and design work opened (2026-11-21)
 
 The owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for identity, silhouette and construction design. The fourth batch is being handled in a separate workstream. Batch 5 design cards 01, four-view black silhouette exploration 01 and face/head construction exploration 01 are now authored under [fifth-civilian-batch](qa-artifacts/fifth-civilian-batch/). They are proposals only and await internal QA and owner review. Proposed family descriptors are not assignments; all three current vector families remain UNASSIGNED. No palette, production renderer, town/gallery, golden snapshot or provenance work is included. Do not begin Mouse #18 or later characters.
