@@ -26,7 +26,7 @@ if(missingPaths.length)throw new Error('Colour study altered or omitted '+missin
 const faceIds=['sailor-front','sailor-left','sailor-right','slicker-front','slicker-left','slicker-right','painter-front','painter-left','painter-right'];
 const propFaceIds=faceIds.map(id=>id.replace(/^(sailor|slicker|painter)-/,'$1-prop-'));
 for(const id of [...faceIds,...propFaceIds])if(!study.includes('id="'+id+'"'))throw new Error('Missing integrated face overlay '+id);
-const propFaceSkinRules=['#sailor-prop-front>path:first-child{fill:#B98264;stroke:#704B3D}','#slicker-prop-front>path:first-child{fill:#946B56;stroke:#5F463B}','#painter-prop-front>path:first-child{fill:#D3A078;stroke:#8B634D}'];
+const propFaceSkinRules=['#sailor-prop-front>path:first-child,#sailor-prop-left>g>path:first-child,#sailor-prop-right>path:first-child{fill:#B98264;stroke:#704B3D}','#slicker-prop-front>path:first-child,#slicker-prop-left>g>path:first-child,#slicker-prop-right>path:first-child{fill:#946B56;stroke:#5F463B}','#painter-prop-front>path:first-child,#painter-prop-left>g>path:first-child,#painter-prop-right>path:first-child{fill:#D3A078;stroke:#8B634D}'];
 for(const rule of propFaceSkinRules)if(!study.includes(rule))throw new Error('Missing character-specific prop-face skin rule '+rule);
 const panels=[
  ['sailor','front',51,128,false],['sailor','back',161,128,false],['sailor','left',271,128,false],['sailor','right',381,128,false],
