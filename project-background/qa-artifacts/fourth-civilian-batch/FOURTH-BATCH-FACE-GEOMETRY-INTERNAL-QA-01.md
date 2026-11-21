@@ -1,3 +1,41 @@
+## Corrected-source QA — Run #839 and manual F6 crop review (2026-11-20)
+
+**Exact face-study source tested:** `ab95cc5da377ffe2c929f5ebc0d9fc3cdf59b5e0` · corrected SVG blob `dc68b54e86b0d5a434ccebb22b34d9ac8e27bc76`.
+**Run:** [Browser QA #839](https://github.com/tinytime/Tinytime.github.io/actions/runs/44841485275) (attempt 2; job `136650859432`). **Artifact:** [14681366588](https://github.com/tinytime/Tinytime.github.io/actions/runs/44841485275/artifacts/14681366588).
+
+### Automated result
+
+- Exact-source design projection / roster face-crop step: **PASS**.
+- Fourth-batch construction-detail render/capture step: **PASS**.
+- Semantic civilian proportion / annotation validation: **PASS**.
+- Granny and six-civilian annotation overlays, review-sheet generation and artifact upload: **PASS**.
+- Full browser job: **FAIL** at game-browser diagnostics. Logs report no page errors and no script errors, but retain the existing missing audio-resource 404s / sound-load messages. The generated five-civilian review index also reports the protected golden comparison as **1 match / 23 changed**. This is not approval to update snapshots; none were changed.
+
+### Corrected face evidence inspection
+
+Inspected the exact Run #839 artifact's `new-face-designs-matched-40x38.png`, `matched-face-comparisons-native-40x38.png` and `matched-face-comparisons-3x.png`. The six face illustrations now occupy the expected six 40×38 windows; the prior label/blank-crop defect is resolved. All six NEW crops contain the intended face artwork, and the matched roster comparisons are now valid for design-crop review. The Run #838 sheets remain rejected and are not used.
+
+At native and enlarged crop scale, the proposed cues are visible against the selected pairs:
+- **Sailor vs Clinic/Guard:** the front brow treatment reads as a stronger shelf; the left-facing profile has a longer, slightly hooked nose and leaner lower-face transition. The front brow is still represented by two separated strokes rather than one literal uninterrupted line; retain this as a design interpretation, not a proven continuous contour.
+- **Slicker vs Hacker/Courier:** the closer eye spacing, level compact brow and tucked lower face are visible. The eye-spacing distinction is comparatively subtle at 40×38 and should receive particular scrutiny at actual game scale.
+- **Painter vs Cook/Busker:** the lifted/asymmetric brow and squarer jaw turn are visible; the profile nose reads shorter and blunter than Sailor's.
+
+The three profile studies face left as authored. The crops show no labels or obvious clipping over the face artwork. These are still isolated grayscale design crops: they do not prove correct face placement/occlusion within full character heads, anatomical side mapping in all four directions, or 28×42 readability.
+
+### Disposition
+
+- Capture-window alignment: **PASS** on corrected exact-source artifact.
+- Matched F6 crop review: **PASS WITH SCALE CAVEAT** as a design-stage comparison; the intended distinctions are visible, with Slicker's eye-spacing cue the least pronounced.
+- Direct 28×42 face readability: **NOT TESTED**. The proposal is not integrated into the production/game renderer; do not substitute a resized crop or the unrelated five-civilian captures.
+- Full four-direction face placement/occlusion: **NOT TESTED**.
+- Internal face-stage gate: **INCOMPLETE** pending actual renderer-scale and full-head placement evidence or an explicitly scoped design-stage review decision.
+- Claude review: **NOT SENT**. Owner face approval: **NOT GRANTED**.
+- No palette/rendering, production renderer integration, golden snapshot/provenance change, or roster #15–23 work is authorized.
+
+**Next:** prepare a focused owner decision package that clearly separates the passed grayscale comparison evidence from the untested renderer-scale gate; do not start colour or renderer work without the owner's explicit decision.
+
+---
+
 # F6 Face Geometry Exploration 03 — Internal QA Record 01
 
 **Prepared:** 2026-11-20  
