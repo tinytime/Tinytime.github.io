@@ -18,7 +18,7 @@ const face=fs.readFileSync(facePath,'utf8');
 const colour=fs.readFileSync(colourPath,'utf8');
 const blobHash=text=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(text)+'\0'),Buffer.from(text)])).digest('hex');
 const sourceBlobs={silhouette:blobHash(silhouette),faceHead:blobHash(face),fullColour:blobHash(colour)};
-const expected={silhouette:'aa6ec7e6acc5599c908cb366f3c257a7414dec4c',faceHead:'e3b5b58dbf8225f23453c8b097ef4c61343e4cd9',fullColour:'0220af96bea894fa675cb2c26bc1b1e415d443d5'};
+const expected={silhouette:'1af8f31118380df10fc8166994a0f34c2bd80bbd',faceHead:'e3b5b58dbf8225f23453c8b097ef4c61343e4cd9',fullColour:'0220af96bea894fa675cb2c26bc1b1e415d443d5'};
 for(const key of Object.keys(expected))if(sourceBlobs[key]!==expected[key])throw new Error(key+' source blob mismatch: '+sourceBlobs[key]);
 if(!silhouette.includes('Twelve original solid-black civilian silhouettes'))throw new Error('Silhouette sheet description mismatch');
 if((silhouette.match(/<g class="sil">/g)||[]).length!==12)throw new Error('Expected twelve silhouette direction groups');
@@ -198,7 +198,7 @@ try{
      const im=new Image();im.src=src;await im.decode();
      const c=document.createElement('canvas');c.width=40;c.height=38;
      const ctx=c.getContext('2d',{willReadFrequently:true});ctx.fillStyle='#fff';ctx.fillRect(0,0,40,38);ctx.imageSmoothingEnabled=false;
-     const crop=row.direction==='front'?[26,7,14,12]:[20,7,24,12];
+     const crop=row.direction==='front'?[26,10,14,9]:[20,10,24,9];
      ctx.drawImage(im,crop[0],crop[1],crop[2],crop[3],0,0,40,38);
      const px=ctx.getImageData(0,0,40,38);
      for(let k=0;k<px.data.length;k+=4){const lum=Math.round(.2126*px.data[k]+.7152*px.data[k+1]+.0722*px.data[k+2]);px.data[k]=lum;px.data[k+1]=lum;px.data[k+2]=lum;px.data[k+3]=255;}
@@ -207,7 +207,7 @@ try{
     out.push({...row,design,refs});
    }
    if(out.some(row=>row.refs.some(ref=>!ref)))throw new Error('Matched face comparison candidate crop missing: '+JSON.stringify(out.filter(row=>row.refs.some(ref=>!ref)).map(row=>row.key)));
-   const gap=12,cellW=40,cellH=38,labelH=14,rowH=cellH+labelH+gap,cols=3;
+   const gap=12,cellW=40,cellH=38,labelH=26,rowH=cellH+labelH+gap,cols=3;
    const c=document.createElement('canvas');c.width=gap+cols*(cellW+gap);c.height=gap+out.length*rowH;
    const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
    for(let r=0;r<out.length;r++){
@@ -216,7 +216,7 @@ try{
     x.fillStyle='#fff';x.font='bold 8px sans-serif';x.fillText(shortLabel,gap,py+9);
     for(let col=0;col<3;col++){
      const px=gap+col*(cellW+gap);
-     x.fillStyle='#fff';x.font='bold 7px sans-serif';x.fillText(col===0?'NEW':row.candidates[col-1].toUpperCase(),px,py+labelH);
+     x.fillStyle='#fff';x.font='bold 7px sans-serif';x.fillText(col===0?'NEW':row.candidates[col-1].toUpperCase(),px,py+20);
      if(images[col]){const im=new Image();im.src=images[col];await im.decode();x.drawImage(im,px,py+labelH,cellW,cellH);}
     }
    }
