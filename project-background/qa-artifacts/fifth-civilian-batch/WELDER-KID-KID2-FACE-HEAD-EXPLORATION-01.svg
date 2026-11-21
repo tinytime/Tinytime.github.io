@@ -51,10 +51,10 @@
  <g class="ink">
   <path d="M19 55 Q14 25 39 16 Q63 8 83 29 Q92 48 83 78 Q72 96 51 96 Q27 91 19 70 Z"/>
   <path d="M18 58 Q12 27 39 13 Q64 2 86 27 L91 55 L78 47 L69 31 L55 44 L43 30 L30 55 Z" class="heavy"/>
-  <path d="M31 58 Q38 53 47 58 M62 58 Q71 53 78 58" class="heavy"/>
-  <path d="M34 65 Q39 63 44 65 M65 65 Q70 63 75 65" class="fine"/>
-  <path d="M54 62 L52 73 L57 75" />
-  <path d="M49 81 L55 79 L61 81" class="fine"/>
+  <path d="M31 54 Q39 47 47 53 M62 53 Q70 47 78 54" class="heavy"/>
+  <circle cx="40" cy="63" r="3.2" class="solid"/><circle cx="70" cy="63" r="3.2" class="solid"/>
+  <path d="M54 61 L52 72 L57 74" />
+  <ellipse cx="55" cy="81" rx="3.2" ry="4.2" class="solid"/>
   <path d="M23 67 Q18 71 26 78 M81 67 Q87 72 79 79" class="fine"/>
  </g>
  <text x="52" y="118" class="s" text-anchor="middle">Full cheek + round eyes</text>
@@ -63,10 +63,10 @@
  <g class="ink">
   <path d="M71 20 Q48 12 33 29 Q23 43 29 67 Q34 87 54 92 L68 85 L73 66 L86 58 L74 52 L76 35 Z"/>
   <path d="M70 18 Q48 4 31 24 L19 47 L33 43 L42 29 L53 39 L65 29 L78 37" class="heavy"/>
-  <path d="M31 52 L42 52" class="heavy"/>
+  <path d="M31 49 Q37 44 43 49" class="heavy"/>
   <path d="M29 57 L18 62 L28 67" />
-  <path d="M27 75 Q34 73 40 76" class="fine"/>
-  <circle cx="34" cy="45" r="3" class="solid"/>
+  <path d="M27 75 Q32 72 36 75" class="fine"/>
+  <circle cx="36" cy="45" r="3.2" class="solid"/>
  </g>
  <text x="48" y="118" class="s" text-anchor="middle">Forward fringe break</text>
 </g>
