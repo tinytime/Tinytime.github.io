@@ -1,3 +1,12 @@
+## F6 face geometry exploration 03 — source review checkpoint (2026-11-20)
+
+- **Current corrected source:** [face geometry exploration 03](SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-03.svg), blob `47a68413538a619dd4560c44dd2dcf3783cc6f9b`, commit `18b4ba3120ae2ab269ca14eca7585cf6aeea9f50`.
+- **Finding and correction:** a source-render inspection of the first layout exposed colliding panel headings and an overlong Slicker annotation clipped at the right edge. Panel labels now use a two-level character/view hierarchy and shorter descriptions. This is a presentation/layout correction; face geometry itself was not changed.
+- **Previous exact-source run:** [Run #833](https://github.com/tinytime/Tinytime.github.io/actions/runs/44840784870) tested pre-correction commit `f0553859714904974cf576f3737fc299680c3ed2`; it is not evidence for the corrected SVG. Its design-source and construction-detail capture steps passed, semantic validation passed, and global game-browser diagnostics failed. The artifact is not yet the final corrected-source evidence.
+- **Current disposition:** source-level layout correction implemented; exact corrected-source browser QA and visual inspection of matched crops/direct 28×42 evidence remain pending. No face-stage pass, Claude review, or owner face approval is claimed.
+
+---
+
 ## Fourth civilian batch — post-silhouette identity/construction cards 02 (2026-11-20)
 
 The owner-approved revision 21 silhouettes are now the fixed baseline for the next design stage. The three complete identity/construction cards are in [SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-CONSTRUCTION-CARDS-02.md).
