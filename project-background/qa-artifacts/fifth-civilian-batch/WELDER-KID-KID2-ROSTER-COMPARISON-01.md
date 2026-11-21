@@ -41,9 +41,22 @@ These are provisional geometry candidates drawn from the current renderer's face
 | Kid | Dancer, Vendor | Rounder eye openings, fuller cheek arc and small open curious mouth; avoid Dancer's worried brow/smile and Vendor's more mature grin |
 | Kid 2 | Clinic, Referee | Close-set eyes retained as the comparison anchor, but short level brows, tapered chin and asymmetric smirk replace Clinic's worried/neutral mouth and Referee's arched/open expression |
 
+## Matched-scale evidence outputs
+
+The dedicated Playwright evidence builder produces three separate native 64×96 matched silhouette sheets, one for each proposed character:
+- `roster-silhouette-comparison-welder-native-64x96.png`
+- `roster-silhouette-comparison-kid-native-64x96.png`
+- `roster-silhouette-comparison-kid2-native-64x96.png`
+
+Each sheet places the proposed silhouette beside the 15 existing designed roster civilians in all four directions. Existing roster silhouettes are captured from the current renderer and reduced to alpha silhouettes; the proposed designs are independently rasterized from their SVG source.
+
+The builder also produces `matched-face-comparisons-native-40x38.png` and `matched-face-comparisons-enlarged-3x.png`, with six matched rows (front and profile for each proposed character) and the two named face comparators per character. These are geometry studies, not automated similarity scores.
+
+Granny Volt is handled separately through her dedicated 100×140 renderer capture. She remains the craftsmanship benchmark, not a silhouette template, and is not forced into the 64×96 roster grid.
+
 ## Evidence boundary
 
-- This is a roster-wide design rationale, not a rendered matched-scale roster sheet.
-- The existing roster face crops and full-body silhouettes must be assembled at matched native scale from the current browser QA evidence before the concepts are presented for final owner silhouette approval.
+- The written roster matrix is design rationale; the matched-scale visual evidence is supplied by the outputs listed above.
+- The matched-scale roster silhouette and face sheets must be generated from the exact source commit and visually inspected before the concepts are presented for final owner silhouette approval.
 - Direct 28×42 game-scale captures must be independently rendered from the design source; enlarged or resized images do not substitute.
 - No family assignments are promoted. Welder, Kid and Kid 2 remain **UNASSIGNED**.
