@@ -5,9 +5,9 @@
 **Branch at source review:** `npc-granny-baseline-overhaul`  
 **Branch HEAD at source review:** `302a8a587d082b41e987abedf40bfc437990ed35`  
 **Exact face-study SVG:** `SAILOR-SLICKER-PAINTER-FACE-GEOMETRY-EXPLORATION-03.svg`  
-**SVG blob:** `3c5fdf964d76ee6bfc947299dfa151110847ba88`  
+**Corrected SVG blob:** `47a68413538a619dd4560c44dd2dcf3783cc6f9b`  
 **Approved outer baseline:** revision 21, SVG blob `02f7ffb3854a8bacdaf00ca6198ae411c3122602`  
-**Disposition:** source audit recorded; exact-source browser captures and manual visual inspection pending.
+**Disposition:** initial source-render review completed; layout defect corrected; corrected-source browser captures and manual face-scale inspection pending.
 
 ## Authority and scope
 
