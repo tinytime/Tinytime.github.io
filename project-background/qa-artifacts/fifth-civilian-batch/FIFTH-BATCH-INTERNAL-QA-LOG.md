@@ -1,21 +1,31 @@
-## Current design revision — exact-source rerender required
+## Current design revision — internal QA PASS, owner review pending
 
-**Current source commit:** `9e70682fd65606a05543cfc774d34a8cfa1e7e40`  
-**Current silhouette source blob:** `9d66d21fa2126568ccad8bc8ccc0575f45ee66eb`  
-**Face/head source blob:** `e3b5b58dbf8225f23453c8b097ef4c61343e4cd9`  
-**Evidence builder blob:** `7d1a8d9d11e9b7f0574d1d1114f2940e08257709`
+**Exact tested source commit:** `e3611fd918ca0b800a1d79616bd39357826f84b8`  
+**Current branch HEAD:** `57cff8e864dbee5ca240ac2a59f282bc04a7d39d` (documentation-only follow-up; Batch 5 art blobs are unchanged)  
+**Silhouette blob:** `5892e66018fed61ceb02c3b222738d14870ce524`  
+**Face/head blob:** `e3b5b58dbf8225f23453c8b097ef4c61343e4cd9`  
+**Design-card blob:** `7fef03ede5be76f08829ab57c0d740b5a377c300`  
+**Evidence-builder blob:** `98505716c117285dc7ef31c38adcac987931464b`
 
-The previous successful design-evidence capture was [Run #19](https://github.com/github.com/tinytime/Tinytime.github.io/actions/runs/44849382535), artifact `14683888322`, tested commit `5340d66ea9c83152d92e6b0a92d0fef9cc9a6df9`. It generated all 12 native 64×96 and 12 independently rendered direct 28×42 silhouette views, enlarged diagnostics, full-roster silhouette comparison sheets and matched 40×38 face comparisons. Manual inspection found no edge contacts and no disconnected black components in its connectivity report. The direct-scale silhouettes were legible and the full-roster comparisons showed distinct body/prop reads.
+### Run #22 — exact-source design evidence
 
-Manual review of Run #19 nevertheless identified two design-read refinements:
-- Welder's large front hose loop read like a ring rather than a cable route from torch to the body.
-- Kid 2's two-page open-book shape resembled spectacles at 4× diagnostic scale.
+- [GitHub Actions Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232)
+- [Artifact 14684738023](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232/artifacts/14684738023)
+- Dedicated design-evidence workflow: **PASS**.
+- Captures: 12 native 64×96 directional silhouettes, 12 independently rendered direct 28×42 silhouettes, 12 enlarged 4× diagnostics, six matched face crops and three full-roster silhouette comparison sheets.
+- Connectivity: all 24 native/direct silhouette views report exactly one connected black component and zero contacts with any frame edge.
+- Visual inspection: all four directions for Welder, Kid and Kid 2 were inspected at native, direct game scale and enlarged scale. The shortened Welder hose now reads as a compact connected cable rather than a loose ring; the torch/hand contact and rear cylinder are integrated. Kid's glider stays within the profile frame and remains visible on the intended near-side views. Kid 2's closed hardback is connected to both hands and its cover/spine/page-edge seams remain visible; the beanie clears the frame.
+- Full-roster comparison sheets cover the 15 existing designed civilians. Matched face rows compare Welder with Guard/Fisher, Kid with Dancer/Vendor, and Kid 2 with Clinic/Referee. The face/head study supplies distinct front/profile geometry for all three.
 
-Those two points have been revised in the current source: Welder's exposed hose segment is shortened to a compact connected curve; Kid 2 now holds a single closed hardback with a visible cover, spine and page-edge seam. The design card was updated to match. **Run #19 does not test these latest changes.** A fresh exact-source render and inspection is required before internal QA can pass.
+### Related full browser workflow
 
-The current evidence builder intentionally captures identity, silhouette, face and roster-comparison evidence only. A separate provisional full-colour render file exists in the branch, but it is **out of scope for this stage**, is not captured by this evidence run, and is not palette-approved or production art. Do not use it to infer palette approval.
+[Run #939](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849914254) also completed the fifth-batch design-projection step successfully. The overall browser workflow failed at existing global audio-resource HTTP 404 diagnostics; its `pageErrors` and `scriptErrors` arrays were empty. This global audio failure is separate from the successful focused Batch 5 design-evidence workflow.
 
-**Current disposition:** internal design QA remains open pending exact-source rerender and visual inspection. Construction-family assignments remain UNASSIGNED. No production renderer, golden snapshot or provenance change is authorized.
+### Disposition and boundaries
+
+**Internal design QA: PASS. Owner silhouette/construction approval: PENDING.** This package is ready for owner review of the three concepts together. All construction-family assignments remain **UNASSIGNED**.
+
+A separate provisional full-colour render SVG exists in the branch, but it is out of scope for this design stage, was not captured by Run #22, is not palette-approved and is not production art. No production renderer, town/gallery, golden snapshot or provenance change was made or authorized.
 
 # Fifth Civilian Batch — Internal QA Log
 
@@ -29,12 +39,12 @@ The source files are pinned by exact Git blob SHA:
 
 | Input | Path | Git blob SHA |
 |---|---|---|
-| Design cards | `project-background/qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md` | `aca33aed6b2bfb66c2d90e323bfbcfe68221782a` |
-| Four-view silhouette sheet | `project-background/qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg` | `8bc0b82833c6efd83a4f1fd3f9fe1a7955313843` |
+| Design cards | `project-background/qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md` | `7fef03ede5be76f08829ab57c0d740b5a377c300` |
+| Four-view silhouette sheet | `project-background/qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg` | `5892e66018fed61ceb02c3b222738d14870ce524` |
 | Face/head study | `project-background/qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg` | `e3b5b58dbf8225f23453c8b097ef4c61343e4cd9` |
-| Browser evidence builder | `qa/build-fifth-batch-design-evidence.mjs` | `c9e7fe44db8b2e12575c541d54e714b9710dacce` |
+| Browser evidence builder | `qa/build-fifth-batch-design-evidence.mjs` | `98505716c117285dc7ef31c38adcac987931464b` |
 
-The current branch HEAD before this QA-log update is `638f4c3a1d7aa6a39189f3da1b5959b8e908af57`. The next browser run must record its own exact tested commit in the generated manifest. The source SVGs are pinned in the capture script; a successful build against an earlier blob is not evidence for a later source revision.
+The exact tested artwork commit for Run #22 is `e3611fd918ca0b800a1d79616bd39357826f84b8`. Subsequent commits through current HEAD `57cff8e864dbee5ca240ac2a59f282bc04a7d39d` changed documentation only; the four Batch 5 source blobs above remain unchanged. The capture script pins the exact SVG blob IDs.
 
 ## Prior evidence and findings
 
