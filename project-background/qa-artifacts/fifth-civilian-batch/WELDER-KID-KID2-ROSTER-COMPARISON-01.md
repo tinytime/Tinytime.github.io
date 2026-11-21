@@ -1,7 +1,7 @@
 # Batch 5 — full current-roster comparison 01
 
 **Welder #15 · Kid #16 · Kid 2 #17**  
-**Status:** matched-scale design evidence completed in Run #22; internal QA PASS, owner silhouette/construction approval pending.
+**Status:** matched-scale design evidence completed in Run #22 and re-confirmed in Run #23; internal QA PASS, owner silhouette/construction approval pending.
 
 This comparison uses the current roster register and approved/active design descriptions. It does not pretend that unbuilt roster entries have finished vector art. The 15 existing designed civilians below are the relevant comparison set; unbuilt Mouse, Busker, Dancer, Broker and Fan remain future design prompts, not completed silhouette comparators.
 
@@ -52,7 +52,7 @@ Each sheet places the proposed silhouette beside the 15 existing designed roster
 
 The builder also produces `matched-face-comparisons-native-40x38.png` and `matched-face-comparisons-enlarged-3x.png`, with six matched rows (front and profile for each proposed character) and the two named face comparators per character. These are geometry studies, not automated similarity scores.
 
-Granny Volt remains the craftsmanship benchmark, not a silhouette or face template, and is not included in the 64×96 roster comparison grid.
+Run #23 re-ran the same exact silhouette/face source blobs at current branch HEAD; all 66 non-manifest artifact files match Run #22 byte-for-byte. Granny Volt remains the craftsmanship benchmark, not a silhouette or face template, and is not included in the 64×96 roster comparison grid.
 
 ## Evidence boundary
 

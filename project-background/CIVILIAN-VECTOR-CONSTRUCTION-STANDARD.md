@@ -1,6 +1,7 @@
-## Fifth civilian batch — design-stage authorization (2026-11-21)
+## Fifth civilian batch — design authorization and QA checkpoint (2026-11-21)
 
-The owner explicitly authorized identity, silhouette and construction design for Welder #15, Kid #16 and Kid 2 #17. This authorization does not modify the ratified construction standard or waive any required evidence. The initial cards and four-view black silhouette proposal are in [the fifth-batch design package](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md) and [silhouette exploration 01](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg). The concepts remain proposals pending internal QA and owner review. Keep current vector families UNASSIGNED until approval; no renderer or palette work is authorized.
+The owner authorized identity, silhouette and construction design for Welder #15, Kid #16 and Kid 2 #17. Exact-source design QA passed in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232/artifacts/14684738023), and was re-confirmed in [Run #23](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850175415), artifact [14684907505](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850175415/artifacts/14684907505). The two art-source blobs are unchanged between runs. All 24 native/direct captures are connected and in-frame. The matched roster sheets are prop-on; a separate body-only matched sheet has not been produced, so the prop-on evidence must not be represented as body-only proof. This does not modify or waive the ratified construction standard. Keep all three vector families UNASSIGNED until owner approval. No palette rendering, production renderer, gallery/town, golden snapshot or provenance work is authorized.
+
 
 ---
 

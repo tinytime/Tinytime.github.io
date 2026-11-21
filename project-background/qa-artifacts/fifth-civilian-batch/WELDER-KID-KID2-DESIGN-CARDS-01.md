@@ -48,7 +48,7 @@ A patient, meticulous repair specialist who pauses to inspect a join before comm
 ### Clothing / material logic
 - Main garment: short, split-front leather apron with a bib that narrows into a waist strap; the lower panels separate around the legs.
 - Underlayer: close-fitting work shirt with one reinforced shoulder and fitted trousers.
-- Secondary protection: one heavy glove and one forearm gauntlet; the near-side glove must not merge into the torch barrel.
+- Secondary protection: one heavy glove and one forearm gauntlet; the near-side glove intentionally overlaps the handle; preserve a readable grip contour rather than a floating tool.
 - Cylinder straps cross the upper back and terminate at a waist bracket; do not draw unsupported diagonal bands.
 - No decorative badges, sparks or colour coding are required for identity.
 
@@ -58,7 +58,7 @@ Soot charcoal and dark iron for the protective workwear, worn saddle-brown leath
 ### Prop, contact and handedness plan
 - **Torch:** character-right hand. Front view therefore places the torch on viewer-left; rear view places that hand on viewer-right. It is visible in the **left profile** (character-right side is near when facing left) and hidden in the right profile, where it is the far-side hand.
 - **Cylinder:** fixed to the back harness, centered just off the spine toward character-left to avoid a perfect mirror-balanced pack. It is visible on viewer-left in the rear view and at the rear edge in both profiles; in front it may only peek beyond the character-left shoulder. It is not a second handheld object.
-- **Hose:** regulator outlet to a short clipped route along character-right hip, then a controlled curve into the torch grip. No free loop crosses the leg gap or floats away from the hand.
+- **Hose:** front and rear views show a short clipped route along the belt/hip into the torch grip; both profiles intentionally hide the route behind the torso. No free loop crosses the leg gap and no loose line end is exposed.
 - **Near/far anatomy:** in profile, show one near arm and suppress the far arm unless a clear separate plane is necessary. The cylinder remains behind the torso silhouette and must not replace the far arm as an ambiguous limb.
 
 ### Proposed construction family — UNASSIGNED
@@ -190,7 +190,7 @@ Book page lines, scarf knit ribs, tiny coat buttons, pom thread, seam topstitchi
 
 ## Cross-character roster comparison
 
-The following comparisons are design hypotheses from the current roster register and face-construction source, not a completed matched-scale visual audit. The closest-face candidates named above must still be shown as native 64×96 matched crops and reviewed without palette/headwear influence.
+The three matched-scale prop-on roster sheets compare each proposal against the 15 existing designed civilians in all four directions. The six-row grayscale face-reference sheet provides contextual crops for the two named candidate faces per character; the written geometry comparisons exclude headwear/hair/palette. A separate body-only matched sheet has not been produced; the prop-on sheets are not body-only proof.
 
 | Existing roster contrast | Welder #15 | Kid #16 | Kid 2 #17 |
 |---|---|---|---|
@@ -210,6 +210,6 @@ The following comparisons are design hypotheses from the current roster register
 
 - This is a first-pass identity/construction proposal. The silhouette SVG is a four-view black-only exploration, not production renderer geometry.
 - Face proposals are geometric directions for later integrated grayscale studies. No production facial renderer changes are included.
-- Exact native 64×96 and independently rendered direct 28×42 captures, full roster matched silhouette crops, closest-face matched crops, anatomy/prop connectivity checks and visual review remain required before owner approval.
-- No palette, production renderer, gallery/town integration, golden snapshot or provenance work is authorized by this package.
+- Exact-source native 64×96 and independently rendered direct 28×42 captures, enlarged details, prop-on roster comparisons, face-reference crops, connectivity diagnostics and manual visual inspection passed in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232) and were re-confirmed in [Run #23](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850175415). Body-only matched comparison remains an open review limitation; owner silhouette/construction review is still required.
+- The full-colour draft SVG in the repository is held, unapproved and excluded from the evidence builder. No palette rendering/approval, production renderer, gallery/town integration, golden snapshot or provenance work is authorized by this package.
 - The next design review should challenge the three concepts together, with special attention to Welder's cylinder/hose support, Kid's glider grip and Kid 2's two-hand book contact.

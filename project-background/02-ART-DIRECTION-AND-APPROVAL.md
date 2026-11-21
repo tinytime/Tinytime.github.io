@@ -1,6 +1,9 @@
-## Fifth civilian batch — explicit owner release (2026-11-21)
+## Fifth civilian batch — explicit owner release and design QA (2026-11-21)
 
-The owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for the identity, silhouette and construction design stage. This release is separate from the fourth-batch work proceeding in another chat. The initial concepts and four-view black silhouettes are proposals, not approval. Submit the three concepts together for internal review and owner silhouette/construction decision. Preserve the roster-family register as UNASSIGNED until that decision. Do not begin palette rendering, production renderer implementation, gallery/town placement, golden snapshot/provenance changes, or the next batch.
+The owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for identity, silhouette and construction design only. The three concepts remain proposals, not approval. Exact-source internal design QA passed in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232/artifacts/14684738023), and was re-confirmed at current branch HEAD in [Run #23](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850175415), artifact [14684907505](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850175415/artifacts/14684907505). Both runs use the same two art-source blobs. Owner silhouette/construction approval remains pending; family assignments remain UNASSIGNED.
+
+**Still not authorized:** palette rendering or approval, production renderer/code integration, live town/gallery placement, golden snapshot/provenance changes, or work on Mouse #18 and later characters.
+
 
 ---
 

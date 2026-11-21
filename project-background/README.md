@@ -31,9 +31,12 @@ No production renderer, npc_sprites.js, live town/gallery integration, golden sn
 
 ---
 
-## Fifth civilian batch — owner release and design work opened (2026-11-21)
+## Fifth civilian batch — owner release and design QA disposition (2026-11-21)
 
-The owner explicitly released Welder #15, Kid #16 and Kid 2 #17 for identity, silhouette and construction design. The fourth batch is being handled in a separate workstream. Batch 5 design cards 01, four-view black silhouette exploration 01 and face/head construction exploration 01 are now authored under [fifth-civilian-batch](qa-artifacts/fifth-civilian-batch/). They are proposals only and await internal QA and owner review. Proposed family descriptors are not assignments; all three current vector families remain UNASSIGNED. No palette, production renderer, town/gallery, golden snapshot or provenance work is included. Do not begin Mouse #18 or later characters.
+The owner released Welder #15, Kid #16 and Kid 2 #17 for identity, silhouette and construction design. The package contains [design cards](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-DESIGN-CARDS-01.md), [four-view black silhouettes](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-SILHOUETTE-EXPLORATION-01.svg), [face/head studies](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-FACE-HEAD-EXPLORATION-01.svg), [matched roster comparison](qa-artifacts/fifth-civilian-batch/WELDER-KID-KID2-ROSTER-COMPARISON-01.md) and [internal QA log](qa-artifacts/fifth-civilian-batch/FIFTH-BATCH-INTERNAL-QA-LOG.md).
+
+Exact-source internal design QA passed in [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232), artifact [14684738023](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232/artifacts/14684738023), and was re-confirmed at current branch HEAD in [Run #23](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850175415), artifact [14684907505](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850175415/artifacts/14684907505). Both runs pin the same silhouette and face/head SVG blobs. Internal QA is PASS; owner silhouette/construction approval remains pending. All three vector-family assignments remain UNASSIGNED. The separate provisional full-colour SVG is out of scope, uncaptured and unapproved. No production renderer, palette approval, town/gallery, golden snapshot or provenance changes.
+
 
 ---
 

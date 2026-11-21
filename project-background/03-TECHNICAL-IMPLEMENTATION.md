@@ -20,9 +20,14 @@ The colour study is a separate non-production SVG; it does not alter npc_sprites
 
 ---
 
-## Fifth civilian batch — non-production design evidence capture (2026-11-21)
+## Fifth civilian batch — isolated non-production design evidence capture (2026-11-21)
 
-A dedicated Playwright evidence builder, `qa/build-fifth-batch-design-evidence.mjs`, captures the authored Welder/Kid/Kid 2 silhouette and face/head SVG proposals without changing `npc_sprites.js` or any production renderer. The browser QA workflow now watches `project-background/qa-artifacts/fifth-civilian-batch/**` and runs this capture step before the existing checks. It verifies exact source Git blob IDs and emits native 64×96 and independently rendered direct 28×42 vector projections, enlarged diagnostics, contact sheets, face/head sheet captures and a manifest under `qa-output/fifth-batch-design/`. These are design-source projections, not production renderer captures or approval evidence. Golden snapshots and provenance remain outside this task.
+The Playwright builder `qa/build-fifth-batch-design-evidence.mjs` captures the authored Welder/Kid/Kid 2 silhouette and face/head SVG proposals without changing `npc_sprites.js` or any production renderer. The dedicated isolated workflow is [`.github/workflows/fifth-civilian-batch-design-evidence.yml`](../.github/workflows/fifth-civilian-batch-design-evidence.yml); it has its own concurrency group so fourth-batch updates do not cancel its evidence run. The broader browser QA workflow also invokes the builder, but its global audio-resource diagnostics are a separate gate.
+
+The builder verifies exact source Git blob IDs and emits 12 native 64×96 vector projections, 12 independently rendered direct 28×42 projections (not resized from native), 12 enlarged diagnostics, the four-view sheet, face/head sheet, three matched four-direction prop-on roster silhouette sheets against 15 existing designed civilians, six grayscale 40×38 face-reference rows, and a JSON manifest/connectivity report under `qa-output/fifth-batch-design/`. [Run #22](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849832232) produced the manually inspected image set; [Run #23](https://github.com/tinytime/Tinytime.github.io/actions/runs/44850175415) re-ran the same art-source blobs at current branch HEAD. All 24 native/direct views report one connected component and zero frame-edge contacts.
+
+The provisional full-colour SVG is deliberately excluded from the builder; the manifest records `colourRenderCaptured:false` and `paletteApproved:false`. These are design-source projections, not production renderer captures or approval evidence. The roster sheets are prop-on; a separate body-only matched sheet has not been produced and remains a documented review limitation. Golden snapshots and provenance remain outside this task.
+
 
 ---
 
