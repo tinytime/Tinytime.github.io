@@ -1,0 +1,31 @@
+name: Fourth Batch Colour Study
+on:
+  push:
+    branches:
+      - npc-granny-baseline-overhaul
+    paths:
+      - 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-01.svg'
+      - 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-SILHOUETTE-EXPLORATION-21.svg'
+      - 'project-background/qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-INTEGRATED-FACE-OVERLAYS-01.svg'
+      - 'qa/build-fourth-batch-colour-evidence.mjs'
+  workflow_dispatch:
+jobs:
+  colour-study:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Capture exact-source colour study
+        run: node qa/build-fourth-batch-colour-evidence.mjs
+      - name: Upload design evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: fourth-batch-colour-study
+          path: qa-output/fourth-batch-colour-study/
+          if-no-files-found: error
