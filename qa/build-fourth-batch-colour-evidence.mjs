@@ -17,7 +17,7 @@ const face=fs.readFileSync(facePath,'utf8');
 const study=fs.readFileSync(studyPath,'utf8');
 const blob=s=>crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+Buffer.byteLength(s)+'\0'),Buffer.from(s)])).digest('hex');
 const expectedBase='36f645d7de9ee5bedc79a0288c50bc8399382f4b';
-const expectedFace='59c71c823c2b42cd1ea039f724d32d0a97e6dcc37';
+const expectedFace='59c71c823c2b42cd1ea039f724fce0c05e6dcc37';
 if(blob(base)!==expectedBase)throw new Error('Protected revision-21 silhouette source mismatch: '+blob(base));
 if(blob(face)!==expectedFace)throw new Error('Integrated grayscale face source mismatch: '+blob(face));
 const basePaths=[...base.matchAll(/<path\\b[^>]*d="([^"]+)"/g)].map(m=>m[1]);
