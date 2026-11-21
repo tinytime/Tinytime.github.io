@@ -32,11 +32,11 @@ try{
    const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=true;ctx.drawImage(img,0,0,w,h);return c.toDataURL('image/png');
   };
   const data=[];
-  for(const p of people)for(const d of directions)data.push({key:p.id+'-'+d,label:p.label+' / '+d.toUpperCase(),native:await render(xByDirection[d],p.y,64,96),direct:await render(xByDirection[d],p.y,28,42)});
+  for(const p of people)for(const d of directions)data.push({key:p.id+'-'+d,label:p.id[0].toUpperCase()+'-'+d[0].toUpperCase(),native:await render(xByDirection[d],p.y,64,96),direct:await render(xByDirection[d],p.y,28,42)});
   const sheet=async(scale)=>{
    const w=scale==='native'?64:28,h=scale==='native'?96:42,g=12,lh=18,cols=3,c=document.createElement('canvas');
-   c.width=g+cols*(w+g);c.height=g+3*(h+lh+g);const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);
-   for(let i=0;i<data.length;i++){const p=data[i],im=new Image();im.src=p[scale];await im.decode();const px=g+(i%3)*(w+g),py=g+Math.floor(i/3)*(h+lh+g);x.fillStyle='#fff';x.font='bold 9px sans-serif';x.fillText(p.label,px,py+11);x.drawImage(im,px,py+lh,w,h);}
+   c.width=g+cols*(w+g);c.height=g+3*(h+lh+g)+14;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#777982';x.fillRect(0,0,c.width,c.height);x.fillStyle='#fff';x.font='bold 7px sans-serif';x.fillText('S=Sailor K=Slicker P=Painter',g,9);
+   for(let i=0;i<data.length;i++){const p=data[i],im=new Image();im.src=p[scale];await im.decode();const px=g+(i%3)*(w+g),py=g+14+Math.floor(i/3)*(h+lh+g);x.fillStyle='#fff';x.font='bold 9px sans-serif';x.fillText(p.label,px,py+11);x.drawImage(im,px,py+lh,w,h);}
    return c.toDataURL('image/png');
   };
   return {data,nativeSheet:await sheet('native'),directSheet:await sheet('direct')};
