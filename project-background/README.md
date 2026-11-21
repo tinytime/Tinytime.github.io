@@ -1,3 +1,8 @@
+## Fourth civilian batch — material finish study 03 in QA (2026-11-21)
+
+Colour study 02 passed exact-source design capture in [Run #16](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849782903), artifact [14684742181](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849782903/artifacts/14684742181): all 108 protected silhouette paths, 18 face overlays (including prop-on views), and 3 character-specific prop-face skin rules were validated across 24 panels at native 64×96, direct 28×42 and enlarged 4×. Manual inspection confirmed the prop-on face correction. Study 03 adds character-specific material value gradients and is now undergoing exact-source QA. No production renderer, game scenes, golden snapshots or provenance have been changed.
+
+---
 ## Fourth civilian batch — corrected colour study 02 in QA (2026-11-21)
 
 Colour study 01 was captured in [Run #7](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849078081), artifact [14684716336](https://github.com/tinytime/Tinytime.github.io/actions/runs/44849078081/artifacts/14684716336). The capture verified all 108 revision-21 silhouette paths and generated 24 panels at native 64×96, independently rasterized direct 28×42 and enlarged 4× scales. Manual inspection found that prop-on diagnostic panels omitted the approved face overlays. The issue is corrected in [colour study 02](qa-artifacts/fourth-civilian-batch/SAILOR-SLICKER-PAINTER-COLOUR-STUDY-02.svg); the harness now checks all 18 body/prop face placements. Exact-source capture and manual review of study 02 are pending. No approved geometry, production renderer, game scenes, golden snapshots or provenance have been changed.
