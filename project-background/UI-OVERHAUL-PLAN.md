@@ -5,7 +5,7 @@
 - Working branch: `UI-Overhaul`
 - Baseline: current `main` at the time this branch was created
 - UI handoff source: `Circuit Football — UI Overhaul Handoff Spec.docx` (14 pages; supplied in the project conversation)
-- Implementation status: audit and branch setup only; no UI redesign code has been changed yet
+- Implementation status: Stage 1 foundation is implemented (shared design tokens and first Overworld HUD matte treatment); remaining screens are not yet redesigned
 - Owner approval: pending
 
 ## Source-of-truth rules
@@ -74,6 +74,13 @@
 - The ZIP's `index.html` Git blob SHA is `769a284d91013e324d96765b7a46dbdff5f76f30`, matching the blob currently present on `main`. This confirms that the main-branch HTML is byte-for-byte identical to the ZIP's HTML.
 - The current `main` tree does not contain `audio/` or `models/`, while the HTML references those relative paths (for example, `audio/mus_r2.b935fef0.mp3`). These runtime dependencies must be restored to the branch before complete audio/model QA or deployment.
 - The repository's recent Actions history is dominated by the separate NPC workstream. The latest observed browser QA run (#965) failed on commit `840bb23c3874eafc6000b2d39c71dbc17ba83388`; it is not a UI-overhaul validation and must not be treated as a result for this branch.
+
+## Current implementation checkpoint
+
+- Stage 1 foundation exists in `ui-overhaul.css`, linked from `index.html`.
+- Added shared semantic tokens and restrained matte styling for the Overworld town/progress pill, MENU control, and contextual A-button ring. Existing DOM IDs and pointer handlers were retained.
+- The branch history records static JavaScript syntax validation for all five inline script blocks. I independently re-ran `node --check` against all five non-empty inline script blocks in the supplied ZIP HTML; all passed. This validates script syntax only, not browser behavior or visual quality.
+- No browser render or visual approval has been completed.
 
 ## Work sequence
 
