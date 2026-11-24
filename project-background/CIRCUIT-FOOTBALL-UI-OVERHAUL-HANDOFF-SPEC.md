@@ -14,7 +14,7 @@
 
 ## 1. Overworld HUD (Portrait) (pages 2)
 
-- Wrap top-left TOWN NAME · CLEARED · UPG 15 and top-right MENU in translucent `#131620` pills (`rgba(19,22,32,.85))) so text does not collide with signs/NPCs.
+- Wrap top-left TOWN NAME · CLEARED · UPG 15 and top-right MENU in translucent `#131620` pills (`rgba(19,22,32,.85)) so text does not collide with signs/NPCs.
 - Pin compact GOAL: <current town objective> directly beneath town pill.
 - Dynamically update a small sub-label inside the A button (TALK, ENTER, FISH, PLAY) when an interactable is in range.
 
