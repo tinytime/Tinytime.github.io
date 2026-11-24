@@ -1189,3 +1189,6 @@ body.land #bTurbo::before{content:none!important}
   border:1px solid rgba(77,225,242,.55)!important;
   box-shadow:0 6px 20px rgba(0,0,0,.32)!important;
 }
+
+/* Keep the first-to target outside the scoreboard card and clear of the round EXIT action. */
+body.land #hud #tgtTag{left:calc(min(600px,68%) + 10px)!important;top:calc(env(safe-area-inset-top,0px) + 14px)!important}
