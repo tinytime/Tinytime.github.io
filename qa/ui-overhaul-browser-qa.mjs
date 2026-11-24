@@ -67,10 +67,13 @@ try{
  for(const id of ['mMus','mSfx','mVol','mHap','mCam','mLT','mReset'])check('Settings control visible: '+id,await page.locator('#'+id).count()===1&&await page.locator('#'+id).isVisible());
  check('Resolution segmented control visible',await page.locator('.ui-resolution-group').isVisible()&&await page.locator('.ui-resolution-group button').count()===4);
  const originalResolution=(await page.locator('#mRS').textContent())?.trim();
- await page.locator('.ui-resolution-group button[data-value="MEDIUM"]').click();
+ const resolutionButtons=await page.locator('.ui-resolution-group button').evaluateAll(buttons=>buttons.map(b=>({text:b.textContent.trim(),value:b.dataset.value,pressed:b.getAttribute('aria-pressed')})));
+ check('Resolution options are LOW / MED / HIGH / SHARP', ['LOW','MED','HIGH','SHARP'].every(label=>resolutionButtons.some(b=>b.text===label)), resolutionButtons);
+ await page.locator('.ui-resolution-group button').filter({hasText:'MED'}).click();
  check('Resolution selection updates original setting', (await page.locator('#mRS').textContent())?.includes('MEDIUM'));
  const restoreResolution=originalResolution?.match(/RESOLUTION:\s*(.+)/i)?.[1]?.trim().toUpperCase()||'HIGH';
- await page.locator('.ui-resolution-group button[data-value="'+restoreResolution+'"]').click();
+ const restoreLabel=restoreResolution==='MEDIUM'?'MED':restoreResolution;
+ await page.locator('.ui-resolution-group button').filter({hasText:restoreLabel}).click();
  check('Resolution selection restores original setting',(await page.locator('#mRS').textContent())?.trim()===originalResolution);
  await page.locator('#mReset').click();
  check('Reset confirmation modal opens',await page.locator('.ui-menu-modal-backdrop').isVisible());
