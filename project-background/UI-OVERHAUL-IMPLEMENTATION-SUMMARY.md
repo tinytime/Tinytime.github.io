@@ -1139,3 +1139,24 @@ Run #251 tested `b5de0791448cd06b73be78881d1d54f4c11f2959` and stopped in the pr
 ### Run #252 — field renderer advances; vector celebration path required (2026-11-24)
 
 Run #252 tested `95396692ebed114cebbf9fd21da8748ef888163a`: **185/186 checks passed**. The renderer hook executed 45 field frames, the post-game HUD stayed visually hidden while the renderer gate remained active, and the practice note/reward-card spacing passed. The only failed assertion was the celebration pose: the default match renderer uses the baked 2D vector sprites, whose art path did not consume `p.celeb`; the optional 3D renderer frame count alone was not proof of a visible pose. The next correction adds a cached raised-arm SVG variant to the default vector player art, passes the celebration flag into the sprite renderer, and verifies that the actual 2D celebration sprite was drawn (or the 3D path was used). Pending Run #253. No golden snapshots changed.
+
+
+### Round 3 polish — implementation and Run #256 verification (2026-11-24)
+
+**Implemented on `UI-Overhaul`:** the five Round 3 items are recorded together with the two additional handoff-fidelity corrections:
+- In-match Playbook now uses four cards per row at the tested 844px landscape viewport (five at wider landscape widths), wraps titles, and reduces title size to 12px so play names remain legible.
+- Selected-card fill is neutral navy; the route canvas is grayscale/monochrome so the route art no longer uses the legacy brown/gold palette. Gold remains reserved for the selected-card border and secondary controls.
+- Defense Simulation fades/hides the prior field banner and delays the `THEIR DRIVE · BALANCED` pill entrance by 170ms.
+- Practice-win reveal reinforces the raised-arm celebration state for all seven visible field players through the reveal. QA now audits every visible player rather than only counting players with a celebration flag.
+- Pre-game matchup adds a clearer diagonal stadium-light beam and a visible floodlight bank while retaining the two solid `#131620` team badge cards and town skyline treatment.
+
+**Commits (in order):**
+- CSS and matchup/Playbook polish: `e6b5fa35251ca0890cdbccc5c25502e92834db1c`
+- Practice-win squad celebration: `17413cdd090b91e4c61e28bd708cf27d774991fa`
+- Expanded browser assertions: `a814d3b80de94e44f5161abd0004e1fbab790c6e` (current tested HEAD)
+
+**Browser QA:** [Run #256](https://github.com/tinytime/Tinytime.github.io/actions/runs/45496316858) completed **SUCCESS — 190/190 checks passed, 0 failures** against exact HEAD `a814d3b80de94e44f5161abd0004e1fbab790c6e`. The five new/expanded assertions all passed: pre-game floodlight/beam, four-to-five-column Playbook with fitting titles, neutral route artwork, prior-banner/drive-pill transition, and all-seven-player celebration audit. The run reports zero page exceptions, console errors, and same-origin HTTP failures.
+
+**Evidence:** [Run #256 artifact — ui-overhaul-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/45496316858/artifacts/14967729271), 8,650,180 bytes, 37 PNG screenshots plus QA report/diagnostics; retained through 2026-12-08. The artifact is uploaded and available for download. Screenshot images have not yet been visually inspected in this session because local data-analysis access is temporarily unavailable; therefore this is automated QA evidence, not visual approval.
+
+**Stage One status:** implementation and automated browser QA updated; internal visual inspection of the new artifact, Claude review where required, and owner approval remain pending. Stage Two remains on hold. No golden snapshots or snapshot provenance were changed.
