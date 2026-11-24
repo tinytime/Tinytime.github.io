@@ -145,7 +145,7 @@
     status.textContent=clean||'VAPOR CITY';upg.textContent='UPG '+(match?match[1]:'0');
     const api=window.SG,map=api&&typeof api.M==='function'?api.M():null;
     const town=owTown.textContent.trim()||(map&&(map.harbor||map.hb?'HALE HARBOR':map.island||map.r2?"GULL'S REACH":map.route?'THE SPILLWAY':'VAPOR CITY'))||'VAPOR CITY';
-    owTown.textContent=town;
+    if(owTown.textContent.trim()!==town)owTown.textContent=town;
     goalCopy.textContent=map&&map.route?'Follow the Spillway to Hale Harbor.':map&&(map.harbor||map.hb)?'Take on the harbor crews and keep the Circuit moving.':map&&(map.island||map.r2)?"Explore Gull's Reach and complete its challenges.":'Beat the three street crews, then take on the Netrunners.';
    };
    syncOverworld();
