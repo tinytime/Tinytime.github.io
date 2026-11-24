@@ -284,3 +284,58 @@ On resume, poll Runs #15 and #16, inspect exact job logs and artifacts, then ins
 ### Documentation-only follow-up
 
 The status notes above were recorded in three sequential documentation commits: summary ac0e4298c420696323d4918233971ee0aefd8b39, workstream README a05c5317c1ed2a216197c62654483177dfecf3f1, and plan 02e447b4cdce53b437db56567c85fe5870906464. The verified current branch HEAD is now 02e447b4cdce53b437db56567c85fe5870906464; these commits only update documentation. The QA harness/code commit awaiting browser evidence remains 1c57d2457b468a266d410984c2fe0898574f5baa.
+
+
+
+## Latest verified UI-menu QA and visual checkpoint — 2026-11-24 14:57Z
+
+**Current verified branch HEAD:** `d4c1952a45f467a891f1341c2f0597fde812869c` — “Align resolution browser checks with LOW MED HIGH design”.
+
+**Latest relevant browser run:** [Run #37 / 45419632794](https://github.com/tinytime/Tinytime.github.io/actions/runs/45419632794), testing the exact HEAD above, completed **SUCCESS**. The Playwright report is **50/50 checks passed, zero failures**. Artifact [14932584439](https://github.com/tinytime/Tinytime.github.io/actions/runs/45419632794/artifacts/14932584439) contains the report, startup diagnostics and 13 PNG screenshots.
+
+### What the passing run actually verified
+
+- The real game starts in the overworld; `#owMenu` is visible and is clicked once without force-clicking or bypassing visibility.
+- The menu visibly opens and the menu module initializes.
+- All seven primary controls remain present.
+- Current objective is populated and MENU is selected by default.
+- Playbook opens, renders all nine plays, RUN filtering works, and its Back control returns to MENU.
+- MENU / SETTINGS / CREDITS tabs render and keyboard left/right tab navigation works.
+- Settings controls are present; LOW / MED / HIGH resolution segments work and update the original native setting, then restore the starting HIGH state.
+- Music toggle changes and restores state; volume input accepts a changed value.
+- Reset confirmation opens and can be cancelled without resetting progress.
+- Credits categories are present; build footer remains; five taps open and close the developer drawer and its three developer controls remain available.
+- Both runtime asset probes succeeded: one audio file returned HTTP 200 (266,467 bytes) and one model file returned HTTP 200 (254,312 bytes).
+- Portrait (390×844) and landscape (844×390) menu widths fit the viewport; tabs and sticky BACK TO TOWN remain visible.
+- BACK TO TOWN returns to the overworld; the MENU control is visible and reopens the menu.
+- No same-origin HTTP errors and no uncaught page exceptions.
+
+### Visual inspection performed
+
+I retrieved and inspected the actual Run #37 screenshots, including desktop and portrait MENU, desktop and portrait SETTINGS, desktop and portrait CREDITS/developer drawer, desktop Playbook, landscape MENU, and the overworld after returning to town.
+
+- The earlier stray `nullnull` labels are gone. The run's `menu-null-text-diagnostics.json` is empty.
+- MENU hierarchy and action grouping are consistent across desktop and portrait. The primary actions, support actions, current-goal card and sticky town return are visually legible.
+- SETTINGS is coherent in portrait and desktop; the three-option LOW / MED / HIGH segmented resolution selector is visible and functional.
+- Playbook shows all nine plays in a two-column desktop catalog with single-line category filters.
+- Credits and developer tools render, but the long credits and developer drawer occupy a tall scrollable panel. Continue checking small-screen scroll affordance and clipping during the broader UI review; this screenshot set does not constitute approval of every screen in the seven-part handoff.
+- Landscape at 844×390 is width-safe and keeps the sticky return action visible; the content area is necessarily short and scrollable.
+
+### Resolution implementation/test correction
+
+The menu source and QA history briefly diverged: a delayed installer had a malformed resolution-label matcher, and the browser test expected four options even though the active design is LOW / MED / HIGH. The implementation now parses the native label correctly, maps the game's SHARP native state to the HIGH presentation segment, and the QA assertion reflects the three visible design options. Run #37 proves the segment changes the native setting to MEDIUM and restores HIGH.
+
+### Workstream status and approval gate
+
+- **Implemented:** Stage 1 foundation, Overworld HUD styling, Stage 2 tabbed Overworld menu, Settings/Credits panels, reset confirmation, developer drawer, Playbook catalog and segmented resolution presentation.
+- **Automated-tested:** the exact Run #37 HEAD, 50/50 checks.
+- **Visually inspected:** the screenshots listed above; no stray null labels or viewport-width overflow observed in the inspected menu screens.
+- **Not yet independently reviewed:** Claude review has not occurred.
+- **Not owner-approved:** owner review of the menu direction is still required.
+- **Not yet started:** MY TEAM / MY SQUAD and the remaining later handoff screen groups. Do not begin those until the owner reviews and approves this menu direction.
+
+No changes were made to `main`, the Vapor City civilian-vector workstream, gameplay rules, progression, save data, or golden snapshots in this QA/diagnostic work.
+
+### Immediate next step
+
+Present the current MENU / SETTINGS / CREDITS / PLAYBOOK implementation and the Run #37 screenshots for owner review. After explicit approval, proceed to the next handoff stage (MY TEAM / MY SQUAD) and build its UI without replacing its underlying game systems.
