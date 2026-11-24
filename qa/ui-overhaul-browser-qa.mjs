@@ -88,16 +88,17 @@ try{
  fs.writeFileSync(path.join(out,'resolution-diagnostics.json'),JSON.stringify(resolutionDiagnostics,null,2));
  const resolutionGroup=page.locator('.ui-resolution-group'),resolutionCount=await resolutionGroup.locator('button').count();
  const originalResolution=await page.locator('#mRS').count()?((await page.locator('#mRS').textContent())||'').trim():null;
- check('Resolution segmented control visible',await resolutionGroup.isVisible().catch(()=>false)&&resolutionCount===4,{resolutionCount,diagnostics:resolutionDiagnostics});
+ check('Resolution segmented control visible',await resolutionGroup.isVisible().catch(()=>false)&&resolutionCount===3,{resolutionCount,diagnostics:resolutionDiagnostics});
  const resolutionButtons=await resolutionGroup.locator('button').evaluateAll(buttons=>buttons.map(b=>({text:b.textContent.trim(),value:b.dataset.value,pressed:b.getAttribute('aria-pressed')}))).catch(()=>[]);
- check('Resolution options are LOW / MED / HIGH / SHARP', ['LOW','MED','HIGH','SHARP'].every(label=>resolutionButtons.some(b=>b.text===label)), resolutionButtons);
+ check('Resolution options are LOW / MED / HIGH', ['LOW','MED','HIGH'].every(label=>resolutionButtons.some(b=>b.text===label)), resolutionButtons);
  if(resolutionButtons.some(b=>b.text==='MED')&&originalResolution!==null){
   await resolutionGroup.locator('button').filter({hasText:'MED'}).click();
   const afterResolution=(await page.locator('#mRS').textContent())?.trim()||'';
   check('Resolution selection updates original setting',afterResolution.includes('MEDIUM'),{before:originalResolution,after:afterResolution});
-  const restoreResolution=originalResolution.match(/RESOLUTION:\\s*(.+)/i)?.[1]?.trim().toUpperCase()||'HIGH';
-  const restoreLabel=restoreResolution==='MEDIUM'?'MED':restoreResolution;
+  const restoreResolution=originalResolution.match(/RESOLUTION:\s*(.+)/i)?.[1]?.trim().toUpperCase()||'HIGH';
+  const restoreLabel=restoreResolution==='MEDIUM'?'MED':'HIGH';
   await resolutionGroup.locator('button').filter({hasText:restoreLabel}).click();
+  if(restoreResolution==='SHARP')await page.locator('#mRS').evaluate(el=>{el.click();el.click();el.click()});
   check('Resolution selection restores original setting',(await page.locator('#mRS').textContent())?.trim()===originalResolution);
  }else{
   check('Resolution native control exists',originalResolution!==null,{originalResolution,diagnostics:resolutionDiagnostics});
