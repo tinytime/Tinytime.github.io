@@ -158,3 +158,8 @@ Do not include unchanged pre-snap, live-play, fumble, defense-simulation or achi
 **Outstanding source-vs-implementation questions to score separately:** stylized split pre-game background vs blurred town-specific mockup; separate FIRST TO pill vs integrated scoreboard field (without changing actual match target); open receiver state not shown in the current live screenshot; win-state post-game rewards not covered by the current loss screenshot.
 
 Fresh Actions evidence is mandatory. The new assertions are test definitions, not passed checks. Run #204 is pre-correction and must not be used to approve the changes. Claude should score visual fidelity against the actual DOCX mockups and flag regressions, but owner approval remains required for Stage One in totality.
+
+
+### Credits screen delta
+
+Add portrait-credits.png and desktop-credits.png to the changed-asset delta only if the fresh artifact confirms the expanded source attributions render without clipping and the pinned BACK TO TOWN action remains accessible. The original page 7 mockup visibly lists named contributors/sources in each of the three cyan-framed cards; the prior collapsed disclosure treatment was not faithful. Current implementation opens all three attributions by default. Fresh screenshot validation is pending.
