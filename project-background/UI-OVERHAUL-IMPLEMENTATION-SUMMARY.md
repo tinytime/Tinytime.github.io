@@ -946,3 +946,25 @@ The earlier full mockup comparison recorded these separate visual/evidence gaps;
 - The post-game QA path currently exercises a loss result; add deterministic win/practice evidence if the reward card and mode pill still need certification.
 
 **Approval state:** Round Two polish is implemented in source and statically represented in the browser harness; fresh Run #225 execution/artifact inspection is unverified. Stage One independent review of the complete current output and explicit owner approval remain required. Stage Two MY TEAM / MY SQUAD remains on hold. Golden snapshots remain untouched.
+
+
+## Run #225 result and corrective follow-up (2026-11-24)
+
+**Run #225 verified:** [GitHub Actions run #225](https://github.com/tinytime/Tinytime.github.io/actions/runs/45472123999), run ID `45472123999`, tested exact commit `c2b024195643ce143d411a19e05381b82c23d781`. Conclusion: **failure**. The browser QA report contained 164 checks, with 3 failures; no page exceptions, console errors, or same-origin HTTP failures.
+
+### Passed targeted Round Two checks
+
+The run explicitly passed the six targeted polish assertions: Overworld header spacing; in-match Playbook clearance; pre-game matchup badge treatment and cyan TAP TO PLAY; Defense Selection possession headline; post-game portrait thumb-zone actions; and scoreboard target/pause-control separation. The post-game screen and portrait fit assertions also passed.
+
+### Three failures diagnosed from report and screenshots
+
+1. **Menu brand centering:** measured center x=710 in a 1440px viewport, 10px left of true center. The header grid allocated unequal 40px / 60px side columns.
+2. **Menu tile accents:** later broad neutral-border rules overrode the semantic tile colors. The captured colors were neutral / cyan / neutral / gold, instead of gold UPGRADES plus cyan MY TEAM, PLAYBOOK and GOALS & STATS.
+3. **Team Stats skill cells:** the screenshot showed Skill Moves as a single inline text row, not three separate cells. The enhancement script targeted `#goalsP` while the rendered stats panel is `#ui-goals-panel-stats`, so the helper did not find the target panel.
+
+### Corrective commits pushed
+
+- `4b4eef4a94300408699ebddee177fbda125cf5eb` — balanced the menu header side columns at 60px each; restored the gold/cyan semantic tile border colors after later neutral rules; added explicit three-cell Skill Moves presentation styles to the rendered stats panel.
+- `6d1c6cfaa7876a5370fb536a13b16a4596d46a88` — changed the Team Stats enhancement target to prefer `#ui-goals-panel-stats`, with `#goalsP` fallback, so the skill-move cells are generated in the actual rendered panel.
+
+These commits should trigger the next push-based Browser QA run (expected Run #226). **Do not mark Run #225 passed**; it failed on the three assertions above. Inspect the next run's report and screenshots to confirm all three corrections, then continue the full Stage One review. No golden snapshots were modified.
