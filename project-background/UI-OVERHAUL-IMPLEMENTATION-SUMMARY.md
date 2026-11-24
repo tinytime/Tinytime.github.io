@@ -549,3 +549,22 @@ The current screenshot inventory is: startup diagnostics; desktop menu and playb
 4. Reassess the stage-one target of 6.5+/10. Claude review and owner approval remain outstanding. Do not start MY TEAM / MY SQUAD or call the direction approved until the owner explicitly approves it.
 
 **Current status:** art-direction corrections and expanded 82-assertion QA harness are committed; Actions execution/result and screenshot artifact retrieval are unverified; visual inspection, independent review and owner approval remain pending.
+
+
+## Latest QA precision pass — 2026-11-24
+
+The owner-facing correction work has received one additional QA-only pass. The current verified branch HEAD is **`2abcadf90dfef17afeb2634fd5d8c8f278abb4ca`** (“Add explicit menu composition and narrow-phone QA assertions”).
+
+The browser harness now contains **90 assertions** (up from 82). The new checks explicitly verify:
+- Desktop menu max-width and horizontal centering at 1440px.
+- Visible UPG badge and distinct DATA & SUPPORT group.
+- Crimson/pink BACK TO TOWN CTA background and white text.
+- Three concise grouped credit cards.
+- No horizontal overflow at a 360px portrait viewport and no title/UPG collision.
+- Developer drawer remains a bounded utility panel (maximum 220px).
+
+A new `narrow-menu-360.png` screenshot is included in the harness output. Current QA harness blob: `17dbecd37fcc2f6613505b7f6df36d00a0805350`.
+
+**Execution is still unverified:** the combined commit-status response for `2abcadf` is empty, and no push-triggered Actions run ID, completion result or artifact has been retrieved. The 90 assertions are committed source only; do not describe them as passed. No updated screenshot has yet been visually inspected. The last completed Run #39 remains pre-correction baseline evidence.
+
+**Next action:** retrieve the workflow run for `2abcadf`, inspect the full screenshot set (especially the new 360px menu, desktop max-width, credits/developer drawer and all match states), then fix evidence-backed issues and rerun. Claude review and owner approval remain outstanding; do not advance to MY TEAM / MY SQUAD.
