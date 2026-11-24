@@ -125,13 +125,6 @@
   if(oldLogo)oldLogo.remove();if(oldSub)oldSub.remove();if(oldTagline)oldTagline.remove();
   menu.append(head,goal,tabs,content,footer,resetDialog,playbookOverlay);
 
-  const world=document.getElementById('world'),owTop=byId('owTop');
-  if(world&&owTop&&!document.getElementById('owGoal')){
-   const goalStrip=document.createElement('div');goalStrip.id='owGoal';
-   goalStrip.textContent='GOAL  ·  BEAT THE CREWS  •  UPGRADE YOUR SQUAD  •  TAKE THE CROWN';
-   owTop.insertAdjacentElement('afterend',goalStrip);
-  }
-
   menu.classList.add('ui-menu-ready');
   const upg=head.querySelector('.ui-menu-upg');if(upgControl)upg.addEventListener('click',()=>upgControl.click());
   const close=head.querySelector('.ui-menu-close'),townControl=byId('mTown');if(close&&townControl)close.addEventListener('click',()=>townControl.click());
