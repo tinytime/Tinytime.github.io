@@ -1036,7 +1036,15 @@ function popup(text,x,y,col){let tp=null,bd=2.6;if(F&&F.all)for(const q of F.all
 function setSlow(f,s){timeScale=f;slowT=s}
 const ORD=['','1st','2nd','3rd','4th'];
 function spotTxt(y){y=Math.round(y);return y<50?'OWN '+y:y===50?'MIDFIELD':'OPP '+(100-y)}
-function show(id,on){$(id).hidden=!on}
+function show(id,on){
+  $(id).hidden=!on;
+  // FIRST TO is integrated into the scoreboard clock. Hide it while either
+  // overlay owns the HUD header, and restore it when both overlays close.
+  if(id==='#sheet'||id==='#dcall'){
+    const overlayActive=(id==='#sheet'?on:!$('#sheet').hidden)|| (id==='#dcall'?on:!$('#dcall').hidden);
+    $('#tgtTag').style.display=overlayActive?'none':'';
+  }
+}
 function screens(which){['#menu','#squad','#team','#gear','#steal','#end','#world','#upg'].forEach(s=>show(s,s===which))}
 const teamShort=()=>(SAVE.teamName||'YOU').toUpperCase().slice(0,8);
 

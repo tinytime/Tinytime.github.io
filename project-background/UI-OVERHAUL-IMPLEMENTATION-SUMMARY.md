@@ -1027,3 +1027,10 @@ A narrow CSS correction now explicitly sets the clock module to a non-wrapping f
 Run #235 tested `0da4bf7c10527d989e6c96620a815acc16933555`: **163/165**. The integrated target/readout spacing is now correct (10px gap, no overlap), and the screenshot confirms the target badge is legible beside PLAY CLOCK. The two remaining failures were that the target badge did not hide beneath the in-match Playbook and Defense Selection overlays: the new high-specificity flex rule overrode the older hide selectors. No page errors, console errors, or same-origin failures occurred.
 
 The correction adds overlay-aware selectors at the same specificity level. In the same pass, the receiver cue rendering is being brought into line with the original handoff mockup: covered receivers become dark translucent controls with muted lettering; only open receivers retain their role-color marker and green ring; each open receiver receives one green OPEN pill below the marker. A localhost-only deterministic QA hook and screenshot assertion now exercise both open and covered states. These changes are pending a new browser run and visual inspection.
+
+
+### Run #235 — overlay regression isolated
+
+Run #235 (ID `45479577833`) tested commit `0da4bf7c10527d989e6c96620a815acc16933555`: **163/165**. The only two failures were FIRST TO not yielding while the in-match Playbook and Defense Selection overlays were open. Screenshots confirmed the badge remained visible behind both overlays; no page exceptions, console errors, or same-origin request failures occurred.
+
+The root cause was the overlay visibility being controlled through the game's shared `show()` helper while the CSS-only `:has()` hide selectors did not reliably track the active overlay in the runtime. The helper now explicitly hides the integrated target while either overlay is shown and restores it after both close. The existing strict QA assertions remain unchanged. Pending a fresh run and screenshot inspection.
