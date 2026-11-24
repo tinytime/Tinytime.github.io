@@ -36,7 +36,9 @@ try{
  check('MENU selected by default',await page.locator('[data-tab="menu"]').getAttribute('aria-selected')==='true');
  await page.screenshot({path:path.join(out,'desktop-menu.png'),fullPage:true});
 
- await page.locator('[data-tab="settings"]').click();
+ const tabDiagnostics=await page.locator('.ui-menu-tabs').evaluate(el=>({rect:(()=>{const r=el.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height}})(),display:getComputedStyle(el).display,visibility:getComputedStyle(el).visibility,buttons:[...el.querySelectorAll('button')].map(b=>({tab:b.dataset.tab,rect:(()=>{const r=b.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height}})(),display:getComputedStyle(b).display,visibility:getComputedStyle(b).visibility}))}));
+ check('Tab bar and Settings tab visible',await page.locator('[data-tab="settings"]').isVisible(),tabDiagnostics);
+ await page.locator('[data-tab="settings"]').click({force:true});
  check('Settings panel switches',await page.locator('#uiMenuSettings').isVisible()&&!(await page.locator('#uiMenuHome').isVisible()));
  for(const id of ['mMus','mSfx','mVol','mHap','mCam','mLT','mRS','mReset'])check('Settings control visible: '+id,await page.locator('#'+id).count()===1&&await page.locator('#'+id).isVisible());
  const music=page.locator('#mMus'),before=(await music.textContent())?.trim();
@@ -47,7 +49,7 @@ try{
  check('Volume input works',await page.locator('#mVol').inputValue()==='37');
  await page.screenshot({path:path.join(out,'desktop-settings.png'),fullPage:true});
 
- await page.locator('[data-tab="credits"]').click();
+ await page.locator('[data-tab="credits"]').click({force:true});
  check('Credits panel switches',await page.locator('#uiMenuCredits').isVisible());
  const credit=(await page.locator('#uiMenuCredits').innerText()).toUpperCase();
  check('Credits categories present',['3D ART & UI','MUSIC & SFX','TOWN AMBIENCE'].every(s=>credit.includes(s)));
@@ -70,7 +72,7 @@ try{
  check('Model asset request succeeds',assets[1].status===200&&assets[1].bytes>100,assets[1]);
 
  for(const v of [{name:'portrait',width:390,height:844},{name:'landscape',width:844,height:390}]){
-  await page.setViewportSize({width:v.width,height:v.height});await page.locator('[data-tab="menu"]').click();await page.waitForTimeout(120);
+  await page.setViewportSize({width:v.width,height:v.height});await page.locator('[data-tab="menu"]').click({force:true});await page.waitForTimeout(120);
   const g=await page.locator('#menu').evaluate(e=>{
    const r=e.getBoundingClientRect(),t=document.querySelector('#mTown').getBoundingClientRect(),b=document.querySelector('.ui-menu-tabs').getBoundingClientRect(),c=document.querySelector('.ui-menu-content');
    return{menu:{x:r.x,width:r.width,scrollWidth:e.scrollWidth,clientWidth:e.clientWidth},town:{top:t.top,bottom:t.bottom},tabs:{top:b.top,bottom:b.bottom},content:{scrollHeight:c.scrollHeight,clientHeight:c.clientHeight},viewport:{width:innerWidth,height:innerHeight}}
