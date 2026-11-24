@@ -766,3 +766,50 @@ A newer push to the same branch now supersedes an older in-progress browser-QA r
 - Stage Two MY TEAM / MY SQUAD: remains on hold.
 
 Next: commit this grouped workflow/documentation update, confirm concurrency behavior in the resulting Actions run, inspect that run's artifact, then submit the curated Stage One image set for Claude's independent review. Do not describe Stage One as owner-approved.
+
+
+## 2026-11-24 — Gemini Stage One Round Two polish implemented; verification pending
+
+**Working branch:** `UI-Overhaul`  
+**Implementation checkpoint:** `b6a037c07bdd2318dacb88319125db08fc093477` (QA harness and current source changes).  
+**Prior verified baseline:** Run #194, commit `95c7a8120a077aab4ec8fd23adf21890ca9fc7c7`, 142/142 passed. Run #194 does not test the new Round Two changes.
+
+### Gemini Round Two feedback — implementation
+
+All six requested items have been addressed in code:
+
+1. **Overworld portrait header:** increased horizontal flex gap between VAPOR CITY and CLEARED to 8px.
+2. **In-game Playbook overlay:** moved the sheet top edge down by 10px (56px to 66px, respecting safe-area inset).
+3. **Pre-game matchup:** framed both team-logo regions in #131620 rounded badge cards with subtle borders and shadows.
+4. **Defense Selection:** moved the possession message into the modal heading as “THEY GET THE BALL · [field position]”; the existing target badge remains suppressed while the modal is open.
+5. **Post-game portrait:** converted the result screen to a vertical flex stack and anchored REMATCH / MENU in a bottom thumb-zone footer. Added an explicit hidden-state override so the flex layout cannot reveal the post-game screen before transition.
+6. **Scoreboard control:** replaced the EXIT pill visually with a circular 42px pause-symbol control. The existing two-tap exit safeguard is retained; first tap arms the control and second tap exits. This is a visual control refinement, not a newly implemented pause/resume state.
+
+### QA harness changes
+
+Added six browser assertions covering:
+- 8px Overworld header spacing.
+- Two navy rounded matchup logo badges.
+- Playbook sheet top offset.
+- Defense modal possession heading.
+- Post-game portrait bottom action position.
+- Circular accessible pause-symbol control.
+
+### Verification status — do not overstate
+
+- Source and QA harness changes are committed to `UI-Overhaul`.
+- The QA assertions have been added but **have not yet been observed executing**.
+- No new workflow run ID, completion result, logs, screenshot artifact or tested SHA has been retrieved through the available GitHub Actions retrieval actions for this checkpoint.
+- Run #194 remains the latest verified QA baseline only; it predates these six corrections.
+- The new visual changes have not yet been inspected in a fresh rendered screenshot set.
+- Independent Claude review and owner approval for this Round Two checkpoint remain pending.
+
+### Immediate next actions
+
+1. Retrieve the push-triggered browser-QA run for the new branch head and verify the exact tested SHA, all assertions, HIKE readiness, page/console/request errors and artifact.
+2. Inspect only the affected Round Two screens: `overworld-portrait.png`, `match-playbook-overlay.png`, `match-pre-game.png`, `match-defense-selection.png`, `match-post-game-portrait.png`, plus the scoreboard-bearing match screenshot.
+3. Fix any real regressions and rerun against the corrected exact commit.
+4. Update the Claude package with the new exact commit and artifact; send only changed/affected assets for review.
+5. Keep Stage Two MY TEAM / MY SQUAD on hold until the owner approves all of Stage One.
+
+**Current state:** Round Two implementation and targeted QA assertions committed; execution, rendered screenshot inspection, independent review and owner approval are pending.
