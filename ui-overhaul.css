@@ -1435,3 +1435,6 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 #exit::before{content:"Ⅱ";font:900 18px/1 var(--ui-heading,system-ui);letter-spacing:-.12em;transform:translateX(-1px)}
 #exit.is-armed{border-color:var(--ui-gold)!important;color:var(--ui-gold)!important}
 @media(max-height:520px){#end.screen{padding-top:12px;padding-bottom:12px}#end .btnrow{padding-top:12px}}
+
+/* The hidden post-game screen must remain hidden until the game transitions to results. */
+#end.screen[hidden]{display:none!important}
