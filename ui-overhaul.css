@@ -1406,3 +1406,6 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
   box-shadow:0 0 0 1px rgba(77,225,242,.14),0 0 14px rgba(77,225,242,.2)!important;
 }
 #bTurbo.tired{outline-color:rgba(255,74,74,.9)!important}
+
+/* Keep the drive-status pill within the requested 12–16px drop below the scoreboard. */
+#tick #tkTop{top:calc(15% + 14px)!important}
