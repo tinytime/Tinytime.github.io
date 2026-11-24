@@ -2006,3 +2006,37 @@ body.land #bHurdle,body.land #bHurdle.dive{
 
 /* Keep the field's 3D players rendering on the post-game result while hiding the match HUD chrome. */
 #hud.ui-end-render-only{opacity:0!important;pointer-events:none!important}
+
+
+/* Stage One Round 3 polish — playbook artwork, match transition and matchup atmosphere. */
+#app #sheet #cards{grid-template-columns:repeat(5,minmax(0,1fr))!important;align-content:start}
+#app #sheet .card,#app #sheet .card.sel{background:#1C2130!important}
+#app #sheet .card.sel{border:2px solid var(--ui-gold)!important;box-shadow:inset 0 0 0 1px rgba(245,247,250,.06)!important}
+#app #sheet .card b{
+ display:flex!important;align-items:center;justify-content:center;min-width:0;min-height:2.15em;padding:2px 1px;
+ overflow:visible!important;white-space:normal!important;text-overflow:clip!important;overflow-wrap:anywhere;
+ text-align:center;font-size:12px!important;line-height:1.08!important;color:#F5F7FA!important;background:transparent!important
+}
+#app #sheet .card b em{color:#4DE1F2!important}
+#app #sheet .card canvas{background:#101722!important;filter:grayscale(1) contrast(1.3) brightness(1.16)}
+@media(orientation:landscape) and (max-width:1000px){#app #sheet #cards{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
+@media(max-width:620px){#app #sheet #cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}#app #sheet .card b{font-size:11px!important}}
+
+#app:has(#tkTitle:not(:empty)) #banner.show{opacity:0!important;visibility:hidden!important;transition:opacity .16s ease,visibility 0s linear .16s!important}
+#app:has(#tkTitle:not(:empty)) #tkTop{animation:ui-drive-pill-arrive .18s ease-out .17s both}
+@keyframes ui-drive-pill-arrive{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:translateY(0)}}
+
+#mu:not([hidden]) .split{
+ background-image:
+  radial-gradient(ellipse 36% 48% at 12% 20%,rgba(255,190,105,.28),transparent 100%),
+  radial-gradient(ellipse 34% 42% at 88% 23%,rgba(77,225,242,.18),transparent 100%),
+  linear-gradient(118deg,transparent 44%,rgba(255,226,175,.08) 46.4%,rgba(255,224,167,.82) 47.1%,rgba(245,184,65,.34) 48.2%,transparent 51.5%),
+  linear-gradient(180deg,#1b2534 0%,#131d2a 56%,#070d16 100%)!important
+}
+#mu:not([hidden]) .fx1::after{
+ content:""!important;position:absolute;z-index:1;top:11%;left:6%;width:clamp(42px,6vw,70px);height:clamp(64px,12vh,108px);
+ border-radius:8px;transform:rotate(17deg);
+ background:radial-gradient(circle,rgba(255,255,238,.98) 0 1.5px,rgba(255,194,112,.48) 2px,transparent 4.5px) 0 0/9px 9px;
+ box-shadow:0 0 18px 8px rgba(255,184,95,.28),0 0 76px 25px rgba(255,174,80,.16);
+ filter:blur(.35px);opacity:.92;-webkit-mask-image:linear-gradient(180deg,#000 0 78%,transparent);mask-image:linear-gradient(180deg,#000 0 78%,transparent)
+}
