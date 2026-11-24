@@ -27,9 +27,11 @@
   const footer=document.createElement('footer');footer.className='ui-menu-foot';
   const dev=document.createElement('section');dev.className='ui-menu-dev';dev.hidden=true;
   const devTitle=document.createElement('div');devTitle.className='ui-menu-dev-title';devTitle.textContent='DEVELOPER / TEST DRAWER';dev.appendChild(devTitle);
-  const buildTrigger=document.createElement('button');buildTrigger.type='button';buildTrigger.className='ui-menu-build-trigger';buildTrigger.setAttribute('aria-label','Open developer and test drawer');buildTrigger.textContent=build&&build.textContent.trim()||'BUILD INFORMATION';
   let taps=0,tapTimer;
-  buildTrigger.addEventListener('click',()=>{taps++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{taps=0},1800);if(taps>=5){dev.hidden=!dev.hidden;taps=0;buildTrigger.setAttribute('aria-expanded',String(!dev.hidden))}});
+  if(build){build.classList.add('ui-menu-build-trigger');build.setAttribute('role','button');build.setAttribute('tabindex','0');build.setAttribute('aria-label','Five taps open the developer and test drawer');build.setAttribute('aria-expanded','false');
+   build.addEventListener('click',()=>{taps++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{taps=0},1800);if(taps>=5){dev.hidden=!dev.hidden;taps=0;build.setAttribute('aria-expanded',String(!dev.hidden))}});
+   build.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();build.click()}});
+  }
   const card=(parent,title,extra)=>{const box=document.createElement('section');box.className='ui-menu-card'+(extra?' '+extra:'');const h=document.createElement('h3');h.className='ui-menu-card-title';h.textContent=title;box.appendChild(h);parent.appendChild(box);return box};
   const actions=card(home,'TEAM & PROGRESSION','ui-menu-actions');
   const support=card(home,'DATA & SUPPORT','ui-menu-actions');
@@ -59,8 +61,7 @@
   parts.forEach(([title,body])=>{const group=document.createElement('section');group.className='ui-menu-credit-group';const h=document.createElement('h3');h.textContent=title;const p=document.createElement('p');p.textContent=body;group.append(h,p);credits.appendChild(group)});
   if(creditSource)creditSource.remove();
   moveControl('mRO',dev,'FPS COUNTER',false);moveControl('mPL',dev,'PERFORMANCE LOG',false);moveControl('mPR',dev,'PERFORMANCE REPORT',false);
-  if(build)build.remove();
-  credits.append(buildTrigger,dev);
+  credits.append(dev);
   const defs=[['menu','MENU',home],['settings','SETTINGS',settings],['credits','CREDITS',credits]];
   const selectTab=name=>defs.forEach(([key,label,p])=>{const b=tabs.querySelector('[data-tab="'+key+'"]'),active=key===name;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;p.hidden=!active});
   defs.forEach(([key,label,p])=>{const b=document.createElement('button');b.type='button';b.className='ui-menu-tab';b.textContent=label;b.dataset.tab=key;b.setAttribute('role','tab');b.setAttribute('aria-controls',p.id);b.addEventListener('click',()=>selectTab(key));b.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const i=defs.findIndex(x=>x[0]===key),next=defs[(i+(e.key==='ArrowRight'?1:2))%3];selectTab(next[0]);tabs.querySelector('[data-tab="'+next[0]+'"]').focus()});tabs.appendChild(b)});
