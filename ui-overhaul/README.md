@@ -246,3 +246,14 @@ The current harness captures a dedicated `match-defense-simulation.png` after ch
 **Important:** the 82 assertions are committed source, not a verified pass. The push-triggered Actions run ID/result/artifact for this commit has not yet been retrieved. The previous Run #39 (51/51) predates the art-direction correction and is not validation of this version. Screenshot inspection, Claude review and owner approval remain pending.
 
 See [the implementation summary](../project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for current source blob SHAs, exact coverage, evidence status and next steps.
+
+
+### Latest QA precision pass — 2026-11-24
+
+- Current branch tip: `2abcadf90dfef17afeb2634fd5d8c8f278abb4ca`.
+- The browser harness now has **90 assertions**. New checks cover 1440px desktop centering/max-width, UPG visibility, DATA & SUPPORT grouping, crimson/pink BACK TO TOWN semantics, grouped credits, 360px portrait overflow/title collision, and the developer drawer's 220px height cap.
+- Added screenshot: `narrow-menu-360.png`.
+- QA source blob: `17dbecd37fcc2f6613505b7f6df36d00a0805350`.
+- **No Actions pass is claimed:** the push-triggered run ID/result/artifact has not been retrieved, and the updated screenshots have not been visually inspected. The previous Run #39 predates the correction pass.
+
+The implementation summary remains the source of truth for current status and approval gates.
