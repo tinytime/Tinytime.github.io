@@ -341,9 +341,16 @@ try{
   if(!liveNow)throw new Error('Unable to enter live play after the actual HIKE control and direct diagnostic fallback: '+JSON.stringify({preHikeState,liveState}));
   const turboRing=await page.locator('#bTurbo').evaluate(el=>{const p=getComputedStyle(el,'::after'),s=getComputedStyle(el);return{display:p.display,background:p.backgroundImage,mask:p.maskImage||p.webkitMaskImage,inset:p.inset,overflow:s.overflow,outlineStyle:s.outlineStyle,outlineWidth:s.outlineWidth,outlineOffset:s.outlineOffset}});
   check('Live-play TURBO control has a visible segmented outer stamina ring',turboRing.display!=='none'&&turboRing.background.includes('repeating-conic-gradient')&&turboRing.background.includes('conic-gradient')&&turboRing.mask.includes('radial-gradient')&&turboRing.inset.includes('-8px')&&turboRing.overflow==='visible'&&turboRing.outlineStyle==='dashed'&&parseFloat(turboRing.outlineWidth)>=2&&parseFloat(turboRing.outlineOffset)>=4,turboRing);
-  await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
   const qaHooks=await page.evaluate(()=>window.SG&&window.SG.__uiqa?true:false);
   check('Query-gated match QA hooks are available',qaHooks);
+  if(qaHooks){
+   const openPrepared=await page.evaluate(()=>window.SG.__uiqa.openReceiver());
+   check('Deterministic live-play OPEN receiver fixture can be prepared',openPrepared);
+   await page.waitForFunction(()=>Object.values(window.SG?.F?.off||{}).some(p=>p&&p.hi),null,{timeout:5000});
+   const receiverCue=await page.evaluate(()=>{const off=window.SG?.F?.off||{};const roles=['WR1','WR2','TE','RB'];return{open:roles.filter(k=>off[k]?.hi),covered:roles.filter(k=>off[k]&&!off[k].hi),mode:window.SG?.F?.mode}});
+   check('Live Play highlights open receiver(s) and leaves covered receivers muted',receiverCue.open.length>=1&&receiverCue.covered.length>=1&&receiverCue.mode==='live',receiverCue);
+  }
+  await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
   if(qaHooks){
    const pileStarted=await page.evaluate(()=>window.SG.__uiqa.startFumble());
    check('Fumble pile can be triggered in live play',pileStarted);

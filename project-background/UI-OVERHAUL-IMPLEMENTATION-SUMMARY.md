@@ -1020,3 +1020,10 @@ Run #232 tested `9974170d811bfa49a360a7855c33ce6e8ef11877`: **164/165 passed**. 
 Run #232 (ID `45478784824`) tested commit `9974170d811bfa49a360a7855c33ce6e8ef11877` and returned **164/165**. The sole failure was the new target/readout spacing assertion: the target badge was a child of the clock module, but a legacy display rule prevented the intended flex row and caused a 20px overlap. The screenshot confirmed the overlap. No page errors, console errors, or same-origin request failures occurred.
 
 A narrow CSS correction now explicitly sets the clock module to a non-wrapping flex row and fixes the readout/target widths. The strict QA assertion remains unchanged; this correction is pending a fresh run. Stage Two and golden snapshots remain untouched.
+
+
+### Run #235 — scoreboard layout verified; overlay regression identified
+
+Run #235 tested `0da4bf7c10527d989e6c96620a815acc16933555`: **163/165**. The integrated target/readout spacing is now correct (10px gap, no overlap), and the screenshot confirms the target badge is legible beside PLAY CLOCK. The two remaining failures were that the target badge did not hide beneath the in-match Playbook and Defense Selection overlays: the new high-specificity flex rule overrode the older hide selectors. No page errors, console errors, or same-origin failures occurred.
+
+The correction adds overlay-aware selectors at the same specificity level. In the same pass, the receiver cue rendering is being brought into line with the original handoff mockup: covered receivers become dark translucent controls with muted lettering; only open receivers retain their role-color marker and green ring; each open receiver receives one green OPEN pill below the marker. A localhost-only deterministic QA hook and screenshot assertion now exercise both open and covered states. These changes are pending a new browser run and visual inspection.

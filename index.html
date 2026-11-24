@@ -5133,8 +5133,16 @@ function drawEntities(){
       p.hi=(p.stun>0||!cg.inr)?false:(p.hi?cg.nd>C.off:cg.nd>C.on);   // v3.16W1: open where the ball would arrive (he lights up, and goes dark as a defender closes in)   // open = nobody close; he lights up, and goes dark again as a defender closes in
       if(p.hi){const pu=.5+.5*Math.sin(performance.now()/160);ctx.strokeStyle='rgba(93,255,154,'+(.55+.4*pu)+')';ctx.lineWidth=Math.max(3,pr.u*.22);ctx.beginPath();ctx.ellipse(pr.sx,pr.sy,pr.u*(1.05+.12*pu),pr.u*(1.05+.12*pu)*.42,0,0,7);ctx.stroke();
         ctx.fillStyle='rgba(93,255,154,.14)';ctx.fill()}
-      ctx.fillStyle=ROLECOL[r];ctx.beginPath();ctx.arc(pr.sx,yy,rad,0,7);ctx.fill();ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.stroke();
-      if(p.hi){ctx.strokeStyle='#5dff9a';ctx.lineWidth=3.5;ctx.beginPath();ctx.arc(pr.sx,yy,rad+3.5,0,7);ctx.stroke();ctx.fillStyle='#5dff9a';ctx.font='900 '+Math.max(9,rad*.7)+'px "Barlow Condensed",Impact,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('OPEN',pr.sx,yy-rad-8)}ctx.fillStyle='#000';ctx.font='900 '+rad*1.2+'px "Barlow Condensed",Impact,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(l,pr.sx,yy+1)}
+      const open=!!p.hi;
+      ctx.fillStyle=open?ROLECOL[r]:'rgba(19,22,32,.84)';ctx.beginPath();ctx.arc(pr.sx,yy,rad,0,7);ctx.fill();
+      ctx.strokeStyle=open?'#5dff9a':'rgba(203,213,225,.28)';ctx.lineWidth=open?2.5:1.5;ctx.stroke();
+      if(open){
+        ctx.strokeStyle='#5dff9a';ctx.lineWidth=3.5;ctx.beginPath();ctx.arc(pr.sx,yy,rad+3.5,0,7);ctx.stroke();
+        const pillW=Math.max(30,rad*2.65),pillH=Math.max(12,rad*.92),pillY=yy+rad+7;
+        ctx.fillStyle='rgba(52,211,153,.96)';ctx.beginPath();ctx.roundRect(pr.sx-pillW/2,pillY,pillW,pillH,pillH/2);ctx.fill();
+        ctx.fillStyle='#08251a';ctx.font='900 '+Math.max(8,rad*.62)+'px "Barlow Condensed",Impact,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('OPEN',pr.sx,pillY+pillH/2);
+      }
+      ctx.fillStyle=open?'#071b14':'#cbd5e1';ctx.font='900 '+rad*1.2+'px "Barlow Condensed",Impact,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(l,pr.sx,yy+1)}
   }
   if(q&&F.mode==='live'){const pr=P(q.x,q.y);ctx.fillStyle='#fff';ctx.strokeStyle='#000';ctx.lineWidth=3;ctx.font='700 13px "Barlow Condensed",Impact,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';const nm=q.name.replace(/"[^"]*"\s*/,'').split(' ').pop();const qL=lookOf(q.d),qh=playerPx(pr,qL.h,q.d.star||q.d.special),ny=pr.sy+qh*.12+4;ctx.textBaseline='top';ctx.strokeText(nm,pr.sx,ny);ctx.fillText(nm,pr.sx,ny)}   // like NFL Street: the name sits under the carrier's feet, clear of every jersey number
 }
@@ -11176,6 +11184,14 @@ window.CFDG={DG,DGR,DG_ROOMS,dgS,dgThrow,dgUndo,dgReset,dgTestSetup,dgTestRestor
 window.SG={eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;const miss=[];for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))miss.push(pal.key.slice(0,12)+'|'+vk);let am=0;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))am++;return {mode:G.mode,on:R.on,inited:R.inited,need:R.need.length,n0:R.need.n0,miss:miss.slice(0,8),nmiss:miss.length,artMissing:am,artReady:artReady(),carryReady:carryReady(),snapReady:ART.snapReady||null,jobs:R.jobs.length,q:R.q.length,busy:R.busy.size,fail:R.fail}},WSEG,CLUSTERS,camfix:o=>{window.__camFix=o},enterPlaycall:()=>enterPlaycall(),cam:()=>cam,LogoRenderer,LOGOS,LOGO_ORDER,registerLogo,logoId,logoSVG,LOGO_GLYPH,muState:()=>MU,lf:()=>ART.lf||[],SIDER:SIDER,RIGF,RIG,runInit,artDraw:(g,o)=>artDraw(g,o),uniFor:p=>uniFor(p),lookOf:d=>lookOf(d),playerPx:(...a)=>playerPx(...a),ART,artNumber:(...a)=>artNumber(...a),say:(a,b,c,d)=>say(a,b,c,d),setX:v=>{bannerExtra=v},popup:(a,b,c,d)=>popup(a,b,c,d),WALLY:()=>WALLY,sideVis:()=>sideVis,setPS:v=>{PSCALE=v;SPR.clear()},owLeave,owHide,P:(x,y)=>P(x,y),SND,OW,owShow,M:()=>M,owPlace,owTalk,owGot,owSay,renderPerson,lookOf,callPlay,endGame,get G(){return G},get F(){return F},get PLAY(){return PLAY},input,SAVE:()=>SAVE,startMatch,CREWS,PLAYS,throwTo,doJuke,doStiff,doStyle,startPlay,setSpeed:v=>{SPEED=v},resetSave:()=>{SAVE=freshSave();persist()},renderTeam,openGear,renderSquad,screens,renderMenu};
 if((location.hostname==='127.0.0.1'||location.hostname==='localhost')&&new URLSearchParams(location.search).get('uiqa')==='1'){
   window.SG.__uiqa={
+    openReceiver:()=>{
+      if(!F||!G||!F.off||!F.off.QB)return false;
+      F.mode='live';G.mode='live';F.passer=F.off.QB;F.carrier=F.off.QB;F.lock=false;
+      window.CUE={on:.1,off:.05,r:.3,k:0};
+      for(const d of F.def||[]){d.x=1000;d.y=1000;d.fall=false;d.eng=false}
+      for(const role of ['WR1','WR2','TE','RB'])if(F.off[role]){F.off[role].hi=false;F.off[role].stun=0}
+      return true;
+    },
     startFumble:()=>{if(!F||!G)return false;F.mode='live';G.mode='live';const c=F.carrier||F.passer||(F.off&&F.off.QB);if(!c)return false;startPile(c,F.def&&F.def[0]);return !!F.pile},
     loseFumble:()=>{if(!F||!F.pile)return false;pileEnd(false);return true},
     defense:()=>{if(!G||!G.crew)return false;G.mode='dead';G.pendFp=35;showDefCall(35);return !$('#dcall').hidden},

@@ -1785,3 +1785,10 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
   align-items:center!important;
   justify-content:center!important;
 }
+
+
+/* The integrated target badge must still yield to the playbook and defense overlays. */
+#app:has(#sheet:not([hidden])) #hud #bug #bClock #tgtTag,
+#app:has(#dcall:not([hidden])) #hud #bug #bClock #tgtTag{
+  display:none!important;
+}
