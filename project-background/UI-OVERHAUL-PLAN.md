@@ -1,3 +1,5 @@
+> **Current handoff:** [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). The detailed, current status and next actions live there. This plan below preserves the original design inventory and historical planning notes; older status text should not override the implementation summary.
+
 # Circuit Football RPG — UI Overhaul Workstream
 
 ## Status
