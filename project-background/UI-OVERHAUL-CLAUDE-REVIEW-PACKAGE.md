@@ -170,3 +170,8 @@ Add portrait-credits.png and desktop-credits.png to the changed-asset delta only
 Also include the updated pre-game overlay in the delta check: the halftone split/rain backdrop has been replaced by a matte navy stadium-light gradient atmosphere; top labels are gold/cyan and VS/progress/TAP TO PLAY follow the gold/cyan hierarchy. This remains an approximation of the photographic stadium backdrop in the Gemini mockup, not an exact background match. Verify that the Settings and Credits CURRENT GOAL panel is absent, and inspect expanded Credits attribution.
 
 QA added assertions for the pre-game atmosphere and Credits goal-card removal. They are not passed until a fresh workflow artifact is inspected. Run #204 remains pre-change evidence.
+
+
+## Current review evidence gate
+
+Latest QA trigger commit: b88ccd45213c12bdbd2e22d5294a38858944b850. The harness contains 146 assertions. Static JS/module parsing and CSS/JS brace checks pass, but GitHub workflow-run and commit-status retrieval returned no run/status. Do not score or approve any changed screenshot from Run #204; it predates this pass. Wait for fresh screenshots from the exact current tested SHA. Known remaining fidelity gaps: FIRST TO target placement is not beside PLAY CLOCK, and the pre-game stadium-light CSS backdrop is not the exact photographic stadium backdrop in the reference. Add a deterministic win/practice post-game screenshot to verify the STYLE POINTS reward card and mode pill.
