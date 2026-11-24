@@ -1,3 +1,18 @@
+# Project background index
+
+## Circuit Football RPG — UI Overhaul
+
+For the active UI redesign, start with the [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). It records the exact implementation state, last browser-QA failure, follow-up commits, and one-to-one continuation instructions for a new chat.
+
+Related references:
+- [UI Overhaul Plan](UI-OVERHAUL-PLAN.md) — design scope, seven-screen inventory and project guardrails.
+- [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) — current implementation and QA handoff.
+- [UI Overhaul workstream README](../ui-overhaul/README.md) — workstream history and implementation notes.
+
+When working on the UI overhaul, use branch `UI-Overhaul`, verify its live HEAD and latest Actions, and do not confuse the separate civilian-vector workstream below with the Circuit Football UI work.
+
+---
+
 ## Fourth civilian batch — parallel Sailor/Slicker/Painter exploration (2026-11-20)
 
 The owner authorized **Sailor (#12), Slicker (#13) and Painter (#14) simultaneously** through identity refinement, four-view silhouette exploration and construction cards. This supersedes the earlier Sailor-only authorization note below.
