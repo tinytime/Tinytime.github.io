@@ -1154,3 +1154,9 @@ body.land #exit{right:8%;top:calc(env(safe-area-inset-top,0px) + 6px);width:40px
   #end #endScore .ui-end-score-matchup{font-size:9px}
   #end #endScore .ui-end-score-value{font-size:28px}
 }
+
+
+/* Use one vertical stack of three label/value rows; each row is a two-column stat line. */
+#dcall button .dco{grid-template-columns:minmax(0,1fr)!important}
+#dcall button .dco-row{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center}
+body.land #bTurbo::before{content:none!important}
