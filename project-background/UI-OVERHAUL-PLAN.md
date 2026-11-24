@@ -243,3 +243,6 @@ Implementation details, exact commits and QA status are recorded in [UI Overhaul
 The live Overworld menu module owns the status pill, GOAL strip and contextual A-button composition; duplicate static HUD markup was removed. The real in-match play-calling sheet now has the selected gold card, FLIP and cyan CALL PLAY styling. The browser harness has been extended through pre-game, playbook, pre-snap, live play, fumble/turnover, defense selection, achievement toast and post-game.
 
 See [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for the exact current branch checkpoint, commits and QA state. The expanded Actions result/artifact has not yet been retrieved and inspected; the earlier Run #39 does not validate these changes. Actual screenshot inspection, independent review and owner approval remain outstanding. Target for the next visual review is 6.5+/10.
+
+
+Latest QA harness checkpoint: 68 assertions, including rendered-color checks for both cyan CALL PLAY and cyan HIKE actions. The harness covers Overworld, matchup, playbook, pre-snap, live play, fumble, defense selection, achievement toast and post-game. The latest harness commit is `a60adc9d6621b4272e9290c482a07ec91771d718`. Actions result/artifact retrieval and screenshot inspection remain pending; see the implementation summary for the exact state.
