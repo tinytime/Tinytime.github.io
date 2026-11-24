@@ -1,0 +1,40 @@
+name: UI Overhaul Browser QA
+on:
+  push:
+    branches: [UI-Overhaul]
+    paths:
+      - 'index.html'
+      - 'ui-overhaul.css'
+      - 'ui-overhaul-menu.js'
+      - 'qa/ui-overhaul-browser-qa.mjs'
+      - '.github/workflows/ui-overhaul-browser-qa.yml'
+      - 'audio/**'
+      - 'models/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out tested commit
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright and Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Run UI-Overhaul browser QA
+        run: node qa/ui-overhaul-browser-qa.mjs
+      - name: Upload browser QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-overhaul-browser-qa-\${{ github.sha }}
+          path: ui-overhaul-qa-output/
+          if-no-files-found: warn
+          retention-days: 14
