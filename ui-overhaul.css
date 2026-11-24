@@ -726,7 +726,7 @@ body #mu .tap{display:block;min-height:24px;line-height:24px;padding-bottom:2px}
 
 /* Handoff color semantics: HIKE is the primary execution action, so it uses cyan like CALL PLAY. */
 #app #hike{
- background:linear-gradient(180deg,#68efff,#28c8e0)!important;
+ background:#4de1f2!important;
  color:#071923!important;border:1px solid #4de1f2!important;
  box-shadow:0 5px 0 #147f98,0 9px 20px rgba(39,224,242,.18)!important;
  font-family:var(--disp);letter-spacing:.05em
