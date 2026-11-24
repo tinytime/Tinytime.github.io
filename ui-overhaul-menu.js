@@ -137,7 +137,7 @@
    const goalStrip=document.createElement('div');goalStrip.className='ui-ow-goal';
    goalStrip.innerHTML='<span class="ui-ow-goal-tag">GOAL</span><span class="ui-ow-goal-copy"></span>';
    const goalCopy=goalStrip.querySelector('.ui-ow-goal-copy');
-   pill.append(owTown,status,upg);owTop.replaceChildren(pill,goalStrip);
+   pill.append(owTown,status,upg,owObj);owTop.replaceChildren(pill,goalStrip);
    owObj.classList.add('ui-visually-hidden');
    const syncOverworld=()=>{
     const raw=owObj.textContent.trim(),match=raw.match(/UPG\\s+(\\d+)/i),clean=raw.replace(/\\s*[·|]\\s*UPG\\s+\\d+/i,'').trim();
