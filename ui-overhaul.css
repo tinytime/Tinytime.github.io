@@ -1393,3 +1393,7 @@ body.land #hud #tgtTag{left:4%!important}
   position:relative;bottom:auto;flex:none;margin-top:10px;
   box-shadow:0 -6px 14px rgba(8,12,20,.3);
 }
+
+/* The first-to target gets its own clear lane beneath the scoreboard; the drive pill owns that lane during simulation. */
+body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) + 74px)!important;transform:translateX(-50%)!important}
+#app:has(#tick:not([hidden])) #tgtTag{display:none!important}
