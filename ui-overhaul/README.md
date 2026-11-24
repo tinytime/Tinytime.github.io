@@ -232,3 +232,6 @@ The expanded Actions result and screenshot artifact are not yet retrieved/verifi
 
 
 Latest browser harness checkpoint: 68 assertions, covering Overworld, pre-game, playbook, pre-snap, live play, fumble, defense selection, achievement toast and post-game. It checks the actual cyan CALL PLAY and HIKE render colors. Latest harness commit: `a60adc9d6621b4272e9290c482a07ec91771d718`. Actions result/artifact retrieval and visual inspection are still pending; consult the implementation summary for the current gate.
+
+
+Latest QA harness commit: `ad2cd22c26005f7e244a18f28a6ea7c88961d9e9` (76 assertions; corrected cyan HIKE text contrast). The Actions result and screenshot artifact are still pending retrieval. Do not describe the assertions as passed until the exact run is confirmed. See the implementation summary.
