@@ -1302,7 +1302,7 @@ function awayUni(crew){const me=SAVE.uni,u=crew.uni,TURF='#1A2E40',ci=Math.max(0
   if(!hOk(out.hc)||cdist(out.hc,TURF)<55){const H=[uShade(out.jc,.55),'#f4f4ee',uShade(out.jc,1.35),'#c9ced6','#d6362f'];out.hc=H.find(h=>hOk(h)&&cdist(h,TURF)>=90)||H.find(h=>hOk(h)&&cdist(h,TURF)>=55)||'#f4f4ee'}
   if(!pOk(out.pc)){const P=['#14110f','#1d3a8a','#8a1f2b','#2b2b34','#f4f4ee','#ece8dc','#2f6fe0'];out.pc=P.find(p=>p!==u.pc&&pOk(p)&&cdist(p,TURF)>=40&&cdist(p,out.jc)>=30)||'#f4f4ee'}
   return out}
-function startMatch(crew){if(typeof owRelease==='function')owRelease();G_oppUniPending=awayUni(crew);ART.t0=0;ART.loadMs=0;ART.wdone='';SND.setMode('game');SPR.clear();for(const k in PW)delete PW[k];if(SAVE.pwSel&&(SAVE.pw||[]).includes(SAVE.pwSel))PW[SAVE.pwSel]=1;
+function startMatch(crew){startPlay._w=0;startPlay._t=0;if(typeof owRelease==='function')owRelease();G_oppUniPending=awayUni(crew);ART.t0=0;ART.loadMs=0;ART.wdone='';SND.setMode('game');SPR.clear();for(const k in PW)delete PW[k];if(SAVE.pwSel&&(SAVE.pw||[]).includes(SAVE.pwSel))PW[SAVE.pwSel]=1;
   if(!TEST_STARS)for(const k of ['QB','RB','WR1','WR2']){const q=SAVE.starters[k];if(q&&q.star&&!q.special&&/Voss|Wallace|Morales|Ortiz/.test(q.name))q.star=false}   // undo the old test stars
   if(TEST_STARS)for(const k of ['QB','RB','WR1','WR2'])if(SAVE.starters[k])SAVE.starters[k].star=true;   // TEST ONLY: remove when done testing Star Play
   G={crew,oppUni:G_oppUniPending,you:0,opp:0,target:crew.target,los:25,down:1,togo:10,ltg:35,style:0,sp:{m:{},ready:null,left:0,cool:0},spArmed:false,dv:{plays:0,yds:0},pn:0,t0:performance.now(),sel:0,flip:false,mode:'playcall',call:'bal',clock:25,clockOn:false,showPlay:false};
@@ -1529,7 +1529,8 @@ function startPlay(){
   if(typeof r2ZdCheck==='function'&&r2ZdCheck())return;
   if(G.mode!=='playcall'&&G.mode!=='set')return;
   if(!$('#fourth').hidden)return;   // 4th-down choice is open: no snap until they pick
-  if((!artReady()||!carryReady())&&(startPlay._w=(startPlay._w||0)+1)<SNAP_WAIT){setTimeout(startPlay,50);return}ART.snapWait=(startPlay._w||0)*50;tmark('snap','waited '+ART.snapWait+'ms');startPlay._w=0;   // never snap the ball while the new sprites are still loading
+  if(!artReady()||!carryReady()){const now=performance.now();if(!startPlay._t)startPlay._t=now;startPlay._w=(startPlay._w||0)+1;if(now-startPlay._t<SNAP_WAIT*50){setTimeout(startPlay,50);return}}
+  ART.snapWait=startPlay._t?Math.round(performance.now()-startPlay._t):0;tmark('snap','waited '+ART.snapWait+'ms');startPlay._w=0;startPlay._t=0;   // never snap the ball while the new sprites are still loading
   G.clockOn=false;show('#setbar',false);if(G.guide)gdHide();
   const pl=PLAYS[G.sel];PLAY=pl;G.lastId=pl.id;F.stunt=pl.kind==='pass'&&G.call==='blitz'&&Math.random()<STUNT_P;F.jam=pl.kind==='pass'&&G.call==='blitz';if(F.stunt){const q=F.def.find(x=>x.id==='dl2');if(q)q.noEng=STUNT_T+.35}SND.fx('hike');(G.hist||(G.hist=[])).push(pl.id);if(G.hist.length>12)G.hist.shift();
   const fx=F.fx;
@@ -4965,7 +4966,7 @@ function artWarm0(){if(!ART.on||!F||!F.all)return;runWarm();if(!ART.t0)ART.t0=pe
   if(ready&&!ART.loadMs&&ART.t0)ART.loadMs=Math.round(performance.now()-ART.t0);
   if(ready){ART.wq=ART.wq||[];if(!ART.wdone||ART.wdone!==pals.map(q=>q.key).join()){ART.wdone=pals.map(q=>q.key).join();const k=(window.devicePixelRatio||1);ART.wq=[];const st=artSteps();for(const pal of pals)for(const v of'fb')for(const hb of st)for(const w of[1,1.08,.94])ART.wq.push([pal,v,hb,w]);for(const q of F.all){const L=lookOf(q.d),pal=artPal(uniFor(q),L.skin),u=uniFor(q),w=ART_WS[(q.d&&q.d.pos)||q.pos]||1;for(const v of'fb')for(const hb of st)ART.wq.push([pal,v,hb,w,q.num,u])}}
     if(F.mode==='live'||(!window.__fb&&!bakeOK()))return;const _b=performance.now();for(let i=0;i<10&&ART.wq.length&&(i<1||performance.now()-_b<2);i++){const [pal,v,hp,w,nm,u]=ART.wq.shift();const sp=artSized(pal,v,hp,w);if(sp&&u&&nm!==undefined)artNumber(nm,v,hexOk(u.jn,'#ffffff'),hexOk(u.jo,'#14110f'),sp.sc,w)}}}   // masters first, then the sized sprites for every size a player can be drawn at, a few per frame, all while the menu and play-call screens are up
-function carryReady(){const R=ART.run;if(!R.on||!R.inited||!R.need.length)return true;if(startPlay._w>=SNAP_WAIT)return true;for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))return false;return true}   // the QB/RB run, side-run and side-carry loops
+function carryReady(){const R=ART.run;if(!R.on||!R.inited||!R.need.length)return true;if(startPlay._t&&performance.now()-startPlay._t>=SNAP_WAIT*50)return true;for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))return false;return true}   // the QB/RB run, side-run and side-carry loops
 function artReady(){if(!ART.on||!F||!F.all)return true;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))return false;return true}
 /*MODEL-END*/
 const lastName=n=>String(n||'').replace(/["']/g,'').trim().split(/\s+/).pop();
