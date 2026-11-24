@@ -229,7 +229,7 @@ try{
   const hikeStyle=await page.locator('#hike').evaluate(el=>({backgroundColor:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color}));
   const hikeTextRGB=(hikeStyle.color.match(/\d+/g)||[]).map(Number);check('HIKE uses the solid cyan primary-action treatment',hikeStyle.backgroundColor==='rgb(77, 225, 242)'&&hikeTextRGB.length===3&&hikeTextRGB.every(v=>v<60),hikeStyle);
   await page.screenshot({path:path.join(out,'match-pre-snap.png'),fullPage:true});
-  const preHikeState=await page.locator('#hike').evaluate(el=>{const r=el.getBoundingClientRect(),hit=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);return{mode:window.SG?.G?.mode,fmode:window.SG?.F?.mode,fourthHidden:document.querySelector('#fourth')?.hidden,setbarHidden:document.querySelector('#setbar')?.hidden,disabled:el.disabled,handler:typeof el.onclick,hitTarget:hit?.id||hit?.tagName,hitIsHike:hit===el||el.contains(hit)}});
+  const preHikeState=await page.locator('#hike').evaluate(el=>{const g=window.SG?.G,r=el.getBoundingClientRect(),hit=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);let snap=null;try{snap=window.SG?.snapDbg?.()}catch(e){snap={error:String(e)}}return{mode:g?.mode,fmode:window.SG?.F?.mode,crew:g?.crew?.id,crewR2:g?.crew?.r2,down:g?.down,togo:g?.togo,sel:g?.sel,selectedPlay:window.SG?.PLAYS?.[g?.sel]?.id,playKind:window.SG?.PLAYS?.[g?.sel]?.kind,fourthHidden:document.querySelector('#fourth')?.hidden,setbarHidden:document.querySelector('#setbar')?.hidden,disabled:el.disabled,handler:typeof el.onclick,hitTarget:hit?.id||hit?.tagName,hitIsHike:hit===el||el.contains(hit),snapDbg:snap,zdBeat:!!document.querySelector('#zdBeat')}});
   check('HIKE is enabled in the active pre-snap state',preHikeState.mode==='set'&&preHikeState.fourthHidden&&!preHikeState.disabled&&preHikeState.handler==='function'&&preHikeState.hitIsHike,preHikeState);
   await page.locator('#hike').click();
   await page.waitForTimeout(300);
@@ -237,9 +237,9 @@ try{
   const clickedLive=liveState.mode==='live'||liveState.fmode==='live';
   check('HIKE button click starts live play',clickedLive,liveState);
   if(!clickedLive){
-   const directState=await page.evaluate(()=>{window.SG?.startPlay?.();return{mode:window.SG?.G?.mode,fmode:window.SG?.F?.mode}});
+   const directState=await page.evaluate(()=>{window.SG?.startPlay?.();const g=window.SG?.G;let snap=null;try{snap=window.SG?.snapDbg?.()}catch(e){snap={error:String(e)}}return{mode:g?.mode,fmode:window.SG?.F?.mode,crew:g?.crew?.id,crewR2:g?.crew?.r2,down:g?.down,togo:g?.togo,sel:g?.sel,selectedPlay:window.SG?.PLAYS?.[g?.sel]?.id,playKind:window.SG?.PLAYS?.[g?.sel]?.kind,fourthHidden:document.querySelector('#fourth')?.hidden,snapDbg:snap,zdBeat:!!document.querySelector('#zdBeat')}});
    await page.waitForFunction(()=>window.SG?.G?.mode==='live'||window.SG?.F?.mode==='live',null,{timeout:3000}).catch(()=>null);
-   liveState=await page.evaluate(()=>({mode:window.SG?.G?.mode,fmode:window.SG?.F?.mode,ctlHidden:document.querySelector('#ctl')?.hidden,setbarHidden:document.querySelector('#setbar')?.hidden,direct:true}));
+   liveState=await page.evaluate(()=>{const g=window.SG?.G;let snap=null;try{snap=window.SG?.snapDbg?.()}catch(e){snap={error:String(e)}}return{mode:g?.mode,fmode:window.SG?.F?.mode,crew:g?.crew?.id,crewR2:g?.crew?.r2,down:g?.down,togo:g?.togo,sel:g?.sel,selectedPlay:window.SG?.PLAYS?.[g?.sel]?.id,playKind:window.SG?.PLAYS?.[g?.sel]?.kind,ctlHidden:document.querySelector('#ctl')?.hidden,setbarHidden:document.querySelector('#setbar')?.hidden,fourthHidden:document.querySelector('#fourth')?.hidden,snapDbg:snap,zdBeat:!!document.querySelector('#zdBeat'),direct:true}});
    check('Direct game start fallback is only needed if the UI click failed',liveState.mode==='live'||liveState.fmode==='live',{preHikeState,liveState,directState});
   }
   const liveNow=liveState.mode==='live'||liveState.fmode==='live';
@@ -295,5 +295,5 @@ try{
  fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2));
  fs.writeFileSync(path.join(out,'summary.md'),['# UI-Overhaul Browser QA','', 'Commit: '+(report.sourceCommit||'local'),'Passed: '+checks.filter(c=>c.pass).length+'/'+checks.length,'Failed: '+failures.length,'',...checks.map(c=>'- ['+(c.pass?'x':' ')+'] '+c.name+(c.detail?' — '+JSON.stringify(c.detail):''))].join('\n'));
  console.log(JSON.stringify(report,null,2));if(failures.length)process.exitCode=1;
-}catch(e){fs.writeFileSync(path.join(out,'fatal-error.txt'),e.stack||String(e));throw e}
+}catch(e){const failureState=await page.evaluate(()=>{const g=window.SG?.G;let snap=null;try{snap=window.SG?.snapDbg?.()}catch(err){snap={error:String(err)}}return{mode:g?.mode,fmode:window.SG?.F?.mode,crew:g?.crew?.id,crewR2:g?.crew?.r2,down:g?.down,togo:g?.togo,sel:g?.sel,selectedPlay:window.SG?.PLAYS?.[g?.sel]?.id,playKind:window.SG?.PLAYS?.[g?.sel]?.kind,fourthHidden:document.querySelector('#fourth')?.hidden,setbarHidden:document.querySelector('#setbar')?.hidden,sheetHidden:document.querySelector('#sheet')?.hidden,hikeHandler:typeof document.querySelector('#hike')?.onclick,snapDbg:snap,zdBeat:!!document.querySelector('#zdBeat')}}).catch(err=>({diagnosticError:String(err)}));fs.writeFileSync(path.join(out,'fatal-error.txt'),(e.stack||String(e)+'\n')+'\nDIAGNOSTIC\n'+JSON.stringify({failureState,pageErrors,consoleErrors,sameOriginFailures},null,2));throw e}
 finally{await browser.close();await new Promise(resolve=>server.close(resolve))}
