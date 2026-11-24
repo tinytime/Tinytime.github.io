@@ -618,3 +618,15 @@
  #menu .ui-menu-foot{padding-top:5px}
  #menu .ui-menu-foot #mTown{min-height:40px}
 }
+
+/* Landscape home composition: keep the 2×2 game tiles and DATA & SUPPORT visible together. */
+@media(orientation:landscape) and (max-height:520px){
+ #menu #uiMenuHome{display:grid;grid-template-columns:minmax(0,2fr) minmax(190px,1fr);align-items:stretch;gap:8px}
+ #menu #uiMenuHome>.ui-menu-grid{grid-column:1;grid-row:1;align-content:stretch}
+ #menu #uiMenuHome>.ui-menu-support{grid-column:2;grid-row:1;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto repeat(2,minmax(0,1fr)) auto;align-content:stretch;gap:6px;padding:8px}
+ #menu #uiMenuHome>.ui-menu-support .ui-menu-card-title{grid-column:1;margin:0}
+ #menu #uiMenuHome>.ui-menu-support .ui-menu-icon-card{min-height:38px;justify-content:flex-start}
+ #menu #uiMenuHome>.ui-menu-support .ui-menu-icon{width:26px;height:26px}
+ #menu #uiMenuHome>.ui-menu-support .ui-menu-action-copy strong{font-size:12px}
+ #menu #uiMenuHome>.ui-menu-support .ui-menu-action-copy small{font-size:9px}
+}
