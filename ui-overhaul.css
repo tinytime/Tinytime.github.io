@@ -944,3 +944,16 @@ body.land #bTurbo.on::before{background:repeating-conic-gradient(from -90deg,#f5
   #end #endScore img,#end #endScore svg{max-width:38px;max-height:38px}
   #dcall{bottom:calc(env(safe-area-inset-bottom,0px) + 8px)}
 }
+
+
+/* 360px Stage One Playbook card: reserve a real arrow column and prevent copy collision. */
+@media(max-width:360px){
+ #menu .ui-menu-grid .ui-menu-playbook{
+  grid-template-columns:30px minmax(0,1fr) 10px!important;
+  gap:6px!important;min-width:0;padding:8px!important;
+ }
+ #menu .ui-menu-grid .ui-menu-playbook .ui-menu-action-copy{min-width:0;overflow:hidden}
+ #menu .ui-menu-grid .ui-menu-playbook .ui-menu-action-copy strong{font-size:14px;letter-spacing:.01em;white-space:nowrap}
+ #menu .ui-menu-grid .ui-menu-playbook .ui-menu-action-copy small{font-size:10px;line-height:1.1}
+ #menu .ui-menu-grid .ui-menu-playbook .ui-menu-card-arrow{font-size:12px;align-self:center;justify-self:end}
+}
