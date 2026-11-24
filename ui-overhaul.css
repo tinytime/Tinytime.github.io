@@ -706,16 +706,16 @@
 
 /* Keep the display title and UPG badge on one clean line on narrow phones. */
 @media(max-width:420px){
- #menu .ui-menu-head{grid-template-columns:42px minmax(0,1fr) 66px;gap:8px}
- #menu .ui-menu-title{font-size:19px;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:clip}
- #menu .ui-menu-mark{width:40px;height:40px}
- #menu .ui-menu-upg{width:66px;min-width:66px;padding:5px 6px;font-size:12px}
+ #menu .ui-menu-head{grid-template-columns:40px minmax(0,1fr) 60px;gap:6px}
+ #menu .ui-menu-title{font-size:17px;letter-spacing:0;min-width:0;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:clip}
+ #menu .ui-menu-mark{width:38px;height:38px}
+ #menu .ui-menu-upg{width:60px;min-width:60px;padding:5px 5px;font-size:11px}
 }
 @media(max-width:360px){
- #menu .ui-menu-title{font-size:17px}
- #menu .ui-menu-head{grid-template-columns:38px minmax(0,1fr) 62px;gap:6px}
- #menu .ui-menu-upg{width:62px;min-width:62px;font-size:11px}
- #menu .ui-menu-mark{width:36px;height:36px}
+ #menu .ui-menu-title{font-size:16px}
+ #menu .ui-menu-head{grid-template-columns:36px minmax(0,1fr) 58px;gap:5px}
+ #menu .ui-menu-upg{width:58px;min-width:58px;font-size:10px}
+ #menu .ui-menu-mark{width:34px;height:34px}
 }
 
 
