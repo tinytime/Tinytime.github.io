@@ -310,6 +310,7 @@ try{
   check('Post-game uses matte navy surface and cyan rematch CTA',endStyles.surface==='rgb(19, 22, 32)'&&endStyles.rematch==='rgb(77, 225, 242)'&&endStyles.rematchText==='rgb(8, 19, 27)'&&endStyles.menu==='rgb(28, 33, 48)',endStyles);
   const scorePanel=await page.locator('#endScore').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{width:r.width,background:s.backgroundColor,border:s.borderTopWidth,radius:s.borderTopLeftRadius,children:el.children.length}});
   check('Post-game team score block is framed inside a matte navy card',scorePanel.background==='rgb(19, 22, 32)'&&parseFloat(scorePanel.border)>=1&&parseFloat(scorePanel.radius)>=12&&scorePanel.children>=1,scorePanel);
+  check('Post-game score card carries both existing team marks',await page.locator('#endScore .ui-end-logo').count()===2);
   await page.screenshot({path:path.join(out,'match-post-game.png'),fullPage:true});
   await page.setViewportSize({width:390,height:844});
   await page.waitForTimeout(120);
