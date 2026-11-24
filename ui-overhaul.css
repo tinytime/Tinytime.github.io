@@ -717,3 +717,8 @@
  #menu .ui-menu-upg{width:62px;min-width:62px;font-size:11px}
  #menu .ui-menu-mark{width:36px;height:36px}
 }
+
+
+/* Keep the pre-game matchup TAP TO PLAY prompt inside the safe viewport edge. */
+body #mu .bot{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 16px)!important}
+body #mu .tap{display:block;min-height:24px;line-height:24px;padding-bottom:2px}
