@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-24):** branch `UI-Overhaul` has Round 4 defense-drive pill fitting corrections in progress; latest code/test harness commit is `f3b657617d601d331702b2be556590c7210c6592` (Run #258 pending at the time of this note). Round 3 Run #256 passed 190/190 checks. The latest Round 4 feedback asks for the defense-drive pill to be centered and keep the full down-and-distance/yard-line text visible. MY TEAM and MY SQUAD are Section 3 / Stage Two in the handoff and must remain out of Stage One QA until the owner approves Stage One. QA pass count is not visual approval.
+**Live checkpoint (2026-11-24):** Round 4 defense-drive pill correction is implemented and verified on `UI-Overhaul`. Run #258 passed **191/191** checks against `f3b657617d601d331702b2be556590c7210c6592`; the pill is centered, has viewport clearance, no horizontal overflow, and preserves the full `2nd & 6 · BALL ON THEIR 39` context. [Run #258 and 37-screenshot artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/45510700772). MY TEAM and MY SQUAD are Section 3 / Stage Two and remain excluded until Stage One owner approval. QA pass count is not visual approval.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
