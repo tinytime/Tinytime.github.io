@@ -1134,3 +1134,8 @@ The sole failure was the rendered celebration check: all seven players had `cele
 ### Run #251 — renderer hook scope correction (2026-11-24)
 
 Run #251 tested `b5de0791448cd06b73be78881d1d54f4c11f2959` and stopped in the practice-win fixture because `drawEntities()` is private to the field-rendering script closure, while the UI QA hook is defined in a separate closure. This was a test-harness scope error, not a game-renderer failure. The field-rendering module now exposes a narrow `window.__CF3D_DRAW_ENTITIES` hook, and the practice fixture calls that function for 45 animation frames while the HUD gate is open. The end-game renderer-only HUD behavior and visual layout assertions remain in place. Pending Run #252; no golden snapshots changed.
+
+
+### Run #252 — field renderer advances; vector celebration path required (2026-11-24)
+
+Run #252 tested `95396692ebed114cebbf9fd21da8748ef888163a`: **185/186 checks passed**. The renderer hook executed 45 field frames, the post-game HUD stayed visually hidden while the renderer gate remained active, and the practice note/reward-card spacing passed. The only failed assertion was the celebration pose: the default match renderer uses the baked 2D vector sprites, whose art path did not consume `p.celeb`; the optional 3D renderer frame count alone was not proof of a visible pose. The next correction adds a cached raised-arm SVG variant to the default vector player art, passes the celebration flag into the sprite renderer, and verifies that the actual 2D celebration sprite was drawn (or the 3D path was used). Pending Run #253. No golden snapshots changed.
