@@ -487,3 +487,20 @@ A final live-branch recheck found a further QA-only correction after the 68-chec
 - The expanded screenshot list remains: Overworld, pre-game matchup, playbook, pre-snap, live play, fumble pile, defense selection, achievement toast and post-game.
 
 The GitHub commit-status response is still empty and no Actions run ID, completed result or artifact has been retrieved. This is not a pass or failure. Do not report the 76 assertions as executed until the workflow result is confirmed. Actual screenshot inspection, independent review and owner approval remain pending.
+
+
+## Final live-source reconciliation — 2026-11-24
+
+The live branch received two further source refinements after the latest 76-assertion QA commit:
+- The query-gated QA hooks are now enabled only on `localhost` / `127.0.0.1` with `?uiqa=1`, preventing those test-only hooks from being exposed on a deployed hostname.
+- Narrow-phone menu header sizing now keeps the display title and UPG badge in a controlled grid at 420px and 360px breakpoints.
+
+Latest verified repository state at this check:
+- Branch: `UI-Overhaul`
+- HEAD: `d530af0f0b5ef75cca6ce5cf83ccf002947c8a8e`
+- `index.html` blob: `d3c97ea964cb0ee9115fa3a8c363221a46f4921e`
+- `ui-overhaul.css` blob: `ed3b1a4702bdd5eb98af2a44f97d85d646da1ec8`
+- `ui-overhaul-menu.js` blob: `3e373e622b1fae7ce2f2b17051ee63c9052d9bc6`
+- `qa/ui-overhaul-browser-qa.mjs` blob: `66faa7e86f2fc4b86e6b42d4ff922c5e9fd77839` (76 assertions)
+
+The latest QA assertion commit remains `ad2cd22c26005f7e244a18f28a6ea7c88961d9e9`; the later source refinements and documentation commits are part of the current branch tip. No completed Actions result or artifact has been retrieved for this source state. Do not claim a browser pass or visual approval.
