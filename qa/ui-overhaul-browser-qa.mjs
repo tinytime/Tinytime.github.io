@@ -329,6 +329,8 @@ try{
    const defenseRows=await page.locator('#dcall button[data-c] .dco').evaluateAll(nodes=>nodes.map(n=>({rows:n.querySelectorAll('.dco-row').length,columns:getComputedStyle(n).gridTemplateColumns.split(' ').length,rowColumns:[...n.querySelectorAll('.dco-row')].map(row=>getComputedStyle(row).gridTemplateColumns.split(' ').length),labels:[...n.querySelectorAll('.dco-label')].map(x=>x.textContent.trim())})));
    check('Defense cards show three aligned STOP, BIG PLAY and TAKEAWAY stat rows',defenseRows.length===3&&defenseRows.every(x=>x.rows===3&&x.columns===1&&x.rowColumns.every(n=>n===2)&&x.labels.join('|')==='STOP|BIG PLAY|TAKEAWAY'),defenseRows);
    check('Defense selection headline names possession inside the modal', (await page.locator('#dcTop').textContent()).includes('THEY GET THE BALL'));
+   const duplicateBanner=await page.locator('#banner').evaluate(el=>{const s=getComputedStyle(el);return{visible:el.classList.contains('show')&&s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)>.01,text:el.textContent.trim(),display:s.display}});
+   check('Defense selection hides the duplicate THEY GET THE BALL field banner',!duplicateBanner.visible,duplicateBanner);
    await page.screenshot({path:path.join(out,'match-defense-selection.png'),fullPage:true});
    await page.locator('#dcall button[data-c="bal"]').click();
    await page.waitForFunction(()=>{const e=document.querySelector('#tick');return e&&getComputedStyle(e).display!=='none'},null,{timeout:5000});

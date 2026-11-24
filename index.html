@@ -2299,6 +2299,7 @@ function simDrive(fp,call){
   if(!res){res=yd>=62?'fg':'stop';L.push({t:res==='fg'?'FIELD GOAL IS GOOD':'DRIVE STALLS',c:res==='fg'?'bad':'good'})}
   return{L,res,turn,zone,D,plays,snaps,m}}
 function showDefCall(fp){
+  sayTok++;sayCur=null;const possessionBanner=$('#banner');possessionBanner.classList.remove('show');possessionBanner.innerHTML='';
   const S=dcSide(),m=S.O-S.D,pc=x=>Math.round(x*100)+'%';
   $('#dcTop').textContent='THEY GET THE BALL · '+ydTxt(fp);
   $('#dcRate').innerHTML='THEIR OFFENSE <b>'+S.O+'</b>'+(S.boost?' <small>('+S.T+' + '+S.boost+' captain push)</small>':'')+' · YOUR DEFENSE <b>'+S.D+'</b>'+(S.gaff?' <small>('+S.d+' + 4 gaff)</small>':'');   // v3.01: the numbers the drive really uses

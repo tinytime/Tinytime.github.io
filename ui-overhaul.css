@@ -1440,3 +1440,7 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 #end.screen[hidden]{display:none!important}
 
 /* Round Two targeted browser verification trigger — 2026-11-24. */
+
+
+/* Defense Selection owns the possession message; suppress the duplicate field banner while its modal is open. */
+#app:has(#dcall:not([hidden])) #banner{display:none!important}
