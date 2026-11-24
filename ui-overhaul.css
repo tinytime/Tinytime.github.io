@@ -1214,3 +1214,23 @@ body.land #hud #tgtTag{left:calc(min(600px,68%) + 10px)!important;top:calc(env(s
     repeating-conic-gradient(from -90deg,rgba(8,19,27,.95) 0deg 2deg,transparent 2deg 12deg),
     conic-gradient(from -90deg,#ff4a4a calc(var(--st,1)*1turn),rgba(255,255,255,.18) 0);
 }
+
+
+/* Final cascade-safe scoreboard styling: override the legacy inline game HUD rules. */
+#hud #bug{background:rgba(19,22,32,.96)!important;border:1px solid rgba(77,225,242,.32)!important;border-radius:10px!important;box-shadow:0 5px 18px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.04)!important}
+#hud #bug #bDown{background:#1c2130!important;color:#f5b841!important;clip-path:none!important;margin-right:0!important;min-width:94px;padding:0 8px;border-right:1px solid rgba(255,255,255,.1);align-items:center;text-align:center}
+#hud #bug #bDown b{font-size:15px!important;color:#f5b841!important}
+#hud #bug #bDown span{font-size:9px!important;color:#cbd5e1!important;letter-spacing:.09em}
+#hud #bug .bteam{background:#131620!important;border-left:1px solid rgba(255,255,255,.08)!important}
+#hud #bug .brow{height:35px;gap:7px;padding:0 8px}
+#hud #bug .tab{width:4px}
+#hud #bug .bn{font-size:13px!important;color:#e7edf7!important;letter-spacing:.065em}
+#hud #bug .bs{font-size:23px!important;color:#f5f7fa!important}
+#hud #bug .bteam .gbar{height:14px;background:rgba(255,255,255,.055)!important;border-top:1px solid rgba(255,255,255,.1)}
+#hud #bug .gbar span{font-size:9px!important;letter-spacing:.1em;color:#dbe6f4!important}
+#hud #bug #bClock{width:48px;background:#1c2130!important;border-left:1px solid rgba(255,255,255,.1);color:var(--ui-cyan)}
+#hud #bug #bClock b{font-size:20px!important;color:var(--ui-cyan)!important}
+#hud #bug #bClock span{font-size:8px!important;color:#cbd5e1!important;letter-spacing:.1em}
+#hud #tgtTag{left:calc(min(600px,68%) + 10px)!important;top:calc(env(safe-area-inset-top,0px) + 14px)!important;padding:6px 10px!important;border:1px solid rgba(245,184,65,.42)!important;border-radius:999px!important;background:#1c2130!important;color:#f5b841!important;font:900 9px/1 var(--ui-heading,system-ui)!important;letter-spacing:.11em;box-shadow:0 4px 12px rgba(0,0,0,.22)}
+body.land #hud #exit{right:8%;top:calc(env(safe-area-inset-top,0px) + 6px);width:40px;height:40px;min-width:40px;padding:0;display:flex;align-items:center;justify-content:center;border:1px solid rgba(77,225,242,.5);border-radius:50%;background:#131620;color:var(--ui-cyan);font:900 8px/1 var(--ui-heading,system-ui);letter-spacing:.04em;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+#tick #tkTop{top:calc(15% + 14px)!important}
