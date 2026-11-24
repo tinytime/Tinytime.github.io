@@ -126,3 +126,46 @@
   #menu .logo{font-size:28px}
   #menu .btnrow button{min-height:36px;padding:6px 8px}
 }
+
+/* Functional tabbed menu shell. */
+#menu.ui-menu-ready{display:flex;flex-direction:column;gap:9px;height:100%;min-height:0;overflow:hidden;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px calc(env(safe-area-inset-bottom,0px) + 12px);background:linear-gradient(180deg,#131620,#101522);color:var(--ui-text);text-align:left}
+#menu .ui-menu-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex:none;padding:2px 0 8px;border-bottom:1px solid var(--ui-border)}
+#menu .ui-menu-brand{display:flex;align-items:center;gap:10px;min-width:0}
+#menu .ui-menu-mark{width:38px;height:38px;display:grid;place-items:center;flex:none;border:1px solid rgba(77,225,242,.6);border-radius:11px;color:var(--ui-cyan);font-weight:900;font-size:19px;background:linear-gradient(145deg,#202a3c,#121724)}
+#menu .ui-menu-title{font-size:18px;line-height:1.05;font-weight:900;letter-spacing:.1em}
+#menu .ui-menu-town{font-size:11px;color:var(--ui-muted);letter-spacing:.12em;margin-top:3px}
+#menu .ui-menu-upg{flex:none;padding:7px 9px;border:1px solid rgba(245,184,65,.7);border-radius:9px;color:var(--ui-gold);font-weight:900;font-size:12px;background:rgba(245,184,65,.08)}
+#menu .ui-menu-goal{flex:none;padding:10px 12px;border:1px solid var(--ui-border);border-radius:14px;background:rgba(28,33,48,.82)}
+#menu .ui-menu-eyebrow{font-size:10px;letter-spacing:.16em;color:var(--ui-cyan);font-weight:900}
+#menu .ui-menu-goal-text{font-size:14px;font-weight:700;line-height:1.25;margin-top:4px;color:var(--ui-text)}
+#menu .ui-menu-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;flex:none}
+#menu .ui-menu-tab{min-height:38px;border:1px solid var(--ui-border);border-radius:9px;background:var(--ui-inner);color:var(--ui-muted);font:800 12px/1 inherit;letter-spacing:.1em}
+#menu .ui-menu-tab[aria-selected=true]{color:var(--ui-gold);border-color:var(--ui-gold);background:rgba(245,184,65,.1)}
+#menu .ui-menu-content{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:1px 1px 8px}
+#menu .ui-menu-pane[hidden]{display:none!important}
+#menu .ui-menu-pane{display:flex;flex-direction:column;gap:9px}
+#menu .ui-menu-card{padding:11px;border:1px solid var(--ui-border);border-radius:14px;background:linear-gradient(145deg,rgba(28,33,48,.95),rgba(20,25,38,.94))}
+#menu .ui-menu-card-title{font-size:11px;letter-spacing:.15em;color:var(--ui-muted);font-weight:900;margin:0 0 8px}
+#menu .ui-menu-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#menu .ui-menu-actions button{min-width:0;min-height:42px;height:auto;padding:9px 8px;border:1px solid var(--ui-border)!important;border-radius:10px!important;background:#1c2130!important;color:var(--ui-text)!important;box-shadow:none!important;font-size:13px;letter-spacing:.06em}
+#menu .ui-menu-actions #mUpg,#menu .ui-menu-actions #mGoals{border-color:rgba(245,184,65,.75)!important;color:var(--ui-gold)!important}
+#menu .ui-menu-actions #mFb{border-color:rgba(77,225,242,.65)!important;color:var(--ui-cyan)!important}
+#menu .ui-menu-setting{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+#menu .ui-menu-setting:last-child{border-bottom:0}
+#menu .ui-menu-setting-label{font-size:13px;font-weight:800;letter-spacing:.04em}
+#menu .ui-menu-setting .btn{min-width:112px;min-height:36px;height:auto;padding:5px 9px;border:1px solid var(--ui-border)!important;border-radius:9px!important;background:#1c2130!important;color:var(--ui-text)!important;box-shadow:none!important;font-size:12px}
+#menu .ui-menu-setting input[type=range]{width:48%;accent-color:var(--ui-cyan)}
+#menu .ui-menu-danger{border-color:rgba(239,68,68,.55);background:rgba(239,68,68,.045)}
+#menu .ui-menu-danger .ui-menu-card-title{color:var(--ui-red)}
+#menu .ui-menu-danger button{border-color:rgba(239,68,68,.7)!important;color:#ff8585!important}
+#menu .ui-menu-credit-group{padding:10px 11px;border:1px solid var(--ui-border);border-radius:12px;background:var(--ui-inner)}
+#menu .ui-menu-credit-group h3{margin:0 0 5px;color:var(--ui-cyan);font-size:11px;letter-spacing:.14em}
+#menu .ui-menu-credit-group p{margin:0;color:var(--ui-muted);font-size:12px;line-height:1.4;overflow-wrap:anywhere}
+#menu .ui-menu-dev{border:1px dashed rgba(245,184,65,.5);border-radius:12px;padding:10px;background:rgba(245,184,65,.04)}
+#menu .ui-menu-dev[hidden]{display:none!important}
+#menu .ui-menu-dev-title{font-size:11px;color:var(--ui-gold);font-weight:900;letter-spacing:.14em;margin-bottom:6px}
+#menu .ui-menu-foot{flex:none;padding-top:8px;border-top:1px solid var(--ui-border)}
+#menu .ui-menu-foot #mTown{width:100%;min-height:48px;border:1px solid var(--ui-cyan)!important;border-radius:11px!important;background:var(--ui-cyan)!important;color:#101724!important;font-weight:900;letter-spacing:.12em;box-shadow:none!important}
+#menu .ui-menu-build-trigger{margin:0;text-align:center;color:var(--ui-muted);font-size:10px;letter-spacing:.1em;padding:7px 0 0;cursor:pointer;user-select:none;background:none;border:0}
+#menu .ui-menu-build-trigger:focus-visible,#menu .ui-menu-tab:focus-visible{outline:2px solid var(--ui-cyan);outline-offset:2px}
+@media(max-height:650px){#menu.ui-menu-ready{gap:7px;padding-top:calc(env(safe-area-inset-top,0px) + 7px)}#menu .ui-menu-head{padding-bottom:5px}#menu .ui-menu-goal{padding:7px 10px}#menu .ui-menu-tab{min-height:34px}#menu .ui-menu-foot #mTown{min-height:42px}}
