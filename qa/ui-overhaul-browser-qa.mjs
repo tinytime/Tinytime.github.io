@@ -182,8 +182,13 @@ try{
  if(matchStart){
   await page.waitForFunction(()=>{const e=document.querySelector('#mu');return e&&e.classList.contains('on')},null,{timeout:15000});
   await page.waitForFunction(()=>document.querySelector('#mu .tap')?.classList.contains('go'),null,{timeout:15000});
+  await page.evaluate(()=>{const state=window.SG&&typeof window.SG.muState==='function'?window.SG.muState():null;if(state&&state.auto){clearTimeout(state.auto);state.auto=0}});
+  check('Pre-game matchup overlay remains visible for inspection',await page.locator('#mu').isVisible());
   await page.screenshot({path:path.join(out,'match-pre-game.png'),fullPage:true});
-  await page.locator('#mu .tap').click();
+  const matchupTap=page.locator('#mu .tap');
+  const matchupTapBox=await matchupTap.boundingBox();
+  if(!matchupTapBox)throw new Error('Pre-game TAP TO PLAY control has no visible hit area.');
+  await page.mouse.click(matchupTapBox.x+matchupTapBox.width/2,matchupTapBox.y+matchupTapBox.height/2);
   await page.waitForFunction(()=>{const e=document.querySelector('#sheet');return e&&!e.hidden},null,{timeout:10000});
   check('In-match playbook overlay opens',await page.locator('#sheet').isVisible());
   check('In-match CALL PLAY action visible',await page.locator('#callBtn').isVisible());
