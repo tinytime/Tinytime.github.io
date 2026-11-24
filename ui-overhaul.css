@@ -192,7 +192,8 @@
 #menu .ui-menu-confirm-actions .ui-menu-confirm-reset{border-color:var(--ui-red);background:rgba(239,68,68,.12);color:#ff8585}
 
 /* Playbook catalog and resolution selector refinement. */
-#menu .ui-menu-actions .ui-menu-playbook{grid-column:1/-1;min-height:42px;border:1px solid rgba(77,225,242,.65)!important;border-radius:10px!important;background:rgba(77,225,242,.06)!important;color:var(--ui-cyan)!important;font-weight:900;letter-spacing:.09em}
+#menu .ui-menu-actions #mSquad{grid-column:1/-1}
+#menu .ui-menu-actions .ui-menu-playbook{min-height:42px;border:1px solid rgba(77,225,242,.65)!important;border-radius:10px!important;background:rgba(77,225,242,.06)!important;color:var(--ui-cyan)!important;font-weight:900;letter-spacing:.09em}
 #menu .ui-menu-setting .ui-resolution-native{display:none!important}
 #menu .ui-resolution-group{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;flex:1;max-width:260px;padding:3px;border:1px solid var(--ui-border);border-radius:9px;background:#111725}
 #menu .ui-resolution-group button{min-width:0;min-height:32px;padding:4px 5px;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--ui-muted);font-size:11px;font-weight:900}
