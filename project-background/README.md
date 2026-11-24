@@ -2,14 +2,18 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-For the active UI redesign, start with the [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). It is the current status authority. Latest verified code commit on `UI-Overhaul`: `d0d7225f41a647bd8aeb23ea44208d554bb25025`. [GitHub Actions Run #121](https://github.com/tinytime/Tinytime.github.io/actions/runs/45443338719) passed **112/112 browser QA checks** on that exact commit; artifact `14945870640`. HIKE is now asserted to snap only after all required loops are ready (0 missing), with a measured 14.728-second wait inside the 15-second automated ceiling. Targeted Run #121 screenshots were inspected; the wider Run #114 set was previously inspected. Stage One is internally QA-passed and ready for independent Claude visual review; Claude review and owner approval remain pending. Stage Two remains on hold. QA pass count is not visual approval.
+**Live checkpoint (2026-11-24):** branch `UI-Overhaul`, HEAD `95c7a8120a077aab4ec8fd23adf21890ca9fc7c7`. Browser QA Runs [#192](https://github.com/tinytime/Tinytime.github.io/actions/runs/45458179127), [#193](https://github.com/tinytime/Tinytime.github.io/actions/runs/45458824874), and [#194](https://github.com/tinytime/Tinytime.github.io/actions/runs/45458852969) all passed their exact tested commits. Run #192: 141/141 (HIKE readiness 18.353s); #193: 141/141 (9.190s); #194: 142/142 (18.104s), zero failures, page exceptions, console errors, or same-origin HTTP failures. Run #194 artifact `14951189647` was retrieved and the Stage One screenshot set was visually inspected. Stage One corrections are internally QA-passed and visually inspected; Claude's updated independent review package is prepared against the current baseline, and owner approval remains pending. Stage Two MY TEAM / MY SQUAD remains on hold. QA pass count is not visual approval.
+
+**Workflow safeguard:** this checkpoint adds workflow-level concurrency for `UI-Overhaul` browser QA; a newer push cancels an older in-progress run for the same branch, preventing overlapping full-suite runs. Verify the safeguard in the next Actions run.
 
 Related references:
-- [UI Overhaul Plan](UI-OVERHAUL-PLAN.md) — design scope, seven-screen inventory and project guardrails.
+- [UI Overhaul Plan](UI-OVERHAUL-PLAN.md) — design scope and project guardrails.
 - [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) — current implementation and QA handoff.
+- [UI Overhaul Claude Review Package](UI-OVERHAUL-CLAUDE-REVIEW-PACKAGE.md) — exact Stage One independent-review scope and evidence.
 - [UI Overhaul workstream README](../ui-overhaul/README.md) — workstream history and implementation notes.
 
 When working on the UI overhaul, use branch `UI-Overhaul`, verify its live HEAD and latest Actions, and do not confuse the separate civilian-vector workstream below with the Circuit Football UI work.
+
 
 ---
 

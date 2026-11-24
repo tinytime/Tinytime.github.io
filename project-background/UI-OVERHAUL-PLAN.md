@@ -263,3 +263,8 @@ This section supersedes older implementation and QA status notes elsewhere in th
 - HIKE activation now supports pointer-up and keyboard activation. The sprite-readiness retry is bounded by elapsed time rather than callback count, avoiding headless timer throttling stalls.
 - The achievement toast is positioned clear of the play-by-play ticker and cleared when post-game begins.
 - Internal visual assessment: approximately **7.2/10**, provisional and above the owner's 6.5+ target. Claude's independent review and final owner approval are still required. Do not start MY TEAM / MY SQUAD Stage Two until approval.
+
+
+## 2026-11-24 — Stage One complete-scope review checkpoint
+
+The live Stage One correction baseline is `95c7a8120a077aab4ec8fd23adf21890ca9fc7c7`. Browser QA Runs #192–#194 passed 141/141, 141/141 and 142/142 respectively; Run #194 artifact `14951189647` was retrieved and inspected. The review scope includes the Stage One in-game HUD/state screens as specified by the original seven-section handoff and the owner's clarification; do not omit pre-game, pre-snap, live play, fumble, defense selection/simulation, achievement toast or post-game. The updated [Claude review package](UI-OVERHAUL-CLAUDE-REVIEW-PACKAGE.md) identifies the exact curated 20-image set. Stage Two remains held pending owner approval.

@@ -1,4 +1,8 @@
 name: UI Overhaul Browser QA
+
+concurrency:
+  group: ui-overhaul-browser-qa-${{ github.ref }}
+  cancel-in-progress: true
 on:
   push:
     branches: [UI-Overhaul]

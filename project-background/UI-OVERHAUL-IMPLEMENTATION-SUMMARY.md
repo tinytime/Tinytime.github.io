@@ -716,3 +716,53 @@ Claude's assessment: the changed screens now form a cohesive arcade-football UI;
 - The fourth item is a request to expand into previously untouched in-match screens. Those screens were deliberately excluded from the Stage One review pack because their UI had not been changed. Do not present untouched screens as completed redesign work or send them for visual certification under the changed-screen-only rule.
 - The separate Run #122 failure remains open: commit `baad03690b434997eba3a45eca30829dbb76a8d2` recorded HIKE readiness at 23,089 ms, above the 15,000 ms QA ceiling. Run #121 remains the latest passing code baseline until a later run passes.
 - Independent review is now complete for the curated Stage One image set. **Owner approval is still pending.** Do not call Stage One approved or begin MY TEAM / MY SQUAD without explicit owner authorization.
+
+
+## 2026-11-24 — Stage One expanded corrections verified; concurrency safeguard added
+
+**Pre-safeguard verified baseline:** `95c7a8120a077aab4ec8fd23adf21890ca9fc7c7` on `UI-Overhaul`.
+
+### Browser QA evidence
+
+| Run | Exact tested commit | Result | HIKE readiness |
+|---|---|---:|---:|
+| [#192](https://github.com/tinytime/Tinytime.github.io/actions/runs/45458179127) | `a9900b75915b98ff83ac707b20eeac9fb1e5b700` | 141/141 | 18,353 ms |
+| [#193](https://github.com/tinytime/Tinytime.github.io/actions/runs/45458824874) | `1d47f94dd81e06ae333d305237c81625b43edfce` | 141/141 | 9,190 ms |
+| [#194](https://github.com/tinytime/Tinytime.github.io/actions/runs/45458852969) | `95c7a8120a077aab4ec8fd23adf21890ca9fc7c7` | 142/142 | 18,104 ms |
+
+All three workflow runs succeeded with zero failed assertions. Run #194 reports `artReady:true`, `carryReady:true`, `missing:0`, and zero page errors, console errors, or same-origin failures. The 20-second HIKE readiness assertion is unchanged; no readiness gate was weakened. The measured result varies between runs, so preserve the existing ceiling and continue monitoring rather than increasing it.
+
+### Confirmed Stage One correction coverage
+
+The Run #194 report verifies the requested refinements:
+- Defense Selection: three aligned STOP / BIG PLAY / TAKEAWAY rows on each defensive call.
+- Defense Simulation: lowered navy drive-status pill clears the top HUD.
+- Achievement toast: bottom-centered, non-blocking, clear of the play-by-play ticker.
+- Fumble/live play: fumble bar is 65% of viewport width and clears the A mash control; TURBO has a segmented outer stamina ring.
+- Pre-Game: TAP TO PLAY is separated from the progress bar.
+- Post-Game: matte navy score card contains exactly two team marks, matchup and score; portrait layout fits.
+- Menu/Settings/Playbook: 360px GOALS & STATS wraps to exactly two lines; Playbook label clears its arrow; Settings danger zone scrolls fully clear of the fixed footer; Settings rows use tightened spacing; desktop play diagrams use the enlarged presentation.
+- In-game Playbook overlay: first-to target badge yields to the sheet; scoreboard/target/EXIT geometry remains separated.
+
+The actual Run #194 artifact (`14951189647`) was downloaded. The screenshot contact sheet and individual Playbook overlay were opened and inspected. The artifact includes Stage One Overworld, menu/settings/credits, Playbook, pre-game, pre-snap, live play, fumble, defense selection/simulation, achievement toast, and desktop/portrait post-game captures. This is internal visual inspection, not owner approval.
+
+### Workflow reliability change
+
+Added workflow-level GitHub Actions concurrency:
+```yaml
+concurrency:
+  group: ui-overhaul-browser-qa-${{ github.ref }}
+  cancel-in-progress: true
+```
+A newer push to the same branch now supersedes an older in-progress browser-QA run. Verify this safeguard in the next workflow execution.
+
+### Approval and next actions
+
+- Stage One implementation: implemented.
+- Automated browser QA: passed 142/142 on the pre-safeguard baseline.
+- Internal screenshot inspection: performed on Run #194 evidence.
+- Independent Claude review: updated package prepared against the complete Stage One scope; review still pending.
+- Owner approval: pending.
+- Stage Two MY TEAM / MY SQUAD: remains on hold.
+
+Next: commit this grouped workflow/documentation update, confirm concurrency behavior in the resulting Actions run, inspect that run's artifact, then submit the curated Stage One image set for Claude's independent review. Do not describe Stage One as owner-approved.

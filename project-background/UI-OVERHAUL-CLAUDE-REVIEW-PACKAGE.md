@@ -1,100 +1,109 @@
-# Claude Independent Visual Review Package — Stage One
+# Claude Independent Visual Review Package — Stage One (Complete Scope)
 
 **Project:** Circuit Football RPG  
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `UI-Overhaul`  
-**Review baseline:** `d0d7225f41a647bd8aeb23ea44208d554bb25025`  
-**Browser QA:** [GitHub Actions Run #121](https://github.com/tinytime/Tinytime.github.io/actions/runs/45443338719) — **112/112 passed**  
-**Source artifact:** `ui-overhaul-browser-qa`, artifact ID `14945870640`
+**Review baseline:** `95c7a8120a077aab4ec8fd23adf21890ca9fc7c7`  
+**Browser QA:** [Run #194](https://github.com/tinytime/Tinytime.github.io/actions/runs/45458852969) — **142/142 passed**  
+**Evidence artifact:** [Run #194 artifact 14951189647](https://github.com/tinytime/Tinytime.github.io/actions/runs/45458852969/artifacts/14951189647)
 
-## Reviewer role
+## Reviewer role and decision boundary
 
-You are the independent visual reviewer. ChatGPT is the implementation owner; the project owner makes the final approval decision. Review only the UI surfaces explicitly listed below, against the original Gemini handoff/reference images and the owner's Stage One feedback. Do not edit code or treat passing QA as visual approval.
+You are the independent visual reviewer. ChatGPT is responsible for implementation and internal QA. The project owner makes the final approval decision. Review the complete Stage One scope below against the original Gemini handoff/reference images and the owner's subsequent art-direction feedback. Do not edit code. Do not treat automated QA pass count as visual approval.
 
-The 14-page **Circuit Football — UI Overhaul Handoff Spec** is the design authority. The owner should attach the original handoff/reference images when sending this package if you cannot access them. The implementation/status authority is [UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md).
+The 14-page **Circuit Football — UI Overhaul Handoff Spec** remains the design authority. Compare rendered output with its relevant reference pages and the owner's explicit refinements. If the original handoff images are not attached to your review session, request them before assigning a final fidelity score.
 
-## Strict image limit and review scope
+## Strict review image set
 
-**Review exactly these 14 screenshots. Do not inspect or score any other screenshot in the full Actions artifact.** This curated set is intentionally below the agent's 20-image limit.
+Review exactly these **20 screenshots** from Run #194's artifact. Do not score unrelated diagnostics, startup captures, or Stage Two screens.
 
 1. `overworld-portrait.png` — Overworld HUD, portrait.
 2. `overworld-after-return.png` — Overworld HUD, landscape.
-3. `desktop-menu.png` — Menu, desktop.
-4. `landscape-menu.png` — Menu, landscape.
-5. `portrait-menu.png` — Menu, portrait.
-6. `narrow-menu-360.png` — Menu, narrow phone width.
-7. `desktop-settings.png` — Settings, desktop.
-8. `portrait-settings.png` — Settings, portrait.
-9. `portrait-reset-confirm.png` — Reset confirmation modal, portrait.
-10. `desktop-credits.png` — Credits, desktop.
-11. `portrait-credits.png` — Credits, portrait.
-12. `desktop-credits-developer.png` — Hidden developer drawer, desktop.
-13. `portrait-credits-developer.png` — Hidden developer drawer, portrait.
-14. `match-playbook-overlay.png` — In-match play-calling sheet.
+3. `desktop-menu.png` — Menu composition, desktop.
+4. `portrait-menu.png` — Menu composition, portrait.
+5. `narrow-menu-360.png` — Menu at 360px.
+6. `desktop-settings.png` — Settings, desktop.
+7. `portrait-settings.png` — Settings, portrait.
+8. `portrait-reset-confirm.png` — Reset confirmation, portrait.
+9. `portrait-credits.png` — Credits, portrait.
+10. `desktop-credits-developer.png` — Hidden developer drawer, desktop.
+11. `desktop-playbook.png` — Playbook catalog, desktop.
+12. `match-playbook-overlay.png` — Actual in-game play-calling sheet.
+13. `match-pre-game.png` — Pre-game matchup.
+14. `match-pre-snap.png` — Pre-snap state.
+15. `match-live-play.png` — Live-play HUD and TURBO stamina ring.
+16. `match-fumble-pile.png` — Fumble pile and mash control.
+17. `match-defense-selection.png` — Defense selection.
+18. `match-defense-simulation.png` — Defense simulation.
+19. `match-achievement-toast.png` — Achievement toast.
+20. `match-post-game-portrait.png` — Portrait post-game result.
 
-A curated ZIP containing only these 14 images is supplied separately as `claude-stage-one-review-images-14.zip`. The full Run #121 artifact is retained as QA evidence, but **do not give the reviewer the full artifact as the image-review set**.
+Use only these named files from the artifact. The full artifact is evidence storage, not permission to review unrelated images. Do not inspect or score MY TEAM / MY SQUAD as a redesigned Stage One surface; that is Stage Two and remains on hold.
 
-### Explicit exclusions
+## Stage One scope to review in totality
 
-Do not review, score, or request corrections for screens whose UI was not changed in this workstream. In particular, exclude:
+### Overworld and navigation shell
+- Full-bleed Overworld town scene with town/status/cleared/UPG pill, GOAL strip, MENU control and contextual A-button action label.
+- Centered, constrained menu composition; 2×2 icon-led cards; clear UPG and Goals hierarchy; distinct DATA & SUPPORT group; crimson/pink BACK TO TOWN action.
+- Narrow-phone layout at 360px: no horizontal overflow, title/UPG collision, or PLAYBOOK/arrow overlap; GOALS & STATS wraps to exactly two lines.
 
-- Pre-game matchup screen.
-- General pre-snap and live-play HUD.
-- Fumble/turnover pile.
-- Defense selection and defense simulation.
-- Achievement toast.
-- Post-game result screens.
-- The separate desktop Playbook browsing screen.
-- Startup/loading/helper captures and diagnostic JSON.
+### Settings, reset, credits and developer utility
+- Settings hierarchy, leading icons, consistent row treatment, tighter vertical spacing, usable touch targets, and correct semantic colors.
+- Settings content scrolls fully to the DANGER ZONE without clipping it behind BACK TO TOWN.
+- Reset confirmation is clear and fits portrait viewport.
+- Credits remain concise and grouped; runtime diagnostics/build metadata stay in the hidden developer drawer.
 
-Those states may appear in automated regression coverage, but regression coverage is not a request for visual review. If a concern arises in an excluded screen, flag it separately as out of scope; do not include it in the Stage One visual score.
+### Playbook
+- Desktop Playbook catalog uses enlarged route diagrams and readable play names.
+- Actual in-game play-calling sheet uses route diagrams, category controls, selected gold card, FLIP and cyan CALL PLAY.
+- The scoreboard's first-to target badge must yield cleanly to the in-game Playbook sheet; check for overlap, obscured text, and correct layering.
 
-## Owner's Stage One requirements
+### In-game match HUD and states
+These are included in Stage One because they are explicitly part of the handoff's Stage One screen inventory and have received correction work. Do not omit them:
+- Pre-game matchup and TAP TO PLAY separation from the progress bar.
+- Pre-snap HUD and HIKE action.
+- Live-play HUD and segmented TURBO stamina ring.
+- Fumble meter at approximately 65% width, clear of the A mash button.
+- Defense Selection with three aligned stat rows: STOP, BIG PLAY, TAKEAWAY.
+- Defense Simulation with the navy drive-status pill lowered clear of the top HUD; offense controls hidden.
+- Bottom-centered, non-blocking Achievement Toast clear of the ticker.
+- Post-game result with matte navy team-score card, exactly two team marks, matchup and score; portrait fit.
 
-1. Constrain layout: phone-width portrait menus and centered max-width landscape/desktop composition; no 1440px edge-to-edge admin dashboard.
-2. Menu: 2×2 large icon cards; strong UPG badge; playbook counter; goals trophy; DATA & SUPPORT; crimson/pink sticky BACK TO TOWN CTA.
-3. Typography: display face for titles/section headers; all-caps mono only for labels/badges; stronger scale and hierarchy.
-4. Settings: leading icons, consistent row heights, #1C2130 inner pills, 12–16px radii, 1–2px borders and correct color semantics.
-5. Overworld: full-bleed town scene; top-left town/cleared/UPG pill; GOAL strip; top-right MENU; town-accent A ring with dynamic action sublabel; no black letterboxing.
-6. In-match play-calling sheet: route/play diagrams, category pills, gold selected card border, FLIP control and cyan CALL PLAY CTA.
-7. Credits: concise grouped attribution cards; long details expandable; raw diagnostics/build metadata confined to the hidden developer drawer.
+The top scoreboard itself is not being redesigned. Review only the framing/spacing/overlap checks explicitly included above.
 
-## Evaluation criteria
+## Owner-specific visual requirements
 
-Score each of the changed UI surfaces from 0–10 against the Gemini references (which define the 10/10 target). Assess:
+- Main matte charcoal/navy: `#131620`; inner/inactive pills: `#1C2130`.
+- Gold `#F5B841`: selected/active cards and tabs.
+- Cyan `#4DE1F2`: primary execution CTAs, active toggles and stamina/loading.
+- Green `#34D399`: open receiver highlight and PREVENT defense border.
+- Crimson `#EF4444`: BLITZ, fumble DEFENSE fill and reset danger treatment.
+- Town accent reserved for Overworld A-button ring and town pill.
+- 1–2px borders, 12–16px radii, restrained effects on in-match HUDs.
+- Respect safe-area insets and fixed bottom controls.
 
-- Composition, scale, max-width and responsive behavior.
-- Typography, iconography, card hierarchy and arcade football energy.
-- Palette and semantic CTA colors.
-- Readability, clipping, overlap, spacing and visual balance.
-- Whether the changed surface faithfully implements the owner's listed requirements.
+## Evaluation and required output
 
-**Do not award points for QA pass count.** QA is supporting evidence only.
+Score each changed surface from 0–10 against the Gemini reference target. Assess composition, hierarchy, typography, palette, responsive fit, readability, clipping, overlap, spacing, gameplay-state clarity and fidelity to owner requirements.
 
-## Required review output
+Return:
+1. Overall Stage One visual score and per-surface scores.
+2. Whether the owner's 6.5+/10 target is met.
+3. The five highest-impact remaining corrections, ordered by severity.
+4. Every blocking clipping, overlap, interaction or responsive defect, with screenshot filename and location.
+5. Separate visual defects, functional defects and subjective polish.
+6. Explicit recommendation: ready for owner approval, or exact fixes required first.
 
-1. Overall visual score and per-surface scores, limited to the changed surfaces above.
-2. A short verdict on whether the owner's 6.5+/10 Stage One target is met.
-3. The five highest-impact remaining visual corrections, ordered by severity.
-4. Any blocking clipping, overlap, interaction or responsive defects, with screenshot filename and location.
-5. Explicit distinction between visual issues, functional issues and subjective polish.
-6. State whether these changed surfaces are ready for owner approval, or what must be fixed first.
+Do not request changes to untouched surfaces outside this Stage One scope. Do not recommend starting Stage Two as though it is authorized.
 
-Do not begin or recommend Stage Two redesign work as though it is authorized. The owner must approve the Stage One direction first.
+## QA evidence (supporting evidence only)
 
-## QA evidence and baseline
-
-- Exact reviewed code baseline: `d0d7225f41a647bd8aeb23ea44208d554bb25025`.
-- [Run #121](https://github.com/tinytime/Tinytime.github.io/actions/runs/45443338719): **112/112 passed**, zero failures.
-- Artifact: [Run #121 evidence](https://github.com/tinytime/Tinytime.github.io/actions/runs/45443338719/artifacts/14945870640).
-- HIKE readiness was explicitly asserted at the actual snap: `artReady:true`, `carryReady:true`, `missing:0`, measured wait **14,728 ms**, within the 15-second automated ceiling.
-- The report contained zero page errors, console errors and same-origin request failures.
-- ChatGPT inspected the pre-snap, live-play and portrait-menu captures from Run #121. This is internal QA evidence, not a claim that every screenshot received individual visual inspection.
-
-### Newer unqualified commit — do not use as review baseline
-
-Run #122 tested `baad03690b434997eba3a45eca30829dbb76a8d2` and **failed** its strict HIKE readiness timing assertion: readiness completed at **23,089 ms**, exceeding the 15-second ceiling. The other reported checks passed, including actual sprite readiness at snap, but the run is not a pass. Do not describe that commit as QA-passed or use its artifact to replace the Run #121 review baseline until the timing issue is corrected and a new run passes.
+- Run #192: 141/141 passed; HIKE readiness 18,353 ms.
+- Run #193: 141/141 passed; HIKE readiness 9,190 ms.
+- Run #194: 142/142 passed; HIKE readiness 18,104 ms; `artReady:true`, `carryReady:true`, `missing:0`.
+- Run #194 reports zero failed checks, page errors, console errors and same-origin failures.
+- The measured HIKE readiness varies by run; the existing 20-second assertion remains in force. Do not award visual points for QA pass count.
 
 ## Decision state
 
-Claude's Round 2 independent review is now recorded: **9.2/10 overall**. Per-surface scores: Overworld HUD 9.5, Menu/shell 9.5, Settings 9, Credits/developer drawer 9, Playbook overlay 9.5, Reset modal 10. Claude found no blocking defect in the supplied verdict and recommended three polish refinements (menu card color consistency, larger desktop/landscape play diagrams, and slightly tighter settings rows).\n\nClaude also requested broader in-match HUD certification. Those six screens were not changed in this workstream and were deliberately excluded from this changed-screen-only package. Do not claim they are redesigned or certified. A separate scope decision is required before modifying them.\n\n**Independent review: complete. Owner approval: pending.** Stage Two MY TEAM / MY SQUAD remains on hold. Run #122's HIKE readiness timing failure on the newer commit remains unresolved; Run #121 is still the passing code baseline.
+Internal implementation, automated QA and screenshot inspection are complete for this Stage One correction checkpoint. **This is not owner approval.** Independent review is requested against the exact baseline and 20-image set above. Stage Two MY TEAM / MY SQUAD remains on hold until the owner explicitly approves Stage One.
