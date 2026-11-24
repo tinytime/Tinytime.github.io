@@ -210,6 +210,9 @@ try{
  const credit=(await page.locator('#uiMenuCredits').innerText()).toUpperCase();
  check('Credits categories present',['3D ART & UI','MUSIC & SFX','TOWN AMBIENCE'].every(s=>credit.includes(s)));
  check('Credits use three concise grouped cards',await page.locator('#uiMenuCredits .ui-menu-credit-group').count()===3);
+ const creditDetails=await page.locator('#uiMenuCredits .ui-menu-credit-details').evaluateAll(ds=>ds.map(d=>({open:d.open,text:d.textContent})));
+ check('Credits show the full source attribution in all three reference cards',creditDetails.length===3&&creditDetails.every(d=>d.open)&&creditDetails[0].text.includes('Kay Lousberg')&&creditDetails[1].text.includes('glitchart')&&creditDetails[2].text.includes('Thimras')&&creditDetails[2].text.includes('Kevin MacLeod'),creditDetails);
+
  check('Build footer retained',await page.locator('#mBuild').count()===1&&await page.locator('#mBuild').isVisible());
  await page.waitForFunction(()=>document.querySelector('.ui-menu-dev #mSnd')&&document.querySelector('.ui-menu-dev #mKKF'),null,{timeout:5000});
  check('Build trigger is concise', (await page.locator('#mBuild').textContent()).trim()==='BUILD INFO');
