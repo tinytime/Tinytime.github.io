@@ -979,3 +979,14 @@ The run confirms the Team Stats correction: Skill Moves now renders as three ind
 **Root cause:** the legacy selector `#menu .ui-menu-actions #mGoals` has greater CSS specificity than the data-attribute tile selectors, so it continues to force a gold border even though the GOALS tile is tagged `data-ui-tile="goals"`. This is a CSS cascade issue, not a missing tile tag or a runtime error.
 
 A narrow, higher-specificity override is being added for only `#mGoals`, including hover and keyboard-focus states. No other tile colors or behaviors are changed. Run #230 must confirm the single remaining assertion and the refreshed screenshot before this correction is considered verified. Golden snapshots remain untouched; Stage One is not yet approved and Stage Two remains held.
+
+
+## Run #230 result and remaining menu accent correction (2026-11-24)
+
+**Run #230 verified:** [GitHub Actions run #230](https://github.com/tinytime/Tinytime.github.io/actions/runs/45475484945), run ID `45475484945`, tested exact commit `c48d542b8484fabaac606ea45d3b54033ca052ad`. Result: **163/164 checks passed**. No page errors, console errors or same-origin request failures.
+
+The GOALS & STATS cyan correction is confirmed by the computed style in the browser report. The only remaining failure is the MY TEAM border-strength assertion: its computed cyan alpha is `.62`, while the Stage One tile treatment requires `.82`. The desktop screenshot shows the tile is cyan, but the exact style token remains inconsistent.
+
+**Root cause:** an older selector, `#menu .ui-menu-actions #mTeam`, sets the border to `rgba(77,225,242,.62)` with important priority. The prior semantic tile selector does not override that legacy ID rule. A narrowly scoped, higher-specificity override is being added for `#mTeam` and its hover/focus-visible states, setting the shared `.82` cyan frame strength. No tile layout, content, gameplay, or other menu behavior is changed.
+
+Run #231 must verify the exact four computed tile colors and fresh desktop/portrait menu screenshots. Run #230 confirms the Team Stats three-cell layout and all six Round Two polish assertions. Stage One is still not approved; complete the remaining Stage One fidelity/evidence gates, Claude's independent review and owner approval before Stage Two. Golden snapshots remain untouched.
