@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-For the active UI redesign, start with the [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). It records the exact implementation state, last browser-QA failure, follow-up commits, and one-to-one continuation instructions for a new chat.
+For the active UI redesign, start with the [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). It records the exact implementation state, latest browser-QA result (Run #39: 51/51 passed), inspected screenshot evidence, owner-approval gate, follow-up commits, and one-to-one continuation instructions for a new chat.
 
 Related references:
 - [UI Overhaul Plan](UI-OVERHAUL-PLAN.md) — design scope, seven-screen inventory and project guardrails.
