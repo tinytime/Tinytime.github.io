@@ -9146,7 +9146,7 @@ function owHud(){
   $('#world').classList.toggle('hb',!!(M.harbor||M.hb||M.island));
   const hbm=M.harbor||M.hb,n=(hbm?['baitdogs','longshore','gantry']:['cats','kings','rollers']).filter(id=>SAVE.beaten.includes(id)).length,cap=SAVE.beaten.includes(hbm?'closers':'captain'),got=Object.keys(RWD).filter(owGot).length;
   $('#owTown').textContent=M.room?'':(M.route?'THE SPILLWAY':M.island?"GULL'S REACH":M.harbor?'HALE HARBOR':'VAPOR CITY');
-  $('#owObj').textContent=(cap?'CLEARED':'CREWS '+n+'/3')+((SAVE.upPts||0)?'  \u00b7  UPG '+SAVE.upPts:'');if(M.island||M.r2)$('#owObj').textContent=r2Obj()+((SAVE.upPts||0)?'  \u00b7  UPG '+SAVE.upPts:'');$('#mUpg').textContent='UPGRADES'+((SAVE.upPts||0)?' ('+SAVE.upPts+')':'');
+  $('#owObj').textContent=(cap?'CLEARED':'CREWS '+n+'/3')+((SAVE.upPts||0)?'  \u00b7  UPG '+SAVE.upPts:'');if(M.island||M.r2)$('#owObj').textContent=r2Obj()+((SAVE.upPts||0)?'  \u00b7  UPG '+SAVE.upPts:'');const upgControl=$('#mUpg');if(upgControl)upgControl.textContent='UPGRADES'+((SAVE.upPts||0)?' ('+SAVE.upPts+')':'');
 }
 /* dialogue */
 let owLines=[],owAfter=null,owChoices=null;
