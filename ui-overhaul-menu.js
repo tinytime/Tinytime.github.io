@@ -216,3 +216,26 @@
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
+
+
+/* Add the existing live team marks to the post-game score card; no team data is duplicated. */
+(()=> {
+ const enhanceScoreCard=()=>{
+  const score=document.getElementById('endScore'),heading=score&&score.firstElementChild;
+  if(!heading||heading.dataset.uiLogos==='true')return;
+  const left=document.getElementById('yLg'),right=document.getElementById('oLg');
+  if(!left||!right)return;
+  const label=document.createElement('span');label.className='ui-end-score-matchup';label.textContent=heading.textContent.trim();
+  const cloneMark=(source,side)=>{
+   const mark=source.cloneNode(true);mark.removeAttribute('id');mark.className='ui-end-logo ui-end-logo-'+side;mark.setAttribute('aria-hidden','true');return mark;
+  };
+  heading.replaceChildren(cloneMark(left,'home'),label,cloneMark(right,'away'));
+  heading.dataset.uiLogos='true';
+ };
+ const boot=()=>{
+  const score=document.getElementById('endScore');if(!score)return;
+  enhanceScoreCard();
+  if(window.MutationObserver)new MutationObserver(enhanceScoreCard).observe(score,{childList:true,subtree:true});
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+})();
