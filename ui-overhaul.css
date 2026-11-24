@@ -254,6 +254,7 @@
 #menu .ui-menu-tabs{gap:7px}
 #menu .ui-menu-tab{min-height:40px;border-radius:10px;font-family:var(--ui-heading);font-size:14px;letter-spacing:.12em}
 #menu .ui-menu-content{padding:2px 1px 10px}
+#menu .ui-menu-content:has(#uiMenuSettings){overflow-y:auto!important;overscroll-behavior:contain;padding-bottom:28px!important;scroll-padding-bottom:28px}
 #menu .ui-menu-pane{gap:10px}
 #menu .ui-menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0;border:0;background:transparent}
 #menu .ui-menu-grid>.ui-menu-card-title{display:none}
@@ -745,6 +746,16 @@ body #mu .tap{display:block;min-height:24px;line-height:24px;padding-bottom:2px}
 #owGoal{display:none!important}
 @media(max-width:390px){#owTop{max-width:calc(100vw - 112px)}#owTop .ui-ow-pill{gap:5px;padding:7px 8px}#owTop .ui-ow-goal{padding:7px 8px}#owTop .ui-ow-goal-copy{font-size:11px}#owA{right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);width:68px;height:68px}}
 
+
+/* Gemini Stage One polish — HUD breathing room, safe Settings scroll end, and 360px label fit. */
+#owTop .ui-ow-pill{column-gap:10px}
+#menu .ui-menu-content:has(#uiMenuSettings:not([hidden])){overflow-y:auto!important;padding-bottom:28px!important;scroll-padding-bottom:28px}
+@media(max-width:390px){
+ #owTop .ui-ow-pill{column-gap:8px}
+}
+@media(max-width:360px){
+ #menu #mGoals .ui-menu-action-copy strong{font-size:13px;letter-spacing:.015em;max-width:7ch;line-height:1.02}
+}
 
 /* Keep both execute actions semantically solid cyan, overriding the legacy orange/gradient CTA skin. */
 #app #sheet #callBtn,#app #sheet #hike{
