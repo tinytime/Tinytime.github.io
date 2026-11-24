@@ -199,7 +199,7 @@ try{
   check('In-match selected play has gold treatment',await page.locator('#cards .card.sel').count()===1);
   check('In-match FLIP control is visible',await page.locator('#flipBtn').isVisible());
   const callStyle=await page.locator('#callBtn').evaluate(el=>({background:getComputedStyle(el).backgroundImage,backgroundColor:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color}));
-  const callRGB=(callStyle.backgroundColor.match(/\\d+/g)||[]).map(Number);
+  const callRGB=(callStyle.backgroundColor.match(/\d+/g)||[]).map(Number);
   check('In-match CALL PLAY uses the cyan CTA treatment',callRGB.length===3&&callRGB[1]>180&&callRGB[2]>180&&callRGB[1]>=callRGB[0]&&callRGB[2]>=callRGB[0]&&callRGB.every(v=>v<255)&&callStyle.color==='rgb(8, 19, 27)',callStyle);
   await page.locator('#flipBtn').click();
   check('In-match FLIP toggles selected play orientation',await page.locator('#flipBtn').evaluate(el=>el.classList.contains('on')));
