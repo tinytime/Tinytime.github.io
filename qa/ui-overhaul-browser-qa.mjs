@@ -145,6 +145,9 @@ try{
  const credit=(await page.locator('#uiMenuCredits').innerText()).toUpperCase();
  check('Credits categories present',['3D ART & UI','MUSIC & SFX','TOWN AMBIENCE'].every(s=>credit.includes(s)));
  check('Build footer retained',await page.locator('#mBuild').count()===1&&await page.locator('#mBuild').isVisible());
+ check('Developer drawer is hidden by default',!(await page.locator('.ui-menu-dev').isVisible()));
+ await page.screenshot({path:path.join(out,'desktop-credits.png'),fullPage:true});
+ await page.setViewportSize({width:390,height:844});await page.waitForTimeout(120);await page.screenshot({path:path.join(out,'portrait-credits.png'),fullPage:true});await page.setViewportSize({width:1440,height:1000});
  for(let i=0;i<5;i++)await page.locator('#mBuild').click({delay:80});
  check('Developer drawer opens',await page.locator('.ui-menu-dev').isVisible());
  const dev=await Promise.all(['#mRO','#mPL','#mPR'].map(s=>page.locator(s).count()));
@@ -225,7 +228,14 @@ try{
    check('Fumble turnover can be resolved',lost);
    await page.waitForFunction(()=>{const e=document.querySelector('#dcall');return e&&!e.hidden},null,{timeout:10000});
    check('Defense selection screen appears after turnover',await page.locator('#dcall').isVisible());
+   check('Defense selection offers BLITZ, BALANCED and PREVENT',await page.locator('#dcall button[data-c]').count()===3);
    await page.screenshot({path:path.join(out,'match-defense-selection.png'),fullPage:true});
+   await page.locator('#dcall button[data-c="bal"]').click();
+   await page.waitForFunction(()=>{const e=document.querySelector('#tick');return e&&getComputedStyle(e).display!=='none'},null,{timeout:5000});
+   check('Defense simulation begins after choosing a call',await page.locator('#tick').isVisible());
+   check('Defense simulation names the selected call',(await page.locator('#tkTitle').textContent()).includes('BALANCED'));
+   check('Offensive controls are hidden during defense simulation',await page.locator('#sheet').isHidden()&&await page.locator('#setbar').isHidden()&&await page.locator('#ctl').isHidden());
+   await page.screenshot({path:path.join(out,'match-defense-simulation.png'),fullPage:true});
    const toast=await page.evaluate(()=>window.SG.__uiqa.achievement());
    check('Achievement toast can be triggered',toast);
    await page.waitForFunction(()=>{const e=document.querySelector('#achT');return e&&getComputedStyle(e).opacity!=='0'},null,{timeout:5000});
