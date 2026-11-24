@@ -202,6 +202,8 @@ try{
  check('360px portrait title clears the UPG badge',narrowBrand.titleRight<=narrowBrand.upgLeft-4&&narrowBrand.titleScroll<=narrowBrand.titleClient+1,narrowBrand);
  const goalsLabel=await page.locator('#mGoals .ui-menu-action-copy strong').evaluate(el=>{const r=document.createRange();r.selectNodeContents(el);const rects=[...r.getClientRects()].map(x=>({x:x.x,y:x.y,width:x.width,height:x.height}));return{text:el.textContent.trim(),fontSize:getComputedStyle(el).fontSize,lineHeight:getComputedStyle(el).lineHeight,rects,lineCount:rects.length}});
  check('GOALS & STATS wraps to exactly two lines at 360px',goalsLabel.text==='GOALS & STATS'&&goalsLabel.lineCount===2,goalsLabel);
+ const playbookFit=await page.evaluate(()=>{const t=document.querySelector('.ui-menu-playbook .ui-menu-action-copy'),a=document.querySelector('.ui-menu-playbook .ui-menu-card-arrow');if(!t||!a)return null;const x=t.getBoundingClientRect(),y=a.getBoundingClientRect();return{textRight:x.right,arrowLeft:y.left,clearance:y.left-x.right,cardWidth:document.querySelector('.ui-menu-playbook').getBoundingClientRect().width}});
+ check('360px Playbook label clears its arrow without overlap',!!playbookFit&&playbookFit.clearance>=4,playbookFit);
  await page.screenshot({path:path.join(out,'narrow-menu-360.png'),fullPage:true});
  await page.setViewportSize({width:1440,height:1000});
 
