@@ -218,24 +218,45 @@
 })();
 
 
-/* Add the existing live team marks to the post-game score card; no team data is duplicated. */
+/* Put the existing team marks, matchup and score into one result card.
+   The source marks may be mounted after the score panel, so observe the document until they exist. */
 (()=> {
+ let observer=null;
  const enhanceScoreCard=()=>{
-  const score=document.getElementById('endScore'),heading=score&&score.firstElementChild;
-  if(!heading||heading.dataset.uiLogos==='true')return;
+  const score=document.getElementById('endScore');
+  if(!score||score.dataset.uiScoreCard==='true')return false;
+  const heading=score.firstElementChild;
+  const value=score.children[1];
   const left=document.getElementById('yLg'),right=document.getElementById('oLg');
-  if(!left||!right)return;
-  const label=document.createElement('span');label.className='ui-end-score-matchup';label.textContent=heading.textContent.trim();
+  if(!heading||!value||!left||!right)return false;
+  const names=heading.textContent.trim().split(/\\s+VS\\s+/i);
+  const label=document.createElement('span');label.className='ui-end-score-matchup';
+  const home=document.createElement('span');home.textContent=names[0]||'HOME';
+  const versus=document.createElement('i');versus.textContent='VS';
+  const away=document.createElement('span');away.textContent=names[1]||'AWAY';
+  label.append(home,versus,away);
   const cloneMark=(source,side)=>{
-   const mark=source.cloneNode(true);mark.removeAttribute('id');mark.className='ui-end-logo ui-end-logo-'+side;mark.setAttribute('aria-hidden','true');return mark;
+   const mark=source.cloneNode(true);
+   mark.removeAttribute('id');
+   mark.className='ui-end-logo ui-end-logo-'+side;
+   mark.setAttribute('aria-hidden','true');
+   return mark;
   };
-  heading.replaceChildren(cloneMark(left,'home'),label,cloneMark(right,'away'));
-  heading.dataset.uiLogos='true';
+  value.classList.add('ui-end-score-value');
+  score.replaceChildren(cloneMark(left,'home'),label,value,cloneMark(right,'away'));
+  score.dataset.uiScoreCard='true';
+  if(observer)observer.disconnect();
+  return true;
  };
  const boot=()=>{
-  const score=document.getElementById('endScore');if(!score)return;
-  enhanceScoreCard();
-  if(window.MutationObserver)new MutationObserver(enhanceScoreCard).observe(score,{childList:true,subtree:true});
+  const root=document.body||document.documentElement;
+  if(!root)return;
+  if(enhanceScoreCard())return;
+  if(window.MutationObserver){
+   observer=new MutationObserver(()=>enhanceScoreCard());
+   observer.observe(root,{childList:true,subtree:true});
+   enhanceScoreCard();
+  }
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
