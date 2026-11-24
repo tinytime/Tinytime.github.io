@@ -68,3 +68,28 @@ Commit: [992631b2a9e0514eb5b0915771c7c1fac84198b9](https://github.com/tinytime/T
 2. Finish mapping the existing screen-state and event-handler paths in `index.html`.
 3. Establish a repeatable browser QA route for this standalone game branch.
 4. Begin implementation with the shared UI shell and Overworld HUD, then proceed through the seven handoff areas in dependency order.
+
+
+## Stage 2 — Overworld menu shell (2026-11-24)
+
+Implementation commits:
+- `3b844eb0e130583a30a3f9f91f77f55825d96409` — initial responsive menu presentation pass.
+- `2b19d5a4f316c4fe5b83afaf5c23cba2f272d0df` — functional tabbed menu styling.
+- `eb7da1921cae89198452d722a405d14166ef2ac8` — tabbed menu behavior module.
+- `bf80febdb3cc3602d29fceb98cdd29a57f74f983` — load the menu behavior module from the game entry point.
+- `655dcdf4ea1671be993ae1e5d3608327c930baff` — remove the legacy menu tagline from the new shell.
+
+Implemented in the working branch:
+- A three-tab MENU / SETTINGS / CREDITS shell with keyboard left/right tab navigation and ARIA tab semantics.
+- Current-goal card sourced from the existing overworld objective element.
+- MENU navigation groups for squad, team, upgrades, goals, feedback and save-code actions.
+- SETTINGS groups for music, effects, volume, haptics, runner camera, lite effects, resolution and reset progress.
+- CREDITS groups for 3D ART & UI, MUSIC & SFX and TOWN AMBIENCE, using the existing credit text.
+- Five-tap build-footer trigger for the hidden developer/test drawer, retaining existing FPS and performance controls.
+- Existing game buttons are moved intact to preserve their original event handlers and state logic.
+
+QA status:
+- Implementation is committed on `UI-Overhaul`; no changes were made to `main` or the NPC workstream.
+- Browser interaction, portrait/landscape visual inspection, save/reset regression testing and accessibility checks are **pending**. Do not treat this stage as visually approved.
+- The current GitHub tree still lacks the ZIP's `audio/` and `models/` runtime directories. The game entry point references them, so full-fidelity gameplay/audio QA remains blocked until the exact supplied assets are restored.
+- No golden snapshots were changed.
