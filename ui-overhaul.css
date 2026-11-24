@@ -1370,3 +1370,7 @@ body.land #hud #tgtTag{
   transform:none!important;
   z-index:12!important;
 }
+
+
+/* Reserve scroll space so the sticky Goals & Stats CLOSE control never covers the final card. */
+#goalsP .ui-goals-content{padding-bottom:78px!important;scroll-padding-bottom:78px}
