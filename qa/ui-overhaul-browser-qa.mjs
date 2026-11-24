@@ -26,6 +26,11 @@ page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400)sameOriginFa
 try{
  await page.goto(base+'/index.html',{waitUntil:'load',timeout:60000});
  await page.waitForFunction(()=>document.querySelector('#menu')?.dataset.uiMenuReady==='1',null,{timeout:15000});
+ // Game boots into the overworld; open the menu through its real HUD control before testing.
+ const overworldMenuButton=page.locator('#owMenu');
+ check('Overworld menu button available at startup',await overworldMenuButton.count()===1&&await overworldMenuButton.isVisible());
+ await overworldMenuButton.click();
+ await page.waitForFunction(()=>{const e=document.querySelector('#menu');return e&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().width>0},null,{timeout:10000});
  const menu=page.locator('#menu');
  const openOverworldMenu=page.locator('#owMenu');
  check('Overworld MENU opener visible',await openOverworldMenu.count()===1&&await openOverworldMenu.isVisible());
