@@ -226,9 +226,28 @@
    if(!pill){pill=document.createElement('div');pill.className='ui-end-mode';heading.insertAdjacentElement('afterend',pill)}
    const label=/PRACTICE/i.test(heading.textContent)?'NO REWARDS · PRACTICE MODE':'CREW GAME';if(pill.textContent!==label)pill.textContent=label;
   };
-  enhanceGoals();enhanceEnd();
+
+  // Hold every visible player upright in the raised-arm pose through the practice-win reveal.
+  const reinforcePracticeWinCelebration=()=>{
+   const end=byId('end'),heading=end&&end.querySelector('#endH'),game=window.SG&&window.SG.F;
+   if(!end||end.hidden||!heading||!/^PRACTICE WIN$/i.test(heading.textContent.trim())||game?.res?.type!=='td'||end.dataset.uiPracticeCelebration==='1')return;
+   end.dataset.uiPracticeCelebration='1';
+   let frames=0;
+   const apply=()=>{
+    const current=window.SG&&window.SG.F;
+    if(current?.res?.type==='td')Object.values(current.off||{}).forEach(player=>{
+     if(!player||typeof player!=='object'||!('x' in player))return;
+     player.fall=0;player.lying=0;player.stun=0;player.vy=0;
+     player.celeb=Math.max(Number(player.celeb)||0,90);
+    });
+    if(++frames<90)requestAnimationFrame(apply);
+   };
+   requestAnimationFrame(apply);
+  };
+
+  enhanceGoals();enhanceEnd();reinforcePracticeWinCelebration();
   if(window.MutationObserver){
-   const pageObserver=new MutationObserver(()=>{enhanceGoals();enhanceEnd()});
+   const pageObserver=new MutationObserver(()=>{enhanceGoals();enhanceEnd();reinforcePracticeWinCelebration()});
    pageObserver.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden']});
   }
  }
