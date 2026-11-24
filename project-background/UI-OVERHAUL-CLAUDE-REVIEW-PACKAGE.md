@@ -3,7 +3,10 @@
 **Project:** Circuit Football RPG  
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `UI-Overhaul`  
-**Review baseline:** Round Two checkpoint pending verification. The latest source checkpoint is recorded in the implementation summary.\n**Browser QA:** Not yet retrieved for Round Two; Run #194 is prior-baseline evidence only.\n**Evidence artifact:** Pending the Round Two Actions run.\n
+**Review baseline:** Round Two checkpoint pending verification. The latest source checkpoint is recorded in the implementation summary.
+**Browser QA:** Not yet retrieved for Round Two; Run #194 is prior-baseline evidence only.
+**Evidence artifact:** Pending the Round Two Actions run.
+
 ## Reviewer role and decision boundary
 
 You are the independent visual reviewer. ChatGPT is responsible for implementation and internal QA. The project owner makes the final approval decision. Review the complete Stage One scope below against the original Gemini handoff/reference images and the owner's subsequent art-direction feedback. Do not edit code. Do not treat automated QA pass count as visual approval.
