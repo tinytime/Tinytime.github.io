@@ -464,3 +464,14 @@ The game exposes the extra fumble/achievement/post-game QA hooks only when the h
 5. Reassess the owner's 6.5+/10 target. Independent review and owner approval remain outstanding; do not start MY TEAM / MY SQUAD until the menu direction is explicitly approved.
 
 **Status:** correction implementation committed; expanded browser harness committed; Actions result/artifact retrieval and visual inspection pending; independent review and owner approval not performed.
+
+
+## Latest QA assertion polish — 2026-11-24
+
+The browser harness has advanced to **68 assertions** and now explicitly verifies both primary gameplay CTAs by their rendered semantic colors:
+- CALL PLAY: solid cyan background `rgb(77, 225, 242)` with dark readable text.
+- HIKE: solid cyan background `rgb(77, 225, 242)` with dark readable text.
+
+Latest QA-harness commit: `a60adc9d6621b4272e9290c482a07ec91771d718` (assert cyan HIKE action color semantics). The current harness screenshot set includes the Overworld, pre-game matchup, in-match playbook, pre-snap, live play, fumble pile, defense selection, achievement toast and post-game.
+
+**Verification remains pending:** no completed Actions run, test result or artifact has been retrieved for this expanded harness. The commit-status response is empty; do not interpret that as a pass or failure. The workflow's push trigger and exact code commit are known, but the actual run and artifact must still be retrieved through GitHub Actions. Visual screenshot inspection, independent review and owner approval remain outstanding.
