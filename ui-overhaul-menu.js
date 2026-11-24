@@ -19,7 +19,7 @@
   const goal=document.createElement('section');goal.className='ui-menu-goal';
   goal.innerHTML='<div class="ui-menu-eyebrow">CURRENT GOAL</div><div class="ui-menu-goal-text"></div>';
   const goalText=goal.querySelector('.ui-menu-goal-text');
-  const updateGoal=()=>{const src=byId('owObj');goalText.textContent=src&&src.textContent.trim()||'Explore town, build your squad, and take on the crews.'};
+  const defaultGoal=oldTagline&&oldTagline.textContent.trim()||'Beat the street crews, upgrade your players, then take on the Netrunners.';\n  const updateGoal=()=>{const src=byId('owObj'),raw=src&&src.textContent.trim()||'';const statusOnly=/^CLEARED\\b/i.test(raw)||/^UPG\\s*\\d+/i.test(raw);goalText.textContent=raw&&!statusOnly?raw:defaultGoal};
   updateGoal();
   const tabs=document.createElement('div');tabs.className='ui-menu-tabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Menu sections');tabs.style.display='grid';tabs.style.visibility='visible';
   const content=document.createElement('div');content.className='ui-menu-content';
@@ -63,10 +63,12 @@
   playbookButton.addEventListener('click',()=>{renderPlaybook('ALL');playbookOverlay.hidden=false;playbookOverlay.querySelector('.ui-menu-playbook-back').focus()});
   playbookOverlay.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();closePlaybook()}});
   ['mFb','mSave'].forEach(id=>moveControl(id,support,'',true));
-  const saveStatus=byId('mSaveSt');if(saveStatus)support.appendChild(saveStatus);
+  const saveStatus=byId('mSaveSt');if(saveStatus)support.appendChild(saveStatus);\n  actions.append(byId('mUpg'),byId('mTeam'),playbookButton,byId('mGoals'),byId('mSquad'));\n  support.append(byId('mSave'),byId('mFb'));if(saveStatus)support.appendChild(saveStatus);
   if(crewList)home.appendChild(crewList);
   const audio=card(settings,'AUDIO');
   moveControl('mMus',audio,'MUSIC',false);moveControl('mSfx',audio,'EFFECTS',false);
+  const compactValue=(id,prefix,label)=>{const el=byId(id);if(!el)return;el.classList.add('ui-menu-toggle-pill');const sync=()=>{const raw=el.textContent.trim(),clean=raw.replace(new RegExp('^'+prefix+'\\s*:\\s*','i'),'');if(clean!==raw)el.textContent=clean;el.setAttribute('aria-label',label+': '+clean);if(/^(ON|OFF)$/i.test(clean))el.setAttribute('aria-pressed',String(clean.toUpperCase()==='ON'))};sync();if(window.MutationObserver)new MutationObserver(sync).observe(el,{childList:true,subtree:true,characterData:true})};
+  compactValue('mMus','MUSIC','Music');compactValue('mSfx','EFFECTS','Effects');compactValue('mHap','HAPTICS','Haptics');compactValue('mCam','CAMERA','Runner camera');compactValue('mLT','LITE EFFECTS','Lite effects');
   const vol=byId('mVol');
   if(vol){const old=vol.closest('.btnrow'),row=document.createElement('div');row.className='ui-menu-setting';const label=document.createElement('label');label.className='ui-menu-setting-label';label.textContent='VOLUME';label.htmlFor='mVol';row.append(label,vol);audio.appendChild(row);if(old&&!old.querySelector('button,input,select'))old.remove()}
   const gameplay=card(settings,'GAMEPLAY & DISPLAY');
