@@ -957,3 +957,8 @@ body.land #bTurbo.on::before{background:repeating-conic-gradient(from -90deg,#f5
  #menu .ui-menu-grid .ui-menu-playbook .ui-menu-action-copy small{font-size:10px;line-height:1.1}
  #menu .ui-menu-grid .ui-menu-playbook .ui-menu-card-arrow{font-size:12px;align-self:center;justify-self:end}
 }
+
+#end #endScore .ui-end-logo{display:inline-flex;align-items:center;justify-content:center;flex:none;width:42px;height:42px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:#1c2130}
+#end #endScore .ui-end-logo svg{display:block;width:100%;height:100%;max-width:34px;max-height:34px}
+#end #endScore .ui-end-score-matchup{min-width:0;max-width:calc(100% - 104px);font:800 10px/1.25 var(--ui-heading,system-ui);letter-spacing:.08em;color:#cbd5e1;text-align:center}
+@media(max-width:430px){#end #endScore .ui-end-logo{width:34px;height:34px}#end #endScore .ui-end-score-matchup{font-size:9px}}
