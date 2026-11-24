@@ -1077,3 +1077,7 @@ The practice-win screenshot was visually inspected: PRACTICE WIN banner, explici
 The deterministic Practice Win screen now renders with the correct win banner, practice mode pill, team score card, and a visible `STYLE POINTS 3,700` card. The screenshot was inspected. One remaining visual improvement is to trigger the existing touchdown celebration animation on the squad instead of leaving the players in neutral poses; the QA fixture now requests that animation and verifies the celebration state.
 
 Additional visual findings from the original handoff comparison: the Defense Selection panel clips its lower stat row in 390px landscape; the fumble countdown is plain text rather than the required seconds pill; and the defense-simulation screenshot is currently captured before a completed play-by-play snap. These are being corrected and asserted. No golden snapshots changed.
+
+### Run #243 — QA duplicate declaration corrected
+
+Run #243 (ID `45482963439`) tested `13eace99835b3a3f6f153bb47dbe5ee5e7bd9422` and failed before browser launch because two defense-selection geometry checks declared the same `const defenseFit` in one block. The application changes were not exercised and no screenshots were generated. The more detailed scoreboard-relative geometry object is now named `defenseFitDetailed`; both strict clipping checks remain in place. Pending full retest.
