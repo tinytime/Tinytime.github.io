@@ -744,3 +744,16 @@ body #mu .tap{display:block;min-height:24px;line-height:24px;padding-bottom:2px}
 #owA:active{transform:scale(.96)}
 #owGoal{display:none!important}
 @media(max-width:390px){#owTop{max-width:calc(100vw - 112px)}#owTop .ui-ow-pill{gap:5px;padding:7px 8px}#owTop .ui-ow-goal{padding:7px 8px}#owTop .ui-ow-goal-copy{font-size:11px}#owA{right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);width:68px;height:68px}}
+
+
+/* Keep both execute actions semantically solid cyan, overriding the legacy orange/gradient CTA skin. */
+#app #sheet #callBtn,#app #sheet #hike{
+ background:#4de1f2!important;
+ color:#071923!important;
+ border:1px solid #4de1f2!important;
+ box-shadow:0 5px 0 #147f98,0 9px 20px rgba(39,224,242,.16)!important;
+}
+#app #sheet #callBtn:active,#app #sheet #hike:active{
+ transform:translateY(3px);
+ box-shadow:0 2px 0 #147f98!important;
+}
