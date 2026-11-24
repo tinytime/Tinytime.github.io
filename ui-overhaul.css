@@ -173,3 +173,10 @@
 /* Keep the live build footer ahead of its optional developer drawer. */
 #menu #mBuild{order:0}
 #menu .ui-menu-dev{order:1}
+
+/* Handoff alignment: explicit close, live town pill and live upgrade-points badge. */
+#menu .ui-menu-head{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:9px}
+#menu .ui-menu-close{width:32px;height:32px;padding:0;border:1px solid var(--ui-border);border-radius:9px;background:var(--ui-inner);color:var(--ui-text);font-size:20px;line-height:1}
+#menu .ui-menu-town{display:inline-block;width:max-content;max-width:100%;margin-top:4px;padding:3px 8px;border:1px solid var(--ui-border);border-radius:999px;background:rgba(28,33,48,.9);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#menu .ui-menu-upg{min-width:62px;min-height:32px;padding:6px 8px}
+#menu .ui-menu-actions .ui-menu-card-title{grid-column:1/-1}
