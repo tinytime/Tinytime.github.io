@@ -326,7 +326,8 @@ try{
    check('Defense selection panel is centered and fits the viewport',defensePanel.left>=0&&defensePanel.right<=defensePanel.viewport&&defensePanel.width>=defensePanel.viewport-40,defensePanel);
    const defenseRows=await page.locator('#dcall button[data-c] .dco').evaluateAll(nodes=>nodes.map(n=>({rows:n.querySelectorAll('.dco-row').length,columns:getComputedStyle(n).gridTemplateColumns.split(' ').length,rowColumns:[...n.querySelectorAll('.dco-row')].map(row=>getComputedStyle(row).gridTemplateColumns.split(' ').length),labels:[...n.querySelectorAll('.dco-label')].map(x=>x.textContent.trim())})));
    check('Defense cards show three aligned STOP, BIG PLAY and TAKEAWAY stat rows',defenseRows.length===3&&defenseRows.every(x=>x.rows===3&&x.columns===1&&x.rowColumns.every(n=>n===2)&&x.labels.join('|')==='STOP|BIG PLAY|TAKEAWAY'),defenseRows);
-   check('Defense selection headline names possession inside the modal', (await page.locator('#dcTop').textContent()).includes('THEY GET THE BALL'));\n   await page.screenshot({path:path.join(out,'match-defense-selection.png'),fullPage:true});
+   check('Defense selection headline names possession inside the modal', (await page.locator('#dcTop').textContent()).includes('THEY GET THE BALL'));
+   await page.screenshot({path:path.join(out,'match-defense-selection.png'),fullPage:true});
    await page.locator('#dcall button[data-c="bal"]').click();
    await page.waitForFunction(()=>{const e=document.querySelector('#tick');return e&&getComputedStyle(e).display!=='none'},null,{timeout:5000});
    check('Defense simulation begins after choosing a call',await page.locator('#tick').isVisible());
@@ -363,7 +364,8 @@ try{
   await page.waitForTimeout(120);
   const postPortrait=await page.locator('#end').evaluate(el=>{const r=el.getBoundingClientRect();return{left:r.left,right:r.right,width:r.width,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,viewport:innerWidth}});
   check('Portrait post-game screen fits viewport',postPortrait.left>=0&&postPortrait.right<=390&&postPortrait.scrollWidth<=postPortrait.clientWidth+1,postPortrait);
-  const postLayout=await page.locator('#end').evaluate(el=>{const h=el.querySelector('h2').getBoundingClientRect(),score=el.querySelector('#endScore').getBoundingClientRect(),buttons=el.querySelector('.btnrow').getBoundingClientRect();return{height:el.getBoundingClientRect().height,headingTop:h.top,scoreTop:score.top,buttonsBottom:buttons.bottom,viewport:innerHeight}});check('Portrait post-game result actions reach the lower thumb zone',postLayout.buttonsBottom>=postLayout.viewport-120,postLayout);\n  await page.screenshot({path:path.join(out,'match-post-game-portrait.png'),fullPage:true});
+  const postLayout=await page.locator('#end').evaluate(el=>{const h=el.querySelector('h2').getBoundingClientRect(),score=el.querySelector('#endScore').getBoundingClientRect(),buttons=el.querySelector('.btnrow').getBoundingClientRect();return{height:el.getBoundingClientRect().height,headingTop:h.top,scoreTop:score.top,buttonsBottom:buttons.bottom,viewport:innerHeight}});check('Portrait post-game result actions reach the lower thumb zone',postLayout.buttonsBottom>=postLayout.viewport-120,postLayout);
+  await page.screenshot({path:path.join(out,'match-post-game-portrait.png'),fullPage:true});
  }
 
  check('No same-origin HTTP errors',sameOriginFailures.length===0,sameOriginFailures);
