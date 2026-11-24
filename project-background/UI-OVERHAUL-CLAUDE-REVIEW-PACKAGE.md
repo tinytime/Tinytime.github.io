@@ -3,9 +3,9 @@
 **Project:** Circuit Football RPG  
 **Repository:** `tinytime/Tinytime.github.io`  
 **Branch:** `UI-Overhaul`  
-**Latest verified implementation commit:** `d980f2e533de7d5bdfe55c7df98a593da7af8aee`  
-**Browser QA:** [GitHub Actions Run #114](https://github.com/tinytime/Tinytime.github.io/actions/runs/45438679781) — 110/110 passed  
-**Screenshot artifact:** `ui-overhaul-browser-qa`, artifact ID `14941759413` (28 PNG screenshots)
+**Latest verified implementation commit:** `d0d7225f41a647bd8aeb23ea44208d554bb25025`  
+**Browser QA:** [GitHub Actions Run #121](https://github.com/tinytime/Tinytime.github.io/actions/runs/45443338719) — 112/112 passed  
+**Screenshot artifact:** `ui-overhaul-browser-qa`, artifact ID `14945870640` (browser QA screenshot and diagnostic package)
 
 ## Reviewer role
 
@@ -58,3 +58,19 @@ Score each screen from 0–10 against the Gemini references (which define the 10
 6. State whether the implementation is ready for owner approval, or what must be fixed first.
 
 Do not begin or recommend Stage Two redesign work as though it is authorized. The owner must approve the Stage One direction first.
+
+
+## Latest readiness verification — Run #121
+
+Use Run #121, not the superseded Run #114, as the current functional evidence:
+
+- Exact tested commit: `d0d7225f41a647bd8aeb23ea44208d554bb25025` (matches current `UI-Overhaul` code HEAD at the time of QA).
+- [GitHub Actions Run #121](https://github.com/tinytime/Tinytime.github.io/actions/runs/45443338719): **112/112 passed**, zero failures.
+- Artifact: `ui-overhaul-browser-qa`, ID `14945870640`.
+- HIKE readiness is now explicitly asserted at the actual snap. The recorded state is `artReady:true`, `carryReady:true`, `missing:0`, with a measured readiness wait of **14,728 ms**, within the 15-second automated ceiling. The pre-snap sample also records the expected not-yet-ready state before baking finishes.
+- The report contains zero page errors, console errors and same-origin request failures.
+- ChatGPT retrieved and inspected `match-pre-snap.png`, `match-live-play.png` and `portrait-menu.png` from this artifact. This confirms the captured pre-snap/live transition and a readable portrait menu; it is not a claim that every image in this artifact received a fresh individual inspection.
+
+The wait is close to the 15-second ceiling and should be considered a performance watch item, particularly on slower devices. Do not hide or remove the readiness gate to improve timing. The reviewer should assess the actual screenshots and design fidelity independently of the green automated result.
+
+**Current decision state:** Stage One is internally QA-passed and ready for independent visual review. It is **not** independently reviewed or owner-approved. Stage Two remains on hold.
