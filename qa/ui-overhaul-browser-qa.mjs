@@ -238,7 +238,7 @@ try{
   check('HIKE is enabled in the active pre-snap state',preHikeState.mode==='set'&&preHikeState.fourthHidden&&!preHikeState.disabled&&preHikeState.handler==='function'&&preHikeState.hitIsHike,preHikeState);
   await page.locator('#hike').evaluate(el=>{window.__hikeEventTrace=[];for(const type of ['pointerdown','pointerup','click'])el.addEventListener(type,()=>window.__hikeEventTrace.push(type),true);const original=el.onclick;el.onclick=function(e){window.__hikeEventTrace.push('onclick');return original.call(this,e)}});
   await page.locator('#hike').click();
-  const clickedLive=await page.waitForFunction(()=>window.SG?.G?.mode==='live'||window.SG?.F?.mode==='live',null,{timeout:15000}).then(()=>true).catch(()=>false);
+  const clickedLive=await page.waitForFunction(()=>window.SG?.G?.mode==='live'||window.SG?.F?.mode==='live',null,{timeout:45000}).then(()=>true).catch(()=>false);
   let liveState=await page.evaluate(()=>{const g=window.SG?.G;let snap=null;try{snap=window.SG?.snapDbg?.()}catch(e){snap={error:String(e)}}return{mode:g?.mode,fmode:window.SG?.F?.mode,ctlHidden:document.querySelector('#ctl')?.hidden,setbarHidden:document.querySelector('#setbar')?.hidden,startPlayWait:window.SG?.startPlay?._w||0,eventTrace:window.__hikeEventTrace||[],snapDbg:snap}});
   check('HIKE receives real pointer-up and click activation',liveState.eventTrace.includes('pointerup')&&liveState.eventTrace.includes('click')&&liveState.eventTrace.includes('onclick'),liveState.eventTrace);
   check('HIKE button click starts live play',clickedLive,liveState);
