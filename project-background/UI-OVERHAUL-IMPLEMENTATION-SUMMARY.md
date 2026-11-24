@@ -382,3 +382,44 @@ Owner feedback graded the initial visual direction 3.2/10 and identified the gap
 Scope boundary: the catalog remains a reference/selection surface, not a live match play-calling overlay. A functional CALL PLAY CTA must be wired to the existing in-match selection state after inspecting that system; no fake no-op action has been added. Pre-game, pre-snap, live-play, defense, fumble, achievement-toast and post-game screens remain the next high-risk visual QA group.
 
 Status: source edits committed below; browser QA and updated screenshot inspection are pending. Do not call this visually approved until actual updated artifacts have been inspected and the owner has reviewed the direction.
+
+
+## Stage One art-direction correction — implementation checkpoint (2026-11-24)
+
+Owner review graded the first art-direction pass **3.2/10** and set a next-round target of **6.5+/10**. The following corrective implementation is now committed on `UI-Overhaul`:
+
+| Change | Commit |
+|---|---|
+| Add Overworld GOAL strip, contextual A-button sublabel and dynamic goal/action text | `946138368aa9788758e20c923f5ddfea6e983293` |
+| Refine full-bleed Overworld HUD and centered arcade menu shell | `1f001184a592766784d83908be3d56aa0830c8b0` |
+| Style the actual in-match play-calling sheet, gold selected play state, FLIP and cyan CALL PLAY controls | `9a885fb67e34136435d80a2dea27e5237183de28` |
+| Extend browser QA to cover the Overworld HUD and real pre-game play-calling flow | `4cf42ca64d081c9906e757c6dbab0491176ca9ed` |
+
+### Corrections implemented
+
+- Overworld HUD now has a compact town/status pill, separate GOAL strip, top-right MENU pill and contextual A-button ring. The action label updates from the tile/NPC/door/prop in front of the player (LOOK, NEXT, EXIT, TALK, PLAY, ENTER, FISH or INTERACT).
+- The Overworld canvas is explicitly styled to fill its containing game viewport; the camera's existing cover-fit behavior is retained.
+- The menu keeps its existing functional 2×2 icon-card layout, but the hierarchy, card borders, display typography, UPG badge, support grouping and centered landscape max-width are strengthened.
+- Credits remain concise grouped cards with expandable full attribution. The developer drawer remains a bounded utility panel, and the build-footer trigger is more discoverable without exposing the drawer by default.
+- The actual game play-calling sheet (`#sheet`) now receives the selected gold card, category, route-diagram, FLIP and cyan CALL PLAY treatment. This styles the real gameplay UI and preserves its existing `callPlay()` behavior; it does not create a no-op CTA in the separate menu catalog.
+
+### QA expansion and current evidence status
+
+The browser harness now additionally checks:
+- Overworld GOAL strip and contextual A label visibility.
+- Canvas bounds against the active viewport.
+- A real match launched through the existing `window.SG.startMatch` API.
+- The pre-game play-calling sheet, selected play card, FLIP control and CALL PLAY action.
+- The transition into the existing pre-snap `set` state.
+- Screenshots for the landscape playbook, flipped playbook and pre-snap state.
+
+**Automated result: pending verification.** The harness extension is committed, but no completed Actions result or updated screenshot artifact has yet been confirmed for commit `4cf42ca64d081c9906e757c6dbab0491176ca9ed`. Do not treat the earlier Run #39 (51/51) as validation of this correction pass. Updated screenshot inspection, Claude review and owner approval remain outstanding.
+
+### Remaining next-round work
+
+1. Confirm the browser workflow ran against the latest code commit; inspect logs and artifact, and fix any real failures.
+2. Inspect the new Overworld, landscape playbook and pre-snap screenshots. Check actual canvas fill, button safe areas, card selection, route diagrams, text clipping and landscape composition.
+3. Add and inspect live-play, defense selection, fumble, achievement toast and post-game evidence. These are still the highest-risk screens and are not covered by the current correction pass.
+4. Reassess the visual score against the owner's 6.5+/10 target. Do not proceed to MY TEAM / MY SQUAD or call the menu direction approved without the required owner decision.
+
+**Current implementation status:** code corrections committed; automated validation and visual inspection pending; independent review and owner approval not performed.
