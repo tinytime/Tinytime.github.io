@@ -60,6 +60,8 @@ try{
  const objective=(await page.locator('.ui-menu-goal-text').textContent())?.trim();
  check('Current objective populated',!!objective,objective);
  check('MENU selected by default',await page.locator('[data-tab="menu"]').getAttribute('aria-selected')==='true');
+ const nullTextDiagnostics=await page.locator('#menu').evaluate(root=>{const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const hits=[];while(walker.nextNode()){const t=walker.currentNode.textContent||'';if(/null|undefined/i.test(t))hits.push({text:t.trim(),parent:walker.currentNode.parentElement?.outerHTML.slice(0,700)||null})}return hits});
+ fs.writeFileSync(path.join(out,'menu-null-text-diagnostics.json'),JSON.stringify(nullTextDiagnostics,null,2));
  await page.screenshot({path:path.join(out,'desktop-menu.png'),fullPage:true});
  await page.locator('.ui-menu-playbook').click();
  check('Playbook overlay opens',await page.locator('.ui-menu-playbook-overlay').isVisible());
@@ -78,16 +80,29 @@ try{
  await page.locator('[data-tab="settings"]').click();
  check('Settings panel switches',await page.locator('#uiMenuSettings').isVisible()&&!(await page.locator('#uiMenuHome').isVisible()));
  for(const id of ['mMus','mSfx','mVol','mHap','mCam','mLT','mReset'])check('Settings control visible: '+id,await page.locator('#'+id).count()===1&&await page.locator('#'+id).isVisible());
- check('Resolution segmented control visible',await page.locator('.ui-resolution-group').isVisible()&&await page.locator('.ui-resolution-group button').count()===4);
- const originalResolution=(await page.locator('#mRS').textContent())?.trim();
- const resolutionButtons=await page.locator('.ui-resolution-group button').evaluateAll(buttons=>buttons.map(b=>({text:b.textContent.trim(),value:b.dataset.value,pressed:b.getAttribute('aria-pressed')})));
+ const resolutionDiagnostics=await page.evaluate(()=>{
+  const describe=el=>el?{tag:el.tagName,id:el.id||null,className:typeof el.className==='string'?el.className:'',text:(el.innerText||el.textContent||'').trim().slice(0,180),html:el.outerHTML.slice(0,900),parent:el.parentElement?.outerHTML.slice(0,1400)||null}:null;
+  return{settingsText:document.querySelector('#uiMenuSettings')?.innerText||'',mRS:describe(document.querySelector('#mRS')),resolutionLike:[...document.querySelectorAll('[id],[class]')].filter(e=>/resol/i.test((e.id||'')+' '+(typeof e.className==='string'?e.className:''))).slice(0,20).map(describe),group:describe(document.querySelector('.ui-resolution-group')),settingsChildren:[...(document.querySelector('#uiMenuSettings')?.children||[])].map(describe)};
+ });
+ await page.screenshot({path:path.join(out,'desktop-settings-pre-resolution.png'),fullPage:true});
+ fs.writeFileSync(path.join(out,'resolution-diagnostics.json'),JSON.stringify(resolutionDiagnostics,null,2));
+ const resolutionGroup=page.locator('.ui-resolution-group'),resolutionCount=await resolutionGroup.locator('button').count();
+ const originalResolution=await page.locator('#mRS').count()?((await page.locator('#mRS').textContent())||'').trim():null;
+ check('Resolution segmented control visible',await resolutionGroup.isVisible().catch(()=>false)&&resolutionCount===4,{resolutionCount,diagnostics:resolutionDiagnostics});
+ const resolutionButtons=await resolutionGroup.locator('button').evaluateAll(buttons=>buttons.map(b=>({text:b.textContent.trim(),value:b.dataset.value,pressed:b.getAttribute('aria-pressed')}))).catch(()=>[]);
  check('Resolution options are LOW / MED / HIGH / SHARP', ['LOW','MED','HIGH','SHARP'].every(label=>resolutionButtons.some(b=>b.text===label)), resolutionButtons);
- await page.locator('.ui-resolution-group button').filter({hasText:'MED'}).click();
- check('Resolution selection updates original setting', (await page.locator('#mRS').textContent())?.includes('MEDIUM'));
- const restoreResolution=originalResolution?.match(/RESOLUTION:\s*(.+)/i)?.[1]?.trim().toUpperCase()||'HIGH';
- const restoreLabel=restoreResolution==='MEDIUM'?'MED':restoreResolution;
- await page.locator('.ui-resolution-group button').filter({hasText:restoreLabel}).click();
- check('Resolution selection restores original setting',(await page.locator('#mRS').textContent())?.trim()===originalResolution);
+ if(resolutionButtons.some(b=>b.text==='MED')&&originalResolution!==null){
+  await resolutionGroup.locator('button').filter({hasText:'MED'}).click();
+  const afterResolution=(await page.locator('#mRS').textContent())?.trim()||'';
+  check('Resolution selection updates original setting',afterResolution.includes('MEDIUM'),{before:originalResolution,after:afterResolution});
+  const restoreResolution=originalResolution.match(/RESOLUTION:\\s*(.+)/i)?.[1]?.trim().toUpperCase()||'HIGH';
+  const restoreLabel=restoreResolution==='MEDIUM'?'MED':restoreResolution;
+  await resolutionGroup.locator('button').filter({hasText:restoreLabel}).click();
+  check('Resolution selection restores original setting',(await page.locator('#mRS').textContent())?.trim()===originalResolution);
+ }else{
+  check('Resolution native control exists',originalResolution!==null,{originalResolution,diagnostics:resolutionDiagnostics});
+  check('Resolution selection can be exercised',false,'No usable segmented resolution/native control pair');
+ }
  await page.locator('#mReset').click();
  check('Reset confirmation modal opens',await page.locator('.ui-menu-modal-backdrop').isVisible());
  check('Reset requires explicit confirmation', (await page.locator('#mReset').textContent())?.trim()==='RESET PROGRESS');
