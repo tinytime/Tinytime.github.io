@@ -339,3 +339,16 @@ No changes were made to `main`, the Vapor City civilian-vector workstream, gamep
 ### Immediate next step
 
 Present the current MENU / SETTINGS / CREDITS / PLAYBOOK implementation and the Run #37 screenshots for owner review. After explicit approval, proceed to the next handoff stage (MY TEAM / MY SQUAD) and build its UI without replacing its underlying game systems.
+
+
+
+## Follow-up verification — portrait reset confirmation — 2026-11-24 15:01Z
+
+Run #38 passed 50/50 on commit `47441a1c9cec36852367aec473ee8ee20ce90213`, but review of its artifact revealed that the newly named portrait reset screenshot was taken after the modal had already been cancelled. The test was corrected rather than accepting that evidence.
+
+- Harness correction: commit `dca37967819c83e62a8442ce29b1c6ba6bbaef5b` captures the modal while it is open at 390×844, checks its geometry is within the viewport, then restores desktop size and cancels the dialog.
+- Latest run: [Run #39 / 45420390694](https://github.com/tinytime/Tinytime.github.io/actions/runs/45420390694), exact tested commit `dca37967819c83e62a8442ce29b1c6ba6bbaef5b`, **SUCCESS — 51/51 checks passed**.
+- Evidence: artifact [14934375326](https://github.com/tinytime/Tinytime.github.io/actions/runs/45420390694/artifacts/14934375326). I retrieved and inspected `portrait-reset-confirm.png`; it now shows the actual open confirmation dialog, with the background dimmed/blurred and both CANCEL and RESET PROGRESS actions fully inside the portrait viewport.
+- Reset remains cancel-only in the QA run; no progress reset was confirmed or executed.
+
+The current branch HEAD at the time of this note is `dca37967819c83e62a8442ce29b1c6ba6bbaef5b`. This is still Stage 2 evidence, not independent Claude review or owner approval. Do not begin MY TEAM / MY SQUAD until the owner reviews and approves the menu direction.
