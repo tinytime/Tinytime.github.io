@@ -44,7 +44,24 @@
    else {const row=document.createElement('div');row.className='ui-menu-setting';const txt=document.createElement('span');txt.className='ui-menu-setting-label';txt.textContent=label;row.appendChild(txt);el.removeAttribute('style');row.appendChild(el);parent.appendChild(row)}
    if(old&&!old.querySelector('button,input,select'))old.remove();
   };
+
   ['mSquad','mTeam','mUpg','mGoals'].forEach(id=>moveControl(id,actions,'',true));
+  const playbookButton=document.createElement('button');playbookButton.type='button';playbookButton.className='ui-menu-playbook';playbookButton.textContent='PLAYBOOK  ·  '+(window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS.length:0)+' PLAYS';actions.appendChild(playbookButton);
+  const playbookOverlay=document.createElement('section');playbookOverlay.className='ui-menu-playbook-overlay';playbookOverlay.hidden=true;playbookOverlay.setAttribute('role','dialog');playbookOverlay.setAttribute('aria-modal','true');playbookOverlay.setAttribute('aria-label','Playbook');
+  playbookOverlay.innerHTML='<header class="ui-menu-playbook-head"><button type="button" class="ui-menu-playbook-back" aria-label="Back to menu">←</button><div><div class="ui-menu-eyebrow">CIRCUIT FOOTBALL</div><h2>PLAYBOOK</h2></div><span class="ui-menu-playbook-count"></span></header><nav class="ui-menu-playbook-filters" aria-label="Filter plays"><button type="button" data-filter="ALL" aria-pressed="true">ALL</button><button type="button" data-filter="RUN" aria-pressed="false">RUN</button><button type="button" data-filter="PASS" aria-pressed="false">PASS</button><button type="button" data-filter="TRICK" aria-pressed="false">TRICK</button></nav><div class="ui-menu-playbook-list"></div>';
+  const playList=playbookOverlay.querySelector('.ui-menu-playbook-list'),playCount=playbookOverlay.querySelector('.ui-menu-playbook-count');
+  const renderPlaybook=filter=>{
+   const plays=window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS:[];
+   const shown=plays.filter(p=>filter==='ALL'||p.tag===filter);playList.replaceChildren();playCount.textContent=plays.length+' PLAYS';
+   shown.forEach(p=>{const item=document.createElement('article');item.className='ui-menu-play-card';const top=document.createElement('div');top.className='ui-menu-play-card-top';const name=document.createElement('strong');name.textContent=p.name||'Untitled play';const tag=document.createElement('span');tag.textContent=p.tag||'PLAY';top.append(name,tag);const desc=document.createElement('p');desc.textContent=p.blurb||'A play in your playbook.';item.append(top,desc);playList.appendChild(item)});
+   if(!shown.length){const empty=document.createElement('p');empty.className='ui-menu-play-empty';empty.textContent='No plays in this category yet.';playList.appendChild(empty)}
+   playbookOverlay.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===filter)));
+  };
+  playbookOverlay.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>renderPlaybook(b.dataset.filter)));
+  const closePlaybook=()=>{playbookOverlay.hidden=true;playbookButton.focus()};
+  playbookOverlay.querySelector('.ui-menu-playbook-back').addEventListener('click',closePlaybook);
+  playbookButton.addEventListener('click',()=>{renderPlaybook('ALL');playbookOverlay.hidden=false;playbookOverlay.querySelector('.ui-menu-playbook-back').focus()});
+  playbookOverlay.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();closePlaybook()}});
   ['mFb','mSave'].forEach(id=>moveControl(id,support,'',true));
   const saveStatus=byId('mSaveSt');if(saveStatus)support.appendChild(saveStatus);
   if(crewList)home.appendChild(crewList);
@@ -54,6 +71,15 @@
   if(vol){const old=vol.closest('.btnrow'),row=document.createElement('div');row.className='ui-menu-setting';const label=document.createElement('label');label.className='ui-menu-setting-label';label.textContent='VOLUME';label.htmlFor='mVol';row.append(label,vol);audio.appendChild(row);if(old&&!old.querySelector('button,input,select'))old.remove()}
   const gameplay=card(settings,'GAMEPLAY & DISPLAY');
   moveControl('mHap',gameplay,'HAPTICS',false);moveControl('mCam',gameplay,'RUNNER CAMERA',false);moveControl('mLT',gameplay,'LITE EFFECTS',false);moveControl('mRS',gameplay,'RESOLUTION',false);
+  const resolutionButton=byId('mRS'),resolutionRow=resolutionButton&&resolutionButton.closest('.ui-menu-setting');
+  if(resolutionButton&&resolutionRow){
+   resolutionButton.classList.add('ui-resolution-native');resolutionButton.setAttribute('aria-hidden','true');resolutionButton.tabIndex=-1;
+   const group=document.createElement('div');group.className='ui-resolution-group';group.setAttribute('role','group');group.setAttribute('aria-label','Resolution');
+   const options=[['LOW','LOW'],['MED','MEDIUM'],['HIGH','HIGH'],['SHARP','SHARP']];
+   const syncResolution=()=>{const current=(resolutionButton.textContent.match(/RESOLUTION:\\s*(.+)/i)||[])[1]||'HIGH';group.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===current.trim().toUpperCase())))};
+   options.forEach(([label,value])=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.value=value;b.addEventListener('click',()=>{for(let i=0;i<4;i++){const current=(resolutionButton.textContent.match(/RESOLUTION:\\s*(.+)/i)||[])[1]||'';if(current.trim().toUpperCase()===value)break;resolutionButton.click()}syncResolution()});group.appendChild(b)});
+   resolutionRow.appendChild(group);syncResolution();
+  }
   const danger=card(settings,'DANGER ZONE','ui-menu-danger');moveControl('mReset',danger,'RESET PROGRESS',false);
   const resetButton=byId('mReset');
   const resetDialog=document.createElement('div');resetDialog.className='ui-menu-modal-backdrop';resetDialog.hidden=true;resetDialog.innerHTML='<section class="ui-menu-confirm" role="dialog" aria-modal="true" aria-labelledby="uiResetTitle" aria-describedby="uiResetText"><div class="ui-menu-eyebrow">DANGER ZONE</div><h2 id="uiResetTitle">RESET PROGRESS?</h2><p id="uiResetText">This permanently resets your team, upgrades, and town progress on this device. This cannot be undone.</p><div class="ui-menu-confirm-actions"><button type="button" class="ui-menu-cancel">CANCEL</button><button type="button" class="ui-menu-confirm-reset">RESET PROGRESS</button></div></section>';
@@ -79,7 +105,7 @@
   const townButton=byId('mTown');
   if(townButton){const old=townButton.closest('.btnrow');townButton.removeAttribute('style');footer.appendChild(townButton);if(old&&!old.querySelector('button,input,select'))old.remove()}
   if(oldLogo)oldLogo.remove();if(oldSub)oldSub.remove();if(oldTagline)oldTagline.remove();
-  menu.append(head,goal,tabs,content,footer,resetDialog);
+  menu.append(head,goal,tabs,content,footer,resetDialog,playbookOverlay);
   menu.classList.add('ui-menu-ready');
   const upg=head.querySelector('.ui-menu-upg'),upgButton=byId('mUpg');if(upgButton)upg.addEventListener('click',()=>upgButton.click());
   const close=head.querySelector('.ui-menu-close'),townControl=byId('mTown');if(close&&townControl)close.addEventListener('click',()=>townControl.click());
