@@ -5,7 +5,9 @@
   const menu=document.getElementById('menu');
   if(!menu||menu.dataset.uiMenuReady==='1')return;
   menu.dataset.uiMenuReady='1';
-  const byId=id=>document.getElementById(id);
+  const cachedIds=['mSquad','mTeam','mUpg','mGoals','mFb','mSave','mSaveSt','mMus','mSfx','mVol','mHap','mCam','mLT','mRS','mReset','mRO','mPL','mPR','mTown','mBuild','m3D','mSnd','crewList','owObj','owTown'];
+  const elementCache=new Map(cachedIds.map(id=>[id,document.getElementById(id)]).filter(([,el])=>!!el));
+  const byId=id=>elementCache.get(id)||document.getElementById(id);
   const oldLogo=menu.querySelector('.logo'),oldSub=menu.querySelector('.sub');
   const oldTagline=[...menu.querySelectorAll('p.note')].find(el=>/^Walk Vapor City/i.test(el.textContent.trim()));
   const town=oldSub&&oldSub.textContent.trim()||'CIRCUIT FOOTBALL';
