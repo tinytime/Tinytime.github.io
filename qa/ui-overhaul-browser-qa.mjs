@@ -262,6 +262,7 @@ try{
    check('Achievement toast is bottom-centered, within bounds and non-blocking',toastRect.top>toastRect.vh*.55&&Math.abs((toastRect.x+toastRect.right)/2-toastRect.vw/2)<2&&toastRect.x>=0&&toastRect.right<=toastRect.vw&&toastRect.bottom<=toastRect.vh&&toastRect.pointerEvents==='none',toastRect);
    await page.screenshot({path:path.join(out,'match-achievement-toast.png'),fullPage:true});
    await page.evaluate(()=>window.SG.__uiqa.postGame());
+   check('Achievement toast clears before the post-game result',await page.locator('#achT').count()===0);
   }else await page.evaluate(()=>window.SG.endGame(false));
   await page.waitForFunction(()=>{const e=document.querySelector('#end');return e&&!e.hidden},null,{timeout:10000});
   check('Post-game result screen visible',await page.locator('#end').isVisible());
