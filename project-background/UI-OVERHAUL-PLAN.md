@@ -134,3 +134,29 @@ Static verification on commit `89e4264f8801836dd8c350f0fe0da8d11579a8a1`:
 - `main` remains unchanged at `36830922fa5b99922ce583bcf3888cb297bad03c`.
 
 Remaining QA limitation: this branch has no `.github/workflows/` files and no browser automation workflow configured. Static checks do not establish successful browser rendering, actual audio/model fetches, responsive layout, menu interactions, or gameplay regressions. Those checks remain pending; no golden snapshots were touched and no visual approval is claimed.
+
+
+## Runtime dependency restoration — verified 2026-11-24
+
+The owner has restored the runtime asset directories on `UI-Overhaul`. The current tree now contains:
+- `audio/`: 45 audio files (44 MP3 and 1 WAV).
+- `models/`: 22 model/data TXT files.
+
+Static reference audit against the current `index.html`:
+- All 45 referenced audio filenames resolve to files in the lowercase `audio/` directory.
+- All 22 model/data filenames resolve to files in the lowercase `models/` directory.
+- No missing referenced runtime assets were found.
+- Case matches the relative paths embedded in the game HTML.
+
+Current QA checkpoint:
+- Current branch HEAD at audit start: `efcf75eb5bcf0573fcb0d15b6f6439d48346c48b`.
+- Five existing inline JavaScript blocks compile using the JavaScript parser.
+- The new `ui-overhaul-menu.js` compiles.
+- All element IDs referenced by the menu module exist in `index.html`.
+- CSS brace counts balance (78 opening / 78 closing).
+- `main` remains at `36830922fa5b99922ce583bcf3888cb297bad03c`; this QA pass did not change it.
+- The repository's visible recent Actions runs belong to `npc-granny-baseline-overhaul`; none is a UI-Overhaul browser run.
+
+Remaining QA limitation:
+- A real Chromium browser render, screenshot inspection, and interaction pass have not been completed. The available repository browser QA script is hard-wired to the older `VaporCity_HD2D_Hybrid_Test.html` fixture, which is not the current `index.html` game entry point. No visual approval is claimed.
+- Next step: adapt or add a UI-Overhaul-specific browser QA harness targeting `index.html`, then inspect menu/settings/credits in portrait and landscape and exercise save, reset, and return-to-town flows. Do not change golden snapshots.
