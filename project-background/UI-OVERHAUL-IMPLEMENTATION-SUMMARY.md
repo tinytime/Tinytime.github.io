@@ -771,7 +771,8 @@ Next: commit this grouped workflow/documentation update, confirm concurrency beh
 ## 2026-11-24 — Gemini Stage One Round Two polish implemented; verification pending
 
 **Working branch:** `UI-Overhaul`  
-**Implementation checkpoint:** `b6a037c07bdd2318dacb88319125db08fc093477` (QA harness and current source changes).  
+**Implementation checkpoint:** `b6a037c07bdd2318dacb88319125db08fc093477` (Round Two implementation and targeted assertions).  
+**QA-trigger commit:** `2e88f012d20f7a97ee658d451d4b5c5a31ffe123` (CSS-only no-visual-change trigger for a fresh push workflow).  
 **Prior verified baseline:** Run #194, commit `95c7a8120a077aab4ec8fd23adf21890ca9fc7c7`, 142/142 passed. Run #194 does not test the new Round Two changes.
 
 ### Gemini Round Two feedback — implementation
@@ -798,7 +799,7 @@ Added six browser assertions covering:
 ### Verification status — do not overstate
 
 - Source and QA harness changes are committed to `UI-Overhaul`.
-- The QA assertions have been added but **have not yet been observed executing**.
+- The QA assertions have been added. A fresh push-triggered run was requested by commit `2e88f012d20f7a97ee658d451d4b5c5a31ffe123`; its run ID, result and artifact have not yet been retrieved. Do not treat it as executed or passed.
 - No new workflow run ID, completion result, logs, screenshot artifact or tested SHA has been retrieved through the available GitHub Actions retrieval actions for this checkpoint.
 - Run #194 remains the latest verified QA baseline only; it predates these six corrections.
 - The new visual changes have not yet been inspected in a fresh rendered screenshot set.
@@ -806,10 +807,10 @@ Added six browser assertions covering:
 
 ### Immediate next actions
 
-1. Retrieve the push-triggered browser-QA run for the new branch head and verify the exact tested SHA, all assertions, HIKE readiness, page/console/request errors and artifact.
+1. Retrieve the push-triggered browser-QA run for `2e88f012d20f7a97ee658d451d4b5c5a31ffe123` and verify the exact tested SHA, all assertions, HIKE readiness, page/console/request errors and artifact.
 2. Inspect only the affected Round Two screens: `overworld-portrait.png`, `match-playbook-overlay.png`, `match-pre-game.png`, `match-defense-selection.png`, `match-post-game-portrait.png`, plus the scoreboard-bearing match screenshot.
 3. Fix any real regressions and rerun against the corrected exact commit.
 4. Update the Claude package with the new exact commit and artifact; send only changed/affected assets for review.
 5. Keep Stage Two MY TEAM / MY SQUAD on hold until the owner approves all of Stage One.
 
-**Current state:** Round Two implementation and targeted QA assertions committed; execution, rendered screenshot inspection, independent review and owner approval are pending.
+**Current state:** Round Two implementation and targeted QA assertions committed; a QA-trigger push commit is present. Workflow execution/result/artifact retrieval, rendered screenshot inspection, independent review and owner approval are pending.
