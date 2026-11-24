@@ -301,8 +301,8 @@ try{
   }
   const liveNow=liveState.mode==='live'||liveState.fmode==='live';
   if(!liveNow)throw new Error('Unable to enter live play after the actual HIKE control and direct diagnostic fallback: '+JSON.stringify({preHikeState,liveState}));
-  const turboRing=await page.locator('#bTurbo').evaluate(el=>{const p=getComputedStyle(el,'::after'),s=getComputedStyle(el);return{display:p.display,background:p.backgroundImage,mask:p.maskImage||p.webkitMaskImage,inset:p.inset,overflow:s.overflow}});
-  check('Live-play TURBO control has a distinct segmented outer stamina ring',turboRing.display!=='none'&&turboRing.background.includes('repeating-conic-gradient')&&turboRing.background.includes('conic-gradient')&&turboRing.mask.includes('radial-gradient')&&turboRing.inset.includes('-8px')&&turboRing.overflow==='visible',turboRing);
+  const turboRing=await page.locator('#bTurbo').evaluate(el=>{const p=getComputedStyle(el,'::after'),s=getComputedStyle(el);return{display:p.display,background:p.backgroundImage,mask:p.maskImage||p.webkitMaskImage,inset:p.inset,overflow:s.overflow,outlineStyle:s.outlineStyle,outlineWidth:s.outlineWidth,outlineOffset:s.outlineOffset}});
+  check('Live-play TURBO control has a visible segmented outer stamina ring',turboRing.display!=='none'&&turboRing.background.includes('repeating-conic-gradient')&&turboRing.background.includes('conic-gradient')&&turboRing.mask.includes('radial-gradient')&&turboRing.inset.includes('-8px')&&turboRing.overflow==='visible'&&turboRing.outlineStyle==='dashed'&&parseFloat(turboRing.outlineWidth)>=2&&parseFloat(turboRing.outlineOffset)>=4,turboRing);
   await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
   const qaHooks=await page.evaluate(()=>window.SG&&window.SG.__uiqa?true:false);
   check('Query-gated match QA hooks are available',qaHooks);
