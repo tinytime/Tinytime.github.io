@@ -322,7 +322,7 @@ try{
   check('Post-game uses matte navy surface and cyan rematch CTA',endStyles.surface==='rgb(19, 22, 32)'&&endStyles.rematch==='rgb(77, 225, 242)'&&endStyles.rematchText==='rgb(8, 19, 27)'&&endStyles.menu==='rgb(28, 33, 48)',endStyles);
   const scorePanel=await page.locator('#endScore').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{width:r.width,background:s.backgroundColor,border:s.borderTopWidth,radius:s.borderTopLeftRadius,children:el.children.length}});
   check('Post-game team score block is framed inside a matte navy card',scorePanel.background==='rgb(19, 22, 32)'&&parseFloat(scorePanel.border)>=1&&parseFloat(scorePanel.radius)>=12&&scorePanel.children>=1,scorePanel);
-  check('Post-game score card carries both existing team marks',await page.locator('#endScore .ui-end-logo').count()===2);
+  check('Post-game score card carries both existing team marks',await page.locator('#endScore svg').count()===2);
   const scoreCardContent=await page.locator('#endScore').evaluate(el=>({matchup:el.querySelector('.ui-end-score-matchup')?.textContent||'',score:el.querySelector('.ui-end-score-value')?.textContent?.trim()||'',logos:el.querySelectorAll('.ui-end-logo svg,.ui-end-logo img').length}));
   check('Post-game card pairs both team marks with the matchup and score',scoreCardContent.logos===2&&scoreCardContent.matchup.includes('VS')&&!!scoreCardContent.score,scoreCardContent);
   await page.screenshot({path:path.join(out,'match-post-game.png'),fullPage:true});
