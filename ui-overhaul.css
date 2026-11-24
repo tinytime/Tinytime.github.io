@@ -1397,3 +1397,12 @@ body.land #hud #tgtTag{left:4%!important}
 /* The first-to target gets its own clear lane beneath the scoreboard; the drive pill owns that lane during simulation. */
 body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) + 74px)!important;transform:translateX(-50%)!important}
 #app:has(#tick:not([hidden])) #tgtTag{display:none!important}
+
+
+/* Visible segmented perimeter fallback for TURBO: the ring must read outside the control face. */
+#bTurbo{
+  outline:3px dashed rgba(77,225,242,.86)!important;
+  outline-offset:5px!important;
+  box-shadow:0 0 0 1px rgba(77,225,242,.14),0 0 14px rgba(77,225,242,.2)!important;
+}
+#bTurbo.tired{outline-color:rgba(255,74,74,.9)!important}
