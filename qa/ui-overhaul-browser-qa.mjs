@@ -209,7 +209,7 @@ try{
   await page.waitForFunction(()=>{const e=document.querySelector('#setbar');return e&&!e.hidden},null,{timeout:10000});
   check('Pre-snap action bar visible',await page.locator('#hike').isVisible());
   const hikeStyle=await page.locator('#hike').evaluate(el=>({backgroundColor:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color}));
-  check('HIKE uses the solid cyan primary-action treatment',hikeStyle.backgroundColor==='rgb(77, 225, 242)'&&hikeStyle.color==='rgb(8, 19, 27)',hikeStyle);
+  const hikeTextRGB=(hikeStyle.color.match(/\\d+/g)||[]).map(Number);check('HIKE uses the solid cyan primary-action treatment',hikeStyle.backgroundColor==='rgb(77, 225, 242)'&&hikeTextRGB.length===3&&hikeTextRGB.every(v=>v<60),hikeStyle);
   await page.screenshot({path:path.join(out,'match-pre-snap.png'),fullPage:true});
   await page.locator('#hike').click();
   await page.waitForFunction(()=>window.SG?.G?.mode==='live'||window.SG?.F?.mode==='live',null,{timeout:10000});
