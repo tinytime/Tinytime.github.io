@@ -169,3 +169,7 @@
 #menu .ui-menu-build-trigger{margin:0;text-align:center;color:var(--ui-muted);font-size:10px;letter-spacing:.1em;padding:7px 0 0;cursor:pointer;user-select:none;background:none;border:0}
 #menu .ui-menu-build-trigger:focus-visible,#menu .ui-menu-tab:focus-visible{outline:2px solid var(--ui-cyan);outline-offset:2px}
 @media(max-height:650px){#menu.ui-menu-ready{gap:7px;padding-top:calc(env(safe-area-inset-top,0px) + 7px)}#menu .ui-menu-head{padding-bottom:5px}#menu .ui-menu-goal{padding:7px 10px}#menu .ui-menu-tab{min-height:34px}#menu .ui-menu-foot #mTown{min-height:42px}}
+
+/* Keep the live build footer ahead of its optional developer drawer. */
+#menu #mBuild{order:0}
+#menu .ui-menu-dev{order:1}
