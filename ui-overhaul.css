@@ -1607,3 +1607,12 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 #goalsP .ui-goals-skill-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:74px;border-radius:10px;background:#1C2130;color:#F5F7FA}
 #goalsP .ui-goals-skill-cell b{font:900 clamp(26px,5vw,38px)/1 var(--ui-display,"Barlow Condensed",Impact,sans-serif)}
 #goalsP .ui-goals-skill-cell span{margin-top:4px;font:900 11px/1 var(--ui-heading,system-ui);letter-spacing:.08em}
+
+
+/* Pre-game matchup badges carry the two team accents without losing the matte card base. */
+#mu .pn.my .lg{border:2px solid #F5B841;background:#131620;box-shadow:0 0 0 4px rgba(245,184,65,.1),0 10px 24px rgba(0,0,0,.34)}
+#mu .pn.op .lg{border:2px solid #4DE1F2;background:#131620;box-shadow:0 0 0 4px rgba(77,225,242,.1),0 10px 24px rgba(0,0,0,.34)}
+#mu{backdrop-filter:blur(4px);background-image:linear-gradient(90deg,rgba(245,184,65,.07),transparent 44%,rgba(77,225,242,.08))}
+
+/* Keep the framed team celebration centered around the live player group on portrait results. */
+@media(max-width:430px){#end::before{top:18%;left:5%;right:5%;height:25%}}
