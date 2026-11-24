@@ -571,3 +571,22 @@
 #menu .ui-menu-foot #mTown:active{transform:none!important;filter:brightness(.94);box-shadow:0 5px 0 #84223f,0 10px 22px rgba(239,68,108,.2)!important}
 #menu .ui-menu-foot{position:relative;z-index:5;pointer-events:auto}
 #menu .ui-menu-foot #mTown{position:relative;z-index:6;pointer-events:auto}
+
+
+/* Final menu layout and compact utility polish. */
+#menu .ui-menu-grid>.ui-menu-icon-card,
+#menu .ui-menu-grid .ui-menu-icon-card,
+#menu .ui-menu-grid .ui-menu-playbook{grid-column:auto!important}
+#menu .ui-menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#menu .ui-menu-grid .ui-menu-icon-card{width:100%;box-sizing:border-box}
+#menu .ui-menu-grid .ui-menu-playbook{min-height:104px;justify-content:flex-start!important}
+#owTop .ui-ow-status{color:#ffe09a;border-color:rgba(245,184,65,.45)}
+#owTop .ui-ow-status.is-cleared{color:#b7f8d6;border-color:rgba(52,211,153,.52)}
+#menu .ui-menu-dev{max-height:220px;overflow:auto;overscroll-behavior:contain}
+#menu .ui-menu-dev .btnrow{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+#menu .ui-menu-dev .btnrow button{min-width:0;min-height:38px;padding:5px 6px;font-family:var(--ui-heading);font-size:10px;line-height:1.12;white-space:normal;overflow-wrap:anywhere}
+#menu .ui-menu-build-trigger{display:flex;align-items:center;justify-content:center;gap:5px;min-height:30px;padding:6px 9px;border:1px dashed rgba(245,184,65,.38);border-radius:9px;background:rgba(245,184,65,.035);color:#aab5c7;font-family:var(--ui-heading);font-size:10px;letter-spacing:.12em}
+#menu .ui-menu-build-trigger::after{content:"· TAP 5× FOR DEV TOOLS";color:#f5b841;font-weight:900;white-space:nowrap}
+@media(max-width:620px){
+ #menu .ui-menu-grid .ui-menu-icon-card{min-height:96px}
+}
