@@ -66,7 +66,7 @@ try{
  const originalResolution=(await page.locator('#mRS').textContent())?.trim();
  await page.locator('.ui-resolution-group button[data-value="MEDIUM"]').click();
  check('Resolution selection updates original setting', (await page.locator('#mRS').textContent())?.includes('MEDIUM'));
- const restoreResolution=originalResolution?.match(/RESOLUTION:\\s*(.+)/i)?.[1]?.trim().toUpperCase()||'HIGH';
+ const restoreResolution=originalResolution?.match(/RESOLUTION:\s*(.+)/i)?.[1]?.trim().toUpperCase()||'HIGH';
  await page.locator('.ui-resolution-group button[data-value="'+restoreResolution+'"]').click();
  check('Resolution selection restores original setting',(await page.locator('#mRS').textContent())?.trim()===originalResolution);
  await page.locator('#mReset').click();
