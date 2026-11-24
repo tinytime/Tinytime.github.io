@@ -7,8 +7,10 @@
 - Working branch: `UI-Overhaul`
 - Baseline: current `main` at the time this branch was created
 - UI handoff source: `Circuit Football — UI Overhaul Handoff Spec.docx` (14 pages; supplied in the project conversation)
-- Implementation status: Stage 1 foundation is implemented (shared design tokens and first Overworld HUD matte treatment); remaining screens are not yet redesigned
-- Owner approval: pending
+- Implementation status: Stage One art-direction correction is implemented across Overworld, menu, settings, credits/developer drawer, playbook and match screens. Latest verified implementation commit: `d980f2e533de7d5bdfe55c7df98a593da7af8aee`.
+- Browser QA: [Run #114](https://github.com/tinytime/Tinytime.github.io/actions/runs/45438679781), **110/110 passed**, with 28 screenshots retrieved and inspected.
+- Internal visual assessment: approximately 7.2/10; the requested 6.5+/10 Stage One target is provisionally met. This is not independent approval.
+- Independent Claude review: pending. Owner approval: pending. Do not begin Stage Two until the owner approves the direction.
 
 ## Source-of-truth rules
 
@@ -249,3 +251,15 @@ Latest QA harness checkpoint: 68 assertions, including rendered-color checks for
 
 
 Latest QA harness commit: `ad2cd22c26005f7e244a18f28a6ea7c88961d9e9`, with 76 assertions and a corrected cyan HIKE text-contrast assertion. The workflow result/artifact is not yet retrieved; assertions are not reported as executed until Actions confirms the exact tested SHA. See the implementation summary.
+
+
+## Latest verified Stage One checkpoint — 2026-11-24
+
+This section supersedes older implementation and QA status notes elsewhere in this historical plan. The [Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) remains the detailed source of truth.
+
+- Verified implementation commit: `d980f2e533de7d5bdfe55c7df98a593da7af8aee` on `UI-Overhaul`.
+- Browser QA: [Run #114](https://github.com/tinytime/Tinytime.github.io/actions/runs/45438679781), **110/110 passed**. Artifact `ui-overhaul-browser-qa` contains 28 PNG screenshots.
+- Visual inspection confirmed the full-bleed Overworld HUD; centered 2×2 menu cards, UPG badge and crimson/pink town CTA; settings hierarchy; concise grouped credits with runtime diagnostics moved into the hidden developer drawer; playbook diagrams, category filters, gold selection, FLIP and cyan CALL PLAY; and the required pre-game, playbook, pre-snap, live, defense, fumble, achievement-toast and post-game states.
+- HIKE activation now supports pointer-up and keyboard activation. The sprite-readiness retry is bounded by elapsed time rather than callback count, avoiding headless timer throttling stalls.
+- The achievement toast is positioned clear of the play-by-play ticker and cleared when post-game begins.
+- Internal visual assessment: approximately **7.2/10**, provisional and above the owner's 6.5+ target. Claude's independent review and final owner approval are still required. Do not start MY TEAM / MY SQUAD Stage Two until approval.

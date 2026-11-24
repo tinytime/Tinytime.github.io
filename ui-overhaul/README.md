@@ -257,3 +257,15 @@ See [the implementation summary](../project-background/UI-OVERHAUL-IMPLEMENTATIO
 - **No Actions pass is claimed:** the push-triggered run ID/result/artifact has not been retrieved, and the updated screenshots have not been visually inspected. The previous Run #39 predates the correction pass.
 
 The implementation summary remains the source of truth for current status and approval gates.
+
+
+## Latest verified checkpoint — 2026-11-24
+
+- Latest verified implementation commit: `d980f2e533de7d5bdfe55c7df98a593da7af8aee` on `UI-Overhaul`.
+- Latest browser QA: [Run #114](https://github.com/tinytime/Tinytime.github.io/actions/runs/45438679781), **110/110 passed**, artifact ID `14941759413`, 28 screenshots.
+- Stage One art-direction corrections are implemented and internally visually inspected across Overworld, menu, settings, credits/developer drawer, playbook and all requested match states. Internal visual assessment is approximately 7.2/10, provisionally above the 6.5+ target.
+- Sound/model diagnostics and full build metadata are now hidden in the developer drawer; the primary Credits page contains only three grouped attribution cards and a compact BUILD INFO trigger.
+- HIKE input supports pointer-up and keyboard activation. Sprite readiness uses an elapsed-time bound. The achievement toast does not obscure the ticker and clears on post-game.
+- Claude independent review and owner approval remain pending. Do not start Stage Two before approval.
+
+See [the implementation summary](../project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) and [Claude review package](../project-background/UI-OVERHAUL-CLAUDE-REVIEW-PACKAGE.md) for the complete evidence and next step.

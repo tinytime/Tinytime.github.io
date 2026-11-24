@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-For the active UI redesign, start with the [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). It is the current status authority. The latest stage-one correction checkpoint is committed on `UI-Overhaul` at `2abcadf90dfef17afeb2634fd5d8c8f278abb4ca`; the browser harness contains 90 assertions, including defense simulation, desktop max-width, 360px portrait layout, grouped credits and CTA semantics. The push-triggered Actions result and updated screenshot artifact are not yet verified, so do not treat the 90 assertions as a pass or the UI as visually approved.
+For the active UI redesign, start with the [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). It is the current status authority. Latest verified implementation commit on `UI-Overhaul`: `d980f2e533de7d5bdfe55c7df98a593da7af8aee`. [GitHub Actions Run #114](https://github.com/tinytime/Tinytime.github.io/actions/runs/45438679781) passed **110/110 browser QA checks** and uploaded 28 screenshot artifacts. The screenshots have been retrieved and internally inspected across desktop, portrait, 360px, Overworld, settings, credits, playbook and match states. Internal visual assessment indicates the Stage One 6.5+/10 target is met; independent Claude review and owner approval remain pending. QA pass count is not visual approval.
 
 Related references:
 - [UI Overhaul Plan](UI-OVERHAUL-PLAN.md) — design scope, seven-screen inventory and project guardrails.

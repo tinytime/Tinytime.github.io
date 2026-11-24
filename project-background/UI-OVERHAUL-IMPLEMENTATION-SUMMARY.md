@@ -6,10 +6,10 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Last verified branch HEAD before this document: `e66cb4b9ee2930e4c0281327bebf740288737831`
+- Latest verified implementation commit: `d980f2e533de7d5bdfe55c7df98a593da7af8aee` (the following documentation commit does not change game code)
 - Latest verified baseline `main` SHA recorded by the workstream: `36830922fa5b99922ce583bcf3888cb297bad03c`
 - Owner approval: **not yet given**
-- Visual approval: **not yet given**
+- Visual approval: **not yet given** (ChatGPT internal screenshot inspection is complete; independent Claude review is still pending)
 
 ## 1. Read this first in a new chat
 
@@ -620,3 +620,41 @@ These are committed test definitions and screenshot destinations, **not proof th
 4. Reassess against the owner's Stage One target of 6.5+/10. Claude independent review and owner approval remain outstanding. Do not start MY TEAM / MY SQUAD until the owner explicitly approves the menu direction.
 
 **Current status:** Stage One correction implementation is committed; expanded 94-callsite browser harness is committed; latest Actions execution and artifact retrieval are unverified; visual inspection, independent review and owner approval remain pending.
+
+
+## 2026-11-24 — Stage One corrections verified and ready for independent review
+
+**Latest tested implementation commit:** `d980f2e533de7d5bdfe55c7df98a593da7af8aee` on `UI-Overhaul`.
+
+**Latest browser QA:** [GitHub Actions Run #114](https://github.com/tinytime/Tinytime.github.io/actions/runs/45438679781) — **110/110 passed**. Artifact: `ui-overhaul-browser-qa` (artifact ID `14941759413`), containing 28 PNG screenshots. The exact tested SHA matches the implementation commit above.
+
+### What is implemented
+
+- **Overworld HUD:** full-bleed town scene without black letterboxing; town/clear/UPG pill; GOAL strip; MENU pill; town-accent A ring with contextual action label.
+- **Menu shell:** centered max-width composition; 2×2 icon cards; UPG badge; playbook count; goals trophy; DATA & SUPPORT grouping; crimson/pink BACK TO TOWN CTA. Narrow 360px portrait layout is included in QA.
+- **Settings:** tighter composition, leading icons, inner pills, consistent borders/radii and clearer card hierarchy.
+- **Credits/developer drawer:** three concise grouped attribution cards with expandable full attribution. Main Credits no longer exposes sound/model load diagnostics or raw build metadata; those live in the hidden five-tap developer drawer behind a compact BUILD INFO trigger.
+- **Playbook:** route/play diagrams, category filters, selected gold border, FLIP and cyan CALL PLAY CTA.
+- **Match UI:** screenshots cover pre-game matchup, in-match playbook overlay, pre-snap, live play, defense selection, defense simulation, fumble pile, achievement toast, and landscape/portrait post-game.
+- **Interaction/readiness:** HIKE supports pointer-up and keyboard activation with debounce. The sprite-readiness wait uses elapsed time rather than counting throttled timer callbacks. Achievement toast avoids the play-by-play ticker and clears on post-game transition.
+
+### Visual inspection and assessment
+
+ChatGPT retrieved and inspected the actual Run #114 screenshots, including desktop and portrait menu/settings/credits, 360px menu, desktop/portrait Overworld, playbook, defense selection/simulation, fumble, live play, achievement toast and post-game. The three main Credits cards are now concise; runtime diagnostics are confined to the developer drawer. The portrait menu has no horizontal overflow or title collision. Match states are present in the evidence set and the post-game CTA remains unobstructed.
+
+**Internal visual assessment: approximately 7.2/10.** This provisionally meets the owner's Stage One target of 6.5+/10. It is not a 10/10 claim, independent approval or owner sign-off. QA counts are not a substitute for visual judgment.
+
+### Important debugging history
+
+- Earlier Hike checks exposed that the sprite-readiness loop relied on a fixed number of 50ms callbacks. Headless browser timer throttling made the wait much longer than intended. The implementation now uses an elapsed-time bound and the exact latest code passes Run #114.
+- Run #113's sole failure was a QA selector that counted diagnostics nested inside the developer drawer as though they were in primary Credits. The selector was corrected in `d980f2e`; Run #114 passes 110/110.
+- Earlier failed runs are historical debugging evidence, not the current result. Run #114 is the latest verified result for the latest implementation.
+
+### Remaining approval gates / next step
+
+1. Send [the Claude independent review package](UI-OVERHAUL-CLAUDE-REVIEW-PACKAGE.md) with the Run #114 screenshot artifact and the original 14-page Gemini handoff/reference images.
+2. Evaluate Claude's per-screen scores and findings; implement valid corrections and retest if needed.
+3. Obtain explicit owner approval of the Stage One direction.
+4. Do not begin the MY TEAM / MY SQUAD Stage Two redesign until that approval is given.
+
+**Current status:** Stage One corrections implemented, browser-tested 110/110, and internally visually inspected. Independent Claude review and owner approval remain outstanding.
