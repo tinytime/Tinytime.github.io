@@ -361,9 +361,9 @@ try{
    await page.evaluate(()=>{const sheet=document.querySelector('#sheet'),setbar=document.querySelector('#setbar');if(sheet)sheet.hidden=true;if(setbar)setbar.hidden=true});
    const pileGeometry=await page.evaluate(()=>{const b=document.querySelector('#pileBar').getBoundingClientRect(),a=document.querySelector('#pileBtn').getBoundingClientRect();return{barWidth:b.width,viewport:innerWidth,ratio:b.width/innerWidth,barRight:b.right,buttonLeft:a.left,clearance:a.left-b.right}});
    check('Fumble meter is about 65% width and clears the A mash button',pileGeometry.ratio>=.62&&pileGeometry.ratio<=.70&&pileGeometry.clearance>=8,pileGeometry);
-   await page.waitForFunction(()=>/^[0-9]+\\.[0-9]s$/.test((document.querySelector('#pileT')?.textContent||'').trim()),null,{timeout:5000});
+   await page.waitForFunction(()=>/^[0-9]+[.][0-9]s$/.test((document.querySelector('#pileT')?.textContent||'').trim()),null,{timeout:5000});
    const pileTimer=await page.locator('#pileT').evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect();return{text:el.textContent.trim(),background:s.backgroundColor,border:s.borderTopWidth,radius:s.borderTopLeftRadius,height:r.height,display:s.display}});
-   check('Fumble countdown uses the gold-edged navy seconds pill',/^[0-9]+\\.[0-9]s$/.test(pileTimer.text)&&pileTimer.background==='rgba(19, 22, 32, 0.96)'&&parseFloat(pileTimer.border)>=1&&pileTimer.radius==='999px'&&pileTimer.height>=22,pileTimer);
+   check('Fumble countdown uses the gold-edged navy seconds pill',/^[0-9]+[.][0-9]s$/.test(pileTimer.text)&&pileTimer.background==='rgba(19, 22, 32, 0.96)'&&parseFloat(pileTimer.border)>=1&&pileTimer.radius==='999px'&&pileTimer.height>=22,pileTimer);
    await page.screenshot({path:path.join(out,'match-fumble-pile.png'),fullPage:true});
    await page.evaluate(()=>{const pile=document.querySelector('#pile');if(pile)pile.hidden=true});
    const defenseReady=await page.evaluate(()=>window.SG.__uiqa.defense());

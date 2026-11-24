@@ -1081,3 +1081,7 @@ Additional visual findings from the original handoff comparison: the Defense Sel
 ### Run #243 — QA duplicate declaration corrected
 
 Run #243 (ID `45482963439`) tested `13eace99835b3a3f6f153bb47dbe5ee5e7bd9422` and failed before browser launch because two defense-selection geometry checks declared the same `const defenseFit` in one block. The application changes were not exercised and no screenshots were generated. The more detailed scoreboard-relative geometry object is now named `defenseFitDetailed`; both strict clipping checks remain in place. Pending full retest.
+
+### Run #244 — fumble timer assertion corrected
+
+Run #244 (ID `45483202613`) tested `b5baeed91b94bd445281fa7a679e3f788933f9df` and reached the fumble-pile check, then timed out waiting for the countdown's new seconds suffix. The game-side timer now appends `s`; the QA regex had an over-escaped decimal point, so it could not match the rendered value. No page exceptions, console errors, or same-origin failures occurred. The assertion now uses a character class for the decimal point, preserving the strict one-decimal-plus-`s` format check. Pending rerun.
