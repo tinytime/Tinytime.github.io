@@ -279,8 +279,10 @@ try{
    await page.waitForFunction(()=>{const e=document.querySelector('#dcall');return e&&!e.hidden},null,{timeout:10000});
    check('Defense selection screen appears after turnover',await page.locator('#dcall').isVisible());
    check('Defense selection offers BLITZ, BALANCED and PREVENT',await page.locator('#dcall button[data-c]').count()===3);
-   const defenseRows=await page.locator('#dcall button[data-c] .dco').evaluateAll(nodes=>nodes.map(n=>({rows:n.querySelectorAll('.dco-row').length,labels:[...n.querySelectorAll('.dco-label')].map(x=>x.textContent.trim())})));
-   check('Defense cards show three aligned STOP, BIG PLAY and TAKEAWAY stat rows',defenseRows.length===3&&defenseRows.every(x=>x.rows===3&&x.labels.join('|')==='STOP|BIG PLAY|TAKEAWAY'),defenseRows);
+   const defensePanel=await page.locator('#dcall').evaluate(el=>{const r=el.getBoundingClientRect();return{left:r.left,right:r.right,width:r.width,viewport:innerWidth}});
+   check('Defense selection panel is centered and fits the viewport',defensePanel.left>=0&&defensePanel.right<=defensePanel.viewport&&defensePanel.width>=defensePanel.viewport-40,defensePanel);
+   const defenseRows=await page.locator('#dcall button[data-c] .dco').evaluateAll(nodes=>nodes.map(n=>({rows:n.querySelectorAll('.dco-row').length,columns:getComputedStyle(n).gridTemplateColumns.split(' ').length,labels:[...n.querySelectorAll('.dco-label')].map(x=>x.textContent.trim())})));
+   check('Defense cards show three aligned STOP, BIG PLAY and TAKEAWAY stat rows',defenseRows.length===3&&defenseRows.every(x=>x.rows===3&&x.columns===3&&x.labels.join('|')==='STOP|BIG PLAY|TAKEAWAY'),defenseRows);
    await page.screenshot({path:path.join(out,'match-defense-selection.png'),fullPage:true});
    await page.locator('#dcall button[data-c="bal"]').click();
    await page.waitForFunction(()=>{const e=document.querySelector('#tick');return e&&getComputedStyle(e).display!=='none'},null,{timeout:5000});
