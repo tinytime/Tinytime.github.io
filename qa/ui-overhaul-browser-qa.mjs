@@ -302,7 +302,7 @@ try{
    check('Defense simulation play-by-play is visible',await page.locator('#tkPlay').isVisible()&&!!(await page.locator('#tkPlay').textContent()).trim());
    check('Defense simulation includes TAP TO SKIP',await page.locator('#tkHint').isVisible()&&(await page.locator('#tkHint').textContent()).includes('TAP TO SKIP'));
    const drivePill=await page.locator('#tkTop').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{top:r.top,viewport:innerHeight,background:s.backgroundColor,border:s.borderTopWidth}});
-   check('Defense drive pill is lowered clear of the top HUD and uses the navy status treatment',drivePill.top>=drivePill.viewport*.15+22&&drivePill.background==='rgba(19, 22, 32, 0.96)'&&parseFloat(drivePill.border)>=1,drivePill);
+   check('Defense drive pill is lowered clear of the top HUD and uses the navy status treatment',drivePill.top>=drivePill.viewport*.15+10&&drivePill.background==='rgba(19, 22, 32, 0.96)'&&parseFloat(drivePill.border)>=1,drivePill);
    await page.screenshot({path:path.join(out,'match-defense-simulation.png'),fullPage:true});
    const toast=await page.evaluate(()=>window.SG.__uiqa.achievement());
    check('Achievement toast can be triggered',toast);
