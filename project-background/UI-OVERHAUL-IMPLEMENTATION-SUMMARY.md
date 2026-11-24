@@ -845,3 +845,38 @@ Source CSS commit: 7e29d95a77aa3d268f07e7158f5883c22aa8bccb
 QA assertion commit: 8d7410d19d869d99ebd8cb2dbaedb43dc1a7895c
 
 **Verification:** These changes are committed, but no fresh Actions result or rendered screenshot has yet been retrieved. The two new assertions are test definitions only until the workflow executes. Visual approval remains pending.
+
+
+## 2026-11-24 — Full Stage One Gemini mockup comparison and correction pass
+
+**Reference inspection:** Reopened the owner's original 14-page Gemini DOCX and inspected its embedded visual mockups, including pages/images for Overworld HUD, Menu, Settings, Credits, Goals & Stats, matchup/playbook, pre-snap, live play, fumble, defense selection/simulation, achievement toast and post-game. The written handoff mirror is not a substitute for these original visual references.
+
+**Baseline evidence inspected:** Run #204, commit e12972b3377ccb8fa4965a5ee9353ca477b1272c, 149/149 browser assertions passed. Its screenshots are pre-correction evidence only; they do not validate the changes below.
+
+### Corrections implemented
+
+- **Overworld HUD:** town/progress header moved to a quiet translucent matte-navy pill, removing the overly bright title treatment; status and UPG remain in the same pill. GOAL strip and contextual A label behavior remain.
+- **Overworld Menu:** header title/town centered between the corner controls. Home actions now match the Stage One mockup order: UPGRADES, MY TEAM, PLAYBOOK, GOALS & STATS. The hidden original mUpg action remains the authoritative click target; the MY SQUAD control is not deleted, but is no longer substituted for the reference's UPGRADES tile. The pink BACK TO TOWN treatment is intentional and matches the Gemini mockup; do not "correct" it to cyan.
+- **Settings/Credits:** shared header centered; Home-only CURRENT GOAL card is suppressed on these tabs so their content starts at the reference's tab rail.
+- **Goals & Stats:** trophy progress badge, segmented tab rail, larger cyan/gold framed challenge and achievement cards, visible one-off 0/1 counters, two-up Passing/Rushing layout, full-width Receiving and three-cell Skill Moves card.
+- **Pre-game matchup:** home/away badge cards receive gold/cyan accents while retaining matte navy surfaces; subtle warm/cool atmospheric tint added. Dynamic crew names and target score remain game-state-driven.
+- **In-match Playbook:** consolidated single canonical CSS treatment from page 9: matte #131620 sheet, #1C2130 inner surfaces, gold selected states/FLIP, dark route canvases, cyan CALL PLAY. Existing play/flip/call behavior retained.
+- **Defense Selection:** changed from a nearly full-width bottom dock to a centered floating panel below the scoreboard; three cards use red BLITZ, slate BALANCED and green PREVENT treatments with larger readable stats.
+- **Post-game:** added a mode pill, portrait team-celebration frame, reward-card styling for non-empty STYLE POINTS, gold REMATCH and cyan-edged dark MENU action. Existing loss/practice/crew outcome logic is not changed.
+- **QA harness:** assertions added for menu tile order and accents, Overworld pill, centered header, Home-only goal card, Goals badge/segmented tabs/card frames/one-off counters/Stats layout, matchup badge accents, centered defense panel, and post-game mode/action treatment.
+
+### Screens inspected and correction scope
+
+Run #204 assets inspected: overworld-portrait.png; portrait-menu.png; portrait-settings.png; portrait-credits.png; goals-stats-challenges.png; goals-stats-achievements.png; goals-stats-team-stats.png; match-pre-game.png; match-playbook-overlay.png; match-pre-snap.png; match-live-play.png; match-fumble-pile.png; match-defense-selection.png; match-defense-simulation.png; match-achievement-toast.png; match-post-game-portrait.png.
+
+The next fresh artifact must include and visually inspect the changed screens: overworld-portrait.png; portrait-menu.png; portrait-settings.png; portrait-credits.png; goals-stats-challenges.png; goals-stats-achievements.png; goals-stats-team-stats.png; match-pre-game.png; match-playbook-overlay.png; match-defense-selection.png; match-post-game-portrait.png. Other Stage One screens were compared and were not changed in this pass; do not include unchanged screenshots in the delta review unless fresh QA exposes a regression.
+
+### Remaining visual questions / verification gates
+
+1. The pre-game atmosphere remains a stylized split/halftone game backdrop rather than the blurred photographic/town-specific backdrop in the mockup. A subtle warm/cool tint is not a full replacement; this remains a visual gap unless the owner prefers the in-game art direction over the mockup backdrop.
+2. The scoreboard's FIRST TO target remains a separate pill below the scoreboard, while the mockup integrates FIRST TO beside PLAY CLOCK. The actual target is game-state-driven (Run #204 showed 21); do not hard-code 14 and change match rules just to imitate the reference. Decide whether to redesign the scoreboard geometry without altering the underlying target.
+3. The current live-play screenshot did not show an open receiver state clearly enough to score that specific mockup requirement. Add/verify a deterministic open-receiver screenshot before final Stage One review.
+4. Run #204's post-game portrait screenshot is a loss. It does not validate the win-state STYLE POINTS reward card or practice-mode pill; add a deterministic win/practice visual case.
+5. Fresh Actions run and screenshots for the current CSS/JS/QA commits have not been retrieved. The latest inspected run #204 predates these changes. Do not report the new assertions as passed or visually approve the screens until the exact current SHA is tested and its artifact inspected.
+
+**Latest implementation work in this pass:** see current branch HEAD. Stage One remains pending fresh QA, screenshot inspection, Claude delta review and owner approval. Stage Two remains held.
