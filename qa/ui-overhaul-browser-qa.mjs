@@ -267,6 +267,10 @@ try{
   check('In-match CALL PLAY action visible',await page.locator('#callBtn').isVisible());
   check('In-match selected play has gold treatment',await page.locator('#cards .card.sel').count()===1);
   check('In-match FLIP control is visible',await page.locator('#flipBtn').isVisible());
+  const playbookPalette=await page.locator('#sheet').evaluate(el=>({surface:getComputedStyle(el).backgroundColor,borderTop:getComputedStyle(el).borderTopColor,shadow:getComputedStyle(el).boxShadow}));
+  check('In-match Playbook uses the unified matte navy surface and restrained gold edge',playbookPalette.surface==='rgb(19, 22, 32)'&&playbookPalette.borderTop==='rgba(245, 184, 65, 0.78)'&&!playbookPalette.shadow.includes('77, 225, 242'),playbookPalette);
+  const playbookStates=await page.evaluate(()=>({inactive:getComputedStyle(document.querySelector('#pbTabs .pbTab:not(.on)')).backgroundColor,activeBorder:getComputedStyle(document.querySelector('#pbTabs .pbTab.on')).borderTopColor,selectedBorder:getComputedStyle(document.querySelector('#cards .card.sel')).borderTopColor,routeBg:getComputedStyle(document.querySelector('#cards .card canvas')).backgroundColor}));
+  check('Playbook categories and selected play use consistent inner-navy and gold states',playbookStates.inactive==='rgb(28, 33, 48)'&&playbookStates.activeBorder==='rgb(245, 184, 65)'&&playbookStates.selectedBorder==='rgb(245, 184, 65)'&&playbookStates.routeBg==='rgb(16, 23, 34)',playbookStates);
   const callStyle=await page.locator('#callBtn').evaluate(el=>({backgroundColor:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color}));
   check('In-match CALL PLAY uses the cyan CTA treatment',callStyle.backgroundColor==='rgb(77, 225, 242)'&&callStyle.color==='rgb(8, 19, 27)',callStyle);
   await page.locator('#flipBtn').click();
