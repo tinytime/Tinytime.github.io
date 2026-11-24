@@ -198,9 +198,8 @@ try{
   check('In-match CALL PLAY action visible',await page.locator('#callBtn').isVisible());
   check('In-match selected play has gold treatment',await page.locator('#cards .card.sel').count()===1);
   check('In-match FLIP control is visible',await page.locator('#flipBtn').isVisible());
-  const callStyle=await page.locator('#callBtn').evaluate(el=>({background:getComputedStyle(el).backgroundImage,backgroundColor:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color}));
-  const callRGB=(callStyle.backgroundColor.match(/\d+/g)||[]).map(Number);
-  check('In-match CALL PLAY uses the cyan CTA treatment',callRGB.length===3&&callRGB[1]>180&&callRGB[2]>180&&callRGB[1]>=callRGB[0]&&callRGB[2]>=callRGB[0]&&callRGB.every(v=>v<255)&&callStyle.color==='rgb(8, 19, 27)',callStyle);
+  const callStyle=await page.locator('#callBtn').evaluate(el=>({backgroundColor:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color}));
+  check('In-match CALL PLAY uses the cyan CTA treatment',callStyle.backgroundColor==='rgb(77, 225, 242)'&&callStyle.color==='rgb(8, 19, 27)',callStyle);
   await page.locator('#flipBtn').click();
   check('In-match FLIP toggles selected play orientation',await page.locator('#flipBtn').evaluate(el=>el.classList.contains('on')));
   await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
