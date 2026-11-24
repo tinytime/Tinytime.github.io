@@ -814,3 +814,34 @@ Added six browser assertions covering:
 5. Keep Stage Two MY TEAM / MY SQUAD on hold until the owner approves all of Stage One.
 
 **Current state:** Round Two implementation and targeted QA assertions committed; a QA-trigger push commit is present. Workflow execution/result/artifact retrieval, rendered screenshot inspection, independent review and owner approval are pending.
+
+
+## 2026-11-24 — Gemini reference re-review: in-match Playbook palette consolidation
+
+**Reference authority:** Circuit Football — UI Overhaul Handoff Spec, page 1 (global tokens) and page 9 (Pre-Game Matchup & Playbook, landscape). The owner re-supplied the 14-page reference in this project conversation.
+
+### Stage One comparison and correction
+
+The actual in-match play-calling sheet (#app #sheet) was re-compared with the complete Stage One direction, especially the page 1 color semantics and page 9 Playbook screenshot/instructions. The earlier treatment had accumulated competing gradients, cyan-tinted outer framing, multiple near-navy card shades, and duplicated selector blocks. That drifted from the reference's compact, matte #131620 sheet and understated #1C2130 inner surfaces.
+
+The canonical in-match Playbook CSS is now consolidated into one authoritative block:
+- Sheet surface: solid matte #131620, restrained border and shadow; no cyan outer glow.
+- Inactive category controls and play cards: consistent #1C2130 inner surface.
+- Active category and selected play: gold #F5B841 border/tint.
+- Route diagrams: dark, quiet #101722 canvas.
+- FLIP and secondary controls: dark inner surface with gold outline.
+- CALL PLAY remains the single cyan #4DE1F2 execution CTA.
+- Existing landscape/portrait geometry, safe-area padding, 66px landscape top clearance, play selection, route flip and call behavior are retained.
+
+This is a focused correction to the in-match Playbook included in Stage One, not the separate menu Playbook catalog and not Stage Two.
+
+### QA delta
+
+Two targeted browser assertions were added for:
+1. Matte navy sheet, restrained gold top edge and absence of cyan outer glow.
+2. Consistent inactive inner-navy category state, gold active/selected states and dark route canvas.
+
+Source CSS commit: 7e29d95a77aa3d268f07e7158f5883c22aa8bccb  
+QA assertion commit: 8d7410d19d869d99ebd8cb2dbaedb43dc1a7895c
+
+**Verification:** These changes are committed, but no fresh Actions result or rendered screenshot has yet been retrieved. The two new assertions are test definitions only until the workflow executes. Visual approval remains pending.
