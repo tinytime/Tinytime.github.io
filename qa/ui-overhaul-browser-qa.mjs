@@ -41,9 +41,12 @@ try{
  let invokedOverworldHelper=false;
  if(!startupHasOverworldButton)invokedOverworldHelper=await page.evaluate(()=>{if(typeof window.SG?.owShow==='function'){window.SG.owShow();return true}return false});
  check('Existing overworld entry helper available when needed',startupHasOverworldButton||invokedOverworldHelper,{invokedOverworldHelper});
+ const startupAfterHelper=await describeStartup();
+ fs.writeFileSync(path.join(out,'startup-state.json'),JSON.stringify({before:startupBefore,afterHelper:startupAfterHelper,invokedOverworldHelper},null,2));
+ await page.screenshot({path:path.join(out,'startup-after-helper.png'),fullPage:true});
  if(!startupHasOverworldButton)await page.waitForFunction(()=>{const b=document.querySelector('#owMenu');if(!b)return false;const s=getComputedStyle(b),r=b.getBoundingClientRect();return !b.hidden&&s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)>.5&&r.width>0&&r.height>0;},null,{timeout:10000});
  const startupAfter=await describeStartup();
- fs.writeFileSync(path.join(out,'startup-state.json'),JSON.stringify({before:startupBefore,after:startupAfter,invokedOverworldHelper},null,2));
+ fs.writeFileSync(path.join(out,'startup-state.json'),JSON.stringify({before:startupBefore,afterHelper:startupAfterHelper,after:startupAfter,invokedOverworldHelper},null,2));
  await page.screenshot({path:path.join(out,'startup-after-overworld.png'),fullPage:true});
  check('Overworld MENU opener genuinely visible',await openOverworldMenu.isVisible(),startupAfter.owMenu);
  if(!(await openOverworldMenu.isVisible()))throw new Error('The existing overworld entry helper did not expose #owMenu. Inspect startup-state.json and startup screenshots; do not bypass visibility.');
