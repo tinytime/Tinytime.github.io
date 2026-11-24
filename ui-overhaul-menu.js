@@ -191,8 +191,8 @@
    const update=()=>{
     const cards=[...panel.querySelectorAll('.ui-goals-achievement')];
     const earned=cards.filter(card=>card.classList.contains('is-earned')).length;
-    if(count)count.textContent=earned+'/13';
-    cards.forEach(card=>{const badge=card.querySelector('.ui-goals-achievement-count');if(!badge)return;const max=Number((badge.textContent.match(/\/\s*(\d+)/)||[])[1]||1);if(max===1)badge.textContent=card.classList.contains('is-earned')?'1 / 1':'0 / 1'});
+    if(count&&count.textContent!==earned+'/13')count.textContent=earned+'/13';
+    cards.forEach(card=>{const badge=card.querySelector('.ui-goals-achievement-count');if(!badge)return;const max=Number((badge.textContent.match(/\/\s*(\d+)/)||[])[1]||1);if(max===1){const next=card.classList.contains('is-earned')?'1 / 1':'0 / 1';if(badge.textContent!==next)badge.textContent=next}});
     const skill=[...panel.querySelectorAll('.ui-goals-stat-card')].find(card=>card.querySelector('.ui-goals-stat-label')?.textContent.trim()==='SKILL MOVES');
     if(skill&&!skill.querySelector('.ui-goals-skill-grid')){
      const detail=skill.querySelector('.ui-goals-stat-sub')?.textContent||'';
@@ -212,7 +212,7 @@
    const heading=end.querySelector('#endH');if(!heading)return;
    let pill=end.querySelector('.ui-end-mode');
    if(!pill){pill=document.createElement('div');pill.className='ui-end-mode';heading.insertAdjacentElement('afterend',pill)}
-   pill.textContent=/PRACTICE/i.test(heading.textContent)?'NO REWARDS · PRACTICE MODE':'CREW GAME';
+   const label=/PRACTICE/i.test(heading.textContent)?'NO REWARDS · PRACTICE MODE':'CREW GAME';if(pill.textContent!==label)pill.textContent=label;
   };
   enhanceGoals();enhanceEnd();
   if(window.MutationObserver){
