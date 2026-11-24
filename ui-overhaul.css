@@ -962,3 +962,59 @@ body.land #bTurbo.on::before{background:repeating-conic-gradient(from -90deg,#f5
 #end #endScore .ui-end-logo svg{display:block;width:100%;height:100%;max-width:34px;max-height:34px}
 #end #endScore .ui-end-score-matchup{min-width:0;max-width:calc(100% - 104px);font:800 10px/1.25 var(--ui-heading,system-ui);letter-spacing:.08em;color:#cbd5e1;text-align:center}
 @media(max-width:430px){#end #endScore .ui-end-logo{width:34px;height:34px}#end #endScore .ui-end-score-matchup{font-size:9px}}
+
+
+/* Stage One complete-scope polish — keep the changed surfaces visually consistent. */
+/* Primary menu tiles share one neutral frame; gold is reserved for interaction/selection. */
+#menu .ui-menu-grid .ui-menu-icon-card{border-color:rgba(255,255,255,.17)!important}
+#menu .ui-menu-grid .ui-menu-icon-card:hover,
+#menu .ui-menu-grid .ui-menu-icon-card:focus-visible{border-color:var(--ui-gold)!important;outline:none}
+#menu .ui-menu-setting{padding:7px 2px}
+#menu #uiMenuSettings .ui-menu-card{padding:9px 13px}
+#menu .ui-menu-card-title{margin-bottom:6px}
+#menu .ui-play-diagram{height:118px;aspect-ratio:auto;object-fit:fill}
+#menu .ui-menu-playbook-card{padding:12px}
+#menu .ui-menu-card-arrow{width:14px;min-width:14px;justify-self:end;align-self:start;line-height:1;font-size:12px}
+@media(max-width:360px){
+ #menu .ui-menu-grid .ui-menu-playbook{grid-template-columns:32px minmax(0,1fr) 14px!important;gap:6px!important}
+ #menu .ui-menu-playbook .ui-menu-action-copy{min-width:0;overflow:hidden}
+ #menu .ui-menu-playbook .ui-menu-action-copy strong{display:block;font-size:12px;letter-spacing:0;line-height:1;white-space:nowrap}
+ #menu .ui-menu-playbook .ui-menu-card-arrow{margin:0}
+}
+
+/* Defense choices: three readable, aligned outcome rows instead of a dense inline sentence. */
+#dcall button{min-height:112px;padding:8px 9px}
+#dcall button .dco{display:grid;gap:3px;margin-top:8px;font-size:10px;line-height:1.1;letter-spacing:.035em}
+#dcall button .dco-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;padding:4px 7px;border-radius:5px;background:rgba(8,12,20,.55);text-align:left}
+#dcall button .dco-label{color:#cdbfa5;font-size:9px;font-weight:800;letter-spacing:.12em}
+#dcall button .dco-value{color:#ffd23a;font-size:12px;font-weight:900;font-variant-numeric:tabular-nums}
+#dcall button .dco-note{margin-top:2px;color:#cdbfa5;font-size:9px;font-weight:700;line-height:1.2;letter-spacing:.025em;text-align:left}
+#tkTop{top:calc(15% + 14px)}
+body.ach-toast-active #tkPlay{bottom:calc(9% + 58px)}
+#achT{bottom:calc(env(safe-area-inset-bottom,0px) + 14px)!important}
+
+/* Fumble contest stays centered and leaves the right-side A mash control clear. */
+#pileBar{left:50%;right:auto;width:min(65%,560px);transform:translateX(-50%)}
+
+/* TURBO gets a segmented outer stamina ring while preserving the existing fill and control. */
+#bTurbo{isolation:isolate}
+#bTurbo::after{content:"";position:absolute;inset:-8px;border-radius:50%;pointer-events:none;background:conic-gradient(from -90deg,#38f0ff calc(var(--st,1)*1turn),rgba(255,255,255,.18) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px)),repeating-conic-gradient(#000 0deg 12deg,transparent 12deg 16deg);-webkit-mask-composite:source-in;mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px)),repeating-conic-gradient(#000 0deg 12deg,transparent 12deg 16deg);mask-composite:intersect}
+#bTurbo.tired::after{background:conic-gradient(from -90deg,#ff4a4a calc(var(--st,1)*1turn),rgba(255,255,255,.18) 0)}
+
+/* Separate the pre-game action prompt from the loading track. */
+#mu .tap{display:block;margin-top:12px;line-height:22px}
+
+/* Post-game scores are presented as one balanced team-vs-team card. */
+#endScore .ui-match-scorecard{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px;width:min(100%,560px);margin:8px auto 12px;padding:12px 16px;border:1px solid rgba(77,225,242,.28);border-radius:14px;background:#131620;box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 8px 18px rgba(0,0,0,.2);text-shadow:none}
+#endScore .ui-match-score-team{display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+#endScore .ui-match-score-logo{display:flex;width:44px;height:44px;align-items:center;justify-content:center}
+#endScore .ui-match-score-logo svg{display:block;width:100%;height:100%;overflow:visible}
+#endScore .ui-match-score-name{max-width:100%;overflow:hidden;color:#d7e0ed;font:900 10px/1.1 var(--ui-heading,system-ui);letter-spacing:.08em;text-align:center;text-overflow:ellipsis;white-space:nowrap}
+#endScore .ui-match-score-value{color:#f5b841;font:900 38px/1 var(--ui-display,"Barlow Condensed",Impact,sans-serif);white-space:nowrap}
+#endScore .ui-match-score-value i{color:#65738a;font-style:normal;padding:0 3px}
+@media(max-width:420px){
+ #endScore .ui-match-scorecard{gap:7px;padding:10px 8px}
+ #endScore .ui-match-score-logo{width:36px;height:36px}
+ #endScore .ui-match-score-value{font-size:31px}
+ #endScore .ui-match-score-name{font-size:8px}
+}
