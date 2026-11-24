@@ -1518,7 +1518,10 @@ $('#callBtn').onclick=callPlay;
 $('#sameBtn').onclick=()=>{if(!G||G.mode!=='playcall'||$('#sheet').hidden)return;const i=PLAYS.findIndex(p=>p.id===G.lastId);if(i<0)return;G.sel=i;callPlay();startPlay()};   // v3.13 C
 $('#changeBtn').onclick=()=>{if(G.mode!=='set')return;G.mode='playcall';show('#setbar',false);show('#sheet',true);beep(300,.05)};
 $('#showBtn').onclick=()=>{G.showPlay=!G.showPlay;$('#showBtn').innerHTML=G.showPlay?'HIDE<br>PLAY':'SHOW<br>PLAY';$('#showBtn').classList.toggle('on',G.showPlay);beep(500,.04)};
-$('#hike').onclick=()=>startPlay();
+const hikeBtn=$('#hike');let hikeStamp=0;const fireHike=()=>{const now=performance.now();if(now-hikeStamp<250)return;hikeStamp=now;startPlay()};
+hikeBtn.addEventListener('pointerup',e=>{if(e.button===0)fireHike()});
+hikeBtn.onclick=fireHike;
+hikeBtn.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fireHike()}});
 
 /* ============================ snap ============================ */
 const qbRange=q=>Math.max(8,((q.d.thr||60)-24)*.5);
