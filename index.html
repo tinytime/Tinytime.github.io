@@ -11089,15 +11089,6 @@ if((location.hostname==='127.0.0.1'||location.hostname==='localhost')&&new URLSe
   };
 }
 
-if(location.hostname==='127.0.0.1'||location.hostname==='localhost'){
-  window.SG.__qa={
-    showDefense:fp=>{if(!G)return false;oppDrive(Number.isFinite(fp)?fp:25);return !$('#dcall').hidden},
-    startFumble:()=>{if(!F||F.mode!=='live')return false;startPile(F.carrier||F.passer||F.off.QB,F.def[0]||null);return !!(F.pile&& !$('#pile').hidden)},
-    finishFumble:won=>{if(!F||!F.pile)return false;pileEnd(!!won);return true},
-    showAchievement:id=>{const a=ACH.find(x=>x.id===id)||ACH[0];achToast(a);return a.id}
-  };
-}
-
 })();
 </script>
 
