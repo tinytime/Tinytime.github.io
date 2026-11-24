@@ -246,3 +246,6 @@ See [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) 
 
 
 Latest QA harness checkpoint: 68 assertions, including rendered-color checks for both cyan CALL PLAY and cyan HIKE actions. The harness covers Overworld, matchup, playbook, pre-snap, live play, fumble, defense selection, achievement toast and post-game. The latest harness commit is `a60adc9d6621b4272e9290c482a07ec91771d718`. Actions result/artifact retrieval and screenshot inspection remain pending; see the implementation summary for the exact state.
+
+
+Latest QA harness commit: `ad2cd22c26005f7e244a18f28a6ea7c88961d9e9`, with 76 assertions and a corrected cyan HIKE text-contrast assertion. The workflow result/artifact is not yet retrieved; assertions are not reported as executed until Actions confirms the exact tested SHA. See the implementation summary.
