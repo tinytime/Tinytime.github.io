@@ -229,9 +229,21 @@ try{
   const hikeStyle=await page.locator('#hike').evaluate(el=>({backgroundColor:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color}));
   const hikeTextRGB=(hikeStyle.color.match(/\d+/g)||[]).map(Number);check('HIKE uses the solid cyan primary-action treatment',hikeStyle.backgroundColor==='rgb(77, 225, 242)'&&hikeTextRGB.length===3&&hikeTextRGB.every(v=>v<60),hikeStyle);
   await page.screenshot({path:path.join(out,'match-pre-snap.png'),fullPage:true});
+  const preHikeState=await page.locator('#hike').evaluate(el=>{const r=el.getBoundingClientRect(),hit=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);return{mode:window.SG?.G?.mode,fmode:window.SG?.F?.mode,fourthHidden:document.querySelector('#fourth')?.hidden,setbarHidden:document.querySelector('#setbar')?.hidden,disabled:el.disabled,handler:typeof el.onclick,hitTarget:hit?.id||hit?.tagName,hitIsHike:hit===el||el.contains(hit)}});
+  check('HIKE is enabled in the active pre-snap state',preHikeState.mode==='set'&&preHikeState.fourthHidden&&!preHikeState.disabled&&preHikeState.handler==='function'&&preHikeState.hitIsHike,preHikeState);
   await page.locator('#hike').click();
-  await page.waitForFunction(()=>window.SG?.G?.mode==='live'||window.SG?.F?.mode==='live',null,{timeout:10000});
-  await page.waitForTimeout(250);
+  await page.waitForTimeout(300);
+  let liveState=await page.evaluate(()=>({mode:window.SG?.G?.mode,fmode:window.SG?.F?.mode,ctlHidden:document.querySelector('#ctl')?.hidden,setbarHidden:document.querySelector('#setbar')?.hidden}));
+  const clickedLive=liveState.mode==='live'||liveState.fmode==='live';
+  check('HIKE button click starts live play',clickedLive,liveState);
+  if(!clickedLive){
+   const directState=await page.evaluate(()=>{window.SG?.startPlay?.();return{mode:window.SG?.G?.mode,fmode:window.SG?.F?.mode}});
+   await page.waitForFunction(()=>window.SG?.G?.mode==='live'||window.SG?.F?.mode==='live',null,{timeout:3000}).catch(()=>null);
+   liveState=await page.evaluate(()=>({mode:window.SG?.G?.mode,fmode:window.SG?.F?.mode,ctlHidden:document.querySelector('#ctl')?.hidden,setbarHidden:document.querySelector('#setbar')?.hidden,direct:true}));
+   check('Direct game start fallback is only needed if the UI click failed',liveState.mode==='live'||liveState.fmode==='live',{preHikeState,liveState,directState});
+  }
+  const liveNow=liveState.mode==='live'||liveState.fmode==='live';
+  if(!liveNow)throw new Error('Unable to enter live play after the actual HIKE control and direct diagnostic fallback: '+JSON.stringify({preHikeState,liveState}));
   await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
   const qaHooks=await page.evaluate(()=>window.SG&&window.SG.__uiqa?true:false);
   check('Query-gated match QA hooks are available',qaHooks);
