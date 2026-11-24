@@ -271,6 +271,7 @@ try{
   await page.locator('#flipBtn').click();
   check('In-match FLIP toggles selected play orientation',await page.locator('#flipBtn').evaluate(el=>el.classList.contains('on')));
   await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
+  check('First-to target badge yields to the in-game playbook overlay',await page.locator('#tgtTag').isHidden());
   await page.setViewportSize({width:390,height:844});await page.waitForTimeout(120);await page.screenshot({path:path.join(out,'match-playbook-portrait.png'),fullPage:true});await page.setViewportSize({width:844,height:390});await page.waitForTimeout(120);
   await page.locator('#callBtn').click();
   await page.waitForFunction(()=>{const e=document.querySelector('#setbar');return e&&!e.hidden},null,{timeout:10000});
