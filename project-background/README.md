@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-24):** Round 4 defense-drive pill correction is implemented and verified on `UI-Overhaul`. Run #258 passed **191/191** checks against `f3b657617d601d331702b2be556590c7210c6592`; the pill is centered, has viewport clearance, no horizontal overflow, and preserves the full `2nd & 6 · BALL ON THEIR 39` context. [Run #258 and 37-screenshot artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/45510700772). MY TEAM and MY SQUAD are Section 3 / Stage Two and remain excluded until Stage One owner approval. QA pass count is not visual approval.
+**Live checkpoint (2026-11-24):** Round 4 passed Run #258 (191/191). Round 5 Fumble contest correction is now implemented; CSS commit `ac23e1aa282c3c2197294738fae0b338de352f68`, QA commit/tested HEAD `01e96cdc2f2398d42d23b81981bd4999062520b4`, fresh browser QA pending. The Fumble meter is centered and its panel, track, fill, labels, countdown and A mash button now use the Stage One navy/cyan/gold palette. MY TEAM and MY SQUAD remain Section 3 / Stage Two, excluded until Stage One owner approval. QA pass count is not visual approval.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
