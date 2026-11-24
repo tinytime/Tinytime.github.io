@@ -658,3 +658,31 @@ ChatGPT retrieved and inspected the actual Run #114 screenshots, including deskt
 4. Do not begin the MY TEAM / MY SQUAD Stage Two redesign until that approval is given.
 
 **Current status:** Stage One corrections implemented, browser-tested 110/110, and internally visually inspected. Independent Claude review and owner approval remain outstanding.
+
+
+## 2026-11-24 — HIKE readiness throughput correction verified (Run #121)
+
+**Current implementation branch:** `UI-Overhaul`  
+**Latest code commit tested:** `d0d7225f41a647bd8aeb23ea44208d554bb25025` — “Set a practical HIKE readiness wait ceiling.”  
+**Browser QA:** [Run #121](https://github.com/tinytime/Tinytime.github.io/actions/runs/45443338719) — **112/112 passed**. Artifact ID: `14945870640` (`ui-overhaul-browser-qa`). The run tested the exact current branch HEAD.
+
+### HIKE readiness result
+
+- The pre-snap capture correctly showed the required run/carry loops were not yet ready (`carryReady:false`, nine missing at that sampled instant); HIKE remained enabled and its actual pointer interaction was registered.
+- After the readiness wait, the game entered live play only when `artReady:true`, `carryReady:true`, `missing:0`.
+- Measured wait: **14,728 ms**, within the new 15,000 ms QA ceiling. This is a major improvement over the earlier 17.962-second result, but it is close enough to the limit that device-performance margin remains a consideration.
+- The QA artifact reports 112/112 passed, zero failed checks, zero page errors, zero console errors and zero same-origin request failures.
+
+### Internal screenshot inspection for Run #121
+
+Retrieved and opened the actual `match-pre-snap.png`, `match-live-play.png` and `portrait-menu.png` captures. The pre-snap screen exposes the HIKE CTA; the live-play screenshot shows the match transitioned into active play with players rendered; the portrait menu retains its two-column card layout and sticky BACK TO TOWN action without obvious clipping. The wider Run #121 artifact also contains desktop/portrait settings and credits, playbook, Overworld and match-state captures. This is targeted internal inspection, not a fresh frame-by-frame review of every screenshot.
+
+### Current approval gates
+
+- HIKE readiness: automated gate passes; actual snap is recorded only after all required loops are ready.
+- Stage One implementation: browser QA passed and internal visual inspection has been performed across the Run #114 and Run #121 evidence sets.
+- Independent Claude review: **pending**.
+- Owner approval: **pending**.
+- Stage Two MY TEAM / MY SQUAD: **not authorized; remains on hold**.
+
+Next: use the updated Claude review package with Run #121's exact commit and artifact. Include the original Gemini handoff/reference images. Evaluate Claude's independent screen-by-screen findings before presenting Stage One for the owner's final decision. Do not treat the automated 15-second ceiling as a guarantee on every device.
