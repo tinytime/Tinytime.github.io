@@ -1668,3 +1668,16 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 #mu .top .tag{color:#4DE1F2!important;border-color:rgba(77,225,242,.8)!important;background:rgba(19,22,32,.92)!important;text-shadow:none!important;box-shadow:none!important}
 #mu .bot .tap{background:#4DE1F2!important;color:#131620!important;border:1px solid #4DE1F2!important}
 #cards .card canvas{background-color:#101722!important;filter:brightness(.82) saturate(.72)}
+
+
+/* Run #225 corrections: balance the desktop header columns and restore the approved semantic tile accents. */
+#menu .ui-menu-head{grid-template-columns:60px minmax(0,1fr) 60px!important}
+#menu .ui-menu-brand{grid-column:2;justify-self:stretch}
+#menu .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"]{border-color:rgba(245,184,65,.88)!important}
+#menu .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"] strong{color:#F5B841!important}
+#menu .ui-menu-grid .ui-menu-icon-card[data-ui-tile="team"],#menu .ui-menu-grid .ui-menu-icon-card[data-ui-tile="playbook"],#menu .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"]{border-color:rgba(77,225,242,.82)!important}
+#ui-goals-panel-stats .ui-goals-stat-card.is-skill{grid-column:1/-1}
+#ui-goals-panel-stats .ui-goals-skill-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+#ui-goals-panel-stats .ui-goals-skill-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;padding:9px 5px;border:1px solid rgba(77,225,242,.28);border-radius:9px;background:rgba(77,225,242,.06)}
+#ui-goals-panel-stats .ui-goals-skill-cell b{font-size:20px;color:#F5F7FA}
+#ui-goals-panel-stats .ui-goals-skill-cell span{font-size:10px;font-weight:800;letter-spacing:.08em;color:#F5B841}
