@@ -73,7 +73,7 @@
   menu.append(head,goal,tabs,content,footer);
   menu.classList.add('ui-menu-ready');
   const upg=head.querySelector('.ui-menu-upg'),upgButton=byId('mUpg');if(upgButton)upg.addEventListener('click',()=>upgButton.click());
-  const close=head.querySelector('.ui-menu-close'),townButton=byId('mTown');if(close&&townButton)close.addEventListener('click',()=>townButton.click());
+  const close=head.querySelector('.ui-menu-close'),townControl=byId('mTown');if(close&&townControl)close.addEventListener('click',()=>townControl.click());
   if(window.MutationObserver){const source=byId('owObj'),liveTown=byId('owTown');if(source)new MutationObserver(updateGoal).observe(source,{childList:true,subtree:true,characterData:true});if(liveTown)new MutationObserver(updateHeader).observe(liveTown,{childList:true,subtree:true,characterData:true});if(upgButton)new MutationObserver(updateHeader).observe(upgButton,{childList:true,subtree:true,characterData:true,attributes:true})}
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
