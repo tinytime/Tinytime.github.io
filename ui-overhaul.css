@@ -180,3 +180,13 @@
 #menu .ui-menu-town{display:inline-block;width:max-content;max-width:100%;margin-top:4px;padding:3px 8px;border:1px solid var(--ui-border);border-radius:999px;background:rgba(28,33,48,.9);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #menu .ui-menu-upg{min-width:62px;min-height:32px;padding:6px 8px}
 #menu .ui-menu-actions .ui-menu-card-title{grid-column:1/-1}
+
+/* Accessible confirmation dialog for destructive progress reset. */
+#menu .ui-menu-modal-backdrop{position:absolute;inset:0;z-index:30;display:grid;place-items:center;padding:20px;background:rgba(5,8,14,.78);backdrop-filter:blur(5px)}
+#menu .ui-menu-modal-backdrop[hidden]{display:none!important}
+#menu .ui-menu-confirm{width:min(100%,360px);padding:18px;border:1px solid rgba(239,68,68,.65);border-radius:16px;background:#131620;box-shadow:0 18px 55px rgba(0,0,0,.5)}
+#menu .ui-menu-confirm h2{margin:7px 0;font-size:20px;letter-spacing:.08em}
+#menu .ui-menu-confirm p{margin:0;color:var(--ui-muted);font-size:13px;line-height:1.45}
+#menu .ui-menu-confirm-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+#menu .ui-menu-confirm-actions button{min-height:42px;border:1px solid var(--ui-border);border-radius:9px;background:var(--ui-inner);color:var(--ui-text);font-weight:900}
+#menu .ui-menu-confirm-actions .ui-menu-confirm-reset{border-color:var(--ui-red);background:rgba(239,68,68,.12);color:#ff8585}
