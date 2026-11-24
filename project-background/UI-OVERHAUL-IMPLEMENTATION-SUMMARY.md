@@ -1041,3 +1041,12 @@ The root cause was the overlay visibility being controlled through the game's sh
 Run #236 tested `a10e3fba0c8c91717cab318a47b9040c6ab7a615` and stopped on the new receiver-state wait (5-second timeout). The captured live-play screenshot confirms the new green rings and OPEN pills render, but the real match advanced into a dead-ball state before the test's polling condition completed. The browser reported no page exceptions, console errors, or same-origin failures.
 
 The QA fixture is being made deterministic: it pauses the play clock, parks defenders away from the catch points, holds two receivers outside QB range, and samples the live cue state after one render interval rather than waiting through the live simulation. This remains QA-only and does not change normal match behavior. Overlay-hide assertions were not reached in this run and remain pending verification.
+
+
+### Run #238 — integrated scoreboard and match-state verification (2026-11-24)
+
+**Run #238 verified:** [GitHub Actions run #238](https://github.com/tinytime/Tinytime.github.io/actions/runs/45480794999), run ID `45480794999`, tested exact commit `21c71ce548d426f7668c176be003dea5f3d689f8`. Result: **167/167 checks passed**. No uncaught page exceptions, console errors, or same-origin request failures.
+
+The fresh live-play screenshot was inspected: two receivers carry green rings and one OPEN pill each; covered receivers remain muted with no OPEN pill. The fumble meter clears the A mash control by 47.9px at 65% viewport width. Defense selection, three aligned stat rows, in-modal possession headline, defense simulation, hidden offense controls, play-by-play/TAP TO SKIP, achievement toast, integrated FIRST TO/PLAY CLOCK scoreboard, overlay target hiding, and portrait loss-result layout all passed.
+
+**Visual gaps found during screenshot inspection:** the pre-game screen still reads as a flat gradient/grid rather than the handoff's warm floodlit turf and town skyline. The loss-result screen also leaves the STYLE POINTS card blank when the match earns zero points. These are now being corrected. The browser suite is being extended to verify both halves of the pre-game atmosphere, solid navy badge cards, a visible zero-point card, and a deterministic PRACTICE WIN result with a 3,700-point card and fresh portrait screenshot. Pending retest; no golden snapshots changed.

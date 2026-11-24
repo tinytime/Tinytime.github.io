@@ -1770,7 +1770,7 @@ function releaseDef(d){const b=d.eng;if(b){b.eng=null}d.eng=null}
 function chargeGB(n,label,x,y){if(label&&x!==undefined)popup(label,x,y,'#ffd23a')}
 function S2c(gn){const S=F.snap2||{};return S.togo>=8&&gn>=S.togo&&gn>=12}   // a first down that took a long gain
 function stylePts(n,label){const e=$('#fxPts');if(!e||!n||!SHOW_PTS)return;e.textContent=(label?label+'  ':'')+'+'+(n*100).toLocaleString('en-US');e.classList.remove('show');void e.offsetWidth;e.classList.add('show')}   // v3.16W2: style points shown x100 under the callout
-function endStyleShow(){const e=$('#endStyle');if(e)e.textContent=G&&G.style?'STYLE POINTS  '+(G.style*100).toLocaleString('en-US'):''}
+function endStyleShow(){const e=$('#endStyle');if(e){const pts=G&&Number.isFinite(G.style)?Math.max(0,G.style):0;e.textContent='STYLE POINTS  '+(pts*100).toLocaleString('en-US')}}
 function addStyle(pts,label,x,y,col){G.style+=pts;stylePts(pts);spFeed(label==='DIVING CATCH!'?6/SPK:pts);popup(label,x,y,col)}
 function knock(d,t){if(d.eng)releaseDef(d);d.fallV=0;d.stun=t;d.fall=true;d.knock=true;d.vx=d.vy=0}
 
@@ -11207,7 +11207,8 @@ if((location.hostname==='127.0.0.1'||location.hostname==='localhost')&&new URLSe
     loseFumble:()=>{if(!F||!F.pile)return false;pileEnd(false);return true},
     defense:()=>{if(!G||!G.crew)return false;G.mode='dead';G.pendFp=35;showDefCall(35);return !$('#dcall').hidden},
     achievement:()=>{if(!ACH||!ACH.length)return false;achToast(ACH[0]);return true},
-    postGame:()=>{clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);endGame(false);return true}
+    postGame:()=>{clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);endGame(false);return true},
+    postGamePracticeWin:()=>{if(!G||!G.crew)return false;clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);G.crew.practice=true;G.style=37;G.you=14;G.opp=0;endGame(true);return !$('#end').hidden}
   };
 }
 

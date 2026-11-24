@@ -285,10 +285,11 @@ try{
   const introGap=await page.evaluate(()=>{const b=document.querySelector('#mu .bar').getBoundingClientRect(),t=document.querySelector('#mu .tap').getBoundingClientRect();return{gap:t.top-b.bottom,tapBg:getComputedStyle(document.querySelector('#mu .tap')).backgroundColor,tapBorder:getComputedStyle(document.querySelector('#mu .tap')).borderTopWidth}});
   check('Pre-game TAP TO PLAY is separated from the progress bar',introGap.gap>=8&&introGap.tapBg==='rgb(77, 225, 242)'&&parseFloat(introGap.tapBorder)>=1,introGap);
   const matchupBadges=await page.locator('#mu .pn .lg').evaluateAll(es=>es.map(el=>({bg:getComputedStyle(el).backgroundColor,border:getComputedStyle(el).borderTopWidth,radius:getComputedStyle(el).borderTopLeftRadius})));check('Both matchup logos sit on rounded navy badge cards',matchupBadges.length===2&&matchupBadges.every(x=>x.bg==='rgb(19, 22, 32)'&&parseFloat(x.border)>=1&&parseFloat(x.radius)>=12),matchupBadges);
+ const matchupPanelFills=await page.locator('#mu .pn .lg').evaluateAll(es=>es.map(el=>getComputedStyle(el).backgroundColor));check('Pre-game team badge cards remain solid matte navy over the atmosphere',matchupPanelFills.length===2&&matchupPanelFills.every(x=>x==='rgb(19, 22, 32)'),matchupPanelFills);
  const matchupBadgeAccents=await page.locator('#mu .pn .lg').evaluateAll(es=>es.map(el=>getComputedStyle(el).borderTopColor));
  check('Pre-game team badge cards use gold home and cyan away accents',matchupBadgeAccents[0]==='rgb(245, 184, 65)'&&matchupBadgeAccents[1]==='rgb(77, 225, 242)',matchupBadgeAccents);
- const pregameAtmosphere=await page.locator('#mu .split').evaluate(el=>({background:getComputedStyle(el).backgroundImage,children:[...el.children].map(n=>getComputedStyle(n).display),town:getComputedStyle(document.querySelector('#mu .top .town')).color,tag:getComputedStyle(document.querySelector('#mu .top .tag')).color}));
- check('Pre-game uses matte stadium-light backdrop without halftone split layers',pregameAtmosphere.background.includes('radial-gradient')&&pregameAtmosphere.children.every(x=>x==='none')&&pregameAtmosphere.town==='rgb(245, 184, 65)'&&pregameAtmosphere.tag==='rgb(77, 225, 242)',pregameAtmosphere);
+ const pregameAtmosphere=await page.evaluate(()=>{const split=document.querySelector('#mu .split'),left=document.querySelector('#mu .fx1'),right=document.querySelector('#mu .fx2'),lb=getComputedStyle(left),rb=getComputedStyle(right),lp=getComputedStyle(left,'::before'),rp=getComputedStyle(right,'::before');return{base:getComputedStyle(split).backgroundImage,splitChildren:[...split.children].map(n=>getComputedStyle(n).display),left:{background:lb.backgroundImage,clip:lb.clipPath,opacity:lb.opacity,texture:lp.backgroundImage,pseudo:lp.content},right:{background:rb.backgroundImage,clip:rb.clipPath,opacity:rb.opacity,skyline:rp.backgroundImage,shape:rp.clipPath,pseudo:rp.content},town:getComputedStyle(document.querySelector('#mu .top .town')).color,tag:getComputedStyle(document.querySelector('#mu .top .tag')).color}}});
+ check('Pre-game pairs warm floodlit turf with a defocused town skyline and keeps halftone split layers off',pregameAtmosphere.base.includes('radial-gradient')&&pregameAtmosphere.splitChildren.every(x=>x==='none')&&pregameAtmosphere.left.background.includes('conic-gradient')&&pregameAtmosphere.left.texture.includes('repeating-linear-gradient')&&pregameAtmosphere.left.pseudo!=='none'&&pregameAtmosphere.right.background.includes('radial-gradient')&&pregameAtmosphere.right.skyline.includes('repeating-linear-gradient')&&pregameAtmosphere.right.shape.includes('polygon')&&pregameAtmosphere.right.pseudo!=='none'&&pregameAtmosphere.town==='rgb(245, 184, 65)'&&pregameAtmosphere.tag==='rgb(77, 225, 242)',pregameAtmosphere);
 
   await page.screenshot({path:path.join(out,'match-pre-game.png'),fullPage:true});
   await page.locator('#mu').click({position:{x:420,y:350}});
@@ -398,6 +399,7 @@ try{
   }else await page.evaluate(()=>window.SG.endGame(false));
   await page.waitForFunction(()=>{const e=document.querySelector('#end');return e&&!e.hidden},null,{timeout:10000});
   check('Post-game result screen visible',await page.locator('#end').isVisible());
+  check('Post-game STYLE POINTS card is present even when the match earns zero',await page.locator('#endStyle').isVisible()&&(await page.locator('#endStyle').textContent()).startsWith('STYLE POINTS'));
   check('Post-game shows the match-mode pill',await page.locator('#end .ui-end-mode').isVisible()&&(await page.locator('#end .ui-end-mode').textContent()).includes('CREW GAME'));
   const endStyles=await page.evaluate(()=>({surface:getComputedStyle(document.querySelector('#end')).backgroundColor,rematch:getComputedStyle(document.querySelector('#eAgain')).backgroundColor,rematchText:getComputedStyle(document.querySelector('#eAgain')).color,menu:getComputedStyle(document.querySelector('#eMenu')).backgroundColor}));
   check('Post-game uses matte navy surface, gold rematch and cyan-edged menu action',endStyles.surface==='rgb(19, 22, 32)'&&endStyles.rematch==='rgb(245, 184, 65)'&&endStyles.rematchText==='rgb(19, 22, 32)'&&endStyles.menu==='rgb(28, 33, 48)',endStyles);
@@ -413,6 +415,12 @@ try{
   check('Portrait post-game screen fits viewport',postPortrait.left>=0&&postPortrait.right<=390&&postPortrait.scrollWidth<=postPortrait.clientWidth+1,postPortrait);
   const postLayout=await page.locator('#end').evaluate(el=>{const h=el.querySelector('h2').getBoundingClientRect(),score=el.querySelector('#endScore').getBoundingClientRect(),buttons=el.querySelector('.btnrow').getBoundingClientRect();return{height:el.getBoundingClientRect().height,headingTop:h.top,scoreTop:score.top,buttonsBottom:buttons.bottom,viewport:innerHeight}});check('Portrait post-game result actions reach the lower thumb zone',postLayout.buttonsBottom>=postLayout.viewport-120,postLayout);
   await page.screenshot({path:path.join(out,'match-post-game-portrait.png'),fullPage:true});
+  const practiceWin=await page.evaluate(()=>window.SG.__uiqa.postGamePracticeWin());
+  check('Deterministic practice-win result can be rendered',practiceWin);
+  check('Practice-win result uses the correct win banner and practice mode pill',await page.locator('#end h2').textContent()==='PRACTICE WIN'&&(await page.locator('#end .ui-end-mode').textContent()).includes('PRACTICE'));
+  check('Practice-win result carries the earned STYLE POINTS total',await page.locator('#endStyle').textContent()==='STYLE POINTS  3,700');
+  check('Practice-win result retains both team logos and side-by-side actions',await page.locator('#endScore .ui-end-logo').count()===2&&await page.locator('#end .btnrow').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length===2));
+  await page.screenshot({path:path.join(out,'match-post-game-practice-win-portrait.png'),fullPage:true});
  }
 
  check('No same-origin HTTP errors',sameOriginFailures.length===0,sameOriginFailures);
