@@ -207,6 +207,7 @@ try{
 
  await page.locator('[data-tab="credits"]').click();
  check('Credits panel switches',await page.locator('#uiMenuCredits').isVisible());
+ check('Credits tab removes the Home-only CURRENT GOAL card',await page.locator('#menu .ui-menu-goal').isHidden());
  const credit=(await page.locator('#uiMenuCredits').innerText()).toUpperCase();
  check('Credits categories present',['3D ART & UI','MUSIC & SFX','TOWN AMBIENCE'].every(s=>credit.includes(s)));
  check('Credits use three concise grouped cards',await page.locator('#uiMenuCredits .ui-menu-credit-group').count()===3);
@@ -286,6 +287,8 @@ try{
   const matchupBadges=await page.locator('#mu .pn .lg').evaluateAll(es=>es.map(el=>({bg:getComputedStyle(el).backgroundColor,border:getComputedStyle(el).borderTopWidth,radius:getComputedStyle(el).borderTopLeftRadius})));check('Both matchup logos sit on rounded navy badge cards',matchupBadges.length===2&&matchupBadges.every(x=>x.bg==='rgb(19, 22, 32)'&&parseFloat(x.border)>=1&&parseFloat(x.radius)>=12),matchupBadges);
  const matchupBadgeAccents=await page.locator('#mu .pn .lg').evaluateAll(es=>es.map(el=>getComputedStyle(el).borderTopColor));
  check('Pre-game team badge cards use gold home and cyan away accents',matchupBadgeAccents[0]==='rgb(245, 184, 65)'&&matchupBadgeAccents[1]==='rgb(77, 225, 242)',matchupBadgeAccents);
+ const pregameAtmosphere=await page.locator('#mu .split').evaluate(el=>({background:getComputedStyle(el).backgroundImage,children:[...el.children].map(n=>getComputedStyle(n).display),town:getComputedStyle(document.querySelector('#mu .top .town')).color,tag:getComputedStyle(document.querySelector('#mu .top .tag')).color}));
+ check('Pre-game uses matte stadium-light backdrop without halftone split layers',pregameAtmosphere.background.includes('radial-gradient')&&pregameAtmosphere.children.every(x=>x==='none')&&pregameAtmosphere.town==='rgb(245, 184, 65)'&&pregameAtmosphere.tag==='rgb(77, 225, 242)',pregameAtmosphere);
 
   await page.screenshot({path:path.join(out,'match-pre-game.png'),fullPage:true});
   await page.locator('#mu').click({position:{x:420,y:350}});
