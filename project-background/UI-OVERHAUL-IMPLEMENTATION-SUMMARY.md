@@ -246,3 +246,15 @@ The latest code commits now include:
 - `24396a0`: styling for the Playbook catalog and segmented resolution control.
 
 The latest code HEAD observed before this documentation update is `24396a0a606570dc3d1c590534317ebdab0f55b3`. Poll Runs #12–14 and inspect their logs/artifacts. Because Runs #12–14 were triggered in quick succession, confirm which exact code SHA each one checked out; only the latest successful run against the latest code can establish browser QA. The startup failure remains unresolved until a run demonstrates `#owMenu` is visible and the test reaches the rest of the menu interactions.
+
+
+## Latest verified branch / QA checkpoint — 2026-11-24 14:42Z
+
+- Latest code commit observed: `9810560875bd5f908e67a67430eb9368f86f51d3` — “Fix resolution state parsing in browser assertions.”
+- The immediately preceding implementation commits are `efdc57c` (extend browser QA for Playbook/settings), `24396a0` (Playbook and segmented resolution styling), `cf2ba92` (resolution label parsing), and `40ffc5c` (document-level reset interception).
+- Runs #12 / #13 / #14 all completed with **FAILED** browser QA. Each log confirms the same blocker: the harness finds `#owMenu` in the DOM, but Playwright says it is not visible and times out at line 37 before any menu feature checks.
+- [Run #15 / 45417075432](https://github.com/tinytime/Tinytime.github.io/actions/runs/45417075432) tests `efdc57c` and was in progress at the last poll.
+- [Run #16 / 45417116839](https://github.com/tinytime/Tinytime.github.io/actions/runs/45417116839) tests `9810560` and was in progress at the last poll.
+- Latest browser QA remains **not passed**. No actual UI screenshots have been inspected. The repeated initial-state failure prevents validation of Settings, Credits, Playbook, resolution, reset confirmation, developer drawer, responsive layouts and town return.
+
+On resume, poll Runs #15 and #16, inspect exact job logs and artifacts, then inspect the latest `qa/ui-overhaul-browser-qa.mjs` and game startup/overworld state. The next fix should capture diagnostic screenshots and computed visibility/state when `#owMenu` is hidden, and establish the real path into the overworld. Do not use `force: true` or skip visibility checks just to bypass the issue.
