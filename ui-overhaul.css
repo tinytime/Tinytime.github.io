@@ -112,3 +112,62 @@
 #menu .ui-menu-build-trigger{margin:0;text-align:center;color:var(--ui-muted);font-size:10px;letter-spacing:.1em;padding:7px 0 0;cursor:pointer;user-select:none}
 #menu .ui-menu-build-trigger:focus-visible,#menu .ui-menu-tab:focus-visible{outline:2px solid var(--ui-cyan);outline-offset:2px}
 @media(max-height:650px){#menu.ui-menu-ready{gap:7px;padding-top:calc(env(safe-area-inset-top,0px) + 7px)}#menu .ui-menu-head{padding-bottom:5px}#menu .ui-menu-goal{padding:7px 10px}#menu .ui-menu-tab{min-height:34px}#menu .ui-menu-foot #mTown{min-height:42px}}
+
+
+/* Stage 2 — current-menu visual pass while preserving its existing live controls. */
+#menu.screen{
+  display:flex;flex-direction:column;gap:9px;
+  background:linear-gradient(180deg,#131620 0%,#101522 100%);
+  padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 12px);
+  color:var(--ui-text);
+}
+#menu .logo{
+  align-self:center;margin:3px 0 0;color:var(--ui-text);
+  font-size:clamp(27px,8vw,39px);letter-spacing:.08em;
+  -webkit-text-stroke:0;text-shadow:none;text-align:center;
+}
+#menu .sub{
+  align-self:center;margin:0 0 2px;padding:4px 12px;
+  border:1px solid rgba(77,225,242,.45);border-radius:999px;
+  background:rgba(77,225,242,.07);color:var(--ui-cyan);
+  font-size:11px;font-weight:800;letter-spacing:.16em;
+}
+#menu .btnrow{display:flex;gap:8px;margin:0;flex-wrap:wrap}
+#menu .btnrow:has(#mSquad,#mTeam){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+#menu .btnrow:has(#mSquad,#mTeam) button{display:block!important}
+#menu .btnrow:has(#mTown){order:99;position:sticky;bottom:0;z-index:2;padding-top:8px;background:linear-gradient(180deg,transparent,#131620 28%)}
+#menu .btnrow:has(#mTown) #mTown{
+  width:100%;min-height:48px;border:1px solid var(--ui-cyan)!important;
+  border-radius:11px!important;background:var(--ui-cyan)!important;
+  color:#111827!important;font-weight:900;letter-spacing:.12em;box-shadow:none!important
+}
+#menu .btnrow:has(#mUpg),#menu .btnrow:has(#mFb),#menu .btnrow:has(#mGoals),#menu .btnrow:has(#mSave){
+  padding:8px;border:1px solid var(--ui-border);border-radius:13px;
+  background:rgba(28,33,48,.72)
+}
+#menu .btnrow button{
+  min-width:0;min-height:42px;height:auto;padding:9px 10px;
+  border:1px solid var(--ui-border)!important;border-radius:9px!important;
+  background:#1c2130!important;color:var(--ui-text)!important;
+  box-shadow:none!important;font-size:13px;letter-spacing:.07em
+}
+#menu #mUpg,#menu #mGoals{border-color:rgba(245,184,65,.7)!important;color:var(--ui-gold)!important}
+#menu #mFb{border-color:rgba(77,225,242,.65)!important;color:var(--ui-cyan)!important}
+#menu #mSave{border-color:rgba(52,211,153,.65)!important;color:var(--ui-green)!important}
+#menu .note{color:var(--ui-muted)}
+#menu #mSaveSt{padding:0 5px;font-size:11px!important}
+#menu #mBuild{
+  order:98;margin:0!important;padding:8px 0 0;border-top:1px solid var(--ui-border);
+  text-align:center;color:var(--ui-muted)!important;font-size:10px!important
+}
+#menu .btnrow:has(#mReset){padding:9px;border:1px solid rgba(239,68,68,.4);border-radius:12px;background:rgba(239,68,68,.045)}
+#menu #mReset{border-color:rgba(239,68,68,.7)!important;color:#ff8585!important}
+#menu .btnrow:has(#mMus,#mSfx),#menu .btnrow:has(#mHap),#menu .btnrow:has(#mLT,#mRS),#menu .btnrow:has(#mRO),#menu .btnrow:has(#mPL,#mPR){
+  padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.07)
+}
+#menu input[type=range]{accent-color:var(--ui-cyan)}
+@media(max-height:650px){
+  #menu.screen{gap:6px;padding-top:calc(env(safe-area-inset-top,0px) + 7px)}
+  #menu .logo{font-size:28px}
+  #menu .btnrow button{min-height:36px;padding:6px 8px}
+}
