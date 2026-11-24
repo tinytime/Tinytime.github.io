@@ -279,3 +279,12 @@ The five remaining Round 3 fixes plus the two newly supplied handoff-fidelity co
 - Artifact [14967729271](https://github.com/tinytime/Tinytime.github.io/actions/runs/45496316858/artifacts/14967729271): 37 PNG screenshots and QA report/diagnostics; available through 2026-12-08.
 - The Playbook row count/title fit, neutral diagram palette, defense banner-to-drive transition, practice-win all-seven-player pose audit, and matchup floodlight/beam all have passing browser assertions.
 - Screenshot visual inspection remains pending; this run is not visual approval. Stage One remains pending the complete owner review. Do not begin Stage Two. Golden snapshots and provenance remain untouched.
+
+
+## Round 4 owner feedback — 2026-11-24
+
+Round 4 confirms the two Round 3 visual bugs are fixed. The remaining Stage One issue is the Defense Simulation status pill clipping the right edge. A correction now centers `#tkTop`, constrains its width to the viewport, permits wrapping, and adds an assertion that the full `BALL ON` yard-line context remains visible with 12px minimum side clearance. CSS commit `91fa9cf60baa661fe3ac3e5ca527acf4812cf47f`; QA commit `f3b657617d601d331702b2be556590c7210c6592`; Run #258 pending.
+
+**MY TEAM and MY SQUAD are explicitly Section 3 / Stage Two in the handoff.** Their absence from the Stage One bundle is intentional, not a Stage One omission. They remain unverified against their own Stage Two spec and must not be implemented or QA'd until owner approval of all Stage One work. Stage Two remains on hold.
+
+Run #256 remains the last completed full Stage One pass (190/190). Round 4 correction is pending Run #258. No golden snapshots/provenance changed.
