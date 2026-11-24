@@ -244,6 +244,7 @@ try{
   check('HIKE button click starts live play',clickedLive,liveState);
   const snapReadiness=liveState.snapDbg?.snapReady;
   check('HIKE snaps only after required player sprites are ready',!!snapReadiness&&snapReadiness.artReady===true&&snapReadiness.carryReady===true&&snapReadiness.missing===0,{snapReadiness,liveState});
+  check('HIKE readiness wait stays within 15 seconds',Number.isFinite(snapReadiness?.waitMs)&&snapReadiness.waitMs<=15000,snapReadiness);
   if(!clickedLive){
    const directState=await page.evaluate(()=>{window.SG?.startPlay?.();const g=window.SG?.G;let snap=null;try{snap=window.SG?.snapDbg?.()}catch(e){snap={error:String(e)}}return{mode:g?.mode,fmode:window.SG?.F?.mode,crew:g?.crew?.id,crewR2:g?.crew?.r2,down:g?.down,togo:g?.togo,sel:g?.sel,selectedPlay:window.SG?.PLAYS?.[g?.sel]?.id,playKind:window.SG?.PLAYS?.[g?.sel]?.kind,fourthHidden:document.querySelector('#fourth')?.hidden,startPlayWait:window.SG?.startPlay?._w||0,eventTrace:window.__hikeEventTrace||[],snapDbg:snap,zdBeat:!!document.querySelector('#zdBeat')}});
    await page.waitForFunction(()=>window.SG?.G?.mode==='live'||window.SG?.F?.mode==='live',null,{timeout:3000}).catch(()=>null);
