@@ -1648,3 +1648,23 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 #mu .bot .tap{background:#4DE1F2;color:#131620;border-color:#4DE1F2;box-shadow:0 4px 0 #147f98;text-shadow:none}
 
 /* Stage One full mockup-fidelity QA trigger — 2026-11-24. */
+
+
+/* Stage One corrective pass: explicit menu tile semantics and collision-safe centered header. */
+#menu .ui-menu-head{display:grid!important;grid-template-columns:40px minmax(0,1fr) 60px;align-items:center;gap:6px;min-height:62px}
+#menu .ui-menu-close{grid-column:1;grid-row:1;justify-self:start}
+#menu .ui-menu-brand{position:static!important;grid-column:2;grid-row:1;transform:none!important;width:100%!important;max-width:100%!important;min-width:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
+#menu .ui-menu-title{max-width:100%;font-size:clamp(14px,4vw,18px)!important;letter-spacing:.045em!important;white-space:nowrap;overflow:hidden;text-overflow:clip}
+#menu .ui-menu-town{max-width:100%;white-space:nowrap}
+#menu .ui-menu-upg{grid-column:3;grid-row:1;justify-self:end;width:58px;min-width:58px;padding:5px 4px;font-size:10px}
+#menu .ui-menu-grid .ui-menu-icon-card{border-color:rgba(77,225,242,.82)!important}
+#menu .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"]{border-color:rgba(245,184,65,.88)!important}
+#menu .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"] strong{color:#F5B841!important}
+#menu .ui-menu-grid .ui-menu-icon-card[data-ui-tile="team"],#menu .ui-menu-grid .ui-menu-icon-card[data-ui-tile="playbook"],#menu .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"]{border-color:rgba(77,225,242,.82)!important}
+#goalsP .ui-goals-stat-card.is-skill{grid-column:1/-1}
+#goalsP .ui-goals-stat-card:has(.ui-goals-stat-label){min-width:0}
+#mu{background:#131620!important;background-image:none!important}
+#mu .top .town{color:#F5B841!important;border-color:rgba(245,184,65,.8)!important;background:rgba(19,22,32,.92)!important;text-shadow:none!important;box-shadow:none!important}
+#mu .top .tag{color:#4DE1F2!important;border-color:rgba(77,225,242,.8)!important;background:rgba(19,22,32,.92)!important;text-shadow:none!important;box-shadow:none!important}
+#mu .bot .tap{background:#4DE1F2!important;color:#131620!important;border:1px solid #4DE1F2!important}
+#cards .card canvas{background-color:#101722!important;filter:brightness(.82) saturate(.72)}
