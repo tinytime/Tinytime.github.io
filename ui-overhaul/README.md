@@ -50,6 +50,18 @@ Implement the seven handoff areas in stages:
 - Do not refresh or replace golden snapshots without explicit owner approval.
 - Distinguish implemented, automated-tested, visually inspected, independently reviewed, and owner-approved states in all progress reports.
 
+## Progress — 2026-11-24
+
+### Stage 1 foundation committed
+
+Commit: [992631b2a9e0514eb5b0915771c7c1fac84198b9](https://github.com/tinytime/Tinytime.github.io/commit/992631b2a9e0514eb5b0915771c7c1fac84198b9)
+
+- Added `ui-overhaul.css` and linked it from `index.html`.
+- Added the handoff's shared semantic design tokens.
+- Applied the first restrained matte treatment to the Overworld HUD town/progress pill, MENU control, and contextual A-button ring while preserving existing DOM IDs and pointer handlers.
+- Static validation: all five inline JavaScript blocks in the resulting HTML pass `node --check`.
+- Not yet browser-rendered or visually approved. The missing ZIP runtime assets remain a blocker for complete end-to-end visual QA.
+
 ## Immediate blockers / next actions
 
 1. Restore the ZIP's `audio/` and `models/` directories to this branch before claiming a complete runtime baseline. Their absence from the current GitHub tree is confirmed; the audio references are embedded in `index.html`.
