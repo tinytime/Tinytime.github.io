@@ -124,3 +124,13 @@ When the fresh artifact is available, submit **only these affected assets** for 
 6. The fresh screenshot showing the in-match scoreboard pause control most clearly; prefer `match-playbook-overlay.png` if it contains the scoreboard, otherwise use the corresponding fresh match capture.
 
 Review these deltas against the complete Stage One scope and prior Stage One baseline. Do not request screenshots of untouched surfaces. The owner still approves Stage One in totality; this delta review does not authorize Stage Two.
+
+
+## Round Two — additional Playbook visual delta
+
+The owner re-supplied the original 14-page Gemini handoff. Re-review pages 1 and 9 specifically for the actual in-match play-calling sheet. Its earlier gradients, cyan outer framing and inconsistent inner surfaces have been replaced by a consolidated matte-navy treatment.
+
+**Add this affected asset only** to the Round Two delta package:
+- match-playbook-overlay.png — evaluate the whole sheet against page 9: #131620 outer surface, restrained border/shadow, #1C2130 inactive categories and play cards, gold active/selected states, quiet dark route diagrams, gold-outline FLIP, and cyan CALL PLAY as the only primary execution accent. Confirm scoreboard clearance and readability remain intact.
+
+Do not request unchanged screenshots. Include the screenshot from the new run only; Run #194 predates this palette correction. The two new palette assertions must pass, and the exact tested SHA must match the CSS implementation before visual scoring.
