@@ -1714,3 +1714,10 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 #menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"],
 #menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"]:hover,
 #menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"]:focus-visible{border-color:rgba(77,225,242,.82)!important}
+
+
+/* Run #229 correction: the legacy #mGoals ID rule has higher specificity than
+   the tile data attribute. Keep GOALS & STATS cyan in every interaction state. */
+#menu.ui-menu-ready .ui-menu-actions #mGoals,
+#menu.ui-menu-ready .ui-menu-actions #mGoals:hover,
+#menu.ui-menu-ready .ui-menu-actions #mGoals:focus-visible{border-color:rgba(77,225,242,.82)!important}

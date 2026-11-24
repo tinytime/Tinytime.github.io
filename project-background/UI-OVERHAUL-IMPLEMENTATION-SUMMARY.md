@@ -968,3 +968,14 @@ The run explicitly passed the six targeted polish assertions: Overworld header s
 - `6d1c6cfaa7876a5370fb536a13b16a4596d46a88` — changed the Team Stats enhancement target to prefer `#ui-goals-panel-stats`, with `#goalsP` fallback, so the skill-move cells are generated in the actual rendered panel.
 
 These commits should trigger the next push-based Browser QA run (expected Run #226). **Do not mark Run #225 passed**; it failed on the three assertions above. Inspect the next run's report and screenshots to confirm all three corrections, then continue the full Stage One review. No golden snapshots were modified.
+
+
+## Run #229 result and single remaining menu correction (2026-11-24)
+
+**Run #229 verified:** [GitHub Actions run #229](https://github.com/tinytime/Tinytime.github.io/actions/runs/45474891207), run ID `45474891207`, tested exact commit `6195c2eb34b5232b309be1c79723f21a411c6bde`. Result: **163/164 checks passed**. No uncaught page errors, console errors or same-origin HTTP failures.
+
+The run confirms the Team Stats correction: Skill Moves now renders as three independent cells. The six Round Two polish assertions all pass, along with the other Stage One menu, Goals & Stats, Overworld, pre-game, in-match Playbook, defense-selection and post-game checks. The actual desktop menu screenshot was inspected. The only failing assertion is the semantic tile accent check: UPGRADES is gold, MY TEAM and PLAYBOOK are cyan, but GOALS & STATS remains gold.
+
+**Root cause:** the legacy selector `#menu .ui-menu-actions #mGoals` has greater CSS specificity than the data-attribute tile selectors, so it continues to force a gold border even though the GOALS tile is tagged `data-ui-tile="goals"`. This is a CSS cascade issue, not a missing tile tag or a runtime error.
+
+A narrow, higher-specificity override is being added for only `#mGoals`, including hover and keyboard-focus states. No other tile colors or behaviors are changed. Run #230 must confirm the single remaining assertion and the refreshed screenshot before this correction is considered verified. Golden snapshots remain untouched; Stage One is not yet approved and Stage Two remains held.
