@@ -283,7 +283,7 @@ try{
   check('Pre-game matchup overlay remains visible for inspection',await page.locator('#mu').isVisible());
   check('Pre-game TAP TO PLAY prompt fits inside the viewport',await page.locator('#mu .tap').isVisible());
   const introGap=await page.evaluate(()=>{const b=document.querySelector('#mu .bar').getBoundingClientRect(),t=document.querySelector('#mu .tap').getBoundingClientRect();return{gap:t.top-b.bottom,tapBg:getComputedStyle(document.querySelector('#mu .tap')).backgroundColor,tapBorder:getComputedStyle(document.querySelector('#mu .tap')).borderTopWidth}});
-  check('Pre-game TAP TO PLAY is separated from the progress bar',introGap.gap>=8&&introGap.tapBg==='rgb(19, 22, 32)'&&parseFloat(introGap.tapBorder)>=1,introGap);
+  check('Pre-game TAP TO PLAY is separated from the progress bar',introGap.gap>=8&&introGap.tapBg==='rgb(77, 225, 242)'&&parseFloat(introGap.tapBorder)>=1,introGap);
   const matchupBadges=await page.locator('#mu .pn .lg').evaluateAll(es=>es.map(el=>({bg:getComputedStyle(el).backgroundColor,border:getComputedStyle(el).borderTopWidth,radius:getComputedStyle(el).borderTopLeftRadius})));check('Both matchup logos sit on rounded navy badge cards',matchupBadges.length===2&&matchupBadges.every(x=>x.bg==='rgb(19, 22, 32)'&&parseFloat(x.border)>=1&&parseFloat(x.radius)>=12),matchupBadges);
  const matchupBadgeAccents=await page.locator('#mu .pn .lg').evaluateAll(es=>es.map(el=>getComputedStyle(el).borderTopColor));
  check('Pre-game team badge cards use gold home and cyan away accents',matchupBadgeAccents[0]==='rgb(245, 184, 65)'&&matchupBadgeAccents[1]==='rgb(77, 225, 242)',matchupBadgeAccents);
