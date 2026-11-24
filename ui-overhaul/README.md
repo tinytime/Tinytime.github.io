@@ -123,3 +123,17 @@ Static verification on commit `89e4264f8801836dd8c350f0fe0da8d11579a8a1`:
 - `main` remains unchanged at `36830922fa5b99922ce583bcf3888cb297bad03c`.
 
 Remaining QA limitation: this branch has no `.github/workflows/` files and no browser automation workflow configured. Static checks do not establish successful browser rendering, actual audio/model fetches, responsive layout, menu interactions, or gameplay regressions. Those checks remain pending; no golden snapshots were touched and no visual approval is claimed.
+
+
+### Runtime asset restoration and QA checkpoint — 2026-11-24
+
+The owner restored the runtime directories. Current tree verification confirms 45 audio files (44 MP3 + 1 WAV) and 22 model/data TXT files. All 45 audio references and all 22 model references found in the current game HTML resolve to exact paths in the lowercase directories; no missing references or case mismatches were found.
+
+Static checks at branch HEAD `efcf75eb5bcf0573fcb0d15b6f6439d48346c48b`:
+- Five existing inline game scripts: compile successfully.
+- `ui-overhaul-menu.js`: compiles successfully.
+- Every DOM ID looked up by the menu module exists in `index.html`.
+- CSS braces: 78 opening / 78 closing.
+- `main` remains unchanged at `36830922fa5b99922ce583bcf3888cb297bad03c`.
+
+The recent GitHub Actions history currently shows runs for the separate NPC branch, not this UI branch. The checked-in browser QA script targets an older standalone HTML fixture and cannot be used as-is for this build. Browser screenshots and interaction checks therefore remain pending; this is not visual approval. Next task is a dedicated `index.html` Chromium harness and portrait/landscape inspection, followed by save/reset/return-to-town regression checks. Golden snapshots remain untouched.
