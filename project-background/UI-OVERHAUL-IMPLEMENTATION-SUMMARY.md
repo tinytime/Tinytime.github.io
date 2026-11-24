@@ -896,3 +896,14 @@ A subsequent code-level comparison corrected the pre-game overlay atmosphere: re
 The QA harness now also checks the pre-game backdrop and team-label colors, plus verifies the Home-only CURRENT GOAL card is absent on Credits (Settings already had a corresponding check). The original run #204 screenshots still predate all of these changes.
 
 **Latest source changes in this continuation:** CSS commit c0189cc (pregame atmosphere), QA commit 6a51cf4 (credits/pregame checks). Fresh browser QA has not yet been retrieved. The reference mockup's scoreboard placement of FIRST TO beside PLAY CLOCK is still not fully matched; the underlying target value remains dynamic and must not be hard-coded. The post-game screenshot from run #204 is a loss, so the reward card/win-state layout still requires a deterministic win-state visual check.
+
+
+## Latest full Stage One QA checkpoint — 2026-11-24
+
+- Current branch: UI-Overhaul
+- Current QA-trigger commit: b88ccd45213c12bdbd2e22d5294a38858944b850
+- QA harness now contains 146 assertions, including the new menu tile order, Settings/Credits goal-card removal, Goals & Stats composition, pre-game stadium-light palette, matchup badges, Playbook palette, defense panel geometry, and post-game mode/actions.
+- Static validation performed: ui-overhaul-menu.js parses successfully; QA module parses successfully after accounting for module imports/top-level await; CSS and JS braces are balanced.
+- GitHub commit-workflow lookup and combined-status lookup returned no workflow run or status for b88ccd4. Therefore the push-triggered browser run and screenshots have not been retrieved. No browser pass or visual approval is claimed.
+- Run #204 (149/149) is pre-change baseline evidence only. It must not be used to approve the present corrections.
+- Required next: obtain a fresh workflow run for exactly b88ccd4 (or a later current HEAD), verify all 146 assertions, inspect the changed screenshot set and any regressions, and add deterministic win/practice post-game evidence. The FIRST TO target's placement beside PLAY CLOCK and exact photographic pre-game backdrop remain known fidelity gaps. Stage One owner approval remains pending; Stage Two remains held.
