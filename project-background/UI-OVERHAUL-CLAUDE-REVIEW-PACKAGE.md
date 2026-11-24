@@ -15,7 +15,7 @@ The 14-page **Circuit Football — UI Overhaul Handoff Spec** is the design auth
 
 ## Review scope
 
-Download and inspect the Run #114 artifact. It includes:
+Download and inspect the current Run #121 artifact. It includes:
 
 - Overworld: `overworld-after-return.png`, `overworld-portrait.png`, startup transition captures.
 - Menu: `desktop-menu.png`, `landscape-menu.png`, `portrait-menu.png`, `narrow-menu-360.png`.
