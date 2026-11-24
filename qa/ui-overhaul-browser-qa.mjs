@@ -319,6 +319,7 @@ try{
    check('Defense selection state can be rendered for deterministic visual QA',defenseReady);
    await page.waitForFunction(()=>{const e=document.querySelector('#dcall');return e&&!e.hidden},null,{timeout:10000});
    check('Defense selection screen appears in the Stage One match flow',await page.locator('#dcall').isVisible());
+   check('First-to target badge yields to the defense-selection headline',await page.locator('#tgtTag').isHidden());
    check('Defense selection offers BLITZ, BALANCED and PREVENT',await page.locator('#dcall button[data-c]').count()===3);
    const defensePanel=await page.locator('#dcall').evaluate(el=>{const r=el.getBoundingClientRect();return{left:r.left,right:r.right,width:r.width,viewport:innerWidth}});
    check('Defense selection panel is centered and fits the viewport',defensePanel.left>=0&&defensePanel.right<=defensePanel.viewport&&defensePanel.width>=defensePanel.viewport-40,defensePanel);
