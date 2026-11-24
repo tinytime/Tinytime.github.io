@@ -258,3 +258,24 @@ The latest code HEAD observed before this documentation update is `24396a0a60657
 - Latest browser QA remains **not passed**. No actual UI screenshots have been inspected. The repeated initial-state failure prevents validation of Settings, Credits, Playbook, resolution, reset confirmation, developer drawer, responsive layouts and town return.
 
 On resume, poll Runs #15 and #16, inspect exact job logs and artifacts, then inspect the latest `qa/ui-overhaul-browser-qa.mjs` and game startup/overworld state. The next fix should capture diagnostic screenshots and computed visibility/state when `#owMenu` is hidden, and establish the real path into the overworld. Do not use `force: true` or skip visibility checks just to bypass the issue.
+
+
+## QA startup diagnosis and harness correction — 2026-11-24
+
+- Reconnected to the live UI-Overhaul branch. The branch had advanced nine commits beyond the previously recorded 9810560 checkpoint; the verified pre-work HEAD was a7ed8024072fd264f7764bbf37dee6095e957335. The latest commit after this correction is 1c57d2457b468a266d410984c2fe0898574f5baa.
+- Polled Runs #15 (45417075432, tested efdc57c) and #16 (45417116839, tested 9810560). Both completed FAILED at the initial #owMenu click: the button exists but is not visible. Their uploaded artifacts are only 427 bytes each and contain no screenshot evidence.
+- Source inspection found the harness tried to click #owMenu before checking visibility, then only attempted the existing window.SG.owShow() fallback after that click had already timed out. It also clicked the same opener again after the fallback. This prevented the intended startup recovery path from running.
+- Harness correction committed:
+  - 1fc422e — diagnose the initial screen, capture startup screenshots and DOM/computed-style/ancestor visibility data, call the existing SG.owShow() helper only when needed, wait for a genuinely visible HUD button, and click the opener once.
+  - 62bb843 — write the startup diagnostics before the bounded visibility wait so a timeout still leaves useful JSON and screenshots in the artifact.
+  - 1c57d24 — keep the initial screen as diagnostic context rather than treating a non-overworld startup as a failed test when the existing entry helper is expected to activate it.
+- Verified that 1c57d2457b468a266d410984c2fe0898574f5baa is the exact current UI-Overhaul branch HEAD. No game logic, main, NPC workstream files, or golden snapshots were changed.
+- QA remains pending. The new diagnostic run has not yet been retrieved or inspected; do not assume the helper exposes the overworld, and do not claim browser pass or visual inspection.
+
+### Immediate continuation
+
+1. Retrieve the Actions run for commit 1c57d2457b468a266d410984c2fe0898574f5baa.
+2. Inspect startup-state.json, startup-before-overworld.png, startup-after-helper.png, and startup-after-overworld.png.
+3. If SG.owShow() does not expose the real HUD, use the captured initial screen and visible-control/ancestor data to identify and exercise the actual game entry transition. Do not force-click hidden elements.
+4. Once the real MENU button is visible, run the remaining menu, Playbook, settings, reset-cancel, credits/developer drawer, responsive, asset, and return-to-town checks. Inspect every actual screenshot before reporting visual status.
+5. Do not begin MY TEAM / MY SQUAD until the menu QA is green and the owner has reviewed the menu direction.
