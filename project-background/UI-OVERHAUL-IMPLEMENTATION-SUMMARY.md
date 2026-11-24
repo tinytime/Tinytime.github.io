@@ -990,3 +990,14 @@ The GOALS & STATS cyan correction is confirmed by the computed style in the brow
 **Root cause:** an older selector, `#menu .ui-menu-actions #mTeam`, sets the border to `rgba(77,225,242,.62)` with important priority. The prior semantic tile selector does not override that legacy ID rule. A narrowly scoped, higher-specificity override is being added for `#mTeam` and its hover/focus-visible states, setting the shared `.82` cyan frame strength. No tile layout, content, gameplay, or other menu behavior is changed.
 
 Run #231 must verify the exact four computed tile colors and fresh desktop/portrait menu screenshots. Run #230 confirms the Team Stats three-cell layout and all six Round Two polish assertions. Stage One is still not approved; complete the remaining Stage One fidelity/evidence gates, Claude's independent review and owner approval before Stage Two. Golden snapshots remain untouched.
+
+
+## Run #231 result and Stage One scoreboard correction (2026-11-24)
+
+**Run #231 verified:** [GitHub Actions run #231](https://github.com/tinytime/Tinytime.github.io/actions/runs/45477746909), run ID `45477746909`, tested exact commit `3153abc6676d8a4dd3ba7cbfb93366aa1f2545dd`. Result: **164/164 checks passed**. The MY TEAM cyan tile frame now matches the required PLAYBOOK and GOALS & STATS border strength. Fresh menu screenshots were inspected; the desktop and narrow portrait menu layouts are visually consistent.
+
+### Remaining Stage One work in progress
+
+The FIRST TO target has now been moved into the scoreboard's PLAY CLOCK module as a compact adjacent target badge. Browser QA now asserts that it is a static child of the clock module, visibly adjacent to the clock readout, and does not overlap it; the circular EXIT control remains independently checked. This change is pending its next full browser QA run and screenshot inspection.
+
+The other remaining gates are unchanged: deterministic OPEN-receiver visual evidence, atmospheric pre-game background fidelity, deterministic win/practice post-game evidence, complete Stage One screenshot review, Claude's independent review, and explicit owner approval. Stage Two remains untouched; golden snapshots remain untouched.
