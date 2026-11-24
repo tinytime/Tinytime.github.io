@@ -1037,7 +1037,9 @@ function setSlow(f,s){timeScale=f;slowT=s}
 const ORD=['','1st','2nd','3rd','4th'];
 function spotTxt(y){y=Math.round(y);return y<50?'OWN '+y:y===50?'MIDFIELD':'OPP '+(100-y)}
 function show(id,on){
-  $(id).hidden=!on;
+  const el=$(id);
+  if(id==='#hud'&&on){el.classList.remove('ui-end-render-only');el.removeAttribute('aria-hidden');el.inert=false}
+  el.hidden=!on;
   // FIRST TO is integrated into the scoreboard clock. Hide it while either
   // overlay owns the HUD header, and restore it when both overlays close.
   if(id==='#sheet'||id==='#dcall'){
@@ -2369,8 +2371,7 @@ function endGame(win){achClear();endStyleShow();
   XLOG.games.push({res:win?'WIN':'LOSS',score:G.you+'-'+G.opp,plays:G.pn||0,secs:Math.round((performance.now()-(G.t0||performance.now()))/1000)});glog('=== GAME OVER: '+(win?'WIN':'LOSS')+' '+G.you+'-'+G.opp+' vs '+(G.crew&&G.crew.name)+' ===');
   SND.fx(win?'win':'lose');
   {const s=stt();s.games++;if(win)s.wins++;if(G.guide){SAVE.tutDone=1;G.guide=false;gdHide()}persist()}   // v3.00: the guided first game happens once
-  G.mode='end';show('#hud',false);show('#sheet',false);show('#fourth',false);show('#ctl',false);show('#setbar',false);
-  const c=G.crew;
+  G.mode='end';const c=G.crew;const hud=$('#hud');if(hud&&c&&!c.pickup&&!c.r2){hud.hidden=false;hud.classList.add('ui-end-render-only');hud.setAttribute('aria-hidden','true');hud.inert=true}else show('#hud',false);show('#sheet',false);show('#fourth',false);show('#ctl',false);show('#setbar',false);
   if(c&&c.r2){r2End(win,c);return}
   if(c&&c.pickup){   // route encounter: never touches SAVE.beaten, SAVE.rm, team stats or the crew counter
     SAVE.route=SAVE.route||{};
@@ -11208,7 +11209,7 @@ if((location.hostname==='127.0.0.1'||location.hostname==='localhost')&&new URLSe
     defense:()=>{if(!G||!G.crew)return false;G.mode='dead';G.pendFp=35;showDefCall(35);return !$('#dcall').hidden},
     achievement:()=>{if(!ACH||!ACH.length)return false;achToast(ACH[0]);return true},
     postGame:()=>{clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);endGame(false);return true},
-    postGamePracticeWin:async()=>{if(!G||!G.crew)return false;clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);G.crew.practice=true;G.style=37;G.you=14;G.opp=0;if(F){F.res={type:'td',spot:100};Object.values(F.off||{}).filter(p=>p&&typeof p==='object'&&'x' in p).forEach(p=>{p.celeb=60;p.celebV=0;p.vx=0;p.vy=0;p.fall=false;p.fallK=0;p.lyT=0;p.wasLy=false;p.stun=0;})}show('#hud',true);await new Promise(resolve=>{let frames=0;const step=()=>{if(++frames>=45)resolve();else requestAnimationFrame(step)};requestAnimationFrame(step)});endGame(true);return !$('#end').hidden},
+    postGamePracticeWin:async()=>{if(!G||!G.crew)return false;clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);G.crew.practice=true;G.style=37;G.you=14;G.opp=0;if(F){F.res={type:'td',spot:100};Object.values(F.off||{}).filter(p=>p&&typeof p==='object'&&'x' in p).forEach(p=>{p.celeb=60;p.celebV=0;p.vx=0;p.vy=0;p.fall=false;p.fallK=0;p.lyT=0;p.wasLy=false;p.stun=0;})}show('#hud',true);const before=window.CF3D?.info?.frames||0;await new Promise(resolve=>{let frames=0;const step=()=>{drawEntities();if(++frames>=45)resolve();else requestAnimationFrame(step)};requestAnimationFrame(step)});window.SG.__uiqa.practiceRenderFrameDelta=(window.CF3D?.info?.frames||0)-before;endGame(true);return !$('#end').hidden},
     runnerControls:()=>{if(!F||!G||!F.off||!F.off.QB||!F.off.RB)return false;const q=F.off.QB,rb=F.off.RB;F.mode='live';G.mode='live';F.passer=q;F.carrier=rb;F.ballAir=false;F.lock=false;G.clockOn=false;rb.x=q.x;rb.y=50;rb.hi=false;return true},
     diveControls:()=>{if(!F||!F.carrier)return false;F.carrier.y=96;return true}
   };

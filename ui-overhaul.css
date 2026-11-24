@@ -2002,3 +2002,7 @@ body.land #bHurdle,body.land #bHurdle.dive{
 }
 @media(max-width:700px){#app #pileT:not(:empty){left:36vw!important}}
 @media(min-width:862px){#app #pileT:not(:empty){left:calc(8vw + 280px)!important}}
+
+
+/* Keep the field's 3D players rendering on the post-game result while hiding the match HUD chrome. */
+#hud.ui-end-render-only{opacity:0!important;pointer-events:none!important}
