@@ -235,3 +235,14 @@ Latest browser harness checkpoint: 68 assertions, covering Overworld, pre-game, 
 
 
 Latest QA harness commit: `ad2cd22c26005f7e244a18f28a6ea7c88961d9e9` (76 assertions; corrected cyan HIKE text contrast). The Actions result and screenshot artifact are still pending retrieval. Do not describe the assertions as passed until the exact run is confirmed. See the implementation summary.
+
+
+## Stage-one correction — latest QA harness checkpoint (2026-11-24)
+
+The current `UI-Overhaul` branch tip is `d9d22506c87474c775ee02fe05ec0f04d6085e95`. The browser harness now contains **82 assertions**, including actual two-row menu-card geometry, portrait/landscape layout fit, credits/developer visibility, full-viewport Overworld checks, real match/playbook/pre-snap/live-play states, fumble/turnover, defense selection and the selected-call defense simulation, achievement toast, and desktop/portrait post-game fit.
+
+The current harness captures a dedicated `match-defense-simulation.png` after choosing BALANCED and asserts that the offensive controls are hidden during the simulation. It also captures desktop and portrait credits before/after opening the developer drawer.
+
+**Important:** the 82 assertions are committed source, not a verified pass. The push-triggered Actions run ID/result/artifact for this commit has not yet been retrieved. The previous Run #39 (51/51) predates the art-direction correction and is not validation of this version. Screenshot inspection, Claude review and owner approval remain pending.
+
+See [the implementation summary](../project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for current source blob SHAs, exact coverage, evidence status and next steps.
