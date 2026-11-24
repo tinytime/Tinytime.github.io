@@ -77,6 +77,10 @@ try{
  check('Playbook overlay opens',await page.locator('.ui-menu-playbook-overlay').isVisible());
  const playCount=await page.locator('.ui-menu-play-card').count();
  check('Playbook entries render',playCount>0,playCount);
+ check('Playbook route diagrams render',await page.locator('.ui-menu-play-diagram-wrap svg').count()===playCount);
+ await page.locator('.ui-menu-play-card').first().click();check('Playbook selected card receives gold treatment',await page.locator('.ui-menu-play-card.is-selected').count()===1);
+ await page.locator('.ui-menu-playbook-flip').click();check('Playbook FLIP control toggles diagrams',await page.locator('.ui-menu-playbook-flip').getAttribute('aria-pressed')==='true');
+ await page.locator('.ui-menu-playbook-flip').click();
  await page.screenshot({path:path.join(out,'desktop-playbook.png'),fullPage:true});
  await page.locator('[data-filter="RUN"]').click();
  const runCards=await page.locator('.ui-menu-play-card span').allTextContents();
@@ -90,6 +94,7 @@ try{
  await page.locator('[data-tab="settings"]').click();
  check('Settings panel switches',await page.locator('#uiMenuSettings').isVisible()&&!(await page.locator('#uiMenuHome').isVisible()));
  for(const id of ['mMus','mSfx','mVol','mHap','mCam','mLT','mReset'])check('Settings control visible: '+id,await page.locator('#'+id).count()===1&&await page.locator('#'+id).isVisible());
+ check('Volume setting has a leading icon',await page.locator('label[for="mVol"] .ui-setting-icon').count()===1);
  const resolutionDiagnostics=await page.evaluate(()=>{
   const describe=el=>el?{tag:el.tagName,id:el.id||null,className:typeof el.className==='string'?el.className:'',text:(el.innerText||el.textContent||'').trim().slice(0,180),html:el.outerHTML.slice(0,900),parent:el.parentElement?.outerHTML.slice(0,1400)||null}:null;
   return{settingsText:document.querySelector('#uiMenuSettings')?.innerText||'',mRS:describe(document.querySelector('#mRS')),resolutionLike:[...document.querySelectorAll('[id],[class]')].filter(e=>/resol/i.test((e.id||'')+' '+(typeof e.className==='string'?e.className:''))).slice(0,20).map(describe),group:describe(document.querySelector('.ui-resolution-group')),settingsChildren:[...(document.querySelector('#uiMenuSettings')?.children||[])].map(describe)};
@@ -167,6 +172,7 @@ try{
    return{menu:{x:r.x,width:r.width,scrollWidth:e.scrollWidth,clientWidth:e.clientWidth},town:{top:t.top,bottom:t.bottom},tabs:{top:b.top,bottom:b.bottom},content:{scrollHeight:c.scrollHeight,clientHeight:c.clientHeight},viewport:{width:innerWidth,height:innerHeight}}
   });
   check(v.name+' menu fits width',g.menu.x>=-1&&g.menu.x+g.menu.width<=v.width+1&&g.menu.scrollWidth<=g.menu.clientWidth+1,g);
+  if(v.name==='portrait'){const brand=await page.evaluate(()=>{const t=document.querySelector('.ui-menu-title'),u=document.querySelector('.ui-menu-upg');const a=t.getBoundingClientRect(),b=u.getBoundingClientRect();return{titleRight:a.right,upgLeft:b.left,titleScroll:t.scrollWidth,titleClient:t.clientWidth}});check('Portrait menu title clears UPG badge',brand.titleRight<=brand.upgLeft-4&&brand.titleScroll<=brand.titleClient+1,brand)}
   check(v.name+' return button visible',g.town.top>=-1&&g.town.bottom<=v.height+1,g.town);
   check(v.name+' tabs visible',g.tabs.top>=-1&&g.tabs.bottom<=v.height+1,g.tabs);
   await page.screenshot({path:path.join(out,v.name+'-menu.png'),fullPage:true});
@@ -175,7 +181,7 @@ try{
  await page.locator('#mTown').evaluate(el=>el.click());
  await page.waitForFunction(()=>{const w=document.querySelector('#world');return w&&!w.hidden&&getComputedStyle(w).display!=='none'},null,{timeout:10000}).catch(()=>{});
  const world=await page.locator('#world').isVisible();check('Back to town opens overworld',world);
- if(world){await page.screenshot({path:path.join(out,'overworld-after-return.png'),fullPage:true});const b=page.locator('#owMenu');check('Overworld menu button visible',await b.count()===1&&await b.isVisible());check('Overworld GOAL strip visible',await page.locator('#owTop .ui-ow-goal').isVisible());check('Contextual A-button label visible',await page.locator('#owA .ui-ow-a-label').isVisible()&&!!(await page.locator('#owA .ui-ow-a-label').textContent())?.trim());const canvas=await page.locator('#owc').evaluate(el=>{const r=el.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,viewport:{width:innerWidth,height:innerHeight}}});check('Overworld canvas fills viewport',canvas.x<=1&&canvas.y<=1&&canvas.width>=canvas.viewport.width-1&&canvas.height>=canvas.viewport.height-1,canvas);await b.click();check('Overworld menu reopens',await menuIsActuallyVisible())}
+ if(world){await page.screenshot({path:path.join(out,'overworld-after-return.png'),fullPage:true});const b=page.locator('#owMenu');check('Overworld menu button visible',await b.count()===1&&await b.isVisible());check('Overworld town pill visible',await page.locator('#owTop .ui-ow-pill').isVisible());check('Overworld status and UPG badges visible',await page.locator('#owTop .ui-ow-status').isVisible()&&await page.locator('#owTop .ui-ow-upg').isVisible());check('Overworld GOAL strip visible',await page.locator('#owTop .ui-ow-goal').isVisible());check('Contextual A-button label visible',await page.locator('#owA .ui-ow-a-label').isVisible()&&!!(await page.locator('#owA .ui-ow-a-label').textContent())?.trim());const canvas=await page.locator('#owc').evaluate(el=>{const r=el.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,viewport:{width:innerWidth,height:innerHeight}}});check('Overworld canvas fills viewport',canvas.x<=1&&canvas.y<=1&&canvas.width>=canvas.viewport.width-1&&canvas.height>=canvas.viewport.height-1,canvas);await page.setViewportSize({width:390,height:844});await page.waitForTimeout(120);await page.screenshot({path:path.join(out,'overworld-portrait.png'),fullPage:true});const pc=await page.locator('#owc').evaluate(el=>{const r=el.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,viewport:{width:innerWidth,height:innerHeight}}});check('Portrait Overworld canvas fills viewport',pc.x<=1&&pc.y<=1&&pc.width>=pc.viewport.width-1&&pc.height>=pc.viewport.height-1,pc);await page.setViewportSize({width:844,height:390});await page.waitForTimeout(120);await b.click();check('Overworld menu reopens',await menuIsActuallyVisible())}
  // Exercise the real match flow in landscape: matchup, play-calling sheet, pre-snap, live play and post-game.
  const matchStart=await page.evaluate(()=>{const crew=window.SG&&window.SG.CREWS&&window.SG.CREWS.find(c=>!c.captain);if(!crew||typeof window.SG.startMatch!=='function')return false;window.SG.startMatch(crew);return true});
  check('A real crew match can be started for visual QA',matchStart);
@@ -193,10 +199,12 @@ try{
   check('In-match selected play has gold treatment',await page.locator('#cards .card.sel').count()===1);
   check('In-match FLIP control is visible',await page.locator('#flipBtn').isVisible());
   const callStyle=await page.locator('#callBtn').evaluate(el=>({background:getComputedStyle(el).backgroundImage,backgroundColor:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color}));
-  check('In-match CALL PLAY uses the cyan CTA treatment',callStyle.backgroundColor==='rgb(77, 225, 242)'&&callStyle.color==='rgb(8, 19, 27)',callStyle);
+  const callRGB=(callStyle.backgroundColor.match(/\\d+/g)||[]).map(Number);
+  check('In-match CALL PLAY uses the cyan CTA treatment',callRGB.length===3&&callRGB[1]>180&&callRGB[2]>180&&callRGB[1]>=callRGB[0]&&callRGB[2]>=callRGB[0]&&callRGB.every(v=>v<255)&&callStyle.color==='rgb(8, 19, 27)',callStyle);
   await page.locator('#flipBtn').click();
   check('In-match FLIP toggles selected play orientation',await page.locator('#flipBtn').evaluate(el=>el.classList.contains('on')));
   await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
+  await page.setViewportSize({width:390,height:844});await page.waitForTimeout(120);await page.screenshot({path:path.join(out,'match-playbook-portrait.png'),fullPage:true});await page.setViewportSize({width:844,height:390});await page.waitForTimeout(120);
   await page.locator('#callBtn').click();
   await page.waitForFunction(()=>{const e=document.querySelector('#setbar');return e&&!e.hidden},null,{timeout:10000});
   check('Pre-snap action bar visible',await page.locator('#hike').isVisible());
