@@ -1018,3 +1018,6 @@ body.ach-toast-active #tkPlay{bottom:calc(9% + 58px)}
  #endScore .ui-match-score-value{font-size:31px}
  #endScore .ui-match-score-name{font-size:8px}
 }
+
+/* Leave a distinct lower-edge lane for the achievement toast. */
+#tkPlay{bottom:22%}
