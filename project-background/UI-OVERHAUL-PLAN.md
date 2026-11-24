@@ -297,3 +297,12 @@ Run #258 completed successfully against `f3b657617d601d331702b2be556590c7210c659
 Evidence: [Run #258](https://github.com/tinytime/Tinytime.github.io/actions/runs/45510700772), [artifact 14974438683](https://github.com/tinytime/Tinytime.github.io/actions/runs/45510700772/artifacts/14974438683), 37 PNG screenshots plus report/diagnostics, retained through 2026-12-08.
 
 MY TEAM and MY SQUAD remain Section 3 / Stage Two, excluded intentionally from Stage One, and untouched pending Stage One owner approval. Screenshot visual inspection, Claude review where required, and owner approval remain outstanding. Stage Two remains on hold; no golden snapshots/provenance changed.
+
+
+## Round 5 — Fumble contest pill and palette correction
+
+The owner reported the Fumble contest pill/bar is not centered and the text/button retain the old palette. Root cause: a later legacy `#pileBar` override reset it to `left:8vw` and `transform:none`, defeating the earlier centering rule. Legacy burgundy track, green fill and unthemed A mash button also remained.
+
+The latest CSS centers the contest bar at viewport 50%, preserves its 65vw width and clearance from the A mash button, and applies Stage One navy `#131620`, cyan `#4DE1F2`, gold `#F5B841`, and white to the contest panel, labels, track/fill, timer and button. QA now checks geometry and computed colors.
+
+CSS commit `ac23e1aa282c3c2197294738fae0b338de352f68`; QA commit/tested HEAD `01e96cdc2f2398d42d23b81981bd4999062520b4`. Browser QA pending. No golden snapshots changed; Stage Two remains on hold.
