@@ -1361,3 +1361,12 @@ body.land #hud #exit{right:8%;top:calc(env(safe-area-inset-top,0px) + 6px);width
 
 /* The target tag uses a fixed left anchor beside the scoreboard, not the legacy centered transform. */
 body.land #hud #tgtTag{transform:none!important}
+
+
+/* Highest-specificity override for the game's 300ms scoreboard-tag positioner. */
+body.land #hud #tgtTag{
+  left:8%!important;
+  top:calc(env(safe-area-inset-top,0px) + 72px)!important;
+  transform:none!important;
+  z-index:12!important;
+}
