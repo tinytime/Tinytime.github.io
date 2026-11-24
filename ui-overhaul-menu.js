@@ -181,3 +181,113 @@
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
 
+
+
+/* Stage One: replace the legacy stacked GOALS & STATS sheet with the handoff's tabbed screen. */
+(()=>{
+ const make=(tag,cls,text)=>{
+  const node=document.createElement(tag);
+  if(cls)node.className=cls;
+  if(text!==undefined&&text!==null)node.textContent=String(text);
+  return node;
+ };
+ const openGoals=()=>{
+  const old=document.getElementById('goalsP');if(old)old.remove();
+  if(typeof goalsSave!=='function'||typeof csTeam!=='function'||typeof CHAL==='undefined'||typeof ACH==='undefined'||typeof TRAILS==='undefined'){
+   if(typeof goalsPanel==='function')goalsPanel();
+   return;
+  }
+  const g=goalsSave()||{},team=csTeam()||{};
+  const doneChallenges=Array.isArray(g.done)?g.done:[];
+  const unlockedTrails=Array.isArray(g.trails)?g.trails:[];
+  const earned=Array.isArray(g.ach)?g.ach:[];
+  const fmt=value=>Number(value||0).toLocaleString();
+  const crew=id=>{try{return typeof crewName==='function'?crewName(id):id}catch(_){return id}};
+  const panel=make('div','ui-goals-panel');panel.id='goalsP';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby','uiGoalsTitle');
+  const inner=make('div','ui-goals-inner');
+  const header=make('header','ui-goals-header');
+  const trophy=make('div','ui-goals-trophy','🏆');
+  const titleWrap=make('div','ui-goals-title-wrap');
+  const title=make('h1','ui-goals-title','GOALS & STATS');title.id='uiGoalsTitle';
+  const subtitle=make('p','ui-goals-subtitle','CHALLENGES  /  ACHIEVEMENTS  /  TEAM CAREER');
+  titleWrap.append(title,subtitle);header.append(trophy,titleWrap);inner.appendChild(header);
+  const tabBar=make('div','ui-goals-tabs');tabBar.setAttribute('role','tablist');tabBar.setAttribute('aria-label','Goals and stats sections');
+  const content=make('div','ui-goals-content');
+  const panels={},buttons={};
+  const tabDefs=[['challenges','CHALLENGES'],['achievements','ACHIEVEMENTS'],['stats','TEAM STATS']];
+  for(const [id,label] of tabDefs){
+   const button=make('button','ui-goals-tab',label);button.type='button';button.setAttribute('role','tab');button.setAttribute('aria-controls','ui-goals-panel-'+id);button.setAttribute('aria-selected','false');button.tabIndex=-1;
+   const section=make('section','ui-goals-panel');section.id='ui-goals-panel-'+id;section.setAttribute('role','tabpanel');section.setAttribute('aria-labelledby','ui-goals-tab-'+id);section.hidden=true;button.id='ui-goals-tab-'+id;
+   button.addEventListener('click',()=>activate(id));
+   button.addEventListener('keydown',event=>{
+    if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+    event.preventDefault();
+    const index=tabDefs.findIndex(item=>item[0]===id);
+    const next=event.key==='Home'?0:event.key==='End'?tabDefs.length-1:(index+(event.key==='ArrowRight'?1:-1)+tabDefs.length)%tabDefs.length;
+    activate(tabDefs[next][0],true);
+   });
+   buttons[id]=button;panels[id]=section;tabBar.appendChild(button);content.appendChild(section);
+  }
+  const challenges=panels.challenges;
+  challenges.appendChild(make('p','ui-goals-intro','Beat each crew while meeting its challenge to unlock a colour for your RUN TRAIL. Rewards are cosmetic.'));
+  for(const challenge of CHAL){
+   const isDone=doneChallenges.includes(challenge.crew),trail=TRAILS[challenge.tr]||{n:String(challenge.tr||'TRAIL').toUpperCase(),c:'#F5B841'};
+   const card=make('article','ui-goals-card ui-goals-challenge'+(isDone?' is-complete':''));
+   const head=make('div','ui-goals-card-head');
+   const name=make('div','ui-goals-card-title',(isDone?'✓ ':'')+challenge.n+' · '+String(crew(challenge.crew)).toUpperCase());
+   const pill=make('span','ui-goals-trail-pill',String(trail.n||challenge.tr).toUpperCase()+' TRAIL');pill.style.color=trail.c||'#F5B841';pill.style.borderColor=trail.c||'#F5B841';
+   head.append(name,pill);
+   card.append(head,make('p','ui-goals-card-desc',challenge.d),make('span','ui-goals-state',isDone?'CHALLENGE COMPLETE · TRAIL UNLOCKED':(unlockedTrails.includes(challenge.tr)?'TRAIL UNLOCKED':'NOT YET EARNED')));
+   challenges.appendChild(card);
+  }
+  const achievements=panels.achievements;
+  achievements.appendChild(make('p','ui-goals-intro','Earn medals by building your career. Progress is saved automatically.'));
+  for(const achievement of ACH){
+   const isEarned=earned.includes(achievement.id);
+   let value=0;try{value=Math.min(Number(achievement.max)||1,Number(achievement.v(team,g.n,g))||0)}catch(_){}
+   const max=Math.max(1,Number(achievement.max)||1),percent=Math.max(0,Math.min(100,value/max*100));
+   const card=make('article','ui-goals-card ui-goals-achievement'+(isEarned?' is-earned':''));
+   const head=make('div','ui-goals-card-head');
+   const identity=make('div','ui-goals-achievement-identity');
+   identity.append(make('span','ui-goals-medal',isEarned?'★':'✦'),make('span','ui-goals-card-title',achievement.n));
+   const count=make('span','ui-goals-achievement-count',max>1?fmt(value)+' / '+fmt(max):(isEarned?'EARNED':'LOCKED'));
+   head.append(identity,count);card.append(head,make('p','ui-goals-card-desc',achievement.d));
+   if(max>1){
+    const track=make('div','ui-goals-progress');track.setAttribute('role','progressbar');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax',String(max));track.setAttribute('aria-valuenow',String(value));
+    const fill=make('i','');fill.style.width=percent+'%';track.appendChild(fill);card.appendChild(track);
+   }
+   achievements.appendChild(card);
+  }
+  const stats=panels.stats;
+  stats.appendChild(make('p','ui-goals-intro','Team-wide career totals across your completed matches.'));
+  const statGrid=make('div','ui-goals-stat-grid');
+  const statCard=(label,value,detail)=>{
+   const card=make('article','ui-goals-stat-card');
+   card.append(make('span','ui-goals-stat-label',label),make('strong','ui-goals-stat-value',fmt(value)),make('span','ui-goals-stat-sub',detail));
+   statGrid.appendChild(card);
+  };
+  statCard('RUSHING YARDS',team.ry,fmt(team.rt)+' TOUCHDOWNS');
+  statCard('PASSING YARDS',team.py,fmt(team.pt)+' TOUCHDOWNS');
+  statCard('RECEIVING',team.rc,fmt(team.cy)+' YARDS');
+  statCard('SKILL MOVES',team.an,'ANKLES · '+fmt(team.tr)+' TRUCKS · '+fmt(team.sp)+' SPINS');
+  stats.appendChild(statGrid);
+  stats.appendChild(make('p','ui-goals-note','Individual player lines live in MY SQUAD  ›  CAREER.'));
+  const close=make('button','ui-goals-close','CLOSE');close.type='button';
+  const closePanel=()=>{document.removeEventListener('keydown',onKey);panel.remove();const trigger=document.getElementById('mGoals');if(trigger)trigger.focus()};
+  close.addEventListener('click',closePanel);
+  const onKey=event=>{if(event.key==='Escape'){event.preventDefault();closePanel()}};
+  document.addEventListener('keydown',onKey);
+  const activate=(id,focus=false)=>{
+   for(const key of Object.keys(panels)){const active=key===id;panels[key].hidden=!active;buttons[key].setAttribute('aria-selected',String(active));buttons[key].tabIndex=active?0:-1;buttons[key].classList.toggle('is-active',active)}
+   if(focus)buttons[id].focus();
+  };
+  inner.append(tabBar,content,close);panel.appendChild(inner);document.body.appendChild(panel);activate('challenges');buttons.challenges.focus();
+ };
+ const bind=()=>{
+  const trigger=document.getElementById('mGoals');
+  if(!trigger)return;
+  trigger.onclick=openGoals;
+  trigger.setAttribute('aria-haspopup','dialog');
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
+})();
