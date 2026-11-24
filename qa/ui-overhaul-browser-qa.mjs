@@ -309,7 +309,7 @@ try{
   await page.locator('#flipBtn').click();
   check('In-match FLIP toggles selected play orientation',await page.locator('#flipBtn').evaluate(el=>el.classList.contains('on')));
   const sheetTop=await page.locator('#sheet').evaluate(el=>el.getBoundingClientRect().top);check('In-match Playbook sheet clears scoreboard lower edge',sheetTop>=66,sheetTop);await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
-  check('First-to target badge yields to the in-game playbook overlay',await page.locator('#tgtTag').isHidden());
+  check('FIRST TO remains visible in the in-game playbook overlay',await page.locator('#tgtTag').isVisible());
   await page.setViewportSize({width:390,height:844});await page.waitForTimeout(120);await page.screenshot({path:path.join(out,'match-playbook-portrait.png'),fullPage:true});await page.setViewportSize({width:844,height:390});await page.waitForTimeout(120);
   await page.locator('#callBtn').click();
   await page.waitForFunction(()=>{const e=document.querySelector('#setbar');return e&&!e.hidden},null,{timeout:10000});
@@ -385,7 +385,7 @@ try{
    check('Defense selection state can be rendered for deterministic visual QA',defenseReady);
    await page.waitForFunction(()=>{const e=document.querySelector('#dcall');return e&&!e.hidden},null,{timeout:10000});
    check('Defense selection screen appears in the Stage One match flow',await page.locator('#dcall').isVisible());
-   check('First-to target badge yields to the defense-selection headline',await page.locator('#tgtTag').isHidden());
+   check('FIRST TO remains visible above the defense-selection modal',await page.locator('#tgtTag').isVisible());
    check('Defense selection offers BLITZ, BALANCED and PREVENT',await page.locator('#dcall button[data-c]').count()===3);
    const defensePanel=await page.locator('#dcall').evaluate(el=>{const r=el.getBoundingClientRect();return{left:r.left,right:r.right,width:r.width,viewport:innerWidth}});
    check('Defense selection is a centered floating panel below the scoreboard',defensePanel.left>=0&&defensePanel.right<=defensePanel.viewport&&Math.abs((defensePanel.left+defensePanel.right)/2-defensePanel.viewport/2)<2&&defensePanel.width<defensePanel.viewport-40,defensePanel);

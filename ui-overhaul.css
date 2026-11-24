@@ -1981,3 +1981,11 @@ body.land #bHurdle,body.land #bHurdle.dive{
   background:#131620!important;border:2px solid #F5B841!important;color:#F5B841!important;
   box-shadow:0 0 0 1px rgba(245,184,65,.2),0 6px 16px rgba(0,0,0,.34)!important;
 }
+
+
+/* The unified scoreboard remains complete in every match overlay; FIRST TO lives inside the clock module. */
+#app:has(#sheet:not([hidden])) #hud #bug #bClock #tgtTag,
+#app:has(#dcall:not([hidden])) #hud #bug #bClock #tgtTag,
+#app:has(#tick:not([hidden])) #hud #bug #bClock #tgtTag{
+  display:block!important;visibility:visible!important;opacity:1!important;
+}

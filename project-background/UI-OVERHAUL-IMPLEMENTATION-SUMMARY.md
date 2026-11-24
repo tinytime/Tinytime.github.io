@@ -1106,3 +1106,12 @@ Run #246 (ID `45483894574`) reached the deterministic Practice Win setup after t
 **Run #247 verified:** [GitHub Actions run #247](https://github.com/tinytime/Tinytime.github.io/actions/runs/45484497458), run ID `45484497458`, tested exact commit `b25e4902ba8cbb943e71ad29b5f10cf9db045159`. Result: **177/177 checks passed**. The run confirms the corrected fumble timer seconds pill, three-row Defense Selection, completed Defense Simulation play-by-play and TAP TO SKIP, and deterministic Practice Win rendering. Fresh screenshots were inspected.
 
 The practice-win screenshot still showed the squad in a neutral-looking pose. The fixture now selects the first procedural celebration variant (raised-arm jump) instead of the third taunt variant. The final control polish also replaces the pre-snap CHANGE PLAY / SHOW PLAY brown surfaces with matte navy and gold borders, and gives the live-run HURDLE / DIVE button the specified matte navy/gold treatment. Query-gated fixtures and strict palette/clearance assertions are added. Pending full retest. Stage Two and golden snapshots remain untouched.
+
+
+### Run #247 — full Stage One browser suite passes
+
+Run #247 (ID `45484497458`) tested `b25e4902ba8cbb943e71ad29b5f10cf9db045159`: **177/177 passed, 0 failed**. The fumble countdown now renders as the gold-edged navy seconds pill, the defense-selection modal fits all three aligned stat rows in the 390px landscape viewport, and defense simulation captures a completed play-by-play result with offense controls hidden. The practice-win result now uses the actual touchdown celebration pose and shows the 3,700 STYLE POINTS card, team logos, and side-by-side actions. I visually inspected the pre-game, defense-selection, fumble, defense-simulation, live-play, and practice-win screenshots.
+
+### Final scoreboard consistency correction
+
+The Stage One specification describes one unified scoreboard containing PLAY CLOCK and FIRST TO X across match states. The target was still being hidden by legacy overlay CSS during Playbook, Defense Selection, and Defense Simulation, despite now being integrated inside the clock module. That old hiding behavior is no longer appropriate because the target no longer occupies the lane below the scoreboard. It now remains visible inside the scoreboard during all three overlays; Browser QA checks visibility and existing geometry checks ensure it stays inside the scoreboard and clear of the overlay. Retest pending.
