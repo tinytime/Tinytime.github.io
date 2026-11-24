@@ -288,3 +288,12 @@ Round 4 confirms the two Round 3 visual bugs are fixed. The remaining Stage One 
 **MY TEAM and MY SQUAD are explicitly Section 3 / Stage Two in the handoff.** Their absence from the Stage One bundle is intentional, not a Stage One omission. They remain unverified against their own Stage Two spec and must not be implemented or QA'd until owner approval of all Stage One work. Stage Two remains on hold.
 
 Run #256 remains the last completed full Stage One pass (190/190). Round 4 correction is pending Run #258. No golden snapshots/provenance changed.
+
+
+## Run #258 — Round 4 verification
+
+Run #258 completed successfully against `f3b657617d601d331702b2be556590c7210c6592`: **191/191 browser checks passed**, zero failures, page exceptions, console errors, or same-origin HTTP failures. The new defense-drive pill assertion confirms it is centered within 2px at 844px viewport width, has more than 12px side clearance, no horizontal overflow, and retains the complete `2nd & 6 · BALL ON THEIR 39` context.
+
+Evidence: [Run #258](https://github.com/tinytime/Tinytime.github.io/actions/runs/45510700772), [artifact 14974438683](https://github.com/tinytime/Tinytime.github.io/actions/runs/45510700772/artifacts/14974438683), 37 PNG screenshots plus report/diagnostics, retained through 2026-12-08.
+
+MY TEAM and MY SQUAD remain Section 3 / Stage Two, excluded intentionally from Stage One, and untouched pending Stage One owner approval. Screenshot visual inspection, Claude review where required, and owner approval remain outstanding. Stage Two remains on hold; no golden snapshots/provenance changed.
