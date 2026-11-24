@@ -907,3 +907,42 @@ The QA harness now also checks the pre-game backdrop and team-label colors, plus
 - GitHub commit-workflow lookup and combined-status lookup returned no workflow run or status for b88ccd4. Therefore the push-triggered browser run and screenshots have not been retrieved. No browser pass or visual approval is claimed.
 - Run #204 (149/149) is pre-change baseline evidence only. It must not be used to approve the present corrections.
 - Required next: obtain a fresh workflow run for exactly b88ccd4 (or a later current HEAD), verify all 146 assertions, inspect the changed screenshot set and any regressions, and add deterministic win/practice post-game evidence. The FIRST TO target's placement beside PLAY CLOCK and exact photographic pre-game backdrop remain known fidelity gaps. Stage One owner approval remains pending; Stage Two remains held.
+
+
+## 2026-11-24 — Round Two polish source reconciliation (latest live branch)
+
+**Verified branch tip at reconciliation:** `c2b024195643ce143d411a19e05381b82c23d781` — “Align Stage One matchup QA with cyan execution CTA.” The latest commit is a QA-only correction: the pre-game TAP TO PLAY assertion now expects the implemented cyan execution CTA (`#4DE1F2`), rather than the obsolete matte-navy value.
+
+### Round Two polish implementation status
+
+The six targeted Round Two polish items are present in the live branch:
+1. Overworld town/CLEARED spacing: 8px minimum, with a dedicated portrait assertion.
+2. In-game Playbook overlay: top edge at 66px (safe-area-aware), with scoreboard-clearance assertion.
+3. Pre-game matchup: two rounded matte-navy logo badges with gold home / cyan away accents.
+4. Defense Selection: “THEY GET THE BALL” is placed in the modal heading; duplicate field banner is suppressed.
+5. Post-game portrait: vertical result composition with REMATCH / MENU actions in the lower thumb zone.
+6. Scoreboard control: 42px circular, accessible pause/exit control; target badge and control separation are asserted.
+
+The Playbook overlay is part of Stage One and remains in scope. These changes are presentation/QA refinements; no gameplay rules, save/progression logic, golden snapshots, or Stage Two surfaces were changed in this reconciliation.
+
+### Current source inventory
+
+- `ui-overhaul.css` blob: `44080d817290a1a41907371e9aa316cbb7d64a7f`.
+- `ui-overhaul-menu.js` blob: `3cc7fec5ec2d5f03bdc93ac1220632042b276a06`.
+- `qa/ui-overhaul-browser-qa.mjs` blob: `2a7d25da4ad8181cf714d3bb6e5f54ae78c84195`.
+- Current QA harness contains 158 `check()` call sites, including targeted assertions for all six polish items and the cyan pre-game CTA.
+- Workflow concurrency safeguard remains enabled for the `UI-Overhaul` branch; newer in-progress runs for that branch are cancelled when a newer push arrives.
+
+### Run #225 / evidence status
+
+The latest code/QA push is commit `c2b024195643ce143d411a19e05381b82c23d781`, which is configured to trigger the push-based UI Overhaul Browser QA workflow. The connected GitHub run lookup and commit-status lookup returned no push-run record/status; the available run lookup only exposes PR-triggered runs. **Run #225's run ID, exact tested SHA, result, job logs and artifact are therefore not independently verified here.** Do not claim it passed or inspect an older artifact as a substitute. Retrieve Run #225 from the repository Actions UI, confirm it tested the expected current code, then inspect its changed screenshots before closing this polish round.
+
+### Remaining Stage One fidelity checks
+
+The earlier full mockup comparison recorded these separate visual/evidence gaps; do not silently mark them closed based on the six-item Round Two polish:
+- The pre-game stadium-light gradient remains an approximation of the reference's blurred town/stadium photography.
+- FIRST TO remains a separate target pill rather than integrated beside PLAY CLOCK; any geometry change must preserve the live game target value.
+- The current live-play capture does not prove an open-receiver state clearly enough.
+- The post-game QA path currently exercises a loss result; add deterministic win/practice evidence if the reward card and mode pill still need certification.
+
+**Approval state:** Round Two polish is implemented in source and statically represented in the browser harness; fresh Run #225 execution/artifact inspection is unverified. Stage One independent review of the complete current output and explicit owner approval remain required. Stage Two MY TEAM / MY SQUAD remains on hold. Golden snapshots remain untouched.
