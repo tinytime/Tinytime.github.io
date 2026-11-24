@@ -34,7 +34,7 @@ try{
  const menu=page.locator('#menu');
  const openOverworldMenu=page.locator('#owMenu');
  const initialScreen=await page.evaluate(()=>({menuOpacity:getComputedStyle(document.querySelector('#menu')).opacity,worldHidden:document.querySelector('#world')?.hidden,menuHidden:document.querySelector('#menu')?.hidden}));
- if(!(await openOverworldMenu.isVisible())&&window.SG?.owShow) await page.evaluate(()=>window.SG.owShow());
+ if(!(await openOverworldMenu.isVisible())) await page.evaluate(()=>{if(window.SG?.owShow)window.SG.owShow()});
  await page.waitForFunction(()=>{const b=document.querySelector('#owMenu');return !!b&&getComputedStyle(b).display!=='none'&&getComputedStyle(b).visibility!=='hidden'&&b.getBoundingClientRect().width>0;},null,{timeout:10000});
  check('Overworld MENU opener visible',await openOverworldMenu.isVisible(),initialScreen);
  await openOverworldMenu.click();
