@@ -174,3 +174,32 @@ The corrected Actions run and diagnostic screenshots still need to be retrieved 
 ### Documentation-only follow-up
 
 The status notes above were recorded in three sequential documentation commits: summary ac0e4298c420696323d4918233971ee0aefd8b39, workstream README a05c5317c1ed2a216197c62654483177dfecf3f1, and plan 02e447b4cdce53b437db56567c85fe5870906464. The verified current branch HEAD is now 02e447b4cdce53b437db56567c85fe5870906464; these commits only update documentation. The QA harness/code commit awaiting browser evidence remains 1c57d2457b468a266d410984c2fe0898574f5baa.
+
+
+## Stage 2 — Overworld Menu / Settings / Credits — QA passed (2026-11-24)
+
+**Tested commit:** `d4c1952a45f467a891f1341c2f0597fde812869c`  
+**GitHub Actions:** [UI Overhaul Browser QA #37](https://github.com/tinytime/Tinytime.github.io/actions/runs/45419632794)  
+**Evidence artifact:** [ui-overhaul-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/45419632794/artifacts/14932584439)
+
+The exact branch commit was tested in GitHub Actions with Chromium and the repository's local HTTP asset server. **50 checks passed; zero failures, page exceptions, console errors, or same-origin HTTP failures.**
+
+Coverage included:
+- Actual Overworld entry, menu open/close, return-to-town, and reopen behavior.
+- MENU / SETTINGS / CREDITS switching and keyboard arrow navigation.
+- Current objective, progression controls, Playbook overlay and category filtering.
+- Music/effects toggles, volume input, haptics, runner camera, lite effects, and LOW / MED / HIGH resolution selection with restoration of the original setting.
+- Reset confirmation, explicit confirmation gating, and cancel behavior.
+- All three credits groups, five-tap developer drawer, and retained test/performance controls.
+- Portrait 390×844 and landscape 844×390 layout fit, sticky return button, and tab visibility.
+- Successful HTTP 200 requests for a representative audio file and model file.
+
+Asset verification on the tested branch: 45 audio files and 22 model files are present; all 45 direct asset references and all 22 model references resolve. No golden snapshots were changed.
+
+### Visual inspection notes
+
+The Actions artifact screenshots were inspected for portrait menu, portrait settings, portrait credits/developer drawer, landscape menu, desktop menu, desktop settings, desktop credits/developer drawer, and Playbook. The three-tab menu and settings are visually coherent at the tested sizes; the developer drawer remains scrollable in portrait and fully inspectable in desktop landscape.
+
+### Remaining scope
+
+This is **Stage 2 approval evidence only**, not approval of the complete UI overhaul. The next handoff section is **My Team & My Squad** (section 3). Later goals/stats, match/playbook, in-match HUD, defense, toast, and post-game screens remain to be implemented and tested. The Overworld A-button contextual action sub-label is also still outstanding.
