@@ -2300,7 +2300,7 @@ function simDrive(fp,call){
   return{L,res,turn,zone,D,plays,snaps,m}}
 function showDefCall(fp){
   const S=dcSide(),m=S.O-S.D,pc=x=>Math.round(x*100)+'%';
-  $('#dcTop').textContent='THEIR BALL AT '+ydTxt(fp);
+  $('#dcTop').textContent='THEY GET THE BALL · '+ydTxt(fp);
   $('#dcRate').innerHTML='THEIR OFFENSE <b>'+S.O+'</b>'+(S.boost?' <small>('+S.T+' + '+S.boost+' captain push)</small>':'')+' · YOUR DEFENSE <b>'+S.D+'</b>'+(S.gaff?' <small>('+S.d+' + 4 gaff)</small>':'');   // v3.01: the numbers the drive really uses
   for(const b of $('#dcall').querySelectorAll('button[data-c]')){const k=b.dataset.c,o=dcOdds(m,DCALLS[k]);let e=b.querySelector('.dco');if(!e){e=document.createElement('span');e.className='dco';b.appendChild(e)}
     e.replaceChildren();
@@ -2428,7 +2428,7 @@ $('#stDone').onclick=()=>owShow();
 $('#eAgain').onclick=()=>startMatch(G.crew);
 $('#eMenu').onclick=()=>owShow();
 let exitArm=0;
-$('#exit').onclick=e=>{const n=Date.now();if(n-exitArm<2200){sayTok++;$('#banner').classList.remove('show');G.mode='end';F.mode='dead';show('#hud',false);show('#sheet',false);show('#fourth',false);show('#ctl',false);show('#setbar',false);resetJoy();owShow();e.target.textContent='EXIT'}else{exitArm=n;e.target.textContent='TAP AGAIN'}};
+const exitButton=$('#exit');exitButton.textContent='Ⅱ';exitButton.setAttribute('aria-label','Pause / exit match');exitButton.title='Pause / exit match';exitButton.onclick=e=>{const n=Date.now();if(n-exitArm<2200){sayTok++;$('#banner').classList.remove('show');G.mode='end';F.mode='dead';show('#hud',false);show('#sheet',false);show('#fourth',false);show('#ctl',false);show('#setbar',false);resetJoy();owShow();exitButton.classList.remove('is-armed')}else{exitArm=n;exitButton.classList.add('is-armed');exitButton.setAttribute('aria-label','Confirm exit match');exitButton.title='Tap again to exit match'}};
 /* ============ v2.97 REWARDS YOU CAN SEE (player experience item 2). Same amounts as before: this only shows them. ============
    rwShow(list,{gain,total,ovr0}) puts a panel at the top of the win screen: the points count up (+0 -> +7, and your total),
    and after a first win the team boost is shown as one bar per starter growing from the old overall to the new one.
