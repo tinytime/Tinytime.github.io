@@ -134,3 +134,27 @@ The owner re-supplied the original 14-page Gemini handoff. Re-review pages 1 and
 - match-playbook-overlay.png — evaluate the whole sheet against page 9: #131620 outer surface, restrained border/shadow, #1C2130 inactive categories and play cards, gold active/selected states, quiet dark route diagrams, gold-outline FLIP, and cyan CALL PLAY as the only primary execution accent. Confirm scoreboard clearance and readability remain intact.
 
 Do not request unchanged screenshots. Include the screenshot from the new run only; Run #194 predates this palette correction. The two new palette assertions must pass, and the exact tested SHA must match the CSS implementation before visual scoring.
+
+
+## Full Stage One Gemini mockup comparison — new delta package
+
+The owner asked for every Stage One surface to be compared against the original 14-page Gemini DOCX, not just the playbook. The original embedded mockups were re-opened and compared with Run #204 screenshots. Run #204 (149/149, commit e12972b) is baseline evidence only and predates the new changes.
+
+**Submit only these changed assets for the next delta review:**
+- overworld-portrait.png — matte town/status pill.
+- portrait-menu.png — centered title/town and UPGRADES / MY TEAM / PLAYBOOK / GOALS & STATS tile order.
+- portrait-settings.png — centered header and removal of the Home-only current-goal card.
+- portrait-credits.png — centered header and removal of the Home-only current-goal card.
+- goals-stats-challenges.png — segmented tabs and cyan/gold challenge card frames.
+- goals-stats-achievements.png — trophy progress badge, 0/1 counters, enlarged medal/card treatment.
+- goals-stats-team-stats.png — Passing/Rushing two-up, Receiving full-width and three-cell Skill Moves.
+- match-pre-game.png — gold/cyan team badge cards.
+- match-playbook-overlay.png — consolidated Gemini page 9 palette and hierarchy.
+- match-defense-selection.png — centered floating defense panel.
+- match-post-game-portrait.png — mode pill, team frame, reward card when populated, gold Rematch and cyan-edged Menu.
+
+Do not include unchanged pre-snap, live-play, fumble, defense-simulation or achievement-toast screenshots in this delta package unless new QA exposes a regression. For final Stage One approval, the complete Stage One inventory must still be considered; this delta-only rule is for review-round efficiency.
+
+**Outstanding source-vs-implementation questions to score separately:** stylized split pre-game background vs blurred town-specific mockup; separate FIRST TO pill vs integrated scoreboard field (without changing actual match target); open receiver state not shown in the current live screenshot; win-state post-game rewards not covered by the current loss screenshot.
+
+Fresh Actions evidence is mandatory. The new assertions are test definitions, not passed checks. Run #204 is pre-correction and must not be used to approve the changes. Claude should score visual fidelity against the actual DOCX mockups and flag regressions, but owner approval remains required for Stage One in totality.
