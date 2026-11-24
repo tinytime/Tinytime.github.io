@@ -77,10 +77,10 @@ try{
  const townCtaStyle=await page.locator('#mTown').evaluate(el=>({backgroundImage:getComputedStyle(el).backgroundImage,color:getComputedStyle(el).color}));
  check('BACK TO TOWN uses the crimson/pink exit treatment',townCtaStyle.backgroundImage.includes('239, 71, 111')&&townCtaStyle.color==='rgb(255, 255, 255)',townCtaStyle);
  const menuTileGeometry=await page.locator('#uiMenuHome .ui-menu-grid .ui-menu-icon-card').evaluateAll(items=>items.map(el=>{const r=el.getBoundingClientRect(),copy=el.querySelector('.ui-menu-action-copy'),c=copy?.getBoundingClientRect();return{label:copy?.querySelector('strong')?.textContent||'',x:r.x,y:r.y,width:r.width,height:r.height,textFits:!!c&&c.right<=r.right+1&&c.left>=r.left-1}}));
- check('Menu uses four icon-led 2×2 cards',menuTileGeometry.length===4&&Math.abs(menuTileGeometry[0].y-menuTileGeometry[1].y)<3&&menuTileGeometry[2].y>menuTileGeometry[0].y&&Math.abs(menuTileGeometry[2].y-menuTileGeometry[3].y)<3,menuTileGeometry);
+ check('Menu uses the four Stage One tiles in reference order',menuTileGeometry.length===4&&menuTileGeometry.map(x=>x.label).join('|')==='UPGRADES|MY TEAM|PLAYBOOK|GOALS & STATS'&&Math.abs(menuTileGeometry[0].y-menuTileGeometry[1].y)<3&&menuTileGeometry[2].y>menuTileGeometry[0].y&&Math.abs(menuTileGeometry[2].y-menuTileGeometry[3].y)<3,menuTileGeometry);
  check('Menu card labels do not clip',menuTileGeometry.every(x=>x.textFits),menuTileGeometry);
  const menuCardBorders=await page.locator('#uiMenuHome .ui-menu-grid .ui-menu-icon-card').evaluateAll(items=>items.map(el=>getComputedStyle(el).borderTopColor));
- check('Primary menu tiles use one consistent neutral border treatment',new Set(menuCardBorders).size===1,menuCardBorders);
+ check('Menu uses a gold UPGRADES tile and cyan frames for the other three actions',menuCardBorders[0]==='rgba(245, 184, 65, 0.88)'&&menuCardBorders.slice(1).every(x=>x==='rgba(77, 225, 242, 0.82)'),menuCardBorders);
  await page.locator('.ui-menu-playbook').click();
  check('Playbook overlay opens',await page.locator('.ui-menu-playbook-overlay').isVisible());
  const playCount=await page.locator('.ui-menu-play-card').count();
@@ -104,6 +104,13 @@ try{
  check('GOALS & STATS opens as a modal screen',await page.locator('#goalsP').isVisible());
  check('GOALS & STATS has three accessible tabs',await page.locator('#goalsP [role="tab"]').count()===3);
  check('GOALS & STATS starts on CHALLENGES',await page.locator('#ui-goals-tab-challenges').getAttribute('aria-selected')==='true'&&await page.locator('#ui-goals-panel-challenges').isVisible());
+ const trophyBadge=await page.locator('#goalsP .ui-goals-trophy').evaluate(el=>({count:el.querySelector('.ui-goals-trophy-count')?.textContent||'',width:el.getBoundingClientRect().width}));
+ check('Goals header includes the live trophy progress badge',trophyBadge.count==='0/13'&&trophyBadge.width>=50,trophyBadge);
+ const goalsTabRail=await page.locator('#goalsP .ui-goals-tabs').evaluate(el=>({radius:getComputedStyle(el).borderRadius,border:getComputedStyle(el).borderTopWidth}));
+ check('Goals tabs use one segmented rounded rail',goalsTabRail.radius==='999px'&&parseFloat(goalsTabRail.border)>=1,goalsTabRail);
+ const challengeFrame=await page.locator('#ui-goals-panel-challenges .ui-goals-challenge').first().evaluate(el=>({border:getComputedStyle(el).borderTopWidth,color:getComputedStyle(el).borderTopColor,shadow:getComputedStyle(el).boxShadow}));
+ check('Challenge cards use the cyan outer and gold inset frame from the mockup',parseFloat(challengeFrame.border)>=2&&challengeFrame.color==='rgba(77, 225, 242, 0.82)'&&challengeFrame.shadow.includes('245, 184, 65'),challengeFrame);
+
  const challengePanel=await page.locator('#ui-goals-panel-challenges').evaluate(el=>({cards:el.querySelectorAll('.ui-goals-challenge').length,pills:el.querySelectorAll('.ui-goals-trail-pill').length,complete:el.querySelectorAll('.ui-goals-challenge.is-complete').length}));
  check('Challenge cards show color-coded trail rewards',challengePanel.cards>0&&challengePanel.pills===challengePanel.cards,challengePanel);
  await page.screenshot({path:path.join(out,'goals-stats-challenges.png')});
@@ -122,6 +129,9 @@ try{
  await page.locator('#ui-goals-tab-stats').click();
  const teamStatsPanel=await page.locator('#ui-goals-panel-stats').evaluate(el=>({visible:!el.hidden,cards:el.querySelectorAll('.ui-goals-stat-card').length,note:el.querySelector('.ui-goals-note')?.textContent||'',selected:document.querySelector('#ui-goals-tab-stats')?.getAttribute('aria-selected')}));
  check('Team Stats uses four career cards and the MY SQUAD > CAREER note',teamStatsPanel.visible&&teamStatsPanel.cards===4&&teamStatsPanel.note.includes('MY SQUAD')&&teamStatsPanel.note.includes('CAREER')&&teamStatsPanel.selected==='true',teamStatsPanel);
+ const statLayout=await page.locator('#ui-goals-panel-stats .ui-goals-stat-card').evaluateAll(es=>es.map(el=>({label:el.querySelector('.ui-goals-stat-label')?.textContent.trim(),x:el.getBoundingClientRect().x,width:el.getBoundingClientRect().width,skill:el.classList.contains('is-skill'),cells:el.querySelectorAll('.ui-goals-skill-cell').length})));
+ check('Team Stats follows two-up, full-width Receiving and three-cell Skill Moves layout',statLayout.length===4&&statLayout[0].x>statLayout[1].x&&statLayout[2].width>=statLayout[0].width*1.8&&statLayout[3].width>=statLayout[0].width*1.8&&statLayout[3].skill&&statLayout[3].cells===3,statLayout);
+
  await page.screenshot({path:path.join(out,'goals-stats-team-stats.png')});
  await page.locator('.ui-goals-close').click();
  check('GOALS & STATS CLOSE returns to the menu',await page.locator('#goalsP').count()===0);
@@ -329,7 +339,7 @@ try{
    check('First-to target badge yields to the defense-selection headline',await page.locator('#tgtTag').isHidden());
    check('Defense selection offers BLITZ, BALANCED and PREVENT',await page.locator('#dcall button[data-c]').count()===3);
    const defensePanel=await page.locator('#dcall').evaluate(el=>{const r=el.getBoundingClientRect();return{left:r.left,right:r.right,width:r.width,viewport:innerWidth}});
-   check('Defense selection panel is centered and fits the viewport',defensePanel.left>=0&&defensePanel.right<=defensePanel.viewport&&defensePanel.width>=defensePanel.viewport-40,defensePanel);
+   check('Defense selection is a centered floating panel below the scoreboard',defensePanel.left>=0&&defensePanel.right<=defensePanel.viewport&&Math.abs((defensePanel.left+defensePanel.right)/2-defensePanel.viewport/2)<2&&defensePanel.width<defensePanel.viewport-40,defensePanel);
    const defenseRows=await page.locator('#dcall button[data-c] .dco').evaluateAll(nodes=>nodes.map(n=>({rows:n.querySelectorAll('.dco-row').length,columns:getComputedStyle(n).gridTemplateColumns.split(' ').length,rowColumns:[...n.querySelectorAll('.dco-row')].map(row=>getComputedStyle(row).gridTemplateColumns.split(' ').length),labels:[...n.querySelectorAll('.dco-label')].map(x=>x.textContent.trim())})));
    check('Defense cards show three aligned STOP, BIG PLAY and TAKEAWAY stat rows',defenseRows.length===3&&defenseRows.every(x=>x.rows===3&&x.columns===1&&x.rowColumns.every(n=>n===2)&&x.labels.join('|')==='STOP|BIG PLAY|TAKEAWAY'),defenseRows);
    check('Defense selection headline names possession inside the modal', (await page.locator('#dcTop').textContent()).includes('THEY GET THE BALL'));
@@ -360,8 +370,9 @@ try{
   }else await page.evaluate(()=>window.SG.endGame(false));
   await page.waitForFunction(()=>{const e=document.querySelector('#end');return e&&!e.hidden},null,{timeout:10000});
   check('Post-game result screen visible',await page.locator('#end').isVisible());
+  check('Post-game shows the match-mode pill',await page.locator('#end .ui-end-mode').isVisible()&&(await page.locator('#end .ui-end-mode').textContent()).includes('CREW GAME'));
   const endStyles=await page.evaluate(()=>({surface:getComputedStyle(document.querySelector('#end')).backgroundColor,rematch:getComputedStyle(document.querySelector('#eAgain')).backgroundColor,rematchText:getComputedStyle(document.querySelector('#eAgain')).color,menu:getComputedStyle(document.querySelector('#eMenu')).backgroundColor}));
-  check('Post-game uses matte navy surface and cyan rematch CTA',endStyles.surface==='rgb(19, 22, 32)'&&endStyles.rematch==='rgb(77, 225, 242)'&&endStyles.rematchText==='rgb(8, 19, 27)'&&endStyles.menu==='rgb(28, 33, 48)',endStyles);
+  check('Post-game uses matte navy surface, gold rematch and cyan-edged menu action',endStyles.surface==='rgb(19, 22, 32)'&&endStyles.rematch==='rgb(245, 184, 65)'&&endStyles.rematchText==='rgb(19, 22, 32)'&&endStyles.menu==='rgb(28, 33, 48)',endStyles);
   const scorePanel=await page.locator('#endScore').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{width:r.width,background:s.backgroundColor,border:s.borderTopWidth,radius:s.borderTopLeftRadius,children:el.children.length}});
   check('Post-game team score block is framed inside a matte navy card',scorePanel.background==='rgb(19, 22, 32)'&&parseFloat(scorePanel.border)>=1&&parseFloat(scorePanel.radius)>=12&&scorePanel.children>=1,scorePanel);
   const scoreCardContent=await page.locator('#endScore').evaluate(el=>({children:[...el.children].map(n=>({tag:n.tagName,classes:typeof n.className==='string'?n.className:'svg'})),logos:[...el.children].filter(n=>n.classList?.contains('ui-end-logo')).length,svgCount:el.querySelectorAll('svg').length,matchup:el.querySelector('.ui-end-score-matchup')?.textContent||'',score:el.querySelector('.ui-end-score-value')?.textContent?.trim()||''}));
