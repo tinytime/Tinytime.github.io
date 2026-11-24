@@ -183,7 +183,6 @@
 
   }
   const enhanceGoals=()=>{
-   // Trophy and achievement badges belong to the modal root; career stats live in a child tab panel.
    const panel=document.getElementById('goalsP');if(!panel||panel.dataset.uiMockupEnhance==='1')return;
    panel.dataset.uiMockupEnhance='1';
    const trophy=panel.querySelector('.ui-goals-trophy');
@@ -202,19 +201,23 @@
     const skill=stats&&[...stats.querySelectorAll('.ui-goals-stat-card')].find(card=>card.querySelector('.ui-goals-stat-label')?.textContent.trim()==='SKILL MOVES');
     if(skill&&!skill.querySelector('.ui-goals-skill-grid')){
      const detail=skill.querySelector('.ui-goals-stat-sub')?.textContent||skill.textContent||'';
-     const nums=['ANKLES','TRUCKS','SPINS'].map(label=>{
-      const match=detail.match(new RegExp('\\b'+label+'\\b\\s*(?:[:·•—-]\\s*)?([\\d,]+)','i'));
-      return match&&{label,value:match[1]};
+     const values=['ANKLES','TRUCKS','SPINS'].map(label=>{
+      const after=detail.match(new RegExp(label+'\\s*(?:[:·•—-]\\s*)?([\\d,]+)','i'));
+      const before=detail.match(new RegExp('([\\d,]+)\\s*'+label,'i'));
+      const value=after?.[1]||before?.[1];
+      return value?{label,value}:null;
      });
-     if(nums.every(Boolean)){
+     if(values.every(Boolean)){
       skill.classList.add('is-skill');
       const grid=document.createElement('div');grid.className='ui-goals-skill-grid';
-      nums.forEach(item=>{const cell=document.createElement('div');cell.className='ui-goals-skill-cell';const value=document.createElement('b');value.textContent=item.value;const label=document.createElement('span');label.textContent=item.label;cell.append(value,label);grid.appendChild(cell)});
+      values.forEach(item=>{const cell=document.createElement('div');cell.className='ui-goals-skill-cell';const value=document.createElement('b');value.textContent=item.value;const label=document.createElement('span');label.textContent=item.label;cell.append(value,label);grid.appendChild(cell)});
       skill.appendChild(grid);
      }
     }
    };
-   update();if(window.MutationObserver)new MutationObserver(update).observe(panel,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class']});
+   update();
+   if(window.MutationObserver)new MutationObserver(update).observe(panel,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class','hidden']});
+   panel.addEventListener('click',event=>{if(event.target.closest('#ui-goals-tab-stats'))requestAnimationFrame(update)});
   };
   const enhanceEnd=()=>{
    const end=document.getElementById('end');if(!end||end.hidden)return;

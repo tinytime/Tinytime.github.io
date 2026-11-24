@@ -1698,3 +1698,19 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 #uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"],
 #uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"]:hover,
 #uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"]:focus-visible{border-color:rgba(77,225,242,.82)!important}
+
+
+/* Run #228 correction: menu actions are children of #menu, not #uiMenuHome. */
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"],
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"]:hover,
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"]:focus-visible{border-color:rgba(245,184,65,.88)!important}
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"] strong{color:#F5B841!important}
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="team"],
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="team"]:hover,
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="team"]:focus-visible,
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="playbook"],
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="playbook"]:hover,
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="playbook"]:focus-visible,
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"],
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"]:hover,
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"]:focus-visible{border-color:rgba(77,225,242,.82)!important}
