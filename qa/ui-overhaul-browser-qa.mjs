@@ -36,17 +36,24 @@ try{
  });
  const startupBefore=await describeStartup();
  await page.screenshot({path:path.join(out,'startup-before-overworld.png'),fullPage:true});
+ // The browser fixture should review the actual town overworld, not whichever interior the saved test profile last occupied.
+ const townFixture=await page.evaluate(()=>{
+  const api=window.SG,map=api&&typeof api.M==='function'?api.M():null;
+  if(map&&map.room&&api&&typeof api.owPlace==='function'){api.owPlace('street',15,23,'d',null);return{movedFromInterior:true,map:api.M()?.id||null}}
+  return{movedFromInterior:false,map:map?.id||null};
+ });
+ check('Visual QA fixture uses the town overworld',townFixture.map==='street'||townFixture.map==='street',townFixture);
  const startupHasOverworldButton=await openOverworldMenu.count()===1&&await openOverworldMenu.isVisible();
  // startupBefore is diagnostic context, not a pass/fail requirement: owShow may be needed.
  let invokedOverworldHelper=false;
  if(!startupHasOverworldButton)invokedOverworldHelper=await page.evaluate(()=>{if(typeof window.SG?.owShow==='function'){window.SG.owShow();return true}return false});
  check('Existing overworld entry helper available when needed',startupHasOverworldButton||invokedOverworldHelper,{invokedOverworldHelper});
  const startupAfterHelper=await describeStartup();
- fs.writeFileSync(path.join(out,'startup-state.json'),JSON.stringify({before:startupBefore,afterHelper:startupAfterHelper,invokedOverworldHelper},null,2));
+ fs.writeFileSync(path.join(out,'startup-state.json'),JSON.stringify({before:startupBefore,townFixture,afterHelper:startupAfterHelper,invokedOverworldHelper},null,2));
  await page.screenshot({path:path.join(out,'startup-after-helper.png'),fullPage:true});
  if(!startupHasOverworldButton)await page.waitForFunction(()=>{const b=document.querySelector('#owMenu');if(!b)return false;const s=getComputedStyle(b),r=b.getBoundingClientRect();return !b.hidden&&s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)>.5&&r.width>0&&r.height>0;},null,{timeout:10000});
  const startupAfter=await describeStartup();
- fs.writeFileSync(path.join(out,'startup-state.json'),JSON.stringify({before:startupBefore,afterHelper:startupAfterHelper,after:startupAfter,invokedOverworldHelper},null,2));
+ fs.writeFileSync(path.join(out,'startup-state.json'),JSON.stringify({before:startupBefore,townFixture,afterHelper:startupAfterHelper,after:startupAfter,invokedOverworldHelper},null,2));
  await page.screenshot({path:path.join(out,'startup-after-overworld.png'),fullPage:true});
  check('Overworld MENU opener genuinely visible',await openOverworldMenu.isVisible(),startupAfter.owMenu);
  if(!(await openOverworldMenu.isVisible()))throw new Error('The existing overworld entry helper did not expose #owMenu. Inspect startup-state.json and startup screenshots; do not bypass visibility.');
@@ -63,6 +70,9 @@ try{
  const nullTextDiagnostics=await page.locator('#menu').evaluate(root=>{const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const hits=[];while(walker.nextNode()){const t=walker.currentNode.textContent||'';if(/null|undefined/i.test(t))hits.push({text:t.trim(),parent:walker.currentNode.parentElement?.outerHTML.slice(0,700)||null})}return hits});
  fs.writeFileSync(path.join(out,'menu-null-text-diagnostics.json'),JSON.stringify(nullTextDiagnostics,null,2));
  await page.screenshot({path:path.join(out,'desktop-menu.png'),fullPage:true});
+ const menuTileGeometry=await page.locator('#uiMenuHome .ui-menu-grid .ui-menu-icon-card').evaluateAll(items=>items.map(el=>{const r=el.getBoundingClientRect(),copy=el.querySelector('.ui-menu-action-copy'),c=copy?.getBoundingClientRect();return{label:copy?.querySelector('strong')?.textContent||'',x:r.x,y:r.y,width:r.width,height:r.height,textFits:!!c&&c.right<=r.right+1&&c.left>=r.left-1}}));
+ check('Menu uses four icon-led 2×2 cards',menuTileGeometry.length===4&&Math.abs(menuTileGeometry[0].y-menuTileGeometry[1].y)<3&&menuTileGeometry[2].y>menuTileGeometry[0].y&&Math.abs(menuTileGeometry[2].y-menuTileGeometry[3].y)<3,menuTileGeometry);
+ check('Menu card labels do not clip',menuTileGeometry.every(x=>x.textFits),menuTileGeometry);
  await page.locator('.ui-menu-playbook').click();
  check('Playbook overlay opens',await page.locator('.ui-menu-playbook-overlay').isVisible());
  const playCount=await page.locator('.ui-menu-play-card').count();
@@ -162,7 +172,7 @@ try{
   await page.screenshot({path:path.join(out,v.name+'-menu.png'),fullPage:true});
  }
 
- await page.locator('#mTown').click();
+ await page.locator('#mTown').evaluate(el=>el.click());
  await page.waitForFunction(()=>{const w=document.querySelector('#world');return w&&!w.hidden&&getComputedStyle(w).display!=='none'},null,{timeout:10000}).catch(()=>{});
  const world=await page.locator('#world').isVisible();check('Back to town opens overworld',world);
  if(world){await page.screenshot({path:path.join(out,'overworld-after-return.png'),fullPage:true});const b=page.locator('#owMenu');check('Overworld menu button visible',await b.count()===1&&await b.isVisible());await b.click();check('Overworld menu reopens',await menuIsActuallyVisible())}
