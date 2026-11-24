@@ -9119,7 +9119,7 @@ function owShow(){SPR.clear();
     SAVE.t2={entered:true,homeVisited:true,starJoined:true,testRefSeen:true,fromY:24,harbormaster:{route1Best:null,bestScore:12,games:4,captains:1},arcadeHighScore:12};
     SAVE.ow={map:'harbor',x:42,y:47,d:'d',gates:1};SAVE.hbMapV=HB_MAPV;persist()}
   if(window.CF_TEST){SAVE.storyV=2;SAVE.story=SAVE.story||{card:1};SAVE.ow=SAVE.ow||{};SAVE.ow.gates=1}
-  if(window.CF_TEST&&!SAVE.tRef){SAVE.tRef=1;SAVE.ow={map:'hb_B02',x:7,y:6,d:'r',gates:1,ret:{x:42,y:47}};SAVE.hbMapV=HB_MAPV;persist()}   // TEST ONLY v3.16T: one-time placement in front of the TEST REF dummy (Cadogan's room 3)
+  if(window.CF_TEST&&(!SAVE.tRef||(SAVE.ow&&SAVE.ow.map==='hb_B02'))){SAVE.tRef=1;SAVE.ow={map:'street',x:15,y:14,d:'u',gates:1,ret:null};SAVE.hbMapV=HB_MAPV;persist()}   // TEST ONLY: start in the Vapor City plaza; the reference room remains reachable from the developer test drawer.
 
   owResize();
   const o=SAVE.ow,mp=(OWI[o.map]||HBI[o.map]||o.map==='street'||o.map==='spillway'||o.map==='harbor'||o.map==='island')?o.map:'street';
