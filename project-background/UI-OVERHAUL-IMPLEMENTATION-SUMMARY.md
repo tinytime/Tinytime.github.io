@@ -231,3 +231,18 @@ The commit modifies `ui-overhaul-menu.js`:
 Status: implemented in source, not browser-tested or visually inspected. Recheck the native resolution control's current value parsing/click cycle and ensure the segmented control accurately reflects the real game state. Verify the Playbook overlay scrolls, fits portrait screens, has sensible empty states and closes accessibly.
 
 The latest observed branch HEAD during this check was `709d9078a5277e8ffd31f1fb48cf66539b75d097`. Check Actions again for a run triggered by this commit; do not infer one passed from the earlier Run #10.
+
+
+## QA runs after the latest menu feature additions — 2026-11-24
+
+- [Run #11 / 45416823158](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416823158), testing `709d9078a5277e8ffd31f1fb48cf66539b75d097`, **FAILED** at the initial `#owMenu` visibility/click step. Setup passed and the artifact uploaded, but the artifact is only 427 bytes (no screenshots). Artifact [14932835800](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416823158/artifacts/14932835800).
+- [Run #12 / 45416862839](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416862839) tests `40ffc5cf0b43d6d5d10a0dc8d6efcaaba19fa3eb` (document-level capture for reset confirmation). It was in progress at the last poll.
+- [Run #13 / 45416919789](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416919789) tests `cf2ba92265a10cd6a57652f4ec324ca897bb2105` (resolution label parsing correction). It was in progress at the last poll.
+- [Run #14 / 45416924693](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416924693) tests `24396a0a606570dc3d1c590534317ebdab0f55b3` (playbook/resolution styling). It was in progress at the last poll.
+
+The latest code commits now include:
+- `40ffc5c`: reset interception moved to document-level capture.
+- `cf2ba92`: correct regex parsing for the segmented resolution label.
+- `24396a0`: styling for the Playbook catalog and segmented resolution control.
+
+The latest code HEAD observed before this documentation update is `24396a0a606570dc3d1c590534317ebdab0f55b3`. Poll Runs #12–14 and inspect their logs/artifacts. Because Runs #12–14 were triggered in quick succession, confirm which exact code SHA each one checked out; only the latest successful run against the latest code can establish browser QA. The startup failure remains unresolved until a run demonstrates `#owMenu` is visible and the test reaches the rest of the menu interactions.
