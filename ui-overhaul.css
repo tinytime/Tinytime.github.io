@@ -676,3 +676,29 @@
 #menu .ui-menu-playbook-card[aria-pressed="true"],#menu .ui-menu-playbook-card.selected{border:2px solid var(--ui-gold);box-shadow:0 0 0 2px rgba(245,184,65,.16)}
 @media(max-width:420px){#owTop{left:9px;top:calc(env(safe-area-inset-top,0px) + 9px);gap:6px;padding:7px 8px}#owTown{font-size:13px}#owObj{font-size:8px;padding:4px 6px}#owGoal{left:9px;top:calc(env(safe-area-inset-top,0px) + 53px);font-size:9px}#owMenu{right:9px;top:calc(env(safe-area-inset-top,0px) + 9px);min-height:36px;height:36px;padding:0 11px}#owA{right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);width:68px;height:68px}#menu.ui-menu-ready{width:100%;left:0;transform:none;padding-left:14px;padding-right:14px}#menu .ui-menu-grid .ui-menu-icon-card{min-height:88px;padding:9px!important;grid-template-columns:36px minmax(0,1fr) 10px;gap:8px}#menu .ui-menu-grid .ui-menu-icon{width:36px;height:36px}}
 @media(orientation:landscape){#menu.ui-menu-ready{width:min(100%,920px);left:50%;transform:translateX(-50%)}#menu .ui-menu-playbook-overlay{width:min(100%,1040px)}}
+
+/* The live in-match play-calling sheet: style the real game controls, not a menu imitation. */
+#sheet{background:linear-gradient(180deg,rgba(19,22,32,.98),rgba(13,17,27,.99));border-top:2px solid var(--ui-cyan);box-shadow:0 -8px 28px rgba(0,0,0,.42)}
+#sheet #shDD{font-family:var(--ui-display,"Barlow Condensed",Impact,sans-serif);font-size:20px;letter-spacing:.07em;color:var(--ui-gold)}
+#sheet #shHint{color:#aeb8c8;font:700 11px/1.3 var(--ui-heading,system-ui)}
+#sheet #pbMain{gap:10px}
+#sheet #pbTabs{gap:6px}
+#sheet .pbTab{border:1px solid rgba(255,255,255,.15);border-radius:11px;background:#1c2130;color:#b7c1d1}
+#sheet .pbTab.on{border:2px solid var(--ui-gold);background:rgba(245,184,65,.12);color:#ffe4a3;box-shadow:0 0 0 2px rgba(245,184,65,.12)}
+#sheet #cards{gap:8px}
+#sheet .card{min-width:0;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:#1c2130;overflow:hidden}
+#sheet .card.sel{border:2px solid var(--ui-gold)!important;background:#242a38;box-shadow:0 0 0 2px rgba(245,184,65,.18),0 5px 15px rgba(0,0,0,.22)}
+#sheet .card b{background:#111725;color:#f5f7fa;font-family:var(--ui-display,"Barlow Condensed",Impact,sans-serif);font-size:15px;font-weight:900}
+#sheet .card b em{color:var(--ui-gold)}
+#sheet .card canvas{display:block;background:#101a27;border-radius:7px}
+#sheet #flipBtn{height:40px;min-width:68px;border:1px solid rgba(245,184,65,.68);border-radius:10px;background:#1c2130;color:var(--ui-gold);font:900 11px/1 var(--ui-heading,system-ui);letter-spacing:.13em}
+#sheet #flipBtn.on{border-color:var(--ui-gold);background:rgba(245,184,65,.16);color:#ffe3a0}
+#sheet #gbBtn{min-height:44px;border:1px solid rgba(245,184,65,.55);border-radius:11px;background:#1c2130;color:var(--ui-gold);font:900 11px/1 var(--ui-heading,system-ui)}
+#sheet #callBtn{flex:0 0 180px;height:50px;border:1px solid #4de1f2;border-radius:12px;background:var(--ui-cyan)!important;color:#08131b!important;font:900 14px/1 var(--ui-heading,system-ui);letter-spacing:.13em;box-shadow:0 4px 0 #1a8291!important}
+#sheet #callBtn:active{transform:translateY(3px);box-shadow:0 1px 0 #1a8291!important}
+#menu .ui-menu-play-card{padding:10px;border:1px solid rgba(255,255,255,.15);border-radius:12px;background:#1c2130}
+#menu .ui-menu-play-card.is-selected{border:2px solid var(--ui-gold);background:#242a38;box-shadow:0 0 0 2px rgba(245,184,65,.18)}
+#menu .ui-menu-play-diagram-wrap{display:block;padding:5px;border-radius:9px;background:#101a27}
+#menu .ui-play-diagram{display:block;width:100%;height:auto;aspect-ratio:180/78}
+#menu .ui-menu-playbook-flip[aria-pressed="true"]{border-color:var(--ui-gold);background:rgba(245,184,65,.16);color:#ffe3a0}
+@media(orientation:landscape){body.land #sheet{width:min(100%,1100px);left:50%;transform:translateX(-50%);border-radius:16px 16px 0 0}body.land #sheet #pbTabs{flex-basis:104px}body.land #sheet #callBtn{flex-basis:170px}}
