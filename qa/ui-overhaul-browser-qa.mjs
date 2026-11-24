@@ -237,6 +237,11 @@ try{
   await page.waitForFunction(()=>{const e=document.querySelector('#end');return e&&!e.hidden},null,{timeout:10000});
   check('Post-game result screen visible',await page.locator('#end').isVisible());
   await page.screenshot({path:path.join(out,'match-post-game.png'),fullPage:true});
+  await page.setViewportSize({width:390,height:844});
+  await page.waitForTimeout(120);
+  const postPortrait=await page.locator('#end').evaluate(el=>{const r=el.getBoundingClientRect();return{left:r.left,right:r.right,width:r.width,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,viewport:innerWidth}});
+  check('Portrait post-game screen fits viewport',postPortrait.left>=0&&postPortrait.right<=390&&postPortrait.scrollWidth<=postPortrait.clientWidth+1,postPortrait);
+  await page.screenshot({path:path.join(out,'match-post-game-portrait.png'),fullPage:true});
  }
 
  check('No same-origin HTTP errors',sameOriginFailures.length===0,sameOriginFailures);
