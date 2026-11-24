@@ -24,7 +24,7 @@ page.on('pageerror',e=>pageErrors.push({message:e.message,stack:e.stack}));
 page.on('console',m=>{if(m.type()==='error')consoleErrors.push({text:m.text(),location:m.location()})});
 page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400)sameOriginFailures.push({url:r.url(),status:r.status()})});
 try{
- await page.goto(base+'/index.html',{waitUntil:'load',timeout:60000});
+ await page.goto(base+'/index.html?uiqa=1',{waitUntil:'load',timeout:60000});
  await page.waitForFunction(()=>document.querySelector('#menu')?.dataset.uiMenuReady==='1',null,{timeout:15000});
  // Inspect startup, explicitly enter the overworld when the game exposes its existing owShow helper,
  // then use the real visible HUD button exactly once. Never force-click a hidden control.
@@ -184,6 +184,7 @@ try{
   await page.waitForFunction(()=>document.querySelector('#mu .tap')?.classList.contains('go'),null,{timeout:15000});
   await page.evaluate(()=>{const state=window.SG&&typeof window.SG.muState==='function'?window.SG.muState():null;if(state&&state.auto){clearTimeout(state.auto);state.auto=0}});
   check('Pre-game matchup overlay remains visible for inspection',await page.locator('#mu').isVisible());
+  check('Pre-game TAP TO PLAY prompt fits inside the viewport',await page.locator('#mu .tap').isVisible());
   await page.screenshot({path:path.join(out,'match-pre-game.png'),fullPage:true});
   await page.locator('#mu').click({position:{x:420,y:350}});
   await page.waitForFunction(()=>{const e=document.querySelector('#sheet');return e&&!e.hidden},null,{timeout:10000});
@@ -204,7 +205,25 @@ try{
   await page.waitForFunction(()=>window.SG?.G?.mode==='live'||window.SG?.F?.mode==='live',null,{timeout:10000});
   await page.waitForTimeout(250);
   await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
-  await page.evaluate(()=>window.SG.endGame(false));
+  const qaHooks=await page.evaluate(()=>window.SG&&window.SG.__uiqa?true:false);
+  check('Query-gated match QA hooks are available',qaHooks);
+  if(qaHooks){
+   const pileStarted=await page.evaluate(()=>window.SG.__uiqa.startFumble());
+   check('Fumble pile can be triggered in live play',pileStarted);
+   await page.waitForFunction(()=>{const e=document.querySelector('#pile');return e&&!e.hidden},null,{timeout:10000});
+   await page.screenshot({path:path.join(out,'match-fumble-pile.png'),fullPage:true});
+   const lost=await page.evaluate(()=>window.SG.__uiqa.loseFumble());
+   check('Fumble turnover can be resolved',lost);
+   await page.waitForFunction(()=>{const e=document.querySelector('#dcall');return e&&!e.hidden},null,{timeout:10000});
+   check('Defense selection screen appears after turnover',await page.locator('#dcall').isVisible());
+   await page.screenshot({path:path.join(out,'match-defense-selection.png'),fullPage:true});
+   const toast=await page.evaluate(()=>window.SG.__uiqa.achievement());
+   check('Achievement toast can be triggered',toast);
+   await page.waitForFunction(()=>{const e=document.querySelector('#achT');return e&&getComputedStyle(e).opacity!=='0'},null,{timeout:5000});
+   check('Achievement toast is visible',await page.locator('#achT').isVisible());
+   await page.screenshot({path:path.join(out,'match-achievement-toast.png'),fullPage:true});
+   await page.evaluate(()=>window.SG.__uiqa.postGame());
+  }else await page.evaluate(()=>window.SG.endGame(false));
   await page.waitForFunction(()=>{const e=document.querySelector('#end');return e&&!e.hidden},null,{timeout:10000});
   check('Post-game result screen visible',await page.locator('#end').isVisible());
   await page.screenshot({path:path.join(out,'match-post-game.png'),fullPage:true});
@@ -212,7 +231,7 @@ try{
 
  check('No same-origin HTTP errors',sameOriginFailures.length===0,sameOriginFailures);
  check('No uncaught page exceptions',pageErrors.length===0,pageErrors);
- const report={sourceCommit:process.env.GITHUB_SHA||null,testedUrl:base+'/index.html',checks,failures,pageErrors,consoleErrors,sameOriginFailures,screenshots:fs.readdirSync(out).filter(n=>n.endsWith('.png'))};
+ const report={sourceCommit:process.env.GITHUB_SHA||null,testedUrl:base+'/index.html?uiqa=1',checks,failures,pageErrors,consoleErrors,sameOriginFailures,screenshots:fs.readdirSync(out).filter(n=>n.endsWith('.png'))};
  fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2));
  fs.writeFileSync(path.join(out,'summary.md'),['# UI-Overhaul Browser QA','', 'Commit: '+(report.sourceCommit||'local'),'Passed: '+checks.filter(c=>c.pass).length+'/'+checks.length,'Failed: '+failures.length,'',...checks.map(c=>'- ['+(c.pass?'x':' ')+'] '+c.name+(c.detail?' — '+JSON.stringify(c.detail):''))].join('\n'));
  console.log(JSON.stringify(report,null,2));if(failures.length)process.exitCode=1;
