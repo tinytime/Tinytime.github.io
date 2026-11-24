@@ -487,3 +487,22 @@
  #owMenu{min-width:78px;padding-inline:12px}
  #owGoal{max-width:68vw;font-size:10px}
 }
+
+/* Final HUD selector alignment: the live menu module owns these nodes. */
+#owTop{display:flex;flex-direction:column;align-items:flex-start;gap:6px;max-width:min(76vw,390px);padding:0;border:0;background:transparent;box-shadow:none;backdrop-filter:none}
+#owTop .ui-ow-pill{gap:8px;padding:9px 12px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(12,17,29,.88);box-shadow:0 8px 22px rgba(0,0,0,.28);backdrop-filter:blur(10px)}
+#owTop .ui-ow-status{color:#b7f8d6;border-color:rgba(52,211,153,.52)}
+#owTop .ui-ow-upg{color:#ffe09a;border:1px solid rgba(245,184,65,.65);background:linear-gradient(180deg,#59421f,#292117)}
+#owTop .ui-ow-goal{max-width:min(76vw,390px);padding:8px 12px;border:1px solid rgba(77,225,242,.34);border-left:3px solid #4de1f2;border-radius:10px;background:rgba(12,17,29,.84);box-shadow:0 5px 16px rgba(0,0,0,.24);backdrop-filter:blur(9px)}
+#owTop .ui-ow-goal-tag{color:#78effb;font-family:var(--ui);font-size:10px;letter-spacing:.16em}
+#owTop .ui-ow-goal-copy{color:#effbff;font-family:var(--ui);font-size:12px;line-height:1.2;font-weight:800}
+#owA{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+#owA::after{content:none}
+#owA .ui-ow-a-letter{display:block;font-family:var(--disp);font-size:28px;line-height:1}
+#owA .ui-ow-a-label{display:block;position:static;transform:none;padding:0;border:0;background:none;color:#ffd6e8;font:900 8px/1 var(--ui);letter-spacing:.12em;white-space:nowrap}
+@media(max-width:390px){
+ #owTop .ui-ow-pill{gap:5px;padding:7px 8px}
+ #owTop .ui-ow-status,#owTop .ui-ow-upg{padding:4px 5px;font-size:9px}
+ #owTop .ui-ow-goal{padding:7px 8px}
+ #owTop .ui-ow-goal-copy{font-size:11px}
+}
