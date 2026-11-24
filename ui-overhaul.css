@@ -506,3 +506,62 @@
  #owTop .ui-ow-goal{padding:7px 8px}
  #owTop .ui-ow-goal-copy{font-size:11px}
 }
+
+
+/* QA correction: preserve the icon-card DOM grid instead of flattening its nested icon/copy slots. */
+#menu .ui-menu-grid .ui-menu-icon-card{
+ display:grid!important;grid-template-columns:42px minmax(0,1fr) 14px!important;
+ flex-direction:initial!important;align-items:center!important;justify-content:initial!important;
+ min-height:104px;padding:12px 11px;font-family:var(--ui-heading);font-size:initial;letter-spacing:0;text-align:left;
+}
+#menu .ui-menu-grid .ui-menu-icon-card::before,
+#menu .ui-menu-support .ui-menu-icon-card::before{content:none!important;display:none!important}
+#menu .ui-menu-support .ui-menu-icon-card{
+ display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;
+ min-height:54px;padding:8px;font-family:var(--ui-heading);font-size:initial;letter-spacing:0;
+}
+#menu .ui-menu-actions .ui-menu-playbook{display:grid!important;grid-template-columns:42px minmax(0,1fr) 14px!important;flex-direction:initial!important;justify-content:initial!important;text-align:left}
+#menu .ui-menu-grid .ui-menu-icon-card .ui-menu-action-copy{min-width:0}
+#menu .ui-menu-grid .ui-menu-icon-card .ui-menu-action-copy strong{font-family:var(--ui-heading);font-size:18px;line-height:1.02;white-space:normal}
+#menu .ui-menu-grid .ui-menu-icon-card .ui-menu-action-copy small{font-family:var(--ui-heading);font-size:12px;line-height:1.15}
+#menu .ui-menu-grid .ui-menu-icon-card .ui-menu-icon{width:42px;height:42px}
+#menu .ui-menu-grid .ui-menu-icon-card .ui-menu-card-arrow{align-self:start}
+#menu .ui-menu-support .ui-menu-action-copy strong{font-size:14px}
+#menu .ui-menu-support .ui-menu-action-copy small{font-size:10px}
+
+/* The real in-match play-calling overlay: field-sheet composition, category rail, selected play and cyan CALL PLAY. */
+#app #sheet{
+ width:min(100%,980px);left:50%;right:auto;transform:translateX(-50%);
+ background:linear-gradient(180deg,rgba(17,25,40,.97),rgba(10,15,26,.99));
+ border:1px solid rgba(77,225,242,.25);border-bottom:0;
+ border-radius:18px 18px 0 0;box-shadow:0 -12px 36px rgba(0,0,0,.48);
+}
+#app #sheet .pbTop{padding:5px 4px 8px;border-bottom:1px solid rgba(255,255,255,.1)}
+#app #sheet #shDD{font-family:var(--disp);font-size:20px;color:#ffe09a;letter-spacing:.035em}
+#app #sheet #shHint{color:#b7c5d8;font-family:var(--ui);font-size:13px}
+#app #sheet #flipBtn{height:34px;padding:0 14px;border:1px solid rgba(245,184,65,.72);border-radius:999px;background:rgba(245,184,65,.1);color:#ffe09a;font-family:var(--ui);font-size:12px;font-weight:900;letter-spacing:.14em}
+#app #sheet #flipBtn.on{background:#f5b841;border-color:#f5b841;color:#151a24}
+#app #sheet #pbMain{gap:10px}
+#app #sheet #pbTabs{flex-basis:116px;gap:7px}
+#app #sheet .pbTab{border:1px solid rgba(255,255,255,.14);border-radius:11px;background:#1c2536;color:#c0cad8}
+#app #sheet .pbTab.on{border:2px solid #f5b841;background:linear-gradient(180deg,#46381d,#282316);color:#ffe5a8;box-shadow:0 0 15px rgba(245,184,65,.13)}
+#app #sheet #cards{gap:8px}
+#app #sheet .card{border:1px solid rgba(255,255,255,.16);border-radius:12px;background:#1c2536}
+#app #sheet .card.sel{border:2px solid #f5b841;background:#273149;box-shadow:0 0 0 2px rgba(245,184,65,.22),0 0 18px rgba(245,184,65,.22)}
+#app #sheet .card.sel b{background:#f5b841;color:#151a24}
+#app #sheet #blurb{color:#c6d1df;font-family:var(--ui);font-size:13px}
+#app #sheet #callBtn{height:52px;flex:0 0 190px;border:1px solid #4de1f2;border-radius:12px;background:linear-gradient(180deg,#68efff,#28c8e0);color:#071923;font-family:var(--disp);font-size:20px;letter-spacing:.05em;box-shadow:0 5px 0 #147f98,0 9px 20px rgba(39,224,242,.18)}
+#app #sheet #callBtn:active{transform:translateY(3px);box-shadow:0 2px 0 #147f98}
+#app #sheet #gbBtn{height:48px;border:1px solid rgba(245,184,65,.55);border-radius:11px;background:#252b38;color:#ffe09a}
+@media(orientation:landscape){
+ #app #sheet{max-height:calc(100% - 54px);padding:7px 12px calc(env(safe-area-inset-bottom,0px) + 8px)}
+ #app #sheet #pbMain{min-height:0}
+ #app #sheet #callBtn{flex-basis:190px}
+}
+@media(max-width:520px) and (orientation:portrait){
+ #app #sheet{width:100%;max-height:100%;top:calc(env(safe-area-inset-top,0px) + 40px);padding:8px 10px calc(env(safe-area-inset-bottom,0px) + 10px)}
+ #app #sheet #pbTabs{flex-basis:86px}
+ #app #sheet #callBtn{flex:1 1 100%;min-height:50px}
+ #app #sheet .pbRow{flex-wrap:wrap}
+ #app #sheet #blurb{flex:1 1 100%;max-height:36px}
+}
