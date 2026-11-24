@@ -77,7 +77,7 @@
   const gameplay=card(settings,'GAMEPLAY & DISPLAY');
   moveControl('mHap',gameplay,'HAPTICS',false);moveControl('mCam',gameplay,'RUNNER CAMERA',false);moveControl('mLT',gameplay,'LITE EFFECTS',false);
   moveControl('mRS',gameplay,'RESOLUTION',false);
-  const resolutionButton=byId('mRS'),resolutionRow=resolutionButton&&resolutionButton.closest('.ui-menu-setting');
+  const resolutionButton=byId('mRS'),resolutionRow=resolutionButton&&resolutionButton.parentElement;
   if(resolutionButton&&resolutionRow){
    resolutionButton.classList.add('ui-resolution-native');resolutionButton.setAttribute('aria-hidden','true');resolutionButton.tabIndex=-1;
    const group=document.createElement('div');group.className='ui-resolution-group';group.setAttribute('role','group');group.setAttribute('aria-label','Resolution');
