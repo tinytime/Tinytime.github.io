@@ -57,10 +57,14 @@
    if(old&&!old.querySelector('button,input,select'))old.remove();
   };
 
-  ['mSquad','mTeam','mGoals'].forEach(id=>moveControl(id,actions,'',true));
+  ['mTeam','mGoals'].forEach(id=>moveControl(id,actions,'',true));
   decorateAction(byId('mTeam'),icon('<path d="M8 4h8l2 3 3 1-2 12H5L3 8l3-1 2-3Z"/><path d="M9 4c0 2 1 3 3 3s3-1 3-3"/><path d="M8 12h8"/>'),'MY TEAM','Build your lineup');
   decorateAction(byId('mSquad'),icon('<path d="M12 3 20 6v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/>'),'MY SQUAD','Set your starters');
   decorateAction(byId('mGoals'),icon('<path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4M12 12v5m-4 3h8m-7-3h6"/>'),'GOALS & STATS','Challenges and records');
+  const upgradeButton=document.createElement('button');upgradeButton.type='button';upgradeButton.className='ui-menu-icon-card';upgradeButton.setAttribute('aria-label','Open upgrades');
+  upgradeButton.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon('<path d="M12 3 20 6v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-3Z"/><path d="M12 7v8m-4-4h8"/>')+'</span><span class="ui-menu-action-copy"><strong>UPGRADES</strong><small>Improve your starters</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>';
+  upgradeButton.addEventListener('click',()=>{const control=byId('mUpg');if(control)control.click()});
+  actions.prepend(upgradeButton);
   const playbookButton=document.createElement('button');playbookButton.type='button';playbookButton.className='ui-menu-playbook ui-menu-icon-card';playbookButton.style.setProperty('border-color','rgba(255,255,255,.17)','important');playbookButton.setAttribute('aria-label','Open playbook');playbookButton.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon('<path d="M4 18V6m0 12h16M7 15l4-4 3 2 5-7"/><path d="m16 6 3 0 0 3"/>')+'</span><span class="ui-menu-action-copy"><strong>PLAYBOOK</strong><small>'+(window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS.length:0)+' plays · Pick your call</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>';actions.appendChild(playbookButton);
   const playbookOverlay=document.createElement('section');playbookOverlay.className='ui-menu-playbook-overlay';playbookOverlay.hidden=true;playbookOverlay.setAttribute('role','dialog');playbookOverlay.setAttribute('aria-modal','true');playbookOverlay.setAttribute('aria-label','Playbook');
   playbookOverlay.innerHTML='<header class="ui-menu-playbook-head"><button type="button" class="ui-menu-playbook-back" aria-label="Back to menu">←</button><div><div class="ui-menu-eyebrow">CIRCUIT FOOTBALL</div><h2>PLAYBOOK</h2></div><span class="ui-menu-playbook-count"></span><button type="button" class="ui-menu-playbook-flip" aria-pressed="false">FLIP</button></header><nav class="ui-menu-playbook-filters" aria-label="Filter plays"><button type="button" data-filter="ALL" aria-pressed="true">ALL</button><button type="button" data-filter="RUN" aria-pressed="false">RUN</button><button type="button" data-filter="PASS" aria-pressed="false">PASS</button><button type="button" data-filter="TRICK" aria-pressed="false">TRICK</button></nav><div class="ui-menu-playbook-list"></div>';
@@ -176,6 +180,44 @@
     owA.setAttribute('aria-label','A button: '+label);
    };
    updateActionLabel();window.setInterval(updateActionLabel,250);
+
+  }
+  const enhanceGoals=()=>{
+   const panel=document.getElementById('goalsP');if(!panel||panel.dataset.uiMockupEnhance==='1')return;
+   panel.dataset.uiMockupEnhance='1';
+   const trophy=panel.querySelector('.ui-goals-trophy');
+   let count=trophy&&trophy.querySelector('.ui-goals-trophy-count');
+   if(trophy&&!count){count=document.createElement('span');count.className='ui-goals-trophy-count';trophy.appendChild(count)}
+   const update=()=>{
+    const cards=[...panel.querySelectorAll('.ui-goals-achievement')];
+    const earned=cards.filter(card=>card.classList.contains('is-earned')).length;
+    if(count)count.textContent=earned+'/13';
+    cards.forEach(card=>{const badge=card.querySelector('.ui-goals-achievement-count');if(!badge)return;const max=Number((badge.textContent.match(/\\/\\s*(\\d+)/)||[])[1]||1);if(max===1)badge.textContent=card.classList.contains('is-earned')?'1 / 1':'0 / 1'});
+    const skill=[...panel.querySelectorAll('.ui-goals-stat-card')].find(card=>card.querySelector('.ui-goals-stat-label')?.textContent.trim()==='SKILL MOVES');
+    if(skill&&!skill.querySelector('.ui-goals-skill-grid')){
+     const detail=skill.querySelector('.ui-goals-stat-sub')?.textContent||'';
+     const nums=[...detail.matchAll(/(ANKLES|TRUCKS|SPINS)\\s*[·:]\\s*([\\d,]+)/gi)];
+     if(nums.length===3){
+      skill.classList.add('is-skill');
+      const grid=document.createElement('div');grid.className='ui-goals-skill-grid';
+      nums.forEach(match=>{const cell=document.createElement('div');cell.className='ui-goals-skill-cell';const value=document.createElement('b');value.textContent=match[2];const label=document.createElement('span');label.textContent=match[1];cell.append(value,label);grid.appendChild(cell)});
+      skill.appendChild(grid);
+     }
+    }
+   };
+   update();if(window.MutationObserver)new MutationObserver(update).observe(panel,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  };
+  const enhanceEnd=()=>{
+   const end=document.getElementById('end');if(!end||end.hidden)return;
+   const heading=end.querySelector('#endH');if(!heading)return;
+   let pill=end.querySelector('.ui-end-mode');
+   if(!pill){pill=document.createElement('div');pill.className='ui-end-mode';heading.insertAdjacentElement('afterend',pill)}
+   pill.textContent=/PRACTICE/i.test(heading.textContent)?'NO REWARDS · PRACTICE MODE':'CREW GAME';
+  };
+  enhanceGoals();enhanceEnd();
+  if(window.MutationObserver){
+   const pageObserver=new MutationObserver(()=>{enhanceGoals();enhanceEnd()});
+   pageObserver.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden']});
   }
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
