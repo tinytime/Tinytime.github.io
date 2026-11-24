@@ -176,6 +176,39 @@ try{
  await page.waitForFunction(()=>{const w=document.querySelector('#world');return w&&!w.hidden&&getComputedStyle(w).display!=='none'},null,{timeout:10000}).catch(()=>{});
  const world=await page.locator('#world').isVisible();check('Back to town opens overworld',world);
  if(world){await page.screenshot({path:path.join(out,'overworld-after-return.png'),fullPage:true});const b=page.locator('#owMenu');check('Overworld menu button visible',await b.count()===1&&await b.isVisible());await b.click();check('Overworld menu reopens',await menuIsActuallyVisible())}
+
+ // Exercise the real in-match play-calling sheet through the game's exposed test API.
+ const matchStarted=await page.evaluate(()=>{
+  const api=window.SG;if(!api||!api.CREWS?.length||typeof api.startMatch!=='function'||typeof api.enterPlaycall!=='function')return false;
+  api.startMatch(api.CREWS[0]);return true;
+ });
+ check('Matchup test fixture can start a real game',matchStarted);
+ if(matchStarted){
+  await page.screenshot({path:path.join(out,'pre-game-matchup.png'),fullPage:true});
+  await page.evaluate(()=>window.SG.enterPlaycall());
+  await page.waitForFunction(()=>{const e=document.querySelector('#sheet');return e&&!e.hidden&&getComputedStyle(e).display!=='none'},null,{timeout:10000});
+  check('In-match playbook overlay opens',await page.locator('#sheet').isVisible());
+  check('In-match play cards render',await page.locator('#cards .card').count()>0);
+  check('In-match selected play has gold treatment',await page.locator('#cards .card.sel').count()===1);
+  check('In-match FLIP control is visible',await page.locator('#flipBtn').isVisible());
+  const callStyle=await page.locator('#callBtn').evaluate(el=>({visible:!!(el.offsetWidth&&el.offsetHeight),background:getComputedStyle(el).backgroundImage,color:getComputedStyle(el).color}));
+  check('In-match CALL PLAY uses the cyan CTA treatment',callStyle.visible&&callStyle.background.includes('linear-gradient')&&callStyle.color==='rgb(7, 25, 35)',callStyle);
+  await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
+  await page.locator('#flipBtn').click();
+  check('In-match FLIP control toggles',await page.locator('#flipBtn').evaluate(el=>el.classList.contains('on')));
+  await page.locator('#callBtn').click();
+  await page.waitForFunction(()=>{const e=document.querySelector('#setbar');return e&&!e.hidden&&getComputedStyle(e).display!=='none'},null,{timeout:10000});
+  check('CALL PLAY advances to pre-snap controls',await page.locator('#hike').isVisible());
+  await page.screenshot({path:path.join(out,'match-pre-snap.png'),fullPage:true});
+  const liveStarted=await page.evaluate(()=>{if(typeof window.SG?.startPlay!=='function')return false;window.SG.startPlay();return true});
+  check('Live play can be started from pre-snap',liveStarted);
+  if(liveStarted){
+   await page.waitForFunction(()=>window.SG?.G?.mode==='live',null,{timeout:15000});
+   await page.waitForTimeout(350);
+   await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
+   check('Live play state is active',await page.evaluate(()=>window.SG?.G?.mode==='live'));
+  }
+ }
  check('No same-origin HTTP errors',sameOriginFailures.length===0,sameOriginFailures);
  check('No uncaught page exceptions',pageErrors.length===0,pageErrors);
  const report={sourceCommit:process.env.GITHUB_SHA||null,testedUrl:base+'/index.html',checks,failures,pageErrors,consoleErrors,sameOriginFailures,screenshots:fs.readdirSync(out).filter(n=>n.endsWith('.png'))};
