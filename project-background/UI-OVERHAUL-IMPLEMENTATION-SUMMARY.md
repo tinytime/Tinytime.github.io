@@ -352,3 +352,18 @@ Run #38 passed 50/50 on commit `47441a1c9cec36852367aec473ee8ee20ce90213`, but r
 - Reset remains cancel-only in the QA run; no progress reset was confirmed or executed.
 
 The current branch HEAD at the time of this note is `dca37967819c83e62a8442ce29b1c6ba6bbaef5b`. This is still Stage 2 evidence, not independent Claude review or owner approval. Do not begin MY TEAM / MY SQUAD until the owner reviews and approves the menu direction.
+
+
+## Latest verification — Stage 2 menu and reset-modal evidence (2026-11-24)
+
+**Tested commit:** `dca37967819c83e62a8442ce29b1c6ba6bbaef5b`  
+**GitHub Actions:** [UI Overhaul Browser QA #39](https://github.com/tinytime/Tinytime.github.io/actions/runs/45420390694)  
+**Evidence artifact:** [ui-overhaul-browser-qa — artifact 14934375326](https://github.com/tinytime/Tinytime.github.io/actions/runs/45420390694/artifacts/14934375326)
+
+Run #39 completed successfully: **51/51 browser checks passed**, with no failures, uncaught page exceptions, console errors, or same-origin HTTP errors. It extends Run #37 with an explicit portrait reset-confirmation geometry check and a screenshot of the open modal. At 390×844, the dialog measured 350×190.7 px at x=20, y=326.7 and fit fully within the viewport. Cancel closed it without resetting progress.
+
+The artifact contains 14 PNG screenshots plus the JSON report and diagnostics. The open reset dialog screenshot was retrieved and visually inspected: backdrop blur/dimming, warning heading, explanatory copy, distinct Cancel and Reset actions, and centered mobile fit all render as intended.
+
+The exact tested branch contains 45 referenced audio files and 22 referenced model files; every direct reference resolves. Representative browser HTTP probes also returned 200. `main` remains at `36830922fa5b99922ce583bcf3888cb297bad03c` and was not modified.
+
+**Approval gate remains unchanged:** Stage 2 is implemented, automated-tested, and internally visually inspected, but is not owner-approved or independently reviewed. Do not start MY TEAM / MY SQUAD until the owner has reviewed and explicitly approved the menu direction.
