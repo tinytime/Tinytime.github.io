@@ -79,6 +79,8 @@ try{
  const menuTileGeometry=await page.locator('#uiMenuHome .ui-menu-grid .ui-menu-icon-card').evaluateAll(items=>items.map(el=>{const r=el.getBoundingClientRect(),copy=el.querySelector('.ui-menu-action-copy'),c=copy?.getBoundingClientRect();return{label:copy?.querySelector('strong')?.textContent||'',x:r.x,y:r.y,width:r.width,height:r.height,textFits:!!c&&c.right<=r.right+1&&c.left>=r.left-1}}));
  check('Menu uses four icon-led 2×2 cards',menuTileGeometry.length===4&&Math.abs(menuTileGeometry[0].y-menuTileGeometry[1].y)<3&&menuTileGeometry[2].y>menuTileGeometry[0].y&&Math.abs(menuTileGeometry[2].y-menuTileGeometry[3].y)<3,menuTileGeometry);
  check('Menu card labels do not clip',menuTileGeometry.every(x=>x.textFits),menuTileGeometry);
+ const menuCardBorders=await page.locator('#uiMenuHome .ui-menu-grid .ui-menu-icon-card').evaluateAll(items=>items.map(el=>getComputedStyle(el).borderTopColor));
+ check('Primary menu tiles use one consistent neutral border treatment',new Set(menuCardBorders).size===1,menuCardBorders);
  await page.locator('.ui-menu-playbook').click();
  check('Playbook overlay opens',await page.locator('.ui-menu-playbook-overlay').isVisible());
  const playCount=await page.locator('.ui-menu-play-card').count();
@@ -87,6 +89,8 @@ try{
  await page.locator('.ui-menu-play-card').first().click();check('Playbook selected card receives gold treatment',await page.locator('.ui-menu-play-card.is-selected').count()===1);
  await page.locator('.ui-menu-playbook-flip').click();check('Playbook FLIP control toggles diagrams',await page.locator('.ui-menu-playbook-flip').getAttribute('aria-pressed')==='true');
  await page.locator('.ui-menu-playbook-flip').click();
+ const playbookDiagram=await page.locator('.ui-menu-play-diagram-wrap svg').first().evaluate(el=>({height:el.getBoundingClientRect().height,width:el.getBoundingClientRect().width}));
+ check('Desktop playbook route diagrams use the enlarged presentation',playbookDiagram.height>=115,playbookDiagram);
  await page.screenshot({path:path.join(out,'desktop-playbook.png'),fullPage:true});
  await page.locator('[data-filter="RUN"]').click();
  const runCards=await page.locator('.ui-menu-play-card span').allTextContents();
@@ -99,6 +103,8 @@ try{
  check('Tab bar and Settings tab visible',await page.locator('[data-tab="settings"]').isVisible(),tabDiagnostics);
  await page.locator('[data-tab="settings"]').click();
  check('Settings panel switches',await page.locator('#uiMenuSettings').isVisible()&&!(await page.locator('#uiMenuHome').isVisible()));
+ const settingsDensity=await page.locator('#uiMenuSettings .ui-menu-setting').first().evaluate(el=>({paddingTop:getComputedStyle(el).paddingTop,paddingBottom:getComputedStyle(el).paddingBottom}));
+ check('Settings rows use the tightened Stage One spacing',settingsDensity.paddingTop==='7px'&&settingsDensity.paddingBottom==='7px',settingsDensity);
  for(const id of ['mMus','mSfx','mVol','mHap','mCam','mLT','mReset'])check('Settings control visible: '+id,await page.locator('#'+id).count()===1&&await page.locator('#'+id).isVisible());
  check('Volume setting has a leading icon',await page.locator('label[for="mVol"] .ui-setting-icon').count()===1);
  const resolutionDiagnostics=await page.evaluate(()=>{
@@ -262,8 +268,8 @@ try{
   }
   const liveNow=liveState.mode==='live'||liveState.fmode==='live';
   if(!liveNow)throw new Error('Unable to enter live play after the actual HIKE control and direct diagnostic fallback: '+JSON.stringify({preHikeState,liveState}));
-  const turboRing=await page.locator('#bTurbo').evaluate(el=>({display:getComputedStyle(el,'::before').display,background:getComputedStyle(el,'::before').backgroundImage}));
-  check('Live-play TURBO control has a segmented radial stamina ring',turboRing.display!=='none'&&turboRing.background.includes('repeating-conic-gradient'),turboRing);
+  const turboRing=await page.locator('#bTurbo').evaluate(el=>({display:getComputedStyle(el,'::after').display,background:getComputedStyle(el,'::after').backgroundImage,mask:getComputedStyle(el,'::after').maskImage||getComputedStyle(el,'::after').webkitMaskImage}));
+  check('Live-play TURBO control has a segmented radial stamina ring',turboRing.display!=='none'&&turboRing.background.includes('conic-gradient')&&turboRing.mask.includes('repeating-conic-gradient'),turboRing);
   await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
   const qaHooks=await page.evaluate(()=>window.SG&&window.SG.__uiqa?true:false);
   check('Query-gated match QA hooks are available',qaHooks);
