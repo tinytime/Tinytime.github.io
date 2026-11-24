@@ -1420,3 +1420,18 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 
 /* The in-game playbook sheet owns the header area while open; hide the target badge beneath it. */
 #app:has(#sheet:not([hidden])) #tgtTag{display:none!important}
+
+
+/* Gemini Stage One Round Two polish — 2026-11-24. */
+#owTop .ui-ow-pill{gap:8px}
+#app #sheet{top:calc(env(safe-area-inset-top,0px) + 66px)!important}
+#mu .pn .lg{display:grid;place-items:center;width:min(84%,58vh);padding:12px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:#131620;box-shadow:0 8px 22px rgba(0,0,0,.28)}
+#mu .pn.my .lg,#mu .pn.op .lg{width:min(84%,58vh);padding:12px}
+#mu .pn .lg svg{max-width:100%;max-height:100%}
+#dcall h3{display:flex;align-items:center;justify-content:center;min-height:34px;padding:5px 10px;border:1px solid rgba(77,225,242,.28);border-radius:9px;background:rgba(77,225,242,.06)}
+#end.screen{display:flex;flex-direction:column;justify-content:center;align-items:stretch;min-height:100%;height:100%;box-sizing:border-box;padding:calc(env(safe-area-inset-top,0px) + 18px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 22px) max(16px,env(safe-area-inset-left,0px))}
+#end .btnrow{margin-top:auto!important;padding-top:clamp(24px,7vh,64px);width:min(100%,760px)}
+#exit{width:42px!important;height:42px!important;min-width:42px!important;display:grid!important;place-items:center!important;padding:0!important;border:1px solid rgba(77,225,242,.55)!important;border-radius:50%!important;background:#131620!important;color:#4de1f2!important;font-size:0!important;line-height:1!important;box-shadow:0 4px 14px rgba(0,0,0,.28)!important}
+#exit::before{content:"Ⅱ";font:900 18px/1 var(--ui-heading,system-ui);letter-spacing:-.12em;transform:translateX(-1px)}
+#exit.is-armed{border-color:var(--ui-gold)!important;color:var(--ui-gold)!important}
+@media(max-height:520px){#end.screen{padding-top:12px;padding-bottom:12px}#end .btnrow{padding-top:12px}}
