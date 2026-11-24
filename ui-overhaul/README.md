@@ -215,3 +215,10 @@ The artifact contains 14 PNG screenshots plus the JSON report and diagnostics. T
 The exact tested branch contains 45 referenced audio files and 22 referenced model files; every direct reference resolves. Representative browser HTTP probes also returned 200. `main` remains at `36830922fa5b99922ce583bcf3888cb297bad03c` and was not modified.
 
 **Approval gate remains unchanged:** Stage 2 is implemented, automated-tested, and internally visually inspected, but is not owner-approved or independently reviewed. Do not start MY TEAM / MY SQUAD until the owner has reviewed and explicitly approved the menu direction.
+
+
+## Stage One art-direction correction — 2026-11-24
+
+Owner feedback: 3.2/10 overall; next-round target 6.5+/10. The UI correction now adds the Overworld GOAL strip and contextual A-action label, improves the HUD/menu composition, strengthens menu card and UPG hierarchy, tightens credits/dev drawer presentation, and styles the actual in-match play-calling sheet. The browser QA harness now launches a real match and checks selected play, FLIP, CALL PLAY and pre-snap transition.
+
+Exact commits and current evidence status: `project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md`. QA and updated screenshot inspection are pending; the prior Run #39 is not evidence for this correction pass. No visual or owner approval is claimed.
