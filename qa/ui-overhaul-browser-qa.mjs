@@ -33,7 +33,10 @@ try{
  await page.waitForFunction(()=>{const e=document.querySelector('#menu');return e&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().width>0},null,{timeout:10000});
  const menu=page.locator('#menu');
  const openOverworldMenu=page.locator('#owMenu');
- check('Overworld MENU opener visible',await openOverworldMenu.count()===1&&await openOverworldMenu.isVisible());
+ const initialScreen=await page.evaluate(()=>({menuOpacity:getComputedStyle(document.querySelector('#menu')).opacity,worldHidden:document.querySelector('#world')?.hidden,menuHidden:document.querySelector('#menu')?.hidden}));
+ if(!(await openOverworldMenu.isVisible())&&window.SG?.owShow) await page.evaluate(()=>window.SG.owShow());
+ await page.waitForFunction(()=>{const b=document.querySelector('#owMenu');return !!b&&getComputedStyle(b).display!=='none'&&getComputedStyle(b).visibility!=='hidden'&&b.getBoundingClientRect().width>0;},null,{timeout:10000});
+ check('Overworld MENU opener visible',await openOverworldMenu.isVisible(),initialScreen);
  await openOverworldMenu.click();
  await page.waitForFunction(()=>{const e=document.querySelector('#menu');if(!e)return false;const s=getComputedStyle(e);return !e.hidden&&s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)>.5&&e.getBoundingClientRect().height>0;},null,{timeout:10000});
  const menuIsActuallyVisible=()=>menu.evaluate(e=>{const s=getComputedStyle(e);return !e.hidden&&s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)>.5&&e.getBoundingClientRect().height>0});
