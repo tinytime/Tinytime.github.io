@@ -191,3 +191,12 @@ This is **Stage 2 approval evidence only**, not approval of the complete UI over
 - ChatGPT retrieved and visually inspected the real desktop/portrait menu, settings, credits/developer, Playbook, landscape menu and overworld return screenshots. The earlier `nullnull` artifacts are gone.
 - Status: menu implementation is automated-tested and internally visually inspected. Claude independent review and owner approval are still pending. MY TEAM / MY SQUAD and later handoff screens remain unstarted pending owner approval of this menu direction.
 - See [UI Overhaul Implementation Summary](../project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for the detailed 50-check report, screenshot inventory, QA history and next action.
+
+
+
+### Latest evidence refinement — Run #39 (2026-11-24)
+
+- [Run #39](https://github.com/tinytime/Tinytime.github.io/actions/runs/45420390694) passed **51/51** on `dca37967819c83e62a8442ce29b1c6ba6bbaef5b`.
+- The portrait reset-confirmation screenshot was corrected to capture the dialog while it is open (before cancelling), and the harness now asserts that the dialog geometry fits within 390×844. The actual screenshot was inspected and confirms both actions are fully visible.
+- Artifact: [14934375326](https://github.com/tinytime/Tinytime.github.io/actions/runs/45420390694/artifacts/14934375326).
+- Reset was cancelled; no destructive reset was executed. Owner approval is still pending.
