@@ -107,10 +107,12 @@ try{
  await page.locator('#mReset').click();
  check('Reset confirmation modal opens',await page.locator('.ui-menu-modal-backdrop').isVisible());
  check('Reset requires explicit confirmation', (await page.locator('#mReset').textContent())?.trim()==='RESET PROGRESS');
- await page.locator('.ui-menu-cancel').click();
  await page.setViewportSize({width:390,height:844});
+ const resetModalGeometry=await page.locator('.ui-menu-confirm').evaluate(el=>{const r=el.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,viewport:{width:innerWidth,height:innerHeight},backdropVisible:!!el.closest('.ui-menu-modal-backdrop')&&!el.closest('.ui-menu-modal-backdrop').hidden}});
+ check('Portrait reset confirmation fits viewport',resetModalGeometry.backdropVisible&&resetModalGeometry.x>=0&&resetModalGeometry.y>=0&&resetModalGeometry.x+resetModalGeometry.width<=390&&resetModalGeometry.y+resetModalGeometry.height<=844,resetModalGeometry);
  await page.screenshot({path:path.join(out,'portrait-reset-confirm.png'),fullPage:true});
  await page.setViewportSize({width:1440,height:1000});
+ await page.locator('.ui-menu-cancel').click();
  check('Reset confirmation can be cancelled',!(await page.locator('.ui-menu-modal-backdrop').isVisible()));
  const music=page.locator('#mMus'),before=(await music.textContent())?.trim();
  await music.click();const after=(await music.textContent())?.trim();
