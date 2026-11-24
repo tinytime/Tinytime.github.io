@@ -214,3 +214,8 @@
 #menu .ui-menu-play-card p{margin:6px 0 0;color:var(--ui-muted);font-size:11px;line-height:1.35}
 #menu .ui-menu-play-empty{grid-column:1/-1;color:var(--ui-muted);font-size:13px}
 @media(max-width:420px){#menu .ui-menu-playbook-list{grid-template-columns:1fr}}
+
+/* Compact right-aligned setting pills, matching the portrait handoff. */
+#menu .ui-menu-setting .ui-menu-toggle-pill{flex:none;width:auto;min-width:64px;max-width:120px;min-height:32px;padding:5px 12px;border:1px solid var(--ui-border)!important;border-radius:999px!important;background:#20283a!important;color:var(--ui-muted)!important;font-size:11px!important;letter-spacing:.08em}
+#menu .ui-menu-setting .ui-menu-toggle-pill[aria-pressed=true]{border-color:rgba(77,225,242,.75)!important;background:rgba(77,225,242,.14)!important;color:var(--ui-cyan)!important}
+#menu .ui-menu-setting .ui-menu-toggle-pill[aria-pressed=false]{border-color:var(--ui-border)!important;background:#1c2130!important;color:var(--ui-muted)!important}
