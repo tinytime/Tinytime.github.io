@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-24):** branch `UI-Overhaul`, latest verified code commit before this documentation update `c2b024195643ce143d411a19e05381b82c23d781`. The six Round Two polish items passed their targeted assertions in Run #225, but the overall run failed on three separate menu/Team Stats assertions (header centering, menu tile accents, and Skill Moves three-cell layout). Corrective commits `4b4eef4` and `6d1c6cf` are now pushed; verify the next push-triggered run and screenshots before closure. Stage One owner approval remains pending; Stage Two MY TEAM / MY SQUAD remains on hold. QA pass count is not visual approval.
+**Live checkpoint (2026-11-24):** branch `UI-Overhaul` is at `7e56672a0091e60cb6a5749372b6ae2792c1e4ec`. Run #247 passed 177/177 checks and Run #249 passed 182/182 checks, including the unified FIRST TO scoreboard across match overlays and the pre-snap/live-runner control palette. Screenshot review still identifies three Stage One polish gaps: the legacy MY SQUAD row above the menu, fumble timer placement below the contest bar, and the practice-win celebration/spacing fixture. These are being corrected and will be retested. Stage One visual review, Claude's independent review and owner approval remain pending; Stage Two MY TEAM / MY SQUAD remains on hold. QA pass count is not visual approval.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 

@@ -1115,3 +1115,10 @@ Run #247 (ID `45484497458`) tested `b25e4902ba8cbb943e71ad29b5f10cf9db045159`: *
 ### Final scoreboard consistency correction
 
 The Stage One specification describes one unified scoreboard containing PLAY CLOCK and FIRST TO X across match states. The target was still being hidden by legacy overlay CSS during Playbook, Defense Selection, and Defense Simulation, despite now being integrated inside the clock module. That old hiding behavior is no longer appropriate because the target no longer occupies the lane below the scoreboard. It now remains visible inside the scoreboard during all three overlays; Browser QA checks visibility and existing geometry checks ensure it stays inside the scoreboard and clear of the overlay. Retest pending.
+
+
+### Run #249 — unified scoreboard and control polish verified (2026-11-24)
+
+Run #249 (ID `45485336117`) tested exact commit `7e56672a0091e60cb6a5749372b6ae2792c1e4ec`: **182/182 checks passed, 0 failures**. FIRST TO remains visible inside the clock module during the in-game Playbook, Defense Selection, and Defense Simulation. Pre-snap CHANGE PLAY / SHOW PLAY and live HURDLE / DIVE controls now use the approved matte-navy/gold treatment; HURDLE clears TURBO by 14px. The screenshot set was visually inspected.
+
+The next correction addresses three issues visible in those screenshots that were not yet asserted: the legacy MY SQUAD button row still appears above the redesigned menu; the fumble timer is styled correctly but remains at the bottom of the viewport instead of immediately below the contest bar; and the practice-win screenshot is not yet a convincing celebration because the fixture ends the match before the field renderer can apply the pose, while also clearing the practice note that reserves space below the squad frame. The fixture now briefly restores the HUD and allows 45 render frames before ending the practice match, preserves the game's `Practice win. No rewards.` note, and verifies that the celebration timer has actually advanced and the reward card clears the squad frame. A new DIVE screenshot is also captured. Pending Run #250. Stage Two and golden snapshots remain untouched.

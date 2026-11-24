@@ -1989,3 +1989,16 @@ body.land #bHurdle,body.land #bHurdle.dive{
 #app:has(#tick:not([hidden])) #hud #bug #bClock #tgtTag{
   display:block!important;visibility:visible!important;opacity:1!important;
 }
+
+
+/* Remove the obsolete MY SQUAD / MY TEAM button row after the Stage One menu relocates MY TEAM. */
+#menu.ui-menu-ready .btnrow:has(#mSquad,#mTeam){display:none!important}
+
+/* Fumble countdown: place the seconds pill directly below and centered on the contest bar. */
+#app #pileT:not(:empty){
+  position:fixed!important;left:40.5vw!important;right:auto!important;
+  top:calc(46% + 48px)!important;bottom:auto!important;
+  transform:translateX(-50%)!important;
+}
+@media(max-width:700px){#app #pileT:not(:empty){left:36vw!important}}
+@media(min-width:862px){#app #pileT:not(:empty){left:calc(8vw + 280px)!important}}

@@ -252,6 +252,8 @@ try{
    return{menu:{x:r.x,width:r.width,scrollWidth:e.scrollWidth,clientWidth:e.clientWidth},town:{top:t.top,bottom:t.bottom},tabs:{top:b.top,bottom:b.bottom},content:{scrollHeight:c.scrollHeight,clientHeight:c.clientHeight},viewport:{width:innerWidth,height:innerHeight}}
   });
   check(v.name+' menu fits width',g.menu.x>=-1&&g.menu.x+g.menu.width<=v.width+1&&g.menu.scrollWidth<=g.menu.clientWidth+1,g);
+  const legacySquadRow=await page.locator('#menu .btnrow:has(#mSquad,#mTeam)').evaluate(el=>({display:getComputedStyle(el).display,buttonText:[...el.querySelectorAll('button')].map(b=>b.textContent.trim()),hiddenButtons:[...el.querySelectorAll('button')].filter(b=>b.hidden).map(b=>b.id)}));
+  check(v.name+' legacy MY SQUAD row is hidden after menu controls are relocated',legacySquadRow.display==='none',legacySquadRow);
   if(v.name==='portrait'){const brand=await page.evaluate(()=>{const t=document.querySelector('.ui-menu-title'),u=document.querySelector('.ui-menu-upg');const a=t.getBoundingClientRect(),b=u.getBoundingClientRect();return{titleRight:a.right,upgLeft:b.left,titleScroll:t.scrollWidth,titleClient:t.clientWidth}});check('Portrait menu title clears UPG badge',brand.titleRight<=brand.upgLeft-4&&brand.titleScroll<=brand.titleClient+1,brand)}
   check(v.name+' return button visible',g.town.top>=-1&&g.town.bottom<=v.height+1,g.town);
   check(v.name+' tabs visible',g.tabs.top>=-1&&g.tabs.bottom<=v.height+1,g.tabs);
@@ -368,6 +370,7 @@ try{
    await page.waitForFunction(()=>document.querySelector('#bHurdle')?.textContent.trim()==='DIVE',null,{timeout:5000});
    const diveStyle=await page.locator('#bHurdle').evaluate(el=>({text:el.textContent.trim(),background:getComputedStyle(el).backgroundColor,border:getComputedStyle(el).borderTopColor}));
    check('Live DIVE keeps the same matte navy and gold control treatment',diveStyle.text==='DIVE'&&diveStyle.background==='rgb(19, 22, 32)'&&diveStyle.border==='rgb(245, 184, 65)',diveStyle);
+   await page.screenshot({path:path.join(out,'match-live-dive-controls.png'),fullPage:true});
   }
   if(qaHooks){
    const pileStarted=await page.evaluate(()=>window.SG.__uiqa.startFumble());
@@ -377,8 +380,8 @@ try{
    const pileGeometry=await page.evaluate(()=>{const b=document.querySelector('#pileBar').getBoundingClientRect(),a=document.querySelector('#pileBtn').getBoundingClientRect();return{barWidth:b.width,viewport:innerWidth,ratio:b.width/innerWidth,barRight:b.right,buttonLeft:a.left,clearance:a.left-b.right}});
    check('Fumble meter is about 65% width and clears the A mash button',pileGeometry.ratio>=.62&&pileGeometry.ratio<=.70&&pileGeometry.clearance>=8,pileGeometry);
    await page.waitForFunction(()=>/^[0-9]+[.][0-9]s$/.test((document.querySelector('#pileT')?.textContent||'').trim()),null,{timeout:5000});
-   const pileTimer=await page.locator('#pileT').evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect();return{text:el.textContent.trim(),background:s.backgroundColor,border:s.borderTopWidth,radius:s.borderTopLeftRadius,height:r.height,display:s.display}});
-   check('Fumble countdown uses the gold-edged navy seconds pill',/^[0-9]+[.][0-9]s$/.test(pileTimer.text)&&pileTimer.background==='rgba(19, 22, 32, 0.96)'&&parseFloat(pileTimer.border)>=1&&pileTimer.radius==='999px'&&pileTimer.height>=22,pileTimer);
+   const pileTimer=await page.locator('#pileT').evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect(),bar=document.querySelector('#pileBar').getBoundingClientRect();return{text:el.textContent.trim(),background:s.backgroundColor,border:s.borderTopWidth,radius:s.borderTopLeftRadius,height:r.height,display:s.display,top:r.top,bottom:r.bottom,barBottom:bar.bottom,centerX:r.left+r.width/2,barCenterX:bar.left+bar.width/2}});
+   check('Fumble countdown uses the gold-edged navy seconds pill directly beneath and centered on the contest bar',/^[0-9]+[.][0-9]s$/.test(pileTimer.text)&&pileTimer.background==='rgba(19, 22, 32, 0.96)'&&parseFloat(pileTimer.border)>=1&&pileTimer.radius==='999px'&&pileTimer.height>=22&&pileTimer.top>=pileTimer.barBottom+6&&pileTimer.top<=pileTimer.barBottom+36&&Math.abs(pileTimer.centerX-pileTimer.barCenterX)<=4,pileTimer);
    await page.screenshot({path:path.join(out,'match-fumble-pile.png'),fullPage:true});
    await page.evaluate(()=>{const pile=document.querySelector('#pile');if(pile)pile.hidden=true});
    const defenseReady=await page.evaluate(()=>window.SG.__uiqa.defense());
@@ -443,8 +446,10 @@ try{
   check('Deterministic practice-win result can be rendered',practiceWin);
   check('Practice-win result uses the correct win banner and practice mode pill',await page.locator('#end h2').textContent()==='PRACTICE WIN'&&(await page.locator('#end .ui-end-mode').textContent()).includes('PRACTICE'));
   check('Practice-win result carries the earned STYLE POINTS total',await page.locator('#endStyle').textContent()==='STYLE POINTS  3,700');
-  const celebrationState=await page.evaluate(()=>({result:window.SG.F?.res?.type,players:Object.values(window.SG.F?.off||{}).filter(p=>p&&typeof p==='object'&&'x' in p&&p.celeb>0).length}));
-  check('Practice-win result renders a live touchdown celebration pose for the squad',celebrationState.result==='td'&&celebrationState.players>=3,celebrationState);
+  const celebrationState=await page.evaluate(()=>{const players=Object.values(window.SG.F?.off||{}).filter(p=>p&&typeof p==='object'&&'x' in p&&p.celeb>0);return{result:window.SG.F?.res?.type,players:players.length,minRemaining:players.length?Math.min(...players.map(p=>p.celeb)):null,maxRemaining:players.length?Math.max(...players.map(p=>p.celeb)):null}});
+  check('Practice-win result renders a live touchdown celebration pose for the squad',celebrationState.result==='td'&&celebrationState.players>=3&&celebrationState.minRemaining<60,celebrationState);
+  const practiceLayout=await page.locator('#end').evaluate(el=>{const note=el.querySelector('#endNote'),style=el.querySelector('#endStyle'),score=el.querySelector('#endScore'),frame=getComputedStyle(el,'::before');const nr=note.getBoundingClientRect(),sr=style.getBoundingClientRect(),cr=score.getBoundingClientRect();return{noteText:note.textContent.trim(),noteBottom:nr.bottom,styleTop:sr.top,scoreBottom:cr.bottom,frameBottom:parseFloat(frame.top)+parseFloat(frame.height)}});
+  check('Practice-win reward card sits below the squad frame with the practice note retained',practiceLayout.noteText==='Practice win. No rewards.'&&practiceLayout.styleTop>=practiceLayout.frameBottom+12&&practiceLayout.styleTop>=practiceLayout.noteBottom+8,practiceLayout);
   await page.waitForTimeout(700);
   check('Practice-win result retains both team logos and side-by-side actions',await page.locator('#endScore .ui-end-logo').count()===2&&await page.locator('#end .btnrow').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length===2));
   await page.screenshot({path:path.join(out,'match-post-game-practice-win-portrait.png'),fullPage:true});
