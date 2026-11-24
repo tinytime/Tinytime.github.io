@@ -1175,3 +1175,13 @@ Run #252 tested `95396692ebed114cebbf9fd21da8748ef888163a`: **185/186 checks pas
 **MY TEAM / MY SQUAD scope:** These screens are Section 3 of the supplied handoff and explicitly designated **Stage Two**. They are intentionally not included in the Stage One QA artifact. They remain unverified against Section 3, and no implementation or Stage Two QA has been started. The gate remains owner approval of the complete Stage One package.
 
 **Current status:** Round 3 fixes remain backed by Run #256 (190/190). Round 4 pill correction awaits Run #258. Final visual inspection, independent Claude review where required, and owner approval remain outstanding. No golden snapshots or snapshot provenance were changed.
+
+
+### Run #258 — Round 4 defense-drive pill verified (2026-11-24)
+
+- **Result:** browser QA completed successfully, **191/191 checks passed**, zero failures, zero page exceptions, zero console errors, and zero same-origin HTTP failures.
+- **Tested commit:** `f3b657617d601d331702b2be556590c7210c6592`.
+- **New defense-pill assertion:** passed at the 844px landscape viewport. The pill bounds were left=184.95px, right=659.05px, viewport=844px (centered within 2px and >12px clearance on both sides); no horizontal overflow. Full status remained visible: `2nd & 6 · BALL ON THEIR 39`.
+- **Evidence:** [Run #258](https://github.com/tinytime/Tinytime.github.io/actions/runs/45510700772), artifact [14974438683](https://github.com/tinytime/Tinytime.github.io/actions/runs/45510700772/artifacts/14974438683), 8,535,878 bytes, 37 PNG screenshots plus report/diagnostics. Retained through 2026-12-08.
+- **Scope:** MY TEAM and MY SQUAD remain Section 3 / Stage Two, intentionally excluded from Stage One. They remain unverified and untouched pending Stage One owner approval.
+- **Status:** Round 4 automated correction is verified. Artifact screenshot visual inspection, Claude's independent review where required, and owner approval remain outstanding. Stage Two remains on hold. No golden snapshots or provenance were changed.
