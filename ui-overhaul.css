@@ -1036,3 +1036,22 @@ body.ach-toast-active #tkPlay{bottom:calc(9% + 58px)}
 @media(max-width:700px){
  #dcall{width:min(calc(100vw - 20px),900px)!important}
 }
+
+
+/* Stage One in-game scoreboard: one restrained navy unit with gold/cyan data accents. */
+#bug{background:rgba(19,22,32,.96);border:1px solid rgba(77,225,242,.32);border-radius:10px;box-shadow:0 5px 18px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.04)}
+#bDown{background:#1c2130;color:#f5b841;clip-path:none;margin-right:0;min-width:94px;padding:0 8px;border-right:1px solid rgba(255,255,255,.1);align-items:center;text-align:center}
+#bDown b{font-size:15px;color:#f5b841}
+#bDown span{font-size:9px;color:#cbd5e1;letter-spacing:.09em}
+.bteam{background:#131620;border-left:1px solid rgba(255,255,255,.08)}
+.brow{height:35px;gap:7px;padding:0 8px}
+.tab{width:4px}
+.bn{font-size:13px;color:#e7edf7;letter-spacing:.065em}
+.bs{font-size:23px;color:#f5f7fa}
+.bteam .gbar{height:14px;border-top:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.055)}
+.gbar span{font-size:9px;letter-spacing:.1em;color:#dbe6f4}
+#bClock{width:48px;background:#1c2130;border-left:1px solid rgba(255,255,255,.1);color:var(--ui-cyan)}
+#bClock b{font-size:20px;color:var(--ui-cyan)}
+#bClock span{font-size:8px;color:#cbd5e1;letter-spacing:.1em}
+#tgtTag{left:calc(min(600px,68%) + 10px);top:calc(env(safe-area-inset-top,0px) + 14px);padding:6px 10px;border:1px solid rgba(245,184,65,.42);border-radius:999px;background:#1c2130;color:#f5b841;font:900 9px/1 var(--ui-heading,system-ui);letter-spacing:.11em;box-shadow:0 4px 12px rgba(0,0,0,.22)}
+body.land #exit{right:8%;top:calc(env(safe-area-inset-top,0px) + 6px);width:40px;height:40px;min-width:40px;padding:0;display:flex;align-items:center;justify-content:center;border:1px solid rgba(77,225,242,.5);border-radius:50%;background:#131620;color:var(--ui-cyan);font:900 8px/1 var(--ui-heading,system-ui);letter-spacing:.04em;box-shadow:0 4px 12px rgba(0,0,0,.3)}
