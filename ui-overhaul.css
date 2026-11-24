@@ -1,0 +1,69 @@
+/* Circuit Football RPG — UI Overhaul foundation.
+   Handoff source: owner-supplied 14-page UI Overhaul Spec.
+   UI presentation only; gameplay and persistence logic remain in index.html. */
+:root {
+  --ui-surface: #131620;
+  --ui-inner: #1C2130;
+  --ui-gold: #F5B841;
+  --ui-cyan: #4DE1F2;
+  --ui-green: #34D399;
+  --ui-red: #EF4444;
+  --ui-town-accent: #ff2fa8;
+  --ui-border: rgba(255,255,255,.13);
+  --ui-text: #F5F7FA;
+  --ui-muted: #AAB2C2;
+  --ui-radius-card: 14px;
+  --ui-radius-pill: 999px;
+}
+
+/* Stage 1 — Overworld HUD: matte chrome and safe-area-aware positioning. */
+#owTop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  max-width: min(72vw, 310px);
+  padding: 8px 11px;
+  border: 1px solid var(--ui-border);
+  border-radius: 13px;
+  background: rgba(19, 22, 32, .88);
+  box-shadow: 0 3px 12px rgba(0,0,0,.24);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+#owTown {
+  font-family: var(--ui, "Barlow Condensed", "Arial Narrow", sans-serif);
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: .09em;
+  color: var(--ui-text);
+  text-shadow: none;
+}
+#owObj {
+  display: block;
+  margin-top: 1px;
+  font-size: 12px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: .07em;
+  color: var(--ui-gold);
+  text-shadow: none;
+}
+#owMenu {
+  min-height: 40px;
+  padding: 0 17px;
+  border: 1px solid rgba(245,184,65,.72);
+  border-radius: 12px;
+  background: rgba(19,22,32,.9);
+  color: var(--ui-text);
+  box-shadow: 0 3px 12px rgba(0,0,0,.24);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  letter-spacing: .1em;
+}
+#owA {
+  background: rgba(19,22,32,.9);
+  border: 3px solid var(--ui-town-accent);
+  box-shadow: 0 0 12px rgba(255,47,168,.42);
+}
