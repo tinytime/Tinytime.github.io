@@ -530,43 +530,6 @@
 #menu .ui-menu-support .ui-menu-action-copy strong{font-size:14px}
 #menu .ui-menu-support .ui-menu-action-copy small{font-size:10px}
 
-/* The real in-match play-calling overlay: field-sheet composition, category rail, selected play and cyan CALL PLAY. */
-#app #sheet{
- width:min(100%,980px);left:50%;right:auto;transform:translateX(-50%);
- background:linear-gradient(180deg,rgba(17,25,40,.97),rgba(10,15,26,.99));
- border:1px solid rgba(77,225,242,.25);border-bottom:0;
- border-radius:18px 18px 0 0;box-shadow:0 -12px 36px rgba(0,0,0,.48);
-}
-#app #sheet .pbTop{padding:5px 4px 8px;border-bottom:1px solid rgba(255,255,255,.1)}
-#app #sheet #shDD{font-family:var(--disp);font-size:20px;color:#ffe09a;letter-spacing:.035em}
-#app #sheet #shHint{color:#b7c5d8;font-family:var(--ui);font-size:13px}
-#app #sheet #flipBtn{height:34px;padding:0 14px;border:1px solid rgba(245,184,65,.72);border-radius:999px;background:rgba(245,184,65,.1);color:#ffe09a;font-family:var(--ui);font-size:12px;font-weight:900;letter-spacing:.14em}
-#app #sheet #flipBtn.on{background:#f5b841;border-color:#f5b841;color:#151a24}
-#app #sheet #pbMain{gap:10px}
-#app #sheet #pbTabs{flex-basis:116px;gap:7px}
-#app #sheet .pbTab{border:1px solid rgba(255,255,255,.14);border-radius:11px;background:#1c2536;color:#c0cad8}
-#app #sheet .pbTab.on{border:2px solid #f5b841;background:linear-gradient(180deg,#46381d,#282316);color:#ffe5a8;box-shadow:0 0 15px rgba(245,184,65,.13)}
-#app #sheet #cards{gap:8px}
-#app #sheet .card{border:1px solid rgba(255,255,255,.16);border-radius:12px;background:#1c2536}
-#app #sheet .card.sel{border:2px solid #f5b841;background:#273149;box-shadow:0 0 0 2px rgba(245,184,65,.22),0 0 18px rgba(245,184,65,.22)}
-#app #sheet .card.sel b{background:#f5b841;color:#151a24}
-#app #sheet #blurb{color:#c6d1df;font-family:var(--ui);font-size:13px}
-#app #sheet #callBtn{height:52px;flex:0 0 190px;border:1px solid #4de1f2;border-radius:12px;background:linear-gradient(180deg,#68efff,#28c8e0);color:#071923;font-family:var(--disp);font-size:20px;letter-spacing:.05em;box-shadow:0 5px 0 #147f98,0 9px 20px rgba(39,224,242,.18)}
-#app #sheet #callBtn:active{transform:translateY(3px);box-shadow:0 2px 0 #147f98}
-#app #sheet #gbBtn{height:48px;border:1px solid rgba(245,184,65,.55);border-radius:11px;background:#252b38;color:#ffe09a}
-@media(orientation:landscape){
- #app #sheet{max-height:calc(100% - 54px);padding:7px 12px calc(env(safe-area-inset-bottom,0px) + 8px)}
- #app #sheet #pbMain{min-height:0}
- #app #sheet #callBtn{flex-basis:190px}
-}
-@media(max-width:520px) and (orientation:portrait){
- #app #sheet{width:100%;max-height:100%;top:calc(env(safe-area-inset-top,0px) + 40px);padding:8px 10px calc(env(safe-area-inset-bottom,0px) + 10px)}
- #app #sheet #pbTabs{flex-basis:86px}
- #app #sheet #callBtn{flex:1 1 100%;min-height:50px}
- #app #sheet .pbRow{flex-wrap:wrap}
- #app #sheet #blurb{flex:1 1 100%;max-height:36px}
-}
-
 /* Final menu geometry: the four primary tiles form a true 2×2 grid. */
 #menu .ui-menu-grid .ui-menu-playbook{grid-column:auto!important}
 #menu .ui-menu-foot #mTown:active{transform:none!important;filter:brightness(.94);box-shadow:0 5px 0 #84223f,0 10px 22px rgba(239,68,108,.2)!important}
@@ -678,25 +641,6 @@
 @media(max-width:420px){#owTop{left:9px;top:calc(env(safe-area-inset-top,0px) + 9px);gap:6px;padding:7px 8px}#owTown{font-size:13px}#owObj{font-size:8px;padding:4px 6px}#owGoal{left:9px;top:calc(env(safe-area-inset-top,0px) + 53px);font-size:9px}#owMenu{right:9px;top:calc(env(safe-area-inset-top,0px) + 9px);min-height:36px;height:36px;padding:0 11px}#owA{right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);width:68px;height:68px}#menu.ui-menu-ready{width:100%;left:0;transform:none;padding-left:14px;padding-right:14px}#menu .ui-menu-grid .ui-menu-icon-card{min-height:88px;padding:9px!important;grid-template-columns:36px minmax(0,1fr) 10px;gap:8px}#menu .ui-menu-grid .ui-menu-icon{width:36px;height:36px}}
 @media(orientation:landscape){#menu.ui-menu-ready{width:min(100%,920px);left:50%;transform:translateX(-50%)}#menu .ui-menu-playbook-overlay{width:min(100%,1040px)}}
 
-/* The live in-match play-calling sheet: style the real game controls, not a menu imitation. */
-#sheet{background:linear-gradient(180deg,rgba(19,22,32,.98),rgba(13,17,27,.99));border-top:2px solid var(--ui-cyan);box-shadow:0 -8px 28px rgba(0,0,0,.42)}
-#sheet #shDD{font-family:var(--ui-display,"Barlow Condensed",Impact,sans-serif);font-size:20px;letter-spacing:.07em;color:var(--ui-gold)}
-#sheet #shHint{color:#aeb8c8;font:700 11px/1.3 var(--ui-heading,system-ui)}
-#sheet #pbMain{gap:10px}
-#sheet #pbTabs{gap:6px}
-#sheet .pbTab{border:1px solid rgba(255,255,255,.15);border-radius:11px;background:#1c2130;color:#b7c1d1}
-#sheet .pbTab.on{border:2px solid var(--ui-gold);background:rgba(245,184,65,.12);color:#ffe4a3;box-shadow:0 0 0 2px rgba(245,184,65,.12)}
-#sheet #cards{gap:8px}
-#sheet .card{min-width:0;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:#1c2130;overflow:hidden}
-#sheet .card.sel{border:2px solid var(--ui-gold)!important;background:#242a38;box-shadow:0 0 0 2px rgba(245,184,65,.18),0 5px 15px rgba(0,0,0,.22)}
-#sheet .card b{background:#111725;color:#f5f7fa;font-family:var(--ui-display,"Barlow Condensed",Impact,sans-serif);font-size:15px;font-weight:900}
-#sheet .card b em{color:var(--ui-gold)}
-#sheet .card canvas{display:block;background:#101a27;border-radius:7px}
-#sheet #flipBtn{height:40px;min-width:68px;border:1px solid rgba(245,184,65,.68);border-radius:10px;background:#1c2130;color:var(--ui-gold);font:900 11px/1 var(--ui-heading,system-ui);letter-spacing:.13em}
-#sheet #flipBtn.on{border-color:var(--ui-gold);background:rgba(245,184,65,.16);color:#ffe3a0}
-#sheet #gbBtn{min-height:44px;border:1px solid rgba(245,184,65,.55);border-radius:11px;background:#1c2130;color:var(--ui-gold);font:900 11px/1 var(--ui-heading,system-ui)}
-#sheet #callBtn{flex:0 0 180px;height:50px;border:1px solid #4de1f2;border-radius:12px;background:var(--ui-cyan)!important;color:#08131b!important;font:900 14px/1 var(--ui-heading,system-ui);letter-spacing:.13em;box-shadow:0 4px 0 #1a8291!important}
-#sheet #callBtn:active{transform:translateY(3px);box-shadow:0 1px 0 #1a8291!important}
 #menu .ui-menu-play-card{padding:10px;border:1px solid rgba(255,255,255,.15);border-radius:12px;background:#1c2130}
 #menu .ui-menu-play-card.is-selected{border:2px solid var(--ui-gold);background:#242a38;box-shadow:0 0 0 2px rgba(245,184,65,.18)}
 #menu .ui-menu-play-diagram-wrap{display:block;padding:5px;border-radius:9px;background:#101a27}
@@ -1444,3 +1388,81 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 
 /* Defense Selection owns the possession message; suppress the duplicate field banner while its modal is open. */
 #app:has(#dcall:not([hidden])) #banner{display:none!important}
+
+
+/* Canonical in-match Playbook surface — Gemini handoff page 9.
+   One restrained navy system; gold is selection/secondary action, cyan is execute. */
+#app #sheet{
+  left:50%;right:auto;transform:translateX(-50%);width:min(100%,980px);
+  background:#131620!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  border-top:2px solid rgba(245,184,65,.78)!important;border-bottom:0!important;
+  border-radius:16px 16px 0 0;
+  box-shadow:0 -8px 24px rgba(0,0,0,.34)!important;
+  padding:10px 14px calc(env(safe-area-inset-bottom,0px) + 12px);gap:9px;
+}
+#app #sheet .pbTop{padding:5px 4px 8px;border-bottom:1px solid rgba(255,255,255,.12)}
+#app #sheet #shDD{font-family:var(--disp);font-size:20px;letter-spacing:.06em;color:var(--ui-gold)}
+#app #sheet #shHint{color:#aab2c2;font-family:var(--ui);font-size:12px;line-height:1.3}
+#app #sheet #pbMain{gap:10px;min-height:0}
+#app #sheet #pbTabs{flex-basis:116px;gap:6px}
+#app #sheet .pbTab{
+  border:1px solid rgba(255,255,255,.13);border-radius:9px;
+  background:#1C2130;color:#AAB2C2;box-shadow:none;
+}
+#app #sheet .pbTab.on{
+  border:1px solid var(--ui-gold);background:rgba(245,184,65,.13);
+  color:var(--ui-gold);box-shadow:inset 0 0 0 1px rgba(245,184,65,.12);
+}
+#app #sheet #cards{gap:8px}
+#app #sheet .card{
+  min-width:0;overflow:hidden;padding:8px;
+  border:1px solid rgba(255,255,255,.14);border-radius:11px;
+  background:#1C2130;box-shadow:none;
+}
+#app #sheet .card.sel{
+  border:2px solid var(--ui-gold)!important;padding:7px;
+  background:#242a38;box-shadow:inset 0 0 0 1px rgba(245,184,65,.12)!important;
+}
+#app #sheet .card b{
+  background:transparent;color:#F5F7FA;
+  font-family:var(--ui-display,"Barlow Condensed",Impact,sans-serif);
+  font-size:15px;font-weight:900;
+}
+#app #sheet .card b em{color:var(--ui-gold)}
+#app #sheet .card canvas{
+  display:block;background:#101722;border:1px solid rgba(255,255,255,.08);
+  border-radius:7px;
+}
+#app #sheet #blurb{color:#AAB2C2;font-family:var(--ui);font-size:12px;line-height:1.3}
+#app #sheet #flipBtn{
+  height:38px;min-width:68px;padding:0 12px;
+  border:1px solid rgba(245,184,65,.7);border-radius:9px;
+  background:#1C2130;color:var(--ui-gold);
+  font-family:var(--ui);font-size:11px;font-weight:900;letter-spacing:.12em;
+}
+#app #sheet #flipBtn.on{background:rgba(245,184,65,.16);border-color:var(--ui-gold);color:#ffe3a0}
+#app #sheet #gbBtn{
+  min-height:44px;border:1px solid rgba(245,184,65,.62);border-radius:10px;
+  background:#1C2130;color:var(--ui-gold);font:900 11px/1 var(--ui);
+}
+#app #sheet #callBtn{
+  flex:0 0 180px;height:50px;border:1px solid var(--ui-cyan);border-radius:11px;
+  background:var(--ui-cyan)!important;color:#08131b!important;
+  font:900 14px/1 var(--ui);letter-spacing:.12em;
+  box-shadow:0 3px 0 #1a8291!important;
+}
+#app #sheet #callBtn:active{transform:translateY(2px);box-shadow:0 1px 0 #1a8291!important}
+@media(orientation:landscape){
+  #app #sheet{max-height:calc(100% - 54px);padding:7px 12px calc(env(safe-area-inset-bottom,0px) + 8px)}
+  #app #sheet #pbMain{min-height:0}
+  #app #sheet #pbTabs{flex-basis:104px}
+  #app #sheet #callBtn{flex-basis:170px}
+}
+@media(max-width:520px) and (orientation:portrait){
+  #app #sheet{width:100%;max-height:100%;top:calc(env(safe-area-inset-top,0px) + 40px);padding:8px 10px calc(env(safe-area-inset-bottom,0px) + 10px)}
+  #app #sheet #pbTabs{flex-basis:86px}
+  #app #sheet #callBtn{flex:1 1 100%;min-height:50px}
+  #app #sheet .pbRow{flex-wrap:wrap}
+  #app #sheet #blurb{flex:1 1 100%;max-height:36px}
+}
