@@ -1378,3 +1378,18 @@ body.land #hud #tgtTag{
 
 /* Keep the target tag fully outside the scoreboard card's left edge. */
 body.land #hud #tgtTag{left:4%!important}
+
+
+/* The Goals screen uses a dedicated scroll region; the pinned CLOSE button occupies its own footer row. */
+#goalsP.ui-goals-panel{overflow:hidden!important}
+#goalsP .ui-goals-inner{height:100%;min-height:0;overflow:hidden}
+#goalsP .ui-goals-header{position:relative;top:auto;flex:none}
+#goalsP .ui-goals-tabs{flex:none}
+#goalsP .ui-goals-content{
+  flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;
+  padding-bottom:12px!important;scroll-padding-bottom:12px;
+}
+#goalsP .ui-goals-close{
+  position:relative;bottom:auto;flex:none;margin-top:10px;
+  box-shadow:0 -6px 14px rgba(8,12,20,.3);
+}
