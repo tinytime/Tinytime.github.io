@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-24):** branch `UI-Overhaul` is at `646d4169ea1199fea9689e12d7a685e47e73c3a5`. Run #249 passed 182/182 checks. Run #250 passed the menu legacy-row, fumble timer placement, and practice-win reward spacing checks, but failed the rendered celebration check because the ended-match fixture did not advance the 3D renderer. The next commit explicitly renders the celebration pose and preserves the 3D field renderer behind the post-game card while hiding HUD chrome. Full Stage One review, Claude review and owner approval remain pending; Stage Two MY TEAM / MY SQUAD remains on hold. QA pass count is not visual approval.
+**Live checkpoint (2026-11-24):** branch `UI-Overhaul` is at `b5de0791448cd06b73be78881d1d54f4c11f2959`. Run #250 verified the hidden legacy menu row, fumble timer geometry, and practice-win reward spacing. Run #251 exposed a QA scope issue: the field renderer function is private to its script closure. A narrow `window.__CF3D_DRAW_ENTITIES` hook is now exposed for the practice-win fixture to advance real rendered frames; Run #252 will verify the celebration and post-game renderer state. Stage One review, Claude review and owner approval remain pending; Stage Two MY TEAM / MY SQUAD remains on hold. QA pass count is not visual approval.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
