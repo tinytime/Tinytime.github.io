@@ -590,3 +590,31 @@
 @media(max-width:620px){
  #menu .ui-menu-grid .ui-menu-icon-card{min-height:96px}
 }
+
+
+/* Landscape compact composition: keep the full 2×2 menu and DATA & SUPPORT in the first viewport. */
+@media(orientation:landscape) and (max-height:520px){
+ #menu.ui-menu-ready{padding-block:4px;gap:5px}
+ #menu .ui-menu-head{padding:0 0 5px}
+ #menu .ui-menu-mark{width:36px;height:36px}
+ #menu .ui-menu-title{font-size:18px}
+ #menu .ui-menu-goal{padding:6px 10px}
+ #menu .ui-menu-goal-text{font-size:13px;line-height:1.1}
+ #menu .ui-menu-tabs{gap:5px}
+ #menu .ui-menu-tab{min-height:32px}
+ #menu .ui-menu-content{padding:0;overflow:visible}
+ #menu .ui-menu-grid{gap:6px}
+ #menu .ui-menu-grid .ui-menu-icon-card{min-height:64px!important;padding:7px 9px;grid-template-columns:32px minmax(0,1fr) 12px!important;gap:7px}
+ #menu .ui-menu-grid .ui-menu-icon{width:32px;height:32px}
+ #menu .ui-menu-grid .ui-menu-icon svg{width:20px;height:20px}
+ #menu .ui-menu-grid .ui-menu-action-copy strong{font-size:14px;line-height:1}
+ #menu .ui-menu-grid .ui-menu-action-copy small{font-size:10px;line-height:1.05}
+ #menu .ui-menu-support{gap:6px;padding:7px}
+ #menu .ui-menu-support .ui-menu-icon-card{min-height:40px;padding:5px;gap:6px}
+ #menu .ui-menu-support .ui-menu-icon{width:24px;height:24px}
+ #menu .ui-menu-support .ui-menu-icon svg{width:16px;height:16px}
+ #menu .ui-menu-support .ui-menu-action-copy strong{font-size:11px;line-height:1}
+ #menu .ui-menu-support .ui-menu-action-copy small{font-size:9px;line-height:1}
+ #menu .ui-menu-foot{padding-top:5px}
+ #menu .ui-menu-foot #mTown{min-height:40px}
+}
