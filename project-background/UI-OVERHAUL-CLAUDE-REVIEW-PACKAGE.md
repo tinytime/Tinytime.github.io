@@ -107,3 +107,20 @@ Do not request changes to untouched surfaces outside this Stage One scope. Do no
 ## Decision state
 
 Internal implementation, automated QA and screenshot inspection are complete for this Stage One correction checkpoint. **This is not owner approval.** Independent review is requested against the exact baseline and 20-image set above. Stage Two MY TEAM / MY SQUAD remains on hold until the owner explicitly approves Stage One.
+
+
+## Round Two delta review — retrieve fresh artifact before scoring
+
+**Round Two source baseline:** `b6a037c07bdd2318dacb88319125db08fc093477`  
+**QA-trigger commit:** `2e88f012d20f7a97ee658d451d4b5c5a31ffe123`  
+**Current evidence state:** A new push-triggered browser-QA run was requested, but its run ID, result and artifact have not yet been retrieved. Run #194 is pre-Round-Two evidence and must not be used to score these changes.
+
+When the fresh artifact is available, submit **only these affected assets** for Round Two delta review (do not ask Claude to re-review untouched Stage One assets):
+1. `overworld-portrait.png` — title/CLEARED spacing.
+2. `match-playbook-overlay.png` — modal top edge and scoreboard/pause-control context.
+3. `match-pre-game.png` — both team-logo badge cards.
+4. `match-defense-selection.png` — possession message in modal header.
+5. `match-post-game-portrait.png` — result stack and bottom thumb-zone actions.
+6. The fresh screenshot showing the in-match scoreboard pause control most clearly; prefer `match-playbook-overlay.png` if it contains the scoreboard, otherwise use the corresponding fresh match capture.
+
+Review these deltas against the complete Stage One scope and prior Stage One baseline. Do not request screenshots of untouched surfaces. The owner still approves Stage One in totality; this delta review does not authorize Stage Two.
