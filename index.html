@@ -2303,7 +2303,10 @@ function showDefCall(fp){
   $('#dcTop').textContent='THEIR BALL AT '+ydTxt(fp);
   $('#dcRate').innerHTML='THEIR OFFENSE <b>'+S.O+'</b>'+(S.boost?' <small>('+S.T+' + '+S.boost+' captain push)</small>':'')+' · YOUR DEFENSE <b>'+S.D+'</b>'+(S.gaff?' <small>('+S.d+' + 4 gaff)</small>':'');   // v3.01: the numbers the drive really uses
   for(const b of $('#dcall').querySelectorAll('button[data-c]')){const k=b.dataset.c,o=dcOdds(m,DCALLS[k]);let e=b.querySelector('.dco');if(!e){e=document.createElement('span');e.className='dco';b.appendChild(e)}
-    e.textContent='EACH PLAY: STOP '+pc(o.pS)+' · BIG PLAY '+pc(o.pB)+' · TAKEAWAY '+pc(o.pT)+(k==='prev'?' · INSIDE YOUR 20: STOP '+pc(dcOdds(m,DCALLS[k],100).pS)+' · '+pc(DCALLS[k].rz)+' OF THEIR TOUCHDOWN PLAYS STOPPED AT THE 2':'')}
+    e.replaceChildren();
+    const rows=[['STOP',pc(o.pS)],['BIG PLAY',pc(o.pB)],['TAKEAWAY',pc(o.pT)]];
+    for(const [label,value] of rows){const row=document.createElement('span');row.className='dco-row';const name=document.createElement('span');name.className='dco-label';name.textContent=label;const rate=document.createElement('b');rate.className='dco-value';rate.textContent=value;row.append(name,rate);e.appendChild(row)}
+    if(k==='prev'){const note=document.createElement('span');note.className='dco-note';note.textContent='INSIDE YOUR 20 · STOP '+pc(dcOdds(m,DCALLS[k],100).pS)+' · '+pc(DCALLS[k].rz)+' OF TOUCHDOWNS STOPPED AT THE 2';e.appendChild(note)}}
   show('#sheet',false);show('#fourth',false);show('#dcall',true);
   gdTip('def','THEIR BALL: PICK A DEFENSE · EACH BUTTON SHOWS ITS ODDS FOR EVERY PLAY',5000)}   // v3.01: guided first game
 $('#dcall').addEventListener('click',e=>{const bt=e.target.closest&&e.target.closest('button[data-c]'),a=bt&&bt.dataset.c;if(!a||!G||(!G.pendFp&&G.pendFp!==0))return;const fp=G.pendFp;G.pendFp=null;beep(300,.08);show('#dcall',false);runOppDrive(fp,a)});   // tapping the small text inside a button counts too; a second tap can't start the drive twice
@@ -2353,6 +2356,7 @@ function playTicker(L,done,call){
   add()}
 function stt(){return SAVE.stats||(SAVE.stats={games:0,wins:0,secs:0})}
 const scoreHTML=c=>{const e=t=>String(t).replace(/[<>&]/g,'');return '<div style="font:700 12px/1.2 system-ui,sans-serif;letter-spacing:.14em;color:#cdbfa5;text-shadow:none">'+e((SAVE.teamName||'YOU').toUpperCase().slice(0,14))+'  vs  '+e(String(c.short||c.name).toUpperCase())+'</div><div style="font-size:54px;line-height:1.05">'+G.you+' - '+G.opp+'</div>'};
+const endScoreHTML=c=>{const clean=t=>String(t).replace(/[<>&]/g,'');const away=logoSVG(crewLogo(c),c.col||'#9b5cff',c.town,{shape:'shield'});return '<div class="ui-match-scorecard"><div class="ui-match-score-team"><span class="ui-match-score-logo">'+myLogoHTML('44px')+'</span><span class="ui-match-score-name">'+clean((SAVE.teamName||'YOU').toUpperCase().slice(0,14))+'</span></div><strong class="ui-match-score-value">'+G.you+' <i>–</i> '+G.opp+'</strong><div class="ui-match-score-team"><span class="ui-match-score-logo">'+away+'</span><span class="ui-match-score-name">'+clean(String(c.short||c.name).toUpperCase())+'</span></div></div>'};
 function endGame(win){achClear();endStyleShow();
   XLOG.games.push({res:win?'WIN':'LOSS',score:G.you+'-'+G.opp,plays:G.pn||0,secs:Math.round((performance.now()-(G.t0||performance.now()))/1000)});glog('=== GAME OVER: '+(win?'WIN':'LOSS')+' '+G.you+'-'+G.opp+' vs '+(G.crew&&G.crew.name)+' ===');
   SND.fx(win?'win':'lose');
@@ -2364,7 +2368,7 @@ function endGame(win){achClear();endStyleShow();
     SAVE.route=SAVE.route||{};
     if(!win){
       if(c.id==='rats2'&&!SAVE.route.zdBond){SAVE.route.zdBond=1;persist()}
-      $('#endScore').innerHTML=scoreHTML(c);$('#endNote').textContent=(c.id==='rats1')?"Pressure got you. Come back when it doesn't.":'Not yet.';screens('#end');return}
+      $('#endScore').innerHTML=endScoreHTML(c);$('#endNote').textContent=(c.id==='rats1')?"Pressure got you. Come back when it doesn't.":'Not yet.';screens('#end');return}
     let gained=0;
     if(!SAVE.route[c.id]){SAVE.route[c.id]=1;SAVE.upPts=(SAVE.upPts||0)+3;gained=3}
     if(c.id==='rats2'&&!SAVE.route.zdBond)SAVE.route.zdBond=1;
@@ -2372,8 +2376,8 @@ function endGame(win){achClear();endStyleShow();
     $('#stTitle').textContent='CHANNEL CLEARED';$('#stScore').innerHTML=scoreHTML(c);
     $('#stNote').textContent=gained?'Spend the points on any starter.':'You already cleared this test. Route tests pay once.';
     $('#stList').innerHTML='';if(gained)rwShow($('#stList'),{gain:gained,total:SAVE.upPts,why:['+3 \u00b7 first time through the '+c.name+' test (route tests pay once)']});show('#stDone',true);screens('#steal');return}
-  if(c&&c.practice){$('#endH').textContent=win?'PRACTICE WIN':'PRACTICE LOSS';$('#endScore').innerHTML=scoreHTML(c);$('#endNote').textContent=win?'Practice win. No rewards.':'Practice loss. No penalty.';screens('#end');return}
-  if(!win){$('#endH').textContent='TOUGH LOSS';$('#endScore').innerHTML=scoreHTML(c);$('#endNote').textContent=c.lose?c.boss.replace(/"/g,'')+': "'+c.lose+'"':'Tough one against '+c.name+'. Change up the plays and try again.';screens('#end');return}
+  if(c&&c.practice){$('#endH').textContent=win?'PRACTICE WIN':'PRACTICE LOSS';$('#endScore').innerHTML=endScoreHTML(c);$('#endNote').textContent=win?'Practice win. No rewards.':'Practice loss. No penalty.';screens('#end');return}
+  if(!win){$('#endH').textContent='TOUGH LOSS';$('#endScore').innerHTML=endScoreHTML(c);$('#endNote').textContent=c.lose?c.boss.replace(/"/g,'')+': "'+c.lose+'"':'Tough one against '+c.name+'. Change up the plays and try again.';screens('#end');return}
   const first=!SAVE.beaten.includes(c.id);SAVE.rm=SAVE.rm||{};let gain=0;if(first)gain=c.gain!==undefined?c.gain:(c.captain?10:7);else if((SAVE.rm[c.id]||0)<3){gain=1;SAVE.rm[c.id]=(SAVE.rm[c.id]||0)+1}
   SAVE.upPts=(SAVE.upPts||0)+gain;
   let teamUp=0;
@@ -2589,10 +2593,10 @@ function csTeam(){const t={ry:0,rt:0,rc:0,cy:0,ct:0,py:0,pt:0,an:0,tr:0,sp:0,td:
 function achCheck(live){const g=goalsSave(),t=csTeam(),got=[];for(const a of ACH){if(g.ach.includes(a.id))continue;if(a.v(t,g.n,g)>=a.max){g.ach.push(a.id);got.push(a)}}
   if(got.length){persist();for(const a of got)achToast(a)}}
 const achQ=[];let achTimer=0;function achToast(a){achQ.push(a);if(achQ.length===1)achNext()}
-function achNext(){const a=achQ[0];if(!a)return;let e=document.getElementById('achT');if(!e){e=document.createElement('div');e.id='achT';e.style.cssText='position:fixed;left:50%;top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 96px);transform:translateX(-50%);z-index:100002;box-sizing:border-box;width:max-content;max-width:min(82vw,440px);padding:7px 16px;border-radius:10px;background:rgba(24,18,6,.94);border:2px solid #ffd23a;color:#ffd23a;font:800 14px "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.08em;text-align:center;pointer-events:none;transition:opacity .3s;box-shadow:0 0 18px rgba(255,210,58,.4)';document.body.appendChild(e)}
-  e.innerHTML='';const b=document.createElement('b');b.textContent='★ ACHIEVEMENT · '+a.n;const s=document.createElement('div');s.style.cssText='font-size:11px;color:#fff3b0;font-weight:600';s.textContent=a.d;e.append(b,s);e.style.opacity=1;
-  clearTimeout(achTimer);achTimer=setTimeout(()=>{e.style.opacity=0;achTimer=setTimeout(()=>{achTimer=0;achQ.shift();achNext()},350)},2600)}
-function achClear(){clearTimeout(achTimer);achTimer=0;achQ.length=0;const e=document.getElementById('achT');if(e)e.remove()}
+function achNext(){const a=achQ[0];if(!a)return;let e=document.getElementById('achT');if(!e){e=document.createElement('div');e.id='achT';e.style.cssText='position:fixed;left:50%;top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);transform:translateX(-50%);z-index:100002;box-sizing:border-box;width:max-content;max-width:min(82vw,440px);padding:7px 16px;border-radius:10px;background:rgba(24,18,6,.94);border:2px solid #ffd23a;color:#ffd23a;font:800 14px "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.08em;text-align:center;pointer-events:none;transition:opacity .3s;box-shadow:0 0 18px rgba(255,210,58,.4)';document.body.appendChild(e)}
+  document.body.classList.add('ach-toast-active');e.innerHTML='';const b=document.createElement('b');b.textContent='★ ACHIEVEMENT · '+a.n;const s=document.createElement('div');s.style.cssText='font-size:11px;color:#fff3b0;font-weight:600';s.textContent=a.d;e.append(b,s);e.style.opacity=1;
+  clearTimeout(achTimer);achTimer=setTimeout(()=>{e.style.opacity=0;achTimer=setTimeout(()=>{achTimer=0;achQ.shift();if(achQ.length)achNext();else document.body.classList.remove('ach-toast-active')},350)},2600)}
+function achClear(){clearTimeout(achTimer);achTimer=0;achQ.length=0;document.body.classList.remove('ach-toast-active');const e=document.getElementById('achT');if(e)e.remove()}
 /* the trail colour drawn behind your runner (null = jersey colour) */
 function trailCol(p){if(!p||p.team!=='O'||!SAVE.trail)return null;const t=TRAILS[SAVE.trail];return t&&goalsSave().trails.includes(SAVE.trail)?t.c:null}
 /* small HTML helpers (all text set as text, never as HTML) */
@@ -8021,7 +8025,7 @@ function r2ZdBeat(){
 function r2Banner(html,col){const b=document.createElement('div');b.style.cssText='text-align:center;margin:6px 0 8px;padding:10px 8px;border:2px solid '+col+';border-radius:10px;background:rgba(232,163,61,.10);color:'+col+';font-weight:800;letter-spacing:.08em;font-size:16px';b.innerHTML=html;return b}
 function r2End(win,c){
   const S=r2S();
-  if(!win){$('#endH').textContent='TOUGH LOSS';$('#endScore').innerHTML=scoreHTML(c);$('#endNote').textContent=c.boss.replace(/"/g,'')+': "'+c.lose+'"';screens('#end');return}
+  if(!win){$('#endH').textContent='TOUGH LOSS';$('#endScore').innerHTML=endScoreHTML(c);$('#endNote').textContent=c.boss.replace(/"/g,'')+': "'+c.lose+'"';screens('#end');return}
   const L=$('#stList');L.innerHTML='';$('#stScore').innerHTML=scoreHTML(c);
   const who=c.boss.replace(/"/g,'')+': "'+c.win+'" ';
   if(c.id==='dredgers1'){
