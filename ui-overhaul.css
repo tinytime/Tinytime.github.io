@@ -1954,26 +1954,6 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
   color:#F5B841!important;box-shadow:0 0 18px rgba(245,184,65,.26)!important;
 }
 
-/* Defense Selection: reclaim vertical space in the 390px landscape game viewport. */
-@media (orientation:landscape) and (max-height:430px){
-  #app #dcall{
-    top:calc(env(safe-area-inset-top,0px) + 72px)!important;
-    max-height:calc(100dvh - env(safe-area-inset-top,0px) - 84px)!important;
-    overflow-y:auto!important;padding:8px 10px 10px!important;
-  }
-  #app #dcall h3{font-size:17px!important;line-height:1!important;padding:2px 0!important}
-  #app #dcall p{font-size:9px!important;line-height:1.15!important;margin:2px 0 6px!important}
-  #app #dcall .row{gap:6px!important}
-  #app #dcall .row>button{padding:7px!important;gap:4px!important;overflow:visible!important}
-  #app #dcall .row>button b{font-size:13px!important}
-  #app #dcall .row>button small{
-    display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;
-    overflow:hidden!important;font-size:8.5px!important;line-height:1.12!important;
-  }
-  #app #dcall .row>button .dco{gap:3px!important;padding-top:4px!important}
-  #app #dcall .row>button .dco-label{font-size:7px!important}
-  #app #dcall .row>button .dco-value{font-size:11px!important}
-}
 #pileT:not(:empty){
   left:50%!important;right:auto!important;bottom:5%!important;transform:translateX(-50%)!important;
   display:inline-flex!important;align-items:center!important;justify-content:center!important;
@@ -1984,3 +1964,6 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
   text-shadow:none!important;box-shadow:0 4px 12px rgba(0,0,0,.34);z-index:5;
 }
 #endNote:empty{display:none!important}
+
+#mu:not([hidden]) .pn.my{--tc:#F5B841!important;border-color:#F5B841!important}
+#mu:not([hidden]) .pn.op{--tc:#4DE1F2!important;border-color:#4DE1F2!important}
