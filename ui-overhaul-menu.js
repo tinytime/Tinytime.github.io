@@ -7,6 +7,7 @@
   menu.dataset.uiMenuReady='1';
   const byId=id=>document.getElementById(id);
   const oldLogo=menu.querySelector('.logo'),oldSub=menu.querySelector('.sub');
+  const oldTagline=[...menu.querySelectorAll('p.note')].find(el=>/^Walk Vapor City/i.test(el.textContent.trim()));
   const town=oldSub&&oldSub.textContent.trim()||'CIRCUIT FOOTBALL';
   const creditSource=[...menu.querySelectorAll('p.note,.note')].find(el=>/^Sound credits:/i.test(el.textContent.trim()));
   const creditText=creditSource&&creditSource.textContent.trim()||'';
@@ -66,7 +67,7 @@
   selectTab('menu');
   const townButton=byId('mTown');
   if(townButton){const old=townButton.closest('.btnrow');townButton.removeAttribute('style');footer.appendChild(townButton);if(old&&!old.querySelector('button,input,select'))old.remove()}
-  if(oldLogo)oldLogo.remove();if(oldSub)oldSub.remove();
+  if(oldLogo)oldLogo.remove();if(oldSub)oldSub.remove();if(oldTagline)oldTagline.remove();
   menu.append(head,goal,tabs,content,footer);
   menu.classList.add('ui-menu-ready');
   const upg=head.querySelector('.ui-menu-upg'),upgButton=byId('mUpg');if(upgButton)upg.addEventListener('click',()=>upgButton.click());
