@@ -504,3 +504,48 @@ Latest verified repository state at this check:
 - `qa/ui-overhaul-browser-qa.mjs` blob: `66faa7e86f2fc4b86e6b42d4ff922c5e9fd77839` (76 assertions)
 
 The latest QA assertion commit remains `ad2cd22c26005f7e244a18f28a6ea7c88961d9e9`; the later source refinements and documentation commits are part of the current branch tip. No completed Actions result or artifact has been retrieved for this source state. Do not claim a browser pass or visual approval.
+
+
+## Latest stage-one correction QA checkpoint — 2026-11-24
+
+A live-branch reconciliation after the earlier `d530af0f0b5ef75cca6ce5cf83ccf002947c8a8e` checkpoint confirms the correction work continued. The current branch tip is **`d9d22506c87474c775ee02fe05ec0f04d6085e95`** (commit title: “Capture defense simulation and clean credits screens in UI QA”). The branch is 13 commits ahead of the prior `d530af0` checkpoint.
+
+### Current source files
+
+| File | Current blob SHA |
+|---|---|
+| `index.html` | `4445e87110128048a7732f68ad714ae87ea61f73` |
+| `ui-overhaul.css` | `13779b2726f1232927e22dffaf98431cb650df41` |
+| `ui-overhaul-menu.js` | `3e373e622b1fae7ce2f2b17051ee63c9052d9bc6` |
+| `qa/ui-overhaul-browser-qa.mjs` | `b693738a8f1396a08e8765f30d56b7b07a34d5a4` |
+
+### Expanded browser-QA coverage
+
+The current harness contains **82 assertions**. In addition to the earlier menu/settings/reset/credits checks, the latest version now:
+
+- Measures the four icon-led menu cards and verifies their actual two-row geometry and text fit.
+- Checks menu width and overflow at portrait and landscape sizes, plus the portrait title/UPG collision boundary.
+- Captures credits in desktop and portrait layouts and confirms the developer drawer is hidden by default before the five-tap trigger is exercised.
+- Verifies the Overworld town/status/UPG pill, GOAL strip, contextual A label and full-viewport canvas in landscape and portrait.
+- Starts a real match and captures pre-game matchup, playbook, pre-snap and live-play states.
+- Exercises the fumble pile and turnover, checks the three defense choices, selects BALANCED, captures the actual defense-simulation ticker, and verifies offensive controls are hidden during that simulation.
+- Captures achievement toast and post-game screens, including a portrait post-game fit check.
+
+The current screenshot inventory is: startup diagnostics; desktop menu and playbook; desktop/portrait settings and credits; desktop/portrait credits with developer drawer; landscape/portrait Overworld; pre-game matchup; landscape/portrait playbook; pre-snap; live play; fumble pile; defense selection; defense simulation; achievement toast; desktop post-game; portrait post-game.
+
+### Verification status — do not overstate
+
+- Current code and QA harness have been re-fetched from the live `UI-Overhaul` branch.
+- The latest commit combined-status response is empty.
+- The available connected GitHub workflow-run retrieval action only returns pull-request-triggered runs; it returned no run for this push-triggered workflow. The run ID, completion result and artifact for `d9d2250` have **not** been retrieved.
+- Therefore the 82 assertions are present in the committed harness but **have not been confirmed as executed or passed** in this review. The earlier Run #39 (51/51) remains baseline evidence only and does not validate the stage-one correction.
+- Updated screenshots have not yet been retrieved or visually inspected. Automated source coverage is not visual approval.
+
+### Immediate next actions
+
+1. Retrieve the push-triggered UI Overhaul Browser QA run for `d9d22506c87474c775ee02fe05ec0f04d6085e95`; verify its exact tested SHA, result and artifact.
+2. Inspect the current screenshots, prioritizing desktop/portrait Overworld, desktop menu, credits/developer drawer, playbook, pre-snap/live, fumble, defense selection/simulation and post-game. Check full-bleed scene composition, clipping, safe areas, card scale, text hierarchy, HUD overlap and the semantic gold/cyan/crimson treatments.
+3. Fix only evidence-backed defects, then rerun against the resulting exact commit.
+4. Reassess the stage-one target of 6.5+/10. Claude review and owner approval remain outstanding. Do not start MY TEAM / MY SQUAD or call the direction approved until the owner explicitly approves it.
+
+**Current status:** art-direction corrections and expanded 82-assertion QA harness are committed; Actions execution/result and screenshot artifact retrieval are unverified; visual inspection, independent review and owner approval remain pending.
