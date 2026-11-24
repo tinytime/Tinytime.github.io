@@ -1438,3 +1438,5 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 
 /* The hidden post-game screen must remain hidden until the game transitions to results. */
 #end.screen[hidden]{display:none!important}
+
+/* Round Two targeted browser verification trigger — 2026-11-24. */
