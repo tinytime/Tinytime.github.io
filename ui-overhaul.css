@@ -1192,3 +1192,25 @@ body.land #bTurbo::before{content:none!important}
 
 /* Keep the first-to target outside the scoreboard card and clear of the round EXIT action. */
 body.land #hud #tgtTag{left:calc(min(600px,68%) + 10px)!important;top:calc(env(safe-area-inset-top,0px) + 14px)!important}
+
+
+/* The live-play TURBO stamina indicator is a distinct segmented ring outside the button face. */
+#bTurbo{overflow:visible!important;isolation:isolate}
+#bTurbo::after{
+  content:""!important;
+  position:absolute!important;
+  inset:-8px!important;
+  border-radius:50%!important;
+  pointer-events:none!important;
+  background:
+    repeating-conic-gradient(from -90deg,rgba(8,19,27,.95) 0deg 2deg,transparent 2deg 12deg),
+    conic-gradient(from -90deg,#38f0ff calc(var(--st,1)*1turn),rgba(255,255,255,.18) 0);
+  -webkit-mask:radial-gradient(circle,transparent 82%,#000 86% 100%)!important;
+  mask:radial-gradient(circle,transparent 82%,#000 86% 100%)!important;
+  filter:drop-shadow(0 0 5px rgba(77,225,242,.45));
+}
+#bTurbo.tired::after{
+  background:
+    repeating-conic-gradient(from -90deg,rgba(8,19,27,.95) 0deg 2deg,transparent 2deg 12deg),
+    conic-gradient(from -90deg,#ff4a4a calc(var(--st,1)*1turn),rgba(255,255,255,.18) 0);
+}
