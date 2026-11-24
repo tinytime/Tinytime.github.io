@@ -61,7 +61,9 @@
   ];
   parts.forEach(([title,body])=>{const group=document.createElement('section');group.className='ui-menu-credit-group';const h=document.createElement('h3');h.textContent=title;const p=document.createElement('p');p.textContent=body;group.append(h,p);credits.appendChild(group)});
   if(creditSource)creditSource.remove();
+  const testControls=byId('m3D')&&byId('m3D').closest('.btnrow');if(testControls){const testCard=card(dev,'TEST TOOLS');testCard.appendChild(testControls)}
   moveControl('mRO',dev,'FPS COUNTER',false);moveControl('mPL',dev,'PERFORMANCE LOG',false);moveControl('mPR',dev,'PERFORMANCE REPORT',false);
+  const soundStatus=byId('mSnd');if(soundStatus)credits.appendChild(soundStatus);
   credits.append(build,dev);
   const defs=[['menu','MENU',home],['settings','SETTINGS',settings],['credits','CREDITS',credits]];
   const selectTab=name=>defs.forEach(([key,label,p])=>{const b=tabs.querySelector('[data-tab="'+key+'"]'),active=key===name;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;p.hidden=!active});
