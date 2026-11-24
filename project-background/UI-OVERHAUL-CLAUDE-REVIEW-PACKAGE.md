@@ -163,3 +163,10 @@ Fresh Actions evidence is mandatory. The new assertions are test definitions, no
 ### Credits screen delta
 
 Add portrait-credits.png and desktop-credits.png to the changed-asset delta only if the fresh artifact confirms the expanded source attributions render without clipping and the pinned BACK TO TOWN action remains accessible. The original page 7 mockup visibly lists named contributors/sources in each of the three cyan-framed cards; the prior collapsed disclosure treatment was not faithful. Current implementation opens all three attributions by default. Fresh screenshot validation is pending.
+
+
+### Latest Stage One delta additions
+
+Also include the updated pre-game overlay in the delta check: the halftone split/rain backdrop has been replaced by a matte navy stadium-light gradient atmosphere; top labels are gold/cyan and VS/progress/TAP TO PLAY follow the gold/cyan hierarchy. This remains an approximation of the photographic stadium backdrop in the Gemini mockup, not an exact background match. Verify that the Settings and Credits CURRENT GOAL panel is absent, and inspect expanded Credits attribution.
+
+QA added assertions for the pre-game atmosphere and Credits goal-card removal. They are not passed until a fresh workflow artifact is inspected. Run #204 remains pre-change evidence.
