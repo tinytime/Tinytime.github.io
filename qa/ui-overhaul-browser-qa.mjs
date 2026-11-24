@@ -70,6 +70,12 @@ try{
  const nullTextDiagnostics=await page.locator('#menu').evaluate(root=>{const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const hits=[];while(walker.nextNode()){const t=walker.currentNode.textContent||'';if(/null|undefined/i.test(t))hits.push({text:t.trim(),parent:walker.currentNode.parentElement?.outerHTML.slice(0,700)||null})}return hits});
  fs.writeFileSync(path.join(out,'menu-null-text-diagnostics.json'),JSON.stringify(nullTextDiagnostics,null,2));
  await page.screenshot({path:path.join(out,'desktop-menu.png'),fullPage:true});
+ const desktopShell=await page.locator('#menu').evaluate(el=>{const r=el.getBoundingClientRect();return{x:r.x,width:r.width,center:r.x+r.width/2,viewport:innerWidth}});
+ check('Desktop menu uses a centered 920px maximum composition',desktopShell.width<=920&&Math.abs(desktopShell.center-desktopShell.viewport/2)<=2,desktopShell);
+ check('Menu UPG points badge is visible',await page.locator('.ui-menu-upg').isVisible()&&(await page.locator('.ui-menu-upg').textContent()).trim().startsWith('UPG'));
+ check('DATA & SUPPORT remains a distinct menu group',await page.locator('#uiMenuHome .ui-menu-support').isVisible()&&(await page.locator('#uiMenuHome .ui-menu-support').innerText()).includes('DATA & SUPPORT'));
+ const townCtaStyle=await page.locator('#mTown').evaluate(el=>({backgroundImage:getComputedStyle(el).backgroundImage,color:getComputedStyle(el).color}));
+ check('BACK TO TOWN uses the crimson/pink exit treatment',townCtaStyle.backgroundImage.includes('239, 71, 111')&&townCtaStyle.color==='rgb(255, 255, 255)',townCtaStyle);
  const menuTileGeometry=await page.locator('#uiMenuHome .ui-menu-grid .ui-menu-icon-card').evaluateAll(items=>items.map(el=>{const r=el.getBoundingClientRect(),copy=el.querySelector('.ui-menu-action-copy'),c=copy?.getBoundingClientRect();return{label:copy?.querySelector('strong')?.textContent||'',x:r.x,y:r.y,width:r.width,height:r.height,textFits:!!c&&c.right<=r.right+1&&c.left>=r.left-1}}));
  check('Menu uses four icon-led 2×2 cards',menuTileGeometry.length===4&&Math.abs(menuTileGeometry[0].y-menuTileGeometry[1].y)<3&&menuTileGeometry[2].y>menuTileGeometry[0].y&&Math.abs(menuTileGeometry[2].y-menuTileGeometry[3].y)<3,menuTileGeometry);
  check('Menu card labels do not clip',menuTileGeometry.every(x=>x.textFits),menuTileGeometry);
@@ -144,12 +150,15 @@ try{
  check('Credits panel switches',await page.locator('#uiMenuCredits').isVisible());
  const credit=(await page.locator('#uiMenuCredits').innerText()).toUpperCase();
  check('Credits categories present',['3D ART & UI','MUSIC & SFX','TOWN AMBIENCE'].every(s=>credit.includes(s)));
+ check('Credits use three concise grouped cards',await page.locator('#uiMenuCredits .ui-menu-credit-group').count()===3);
  check('Build footer retained',await page.locator('#mBuild').count()===1&&await page.locator('#mBuild').isVisible());
  check('Developer drawer is hidden by default',!(await page.locator('.ui-menu-dev').isVisible()));
  await page.screenshot({path:path.join(out,'desktop-credits.png'),fullPage:true});
  await page.setViewportSize({width:390,height:844});await page.waitForTimeout(120);await page.screenshot({path:path.join(out,'portrait-credits.png'),fullPage:true});await page.setViewportSize({width:1440,height:1000});
  for(let i=0;i<5;i++)await page.locator('#mBuild').click({delay:80});
  check('Developer drawer opens',await page.locator('.ui-menu-dev').isVisible());
+ const devMaxHeight=await page.locator('.ui-menu-dev').evaluate(el=>parseFloat(getComputedStyle(el).maxHeight));
+ check('Developer drawer remains a bounded utility panel',devMaxHeight<=220,devMaxHeight);
  const dev=await Promise.all(['#mRO','#mPL','#mPR'].map(s=>page.locator(s).count()));
  check('Developer controls retained',dev.every(n=>n===1),dev);
  await page.screenshot({path:path.join(out,'desktop-credits-developer.png'),fullPage:true});
@@ -180,6 +189,13 @@ try{
   check(v.name+' tabs visible',g.tabs.top>=-1&&g.tabs.bottom<=v.height+1,g.tabs);
   await page.screenshot({path:path.join(out,v.name+'-menu.png'),fullPage:true});
  }
+ await page.setViewportSize({width:360,height:780});await page.waitForTimeout(120);
+ const narrowMenu=await page.locator('#menu').evaluate(el=>{const r=el.getBoundingClientRect();return{x:r.x,width:r.width,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,viewport:innerWidth}});
+ check('360px portrait menu has no horizontal overflow',narrowMenu.x>=-1&&narrowMenu.x+narrowMenu.width<=360&&narrowMenu.scrollWidth<=narrowMenu.clientWidth+1,narrowMenu);
+ const narrowBrand=await page.evaluate(()=>{const t=document.querySelector('.ui-menu-title'),u=document.querySelector('.ui-menu-upg'),a=t.getBoundingClientRect(),b=u.getBoundingClientRect();return{titleRight:a.right,upgLeft:b.left,titleScroll:t.scrollWidth,titleClient:t.clientWidth}});
+ check('360px portrait title clears the UPG badge',narrowBrand.titleRight<=narrowBrand.upgLeft-4&&narrowBrand.titleScroll<=narrowBrand.titleClient+1,narrowBrand);
+ await page.screenshot({path:path.join(out,'narrow-menu-360.png'),fullPage:true});
+ await page.setViewportSize({width:1440,height:1000});
 
  await page.locator('#mTown').evaluate(el=>el.click());
  await page.waitForFunction(()=>{const w=document.querySelector('#world');return w&&!w.hidden&&getComputedStyle(w).display!=='none'},null,{timeout:10000}).catch(()=>{});
