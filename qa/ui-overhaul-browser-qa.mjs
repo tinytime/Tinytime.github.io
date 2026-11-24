@@ -208,8 +208,8 @@ try{
  check('360px portrait title clears the UPG badge',narrowBrand.titleRight<=narrowBrand.upgLeft-4&&narrowBrand.titleScroll<=narrowBrand.titleClient+1,narrowBrand);
  const goalsLabel=await page.locator('#mGoals .ui-menu-action-copy strong').evaluate(el=>{const r=document.createRange();r.selectNodeContents(el);const rects=[...r.getClientRects()].map(x=>({x:x.x,y:x.y,width:x.width,height:x.height}));return{text:el.textContent.trim(),fontSize:getComputedStyle(el).fontSize,lineHeight:getComputedStyle(el).lineHeight,rects,lineCount:rects.length}});
  check('GOALS & STATS wraps to exactly two lines at 360px',goalsLabel.text==='GOALS & STATS'&&goalsLabel.lineCount===2,goalsLabel);
- const playbookFit=await page.evaluate(()=>{const t=document.querySelector('.ui-menu-playbook .ui-menu-action-copy'),a=document.querySelector('.ui-menu-playbook .ui-menu-card-arrow');if(!t||!a)return null;const x=t.getBoundingClientRect(),y=a.getBoundingClientRect();return{textRight:x.right,arrowLeft:y.left,clearance:y.left-x.right,cardWidth:document.querySelector('.ui-menu-playbook').getBoundingClientRect().width}});
- check('360px Playbook label clears its arrow without overlap',!!playbookFit&&playbookFit.clearance>=4,playbookFit);
+ const playbookFit=await page.evaluate(()=>{const t=document.querySelector('.ui-menu-playbook .ui-menu-action-copy'),s=t?.querySelector('strong'),a=document.querySelector('.ui-menu-playbook .ui-menu-card-arrow');if(!t||!s||!a)return null;const range=document.createRange();range.selectNodeContents(s);const textRects=[...range.getClientRects()];const x=t.getBoundingClientRect(),y=a.getBoundingClientRect();return{textRight:Math.max(...textRects.map(r=>r.right)),copyRight:x.right,arrowLeft:y.left,clearance:y.left-Math.max(...textRects.map(r=>r.right)),copyClearance:y.left-x.right,cardWidth:document.querySelector('.ui-menu-playbook').getBoundingClientRect().width}});
+ check('360px Playbook label clears its arrow without overlap',!!playbookFit&&playbookFit.clearance>=4&&playbookFit.copyClearance>=4,playbookFit);
  await page.screenshot({path:path.join(out,'narrow-menu-360.png'),fullPage:true});
  await page.setViewportSize({width:1440,height:1000});
 
@@ -308,10 +308,10 @@ try{
    check('Achievement toast can be triggered',toast);
    await page.waitForFunction(()=>{const e=document.querySelector('#achT');return e&&getComputedStyle(e).opacity!=='0'},null,{timeout:5000});
    check('Achievement toast is visible',await page.locator('#achT').isVisible());
-   const toastRect=await page.locator('#achT').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el),ticker=document.querySelector('#tkPlay')?.getBoundingClientRect();return{x:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height,vw:innerWidth,vh:innerHeight,pointerEvents:s.pointerEvents,tickerTop:ticker?.top??null}});
+   const toastRect=await page.locator('#achT').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el),ticker=document.querySelector('#tkPlay')?.getBoundingClientRect(),app=document.querySelector('#app')?.getBoundingClientRect();return{x:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height,vw:innerWidth,vh:innerHeight,appBottom:app?.bottom??innerHeight,appBottomGap:(app?.bottom??innerHeight)-r.bottom,pointerEvents:s.pointerEvents,tickerTop:ticker?.top??null}});
    check('Achievement toast is bottom-centered, within bounds and non-blocking',toastRect.top>toastRect.vh*.55&&Math.abs((toastRect.x+toastRect.right)/2-toastRect.vw/2)<2&&toastRect.x>=0&&toastRect.right<=toastRect.vw&&toastRect.bottom<=toastRect.vh&&toastRect.pointerEvents==='none',toastRect);
    const tickerBottom=await page.locator('#tkPlay').evaluate(el=>el.getBoundingClientRect().bottom);
-   check('Achievement toast anchors to the bottom edge and clears the play-by-play ticker',toastRect.bottom>=toastRect.vh-30&&(toastRect.top>tickerBottom+6||toastRect.bottom<toastRect.tickerTop-6),{...toastRect,tickerBottom});
+   check('Achievement toast anchors to the bottom edge of the game surface and clears the play-by-play ticker',toastRect.appBottomGap>=6&&toastRect.appBottomGap<=20&&(toastRect.top>tickerBottom+6||toastRect.bottom<toastRect.tickerTop-6),{...toastRect,tickerBottom});
    await page.screenshot({path:path.join(out,'match-achievement-toast.png'),fullPage:true});
    await page.evaluate(()=>window.SG.__uiqa.postGame());
    check('Achievement toast clears before the post-game result',await page.locator('#achT').count()===0);
@@ -323,6 +323,8 @@ try{
   const scorePanel=await page.locator('#endScore').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{width:r.width,background:s.backgroundColor,border:s.borderTopWidth,radius:s.borderTopLeftRadius,children:el.children.length}});
   check('Post-game team score block is framed inside a matte navy card',scorePanel.background==='rgb(19, 22, 32)'&&parseFloat(scorePanel.border)>=1&&parseFloat(scorePanel.radius)>=12&&scorePanel.children>=1,scorePanel);
   check('Post-game score card carries both existing team marks',await page.locator('#endScore .ui-end-logo').count()===2);
+  const scoreCardContent=await page.locator('#endScore').evaluate(el=>({matchup:el.querySelector('.ui-end-score-matchup')?.textContent||'',score:el.querySelector('.ui-end-score-value')?.textContent?.trim()||'',logos:el.querySelectorAll('.ui-end-logo svg,.ui-end-logo img').length}));
+  check('Post-game card pairs both team marks with the matchup and score',scoreCardContent.logos===2&&scoreCardContent.matchup.includes('VS')&&!!scoreCardContent.score,scoreCardContent);
   await page.screenshot({path:path.join(out,'match-post-game.png'),fullPage:true});
   await page.setViewportSize({width:390,height:844});
   await page.waitForTimeout(120);
