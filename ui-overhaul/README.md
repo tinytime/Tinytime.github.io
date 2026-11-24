@@ -137,3 +137,12 @@ Static checks at branch HEAD `efcf75eb5bcf0573fcb0d15b6f6439d48346c48b`:
 - `main` remains unchanged at `36830922fa5b99922ce583bcf3888cb297bad03c`.
 
 The recent GitHub Actions history currently shows runs for the separate NPC branch, not this UI branch. The checked-in browser QA script targets an older standalone HTML fixture and cannot be used as-is for this build. Browser screenshots and interaction checks therefore remain pending; this is not visual approval. Next task is a dedicated `index.html` Chromium harness and portrait/landscape inspection, followed by save/reset/return-to-town regression checks. Golden snapshots remain untouched.
+
+
+## Current checkpoint — 2026-11-24
+
+- Current UI-Overhaul HEAD: 1c57d2457b468a266d410984c2fe0898574f5baa.
+- The last two retrieved browser runs (#15 and #16) both fail before menu interaction because #owMenu is present but hidden. Their 427-byte artifacts contain no usable screenshots.
+- The QA harness now captures startup screenshots and computed visibility/ancestor diagnostics, calls the existing SG.owShow() entry helper before attempting the HUD click when necessary, and clicks the real visible opener once. Diagnostic files are written before the visibility wait so failures remain inspectable.
+- Commits: 1fc422e, 62bb843, 1c57d24. No gameplay logic, main branch, or golden snapshots changed.
+- The corrected run and its screenshots have not yet been retrieved. Browser QA and visual approval remain pending. See project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md for the exact next steps.
