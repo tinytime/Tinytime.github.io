@@ -218,6 +218,8 @@ try{
   await page.evaluate(()=>{const state=window.SG&&typeof window.SG.muState==='function'?window.SG.muState():null;if(state&&state.auto){clearTimeout(state.auto);state.auto=0}});
   check('Pre-game matchup overlay remains visible for inspection',await page.locator('#mu').isVisible());
   check('Pre-game TAP TO PLAY prompt fits inside the viewport',await page.locator('#mu .tap').isVisible());
+  const introGap=await page.evaluate(()=>{const b=document.querySelector('#mu .bar').getBoundingClientRect(),t=document.querySelector('#mu .tap').getBoundingClientRect();return{gap:t.top-b.bottom,tapBg:getComputedStyle(document.querySelector('#mu .tap')).backgroundColor,tapBorder:getComputedStyle(document.querySelector('#mu .tap')).borderTopWidth}});
+  check('Pre-game TAP TO PLAY is separated from the progress bar',introGap.gap>=8&&introGap.tapBg==='rgb(19, 22, 32)'&&parseFloat(introGap.tapBorder)>=1,introGap);
   await page.screenshot({path:path.join(out,'match-pre-game.png'),fullPage:true});
   await page.locator('#mu').click({position:{x:420,y:350}});
   await page.waitForFunction(()=>{const e=document.querySelector('#sheet');return e&&!e.hidden},null,{timeout:10000});
@@ -236,6 +238,8 @@ try{
   check('Pre-snap action bar visible',await page.locator('#hike').isVisible());
   const hikeStyle=await page.locator('#hike').evaluate(el=>({backgroundColor:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color}));
   const hikeTextRGB=(hikeStyle.color.match(/\d+/g)||[]).map(Number);check('HIKE uses the solid cyan primary-action treatment',hikeStyle.backgroundColor==='rgb(77, 225, 242)'&&hikeTextRGB.length===3&&hikeTextRGB.every(v=>v<60),hikeStyle);
+  const scoreCard=await page.locator('#bug').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{width:r.width,maxWidth:1000,background:s.backgroundColor,borderRadius:s.borderTopLeftRadius,border:s.borderTopWidth}});
+  check('In-game scoreboard is framed as a matte navy card',scoreCard.width<=1000&&scoreCard.background==='rgba(19, 22, 32, 0.96)'&&parseFloat(scoreCard.border)>=1&&parseFloat(scoreCard.borderRadius)>=8,scoreCard);
   await page.screenshot({path:path.join(out,'match-pre-snap.png'),fullPage:true});
   const preHikeState=await page.locator('#hike').evaluate(el=>{const g=window.SG?.G,r=el.getBoundingClientRect(),hit=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);let snap=null;try{snap=window.SG?.snapDbg?.()}catch(e){snap={error:String(e)}}return{mode:g?.mode,fmode:window.SG?.F?.mode,crew:g?.crew?.id,crewR2:g?.crew?.r2,down:g?.down,togo:g?.togo,sel:g?.sel,selectedPlay:window.SG?.PLAYS?.[g?.sel]?.id,playKind:window.SG?.PLAYS?.[g?.sel]?.kind,fourthHidden:document.querySelector('#fourth')?.hidden,setbarHidden:document.querySelector('#setbar')?.hidden,disabled:el.disabled,handler:typeof el.onclick,startPlayWait:window.SG?.startPlay?._w||0,hitTarget:hit?.id||hit?.tagName,hitIsHike:hit===el||el.contains(hit),snapDbg:snap,zdBeat:!!document.querySelector('#zdBeat')}});
   check('HIKE is enabled in the active pre-snap state',preHikeState.mode==='set'&&preHikeState.fourthHidden&&!preHikeState.disabled&&preHikeState.handler==='function'&&preHikeState.hitIsHike,preHikeState);
@@ -256,6 +260,8 @@ try{
   }
   const liveNow=liveState.mode==='live'||liveState.fmode==='live';
   if(!liveNow)throw new Error('Unable to enter live play after the actual HIKE control and direct diagnostic fallback: '+JSON.stringify({preHikeState,liveState}));
+  const turboRing=await page.locator('#bTurbo').evaluate(el=>({display:getComputedStyle(el,'::before').display,background:getComputedStyle(el,'::before').backgroundImage}));
+  check('Live-play TURBO control has a segmented radial stamina ring',turboRing.display!=='none'&&turboRing.background.includes('repeating-conic-gradient'),turboRing);
   await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
   const qaHooks=await page.evaluate(()=>window.SG&&window.SG.__uiqa?true:false);
   check('Query-gated match QA hooks are available',qaHooks);
@@ -263,12 +269,16 @@ try{
    const pileStarted=await page.evaluate(()=>window.SG.__uiqa.startFumble());
    check('Fumble pile can be triggered in live play',pileStarted);
    await page.waitForFunction(()=>{const e=document.querySelector('#pile');return e&&!e.hidden},null,{timeout:10000});
+   const pileGeometry=await page.evaluate(()=>{const b=document.querySelector('#pileBar').getBoundingClientRect(),a=document.querySelector('#pileBtn').getBoundingClientRect();return{barWidth:b.width,viewport:innerWidth,ratio:b.width/innerWidth,barRight:b.right,buttonLeft:a.left,clearance:a.left-b.right}});
+   check('Fumble meter is about 65% width and clears the A mash button',pileGeometry.ratio>=.62&&pileGeometry.ratio<=.70&&pileGeometry.clearance>=8,pileGeometry);
    await page.screenshot({path:path.join(out,'match-fumble-pile.png'),fullPage:true});
    const lost=await page.evaluate(()=>window.SG.__uiqa.loseFumble());
    check('Fumble turnover can be resolved',lost);
    await page.waitForFunction(()=>{const e=document.querySelector('#dcall');return e&&!e.hidden},null,{timeout:10000});
    check('Defense selection screen appears after turnover',await page.locator('#dcall').isVisible());
    check('Defense selection offers BLITZ, BALANCED and PREVENT',await page.locator('#dcall button[data-c]').count()===3);
+   const defenseRows=await page.locator('#dcall button[data-c] .dco').evaluateAll(nodes=>nodes.map(n=>({rows:n.querySelectorAll('.dco-row').length,labels:[...n.querySelectorAll('.dco-label')].map(x=>x.textContent.trim())})));
+   check('Defense cards show three aligned STOP, BIG PLAY and TAKEAWAY stat rows',defenseRows.length===3&&defenseRows.every(x=>x.rows===3&&x.labels.join('|')==='STOP|BIG PLAY|TAKEAWAY'),defenseRows);
    await page.screenshot({path:path.join(out,'match-defense-selection.png'),fullPage:true});
    await page.locator('#dcall button[data-c="bal"]').click();
    await page.waitForFunction(()=>{const e=document.querySelector('#tick');return e&&getComputedStyle(e).display!=='none'},null,{timeout:5000});
@@ -277,6 +287,8 @@ try{
    check('Offensive controls are hidden during defense simulation',await page.locator('#sheet').isHidden()&&await page.locator('#setbar').isHidden()&&await page.locator('#ctl').isHidden());
    check('Defense simulation play-by-play is visible',await page.locator('#tkPlay').isVisible()&&!!(await page.locator('#tkPlay').textContent()).trim());
    check('Defense simulation includes TAP TO SKIP',await page.locator('#tkHint').isVisible()&&(await page.locator('#tkHint').textContent()).includes('TAP TO SKIP'));
+   const drivePill=await page.locator('#tkTop').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{top:r.top,viewport:innerHeight,background:s.backgroundColor,border:s.borderTopWidth}});
+   check('Defense drive pill is lowered and uses the navy status treatment',drivePill.top>=innerHeight*.15+10&&drivePill.background==='rgba(19, 22, 32, 0.96)'&&parseFloat(drivePill.border)>=1,drivePill);
    await page.screenshot({path:path.join(out,'match-defense-simulation.png'),fullPage:true});
    const toast=await page.evaluate(()=>window.SG.__uiqa.achievement());
    check('Achievement toast can be triggered',toast);
@@ -284,7 +296,8 @@ try{
    check('Achievement toast is visible',await page.locator('#achT').isVisible());
    const toastRect=await page.locator('#achT').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el),ticker=document.querySelector('#tkPlay')?.getBoundingClientRect();return{x:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height,vw:innerWidth,vh:innerHeight,pointerEvents:s.pointerEvents,tickerTop:ticker?.top??null}});
    check('Achievement toast is bottom-centered, within bounds and non-blocking',toastRect.top>toastRect.vh*.55&&Math.abs((toastRect.x+toastRect.right)/2-toastRect.vw/2)<2&&toastRect.x>=0&&toastRect.right<=toastRect.vw&&toastRect.bottom<=toastRect.vh&&toastRect.pointerEvents==='none',toastRect);
-   check('Achievement toast clears the defense play-by-play ticker',toastRect.tickerTop===null||toastRect.bottom<toastRect.tickerTop-6,toastRect);
+   const tickerBottom=await page.locator('#tkPlay').evaluate(el=>el.getBoundingClientRect().bottom);
+   check('Achievement toast anchors to the bottom edge and clears the play-by-play ticker',toastRect.bottom>=toastRect.vh-30&&(toastRect.top>tickerBottom+6||toastRect.bottom<toastRect.tickerTop-6),{...toastRect,tickerBottom});
    await page.screenshot({path:path.join(out,'match-achievement-toast.png'),fullPage:true});
    await page.evaluate(()=>window.SG.__uiqa.postGame());
    check('Achievement toast clears before the post-game result',await page.locator('#achT').count()===0);
@@ -293,6 +306,8 @@ try{
   check('Post-game result screen visible',await page.locator('#end').isVisible());
   const endStyles=await page.evaluate(()=>({surface:getComputedStyle(document.querySelector('#end')).backgroundColor,rematch:getComputedStyle(document.querySelector('#eAgain')).backgroundColor,rematchText:getComputedStyle(document.querySelector('#eAgain')).color,menu:getComputedStyle(document.querySelector('#eMenu')).backgroundColor}));
   check('Post-game uses matte navy surface and cyan rematch CTA',endStyles.surface==='rgb(19, 22, 32)'&&endStyles.rematch==='rgb(77, 225, 242)'&&endStyles.rematchText==='rgb(8, 19, 27)'&&endStyles.menu==='rgb(28, 33, 48)',endStyles);
+  const scorePanel=await page.locator('#endScore').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{width:r.width,background:s.backgroundColor,border:s.borderTopWidth,radius:s.borderTopLeftRadius,children:el.children.length}});
+  check('Post-game team score block is framed inside a matte navy card',scorePanel.background==='rgb(19, 22, 32)'&&parseFloat(scorePanel.border)>=1&&parseFloat(scorePanel.radius)>=12&&scorePanel.children>=1,scorePanel);
   await page.screenshot({path:path.join(out,'match-post-game.png'),fullPage:true});
   await page.setViewportSize({width:390,height:844});
   await page.waitForTimeout(120);
