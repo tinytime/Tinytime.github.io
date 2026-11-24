@@ -192,11 +192,11 @@
     const cards=[...panel.querySelectorAll('.ui-goals-achievement')];
     const earned=cards.filter(card=>card.classList.contains('is-earned')).length;
     if(count)count.textContent=earned+'/13';
-    cards.forEach(card=>{const badge=card.querySelector('.ui-goals-achievement-count');if(!badge)return;const max=Number((badge.textContent.match(/\\/\\s*(\\d+)/)||[])[1]||1);if(max===1)badge.textContent=card.classList.contains('is-earned')?'1 / 1':'0 / 1'});
+    cards.forEach(card=>{const badge=card.querySelector('.ui-goals-achievement-count');if(!badge)return;const max=Number((badge.textContent.match(/\/\s*(\d+)/)||[])[1]||1);if(max===1)badge.textContent=card.classList.contains('is-earned')?'1 / 1':'0 / 1'});
     const skill=[...panel.querySelectorAll('.ui-goals-stat-card')].find(card=>card.querySelector('.ui-goals-stat-label')?.textContent.trim()==='SKILL MOVES');
     if(skill&&!skill.querySelector('.ui-goals-skill-grid')){
      const detail=skill.querySelector('.ui-goals-stat-sub')?.textContent||'';
-     const nums=[...detail.matchAll(/(ANKLES|TRUCKS|SPINS)\\s*[·:]\\s*([\\d,]+)/gi)];
+     const nums=[...detail.matchAll(/(ANKLES|TRUCKS|SPINS)\s*[·:]\s*([\d,]+)/gi)];
      if(nums.length===3){
       skill.classList.add('is-skill');
       const grid=document.createElement('div');grid.className='ui-goals-skill-grid';
