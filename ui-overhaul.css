@@ -565,3 +565,9 @@
  #app #sheet .pbRow{flex-wrap:wrap}
  #app #sheet #blurb{flex:1 1 100%;max-height:36px}
 }
+
+/* Final menu geometry: the four primary tiles form a true 2×2 grid. */
+#menu .ui-menu-grid .ui-menu-playbook{grid-column:auto!important}
+#menu .ui-menu-foot #mTown:active{transform:none!important;filter:brightness(.94);box-shadow:0 5px 0 #84223f,0 10px 22px rgba(239,68,108,.2)!important}
+#menu .ui-menu-foot{position:relative;z-index:5;pointer-events:auto}
+#menu .ui-menu-foot #mTown{position:relative;z-index:6;pointer-events:auto}
