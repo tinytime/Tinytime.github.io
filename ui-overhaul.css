@@ -1646,3 +1646,5 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 #mu .bot .bar{background:#1C2130}
 #mu .bot .bar i{background:linear-gradient(90deg,#F5B841,#4DE1F2)}
 #mu .bot .tap{background:#4DE1F2;color:#131620;border-color:#4DE1F2;box-shadow:0 4px 0 #147f98;text-shadow:none}
+
+/* Stage One full mockup-fidelity QA trigger — 2026-11-24. */
