@@ -1050,3 +1050,14 @@ The QA fixture is being made deterministic: it pauses the play clock, parks defe
 The fresh live-play screenshot was inspected: two receivers carry green rings and one OPEN pill each; covered receivers remain muted with no OPEN pill. The fumble meter clears the A mash control by 47.9px at 65% viewport width. Defense selection, three aligned stat rows, in-modal possession headline, defense simulation, hidden offense controls, play-by-play/TAP TO SKIP, achievement toast, integrated FIRST TO/PLAY CLOCK scoreboard, overlay target hiding, and portrait loss-result layout all passed.
 
 **Visual gaps found during screenshot inspection:** the pre-game screen still reads as a flat gradient/grid rather than the handoff's warm floodlit turf and town skyline. The loss-result screen also leaves the STYLE POINTS card blank when the match earns zero points. These are now being corrected. The browser suite is being extended to verify both halves of the pre-game atmosphere, solid navy badge cards, a visible zero-point card, and a deterministic PRACTICE WIN result with a 3,700-point card and fresh portrait screenshot. Pending retest; no golden snapshots changed.
+
+
+### Run #239 — QA parser correction
+
+Run #239 (ID `45481651325`) tested `77ba7e053a48430f15d6ffb4dcb66ea6c27e5cc4` and failed before the browser suite started because of one extra closing brace in the new pre-game atmosphere assertion. No application checks ran and no screenshots were generated. The QA-only syntax error was corrected in commit `93de189bc16552916d7adffd50421f7a610124d6`; the next run executed the suite normally.
+
+### Run #240 — rewards verified; two visual corrections remain
+
+Run #240 (ID `45481832612`) tested `93de189bc16552916d7adffd50421f7a610124d6`: **172/173 checks passed**. The deterministic practice-win and loss result states both rendered; the portrait practice-win screenshot was visually inspected and confirms PRACTICE WIN, PRACTICE MODE, both team logos, the celebrating squad, and STYLE POINTS 3,700. The loss screen now shows STYLE POINTS 0 rather than leaving the reward card blank. No uncaught page exceptions or same-origin failures occurred.
+
+The single failed assertion exposed a CSS specificity conflict: the matchup's legacy `.rain` and `.holo` backgrounds overrode the new stadium/town backdrop layers. The new background selectors now outrank those classes. Visual inspection also found that the defense-selection panel's final stat row was clipped on the 844×390 landscape viewport even though the DOM contained all three rows. A short-landscape compression rule and a strict no-clipping/no-internal-scroll assertion are added. Both fixes are pending a fresh run and screenshot inspection. Stage Two and golden snapshots remain untouched.

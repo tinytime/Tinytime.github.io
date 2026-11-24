@@ -1835,3 +1835,42 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
   content:"";position:absolute;inset:0;
   background:radial-gradient(ellipse at 78% 68%,color-mix(in srgb,var(--b) 18%,transparent),transparent 46%);
 }
+
+
+/* Override the matchup's legacy .rain/.holo layers with the intended environmental backdrops. */
+#mu .bgfx.fx1{
+  background:
+    radial-gradient(ellipse at 17% 16%,rgba(255,245,205,.92) 0 2px,rgba(255,190,92,.34) 7px,transparent 108px),
+    radial-gradient(ellipse at 44% 22%,rgba(255,196,104,.34),transparent 36%),
+    conic-gradient(from 142deg at 17% 16%,transparent 0deg,rgba(255,203,125,.13) 18deg,transparent 42deg),
+    repeating-linear-gradient(0deg,transparent 0 31px,rgba(244,235,208,.14) 31px 33px,transparent 33px 66px),
+    linear-gradient(180deg,rgba(40,35,31,.35),rgba(23,31,39,.35) 55%,rgba(10,17,25,.72)),
+    linear-gradient(115deg,#4a3929 0%,#202b32 75%,#111923 100%);
+}
+#mu .bgfx.fx2{
+  background:
+    radial-gradient(ellipse at 82% 24%,color-mix(in srgb,var(--b) 36%,transparent),transparent 44%),
+    radial-gradient(ellipse at 67% 54%,color-mix(in srgb,var(--a) 22%,transparent),transparent 48%),
+    linear-gradient(180deg,rgba(7,13,23,.08),rgba(7,13,23,.74)),
+    linear-gradient(115deg,#182434,#0c1420 72%);
+}
+
+/* Short-landscape defense selection: fit the full stat cards below the scoreboard. */
+@media(max-height:520px){
+  #dcall{
+    top:calc(env(safe-area-inset-top,0px) + 76px)!important;
+    max-height:calc(100dvh - 96px)!important;
+    overflow:hidden!important;
+    padding:8px 12px!important;
+  }
+  #dcall h3{font-size:17px!important;line-height:1!important;padding:0!important;margin:0 0 4px!important}
+  #dcall p{margin:0 0 5px!important;font-size:10px!important;line-height:1.1!important}
+  #dcall .row{gap:6px!important}
+  #dcall .row>button{padding:7px!important}
+  #dcall .row>button b{margin:0 0 3px!important;font-size:14px!important}
+  #dcall .row>button small{min-height:0!important;font-size:9px!important;line-height:1.15!important}
+  #dcall .row>button .dco{margin-top:5px!important}
+  #dcall .row>button .dco-row{min-height:20px!important;padding:2px 5px!important}
+  #dcall .row>button .dco-label{font-size:8px!important}
+  #dcall .row>button .dco-value{font-size:11px!important}
+}
