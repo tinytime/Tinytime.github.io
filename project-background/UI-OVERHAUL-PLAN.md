@@ -99,3 +99,17 @@
 - Do not invent or substitute missing model/audio assets.
 - Do not update golden snapshots without explicit owner authorization.
 - Record commit SHA, test evidence, visual inspection, review status, and owner approval separately.
+
+
+## UI Overhaul progress update — 2026-11-24
+
+Stage 2 (Overworld Menu / Settings / Credits) has been implemented on `UI-Overhaul`:
+- Functional MENU / SETTINGS / CREDITS tabs with keyboard arrow navigation and ARIA roles.
+- Current-goal card reads the existing overworld objective.
+- Existing navigation, save-code, feedback, settings and reset controls are moved into the new grouped panels without replacing their DOM nodes or original handlers.
+- Existing build footer is retained with its original click behavior; five taps reveal the developer/test drawer.
+- The new behavior module is loaded from `index.html`; the UI stylesheet is loaded in the document head.
+
+Static validation at the implementation checkpoint passed: five existing inline scripts and the new menu module compile; CSS brace counts balance; both assets are linked. Browser rendering and interaction QA remain pending, and no visual approval is claimed. The exact `audio/` and `models/` runtime assets are still absent from the branch, preventing full-fidelity gameplay QA.
+
+Latest branch commit at this update: `77d0933cf6dfd8dd29315478b1e011e8f11510cf`.
