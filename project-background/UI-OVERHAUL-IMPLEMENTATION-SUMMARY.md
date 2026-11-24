@@ -887,3 +887,12 @@ The next fresh artifact must include and visually inspect the changed screens: o
 The Credits mockup (page 7) shows the actual asset/source attributions expanded in the three cyan-framed cards. The previous implementation hid the attribution behind VIEW FULL ATTRIBUTION and showed generic summaries. The three details sections now open by default, the generic summaries and disclosure labels are hidden, and the existing source text remains intact and visible. The QA harness now checks all three expanded groups and representative source names (Kay Lousberg, glitchart, Thimras and Kevin MacLeod).
 
 Latest code/QA checkpoint before this documentation update: 6e2154c968c9789cfccae121843f045e3c0ccab0. JavaScript syntax parsing succeeded for ui-overhaul-menu.js and the QA module after stripping module-only imports for parser validation. This is syntax validation only, not browser execution. No new Actions run/status/artifact was retrievable; Run #204 remains the last inspected browser result and predates all current corrections.
+
+
+### Follow-up to the full Stage One pass
+
+A subsequent code-level comparison corrected the pre-game overlay atmosphere: removed the split halftone/rain geometry in favor of a matte navy field with restrained warm/cool stadium-light gradients; town and crew-game chips now use gold and cyan respectively, and the VS/progress/TAP TO PLAY controls use the unified gold/cyan action hierarchy. This is an atmospheric CSS treatment, not a photographic backdrop matching the mockup exactly.
+
+The QA harness now also checks the pre-game backdrop and team-label colors, plus verifies the Home-only CURRENT GOAL card is absent on Credits (Settings already had a corresponding check). The original run #204 screenshots still predate all of these changes.
+
+**Latest source changes in this continuation:** CSS commit c0189cc (pregame atmosphere), QA commit 6a51cf4 (credits/pregame checks). Fresh browser QA has not yet been retrieved. The reference mockup's scoreboard placement of FIRST TO beside PLAY CLOCK is still not fully matched; the underlying target value remains dynamic and must not be hard-coded. The post-game screenshot from run #204 is a loss, so the reward card/win-state layout still requires a deterministic win-state visual check.
