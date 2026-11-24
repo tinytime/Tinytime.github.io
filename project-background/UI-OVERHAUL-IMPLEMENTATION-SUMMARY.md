@@ -217,3 +217,17 @@ The previously in-progress [Run #10 / 45416437234](https://github.com/tinytime/T
 - Thus, Run #10 does not validate the reset confirmation, tabs, credits, settings, developer drawer, responsive states, or return-to-town behavior.
 
 The two latest runs (#9 on `e66cb4b`, #10 on `50c0878`) both fail before opening the menu. The next engineering task is to diagnose the actual initial application state and visibility conditions for `#owMenu`, not to keep styling tabs or weakening the visibility assertion. The harness needs an explicit, bounded wait for the overworld to become active, plus diagnostic screenshot/state capture on timeout. Only click the MENU button after its real bounding box and computed visibility confirm it is interactable.
+
+
+## Concurrent implementation update discovered during handoff — 2026-11-24
+
+After Run #10 completed, the live branch advanced to commit `709d9078a5277e8ffd31f1fb48cf66539b75d097` (**Add playbook catalog and segmented resolution control**). This is a code change after the commit tested by Run #10 and therefore is not covered by that failed run.
+
+The commit modifies `ui-overhaul-menu.js`:
+- Adds a PLAYBOOK catalog entry to the MENU navigation, reading the existing `window.SG.PLAYS` collection and displaying play names, tags and blurbs.
+- Adds ALL / RUN / PASS / TRICK filters, a count, a back action and Escape handling.
+- Adds a segmented LOW / MED / HIGH / SHARP resolution control that delegates changes to the existing `#mRS` control.
+
+Status: implemented in source, not browser-tested or visually inspected. Recheck the native resolution control's current value parsing/click cycle and ensure the segmented control accurately reflects the real game state. Verify the Playbook overlay scrolls, fits portrait screens, has sensible empty states and closes accessibly.
+
+The latest observed branch HEAD during this check was `709d9078a5277e8ffd31f1fb48cf66539b75d097`. Check Actions again for a run triggered by this commit; do not infer one passed from the earlier Run #10.
