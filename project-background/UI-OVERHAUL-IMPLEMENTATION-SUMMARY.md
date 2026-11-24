@@ -423,3 +423,44 @@ The browser harness now additionally checks:
 4. Reassess the visual score against the owner's 6.5+/10 target. Do not proceed to MY TEAM / MY SQUAD or call the menu direction approved without the required owner decision.
 
 **Current implementation status:** code corrections committed; automated validation and visual inspection pending; independent review and owner approval not performed.
+
+
+## Reconciliation and expanded gameplay QA — 2026-11-24
+
+A live-branch recheck found additional concurrent UI-Overhaul commits after the first correction checkpoint. The current implementation uses `ui-overhaul-menu.js` as the owner of the Overworld DOM composition: it creates the compact status pill, goal strip and contextual A-button label from the original game nodes. A duplicate static goal/A-label insertion and its redundant per-frame helper were removed so the live module remains the single source of truth.
+
+Additional commits:
+- `29b274cd4a90f9f0730fc3d3cb481e83f2814c06` — remove duplicate Overworld markup and helper in favor of the live menu module.
+- `788fb6be8b5d060ba26a875d6089f84ac987aa18` — align final HUD CSS selectors with the module-generated markup.
+- `d0a3190006a202e2e6fd6d84fdd7e8cc17f8b255` — add query-gated test hooks for fumble, turnover, achievement and post-game fixtures.
+- `563dfbc0fe47f09f788c87781520377d73832d23` — assert the CALL PLAY CTA's actual solid cyan background color.
+
+### Current browser coverage
+
+The live QA harness now covers more than the menu and playbook:
+- Overworld goal strip, A-button label, canvas bounds and menu return.
+- Real pre-game matchup and its TAP TO PLAY prompt.
+- In-match playbook, selected gold card, FLIP and cyan CALL PLAY.
+- Pre-snap action bar and live-play state.
+- Fumble pile, turnover resolution and defense selection.
+- Achievement toast and post-game result screen.
+
+The game exposes the extra fumble/achievement/post-game QA hooks only when the harness loads `index.html?uiqa=1`; normal play does not expose them. The test flow uses the existing game APIs and controls.
+
+### Latest source checkpoint and verification status
+
+- Latest verified `UI-Overhaul` branch HEAD before this documentation update: `563dfbc0fe47f09f788c87781520377d73832d23`.
+- Latest code and QA harness files were re-fetched from the live branch. The duplicate HUD markup/helper is absent; the generated `.ui-ow-goal` and `.ui-ow-a-label` nodes are provided by the existing menu module.
+- The workflow definition still triggers on pushes to `UI-Overhaul` for the game, styling, menu and QA files.
+- **No Actions run result or updated artifact has yet been retrieved and verified for the expanded harness.** The available commit-status response is empty and the available commit-workflow-runs wrapper only exposes PR-triggered runs; this is not evidence that a push workflow passed or failed. Do not infer a result.
+- Actual screenshots from the expanded run have not yet been opened and visually inspected.
+
+### Immediate next actions
+
+1. Retrieve the Actions run triggered by the latest QA/code push and confirm its exact tested SHA. If the run is absent or failed, use the GitHub Actions UI/run evidence to identify why and correct it.
+2. Inspect the actual screenshots for Overworld, matchup, playbook, pre-snap, live play, fumble, defense selection, achievement toast and post-game. Verify viewport fit, readability, safe areas, HUD overlap and gameplay-state visibility.
+3. Confirm whether a separate defense-simulation screenshot is needed; the current harness explicitly covers defense selection after turnover but not a full defense-simulation sequence.
+4. Correct issues and rerun on the resulting exact code commit. Update this summary with the run ID, result, artifact ID, screenshot list and visual findings.
+5. Reassess the owner's 6.5+/10 target. Independent review and owner approval remain outstanding; do not start MY TEAM / MY SQUAD until the menu direction is explicitly approved.
+
+**Status:** correction implementation committed; expanded browser harness committed; Actions result/artifact retrieval and visual inspection pending; independent review and owner approval not performed.
