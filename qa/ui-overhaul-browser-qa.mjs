@@ -26,17 +26,27 @@ page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400)sameOriginFa
 try{
  await page.goto(base+'/index.html',{waitUntil:'load',timeout:60000});
  await page.waitForFunction(()=>document.querySelector('#menu')?.dataset.uiMenuReady==='1',null,{timeout:15000});
- // Game boots into the overworld; open the menu through its real HUD control before testing.
- const overworldMenuButton=page.locator('#owMenu');
- check('Overworld menu button available at startup',await overworldMenuButton.count()===1&&await overworldMenuButton.isVisible());
- await overworldMenuButton.click();
- await page.waitForFunction(()=>{const e=document.querySelector('#menu');return e&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().width>0},null,{timeout:10000});
+ // Inspect startup, explicitly enter the overworld when the game exposes its existing owShow helper,
+ // then use the real visible HUD button exactly once. Never force-click a hidden control.
  const menu=page.locator('#menu');
  const openOverworldMenu=page.locator('#owMenu');
- const initialScreen=await page.evaluate(()=>({menuOpacity:getComputedStyle(document.querySelector('#menu')).opacity,worldHidden:document.querySelector('#world')?.hidden,menuHidden:document.querySelector('#menu')?.hidden}));
- if(!(await openOverworldMenu.isVisible())) await page.evaluate(()=>{if(window.SG?.owShow)window.SG.owShow()});
- await page.waitForFunction(()=>{const b=document.querySelector('#owMenu');return !!b&&getComputedStyle(b).display!=='none'&&getComputedStyle(b).visibility!=='hidden'&&b.getBoundingClientRect().width>0;},null,{timeout:10000});
- check('Overworld MENU opener visible',await openOverworldMenu.isVisible(),initialScreen);
+ const describeStartup=()=>page.evaluate(()=>{
+  const inspect=el=>{if(!el)return null;const s=getComputedStyle(el),r=el.getBoundingClientRect();const ancestors=[];for(let p=el;p&&ancestors.length<6;p=p.parentElement){const ps=getComputedStyle(p),pr=p.getBoundingClientRect();ancestors.push({tag:p.tagName,id:p.id||null,className:typeof p.className==='string'?p.className:'',hidden:p.hidden,display:ps.display,visibility:ps.visibility,opacity:ps.opacity,rect:{x:Math.round(pr.x),y:Math.round(pr.y),width:Math.round(pr.width),height:Math.round(pr.height)}})}return{tag:el.tagName,id:el.id||null,className:typeof el.className==='string'?el.className:'',text:(el.innerText||el.textContent||'').trim().slice(0,100),hidden:el.hidden,display:s.display,visibility:s.visibility,opacity:s.opacity,rect:{x:Math.round(r.x),y:Math.round(r.y),width:Math.round(r.width),height:Math.round(r.height)},ancestors}};
+  return{readyState:document.readyState,bodyClass:document.body.className,app:inspect(document.querySelector('#app')),world:inspect(document.querySelector('#world')),owMenu:inspect(document.querySelector('#owMenu')),menu:inspect(document.querySelector('#menu')),visibleButtons:[...document.querySelectorAll('button')].map(inspect).filter(x=>x.rect.width>0&&x.rect.height>0&&x.display!=='none'&&x.visibility!=='hidden'&&Number(x.opacity)>.01)};
+ });
+ const startupBefore=await describeStartup();
+ await page.screenshot({path:path.join(out,'startup-before-overworld.png'),fullPage:true});
+ const startupHasOverworldButton=await openOverworldMenu.count()===1&&await openOverworldMenu.isVisible();
+ check('Overworld HUD is already active at startup',startupHasOverworldButton,startupBefore);
+ let invokedOverworldHelper=false;
+ if(!startupHasOverworldButton)invokedOverworldHelper=await page.evaluate(()=>{if(typeof window.SG?.owShow==='function'){window.SG.owShow();return true}return false});
+ check('Existing overworld entry helper available when needed',startupHasOverworldButton||invokedOverworldHelper,{invokedOverworldHelper});
+ if(!startupHasOverworldButton)await page.waitForFunction(()=>{const b=document.querySelector('#owMenu');if(!b)return false;const s=getComputedStyle(b),r=b.getBoundingClientRect();return !b.hidden&&s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)>.5&&r.width>0&&r.height>0;},null,{timeout:10000});
+ const startupAfter=await describeStartup();
+ fs.writeFileSync(path.join(out,'startup-state.json'),JSON.stringify({before:startupBefore,after:startupAfter,invokedOverworldHelper},null,2));
+ await page.screenshot({path:path.join(out,'startup-after-overworld.png'),fullPage:true});
+ check('Overworld MENU opener genuinely visible',await openOverworldMenu.isVisible(),startupAfter.owMenu);
+ if(!(await openOverworldMenu.isVisible()))throw new Error('The existing overworld entry helper did not expose #owMenu. Inspect startup-state.json and startup screenshots; do not bypass visibility.');
  await openOverworldMenu.click();
  await page.waitForFunction(()=>{const e=document.querySelector('#menu');if(!e)return false;const s=getComputedStyle(e);return !e.hidden&&s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)>.5&&e.getBoundingClientRect().height>0;},null,{timeout:10000});
  const menuIsActuallyVisible=()=>menu.evaluate(e=>{const s=getComputedStyle(e);return !e.hidden&&s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)>.5&&e.getBoundingClientRect().height>0});
