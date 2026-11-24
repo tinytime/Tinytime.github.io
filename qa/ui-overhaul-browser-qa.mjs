@@ -316,6 +316,8 @@ try{
   check('Pre-snap action bar visible',await page.locator('#hike').isVisible());
   const hikeStyle=await page.locator('#hike').evaluate(el=>({backgroundColor:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color}));
   const hikeTextRGB=(hikeStyle.color.match(/\d+/g)||[]).map(Number);check('HIKE uses the solid cyan primary-action treatment',hikeStyle.backgroundColor==='rgb(77, 225, 242)'&&hikeTextRGB.length===3&&hikeTextRGB.every(v=>v<60),hikeStyle);
+  const preSnapControls=await page.locator('#setbar button.sb').evaluateAll(es=>es.map(el=>({text:el.innerText.replace(/\\s+/g,' ').trim(),background:getComputedStyle(el).backgroundColor,border:getComputedStyle(el).borderTopColor,borderWidth:getComputedStyle(el).borderTopWidth})));
+  check('Pre-snap CHANGE PLAY and SHOW PLAY use matte navy with gold borders',preSnapControls.length===2&&preSnapControls.every(x=>x.background==='rgb(19, 22, 32)'&&x.border==='rgb(245, 184, 65)'&&parseFloat(x.borderWidth)>=2),preSnapControls);
   const scoreCard=await page.locator('#bug').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{width:r.width,background:s.backgroundColor,borderRadius:s.borderTopLeftRadius,border:s.borderTopWidth}});
   check('Stage One in-game scoreboard is framed as a matte navy card',scoreCard.width<=1000&&scoreCard.background==='rgba(19, 22, 32, 0.96)'&&parseFloat(scoreCard.border)>=1&&parseFloat(scoreCard.borderRadius)>=8,scoreCard);
   const pauseControl=await page.locator('#exit').evaluate(el=>({radius:getComputedStyle(el).borderRadius,width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height,label:el.getAttribute('aria-label')}));check('Scoreboard EXIT control is a circular accessible pause icon',pauseControl.radius==='50%'&&pauseControl.width===42&&pauseControl.height===42&&pauseControl.label==='Pause / exit match',pauseControl);
@@ -354,6 +356,19 @@ try{
    check('Live Play highlights open receiver(s) and leaves covered receivers muted',receiverCue.open.length>=1&&receiverCue.covered.length>=1&&receiverCue.mode==='live'&&receiverCue.clockOn===false,receiverCue);
   }
   await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
+  if(qaHooks){
+   const runnerPrepared=await page.evaluate(()=>window.SG.__uiqa.runnerControls());
+   check('Deterministic live-runner state can expose HURDLE',runnerPrepared);
+   await page.waitForFunction(()=>document.querySelector('#bHurdle')?.classList.contains('show')&&document.querySelector('#bHurdle').textContent.trim()==='HURDLE',null,{timeout:5000});
+   const hurdleStyle=await page.locator('#bHurdle').evaluate(el=>{const r=el.getBoundingClientRect(),t=document.querySelector('#bTurbo').getBoundingClientRect(),s=getComputedStyle(el);return{display:s.display,text:el.textContent.trim(),background:s.backgroundColor,border:s.borderTopColor,borderWidth:s.borderTopWidth,clearance:t.left-r.right}});
+   check('Live HURDLE uses matte navy, gold border and clears TURBO',hurdleStyle.display==='flex'&&hurdleStyle.text==='HURDLE'&&hurdleStyle.background==='rgb(19, 22, 32)'&&hurdleStyle.border==='rgb(245, 184, 65)'&&parseFloat(hurdleStyle.borderWidth)>=2&&hurdleStyle.clearance>=8,hurdleStyle);
+   await page.screenshot({path:path.join(out,'match-live-runner-controls.png'),fullPage:true});
+   const divePrepared=await page.evaluate(()=>window.SG.__uiqa.diveControls());
+   check('Deterministic live-runner state can expose DIVE',divePrepared);
+   await page.waitForFunction(()=>document.querySelector('#bHurdle')?.textContent.trim()==='DIVE',null,{timeout:5000});
+   const diveStyle=await page.locator('#bHurdle').evaluate(el=>({text:el.textContent.trim(),background:getComputedStyle(el).backgroundColor,border:getComputedStyle(el).borderTopColor}));
+   check('Live DIVE keeps the same matte navy and gold control treatment',diveStyle.text==='DIVE'&&diveStyle.background==='rgb(19, 22, 32)'&&diveStyle.border==='rgb(245, 184, 65)',diveStyle);
+  }
   if(qaHooks){
    const pileStarted=await page.evaluate(()=>window.SG.__uiqa.startFumble());
    check('Fumble pile can be triggered in live play',pileStarted);

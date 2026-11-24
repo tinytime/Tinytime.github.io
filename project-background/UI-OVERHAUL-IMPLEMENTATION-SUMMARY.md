@@ -1099,3 +1099,10 @@ The practice-win fixture now resets every field player's rig fall state and sets
 ### Run #246 — celebration fixture API correction
 
 Run #246 (ID `45483894574`) reached the deterministic Practice Win setup after the preceding fumble, defense, and matchup checks, then stopped with `TypeError: RIGF is not a function`. `RIGF` is the front-view rig object, not a callable reset function. The fixture already resets each player's fall/lying/stun fields directly; the invalid rig invocation is removed while preserving the touchdown result and arms-raised celebration pose. The updated fixture is pending a full retest.
+
+
+### Run #247 — full suite green; final match-control polish
+
+**Run #247 verified:** [GitHub Actions run #247](https://github.com/tinytime/Tinytime.github.io/actions/runs/45484497458), run ID `45484497458`, tested exact commit `b25e4902ba8cbb943e71ad29b5f10cf9db045159`. Result: **177/177 checks passed**. The run confirms the corrected fumble timer seconds pill, three-row Defense Selection, completed Defense Simulation play-by-play and TAP TO SKIP, and deterministic Practice Win rendering. Fresh screenshots were inspected.
+
+The practice-win screenshot still showed the squad in a neutral-looking pose. The fixture now selects the first procedural celebration variant (raised-arm jump) instead of the third taunt variant. The final control polish also replaces the pre-snap CHANGE PLAY / SHOW PLAY brown surfaces with matte navy and gold borders, and gives the live-run HURDLE / DIVE button the specified matte navy/gold treatment. Query-gated fixtures and strict palette/clearance assertions are added. Pending full retest. Stage Two and golden snapshots remain untouched.

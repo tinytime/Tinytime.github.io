@@ -1967,3 +1967,17 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 
 #mu:not([hidden]) .pn.my{--tc:#F5B841!important;border-color:#F5B841!important}
 #mu:not([hidden]) .pn.op{--tc:#4DE1F2!important;border-color:#4DE1F2!important}
+
+
+/* Pre-snap CHANGE PLAY / SHOW PLAY: navy surfaces with the approved gold outline. */
+#app #setbar button.sb{
+  background:#131620!important;border:2px solid #F5B841!important;
+  color:#F5F7FA!important;box-shadow:0 4px 12px rgba(0,0,0,.24)!important;
+}
+#app #setbar button.sb.on{background:#1C2130!important;border-color:#F5B841!important;color:#F5B841!important}
+
+/* Live-run HURDLE / DIVE: matte navy with a consistent gold edge in both modes. */
+body.land #bHurdle,body.land #bHurdle.dive{
+  background:#131620!important;border:2px solid #F5B841!important;color:#F5B841!important;
+  box-shadow:0 0 0 1px rgba(245,184,65,.2),0 6px 16px rgba(0,0,0,.34)!important;
+}
