@@ -1166,3 +1166,22 @@ body.land #bTurbo::before{content:none!important}
 #menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card:nth-of-type(n){border-color:rgba(255,255,255,.17)!important}
 #hud #bug{border-radius:10px!important}
 #tick #tkTop{top:calc(15% + 14px)!important;background:rgba(19,22,32,.96)!important;border-color:var(--ui-cyan)!important}
+
+
+/* Final Stage One visual consistency: neutral menu cards, gold interaction, lowered navy drive pill. */
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card:nth-of-type(n){
+  border:1px solid rgba(255,255,255,.17)!important;
+  background:linear-gradient(180deg,#1c2130 0%,#171d2a 100%)!important;
+  box-shadow:0 4px 12px rgba(0,0,0,.12)!important;
+}
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card:hover,
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card:focus-visible{
+  border-color:var(--ui-gold)!important;
+  background:#222838!important;
+}
+#tick #tkTop{
+  top:calc(15% + 28px)!important;
+  background:rgba(19,22,32,.96)!important;
+  border:1px solid rgba(77,225,242,.55)!important;
+  box-shadow:0 6px 20px rgba(0,0,0,.32)!important;
+}
