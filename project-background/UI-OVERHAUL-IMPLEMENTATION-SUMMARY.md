@@ -203,3 +203,17 @@ A second completed attempt was reviewed after the earlier checkpoint above:
 - Latest branch HEAD after the documentation index/plan commits was `5c627f817cd22916b738e0f5fa97232b42d6fc34`. Run #10 tests `50c0878`, which precedes the documentation-only commits. Re-verify live HEAD and poll Run #10 before taking further action.
 
 **Updated diagnosis:** the harness has a startup/menu-visibility problem before it can exercise Settings. Do not assume the latest run has proven the reset modal works. First fix how the harness waits for and opens the live overworld menu. It must verify the real game is in the overworld and that `#owMenu` is genuinely visible before clicking. Capture diagnostic state on failure (screen state, computed style, bounding box, active overlays) and always upload the report even when assertions fail. Only then continue to tab, reset-cancel and drawer tests.
+
+
+## Run #10 result — 2026-11-24
+
+The previously in-progress [Run #10 / 45416437234](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416437234) has completed:
+
+- Tested commit: `50c0878609932ddd3a54d7d1b6e7ca99fc54020a`.
+- Result: **FAILED** at the same initial menu-opening step as Run #9.
+- Playwright found `#owMenu` in the DOM but reported it was not visible, then timed out at `qa/ui-overhaul-browser-qa.mjs:37`.
+- Playwright/Chromium installation passed. Artifact upload passed, but the uploaded ZIP is only 426 bytes and contains no usable screenshot set.
+- Artifact: [14932342190](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416437234/artifacts/14932342190).
+- Thus, Run #10 does not validate the reset confirmation, tabs, credits, settings, developer drawer, responsive states, or return-to-town behavior.
+
+The two latest runs (#9 on `e66cb4b`, #10 on `50c0878`) both fail before opening the menu. The next engineering task is to diagnose the actual initial application state and visibility conditions for `#owMenu`, not to keep styling tabs or weakening the visibility assertion. The harness needs an explicit, bounded wait for the overworld to become active, plus diagnostic screenshot/state capture on timeout. Only click the MENU button after its real bounding box and computed visibility confirm it is interactable.
