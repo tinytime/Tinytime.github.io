@@ -1681,3 +1681,20 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 #ui-goals-panel-stats .ui-goals-skill-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;padding:9px 5px;border:1px solid rgba(77,225,242,.28);border-radius:9px;background:rgba(77,225,242,.06)}
 #ui-goals-panel-stats .ui-goals-skill-cell b{font-size:20px;color:#F5F7FA}
 #ui-goals-panel-stats .ui-goals-skill-cell span{font-size:10px;font-weight:800;letter-spacing:.08em;color:#F5B841}
+
+
+/* Run #227 correction: live menu cards are generated nodes, not legacy #mUpg/#mGoals controls.
+   Keep semantic accents above the later neutral #uiMenuHome card reset. */
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"],
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"]:hover,
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"]:focus-visible{border-color:rgba(245,184,65,.88)!important}
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="upgrades"] strong{color:#F5B841!important}
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="team"],
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="team"]:hover,
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="team"]:focus-visible,
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="playbook"],
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="playbook"]:hover,
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="playbook"]:focus-visible,
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"],
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"]:hover,
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card[data-ui-tile="goals"]:focus-visible{border-color:rgba(77,225,242,.82)!important}

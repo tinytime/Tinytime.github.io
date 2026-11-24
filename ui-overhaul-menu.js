@@ -183,29 +183,38 @@
 
   }
   const enhanceGoals=()=>{
-   const panel=document.getElementById('ui-goals-panel-stats')||document.getElementById('goalsP');if(!panel||panel.dataset.uiMockupEnhance==='1')return;
+   // Trophy and achievement badges belong to the modal root; career stats live in a child tab panel.
+   const panel=document.getElementById('goalsP');if(!panel||panel.dataset.uiMockupEnhance==='1')return;
    panel.dataset.uiMockupEnhance='1';
    const trophy=panel.querySelector('.ui-goals-trophy');
    let count=trophy&&trophy.querySelector('.ui-goals-trophy-count');
    if(trophy&&!count){count=document.createElement('span');count.className='ui-goals-trophy-count';trophy.appendChild(count)}
    const update=()=>{
-    const cards=[...panel.querySelectorAll('.ui-goals-achievement')];
-    const earned=cards.filter(card=>card.classList.contains('is-earned')).length;
-    if(count&&count.textContent!==earned+'/13')count.textContent=earned+'/13';
-    cards.forEach(card=>{const badge=card.querySelector('.ui-goals-achievement-count');if(!badge)return;const max=Number((badge.textContent.match(/\/\s*(\d+)/)||[])[1]||1);if(max===1){const next=card.classList.contains('is-earned')?'1 / 1':'0 / 1';if(badge.textContent!==next)badge.textContent=next}});
-    const skill=[...panel.querySelectorAll('.ui-goals-stat-card')].find(card=>card.querySelector('.ui-goals-stat-label')?.textContent.trim()==='SKILL MOVES');
+    const achievements=[...panel.querySelectorAll('#ui-goals-panel-achievements .ui-goals-achievement')];
+    const earned=achievements.filter(card=>card.classList.contains('is-earned')).length;
+    if(count){const next=earned+'/13';if(count.textContent!==next)count.textContent=next}
+    achievements.forEach(card=>{
+     const badge=card.querySelector('.ui-goals-achievement-count');if(!badge)return;
+     const maxMatch=badge.textContent.match(/\/\s*(\d+)/),max=maxMatch?Number(maxMatch[1]):(/LOCKED/i.test(badge.textContent)?1:0);
+     if(max===1){const next=card.classList.contains('is-earned')?'1 / 1':'0 / 1';if(badge.textContent.trim()!==next)badge.textContent=next}
+    });
+    const stats=panel.querySelector('#ui-goals-panel-stats');
+    const skill=stats&&[...stats.querySelectorAll('.ui-goals-stat-card')].find(card=>card.querySelector('.ui-goals-stat-label')?.textContent.trim()==='SKILL MOVES');
     if(skill&&!skill.querySelector('.ui-goals-skill-grid')){
-     const detail=skill.querySelector('.ui-goals-stat-sub')?.textContent||'';
-     const nums=[...detail.matchAll(/(ANKLES|TRUCKS|SPINS)\s*[:·•]?\s*([\d,]+)/gi)];
-     if(nums.length===3){
+     const detail=skill.querySelector('.ui-goals-stat-sub')?.textContent||skill.textContent||'';
+     const nums=['ANKLES','TRUCKS','SPINS'].map(label=>{
+      const match=detail.match(new RegExp('\\b'+label+'\\b\\s*(?:[:·•—-]\\s*)?([\\d,]+)','i'));
+      return match&&{label,value:match[1]};
+     });
+     if(nums.every(Boolean)){
       skill.classList.add('is-skill');
       const grid=document.createElement('div');grid.className='ui-goals-skill-grid';
-      nums.forEach(match=>{const cell=document.createElement('div');cell.className='ui-goals-skill-cell';const value=document.createElement('b');value.textContent=match[2];const label=document.createElement('span');label.textContent=match[1];cell.append(value,label);grid.appendChild(cell)});
+      nums.forEach(item=>{const cell=document.createElement('div');cell.className='ui-goals-skill-cell';const value=document.createElement('b');value.textContent=item.value;const label=document.createElement('span');label.textContent=item.label;cell.append(value,label);grid.appendChild(cell)});
       skill.appendChild(grid);
      }
     }
    };
-   update();if(window.MutationObserver)new MutationObserver(update).observe(panel,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+   update();if(window.MutationObserver)new MutationObserver(update).observe(panel,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class']});
   };
   const enhanceEnd=()=>{
    const end=document.getElementById('end');if(!end||end.hidden)return;
