@@ -180,3 +180,11 @@ At this handoff checkpoint, only implementation and static/source inspection are
 ## 10. Quick continuation prompt
 
 “Review `project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md` and the linked UI overhaul docs. Reconnect to GitHub, verify the live `UI-Overhaul` HEAD and latest Actions, and continue at Section 8. Do not restart the project, do not skip the failed Settings-tab QA issue, do not claim visual approval, and do not start MY TEAM / MY SQUAD until the menu QA is green and I have reviewed the menu direction.”
+
+
+## Live checkpoint after documentation handoff — 2026-11-24
+
+- The implementation summary and project-background index were committed to `UI-Overhaul`; latest branch HEAD at this check is `86ae5903e5b616cf494f68e0d1ca8a67d77f854c`.
+- A new browser QA run is active: [Run #10 / 45416437234](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416437234), testing code commit `50c0878609932ddd3a54d7d1b6e7ca99fc54020a` (the reset-handler interception follow-up).
+- At the time of this checkpoint, the job was still installing Playwright/Chromium; no pass/fail result or artifact exists yet. This run tests the immediately preceding code commit, not the documentation-only HEAD commit.
+- When resuming, poll Run #10, inspect its job log and artifact, then decide whether another run is needed against current HEAD. Do not assume it passed.
