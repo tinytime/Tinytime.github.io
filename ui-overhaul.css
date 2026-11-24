@@ -1337,3 +1337,24 @@ body.land #hud #exit{right:8%;top:calc(env(safe-area-inset-top,0px) + 6px);width
   #goalsP .ui-goals-stat-card{padding:11px}
   #goalsP .ui-goals-stat-value{font-size:24px}
 }
+
+
+/* Stage One in-game HUD geometry: target pill sits below the scoreboard, clear of the pause control. */
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card{
+  border:1px solid rgba(255,255,255,.17)!important;
+  background:linear-gradient(180deg,#1c2130 0%,#171d2a 100%)!important;
+  box-shadow:0 4px 12px rgba(0,0,0,.12)!important;
+}
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card:hover{
+  border-color:rgba(255,255,255,.17)!important;background:#222838!important;
+}
+#uiMenuHome .ui-menu-grid .ui-menu-icon-card:focus-visible{
+  border-color:rgba(255,255,255,.17)!important;outline:2px solid var(--ui-gold)!important;outline-offset:2px;
+}
+#hud #tgtTag{
+  left:8%!important;
+  top:calc(env(safe-area-inset-top,0px) + 72px)!important;
+  transform:none!important;
+  z-index:12!important;
+}
+#tick #tkTop{top:calc(15% + 28px)!important}
