@@ -295,7 +295,11 @@ try{
  const pregameAtmosphere=await page.evaluate(()=>{const split=document.querySelector('#mu .split'),left=document.querySelector('#mu .fx1'),right=document.querySelector('#mu .fx2'),lb=getComputedStyle(left),rb=getComputedStyle(right),lp=getComputedStyle(left,'::before'),rp=getComputedStyle(right,'::before');return{base:getComputedStyle(split).backgroundImage,splitChildren:[...split.children].map(n=>getComputedStyle(n).display),left:{background:lb.backgroundImage,clip:lb.clipPath,opacity:lb.opacity,texture:lp.backgroundImage,pseudo:lp.content},right:{background:rb.backgroundImage,clip:rb.clipPath,opacity:rb.opacity,skyline:rp.backgroundImage,shape:rp.clipPath,pseudo:rp.content},town:getComputedStyle(document.querySelector('#mu .top .town')).color,tag:getComputedStyle(document.querySelector('#mu .top .tag')).color}});
  check('Pre-game pairs warm floodlit turf with a defocused town skyline and keeps halftone split layers off',pregameAtmosphere.base.includes('radial-gradient')&&pregameAtmosphere.splitChildren.every(x=>x==='none')&&pregameAtmosphere.left.background.includes('repeating-linear-gradient')&&pregameAtmosphere.left.texture.includes('repeating-linear-gradient')&&pregameAtmosphere.left.pseudo!=='none'&&pregameAtmosphere.right.background.includes('radial-gradient')&&pregameAtmosphere.right.skyline.includes('repeating-linear-gradient')&&pregameAtmosphere.right.shape.includes('polygon')&&pregameAtmosphere.right.pseudo!=='none'&&pregameAtmosphere.town==='rgb(245, 184, 65)'&&pregameAtmosphere.tag==='rgb(77, 225, 242)',pregameAtmosphere);
 
-  await page.screenshot({path:path.join(out,'match-pre-game.png'),fullPage:true});
+  
+  const matchupFinish=await page.evaluate(()=>{const split=document.querySelector('#mu .split'),fx=document.querySelector('#mu .fx1');return{beam:getComputedStyle(split).backgroundImage,lightBank:getComputedStyle(fx,'::after').content,lightSize:getComputedStyle(fx,'::after').width,home:getComputedStyle(document.querySelector('#mu .pn.my')).backgroundColor,away:getComputedStyle(document.querySelector('#mu .pn.op')).backgroundColor}});
+  check('Pre-game backdrop includes the handoff-style diagonal floodlight beam and stadium light bank',matchupFinish.beam.includes('linear-gradient(118deg')&&matchupFinish.lightBank!=='none'&&matchupFinish.lightSize!=='0px'&&matchupFinish.home==='rgb(19, 22, 32)'&&matchupFinish.away==='rgb(19, 22, 32)',matchupFinish);
+
+await page.screenshot({path:path.join(out,'match-pre-game.png'),fullPage:true});
   await page.locator('#mu').click({position:{x:420,y:350}});
   await page.waitForFunction(()=>{const e=document.querySelector('#sheet');return e&&!e.hidden},null,{timeout:10000});
   check('In-match playbook overlay opens',await page.locator('#sheet').isVisible());
@@ -310,7 +314,13 @@ try{
   check('In-match CALL PLAY uses the cyan CTA treatment',callStyle.backgroundColor==='rgb(77, 225, 242)'&&callStyle.color==='rgb(8, 19, 27)',callStyle);
   await page.locator('#flipBtn').click();
   check('In-match FLIP toggles selected play orientation',await page.locator('#flipBtn').evaluate(el=>el.classList.contains('on')));
-  const sheetTop=await page.locator('#sheet').evaluate(el=>el.getBoundingClientRect().top);check('In-match Playbook sheet clears scoreboard lower edge',sheetTop>=66,sheetTop);await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
+  const sheetTop=await page.locator('#sheet').evaluate(el=>el.getBoundingClientRect().top);check('In-match Playbook sheet clears scoreboard lower edge',sheetTop>=66,sheetTop);
+  const playbookLayout=await page.locator('#cards').evaluate(el=>({columns:getComputedStyle(el).gridTemplateColumns.split(' ').length,cards:[...el.querySelectorAll('.card')].map(card=>{const title=card.querySelector('b');return{text:title?.innerText.trim()||'',fontSize:title?getComputedStyle(title).fontSize:null,scroll:title?.scrollWidth||0,client:title?.clientWidth||0,width:title?.getBoundingClientRect().width||0}})}));
+  check('In-match Playbook uses four to five cards per landscape row and every title fits',playbookLayout.columns>=4&&playbookLayout.columns<=5&&playbookLayout.cards.length>0&&playbookLayout.cards.every(card=>card.scroll<=card.client+1&&card.width>0),playbookLayout);
+  const diagramStyle=await page.locator('#cards .card canvas').first().evaluate(el=>({filter:getComputedStyle(el).filter,background:getComputedStyle(el).backgroundColor,card:getComputedStyle(el.closest('.card')).backgroundColor}));
+  check('In-match route diagrams use neutral monochrome art and no brown/gold card fill',diagramStyle.filter.includes('grayscale(1)')&&diagramStyle.background==='rgb(16, 23, 34)'&&diagramStyle.card==='rgb(28, 33, 48)',diagramStyle);
+
+await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
   check('FIRST TO remains visible in the in-game playbook overlay',await page.locator('#tgtTag').isVisible());
   await page.setViewportSize({width:390,height:844});await page.waitForTimeout(120);await page.screenshot({path:path.join(out,'match-playbook-portrait.png'),fullPage:true});await page.setViewportSize({width:844,height:390});await page.waitForTimeout(120);
   await page.locator('#callBtn').click();
@@ -411,7 +421,11 @@ try{
    check('Defense simulation includes TAP TO SKIP',await page.locator('#tkHint').isVisible()&&(await page.locator('#tkHint').textContent()).includes('TAP TO SKIP'));
    const drivePill=await page.locator('#tkTop').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{top:r.top,viewport:innerHeight,background:s.backgroundColor,border:s.borderTopWidth}});
    check('Defense drive pill is lowered clear of the top HUD and uses the navy status treatment',drivePill.top>=drivePill.viewport*.15+12&&drivePill.background==='rgba(19, 22, 32, 0.96)'&&parseFloat(drivePill.border)>=1,drivePill);
-   await page.screenshot({path:path.join(out,'match-defense-simulation.png'),fullPage:true});
+   
+   const driveTransition=await page.evaluate(()=>{const banner=document.querySelector('#banner'),pill=document.querySelector('#tkTop'),title=document.querySelector('#tkTitle'),bs=getComputedStyle(banner),ps=getComputedStyle(pill);return{bannerText:banner?.textContent.trim()||'',bannerOpacity:bs.opacity,bannerVisibility:bs.visibility,title:title?.textContent.trim()||'',pillAnimation:ps.animationName,pillDelay:ps.animationDelay}});
+   check('Defense simulation clears the prior field banner before revealing THEIR DRIVE',/BALANCED/i.test(driveTransition.title)&&driveTransition.bannerOpacity==='0'&&driveTransition.bannerVisibility==='hidden'&&driveTransition.pillAnimation==='ui-drive-pill-arrive',driveTransition);
+
+await page.screenshot({path:path.join(out,'match-defense-simulation.png'),fullPage:true});
    const toast=await page.evaluate(()=>window.SG.__uiqa.achievement());
    check('Achievement toast can be triggered',toast);
    await page.waitForFunction(()=>{const e=document.querySelector('#achT');return e&&getComputedStyle(e).opacity!=='0'},null,{timeout:5000});
@@ -446,8 +460,8 @@ try{
   check('Deterministic practice-win result can be rendered',practiceWin);
   check('Practice-win result uses the correct win banner and practice mode pill',await page.locator('#end h2').textContent()==='PRACTICE WIN'&&(await page.locator('#end .ui-end-mode').textContent()).includes('PRACTICE'));
   check('Practice-win result carries the earned STYLE POINTS total',await page.locator('#endStyle').textContent()==='STYLE POINTS  3,700');
-  const celebrationState=await page.evaluate(()=>{const players=Object.values(window.SG.F?.off||{}).filter(p=>p&&typeof p==='object'&&'x' in p&&p.celeb>0),renderer=window.CF3D?.info||{};return{result:window.SG.F?.res?.type,players:players.length,rendererFrames:window.SG.__uiqa.practiceRenderFrameDelta||0,rendererOn:renderer.on,rendererError:renderer.err,last3D:window.__CF3D_LAST_DRAW,spriteFrames:window.__CF2D_CELEB_SPRITE_RENDERED||0}});
-  check('Practice-win result renders a live touchdown celebration pose for the squad',celebrationState.result==='td'&&celebrationState.players>=3&&celebrationState.rendererFrames>=20&&(celebrationState.last3D===true||celebrationState.spriteFrames>=3),celebrationState);
+  const celebrationState=await page.evaluate(()=>{const allPlayers=Object.values(window.SG.F?.off||{}).filter(p=>p&&typeof p==='object'&&'x' in p),players=allPlayers.filter(p=>p.celeb>0),notCelebrating=allPlayers.filter(p=>!(p.celeb>0)||p.fall||p.lying||p.stun),renderer=window.CF3D?.info||{};return{result:window.SG.F?.res?.type,players:players.length,allPlayers:allPlayers.length,notCelebrating:notCelebrating.length,rendererFrames:window.SG.__uiqa.practiceRenderFrameDelta||0,rendererOn:renderer.on,rendererError:renderer.err,last3D:window.__CF3D_LAST_DRAW,spriteFrames:window.__CF2D_CELEB_SPRITE_RENDERED||0}});
+  check('Practice-win result renders a live touchdown celebration pose for the squad',celebrationState.result==='td'&&celebrationState.players>=3&&celebrationState.allPlayers>=3&&celebrationState.notCelebrating===0&&celebrationState.rendererFrames>=20&&(celebrationState.last3D===true||celebrationState.spriteFrames>=3),celebrationState);
   const endHudState=await page.locator('#hud').evaluate(el=>({hidden:el.hidden,renderOnly:el.classList.contains('ui-end-render-only'),opacity:getComputedStyle(el).opacity,pointerEvents:getComputedStyle(el).pointerEvents,inert:el.inert,ariaHidden:el.getAttribute('aria-hidden')}));
   check('Post-game hides HUD chrome without disabling the 3D player renderer',!endHudState.hidden&&endHudState.renderOnly&&endHudState.opacity==='0'&&endHudState.pointerEvents==='none'&&endHudState.inert&&endHudState.ariaHidden==='true',endHudState);
   const practiceLayout=await page.locator('#end').evaluate(el=>{const note=el.querySelector('#endNote'),style=el.querySelector('#endStyle'),score=el.querySelector('#endScore'),frame=getComputedStyle(el,'::before');const nr=note.getBoundingClientRect(),sr=style.getBoundingClientRect(),cr=score.getBoundingClientRect();return{noteText:note.textContent.trim(),noteBottom:nr.bottom,styleTop:sr.top,scoreBottom:cr.bottom,frameBottom:parseFloat(frame.top)+parseFloat(frame.height)}});
