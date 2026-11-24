@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-24):** branch `UI-Overhaul` is at `95396692ebed114cebbf9fd21da8748ef888163a`. Run #252 passed 185/186 checks: the menu row, fumble timer placement, practice-win spacing, and post-game renderer-only HUD behavior are correct. The remaining failure is visual celebration: the default baked 2D vector sprites ignore the celebration state even though field-renderer frames advance. The next commit adds a raised-arm celebration variant to the default vector sprite art and checks that it is actually drawn. Stage One review, Claude review and owner approval remain pending; Stage Two MY TEAM / MY SQUAD remains on hold. QA pass count is not visual approval.
+**Live checkpoint (2026-11-24):** branch `UI-Overhaul` has Round 4 defense-drive pill fitting corrections in progress; latest code/test harness commit is `f3b657617d601d331702b2be556590c7210c6592` (Run #258 pending at the time of this note). Round 3 Run #256 passed 190/190 checks. The latest Round 4 feedback asks for the defense-drive pill to be centered and keep the full down-and-distance/yard-line text visible. MY TEAM and MY SQUAD are Section 3 / Stage Two in the handoff and must remain out of Stage One QA until the owner approves Stage One. QA pass count is not visual approval.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
