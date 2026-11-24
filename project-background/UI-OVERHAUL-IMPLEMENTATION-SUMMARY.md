@@ -279,3 +279,8 @@ On resume, poll Runs #15 and #16, inspect exact job logs and artifacts, then ins
 3. If SG.owShow() does not expose the real HUD, use the captured initial screen and visible-control/ancestor data to identify and exercise the actual game entry transition. Do not force-click hidden elements.
 4. Once the real MENU button is visible, run the remaining menu, Playbook, settings, reset-cancel, credits/developer drawer, responsive, asset, and return-to-town checks. Inspect every actual screenshot before reporting visual status.
 5. Do not begin MY TEAM / MY SQUAD until the menu QA is green and the owner has reviewed the menu direction.
+
+
+### Documentation-only follow-up
+
+The status notes above were recorded in three sequential documentation commits: summary ac0e4298c420696323d4918233971ee0aefd8b39, workstream README a05c5317c1ed2a216197c62654483177dfecf3f1, and plan 02e447b4cdce53b437db56567c85fe5870906464. The verified current branch HEAD is now 02e447b4cdce53b437db56567c85fe5870906464; these commits only update documentation. The QA harness/code commit awaiting browser evidence remains 1c57d2457b468a266d410984c2fe0898574f5baa.
