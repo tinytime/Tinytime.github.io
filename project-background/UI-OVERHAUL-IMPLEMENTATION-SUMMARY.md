@@ -1185,3 +1185,22 @@ Run #252 tested `95396692ebed114cebbf9fd21da8748ef888163a`: **185/186 checks pas
 - **Evidence:** [Run #258](https://github.com/tinytime/Tinytime.github.io/actions/runs/45510700772), artifact [14974438683](https://github.com/tinytime/Tinytime.github.io/actions/runs/45510700772/artifacts/14974438683), 8,535,878 bytes, 37 PNG screenshots plus report/diagnostics. Retained through 2026-12-08.
 - **Scope:** MY TEAM and MY SQUAD remain Section 3 / Stage Two, intentionally excluded from Stage One. They remain unverified and untouched pending Stage One owner approval.
 - **Status:** Round 4 automated correction is verified. Artifact screenshot visual inspection, Claude's independent review where required, and owner approval remain outstanding. Stage Two remains on hold. No golden snapshots or provenance were changed.
+
+
+### Round 5 — Fumble contest centering and palette correction (2026-11-24)
+
+**Owner feedback:** the Fumble page's contest pill/bar is visibly off-center and the text/button still use the legacy palette.
+
+**Root cause found in the live stylesheet:** an older later-in-file override reset `#pileBar` to `left:8vw` and `transform:none`, overriding an earlier centered rule. The fumble meter also retained legacy burgundy track and green fill, muted labels, and an unthemed A mash button.
+
+**Implemented on UI-Overhaul:**
+- `#pileBar` is now centered against the viewport with `left:50%` and `translateX(-50%)`, while preserving its 65vw target width and 8px clearance from the A mash control.
+- Fumble panel and labels now use the Stage One `#131620` navy, white, cyan `#4DE1F2`, and gold `#F5B841` palette.
+- Track is deep navy; fill is a cyan-to-gold gradient; center marker is white/gold.
+- Countdown pill stays navy with a gold border and text.
+- A mash button is now navy with cyan text and a gold border.
+- Browser QA now asserts viewport centering, width, mash-button clearance, and computed palette for the panel, track, fill, labels and button.
+- CSS commit: `ac23e1aa282c3c2197294738fae0b338de352f68`.
+- QA commit / current tested HEAD: `01e96cdc2f2398d42d23b81981bd4999062520b4`. Fresh browser QA run pending.
+
+**Status:** implementation committed; automated verification pending. This is a targeted correction to Stage One Fumble gameplay UI. No golden snapshots or provenance changed. Stage Two remains on hold.
