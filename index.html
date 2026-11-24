@@ -11085,7 +11085,7 @@ if((location.hostname==='127.0.0.1'||location.hostname==='localhost')&&new URLSe
     loseFumble:()=>{if(!F||!F.pile)return false;pileEnd(false);return true},
     defense:()=>{if(!G||!G.crew)return false;G.mode='dead';G.pendFp=35;showDefCall(35);return !$('#dcall').hidden},
     achievement:()=>{if(!ACH||!ACH.length)return false;achToast(ACH[0]);return true},
-    postGame:()=>{show('#dcall',false);endGame(false);return true}
+    postGame:()=>{clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);endGame(false);return true}
   };
 }
 
