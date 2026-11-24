@@ -236,3 +236,10 @@ The exact tested branch contains 45 referenced audio files and 22 referenced mod
 The first UI pass was graded 3.2/10. The Stage One correction is implemented on `UI-Overhaul`: a full-viewport Overworld HUD treatment with GOAL strip and contextual A label; stronger centered 2×2 arcade menu hierarchy; compact grouped credits/dev utility presentation; and visual treatment for the real in-match playbook sheet (gold selected card, FLIP and cyan CALL PLAY). The live game controls and `callPlay()` behavior are retained.
 
 Implementation details, exact commits and QA status are recorded in [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). Browser QA has been extended to the Overworld and pre-game play-calling flow, but the new run/artifact has not yet been verified. The prior 51/51 Run #39 does not validate these edits. Target for the next visual review is 6.5+/10; live-play, defense, fumble, achievement-toast and post-game screenshots remain required before visual sign-off.
+
+
+## Reconciled Stage One correction and gameplay QA scope — 2026-11-24
+
+The live Overworld menu module owns the status pill, GOAL strip and contextual A-button composition; duplicate static HUD markup was removed. The real in-match play-calling sheet now has the selected gold card, FLIP and cyan CALL PLAY styling. The browser harness has been extended through pre-game, playbook, pre-snap, live play, fumble/turnover, defense selection, achievement toast and post-game.
+
+See [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for the exact current branch checkpoint, commits and QA state. The expanded Actions result/artifact has not yet been retrieved and inspected; the earlier Run #39 does not validate these changes. Actual screenshot inspection, independent review and owner approval remain outstanding. Target for the next visual review is 6.5+/10.
