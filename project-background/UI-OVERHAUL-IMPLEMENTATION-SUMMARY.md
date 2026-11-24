@@ -6,10 +6,10 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest verified implementation commit: `d980f2e533de7d5bdfe55c7df98a593da7af8aee` (the following documentation commit does not change game code)
+- Latest code status: Run #121 passed at `d0d7225f41a647bd8aeb23ea44208d554bb25025`; newer owner commit `baad03690b434997eba3a45eca30829dbb76a8d2` failed Run #122 HIKE readiness timing gate (23,089 ms > 15,000 ms).
 - Latest verified baseline `main` SHA recorded by the workstream: `36830922fa5b99922ce583bcf3888cb297bad03c`
 - Owner approval: **not yet given**
-- Visual approval: **not yet given** (ChatGPT internal screenshot inspection is complete; independent Claude review is still pending)
+- Independent visual review: **Claude Round 2 returned 9.2/10 overall** on the changed Stage One surfaces; final owner approval is still pending.
 
 ## 1. Read this first in a new chat
 
@@ -686,3 +686,33 @@ Retrieved and opened the actual `match-pre-snap.png`, `match-live-play.png` and 
 - Stage Two MY TEAM / MY SQUAD: **not authorized; remains on hold**.
 
 Next: use the updated Claude review package with Run #121's exact commit and artifact. Include the original Gemini handoff/reference images. Evaluate Claude's independent screen-by-screen findings before presenting Stage One for the owner's final decision. Do not treat the automated 15-second ceiling as a guarantee on every device.
+
+
+## Claude Round 2 independent review — 9.2/10 (2026-11-24)
+
+The owner supplied Claude's Round 2 art-direction verdict for the Stage One changed surfaces. Claude graded the work **9.2/10 overall**, a substantial improvement over Round 1's 3.2/10, and judged the direction ready for final polish. Per-surface scores:
+
+| Surface | Score |
+|---|---:|
+| Overworld HUD | 9.5/10 |
+| Menu / shell | 9.5/10 |
+| Settings | 9/10 |
+| Credits / developer drawer | 9/10 |
+| Playbook overlay | 9.5/10 |
+| Reset modal | 10/10 |
+
+Claude's assessment: the changed screens now form a cohesive arcade-football UI; the menu grid and sticky crimson CTA, play diagrams/category pills, full-bleed overworld HUD and contextual EXPLORE label, settings row icons, credits accordions and hidden developer drawer are successful. No blocking defect was reported in the supplied verdict.
+
+### Remaining polish requested by Claude
+
+1. Menu card balance: unify the visual treatment of the four primary cards, or otherwise make the cyan Playbook border consistent with the gold = selected/active rule.
+2. Playbook diagram scale: increase route-diagram and possibly play-name scale on desktop/landscape to use the available card space better.
+3. Settings row density: modestly tighten row height/vertical spacing while preserving touch usability and legibility.
+4. Broader in-match HUD certification: Claude asks to see Pre-Game Matchup, Pre-Snap, Live Play, Defense Selection, Fumble and Post-Game in the new style.
+
+### Scope and authorization guardrails
+
+- The first three items are polish on already changed Stage One surfaces. They are recommendations, not yet implemented.
+- The fourth item is a request to expand into previously untouched in-match screens. Those screens were deliberately excluded from the Stage One review pack because their UI had not been changed. Do not present untouched screens as completed redesign work or send them for visual certification under the changed-screen-only rule.
+- The separate Run #122 failure remains open: commit `baad03690b434997eba3a45eca30829dbb76a8d2` recorded HIKE readiness at 23,089 ms, above the 15,000 ms QA ceiling. Run #121 remains the latest passing code baseline until a later run passes.
+- Independent review is now complete for the curated Stage One image set. **Owner approval is still pending.** Do not call Stage One approved or begin MY TEAM / MY SQUAD without explicit owner authorization.
