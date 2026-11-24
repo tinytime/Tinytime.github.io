@@ -176,6 +176,31 @@ try{
  await page.waitForFunction(()=>{const w=document.querySelector('#world');return w&&!w.hidden&&getComputedStyle(w).display!=='none'},null,{timeout:10000}).catch(()=>{});
  const world=await page.locator('#world').isVisible();check('Back to town opens overworld',world);
  if(world){await page.screenshot({path:path.join(out,'overworld-after-return.png'),fullPage:true});const b=page.locator('#owMenu');check('Overworld menu button visible',await b.count()===1&&await b.isVisible());await b.click();check('Overworld menu reopens',await menuIsActuallyVisible())}
+ // Exercise the real match flow in landscape: matchup, play-calling sheet, pre-snap, live play and post-game.
+ const matchStart=await page.evaluate(()=>{const crew=window.SG&&window.SG.CREWS&&window.SG.CREWS.find(c=>!c.captain);if(!crew||typeof window.SG.startMatch!=='function')return false;window.SG.startMatch(crew);return true});
+ check('A real crew match can be started for visual QA',matchStart);
+ if(matchStart){
+  await page.waitForFunction(()=>{const e=document.querySelector('#mu');return e&&e.classList.contains('on')},null,{timeout:15000});
+  await page.waitForFunction(()=>document.querySelector('#mu .tap')?.classList.contains('go'),null,{timeout:15000});
+  await page.screenshot({path:path.join(out,'match-pre-game.png'),fullPage:true});
+  await page.locator('#mu .tap').click();
+  await page.waitForFunction(()=>{const e=document.querySelector('#sheet');return e&&!e.hidden},null,{timeout:10000});
+  check('In-match playbook overlay opens',await page.locator('#sheet').isVisible());
+  check('In-match CALL PLAY action visible',await page.locator('#callBtn').isVisible());
+  await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
+  await page.locator('#callBtn').click();
+  await page.waitForFunction(()=>{const e=document.querySelector('#setbar');return e&&!e.hidden},null,{timeout:10000});
+  check('Pre-snap action bar visible',await page.locator('#hike').isVisible());
+  await page.screenshot({path:path.join(out,'match-pre-snap.png'),fullPage:true});
+  await page.locator('#hike').click();
+  await page.waitForFunction(()=>window.SG?.G?.mode==='live'||window.SG?.F?.mode==='live',null,{timeout:10000});
+  await page.waitForTimeout(250);
+  await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
+  await page.evaluate(()=>window.SG.endGame(false));
+  await page.waitForFunction(()=>{const e=document.querySelector('#end');return e&&!e.hidden},null,{timeout:10000});
+  check('Post-game result screen visible',await page.locator('#end').isVisible());
+  await page.screenshot({path:path.join(out,'match-post-game.png'),fullPage:true});
+ }
 
  // Exercise the real in-match play-calling sheet through the game's exposed test API.
  const matchStarted=await page.evaluate(()=>{
