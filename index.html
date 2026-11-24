@@ -11097,6 +11097,7 @@ if(new URLSearchParams(location.search).get('uiqa')==='1'){
   window.SG.__uiqa={
     startFumble:()=>{if(!F||!G)return false;F.mode='live';G.mode='live';const c=F.carrier||F.passer||(F.off&&F.off.QB);if(!c)return false;startPile(c,F.def&&F.def[0]);return !!F.pile},
     loseFumble:()=>{if(!F||!F.pile)return false;pileEnd(false);return true},
+    defense:()=>{if(!G||!G.crew)return false;G.mode='dead';G.pendFp=35;showDefCall(35);return !$('#dcall').hidden},
     achievement:()=>{if(!ACH||!ACH.length)return false;achToast(ACH[0]);return true},
     postGame:()=>{show('#dcall',false);endGame(false);return true}
   };
