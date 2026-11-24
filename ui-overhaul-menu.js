@@ -140,7 +140,7 @@
    pill.append(owTown,status,upg,owObj);owTop.replaceChildren(pill,goalStrip);
    owObj.classList.add('ui-visually-hidden');
    const syncOverworld=()=>{
-    const raw=owObj.textContent.trim(),match=raw.match(/UPG\\s+(\\d+)/i),clean=raw.replace(/\\s*[·|]\\s*UPG\\s+\\d+/i,'').trim();
+    const raw=owObj.textContent.trim(),match=raw.match(/UPG\s+(\d+)/i),clean=raw.replace(/\s*[·|]\s*UPG\s+\d+/i,'').trim();
     status.textContent=clean||'VAPOR CITY';upg.textContent='UPG '+(match?match[1]:'0');
     const api=window.SG,map=api&&typeof api.M==='function'?api.M():null;
     const town=owTown.textContent.trim()||(map&&(map.harbor||map.hb?'HALE HARBOR':map.island||map.r2?"GULL'S REACH":map.route?'THE SPILLWAY':'VAPOR CITY'))||'VAPOR CITY';
