@@ -2,9 +2,9 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-24):** branch `UI-Overhaul`, HEAD `95c7a8120a077aab4ec8fd23adf21890ca9fc7c7`. Browser QA Runs [#192](https://github.com/tinytime/Tinytime.github.io/actions/runs/45458179127), [#193](https://github.com/tinytime/Tinytime.github.io/actions/runs/45458824874), and [#194](https://github.com/tinytime/Tinytime.github.io/actions/runs/45458852969) all passed their exact tested commits. Run #192: 141/141 (HIKE readiness 18.353s); #193: 141/141 (9.190s); #194: 142/142 (18.104s), zero failures, page exceptions, console errors, or same-origin HTTP failures. Run #194 artifact `14951189647` was retrieved and the Stage One screenshot set was visually inspected. Stage One corrections are internally QA-passed and visually inspected; Claude's updated independent review package is prepared against the current baseline, and owner approval remains pending. Stage Two MY TEAM / MY SQUAD remains on hold. QA pass count is not visual approval.
+**Live checkpoint (2026-11-24):** branch `UI-Overhaul`, latest verified code commit before this documentation update `c2b024195643ce143d411a19e05381b82c23d781`. The six Round Two polish items are implemented and targeted in the 158-check browser harness. The latest push-triggered run (requested as Run #225) has not been independently retrieved through the available GitHub run lookup; exact tested SHA, result and artifact inspection remain pending. Stage One owner approval remains pending; Stage Two MY TEAM / MY SQUAD remains on hold. QA pass count is not visual approval.
 
-**Workflow safeguard:** this checkpoint adds workflow-level concurrency for `UI-Overhaul` browser QA; a newer push cancels an older in-progress run for the same branch, preventing overlapping full-suite runs. Verify the safeguard in the next Actions run.
+**Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
 Related references:
 - [UI Overhaul Plan](UI-OVERHAUL-PLAN.md) — design scope and project guardrails.
