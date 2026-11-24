@@ -1616,3 +1616,15 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 
 /* Keep the framed team celebration centered around the live player group on portrait results. */
 @media(max-width:430px){#end::before{top:18%;left:5%;right:5%;height:25%}}
+
+
+/* Credits cards expose their real attribution by default, as in the Gemini reference. */
+#uiMenuCredits .ui-menu-credit-group{
+  padding:14px 13px;border:2px solid rgba(77,225,242,.8);border-radius:15px;
+  background:#131620;box-shadow:0 0 0 4px rgba(77,225,242,.06),0 7px 16px rgba(0,0,0,.22)
+}
+#uiMenuCredits .ui-menu-credit-group h3{margin:0 0 10px;color:#F5F7FA;font:900 20px/1.1 var(--ui-display,"Barlow Condensed",Impact,sans-serif);letter-spacing:.035em}
+#uiMenuCredits .ui-menu-credit-summary{display:none}
+#uiMenuCredits .ui-menu-credit-details>summary{display:none}
+#uiMenuCredits .ui-menu-credit-details p{margin:0;color:#E1E7F0;font:500 14px/1.5 var(--ui,system-ui);white-space:normal}
+#uiMenuCredits .ui-menu-credit-details{display:block}
