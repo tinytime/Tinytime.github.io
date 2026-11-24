@@ -4902,7 +4902,7 @@ function runBake(pal,vk,i){const R=ART.run,key=runKey(pal.key,vk,i);if(R.sp.has(
     }).catch(()=>fresh())},()=>fresh())}
 const CARRYV=/^(sC|sCt|cL|cR|cLt|cRt|cFL|cFR|cFLt|cFRt)$/;
 function runEnq(pal,vk,i){const R=ART.run,key=runKey(pal.key,vk,i);if(R.sp.has(key)||R.busy.has(key)||R.qs.has(key))return;R.qs.add(key);R.q.push([pal,vk,i,key])}   // carry loops jump the queue
-const BAKE_BUDGET=2.5,BAKE_BUDGET_MENU=6,BAKE_BUDGET_SNAP=16,BAKE_COOLDOWN=700,BAKE_SLOWFRAME=20;   // Bake budgets, temporary pre-snap budget, screen-change cooldown and slow-frame guard
+const BAKE_BUDGET=2.5,BAKE_BUDGET_MENU=8,BAKE_BUDGET_SNAP=20,BAKE_COOLDOWN=700,BAKE_SLOWFRAME=20;   // Bake budgets, temporary pre-snap budget, screen-change cooldown and slow-frame guard
 function bakeOK(){if(window.__fb)return true;if(OWON||document.hidden)return false;if(startPlay._w>0)return true;const now=performance.now(),gm=G?G.mode:'';if(ART._gm!==gm){ART._gm=gm;ART._gmT=now}
   const h=document.getElementById('hud');if(h&&!h.hidden&&G){if(G.mode==='intro')return true;if(G.mode!=='playcall'&&G.mode!=='set')return false;return now-ART._gmT>BAKE_COOLDOWN}return now-(ART._gmT||0)>BAKE_COOLDOWN}
 function bkMenu(){const hh=document.getElementById('hud');return !hh||hh.hidden||(G&&(G.mode==='playcall'||G.mode==='intro'||G.mode==='set'))||startPlay._w>0}   // nothing is moving on these screens: baking never waits for a slow frame there
