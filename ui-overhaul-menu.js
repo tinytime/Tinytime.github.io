@@ -13,8 +13,9 @@
   const creditText=creditSource&&creditSource.textContent.trim()||'';
   const build=byId('mBuild'),crewList=byId('crewList');
   const head=document.createElement('header');head.className='ui-menu-head';
-  head.innerHTML='<div class="ui-menu-brand"><div class="ui-menu-mark" aria-hidden="true">CF</div><div><div class="ui-menu-title">CIRCUIT FOOTBALL</div><div class="ui-menu-town"></div></div></div><button type="button" class="ui-menu-upg">UPGRADES</button>';
-  head.querySelector('.ui-menu-town').textContent=town;
+  head.innerHTML='<button type="button" class="ui-menu-close" aria-label="Back to town">×</button><div class="ui-menu-brand"><div class="ui-menu-mark" aria-hidden="true">CF</div><div><div class="ui-menu-title">CIRCUIT FOOTBALL</div><div class="ui-menu-town"></div></div></div><button type="button" class="ui-menu-upg">UPG</button>';
+  const updateHeader=()=>{const liveTown=byId('owTown');head.querySelector('.ui-menu-town').textContent=liveTown&&liveTown.textContent.trim()||town;const upg=byId('mUpg');const value=upg&&upg.textContent.match(/\(([^)]+)\)/);head.querySelector('.ui-menu-upg').textContent='UPG '+(value?value[1]:'0')};
+  updateHeader();
   const goal=document.createElement('section');goal.className='ui-menu-goal';
   goal.innerHTML='<div class="ui-menu-eyebrow">CURRENT GOAL</div><div class="ui-menu-goal-text"></div>';
   const goalText=goal.querySelector('.ui-menu-goal-text');
@@ -72,7 +73,8 @@
   menu.append(head,goal,tabs,content,footer);
   menu.classList.add('ui-menu-ready');
   const upg=head.querySelector('.ui-menu-upg'),upgButton=byId('mUpg');if(upgButton)upg.addEventListener('click',()=>upgButton.click());
-  const source=byId('owObj');if(source&&window.MutationObserver)new MutationObserver(updateGoal).observe(source,{childList:true,subtree:true,characterData:true});
+  const close=head.querySelector('.ui-menu-close'),townButton=byId('mTown');if(close&&townButton)close.addEventListener('click',()=>townButton.click());
+  if(window.MutationObserver){const source=byId('owObj'),liveTown=byId('owTown');if(source)new MutationObserver(updateGoal).observe(source,{childList:true,subtree:true,characterData:true});if(liveTown)new MutationObserver(updateHeader).observe(liveTown,{childList:true,subtree:true,characterData:true});if(upgButton)new MutationObserver(updateHeader).observe(upgButton,{childList:true,subtree:true,characterData:true,attributes:true})}
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
