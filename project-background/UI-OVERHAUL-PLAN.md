@@ -113,3 +113,24 @@ Stage 2 (Overworld Menu / Settings / Credits) has been implemented on `UI-Overha
 Static validation at the implementation checkpoint passed: five existing inline scripts and the new menu module compile; CSS brace counts balance; both assets are linked. Browser rendering and interaction QA remain pending, and no visual approval is claimed. The exact `audio/` and `models/` runtime assets are still absent from the branch, preventing full-fidelity gameplay QA.
 
 Latest branch commit at this update: `77d0933cf6dfd8dd29315478b1e011e8f11510cf`.
+
+
+## Runtime asset restoration and path correction — 2026-11-24
+
+Owner restored the runtime asset folders to the `UI-Overhaul` branch. The uploaded folder names were capitalized (`Audio/`, `Models/`), while the game entry point requests lowercase `audio/` and `models/`. GitHub Pages is case-sensitive, so the asset files would otherwise 404.
+
+Correction committed at `89e4264f8801836dd8c350f0fe0da8d11579a8a1`:
+- Renamed the 46 audio-directory entries to lowercase `audio/`.
+- Renamed the 23 model-directory entries to lowercase `models/`.
+- Preserved each asset's existing Git blob unchanged; this was a path-only normalization.
+- Confirmed all 45 explicit audio filename references in `index.html` resolve to files in `audio/`; the model loader's `models/kk_*.txt` pattern matches the 23 model files.
+- No uppercase `Audio/` or `Models/` paths remain.
+
+Static verification on commit `89e4264f8801836dd8c350f0fe0da8d11579a8a1`:
+- Five existing inline JavaScript blocks: 5/5 syntax pass.
+- `ui-overhaul-menu.js`: syntax pass.
+- `ui-overhaul.css`: 78 opening / 78 closing braces.
+- `index.html` references both `ui-overhaul.css` and `ui-overhaul-menu.js`.
+- `main` remains unchanged at `36830922fa5b99922ce583bcf3888cb297bad03c`.
+
+Remaining QA limitation: this branch has no `.github/workflows/` files and no browser automation workflow configured. Static checks do not establish successful browser rendering, actual audio/model fetches, responsive layout, menu interactions, or gameplay regressions. Those checks remain pending; no golden snapshots were touched and no visual approval is claimed.
