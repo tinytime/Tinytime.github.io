@@ -1598,3 +1598,12 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
  #end::before{top:25%;left:5%;right:5%;height:24%}
  #end #endNote{margin-top:clamp(112px,22vh,170px)!important}
 }
+
+
+/* Team Stats uses three distinct skill-move values, matching the reference card. */
+#goalsP .ui-goals-stat-card.is-skill .ui-goals-stat-value,
+#goalsP .ui-goals-stat-card.is-skill .ui-goals-stat-sub{display:none}
+#goalsP .ui-goals-skill-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:100%;margin-top:8px}
+#goalsP .ui-goals-skill-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:74px;border-radius:10px;background:#1C2130;color:#F5F7FA}
+#goalsP .ui-goals-skill-cell b{font:900 clamp(26px,5vw,38px)/1 var(--ui-display,"Barlow Condensed",Impact,sans-serif)}
+#goalsP .ui-goals-skill-cell span{margin-top:4px;font:900 11px/1 var(--ui-heading,system-ui);letter-spacing:.08em}
