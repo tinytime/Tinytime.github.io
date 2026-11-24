@@ -1086,7 +1086,7 @@ body.land #exit{right:8%;top:calc(env(safe-area-inset-top,0px) + 6px);width:40px
 }
 
 /* Lower the drive status pill clear of the top HUD. */
-#tkTop{top:calc(15% + 28px)!important}
+#tkTop{top:calc(15% + 14px)!important}
 
 /* Keep the fumble track at roughly 65vw and left of the right-side A mash control. */
 #pileBar{
@@ -1184,7 +1184,7 @@ body.land #bTurbo::before{content:none!important}
   outline-offset:2px;
 }
 #tick #tkTop{
-  top:calc(15% + 28px)!important;
+  top:calc(15% + 14px)!important;
   background:rgba(19,22,32,.96)!important;
   border:1px solid rgba(77,225,242,.55)!important;
   box-shadow:0 6px 20px rgba(0,0,0,.32)!important;
@@ -1357,7 +1357,7 @@ body.land #hud #exit{right:8%;top:calc(env(safe-area-inset-top,0px) + 6px);width
   transform:none!important;
   z-index:12!important;
 }
-#tick #tkTop{top:calc(15% + 28px)!important}
+#tick #tkTop{top:calc(15% + 14px)!important}
 
 /* The target tag uses a fixed left anchor beside the scoreboard, not the legacy centered transform. */
 body.land #hud #tgtTag{transform:none!important}
