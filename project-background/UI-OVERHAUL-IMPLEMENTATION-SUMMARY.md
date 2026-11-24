@@ -1001,3 +1001,10 @@ Run #231 must verify the exact four computed tile colors and fresh desktop/portr
 The FIRST TO target has now been moved into the scoreboard's PLAY CLOCK module as a compact adjacent target badge. Browser QA now asserts that it is a static child of the clock module, visibly adjacent to the clock readout, and does not overlap it; the circular EXIT control remains independently checked. This change is pending its next full browser QA run and screenshot inspection.
 
 The other remaining gates are unchanged: deterministic OPEN-receiver visual evidence, atmospheric pre-game background fidelity, deterministic win/practice post-game evidence, complete Stage One screenshot review, Claude's independent review, and explicit owner approval. Stage Two remains untouched; golden snapshots remain untouched.
+
+
+### Run #232 result and scoreboard spacing correction (2026-11-24)
+
+**Run #232:** [GitHub Actions run #232](https://github.com/tinytime/Tinytime.github.io/actions/runs/45478784824), run ID `45478784824`, tested `9974170d811bfa49a360a7855c33ce6e8ef11877`. Result: **164/165 checks passed**. The new target is correctly nested inside the PLAY CLOCK module and is no longer a floating pill. However, the first screenshot revealed that the target badge overlapped the clock readout because the clock's inner flex children were allowed to shrink without fixed widths. The screenshot was inspected and the QA geometry recorded a -20px overlap.
+
+The clock module is being corrected with explicit 40px readout and 56px target widths, a 132px container, and space-between alignment. The assertion requires a positive horizontal gap and shared vertical alignment. The circular pause control and overlay hide behavior passed. This correction is pending Run #233. No gameplay logic or golden snapshots changed.

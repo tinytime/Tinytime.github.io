@@ -1732,13 +1732,13 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 
 /* Stage One scoreboard: keep the match target inside the clock module, not as a floating pill. */
 #bug #bClock{
-  width:124px;min-width:124px;flex:none;flex-direction:row;justify-content:center;gap:8px;
-  padding:4px 7px;
+  width:132px;min-width:132px;flex:none;flex-direction:row;justify-content:space-between;gap:8px;
+  padding:4px 8px;
 }
-#clockReadout{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;flex:none}
+#clockReadout{display:flex;flex:0 0 40px;width:40px;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
 #bug #bClock #tgtTag{
   position:static;left:auto;top:auto;transform:none;display:block;flex:none;
-  max-width:56px;margin:0;padding:4px 5px;white-space:normal;text-align:center;
+  width:56px;max-width:56px;flex:0 0 56px;margin:0;padding:4px 5px;white-space:normal;text-align:center;
   border:1px solid rgba(245,184,65,.42);border-radius:7px;
   background:rgba(245,184,65,.09);color:#ffe3a0;
   font:900 8px/1.12 var(--ui,system-ui);letter-spacing:.06em;
