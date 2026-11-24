@@ -99,6 +99,29 @@ try{
  await page.locator('.ui-menu-playbook-back').click();
  check('Playbook returns to menu',!(await page.locator('.ui-menu-playbook-overlay').isVisible()));
 
+ await page.setViewportSize({width:390,height:844});
+ await page.locator('#mGoals').click();
+ check('GOALS & STATS opens as a modal screen',await page.locator('#goalsP').isVisible());
+ check('GOALS & STATS has three accessible tabs',await page.locator('#goalsP [role="tab"]').count()===3);
+ check('GOALS & STATS starts on CHALLENGES',await page.locator('#ui-goals-tab-challenges').getAttribute('aria-selected')==='true'&&await page.locator('#ui-goals-panel-challenges').isVisible());
+ const challengePanel=await page.locator('#ui-goals-panel-challenges').evaluate(el=>({cards:el.querySelectorAll('.ui-goals-challenge').length,pills:el.querySelectorAll('.ui-goals-trail-pill').length,complete:el.querySelectorAll('.ui-goals-challenge.is-complete').length}));
+ check('Challenge cards show color-coded trail rewards',challengePanel.cards>0&&challengePanel.pills===challengePanel.cards,challengePanel);
+ await page.screenshot({path:path.join(out,'goals-stats-challenges.png')});
+ await page.locator('#ui-goals-tab-achievements').click();
+ const achievementPanel=await page.locator('#ui-goals-panel-achievements').evaluate(el=>({visible:!el.hidden,cards:el.querySelectorAll('.ui-goals-achievement').length,medals:el.querySelectorAll('.ui-goals-medal').length,progress:el.querySelectorAll('.ui-goals-progress').length,selected:document.querySelector('#ui-goals-tab-achievements')?.getAttribute('aria-selected')}));
+ check('Achievements tab shows medals, counters and progress',achievementPanel.visible&&achievementPanel.cards>0&&achievementPanel.medals===achievementPanel.cards&&achievementPanel.selected==='true',achievementPanel);
+ await page.screenshot({path:path.join(out,'goals-stats-achievements.png')});
+ await page.locator('#ui-goals-tab-stats').click();
+ const teamStatsPanel=await page.locator('#ui-goals-panel-stats').evaluate(el=>({visible:!el.hidden,cards:el.querySelectorAll('.ui-goals-stat-card').length,note:el.querySelector('.ui-goals-note')?.textContent||'',selected:document.querySelector('#ui-goals-tab-stats')?.getAttribute('aria-selected')}));
+ check('Team Stats uses four career cards and the MY SQUAD > CAREER note',teamStatsPanel.visible&&teamStatsPanel.cards===4&&teamStatsPanel.note.includes('MY SQUAD')&&teamStatsPanel.note.includes('CAREER')&&teamStatsPanel.selected==='true',teamStatsPanel);
+ await page.screenshot({path:path.join(out,'goals-stats-team-stats.png')});
+ await page.locator('.ui-goals-close').click();
+ check('GOALS & STATS CLOSE returns to the menu',await page.locator('#goalsP').count()===0);
+ await page.locator('#mGoals').click();
+ await page.keyboard.press('Escape');
+ check('GOALS & STATS closes with Escape',await page.locator('#goalsP').count()===0);
+ await page.setViewportSize({width:1440,height:1000});
+
  const tabDiagnostics=await page.locator('.ui-menu-tabs').evaluate(el=>({rect:(()=>{const r=el.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height}})(),display:getComputedStyle(el).display,visibility:getComputedStyle(el).visibility,buttons:[...el.querySelectorAll('button')].map(b=>({tab:b.dataset.tab,rect:(()=>{const r=b.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height}})(),display:getComputedStyle(b).display,visibility:getComputedStyle(b).visibility}))}));
  check('Tab bar and Settings tab visible',await page.locator('[data-tab="settings"]').isVisible(),tabDiagnostics);
  await page.locator('[data-tab="settings"]').click();
