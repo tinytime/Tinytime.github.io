@@ -45,12 +45,35 @@ try{
  check('Current objective populated',!!objective,objective);
  check('MENU selected by default',await page.locator('[data-tab="menu"]').getAttribute('aria-selected')==='true');
  await page.screenshot({path:path.join(out,'desktop-menu.png'),fullPage:true});
+ await page.locator('.ui-menu-playbook').click();
+ check('Playbook overlay opens',await page.locator('.ui-menu-playbook-overlay').isVisible());
+ const playCount=await page.locator('.ui-menu-play-card').count();
+ check('Playbook entries render',playCount>0,playCount);
+ await page.screenshot({path:path.join(out,'desktop-playbook.png'),fullPage:true});
+ await page.locator('[data-filter="RUN"]').click();
+ const runCards=await page.locator('.ui-menu-play-card span').allTextContents();
+ check('Playbook category filter works',runCards.length>0&&runCards.every(x=>x==='RUN'),runCards);
+ await page.locator('[data-filter="ALL"]').click();
+ await page.locator('.ui-menu-playbook-back').click();
+ check('Playbook returns to menu',!(await page.locator('.ui-menu-playbook-overlay').isVisible()));
 
  const tabDiagnostics=await page.locator('.ui-menu-tabs').evaluate(el=>({rect:(()=>{const r=el.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height}})(),display:getComputedStyle(el).display,visibility:getComputedStyle(el).visibility,buttons:[...el.querySelectorAll('button')].map(b=>({tab:b.dataset.tab,rect:(()=>{const r=b.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height}})(),display:getComputedStyle(b).display,visibility:getComputedStyle(b).visibility}))}));
  check('Tab bar and Settings tab visible',await page.locator('[data-tab="settings"]').isVisible(),tabDiagnostics);
  await page.locator('[data-tab="settings"]').click();
  check('Settings panel switches',await page.locator('#uiMenuSettings').isVisible()&&!(await page.locator('#uiMenuHome').isVisible()));
- for(const id of ['mMus','mSfx','mVol','mHap','mCam','mLT','mRS','mReset'])check('Settings control visible: '+id,await page.locator('#'+id).count()===1&&await page.locator('#'+id).isVisible());
+ for(const id of ['mMus','mSfx','mVol','mHap','mCam','mLT','mReset'])check('Settings control visible: '+id,await page.locator('#'+id).count()===1&&await page.locator('#'+id).isVisible());
+ check('Resolution segmented control visible',await page.locator('.ui-resolution-group').isVisible()&&await page.locator('.ui-resolution-group button').count()===4);
+ const originalResolution=(await page.locator('#mRS').textContent())?.trim();
+ await page.locator('.ui-resolution-group button[data-value="MEDIUM"]').click();
+ check('Resolution selection updates original setting', (await page.locator('#mRS').textContent())?.includes('MEDIUM'));
+ const restoreResolution=originalResolution?.match(/RESOLUTION:\\s*(.+)/i)?.[1]?.trim().toUpperCase()||'HIGH';
+ await page.locator('.ui-resolution-group button[data-value="'+restoreResolution+'"]').click();
+ check('Resolution selection restores original setting',(await page.locator('#mRS').textContent())?.trim()===originalResolution);
+ await page.locator('#mReset').click();
+ check('Reset confirmation modal opens',await page.locator('.ui-menu-modal-backdrop').isVisible());
+ check('Reset requires explicit confirmation', (await page.locator('#mReset').textContent())?.trim()==='RESET PROGRESS');
+ await page.locator('.ui-menu-cancel').click();
+ check('Reset confirmation can be cancelled',!(await page.locator('.ui-menu-modal-backdrop').isVisible()));
  const music=page.locator('#mMus'),before=(await music.textContent())?.trim();
  await music.click();const after=(await music.textContent())?.trim();
  check('Music toggle responds',after!==before,{before,after});
@@ -58,6 +81,9 @@ try{
  await page.locator('#mVol').evaluate(e=>{e.value='37';e.dispatchEvent(new Event('input',{bubbles:true}));e.dispatchEvent(new Event('change',{bubbles:true}))});
  check('Volume input works',await page.locator('#mVol').inputValue()==='37');
  await page.screenshot({path:path.join(out,'desktop-settings.png'),fullPage:true});
+ await page.setViewportSize({width:390,height:844});
+ await page.screenshot({path:path.join(out,'portrait-settings.png'),fullPage:true});
+ await page.setViewportSize({width:1440,height:1000});
 
  await page.locator('[data-tab="credits"]').click();
  check('Credits panel switches',await page.locator('#uiMenuCredits').isVisible());
@@ -69,6 +95,9 @@ try{
  const dev=await Promise.all(['#mRO','#mPL','#mPR'].map(s=>page.locator(s).count()));
  check('Developer controls retained',dev.every(n=>n===1),dev);
  await page.screenshot({path:path.join(out,'desktop-credits-developer.png'),fullPage:true});
+ await page.setViewportSize({width:390,height:844});
+ await page.screenshot({path:path.join(out,'portrait-credits-developer.png'),fullPage:true});
+ await page.setViewportSize({width:1440,height:1000});
  for(let i=0;i<5;i++)await page.locator('#mBuild').click({delay:80});
  check('Developer drawer closes',!(await page.locator('.ui-menu-dev').isVisible()));
  await page.locator('[data-tab="menu"]').focus();await page.keyboard.press('ArrowRight');
