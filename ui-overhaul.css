@@ -1412,3 +1412,7 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 
 /* The defense-selection headline owns the area below the scoreboard; suppress the first-to badge there. */
 #app:has(#dcall:not([hidden])) #tgtTag{display:none!important}
+
+
+/* The target badge yields to the defense-selection headline, just as it does during drive simulation. */
+#app:has(#dcall:not([hidden])) #tgtTag{display:none!important}
