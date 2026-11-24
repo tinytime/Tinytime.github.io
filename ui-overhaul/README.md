@@ -222,3 +222,10 @@ The exact tested branch contains 45 referenced audio files and 22 referenced mod
 Owner feedback: 3.2/10 overall; next-round target 6.5+/10. The UI correction now adds the Overworld GOAL strip and contextual A-action label, improves the HUD/menu composition, strengthens menu card and UPG hierarchy, tightens credits/dev drawer presentation, and styles the actual in-match play-calling sheet. The browser QA harness now launches a real match and checks selected play, FLIP, CALL PLAY and pre-snap transition.
 
 Exact commits and current evidence status: `project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md`. QA and updated screenshot inspection are pending; the prior Run #39 is not evidence for this correction pass. No visual or owner approval is claimed.
+
+
+## Reconciled correction and gameplay QA — 2026-11-24
+
+The live menu module now owns the Overworld goal/status/A-button markup, with duplicate static HUD markup removed. The real play-calling sheet has the gold selected-card, FLIP and cyan CALL PLAY treatment. The browser harness covers pre-game matchup, playbook, pre-snap, live play, fumble/turnover, defense selection, achievement toast and post-game using query-gated QA hooks.
+
+The expanded Actions result and screenshot artifact are not yet retrieved/verified. Do not use Run #39 as evidence for this correction. See `project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md` for exact commits, current status and next steps. Visual inspection, Claude review and owner approval remain pending.
