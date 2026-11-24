@@ -702,3 +702,18 @@
 #menu .ui-play-diagram{display:block;width:100%;height:auto;aspect-ratio:180/78}
 #menu .ui-menu-playbook-flip[aria-pressed="true"]{border-color:var(--ui-gold);background:rgba(245,184,65,.16);color:#ffe3a0}
 @media(orientation:landscape){body.land #sheet{width:min(100%,1100px);left:50%;transform:translateX(-50%);border-radius:16px 16px 0 0}body.land #sheet #pbTabs{flex-basis:104px}body.land #sheet #callBtn{flex-basis:170px}}
+
+
+/* Keep the display title and UPG badge on one clean line on narrow phones. */
+@media(max-width:420px){
+ #menu .ui-menu-head{grid-template-columns:42px minmax(0,1fr) 66px;gap:8px}
+ #menu .ui-menu-title{font-size:19px;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:clip}
+ #menu .ui-menu-mark{width:40px;height:40px}
+ #menu .ui-menu-upg{width:66px;min-width:66px;padding:5px 6px;font-size:12px}
+}
+@media(max-width:360px){
+ #menu .ui-menu-title{font-size:17px}
+ #menu .ui-menu-head{grid-template-columns:38px minmax(0,1fr) 62px;gap:6px}
+ #menu .ui-menu-upg{width:62px;min-width:62px;font-size:11px}
+ #menu .ui-menu-mark{width:36px;height:36px}
+}
