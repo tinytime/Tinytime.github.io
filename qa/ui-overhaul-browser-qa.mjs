@@ -108,6 +108,9 @@ try{
  check('Reset confirmation modal opens',await page.locator('.ui-menu-modal-backdrop').isVisible());
  check('Reset requires explicit confirmation', (await page.locator('#mReset').textContent())?.trim()==='RESET PROGRESS');
  await page.locator('.ui-menu-cancel').click();
+ await page.setViewportSize({width:390,height:844});
+ await page.screenshot({path:path.join(out,'portrait-reset-confirm.png'),fullPage:true});
+ await page.setViewportSize({width:1440,height:1000});
  check('Reset confirmation can be cancelled',!(await page.locator('.ui-menu-modal-backdrop').isVisible()));
  const music=page.locator('#mMus'),before=(await music.textContent())?.trim();
  await music.click();const after=(await music.textContent())?.trim();
