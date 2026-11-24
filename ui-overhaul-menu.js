@@ -180,3 +180,39 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
+
+/* Stage One match presentation: turn the live defense odds into aligned stat rows.
+   The game continues to own the values and decision logic; this only formats its existing output. */
+(()=> {
+ const formatDefenseOdds=(root)=>{
+  if(!root)return;
+  root.querySelectorAll('#dcall .dco').forEach(node=>{
+   if(node.querySelector('.dco-row'))return;
+   const raw=node.textContent.trim();
+   const match=raw.match(/STOP\s+(\d+%)\s*·\s*BIG PLAY\s+(\d+%)\s*·\s*TAKEAWAY\s+(\d+%)(.*)/i);
+   if(!match)return;
+   const labels=['STOP','BIG PLAY','TAKEAWAY'];
+   const values=[match[1],match[2],match[3]];
+   const frag=document.createDocumentFragment();
+   labels.forEach((label,index)=>{
+    const row=document.createElement('span');row.className='dco-row';
+    const name=document.createElement('span');name.className='dco-label';name.textContent=label;
+    const value=document.createElement('strong');value.className='dco-value';value.textContent=values[index];
+    row.append(name,value);frag.append(row);
+   });
+   const note=match[4].replace(/^\s*·\s*/,'').trim();
+   if(note){const extra=document.createElement('span');extra.className='dco-note';extra.textContent=note;frag.append(extra)}
+   node.replaceChildren(frag);
+  });
+ };
+ const boot=()=>{
+  const panel=document.getElementById('dcall');
+  if(!panel)return;
+  formatDefenseOdds(panel);
+  if(window.MutationObserver){
+   const observer=new MutationObserver(()=>formatDefenseOdds(panel));
+   observer.observe(panel,{childList:true,subtree:true,characterData:true});
+  }
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+})();
