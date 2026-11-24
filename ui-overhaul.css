@@ -1628,3 +1628,21 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 #uiMenuCredits .ui-menu-credit-details>summary{display:none}
 #uiMenuCredits .ui-menu-credit-details p{margin:0;color:#E1E7F0;font:500 14px/1.5 var(--ui,system-ui);white-space:normal}
 #uiMenuCredits .ui-menu-credit-details{display:block}
+
+
+/* Pre-game matchup: replace the split halftone treatment with a restrained stadium-light atmosphere. */
+#mu .split{
+ background:
+  radial-gradient(ellipse 42% 34% at 12% 18%,rgba(245,184,65,.22),transparent 100%),
+  radial-gradient(ellipse 40% 34% at 88% 18%,rgba(77,225,242,.2),transparent 100%),
+  radial-gradient(ellipse 70% 28% at 50% 100%,rgba(77,225,242,.12),transparent 100%),
+  linear-gradient(118deg,#111723 0%,#131620 48%,#101a27 100%);
+}
+#mu .split>i{display:none}
+#mu .top .town{color:#F5B841;border-color:rgba(245,184,65,.8);background:rgba(19,22,32,.82);text-shadow:none;box-shadow:none}
+#mu .top .tag{color:#4DE1F2;border-color:rgba(77,225,242,.8);background:rgba(19,22,32,.82);text-shadow:none;box-shadow:none}
+#mu .vs{background:#131620;border:2px solid #F5B841;box-shadow:0 0 0 4px rgba(77,225,242,.12);text-shadow:none;color:#F5F7FA}
+#mu .bot .first{display:inline-flex;align-items:center;justify-content:center;min-height:30px;padding:4px 12px;border:1px solid rgba(245,184,65,.7);border-radius:999px;background:#131620;color:#F5B841;font-size:13px;letter-spacing:.1em}
+#mu .bot .bar{background:#1C2130}
+#mu .bot .bar i{background:linear-gradient(90deg,#F5B841,#4DE1F2)}
+#mu .bot .tap{background:#4DE1F2;color:#131620;border-color:#4DE1F2;box-shadow:0 4px 0 #147f98;text-shadow:none}
