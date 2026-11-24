@@ -56,6 +56,9 @@ try{
  fs.writeFileSync(path.join(out,'startup-state.json'),JSON.stringify({before:startupBefore,townFixture,afterHelper:startupAfterHelper,after:startupAfter,invokedOverworldHelper},null,2));
  await page.screenshot({path:path.join(out,'startup-after-overworld.png'),fullPage:true});
  check('Overworld MENU opener genuinely visible',await openOverworldMenu.isVisible(),startupAfter.owMenu);
+ const overworldChrome=await page.locator('#owTop .ui-ow-pill').evaluate(el=>({background:getComputedStyle(el).backgroundColor,townShadow:getComputedStyle(el.querySelector('#owTown')).textShadow,borderRadius:getComputedStyle(el).borderRadius}));
+ check('Overworld town, cleared and upgrade status share a quiet matte navy pill',overworldChrome.background==='rgba(19, 22, 32, 0.85)'&&overworldChrome.townShadow==='none'&&parseFloat(overworldChrome.borderRadius)>=12,overworldChrome);
+
  if(!(await openOverworldMenu.isVisible()))throw new Error('The existing overworld entry helper did not expose #owMenu. Inspect startup-state.json and startup screenshots; do not bypass visibility.');
  await openOverworldMenu.click();
  await page.waitForFunction(()=>{const e=document.querySelector('#menu');if(!e)return false;const s=getComputedStyle(e);return !e.hidden&&s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)>.5&&e.getBoundingClientRect().height>0;},null,{timeout:10000});
@@ -73,6 +76,9 @@ try{
  const desktopShell=await page.locator('#menu').evaluate(el=>{const r=el.getBoundingClientRect();return{x:r.x,width:r.width,center:r.x+r.width/2,viewport:innerWidth}});
  check('Desktop menu uses a centered 920px maximum composition',desktopShell.width<=920&&Math.abs(desktopShell.center-desktopShell.viewport/2)<=2,desktopShell);
  check('Menu UPG points badge is visible',await page.locator('.ui-menu-upg').isVisible()&&(await page.locator('.ui-menu-upg').textContent()).trim().startsWith('UPG'));
+ const menuBrand=await page.locator('.ui-menu-brand').evaluate(el=>{const r=el.getBoundingClientRect();return{center:r.left+r.width/2,viewport:innerWidth,mark:getComputedStyle(el.querySelector('.ui-menu-mark')).display}});
+ check('Menu title and town pill are centered between the corner controls',Math.abs(menuBrand.center-menuBrand.viewport/2)<2&&menuBrand.mark==='none',menuBrand);
+
  check('DATA & SUPPORT remains a distinct menu group',await page.locator('#uiMenuHome .ui-menu-support').isVisible()&&(await page.locator('#uiMenuHome .ui-menu-support').innerText()).includes('DATA & SUPPORT'));
  const townCtaStyle=await page.locator('#mTown').evaluate(el=>({backgroundImage:getComputedStyle(el).backgroundImage,color:getComputedStyle(el).color}));
  check('BACK TO TOWN uses the crimson/pink exit treatment',townCtaStyle.backgroundImage.includes('239, 71, 111')&&townCtaStyle.color==='rgb(255, 255, 255)',townCtaStyle);
@@ -147,6 +153,8 @@ try{
  check('Tab bar and Settings tab visible',await page.locator('[data-tab="settings"]').isVisible(),tabDiagnostics);
  await page.locator('[data-tab="settings"]').click();
  check('Settings panel switches',await page.locator('#uiMenuSettings').isVisible()&&!(await page.locator('#uiMenuHome').isVisible()));
+ check('Settings screen omits the Home-only current-goal card',await page.locator('.ui-menu-goal').isHidden());
+
  const settingsDensity=await page.locator('#uiMenuSettings .ui-menu-setting').first().evaluate(el=>({paddingTop:getComputedStyle(el).paddingTop,paddingBottom:getComputedStyle(el).paddingBottom}));
  check('Settings rows use the tightened Stage One spacing',settingsDensity.paddingTop==='7px'&&settingsDensity.paddingBottom==='7px',settingsDensity);
  for(const id of ['mMus','mSfx','mVol','mHap','mCam','mLT','mReset'])check('Settings control visible: '+id,await page.locator('#'+id).count()===1&&await page.locator('#'+id).isVisible());
@@ -273,6 +281,9 @@ try{
   const introGap=await page.evaluate(()=>{const b=document.querySelector('#mu .bar').getBoundingClientRect(),t=document.querySelector('#mu .tap').getBoundingClientRect();return{gap:t.top-b.bottom,tapBg:getComputedStyle(document.querySelector('#mu .tap')).backgroundColor,tapBorder:getComputedStyle(document.querySelector('#mu .tap')).borderTopWidth}});
   check('Pre-game TAP TO PLAY is separated from the progress bar',introGap.gap>=8&&introGap.tapBg==='rgb(19, 22, 32)'&&parseFloat(introGap.tapBorder)>=1,introGap);
   const matchupBadges=await page.locator('#mu .pn .lg').evaluateAll(es=>es.map(el=>({bg:getComputedStyle(el).backgroundColor,border:getComputedStyle(el).borderTopWidth,radius:getComputedStyle(el).borderTopLeftRadius})));check('Both matchup logos sit on rounded navy badge cards',matchupBadges.length===2&&matchupBadges.every(x=>x.bg==='rgb(19, 22, 32)'&&parseFloat(x.border)>=1&&parseFloat(x.radius)>=12),matchupBadges);
+ const matchupBadgeAccents=await page.locator('#mu .pn .lg').evaluateAll(es=>es.map(el=>getComputedStyle(el).borderTopColor));
+ check('Pre-game team badge cards use gold home and cyan away accents',matchupBadgeAccents[0]==='rgb(245, 184, 65)'&&matchupBadgeAccents[1]==='rgb(77, 225, 242)',matchupBadgeAccents);
+
   await page.screenshot({path:path.join(out,'match-pre-game.png'),fullPage:true});
   await page.locator('#mu').click({position:{x:420,y:350}});
   await page.waitForFunction(()=>{const e=document.querySelector('#sheet');return e&&!e.hidden},null,{timeout:10000});
