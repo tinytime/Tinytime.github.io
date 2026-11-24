@@ -146,3 +146,8 @@ The recent GitHub Actions history currently shows runs for the separate NPC bran
 - The QA harness now captures startup screenshots and computed visibility/ancestor diagnostics, calls the existing SG.owShow() entry helper before attempting the HUD click when necessary, and clicks the real visible opener once. Diagnostic files are written before the visibility wait so failures remain inspectable.
 - Commits: 1fc422e, 62bb843, 1c57d24. No gameplay logic, main branch, or golden snapshots changed.
 - The corrected run and its screenshots have not yet been retrieved. Browser QA and visual approval remain pending. See project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md for the exact next steps.
+
+
+### Documentation-only follow-up
+
+The status notes above were recorded in three sequential documentation commits: summary ac0e4298c420696323d4918233971ee0aefd8b39, workstream README a05c5317c1ed2a216197c62654483177dfecf3f1, and plan 02e447b4cdce53b437db56567c85fe5870906464. The verified current branch HEAD is now 02e447b4cdce53b437db56567c85fe5870906464; these commits only update documentation. The QA harness/code commit awaiting browser evidence remains 1c57d2457b468a266d410984c2fe0898574f5baa.
