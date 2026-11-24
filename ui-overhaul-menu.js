@@ -183,7 +183,7 @@
 
   }
   const enhanceGoals=()=>{
-   const panel=document.getElementById('goalsP');if(!panel||panel.dataset.uiMockupEnhance==='1')return;
+   const panel=document.getElementById('ui-goals-panel-stats')||document.getElementById('goalsP');if(!panel||panel.dataset.uiMockupEnhance==='1')return;
    panel.dataset.uiMockupEnhance='1';
    const trophy=panel.querySelector('.ui-goals-trophy');
    let count=trophy&&trophy.querySelector('.ui-goals-trophy-count');
