@@ -346,9 +346,9 @@ try{
   if(qaHooks){
    const openPrepared=await page.evaluate(()=>window.SG.__uiqa.openReceiver());
    check('Deterministic live-play OPEN receiver fixture can be prepared',openPrepared);
-   await page.waitForFunction(()=>Object.values(window.SG?.F?.off||{}).some(p=>p&&p.hi),null,{timeout:5000});
-   const receiverCue=await page.evaluate(()=>{const off=window.SG?.F?.off||{};const roles=['WR1','WR2','TE','RB'];return{open:roles.filter(k=>off[k]?.hi),covered:roles.filter(k=>off[k]&&!off[k].hi),mode:window.SG?.F?.mode}});
-   check('Live Play highlights open receiver(s) and leaves covered receivers muted',receiverCue.open.length>=1&&receiverCue.covered.length>=1&&receiverCue.mode==='live',receiverCue);
+   await page.waitForTimeout(250);
+   const receiverCue=await page.evaluate(()=>{const off=window.SG?.F?.off||{};const roles=['WR1','WR2','TE','RB'];return{open:roles.filter(k=>off[k]?.hi),covered:roles.filter(k=>off[k]&&!off[k].hi),mode:window.SG?.F?.mode,clockOn:window.SG?.G?.clockOn}});
+   check('Live Play highlights open receiver(s) and leaves covered receivers muted',receiverCue.open.length>=1&&receiverCue.covered.length>=1&&receiverCue.mode==='live'&&receiverCue.clockOn===false,receiverCue);
   }
   await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
   if(qaHooks){

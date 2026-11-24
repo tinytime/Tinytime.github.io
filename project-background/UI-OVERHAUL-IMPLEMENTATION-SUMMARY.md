@@ -1034,3 +1034,10 @@ The correction adds overlay-aware selectors at the same specificity level. In th
 Run #235 (ID `45479577833`) tested commit `0da4bf7c10527d989e6c96620a815acc16933555`: **163/165**. The only two failures were FIRST TO not yielding while the in-match Playbook and Defense Selection overlays were open. Screenshots confirmed the badge remained visible behind both overlays; no page exceptions, console errors, or same-origin request failures occurred.
 
 The root cause was the overlay visibility being controlled through the game's shared `show()` helper while the CSS-only `:has()` hide selectors did not reliably track the active overlay in the runtime. The helper now explicitly hides the integrated target while either overlay is shown and restores it after both close. The existing strict QA assertions remain unchanged. Pending a fresh run and screenshot inspection.
+
+
+### Run #236 — receiver cue render confirmed; deterministic fixture stabilized
+
+Run #236 tested `a10e3fba0c8c91717cab318a47b9040c6ab7a615` and stopped on the new receiver-state wait (5-second timeout). The captured live-play screenshot confirms the new green rings and OPEN pills render, but the real match advanced into a dead-ball state before the test's polling condition completed. The browser reported no page exceptions, console errors, or same-origin failures.
+
+The QA fixture is being made deterministic: it pauses the play clock, parks defenders away from the catch points, holds two receivers outside QB range, and samples the live cue state after one render interval rather than waiting through the live simulation. This remains QA-only and does not change normal match behavior. Overlay-hide assertions were not reached in this run and remain pending verification.

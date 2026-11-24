@@ -11194,10 +11194,13 @@ if((location.hostname==='127.0.0.1'||location.hostname==='localhost')&&new URLSe
   window.SG.__uiqa={
     openReceiver:()=>{
       if(!F||!G||!F.off||!F.off.QB)return false;
-      F.mode='live';G.mode='live';F.passer=F.off.QB;F.carrier=F.off.QB;F.lock=false;
+      const q=F.off.QB;
+      F.mode='live';G.mode='live';F.passer=q;F.carrier=q;F.lock=false;G.clockOn=false;q.d.thr=60;
       window.CUE={on:.1,off:.05,r:.3,k:0};
       for(const d of F.def||[]){d.x=1000;d.y=1000;d.fall=false;d.eng=false}
-      for(const role of ['WR1','WR2','TE','RB'])if(F.off[role]){F.off[role].hi=false;F.off[role].stun=0}
+      for(const role of ['WR1','WR2','TE','RB'])if(F.off[role]){const p=F.off[role];p.hi=false;p.stun=0;p.vx=0;p.vy=0}
+      if(F.off.WR1){F.off.WR1.x=q.x+22;F.off.WR1.y=q.y+8}
+      if(F.off.WR2){F.off.WR2.x=q.x-22;F.off.WR2.y=q.y+8}
       return true;
     },
     startFumble:()=>{if(!F||!G)return false;F.mode='live';G.mode='live';const c=F.carrier||F.passer||(F.off&&F.off.QB);if(!c)return false;startPile(c,F.def&&F.def[0]);return !!F.pile},
