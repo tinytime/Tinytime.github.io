@@ -1021,3 +1021,18 @@ body.ach-toast-active #tkPlay{bottom:calc(9% + 58px)}
 #mu .tap{display:block;margin-top:12px;padding:4px 14px;border:1px solid rgba(77,225,242,.42);border-radius:999px;background:#131620;color:var(--ui-cyan);line-height:22px}
 #tkTop{background:rgba(19,22,32,.96);border-color:var(--ui-cyan)}
 #pileBtn{right:4%}
+
+
+/* Defense panel is viewport-centered, independent of the canvas app's internal width. */
+#dcall{
+ position:fixed!important;left:50vw!important;right:auto!important;
+ width:min(calc(100vw - 28px),900px)!important;transform:translateX(-50%)!important;
+}
+#dcall .row{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;width:100%}
+#dcall button .dco{
+ width:100%;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+#dcall button .dco-row{display:flex!important;flex-direction:column;min-width:0}
+@media(max-width:700px){
+ #dcall{width:min(calc(100vw - 20px),900px)!important}
+}
