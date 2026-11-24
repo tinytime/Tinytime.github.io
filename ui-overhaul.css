@@ -791,3 +791,18 @@ body #mu .tap{display:block;min-height:24px;line-height:24px;padding-bottom:2px}
 /* HIKE lives in the set bar, outside #sheet; target the actual control rather than a stale descendant selector. */
 #app #hike{background:#4de1f2!important;color:#08131b!important;border:1px solid #4de1f2!important;box-shadow:0 5px 0 #147f98,0 9px 20px rgba(39,224,242,.16)!important}
 #app #hike:active{transform:none!important;filter:brightness(.94);box-shadow:0 5px 0 #147f98,0 9px 20px rgba(39,224,242,.16)!important}
+
+
+/* Post-game screen joins the matte arcade UI system; preserve its existing result/gameplay logic. */
+#end.screen{background-color:#131620!important;background-image:radial-gradient(110% 65% at 50% 0%,rgba(77,225,242,.09),transparent 62%),linear-gradient(180deg,#131620 0%,#0c111b 100%)!important;color:#e9edf5}
+#end h2{margin:0 0 8px;text-align:center;font:400 30px/1 var(--disp);letter-spacing:.07em;color:var(--ui-gold);text-shadow:none}
+#end #endScore{margin:0 0 8px!important;color:#e9edf5!important;text-shadow:none!important}
+#end #endScore>div:first-child{color:#aebbd0!important;font:800 11px/1.2 var(--ui,system-ui)!important;letter-spacing:.16em;text-shadow:none!important}
+#end #endScore>div:last-child{color:var(--ui-gold)!important;font:400 clamp(46px,8vw,60px)/1 var(--disp)!important;text-shadow:none!important}
+#end #endNote{max-width:760px;margin:8px auto;color:#aeb8c8;text-align:center;font:600 13px/1.4 var(--ui,system-ui)}
+#end #endStyle{color:var(--ui-cyan)!important;text-shadow:none!important}
+#end .btnrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:min(100%,760px);margin:14px auto 0}
+#end .btnrow .btn{min-height:50px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:#1c2130;color:#e9edf5;font:900 13px/1 var(--ui,system-ui);letter-spacing:.12em;box-shadow:none}
+#end .btnrow #eAgain{border:1px solid var(--ui-cyan)!important;background:var(--ui-cyan)!important;color:#08131b!important;box-shadow:0 4px 0 #1a8291!important}
+#end .btnrow #eMenu{border-color:rgba(255,255,255,.18);background:#1c2130;color:#e9edf5}
+#end .btnrow .btn:focus-visible{outline:3px solid var(--ui-gold);outline-offset:2px}
