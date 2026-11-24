@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-24):** branch `UI-Overhaul`, latest verified code commit before this documentation update `c2b024195643ce143d411a19e05381b82c23d781`. The six Round Two polish items are implemented and targeted in the 158-check browser harness. The latest push-triggered run (requested as Run #225) has not been independently retrieved through the available GitHub run lookup; exact tested SHA, result and artifact inspection remain pending. Stage One owner approval remains pending; Stage Two MY TEAM / MY SQUAD remains on hold. QA pass count is not visual approval.
+**Live checkpoint (2026-11-24):** branch `UI-Overhaul`, latest verified code commit before this documentation update `c2b024195643ce143d411a19e05381b82c23d781`. The six Round Two polish items passed their targeted assertions in Run #225, but the overall run failed on three separate menu/Team Stats assertions (header centering, menu tile accents, and Skill Moves three-cell layout). Corrective commits `4b4eef4` and `6d1c6cf` are now pushed; verify the next push-triggered run and screenshots before closure. Stage One owner approval remains pending; Stage Two MY TEAM / MY SQUAD remains on hold. QA pass count is not visual approval.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
