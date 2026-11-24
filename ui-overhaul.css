@@ -630,3 +630,49 @@
  #menu #uiMenuHome>.ui-menu-support .ui-menu-action-copy strong{font-size:12px}
  #menu #uiMenuHome>.ui-menu-support .ui-menu-action-copy small{font-size:9px}
 }
+
+/* Stage 1 art-direction corrections — arcade composition and overworld clarity. */
+#world{position:absolute;inset:0;overflow:hidden;background:#0b1018}
+#owc{position:absolute;inset:0;width:100%;height:100%;display:block}
+#owTop{position:absolute;z-index:5;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);display:flex;flex-direction:row;align-items:center;gap:8px;max-width:calc(100% - 112px);padding:8px 10px;border:1px solid rgba(255,255,255,.2);border-radius:14px;background:rgba(19,22,32,.9);box-shadow:0 5px 18px rgba(0,0,0,.28);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+#owTown{font-family:var(--ui-display,"Barlow Condensed",Impact,sans-serif);font-size:16px;font-weight:900;line-height:1;letter-spacing:.07em;white-space:nowrap;color:#f5f7fa}
+#owObj{display:inline-flex;align-items:center;min-height:23px;margin:0;padding:4px 8px;border:1px solid rgba(245,184,65,.42);border-radius:999px;background:#1c2130;color:var(--ui-gold);font:900 9px/1 var(--ui-heading,system-ui);letter-spacing:.08em;white-space:nowrap}
+#owGoal{position:absolute;z-index:5;left:12px;top:calc(env(safe-area-inset-top,0px) + 62px);max-width:min(74vw,360px);padding:7px 10px;border:1px solid rgba(77,225,242,.42);border-radius:9px;background:rgba(19,22,32,.9);color:var(--ui-cyan);font:900 10px/1.2 var(--ui-heading,system-ui);letter-spacing:.11em;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 4px 12px rgba(0,0,0,.2)}
+#owMenu{position:absolute;z-index:5;right:12px;top:calc(env(safe-area-inset-top,0px) + 10px);min-height:40px;height:40px;padding:0 15px;border:1px solid rgba(77,225,242,.65);border-radius:12px;background:rgba(19,22,32,.92);color:var(--ui-cyan);font:900 11px/1 var(--ui-heading,system-ui);letter-spacing:.14em;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+#owA{position:absolute;z-index:5;right:18px;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;width:76px;height:76px;padding:0;border:3px solid var(--ui-town-accent);border-radius:50%;background:rgba(19,22,32,.86);color:#fff;box-shadow:0 0 0 5px rgba(255,255,255,.08),0 6px 18px rgba(0,0,0,.34);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+#owA b{font-family:var(--ui-display,"Barlow Condensed",Impact,sans-serif);font-size:30px;font-weight:900;line-height:1;color:#fff}
+#owA small{font:900 9px/1.1 var(--ui-heading,system-ui);letter-spacing:.13em;color:var(--ui-town-accent)}
+#world.hb #owA{border-color:#e8a33d}#world.hb #owA small{color:#e8a33d}
+#world.hb #owGoal{border-color:rgba(232,163,61,.55);color:#e8a33d}
+#menu.ui-menu-ready{width:min(100%,760px);left:50%;transform:translateX(-50%);padding-left:clamp(14px,3vw,26px);padding-right:clamp(14px,3vw,26px)}
+#menu .ui-menu-head{gap:12px}
+#menu .ui-menu-title{font-family:var(--ui-display,"Barlow Condensed",Impact,sans-serif);font-size:23px;letter-spacing:.065em}
+#menu .ui-menu-upg{min-width:74px;min-height:48px;display:flex;align-items:center;justify-content:center;padding:5px 12px;border:2px solid var(--ui-gold);border-radius:12px;background:linear-gradient(145deg,rgba(245,184,65,.2),rgba(245,184,65,.06));color:var(--ui-gold);font:900 13px/1 var(--ui-heading,system-ui);letter-spacing:.1em;box-shadow:inset 0 0 0 1px rgba(245,184,65,.12),0 4px 12px rgba(0,0,0,.2)}
+#menu .ui-menu-grid .ui-menu-icon-card{min-height:104px;border-width:1px!important;border-radius:15px!important}
+#menu .ui-menu-grid .ui-menu-icon-card:nth-of-type(1){border-color:rgba(77,225,242,.6)!important}
+#menu .ui-menu-grid .ui-menu-icon-card:nth-of-type(2){border-color:rgba(245,184,65,.6)!important}
+#menu .ui-menu-grid .ui-menu-icon-card:nth-of-type(3){border-color:rgba(77,225,242,.45)!important}
+#menu .ui-menu-grid .ui-menu-icon-card:nth-of-type(4){border-color:rgba(245,184,65,.55)!important}
+#menu .ui-menu-grid .ui-menu-action-copy strong{font-family:var(--ui-display,"Barlow Condensed",Impact,sans-serif);font-size:17px;letter-spacing:.045em}
+#menu .ui-menu-grid .ui-menu-action-copy small{font-size:10px;line-height:1.25}
+#menu .ui-menu-support{border-radius:14px;background:#171d2a}
+#menu .ui-menu-support .ui-menu-card-title{font-size:11px;letter-spacing:.16em}
+#menu .ui-menu-credit-group{padding:11px 12px;border-radius:13px}
+#menu .ui-menu-credit-group h3{font-family:var(--ui-display,"Barlow Condensed",Impact,sans-serif);font-size:15px;letter-spacing:.06em}
+#menu .ui-menu-credit-summary{font-size:11px;line-height:1.35}
+#menu .ui-menu-credit-details{margin-top:7px;padding-top:6px;border-top:1px solid var(--ui-border)}
+#menu .ui-menu-credit-details summary{color:var(--ui-cyan);font:900 9px/1.2 var(--ui-heading,system-ui);letter-spacing:.12em;cursor:pointer}
+#menu .ui-menu-credit-details p{margin-top:7px;font-size:10px;line-height:1.4;white-space:pre-line}
+#menu .ui-menu-dev{max-height:min(30vh,220px);overflow:auto;overscroll-behavior:contain;border-style:solid;border-color:rgba(77,225,242,.28);background:#111725}
+#menu .ui-menu-build-trigger{min-height:34px;padding:8px 10px;border:1px solid rgba(77,225,242,.3);border-radius:10px;background:#171d2c;color:#b9c5d8;font:900 9px/1.2 var(--ui-heading,system-ui);letter-spacing:.12em}
+#menu .ui-menu-build-trigger::after{content:"  ·  5 TAPS FOR DEV TOOLS";color:var(--ui-cyan)}
+#menu .ui-menu-foot #mTown{min-height:50px;border:1px solid #ef5b85!important;border-radius:13px!important;background:linear-gradient(135deg,#ef476f,#d62f68)!important;color:#fff!important;font:900 13px/1 var(--ui-heading,system-ui)!important;letter-spacing:.14em;box-shadow:0 5px 0 #852344,0 9px 18px rgba(0,0,0,.22)!important}
+#menu .ui-menu-foot #mTown:active{transform:translateY(3px);box-shadow:0 2px 0 #852344!important}
+#menu .ui-menu-playbook-overlay{width:min(100%,920px);left:50%;transform:translateX(-50%)}
+#menu .ui-menu-playbook-flip{min-width:66px;min-height:38px;border:1px solid rgba(245,184,65,.65);border-radius:10px;background:#1c2130;color:var(--ui-gold);font:900 11px/1 var(--ui-heading,system-ui);letter-spacing:.12em}
+#menu .ui-menu-playbook-list{gap:9px}
+#menu .ui-menu-playbook-card{border:1px solid rgba(255,255,255,.16);border-radius:13px;background:#1c2130}
+#menu .ui-play-diagram{display:block;width:100%;height:auto;aspect-ratio:180/78;margin-bottom:7px;border-radius:8px}
+#menu .ui-menu-playbook-card[aria-pressed="true"],#menu .ui-menu-playbook-card.selected{border:2px solid var(--ui-gold);box-shadow:0 0 0 2px rgba(245,184,65,.16)}
+@media(max-width:420px){#owTop{left:9px;top:calc(env(safe-area-inset-top,0px) + 9px);gap:6px;padding:7px 8px}#owTown{font-size:13px}#owObj{font-size:8px;padding:4px 6px}#owGoal{left:9px;top:calc(env(safe-area-inset-top,0px) + 53px);font-size:9px}#owMenu{right:9px;top:calc(env(safe-area-inset-top,0px) + 9px);min-height:36px;height:36px;padding:0 11px}#owA{right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);width:68px;height:68px}#menu.ui-menu-ready{width:100%;left:0;transform:none;padding-left:14px;padding-right:14px}#menu .ui-menu-grid .ui-menu-icon-card{min-height:88px;padding:9px!important;grid-template-columns:36px minmax(0,1fr) 10px;gap:8px}#menu .ui-menu-grid .ui-menu-icon{width:36px;height:36px}}
+@media(orientation:landscape){#menu.ui-menu-ready{width:min(100%,920px);left:50%;transform:translateX(-50%)}#menu .ui-menu-playbook-overlay{width:min(100%,1040px)}}
