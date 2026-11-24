@@ -34,7 +34,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ui-overhaul-browser-qa-\${{ github.sha }}
+          name: ui-overhaul-browser-qa
           path: ui-overhaul-qa-output/
           if-no-files-found: warn
           retention-days: 14
