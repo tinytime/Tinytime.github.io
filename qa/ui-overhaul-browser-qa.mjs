@@ -251,11 +251,15 @@ try{
    check('Defense simulation begins after choosing a call',await page.locator('#tick').isVisible());
    check('Defense simulation names the selected call',(await page.locator('#tkTitle').textContent()).includes('BALANCED'));
    check('Offensive controls are hidden during defense simulation',await page.locator('#sheet').isHidden()&&await page.locator('#setbar').isHidden()&&await page.locator('#ctl').isHidden());
+   check('Defense simulation play-by-play is visible',await page.locator('#tkPlay').isVisible()&&!!(await page.locator('#tkPlay').textContent()).trim());
+   check('Defense simulation includes TAP TO SKIP',await page.locator('#tkHint').isVisible()&&(await page.locator('#tkHint').textContent()).includes('TAP TO SKIP'));
    await page.screenshot({path:path.join(out,'match-defense-simulation.png'),fullPage:true});
    const toast=await page.evaluate(()=>window.SG.__uiqa.achievement());
    check('Achievement toast can be triggered',toast);
    await page.waitForFunction(()=>{const e=document.querySelector('#achT');return e&&getComputedStyle(e).opacity!=='0'},null,{timeout:5000});
    check('Achievement toast is visible',await page.locator('#achT').isVisible());
+   const toastRect=await page.locator('#achT').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{x:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height,vw:innerWidth,vh:innerHeight,pointerEvents:s.pointerEvents}});
+   check('Achievement toast is bottom-centered, within bounds and non-blocking',toastRect.top>toastRect.vh*.55&&Math.abs((toastRect.x+toastRect.right)/2-toastRect.vw/2)<2&&toastRect.x>=0&&toastRect.right<=toastRect.vw&&toastRect.bottom<=toastRect.vh&&toastRect.pointerEvents==='none',toastRect);
    await page.screenshot({path:path.join(out,'match-achievement-toast.png'),fullPage:true});
    await page.evaluate(()=>window.SG.__uiqa.postGame());
   }else await page.evaluate(()=>window.SG.endGame(false));
