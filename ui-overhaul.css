@@ -1374,3 +1374,7 @@ body.land #hud #tgtTag{
 
 /* Reserve scroll space so the sticky Goals & Stats CLOSE control never covers the final card. */
 #goalsP .ui-goals-content{padding-bottom:78px!important;scroll-padding-bottom:78px}
+
+
+/* Keep the target tag fully outside the scoreboard card's left edge. */
+body.land #hud #tgtTag{left:4%!important}
