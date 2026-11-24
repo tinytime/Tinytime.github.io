@@ -1160,3 +1160,9 @@ body.land #exit{right:8%;top:calc(env(safe-area-inset-top,0px) + 6px);width:40px
 #dcall button .dco{grid-template-columns:minmax(0,1fr)!important}
 #dcall button .dco-row{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center}
 body.land #bTurbo::before{content:none!important}
+
+
+/* Specificity guard: the base game stylesheet follows the linked overhaul CSS. */
+#menu.ui-menu-ready .ui-menu-grid .ui-menu-icon-card:nth-of-type(n){border-color:rgba(255,255,255,.17)!important}
+#hud #bug{border-radius:10px!important}
+#tick #tkTop{top:calc(15% + 14px)!important;background:rgba(19,22,32,.96)!important;border-color:var(--ui-cyan)!important}
