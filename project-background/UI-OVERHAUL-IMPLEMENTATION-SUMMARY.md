@@ -367,3 +367,18 @@ The artifact contains 14 PNG screenshots plus the JSON report and diagnostics. T
 The exact tested branch contains 45 referenced audio files and 22 referenced model files; every direct reference resolves. Representative browser HTTP probes also returned 200. `main` remains at `36830922fa5b99922ce583bcf3888cb297bad03c` and was not modified.
 
 **Approval gate remains unchanged:** Stage 2 is implemented, automated-tested, and internally visually inspected, but is not owner-approved or independently reviewed. Do not start MY TEAM / MY SQUAD until the owner has reviewed and explicitly approved the menu direction.
+
+
+## Stage One art-direction correction pass — 2026-11-24
+
+Owner feedback graded the initial visual direction 3.2/10 and identified the gap between a functional UI pass and the Gemini arcade-football references. The correction pass applies a structural presentation update:
+
+- Re-composed the Overworld HUD as a compact town/status pill, added a separate GOAL strip, retained the top-right MENU pill, and styled the A action ring with an INTERACT sublabel. The Overworld canvas remains full-bleed within the active game viewport.
+- Constrained the menu and Playbook overlay to a centered landscape max-width while retaining the phone-width portrait frame.
+- Reworked the menu action area into larger 2×2 icon-led cards, strengthened UPG and trophy hierarchy, retained DATA & SUPPORT grouping, and changed the sticky BACK TO TOWN CTA to a crimson/pink treatment.
+- Tightened credits card presentation and restrained the developer drawer height so it behaves as a utility panel.
+- Strengthened Playbook route diagrams, selected-card gold border, and FLIP presentation. The existing catalog already generates route diagrams from real play data; this pass improves the field/card composition.
+
+Scope boundary: the catalog remains a reference/selection surface, not a live match play-calling overlay. A functional CALL PLAY CTA must be wired to the existing in-match selection state after inspecting that system; no fake no-op action has been added. Pre-game, pre-snap, live-play, defense, fumble, achievement-toast and post-game screens remain the next high-risk visual QA group.
+
+Status: source edits committed below; browser QA and updated screenshot inspection are pending. Do not call this visually approved until actual updated artifacts have been inspected and the owner has reviewed the direction.
