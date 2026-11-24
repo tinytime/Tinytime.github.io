@@ -880,3 +880,10 @@ The next fresh artifact must include and visually inspect the changed screens: o
 5. Fresh Actions run and screenshots for the current CSS/JS/QA commits have not been retrieved. The latest inspected run #204 predates these changes. Do not report the new assertions as passed or visually approve the screens until the exact current SHA is tested and its artifact inspected.
 
 **Latest implementation work in this pass:** see current branch HEAD. Stage One remains pending fresh QA, screenshot inspection, Claude delta review and owner approval. Stage Two remains held.
+
+
+### Additional Credits fidelity correction
+
+The Credits mockup (page 7) shows the actual asset/source attributions expanded in the three cyan-framed cards. The previous implementation hid the attribution behind VIEW FULL ATTRIBUTION and showed generic summaries. The three details sections now open by default, the generic summaries and disclosure labels are hidden, and the existing source text remains intact and visible. The QA harness now checks all three expanded groups and representative source names (Kay Lousberg, glitchart, Thimras and Kevin MacLeod).
+
+Latest code/QA checkpoint before this documentation update: 6e2154c968c9789cfccae121843f045e3c0ccab0. JavaScript syntax parsing succeeded for ui-overhaul-menu.js and the QA module after stripping module-only imports for parser validation. This is syntax validation only, not browser execution. No new Actions run/status/artifact was retrievable; Run #204 remains the last inspected browser result and predates all current corrections.
