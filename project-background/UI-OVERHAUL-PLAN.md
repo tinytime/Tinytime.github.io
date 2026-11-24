@@ -229,3 +229,10 @@ The artifact contains 14 PNG screenshots plus the JSON report and diagnostics. T
 The exact tested branch contains 45 referenced audio files and 22 referenced model files; every direct reference resolves. Representative browser HTTP probes also returned 200. `main` remains at `36830922fa5b99922ce583bcf3888cb297bad03c` and was not modified.
 
 **Approval gate remains unchanged:** Stage 2 is implemented, automated-tested, and internally visually inspected, but is not owner-approved or independently reviewed. Do not start MY TEAM / MY SQUAD until the owner has reviewed and explicitly approved the menu direction.
+
+
+## Owner art-direction correction checkpoint — 2026-11-24
+
+The first UI pass was graded 3.2/10. The Stage One correction is implemented on `UI-Overhaul`: a full-viewport Overworld HUD treatment with GOAL strip and contextual A label; stronger centered 2×2 arcade menu hierarchy; compact grouped credits/dev utility presentation; and visual treatment for the real in-match playbook sheet (gold selected card, FLIP and cyan CALL PLAY). The live game controls and `callPlay()` behavior are retained.
+
+Implementation details, exact commits and QA status are recorded in [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). Browser QA has been extended to the Overworld and pre-game play-calling flow, but the new run/artifact has not yet been verified. The prior 51/51 Run #39 does not validate these edits. Target for the next visual review is 6.5+/10; live-play, defense, fumble, achievement-toast and post-game screenshots remain required before visual sign-off.
