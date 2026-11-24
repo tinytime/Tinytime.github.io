@@ -806,3 +806,10 @@ body #mu .tap{display:block;min-height:24px;line-height:24px;padding-bottom:2px}
 #end .btnrow #eAgain{border:1px solid var(--ui-cyan)!important;background:var(--ui-cyan)!important;color:#08131b!important;box-shadow:0 4px 0 #1a8291!important}
 #end .btnrow #eMenu{border-color:rgba(255,255,255,.18);background:#1c2130;color:#e9edf5}
 #end .btnrow .btn:focus-visible{outline:3px solid var(--ui-gold);outline-offset:2px}
+
+/* Keep build and asset diagnostics inside the hidden developer drawer. */
+#menu .ui-menu-build-details{margin:0;color:var(--ui-muted);font:600 10px/1.5 var(--ui,system-ui);overflow-wrap:anywhere;white-space:pre-wrap}
+#menu .ui-menu-dev #mSnd,#menu .ui-menu-dev #mKKF{display:block;margin:0;padding:8px 9px;border:1px solid rgba(255,255,255,.09);border-radius:9px;background:#111725;color:#aebbd0;font:700 10px/1.45 var(--ui,system-ui);letter-spacing:.015em;overflow-wrap:anywhere}
+#menu .ui-menu-dev #mSnd{margin-bottom:6px}
+#menu .ui-menu-dev #mKKF{margin-top:0}
+#menu .ui-menu-dev .ui-menu-card{gap:7px}

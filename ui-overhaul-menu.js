@@ -13,7 +13,7 @@
   const town=oldSub&&oldSub.textContent.trim()||'CIRCUIT FOOTBALL';
   const creditSource=[...menu.querySelectorAll('p.note,.note')].find(el=>/^Sound credits:/i.test(el.textContent.trim()));
   const creditText=creditSource&&creditSource.textContent.trim()||'';
-  const build=byId('mBuild'),crewList=byId('crewList');
+  const build=byId('mBuild'),buildDetailsInitial=build&&build.textContent.trim(),crewList=byId('crewList');
   const head=document.createElement('header');head.className='ui-menu-head';
   head.innerHTML='<button type="button" class="ui-menu-close" aria-label="Back to town">×</button><div class="ui-menu-brand"><div class="ui-menu-mark" aria-hidden="true">CF</div><div><div class="ui-menu-title">CIRCUIT FOOTBALL</div><div class="ui-menu-town"></div></div></div><button type="button" class="ui-menu-upg">UPG</button>';
   const updateHeader=()=>{const liveTown=byId('owTown');head.querySelector('.ui-menu-town').textContent=liveTown&&liveTown.textContent.trim()||town;const upg=byId('mUpg');const value=upg&&upg.textContent.match(/\(([^)]+)\)/);head.querySelector('.ui-menu-upg').textContent='UPG '+(value?value[1]:'0')};
@@ -34,11 +34,17 @@
   const devTitle=document.createElement('div');devTitle.className='ui-menu-dev-title';devTitle.textContent='DEVELOPER / TEST DRAWER';dev.appendChild(devTitle);
   const artAction=build&&build.onclick;if(build)build.onclick=null;
   let taps=0,tapTimer;
-  if(build){build.classList.add('ui-menu-build-trigger');build.setAttribute('role','button');build.setAttribute('tabindex','0');build.setAttribute('aria-label','Five taps open the developer and test drawer');build.setAttribute('aria-expanded','false');
+  if(build){build.textContent='BUILD INFO';build.classList.add('ui-menu-build-trigger');build.setAttribute('role','button');build.setAttribute('tabindex','0');build.setAttribute('aria-label','Build information. Five taps open developer and test tools');build.setAttribute('aria-expanded','false');
    build.addEventListener('click',()=>{taps++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{taps=0},1800);if(taps>=5){dev.hidden=!dev.hidden;taps=0;build.setAttribute('aria-expanded',String(!dev.hidden))}});
    build.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();build.click()}});
   }
   const card=(parent,title,extra)=>{const box=document.createElement('section');box.className='ui-menu-card'+(extra?' '+extra:'');if(title){const h=document.createElement('h3');h.className='ui-menu-card-title';h.textContent=title;box.appendChild(h)}parent.appendChild(box);return box};
+  const assetStatusCard=card(dev,'ASSET STATUS');
+  const buildDetailsCard=card(dev,'BUILD DETAILS');
+  const buildDetailsText=document.createElement('p');buildDetailsText.className='ui-menu-build-details';buildDetailsText.textContent=buildDetailsInitial||'Build metadata will appear here.';buildDetailsCard.appendChild(buildDetailsText);
+  const moveAssetStatus=()=>['mSnd','mKKF'].forEach(id=>{const el=document.getElementById(id);if(el&&el.parentNode!==assetStatusCard)assetStatusCard.appendChild(el)});
+  moveAssetStatus();
+  if(window.MutationObserver){const assetObserver=new MutationObserver(moveAssetStatus);assetObserver.observe(menu,{childList:true,subtree:true})}
   const decorateAction=(el,icon,title,sub)=>{if(!el)return;el.classList.add('ui-menu-icon-card');el.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon+'</span><span class="ui-menu-action-copy"><strong>'+title+'</strong><small>'+sub+'</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>'};
   const icon=(paths)=>'<svg viewBox="0 0 24 24" focusable="false" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+paths+'</svg>';
   const actions=card(home,'','ui-menu-actions ui-menu-grid');
@@ -112,9 +118,9 @@
   parts.forEach(([title,summary,body])=>{const group=document.createElement('section');group.className='ui-menu-credit-group';const h=document.createElement('h3');h.textContent=title;const short=document.createElement('p');short.className='ui-menu-credit-summary';short.textContent=summary;const details=document.createElement('details');details.className='ui-menu-credit-details';const toggle=document.createElement('summary');toggle.textContent='VIEW FULL ATTRIBUTION';const p=document.createElement('p');p.textContent=body;details.append(toggle,p);group.append(h,short,details);credits.appendChild(group)});
   if(creditSource)creditSource.remove();
   const testControls=byId('m3D')&&byId('m3D').closest('.btnrow');if(testControls){const testCard=card(dev,'TEST TOOLS');testCard.appendChild(testControls)}
-  if(artAction){const artCard=card(dev,'PLAYER ART');const artToggle=document.createElement('button');artToggle.type='button';artToggle.className='btn';artToggle.textContent='TOGGLE PLAYER ART';artToggle.addEventListener('click',()=>artAction.call(build));artCard.appendChild(artToggle)}
+  if(artAction){const artCard=card(dev,'PLAYER ART');const artToggle=document.createElement('button');artToggle.type='button';artToggle.className='btn';artToggle.textContent='TOGGLE PLAYER ART';artToggle.addEventListener('click',()=>{artAction.call(build);if(build){buildDetailsText.textContent=build.textContent.trim();build.textContent='BUILD INFO'}});artCard.appendChild(artToggle)}
   moveControl('mRO',dev,'FPS COUNTER',false);moveControl('mPL',dev,'PERFORMANCE LOG',false);moveControl('mPR',dev,'PERFORMANCE REPORT',false);
-  const soundStatus=byId('mSnd');if(soundStatus)credits.appendChild(soundStatus);
+  moveAssetStatus();
   credits.append(build,dev);
   const defs=[['menu','MENU',home],['settings','SETTINGS',settings],['credits','CREDITS',credits]];
   const selectTab=name=>defs.forEach(([key,label,p])=>{const b=tabs.querySelector('[data-tab="'+key+'"]'),active=key===name;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;p.hidden=!active});
