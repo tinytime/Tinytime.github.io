@@ -475,3 +475,15 @@ The browser harness has advanced to **68 assertions** and now explicitly verifie
 Latest QA-harness commit: `a60adc9d6621b4272e9290c482a07ec91771d718` (assert cyan HIKE action color semantics). The current harness screenshot set includes the Overworld, pre-game matchup, in-match playbook, pre-snap, live play, fumble pile, defense selection, achievement toast and post-game.
 
 **Verification remains pending:** no completed Actions run, test result or artifact has been retrieved for this expanded harness. The commit-status response is empty; do not interpret that as a pass or failure. The workflow's push trigger and exact code commit are known, but the actual run and artifact must still be retrieved through GitHub Actions. Visual screenshot inspection, independent review and owner approval remain outstanding.
+
+
+## Latest live-branch QA harness checkpoint — 2026-11-24
+
+A final live-branch recheck found a further QA-only correction after the 68-check checkpoint. The HIKE CTA contrast assertion now matches the actual dark text color on the solid cyan button.
+
+- Latest QA-harness commit: `ad2cd22c26005f7e244a18f28a6ea7c88961d9e9`.
+- Latest harness source reports **76 assertions**.
+- Latest verified branch HEAD at this check: `ad2cd22c26005f7e244a18f28a6ea7c88961d9e9`.
+- The expanded screenshot list remains: Overworld, pre-game matchup, playbook, pre-snap, live play, fumble pile, defense selection, achievement toast and post-game.
+
+The GitHub commit-status response is still empty and no Actions run ID, completed result or artifact has been retrieved. This is not a pass or failure. Do not report the 76 assertions as executed until the workflow result is confirmed. Actual screenshot inspection, independent review and owner approval remain pending.
