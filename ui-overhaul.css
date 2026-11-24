@@ -1409,3 +1409,6 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
 
 /* Keep the drive-status pill within the requested 12–16px drop below the scoreboard. */
 #tick #tkTop{top:calc(15% + 14px)!important}
+
+/* The defense-selection headline owns the area below the scoreboard; suppress the first-to badge there. */
+#app:has(#dcall:not([hidden])) #tgtTag{display:none!important}
