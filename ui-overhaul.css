@@ -732,3 +732,15 @@ body #mu .tap{display:block;min-height:24px;line-height:24px;padding-bottom:2px}
  font-family:var(--disp);letter-spacing:.05em
 }
 #app #hike:active{transform:translateY(3px);box-shadow:0 2px 0 #147f98!important}
+
+/* Final selector reconciliation: ui-overhaul-menu.js owns the Overworld HUD markup. */
+#owTop{position:absolute;z-index:5;left:max(12px,env(safe-area-inset-left,0px));top:calc(env(safe-area-inset-top,0px) + 12px);display:flex;flex-direction:column;align-items:flex-start;gap:6px;max-width:min(76vw,390px);padding:0;border:0;background:transparent;box-shadow:none;backdrop-filter:none;pointer-events:none}
+#owTop .ui-ow-pill{display:flex;align-items:center;gap:8px;max-width:100%;padding:9px 12px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(12,17,29,.9);box-shadow:0 8px 22px rgba(0,0,0,.28);backdrop-filter:blur(10px)}
+#owTop .ui-ow-goal{display:flex;align-items:center;gap:9px;max-width:100%;padding:8px 11px;border:1px solid rgba(255,255,255,.16);border-left:3px solid var(--ui-gold);border-radius:11px;background:rgba(19,22,32,.9);box-shadow:0 3px 12px rgba(0,0,0,.26);backdrop-filter:blur(8px)}
+#owMenu{position:absolute;z-index:6;right:max(12px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 12px);min-height:42px;padding:0 16px;border:1px solid rgba(245,184,65,.75);border-radius:12px;background:rgba(19,22,32,.92);color:#fff;font-family:var(--ui-heading);font-size:14px;font-weight:900;letter-spacing:.1em}
+#owA{position:absolute;z-index:6;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 22px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:74px;height:74px;padding:0;border:3px solid var(--ui-town-accent);border-radius:50%;background:rgba(19,22,32,.94);color:#fff;box-shadow:0 0 0 4px rgba(255,47,168,.13),0 5px 16px rgba(0,0,0,.4);font-family:var(--ui-heading)}
+#owA .ui-ow-a-letter{font-family:var(--ui-display);font-size:26px;line-height:1}
+#owA .ui-ow-a-label{font-family:var(--ui-heading);font-size:9px;line-height:1.1;font-weight:900;letter-spacing:.12em;color:#ffd4e8}
+#owA:active{transform:scale(.96)}
+#owGoal{display:none!important}
+@media(max-width:390px){#owTop{max-width:calc(100vw - 112px)}#owTop .ui-ow-pill{gap:5px;padding:7px 8px}#owTop .ui-ow-goal{padding:7px 8px}#owTop .ui-ow-goal-copy{font-size:11px}#owA{right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);width:68px;height:68px}}
