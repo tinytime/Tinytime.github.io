@@ -203,3 +203,14 @@ The Actions artifact screenshots were inspected for portrait menu, portrait sett
 ### Remaining scope
 
 This is **Stage 2 approval evidence only**, not approval of the complete UI overhaul. The next handoff section is **My Team & My Squad** (section 3). Later goals/stats, match/playbook, in-match HUD, defense, toast, and post-game screens remain to be implemented and tested. The Overworld A-button contextual action sub-label is also still outstanding.
+
+
+
+### Portrait reset-confirmation evidence refinement — 2026-11-24
+
+Run #38 initially passed its checks, but visual inspection caught that the screenshot labelled as the portrait reset confirmation had been captured after cancellation. The QA sequence was corrected to capture the open dialog before cancelling and to assert the modal fits inside the 390×844 viewport.
+
+- Correction commit: `dca37967819c83e62a8442ce29b1c6ba6bbaef5b`.
+- [Run #39](https://github.com/tinytime/Tinytime.github.io/actions/runs/45420390694): **SUCCESS, 51/51 checks**, exact commit above.
+- [Evidence artifact](https://github.com/tinytime/Tinytime.github.io/actions/runs/45420390694/artifacts/14934375326), including the inspected `portrait-reset-confirm.png`.
+- The reset flow was cancelled; no progress reset was performed.
