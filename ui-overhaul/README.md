@@ -93,3 +93,12 @@ QA status:
 - Browser interaction, portrait/landscape visual inspection, save/reset regression testing and accessibility checks are **pending**. Do not treat this stage as visually approved.
 - The current GitHub tree still lacks the ZIP's `audio/` and `models/` runtime directories. The game entry point references them, so full-fidelity gameplay/audio QA remains blocked until the exact supplied assets are restored.
 - No golden snapshots were changed.
+
+
+### Stage 2 integration and static validation update
+
+- The tabbed menu behavior module is now linked at the end of `index.html`; the stylesheet is linked in the document head.
+- The existing `mBuild` element is retained and moved into Credits rather than replaced, preserving its original build/art toggle handler. The five-tap developer drawer is layered onto that existing control.
+- Latest implementation checkpoint: `c475bb8109b7f5add76feb67902894a98ff9b3ba`.
+- Static checks on the exact branch HEAD: all five existing inline JavaScript blocks compile; the new menu module compiles; CSS opening/closing brace counts match; both UI assets are referenced by `index.html`.
+- These are static checks only. A browser session and screenshot capture did not complete in this environment, so no interaction, layout, clipping, mobile safe-area or visual approval is claimed.
