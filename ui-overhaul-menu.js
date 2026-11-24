@@ -216,7 +216,7 @@
   const panels={},buttons={};
   const tabDefs=[['challenges','CHALLENGES'],['achievements','ACHIEVEMENTS'],['stats','TEAM STATS']];
   for(const [id,label] of tabDefs){
-   const button=make('button','ui-goals-tab',label);button.type='button';button.setAttribute('role','tab');button.setAttribute('aria-controls','ui-goals-panel-'+id);button.setAttribute('aria-selected','false');button.tabIndex=-1;
+   const button=make('button','ui-goals-tab',label);button.type='button';button.dataset.goalsTab=id;button.setAttribute('role','tab');button.setAttribute('aria-controls','ui-goals-panel-'+id);button.setAttribute('aria-selected','false');button.tabIndex=-1;
    const section=make('section','ui-goals-panel');section.id='ui-goals-panel-'+id;section.setAttribute('role','tabpanel');section.setAttribute('aria-labelledby','ui-goals-tab-'+id);section.hidden=true;button.id='ui-goals-tab-'+id;
    button.addEventListener('click',()=>activate(id));
    button.addEventListener('keydown',event=>{
