@@ -188,3 +188,18 @@ At this handoff checkpoint, only implementation and static/source inspection are
 - A new browser QA run is active: [Run #10 / 45416437234](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416437234), testing code commit `50c0878609932ddd3a54d7d1b6e7ca99fc54020a` (the reset-handler interception follow-up).
 - At the time of this checkpoint, the job was still installing Playwright/Chromium; no pass/fail result or artifact exists yet. This run tests the immediately preceding code commit, not the documentation-only HEAD commit.
 - When resuming, poll Run #10, inspect its job log and artifact, then decide whether another run is needed against current HEAD. Do not assume it passed.
+
+
+## Newest QA evidence reviewed — 2026-11-24 (Run #9)
+
+A second completed attempt was reviewed after the earlier checkpoint above:
+
+- [Run #9 / 45416037636](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416037636) tested `e66cb4b9ee2930e4c0281327bebf740288737831`.
+- Result: **FAILED** in the browser harness, not during setup. Node/Playwright/Chromium installation passed.
+- The harness timed out at its first attempt to click `#owMenu`; the locator existed but Playwright reported it was not visible. This means the menu-open flow did not reach the tab tests in this run. It is a different stopping point from Run #1's Settings-tab click.
+- The artifact upload itself succeeded this time, but the ZIP is only 431 bytes. It is not a screenshot package and provides no visual evidence. No screenshots were visually inspected.
+- Run #9's artifact: [14932378038](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416037636/artifacts/14932378038).
+- The branch then received the reset-handler interception commit `50c0878609932ddd3a54d7d1b6e7ca99fc54020a`, triggering [Run #10 / 45416437234](https://github.com/tinytime/Tinytime.github.io/actions/runs/45416437234). At the last poll it was still running its browser QA step; no result/artifact was available.
+- Latest branch HEAD after the documentation index/plan commits was `5c627f817cd22916b738e0f5fa97232b42d6fc34`. Run #10 tests `50c0878`, which precedes the documentation-only commits. Re-verify live HEAD and poll Run #10 before taking further action.
+
+**Updated diagnosis:** the harness has a startup/menu-visibility problem before it can exercise Settings. Do not assume the latest run has proven the reset modal works. First fix how the harness waits for and opens the live overworld menu. It must verify the real game is in the overworld and that `#owMenu` is genuinely visible before clicking. Capture diagnostic state on failure (screen state, computed style, bounding box, active overlays) and always upload the report even when assertions fail. Only then continue to tab, reset-cancel and drawer tests.
