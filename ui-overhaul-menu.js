@@ -28,6 +28,7 @@
   const footer=document.createElement('footer');footer.className='ui-menu-foot';
   const dev=document.createElement('section');dev.className='ui-menu-dev';dev.hidden=true;
   const devTitle=document.createElement('div');devTitle.className='ui-menu-dev-title';devTitle.textContent='DEVELOPER / TEST DRAWER';dev.appendChild(devTitle);
+  const artAction=build&&build.onclick;if(build)build.onclick=null;
   let taps=0,tapTimer;
   if(build){build.classList.add('ui-menu-build-trigger');build.setAttribute('role','button');build.setAttribute('tabindex','0');build.setAttribute('aria-label','Five taps open the developer and test drawer');build.setAttribute('aria-expanded','false');
    build.addEventListener('click',()=>{taps++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{taps=0},1800);if(taps>=5){dev.hidden=!dev.hidden;taps=0;build.setAttribute('aria-expanded',String(!dev.hidden))}});
@@ -54,6 +55,11 @@
   const gameplay=card(settings,'GAMEPLAY & DISPLAY');
   moveControl('mHap',gameplay,'HAPTICS',false);moveControl('mCam',gameplay,'RUNNER CAMERA',false);moveControl('mLT',gameplay,'LITE EFFECTS',false);moveControl('mRS',gameplay,'RESOLUTION',false);
   const danger=card(settings,'DANGER ZONE','ui-menu-danger');moveControl('mReset',danger,'RESET PROGRESS',false);
+  const resetButton=byId('mReset'),resetAction=resetButton&&resetButton.onclick;
+  const resetDialog=document.createElement('div');resetDialog.className='ui-menu-modal-backdrop';resetDialog.hidden=true;resetDialog.innerHTML='<section class="ui-menu-confirm" role="dialog" aria-modal="true" aria-labelledby="uiResetTitle" aria-describedby="uiResetText"><div class="ui-menu-eyebrow">DANGER ZONE</div><h2 id="uiResetTitle">RESET PROGRESS?</h2><p id="uiResetText">This permanently resets your team, upgrades, and town progress on this device. This cannot be undone.</p><div class="ui-menu-confirm-actions"><button type="button" class="ui-menu-cancel">CANCEL</button><button type="button" class="ui-menu-confirm-reset">RESET PROGRESS</button></div></section>';
+  const cancelReset=resetDialog.querySelector('.ui-menu-cancel'),confirmReset=resetDialog.querySelector('.ui-menu-confirm-reset');
+  const closeReset=()=>{resetDialog.hidden=true;if(resetButton)resetButton.focus()};
+  if(resetButton&&resetAction){resetButton.onclick=()=>{resetDialog.hidden=false;cancelReset.focus()};cancelReset.addEventListener('click',closeReset);confirmReset.addEventListener('click',()=>{resetDialog.hidden=true;resetAction.call(resetButton,{target:resetButton});resetAction.call(resetButton,{target:resetButton});});resetDialog.addEventListener('click',e=>{if(e.target===resetDialog)closeReset()});document.addEventListener('keydown',e=>{if(!resetDialog.hidden&&e.key==='Escape'){e.preventDefault();closeReset()}})}
   const parts=[
    ['3D ART & UI',(creditText.match(/Characters and animations:[\s\S]*/i)||[])[0]||'Character and animation credits.'],
    ['MUSIC & SFX',(()=>{const a=creditText.indexOf('Sound credits:'),b=creditText.indexOf('The Spillway:');return a>=0?creditText.slice(a,b>a?b:undefined):'Music and sound-effect credits.'})()],
@@ -62,6 +68,7 @@
   parts.forEach(([title,body])=>{const group=document.createElement('section');group.className='ui-menu-credit-group';const h=document.createElement('h3');h.textContent=title;const p=document.createElement('p');p.textContent=body;group.append(h,p);credits.appendChild(group)});
   if(creditSource)creditSource.remove();
   const testControls=byId('m3D')&&byId('m3D').closest('.btnrow');if(testControls){const testCard=card(dev,'TEST TOOLS');testCard.appendChild(testControls)}
+  if(artAction){const artCard=card(dev,'PLAYER ART');const artToggle=document.createElement('button');artToggle.type='button';artToggle.className='btn';artToggle.textContent='TOGGLE PLAYER ART';artToggle.addEventListener('click',()=>artAction.call(build));artCard.appendChild(artToggle)}
   moveControl('mRO',dev,'FPS COUNTER',false);moveControl('mPL',dev,'PERFORMANCE LOG',false);moveControl('mPR',dev,'PERFORMANCE REPORT',false);
   const soundStatus=byId('mSnd');if(soundStatus)credits.appendChild(soundStatus);
   credits.append(build,dev);
@@ -72,7 +79,7 @@
   const townButton=byId('mTown');
   if(townButton){const old=townButton.closest('.btnrow');townButton.removeAttribute('style');footer.appendChild(townButton);if(old&&!old.querySelector('button,input,select'))old.remove()}
   if(oldLogo)oldLogo.remove();if(oldSub)oldSub.remove();if(oldTagline)oldTagline.remove();
-  menu.append(head,goal,tabs,content,footer);
+  menu.append(head,goal,tabs,content,footer,resetDialog);
   menu.classList.add('ui-menu-ready');
   const upg=head.querySelector('.ui-menu-upg'),upgButton=byId('mUpg');if(upgButton)upg.addEventListener('click',()=>upgButton.click());
   const close=head.querySelector('.ui-menu-close'),townControl=byId('mTown');if(close&&townControl)close.addEventListener('click',()=>townControl.click());
