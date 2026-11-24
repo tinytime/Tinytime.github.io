@@ -110,7 +110,7 @@ try{
  const challengeBottom=await page.locator('#goalsP').evaluate(el=>{const content=el.querySelector('.ui-goals-content');content.scrollTop=content.scrollHeight;const last=el.querySelector('#ui-goals-panel-challenges .ui-goals-challenge:last-child').getBoundingClientRect(),close=el.querySelector('.ui-goals-close').getBoundingClientRect();return{gap:close.top-last.bottom,paddingBottom:parseFloat(getComputedStyle(content).paddingBottom),scrollTop:content.scrollTop,contentBottom:content.getBoundingClientRect().bottom,closeTop:close.top}});
  check('Pinned CLOSE footer clears the final challenge card after scrolling',challengeBottom.gap>=8&&challengeBottom.paddingBottom>=10,challengeBottom);
  await page.screenshot({path:path.join(out,'goals-stats-challenges-bottom.png')});
- await page.locator('#goalsP').evaluate(el=>el.scrollTop=0);
+ await page.locator('#goalsP .ui-goals-content').evaluate(el=>el.scrollTop=0);
  await page.locator('#ui-goals-tab-achievements').click();
  const achievementPanel=await page.locator('#ui-goals-panel-achievements').evaluate(el=>({visible:!el.hidden,cards:el.querySelectorAll('.ui-goals-achievement').length,medals:el.querySelectorAll('.ui-goals-medal').length,counters:el.querySelectorAll('.ui-goals-achievement-count').length,progress:el.querySelectorAll('.ui-goals-progress').length,selected:document.querySelector('#ui-goals-tab-achievements')?.getAttribute('aria-selected')}));
  check('Achievements tab shows medals, counters and progress',achievementPanel.visible&&achievementPanel.cards>0&&achievementPanel.medals===achievementPanel.cards&&achievementPanel.counters===achievementPanel.cards&&achievementPanel.progress>0&&achievementPanel.selected==='true',achievementPanel);
@@ -118,7 +118,7 @@ try{
  const achievementBottom=await page.locator('#goalsP').evaluate(el=>{const content=el.querySelector('.ui-goals-content');content.scrollTop=content.scrollHeight;const last=el.querySelector('#ui-goals-panel-achievements .ui-goals-achievement:last-child').getBoundingClientRect(),close=el.querySelector('.ui-goals-close').getBoundingClientRect();return{gap:close.top-last.bottom,scrollTop:content.scrollTop,contentBottom:content.getBoundingClientRect().bottom,closeTop:close.top}});
  check('Pinned CLOSE footer clears the final achievement card after scrolling',achievementBottom.gap>=8,achievementBottom);
  await page.screenshot({path:path.join(out,'goals-stats-achievements-bottom.png')});
- await page.locator('#goalsP').evaluate(el=>el.scrollTop=0);
+ await page.locator('#goalsP .ui-goals-content').evaluate(el=>el.scrollTop=0);
  await page.locator('#ui-goals-tab-stats').click();
  const teamStatsPanel=await page.locator('#ui-goals-panel-stats').evaluate(el=>({visible:!el.hidden,cards:el.querySelectorAll('.ui-goals-stat-card').length,note:el.querySelector('.ui-goals-note')?.textContent||'',selected:document.querySelector('#ui-goals-tab-stats')?.getAttribute('aria-selected')}));
  check('Team Stats uses four career cards and the MY SQUAD > CAREER note',teamStatsPanel.visible&&teamStatsPanel.cards===4&&teamStatsPanel.note.includes('MY SQUAD')&&teamStatsPanel.note.includes('CAREER')&&teamStatsPanel.selected==='true',teamStatsPanel);
