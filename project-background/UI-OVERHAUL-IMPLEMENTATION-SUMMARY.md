@@ -1068,3 +1068,12 @@ The single failed assertion exposed a CSS specificity conflict: the matchup's le
 Run #240 (ID `45481832612`) tested `93de189bc16552916d7adffd50421f7a610124d6`: **172/173 passed**. The only failure was the new atmosphere assertion expecting a `conic-gradient` in the computed left background. The browser's computed style correctly reports the actual repeated field-line gradient instead; the screenshot shows the intended warm left-side light treatment and cyan town skyline. The QA assertion is being aligned with the rendered CSS (repeating field lines, clipped warm/cool halves, skyline silhouette, and pseudo-layer presence), not relaxed to a generic pass.
 
 The practice-win screenshot was visually inspected: PRACTICE WIN banner, explicit NO REWARDS · PRACTICE MODE pill, 14–0 team score with both logos, framed squad panel, STYLE POINTS 3,700 card, and side-by-side REMATCH / MENU actions are all visible. The zero-point loss-state reward-card correction is included. Retest pending.
+
+
+### Run #240 result and remaining Stage One visual work (2026-11-24)
+
+**Run #240:** [GitHub Actions run #240](https://github.com/tinytime/Tinytime.github.io/actions/runs/45481832612), tested `93de189bc16552916d7adffd50421f7a610124d6`. Result: **172/173 checks passed**. The only failure was the expanded pre-game atmosphere assertion: the dynamic in-game style block overrode the new external `.fx1/.fx2` background declarations because their selectors had equal specificity. The new skyline/light layers are visible in the screenshot, but the intended conic floodlight beam and radial town glow were not active. The next correction raises selector specificity and checks the actual team badge card, not only its logo child.
+
+The deterministic Practice Win screen now renders with the correct win banner, practice mode pill, team score card, and a visible `STYLE POINTS 3,700` card. The screenshot was inspected. One remaining visual improvement is to trigger the existing touchdown celebration animation on the squad instead of leaving the players in neutral poses; the QA fixture now requests that animation and verifies the celebration state.
+
+Additional visual findings from the original handoff comparison: the Defense Selection panel clips its lower stat row in 390px landscape; the fumble countdown is plain text rather than the required seconds pill; and the defense-simulation screenshot is currently captured before a completed play-by-play snap. These are being corrected and asserted. No golden snapshots changed.

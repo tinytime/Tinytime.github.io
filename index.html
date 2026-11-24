@@ -2174,7 +2174,7 @@ function pileTick(dt){
   if(P.go>0){P.go-=dt;return}
   P.t+=dt;P.cpuT-=dt;
   while(P.cpuT<=0){P.v=Math.max(0,P.v-PILE_TAP);P.cpuT+=(1/PILE_CPU)*rnd(.8,1.2)}
-  $('#pileFill').style.width=(P.v*100)+'%';$('#pileT').textContent=Math.max(0,PILE_T-P.t).toFixed(1);
+  $('#pileFill').style.width=(P.v*100)+'%';$('#pileT').textContent=Math.max(0,PILE_T-P.t).toFixed(1)+'s';
   if(P.v>=1||P.v<=0||P.t>=PILE_T)pileEnd(P.v>=.5)}
 function pileEnd(won){
   const P=F.pile;if(!P||P.done)return;P.done=true;show('#pile',false);
@@ -11208,7 +11208,7 @@ if((location.hostname==='127.0.0.1'||location.hostname==='localhost')&&new URLSe
     defense:()=>{if(!G||!G.crew)return false;G.mode='dead';G.pendFp=35;showDefCall(35);return !$('#dcall').hidden},
     achievement:()=>{if(!ACH||!ACH.length)return false;achToast(ACH[0]);return true},
     postGame:()=>{clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);endGame(false);return true},
-    postGamePracticeWin:()=>{if(!G||!G.crew)return false;clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);G.crew.practice=true;G.style=37;G.you=14;G.opp=0;endGame(true);return !$('#end').hidden}
+    postGamePracticeWin:()=>{if(!G||!G.crew)return false;clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);G.crew.practice=true;G.style=37;G.you=14;G.opp=0;if(F){F.res={type:'td',spot:100};Object.values(F.off||{}).filter(p=>p&&p.team==='O').forEach((p,i)=>{p.celeb=60;p.celebV=i%3;p.vx=0;p.vy=0;p.fall=false})}endGame(true);$('#endNote').textContent='';return !$('#end').hidden}
   };
 }
 
