@@ -1013,3 +1013,10 @@ The clock module is being corrected with explicit 40px readout and 56px target w
 ### Run #232 — scoreboard integration QA found a specificity conflict
 
 Run #232 tested `9974170d811bfa49a360a7855c33ce6e8ef11877`: **164/165 passed**. The new assertion correctly caught the target still stacking over the clock readout. The legacy `#hud #bug #bClock` column rule had higher specificity than the first integration rule, so the target was technically nested but not side-by-side. No page exceptions or same-origin HTTP errors were reported. The correction now explicitly overrides that legacy rule at matching/higher specificity and gives the target a fixed adjacent slot. Retest pending; no snapshots were changed.
+
+
+### Run #232 regression and correction
+
+Run #232 (ID `45478784824`) tested commit `9974170d811bfa49a360a7855c33ce6e8ef11877` and returned **164/165**. The sole failure was the new target/readout spacing assertion: the target badge was a child of the clock module, but a legacy display rule prevented the intended flex row and caused a 20px overlap. The screenshot confirmed the overlap. No page errors, console errors, or same-origin request failures occurred.
+
+A narrow CSS correction now explicitly sets the clock module to a non-wrapping flex row and fixes the readout/target widths. The strict QA assertion remains unchanged; this correction is pending a fresh run. Stage Two and golden snapshots remain untouched.

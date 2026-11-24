@@ -1754,3 +1754,34 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
   position:static!important;left:auto!important;top:auto!important;transform:none!important;
   display:block!important;flex:0 0 auto!important;width:56px!important;max-width:56px!important;
 }
+
+
+/* Run #232 showed the legacy clock block retained a non-flex display mode.
+   Explicitly establish the row layout so the clock readout and target cannot overlap. */
+#hud #bug #bClock{
+  display:flex!important;
+  flex-flow:row nowrap!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:8px!important;
+  box-sizing:border-box!important;
+}
+#hud #bug #bClock #clockReadout{
+  display:flex!important;
+  position:static!important;
+  flex:0 0 40px!important;
+  width:40px!important;
+  min-width:40px!important;
+  margin:0!important;
+}
+#hud #bug #bClock #tgtTag{
+  display:flex!important;
+  position:static!important;
+  flex:0 0 56px!important;
+  width:56px!important;
+  min-width:56px!important;
+  margin:0!important;
+  transform:none!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
