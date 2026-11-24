@@ -270,8 +270,9 @@ try{
    check('Achievement toast can be triggered',toast);
    await page.waitForFunction(()=>{const e=document.querySelector('#achT');return e&&getComputedStyle(e).opacity!=='0'},null,{timeout:5000});
    check('Achievement toast is visible',await page.locator('#achT').isVisible());
-   const toastRect=await page.locator('#achT').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{x:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height,vw:innerWidth,vh:innerHeight,pointerEvents:s.pointerEvents}});
+   const toastRect=await page.locator('#achT').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el),ticker=document.querySelector('#tkPlay')?.getBoundingClientRect();return{x:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height,vw:innerWidth,vh:innerHeight,pointerEvents:s.pointerEvents,tickerTop:ticker?.top??null}});
    check('Achievement toast is bottom-centered, within bounds and non-blocking',toastRect.top>toastRect.vh*.55&&Math.abs((toastRect.x+toastRect.right)/2-toastRect.vw/2)<2&&toastRect.x>=0&&toastRect.right<=toastRect.vw&&toastRect.bottom<=toastRect.vh&&toastRect.pointerEvents==='none',toastRect);
+   check('Achievement toast clears the defense play-by-play ticker',toastRect.tickerTop===null||toastRect.bottom<toastRect.tickerTop-6,toastRect);
    await page.screenshot({path:path.join(out,'match-achievement-toast.png'),fullPage:true});
    await page.evaluate(()=>window.SG.__uiqa.postGame());
    check('Achievement toast clears before the post-game result',await page.locator('#achT').count()===0);
