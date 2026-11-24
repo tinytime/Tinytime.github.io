@@ -771,3 +771,16 @@ body #mu .tap{display:block;min-height:24px;line-height:24px;padding-bottom:2px}
  #menu .ui-menu-upg{width:62px;min-width:62px;font-size:11px}
  #menu .ui-menu-mark{width:36px;height:36px}
 }
+
+
+/* Portrait header layout: constrain the brand column instead of allowing the title to overlap UPG. */
+@media(max-width:420px){
+ #menu .ui-menu-head{display:grid;grid-template-columns:42px minmax(0,1fr) 66px;gap:8px;justify-content:initial}
+ #menu .ui-menu-brand{min-width:0;width:100%;overflow:hidden}
+ #menu .ui-menu-brand>div:last-child{min-width:0;max-width:100%;overflow:hidden}
+ #menu .ui-menu-title{display:block;max-width:100%;font-size:17px;letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:clip}
+}
+@media(max-width:360px){
+ #menu .ui-menu-head{grid-template-columns:38px minmax(0,1fr) 62px;gap:6px}
+ #menu .ui-menu-title{font-size:16px}
+}
