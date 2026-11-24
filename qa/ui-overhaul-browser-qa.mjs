@@ -156,7 +156,7 @@ try{
  check('Build trigger is concise', (await page.locator('#mBuild').textContent()).trim()==='BUILD INFO');
  check('Detailed build metadata is kept in developer drawer',(await page.locator('.ui-menu-dev .ui-menu-build-details').textContent()).includes('TEST BUILD ROUTE 2 START'));
  check('Asset diagnostics are moved into developer drawer',await page.locator('.ui-menu-dev #mSnd').count()===1&&await page.locator('.ui-menu-dev #mKKF').count()===1);
- check('Primary Credits hides raw asset diagnostics',await page.locator('#uiMenuCredits #mSnd, #uiMenuCredits #mKKF').count()===0);
+ check('Primary Credits hides raw asset diagnostics',await page.locator('#uiMenuCredits > #mSnd, #uiMenuCredits > #mKKF').count()===0);
  check('Developer drawer is hidden by default',!(await page.locator('.ui-menu-dev').isVisible()));
  await page.screenshot({path:path.join(out,'desktop-credits.png'),fullPage:true});
  await page.setViewportSize({width:390,height:844});await page.waitForTimeout(120);await page.screenshot({path:path.join(out,'portrait-credits.png'),fullPage:true});await page.setViewportSize({width:1440,height:1000});
