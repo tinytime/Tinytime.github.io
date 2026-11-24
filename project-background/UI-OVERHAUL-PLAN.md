@@ -169,3 +169,8 @@ Remaining QA limitation:
 The working branch is UI-Overhaul, current HEAD 1c57d2457b468a266d410984c2fe0898574f5baa. The latest retrieved runs (#15 and #16) both failed before menu tests because the real #owMenu control was hidden. The harness startup sequence was corrected to capture startup screenshots and computed-style/ancestor diagnostics, use the existing SG.owShow() helper before clicking when necessary, wait for actual visibility, and click once. Commits: 1fc422e, 62bb843, 1c57d24.
 
 The corrected Actions run and diagnostic screenshots still need to be retrieved and inspected. No browser pass or visual approval is claimed. Next: inspect the startup diagnostics, correct the real game-entry sequence if needed, then complete the menu interaction and portrait/landscape visual QA. Do not begin MY TEAM / MY SQUAD until the menu stage is green and the owner has reviewed its direction. No golden snapshots were changed.
+
+
+### Documentation-only follow-up
+
+The status notes above were recorded in three sequential documentation commits: summary ac0e4298c420696323d4918233971ee0aefd8b39, workstream README a05c5317c1ed2a216197c62654483177dfecf3f1, and plan 02e447b4cdce53b437db56567c85fe5870906464. The verified current branch HEAD is now 02e447b4cdce53b437db56567c85fe5870906464; these commits only update documentation. The QA harness/code commit awaiting browser evidence remains 1c57d2457b468a266d410984c2fe0898574f5baa.
