@@ -1160,3 +1160,18 @@ Run #252 tested `95396692ebed114cebbf9fd21da8748ef888163a`: **185/186 checks pas
 **Evidence:** [Run #256 artifact — ui-overhaul-browser-qa](https://github.com/tinytime/Tinytime.github.io/actions/runs/45496316858/artifacts/14967729271), 8,650,180 bytes, 37 PNG screenshots plus QA report/diagnostics; retained through 2026-12-08. The artifact is uploaded and available for download. Screenshot images have not yet been visually inspected in this session because local data-analysis access is temporarily unavailable; therefore this is automated QA evidence, not visual approval.
 
 **Stage One status:** implementation and automated browser QA updated; internal visual inspection of the new artifact, Claude review where required, and owner approval remain pending. Stage Two remains on hold. No golden snapshots or snapshot provenance were changed.
+
+
+### Round 4 — defense-drive pill fit correction and scope clarification (2026-11-24)
+
+**Owner feedback:** Round 4 rated the Stage One bundle 9/10. Round 3 visual issues were confirmed fixed. One new defect remains: the Defense Simulation status pill clips the right edge, truncating the yard-line context. The reviewer also noted MY TEAM and MY SQUAD were not in the bundle.
+
+**Implemented for the remaining Stage One defect:**
+- `#tkTop` is centered with `left:50%` / `translateX(-50%)`, a viewport-constrained max width, border-box sizing, and wrapping on both title/status rows.
+- Browser QA now asserts the pill is centered, has at least 12px viewport clearance on both sides, has no internal horizontal overflow, and retains the `BALL ON` yard-line context.
+- CSS commit: `91fa9cf60baa661fe3ac3e5ca527acf4812cf47f`.
+- QA commit / Run #258 tested HEAD: `f3b657617d601d331702b2be556590c7210c6592`. Run #258 is pending at time of this documentation update.
+
+**MY TEAM / MY SQUAD scope:** These screens are Section 3 of the supplied handoff and explicitly designated **Stage Two**. They are intentionally not included in the Stage One QA artifact. They remain unverified against Section 3, and no implementation or Stage Two QA has been started. The gate remains owner approval of the complete Stage One package.
+
+**Current status:** Round 3 fixes remain backed by Run #256 (190/190). Round 4 pill correction awaits Run #258. Final visual inspection, independent Claude review where required, and owner approval remain outstanding. No golden snapshots or snapshot provenance were changed.
