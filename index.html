@@ -448,8 +448,9 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
     <canvas id="owc"></canvas>
     <div id="owBlack" hidden style="position:absolute;inset:0;background:#000;z-index:2"></div>
     <div id="owTop"><b id="owTown">VAPOR CITY</b><span id="owObj"></span></div>
+    <div id="owGoal">GOAL · BEAT THE STREET CREWS</div>
     <button id="owMenu">MENU</button>
-    <button id="owA">A</button>
+    <button id="owA"><b>A</b><small id="owALabel">LOOK</small></button>
     <div id="owBase" hidden><i id="owKnob"></i></div>
     <div id="owToast" hidden></div><div id="owMsg" hidden><b id="owName"></b><p id="owTxt"></p><div id="owBtns"></div></div>
   </div>
@@ -9142,11 +9143,24 @@ function owCard(){
   owSay('THE CARD',['THE FIVE-LINE CIRCUIT. Five towns. One champion. Beat the Netrunners, and the gate opens.','In black ink beneath it: THROW IT INTO THE DARK.  -D','The D has a tail Dante never made. Eli decides it is the rain.','GOAL: beat the three street crews, then the Netrunners. Win the Circuit. Keep Vapor City lit.'],()=>{SAVE.story.card=1;persist();owToast('GOAL  BEAT THE NETRUNNERS')}));
 }
 function owHide(){OWON=false}
+function owActionHint(){
+  const d=OWDIR[OW.d||OW.ld||'d']||[0,1],x=OW.x+d[0],y=OW.y+d[1];
+  const npc=owNpcAt(x,y),door=owDoorAt(x,y),prop=owPropAt(x,y);
+  let label='LOOK';
+  if(OW.busy)label='NEXT';
+  else if(M.room&&y>=M.h-1)label='EXIT';
+  else if(npc)label=npc.crew?'PLAY':'TALK';
+  else if(door)label='ENTER';
+  else if(prop)label=String(prop.act||'').toLowerCase().includes('fish')?'FISH':prop.act?'INTERACT':'LOOK';
+  const el=$('#owALabel');if(el&&el.textContent!==label)el.textContent=label;
+}
 function owHud(){
   $('#world').classList.toggle('hb',!!(M.harbor||M.hb||M.island));
   const hbm=M.harbor||M.hb,n=(hbm?['baitdogs','longshore','gantry']:['cats','kings','rollers']).filter(id=>SAVE.beaten.includes(id)).length,cap=SAVE.beaten.includes(hbm?'closers':'captain'),got=Object.keys(RWD).filter(owGot).length;
   $('#owTown').textContent=M.room?'':(M.route?'THE SPILLWAY':M.island?"GULL'S REACH":M.harbor?'HALE HARBOR':'VAPOR CITY');
   $('#owObj').textContent=(cap?'CLEARED':'CREWS '+n+'/3')+((SAVE.upPts||0)?'  \u00b7  UPG '+SAVE.upPts:'');if(M.island||M.r2)$('#owObj').textContent=r2Obj()+((SAVE.upPts||0)?'  \u00b7  UPG '+SAVE.upPts:'');const upgControl=$('#mUpg');if(upgControl)upgControl.textContent='UPGRADES'+((SAVE.upPts||0)?' ('+SAVE.upPts+')':'');
+  const goal=$('#owGoal');if(goal)goal.textContent='GOAL · '+(M.room?'EXPLORE THE BUILDING':M.route?'REACH HALE HARBOR':M.harbor?'BEAT THE HARBOR CREWS':M.island?'EXPLORE GULL’S REACH':cap?'TAKE ON THE NETRUNNERS':'BEAT THE STREET CREWS');
+  owActionHint();
 }
 /* dialogue */
 let owLines=[],owAfter=null,owChoices=null;
@@ -10270,7 +10284,7 @@ function zdBeat(){
   R.zdSeen=1;persist();owSay('ZERO DAY',lines)}
 function owFrame(dt){
   if(M&&!M.baked)owBake(M);   // v2.95: drawn again if it was let go during a match
-  zdBeat();spToast();owStep(dt);SND.zone(M,OW.px,OW.py);
+  zdBeat();spToast();owStep(dt);owActionHint();SND.zone(M,OW.px,OW.py);
   {const te=$('#owTown');if(te){if(OW.rtM!==M.id){OW.rtM=M.id;OW.rt=0}OW.rt=(OW.rt||0)+dt;te.style.opacity=M.route?String(clamp(1-(OW.rt-3)/1.2,0,1)):'';}}
   const SW=owW,SH=owH;if(M.route){const px=OW.px,tz0=px<11?1:px<19?1-.5*(px-11)/8:px<27?.5:px<36?.5+.3*(px-27)/9:.8,tz=Math.max(tz0,SH/(M.h*OWT),SW/(M.w*OWT));OW.z=(OW.z||1)+(tz-(OW.z||1))*Math.min(1,dt*2.2)}else{const cover=Math.max(1,SW/(M.w*OWT),SH/(M.h*OWT));OW.z=(OW.z||1)+(cover-(OW.z||1))*Math.min(1,dt*2.2)}const z=OW.z||1,W=SW/z,H=SH/z,OT=OWT,rk=M.route?Math.min(Math.max(clamp((52-OW.px)/12,0,1),.4),OW.px>=44?clamp((OW.py-10.5)/3,0,1):1):1;og.setTransform(owDpr*z,0,0,owDpr*z,0,0);og.imageSmoothingEnabled=true;
   const mw=M.w*OT,mh=M.h*OT,k=OT/BP;
