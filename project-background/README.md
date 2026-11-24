@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-For the active UI redesign, start with the [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). It records the exact implementation state, latest browser-QA result (Run #39: 51/51 passed), inspected screenshot evidence, owner-approval gate, follow-up commits, and one-to-one continuation instructions for a new chat.
+For the active UI redesign, start with the [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). It is the current status authority. The stage-one correction is committed on `UI-Overhaul` at `d9d22506c87474c775ee02fe05ec0f04d6085e95`; the browser harness contains 82 assertions and adds defense-simulation plus desktop/portrait credits evidence. The push-triggered Actions result and updated screenshot artifact are not yet verified, so do not treat the 82 assertions as a pass or the UI as visually approved.
 
 Related references:
 - [UI Overhaul Plan](UI-OVERHAUL-PLAN.md) — design scope, seven-screen inventory and project guardrails.
