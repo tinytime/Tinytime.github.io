@@ -1094,3 +1094,8 @@ Run #244 (ID `45483202613`) tested `b5baeed91b94bd445281fa7a679e3f788933f9df` an
 The Run #244 pre-game screenshot was visually inspected. The new atmospheric backdrop and solid matte-navy badge cards are a substantial improvement; the VS medallion and card composition now align with the handoff. The remaining badge correction is to force the home accent to gold and away accent to cyan rather than inheriting each crew's orange/purple palette. That is now applied. The verified Defense Selection no-clipping rule from Run #242 is retained without the redundant override.
 
 The practice-win fixture now resets every field player's rig fall state and sets the standing, arms-raised celebration pose, without relying on a team-label filter. Run #245 will verify the timer pill, celebration screenshot, gold/cyan badge accents, and the complete Stage One browser suite. No golden snapshots changed.
+
+
+### Run #246 — celebration fixture API correction
+
+Run #246 (ID `45483894574`) reached the deterministic Practice Win setup after the preceding fumble, defense, and matchup checks, then stopped with `TypeError: RIGF is not a function`. `RIGF` is the front-view rig object, not a callable reset function. The fixture already resets each player's fall/lying/stun fields directly; the invalid rig invocation is removed while preserving the touchdown result and arms-raised celebration pose. The updated fixture is pending a full retest.

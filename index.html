@@ -11208,7 +11208,7 @@ if((location.hostname==='127.0.0.1'||location.hostname==='localhost')&&new URLSe
     defense:()=>{if(!G||!G.crew)return false;G.mode='dead';G.pendFp=35;showDefCall(35);return !$('#dcall').hidden},
     achievement:()=>{if(!ACH||!ACH.length)return false;achToast(ACH[0]);return true},
     postGame:()=>{clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);endGame(false);return true},
-    postGamePracticeWin:()=>{if(!G||!G.crew)return false;clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);G.crew.practice=true;G.style=37;G.you=14;G.opp=0;if(F){F.res={type:'td',spot:100};Object.values(F.off||{}).filter(p=>p&&typeof p==='object'&&'x' in p).forEach(p=>{p.celeb=60;p.celebV=2;p.vx=0;p.vy=0;p.fall=false;p.fallK=0;p.lyT=0;p.wasLy=false;p.stun=0;const rig=RIGF(p);if(rig){rig.fallK=0;rig.lyT=0;rig.wasLy=false}})}endGame(true);$('#endNote').textContent='';return !$('#end').hidden}
+    postGamePracticeWin:()=>{if(!G||!G.crew)return false;clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);G.crew.practice=true;G.style=37;G.you=14;G.opp=0;if(F){F.res={type:'td',spot:100};Object.values(F.off||{}).filter(p=>p&&typeof p==='object'&&'x' in p).forEach(p=>{p.celeb=60;p.celebV=2;p.vx=0;p.vy=0;p.fall=false;p.fallK=0;p.lyT=0;p.wasLy=false;p.stun=0;})}endGame(true);$('#endNote').textContent='';return !$('#end').hidden}
   };
 }
 
