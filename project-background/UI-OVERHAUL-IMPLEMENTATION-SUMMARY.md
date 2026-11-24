@@ -1008,3 +1008,8 @@ The other remaining gates are unchanged: deterministic OPEN-receiver visual evid
 **Run #232:** [GitHub Actions run #232](https://github.com/tinytime/Tinytime.github.io/actions/runs/45478784824), run ID `45478784824`, tested `9974170d811bfa49a360a7855c33ce6e8ef11877`. Result: **164/165 checks passed**. The new target is correctly nested inside the PLAY CLOCK module and is no longer a floating pill. However, the first screenshot revealed that the target badge overlapped the clock readout because the clock's inner flex children were allowed to shrink without fixed widths. The screenshot was inspected and the QA geometry recorded a -20px overlap.
 
 The clock module is being corrected with explicit 40px readout and 56px target widths, a 132px container, and space-between alignment. The assertion requires a positive horizontal gap and shared vertical alignment. The circular pause control and overlay hide behavior passed. This correction is pending Run #233. No gameplay logic or golden snapshots changed.
+
+
+### Run #232 — scoreboard integration QA found a specificity conflict
+
+Run #232 tested `9974170d811bfa49a360a7855c33ce6e8ef11877`: **164/165 passed**. The new assertion correctly caught the target still stacking over the clock readout. The legacy `#hud #bug #bClock` column rule had higher specificity than the first integration rule, so the target was technically nested but not side-by-side. No page exceptions or same-origin HTTP errors were reported. The correction now explicitly overrides that legacy rule at matching/higher specificity and gives the target a fixed adjacent slot. Retest pending; no snapshots were changed.

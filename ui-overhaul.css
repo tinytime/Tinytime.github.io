@@ -1743,3 +1743,14 @@ body.land #hud #tgtTag{left:50%!important;top:calc(env(safe-area-inset-top,0px) 
   background:rgba(245,184,65,.09);color:#ffe3a0;
   font:900 8px/1.12 var(--ui,system-ui);letter-spacing:.06em;
 }
+
+/* Win the legacy #hud #bug #bClock column rule: the target and clock readout sit side by side. */
+#hud #bug #bClock{
+  width:124px!important;min-width:124px!important;flex-direction:row!important;
+  align-items:center!important;justify-content:center!important;gap:8px!important;
+}
+#hud #bug #bClock #clockReadout{flex:0 0 auto!important}
+#hud #bug #bClock #tgtTag{
+  position:static!important;left:auto!important;top:auto!important;transform:none!important;
+  display:block!important;flex:0 0 auto!important;width:56px!important;max-width:56px!important;
+}
