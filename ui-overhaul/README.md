@@ -180,3 +180,14 @@ The Actions artifact screenshots were inspected for portrait menu, portrait sett
 ### Remaining scope
 
 This is **Stage 2 approval evidence only**, not approval of the complete UI overhaul. The next handoff section is **My Team & My Squad** (section 3). Later goals/stats, match/playbook, in-match HUD, defense, toast, and post-game screens remain to be implemented and tested. The Overworld A-button contextual action sub-label is also still outstanding.
+
+
+
+## Latest verified checkpoint — 2026-11-24 14:57Z
+
+- Latest tested implementation commit: `d4c1952a45f467a891f1341c2f0597fde812869c`.
+- GitHub Actions [Run #37](https://github.com/tinytime/Tinytime.github.io/actions/runs/45419632794) passed **50/50** browser QA checks on that exact commit. Evidence artifact: [14932584439](https://github.com/tinytime/Tinytime.github.io/actions/runs/45419632794/artifacts/14932584439).
+- Verified menu opening, seven retained primary controls, Playbook (nine plays and category filter), all three tabs, settings controls and LOW/MED/HIGH resolution state changes, reset-cancel flow, music/volume interaction, Credits, developer drawer, runtime audio/model HTTP 200 probes, portrait/landscape menu fit, return-to-town and menu reopen. No same-origin HTTP errors or uncaught page exceptions.
+- ChatGPT retrieved and visually inspected the real desktop/portrait menu, settings, credits/developer, Playbook, landscape menu and overworld return screenshots. The earlier `nullnull` artifacts are gone.
+- Status: menu implementation is automated-tested and internally visually inspected. Claude independent review and owner approval are still pending. MY TEAM / MY SQUAD and later handoff screens remain unstarted pending owner approval of this menu direction.
+- See [UI Overhaul Implementation Summary](../project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for the detailed 50-check report, screenshot inventory, QA history and next action.
