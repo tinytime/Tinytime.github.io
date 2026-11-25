@@ -1,3 +1,18 @@
+## UI Overhaul QA checkpoint — Run #487 passed (2026-11-25)
+
+- Verified GitHub Actions [Run #487](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191) completed successfully on branch `UI-Overhaul`, testing code commit `abc60524d6f3bf491fbb87e5bd22967b720a6004`. The run's browser-qa job, test step, and evidence upload all succeeded.
+- Report totals: **300/300 checks passed**, 0 failures, 0 uncaught page exceptions, 0 console errors, and 0 same-origin HTTP failures.
+- Retrieved artifact `15071354604` and inspected the report plus screenshots `match-defense-simulation.png`, `match-rotate-device-portrait.png`, and `match-achievement-toast.png`.
+- D12 ticker styling (commit `3e0ff82410722473618373968e1e2b4def656814`) is verified in the live defensive simulation: opaque white text on matte navy, no filter or text shadow, with the play result legible and TAP TO SKIP visible.
+- Rotation QA (commit `75d669d30a8eceff53443168cc22bc74e0c49c80`) confirms the prompt fills the 390×844 portrait viewport without clipping and is dismissed after restoring 844×390 landscape.
+- The achievement toast is bottom-anchored, non-blocking, and clear of the ticker. The queued defense panel stays hidden during the ticker/toast and reappears once both clear.
+- Root cause of the earlier #484 failure: the achievement-toast active class stayed set while queued toasts drained, allowing the toast queue to delay a deferred defensive call. Functional fix in `index.html`, commit `abc60524d6f3bf491fbb87e5bd22967b720a6004`, gives a pending defense selection priority at the end of the active toast and resumes remaining achievements after the defense interaction.
+- The QA wait extension in `a61d97d0a8d3bee9335dafc4182a488e6e67f1b5` allows the full simulated drive/toast sequence to complete; it did not relax the visibility/state assertions.
+- Earlier Run #484 failure and canceled intermediate runs remain historical records. Run #487 is the successful verification of the functional correction.
+- No golden snapshots were updated. Automated QA and the cited screenshot inspection are complete. Claude independent review and final owner approval remain pending; do not label the overhaul approved until those gates are satisfied.
+
+---
+
 ## Current verified implementation — Run #487 (2026-11-25)
 
 ### Exact source and test result
