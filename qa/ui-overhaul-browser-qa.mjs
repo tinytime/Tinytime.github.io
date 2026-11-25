@@ -30,6 +30,7 @@ try{
  // then use the real visible HUD button exactly once. Never force-click a hidden control.
  const menu=page.locator('#menu');
  const titleScreen=page.locator('#uiTitleScreen');
+ await page.setViewportSize({width:390,height:844});
  check('Title screen is the initial blocking entry screen',await titleScreen.isVisible()&&await page.locator('#uiTitleStart').isVisible()&&await page.locator('#uiTitleSettings').isVisible());
  await page.screenshot({path:path.join(out,'title-screen-portrait.png'),fullPage:true});
  await page.locator('#uiTitleSettings').click();
@@ -42,6 +43,7 @@ try{
  await page.locator('#uiTitleStart').click();
  await page.waitForFunction(()=>document.querySelector('#uiTitleScreen')?.hidden===true,null,{timeout:10000});
  check('BEAT THE CIRCUIT dismisses the title gate and enters the game',await titleScreen.isHidden());
+ await page.setViewportSize({width:1440,height:1000});
 
  const openOverworldMenu=page.locator('#owMenu');
  const describeStartup=()=>page.evaluate(()=>{
