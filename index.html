@@ -1069,7 +1069,7 @@ function sqRedraw(){const p=sqPlayer();if(!p)return;const cv=$('#sqCv');cv._num=
 function renderSquad(){
   if(sqSel.t==='s'&&!SAVE.starters[sqSel.k])sqSel={t:'s',k:'QB'};if(sqSel.t==='b'&&!SAVE.bench[sqSel.i])sqSel={t:'s',k:'QB'};
   const cap=upCap(),pts=SAVE.upPts||0,p=sqPlayer();
-  $('#sqPts').innerHTML='POINTS <b>'+pts+'</b> \u00b7 STAT CAP <b>'+cap+'</b> \u00b7 TEAM DEFENSE <b>'+teamDef()+'</b>';
+  $('#sqPts').innerHTML='<span class="ui-squad-metric"><small>PTS</small><b>'+pts+'</b></span><span class="ui-squad-metric"><small>CAP</small><b>'+cap+'</b></span><span class="ui-squad-defense">DEF '+teamDef()+'</span>';
   // player strip: starters, then bench
   const st=$('#sqStrip');st.innerHTML='';
   const card=(q,tag,on,fn)=>{const b=document.createElement('button');b.className='sqc'+(on?' on':'')+(tag==='BENCH'?' bn':'');b.innerHTML='<span class="p">'+(tag==='BENCH'?q.pos:tag)+'</span><span class="o">'+ovr(q)+'</span><span class="n">'+lastName(q.name)+(q.star?' \u2605':'')+'</span><span class="t">'+(tag==='BENCH'?'BENCH':'STARTER')+'</span>';b.onclick=fn;st.appendChild(b)};
