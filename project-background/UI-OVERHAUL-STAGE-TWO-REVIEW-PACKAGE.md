@@ -5,7 +5,7 @@
 **Implementation branch:** `UI-Overhaul`  
 **Latest successful correction commit:** `8aff7da49a4a5bafc255f3fc073783803469377c`  
 **CSS root-selector correction:** `71e1a20af05483d45ea832d0193e68d9f557b1fc`  
-**Latest verification:** [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570), 221/221 assertions, exact tested commit `3be8785d5a250d65430f7c50571d5d0d428a9d36`  
+**Latest verification:** [Run #315](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797), 222/222 assertions, exact tested commit `8aff7da49a4a5bafc255f3fc073783803469377c`  
 **Historical baseline QA:** [Run #297](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193) — successful, 216/216 assertions  
 **Latest evidence artifact:** [Artifact 14987300342](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797/artifacts/14987300342)  
 **Latest STYLE & GEAR and defense-simulation QA:** Run #315 passed; the parent-panel, trail-scroll-end and defense-simulation screenshots were inspected.
@@ -56,11 +56,11 @@ Also inspect `portrait-menu.png` and `desktop-menu.png` for menu tile order and 
 
 ## Automated QA evidence
 
-[Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570) tested exact commit `3be8785d5a250d65430f7c50571d5d0d428a9d36` and passed **221/221 assertions** with zero failures, zero uncaught page exceptions, zero console errors and zero same-origin HTTP failures. Evidence artifact: [14985344956](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570/artifacts/14985344956).
+[Run #315](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797) tested exact commit `8aff7da49a4a5bafc255f3fc073783803469377c` and passed **222/222 assertions** with zero failures, zero uncaught page exceptions, zero console errors and zero same-origin HTTP failures. Evidence artifact: [14987300342](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797/artifacts/14987300342).
 
 Coverage includes:
 - Four-tile 2×2 menu order, gold MY SQUAD / cyan secondary frames, and portrait vertical fit at 390px and 360px.
-- MY TEAM Back/Cancel, live UPG badge, full-width single-line PICK LOGO action, IDENTITY / UNIFORM / TRAILS tabs, save action fit and locked-trail hints.
+- MY TEAM Back/Cancel, live UPG badge, full-width single-line PICK LOGO action, IDENTITY / UNIFORM / TRAILS tabs, bottom-pinned SAVE & EQUIP, eight locked-trail hints and scroll-to-end visibility of the final hint above the fixed save action.
 - MY SQUAD PTS/CAP badges, ATTRIBUTES / STYLE & GEAR / CAREER tabs, `P` cost suffix, inline VISOR / ARM SLEEVES, appearance-toggle persistence, pinned roster strip and no horizontal overflow.
 - Stage One and match-flow regressions, including Fumble meter/A-control separation and defense-simulation banner suppression.
 
@@ -101,7 +101,7 @@ Run #295 and artifact 14982981067 verify the MY TEAM / MY SQUAD selector correct
 
 ## Current limitations and approval gate
 
-All independent Stage Two findings supplied on 2026-11-25 have been addressed and verified in Run #313. The corrected screenshots and broader Stage One regression captures have been retrieved and visually inspected. **The only remaining Stage Two gate is explicit owner approval.**
+All independent Stage Two findings supplied on 2026-11-25 have been addressed and verified in Run #315. The corrected screenshots and broader Stage One regression captures have been retrieved and visually inspected. **The only remaining Stage Two gate is explicit owner approval.**
 
 1. The owner reviews the updated Stage Two package and evidence.
 2. The owner explicitly approves Stage Two.
