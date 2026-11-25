@@ -1,3 +1,11 @@
+## Live selector correction — implementation committed, browser verification pending (2026-11-25)
+
+- Owner reported that Team Stats gold outlines and the MY SQUAD palette corrections were still not visible in the live preview.
+- Investigation found the prior Team Stats override targeted `#ui-goals-panel-stats`, which is not the actual panel root. The rendered page uses `#goalsP`; therefore that override did not match the cards. Corrected the CSS to target `#goalsP .ui-goals-stat-card`, explicitly removing shadow/outline and retaining a restrained cyan border. Corrected the QA locator to the same real DOM root.
+- Strengthened MY SQUAD overrides with direct `#squad #sqBody` selectors for all inputs and jersey number controls, plus scoped Career text, heading and emphasis colors.
+- CSS correction commit: `2e787ae8565c325d3112db86b90e9df8d9bf3877`; QA correction commit: `24f86d2e6f4628d093eb478f1cf4e1732cb48022`.
+- Verification is pending: no completed Actions run or fresh screenshot artifact has yet been retrieved for this correction. Do not treat the live appearance as confirmed until the browser run and screenshots are inspected. No golden snapshots were changed.
+
 ## MY SQUAD palette correction — implementation complete, QA pending (2026-11-25)
 
 - Owner identified three remaining legacy treatments in MY SQUAD: the Style & Gear name field, jersey-number plus/minus controls, and Career text.
