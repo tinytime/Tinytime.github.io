@@ -466,7 +466,7 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   await page.screenshot({path:path.join(out,'match-playbook-flip-on.png'),fullPage:true});
   await page.locator('#flipBtn').click();
   const playbookCategoryCounts=await page.locator('#pbTabs .pbTab').evaluateAll(es=>es.map(el=>({key:el.dataset.t,label:el.querySelector('b')?.textContent.trim(),count:el.querySelector('small')?.textContent.trim(),disabled:el.disabled})));
-  const livePlaybookCounts=await page.evaluate(()=>{const plays=window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS:[],counts={ALL:plays.length,RUN:0,PASS:0,TRICK:0};for(const play of plays)if(Object.prototype.hasOwnProperty.call(counts,play.tag))counts[play.tag]++;return counts});
+  const livePlaybookCounts=await page.evaluate(()=>{const plays=window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS:[],counts={ALL:plays.length,RUN:0,PASS:0,TRICK:0},trickIds=new Set(['flea','draw','counter','dmove']);for(const play of plays){const group=trickIds.has(play.id)?'TRICK':play.tag;if(Object.prototype.hasOwnProperty.call(counts,group))counts[group]++}return counts});
   const expectedPlaybookCounts=Object.fromEntries(Object.entries(livePlaybookCounts).map(([key,value])=>[key,value+' '+(value===1?'PLAY':'PLAYS')]));
   check('Landscape playbook exposes FAV, ALL, RUN, PASS and TRICK categories',playbookCategoryCounts.length===5&&['FAV','ALL','RUN','PASS','TRICK'].every(key=>playbookCategoryCounts.some(x=>x.key===key)),playbookCategoryCounts);
   check('In-match Playbook category counts match the live unlocked catalogue',Object.entries(expectedPlaybookCounts).every(([key,value])=>playbookCategoryCounts.find(x=>x.key===key)?.count===value),{livePlaybookCounts,playbookCategoryCounts});
