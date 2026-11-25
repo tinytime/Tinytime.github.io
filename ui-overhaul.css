@@ -2416,3 +2416,20 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #pileTrack{background:#0D1420!important;border:1px solid rgba(255,255,255,.35)!important;box-shadow:none!important}
 #pileFill{background:linear-gradient(90deg,#4DE1F2,#F5B841)!important}
 #pileL{color:#4DE1F2!important}#pileR{color:#F5B841!important}
+
+/* Owner feedback polish — November 2026 */
+#end #endStyle{display:none!important}
+#pileBar{left:50%!important;right:auto!important;width:min(55%,560px)!important;transform:translateX(-50%)!important;box-sizing:border-box}
+#pile{background:rgba(8,13,22,.42)!important}
+#pileSub{color:#e9edf5;text-shadow:none;letter-spacing:.1em}
+#pileSub b{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border:1px solid rgba(77,225,242,.55);border-radius:6px;background:#1c2130;color:#4de1f2;font:900 12px/1 var(--ui-heading,system-ui);vertical-align:middle}
+#pileBtn{width:88px!important;height:88px!important;right:4%!important;bottom:9%!important;border:2px solid #f5b841!important;border-radius:50%!important;background:#131620!important;color:#4de1f2!important;font:900 34px/1 var(--ui-heading,system-ui)!important;box-shadow:0 5px 0 #080c14,0 0 0 4px rgba(77,225,242,.08)!important}
+#pileBtn.dn{transform:translateY(3px) scale(.96)!important;box-shadow:0 1px 0 #080c14!important}
+#app #sheet .pbTop{justify-content:flex-end;min-height:36px}
+#app #sheet #shDD,#app #sheet #shHint{display:none!important}
+#app #sheet #flipBtn{margin-left:auto!important;background:#1c2130!important;color:#4de1f2!important;border:1px solid rgba(77,225,242,.65)!important;border-radius:9px!important}
+#app #sheet #flipBtn.on{background:#4de1f2!important;color:#101722!important;border-color:#4de1f2!important}
+#goalsP .ui-goals-stat-card.is-receiving .ui-goals-stat-sub{color:#f5f7fa!important;font:900 27px/1 var(--ui-display,"Barlow Condensed",Impact,sans-serif)!important;letter-spacing:0!important}
+#team .ui-team-identity .lprev{background:#1c2130!important;border:1px solid rgba(77,225,242,.32)!important;border-radius:10px!important}
+#team .ui-team-identity .lprev .lbig{background:#131620!important;border:1px solid rgba(77,225,242,.45)!important;border-radius:8px!important;color:#f5f7fa!important}
+#team .ui-team-identity .lprev #tLogoBtn{background:#1c2130!important;border:1px solid rgba(77,225,242,.55)!important;color:#4de1f2!important}
