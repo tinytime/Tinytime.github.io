@@ -1378,3 +1378,21 @@ Next: retrieve the push-triggered browser run for commit `2cd3b457eca4b36481298a
 - Actual `my-squad-style-gear-portrait.png` inspection confirms the parent STYLE & GEAR panel is now captured: NAME input, seven skin swatches, JERSEY NUMBER controls, EDIT GEAR & TRAILS action, player preview, and pinned starter roster all fit in the 390×844 portrait viewport. Run #297 asserts these controls and the in-squad gear-editor transition.
 - The fresh artifact also contains the broad regression set: overworld, menu/settings/credits, goals and stats, playbook, pre-game, pre-snap, live match, fumble, defense selection/simulation, achievement toast, and post-game. The Run #297 fumble screenshot retains the approved left-lane meter and distinct A control placement.
 - Stage Two is **not approved**. Reconcile the complete package with the current design handoff, inspect the remaining required screenshots at full size, prepare Claude's independent review package, address valid findings, and wait for explicit owner approval. Stage One remains owner-approved. No golden snapshots or snapshot provenance were changed.
+
+
+## Stage Three — GOALS & STATS — internal QA passed; owner review pending (2026-11-25)
+
+- Current branch HEAD and exact tested commit: da5a017b5d3914fd0e90bb8cba68bec93dfec37d on UI-Overhaul.
+- GitHub Actions: [UI Overhaul Browser QA Run #331](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877) completed successfully. Browser QA job and artifact upload both succeeded.
+- Automated evidence: report.json records 230/230 checks passed, zero failed assertions. The report includes no same-origin HTTP errors and no uncaught page exceptions. Artifact [14990919745](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877/artifacts/14990919745) was downloaded.
+- Stage Three scope implemented: GOALS & STATS accessible header X with centered title and trophy badge; CHALLENGES / ACHIEVEMENTS / TEAM STATS tabs; challenge trail reward cards; achievement medal/counter/progress cards; live trophy/one-off counter updates; four Team Stats cards; separate aligned REC and YDS receiving metrics; fixed CLOSE footer; narrow-width layout.
+- Observer stability: guarded redundant DOM class/ARIA writes. Browser regression check confirms the achievement observer settles without repeated DOM mutation after an achievement counter changes.
+- Relevant QA assertions passed: all three tabs and content states; trophy total 0/13 and dynamic 1/13; one-off achievement counter 0 / 1 and dynamic 1 / 1; 13 achievement cards/medals/counters; four Team Stats cards and MY SQUAD > CAREER note; Receiving REC/YDS alignment; 360px header/tab fit; CLOSE footer and header X return to menu; Escape close behavior.
+- Visual inspection completed: actual artifact screenshots opened and reviewed: goals-stats-challenges.png, goals-stats-achievements.png, goals-stats-team-stats.png, and goals-stats-team-stats-360.png. The new title/header, medal list, card borders, receiving metrics, narrow layout and pinned footer render as intended. Scrolled-bottom screenshots are also included in the artifact.
+- Not changed: gameplay/save/progression behavior, main, and golden snapshots/provenance.
+- Status: Stage Three is implemented, automated browser-tested on the exact current HEAD, and internally visually inspected. It is not independently reviewed or owner-approved. Do not start Stage Four or mark the UI overhaul complete until the owner reviews and explicitly approves Stage Three.
+- Review evidence: [Run #331](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877); [artifact 14990919745](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877/artifacts/14990919745). Acceptance criteria are the GOALS & STATS section in the supplied 14-page UI handoff and assertions in qa/ui-overhaul-browser-qa.mjs.
+
+### Stage Three next action
+
+Present the Run #331 evidence and GOALS & STATS screens for owner review. Await explicit owner approval or feedback. If feedback arrives, change only affected Stage Three items, rerun browser QA, inspect refreshed screenshots, and update this summary. Do not advance to Stage Four before approval.
