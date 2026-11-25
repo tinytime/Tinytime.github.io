@@ -1,6 +1,6 @@
 ## UI Overhaul — latest verified checkpoint (2026-11-25)
 
-- Current branch: `UI-Overhaul`; verified HEAD: `abc60524d6f3bf491fbb87e5bd22967b720a6004`.
+- Current branch: `UI-Overhaul`; latest application-code commit validated by browser QA: `abc60524d6f3bf491fbb87e5bd22967b720a6004`. Subsequent commits are documentation-only.
 - Latest browser QA: [Run #487](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191) passed on that exact commit: **300/300 checks, 0 failures**, 0 page errors, 0 console errors, and 0 same-origin request failures. Evidence artifact: [ui-overhaul-browser-qa (artifact 15071354604)](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191).
 - The D12 play-by-play ticker now renders opaque white text on a solid navy panel; the TAP TO SKIP hint remains visible. The portrait rotation prompt is fully within the 390×844 viewport and is dismissed on return to landscape.
 - Run #484 exposed a real queue-priority issue: queued achievement toasts could delay the deferred defense-selection panel. Commit `abc60524d6f3bf491fbb87e5bd22967b720a6004` prioritizes the waiting defense panel after the active toast clears, then resumes remaining achievement toasts. Run #487 verified the panel returns only after the drive ticker and toast are clear.
