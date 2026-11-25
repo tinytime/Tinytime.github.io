@@ -6,10 +6,10 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest branch code/QA commit (2026-11-25): `0689410f424ba8947ae3554d891002b7cefc2fd4` on `UI-Overhaul`; a fresh run is pending for its expanded STYLE & GEAR assertions.
-- Latest successful code-tested commit: `381363ff1caae36c080b7a9f3cf73af6f4a77046`, Run #291, 212/212 browser assertions. This is the pre-correction Stage Two baseline, not validation of the follow-up CSS fix.
+- Latest branch code commit (2026-11-25): `02fbc1d9761812fbd49e0815574f1bf82c1e40a3` on `UI-Overhaul`; Run #297 passed 216/216 browser assertions against this exact commit. Artifact `14983701764` was downloaded and the defense-simulation and STYLE & GEAR screenshots were inspected.
+- Latest successful code-tested commit: `02fbc1d9761812fbd49e0815574f1bf82c1e40a3`, Run #297, 216/216 browser assertions. Run #295 also passed 216/216 against the MY TEAM / MY SQUAD root-selector correction.
 - Stage One: owner-approved. Run #291 verifies the Round 5 Fumble geometry/palette assertions; its actual screenshot was inspected and the meter/countdown are aligned in the usable left field lane with clear separation from the A control.
-- Stage Two: MY TEAM and MY SQUAD are implemented, but Run #291 screenshot inspection found their intended styling was not taking effect. The root selector bug was corrected in CSS commit `71e1a20af05483d45ea832d0193e68d9f557b1fc`; three targeted style/pinning assertions were added in QA commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573`. Fresh Actions verification and post-fix screenshots are pending.
+- Stage Two: MY TEAM and MY SQUAD are implemented. The root-selector issue was corrected, the new parent STYLE & GEAR evidence is captured, and Run #297 confirms the defense-simulation banner correction. Stage Two still needs full review-package reconciliation, Claude independent review, and owner approval.
 - Owner approval of Stage Two: **not yet given**. Independent Claude review: pending.
 
 ## 1. Read this first in a new chat
@@ -1358,3 +1358,14 @@ Next: retrieve the push-triggered browser run for commit `2cd3b457eca4b36481298a
 - MY TEAM now visibly uses navy/cyan/gold, 40px minimum tabs, and bottom-pinned SAVE & EQUIP (captured bounds y=784–834 in an 844px viewport). MY SQUAD shows distinct PTS/CAP badges (approximately 60×38px each), the intended palette/model frame, and a pinned 66px starter strip with no horizontal overflow.
 - The inspected MY SQUAD gear screenshot is the gear subview (VISOR and ARM SLEEVES); it is not a screenshot of the STYLE & GEAR parent tab. The parent tab's controls are present in source (NAME, SKIN TONE, JERSEY NUMBER), but the previous QA only checked one text input and the gear-entry action.
 - QA-only commit `0689410f424ba8947ae3554d891002b7cefc2fd4` adds explicit DOM assertions for NAME / SKIN TONE / JERSEY NUMBER, skin swatches, jersey number buttons, and the gear action, plus screenshot `my-squad-style-gear-portrait.png`. Await its fresh Actions run and inspect that screenshot before closing Stage Two.
+
+
+## Run #297 — defense simulation correction and expanded Stage Two evidence
+
+- Workflow [#297](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193) tested commit `02fbc1d9761812fbd49e0815574f1bf82c1e40a3` and succeeded: **216/216 passed**, zero failures. Browser QA and evidence upload steps both completed successfully.
+- Artifact [14983701764](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193/artifacts/14983701764) was downloaded and inspected.
+- Run #296 had exposed a real defense-simulation presentation defect: the old field banner remained visible behind the new possession pill. The CSS suppression used `#app:has(...)`, but the relevant match elements are not descendants of `#app`. Commit `02fbc1d9761812fbd49e0815574f1bf82c1e40a3` changes the two banner suppression rules to use the document body as the ancestor and explicitly suppresses the old banner while the new drive title is active.
+- Actual `match-defense-simulation.png` inspection from Run #297 confirms the old field banner no longer overlays the new possession pill. The top scoreboard and “THEIR DRIVE · BALANCED” pill are clearly visible. The lower simulation event card remains part of the gameplay presentation; it is not the stale field banner.
+- Actual `my-squad-style-gear-portrait.png` inspection confirms the parent STYLE & GEAR panel is now captured: NAME input, seven skin swatches, JERSEY NUMBER controls, EDIT GEAR & TRAILS action, player preview, and pinned starter roster all fit in the 390×844 portrait viewport. Run #297 asserts these controls and the in-squad gear-editor transition.
+- The fresh artifact also contains the broad regression set: overworld, menu/settings/credits, goals and stats, playbook, pre-game, pre-snap, live match, fumble, defense selection/simulation, achievement toast, and post-game. The Run #297 fumble screenshot retains the approved left-lane meter and distinct A control placement.
+- Stage Two is **not approved**. Reconcile the complete package with the current design handoff, inspect the remaining required screenshots at full size, prepare Claude's independent review package, address valid findings, and wait for explicit owner approval. Stage One remains owner-approved. No golden snapshots or snapshot provenance were changed.
