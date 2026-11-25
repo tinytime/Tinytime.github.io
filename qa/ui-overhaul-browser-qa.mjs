@@ -99,8 +99,10 @@ try{
  check('MY TEAM opens on the IDENTITY tab with paired name and logo controls',await page.locator('#team [data-team-tab="identity"]').getAttribute('aria-selected')==='true'&&await page.locator('#team .ui-team-identity').isVisible());
  await page.locator('#team [data-team-tab="uniform"]').click();
  check('MY TEAM UNIFORM tab exposes colour slots and palette controls',await page.locator('#uiTeamUniform #tSlots').isVisible()&&await page.locator('#uiTeamUniform #tPal').isVisible());
+ await page.screenshot({path:path.join(out,'my-team-uniform-portrait.png'),fullPage:true});
  await page.locator('#team [data-team-tab="trails"]').click();
  check('MY TEAM TRAILS tab contains the crew challenge trail picker',await page.locator('#uiTeamTrails #trRow').isVisible()&&await page.locator('#uiTeamTrails .chip').count()>0);
+ await page.screenshot({path:path.join(out,'my-team-trails-portrait.png'),fullPage:true});
  const lockedTrailCount=await page.locator('#uiTeamTrails .chip.locked').count(),trailHintCount=await page.locator('#uiTeamTrails .ui-team-trail-hint').count();
  check('Locked MY TEAM trails show a crew-challenge unlock hint',lockedTrailCount===0||trailHintCount===lockedTrailCount,{lockedTrailCount,trailHintCount});
  await page.locator('#team [data-team-tab="identity"]').click();
@@ -136,6 +138,7 @@ try{
  await page.locator('#sqBody button').filter({hasText:'BACK TO STYLE'}).click();
  await page.locator('#sqTabs button').nth(2).click();
  check('CAREER tab remains available within MY SQUAD',await page.locator('#sqTabs button').nth(2).getAttribute('class').then(x=>x.includes('on')));
+ await page.screenshot({path:path.join(out,'my-squad-career-portrait.png'),fullPage:true});
  await page.locator('#sBack').click();
  check('MY SQUAD returns to the menu',await page.locator('#menu').isVisible());
  const menuCardBorders=await page.locator('#uiMenuHome .ui-menu-grid .ui-menu-icon-card').evaluateAll(items=>items.map(el=>getComputedStyle(el).borderTopColor));
