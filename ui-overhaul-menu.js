@@ -69,6 +69,28 @@
   const playbookButton=document.createElement('button');playbookButton.type='button';playbookButton.className='ui-menu-playbook ui-menu-icon-card';playbookButton.dataset.uiTile='playbook';playbookButton.setAttribute('aria-label','Open playbook');playbookButton.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon('<path d="M4 18V6m0 12h16M7 15l4-4 3 2 5-7"/><path d="m16 6 3 0 0 3"/>')+'</span><span class="ui-menu-action-copy"><strong>PLAYBOOK</strong><small>'+(window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS.length:0)+' plays · Pick your call</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>';actions.insertBefore(playbookButton,byId('mGoals'));
   actions.append(upgradeButton,byId('mTeam'),squadControl,playbookButton,byId('mGoals'));
   const teamSave=byId('tBack');if(teamSave)teamSave.textContent='SAVE & EQUIP';
+  const initTeamTabs=()=>{
+   const team=document.getElementById('team'),preview=document.getElementById('tPrev');
+   if(!team||!preview||team.querySelector('.ui-team-tabs'))return;
+   const tabs=document.createElement('div');tabs.className='ui-team-tabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Team customization sections');
+   const content=document.createElement('div');content.className='ui-team-tab-content';
+   const makePanel=(id,label)=>{const panel=document.createElement('section');panel.className='ui-team-tab-panel';panel.id=id;panel.setAttribute('role','tabpanel');panel.setAttribute('aria-label',label);content.appendChild(panel);return panel};
+   const panels={identity:makePanel('uiTeamIdentity','Identity'),uniform:makePanel('uiTeamUniform','Uniform'),trails:makePanel('uiTeamTrails','Trails')};
+   const activate=(key,focus=false)=>{for(const [name,panel] of Object.entries(panels)){const active=name===key;panel.hidden=!active;const button=tabs.querySelector('[data-team-tab="'+name+'"]');button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1}if(focus)tabs.querySelector('[aria-selected="true"]')?.focus()};
+   [['identity','IDENTITY'],['uniform','UNIFORM'],['trails','TRAILS']].forEach(([key,label])=>{const button=document.createElement('button');button.type='button';button.className='ui-team-tab';button.dataset.teamTab=key;button.setAttribute('role','tab');button.textContent=label;button.addEventListener('click',()=>activate(key));button.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;event.preventDefault();const keys=['identity','uniform','trails'],next=keys[(keys.indexOf(key)+(event.key==='ArrowRight'?1:2))%3];activate(next,true)});tabs.appendChild(button)});
+   preview.after(tabs);tabs.after(content);
+   const identity=team.querySelector('.ui-team-identity');if(identity)panels.identity.appendChild(identity);
+   const directLabels=[...team.children].filter(el=>el.classList?.contains('lbl'));
+   const takeLabel=text=>directLabels.find(el=>el.textContent.trim()===text);
+   const jerseyLabel=takeLabel('JERSEY STYLE'),pantsLabel=takeLabel('PANTS STYLE'),colorsLabel=takeLabel('COLORS (TAP A SLOT, THEN A COLOR)');
+   ['tJersey','tPants','tSlots','tPal'].forEach(id=>{const el=document.getElementById(id);if(el)panels.uniform.appendChild(el)});
+   [jerseyLabel,pantsLabel,colorsLabel].forEach(el=>{if(el)panels.uniform.insertBefore(el,panels.uniform.querySelector('#'+(el===jerseyLabel?'tJersey':el===pantsLabel?'tPants':'tSlots'))||null)});
+   const placeTrail=()=>{const row=document.getElementById('trRow');if(row&&row.parentElement!==panels.trails){panels.trails.appendChild(row);row.querySelectorAll('.chip.locked').forEach(chip=>{if(chip.nextElementSibling?.classList?.contains('ui-team-trail-hint'))return;const hint=document.createElement('small');hint.className='ui-team-trail-hint';hint.textContent='Clear the matching crew challenge to unlock this trail.';chip.after(hint)})}};
+   placeTrail();
+   if(window.MutationObserver){const observer=new MutationObserver(placeTrail);observer.observe(team,{childList:true,subtree:true})}
+   activate('identity');
+  };
+  const teamTile=byId('mTeam');if(teamTile)teamTile.addEventListener('click',()=>requestAnimationFrame(initTeamTabs));
   const playbookOverlay=document.createElement('section');playbookOverlay.className='ui-menu-playbook-overlay';playbookOverlay.hidden=true;playbookOverlay.setAttribute('role','dialog');playbookOverlay.setAttribute('aria-modal','true');playbookOverlay.setAttribute('aria-label','Playbook');
   playbookOverlay.innerHTML='<header class="ui-menu-playbook-head"><button type="button" class="ui-menu-playbook-back" aria-label="Back to menu">←</button><div><div class="ui-menu-eyebrow">CIRCUIT FOOTBALL</div><h2>PLAYBOOK</h2></div><span class="ui-menu-playbook-count"></span><button type="button" class="ui-menu-playbook-flip" aria-pressed="false">FLIP</button></header><nav class="ui-menu-playbook-filters" aria-label="Filter plays"><button type="button" data-filter="ALL" aria-pressed="true">ALL</button><button type="button" data-filter="RUN" aria-pressed="false">RUN</button><button type="button" data-filter="PASS" aria-pressed="false">PASS</button><button type="button" data-filter="TRICK" aria-pressed="false">TRICK</button></nav><div class="ui-menu-playbook-list"></div>';
   const playList=playbookOverlay.querySelector('.ui-menu-playbook-list'),playCount=playbookOverlay.querySelector('.ui-menu-playbook-count');
