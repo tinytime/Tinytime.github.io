@@ -1636,3 +1636,10 @@ Implementation and QA history:
 ### Owner approval — 2026-11-25
 
 The owner explicitly approved the title-screen Settings correction after reviewing the Run #430 evidence and live preview. This exact output is owner-approved. The approval applies to this focused Settings correction; it does not imply approval or completion of the broader UI Overhaul or Stage Four. No golden snapshots were changed.
+
+
+## Consolidated independent review plan recorded — 2026-11-25
+
+The owner directed that the complete independent review polish be addressed, not only the two Stage Four blockers. The full implementation scope for findings D1–D12, cross-stage consistency, acceptance criteria, regression/screenshot evidence, execution order and approval gates is now tracked in [UI-OVERHAUL-INDEPENDENT-REVIEW-IMPLEMENTATION-PLAN.md](UI-OVERHAUL-INDEPENDENT-REVIEW-IMPLEMENTATION-PLAN.md).
+
+**Planning status only:** the plan is documented and indexed in `project-background/README.md`; implementation and fresh QA have not started under this plan. The post-game rewards-card removal remains an explicit owner decision and will not be reversed as part of D6 without further authorization. The pre-game matchup redesign remains deferred. Continue on `UI-Overhaul` from the live HEAD, and preserve the no-golden-snapshot-change safeguard.
