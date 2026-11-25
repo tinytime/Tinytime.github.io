@@ -245,7 +245,7 @@ try{
    const tab=page.locator('#ui-goals-tab-'+id);
    await tab.click();
    const style=await tab.evaluate(el=>({selected:el.getAttribute('aria-selected'),border:getComputedStyle(el).borderTopWidth,borderColor:getComputedStyle(el).borderTopColor,color:getComputedStyle(el).color,shadow:getComputedStyle(el).boxShadow}));
-   check(label+' tab uses one cyan outline without a yellow ring',style.selected==='true'&&parseFloat(style.border)===1&&style.borderColor==='rgb(77, 225, 242)'&&style.color==='rgb(77, 225, 242)'&&style.shadow==='none',style);
+   check(label+' tab uses one cyan outline without a yellow ring',style.selected==='true'&&parseFloat(style.border)===1&&(style.borderColor==='rgb(77, 225, 242)'||style.borderColor==='rgba(77, 225, 242, 1)')&&style.color==='rgb(77, 225, 242)'&&style.shadow==='none',style);
  }
  await page.locator('#ui-goals-tab-challenges').click();
  const challengeFrame=await page.locator('#ui-goals-panel-challenges .ui-goals-challenge').first().evaluate(el=>({border:getComputedStyle(el).borderTopWidth,color:getComputedStyle(el).borderTopColor,shadow:getComputedStyle(el).boxShadow}));
