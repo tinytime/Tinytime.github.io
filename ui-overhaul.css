@@ -2078,3 +2078,10 @@ body.land #bHurdle,body.land #bHurdle.dive{
   background:#131620!important;color:#4de1f2!important;
   border:2px solid #f5b841!important;box-shadow:0 0 0 1px rgba(77,225,242,.2),0 6px 16px rgba(0,0,0,.38)!important;
 }
+
+
+/* Round 5 follow-up — center the Fumble meter in the usable field lane, not underneath the A control. */
+#pileBar{left:40vw!important;right:auto!important;width:min(55vw,520px)!important;max-width:calc(100vw - 180px)!important;transform:translateX(-50%)!important}
+@media(max-width:700px){#pileBar{left:34vw!important;width:55vw!important;max-width:calc(100vw - 120px)!important}}
+#app #pileT:not(:empty){left:40vw!important;right:auto!important;top:calc(46% + 48px)!important;bottom:auto!important;transform:translateX(-50%)!important}
+@media(max-width:700px){#app #pileT:not(:empty){left:34vw!important}}
