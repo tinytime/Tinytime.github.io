@@ -2598,3 +2598,23 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 
 /* Pre-game Settings must suppress progression callouts even when component CSS overrides the native [hidden] display rule. */
 [data-ui-pre-game-hidden="1"]{display:none!important}
+
+
+/* Independent review D1 — anchor the fumble mash instruction to the actual viewport,
+   matching the fumble heading when the centered app shell is narrower than the screen. */
+#app #pile #pileSub{
+  position:fixed!important;
+  left:50vw!important;
+  right:auto!important;
+  width:max-content!important;
+  max-width:calc(100vw - 32px)!important;
+  transform:translateX(-50%)!important;
+}
+
+/* Independent review D2 — defense selection is a queued modal, never a layer beneath
+   the transient drive pill/play-by-play or achievement toast. It becomes visible again
+   automatically when both transient surfaces have cleared. */
+#app:has(#tick:not([hidden])) #dcall,
+body.ach-toast-active #app #dcall{
+  display:none!important;
+}
