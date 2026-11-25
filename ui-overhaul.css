@@ -2661,15 +2661,14 @@ body.ach-toast-active #app #dcall{
 #app #sheet .card b{padding-right:23px!important}
 #app #sheet .card canvas{height:68px!important;min-height:58px;flex:none!important}
 
-/* Final D3/D4 refinement: override the older high-specificity cyan FLIP rules,
-   and give the route diagrams enough fixed sheet height to remain legible. */
-#app #sheet .ui-playbook-actions #flipBtn{
+/* Final D3 refinement: the Playbook header uses .pbTop, not a separate actions wrapper. */
+body #app #sheet .pbTop #flipBtn{
   background:#131620!important;
   border:1px solid rgba(245,184,65,.78)!important;
   color:#f5b841!important;
 }
-#app #sheet .ui-playbook-actions #flipBtn.on{
-  background:rgba(245,184,65,.14)!important;
+body #app #sheet .pbTop #flipBtn.on{
+  background:rgba(245,184,65,.2)!important;
   border:2px solid #f5b841!important;
   color:#ffe3a0!important;
 }
@@ -2705,4 +2704,38 @@ body.ach-toast-active #app #dcall{
 #ui-goals-panel-stats .ui-goals-stat-card{
   border:2px solid rgba(77,225,242,.78)!important;
   box-shadow:none!important;
+}
+
+
+/* D4: keep full play names readable on one line while reserving the favourite star. */
+body #app #sheet #cards>.cardWrap>.card b{
+  max-width:calc(100% - 12px)!important;
+  min-height:1.25em!important;
+  padding:0 23px 0 1px!important;
+  font-size:10px!important;
+  line-height:1.1!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  overflow-wrap:normal!important;
+}
+body #app #sheet #cards>.cardWrap>.card b span{
+  max-width:100%!important;
+  font-size:10px!important;
+  line-height:1.1!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+
+/* D5: remove the empty down-and-distance slot from the defensive HUD, not just its text. */
+#app:has(#dcall:not([hidden])) #bug #bDown,
+#app:has(#tick:not([hidden])) #bug #bDown{
+  display:none!important;
+  visibility:hidden!important;
+}
+
+/* D10: the developer gesture remains private; the public build footer is plain. */
+body #menu .ui-menu-build-trigger::after{
+  content:none!important;
+  display:none!important;
 }
