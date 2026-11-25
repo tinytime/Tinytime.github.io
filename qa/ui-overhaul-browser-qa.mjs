@@ -346,6 +346,7 @@ try{
  check('Build footer retained',await page.locator('#mBuild').count()===1&&await page.locator('#mBuild').isVisible());
  await page.waitForFunction(()=>document.querySelector('.ui-menu-dev #mSnd')&&document.querySelector('.ui-menu-dev #mKKF'),null,{timeout:5000});
  check('Build trigger is concise', (await page.locator('#mBuild').textContent()).trim()==='BUILD INFO');
+ check('Public credits build control does not disclose the hidden developer gesture',!(await page.locator('#mBuild').getAttribute('aria-label')||'').toLowerCase().includes('tap')&&!(await page.locator('#uiMenuCredits').innerText()).toLowerCase().includes('dev tools'));
  check('Detailed build metadata is kept in developer drawer',(await page.locator('.ui-menu-dev .ui-menu-build-details').textContent()).includes('TEST BUILD ROUTE 2 START'));
  check('Asset diagnostics are moved into developer drawer',await page.locator('.ui-menu-dev #mSnd').count()===1&&await page.locator('.ui-menu-dev #mKKF').count()===1);
  check('Primary Credits hides raw asset diagnostics',await page.locator('#uiMenuCredits > #mSnd, #uiMenuCredits > #mKKF').count()===0);
@@ -361,6 +362,9 @@ try{
  await page.screenshot({path:path.join(out,'desktop-credits-developer.png'),fullPage:true});
  await page.setViewportSize({width:390,height:844});
  await page.screenshot({path:path.join(out,'portrait-credits-developer.png'),fullPage:true});
+ const ordinaryCreditsBytes=fs.readFileSync(path.join(out,'portrait-credits.png'));
+ const developerCreditsBytes=fs.readFileSync(path.join(out,'portrait-credits-developer.png'));
+ check('Developer credits evidence is a distinct screenshot from ordinary credits',!ordinaryCreditsBytes.equals(developerCreditsBytes),{ordinaryBytes:ordinaryCreditsBytes.length,developerBytes:developerCreditsBytes.length});
  await page.setViewportSize({width:1440,height:1000});
  for(let i=0;i<5;i++)await page.locator('#mBuild').click({delay:80});
  check('Developer drawer closes',!(await page.locator('.ui-menu-dev').isVisible()));
@@ -452,10 +456,17 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   check('In-match CALL PLAY action visible',await page.locator('#callBtn').isVisible());
   check('In-match selected play has gold treatment',await page.locator('#cards .card.sel').count()===1);
   check('Playbook hides duplicate down-and-distance header',await page.locator('#shDD').evaluate(el=>getComputedStyle(el).display)==='none');
-  check('In-match FLIP control uses current cyan palette',await page.locator('#flipBtn').isVisible()&&await page.locator('#flipBtn').evaluate(el=>getComputedStyle(el).color)==='rgb(77, 225, 242)');
+  check('In-match FLIP is a gold-outline secondary action',await page.locator('#flipBtn').isVisible()&&await page.locator('#flipBtn').evaluate(el=>getComputedStyle(el).color)==='rgb(245, 184, 65)'&&await page.locator('#flipBtn').evaluate(el=>getComputedStyle(el).backgroundColor)==='rgb(19, 22, 32)');
+  const flipBefore=await page.locator('#flipBtn').evaluate(el=>({active:el.classList.contains('on'),border:getComputedStyle(el).borderTopColor}));
+  await page.locator('#flipBtn').click();
+  const flipAfter=await page.locator('#flipBtn').evaluate(el=>({active:el.classList.contains('on'),border:getComputedStyle(el).borderTopColor,background:getComputedStyle(el).backgroundColor}));
+  check('FLIP toggles a visible gold on-state without replacing the primary CALL PLAY action',!flipBefore.active&&flipAfter.active&&flipAfter.border==='rgb(245, 184, 65)'&&flipAfter.background!=='rgb(19, 22, 32)'&&await page.locator('#callBtn').isVisible(),{before:flipBefore,after:flipAfter});
+  await page.screenshot({path:path.join(out,'match-playbook-flip-on.png'),fullPage:true});
+  await page.locator('#flipBtn').click();
   const playbookCategoryCounts=await page.locator('#pbTabs .pbTab').evaluateAll(es=>es.map(el=>({key:el.dataset.t,label:el.querySelector('b')?.textContent.trim(),count:el.querySelector('small')?.textContent.trim(),disabled:el.disabled})));
   const expectedPlaybookCounts={ALL:'19 PLAYS',RUN:'3 PLAYS',PASS:'12 PLAYS',TRICK:'4 PLAYS'};
   check('Landscape playbook exposes FAV, ALL (19), RUN (3), PASS (12), and TRICK (4)',playbookCategoryCounts.length===5&&['FAV','ALL','RUN','PASS','TRICK'].every(key=>playbookCategoryCounts.some(x=>x.key===key))&&Object.entries(expectedPlaybookCounts).every(([key,value])=>playbookCategoryCounts.find(x=>x.key===key)?.count===value),playbookCategoryCounts);
+  check('Playbook category totals are derived from the displayed 19-play catalogue',playbookCategoryCounts.find(x=>x.key==='ALL')?.count==='19 PLAYS'&&['RUN','PASS','TRICK'].reduce((n,k)=>n+Number(playbookCategoryCounts.find(x=>x.key===k)?.count.match(/\d+/)?.[0]||0),0)===19,playbookCategoryCounts);
   for(const key of ['RUN','PASS','TRICK','ALL']){await page.locator('#pbTabs .pbTab[data-t="'+key+'"]').click();const active=await page.locator('#pbTabs .pbTab.on').getAttribute('data-t');check('Playbook category '+key+' activates its own filtered state',active===key,{requested:key,active})}
   const playbookPalette=await page.locator('#sheet').evaluate(el=>({surface:getComputedStyle(el).backgroundColor,borderTop:getComputedStyle(el).borderTopColor,shadow:getComputedStyle(el).boxShadow}));
   check('In-match Playbook uses the unified matte navy surface and restrained gold edge',playbookPalette.surface==='rgb(19, 22, 32)'&&playbookPalette.borderTop==='rgba(245, 184, 65, 0.78)'&&!playbookPalette.shadow.includes('77, 225, 242'),playbookPalette);
