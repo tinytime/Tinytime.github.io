@@ -2963,3 +2963,29 @@ body #menu .ui-menu-build-trigger::after{
   overflow:hidden!important;
   text-overflow:clip!important;
 }
+
+
+/* D4: the card header is a flex child in the compact three-column grid.
+   Stretch the header to the card's content width before measuring the label;
+   then reserve the favourite's real right-side footprint in the nested span. */
+#app #sheet #cards>.cardWrap>.card b{
+  align-self:stretch!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  padding:0!important;
+}
+#app #sheet #cards>.cardWrap>.card b span{
+  display:block!important;
+  width:calc(100% - 30px)!important;
+  max-width:calc(100% - 30px)!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  font-size:8px!important;
+  line-height:1.15!important;
+  letter-spacing:-.08em!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:clip!important;
+}
