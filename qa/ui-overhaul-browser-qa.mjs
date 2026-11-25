@@ -112,12 +112,12 @@ try{
  await page.screenshot({path:path.join(out,'my-team-trails-portrait.png'),fullPage:true});
  const lockedTrailCount=await page.locator('#uiTeamTrails .chip.locked').count(),trailHintCount=await page.locator('#uiTeamTrails .ui-team-trail-hint').count();
  check('Locked MY TEAM trails show a crew-challenge unlock hint',lockedTrailCount===0||trailHintCount===lockedTrailCount,{lockedTrailCount,trailHintCount});
- await page.locator('#team').evaluate(el=>{el.scrollTop=el.scrollHeight});
+ await page.locator('#team').evaluate(el=>{const scroller=el.querySelector('.ui-team-tab-content');scroller.scrollTop=scroller.scrollHeight});
  await page.waitForTimeout(100);
- const trailBottomFit=await page.locator('#team').evaluate(el=>{const hints=[...el.querySelectorAll('#uiTeamTrails .ui-team-trail-hint')],last=hints[hints.length-1],save=el.querySelector('#tBack'),lr=last?.getBoundingClientRect(),sr=save.getBoundingClientRect();return{hintCount:hints.length,lastHintBottom:lr?.bottom,lastHintTop:lr?.top,saveTop:sr.top,saveBottom:sr.bottom,scrollTop:el.scrollTop,scrollHeight:el.scrollHeight,clientHeight:el.clientHeight}});
+ const trailBottomFit=await page.locator('#team').evaluate(el=>{const hints=[...el.querySelectorAll('#uiTeamTrails .ui-team-trail-hint')],last=hints[hints.length-1],save=el.querySelector('#tBack'),lr=last?.getBoundingClientRect(),sr=save.getBoundingClientRect();const scroller=el.querySelector('.ui-team-tab-content');return{hintCount:hints.length,lastHintBottom:lr?.bottom,lastHintTop:lr?.top,saveTop:sr.top,saveBottom:sr.bottom,scrollTop:scroller.scrollTop,scrollHeight:scroller.scrollHeight,clientHeight:scroller.clientHeight}});
  check('Last locked trail hint remains readable above pinned SAVE & EQUIP at scroll end',trailBottomFit.hintCount===0||trailBottomFit.lastHintBottom<=trailBottomFit.saveTop-4,trailBottomFit);
  await page.screenshot({path:path.join(out,'my-team-trails-bottom-portrait.png'),fullPage:true});
- await page.locator('#team').evaluate(el=>{el.scrollTop=0});
+ await page.locator('#team').evaluate(el=>{el.querySelector('.ui-team-tab-content').scrollTop=0});
  await page.locator('#team [data-team-tab="identity"]').click();
  const teamFit=await page.locator('#team').evaluate(el=>({scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,identity:el.querySelector('.ui-team-identity')?.getBoundingClientRect().toJSON(),save:el.querySelector('#tBack')?.getBoundingClientRect().toJSON()}));
  check('MY TEAM identity and fixed SAVE & EQUIP action fit the portrait viewport',teamFit.scrollWidth<=teamFit.clientWidth+1&&teamFit.identity.width<=teamFit.clientWidth&&teamFit.save.left>=0&&teamFit.save.right<=390,teamFit);
