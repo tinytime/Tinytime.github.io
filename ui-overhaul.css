@@ -2257,3 +2257,30 @@ body.land #bHurdle,body.land #bHurdle.dive{
 #app #team #trRow{grid-column:1/-1;min-width:0;padding-top:7px;border-top:1px solid rgba(77,225,242,.18)}
 #app #team #trRow .chips{display:flex;flex-wrap:wrap;gap:6px}
 #app #team #trRow .chip{min-height:30px;padding:0 9px;font-size:10px!important}
+
+
+/* MY TEAM — three explicit handoff sections, with the player preview and save action persistent. */
+#app #team:not([hidden]){display:flex!important;flex-direction:column!important;gap:8px!important;overflow:hidden!important;padding:calc(env(safe-area-inset-top,0px) + 10px) 14px calc(env(safe-area-inset-bottom,0px) + 12px)!important}
+#app #team>h2{flex:none;margin:0!important;font-size:23px!important;letter-spacing:.08em}
+#app #team>#tPrev{flex:none;height:clamp(150px,24vh,205px)!important;margin:0!important;border:1px solid rgba(77,225,242,.5)!important;border-radius:14px!important;background:radial-gradient(ellipse at 50% 18%,rgba(77,225,242,.16),transparent 58%),linear-gradient(180deg,#202a3b,#131620 84%)!important}
+#app #team .ui-team-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;flex:none}
+#app #team .ui-team-tab{min-width:0;min-height:40px;padding:0 5px;border:1px solid rgba(77,225,242,.3);border-radius:10px;background:#1C2130;color:#AAB2C2;font:900 12px/1 inherit;letter-spacing:.1em}
+#app #team .ui-team-tab[aria-selected="true"]{border-color:#F5B841;background:rgba(245,184,65,.12);color:#F5B841}
+#app #team .ui-team-tab-content{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:1px 0 66px}
+#app #team .ui-team-tab-panel[hidden]{display:none!important}
+#app #team .ui-team-tab-panel{display:flex;flex-direction:column;gap:8px}
+#app #team .ui-team-tab-panel .lbl{margin:4px 0 2px;color:#AAB2C2;font-size:11px;font-weight:900}
+#app #team .ui-team-identity{width:100%;box-sizing:border-box}
+#app #team #tJersey,#app #team #tPants{display:none!important}
+#app #team #tSlots{display:flex;flex-wrap:wrap;gap:6px}
+#app #team #tPal{display:flex;flex-wrap:wrap;gap:7px;padding:8px;border:1px solid rgba(77,225,242,.22);border-radius:11px;background:#1C2130}
+#app #team #tPal button{width:28px;height:28px;min-width:28px;border:2px solid rgba(255,255,255,.22);border-radius:8px}
+#app #team #tPal button.on{outline:2px solid #F5B841;outline-offset:2px}
+#app #team #trRow{display:flex;flex-direction:column;gap:7px;margin:0;padding:10px;border:1px solid rgba(77,225,242,.28);border-radius:12px;background:#1C2130}
+#app #team #trRow>.lbl{margin:0;color:#4DE1F2}
+#app #team #trRow .chips{display:flex;flex-wrap:wrap;gap:7px}
+#app #team #trRow .chip{min-height:34px;padding:0 10px;border:1px solid rgba(77,225,242,.35);border-radius:9px;background:#131620;color:#F5F7FA;font-size:11px}
+#app #team #trRow .chip.on{border-color:#F5B841;background:rgba(245,184,65,.12);color:#F5B841}
+#app #team .ui-team-trail-hint{display:block;flex:1 0 100%;margin:-4px 0 3px 2px;color:#AAB2C2;font-size:10px;line-height:1.25}
+#app #team>.btnrow{flex:none}
+@media(max-height:720px) and (orientation:portrait){#app #team>#tPrev{height:clamp(125px,21vh,165px)!important}}
