@@ -430,19 +430,31 @@
    '<button id="uiTitleSettings" class="ui-title-hit ui-title-hit-settings" type="button" aria-label="Settings"></button></div>';
   document.body.appendChild(title);
   let returnToTitle=false;
-  const showTitle=()=>{const menu=document.getElementById('menu');if(menu){menu.querySelector('[data-tab="menu"]')?.click();menu.hidden=true}title.hidden=false;returnToTitle=false};
+  const menu=document.getElementById('menu');
+  const setPreGameSettingsMode=active=>{
+   menu?.classList.toggle('ui-title-settings-mode',active);
+   ['owTop','owMenu','owA'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=active});
+   const close=menu?.querySelector('.ui-menu-close');
+   if(close)close.setAttribute('aria-label',active?'Back to title':'Back to town');
+  };
+  const showTitle=()=>{
+   setPreGameSettingsMode(false);
+   if(menu){menu.querySelector('[data-tab="menu"]')?.click();menu.hidden=true}
+   title.hidden=false;returnToTitle=false;
+  };
   const openTitleSettings=()=>{
    returnToTitle=true;title.hidden=true;
    if(typeof window.SG?.owShow==='function')window.SG.owShow();
-   const menu=document.getElementById('menu');
    const menuButton=document.getElementById('owMenu');
-   if(menuButton)menuButton.click();
+   if(menuButton){menuButton.hidden=false;menuButton.click()}
    if(menu&&menu.hidden)menu.hidden=false;
    const settingsTab=menu?.querySelector('[data-tab="settings"]');
    if(settingsTab)settingsTab.click();
-   else showTitle();
+   else {showTitle();return}
+   setPreGameSettingsMode(true);
   };
   title.querySelector('#uiTitleStart').addEventListener('click',()=>{
+   setPreGameSettingsMode(false);
    title.hidden=true;
    if(typeof window.SG?.owShow==='function')window.SG.owShow();
   });
