@@ -732,6 +732,8 @@ await page.screenshot({path:path.join(out,'match-defense-simulation.png'),fullPa
   const scoreCardContent=await page.locator('#endScore').evaluate(el=>({children:[...el.children].map(n=>({tag:n.tagName,classes:typeof n.className==='string'?n.className:'svg'})),logos:[...el.children].filter(n=>n.classList?.contains('ui-end-logo')).length,svgCount:el.querySelectorAll('svg').length,matchup:el.querySelector('.ui-end-score-matchup')?.textContent||'',score:el.querySelector('.ui-end-score-value')?.textContent?.trim()||''}));
   check('Post-game score card carries exactly two team marks',scoreCardContent.logos===2&&scoreCardContent.svgCount===2,scoreCardContent);
   check('Post-game card pairs both team marks with the matchup and score',scoreCardContent.matchup.includes('VS')&&!!scoreCardContent.score,scoreCardContent);
+  const postDesktopFrame=await page.locator('#end').evaluate(el=>{const score=el.querySelector('#endScore').getBoundingClientRect(),frame=getComputedStyle(el,'::before'),top=el.getBoundingClientRect().top+parseFloat(frame.top);return{scoreBottom:score.bottom,frameTop:top,gap:top-score.bottom}});
+  check('Desktop post-game score card clears the squad frame',postDesktopFrame.gap>=8,postDesktopFrame);
   await page.screenshot({path:path.join(out,'match-post-game.png'),fullPage:true});
   await page.setViewportSize({width:390,height:844});
   await page.waitForTimeout(120);
