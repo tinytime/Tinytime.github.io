@@ -433,7 +433,7 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   await page.locator('#pbTabs .pbTab[data-t="ALL"]').click();
   await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
   const favLocator=page.locator('#cards .card').first().locator('.fav');
-  const favHit=await favLocator.evaluate(el=>{const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,hit=document.elementFromPoint(x,y);return{rect:{x:r.x,y:r.y,width:r.width,height:r.height},hit:hit?.outerHTML?.slice(0,180),isFav:hit===el||el.contains(hit)}});
+  const favHit=await favLocator.evaluate(el=>{const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,hit=document.elementFromPoint(x,y),s=getComputedStyle(el);return{rect:{x:r.x,y:r.y,width:r.width,height:r.height},hit:hit?.outerHTML?.slice(0,180),isFav:hit===el||el.contains(hit),position:s.position,zIndex:s.zIndex,pointerEvents:s.pointerEvents}});
   check('Playbook favorite star is the topmost pointer target inside its card',favHit.isFav,favHit);
   const favBefore=await favLocator.evaluate(el=>({on:el.classList.contains('on'),text:el.textContent.trim()}));
   await favLocator.click();
