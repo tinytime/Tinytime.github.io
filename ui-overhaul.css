@@ -2506,3 +2506,10 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
   from{opacity:0;transform:translate(-50%,-7px)}
   to{opacity:1;transform:translate(-50%,0)}
 }
+
+
+/* Run #383 correction: keep all six in-match route diagrams visible inside their compact cards. */
+#app #sheet #cards>.cardWrap>.card{padding:4px!important}
+#app #sheet #cards>.cardWrap>.card b{flex:0 0 auto!important;line-height:18px!important;padding:0 3px!important}
+#app #sheet #cards>.cardWrap>.card canvas{display:block!important;width:100%!important;height:60px!important;min-height:60px!important;max-height:60px!important;flex:0 0 60px!important;object-fit:contain!important;background:#0D1420!important}
+#app #sheet .card.sel{background:#1C2130!important;box-shadow:inset 0 0 0 1px rgba(245,184,65,.12)!important}
