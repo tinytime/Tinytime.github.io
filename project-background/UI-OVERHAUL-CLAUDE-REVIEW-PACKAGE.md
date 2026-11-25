@@ -1,3 +1,74 @@
+# Current review handoff — Run #487 verified (2026-11-25)
+
+> This current checkpoint supersedes stale status statements in the historical package below. Retain the original Stage One criteria and reference material; use the exact baseline and evidence identified here.
+
+## Exact code-under-review baseline
+
+- Repository: https://github.com/tinytime/Tinytime.github.io
+- Branch: `UI-Overhaul`
+- **Code-under-review commit:** `abc60524d6f3bf491fbb87e5bd22967b720a6004`
+- **Browser QA:** [Run #487](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191)
+- **Result:** 300/300 checks passed; zero failures, page exceptions, console errors, or same-origin HTTP failures.
+- **Evidence artifact:** [artifact 15071354604](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191).
+- The branch has documentation-only commits after the code-under-review commit. Review the implementation at `abc60524d6f3bf491fbb87e5bd22967b720a6004`, not the later docs-only HEAD.
+- Supporting current docs: `project-background/UI-OVERHAUL-INDEPENDENT-REVIEW-IMPLEMENTATION-PLAN.md`, `project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md`, and `project-background/README.md`.
+
+## Reviewer instructions
+
+Independently inspect the source at the exact baseline and download/examine Run #487's artifact. Automated QA is evidence, not a substitute for visual review. Review all D1–D12 items in the implementation plan, and the original Stage One handoff/reference material retained below. Check the actual rendered screenshots, source implementation, responsive behavior, interaction/state handling, and regressions. Do not modify code or golden snapshots. Distinguish objectively evidenced defects from optional taste preferences. Cite exact files, selectors/functions, screenshots, and reproducible steps.
+
+### D1–D12 scope
+
+- **D1:** Fumble prompt positioning, legibility, clipping, countdown, mash prompt and button.
+- **D2:** Defense modal/ticker overlap and modal timing; centered layout and complete stat rows.
+- **D3:** FLIP default/active visual distinction and intended gold treatment.
+- **D4:** Playbook card grid, complete titles, favorite clearance, route diagram size/readability.
+- **D5:** Correct defensive scoreboard context; hide stale offensive down/distance.
+- **D6:** Post-game score/result/squad-frame composition. Do not restore the removed Style Points/rewards card.
+- **D7:** Receiver marker visibility/position and green/navy defensive D control.
+- **D8:** Reconcile catalogue/category totals against source. Expected: 19 total, RUN 3 / PASS 12 / TRICK 4; four trick-group plays are Flea Flicker, Draw, Counter, Double Move. This is intentional grouping, not a missing-play defect absent contrary source evidence.
+- **D9:** Goals & Stats selected tab has one cyan outline, no legacy yellow inset ring, distinct medals and readable counters/progress.
+- **D10:** Credits content fits and remains legible.
+- **D11:** Public and developer credits views are distinct and functional.
+- **D12:** Coherent non-tied loss and TOUGH LOSS treatment; high-contrast play-by-play ticker; portrait rotation prompt fully visible and dismissed in landscape; TAP TO SKIP legible.
+
+### Special scrutiny for Run #487 fixes
+
+- Ticker CSS: commit `3e0ff82410722473618373968e1e2b4def656814`.
+- Ticker/rotation assertions and screenshot capture: QA commit `75d669d30a8eceff53443168cc22bc74e0c49c80`.
+- Full simulated-drive QA wait: `a61d97d0a8d3bee9335dafc4182a488e6e67f1b5`.
+- Deferred defense/achievement priority fix in `index.html`: `abc60524d6f3bf491fbb87e5bd22967b720a6004`. A waiting defensive call is shown after the active achievement toast, before remaining queued achievements; remaining toasts resume after the defensive interaction. Run #484 exposed the sequencing defect; Run #487 verifies the correction.
+
+### Key Run #487 artifact screenshots
+
+- `match-defense-simulation.png` — defensive ticker, drive pill and simulated snap.
+- `match-rotate-device-portrait.png` — 390×844 portrait rotation prompt.
+- `match-achievement-toast.png` — toast placement relative to ticker.
+- `match-defense-selection.png` — defense selection panel.
+- `match-playbook-overlay.png`, `match-playbook-flip-on.png`, `match-playbook-after-flip.png`, `desktop-playbook.png`, `match-playbook-portrait.png` — Playbook/FLIP.
+- `match-fumble-pile.png` — fumble UI.
+- `match-post-game.png`, `match-post-game-portrait.png`, `match-post-game-practice-win-portrait.png` — post-game.
+- `goals-stats-achievements.png`, `goals-stats-achievements-bottom.png`, `goals-stats-challenges.png`, `goals-stats-team-stats.png` — Goals & Stats.
+- `desktop-credits.png`, `desktop-credits-developer.png`, `portrait-credits.png`, `portrait-credits-developer.png` — credits views.
+- `my-squad-style-gear-portrait.png`, `my-squad-career-portrait.png` — MY SQUAD.
+- `report.json` and `summary.md` — complete check results and evidence index.
+- Run #482 artifact `15069948829` is useful for the broader baseline; its exact code commit was `ac2168937ce96a9f197cecf29cae62956818d602`, with 297/297 checks passed.
+
+### Required response from Claude
+
+1. Executive verdict: ready for owner review / targeted corrections / major rework.
+2. D1–D12 scorecard: /10, pass/concern/fail, evidence and rationale.
+3. Reproducible defects with exact source locations and screenshot references.
+4. Ranked polish opportunities, separating must-fix from optional preference.
+5. Regression review across controls, game state, progression, responsiveness and maintainability.
+6. Overall visual consistency assessment (typography, spacing, color, hierarchy, contrast and responsive behavior).
+7. Overall comparative score /10 and rationale.
+8. Ordered recommended fixes with explicit acceptance criteria.
+
+**Approval boundary:** Internal implementation, Run #487 browser QA, and selected screenshot inspection are complete. Claude independent review and final owner approval are pending. Do not describe this work as independently reviewed or approved.
+
+---
+
 # Consolidated Independent Review — UI Overhaul Stages 1–4 and Final Polish
 
 **Review requested:** 2026-11-25  
