@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-25):** Stage One, Stage Two and Stage Three are owner-approved; Stage Four remains authorized/in progress. The seven cross-stage owner corrections have been implemented on `UI-Overhaul` (post-game Style Points removal, fumble alignment/palette, Playbook cleanup/FLIP palette, explicit pre-game confirmation, receiving-yards hierarchy, challenge move wording, and MY TEAM logo palette). Run #363 (`45556224432`) tested `ea92b21ac9e7528044ad12bd02fc7e309b23fbda` and failed only because the practice-win QA still expected the removed Style Points element. The test was corrected in `9bc3bb14935b22ba7b2df14bc693673fbe3677a0`; a fresh browser run is pending verification. See the [Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for exact evidence and next action.
+**Stage Four checkpoint (2026-11-25):** the seven cross-stage owner corrections passed Run #365 (249/249). The subsequent owner polish batch passed Run #397 (259/259) on `f26e48986376c03ab07cb286c176660c8ff8eb65`, with key screenshots visually inspected. Stage Four remains in progress and awaits owner review/approval; the pre-game matchup redesign is deferred. See the [Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for exact evidence and next action.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
