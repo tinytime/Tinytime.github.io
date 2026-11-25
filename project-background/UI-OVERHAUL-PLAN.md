@@ -327,3 +327,6 @@ Initial implementation is committed: MY SQUAD is now exposed as a menu tile; bot
 ### Stage Two implementation follow-up — MY TEAM identity and MY SQUAD metrics
 
 The MY TEAM name input and logo picker are now paired in one responsive identity card; MY SQUAD has explicit PTS and CAP badges. Dedicated browser checks cover the identity grouping, save action, preview canvases, uniform controls, three-tab navigation and nested gear editor. Exact commits and pending evidence are recorded in the implementation summary. Fresh Actions and visual inspection are still required; no golden snapshots changed.
+
+
+Stage Two browser QA Run #275 (`45517810094`) is the first consolidated run against exact code/QA SHA `a217742d20b36e626d9b43a327df1fcebe786606`. At the latest poll, checkout and Node setup passed, while Playwright/Chromium installation was in progress; browser checks and artifact upload had not started. Review the run before treating Stage Two as tested.
