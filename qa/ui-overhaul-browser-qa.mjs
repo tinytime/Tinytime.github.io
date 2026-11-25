@@ -94,7 +94,7 @@ try{
  await page.locator('#mTeam').click();
  check('MY TEAM screen opens from its menu tile',await page.locator('#team').isVisible());
  const teamHeader=await page.locator('#team .ui-team-head').evaluate(el=>({visible:!!el&&getComputedStyle(el).display!=='none',back:el.querySelector('.ui-team-back')?.textContent.trim(),badge:el.querySelector('.ui-team-upg')?.textContent.trim(),badgeRole:el.querySelector('.ui-team-upg')?.getAttribute('role')}));
- check('MY TEAM has a visible Back/Cancel control and live UPG status badge',teamHeader.visible&&teamHeader.back.includes('BACK')&&/^UPG \\d+$/.test(teamHeader.badge)&&teamHeader.badgeRole==='status',teamHeader);
+ check('MY TEAM has a visible Back/Cancel control and live UPG status badge',teamHeader.visible&&teamHeader.back.includes('BACK')&&/^UPG \d+$/.test(teamHeader.badge)&&teamHeader.badgeRole==='status',teamHeader);
  const logoAction=await page.locator('#team .ui-team-identity #tLogoBtn').evaluate(el=>({width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height,whiteSpace:getComputedStyle(el).whiteSpace,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth}));
  check('PICK LOGO is stacked at full width and remains a single readable line',logoAction.width>=100&&logoAction.height>=34&&logoAction.whiteSpace==='nowrap'&&logoAction.scrollWidth<=logoAction.clientWidth+1,logoAction);
  const teamControls=await page.evaluate(()=>({preview:!!document.querySelector('#tPrev')&&getComputedStyle(document.querySelector('#tPrev')).display!=='none',identity:!!document.querySelector('#team .ui-team-identity'),name:!!document.querySelector('#tName'),logo:!!document.querySelector('#tLogoBtn'),jersey:!!document.querySelector('#tJersey'),pants:!!document.querySelector('#tPants'),uniformSlots:document.querySelectorAll('#tSlots .slot').length,palette:document.querySelectorAll('#tPal button').length,trails:document.querySelectorAll('#trRow .chip').length,saveLabel:document.querySelector('#tBack')?.textContent.trim()||''}));
@@ -144,7 +144,7 @@ try{
  await page.screenshot({path:path.join(out,'my-squad-style-gear-portrait.png'),fullPage:true});
  await page.locator('#sqTabs button').first().click();
  const upgradeLabels=await page.locator('#sqBody .ustat button').allTextContents();
- check('Attribute upgrade buttons show point costs with the P unit',upgradeLabels.length>0&&upgradeLabels.every(label=>label.trim()==='MAX'||/^\\+2 \\u00b7 \\d+P$/.test(label.trim())),upgradeLabels);
+ check('Attribute upgrade buttons show point costs with the P unit',upgradeLabels.length>0&&upgradeLabels.every(label=>label.trim()==='MAX'||/^\+2 · \d+P$/.test(label.trim())),upgradeLabels);
  await page.screenshot({path:path.join(out,'my-squad-attributes-portrait.png'),fullPage:true});
  await page.locator('#sqTabs button').nth(2).click();
  check('CAREER tab remains available within MY SQUAD',await page.locator('#sqTabs button').nth(2).getAttribute('class').then(x=>x.includes('on')));
