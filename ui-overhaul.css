@@ -3127,3 +3127,25 @@ body #menu .ui-menu-build-trigger::after{
 }
 
 /* QA trigger: owner-requested fumble and Playbook layout assertions are included in the current branch head. */
+
+
+/* Run 490 corrections: preserve the fumble prompt's clearance after type enlargement,
+   keep the Playbook explanation inside its real footer lane, and give the ticker a
+   reliably readable touch-scale surface. */
+#app #pile #pileSub{top:calc(46vh - 78px)!important}
+#app #sheet #blurb{
+  left:128px!important;
+  right:calc(100% - 370px)!important;
+}
+#tick #tkPlay{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-sizing:border-box!important;
+  min-height:40px!important;
+  padding:8px 14px!important;
+}
+@media (orientation:landscape) and (max-width:760px){
+  #app #sheet #gbBtn{left:8px!important;width:92px!important;min-width:92px!important;max-width:92px!important}
+  #app #sheet #blurb{left:108px!important;right:calc(100% - 292px)!important}
+}
