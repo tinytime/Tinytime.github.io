@@ -1492,7 +1492,7 @@ function pbKey(){const W=$('#pbGrid').getBoundingClientRect().width,H=$('#pbMain
 setInterval(()=>{if(typeof G==='undefined'||!G||$('#sheet').hidden)return;const k=pbKey();if(k&&k!==PB.key)buildCards(true)},250);   // the sheet was measured while hidden, or the phone turned: lay the cards out again
 function updateSel(){
   if(G&&F&&G.mode==='playcall')alignWRs();
-  [...$('#cards .card')].forEach(c=>c.classList.toggle('sel',+c.dataset.i===G.sel));
+  document.querySelectorAll('#cards .card').forEach(c=>c.classList.toggle('sel',+c.dataset.i===G.sel));
   $('#blurb').textContent=PLAYS[G.sel].name+'. '+PLAYS[G.sel].blurb;
 }
 function drawCard(cvs,pl,fx){
