@@ -1,3 +1,13 @@
+## Playbook / FLIP corrective pass — implementation committed; Run #468 still executing (2026-11-25)
+
+- Run [#467](https://github.com/tinytime/Tinytime.github.io/actions/runs/45705390851) completed against commit 24f86d2e6f4628d093eb478f1cf4e1732cb48022: 292/294 checks passed. The two remaining failures were the D4 Playbook title-width assertion and D3 FLIP default gold-outline assertion. The run had zero page exceptions, console errors and same-origin HTTP failures.
+- Retrieved and inspected artifact 15064668104. The Team Stats screenshot shows all four cards with cyan/neutral frames and no gold inset rings. MY SQUAD Style & Gear shows the navy/cyan name field and jersey-number controls; Career uses neutral text with cyan tab/heading and gold emphasis. The Playbook evidence confirms that the longer card names are still ellipsized in the compact match layout; the failure was real, not a stale assertion.
+- Root causes: the title header reserved excessive width for the favorite star; and the FLIP button had moved into .ui-playbook-actions, while the later gold correction only targeted the retired .pbTop location. A more-specific cyan action-row rule therefore won.
+- Corrective CSS commit: bc59ce26c84242200d6b053924a193ab79d44da0 — reduce the card-title font slightly and reclaim title width while retaining the favorite affordance; apply the gold default/active styles directly to #app #sheet .ui-playbook-actions #flipBtn.
+- Fresh browser QA [Run #468](https://github.com/tinytime/Tinytime.github.io/actions/runs/45706478943) is testing exact CSS commit bc59ce26c84242200d6b053924a193ab79d44da0. At the time of this checkpoint the workflow is still in its Playwright test step; no conclusion or new screenshot artifact is available. Do not call the two corrections verified until Run #468 completes and its report/screenshots are inspected.
+- No golden snapshots were changed. Run #467's Team Stats and MY SQUAD appearance corrections are visually verified; D3/D4 corrective styling is implemented but awaiting the fresh run's computed-style/geometry assertions and screenshots.
+
+---
 ## Live selector correction — implementation committed, browser verification pending (2026-11-25)
 
 - Owner reported that Team Stats gold outlines and the MY SQUAD palette corrections were still not visible in the live preview.
