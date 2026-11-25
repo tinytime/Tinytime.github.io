@@ -2739,3 +2739,42 @@ body #menu .ui-menu-build-trigger::after{
   content:none!important;
   display:none!important;
 }
+
+/* Owner polish: MY SQUAD Style & Gear and Career use the current navy/cyan/gold system. */
+#sqBody input[type="text"],
+#sqBody input:not([type]),
+#sqBody .name input{
+  min-height:40px!important;
+  border:1px solid rgba(77,225,242,.55)!important;
+  border-radius:9px!important;
+  background:#1C2130!important;
+  color:#F5F7FA!important;
+  padding:0 10px!important;
+  font:800 14px/1 var(--ui-heading,system-ui)!important;
+  box-shadow:none!important;
+}
+#sqBody .numrow button{
+  min-width:38px!important;
+  min-height:36px!important;
+  border:1px solid rgba(77,225,242,.62)!important;
+  border-radius:8px!important;
+  background:#1C2130!important;
+  color:#4DE1F2!important;
+  font:900 16px/1 var(--ui-heading,system-ui)!important;
+  box-shadow:none!important;
+}
+#sqBody .numrow button:active{background:rgba(77,225,242,.14)!important}
+#squad:has(#sqTabs .chip:nth-child(3).on) #sqBody,
+#squad:has(#sqTabs .chip:nth-child(3).on) #sqBody *{
+  color:#DCE5F2!important;
+}
+#squad:has(#sqTabs .chip:nth-child(3).on) #sqBody h2,
+#squad:has(#sqTabs .chip:nth-child(3).on) #sqBody h3,
+#squad:has(#sqTabs .chip:nth-child(3).on) #sqBody h4,
+#squad:has(#sqTabs .chip:nth-child(3).on) #sqBody .career-title{
+  color:#4DE1F2!important;
+}
+#squad:has(#sqTabs .chip:nth-child(3).on) #sqBody b,
+#squad:has(#sqTabs .chip:nth-child(3).on) #sqBody strong{
+  color:#F5B841!important;
+}
