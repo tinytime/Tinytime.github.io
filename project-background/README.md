@@ -184,3 +184,6 @@ Internal QA has now inspected corrected Playwright [Run #7](https://github.com/t
 ## UI Overhaul — title-screen Settings correction (2026-11-25)
 
 The owner identified that title-screen SETTINGS could still display the overworld menu. Corrected the transition timing and added visible-content regression checks. Browser QA [Run #430](https://github.com/tinytime/Tinytime.github.io/actions/runs/45696589378) passed **268/268** on `bb889480702d423dd241ff779d6fcd43de46cca1`, with zero page errors, console errors or same-origin HTTP failures. Actual title-settings and in-game settings screenshots were inspected: pre-game shows only main settings; in-game navigation remains intact. Full evidence and remaining approval status are recorded in [UI Overhaul implementation summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md). No golden snapshots changed. This correction is internally QA-passing and visually inspected, not yet independently reviewed by Claude or owner-approved.
+
+
+Owner approval recorded 2026-11-25: the focused title-screen Settings correction from Run #430 is approved after review of its screenshots and live preview. This approval is limited to that correction and does not approve the broader UI Overhaul or Stage Four. Details are recorded in [the implementation summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md).
