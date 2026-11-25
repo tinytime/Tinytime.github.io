@@ -394,7 +394,7 @@
    let page=0,visible=[];
    const refresh=()=>{
     const all=[...cards.querySelectorAll(':scope > .cardWrap')].filter(w=>!w.dataset.uiPaginationControl);
-    const active=all.filter(w=>w.dataset.uiPageHidden!=='1'&&getComputedStyle(w).display!=='none'&&w.hidden!==true);
+    const active=all.filter(w=>w.style.display!=='none'&&w.hidden!==true);
     visible=active;const pages=Math.max(1,Math.ceil(active.length/6));page=Math.min(page,pages-1);
     all.forEach(w=>{const i=active.indexOf(w),hide=i<0||i<page*6||i>=page*6+6;if(w.dataset.uiPageHidden!==String(hide?'1':'0'))w.dataset.uiPageHidden=hide?'1':'0'});
     label.textContent=(page+1)+' / '+pages+' · '+active.length+' PLAYS';prev.disabled=page===0;next.disabled=page>=pages-1;
