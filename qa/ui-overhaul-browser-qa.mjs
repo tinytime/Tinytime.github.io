@@ -90,9 +90,11 @@ try{
  check('Stage Two MY SQUAD tile is exposed alongside MY TEAM',menuTileGeometry.some(x=>x.label==='MY TEAM')&&menuTileGeometry.some(x=>x.label==='MY SQUAD'));
  await page.locator('#mTeam').click();
  check('MY TEAM screen opens from its menu tile',await page.locator('#team').isVisible());
- const teamControls=await page.evaluate(()=>({preview:!!document.querySelector('#tPrev')&&getComputedStyle(document.querySelector('#tPrev')).display!=='none',identity:!!document.querySelector('#team .ui-team-identity'),name:!!document.querySelector('#tName'),logo:!!document.querySelector('#tLogoBtn'),jersey:!!document.querySelector('#tJersey'),pants:!!document.querySelector('#tPants'),uniformSlots:document.querySelectorAll('#tSlots .slot').length,palette:document.querySelectorAll('#tPal button').length,saveLabel:getComputedStyle(document.querySelector('#tBack'),'::after').content}));
- check('MY TEAM retains live 2.5D preview, identity, logo, uniform and palette controls',teamControls.preview&&teamControls.identity&&teamControls.name&&teamControls.logo&&teamControls.jersey&&teamControls.pants&&teamControls.uniformSlots>0&&teamControls.palette>0,teamControls);
+ const teamControls=await page.evaluate(()=>({preview:!!document.querySelector('#tPrev')&&getComputedStyle(document.querySelector('#tPrev')).display!=='none',identity:!!document.querySelector('#team .ui-team-identity'),name:!!document.querySelector('#tName'),logo:!!document.querySelector('#tLogoBtn'),jersey:!!document.querySelector('#tJersey'),pants:!!document.querySelector('#tPants'),uniformSlots:document.querySelectorAll('#tSlots .slot').length,palette:document.querySelectorAll('#tPal button').length,trails:document.querySelectorAll('#trRow .chip').length,saveLabel:getComputedStyle(document.querySelector('#tBack'),'::after').content}));
+ check('MY TEAM retains live 2.5D preview, identity, logo, uniform and palette controls',teamControls.preview&&teamControls.identity&&teamControls.name&&teamControls.logo&&teamControls.jersey&&teamControls.pants&&teamControls.uniformSlots>0&&teamControls.palette>0&&teamControls.trails>0,teamControls);
  check('MY TEAM primary action is presented as SAVE & EQUIP',teamControls.saveLabel.includes('SAVE & EQUIP'),teamControls.saveLabel);
+ const teamFit=await page.locator('#team').evaluate(el=>({scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,identity:el.querySelector('.ui-team-identity')?.getBoundingClientRect().toJSON(),save:el.querySelector('#tBack')?.getBoundingClientRect().toJSON()}));
+ check('MY TEAM identity and fixed SAVE & EQUIP action fit the portrait viewport',teamFit.scrollWidth<=teamFit.clientWidth+1&&teamFit.identity.width<=teamFit.clientWidth&&teamFit.save.left>=0&&teamFit.save.right<=innerWidth,teamFit);
  await page.screenshot({path:path.join(out,'my-team-portrait.png'),fullPage:true});
  await page.locator('#tBack').click();
  check('SAVE & EQUIP returns to the menu without replacing the team editor state',await page.locator('#menu').isVisible());
@@ -103,6 +105,8 @@ try{
  const squadTabs=await page.locator('#sqTabs button').allTextContents();
  check('MY SQUAD uses the three handoff tabs',squadTabs.map(x=>x.trim()).join('|')==='ATTRIBUTES|STYLE & GEAR|CAREER',squadTabs);
  check('MY SQUAD keeps the 2.5D player preview and pinned starter roster strip',await page.locator('#sqCv').isVisible()&&await page.locator('#sqStrip .sqc').count()>0);
+ const squadFit=await page.locator('#squad').evaluate(el=>{const strip=el.querySelector('#sqStrip').getBoundingClientRect(),r=el.getBoundingClientRect();return{scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,stripBottom:strip.bottom,screenBottom:r.bottom,stripHeight:strip.height}});
+ check('MY SQUAD has no horizontal overflow and keeps the starter roster strip pinned at the bottom',squadFit.scrollWidth<=squadFit.clientWidth+1&&squadFit.stripHeight>=54&&squadFit.stripBottom<=squadFit.screenBottom+1,squadFit);
  await page.screenshot({path:path.join(out,'my-squad-attributes-portrait.png'),fullPage:true});
  await page.locator('#sqTabs button').nth(1).click();
  check('STYLE & GEAR exposes appearance editing and the gear entry action',await page.locator('#sqBody input[type="text"]').count()===1&&await page.locator('#sqBody button').filter({hasText:'EDIT GEAR & TRAILS'}).count()===1);
