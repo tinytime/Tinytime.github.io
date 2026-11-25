@@ -2242,3 +2242,16 @@ body.land #bHurdle,body.land #bHurdle.dive{
 #app #sqPts .ui-squad-metric b{font-size:14px;color:#F5B841!important}
 #app #sqPts .ui-squad-defense{align-self:center;color:#4DE1F2;font-size:9px;font-weight:900;white-space:nowrap}
 @media(max-width:390px){#app #sqPts{gap:3px!important}#app #sqPts .ui-squad-metric{padding:3px 5px}#app #sqPts .ui-squad-defense{display:none}}
+
+#app #team .ui-team-identity{
+ display:grid;grid-template-columns:minmax(0,1.15fr) minmax(116px,.85fr);
+ grid-template-areas:"name-label logo-label" "name-input logo-picker";
+ gap:5px 10px;padding:10px;background:#1C2130;border:1px solid rgba(77,225,242,.32);border-radius:12px;
+}
+#app #team .ui-team-identity [data-ui-role="team-name-label"]{grid-area:name-label;margin:0!important}
+#app #team .ui-team-identity #tName{grid-area:name-input;min-width:0}
+#app #team .ui-team-identity [data-ui-role="team-logo-label"]{grid-area:logo-label;margin:0!important}
+#app #team .ui-team-identity .lprev{grid-area:logo-picker;min-width:0;min-height:44px;padding:3px;background:#131620;border-color:rgba(245,184,65,.38)}
+#app #team .ui-team-identity .lprev #tLogoBtn{font-size:10px!important;padding:0 7px;min-width:0;flex:1}
+#app #team .ui-team-identity .lprev .lbig{min-width:34px;min-height:36px}
+@media(max-width:350px){#app #team .ui-team-identity{grid-template-columns:minmax(0,1fr) minmax(100px,.8fr);gap:4px 6px;padding:7px}}
