@@ -2935,3 +2935,31 @@ body #menu .ui-menu-build-trigger::after{
   overflow:visible!important;
   text-overflow:clip!important;
 }
+
+
+/* D4 final geometry: size the actual nested title span, not only its parent.
+   The favourite is an absolutely positioned sibling over the card header; the
+   label receives a measured 16px clearance and compact condensed type. */
+#app #sheet #cards>.cardWrap>.card b{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  padding:0!important;
+  overflow:visible!important;
+}
+#app #sheet #cards>.cardWrap>.card b span{
+  display:block!important;
+  box-sizing:border-box!important;
+  width:calc(100% - 16px)!important;
+  max-width:calc(100% - 16px)!important;
+  min-width:0!important;
+  padding:0!important;
+  font-size:8px!important;
+  line-height:1.15!important;
+  letter-spacing:-.045em!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:clip!important;
+}
