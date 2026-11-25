@@ -285,8 +285,9 @@ try{
    return{menu:{x:r.x,width:r.width,scrollWidth:e.scrollWidth,clientWidth:e.clientWidth},town:{top:t.top,bottom:t.bottom},tabs:{top:b.top,bottom:b.bottom},content:{scrollHeight:c.scrollHeight,clientHeight:c.clientHeight},viewport:{width:innerWidth,height:innerHeight}}
   });
   check(v.name+' menu fits width',g.menu.x>=-1&&g.menu.x+g.menu.width<=v.width+1&&g.menu.scrollWidth<=g.menu.clientWidth+1,g);
-  const legacySquadRow=await page.locator('#menu .btnrow:has(#mSquad,#mTeam)').evaluate(el=>({display:getComputedStyle(el).display,buttonText:[...el.querySelectorAll('button')].map(b=>b.textContent.trim()),hiddenButtons:[...el.querySelectorAll('button')].filter(b=>b.hidden).map(b=>b.id)}));
-  check(v.name+' legacy MY SQUAD row is hidden after menu controls are relocated',legacySquadRow.display==='none',legacySquadRow);
+  const legacySquadLocator=page.locator('#menu .btnrow:has(#mSquad,#mTeam)');
+  const legacySquadRow=await legacySquadLocator.count()?await legacySquadLocator.evaluate(el=>({display:getComputedStyle(el).display,buttonText:[...el.querySelectorAll('button')].map(b=>b.textContent.trim()),hiddenButtons:[...el.querySelectorAll('button')].filter(b=>b.hidden).map(b=>b.id)})):{display:'absent',buttonText:[],hiddenButtons:[]};
+  check(v.name+' legacy MY SQUAD row is removed or hidden after menu controls are relocated',legacySquadRow.display==='none'||legacySquadRow.display==='absent',legacySquadRow);
   if(v.name==='portrait'){const brand=await page.evaluate(()=>{const t=document.querySelector('.ui-menu-title'),u=document.querySelector('.ui-menu-upg');const a=t.getBoundingClientRect(),b=u.getBoundingClientRect();return{titleRight:a.right,upgLeft:b.left,titleScroll:t.scrollWidth,titleClient:t.clientWidth}});check('Portrait menu title clears UPG badge',brand.titleRight<=brand.upgLeft-4&&brand.titleScroll<=brand.titleClient+1,brand)}
   check(v.name+' return button visible',g.town.top>=-1&&g.town.bottom<=v.height+1,g.town);
   check(v.name+' tabs visible',g.tabs.top>=-1&&g.tabs.bottom<=v.height+1,g.tabs);
