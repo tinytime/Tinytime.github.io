@@ -430,7 +430,7 @@
    '<div class="ui-title-actions"><button id="uiTitleStart" type="button">BEAT THE CIRCUIT</button><button id="uiTitleSettings" type="button">SETTINGS</button><div class="ui-title-version">v3.40</div></div>';
   document.body.appendChild(title);
   let returnToTitle=false;
-  const showTitle=()=>{const menu=document.getElementById('menu');if(menu)menu.hidden=true;title.hidden=false;returnToTitle=false};
+  const showTitle=()=>{const menu=document.getElementById('menu');if(menu){menu.querySelector('[data-tab="menu"]')?.click();menu.hidden=true}title.hidden=false;returnToTitle=false};
   const openTitleSettings=()=>{
    returnToTitle=true;title.hidden=true;
    if(typeof window.SG?.owShow==='function')window.SG.owShow();
