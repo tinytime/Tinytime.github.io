@@ -59,16 +59,10 @@
 
   ['mTeam','mGoals'].forEach(id=>moveControl(id,actions,'',true));
   byId('mTeam').dataset.uiTile='team';decorateAction(byId('mTeam'),icon('<path d="M8 4h8l2 3 3 1-2 12H5L3 8l3-1 2-3Z"/><path d="M9 4c0 2 1 3 3 3s3-1 3-3"/><path d="M8 12h8"/>'),'MY TEAM','Build your lineup');
-  const squadControl=byId('mSquad');if(squadControl){squadControl.hidden=false;squadControl.removeAttribute('aria-hidden');squadControl.removeAttribute('style');actions.appendChild(squadControl);decorateAction(squadControl,icon('<path d="M4 7h16v13H4z"/><path d="M8 7V5a4 4 0 0 1 8 0v2M8 12h8M8 16h5"/>'),'MY SQUAD','Manage starters and upgrades');squadControl.dataset.uiTile='squad';}
+  const squadControl=byId('mSquad');if(squadControl){squadControl.hidden=false;squadControl.removeAttribute('aria-hidden');squadControl.removeAttribute('style');actions.appendChild(squadControl);decorateAction(squadControl,icon('<path d="M4 7h16v13H4z"/><path d="M8 7V5a4 4 0 0 1 8 0v2M8 12h8M8 16h5"/>'),'MY SQUAD / UPGRADES','Manage starters and upgrade players');squadControl.dataset.uiTile='squad';}
   byId('mGoals').dataset.uiTile='goals';decorateAction(byId('mGoals'),icon('<path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4M12 12v5m-4 3h8m-7-3h6"/>'),'GOALS & STATS','Challenges and records');
-  const upgradeButton=document.createElement('button');upgradeButton.type='button';upgradeButton.className='ui-menu-icon-card';upgradeButton.setAttribute('aria-label','Open upgrades');
-  upgradeButton.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon('<path d="M12 3 20 6v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-3Z"/><path d="M12 7v8m-4-4h8"/>')+'</span><span class="ui-menu-action-copy"><strong>UPGRADES</strong><small>Improve your starters</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>';
-  upgradeButton.dataset.uiTile='upgrades';upgradeButton.addEventListener('click',()=>{const control=byId('mUpg');if(control)control.click()});
-  actions.prepend(upgradeButton);
-  upgradeButton.dataset.uiTile='upgrades';
-  const playbookButton=document.createElement('button');playbookButton.type='button';playbookButton.className='ui-menu-playbook ui-menu-icon-card';playbookButton.dataset.uiTile='playbook';playbookButton.setAttribute('aria-label','Open playbook');playbookButton.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon('<path d="M4 18V6m0 12h16M7 15l4-4 3 2 5-7"/><path d="m16 6 3 0 0 3"/>')+'</span><span class="ui-menu-action-copy"><strong>PLAYBOOK</strong><small>'+(window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS.length:0)+' plays · Pick your call</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>';actions.insertBefore(playbookButton,byId('mGoals'));
-  actions.append(upgradeButton,byId('mTeam'),squadControl,playbookButton,byId('mGoals'));
-  const orderedTiles=[upgradeButton,byId('mTeam'),squadControl,playbookButton,byId('mGoals')];orderedTiles.forEach(tile=>{if(tile)actions.appendChild(tile)});
+  const playbookButton=document.createElement('button');playbookButton.type='button';playbookButton.className='ui-menu-playbook ui-menu-icon-card';playbookButton.dataset.uiTile='playbook';playbookButton.setAttribute('aria-label','Open playbook');playbookButton.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon('<path d="M4 18V6m0 12h16M7 15l4-4 3 2 5-7"/><path d="m16 6 3 0 0 3"/>')+'</span><span class="ui-menu-action-copy"><strong>PLAYBOOK</strong><small>'+(window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS.length:0)+' plays · Pick your call</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>';
+  actions.append(squadControl,byId('mTeam'),playbookButton,byId('mGoals'));
   if(squadControl){squadControl.classList.add('ui-menu-icon-card');squadControl.dataset.uiTile='squad';}
   const teamSave=byId('tBack');if(teamSave)teamSave.textContent='SAVE & EQUIP';
   const initTeamTabs=()=>{
@@ -92,7 +86,56 @@
    if(window.MutationObserver){const observer=new MutationObserver(placeTrail);observer.observe(team,{childList:true,subtree:true})}
    activate('identity');
   };
-  const teamTile=byId('mTeam');if(teamTile)teamTile.addEventListener('click',()=>requestAnimationFrame(initTeamTabs));
+  const initTeamHeader=()=>{
+   const team=document.getElementById('team');if(!team||team.querySelector('.ui-team-head'))return;
+   const heading=team.querySelector(':scope > h2');if(!heading)return;
+   const header=document.createElement('header');header.className='ui-team-head';
+   const back=document.createElement('button');back.type='button';back.className='ui-team-back';back.textContent='← BACK';back.setAttribute('aria-label','Back to menu without using SAVE & EQUIP');
+   const badge=document.createElement('button');badge.type='button';badge.className='ui-team-upg';badge.setAttribute('aria-label','Open upgrades');
+   const sync=()=>{const source=byId('owObj'),raw=source&&source.textContent||'',match=raw.match(/UPG\\s+(\\d+)/i);badge.textContent='UPG '+(match?match[1]:'0')};
+   back.addEventListener('click',()=>byId('tBack')?.click());
+   badge.addEventListener('click',()=>byId('mUpg')?.click());
+   header.append(back,heading,badge);team.insertBefore(header,team.firstChild);sync();
+   if(window.MutationObserver){const source=byId('owObj');if(source)new MutationObserver(sync).observe(source,{childList:true,subtree:true,characterData:true})}
+  };
+  const teamTile=byId('mTeam');if(teamTile)teamTile.addEventListener('click',()=>requestAnimationFrame(()=>{initTeamHeader();initTeamTabs()}));
+  const installSquadPresentation=()=>{
+   const original=window.renderSquad;if(typeof original!=='function'||original.__uiSquadPresentation)return;
+   let flattening=false;
+   const inlineGear=()=>{
+    if(flattening)return;
+    const body=document.getElementById('sqBody');if(!body)return;
+    const edit=[...body.querySelectorAll('button')].find(button=>button.textContent.trim()==='EDIT GEAR & TRAILS');
+    if(edit){
+     flattening=true;
+     edit.click();
+     const gearBody=document.getElementById('sqBody');
+     const back=[...gearBody.querySelectorAll('button')].find(button=>button.textContent.trim()==='BACK TO STYLE');
+     if(back){
+      const gearNodes=[...gearBody.children].filter(node=>node!==back);
+      back.click();
+      const styleBody=document.getElementById('sqBody');
+      const oldEdit=[...styleBody.querySelectorAll('button')].find(button=>button.textContent.trim()==='EDIT GEAR & TRAILS');
+      if(oldEdit)oldEdit.remove();
+      const group=document.createElement('section');group.className='ui-squad-inline-gear';group.setAttribute('aria-label','Visor and arm sleeve customization');
+      gearNodes.forEach(node=>group.appendChild(node));
+      const numberRow=styleBody.querySelector('.numrow');
+      if(numberRow)numberRow.after(group);else styleBody.appendChild(group);
+     }
+     flattening=false;
+    }
+    const current=document.getElementById('sqBody');
+    if(current)current.querySelectorAll('.ustat button').forEach(button=>{
+     const label=button.textContent.trim();
+     if(/^\\+2\\s*[·•]\\s*\\d+$/.test(label))button.textContent=label+'P';
+    });
+   };
+   const wrapped=function(...args){const result=original.apply(this,args);if(!flattening)requestAnimationFrame(inlineGear);return result};
+   wrapped.__uiSquadPresentation=true;window.renderSquad=wrapped;
+   requestAnimationFrame(inlineGear);
+  };
+  installSquadPresentation();
+
   const playbookOverlay=document.createElement('section');playbookOverlay.className='ui-menu-playbook-overlay';playbookOverlay.hidden=true;playbookOverlay.setAttribute('role','dialog');playbookOverlay.setAttribute('aria-modal','true');playbookOverlay.setAttribute('aria-label','Playbook');
   playbookOverlay.innerHTML='<header class="ui-menu-playbook-head"><button type="button" class="ui-menu-playbook-back" aria-label="Back to menu">←</button><div><div class="ui-menu-eyebrow">CIRCUIT FOOTBALL</div><h2>PLAYBOOK</h2></div><span class="ui-menu-playbook-count"></span><button type="button" class="ui-menu-playbook-flip" aria-pressed="false">FLIP</button></header><nav class="ui-menu-playbook-filters" aria-label="Filter plays"><button type="button" data-filter="ALL" aria-pressed="true">ALL</button><button type="button" data-filter="RUN" aria-pressed="false">RUN</button><button type="button" data-filter="PASS" aria-pressed="false">PASS</button><button type="button" data-filter="TRICK" aria-pressed="false">TRICK</button></nav><div class="ui-menu-playbook-list"></div>';
   const playList=playbookOverlay.querySelector('.ui-menu-playbook-list'),playCount=playbookOverlay.querySelector('.ui-menu-playbook-count');
@@ -120,7 +163,6 @@
   playbookOverlay.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();closePlaybook()}});
   ['mFb','mSave'].forEach(id=>moveControl(id,support,'',true));
   const saveStatus=byId('mSaveSt');if(saveStatus)support.appendChild(saveStatus);
-  actions.append(byId('mTeam'),playbookButton,byId('mGoals'));
   decorateAction(byId('mFb'),icon('<path d="M4 5h16v11H8l-4 4V5Z"/><path d="M8 9h8M8 12h5"/>'),'SEND FEEDBACK','Share a bug or idea');
   decorateAction(byId('mSave'),icon('<path d="M5 3h12l4 4v14H3V3h2Z"/><path d="M7 3v6h10V3M7 21v-8h10v8"/>'),'SAVE CODE','Back up your progress');
   support.append(byId('mFb'),byId('mSave'));if(saveStatus)support.appendChild(saveStatus);
