@@ -1443,3 +1443,13 @@ The owner explicitly approved Stage Three (GOALS & STATS) and authorized proceed
 - QA diagnostics were expanded in commit `9c7fb0ec44d51168ab4229c9a9875b601e9bf384`: after scrolling, the harness now records element connection/current-node identity, the full hit-test stack, card/header/cards/sheet rectangles, relevant computed stacking/overflow/pointer styles, page scroll position, and a screenshot `favorite-hit-test-after-scroll.png` if the target is covered.
 - Run #345 (`45551752624`) is in progress against exact commit `9c7fb0ec44d51168ab4229c9a9875b601e9bf384`. Browser/Chromium installation passed; the full browser QA step is still running. Retrieve its log/artifact before choosing the actual CSS/DOM correction.
 - Stage Four remains in progress and is not owner-approved. Preserve the real favorite toggle and selected-play independence checks, existing gameplay behavior, and golden snapshots.
+
+
+## Stage Four favorite hit-surface refactor — 2026-11-25
+
+- Run #344 (`45551278842`) tested `d697196db1d6a4addb111377a10c0fad5534096c` and failed after scrolling: the favorite button's center was covered by its parent `.card` (`elementFromPoint` returned the card). This confirmed a real hit-target/overflow issue, not merely Playwright's default locator click behavior.
+- Inspected the rendered card styles: the play card has `overflow:hidden`; earlier favorite placements kept the button inside that clipped/clickable card surface. The favorite control is now a sibling of the card within a dedicated `.cardWrap` grid cell, outside the card's overflow and click surface. The card remains independently clickable for play selection; the favorite remains an actual button with its own click handler and state.
+- Updated `updateSel()` to select the actual `.card` nodes inside wrappers. Updated browser QA to target the sibling favorite and retain the verified-center real mouse click, toggle assertion, unchanged selected-play assertion, and restoration check.
+- Implementation commits: `35e7270bb66ebd8b73a4e755bcfb1a88f1dc80cc` (DOM refactor), `7e03ecf3a6787130f7106862825608c8b5c46437` (favorite overlay styling), `655f4fc595c8b928b32c8d14f01bef4f6bd048cb` (QA locator update).
+- Run #347 (`45551937896`) started on the CSS commit before the QA locator update and is not the final validation. A subsequent run must test the combined current branch head. Latest docs update may trigger Run #348; verify its exact tested SHA before accepting results.
+- Stage Four remains in progress and is not owner-approved. Do not change gameplay rules, save/progression behavior, golden snapshots, or unrelated UI.
