@@ -440,36 +440,19 @@
     if(heading)heading.hidden=!active;
    }
    ['owTop','owMenu','owA','owObj'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=active});
-   // The overworld next-unlock card sits immediately above the menu. Its
-   // dashed frame is decorative and may be drawn by a pseudo-element, so use
-   // the card's rendered geometry relative to the Settings heading instead
-   // of depending on computed border styles or an "unlock" class name.
+   // The progression banner is #mNext inside #menu, so target that
+   // known element directly rather than excluding descendants of the menu.
    const hideNextUnlock=()=>{
-    const heading=menu?.querySelector('.ui-title-settings-heading');
-    if(!heading)return;
-    const headingTop=heading.getBoundingClientRect().top;
-    const minWidth=Math.min(280,window.innerWidth*.72);
-    const candidates=[...document.querySelectorAll('body *')]
-     .filter(el=>/\bNEXT UNLOCK\b/i.test((el.textContent||'').trim()))
-     .sort((a,b)=>(a.textContent||'').trim().length-(b.textContent||'').trim().length);
-    for(const label of candidates){
-     let node=label;
-     for(let depth=0;node&&node!==document.body&&depth<10;depth++,node=node.parentElement){
-      if(node===menu||menu?.contains(node))continue;
-      const rect=node.getBoundingClientRect();
-      const isProgressionCard=rect.width>=minWidth&&rect.height>=38&&rect.height<=180&&rect.bottom<=headingTop+2&&rect.bottom>0;
-      if(!isProgressionCard)continue;
-      if(node.dataset.uiPreGameHidden!=='1'){
-       node.dataset.uiPreGameHidden='1';
-       node.dataset.uiPreGameWasHidden=String(node.hidden);
-       node.dataset.uiPreGameDisplay=node.style.getPropertyValue('display');
-       node.dataset.uiPreGameDisplayPriority=node.style.getPropertyPriority('display');
-      }
-      node.hidden=true;
-      node.style.setProperty('display','none','important');
-      break;
-     }
+    const card=document.getElementById('mNext');
+    if(!card)return;
+    if(card.dataset.uiPreGameHidden!=='1'){
+     card.dataset.uiPreGameHidden='1';
+     card.dataset.uiPreGameWasHidden=String(card.hidden);
+     card.dataset.uiPreGameDisplay=card.style.getPropertyValue('display');
+     card.dataset.uiPreGameDisplayPriority=card.style.getPropertyPriority('display');
     }
+    card.hidden=true;
+    card.style.setProperty('display','none','important');
    };
    if(active){
     hideNextUnlock();
