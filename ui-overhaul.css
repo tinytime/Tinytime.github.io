@@ -2095,206 +2095,206 @@ body.land #bHurdle,body.land #bHurdle.dive{
 /* ================= Stage Two: MY TEAM + MY SQUAD =================
    Presentation-only skin over the existing save-backed editors and 2.5D preview.
    Keep original DOM IDs, handlers, progression gates and persistence untouched. */
-#app #team:not([hidden]),#app #squad:not([hidden]){
+#team:not([hidden]),#squad:not([hidden]){
   background:linear-gradient(180deg,#131620 0%,#101722 100%)!important;
   color:#F5F7FA!important;
 }
-#app #team:not([hidden]){
+#team:not([hidden]){
   display:flex!important;flex-direction:column;gap:7px;
   padding:calc(env(safe-area-inset-top,0px) + 12px) 14px calc(env(safe-area-inset-bottom,0px) + 76px)!important;
   overflow-y:auto!important;overscroll-behavior:contain;
 }
-#app #team h2,#app #squad h2{
+#team h2,#squad h2{
   margin:0!important;color:#F5F7FA!important;font-size:24px!important;
   letter-spacing:.08em!important;text-align:left!important;
 }
-#app #team h2:after{
+#team h2:after{
   content:"  /  IDENTITY & UNIFORM";color:#4DE1F2;font:700 11px var(--ui);letter-spacing:.14em;
 }
-#app #team .prev{
+#team .prev{
   height:clamp(190px,29vh,270px)!important;flex:none;margin:0!important;
   border:1px solid rgba(77,225,242,.48)!important;border-radius:14px!important;
   background:radial-gradient(ellipse at 50% 22%,rgba(77,225,242,.16),transparent 58%),linear-gradient(180deg,#202a3b,#131620 78%)!important;
   box-shadow:inset 0 0 0 1px rgba(245,247,250,.035),0 10px 26px rgba(0,0,0,.25);
 }
-#app #team .lbl,#app #squad .lbl{
+#team .lbl,#squad .lbl{
   color:#9BA8BC!important;font-size:11px!important;font-weight:800!important;
   letter-spacing:.16em!important;margin:5px 0 2px!important;
 }
-#app #team .tin,#app #team input[type=text]{
+#team .tin,#team input[type=text]{
   width:100%;height:44px!important;border:1px solid rgba(77,225,242,.5)!important;
   border-radius:10px!important;background:#1C2130!important;color:#F5F7FA!important;
   padding:0 12px!important;font-size:17px!important;font-weight:800!important;
 }
-#app #team .lprev{
+#team .lprev{
   display:flex;align-items:center;gap:10px;padding:8px 10px;
   border:1px solid rgba(245,184,65,.5);border-radius:12px;background:#1C2130;
 }
-#app #team .lprev .lbig{
+#team .lprev .lbig{
   margin-left:auto;min-width:52px;min-height:44px;display:grid;place-items:center;
 }
-#app #team .lprev #tLogoBtn{
+#team .lprev #tLogoBtn{
   min-height:40px;background:#131620!important;border:1px solid #F5B841!important;
   color:#F5B841!important;border-radius:9px!important;
 }
-#app #team .chips{gap:7px}
-#app #team .chip,#app #squad .chip{
+#team .chips{gap:7px}
+#team .chip,#squad .chip{
   min-height:34px;background:#1C2130!important;border:1px solid rgba(77,225,242,.28)!important;
   color:#DCE5F2!important;border-radius:9px!important;font-size:12px!important;font-weight:800!important;
 }
-#app #team .chip.on,#app #squad .chip.on{
+#team .chip.on,#squad .chip.on{
   background:rgba(245,184,65,.12)!important;border:1px solid #F5B841!important;color:#F5B841!important;
 }
-#app #team .slot,#app #squad .slot{
+#team .slot,#squad .slot{
   min-height:40px;background:#1C2130!important;border:1px solid rgba(77,225,242,.24)!important;
   color:#F5F7FA!important;border-radius:9px!important;
 }
-#app #team .slot.on,#app #squad .slot.on{border-color:#F5B841!important}
-#app #team .pal button,#app #team .pal .chip{border-radius:8px!important}
-#app #team .btnrow{
+#team .slot.on,#squad .slot.on{border-color:#F5B841!important}
+#team .pal button,#team .pal .chip{border-radius:8px!important}
+#team .btnrow{
   position:fixed!important;left:14px!important;right:14px!important;
   bottom:calc(env(safe-area-inset-bottom,0px) + 10px)!important;margin:0!important;z-index:30;
 }
-#app #team #tBack{
+#team #tBack{
   width:100%!important;height:50px!important;border-radius:12px!important;
   background:#4DE1F2!important;color:#101722!important;border:1px solid #4DE1F2!important;
   font-size:15px!important;font-weight:900!important;letter-spacing:.12em;
   box-shadow:0 8px 22px rgba(77,225,242,.18);
 }
-#app #squad:not([hidden]){
+#squad:not([hidden]){
   display:flex!important;flex-direction:column;gap:8px;
   padding:calc(env(safe-area-inset-top,0px) + 10px) 12px calc(env(safe-area-inset-bottom,0px) + 8px)!important;
   overflow:hidden!important;
 }
-#app #sqTop{gap:8px!important;min-height:40px}
-#app #sqTop h2{font-size:21px!important;white-space:nowrap}
-#app #sqPts{
+#sqTop{gap:8px!important;min-height:40px}
+#sqTop h2{font-size:21px!important;white-space:nowrap}
+#sqPts{
   display:flex;justify-content:flex-end;align-items:center;gap:5px;white-space:normal!important;
   overflow:visible!important;text-overflow:clip!important;color:#9BA8BC!important;font-size:10px!important;
   letter-spacing:.08em;line-height:1.1;
 }
-#app #sqPts b{
+#sqPts b{
   display:inline-block;padding:5px 7px;border:1px solid rgba(245,184,65,.7);
   border-radius:8px;background:rgba(245,184,65,.1);color:#F5B841!important;font-size:13px;
 }
-#app #sqTop .btn{
+#sqTop .btn{
   height:36px!important;background:#1C2130!important;border:1px solid rgba(77,225,242,.55)!important;
   color:#4DE1F2!important;border-radius:9px!important;
 }
-#app #sqMain{gap:10px!important}
-#app #sqModel{
+#sqMain{gap:10px!important}
+#sqModel{
   flex:0 0 42%!important;border:1px solid rgba(77,225,242,.52)!important;border-radius:14px!important;
   background:radial-gradient(ellipse at 50% 18%,rgba(77,225,242,.17),transparent 56%),linear-gradient(180deg,#202a3b,#131620 84%)!important;
   overflow:hidden;
 }
-#app #sqInfo{gap:3px}
-#app #sqHead{
+#sqInfo{gap:3px}
+#sqHead{
   min-height:52px;padding:6px 8px;background:#1C2130;border:1px solid rgba(77,225,242,.22);
   border-radius:10px;margin:0!important;
 }
-#app #sqHead .pos{color:#4DE1F2!important;font-size:14px!important}
-#app #sqHead .nm{font-size:17px!important;color:#F5F7FA}
-#app #sqHead .nm small{color:#9BA8BC!important;font-size:10px!important}
-#app #sqHead .ov{color:#F5B841!important;font-size:24px!important}
-#app #sqHead .ov small{color:#9BA8BC!important;font-size:9px!important}
-#app #sqHead button{
+#sqHead .pos{color:#4DE1F2!important;font-size:14px!important}
+#sqHead .nm{font-size:17px!important;color:#F5F7FA}
+#sqHead .nm small{color:#9BA8BC!important;font-size:10px!important}
+#sqHead .ov{color:#F5B841!important;font-size:24px!important}
+#sqHead .ov small{color:#9BA8BC!important;font-size:9px!important}
+#sqHead button{
   background:#131620!important;border:1px solid #4DE1F2!important;color:#4DE1F2!important;border-radius:8px!important;
 }
-#app #sqTabs{gap:5px!important;margin:0 0 2px!important}
-#app #sqTabs .chip{height:34px!important;min-width:0;padding:0 5px!important;font-size:10px!important;letter-spacing:.04em}
-#app #sqBody{padding:2px 1px 6px}
-#app #sqBody .ustat{
+#sqTabs{gap:5px!important;margin:0 0 2px!important}
+#sqTabs .chip{height:34px!important;min-width:0;padding:0 5px!important;font-size:10px!important;letter-spacing:.04em}
+#sqBody{padding:2px 1px 6px}
+#sqBody .ustat{
   display:flex;gap:6px!important;background:#1C2130!important;border:1px solid rgba(77,225,242,.2)!important;
   border-radius:9px!important;padding:5px 6px!important;margin-bottom:5px!important;
 }
-#app #sqBody .ustat .ul{width:104px!important;flex:0 0 104px;font-size:10px!important;color:#DCE5F2}
-#app #sqBody .ustat .ub{height:9px!important;background:#0D1420!important}
-#app #sqBody .ustat .ub b{background:linear-gradient(90deg,#4DE1F2,#F5B841)!important}
-#app #sqBody .ustat .ub u{background:#F5F7FA!important}
-#app #sqBody .ustat .uv{width:22px!important;color:#F5F7FA;font-size:14px!important}
-#app #sqBody .ustat button{
+#sqBody .ustat .ul{width:104px!important;flex:0 0 104px;font-size:10px!important;color:#DCE5F2}
+#sqBody .ustat .ub{height:9px!important;background:#0D1420!important}
+#sqBody .ustat .ub b{background:linear-gradient(90deg,#4DE1F2,#F5B841)!important}
+#sqBody .ustat .ub u{background:#F5F7FA!important}
+#sqBody .ustat .uv{width:22px!important;color:#F5F7FA;font-size:14px!important}
+#sqBody .ustat button{
   min-width:52px!important;height:28px!important;background:#131620!important;
   border:1px solid #F5B841!important;color:#F5B841!important;border-radius:7px!important;font-size:10px!important;
 }
-#app #sqBody .ustat button:disabled{border-color:#596273!important;color:#8792A4!important}
-#app #sqStrip{
+#sqBody .ustat button:disabled{border-color:#596273!important;color:#8792A4!important}
+#sqStrip{
   flex:none!important;min-height:66px;padding:6px 2px max(2px,env(safe-area-inset-bottom,0px)*.2)!important;
   border-top:1px solid rgba(77,225,242,.28);background:rgba(19,22,32,.98);
 }
-#app .sqc{
+.sqc{
   flex:0 0 78px!important;height:54px!important;background:#1C2130!important;
   border:1px solid rgba(77,225,242,.26)!important;border-radius:9px!important;
 }
-#app .sqc.on{background:rgba(245,184,65,.12)!important;border:1px solid #F5B841!important}
-#app .sqc .p{color:#4DE1F2!important;font-size:10px!important}
-#app .sqc .o{color:#F5B841!important;font-size:14px!important}
-#app .sqc .n{color:#F5F7FA!important;font-size:11px!important}
-#app .sqc .t{color:#9BA8BC!important;font-size:9px!important}
-#app .sqc.bn{opacity:.82;border-style:dashed!important}
+.sqc.on{background:rgba(245,184,65,.12)!important;border:1px solid #F5B841!important}
+.sqc .p{color:#4DE1F2!important;font-size:10px!important}
+.sqc .o{color:#F5B841!important;font-size:14px!important}
+.sqc .n{color:#F5F7FA!important;font-size:11px!important}
+.sqc .t{color:#9BA8BC!important;font-size:9px!important}
+.sqc.bn{opacity:.82;border-style:dashed!important}
 @media(orientation:portrait){
-  #app #sqMain{flex-direction:column!important}
-  #app #sqModel{flex:0 0 34%!important;min-height:0}
-  #app #sqInfo{flex:1;min-height:0}
+  #sqMain{flex-direction:column!important}
+  #sqModel{flex:0 0 34%!important;min-height:0}
+  #sqInfo{flex:1;min-height:0}
 }
 @media(max-height:720px) and (orientation:portrait){
-  #app #sqModel{flex-basis:29%!important}
-  #app #team .prev{height:clamp(150px,24vh,205px)!important}
+  #sqModel{flex-basis:29%!important}
+  #team .prev{height:clamp(150px,24vh,205px)!important}
 }
 
-#app #sqPts .ui-squad-metric{display:flex;align-items:center;gap:4px;padding:4px 7px;border:1px solid rgba(245,184,65,.62);border-radius:8px;background:rgba(245,184,65,.1)}
-#app #sqPts .ui-squad-metric small{font-size:9px;font-weight:900;color:#9BA8BC;letter-spacing:.1em}
-#app #sqPts .ui-squad-metric b{font-size:14px;color:#F5B841!important}
-#app #sqPts .ui-squad-defense{align-self:center;color:#4DE1F2;font-size:9px;font-weight:900;white-space:nowrap}
-@media(max-width:390px){#app #sqPts{gap:3px!important}#app #sqPts .ui-squad-metric{padding:3px 5px}#app #sqPts .ui-squad-defense{display:none}}
+#sqPts .ui-squad-metric{display:flex;align-items:center;gap:4px;padding:4px 7px;border:1px solid rgba(245,184,65,.62);border-radius:8px;background:rgba(245,184,65,.1)}
+#sqPts .ui-squad-metric small{font-size:9px;font-weight:900;color:#9BA8BC;letter-spacing:.1em}
+#sqPts .ui-squad-metric b{font-size:14px;color:#F5B841!important}
+#sqPts .ui-squad-defense{align-self:center;color:#4DE1F2;font-size:9px;font-weight:900;white-space:nowrap}
+@media(max-width:390px){#sqPts{gap:3px!important}#sqPts .ui-squad-metric{padding:3px 5px}#sqPts .ui-squad-defense{display:none}}
 
-#app #team .ui-team-identity{
+#team .ui-team-identity{
  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(116px,.85fr);
  grid-template-areas:"name-label logo-label" "name-input logo-picker";
  gap:5px 10px;padding:10px;background:#1C2130;border:1px solid rgba(77,225,242,.32);border-radius:12px;
 }
-#app #team .ui-team-identity [data-ui-role="team-name-label"]{grid-area:name-label;margin:0!important}
-#app #team .ui-team-identity #tName{grid-area:name-input;min-width:0}
-#app #team .ui-team-identity [data-ui-role="team-logo-label"]{grid-area:logo-label;margin:0!important}
-#app #team .ui-team-identity .lprev{grid-area:logo-picker;min-width:0;min-height:44px;padding:3px;background:#131620;border-color:rgba(245,184,65,.38)}
-#app #team .ui-team-identity .lprev #tLogoBtn{font-size:10px!important;padding:0 7px;min-width:0;flex:1}
-#app #team .ui-team-identity .lprev .lbig{min-width:34px;min-height:36px}
-@media(max-width:350px){#app #team .ui-team-identity{grid-template-columns:minmax(0,1fr) minmax(100px,.8fr);gap:4px 6px;padding:7px}}
+#team .ui-team-identity [data-ui-role="team-name-label"]{grid-area:name-label;margin:0!important}
+#team .ui-team-identity #tName{grid-area:name-input;min-width:0}
+#team .ui-team-identity [data-ui-role="team-logo-label"]{grid-area:logo-label;margin:0!important}
+#team .ui-team-identity .lprev{grid-area:logo-picker;min-width:0;min-height:44px;padding:3px;background:#131620;border-color:rgba(245,184,65,.38)}
+#team .ui-team-identity .lprev #tLogoBtn{font-size:10px!important;padding:0 7px;min-width:0;flex:1}
+#team .ui-team-identity .lprev .lbig{min-width:34px;min-height:36px}
+@media(max-width:350px){#team .ui-team-identity{grid-template-columns:minmax(0,1fr) minmax(100px,.8fr);gap:4px 6px;padding:7px}}
 
-#app #team #trRow{grid-column:1/-1;min-width:0;padding-top:7px;border-top:1px solid rgba(77,225,242,.18)}
-#app #team #trRow .chips{display:flex;flex-wrap:wrap;gap:6px}
-#app #team #trRow .chip{min-height:30px;padding:0 9px;font-size:10px!important}
+#team #trRow{grid-column:1/-1;min-width:0;padding-top:7px;border-top:1px solid rgba(77,225,242,.18)}
+#team #trRow .chips{display:flex;flex-wrap:wrap;gap:6px}
+#team #trRow .chip{min-height:30px;padding:0 9px;font-size:10px!important}
 
 
 /* MY TEAM — three explicit handoff sections, with the player preview and save action persistent. */
-#app #team:not([hidden]){display:flex!important;flex-direction:column!important;gap:8px!important;overflow:hidden!important;padding:calc(env(safe-area-inset-top,0px) + 10px) 14px calc(env(safe-area-inset-bottom,0px) + 12px)!important}
-#app #team>h2{flex:none;margin:0!important;font-size:23px!important;letter-spacing:.08em}
-#app #team>#tPrev{flex:none;height:clamp(150px,24vh,205px)!important;margin:0!important;border:1px solid rgba(77,225,242,.5)!important;border-radius:14px!important;background:radial-gradient(ellipse at 50% 18%,rgba(77,225,242,.16),transparent 58%),linear-gradient(180deg,#202a3b,#131620 84%)!important}
-#app #team .ui-team-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;flex:none}
-#app #team .ui-team-tab{min-width:0;min-height:40px;padding:0 5px;border:1px solid rgba(77,225,242,.3);border-radius:10px;background:#1C2130;color:#AAB2C2;font-family:inherit;font-size:12px;font-weight:900;line-height:1;letter-spacing:.1em}
-#app #team .ui-team-tab[aria-selected="true"]{border-color:#F5B841;background:rgba(245,184,65,.12);color:#F5B841}
-#app #team .ui-team-tab-content{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:1px 0 66px}
-#app #team .ui-team-tab-panel[hidden]{display:none!important}
-#app #team .ui-team-tab-panel{display:flex;flex-direction:column;gap:8px}
-#app #team .ui-team-tab-panel .lbl{margin:4px 0 2px;color:#AAB2C2;font-size:11px;font-weight:900}
-#app #team .ui-team-identity{width:100%;box-sizing:border-box}
-#app #team #tJersey,#app #team #tPants{display:none!important}
-#app #team #tSlots{display:flex;flex-wrap:wrap;gap:6px}
-#app #team #tPal{display:flex;flex-wrap:wrap;gap:7px;padding:8px;border:1px solid rgba(77,225,242,.22);border-radius:11px;background:#1C2130}
-#app #team #tPal button{width:28px;height:28px;min-width:28px;border:2px solid rgba(255,255,255,.22);border-radius:8px}
-#app #team #tPal button.on{outline:2px solid #F5B841;outline-offset:2px}
-#app #team #trRow{display:flex;flex-direction:column;gap:7px;margin:0;padding:10px;border:1px solid rgba(77,225,242,.28);border-radius:12px;background:#1C2130}
-#app #team #trRow>.lbl{margin:0;color:#4DE1F2}
-#app #team #trRow .chips{display:flex;flex-wrap:wrap;gap:7px}
-#app #team #trRow .chip{min-height:34px;padding:0 10px;border:1px solid rgba(77,225,242,.35);border-radius:9px;background:#131620;color:#F5F7FA;font-size:11px}
-#app #team #trRow .chip.on{border-color:#F5B841;background:rgba(245,184,65,.12);color:#F5B841}
-#app #team .ui-team-trail-hint{display:block;flex:1 0 100%;margin:-4px 0 3px 2px;color:#AAB2C2;font-size:10px;line-height:1.25}
-#app #team>.btnrow{flex:none}
-@media(max-height:720px) and (orientation:portrait){#app #team>#tPrev{height:clamp(125px,21vh,165px)!important}}
+#team:not([hidden]){display:flex!important;flex-direction:column!important;gap:8px!important;overflow:hidden!important;padding:calc(env(safe-area-inset-top,0px) + 10px) 14px calc(env(safe-area-inset-bottom,0px) + 12px)!important}
+#team>h2{flex:none;margin:0!important;font-size:23px!important;letter-spacing:.08em}
+#team>#tPrev{flex:none;height:clamp(150px,24vh,205px)!important;margin:0!important;border:1px solid rgba(77,225,242,.5)!important;border-radius:14px!important;background:radial-gradient(ellipse at 50% 18%,rgba(77,225,242,.16),transparent 58%),linear-gradient(180deg,#202a3b,#131620 84%)!important}
+#team .ui-team-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;flex:none}
+#team .ui-team-tab{min-width:0;min-height:40px;padding:0 5px;border:1px solid rgba(77,225,242,.3);border-radius:10px;background:#1C2130;color:#AAB2C2;font-family:inherit;font-size:12px;font-weight:900;line-height:1;letter-spacing:.1em}
+#team .ui-team-tab[aria-selected="true"]{border-color:#F5B841;background:rgba(245,184,65,.12);color:#F5B841}
+#team .ui-team-tab-content{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:1px 0 66px}
+#team .ui-team-tab-panel[hidden]{display:none!important}
+#team .ui-team-tab-panel{display:flex;flex-direction:column;gap:8px}
+#team .ui-team-tab-panel .lbl{margin:4px 0 2px;color:#AAB2C2;font-size:11px;font-weight:900}
+#team .ui-team-identity{width:100%;box-sizing:border-box}
+#team #tJersey,#team #tPants{display:none!important}
+#team #tSlots{display:flex;flex-wrap:wrap;gap:6px}
+#team #tPal{display:flex;flex-wrap:wrap;gap:7px;padding:8px;border:1px solid rgba(77,225,242,.22);border-radius:11px;background:#1C2130}
+#team #tPal button{width:28px;height:28px;min-width:28px;border:2px solid rgba(255,255,255,.22);border-radius:8px}
+#team #tPal button.on{outline:2px solid #F5B841;outline-offset:2px}
+#team #trRow{display:flex;flex-direction:column;gap:7px;margin:0;padding:10px;border:1px solid rgba(77,225,242,.28);border-radius:12px;background:#1C2130}
+#team #trRow>.lbl{margin:0;color:#4DE1F2}
+#team #trRow .chips{display:flex;flex-wrap:wrap;gap:7px}
+#team #trRow .chip{min-height:34px;padding:0 10px;border:1px solid rgba(77,225,242,.35);border-radius:9px;background:#131620;color:#F5F7FA;font-size:11px}
+#team #trRow .chip.on{border-color:#F5B841;background:rgba(245,184,65,.12);color:#F5B841}
+#team .ui-team-trail-hint{display:block;flex:1 0 100%;margin:-4px 0 3px 2px;color:#AAB2C2;font-size:10px;line-height:1.25}
+#team>.btnrow{flex:none}
+@media(max-height:720px) and (orientation:portrait){#team>#tPrev{height:clamp(125px,21vh,165px)!important}}
 
 
 /* Keep squad resource badges legible beside the title on narrow portrait screens. */
-#app #sqTop{display:flex!important;align-items:center!important;gap:8px!important;}
-#app #sqTop h2{flex:1 1 auto!important;min-width:0!important;}
-#app #sqPts{flex:0 0 auto!important;width:max-content!important;min-width:max-content!important;white-space:nowrap!important;}
-#app #sqPts .ui-squad-metric{flex:0 0 auto!important;white-space:nowrap!important;}
-@media(max-width:390px){#app #sqPts{gap:4px!important;}#app #sqPts .ui-squad-metric{padding:4px 6px!important;}}
+#sqTop{display:flex!important;align-items:center!important;gap:8px!important;}
+#sqTop h2{flex:1 1 auto!important;min-width:0!important;}
+#sqPts{flex:0 0 auto!important;width:max-content!important;min-width:max-content!important;white-space:nowrap!important;}
+#sqPts .ui-squad-metric{flex:0 0 auto!important;white-space:nowrap!important;}
+@media(max-width:390px){#sqPts{gap:4px!important;}#sqPts .ui-squad-metric{padding:4px 6px!important;}}
