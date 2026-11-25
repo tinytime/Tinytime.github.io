@@ -1,3 +1,13 @@
+## MY SQUAD palette correction — implementation complete, QA pending (2026-11-25)
+
+- Owner identified three remaining legacy treatments in MY SQUAD: the Style & Gear name field, jersey-number plus/minus controls, and Career text.
+- Updated Style & Gear name input to the current matte navy field with a cyan border and neutral white text.
+- Updated both jersey-number controls to navy buttons with cyan borders/text, replacing the legacy control treatment.
+- Scoped the Career tab to the current neutral/cyan/gold text palette; headings use cyan and emphasized values use gold.
+- Added browser QA checks for the computed name-field and plus/minus styles, plus every visible Career text leaf's computed color.
+- CSS commit: `e3ab4ee17b701fc71fb9688c92793819b87c33c`; QA commit: `ed298516feec6d5fcc8e1e6e4fff514db5dca942`.
+- Verification status: implementation is committed; the new checks and screenshots have not yet been confirmed by a completed Actions run. No gameplay handlers, save logic, or golden snapshots were changed.
+
 ## Team Stats card outline correction — implementation complete, QA pending (2026-11-25)
 
 - Owner clarified that the yellow outlines remain on the individual boxes in GOALS & STATS > TEAM STATS; the previous correction covered only the three tabs.
