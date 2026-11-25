@@ -322,3 +322,8 @@ The owner explicitly approved Stage One and authorized Stage Two. Stage Two is l
 Initial implementation is committed: MY SQUAD is now exposed as a menu tile; both screens use the shared navy/gold/cyan visual system; team editor retains identity/logo/uniform/palette controls and presents SAVE & EQUIP; squad navigation is consolidated into ATTRIBUTES / STYLE & GEAR / CAREER with an EDIT GEAR & TRAILS subview and BACK TO STYLE; PTS and CAP are distinct badges; responsive portrait rules and dedicated browser assertions/screenshots are added. See `project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md` for exact commit SHAs.
 
 **QA status:** the new Stage Two browser suite is committed but its fresh Actions run and screenshot inspection are pending. Stage One Run #260's Fumble follow-up is still separately pending retest; its failed result (189/192) is not being reclassified as a pass. No golden snapshots changed.
+
+
+### Stage Two implementation follow-up — MY TEAM identity and MY SQUAD metrics
+
+The MY TEAM name input and logo picker are now paired in one responsive identity card; MY SQUAD has explicit PTS and CAP badges. Dedicated browser checks cover the identity grouping, save action, preview canvases, uniform controls, three-tab navigation and nested gear editor. Exact commits and pending evidence are recorded in the implementation summary. Fresh Actions and visual inspection are still required; no golden snapshots changed.
