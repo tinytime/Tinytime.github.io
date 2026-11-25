@@ -21,7 +21,7 @@ Review only the Stage Two MY TEAM and MY SQUAD changes. Do not expand scope into
 - `qa/ui-overhaul-browser-qa.mjs` — browser assertions for menu, MY TEAM tabs and locked-trail hints, MY SQUAD and broader regression coverage.
 - `project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md` — implementation handoff and current verification state.
 
-## Required visual evidence in the latest Artifact 14985344956
+## Required visual evidence in the latest Artifact 14987300342
 
 Inspect these first at 390×844 portrait:
 
@@ -32,7 +32,7 @@ Inspect these first at 390×844 portrait:
 5. `my-team-trails-portrait.png`
 6. `my-team-trails-bottom-portrait.png`
 
-Also inspect `portrait-menu.png` and `desktop-menu.png` for menu tile order and treatment. The artifact contains the wider Stage One/Two regression screenshot set, including playbook and match screens.
+Also inspect `portrait-menu.png`, `desktop-menu.png` and `narrow-menu-360.png` for menu tile order, treatment and narrow-width fit. The artifact contains the wider Stage One/Two regression screenshot set, including playbook and match screens.
 
 ## MY TEAM acceptance criteria
 
