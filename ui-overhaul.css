@@ -2660,3 +2660,29 @@ body.ach-toast-active #app #dcall{
 #app #sheet .cardWrap>.fav{position:absolute;z-index:3;top:3px;right:3px;width:21px;height:21px;padding:0;display:grid;place-items:center;border:0;border-radius:6px;background:rgba(19,22,32,.94);font-size:13px;line-height:1}
 #app #sheet .card b{padding-right:23px!important}
 #app #sheet .card canvas{height:68px!important;min-height:58px;flex:none!important}
+
+/* Final D3/D4 refinement: override the older high-specificity cyan FLIP rules,
+   and give the route diagrams enough fixed sheet height to remain legible. */
+#app #sheet .ui-playbook-actions #flipBtn{
+  background:#131620!important;
+  border:1px solid rgba(245,184,65,.78)!important;
+  color:#f5b841!important;
+}
+#app #sheet .ui-playbook-actions #flipBtn.on{
+  background:rgba(245,184,65,.14)!important;
+  border:2px solid #f5b841!important;
+  color:#ffe3a0!important;
+}
+#app #sheet #cards>.cardWrap>.card b span{
+  display:block!important;
+  max-width:calc(100% - 30px)!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+#app #sheet #cards>.cardWrap>.card canvas{
+  height:68px!important;
+  min-height:68px!important;
+  max-height:68px!important;
+  flex:0 0 68px!important;
+}
