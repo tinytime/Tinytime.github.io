@@ -6,7 +6,7 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest branch code/QA commit (2026-11-25): `2cd3b457eca4b36481298a3d6dfab79e95fa0573` on `UI-Overhaul`; subsequent commits update project documentation only.
+- Latest branch code/QA commit (2026-11-25): `0689410f424ba8947ae3554d891002b7cefc2fd4` on `UI-Overhaul`; a fresh run is pending for its expanded STYLE & GEAR assertions.
 - Latest successful code-tested commit: `381363ff1caae36c080b7a9f3cf73af6f4a77046`, Run #291, 212/212 browser assertions. This is the pre-correction Stage Two baseline, not validation of the follow-up CSS fix.
 - Stage One: owner-approved. Run #291 verifies the Round 5 Fumble geometry/palette assertions; its actual screenshot was inspected and the meter/countdown are aligned in the usable left field lane with clear separation from the A control.
 - Stage Two: MY TEAM and MY SQUAD are implemented, but Run #291 screenshot inspection found their intended styling was not taking effect. The root selector bug was corrected in CSS commit `71e1a20af05483d45ea832d0193e68d9f557b1fc`; three targeted style/pinning assertions were added in QA commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573`. Fresh Actions verification and post-fix screenshots are pending.
@@ -1344,6 +1344,17 @@ The original Stage Two CSS used selectors prefixed with `#app` (for example, `#a
 - QA hardening: commit [`2cd3b457eca4b36481298a3d6dfab79e95fa0573`](https://github.com/tinytime/Tinytime.github.io/commit/2cd3b457eca4b36481298a3d6dfab79e95fa0573) adds checks for the MY TEAM navy/cyan/gold treatment, tab sizing, bottom-pinned SAVE & EQUIP position, and MY SQUAD navy/cyan/gold screen/model/metric styling.
 
 ### Verification state and next action
-The workflow is configured to run on pushes to `UI-Overhaul` when the CSS or QA harness changes. The connected GitHub status and commit-workflow lookup returned no run/status record for the new push-triggered code/QA commit; the available workflow-run lookup is limited to PR-triggered runs. Therefore the new correction is **implemented but not yet browser-tested** in this session. Do not infer a pass or use Run #291 screenshots as post-fix evidence.
+The workflow is configured to run on pushes to `UI-Overhaul` when the CSS or QA harness changes. The CSS correction and targeted presentation assertions passed in [Run #295](https://github.com/tinytime/Tinytime.github.io/actions/runs/45526079186) against commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573`: 216/216 assertions, zero failures, zero page exceptions, zero console errors, and zero same-origin HTTP failures. Evidence artifact: [14982981067](https://github.com/tinytime/Tinytime.github.io/actions/runs/45526079186/artifacts/14982981067). Actual refreshed MY TEAM, MY SQUAD attributes, and MY SQUAD gear screenshots were inspected; the corrected navy/cyan/gold skin, readable separated PTS/CAP badges, bottom-pinned SAVE & EQUIP action, and pinned roster strip are visible.
+
+A further QA-only follow-up commit `0689410f424ba8947ae3554d891002b7cefc2fd4` adds explicit checks for the full MY SQUAD STYLE & GEAR controls (Name, Skin Tone, Jersey Number, skin swatches, and jersey-number controls) and captures `my-squad-style-gear-portrait.png`. Its fresh Actions run and screenshot are pending.
 
 Next: retrieve the push-triggered browser run for commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573`, confirm all assertions pass, and inspect the refreshed MY TEAM / MY SQUAD screenshots plus Stage One regression screenshots before preparing the Stage Two package for independent review. Stage Two remains in progress; owner approval and independent review remain pending. No golden snapshots or provenance were changed.
+
+
+## Run #295 — corrected Stage Two presentation verified
+
+- Run [#295](https://github.com/tinytime/Tinytime.github.io/actions/runs/45526079186) tested exact code/QA commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573` and succeeded: 216/216, zero failures, zero uncaught page exceptions, zero console errors, and zero same-origin HTTP failures.
+- Artifact [14982981067](https://github.com/tinytime/Tinytime.github.io/actions/runs/45526079186/artifacts/14982981067) was downloaded and actual screenshots inspected: `my-team-portrait.png`, `my-squad-attributes-portrait.png`, and `my-squad-gear-portrait.png`.
+- MY TEAM now visibly uses navy/cyan/gold, 40px minimum tabs, and bottom-pinned SAVE & EQUIP (captured bounds y=784–834 in an 844px viewport). MY SQUAD shows distinct PTS/CAP badges (approximately 60×38px each), the intended palette/model frame, and a pinned 66px starter strip with no horizontal overflow.
+- The inspected MY SQUAD gear screenshot is the gear subview (VISOR and ARM SLEEVES); it is not a screenshot of the STYLE & GEAR parent tab. The parent tab's controls are present in source (NAME, SKIN TONE, JERSEY NUMBER), but the previous QA only checked one text input and the gear-entry action.
+- QA-only commit `0689410f424ba8947ae3554d891002b7cefc2fd4` adds explicit DOM assertions for NAME / SKIN TONE / JERSEY NUMBER, skin swatches, jersey number buttons, and the gear action, plus screenshot `my-squad-style-gear-portrait.png`. Await its fresh Actions run and inspect that screenshot before closing Stage Two.
