@@ -416,8 +416,7 @@
   const panel=document.getElementById('goalsP');
   if(panel){
    const rewrite=()=>{const root=panel.querySelector('#ui-goals-panel-achievements');if(!root)return;
-    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
-    nodes.forEach(node=>{if(/win\s+25\s+trucks/i.test(node.nodeValue))node.nodeValue=node.nodeValue.replace(/win\s+25\s+trucks/ig,'Perform 25 trucks')});
+    root.querySelectorAll('.ui-goals-card-desc').forEach(desc=>{const next=desc.textContent.replace(/win\s+25\s+trucks/ig,'Perform 25 trucks');if(next!==desc.textContent)desc.textContent=next});
    };
    rewrite();if(window.MutationObserver&&!panel.dataset.uiTruckCopyObserver){panel.dataset.uiTruckCopyObserver='1';new MutationObserver(rewrite).observe(panel,{subtree:true,childList:true,characterData:true})}
   }
