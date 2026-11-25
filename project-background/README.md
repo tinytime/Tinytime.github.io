@@ -1,22 +1,33 @@
-## Title screen entry gate — 2026-11-25
+## Title screen entry gate — implementation and QA complete (2026-11-25)
 
-The owner requested that the Circuit Football RPG title screen be moved from the separate NPC baseline branch into `UI-Overhaul`. It is now integrated into the UI Overhaul app without merging the NPC workstream.
+The owner requested that the Circuit Football RPG title screen be moved from the separate NPC baseline branch into `UI-Overhaul`. It is now integrated into the UI Overhaul app; no NPC-workstream commits or files were merged.
 
-- `ui-overhaul-menu.js` creates a startup title gate with the CIRCUIT FOOTBALL RPG branding and **BEAT THE CIRCUIT** / **SETTINGS** actions.
+**Implemented**
+- `ui-overhaul-menu.js` creates a startup title gate with CIRCUIT FOOTBALL RPG branding and **BEAT THE CIRCUIT** / **SETTINGS** actions.
 - **BEAT THE CIRCUIT** dismisses the gate and calls the existing `window.SG.owShow()` overworld entry path.
-- **SETTINGS** opens the existing UI Overhaul MENU → SETTINGS tab; the menu close/Back action returns to the title screen.
-- The title scene is the existing inline SVG interpretation from the source implementation, not the supplied final raster artwork. Treat the scene as provisional pending owner visual approval; do not describe it as the final artwork.
-- CSS is isolated under `.ui-title-screen` / `.ui-title-*` selectors. No gameplay, save/progression, existing Settings controls, NPC renderer, or golden snapshots were intentionally changed.
-- Browser QA was extended to cover initial title visibility, Settings navigation/return, and starting the game. Run #400 is testing exact commit `e60b67940b06c58e37ac94d740bf0dffab29b553`; result and screenshots are pending.
+- **SETTINGS** opens the existing UI Overhaul MENU → SETTINGS tab. Its close/Back action returns to the title screen.
+- Returning to the title resets the underlying menu tab to MENU so the ordinary in-game menu opens in its normal default state.
+- CSS is isolated under `.ui-title-screen` / `.ui-title-*` selectors. Existing gameplay, save/progression, Settings controls, NPC renderer, and golden snapshots were not intentionally changed.
 
-Implementation commits:
+**Visual status**
+- The port uses the same inline SVG title-scene interpretation as the source implementation. It is **not the supplied final raster artwork**. The title composition and mobile/desktop layout were visually inspected, but this illustration remains provisional and is not owner-approved as final art.
+
+**Browser QA**
+- Run #403 ([workflow 45676582496](https://github.com/tinytime/Tinytime.github.io/actions/runs/45676582496)) tested code commit `2e89b89bce15810f50ea56eb0e5235d6574f8559`: **263/263 checks passed**, 0 failures, 0 page errors, 0 console errors, 0 same-origin HTTP failures.
+- Run #404 ([workflow 45677310836](https://github.com/tinytime/Tinytime.github.io/actions/runs/45677310836)) tested the QA-only mobile screenshot addition at `ab1ad1dab25632d2ef8ce73738d375d85fb93f9a`: **263/263 checks passed**, 0 failures, 0 page errors, 0 console errors, 0 same-origin HTTP failures.
+- The title-flow checks cover initial title visibility, opening the existing Settings tab, returning to the title, and starting the game. The actual 390×844 title and Settings screenshots were retrieved and visually inspected. Artifact [15051807818](https://github.com/tinytime/Tinytime.github.io/actions/runs/45677310836/artifacts/15051807818) contains the 48-screen QA evidence.
+- No golden snapshots were changed or approved.
+
+**Implementation commits**
 - Menu/title gate: `d60eba91f4d2587105ec6bc763acd1e13e51e414`
 - Title CSS: `9666a76fcf1087d29ea4882290efd023fe62c5df`
-- Browser QA: `e60b67940b06c58e37ac94d740bf0dffab29b553`
+- Settings/return and landscape scaling corrections: `a5b768d57e579119bdb3a81cceefc28ad5b144ea`, `ed2ecbfc90bcaaee39b7ebfdaed7687db2769cc3`, `2e89b89bce15810f50ea56eb0e5235d6574f8559`
+- QA coverage and portrait evidence: `e60b67940b06c58e37ac94d740bf0dffab29b553`, `ab1ad1dab25632d2ef8ce73738d375d85fb93f9a`
 
-Do not treat this feature as QA-passing or visually approved until Run #400 completes and its actual title/settings screenshots are inspected.
+The title/settings flow is implemented and browser-QA passing. Final visual-art approval remains with the owner.
 
 ---
+
 
 **Live checkpoint (2026-11-25):** Stages One–Three are owner-approved. The second Stage Four polish batch passed Run #397 (259/259) on `f26e48986376c03ab07cb286c176660c8ff8eb65`; screenshots for the Playbook, post-FLIP, fumble, defense and achievements were visually inspected. The Playbook favorite QA baseline correction is included in that tested commit. Stage Four remains in progress and awaits the owner's review/approval. The pre-game matchup redesign remains explicitly deferred. See [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for exact evidence and the next gate.
 
