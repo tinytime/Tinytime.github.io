@@ -6,7 +6,7 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest Stage Three code/QA commit tested: `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`; Run #331 passed 230/230 browser assertions and its actual Goals & Stats screenshots were visually inspected. Latest branch HEAD at this checkpoint is `486209e89913900429268e7476676f757ea88bc1`; this is the Stage Four QA-harness correction commit. The Stage Three code/QA SHA remains `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`.
+- Latest application/QA commit tested: `f26e48986376c03ab07cb286c176660c8ff8eb65`; Run #397 passed 259/259 browser assertions, 0 page exceptions, 0 console errors and 0 same-origin HTTP failures. Artifact `15035343585`; key Stage Four screenshots were visually inspected. Documentation-only commits now bring branch HEAD to `164704981a919698ce75757477216e642f2b1903` (verify live HEAD before further work).
 - Stage One: owner-approved.
 - Stage Two: MY TEAM and MY SQUAD are implemented, independently reviewed, corrected and owner-approved (owner decision recorded in the project conversation). Run #322 passed 224/224; uniform and trail screenshots were visually inspected.
 - Stage Three: GOALS & STATS is implemented, automated browser-tested and internally visually inspected on the exact code/QA commit above. **Owner-approved on 2026-11-25.** Stage Four is authorized and in progress.
@@ -19,14 +19,14 @@ When the owner says “review the implementation summary,” do the following:
 2. Read `project-background/UI-OVERHAUL-PLAN.md` and `ui-overhaul/README.md`.
 3. Read the 14-page Gemini handoff attached to the project conversation if available. It is the design authority; this summary is the implementation/status authority. If it is not available in the new conversation, do not pretend to have inspected the embedded mockups—use the linked specification details below and ask the owner to reattach it only if visual reference inspection is essential.
 4. Verify the current `UI-Overhaul` branch HEAD, latest commits, current `index.html`, `ui-overhaul.css`, `ui-overhaul-menu.js`, QA harness, workflow, and latest UI-Overhaul Actions runs. This file is a restart map, not a substitute for live repository verification.
-5. Continue from **Section 8 — Immediate next actions**. Stage One and Stage Two are owner-approved. Stage Three is owner-approved. Stage Four (Pre-Game Matchup & Playbook integration) is authorized; follow the scope and audit steps recorded below.
+5. Continue from **Section 8 — Immediate next actions**. Stages One–Three are owner-approved. The Stage Four polish batch has passed internal QA and visual inspection but still awaits owner review/approval. The pre-game matchup redesign is explicitly deferred until the owner authorizes it.
 6. Keep all changes on `UI-Overhaul`. Do not modify `main`, NPC workstream files, or golden snapshots.
 
 ## 2. Overall implementation status
 
 Stage One (Overworld HUD, menu/settings/credits, playbook and match-flow surfaces) is owner-approved. Stage Two (MY TEAM and MY SQUAD) is implemented and its independent-review correction round is complete.
 
-Stage One and Stage Two are owner-approved. Stage Three (GOALS & STATS) is implemented, passes Run #331 with **230/230 browser assertions**, and has been visually inspected from the actual artifact. It awaits owner review/approval. Remaining handoff work after Stage Three includes pre-game matchup/playbook integration and any additional in-match/defense/post-game work not already covered by the approved Stage One scope. Do not report the full UI overhaul as complete.
+Stages One–Three are owner-approved. Stage Four's current owner polish batch passed Run #397 with **259/259 browser assertions** and received internal visual inspection of key screenshots. It awaits owner review/approval; do not report the full UI overhaul as complete. The pre-game matchup redesign is deferred until the current batch is reviewed and the owner explicitly authorizes that work.
 
 ## 3. Design contract from the Gemini handoff
 
