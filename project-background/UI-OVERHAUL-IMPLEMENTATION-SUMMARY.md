@@ -6,7 +6,7 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest live branch HEAD (2026-11-25): `2cd3b457eca4b36481298a3d6dfab79e95fa0573` on `UI-Overhaul`.
+- Latest branch code/QA commit (2026-11-25): `2cd3b457eca4b36481298a3d6dfab79e95fa0573` on `UI-Overhaul`; subsequent commits update project documentation only.
 - Latest successful code-tested commit: `381363ff1caae36c080b7a9f3cf73af6f4a77046`, Run #291, 212/212 browser assertions. This is the pre-correction Stage Two baseline, not validation of the follow-up CSS fix.
 - Stage One: owner-approved. Run #291 verifies the Round 5 Fumble geometry/palette assertions; its actual screenshot was inspected and the meter/countdown are aligned in the usable left field lane with clear separation from the A control.
 - Stage Two: MY TEAM and MY SQUAD are implemented, but Run #291 screenshot inspection found their intended styling was not taking effect. The root selector bug was corrected in CSS commit `71e1a20af05483d45ea832d0193e68d9f557b1fc`; three targeted style/pinning assertions were added in QA commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573`. Fresh Actions verification and post-fix screenshots are pending.
@@ -1344,6 +1344,6 @@ The original Stage Two CSS used selectors prefixed with `#app` (for example, `#a
 - QA hardening: commit [`2cd3b457eca4b36481298a3d6dfab79e95fa0573`](https://github.com/tinytime/Tinytime.github.io/commit/2cd3b457eca4b36481298a3d6dfab79e95fa0573) adds checks for the MY TEAM navy/cyan/gold treatment, tab sizing, bottom-pinned SAVE & EQUIP position, and MY SQUAD navy/cyan/gold screen/model/metric styling.
 
 ### Verification state and next action
-The workflow is configured to run on pushes to `UI-Overhaul` when the CSS or QA harness changes. The connected GitHub status and commit-workflow lookup returned no run/status record for the new push-triggered commit; the available workflow-run lookup is limited to PR-triggered runs. Therefore the new correction is **implemented but not yet browser-tested** in this session. Do not infer a pass or use Run #291 screenshots as post-fix evidence.
+The workflow is configured to run on pushes to `UI-Overhaul` when the CSS or QA harness changes. The connected GitHub status and commit-workflow lookup returned no run/status record for the new push-triggered code/QA commit; the available workflow-run lookup is limited to PR-triggered runs. Therefore the new correction is **implemented but not yet browser-tested** in this session. Do not infer a pass or use Run #291 screenshots as post-fix evidence.
 
 Next: retrieve the push-triggered browser run for commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573`, confirm all assertions pass, and inspect the refreshed MY TEAM / MY SQUAD screenshots plus Stage One regression screenshots before preparing the Stage Two package for independent review. Stage Two remains in progress; owner approval and independent review remain pending. No golden snapshots or provenance were changed.
