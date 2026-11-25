@@ -1483,7 +1483,7 @@ function buildCards(redraw){
     const fv=favs().includes(pl.id);c.innerHTML='<b><span>'+pl.name+'</span></b><canvas width="168" height="124"></canvas>';
     fav.type='button';fav.className='fav'+(fv?' on':'');fav.setAttribute('aria-label','favourite');fav.setAttribute('aria-pressed',fv?'true':'false');fav.textContent=fv?'★':'☆';
     fav.onclick=e=>{e.preventDefault();e.stopPropagation();favToggle(pl.id);buildCards(true)};
-    c.onclick=()=>{if(G.sel===i){callPlay();return}G.sel=i;beep(500,.04);updateSel()};wrap.append(c,fav);box.appendChild(wrap);drawCard(c.lastChild.previousSibling.lastChild,pl,G.flip?-1:1)}
+    c.onclick=()=>{if(G.sel===i){callPlay();return}G.sel=i;beep(500,.04);updateSel()};wrap.append(c,fav);box.appendChild(wrap);drawCard(c.querySelector('canvas'),pl,G.flip?-1:1)}
   if(PB.tab==='FAV'&&!L.length){box.innerHTML='<div class="favEmpty">No favourites yet. Tap the \u2606 on any play card to add it here.</div>'}
   updateSel();
 }
