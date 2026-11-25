@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-25):** Stage One is owner-approved; Stage Two (MY TEAM and MY SQUAD) is active. Latest UI-Overhaul code HEAD: `bab0e23c9c37cffebb1730c654cdd8336501d3b3`. Run #278 diagnosed and cleared the Fumble harness's Node-side viewport reference, then exposed three menu QA mismatches. Those menu issues have been corrected. MY TEAM now has the required IDENTITY / UNIFORM / TRAILS tabs, with existing save-backed controls retained. Fresh browser QA for the exact current HEAD and portrait artifact inspection are pending; Stage Two is not yet passed or approved.
+**Live checkpoint (2026-11-25):** Stage One is owner-approved; Stage Two (MY TEAM and MY SQUAD) is active. Current UI-Overhaul code HEAD: `381363ff1caae36c080b7a9f3cf73af6f4a77046`. Browser QA Run #291 passed 212/212 checks on that exact commit, including Fumble geometry/palette, menu order/frames, MY TEAM's IDENTITY / UNIFORM / TRAILS tabs and all eight locked-trail hints, plus MY SQUAD's tab, gear and pinned-roster checks. Artifact `14981780185` contains the screenshot set. Visual screenshot inspection, independent review where required, and owner approval remain outstanding; Stage Two is not yet approved.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
