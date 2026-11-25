@@ -373,57 +373,44 @@
 })();
 
 
-/* Owner polish batch 2: in-match Playbook pagination/actions, fumble heading, achievement copy, scoreboard dedupe. */
+/* Owner polish batch 2: use the game's native six-play pager and preserve the per-player star meter. */
 (()=>{
  const bootPolish=()=>{
   const pile=document.getElementById('pile'),bar=document.getElementById('pileBar');
   if(pile&&bar&&!pile.querySelector('.ui-pile-heading')){
-   const heading=[...pile.querySelectorAll('*')].find(el=>el.children.length===0&&/^FUMBLE$/i.test((el.textContent||'').trim()));
-   if(heading){heading.classList.add('ui-pile-heading');bar.parentNode.insertBefore(heading,bar)}
+   const heading=[...pile.querySelectorAll('#pileTitle,*')].find(el=>el.children.length===0&&/^FUMBLE!?$/i.test((el.textContent||'').trim()));
+   if(heading){
+    heading.textContent='FUMBLE';
+    heading.classList.add('ui-pile-heading');
+    bar.parentNode.insertBefore(heading,bar);
+   }
   }
-  const sheet=document.getElementById('sheet'),cards=document.getElementById('cards'),flip=document.getElementById('flipBtn'),call=document.getElementById('callBtn');
-  if(sheet&&cards&&flip&&call&&!sheet.querySelector('.ui-playbook-footer')){
+
+  const sheet=document.getElementById('sheet'),nav=document.getElementById('pbNav');
+  const flip=document.getElementById('flipBtn'),call=document.getElementById('callBtn');
+  if(sheet&&nav&&flip&&call&&!sheet.querySelector('.ui-playbook-footer')){
    const footer=document.createElement('div');footer.className='ui-playbook-footer';
-   const pager=document.createElement('div');pager.className='ui-playbook-page';pager.setAttribute('aria-label','Playbook pages');
-   const prev=document.createElement('button');prev.type='button';prev.textContent='‹';prev.setAttribute('aria-label','Previous plays');
-   const label=document.createElement('span');label.setAttribute('aria-live','polite');
-   const next=document.createElement('button');next.type='button';next.textContent='›';next.setAttribute('aria-label','Next plays');
-   pager.append(prev,label,next);
-   const actions=document.createElement('div');actions.className='ui-playbook-actions';actions.append(flip,call);
-   footer.append(pager,actions);sheet.appendChild(footer);
-   let page=0,visible=[];
-   const refresh=()=>{
-    const all=[...cards.querySelectorAll(':scope > .cardWrap')].filter(w=>!w.dataset.uiPaginationControl);
-    // Remove our previous page mask before reading category visibility. Category filtering
-    // is applied by the game's stylesheet/classes, while pagination is our own data attribute.
-    all.forEach(w=>{if(w.hasAttribute('data-ui-page-hidden'))w.removeAttribute('data-ui-page-hidden')});
-    const active=all.filter(w=>!w.hidden&&getComputedStyle(w).display!=='none'&&getComputedStyle(w).visibility!=='hidden');
-    visible=active;const pages=Math.max(1,Math.ceil(active.length/6));page=Math.min(page,pages-1);
-    all.forEach(w=>{const i=active.indexOf(w),hide=i<0||i<page*6||i>=page*6+6;if(w.dataset.uiPageHidden!==String(hide?'1':'0'))w.dataset.uiPageHidden=hide?'1':'0'});
-    label.textContent=(page+1)+' / '+pages+' · '+active.length+' PLAYS';prev.disabled=page===0;next.disabled=page>=pages-1;
-   };
-   prev.addEventListener('click',()=>{page=Math.max(0,page-1);refresh()});
-   next.addEventListener('click',()=>{page++;refresh()});
-   const tabs=document.getElementById('pbTabs');
-   tabs?.addEventListener('click',()=>{page=0;requestAnimationFrame(refresh)});
-   if(window.MutationObserver)new MutationObserver(()=>requestAnimationFrame(refresh)).observe(cards,{childList:true,subtree:true,attributes:true,attributeFilter:['class','style']});
-   refresh();
+   const actions=document.createElement('div');actions.className='ui-playbook-actions';
+   actions.append(flip,call);
+   footer.append(nav,actions);
+   sheet.appendChild(footer);
   }
-  const hud=document.getElementById('hud');
-  if(hud){
-   [...hud.querySelectorAll('*')].filter(el=>el.children.length===0&&/STAR\s*PLAY|STAR\s*PLAYER/i.test((el.textContent||'').trim())).forEach(el=>{
-    const target=el.closest('.starPlay,.star-play,.starMeter,.star-meter,[data-star-play]')||el.parentElement;
-    if(target&&!target.classList.contains('ui-scoreboard-star-play-hidden'))target.classList.add('ui-scoreboard-star-play-hidden');
+
+  const rewriteTruckAchievement=()=>{
+   const panel=document.getElementById('goalsP');
+   const root=panel&&panel.querySelector('#ui-goals-panel-achievements');
+   if(!root)return;
+   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+   const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+   nodes.forEach(node=>{
+    const next=node.nodeValue.replace(/win\\s+25\\s+trucks/ig,'Perform 25 trucks');
+    if(next!==node.nodeValue)node.nodeValue=next;
    });
-  }
-  const panel=document.getElementById('goalsP');
-  if(panel){
-   const rewrite=()=>{const root=panel.querySelector('#ui-goals-panel-achievements');if(!root)return;
-    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
-    const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
-    nodes.forEach(node=>{const next=node.nodeValue.replace(/win\s+25\s+trucks/ig,'Perform 25 trucks');if(next!==node.nodeValue)node.nodeValue=next});
-   };
-   rewrite();if(window.MutationObserver&&!panel.dataset.uiTruckCopyObserver){panel.dataset.uiTruckCopyObserver='1';new MutationObserver(rewrite).observe(panel,{subtree:true,childList:true,characterData:true})}
+  };
+  rewriteTruckAchievement();
+  if(window.MutationObserver&&!document.body.dataset.uiTruckCopyObserver){
+   document.body.dataset.uiTruckCopyObserver='1';
+   new MutationObserver(rewriteTruckAchievement).observe(document.body,{subtree:true,childList:true});
   }
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootPolish,{once:true});else bootPolish();
