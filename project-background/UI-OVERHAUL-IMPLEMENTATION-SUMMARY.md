@@ -1267,3 +1267,8 @@ The work is limited to **MY TEAM and MY SQUAD**. Existing save-backed editors, 2
 - Follow-up commits: paired identity markup `ebec6dc0b78e938e9c64d1d00c41a8897a506865`; identity card CSS `09644d3c2a7e2085b501425ec470558ef70101eb`; QA identity assertion `a2ed087defb74e2dbef8544f3cd6f21c92b045f1`.
 
 The latest Stage Two QA source is committed, but its Actions result is not yet verified. The QA sequence captures `my-team-portrait.png`, `my-squad-attributes-portrait.png`, and `my-squad-gear-portrait.png`. The first browser run must be inspected for functional regressions, 390×844 clipping, fixed roster strip behavior, and actual screenshot fidelity. No golden snapshots changed.
+
+
+### Stage Two browser QA — Run #275 queued/in progress
+
+The latest Stage Two code/QA commit is `a217742d20b36e626d9b43a327df1fcebe786606`. GitHub Actions [Run #275](https://github.com/tinytime/Tinytime.github.io/actions/runs/45517810094), run ID `45517810094`, checks out that exact SHA. At the last poll, job `browser-qa` was in progress: checkout and Node setup succeeded; Playwright/Chromium installation was running; browser assertions had not started and no artifact was uploaded yet. Earlier push-triggered runs were cancelled by the branch concurrency guard as newer Stage Two commits arrived; Run #275 is the first run against the consolidated Stage Two QA commit. Await its final result before assessing implementation.
