@@ -1,3 +1,12 @@
+## Owner polish follow-up — fumble and Playbook (2026-11-25)
+
+- Owner feedback: enlarge the live fumble prompt/event label; relocate the Playbook star-charge control to the bottom-left beneath play categories; center the play explanation in the remaining footer space.
+- CSS implementation: `8e2363e316678762c6660e64a3466ef1c9d3310e`; browser QA assertions: `9153b877bcd8ba1073d7614fd49cee4ba26331c4`; latest QA-triggering CSS commit: `75c8bab3b1b4a2bd68a632b97379f0b1f59c18e4`.
+- Run #490 is executing against the latest CSS-trigger commit. Do not mark these changes verified until its assertions, report and screenshots have been inspected.
+- No gameplay logic, star-charge behavior, favorite behavior, or golden snapshots were intentionally changed.
+
+---
+
 ## UI Overhaul — latest verified checkpoint (2026-11-25)
 
 - Current branch: `UI-Overhaul`; latest application-code commit validated by browser QA: `abc60524d6f3bf491fbb87e5bd22967b720a6004`. Subsequent commits are documentation-only.
