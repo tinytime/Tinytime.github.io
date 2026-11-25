@@ -2290,3 +2290,11 @@ body.land #bHurdle,body.land #bHurdle.dive{
 #app #team .ui-team-trail-hint{display:block;flex:1 0 100%;margin:-4px 0 3px 2px;color:#AAB2C2;font-size:10px;line-height:1.25}
 #app #team>.btnrow{flex:none}
 @media(max-height:720px) and (orientation:portrait){#app #team>#tPrev{height:clamp(125px,21vh,165px)!important}}
+
+
+/* Keep squad resource badges legible beside the title on narrow portrait screens. */
+#app #sqTop{display:flex!important;align-items:center!important;gap:8px!important;}
+#app #sqTop h2{flex:1 1 auto!important;min-width:0!important;}
+#app #sqPts{flex:0 0 auto!important;width:max-content!important;min-width:max-content!important;white-space:nowrap!important;}
+#app #sqPts .ui-squad-metric{flex:0 0 auto!important;white-space:nowrap!important;}
+@media(max-width:390px){#app #sqPts{gap:4px!important;}#app #sqPts .ui-squad-metric{padding:4px 6px!important;}}
