@@ -86,6 +86,8 @@ try{
  const visualMenuTileGeometry=[...menuTileGeometry].sort((a,b)=>a.y-b.y||a.x-b.x);
  check('Menu consolidates squad/upgrades, team, playbook and goals into a clean 2×2 grid',visualMenuTileGeometry.length===4&&visualMenuTileGeometry.map(x=>x.label).join('|')==='MY SQUAD / UPGRADES|MY TEAM|PLAYBOOK|GOALS & STATS'&&Math.abs(visualMenuTileGeometry[0].y-visualMenuTileGeometry[1].y)<3&&visualMenuTileGeometry[2].y>visualMenuTileGeometry[0].y&&Math.abs(visualMenuTileGeometry[2].y-visualMenuTileGeometry[3].y)<3&&Math.abs(visualMenuTileGeometry[0].x-visualMenuTileGeometry[2].x)<3&&Math.abs(visualMenuTileGeometry[1].x-visualMenuTileGeometry[3].x)<3,visualMenuTileGeometry);
  check('Menu card labels do not clip',menuTileGeometry.every(x=>x.textFits),menuTileGeometry);
+ const menuVerticalFit=await page.locator('#menu').evaluate(el=>{const support=el.querySelector('.ui-menu-support').getBoundingClientRect(),content=el.querySelector('.ui-menu-content').getBoundingClientRect(),town=el.querySelector('.ui-menu-foot').getBoundingClientRect(),scroll=el.querySelector('.ui-menu-content');return{supportBottom:support.bottom,contentBottom:content.bottom,contentScrollHeight:scroll.scrollHeight,contentClientHeight:scroll.clientHeight,townBottom:town.bottom,viewportHeight:innerHeight}});
+ check('Consolidated menu keeps DATA & SUPPORT and BACK TO TOWN within the portrait screen',menuVerticalFit.supportBottom<=menuVerticalFit.contentBottom+1&&menuVerticalFit.contentScrollHeight<=menuVerticalFit.contentClientHeight+2&&menuVerticalFit.townBottom<=menuVerticalFit.viewportHeight,menuVerticalFit);
 
  await page.setViewportSize({width:390,height:844});
  check('Combined MY SQUAD / UPGRADES tile and MY TEAM remain available',menuTileGeometry.some(x=>x.label==='MY TEAM')&&menuTileGeometry.some(x=>x.label==='MY SQUAD / UPGRADES'));
@@ -144,7 +146,7 @@ try{
  const upgradeLabels=await page.locator('#sqBody .ustat button').allTextContents();
  check('Attribute upgrade buttons show point costs with the P unit',upgradeLabels.length>0&&upgradeLabels.every(label=>label.trim()==='MAX'||/^\\+2 \\u00b7 \\d+P$/.test(label.trim())),upgradeLabels);
  await page.screenshot({path:path.join(out,'my-squad-attributes-portrait.png'),fullPage:true});
- await page.locator('#sqTabs button').nth(2).click(); await page.locator('#sqTabs button').nth(2).click();
+ await page.locator('#sqTabs button').nth(2).click();
  check('CAREER tab remains available within MY SQUAD',await page.locator('#sqTabs button').nth(2).getAttribute('class').then(x=>x.includes('on')));
  await page.screenshot({path:path.join(out,'my-squad-career-portrait.png'),fullPage:true});
  await page.locator('#sBack').click();
