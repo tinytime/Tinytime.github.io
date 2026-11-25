@@ -444,17 +444,21 @@
    // Suppress that progression-only card while pre-game settings are open.
    document.querySelectorAll('[id*="unlock" i],[class*="unlock" i]').forEach(el=>{if(active){el.dataset.uiPreGameHidden='1';el.hidden=true}else if(el.dataset.uiPreGameHidden==='1'){el.hidden=false;delete el.dataset.uiPreGameHidden}});
    const hideNextUnlock=()=>{
-    const candidates=[...document.querySelectorAll('body *')].filter(el=>el.children.length===0&&/^NEXT UNLOCK\b/i.test((el.textContent||'').trim()));
-    candidates.forEach(el=>{
-     const card=el.closest('[class*="progress" i],[class*="next" i],[class*="objective" i]')||el.parentElement?.parentElement||el.parentElement;
-     if(card&&card!==menu&&!menu.contains(card)){card.dataset.uiPreGameHidden='1';card.hidden=true}
-    });
+    // The live callout may contain nested spans/icons, so do not require a text-only leaf.
+    // Find the smallest element carrying the heading, then hide its callout wrapper.
+    const candidates=[...document.querySelectorAll('body *')]
+     .filter(el=>/\bNEXT UNLOCK\b/i.test((el.textContent||'').trim()))
+     .sort((a,b)=>(a.textContent||'').trim().length-(b.textContent||'').trim().length);
+    const label=candidates[0];
+    if(!label)return;
+    const card=label.closest('[class*="progress" i],[class*="next" i],[class*="objective" i]')||label.parentElement?.parentElement||label.parentElement;
+    if(card&&card!==menu&&!menu.contains(card)){card.dataset.uiPreGameHidden='1';card.hidden=true}
    };
    if(active){
     hideNextUnlock();
     if(!window.__uiPreGameUnlockObserver){
      window.__uiPreGameUnlockObserver=new MutationObserver(hideNextUnlock);
-     window.__uiPreGameUnlockObserver.observe(document.body,{childList:true,subtree:true});
+     window.__uiPreGameUnlockObserver.observe(document.body,{childList:true,subtree:true,characterData:true});
     }
    }else{
     window.__uiPreGameUnlockObserver?.disconnect();
