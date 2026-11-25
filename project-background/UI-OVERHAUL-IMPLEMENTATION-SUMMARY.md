@@ -6,10 +6,10 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest successful Stage Two correction commit tested: `3be8785d5a250d65430f7c50571d5d0d428a9d36` on `UI-Overhaul`; Run #313 passed 221/221 browser assertions. Artifact `14985344956` was downloaded and portrait, desktop, narrow-menu, MY TEAM, MY SQUAD, Fumble and defense-simulation screenshots were inspected.
-- Prior Stage Two baseline Run #297 passed 216/216 against `02fbc1d9761812fbd49e0815574f1bf82c1e40a3`; Run #313 adds the independent-review correction coverage.
+- Latest successful Stage Two code/QA commit tested: `8aff7da49a4a5bafc255f3fc073783803469377c` on `UI-Overhaul`; Run #315 passed 222/222 browser assertions. Artifact `14987300342` was downloaded and portrait, desktop, narrow-menu, MY TEAM identity/uniform/trails including the scrolled trail-list end, MY SQUAD, Fumble and defense-simulation screenshots were inspected.
+- Prior Stage Two correction Run #313 passed 221/221 against `3be8785d5a250d65430f7c50571d5d0d428a9d36`; Run #315 adds the scrolled trail-list visibility assertion.
 - Stage One: owner-approved. Run #291 verifies the Round 5 Fumble geometry/palette assertions; its actual screenshot was inspected and the meter/countdown are aligned in the usable left field lane with clear separation from the A control.
-- Stage Two: MY TEAM and MY SQUAD are implemented; independent-review findings have been addressed. Run #313 passes 221/221 on the exact correction commit, and the updated menu, MY TEAM and MY SQUAD screenshots plus Stage One regression captures have been visually inspected.
+- Stage Two: MY TEAM and MY SQUAD are implemented; independent-review findings have been addressed. Run #315 passes 222/222 on the exact code/QA commit, and the updated menu, MY TEAM, MY SQUAD and Stage One regression screenshots have been visually inspected.
 - Owner approval of Stage Two: **pending**. Independent review feedback: received and addressed. Do not begin Stage Three until the owner approves Stage Two.
 
 ## 1. Read this first in a new chat
@@ -152,7 +152,7 @@ The branch subsequently advanced through commits that adjust tab visibility, ope
 ## 8. Immediate next actions
 
 1. **Owner Stage Two review / approval.** The independent review findings supplied on 2026-11-25 have been implemented and verified. Present the updated package and Run #313 evidence for the owner's final review. Do not mark Stage Two approved until the owner explicitly approves it.
-2. **Preserve the tested baseline.** Run #313 tested exact code/QA commit `3be8785d5a250d65430f7c50571d5d0d428a9d36`; documentation-only commits may advance branch HEAD. Recheck live HEAD and Actions before any further implementation.
+2. **Preserve the tested baseline.** Run #315 tested exact code/QA commit `8aff7da49a4a5bafc255f3fc073783803469377c`; documentation-only commits may advance branch HEAD. Recheck live HEAD and Actions before any further implementation.
 3. **After Stage Two owner approval only**, begin Stage Three (GOALS & STATS) using Section 4 of the handoff. Map its existing DOM/state and acceptance criteria before changing code.
 4. Keep all changes on `UI-Overhaul`. Do not modify `main`, NPC workstream files, gameplay/save/progression behavior, or golden snapshots without explicit authorization.
 
@@ -161,8 +161,8 @@ The branch subsequently advanced through commits that adjust tab visibility, ope
 - MY TEAM: added header BACK control and live UPG status badge; stacked PICK LOGO at full width above the emblem.
 - MY SQUAD: cost labels now include the `P` unit (for example `+2 · 3P`); VISOR and ARM SLEEVES are displayed inline directly below JERSEY NUMBER, eliminating the nested BACK TO STYLE step.
 - Menu: consolidated navigation into a gold MY SQUAD tile (subtitle “Starters & upgrades”), MY TEAM, PLAYBOOK and GOALS & STATS in a 2×2 grid. DATA & SUPPORT and BACK TO TOWN fit in portrait.
-- Browser QA: [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570), 221/221 passed, zero page/console/same-origin errors. Artifact [14985344956](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570/artifacts/14985344956).
-- Actual screenshots inspected: `portrait-menu.png`, `desktop-menu.png`, `narrow-menu-360.png`, `my-team-portrait.png`, `my-squad-attributes-portrait.png`, `my-squad-style-gear-portrait.png`, plus Stage One regression captures `overworld-portrait.png`, `match-fumble-pile.png` and `match-defense-simulation.png`.
+- Browser QA: [Run #315](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797), 222/222 passed, zero page/console/same-origin errors. Artifact [14987300342](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797/artifacts/14987300342).
+- Actual screenshots inspected: `portrait-menu.png`, `desktop-menu.png`, `narrow-menu-360.png`, `my-team-portrait.png`, `my-team-uniform-portrait.png`, `my-team-trails-portrait.png`, `my-team-trails-bottom-portrait.png`, `my-squad-attributes-portrait.png`, `my-squad-style-gear-portrait.png`, plus Stage One regression captures `overworld-portrait.png`, `match-fumble-pile.png` and `match-defense-simulation.png`.
 - No golden snapshots or provenance changed.
 ## 9. Required status language
 
