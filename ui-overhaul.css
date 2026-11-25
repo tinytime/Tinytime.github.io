@@ -2654,3 +2654,9 @@ body.ach-toast-active #app #dcall{
 #menu .ui-menu-credit-details p{max-height:none!important;overflow:visible!important;white-space:normal;overflow-wrap:anywhere}
 #menu #uiMenuCredits{min-height:0;overflow-y:auto;overscroll-behavior:contain}
 #menu .ui-menu-build-trigger{font-size:10px;letter-spacing:.08em}
+
+/* D4: keep the favourite affordance outside the title's text measure. */
+#app #sheet .cardWrap{position:relative;min-width:0}
+#app #sheet .cardWrap>.fav{position:absolute;z-index:3;top:3px;right:3px;width:21px;height:21px;padding:0;display:grid;place-items:center;border:0;border-radius:6px;background:rgba(19,22,32,.94);font-size:13px;line-height:1}
+#app #sheet .card b{padding-right:23px!important}
+#app #sheet .card canvas{height:68px!important;min-height:58px;flex:none!important}
