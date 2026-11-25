@@ -1,3 +1,19 @@
+## Owner polish follow-up — fumble typography and Playbook footer (2026-11-25)
+
+**Requested changes**
+- Increase the fumble event label and MASH instruction typography.
+- Position the star-charge control at the bottom-left of the in-match Playbook, below the category rail.
+- Center the play explanation in the space between the star-charge control and the primary play action.
+
+**Implementation**
+- CSS commit: `8e2363e316678762c6660e64a3466ef1c9d3310e`.
+- QA coverage commit: `9153b877bcd8ba1073d7614fd49cee4ba26331c4`.
+- Latest QA-triggering CSS commit: `75c8bab3b1b4a2bd68a632b97379f0b1f59c18e4`.
+- Browser QA Run #490 is running against that latest commit. Verification and visual inspection are pending.
+- Changes are presentation-only; no star-charge, play selection, favorite, fumble or other gameplay behavior was intentionally changed. No golden snapshots were modified.
+
+---
+
 ## UI Overhaul QA checkpoint — Run #487 passed (2026-11-25)
 
 - Verified GitHub Actions [Run #487](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191) completed successfully on branch `UI-Overhaul`, testing code commit `abc60524d6f3bf491fbb87e5bd22967b720a6004`. The run's browser-qa job, test step, and evidence upload all succeeded.
