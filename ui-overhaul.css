@@ -2529,4 +2529,4 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #uiTitleStart:active{transform:translateY(2px);box-shadow:0 3px 0 rgba(0,0,0,.48)}
 #uiTitleSettings{height:40px;background:transparent;border:0;color:#fff;font-family:var(--disp,"Arial Narrow",sans-serif);font-size:19px;font-weight:900;letter-spacing:.1em;text-shadow:0 2px 5px #000}
 .ui-title-version{font:800 15px var(--ui,Arial,sans-serif);letter-spacing:.08em;color:rgba(225,235,255,.55);text-shadow:0 2px 4px #000}
-@media (min-aspect-ratio:1/1){.ui-title-screen .title-scene{object-fit:contain;background:#050914}.ui-title-brand{padding-top:clamp(12px,3vh,30px)}.ui-title-actions{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 10px);width:min(56%,430px)}}
+@media (min-aspect-ratio:1/1){.ui-title-screen .title-scene{object-fit:contain;background:#050914}.ui-title-brand{padding-top:clamp(12px,3vh,30px)}.ui-title-circuit{font-size:clamp(30px,5.4vw,54px)}.ui-title-football{font-size:clamp(30px,5.6vw,56px)}.ui-title-rpg{font-size:clamp(26px,4.4vw,42px)}.ui-title-actions{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 10px);width:min(56%,430px)}}
