@@ -1,3 +1,12 @@
+## Team Stats card outline correction — implementation complete, QA pending (2026-11-25)
+
+- Owner clarified that the yellow outlines remain on the individual boxes in GOALS & STATS > TEAM STATS; the previous correction covered only the three tabs.
+- Root cause: the legacy `#goalsP .ui-goals-stat-card` presentation rule applies a gold inset `box-shadow` inside each cyan border.
+- Corrected `#ui-goals-panel-stats .ui-goals-stat-card` to retain its cyan frame and use `box-shadow:none`, removing the inner gold ring from all four Team Stats cards.
+- Added a browser QA assertion that checks all four cards for a 2px cyan border and no box shadow.
+- CSS commit: `aa6781d3ea875e02618b2dd6de9ce34f08dd5430`; QA commit: `43b820fd56cea408e10c2e179509ee511caa2706`.
+- Verification status: implementation is committed; the new assertion has not yet been confirmed by a completed Actions run. Run #457 was superseded/cancelled while its upload step was still running. No golden snapshots were changed.
+
 ## Review polish checkpoint — Run #456 passed; Goals tab refinement underway (2026-11-25)
 
 - Run [#456](https://github.com/tinytime/Tinytime.github.io/actions/runs/45703042276) tested exact commit `ce4641fe39fb5700786ff40cda0aacc0b43e08f1` and passed **286/286 checks**, zero failures, zero page exceptions, zero console errors and zero same-origin HTTP failures. Artifact: [15064785874](https://github.com/tinytime/Tinytime.github.io/actions/runs/45703042276/artifacts/15064785874).
