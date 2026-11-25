@@ -2631,7 +2631,7 @@ body.ach-toast-active #app #dcall{
 #app #sheet .cardWrap{min-width:0}
 #app #sheet .card{padding:4px 4px 6px}
 #app #sheet .card b{max-width:calc(100% - 17px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#app #sheet .card canvas{width:min(100%,96px);height:68px;object-fit:contain}
+#app #sheet .card canvas{width:min(100%,112px);height:68px;object-fit:contain}
 #app #sheet .card .fav{right:4px;top:4px;font-size:12px}
 #app:has(#dcall:not([hidden])) #bDown,#app:has(#tick:not([hidden])) #bDown{visibility:hidden}
 #end #endScore{position:relative;z-index:2}
