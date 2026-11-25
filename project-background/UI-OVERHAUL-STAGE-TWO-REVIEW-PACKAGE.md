@@ -4,10 +4,11 @@
 **Design authority:** owner-supplied *Circuit Football — UI Overhaul Handoff Spec*, Section 3, pages 5–6  
 **Implementation branch:** `UI-Overhaul`  
 **Run #291 baseline code commit:** `381363ff1caae36c080b7a9f3cf73af6f4a77046`  
-**Post-Run #291 CSS correction:** `71e1a20af05483d45ea832d0193e68d9f557b1fc`  
-**Post-fix QA assertions:** `2cd3b457eca4b36481298a3d6dfab79e95fa0573` (fresh run pending)  
-**Browser QA:** [Run #291](https://github.com/tinytime/Tinytime.github.io/actions/runs/45522385402) — successful, 212/212 assertions  
-**Evidence artifact:** [Artifact 14981780185](https://github.com/tinytime/Tinytime.github.io/actions/runs/45522385402/artifacts/14981780185)
+**CSS root-selector correction:** `71e1a20af05483d45ea832d0193e68d9f557b1fc`  
+**Run #295 verified correction:** `2cd3b457eca4b36481298a3d6dfab79e95fa0573`  
+**Browser QA:** [Run #295](https://github.com/tinytime/Tinytime.github.io/actions/runs/45526079186) — successful, 216/216 assertions  
+**Evidence artifact:** [Artifact 14982981067](https://github.com/tinytime/Tinytime.github.io/actions/runs/45526079186/artifacts/14982981067)  
+**Additional STYLE & GEAR QA:** `0689410f424ba8947ae3554d891002b7cefc2fd4` — Run #296 in progress
 
 ## Scope
 
@@ -52,7 +53,7 @@ Also inspect `portrait-menu.png` and `desktop-menu.png` for menu tile order and 
 
 ## Automated QA evidence
 
-Run #291 tested the exact code commit above and completed successfully:
+Run #295 tested the CSS-corrected code/QA commit above and completed successfully:
 
 - 212 assertions passed; zero failed assertions.
 - Zero uncaught page exceptions.
@@ -69,6 +70,12 @@ Run #291 tested the exact code commit above and completed successfully:
 ## Reviewer instructions
 
 Please compare the actual screenshots to the handoff mockups, not just the automated report. Give separate scores and concrete findings for MY TEAM, MY SQUAD, and menu integration. Call out any visual defects, unclear hierarchy, cramped controls, clipping, weak contrast, inconsistent spacing, or divergence from the reference. Distinguish blocking defects from polish recommendations. Do not approve the work merely because automated QA passed.
+
+## Run #295 correction verification
+
+Run #295 succeeded on commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573`: 216/216 assertions, zero page exceptions, console errors, or same-origin HTTP failures. Artifact 14982981067 was downloaded and the refreshed MY TEAM, MY SQUAD attributes, and gear-subview screenshots were visually inspected. The Stage Two palette now renders; MY TEAM SAVE & EQUIP is pinned to y=784–834 in the 844px portrait viewport; PTS/CAP badges are separate and approximately 60×38px; the roster strip is pinned without overflow.
+
+The previous gear screenshot captured the gear subview, not the parent STYLE & GEAR panel. A further QA commit `0689410f424ba8947ae3554d891002b7cefc2fd4` adds assertions for NAME, SKIN TONE, JERSEY NUMBER, skin swatches and jersey-number controls, and captures `my-squad-style-gear-portrait.png`. Run #296 is in progress; do not use that screenshot until the artifact is available.
 
 ## Internal screenshot inspection and corrective follow-up
 
