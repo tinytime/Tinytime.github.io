@@ -1,3 +1,26 @@
+## Pre-game Settings separation — Run #427 passed (2026-11-25)
+
+The owner clarified that Settings opened from the title screen must be a true pre-game page: only global/main settings, with no in-game navigation tabs, team/squad/playbook/goals destinations, town/progression header, or NEXT UNLOCK banner. Back must return to the title. The in-game Settings page must retain its normal game header, tabs, and BACK TO TOWN navigation.
+
+**Implementation**
+- Commit: [`1d6021db5abdc3e9cc01f98b4ae3351c0bdf8de7`](https://github.com/tinytime/Tinytime.github.io/commit/1d6021db5abdc3e9cc01f98b4ae3351c0bdf8de7) — `Hide the exact overworld progression banner in pre-game settings`.
+- The pre-game settings mode now hides the exact `#mNext` progression banner, which had remained visible because the prior generic hide logic skipped elements inside `#menu`. Its original hidden/display state is saved for restoration when leaving pre-game mode.
+- The pre-game page keeps the main Audio, Gameplay & Display, and Danger Zone settings controls. It omits the in-game tabs and destinations and all town/progression header content.
+- The in-game Settings page retains its Circuit Football/Vapor City/UPG header, MENU/SETTINGS/CREDITS tabs, and BACK TO TOWN action.
+
+**Browser QA**
+- [Run #427](https://github.com/tinytime/Tinytime.github.io/actions/runs/45695023897) tested the exact commit above on `UI-Overhaul`.
+- **267/267 checks passed; 0 failures.** Browser job and evidence upload both succeeded.
+- `report.json`: 267 checks, zero failures, zero uncaught page errors, zero console errors, and zero same-origin HTTP failures.
+- Relevant assertions passed: title is the initial gate; title SETTINGS opens standalone pre-game settings; town/progression header and NEXT UNLOCK banner are hidden; game menu tabs/destinations are hidden; only main settings controls remain; Back returns to title; BEAT THE CIRCUIT enters the game.
+- Retrieved and visually inspected the actual artifact screenshots `title-screen-portrait.png`, `title-settings-portrait.png`, `portrait-settings.png`, and `overworld-after-return.png`. The pre-game screenshot shows only the intended settings sections with no progression banner; the in-game screenshot retains its normal header/tabs/back action; the title and returned overworld are visible in their expected states.
+- Artifact: [15060571275](https://github.com/tinytime/Tinytime.github.io/actions/runs/45695023897/artifacts/15060571275).
+- No golden snapshots were changed or approved.
+
+**Status:** pre-game Settings separation is implemented, browser-QA passing, and internally visually inspected. It is not independently reviewed by Claude or owner-approved unless the owner separately records that decision.
+
+---
+
 ## Title screen entry gate — implementation and QA complete (2026-11-25)
 
 The owner requested that the Circuit Football RPG title screen be moved from the separate NPC baseline branch into `UI-Overhaul`. It is now integrated into the UI Overhaul app; no NPC-workstream commits or files were merged.
