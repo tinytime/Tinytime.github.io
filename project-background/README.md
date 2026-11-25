@@ -10,7 +10,7 @@ Related references:
 - [UI Overhaul Plan](UI-OVERHAUL-PLAN.md) — design scope and project guardrails.
 - [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) — current implementation and QA handoff.
 - [UI Overhaul Claude Review Package](UI-OVERHAUL-CLAUDE-REVIEW-PACKAGE.md) — exact Stage One independent-review scope and evidence.
-- [UI Overhaul Stage Two Review Package](UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md) — independent findings, Run #313 correction evidence and owner approval gate.
+- [UI Overhaul Stage Two Review Package](UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md) — independent findings, Run #315 correction evidence and owner approval gate.
 - [UI Overhaul workstream README](../ui-overhaul/README.md) — workstream history and implementation notes.
 
 When working on the UI overhaul, use branch `UI-Overhaul`, verify its live HEAD and latest Actions, and do not confuse the separate civilian-vector workstream below with the Circuit Football UI work.
