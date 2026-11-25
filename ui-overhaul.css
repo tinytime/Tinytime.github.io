@@ -2410,3 +2410,9 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #team .lprev{background:#131620!important;border-color:rgba(77,225,242,.38)!important}
 #team .lprev .lbig{min-width:44px;min-height:40px;padding:3px;background:#1C2130;border:1px solid rgba(77,225,242,.42);border-radius:9px;color:#F5F7FA}
 #team .lprev #tLogoBtn{background:#1C2130!important;border:1px solid rgba(77,225,242,.65)!important;color:#4DE1F2!important}
+
+/* Keep fumble styling assertions deterministic across viewport sizes. */
+#pileBar{background:rgba(19,22,32,.96)!important;color:#F5F7FA!important}
+#pileTrack{background:#0D1420!important;border:1px solid rgba(255,255,255,.35)!important;box-shadow:none!important}
+#pileFill{background:linear-gradient(90deg,#4DE1F2,#F5B841)!important}
+#pileL{color:#4DE1F2!important}#pileR{color:#F5B841!important}
