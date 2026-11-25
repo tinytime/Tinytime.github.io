@@ -1,3 +1,16 @@
+## UI Overhaul — latest verified checkpoint (2026-11-25)
+
+- Current branch: `UI-Overhaul`; verified HEAD: `abc60524d6f3bf491fbb87e5bd22967b720a6004`.
+- Latest browser QA: [Run #487](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191) passed on that exact commit: **300/300 checks, 0 failures**, 0 page errors, 0 console errors, and 0 same-origin request failures. Evidence artifact: [ui-overhaul-browser-qa (artifact 15071354604)](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191).
+- The D12 play-by-play ticker now renders opaque white text on a solid navy panel; the TAP TO SKIP hint remains visible. The portrait rotation prompt is fully within the 390×844 viewport and is dismissed on return to landscape.
+- Run #484 exposed a real queue-priority issue: queued achievement toasts could delay the deferred defense-selection panel. Commit `abc60524d6f3bf491fbb87e5bd22967b720a6004` prioritizes the waiting defense panel after the active toast clears, then resumes remaining achievement toasts. Run #487 verified the panel returns only after the drive ticker and toast are clear.
+- Run #482 previously passed 297/297 checks on `ac2168937ce96a9f197cecf29cae62956818d602`; its inspected screenshots confirmed the D6 post-game layout (without restoring the removed rewards card), D9 Goals & Stats styling, D4 Playbook layout, MY SQUAD Style & Gear/Career palette, credits views, and D12 loss fixture. D8 catalogue counts reconcile to RUN 3 / PASS 12 / TRICK 4, with four intentionally grouped trick plays.
+- Key implementation commits: ticker styling `3e0ff82410722473618373968e1e2b4def656814`; ticker/rotation QA `75d669d30a8eceff53443168cc22bc74e0c49c80`; full-drive QA wait `a61d97d0a8d3bee9335dafc4182a488e6e67f1b5`; queued-defense priority fix `abc60524d6f3bf491fbb87e5bd22967b720a6004`.
+- No golden snapshots were changed. This is internally implemented, browser-tested, and visually inspected; **Claude independent review and owner approval are still pending**.
+- Next step: prepare the consolidated Claude review package using the exact tested commit, Run #487 report, and selected screenshots. See the [implementation plan](UI-OVERHAUL-INDEPENDENT-REVIEW-IMPLEMENTATION-PLAN.md) and [implementation summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for detail.
+
+---
+
 ## Playbook / FLIP corrective pass — implementation committed; Run #468 still executing (2026-11-25)
 
 - Run [#467](https://github.com/tinytime/Tinytime.github.io/actions/runs/45705390851) completed against commit 24f86d2e6f4628d093eb478f1cf4e1732cb48022: 292/294 checks passed. The two remaining failures were the D4 Playbook title-width assertion and D3 FLIP default gold-outline assertion. The run had zero page exceptions, console errors and same-origin HTTP failures.
