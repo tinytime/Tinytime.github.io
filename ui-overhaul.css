@@ -2255,3 +2255,7 @@ body.land #bHurdle,body.land #bHurdle.dive{
 #app #team .ui-team-identity .lprev #tLogoBtn{font-size:10px!important;padding:0 7px;min-width:0;flex:1}
 #app #team .ui-team-identity .lprev .lbig{min-width:34px;min-height:36px}
 @media(max-width:350px){#app #team .ui-team-identity{grid-template-columns:minmax(0,1fr) minmax(100px,.8fr);gap:4px 6px;padding:7px}}
+
+#app #team #trRow{grid-column:1/-1;min-width:0;padding-top:7px;border-top:1px solid rgba(77,225,242,.18)}
+#app #team #trRow .chips{display:flex;flex-wrap:wrap;gap:6px}
+#app #team #trRow .chip{min-height:30px;padding:0 9px;font-size:10px!important}
