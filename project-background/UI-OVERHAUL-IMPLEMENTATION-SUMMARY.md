@@ -1509,3 +1509,20 @@ QA coverage was updated for the new post-game visibility, exact fumble center, r
 - All other reported checks in Run #364 passed, including the removed post-game Style Points display, practice-win layout, challenge copy, palette checks, and no page/console/network errors.
 - The run uploaded artifact `14995804055`; its screenshots still require visual inspection after the alignment correction is validated by a new run.
 - **Next action:** verify the latest branch SHA and inspect the next browser-QA run and fresh screenshots. Do not treat this cross-stage pass as complete until the exact current commit passes and visual inspection is complete. Stage Four remains in progress and not owner-approved.
+
+## Cross-stage feedback verification — Run #365 (2026-11-25)
+
+- Run #365 ([workflow 45557165949](https://github.com/tinytime/Tinytime.github.io/actions/runs/45557165949)) passed on the exact tested implementation SHA `fa7ca59b35654747a942ffd18aa2fb7b88fd6a60`.
+- Browser QA report: **249 checks, 0 failures**, 0 page errors, 0 console errors, and 0 same-origin HTTP failures. Evidence artifact: `14996048088` (45 screenshots).
+- The fumble meter and countdown now share the exact viewport center (x=422 in an 844px viewport). The countdown is directly beneath the meter in a gold-edged navy pill; the A mash button clears the meter. The prompt, track, labels and button use the navy/gold/cyan palette.
+- Verified all seven owner feedback items in automated checks and evidence:
+  1. Post-game Style Points display absent, including practice-win mode.
+  2. Fumble meter/countdown centered, palette aligned, and A button clear of meter.
+  3. Playbook duplicate down-and-distance header hidden; selected state and FLIP styling consistent.
+  4. Pre-game matchup remains open until explicit TAP TO PLAY confirmation.
+  5. Receiving receptions and yards are large white values with small subordinate REC/YDS labels.
+  6. Move challenges use “Perform …” wording.
+  7. MY TEAM logo picker retains the updated navy/cyan/gold surface.
+- Inspected fresh Run #365 screenshots for fumble pile, playbook overlay, pre-game matchup, post-game (regular and practice-win), Team Stats, Challenges, and MY TEAM. The timer is visibly centered beneath the fumble meter; the playbook has no stray gold oval or duplicate down/distance; receiving values and units have the intended hierarchy; challenge copy and logo palette are correct. No new visual defects were identified in these reviewed captures.
+- No golden snapshots were changed. Run #365 tests the CSS implementation commit; the later documentation-only commits are not part of that tested SHA.
+- **Status:** the seven cross-stage corrections are implemented, automated-QA passing, and visually inspected. They are not separately owner-approved. Stage Four remains in progress and awaits the owner's review/approval before any next stage.
