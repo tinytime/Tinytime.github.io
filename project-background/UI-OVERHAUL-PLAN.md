@@ -7,9 +7,9 @@
 - Working branch: `UI-Overhaul`
 - Baseline: current `main` at the time this branch was created
 - UI handoff source: `Circuit Football — UI Overhaul Handoff Spec.docx` (14 pages; supplied in the project conversation)
-- Implementation status: Stage One is owner-approved. Stage Two MY TEAM / MY SQUAD and the independent-review correction round are implemented.
-- Latest successful Stage Two code/QA-tested commit: `3fe58d3778fbee7b310b400dc9d1b9548264ba59`; [Run #322](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337) passed **224/224** with zero page/console/same-origin errors; artifact `14986404860` was visually inspected.
-- Independent Stage Two review findings (MY TEAM 8/10, MY SQUAD 8.5/10, menu 7.5/10) have been addressed. Stage Two owner approval is pending. Do not begin Stage Three before explicit approval.
+- Implementation status: Stage One and Stage Two are owner-approved. Stage Three GOALS & STATS is implemented, browser-tested and internally visually inspected; owner approval is pending.
+- Latest Stage Three code/QA-tested commit: `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`; [Run #331](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877) passed **230/230**; artifact `14990919745` was retrieved and Goals & Stats screenshots were visually inspected.
+- Stage Two independent-review findings and optional polish are complete; Run #322 passed 224/224. Do not begin Stage Four until Stage Three is explicitly approved.
 
 ## Source-of-truth rules
 
