@@ -1425,7 +1425,7 @@ function activateStar(c){
   F.gb=true;F.breaks=0;F.maxBreaks=c.d.special==='bulldozer'?3:1;F.spWait=false;F.spUsed=true;G.sp.ready=null;G.spArmed=false;
   fxText('\u2605 STAR PLAY! \u2605','#ffd23a');flashT=.5}
 $('#gbBtn').onclick=()=>{if(G.sp.ready){G.spArmed=!G.spArmed;SND.fx('gbArm');updateGBBtn()}};
-$('#flipBtn').onclick=()=>{G.flip=!G.flip;beep(500,.05);const keep=G.call;setupField(true);F.mode='pre';G.mode='playcall';buildCards(true);$('#flipBtn').classList.toggle('on',G.flip)};
+$('#flipBtn').onclick=()=>{G.flip=!G.flip;beep(500,.05);setupField(true);F.mode='pre';G.mode='playcall';show('#sheet',true);show('#setbar',false);buildCards(true);$('#flipBtn').classList.toggle('on',G.flip)};
 function ddText(){const d=Math.max(1,Math.min(G.togo,100-G.los));return ORD[clamp(G.down,1,4)]+' & '+(100-G.los<=10&&G.togo>=100-G.los?'Goal':Math.ceil(d))}
 function showFourth(){
   show('#sheet',false);show('#fourth',true);
