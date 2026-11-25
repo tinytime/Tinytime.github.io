@@ -323,3 +323,12 @@ Verification:
 - Stage One remains owner-approved. Stage Two implementation and independent-review corrections are complete and browser-tested; **owner final approval is pending**. Do not begin Stage Three until approval.
 
 The implementation summary and Stage Two review package are the source of truth for detailed criteria and evidence. No golden snapshots or snapshot provenance were changed.
+
+
+## Run #315 — Stage Two trail-scroll visibility verified (2026-11-25)
+
+- Exact code/QA commit: `8aff7da49a4a5bafc255f3fc073783803469377c`.
+- [Run #315](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797) passed **222/222**, zero page/console/same-origin errors. Artifact [14987300342](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797/artifacts/14987300342) was downloaded.
+- The additional MY TEAM TRAILS check now scrolls the actual tab-content panel to its end and confirms the last locked-trail hint clears the fixed SAVE & EQUIP button. The bottom screenshot was visually inspected.
+- The MY TEAM identity/uniform/trails, MY SQUAD attributes/STYLE & GEAR, portrait/desktop/360px menu and Stage One regression screenshots remain visually inspected.
+- Stage Two is awaiting explicit owner approval; Stage Three remains gated. No golden snapshots or provenance changed.
