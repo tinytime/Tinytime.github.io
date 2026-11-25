@@ -3,9 +3,9 @@
 **Review target:** MY TEAM and MY SQUAD  
 **Design authority:** owner-supplied *Circuit Football — UI Overhaul Handoff Spec*, Section 3, pages 5–6  
 **Implementation branch:** `UI-Overhaul`  
-**Latest verified code commit:** `02fbc1d9761812fbd49e0815574f1bf82c1e40a3`  
+**Latest successful correction commit:** `3be8785d5a250d65430f7c50571d5d0d428a9d36`  
 **CSS root-selector correction:** `71e1a20af05483d45ea832d0193e68d9f557b1fc`  
-**Run #297 verified correction:** `02fbc1d9761812fbd49e0815574f1bf82c1e40a3`  
+**Latest verification:** [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570), 221/221 assertions, exact tested commit `3be8785d5a250d65430f7c50571d5d0d428a9d36`  
 **Browser QA:** [Run #297](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193) — successful, 216/216 assertions  
 **Evidence artifact:** [Artifact 14983701764](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193/artifacts/14983701764)  
 **STYLE & GEAR and defense-simulation QA:** Run #297 passed; the parent-panel and defense-simulation screenshots were inspected.
@@ -21,7 +21,7 @@ Review only the Stage Two MY TEAM and MY SQUAD changes. Do not expand scope into
 - `qa/ui-overhaul-browser-qa.mjs` — browser assertions for menu, MY TEAM tabs and locked-trail hints, MY SQUAD and broader regression coverage.
 - `project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md` — implementation handoff and current verification state.
 
-## Required visual evidence in the latest Artifact 14983701764
+## Required visual evidence in the latest Artifact 14985344956
 
 Inspect these first at 390×844 portrait:
 
@@ -67,6 +67,18 @@ Run #295 tested the CSS-corrected code/QA commit above and completed successfull
 - MY SQUAD's PTS/CAP badges, three tabs, gear subview/return, pinned roster strip and horizontal fit checks pass.
 - Fumble geometry and Stage One palette checks pass.
 
+## Independent review findings and correction round — 2026-11-25
+
+Independent Stage Two review scores: MY TEAM **8/10**, MY SQUAD **8.5/10**, Menu Integration **7.5/10**. All listed findings were addressed:
+
+- **MY TEAM — navigation:** added a clear header BACK control that returns to the menu without requiring SAVE & EQUIP; retained the existing SAVE & EQUIP action. Added a live UPG status badge driven by the overworld upgrade count.
+- **MY TEAM — logo action:** PICK LOGO is now a full-width single-line control stacked above the fox emblem. The actual 390×844 screenshot shows the button at 132.5px wide with no text overflow.
+- **MY SQUAD — cost units:** upgrade buttons display values such as `+2 · 3P`, `+2 · 2P` and `+2 · 1P`.
+- **MY SQUAD — gear hierarchy:** VISOR and ARM SLEEVES now render inline below JERSEY NUMBER in the parent STYLE & GEAR panel. The separate BACK TO STYLE subview and its extra tap are removed; toggle changes remain visible and save-backed.
+- **Menu — layout:** consolidated the separate upgrade and squad destinations into one gold MY SQUAD tile with the subtitle “Starters & upgrades”; MY TEAM, PLAYBOOK and GOALS & STATS occupy the other three positions in a 2×2 grid. DATA & SUPPORT and BACK TO TOWN fit in the portrait view. Desktop and 360px narrow screenshots were inspected.
+
+Run #313 tests the corrected state and includes assertions for each of these points. Automated QA passed 221/221 with zero page exceptions, console errors or same-origin failures. Stage Two remains pending explicit owner approval.
+
 ## Reviewer instructions
 
 Please compare the actual screenshots to the handoff mockups, not just the automated report. Give separate scores and concrete findings for MY TEAM, MY SQUAD, and menu integration. Call out any visual defects, unclear hierarchy, cramped controls, clipping, weak contrast, inconsistent spacing, or divergence from the reference. Distinguish blocking defects from polish recommendations. Do not approve the work merely because automated QA passed.
@@ -108,3 +120,17 @@ No golden snapshots or snapshot provenance were changed.
 - STYLE & GEAR: `my-squad-style-gear-portrait.png` is now the correct parent panel screenshot, not merely the nested gear subview. It visually shows the name editor, skin swatches, jersey-number controls, gear/trails entry action, player preview, and pinned starter roster with no horizontal overflow.
 - Run #297's artifact contains the Stage One regression screenshots as well as the broader Stage Two and match-flow screens. The fumble screenshot was rechecked and retains the approved meter/A-control separation.
 - **Approval gate remains open:** this package is ready for final internal reconciliation and independent Claude review, not owner approval yet. Claude review and explicit owner approval remain pending. No golden snapshots or provenance were changed.
+
+
+## Latest verification — Run #313 (2026-11-25)
+
+- Exact tested commit: `3be8785d5a250d65430f7c50571d5d0d428a9d36`.
+- [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570): **221/221 passed**, zero failures, zero page exceptions, zero console errors and zero same-origin failures.
+- Evidence [Artifact 14985344956](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570/artifacts/14985344956) was downloaded and inspected.
+- Screenshots inspected: `portrait-menu.png`, `desktop-menu.png`, `narrow-menu-360.png`, `my-team-portrait.png`, `my-squad-attributes-portrait.png`, `my-squad-style-gear-portrait.png`, `overworld-portrait.png`, `match-fumble-pile.png`, and `match-defense-simulation.png`.
+- MY TEAM header and logo layout are clear; UPG reads the live count; SAVE & EQUIP remains bottom-pinned.
+- MY SQUAD cost units are legible; VISOR and ARM SLEEVES are directly below JERSEY NUMBER in the parent STYLE & GEAR view; the roster strip remains pinned.
+- The menu uses four tiles in two rows. At 360px portrait, DATA & SUPPORT and BACK TO TOWN remain visible without clipping.
+- The Fumble meter remains separated from the A control; defense simulation retains the corrected possession pill without the stale field banner.
+- Independent review findings have been addressed. **Stage Two owner approval remains pending.** Do not begin Stage Three until explicit approval. No golden snapshots or provenance were changed.
+
