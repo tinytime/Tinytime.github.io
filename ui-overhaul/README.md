@@ -295,5 +295,14 @@ Run #291 passed 212/212 automated assertions on code commit `381363ff1caae36c080
 
 - CSS root-selector correction: `71e1a20af05483d45ea832d0193e68d9f557b1fc` (116 Stage Two selectors corrected).
 - QA hardening: `2cd3b457eca4b36481298a3d6dfab79e95fa0573` (adds computed-style and fixed-action assertions).
-- Run #291 remains pre-correction evidence. The post-fix push-triggered workflow result and refreshed screenshots are not yet retrievable through the connected Actions lookup; no pass is claimed.
-- Stage Two remains in progress. Do not send the package for independent review or request owner approval until the fresh run passes and the corrected screenshots are inspected. No golden snapshots or provenance were changed.
+- Run #295 passed 216/216 against the corrected MY TEAM / MY SQUAD CSS. Artifact 14982981067 was downloaded; the refreshed MY TEAM and MY SQUAD screenshots were inspected.
+- Run #296 exposed a real stale field-banner defect in defense simulation. CSS commit `02fbc1d9761812fbd49e0815574f1bf82c1e40a3` corrected the selector scope. Run #297 passed 216/216 against that exact commit; artifact 14983701764 was downloaded and inspected. The defense-simulation screenshot confirms the old banner is suppressed, and the dedicated parent STYLE & GEAR screenshot shows the name, skin tone, jersey number and gear-entry controls.
+- Stage Two remains in progress pending final package reconciliation, Claude independent review, and explicit owner approval. No golden snapshots or provenance were changed.
+
+
+## Run #297 verification — 2026-11-25
+
+- [Run #297](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193) passed **216/216** browser assertions on `02fbc1d9761812fbd49e0815574f1bf82c1e40a3`.
+- Artifact [14983701764](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193/artifacts/14983701764) was retrieved. The defense-simulation screenshot confirms the duplicate/stale field banner no longer overlays the possession pill. The dedicated MY SQUAD STYLE & GEAR parent-panel screenshot confirms the name field, skin swatches, jersey-number controls and gear/trails entry action.
+- The artifact also contains the broad Stage One and match-flow regression screenshots, including Fumble; the Fumble meter and A control remain distinctly separated.
+- Stage Two is still awaiting independent Claude review and owner approval. See `project-background/UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md` and the implementation summary for full evidence and remaining gates.
