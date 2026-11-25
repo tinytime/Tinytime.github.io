@@ -1464,7 +1464,7 @@ function pbTabs(){
     b.onclick=()=>{if(PB.tab===t)return;PB.tab=t;PB.pg=0;beep(520,.04);const L=pbList();if(L.length&&!L.includes(G.sel))G.sel=L[0];buildCards(true)};box.appendChild(b)}}
   for(const b of box.children){const t=b.dataset.t,n=t==='ALL'?PLAYS.length:t==='FAV'?PLAYS.filter(p=>favs().includes(p.id)).length:PLAYS.filter(p=>pbGrp(p)===t).length;b.classList.toggle('on',PB.tab===t);b.disabled=!n&&t!=='FAV';b.querySelector('small').textContent=(t==='FAV'&&!n)?'TAP \u2606':n+(n===1?' PLAY':' PLAYS')}}
 function pbList(){return PLAYS.map((p,i)=>i).filter(i=>PB.tab==='ALL'||(PB.tab==='FAV'?favs().includes(PLAYS[i].id):pbGrp(PLAYS[i])===PB.tab))}
-function pbFit(w,h){const cols=Math.max(2,Math.floor((w+6)/(PB_MIN.w+6))),rows=Math.max(1,Math.floor((h+6)/(PB_MIN.h+6)));return{cols,rows,n:cols*rows}}
+function pbFit(w,h){return{cols:3,rows:2,n:6}}
 function buildCards(redraw){
   const box=$('#cards');playsSync(box);
   if(!(G.sel>=0&&G.sel<PLAYS.length))G.sel=0;
