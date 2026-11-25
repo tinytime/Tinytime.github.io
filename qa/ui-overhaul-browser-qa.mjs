@@ -250,6 +250,8 @@ try{
  await page.locator('#ui-goals-tab-challenges').click();
  const challengeFrame=await page.locator('#ui-goals-panel-challenges .ui-goals-challenge').first().evaluate(el=>({border:getComputedStyle(el).borderTopWidth,color:getComputedStyle(el).borderTopColor,shadow:getComputedStyle(el).boxShadow}));
  check('Challenge cards use one restrained cyan border without a competing inset shadow',parseFloat(challengeFrame.border)===1&&challengeFrame.color==='rgba(77, 225, 242, 0.82)'&&challengeFrame.shadow==='none',challengeFrame);
+ const goalsTypeScale=await page.locator('#goalsP').evaluate(el=>({tab:parseFloat(getComputedStyle(el.querySelector('.ui-goals-tab')).fontSize),trailPill:parseFloat(getComputedStyle(el.querySelector('.ui-goals-trail-pill')).fontSize),state:parseFloat(getComputedStyle(el.querySelector('.ui-goals-state')).fontSize)}));
+ check('Goals & Stats tabs, trail pills and state labels meet the readable type scale',goalsTypeScale.tab>=11&&goalsTypeScale.trailPill>=11&&goalsTypeScale.state>=10,goalsTypeScale);
 
  const challengePanel=await page.locator('#ui-goals-panel-challenges').evaluate(el=>({cards:el.querySelectorAll('.ui-goals-challenge').length,pills:el.querySelectorAll('.ui-goals-trail-pill').length,complete:el.querySelectorAll('.ui-goals-challenge.is-complete').length}));
  check('Challenge cards show color-coded trail rewards',challengePanel.cards>0&&challengePanel.pills===challengePanel.cards,challengePanel);
