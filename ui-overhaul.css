@@ -2327,3 +2327,6 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #sqBody .ui-squad-inline-gear>div[style*="display: flex"]{min-height:34px}
 #sqBody .ui-squad-inline-gear .chip{min-width:64px;min-height:32px}
 #sqBody .ustat button{min-width:58px!important;white-space:nowrap}
+
+/* #mSquad has a more-specific legacy grid rule; explicitly override it for the four-tile layout. */
+#menu .ui-menu-grid #mSquad{grid-column:1!important;grid-row:1!important;border-color:rgba(245,184,65,.88)!important}
