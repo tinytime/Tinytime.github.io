@@ -63,6 +63,17 @@
   byId('mGoals').dataset.uiTile='goals';decorateAction(byId('mGoals'),icon('<path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4M12 12v5m-4 3h8m-7-3h6"/>'),'GOALS & STATS','Challenges and records');
   const playbookButton=document.createElement('button');playbookButton.type='button';playbookButton.className='ui-menu-playbook ui-menu-icon-card';playbookButton.dataset.uiTile='playbook';playbookButton.setAttribute('aria-label','Open playbook');playbookButton.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon('<path d="M4 18V6m0 12h16M7 15l4-4 3 2 5-7"/><path d="m16 6 3 0 0 3"/>')+'</span><span class="ui-menu-action-copy"><strong>PLAYBOOK</strong><small>'+(window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS.length:0)+' available plays</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>';
   actions.append(squadControl,byId('mTeam'),playbookButton,byId('mGoals'));
+  // The menu tile reports unlocked plays, not the full catalogue. Re-read the
+  // live array whenever the overworld menu is opened after a match unlock.
+  const updatePlaybookTileCount=()=>{
+   const small=playbookButton.querySelector('.ui-menu-action-copy small');
+   if(small)small.textContent=(window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS.length:0)+' available plays';
+  };
+  const overworldMenuButton=document.getElementById('owMenu');
+  if(overworldMenuButton)overworldMenuButton.addEventListener('click',()=>requestAnimationFrame(updatePlaybookTileCount),{capture:true});
+  if(window.MutationObserver){
+   new MutationObserver(()=>{if(!menu.hidden)updatePlaybookTileCount()}).observe(menu,{attributes:true,attributeFilter:['hidden']});
+  }
   if(squadControl){squadControl.classList.add('ui-menu-icon-card');squadControl.dataset.uiTile='squad';}
   const teamSave=byId('tBack');if(teamSave)teamSave.textContent='SAVE & EQUIP';
   const initTeamTabs=()=>{
