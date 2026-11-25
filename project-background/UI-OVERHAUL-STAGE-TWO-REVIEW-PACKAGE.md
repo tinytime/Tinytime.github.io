@@ -3,7 +3,9 @@
 **Review target:** MY TEAM and MY SQUAD  
 **Design authority:** owner-supplied *Circuit Football — UI Overhaul Handoff Spec*, Section 3, pages 5–6  
 **Implementation branch:** `UI-Overhaul`  
-**Code commit tested by QA:** `381363ff1caae36c080b7a9f3cf73af6f4a77046`  
+**Run #291 baseline code commit:** `381363ff1caae36c080b7a9f3cf73af6f4a77046`  
+**Post-Run #291 CSS correction:** `71e1a20af05483d45ea832d0193e68d9f557b1fc`  
+**Post-fix QA assertions:** `2cd3b457eca4b36481298a3d6dfab79e95fa0573` (fresh run pending)  
 **Browser QA:** [Run #291](https://github.com/tinytime/Tinytime.github.io/actions/runs/45522385402) — successful, 212/212 assertions  
 **Evidence artifact:** [Artifact 14981780185](https://github.com/tinytime/Tinytime.github.io/actions/runs/45522385402/artifacts/14981780185)
 
@@ -68,13 +70,24 @@ Run #291 tested the exact code commit above and completed successfully:
 
 Please compare the actual screenshots to the handoff mockups, not just the automated report. Give separate scores and concrete findings for MY TEAM, MY SQUAD, and menu integration. Call out any visual defects, unclear hierarchy, cramped controls, clipping, weak contrast, inconsistent spacing, or divergence from the reference. Distinguish blocking defects from polish recommendations. Do not approve the work merely because automated QA passed.
 
+## Internal screenshot inspection and corrective follow-up
+
+ChatGPT retrieved and inspected the actual Run #291 screenshots for MY TEAM, MY SQUAD attributes, MY SQUAD gear, menu integration, and Fumble. This is internal inspection of the **pre-correction** output, not approval.
+
+Two visual defects were identified:
+- MY TEAM / MY SQUAD retained legacy brown/orange styling, and MY TEAM's tabs were undersized. The save action was not pinned to the bottom: its captured bottom edge was at y=582 in an 844px viewport.
+- MY SQUAD's PTS/CAP header metrics were visually compressed.
+
+Root cause: Stage Two CSS selectors incorrectly assumed the team and squad screens were descendants of `#app`; the HTML places both screens as siblings of `#app`. The selector correction is committed in `71e1a20af05483d45ea832d0193e68d9f557b1fc` (116 selectors corrected). QA commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573` adds explicit computed-style, tab-size, bottom-pinning, and metric-presentation assertions.
+
+The corrected output has **not yet been browser-tested or visually inspected**. Run #291 and artifact 14981780185 remain pre-correction evidence only. The new push-triggered Actions run ID/result/artifact has not been retrievable through the connected GitHub status/run lookup in this session; no pass is claimed.
+
 ## Current limitations and approval gate
 
-ChatGPT's internal screenshot inspection is **not yet recorded**. The artifact has been generated and the automated run is green, but screenshot fidelity has not been independently or internally visually approved in this checkpoint.
-
 Stage Two remains **in progress** until:
-1. ChatGPT inspects the actual screenshots and resolves valid defects.
-2. Claude completes independent review and valid findings are addressed.
-3. The project owner explicitly approves the Stage Two package.
+1. The fresh browser run tests the correction commit and all new style/pinning assertions pass.
+2. ChatGPT inspects the refreshed MY TEAM / MY SQUAD screenshots and Stage One regression captures, correcting any valid defects.
+3. Claude completes independent review and valid findings are addressed.
+4. The project owner explicitly approves the Stage Two package.
 
 No golden snapshots or snapshot provenance were changed.
