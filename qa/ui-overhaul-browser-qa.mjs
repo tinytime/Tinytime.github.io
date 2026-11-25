@@ -113,6 +113,8 @@ try{
  check('MY SQUAD screen opens from its menu tile',await page.locator('#squad').isVisible());
  const squadHeader=await page.locator('#sqPts').innerText();
  check('MY SQUAD exposes separate PTS and CAP badges',await page.locator('#sqPts .ui-squad-metric').count()===2&&squadHeader.includes('PTS')&&squadHeader.includes('CAP'),squadHeader);
+ const squadMetricGeometry=await page.locator('#sqPts .ui-squad-metric').evaluateAll(nodes=>nodes.map(el=>{const r=el.getBoundingClientRect();return{x:r.x,right:r.right,width:r.width,height:r.height,text:el.innerText.trim(),display:getComputedStyle(el).display}}));
+ check('MY SQUAD PTS and CAP badges remain full-size and visually separated in portrait',squadMetricGeometry.length===2&&squadMetricGeometry.every(x=>x.width>=48&&x.height>=20&&x.display==='flex')&&squadMetricGeometry[1].x>=squadMetricGeometry[0].right,squadMetricGeometry);
  const squadTabs=await page.locator('#sqTabs button').allTextContents();
  check('MY SQUAD uses the three handoff tabs',squadTabs.map(x=>x.trim()).join('|')==='ATTRIBUTES|STYLE & GEAR|CAREER',squadTabs);
  check('MY SQUAD keeps the 2.5D player preview and pinned starter roster strip',await page.locator('#sqCv').isVisible()&&await page.locator('#sqStrip .sqc').count()>0);
