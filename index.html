@@ -1080,7 +1080,7 @@ function renderSquad(){
   if(sqSel.t==='b'){const bt=document.createElement('button');bt.textContent='START';bt.onclick=()=>{
     const slots=SLOTS.filter(s=>posOf(s)===p.pos);let weak=slots[0];for(const s of slots)if(ovr(SAVE.starters[s])<ovr(SAVE.starters[weak]))weak=s;
     const i=SAVE.bench.indexOf(p);SAVE.bench.splice(i,1,SAVE.starters[weak]);SAVE.starters[weak]=p;persist();sqSel={t:'s',k:weak};renderSquad()};hd.appendChild(bt)}
-  chips($('#sqTabs'),['ATTRIBUTES','APPEARANCE','GEAR','CAREER'],['stats','look','gear','career'].indexOf(sqTab),i=>{sqTab=['stats','look','gear','career'][i];renderSquad()});   // v3.15: CAREER tab
+  chips($('#sqTabs'),['ATTRIBUTES','STYLE & GEAR','CAREER'],sqTab==='stats'?0:(sqTab==='career'?2:1),i=>{sqTab=['stats','look','career'][i];renderSquad()});   // v3.15: CAREER tab
   const box=$('#sqBody'),keep=box.scrollTop;box.innerHTML='';
   if(sqTab==='stats'){
     const key=POS_W[p.pos]||{},list=UP_STATS.slice();if(p.pos==='QB'){list.unshift(['acc','ACCURACY']);list.unshift(['thr','THROW POWER'])}
@@ -1108,8 +1108,10 @@ function renderSquad(){
     const step=dir=>{let n=sqNum(p);for(let i=0;i<100;i++){n=(n+dir+100)%100;if(!used.has(n))break}p.jn=n;persist();renderSquad()};
     const m=document.createElement('button');m.textContent='\u2212';m.onclick=()=>step(-1);const pl=document.createElement('button');pl.textContent='+';pl.onclick=()=>step(1);const nb=document.createElement('b');nb.textContent='#'+sqNum(p);
     nr.append(m,nb,pl);box.appendChild(nr);
+    const gearEdit=document.createElement('button');gearEdit.className='chip';gearEdit.style.cssText='width:100%;margin-top:10px;border-color:#F5B841;color:#F5B841';gearEdit.textContent='EDIT GEAR & TRAILS';gearEdit.onclick=()=>{sqTab='gear';renderSquad()};box.appendChild(gearEdit);
   }else if(sqTab==='career'){csRender(box,p)   // v3.15
   }else{
+    const styleBack=document.createElement('button');styleBack.className='chip';styleBack.style.cssText='width:100%;margin:2px 0 8px;border-color:#4DE1F2;color:#4DE1F2';styleBack.textContent='BACK TO STYLE';styleBack.onclick=()=>{sqTab='look';renderSquad()};box.appendChild(styleBack);
     for(const [key,lab,def] of [['visor','VISOR','#38c6d9'],['sleeve','ARM SLEEVES','#ffd23a']]){
       box.insertAdjacentHTML('beforeend','<div class="lbl">'+lab+'</div>');
       const row=document.createElement('div');row.style.cssText='display:flex;align-items:center;gap:8px;margin-bottom:4px';
