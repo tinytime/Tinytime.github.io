@@ -293,7 +293,10 @@
     const achievements=[...panel.querySelectorAll('#ui-goals-panel-achievements .ui-goals-achievement')];
     const earned=achievements.filter(card=>card.classList.contains('is-earned')).length;
     if(count){const next=earned+'/13';if(count.textContent!==next)count.textContent=next}
-    achievements.forEach(card=>{
+    achievements.forEach((card,index)=>{
+     const medal=card.querySelector('.ui-goals-medal');
+     const medalMarks=['🏈','🏃','⚡','↗','🚚','↻','🎯','💪','👐','▣','★','◆','🏆'];
+     if(medal&&medal.textContent!==medalMarks[index]){medal.textContent=medalMarks[index];medal.setAttribute('aria-hidden','true')}
      const badge=card.querySelector('.ui-goals-achievement-count');if(!badge)return;
      const maxMatch=badge.textContent.match(/\/\s*(\d+)/),max=maxMatch?Number(maxMatch[1]):(/LOCKED/i.test(badge.textContent)?1:0);
      if(max===1){const next=card.classList.contains('is-earned')?'1 / 1':'0 / 1';if(badge.textContent.trim()!==next)badge.textContent=next}
