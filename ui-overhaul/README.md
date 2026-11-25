@@ -2,6 +2,8 @@
 
 ## Workstream
 
+**Current Stage Four gate:** [Owner Review Package](../project-background/UI-OVERHAUL-STAGE-FOUR-REVIEW-PACKAGE.md) — Run #397 passed 259/259; the current polish batch awaits owner review. The pre-game matchup redesign remains deferred.
+
 - Working branch: `UI-Overhaul`
 - Baseline: `main` at `36830922fa5b99922ce583bcf3888cb297bad03c`
 - Game entry point: `index.html`
