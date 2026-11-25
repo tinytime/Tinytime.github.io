@@ -465,10 +465,14 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   };
   const favHit=await favLocator.evaluate(el=>{const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,hit=document.elementFromPoint(x,y),s=getComputedStyle(el),wrap=el.closest('.cardWrap'),card=wrap?.querySelector('.card'),cards=document.querySelector('#cards'),rect=n=>{if(!n)return null;const q=n.getBoundingClientRect();return{x:q.x,y:q.y,width:q.width,height:q.height}};return{rect:rect(el),wrapRect:rect(wrap),cardRect:rect(card),cardsRect:rect(cards),grid:{rows:getComputedStyle(cards).gridTemplateRows,columns:getComputedStyle(cards).gridTemplateColumns,autoRows:getComputedStyle(cards).gridAutoRows,autoFlow:getComputedStyle(cards).gridAutoFlow,alignContent:getComputedStyle(cards).alignContent,alignItems:getComputedStyle(cards).alignItems},cardStyle:card?{height:getComputedStyle(card).height,display:getComputedStyle(card).display,alignSelf:getComputedStyle(card).alignSelf,minHeight:getComputedStyle(card).minHeight,flex:getComputedStyle(card).flex}:null,hit:hit?.outerHTML?.slice(0,180),isFav:hit===el||el.contains(hit),position:s.position,zIndex:s.zIndex,pointerEvents:s.pointerEvents}});
   check('Playbook favorite star is the topmost pointer target above its card',favHit.isFav,favHit);
+  await page.locator('#cards .card').first().click();
+  await page.waitForFunction(()=>document.querySelectorAll('#cards .card.sel').length===1,null,{timeout:5000});
+  const selectedBefore=await page.locator('#cards .card.sel').evaluate(el=>el.dataset.i??el.getAttribute('data-i')??el.querySelector('b')?.textContent.trim());
   const favBefore=await favLocator.evaluate(el=>({on:el.classList.contains('on'),text:el.textContent.trim()}));
   const favClickTarget=await clickFavoriteAtVerifiedCenter();
   const favToggled=await favLocator.evaluate(el=>({on:el.classList.contains('on'),text:el.textContent.trim()}));
-  check('Playbook favorite star toggles independently of selecting the play',favBefore.on!==favToggled.on&&favBefore.text!==favToggled.text&&await page.locator('#cards .card.sel').count()===1,{before:favBefore,after:favToggled,clickTarget:favClickTarget});
+  const selectedAfter=await page.locator('#cards .card.sel').evaluate(el=>el.dataset.i??el.getAttribute('data-i')??el.querySelector('b')?.textContent.trim());
+  check('Playbook favorite star toggles independently of selecting the play',favBefore.on!==favToggled.on&&favBefore.text!==favToggled.text&&selectedBefore===selectedAfter,{before:favBefore,after:favToggled,selectedBefore,selectedAfter,clickTarget:favClickTarget});
   await clickFavoriteAtVerifiedCenter();
   const favRestored=await favLocator.evaluate(el=>({on:el.classList.contains('on'),text:el.textContent.trim()}));
   check('Playbook favorite test restores the original state',favRestored.on===favBefore.on&&favRestored.text===favBefore.text,{before:favBefore,restored:favRestored});
@@ -479,7 +483,7 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   const playbookLayout=await page.locator('#cards').evaluate(el=>({columns:getComputedStyle(el).gridTemplateColumns.split(' ').length,cards:[...el.querySelectorAll('.card')].map(card=>{const title=card.querySelector('b');return{text:title?.innerText.trim()||'',fontSize:title?getComputedStyle(title).fontSize:null,scroll:title?.scrollWidth||0,client:title?.clientWidth||0,width:title?.getBoundingClientRect().width||0}})}));
   check('In-match Playbook uses exactly three cards per row, six per page, and every title fits',playbookLayout.columns===3&&playbookLayout.cards.length===6&&playbookLayout.cards.every(card=>card.scroll<=card.client+1&&card.width>0),playbookLayout);
   const diagramStyle=await page.locator('#cards .card canvas').first().evaluate(el=>({filter:getComputedStyle(el).filter,background:getComputedStyle(el).backgroundColor,card:getComputedStyle(el.closest('.card')).backgroundColor}));
-  check('In-match route diagrams use neutral monochrome art and no brown/gold card fill',diagramStyle.filter.includes('grayscale(1)')&&diagramStyle.background==='rgb(16, 23, 34)'&&diagramStyle.card==='rgb(28, 33, 48)',diagramStyle);
+  check('In-match route diagrams use neutral monochrome art and no brown/gold card fill',diagramStyle.filter.includes('grayscale(1)')&&diagramStyle.background==='rgb(13, 20, 32)'&&diagramStyle.card==='rgb(28, 33, 48)',diagramStyle);
   const diagramSize=await page.locator('#cards .card canvas').first().evaluate(el=>{const r=el.getBoundingClientRect();return{width:r.width,height:r.height}});
   check('Six-play layout gives each route diagram enough space to read',diagramSize.width>=100&&diagramSize.height>=60,diagramSize);
 
