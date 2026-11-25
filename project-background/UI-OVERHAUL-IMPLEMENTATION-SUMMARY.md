@@ -1466,3 +1466,13 @@ The owner explicitly approved Stage Three (GOALS & STATS) and authorized proceed
   - changes favorite text to actual `★` / `☆` characters rather than escaped backslash-u text.
 - Run #351 (`45552534531`) is executing against exact commit `e6a951c6ff07b587cc8f76f1862c2315df1aed33`. Chromium installation passed; browser QA remains in progress at this checkpoint. Verify tested SHA, full assertion count, artifact and screenshots before making further changes.
 - Stage Four remains in progress and is not owner-approved. Continue to preserve gameplay/save/progression behavior and all golden snapshots.
+
+
+## Stage Four QA reconciliation — Run #354 (2026-11-25)
+
+- Run #354 ([workflow 45553025385](https://github.com/tinytime/Tinytime.github.io/actions/runs/45553025385)) tested exact commit `e2316e6eca437366c13a1da61567210d6d25be58` and completed **FAILED: 244/245**. The sole failure was the QA assertion for the playbook category totals, not a runtime or interaction defect: the live 19-play roster reports **3 RUN, 12 PASS, 4 TRICK**. The assertion incorrectly expected 7 RUN and 8 PASS.
+- Verified from the report: all category tabs activate correctly; play cards and route diagrams render; FLIP, selected-play treatment and CALL PLAY are present; favorite-star hit testing, independent toggle, unchanged selected play and restoration all pass. No uncaught page exceptions, console errors, or same-origin request failures were recorded.
+- Inspected artifact [14993959120](https://github.com/tinytime/Tinytime.github.io/actions/runs/45553025385/artifacts/14993959120), including `match-pre-game.png` and `match-playbook-overlay.png`. Both show the matchup and landscape playbook hierarchy rendering cleanly; the Playbook displays the correct live counts (3 / 12 / 4).
+- Corrected the stale browser-QA expected counts and assertion label in commit `6612565415fdeddb5774d689e7cb8575b447b2d8`. This is a QA-only change; no gameplay rules, match state, save/progression behavior, or golden snapshots were changed.
+- The prior renderer fix (`drawCard(c.querySelector('canvas'), ...)`) and `updateSel()` query fix are both present in the tested code. The real favorite button is now a topmost pointer target after scrolling and its state toggles/restores successfully.
+- **Next action:** run the browser QA workflow against exact current branch HEAD `6612565415fdeddb5774d689e7cb8575b447b2d8`; inspect its result and fresh screenshots. Stage Four remains **in progress and not owner-approved** until the exact latest commit passes and the full matchup → Playbook → pre-snap flow is verified.
