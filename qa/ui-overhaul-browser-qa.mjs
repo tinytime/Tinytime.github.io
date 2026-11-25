@@ -419,8 +419,8 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   await page.locator('#mu .tap').click();
   await page.waitForFunction(()=>{const e=document.querySelector('#sheet');return e&&!e.hidden},null,{timeout:10000});
   check('In-match playbook overlay opens',await page.locator('#sheet').isVisible());
-  const scoreboardStarState=await page.locator('#hud').evaluate(el=>({labels:[...el.querySelectorAll('*')].filter(n=>n.children.length===0&&/STAR\\s*PLAY|STAR\\s*PLAYER/i.test((n.textContent||'').trim())).map(n=>({text:n.textContent.trim(),visible:getComputedStyle(n).display!=='none'&&getComputedStyle(n).visibility!=='hidden'&&!!(n.offsetWidth||n.offsetHeight)})),hidden:el.querySelectorAll('.ui-scoreboard-star-play-hidden').length}));
-  check('Duplicate star-play meter is removed from the scoreboard',scoreboardStarState.labels.every(x=>!x.visible)&&scoreboardStarState.hidden>0,scoreboardStarState);
+  const scoreboardStarState=await page.evaluate(()=>({scoreboardDisplay:getComputedStyle(document.querySelector('#gb')).display,scoreboardHidden:document.querySelector('#gb').hidden,playerMeterVisible:!!(document.querySelector('#gbBtn')?.offsetWidth||document.querySelector('#gbBtn')?.offsetHeight),playerRows:document.querySelectorAll('#gbBtn .sr').length,playerFill:document.querySelector('#gbBtn .sr u i')?getComputedStyle(document.querySelector('#gbBtn .sr u i')).backgroundImage:null}));
+  check('Duplicate scoreboard star meter is hidden while the Playbook player meter remains',scoreboardStarState.scoreboardDisplay==='none'&&scoreboardStarState.playerMeterVisible&&scoreboardStarState.playerRows>0&&scoreboardStarState.playerFill.includes('77, 225, 242'),scoreboardStarState);
   check('In-match CALL PLAY action visible',await page.locator('#callBtn').isVisible());
   check('In-match selected play has gold treatment',await page.locator('#cards .card.sel').count()===1);
   check('Playbook hides duplicate down-and-distance header',await page.locator('#shDD').evaluate(el=>getComputedStyle(el).display)==='none');
@@ -440,14 +440,16 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   const originalPlaybookTab=await page.locator('#pbTabs .pbTab.on').getAttribute('data-t');
   await page.locator('#pbTabs .pbTab[data-t="ALL"]').click();
   await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
-  const playbookPageState=await page.evaluate(()=>{const cards=document.querySelector('#cards'),wraps=[...cards.querySelectorAll(':scope > .cardWrap')],footer=document.querySelector('#sheet .ui-playbook-footer'),pager=footer?.querySelector('.ui-playbook-page'),actions=footer?.querySelector('.ui-playbook-actions');return{visible:wraps.filter(w=>getComputedStyle(w).display!=='none').length,total:wraps.length,columns:getComputedStyle(cards).gridTemplateColumns.split(' ').length,rows:getComputedStyle(cards).gridTemplateRows.split(' ').length,flipInActions:!!actions?.contains(document.querySelector('#flipBtn')),callInActions:!!actions?.contains(document.querySelector('#callBtn')),label:pager?.querySelector('span')?.textContent||'',nextDisabled:pager?.querySelector('button:last-child')?.disabled}});
-  check('In-match Playbook presents a maximum of six plays in a three-column, two-row page',playbookPageState.visible<=6&&playbookPageState.visible>0&&playbookPageState.columns===3&&playbookPageState.rows===2,playbookPageState);
+  const playbookPageState=await page.evaluate(()=>{const cards=document.querySelector('#cards'),wraps=[...cards.querySelectorAll(':scope > .cardWrap')],footer=document.querySelector('#sheet .ui-playbook-footer'),pager=footer?.querySelector('#pbNav'),actions=footer?.querySelector('.ui-playbook-actions'),allCount=document.querySelector('#pbTabs .pbTab[data-t="ALL"] small')?.textContent.trim()||'';return{visible:wraps.length,totalLabel:allCount,columns:getComputedStyle(cards).gridTemplateColumns.split(' ').length,rows:getComputedStyle(cards).gridTemplateRows.split(' ').length,flipInActions:!!actions?.contains(document.querySelector('#flipBtn')),callInActions:!!actions?.contains(document.querySelector('#callBtn')),pagerInFooter:!!pager,label:pager?.querySelector('#pbPg')?.textContent.trim()||'',nextDisabled:pager?.querySelector('#pbNext')?.disabled}});
+  check('In-match Playbook renders six plays in a three-column, two-row native page',playbookPageState.visible===6&&playbookPageState.columns===3&&playbookPageState.rows===2&&playbookPageState.totalLabel==='19 PLAYS',playbookPageState);
   check('FLIP sits in the bottom action row beside CALL PLAY',playbookPageState.flipInActions&&playbookPageState.callInActions,playbookPageState);
-  check('Playbook page indicator and next-page control are available when more than six plays exist',playbookPageState.total>6&&/^1 \/ \d+ · \d+ PLAYS$/.test(playbookPageState.label)&&!playbookPageState.nextDisabled,playbookPageState);
-  await page.locator('#sheet .ui-playbook-page button:last-child').click();
-  const secondPage=await page.locator('#cards>.cardWrap').evaluateAll(es=>({visible:es.filter(e=>getComputedStyle(e).display!=='none').length,hidden:es.filter(e=>e.dataset.uiPageHidden==='1').length,label:document.querySelector('.ui-playbook-page span')?.textContent||''}));
-  check('Playbook next page reveals the next six plays without changing category',secondPage.visible<=6&&secondPage.visible>0&&/^2 \/ /.test(secondPage.label),secondPage);
-  await page.locator('#sheet .ui-playbook-page button:first-child').click();
+  check('Native Playbook page indicator and next-page control are available in the footer',playbookPageState.pagerInFooter&&playbookPageState.label==='PAGE 1 / 4'&&!playbookPageState.nextDisabled,playbookPageState);
+  await page.locator('#pbNext').click();
+  await page.waitForFunction(()=>document.querySelector('#pbPg')?.textContent.trim()==='PAGE 2 / 4',null,{timeout:5000});
+  const secondPage=await page.locator('#cards>.cardWrap').evaluateAll(es=>({visible:es.length,label:document.querySelector('#pbPg')?.textContent.trim()||'',category:document.querySelector('#pbTabs .pbTab.on')?.dataset.t||''}));
+  check('Native Playbook next page reveals the next six plays without changing category',secondPage.visible===6&&secondPage.label==='PAGE 2 / 4'&&secondPage.category==='ALL',secondPage);
+  await page.locator('#pbPrev').click();
+  await page.waitForFunction(()=>document.querySelector('#pbPg')?.textContent.trim()==='PAGE 1 / 4',null,{timeout:5000});
   const playbookPaletteNew=await page.locator('#pbTabs .pbTab.on').evaluate(el=>({background:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color,border:getComputedStyle(el).borderTopColor}));
   check('Playbook active category uses current cyan/navy palette',playbookPaletteNew.background==='rgba(77, 225, 242, 0.12)'&&playbookPaletteNew.color==='rgb(77, 225, 242)'&&playbookPaletteNew.border==='rgb(77, 225, 242)',playbookPaletteNew);
   const favLocator=page.locator('#cards .cardWrap').first().locator(':scope > .fav');
@@ -475,9 +477,11 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   check('In-match FLIP toggles selected play orientation',await page.locator('#flipBtn').evaluate(el=>el.classList.contains('on')));
   const sheetTop=await page.locator('#sheet').evaluate(el=>el.getBoundingClientRect().top);check('In-match Playbook sheet clears scoreboard lower edge',sheetTop>=66,sheetTop);
   const playbookLayout=await page.locator('#cards').evaluate(el=>({columns:getComputedStyle(el).gridTemplateColumns.split(' ').length,cards:[...el.querySelectorAll('.card')].map(card=>{const title=card.querySelector('b');return{text:title?.innerText.trim()||'',fontSize:title?getComputedStyle(title).fontSize:null,scroll:title?.scrollWidth||0,client:title?.clientWidth||0,width:title?.getBoundingClientRect().width||0}})}));
-  check('In-match Playbook uses four to five cards per landscape row and every title fits',playbookLayout.columns>=4&&playbookLayout.columns<=5&&playbookLayout.cards.length>0&&playbookLayout.cards.every(card=>card.scroll<=card.client+1&&card.width>0),playbookLayout);
+  check('In-match Playbook uses exactly three cards per row, six per page, and every title fits',playbookLayout.columns===3&&playbookLayout.cards.length===6&&playbookLayout.cards.every(card=>card.scroll<=card.client+1&&card.width>0),playbookLayout);
   const diagramStyle=await page.locator('#cards .card canvas').first().evaluate(el=>({filter:getComputedStyle(el).filter,background:getComputedStyle(el).backgroundColor,card:getComputedStyle(el.closest('.card')).backgroundColor}));
   check('In-match route diagrams use neutral monochrome art and no brown/gold card fill',diagramStyle.filter.includes('grayscale(1)')&&diagramStyle.background==='rgb(16, 23, 34)'&&diagramStyle.card==='rgb(28, 33, 48)',diagramStyle);
+  const diagramSize=await page.locator('#cards .card canvas').first().evaluate(el=>{const r=el.getBoundingClientRect();return{width:r.width,height:r.height}});
+  check('Six-play layout gives each route diagram enough space to read',diagramSize.width>=100&&diagramSize.height>=60,diagramSize);
 
 await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
   check('FIRST TO remains visible in the in-game playbook overlay',await page.locator('#tgtTag').isVisible());
