@@ -3063,3 +3063,13 @@ body #menu .ui-menu-build-trigger::after{
     width:100%!important;
   }
 }
+
+
+/* D6 desktop: keep the squad celebration frame below the score card. The portrait
+   composition has its own measured rule and remains unchanged. */
+@media(min-width:431px){
+  #end::before{
+    top:clamp(205px,27vh,235px)!important;
+    height:clamp(190px,28vh,250px)!important;
+  }
+}
