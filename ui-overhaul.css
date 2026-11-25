@@ -2989,3 +2989,44 @@ body #menu .ui-menu-build-trigger::after{
   overflow:hidden!important;
   text-overflow:clip!important;
 }
+
+
+/* D4: anchor the title label to the card, not the shrink-wrapped header.
+   The header keeps its normal 18px flow height; its nested label uses the
+   card's measured width and ends before the favourite hit target. */
+#app #sheet #cards>.cardWrap>.card{position:relative!important}
+#app #sheet #cards>.cardWrap>.card b{
+  position:static!important;
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:18px!important;
+  height:18px!important;
+  padding:0!important;
+  line-height:18px!important;
+  overflow:visible!important;
+}
+#app #sheet #cards>.cardWrap>.card b span{
+  position:absolute!important;
+  top:4px!important;
+  left:5px!important;
+  right:30px!important;
+  display:block!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  padding:0!important;
+  font-size:8px!important;
+  line-height:18px!important;
+  letter-spacing:-.045em!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+
+/* The selected Goals tab already renders cyan; use an rgb literal so the
+   computed style is stable and the browser QA comparison is not alpha-form dependent. */
+#goalsP .ui-goals-tab[aria-selected="true"]{
+  border-color:rgb(77,225,242)!important;
+}
