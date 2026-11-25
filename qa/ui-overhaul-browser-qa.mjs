@@ -176,6 +176,8 @@ try{
  await page.locator('#sqTabs button').nth(1).click();
  const styleControls=await page.locator('#sqBody').evaluate(el=>({labels:[...el.querySelectorAll('.lbl')].map(x=>x.textContent.trim()),nameInputs:el.querySelectorAll('input[type="text"]').length,skinSwatches:el.querySelectorAll('.skinrow button').length,numberButtons:el.querySelectorAll('.numrow button').length,gearButtons:[...el.querySelectorAll('button')].filter(x=>x.textContent.trim()==='EDIT GEAR & TRAILS').length}));
  check('STYLE & GEAR exposes Name, Skin Tone, Jersey Number, VISOR and ARM SLEEVES inline',styleControls.labels.includes('NAME')&&styleControls.labels.includes('SKIN TONE')&&styleControls.labels.includes('JERSEY NUMBER')&&styleControls.labels.includes('VISOR')&&styleControls.labels.includes('ARM SLEEVES')&&styleControls.nameInputs===1&&styleControls.skinSwatches>0&&styleControls.numberButtons===2&&styleControls.gearButtons===0,styleControls);
+ const stylePalette=await page.locator('#sqBody').evaluate(el=>{const input=el.querySelector('input[type="text"]'),buttons=[...el.querySelectorAll('.numrow button')];return{nameInput:input?{border:getComputedStyle(input).borderTopColor,background:getComputedStyle(input).backgroundColor,color:getComputedStyle(input).color}:null,numberButtons:buttons.map(b=>({text:b.textContent.trim(),border:getComputedStyle(b).borderTopColor,background:getComputedStyle(b).backgroundColor,color:getComputedStyle(b).color}))}});
+ check('STYLE & GEAR name input and plus/minus controls use navy/cyan UI styling',!!stylePalette.nameInput&&stylePalette.nameInput.border==='rgba(77, 225, 242, 0.55)'&&stylePalette.nameInput.background==='rgb(28, 33, 48)'&&stylePalette.nameInput.color==='rgb(245, 247, 250)'&&stylePalette.numberButtons.length===2&&stylePalette.numberButtons.every(b=>b.border==='rgba(77, 225, 242, 0.62)'&&b.background==='rgb(28, 33, 48)'&&b.color==='rgb(77, 225, 242)'),stylePalette);
  check('VISOR and ARM SLEEVES no longer require a nested gear subview',await page.locator('#sqBody .ui-squad-inline-gear').count()===1&&await page.locator('#sqBody button').filter({hasText:'BACK TO STYLE'}).count()===0);
  const inlineGearToggle=page.locator('#sqBody .ui-squad-inline-gear button').first();await inlineGearToggle.click();await page.waitForTimeout(80);
  check('Inline gear controls remain visible after changing an appearance toggle',await page.locator('#sqBody .ui-squad-inline-gear').count()===1&&await page.locator('#sqBody .lbl').filter({hasText:'VISOR'}).count()===1);
@@ -187,6 +189,9 @@ try{
  await page.screenshot({path:path.join(out,'my-squad-attributes-portrait.png'),fullPage:true});
  await page.locator('#sqTabs button').nth(2).click();
  check('CAREER tab remains available within MY SQUAD',await page.locator('#sqTabs button').nth(2).getAttribute('class').then(x=>x.includes('on')));
+ const careerPalette=await page.locator('#sqBody').evaluate(el=>[...el.querySelectorAll('*')].filter(n=>n.children.length===0&&n.textContent.trim()).map(n=>({tag:n.tagName,text:n.textContent.trim().slice(0,70),color:getComputedStyle(n).color})));
+ const allowedCareerColors=new Set(['rgb(220, 229, 242)','rgb(77, 225, 242)','rgb(245, 184, 65)']);
+ check('CAREER text uses only the current neutral/cyan/gold palette',careerPalette.length>0&&careerPalette.every(x=>allowedCareerColors.has(x.color)),careerPalette);
  await page.screenshot({path:path.join(out,'my-squad-career-portrait.png'),fullPage:true});
  await page.locator('#sBack').click();
  check('MY SQUAD returns to the menu',await page.locator('#menu').isVisible());
