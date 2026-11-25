@@ -1,20 +1,22 @@
 ## Title screen entry gate — 2026-11-25
 
-The owner requested that the Circuit Football RPG title screen be moved from the separate NPC baseline branch into `UI-Overhaul`. It is now integrated into the UI Overhaul app without merging the NPC workstream.
+The owner requested that the Circuit Football RPG title screen be moved from the separate NPC baseline branch into `UI-Overhaul`. It is integrated into the UI Overhaul app without merging the NPC workstream.
 
 - `ui-overhaul-menu.js` creates a startup title gate with the CIRCUIT FOOTBALL RPG branding and **BEAT THE CIRCUIT** / **SETTINGS** actions.
 - **BEAT THE CIRCUIT** dismisses the gate and calls the existing `window.SG.owShow()` overworld entry path.
-- **SETTINGS** opens the existing UI Overhaul MENU → SETTINGS tab; the menu close/Back action returns to the title screen.
-- The title scene is the existing inline SVG interpretation from the source implementation, not the supplied final raster artwork. Treat the scene as provisional pending owner visual approval; do not describe it as the final artwork.
+- **SETTINGS** opens the existing UI Overhaul MENU → SETTINGS tab; Back returns to the title screen. Returning from title Settings now explicitly restores the default MENU tab, preventing Settings from remaining selected on the next ordinary menu open.
+- The title scene remains the provisional inline SVG interpretation, not the supplied final raster artwork. Do not describe it as the final artwork or visually approved.
 - CSS is isolated under `.ui-title-screen` / `.ui-title-*` selectors. No gameplay, save/progression, existing Settings controls, NPC renderer, or golden snapshots were intentionally changed.
-- Browser QA was extended to cover initial title visibility, Settings navigation/return, and starting the game. Run #400 is testing exact commit `e60b67940b06c58e37ac94d740bf0dffab29b553`; result and screenshots are pending.
+- Browser QA Run #403 passed **263/263** assertions on exact commit `2e89b89bce15810f50ea56eb0e5235d6574f8559`, including initial title visibility, title Settings navigation, Back to title, and BEAT THE CIRCUIT entry. The run reported zero failures, console errors, and same-origin HTTP failures. Artifact `15051618298` includes the title and title-Settings screenshots.
+- The actual Run #403 title and Settings screenshots were retrieved and visually inspected. The title composition and both actions render; the Settings action opens the existing Settings page. This is internal visual inspection, not owner approval of the provisional artwork.
 
 Implementation commits:
 - Menu/title gate: `d60eba91f4d2587105ec6bc763acd1e13e51e414`
 - Title CSS: `9666a76fcf1087d29ea4882290efd023fe62c5df`
 - Browser QA: `e60b67940b06c58e37ac94d740bf0dffab29b553`
+- Follow-up Settings-tab restoration: `2e89b89bce15810f50ea56eb0e5235d6574f8559`
 
-Do not treat this feature as QA-passing or visually approved until Run #400 completes and its actual title/settings screenshots are inspected.
+**Next gate:** integrate the exact owner-supplied title artwork in place of the provisional SVG, then rerun browser QA and inspect the resulting screenshots. The original artwork file is not currently available in this branch or the current Project file search, so do not substitute generated or approximated art.
 
 ---
 
