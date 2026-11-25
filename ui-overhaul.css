@@ -2831,3 +2831,37 @@ body #menu .ui-menu-build-trigger::after{
 #squad #sqBody [class*="career"] strong{
   color:#F5B841!important;
 }
+
+
+/* Final D4/D3 correction — target the current Playbook card header and relocated action row.
+   The narrower title measure now fits the longest current play names beside the star;
+   FLIP styling is applied to its actual .ui-playbook-actions parent, not the retired .pbTop. */
+#app #sheet #cards>.cardWrap>.card b{
+  padding-right:17px!important;
+  font-size:9px!important;
+  line-height:1.15!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+#app #sheet #cards>.cardWrap>.card b span{
+  max-width:100%!important;
+  font-size:9px!important;
+  line-height:1.15!important;
+  letter-spacing:-.02em!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+#app #sheet .ui-playbook-actions #flipBtn{
+  background:#131620!important;
+  border:1px solid #F5B841!important;
+  color:#F5B841!important;
+  box-shadow:none!important;
+}
+#app #sheet .ui-playbook-actions #flipBtn.on{
+  background:rgba(245,184,65,.14)!important;
+  border:2px solid #F5B841!important;
+  color:#FFE3A0!important;
+  box-shadow:inset 0 0 0 1px rgba(245,184,65,.2),0 0 12px rgba(245,184,65,.12)!important;
+}
