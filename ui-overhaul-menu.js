@@ -425,10 +425,9 @@
   const title=document.createElement('section');
   title.id='uiTitleScreen';title.className='ui-title-screen';title.setAttribute('role','region');
   title.setAttribute('aria-label','Circuit Football RPG title screen');
-  title.innerHTML='<img class="title-scene" src="Assets/Firefly - Review nfl field markings and make sure numbers are only along the sides and lines go.png" alt="Circuit Football RPG title artwork">'+
+  title.innerHTML='<div class="ui-title-art-frame"><img class="title-scene" src="Assets/Firefly - Review nfl field markings and make sure numbers are only along the sides and lines go.png" alt="Circuit Football RPG title artwork">'+
    '<button id="uiTitleStart" class="ui-title-hit ui-title-hit-start" type="button" aria-label="Beat the Circuit"></button>'+
-   '<button id="uiTitleSettings" class="ui-title-hit ui-title-hit-settings" type="button" aria-label="Settings"></button>'+
-   '<span class="ui-title-art-fallback" aria-hidden="true">Circuit Football RPG</span>';
+   '<button id="uiTitleSettings" class="ui-title-hit ui-title-hit-settings" type="button" aria-label="Settings"></button></div>';
   document.body.appendChild(title);
   let returnToTitle=false;
   const showTitle=()=>{const menu=document.getElementById('menu');if(menu){menu.querySelector('[data-tab="menu"]')?.click();menu.hidden=true}title.hidden=false;returnToTitle=false};
