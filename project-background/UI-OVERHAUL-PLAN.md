@@ -8,7 +8,7 @@
 - Baseline: current `main` at the time this branch was created
 - UI handoff source: `Circuit Football — UI Overhaul Handoff Spec.docx` (14 pages; supplied in the project conversation)
 - Implementation status: Stage One is owner-approved. Stage Two MY TEAM / MY SQUAD and the independent-review correction round are implemented.
-- Latest successful Stage Two code-tested commit: `3be8785d5a250d65430f7c50571d5d0d428a9d36`; [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570) passed **221/221** with zero page/console/same-origin errors; artifact `14985344956` was visually inspected.
+- Latest successful Stage Two code/QA-tested commit: `8aff7da49a4a5bafc255f3fc073783803469377c`; [Run #315](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797) passed **222/222** with zero page/console/same-origin errors; artifact `14987300342` was visually inspected.
 - Independent Stage Two review findings (MY TEAM 8/10, MY SQUAD 8.5/10, menu 7.5/10) have been addressed. Stage Two owner approval is pending. Do not begin Stage Three before explicit approval.
 
 ## Source-of-truth rules
@@ -334,3 +334,8 @@ Stage Two browser QA Run #275 (`45517810094`) is the first consolidated run agai
 ## Stage Two independent-review correction checkpoint — 2026-11-25
 
 Run #313 tested exact commit `3be8785d5a250d65430f7c50571d5d0d428a9d36` and passed 221/221 browser assertions. The independent review's Back/UPG header, PICK LOGO sizing, upgrade point-cost suffix, inline VISOR/ARM SLEEVES, and four-tile menu findings are addressed. Actual MY TEAM, MY SQUAD, portrait/desktop/narrow menu and Stage One regression screenshots were retrieved and visually inspected. Stage Two owner approval remains pending; Stage Three is gated on that approval. No golden snapshots or provenance changed.
+
+
+## Run #315 — MY TEAM trail scroll-end QA (2026-11-25)
+
+Run #315 tested `8aff7da49a4a5bafc255f3fc073783803469377c` and passed 222/222. The MY TEAM TRAILS browser check now scrolls the actual `.ui-team-tab-content` container to the bottom and verifies the final locked-trail hint clears the fixed SAVE & EQUIP action. The bottom screenshot was retrieved and visually inspected. Stage Two independent-review corrections remain implemented; owner approval is pending. Stage Three is gated on approval. No golden snapshots or provenance changed.
