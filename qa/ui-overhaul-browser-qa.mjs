@@ -365,6 +365,10 @@ try{
  check('Developer controls retained',dev.every(n=>n===1),dev);
  await page.screenshot({path:path.join(out,'desktop-credits-developer.png'),fullPage:true});
  await page.setViewportSize({width:390,height:844});
+ await page.locator('#menu .ui-menu-content').evaluate(el=>{el.scrollTop=el.scrollHeight});
+ await page.waitForTimeout(120);
+ const devVisibleRegion=await page.locator('.ui-menu-dev').evaluate(el=>{const r=el.getBoundingClientRect(),p=el.closest('.ui-menu-content').getBoundingClientRect();return{top:r.top,bottom:r.bottom,parentTop:p.top,parentBottom:p.bottom,visible:r.bottom>p.top&&r.top<p.bottom}});
+ check('Developer drawer occupies the visible credits scroll region',await page.locator('.ui-menu-dev').isVisible()&&devVisibleRegion.visible,devVisibleRegion);
  await page.screenshot({path:path.join(out,'portrait-credits-developer.png'),fullPage:true});
  const ordinaryCreditsBytes=fs.readFileSync(path.join(out,'portrait-credits.png'));
  const developerCreditsBytes=fs.readFileSync(path.join(out,'portrait-credits-developer.png'));
