@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-25):** Stage One is owner-approved; Stage Two (MY TEAM and MY SQUAD) is active. Current UI-Overhaul code HEAD: `381363ff1caae36c080b7a9f3cf73af6f4a77046`. Browser QA Run #291 passed 212/212 checks on that exact commit, including Fumble geometry/palette, menu order/frames, MY TEAM's IDENTITY / UNIFORM / TRAILS tabs and all eight locked-trail hints, plus MY SQUAD's tab, gear and pinned-roster checks. Artifact `14981780185` contains the screenshot set. Visual screenshot inspection, independent review where required, and owner approval remain outstanding; Stage Two is not yet approved.
+**Live checkpoint (2026-11-25):** Stage One is owner-approved; Stage Two (MY TEAM and MY SQUAD) is active. Latest successful code-tested commit: `381363ff1caae36c080b7a9f3cf73af6f4a77046` (Run #291, 212/212 checks). Current branch HEAD: `d5821c679550172afa9b56d2bda5f20ad9616a96` (documentation-only review-package commit after the tested code). Artifact `14981780185` contains the screenshot set. The [Stage Two independent review package](UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md) is prepared. Visual screenshot inspection, independent review where required, and owner approval remain outstanding; Stage Two is not yet approved.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
@@ -10,6 +10,7 @@ Related references:
 - [UI Overhaul Plan](UI-OVERHAUL-PLAN.md) — design scope and project guardrails.
 - [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) — current implementation and QA handoff.
 - [UI Overhaul Claude Review Package](UI-OVERHAUL-CLAUDE-REVIEW-PACKAGE.md) — exact Stage One independent-review scope and evidence.
+- [UI Overhaul Stage Two Review Package](UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md) — MY TEAM / MY SQUAD review criteria and Run #291 evidence.
 - [UI Overhaul workstream README](../ui-overhaul/README.md) — workstream history and implementation notes.
 
 When working on the UI overhaul, use branch `UI-Overhaul`, verify its live HEAD and latest Actions, and do not confuse the separate civilian-vector workstream below with the Circuit Football UI work.
