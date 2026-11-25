@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-25):** Stage One is owner-approved. Stage Two independent review feedback has been addressed: MY TEAM Back/Cancel + live UPG badge and wider PICK LOGO control; MY SQUAD `P` cost units and inline VISOR / ARM SLEEVES; compact 2×2 menu. Latest successful code-tested commit: `3be8785d5a250d65430f7c50571d5d0d428a9d36` (Run #313, 221/221 assertions). Artifact `14985344956` was retrieved and the updated portrait, desktop and 360px menu, MY TEAM, MY SQUAD, Fumble and defense-simulation screenshots were visually inspected. Independent findings are addressed; Stage Two owner approval remains pending. See the [Stage Two review package](UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md).
+**Live checkpoint (2026-11-25):** Stage One is owner-approved. Stage Two independent review feedback has been addressed: MY TEAM Back/Cancel + live UPG badge and wider PICK LOGO control; MY SQUAD `P` cost units and inline VISOR / ARM SLEEVES; compact 2×2 menu. Latest successful code/QA-tested commit: `8aff7da49a4a5bafc255f3fc073783803469377c` (Run #315, 222/222 assertions). Artifact `14987300342` was retrieved; updated menu, MY TEAM identity/uniform/trails (including trail-list scroll end), MY SQUAD, Fumble and defense-simulation screenshots were visually inspected. Independent findings are addressed; Stage Two owner approval remains pending. See the [Stage Two review package](UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md).
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
