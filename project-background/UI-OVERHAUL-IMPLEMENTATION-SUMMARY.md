@@ -1491,3 +1491,12 @@ The owner supplied a consolidated seven-item review spanning the approved Stage 
 - Updated the MY TEAM logo picker and preview square to the matte navy/cyan palette.
 
 QA coverage was updated for the new post-game visibility, exact fumble center, receiving number formatting, explicit matchup persistence/confirmation, Playbook header/FLIP, challenge wording and logo palette. This is an implementation checkpoint only: fresh browser QA and screenshot inspection are required before the owner should reconsider approval status. Golden snapshots and `main` were not changed.
+
+
+## Cross-stage feedback validation correction — Run #363 (2026-11-25)
+
+- Live branch HEAD before this correction was `ea92b21ac9e7528044ad12bd02fc7e309b23fbda`. Run #363 ([workflow 45556224432](https://github.com/tinytime/Tinytime.github.io/actions/runs/45556224432)) tested that exact SHA and failed at the practice-win QA assertion because the harness still expected the removed `#endStyle` element to contain `STYLE POINTS 3,700`.
+- The source implementation intentionally removes that element for both ordinary and practice-win post-game states; in-game style scoring remains a separate gameplay mechanic. This was a stale test expectation, not a runtime exception or a regression in the seven requested corrections.
+- Corrected the practice-win QA to assert that `#endStyle` is absent and that the explanatory practice note and squad score frame remain. Removed the obsolete layout assertion that dereferenced the deleted reward node.
+- QA-only correction committed as `9bc3bb14935b22ba7b2df14bc693673fbe3677a0` (“Align practice-win QA with removed Style Points UI”). It does not change game code, gameplay, save/progression or golden snapshots.
+- **Next action:** retrieve the new workflow run triggered by the QA correction; verify its exact tested SHA and all assertions. Inspect fresh screenshots for post-game (ordinary and practice win), fumble, Playbook, pre-game, Team Stats and MY TEAM logo. Do not mark the cross-stage pass complete until that visual inspection is done. Stage Four remains in progress and not owner-approved.
