@@ -2700,3 +2700,9 @@ body.ach-toast-active #app #dcall{
   color:#4DE1F2!important;
   box-shadow:none!important;
 }
+
+/* Owner correction: Team Stats cards keep the cyan frame only; remove the legacy gold inset ring. */
+#ui-goals-panel-stats .ui-goals-stat-card{
+  border:2px solid rgba(77,225,242,.78)!important;
+  box-shadow:none!important;
+}
