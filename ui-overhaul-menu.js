@@ -301,7 +301,7 @@
     const stats=panel.querySelector('#ui-goals-panel-stats');
     const receiving=stats&&[...stats.querySelectorAll('.ui-goals-stat-card')].find(card=>card.querySelector('.ui-goals-stat-label')?.textContent.trim()==='RECEIVING');
     if(receiving){
-     receiving.classList.add('is-receiving');
+     if(!receiving.classList.contains('is-receiving'))receiving.classList.add('is-receiving');
      const value=receiving.querySelector('.ui-goals-stat-value');
      if(value){
       let number=value.querySelector('.ui-goals-stat-number');
