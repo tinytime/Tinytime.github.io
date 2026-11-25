@@ -6,9 +6,9 @@
 **Latest successful correction commit:** `3be8785d5a250d65430f7c50571d5d0d428a9d36`  
 **CSS root-selector correction:** `71e1a20af05483d45ea832d0193e68d9f557b1fc`  
 **Latest verification:** [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570), 221/221 assertions, exact tested commit `3be8785d5a250d65430f7c50571d5d0d428a9d36`  
-**Browser QA:** [Run #297](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193) — successful, 216/216 assertions  
-**Evidence artifact:** [Artifact 14983701764](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193/artifacts/14983701764)  
-**STYLE & GEAR and defense-simulation QA:** Run #297 passed; the parent-panel and defense-simulation screenshots were inspected.
+**Historical baseline QA:** [Run #297](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193) — successful, 216/216 assertions  
+**Latest evidence artifact:** [Artifact 14985344956](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570/artifacts/14985344956)  
+**Latest STYLE & GEAR and defense-simulation QA:** Run #313 passed; the parent-panel and defense-simulation screenshots were inspected.
 
 ## Scope
 
@@ -27,7 +27,7 @@ Inspect these first at 390×844 portrait:
 
 1. `my-team-portrait.png`
 2. `my-squad-attributes-portrait.png`
-3. `my-squad-gear-portrait.png)
+3. `my-squad-style-gear-portrait.png`
 
 Also inspect `portrait-menu.png` and `desktop-menu.png` for menu tile order and treatment. The artifact contains the wider Stage One/Two regression screenshot set, including playbook and match screens.
 
