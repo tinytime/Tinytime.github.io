@@ -2378,8 +2378,10 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #app #sheet #cards .card>.fav{position:absolute;top:3px;right:4px;z-index:30;display:grid!important;place-items:center;width:26px;height:24px;min-height:24px;margin:0;padding:0!important;border:0!important;border-radius:5px;background:transparent!important;color:var(--ui-muted);font:700 16px/1 var(--ui,"Arial Narrow",sans-serif);box-shadow:none!important;cursor:pointer;pointer-events:auto;touch-action:manipulation}
 #app #sheet #cards .card>.fav.on{color:var(--ui-gold)}
 
-/* Stage Four favorite control: keep it in the title's normal flex flow to avoid overlay hit-test conflicts. */
-#app #sheet #cards .card b{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:6px!important;padding:2px 3px 2px 5px!important;min-height:26px!important;overflow:visible!important}
-#app #sheet #cards .card b>span{flex:1 1 auto;min-width:0;text-align:left!important}
-#app #sheet #cards .card b>.fav{position:relative!important;inset:auto!important;z-index:2!important;display:grid!important;place-items:center;flex:0 0 28px!important;width:28px!important;height:24px!important;min-height:24px!important;margin:0!important;padding:0!important;border:0!important;border-radius:5px!important;background:transparent!important;color:var(--ui-muted)!important;font:700 16px/1 var(--ui,"Arial Narrow",sans-serif)!important;box-shadow:none!important;cursor:pointer;pointer-events:auto!important;touch-action:manipulation}
-#app #sheet #cards .card b>.fav.on{color:var(--ui-gold)!important}
+/* Stage Four: favorite is a sibling grid overlay, outside the clickable play card.
+   This keeps the star out of the card's overflow and click surface. */
+#app #sheet #cards>.cardWrap{position:relative;min-width:0;min-height:0;overflow:visible}
+#app #sheet #cards>.cardWrap>.card{width:100%;height:100%;min-width:0}
+#app #sheet #cards>.cardWrap>.card b{padding-right:34px!important}
+#app #sheet #cards>.cardWrap>.fav{position:absolute;top:10px;right:10px;z-index:20;display:grid;place-items:center;width:28px;height:28px;min-height:28px;margin:0;padding:0!important;border:0!important;border-radius:6px!important;background:#171e2d!important;color:var(--ui-muted)!important;font:700 16px/1 var(--ui,"Arial Narrow",sans-serif)!important;box-shadow:none!important;cursor:pointer;pointer-events:auto!important;touch-action:manipulation}
+#app #sheet #cards>.cardWrap>.fav.on{color:var(--ui-gold)!important}
