@@ -2528,3 +2528,69 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
  .ui-title-hit-start{left:calc(50% - min(100vw,56.25vh)*.31);width:min(100vw,56.25vh)*.63}
  .ui-title-hit-settings{left:calc(50% - min(100vw,56.25vh)*.19);width:min(100vw,56.25vh)*.38}
 }
+
+
+/* Pre-game settings: a clean, standalone settings surface behind the title gate.
+   The same settings controls are reused in-game, but game navigation is not. */
+#menu.ui-title-settings-mode{
+ display:flex!important;
+ gap:0;
+ padding-top:calc(env(safe-area-inset-top,0px) + 18px);
+}
+#menu.ui-title-settings-mode .ui-menu-head{
+ display:grid;
+ grid-template-columns:44px 1fr;
+ align-items:center;
+ gap:12px;
+ min-height:52px;
+ padding:0 0 14px;
+}
+#menu.ui-title-settings-mode .ui-menu-close{
+ grid-column:1;
+ grid-row:1;
+ width:42px;
+ height:42px;
+ min-height:42px;
+ border:1px solid var(--ui-border);
+ border-radius:12px;
+ background:var(--ui-inner);
+ color:var(--ui-text);
+ font-size:25px;
+}
+#menu.ui-title-settings-mode .ui-menu-brand,
+#menu.ui-title-settings-mode .ui-menu-upg,
+#menu.ui-title-settings-mode .ui-menu-goal,
+#menu.ui-title-settings-mode .ui-menu-tabs,
+#menu.ui-title-settings-mode .ui-menu-foot,
+#menu.ui-title-settings-mode #uiMenuHome,
+#menu.ui-title-settings-mode #uiMenuCredits{
+ display:none!important;
+}
+#menu.ui-title-settings-mode .ui-title-settings-heading{
+ display:block;
+ grid-column:2;
+ grid-row:1;
+ margin:0;
+ color:var(--ui-text);
+ font-size:clamp(22px,6vw,30px);
+ font-weight:900;
+ letter-spacing:.12em;
+ text-align:left;
+}
+#menu.ui-title-settings-mode .ui-menu-content{
+ flex:1;
+ min-height:0;
+ overflow:auto;
+ padding:14px 1px calc(env(safe-area-inset-bottom,0px) + 18px);
+}
+#menu.ui-title-settings-mode #uiMenuSettings{
+ display:flex!important;
+}
+#menu.ui-title-settings-mode .ui-menu-danger{
+ margin-bottom:12px;
+}
+#menu.ui-title-settings-mode .ui-menu-playbook-overlay,
+#menu.ui-title-settings-mode .ui-menu-modal-backdrop{
+ display:none!important;
+}
+#owTop[hidden],#owMenu[hidden],#owA[hidden]{display:none!important}
