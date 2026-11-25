@@ -126,7 +126,7 @@
     const current=document.getElementById('sqBody');
     if(current)current.querySelectorAll('.ustat button').forEach(button=>{
      const label=button.textContent.trim();
-     if(/^\\+2\\s*[·•]\\s*\\d+$/.test(label))button.textContent=label+'P';
+     if(/^\+2\s*[·•]\s*\d+$/.test(label))button.textContent=label+'P';
     });
    };
    const wrapped=function(...args){const result=original.apply(this,args);if(!flattening)requestAnimationFrame(inlineGear);return result};
