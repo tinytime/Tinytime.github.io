@@ -1,3 +1,52 @@
+## Current execution checkpoint — Run #487 passed (2026-11-25)
+
+### Verified repository state
+- Repository: `tinytime/Tinytime.github.io`
+- Branch: `UI-Overhaul`
+- Exact tested HEAD: `abc60524d6f3bf491fbb87e5bd22967b720a6004`
+- Workflow: [UI Overhaul Browser QA Run #487](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191)
+- Result: **300/300 checks passed; 0 failed; 0 page errors; 0 console errors; 0 same-origin request failures.**
+- Evidence artifact: [artifact 15071354604](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191). The report contains 50 screenshots.
+
+### D12 ticker contrast and rotate-device behavior
+- The play-by-play ticker styling was strengthened in `ui-overhaul.css` (commit `3e0ff82410722473618373968e1e2b4def656814`): full opacity, white text, solid navy background, no filter or text shadow.
+- QA commit `75d669d30a8eceff53443168cc22bc74e0c49c80` added computed-style/geometry assertions for the ticker and a live-match portrait/landscape rotation test.
+- Run #487 confirms the ticker is fully opaque, `rgb(245, 247, 250)` text on `rgb(19, 22, 32)`, with no filter, and a bounded rendered size. The screenshot retains the TAP TO SKIP hint.
+- The 390×844 portrait test confirms the rotate-device prompt is visible and fully within the viewport; returning to 844×390 landscape dismisses it. Screenshot: `match-rotate-device-portrait.png`.
+
+### Deferred defense-selection / achievement queue defect
+- Run #484 failed at the 12-second wait for the queued defense panel to return after the ticker and achievement toast. The artifact showed no page exceptions, console errors, or same-origin failures; the portrait and ticker screenshots were successfully captured.
+- Investigation of `showDefCall`, `flushDeferredDefCall`, `playTicker`, and `achNext` found a genuine priority defect: after an achievement toast cleared, `achNext()` could immediately start another queued toast before `flushDeferredDefCall()` was allowed to reveal the deferred defense-selection panel.
+- Commit `abc60524d6f3bf491fbb87e5bd22967b720a6004` changes the toast-completion path to reveal a pending defense panel before advancing the achievement queue. It also resumes any queued achievement after the defense-selection interaction begins.
+- QA wait increased from 12 to 25 seconds in parent commit `a61d97d0a8d3bee9335dafc4182a488e6e67f1b5`, preserving the original state/visibility requirements while allowing the full simulated drive, result banner, and toast cleanup to complete.
+- Run #487 explicitly confirms: defense panel remains hidden while ticker/toast are active; achievement toast stays bottom-centered, non-blocking and clear of the ticker; queued defense selection reappears only after ticker and toast clear. The check passed.
+
+### Other reviewed UI stages carried forward
+- Run #482 on `ac2168937ce96a9f197cecf29cae62956818d602` passed 297/297 checks. Its report and screenshots were inspected.
+- D6 post-game layout retains the correct loss/win presentation and does not restore the removed Style Points rewards card.
+- D9 Goals & Stats tabs use a single cyan outline with no legacy yellow ring; achievement medals are distinct.
+- D4 Playbook presents six cards in a 3×2 layout with readable titles and 218×68 route diagrams.
+- MY SQUAD Style & Gear and Career screenshots show the updated palette and controls.
+- Credits public/developer views remain distinct; D12 loss fixture produces a genuine 0–7 result with TOUGH LOSS.
+- D8 catalogue source mapping reconciles to 19 total plays: RUN 3, PASS 12, TRICK 4. The trick group includes Flea Flicker, Draw, Counter and Double Move; this is intentional category mapping, not missing plays.
+
+### Commits in this corrective sequence
+- `3e0ff82410722473618373968e1e2b4def656814` — improve D12 ticker contrast.
+- `75d669d30a8eceff53443168cc22bc74e0c49c80` — assert ticker contrast and rotate-device prompt.
+- `a61d97d0a8d3bee9335dafc4182a488e6e67f1b5` — allow full simulated drive and toast sequence to finish in QA.
+- `abc60524d6f3bf491fbb87e5bd22967b720a6004` — prioritize deferred defense selection over queued achievement toasts.
+
+### Current status and next gate
+- Implemented: yes.
+- Automated browser QA: passed, 300/300 on exact current HEAD.
+- Visual inspection: Run #487 ticker, achievement toast, rotation prompt, and defense-selection screenshots inspected; Run #482 broader screenshot set inspected.
+- Golden snapshots: unchanged.
+- Independent Claude review: pending.
+- Owner approval: pending.
+- Next action: prepare a single consolidated Claude review package with exact commit `abc60524d6f3bf491fbb87e5bd22967b720a6004`, Run #487 report/artifact, selected screenshots, and the review criteria for D1–D12. Do not begin unrelated work or mark the overhaul approved before independent review and owner sign-off.
+
+---
+
 ## Playbook / FLIP corrective pass — implementation committed; Run #468 still executing (2026-11-25)
 
 - Run [#467](https://github.com/tinytime/Tinytime.github.io/actions/runs/45705390851) completed against commit 24f86d2e6f4628d093eb478f1cf4e1732cb48022: 292/294 checks passed. The two remaining failures were the D4 Playbook title-width assertion and D3 FLIP default gold-outline assertion. The run had zero page exceptions, console errors and same-origin HTTP failures.
