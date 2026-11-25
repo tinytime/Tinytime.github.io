@@ -6,11 +6,10 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest successful Stage Two code/QA commit tested: `3fe58d3778fbee7b310b400dc9d1b9548264ba59` on `UI-Overhaul`; Run #322 passed 224/224 browser assertions. Artifact `14986404860` was downloaded; the corrected MY TEAM uniform and crew-specific trail grid screenshots were visually inspected.
-- Prior Stage Two correction Run #313 passed 221/221 against `3be8785d5a250d65430f7c50571d5d0d428a9d36`; Run #315 adds the scrolled trail-list visibility assertion.
-- Stage One: owner-approved. Run #291 verifies the Round 5 Fumble geometry/palette assertions; its actual screenshot was inspected and the meter/countdown are aligned in the usable left field lane with clear separation from the A control.
-- Stage Two: MY TEAM and MY SQUAD are implemented; independent-review findings and optional polish have been addressed. Run #322 passes 224/224 on the exact code/QA commit. Uniform and trail screenshots were visually inspected. Stage Two owner approval remains pending.
-- Owner approval of Stage Two: **pending**. Independent review feedback: received and addressed. Do not begin Stage Three until the owner approves Stage Two.
+- Latest Stage Three code/QA commit tested: `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`; Run #331 passed 230/230 browser assertions and its actual Goals & Stats screenshots were visually inspected. Latest branch HEAD is documentation-only commit `92d1ff32cc950b01c273146dd01e007b5e500213`.
+- Stage One: owner-approved.
+- Stage Two: MY TEAM and MY SQUAD are implemented, independently reviewed, corrected and owner-approved (owner decision recorded in the project conversation). Run #322 passed 224/224; uniform and trail screenshots were visually inspected.
+- Stage Three: GOALS & STATS is implemented, automated browser-tested and internally visually inspected on the exact code/QA commit above. **Owner review/approval is pending.** Do not begin Stage Four until explicit owner approval.
 
 ## 1. Read this first in a new chat
 
@@ -20,16 +19,14 @@ When the owner says “review the implementation summary,” do the following:
 2. Read `project-background/UI-OVERHAUL-PLAN.md` and `ui-overhaul/README.md`.
 3. Read the 14-page Gemini handoff attached to the project conversation if available. It is the design authority; this summary is the implementation/status authority. If it is not available in the new conversation, do not pretend to have inspected the embedded mockups—use the linked specification details below and ask the owner to reattach it only if visual reference inspection is essential.
 4. Verify the current `UI-Overhaul` branch HEAD, latest commits, current `index.html`, `ui-overhaul.css`, `ui-overhaul-menu.js`, QA harness, workflow, and latest UI-Overhaul Actions runs. This file is a restart map, not a substitute for live repository verification.
-5. Continue from **Section 8 — Immediate next actions**. Stage One is approved; Stage Two corrections have passed QA and are awaiting owner approval. Do not begin Stage Three until the owner approves Stage Two.
+5. Continue from **Section 8 — Immediate next actions**. Stage One and Stage Two are owner-approved. Stage Three has passed internal browser QA and screenshot inspection; present it for owner review and wait for explicit approval before Stage Four.
 6. Keep all changes on `UI-Overhaul`. Do not modify `main`, NPC workstream files, or golden snapshots.
 
 ## 2. Overall implementation status
 
 Stage One (Overworld HUD, menu/settings/credits, playbook and match-flow surfaces) is owner-approved. Stage Two (MY TEAM and MY SQUAD) is implemented and its independent-review correction round is complete.
 
-The latest Stage Two code commit, `3be8785d5a250d65430f7c50571d5d0d428a9d36`, passed Run #313 with **221/221 assertions**, zero failures, zero page exceptions, zero console errors and zero same-origin failures. The artifact was retrieved and the corrected menu, MY TEAM and MY SQUAD screenshots were visually inspected.
-
-The remaining handoff areas after Stage Two are GOALS & STATS, pre-game matchup/playbook integration, and any remaining in-match/defense/post-game work not already covered by the approved Stage One scope. Do not report the full UI overhaul as complete. Stage Two owner approval is still pending; do not begin Stage Three before it is granted.
+Stage One and Stage Two are owner-approved. Stage Three (GOALS & STATS) is implemented, passes Run #331 with **230/230 browser assertions**, and has been visually inspected from the actual artifact. It awaits owner review/approval. Remaining handoff work after Stage Three includes pre-game matchup/playbook integration and any additional in-match/defense/post-game work not already covered by the approved Stage One scope. Do not report the full UI overhaul as complete.
 
 ## 3. Design contract from the Gemini handoff
 
@@ -151,10 +148,9 @@ The branch subsequently advanced through commits that adjust tab visibility, ope
 
 ## 8. Immediate next actions
 
-1. **Owner Stage Two review / approval.** The independent review findings supplied on 2026-11-25 have been implemented and verified. Present the updated package and Run #322 evidence for the owner's final review. The optional uniform/trail polish is complete; do not begin Stage Three until explicit approval. Do not mark Stage Two approved until the owner explicitly approves it.
-2. **Preserve the tested baseline.** Run #322 tested exact code/QA commit `3fe58d3778fbee7b310b400dc9d1b9548264ba59`; documentation-only commits may advance branch HEAD. Recheck live HEAD and Actions before any further implementation.
-3. **After Stage Two owner approval only**, begin Stage Three (GOALS & STATS) using Section 4 of the handoff. Map its existing DOM/state and acceptance criteria before changing code.
-4. Keep all changes on `UI-Overhaul`. Do not modify `main`, NPC workstream files, gameplay/save/progression behavior, or golden snapshots without explicit authorization.
+1. **Stage Three owner review / approval.** Present the GOALS & STATS implementation and Run #331 evidence. The exact tested code/QA commit is `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`; the latest branch HEAD `92d1ff32cc950b01c273146dd01e007b5e500213` contains documentation-only updates. Do not mark Stage Three approved until the owner explicitly approves it.
+2. **After Stage Three owner approval only**, proceed to the next unimplemented handoff section (pre-game matchup/playbook integration), first mapping its existing DOM/state and acceptance criteria.
+3. Keep all changes on `UI-Overhaul`. Do not modify `main`, NPC workstream files, gameplay/save/progression behavior, or golden snapshots without explicit authorization.
 
 ### Stage Two correction round completed
 
