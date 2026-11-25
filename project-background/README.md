@@ -62,6 +62,7 @@ The title/settings flow is implemented and browser-QA passing. Final visual-art 
 
 Related references:
 - [UI Overhaul Plan](UI-OVERHAUL-PLAN.md) — design scope and project guardrails.
+- [Consolidated Independent Review Implementation Plan](UI-OVERHAUL-INDEPENDENT-REVIEW-IMPLEMENTATION-PLAN.md) — complete D1–D12 correction and polish scope, acceptance criteria, QA evidence requirements, execution order and approval gates.
 - [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) — current implementation and QA handoff.
 - [Stage Four Owner Review Package](UI-OVERHAUL-STAGE-FOUR-REVIEW-PACKAGE.md) — Run #397 polish scope, exact tested commit, screenshot evidence, reviewer attention item, and owner approval checklist.
 - [UI Overhaul Claude Review Package](UI-OVERHAUL-CLAUDE-REVIEW-PACKAGE.md) — exact Stage One independent-review scope and evidence.
