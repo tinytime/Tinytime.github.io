@@ -1226,3 +1226,34 @@ After Run #260's report was inspected, the QA harness was strengthened to read b
 QA assertion commit: `d8730820367ce5914051180a1200bfbbf8f1ca8e`.
 
 **Verification status:** Run #260 is a confirmed failure on its exact tested commit; it does not validate the later usable-lane CSS/QA state. The updated harness and branch state require a fresh browser Actions run. Do not claim the Fumble correction is verified until that run passes and its match-fumble-pile.png is visually inspected. No golden snapshots/provenance were changed. Stage Two remains on hold; Stage One owner approval remains pending.
+
+
+## Stage One owner approval and Stage Two start — 2026-11-24
+
+**Owner decision:** The owner explicitly approved Stage One and authorized moving to Stage Two. Stage Two is now active. This approval is recorded as the project gate decision; it does not retroactively claim the Run #260 Fumble follow-up passed. Run #260 remains a failed run (189/192) on `01e96cdc2f2398d42d23b81981bd4999062520b4`; the follow-up QA changes still need a fresh Actions result and screenshot inspection.
+
+### Stage Two scope — handoff Section 3, pages 5–6
+
+The work is limited to **MY TEAM and MY SQUAD**. Existing save-backed editors, 2.5D preview renderer, roster state, progression locks, attribute purchases, uniform/team identity, logo selection and career data remain authoritative. This is a presentation and navigation overhaul, not a replacement of game systems.
+
+### Implemented in the first Stage Two pass
+
+- Added a visible MY SQUAD action to the tabbed Overworld menu beside MY TEAM, preserving the existing `#mSquad` click handler.
+- Restyled MY TEAM and MY SQUAD around the Stage One `#131620` / `#1C2130`, gold `#F5B841`, cyan `#4DE1F2`, white and muted-slate palette.
+- Reframed the existing team and player canvases as atmospheric 2.5D preview cards; retained existing preview functions and saved customization state.
+- Restyled team name, logo picker, uniform slots, palette controls, lock hints, player attribute bars, upgrade cost/boost controls, player OVR and the pinned horizontal roster strip.
+- Recast the team screen's existing DONE action as SAVE & EQUIP presentation; its original handler remains in place and edits continue to persist through existing save logic.
+- Consolidated squad navigation into ATTRIBUTES / STYLE & GEAR / CAREER. STYLE & GEAR retains appearance controls and exposes an EDIT GEAR & TRAILS action; the gear editor has a BACK TO STYLE return path. Existing appearance, gear and career renderers remain in use.
+- Split squad progression into distinct PTS and CAP badges, with team defense shown as secondary metadata.
+- Added responsive portrait layout rules and a dedicated Stage Two browser-QA sequence for team and squad navigation, preview, identity/uniform controls, tabs, gear return path, metrics and screenshots.
+
+### Code and QA commits
+
+- CSS Stage Two screen treatment: `3791e1e86b22402901bed7c2156b802f02ba6b64`.
+- Menu MY SQUAD entry: `c8cafb13906bfb7266c57f9ff5e08c784a9e3fd6`.
+- Squad navigation and gear subview: `943c81267587d4460b0f52938fe5db282762e798`.
+- PTS/CAP markup: `f5e171d20bcd7398212ba06b17bc33d589cff365`.
+- Metric styling: `9b180fea6dfbed09464f6b41f685ba1effa3cd60`.
+- Stage Two QA coverage: `178021e568be9a0c0d5a8072cb47c9dbff6399ba` and portrait viewport correction `8b978a48267059f5c9e54adeb20705dffa592899`.
+
+**Verification status:** implementation changes and QA assertions are committed. The fresh browser run for this Stage Two branch state has not yet been retrieved or confirmed. No Stage Two screenshot has been visually inspected in this pass. Do not claim automated or visual approval until the exact pushed HEAD has a passing Actions run and its `my-team-portrait.png`, `my-squad-attributes-portrait.png`, and `my-squad-gear-portrait.png` are inspected. No golden snapshots were modified. Stage Two remains in progress and requires owner review after internal QA.
