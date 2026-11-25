@@ -86,6 +86,7 @@ try{
  check('Menu uses the four Stage One tiles in reference order',menuTileGeometry.length===5&&menuTileGeometry.map(x=>x.label).join('|')==='UPGRADES|MY TEAM|MY SQUAD|PLAYBOOK|GOALS & STATS'&&Math.abs(menuTileGeometry[0].y-menuTileGeometry[1].y)<3&&menuTileGeometry[2].y>menuTileGeometry[0].y&&Math.abs(menuTileGeometry[2].y-menuTileGeometry[3].y)<3,menuTileGeometry);
  check('Menu card labels do not clip',menuTileGeometry.every(x=>x.textFits),menuTileGeometry);
 
+ await page.setViewportSize({width:390,height:844});
  check('Stage Two MY SQUAD tile is exposed alongside MY TEAM',menuTileGeometry.some(x=>x.label==='MY TEAM')&&menuTileGeometry.some(x=>x.label==='MY SQUAD'));
  await page.locator('#mTeam').click();
  check('MY TEAM screen opens from its menu tile',await page.locator('#team').isVisible());
