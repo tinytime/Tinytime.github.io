@@ -1,3 +1,16 @@
+## Owner-requested follow-up — fumble and Playbook layout (2026-11-25)
+
+Add a small owner-polish pass after the consolidated D1–D12 work:
+1. Make the fumble prompt/event label substantially easier to read; acceptance requires the MASH instruction at 16px or larger and the FUMBLE heading at 20px or larger, both fully visible in the viewport.
+2. Move the star-charge control to the lower-left of the in-match Playbook, directly below the play-category rail.
+3. Center the selected-play explanation in the available footer area between the star-charge control and the primary play action.
+4. Preserve charge/gameplay behavior, category selection, favorite toggles, play selection, FLIP and call actions.
+5. Add browser geometry/style assertions and inspect fresh desktop/landscape/portrait screenshots. No golden snapshot updates without owner authorization.
+
+Implementation commits: CSS `8e2363e316678762c6660e64a3466ef1c9d3310e`; QA `9153b877bcd8ba1073d7614fd49cee4ba26331c4`; latest trigger commit `75c8bab3b1b4a2bd68a632b97379f0b1f59c18e4`. Run #490 is in progress; do not treat as verified yet.
+
+---
+
 ## Current execution checkpoint — Run #487 passed (2026-11-25)
 
 ### Verified repository state
