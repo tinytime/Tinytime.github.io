@@ -95,7 +95,7 @@
      const option=document.createElement('div');option.className='ui-team-trail-option';
      chip.before(option);option.appendChild(chip);
      if(chip.classList.contains('locked')){
-      const trailName=chip.textContent.replace(/^🔒\\s*/,'').trim();
+      const trailName=chip.textContent.replace(/^🔒\s*/,'').trim();
       const challenge=typeof CHAL!=='undefined'?CHAL.find(item=>typeof TRAILS!=='undefined'&&TRAILS[item.tr]?.n===trailName):null;
       const crew=challenge&&typeof crewName==='function'?crewName(challenge.crew):'CREW CHALLENGE';
       const hint=document.createElement('small');hint.className='ui-team-trail-hint';hint.textContent=crew.toUpperCase();
