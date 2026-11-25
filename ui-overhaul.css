@@ -1207,6 +1207,15 @@ body.land #hud #exit{right:8%;top:calc(env(safe-area-inset-top,0px) + 6px);width
   background:#1c2130;color:#f5b841;font-size:23px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 5px 14px rgba(0,0,0,.22)
 }
+#goalsP .ui-goals-header-close{
+  width:36px;height:36px;flex:none;display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.16);border-radius:9px;
+  background:#1c2130;color:#f5f7fa;font:700 24px/1 system-ui,sans-serif;
+  cursor:pointer
+}
+#goalsP .ui-goals-header-close:focus-visible{outline:2px solid #4de1f2;outline-offset:3px}
+#goalsP .ui-goals-title-wrap{flex:1;text-align:center}
+
 #goalsP .ui-goals-title-wrap{min-width:0}
 #goalsP .ui-goals-title{
   margin:0!important;color:#f5f7fa!important;
@@ -1265,6 +1274,20 @@ body.land #hud #exit{right:8%;top:calc(env(safe-area-inset-top,0px) + 6px);width
   min-width:0;display:flex;flex-direction:column;gap:5px;padding:13px;
   border:1px solid rgba(255,255,255,.12);border-radius:11px;background:#131620
 }
+#goalsP .ui-goals-stat-card.is-receiving{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;
+  gap:7px 12px;text-align:center
+}
+#goalsP .ui-goals-stat-card.is-receiving .ui-goals-stat-label{grid-column:1/-1}
+#goalsP .ui-goals-stat-card.is-receiving .ui-goals-stat-value{
+  grid-column:1;display:flex;align-items:baseline;justify-content:center;gap:5px
+}
+#goalsP .ui-goals-stat-number{font:inherit}
+#goalsP .ui-goals-stat-unit{color:#f5b841;font:900 10px/1 var(--ui-mono,monospace);letter-spacing:.06em}
+#goalsP .ui-goals-stat-card.is-receiving .ui-goals-stat-sub{
+  grid-column:2;align-self:center;margin:0;font-size:11px
+}
+
 #goalsP .ui-goals-stat-label{color:#9eacbf;font:900 9px/1.2 var(--ui-mono,monospace);letter-spacing:.12em}
 #goalsP .ui-goals-stat-value{color:#f5f7fa;font:900 27px/1 var(--ui-display,"Barlow Condensed",Impact,sans-serif);font-variant-numeric:tabular-nums}
 #goalsP .ui-goals-stat-sub{color:#f5b841;font:800 9px/1.3 var(--ui-mono,monospace);letter-spacing:.07em}
