@@ -309,7 +309,8 @@
        const raw=value.textContent.trim();number=document.createElement('span');number.className='ui-goals-stat-number';number.textContent=raw;
        const unit=document.createElement('span');unit.className='ui-goals-stat-unit';unit.textContent='REC';value.replaceChildren(number,unit);
       }
-      value.setAttribute('aria-label',(number.textContent.trim()||'0')+' receptions');
+      const accessibleValue=(number.textContent.trim()||'0')+' receptions';
+      if(value.getAttribute('aria-label')!==accessibleValue)value.setAttribute('aria-label',accessibleValue);
      }
      const yards=receiving.querySelector('.ui-goals-stat-sub');
      const yardMatch=yards&&yards.textContent.match(/([\d,]+)\s*(?:YARDS?|YDS?)/i);
