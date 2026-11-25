@@ -9,6 +9,7 @@
 Related references:
 - [UI Overhaul Plan](UI-OVERHAUL-PLAN.md) — design scope and project guardrails.
 - [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) — current implementation and QA handoff.
+- [Stage Four Owner Review Package](UI-OVERHAUL-STAGE-FOUR-REVIEW-PACKAGE.md) — Run #397 polish scope, exact tested commit, screenshot evidence, reviewer attention item, and owner approval checklist.
 - [UI Overhaul Claude Review Package](UI-OVERHAUL-CLAUDE-REVIEW-PACKAGE.md) — exact Stage One independent-review scope and evidence.
 - [UI Overhaul Stage Two Review Package](UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md) — independent findings, Run #322 correction and optional-polish evidence, and owner approval gate.
 - [UI Overhaul workstream README](../ui-overhaul/README.md) — workstream history and implementation notes.
