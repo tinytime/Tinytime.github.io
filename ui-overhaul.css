@@ -2236,3 +2236,9 @@ body.land #bHurdle,body.land #bHurdle.dive{
   #app #sqModel{flex-basis:29%!important}
   #app #team .prev{height:clamp(150px,24vh,205px)!important}
 }
+
+#app #sqPts .ui-squad-metric{display:flex;align-items:center;gap:4px;padding:4px 7px;border:1px solid rgba(245,184,65,.62);border-radius:8px;background:rgba(245,184,65,.1)}
+#app #sqPts .ui-squad-metric small{font-size:9px;font-weight:900;color:#9BA8BC;letter-spacing:.1em}
+#app #sqPts .ui-squad-metric b{font-size:14px;color:#F5B841!important}
+#app #sqPts .ui-squad-defense{align-self:center;color:#4DE1F2;font-size:9px;font-weight:900;white-space:nowrap}
+@media(max-width:390px){#app #sqPts{gap:3px!important}#app #sqPts .ui-squad-metric{padding:3px 5px}#app #sqPts .ui-squad-defense{display:none}}
