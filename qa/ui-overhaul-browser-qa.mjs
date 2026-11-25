@@ -399,13 +399,22 @@ try{
   const matchupFinish=await page.evaluate(()=>{const split=document.querySelector('#mu .split'),fx=document.querySelector('#mu .fx1');return{beam:getComputedStyle(split).backgroundImage,lightBank:getComputedStyle(fx,'::after').content,lightSize:getComputedStyle(fx,'::after').width,home:getComputedStyle(document.querySelector('#mu .pn.my')).backgroundColor,away:getComputedStyle(document.querySelector('#mu .pn.op')).backgroundColor}});
   check('Pre-game backdrop includes the handoff-style diagonal floodlight beam and stadium light bank',matchupFinish.beam.includes('linear-gradient(118deg')&&matchupFinish.lightBank!=='none'&&matchupFinish.lightSize!=='0px'&&matchupFinish.home==='rgb(19, 22, 32)'&&matchupFinish.away==='rgb(19, 22, 32)',matchupFinish);
 
-await page.screenshot({path:path.join(out,'match-pre-game.png'),fullPage:true});
-  await page.locator('#mu').click({position:{x:420,y:350}});
+const matchupLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=>({name:el.querySelector('.nm')?.textContent.trim(),ovr:el.querySelector('.ov')?.textContent.trim()})));
+  check('Pre-game matchup identifies both teams and their OVR badges',matchupLabels.length===2&&matchupLabels.every(x=>!!x.name&&/^OVR\s*\d+/.test(x.ovr||'')),matchupLabels);
+  const matchupFlow=await page.evaluate(()=>{const town=document.querySelector('#mu .top .town'),tag=document.querySelector('#mu .top .tag'),first=document.querySelector('#mu .first'),bar=document.querySelector('#mu .bar'),tap=document.querySelector('#mu .tap');const rect=e=>{const r=e.getBoundingClientRect();return{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}};return{landscape:innerWidth>innerHeight,town:town?.textContent.trim(),tag:tag?.textContent.trim(),first:first?.textContent.trim(),townBox:rect(town),tagBox:rect(tag),firstBox:rect(first),barBox:rect(bar),tapBox:rect(tap)}});
+  check('Matchup mode and FIRST TO win condition are clear in landscape',matchupFlow.landscape&&!!matchupFlow.town&&!!matchupFlow.tag&&/^FIRST TO \d+ WINS$/.test(matchupFlow.first||'')&&matchupFlow.townBox.right<matchupFlow.tagBox.left&&matchupFlow.firstBox.bottom<=matchupFlow.barBox.top+4&&matchupFlow.barBox.bottom<=matchupFlow.tapBox.top,matchupFlow);
+
+  await page.screenshot({path:path.join(out,'match-pre-game.png'),fullPage:true});
+  await page.locator('#mu .tap').click();
   await page.waitForFunction(()=>{const e=document.querySelector('#sheet');return e&&!e.hidden},null,{timeout:10000});
   check('In-match playbook overlay opens',await page.locator('#sheet').isVisible());
   check('In-match CALL PLAY action visible',await page.locator('#callBtn').isVisible());
   check('In-match selected play has gold treatment',await page.locator('#cards .card.sel').count()===1);
   check('In-match FLIP control is visible',await page.locator('#flipBtn').isVisible());
+  const playbookCategories=await page.locator('#pbTabs .pbTab').evaluateAll(es=>es.map(el=>({key:el.dataset.t,label:el.querySelector('b')?.textContent.trim(),count:el.querySelector('small')?.textContent.trim(),disabled:el.disabled})));
+  const expectedPlaybookCounts={ALL:'19 PLAYS',RUN:'7 PLAYS',PASS:'8 PLAYS',TRICK:'4 PLAYS'};
+  check('Landscape playbook exposes FAV, ALL (19), RUN (7), PASS (8), and TRICK (4)',playbookCategories.length===5&&['FAV','ALL','RUN','PASS','TRICK'].every(key=>playbookCategories.some(x=>x.key===key))&&Object.entries(expectedPlaybookCounts).every(([key,value])=>playbookCategories.find(x=>x.key===key)?.count===value),playbookCategories);
+  for(const key of ['RUN','PASS','TRICK','ALL']){await page.locator('#pbTabs .pbTab[data-t="'+key+'"]').click();const active=await page.locator('#pbTabs .pbTab.on').getAttribute('data-t');check('Playbook category '+key+' activates its own filtered state',active===key,{requested:key,active})}
   const playbookPalette=await page.locator('#sheet').evaluate(el=>({surface:getComputedStyle(el).backgroundColor,borderTop:getComputedStyle(el).borderTopColor,shadow:getComputedStyle(el).boxShadow}));
   check('In-match Playbook uses the unified matte navy surface and restrained gold edge',playbookPalette.surface==='rgb(19, 22, 32)'&&playbookPalette.borderTop==='rgba(245, 184, 65, 0.78)'&&!playbookPalette.shadow.includes('77, 225, 242'),playbookPalette);
   const playbookStates=await page.evaluate(()=>({inactive:getComputedStyle(document.querySelector('#pbTabs .pbTab:not(.on)')).backgroundColor,activeBorder:getComputedStyle(document.querySelector('#pbTabs .pbTab.on')).borderTopColor,selectedBorder:getComputedStyle(document.querySelector('#cards .card.sel')).borderTopColor,routeBg:getComputedStyle(document.querySelector('#cards .card canvas')).backgroundColor}));
