@@ -2330,3 +2330,6 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 
 /* #mSquad has a more-specific legacy grid rule; explicitly override it for the four-tile layout. */
 #menu .ui-menu-grid #mSquad{grid-column:1!important;grid-row:1!important;border-color:rgba(245,184,65,.88)!important}
+
+#team .ui-team-head h2:after{content:none!important}
+#team .ui-team-head h2{font-size:20px!important}
