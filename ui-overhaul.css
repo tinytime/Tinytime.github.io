@@ -3073,3 +3073,9 @@ body #menu .ui-menu-build-trigger::after{
     height:clamp(190px,28vh,250px)!important;
   }
 }
+
+
+/* D9: raise Goals & Stats tab, trail-pill and state-label typography for small-screen readability. */
+#goalsP .ui-goals-tab{font-size:11px!important}
+#goalsP .ui-goals-trail-pill{font-size:11px!important}
+#goalsP .ui-goals-state{font-size:10px!important}
