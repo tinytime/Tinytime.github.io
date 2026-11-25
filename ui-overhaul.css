@@ -2834,24 +2834,24 @@ body #menu .ui-menu-build-trigger::after{
 
 
 /* Final D4/D3 correction — target the current Playbook card header and relocated action row.
-   The narrower title measure now fits the longest current play names beside the star;
+   The compact card title is sized and tracked to fit the full play names beside the star;
    FLIP styling is applied to its actual .ui-playbook-actions parent, not the retired .pbTop. */
 #app #sheet #cards>.cardWrap>.card b{
-  padding-right:17px!important;
-  font-size:9px!important;
+  padding-right:0!important;
+  font-size:8px!important;
   line-height:1.15!important;
   white-space:nowrap!important;
   overflow:hidden!important;
-  text-overflow:ellipsis!important;
+  text-overflow:clip!important;
 }
 #app #sheet #cards>.cardWrap>.card b span{
   max-width:100%!important;
-  font-size:9px!important;
+  font-size:8px!important;
   line-height:1.15!important;
-  letter-spacing:-.02em!important;
+  letter-spacing:-.045em!important;
   white-space:nowrap!important;
-  overflow:hidden!important;
-  text-overflow:ellipsis!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
 }
 #app #sheet .ui-playbook-actions #flipBtn{
   background:#131620!important;
