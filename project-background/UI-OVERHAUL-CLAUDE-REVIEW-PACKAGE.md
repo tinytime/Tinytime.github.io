@@ -408,3 +408,30 @@ QA added assertions for the pre-game atmosphere and Credits goal-card removal. T
 ## Current review evidence gate
 
 Latest QA trigger commit: b88ccd45213c12bdbd2e22d5294a38858944b850. The harness contains 146 assertions. Static JS/module parsing and CSS/JS brace checks pass, but GitHub workflow-run and commit-status retrieval returned no run/status. Do not score or approve any changed screenshot from Run #204; it predates this pass. Wait for fresh screenshots from the exact current tested SHA. Known remaining fidelity gaps: FIRST TO target placement is not beside PLAY CLOCK, and the pre-game stadium-light CSS backdrop is not the exact photographic stadium backdrop in the reference. Add a deterministic win/practice post-game screenshot to verify the STYLE POINTS reward card and mode pill.
+
+
+## Latest consolidated review handoff — Run #493 (2026-11-25)
+
+**Review this exact current implementation output:**
+- Implementation branch: `UI-Overhaul`.
+- Exact tested code/QA commit: `7c124d0ac33dae62255626f7a7fc666d833cb3b2`.
+- Browser QA: [Run #493](https://github.com/tinytime/Tinytime.github.io/actions/runs/45724268883) — **303/303 assertions passed**, zero failures, zero page exceptions, zero console errors, zero same-origin request failures.
+- Evidence artifact: [artifact 15074495383](https://github.com/tinytime/Tinytime.github.io/actions/runs/45724268883/artifacts/15074495383), 56 files including report and screenshots.
+- Full run report: `report.json`; human-readable run details: `summary.md`.
+
+**Newly inspected Run #493 screenshots:**
+- `match-defense-simulation.png` — defense ticker is visibly readable and correctly bounded; report geometry 330.84×47.86px, opacity 1, white `rgb(245, 247, 250)` on navy `rgb(19, 22, 32)`, no filter/text shadow.
+- `goals-stats-team-stats.png` — Team Stats four-card layout and cyan/neutral borders; no legacy yellow inset rings.
+- `match-fumble-pile.png` — mash instruction and FUMBLE heading are fully visible and clearly positioned above the contest bar.
+
+**Important Run #493 regression results:**
+- D1 fumble prompt/event heading readability and visibility pass.
+- D2 defense-selection remains hidden while drive ticker/achievement toast are active and returns after both clear; queue interaction checks pass.
+- Team Stats tab/card styling, Playbook selected explanation alignment, and ticker contrast/height assertions pass.
+- The prior Run #492 sole failure (ticker rendered at 31.1px vs 36px minimum) is resolved; current rendered height is 47.86px.
+
+**Review instructions:** review the full D1–D12 scope, cross-stage consistency and owner-requested polish against the current branch output, not only the three new screenshots. Use the complete artifact inventory and existing package criteria. Distinguish code/behavior findings from screenshot fidelity findings. Report severity, exact screen/state/viewport, reproduction steps, evidence filename, and concrete correction for each valid issue. Identify any assertions that appear too weak or any important visual state not covered. Do not treat a green Actions run as visual approval. No golden snapshots were changed.
+
+Documentation-only commits after the tested code SHA record this evidence: plan commit `3e605f52e2210967a93500064d1d8b36d10501bc`, implementation-summary commit `bcc4decd873d6f4b1274ca9eef41a6c69ff7d7d9`. Current branch HEAD is the documentation commit `bcc4decd873d6f4b1274ca9eef41a6c69ff7d7d9`; the exact tested application output remains `7c124d0ac33dae62255626f7a7fc666d833cb3b2`.
+
+**Approval status:** internal browser QA and selected screenshot inspection are complete for this checkpoint. Claude independent review and final owner approval remain pending. Do not mark the overall UI overhaul complete.
