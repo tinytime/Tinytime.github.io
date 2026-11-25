@@ -444,15 +444,24 @@
    // Suppress that progression-only card while pre-game settings are open.
    document.querySelectorAll('[id*="unlock" i],[class*="unlock" i]').forEach(el=>{if(active){el.dataset.uiPreGameHidden='1';el.hidden=true}else if(el.dataset.uiPreGameHidden==='1'){el.hidden=false;delete el.dataset.uiPreGameHidden}});
    const hideNextUnlock=()=>{
-    // The live callout may contain nested spans/icons, so do not require a text-only leaf.
-    // Find the smallest element carrying the heading, then hide its callout wrapper.
     const candidates=[...document.querySelectorAll('body *')]
      .filter(el=>/\bNEXT UNLOCK\b/i.test((el.textContent||'').trim()))
      .sort((a,b)=>(a.textContent||'').trim().length-(b.textContent||'').trim().length);
-    const label=candidates[0];
-    if(!label)return;
-    const card=label.closest('[class*="progress" i],[class*="next" i],[class*="objective" i]')||label.parentElement?.parentElement||label.parentElement;
-    if(card&&card!==menu&&!menu.contains(card)){card.dataset.uiPreGameHidden='1';card.hidden=true}
+    for(const label of candidates){
+     let node=label;
+     for(let depth=0;node&&node!==document.body&&depth<9;depth++,node=node.parentElement){
+      if(node===menu||menu?.contains(node))continue;
+      const style=getComputedStyle(node);
+      const rect=node.getBoundingClientRect();
+      const hasCalloutFrame=style.borderStyle.split(' ').some(v=>v==='dashed'||v==='dotted')&&rect.width>180&&rect.height>30;
+      if(hasCalloutFrame){
+       node.dataset.uiPreGameHidden='1';
+       node.hidden=true;
+       node.style.setProperty('display','none','important');
+       break;
+      }
+     }
+    }
    };
    if(active){
     hideNextUnlock();
