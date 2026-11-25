@@ -2298,3 +2298,32 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #sqPts{flex:0 0 auto!important;width:max-content!important;min-width:max-content!important;white-space:nowrap!important;}
 #sqPts .ui-squad-metric{flex:0 0 auto!important;white-space:nowrap!important;}
 @media(max-width:390px){#sqPts{gap:4px!important;}#sqPts .ui-squad-metric{padding:4px 6px!important;}}
+
+
+/* Stage Two independent-review corrections — team navigation, compact menu, inline gear. */
+#menu .ui-menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-flow:row!important}
+#menu .ui-menu-grid [data-ui-tile="squad"]{grid-column:1!important;grid-row:1!important;border-color:rgba(245,184,65,.88)!important}
+#menu .ui-menu-grid #mTeam{grid-column:2!important;grid-row:1!important}
+#menu .ui-menu-grid [data-ui-tile="playbook"]{grid-column:1!important;grid-row:2!important}
+#menu .ui-menu-grid #mGoals{grid-column:2!important;grid-row:2!important}
+#menu .ui-menu-grid [data-ui-tile="squad"] strong{color:#F5B841!important}
+#menu .ui-menu-grid #mTeam,#menu .ui-menu-grid [data-ui-tile="playbook"],#menu .ui-menu-grid #mGoals{border-color:rgba(77,225,242,.82)!important}
+
+#team .ui-team-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px;flex:none;min-height:38px}
+#team .ui-team-head h2{min-width:0;margin:0!important;font-size:22px!important;letter-spacing:.08em!important;white-space:nowrap}
+#team .ui-team-back,#team .ui-team-upg{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 10px;border:1px solid rgba(77,225,242,.45);border-radius:9px;background:#1C2130;color:#DCE5F2;font:800 10px/1 var(--ui);letter-spacing:.08em;white-space:nowrap}
+#team .ui-team-back{color:#4DE1F2;border-color:rgba(77,225,242,.6)}
+#team .ui-team-upg{min-width:58px;color:#F5B841;border-color:rgba(245,184,65,.7);background:rgba(245,184,65,.1)}
+#team .ui-team-back:focus-visible,#team .ui-team-upg:focus-visible{outline:2px solid #F5B841;outline-offset:2px}
+
+#team .ui-team-identity{grid-template-columns:minmax(0,1.1fr) minmax(132px,.9fr)!important}
+#team .ui-team-identity .lprev{display:grid!important;grid-template-columns:minmax(0,1fr)!important;justify-items:stretch;align-content:center;gap:6px;min-width:0;min-height:0;padding:7px!important}
+#team .ui-team-identity .lprev #tLogoBtn{display:flex;align-items:center;justify-content:center;width:100%;min-width:0;min-height:38px;padding:0 8px!important;flex:none!important;font-size:11px!important;white-space:nowrap;line-height:1}
+#team .ui-team-identity .lprev .lbig{margin:0 auto!important;min-width:52px;min-height:46px}
+@media(max-width:350px){#team .ui-team-identity{grid-template-columns:minmax(0,1fr) minmax(122px,.9fr)!important}}
+
+#sqBody .ui-squad-inline-gear{display:grid;gap:5px;margin:8px 0 2px;padding:8px 8px 4px;border-top:1px solid rgba(77,225,242,.28);border-radius:0 0 9px 9px;background:rgba(28,33,48,.45)}
+#sqBody .ui-squad-inline-gear>.lbl{margin:2px 0!important;color:#9BA8BC;font-size:10px;font-weight:900;letter-spacing:.1em}
+#sqBody .ui-squad-inline-gear>div[style*="display: flex"]{min-height:34px}
+#sqBody .ui-squad-inline-gear .chip{min-width:64px;min-height:32px}
+#sqBody .ustat button{min-width:58px!important;white-space:nowrap}
