@@ -394,16 +394,16 @@
    let page=0,visible=[];
    const refresh=()=>{
     const all=[...cards.querySelectorAll(':scope > .cardWrap')].filter(w=>!w.dataset.uiPaginationControl);
-    const active=all.filter(w=>getComputedStyle(w).display!=='none'&&w.hidden!==true);
+    const active=all.filter(w=>w.dataset.uiPageHidden!=='1'&&getComputedStyle(w).display!=='none'&&w.hidden!==true);
     visible=active;const pages=Math.max(1,Math.ceil(active.length/6));page=Math.min(page,pages-1);
-    all.forEach(w=>{const i=active.indexOf(w);w.hidden=i<0||i<page*6||i>=page*6+6;w.style.display=w.hidden?'none':''});
+    all.forEach(w=>{const i=active.indexOf(w),hide=i<0||i<page*6||i>=page*6+6;if(w.dataset.uiPageHidden!==String(hide?'1':'0'))w.dataset.uiPageHidden=hide?'1':'0'});
     label.textContent=(page+1)+' / '+pages+' · '+active.length+' PLAYS';prev.disabled=page===0;next.disabled=page>=pages-1;
    };
    prev.addEventListener('click',()=>{page=Math.max(0,page-1);refresh()});
    next.addEventListener('click',()=>{page++;refresh()});
    const tabs=document.getElementById('pbTabs');
    tabs?.addEventListener('click',()=>{page=0;requestAnimationFrame(refresh)});
-   if(window.MutationObserver)new MutationObserver(()=>requestAnimationFrame(refresh)).observe(cards,{childList:true,subtree:true,attributes:true,attributeFilter:['class','hidden','style']});
+   if(window.MutationObserver)new MutationObserver(()=>requestAnimationFrame(refresh)).observe(cards,{childList:true,subtree:true,attributes:true,attributeFilter:['class','style']});
    refresh();
   }
   const hud=document.getElementById('hud');
