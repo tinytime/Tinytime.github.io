@@ -1479,10 +1479,11 @@ function buildCards(redraw){
   nav.hidden=pages<2;$('#pbPg').textContent='PAGE '+(PB.pg+1)+' / '+pages;$('#pbPrev').disabled=PB.pg<=0;$('#pbNext').disabled=PB.pg>=pages-1;
   box.style.gridTemplateColumns='repeat('+f.cols+',minmax(0,1fr))';box.style.gridTemplateRows='repeat('+f.rows+',minmax(0,1fr))';
   box.innerHTML='';box.dataset.built=1;
-  for(const i of L.slice(PB.pg*f.n,PB.pg*f.n+f.n)){const pl=PLAYS[i],c=document.createElement('div');c.className='card';c.dataset.i=i;
-    const fv=favs().includes(pl.id);c.innerHTML='<b><span>'+pl.name+'</span><button type="button" class="fav'+(fv?' on':'')+'" aria-label="favourite" aria-pressed="'+(fv?'true':'false')+'">'+(fv?'\u2605':'\u2606')+'</button></b><canvas width="168" height="124"></canvas>';
-    c.querySelector('.fav').onclick=e=>{e.preventDefault();e.stopPropagation();favToggle(pl.id);buildCards(true)};
-    c.onclick=()=>{if(G.sel===i){callPlay();return}G.sel=i;beep(500,.04);updateSel()};box.appendChild(c);drawCard(c.lastChild,pl,G.flip?-1:1)}
+  for(const i of L.slice(PB.pg*f.n,PB.pg*f.n+f.n)){const pl=PLAYS[i],wrap=document.createElement('div'),c=document.createElement('div'),fav=document.createElement('button');wrap.className='cardWrap';c.className='card';c.dataset.i=i;
+    const fv=favs().includes(pl.id);c.innerHTML='<b><span>'+pl.name+'</span></b><canvas width="168" height="124"></canvas>';
+    fav.type='button';fav.className='fav'+(fv?' on':'');fav.setAttribute('aria-label','favourite');fav.setAttribute('aria-pressed',fv?'true':'false');fav.textContent=fv?'\\u2605':'\\u2606';
+    fav.onclick=e=>{e.preventDefault();e.stopPropagation();favToggle(pl.id);buildCards(true)};
+    c.onclick=()=>{if(G.sel===i){callPlay();return}G.sel=i;beep(500,.04);updateSel()};wrap.append(c,fav);box.appendChild(wrap);drawCard(c.lastChild.previousSibling.lastChild,pl,G.flip?-1:1)}
   if(PB.tab==='FAV'&&!L.length){box.innerHTML='<div class="favEmpty">No favourites yet. Tap the \u2606 on any play card to add it here.</div>'}
   updateSel();
 }
@@ -1491,7 +1492,7 @@ function pbKey(){const W=$('#pbGrid').getBoundingClientRect().width,H=$('#pbMain
 setInterval(()=>{if(typeof G==='undefined'||!G||$('#sheet').hidden)return;const k=pbKey();if(k&&k!==PB.key)buildCards(true)},250);   // the sheet was measured while hidden, or the phone turned: lay the cards out again
 function updateSel(){
   if(G&&F&&G.mode==='playcall')alignWRs();
-  [...$('#cards').children].forEach(c=>c.classList.toggle('sel',+c.dataset.i===G.sel));
+  [...$('#cards .card')].forEach(c=>c.classList.toggle('sel',+c.dataset.i===G.sel));
   $('#blurb').textContent=PLAYS[G.sel].name+'. '+PLAYS[G.sel].blurb;
 }
 function drawCard(cvs,pl,fx){
