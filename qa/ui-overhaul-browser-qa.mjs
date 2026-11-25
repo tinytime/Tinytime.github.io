@@ -418,8 +418,8 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   check('In-match selected play has gold treatment',await page.locator('#cards .card.sel').count()===1);
   check('In-match FLIP control is visible',await page.locator('#flipBtn').isVisible());
   const playbookCategoryCounts=await page.locator('#pbTabs .pbTab').evaluateAll(es=>es.map(el=>({key:el.dataset.t,label:el.querySelector('b')?.textContent.trim(),count:el.querySelector('small')?.textContent.trim(),disabled:el.disabled})));
-  const expectedPlaybookCounts={ALL:'19 PLAYS',RUN:'7 PLAYS',PASS:'8 PLAYS',TRICK:'4 PLAYS'};
-  check('Landscape playbook exposes FAV, ALL (19), RUN (7), PASS (8), and TRICK (4)',playbookCategoryCounts.length===5&&['FAV','ALL','RUN','PASS','TRICK'].every(key=>playbookCategoryCounts.some(x=>x.key===key))&&Object.entries(expectedPlaybookCounts).every(([key,value])=>playbookCategoryCounts.find(x=>x.key===key)?.count===value),playbookCategoryCounts);
+  const expectedPlaybookCounts={ALL:'19 PLAYS',RUN:'3 PLAYS',PASS:'12 PLAYS',TRICK:'4 PLAYS'};
+  check('Landscape playbook exposes FAV, ALL (19), RUN (3), PASS (12), and TRICK (4)',playbookCategoryCounts.length===5&&['FAV','ALL','RUN','PASS','TRICK'].every(key=>playbookCategoryCounts.some(x=>x.key===key))&&Object.entries(expectedPlaybookCounts).every(([key,value])=>playbookCategoryCounts.find(x=>x.key===key)?.count===value),playbookCategoryCounts);
   for(const key of ['RUN','PASS','TRICK','ALL']){await page.locator('#pbTabs .pbTab[data-t="'+key+'"]').click();const active=await page.locator('#pbTabs .pbTab.on').getAttribute('data-t');check('Playbook category '+key+' activates its own filtered state',active===key,{requested:key,active})}
   const playbookPalette=await page.locator('#sheet').evaluate(el=>({surface:getComputedStyle(el).backgroundColor,borderTop:getComputedStyle(el).borderTopColor,shadow:getComputedStyle(el).boxShadow}));
   check('In-match Playbook uses the unified matte navy surface and restrained gold edge',playbookPalette.surface==='rgb(19, 22, 32)'&&playbookPalette.borderTop==='rgba(245, 184, 65, 0.78)'&&!playbookPalette.shadow.includes('77, 225, 242'),playbookPalette);
