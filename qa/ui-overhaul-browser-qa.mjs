@@ -244,6 +244,7 @@ try{
  for(const [id,label] of [['challenges','CHALLENGES'],['achievements','ACHIEVEMENTS'],['stats','TEAM STATS']]){
    const tab=page.locator('#ui-goals-tab-'+id);
    await tab.click();
+   await page.waitForTimeout(220); // allow the active border-color transition to settle before reading computed style
    const style=await tab.evaluate(el=>({selected:el.getAttribute('aria-selected'),border:getComputedStyle(el).borderTopWidth,borderColor:getComputedStyle(el).borderTopColor,color:getComputedStyle(el).color,shadow:getComputedStyle(el).boxShadow}));
    check(label+' tab uses one cyan outline without a yellow ring',style.selected==='true'&&parseFloat(style.border)===1&&(style.borderColor==='rgb(77, 225, 242)'||style.borderColor==='rgba(77, 225, 242, 1)')&&style.color==='rgb(77, 225, 242)'&&style.shadow==='none',style);
  }
