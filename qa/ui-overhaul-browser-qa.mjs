@@ -210,11 +210,14 @@ try{
  check('One-off achievements show 0 / 1 counters instead of LOCKED labels',oneOffCount.trim()==='0 / 1',oneOffCount);
  const firstAchievement=page.locator('#ui-goals-panel-achievements .ui-goals-achievement').first();
  await firstAchievement.evaluate(el=>el.classList.add('is-earned'));
- await page.waitForFunction(()=>document.querySelector('#goalsP .ui-goals-trophy-count')?.textContent==='1/13');
+ await page.waitForFunction(()=>document.querySelector('#goalsP .ui-goals-trophy-count')?.textContent==='1/13',null,{timeout:5000});
  const earnedProgress=await page.locator('#goalsP').evaluate(el=>({trophy:el.querySelector('.ui-goals-trophy-count')?.textContent||'',counter:el.querySelector('.ui-goals-achievement-count')?.textContent.trim()||''}));
  check('Trophy total and one-off counter react to an earned achievement',earnedProgress.trophy==='1/13'&&earnedProgress.counter==='1 / 1',earnedProgress);
+ await page.waitForTimeout(100);
+ const stableProgress=await page.locator('#goalsP .ui-goals-trophy-count').textContent();
+ check('Achievement observer settles without repeated DOM mutation',stableProgress==='1/13',stableProgress);
  await firstAchievement.evaluate(el=>el.classList.remove('is-earned'));
- await page.waitForFunction(()=>document.querySelector('#goalsP .ui-goals-trophy-count')?.textContent==='0/13');
+ await page.waitForFunction(()=>document.querySelector('#goalsP .ui-goals-trophy-count')?.textContent==='0/13',null,{timeout:5000});
 
  await page.screenshot({path:path.join(out,'goals-stats-achievements.png')});
  const achievementBottom=await page.locator('#goalsP').evaluate(el=>{const content=el.querySelector('.ui-goals-content');content.scrollTop=content.scrollHeight;const last=el.querySelector('#ui-goals-panel-achievements .ui-goals-achievement:last-child').getBoundingClientRect(),close=el.querySelector('.ui-goals-close').getBoundingClientRect();return{gap:close.top-last.bottom,scrollTop:content.scrollTop,contentBottom:content.getBoundingClientRect().bottom,closeTop:close.top}});
