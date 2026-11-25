@@ -361,3 +361,8 @@ Stage Three has been implemented on UI-Overhaul and is internally verified. Exac
 ## Stage Three approval and Stage Four authorization (2026-11-25)
 
 The owner approved Stage Three GOALS & STATS and authorized Stage Four. Stage Four targets handoff section 5, Pre-Game Matchup & Playbook (landscape). The current `#mu` matchup overlay and `#sheet` in-match play sheet are implemented and covered by the consolidated QA suite; work begins with targeted end-to-end coverage and visual gap verification. Do not modify gameplay/save/progression behavior or golden snapshots.
+
+
+## Stage Three approval and Stage Four authorization — 2026-11-25
+
+The owner approved Stage Three and authorized Stage Four. Stage Four targets the Section 5 landscape Pre-Game Matchup & Playbook integration. Existing matchup and playbook surfaces are already present and have baseline browser assertions; the work is a focused gap audit and correction pass, preserving the existing real match transition and gameplay behavior. See the implementation summary for the exact audit scope and acceptance sequence. Do not change golden snapshots or gameplay rules.
