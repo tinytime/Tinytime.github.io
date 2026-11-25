@@ -185,6 +185,8 @@ try{
  await page.setViewportSize({width:390,height:844});
  await page.locator('#mGoals').click();
  check('GOALS & STATS opens as a modal screen',await page.locator('#goalsP').isVisible());
+ const goalsHeader=await page.locator('#goalsP .ui-goals-header').evaluate(el=>{const box=s=>{const r=s.getBoundingClientRect();return{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width}};return{close:box(el.querySelector('.ui-goals-header-close')),title:box(el.querySelector('.ui-goals-title-wrap')),trophy:box(el.querySelector('.ui-goals-trophy')),label:el.querySelector('.ui-goals-header-close')?.getAttribute('aria-label')}});
+ check('GOALS & STATS header includes an accessible X, centered title and trophy badge',!!goalsHeader.label&&goalsHeader.label==='Close Goals & Stats'&&goalsHeader.close.right<goalsHeader.title.left&&goalsHeader.title.right<goalsHeader.trophy.left,goalsHeader);
  check('GOALS & STATS has three accessible tabs',await page.locator('#goalsP [role="tab"]').count()===3);
  check('GOALS & STATS starts on CHALLENGES',await page.locator('#ui-goals-tab-challenges').getAttribute('aria-selected')==='true'&&await page.locator('#ui-goals-panel-challenges').isVisible());
  const trophyBadge=await page.locator('#goalsP .ui-goals-trophy').evaluate(el=>({count:el.querySelector('.ui-goals-trophy-count')?.textContent||'',width:el.getBoundingClientRect().width}));
@@ -206,6 +208,13 @@ try{
  check('Achievements tab shows medals, counters and progress',achievementPanel.visible&&achievementPanel.cards>0&&achievementPanel.medals===achievementPanel.cards&&achievementPanel.counters===achievementPanel.cards&&achievementPanel.progress>0&&achievementPanel.selected==='true',achievementPanel);
  const oneOffCount=await page.locator('#ui-goals-panel-achievements .ui-goals-achievement-count').first().textContent();
  check('One-off achievements show 0 / 1 counters instead of LOCKED labels',oneOffCount.trim()==='0 / 1',oneOffCount);
+ const firstAchievement=page.locator('#ui-goals-panel-achievements .ui-goals-achievement').first();
+ await firstAchievement.evaluate(el=>el.classList.add('is-earned'));
+ await page.waitForFunction(()=>document.querySelector('#goalsP .ui-goals-trophy-count')?.textContent==='1/13');
+ const earnedProgress=await page.locator('#goalsP').evaluate(el=>({trophy:el.querySelector('.ui-goals-trophy-count')?.textContent||'',counter:el.querySelector('.ui-goals-achievement-count')?.textContent.trim()||''}));
+ check('Trophy total and one-off counter react to an earned achievement',earnedProgress.trophy==='1/13'&&earnedProgress.counter==='1 / 1',earnedProgress);
+ await firstAchievement.evaluate(el=>el.classList.remove('is-earned'));
+ await page.waitForFunction(()=>document.querySelector('#goalsP .ui-goals-trophy-count')?.textContent==='0/13');
 
  await page.screenshot({path:path.join(out,'goals-stats-achievements.png')});
  const achievementBottom=await page.locator('#goalsP').evaluate(el=>{const content=el.querySelector('.ui-goals-content');content.scrollTop=content.scrollHeight;const last=el.querySelector('#ui-goals-panel-achievements .ui-goals-achievement:last-child').getBoundingClientRect(),close=el.querySelector('.ui-goals-close').getBoundingClientRect();return{gap:close.top-last.bottom,scrollTop:content.scrollTop,contentBottom:content.getBoundingClientRect().bottom,closeTop:close.top}});
@@ -217,10 +226,20 @@ try{
  check('Team Stats uses four career cards and the MY SQUAD > CAREER note',teamStatsPanel.visible&&teamStatsPanel.cards===4&&teamStatsPanel.note.includes('MY SQUAD')&&teamStatsPanel.note.includes('CAREER')&&teamStatsPanel.selected==='true',teamStatsPanel);
  const statLayout=await page.locator('#ui-goals-panel-stats .ui-goals-stat-card').evaluateAll(es=>es.map(el=>({label:el.querySelector('.ui-goals-stat-label')?.textContent.trim(),x:el.getBoundingClientRect().x,width:el.getBoundingClientRect().width,skill:el.classList.contains('is-skill'),cells:el.querySelectorAll('.ui-goals-skill-cell').length})));
  check('Team Stats follows two-up, full-width Receiving and three-cell Skill Moves layout',statLayout.length===4&&statLayout[0].x>statLayout[1].x&&statLayout[2].width>=statLayout[0].width*1.8&&statLayout[3].width>=statLayout[0].width*1.8&&statLayout[3].skill&&statLayout[3].cells===3,statLayout);
+ const receivingMetrics=await page.locator('#ui-goals-panel-stats .ui-goals-stat-card.is-receiving').evaluate(el=>{const value=el.querySelector('.ui-goals-stat-value'),unit=el.querySelector('.ui-goals-stat-unit'),yards=el.querySelector('.ui-goals-stat-sub'),v=value.getBoundingClientRect(),y=yards.getBoundingClientRect();return{number:value.querySelector('.ui-goals-stat-number')?.textContent.trim(),unit:unit?.textContent.trim(),yards:yards?.textContent.trim(),aria:value.getAttribute('aria-label'),sameRow:Math.abs(v.top-y.top)<8}});
+ check('Receiving separates receptions and receiving yards into labeled side-by-side metrics',receivingMetrics.number!==undefined&&receivingMetrics.unit==='REC'&&/^[\\d,]+ YDS$/.test(receivingMetrics.yards)&&receivingMetrics.aria?.includes('receptions')&&receivingMetrics.sameRow,receivingMetrics);
+ await page.setViewportSize({width:360,height:800});
+ const narrowGoalsHeader=await page.locator('#goalsP .ui-goals-header').evaluate(el=>{const r=s=>{const b=s.getBoundingClientRect();return{left:b.left,right:b.right}};return{close:r(el.querySelector('.ui-goals-header-close')),title:r(el.querySelector('.ui-goals-title-wrap')),trophy:r(el.querySelector('.ui-goals-trophy')),tabs:el.parentElement.querySelector('.ui-goals-tabs').scrollWidth,tabClient:el.parentElement.querySelector('.ui-goals-tabs').clientWidth}});
+ check('Goals header and tab rail fit without horizontal overflow at 360px',narrowGoalsHeader.close.right<narrowGoalsHeader.title.left&&narrowGoalsHeader.title.right<narrowGoalsHeader.trophy.left&&narrowGoalsHeader.tabs<=narrowGoalsHeader.tabClient,narrowGoalsHeader);
+ await page.screenshot({path:path.join(out,'goals-stats-team-stats-360.png')});
+ await page.setViewportSize({width:390,height:844});
 
  await page.screenshot({path:path.join(out,'goals-stats-team-stats.png')});
  await page.locator('.ui-goals-close').click();
  check('GOALS & STATS CLOSE returns to the menu',await page.locator('#goalsP').count()===0);
+ await page.locator('#mGoals').click();
+ await page.locator('.ui-goals-header-close').click();
+ check('GOALS & STATS header X returns to the menu',await page.locator('#goalsP').count()===0);
  await page.locator('#mGoals').click();
  await page.keyboard.press('Escape');
  check('GOALS & STATS closes with Escape',await page.locator('#goalsP').count()===0);
