@@ -3,12 +3,12 @@
 **Review target:** MY TEAM and MY SQUAD  
 **Design authority:** owner-supplied *Circuit Football — UI Overhaul Handoff Spec*, Section 3, pages 5–6  
 **Implementation branch:** `UI-Overhaul`  
-**Latest successful correction commit:** `3be8785d5a250d65430f7c50571d5d0d428a9d36`  
+**Latest successful correction commit:** `8aff7da49a4a5bafc255f3fc073783803469377c`  
 **CSS root-selector correction:** `71e1a20af05483d45ea832d0193e68d9f557b1fc`  
 **Latest verification:** [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570), 221/221 assertions, exact tested commit `3be8785d5a250d65430f7c50571d5d0d428a9d36`  
 **Historical baseline QA:** [Run #297](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193) — successful, 216/216 assertions  
-**Latest evidence artifact:** [Artifact 14985344956](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570/artifacts/14985344956)  
-**Latest STYLE & GEAR and defense-simulation QA:** Run #313 passed; the parent-panel and defense-simulation screenshots were inspected.
+**Latest evidence artifact:** [Artifact 14987300342](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797/artifacts/14987300342)  
+**Latest STYLE & GEAR and defense-simulation QA:** Run #315 passed; the parent-panel, trail-scroll-end and defense-simulation screenshots were inspected.
 
 ## Scope
 
@@ -28,6 +28,9 @@ Inspect these first at 390×844 portrait:
 1. `my-team-portrait.png`
 2. `my-squad-attributes-portrait.png`
 3. `my-squad-style-gear-portrait.png`
+4. `my-team-uniform-portrait.png`
+5. `my-team-trails-portrait.png`
+6. `my-team-trails-bottom-portrait.png`
 
 Also inspect `portrait-menu.png` and `desktop-menu.png` for menu tile order and treatment. The artifact contains the wider Stage One/Two regression screenshot set, including playbook and match screens.
 
@@ -72,7 +75,7 @@ Independent Stage Two review scores: MY TEAM **8/10**, MY SQUAD **8.5/10**, Menu
 - **MY SQUAD — gear hierarchy:** VISOR and ARM SLEEVES now render inline below JERSEY NUMBER in the parent STYLE & GEAR panel. The separate BACK TO STYLE subview and its extra tap are removed; toggle changes remain visible and save-backed.
 - **Menu — layout:** consolidated the separate upgrade and squad destinations into one gold MY SQUAD tile with the subtitle “Starters & upgrades”; MY TEAM, PLAYBOOK and GOALS & STATS occupy the other three positions in a 2×2 grid. DATA & SUPPORT and BACK TO TOWN fit in the portrait view. Desktop and 360px narrow screenshots were inspected.
 
-Run #313 tests the corrected state and includes assertions for each of these points. Automated QA passed 221/221 with zero page exceptions, console errors or same-origin failures. Stage Two remains pending explicit owner approval.
+Run #315 tests the corrected state and includes assertions for each of these points plus scroll-to-end visibility of the final locked-trail hint above SAVE & EQUIP. Automated QA passed 222/222 with zero page exceptions, console errors or same-origin failures. Stage Two remains pending explicit owner approval.
 
 ## Reviewer instructions
 
@@ -119,7 +122,7 @@ No golden snapshots or snapshot provenance were changed.
 ## Latest verification — Run #313 (2026-11-25)
 
 - Exact tested commit: `3be8785d5a250d65430f7c50571d5d0d428a9d36`.
-- [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570): **221/221 passed**, zero failures, zero page exceptions, zero console errors and zero same-origin failures.
+- [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570): **222/222 passed**, zero failures, zero page exceptions, zero console errors and zero same-origin failures.
 - Evidence [Artifact 14985344956](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570/artifacts/14985344956) was downloaded and inspected.
 - Screenshots inspected: `portrait-menu.png`, `desktop-menu.png`, `narrow-menu-360.png`, `my-team-portrait.png`, `my-squad-attributes-portrait.png`, `my-squad-style-gear-portrait.png`, `overworld-portrait.png`, `match-fumble-pile.png`, and `match-defense-simulation.png`.
 - MY TEAM header and logo layout are clear; UPG reads the live count; SAVE & EQUIP remains bottom-pinned.
@@ -127,4 +130,15 @@ No golden snapshots or snapshot provenance were changed.
 - The menu uses four tiles in two rows. At 360px portrait, DATA & SUPPORT and BACK TO TOWN remain visible without clipping.
 - The Fumble meter remains separated from the A control; defense simulation retains the corrected possession pill without the stale field banner.
 - Independent review findings have been addressed. **Stage Two owner approval remains pending.** Do not begin Stage Three until explicit approval. No golden snapshots or provenance were changed.
+
+
+
+## Latest verification — Run #315 (2026-11-25)
+
+- Exact tested commit: `8aff7da49a4a5bafc255f3fc073783803469377c`.
+- [Run #315](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797): **222/222 passed**, zero failures, zero page exceptions, zero console errors and zero same-origin failures.
+- Evidence [Artifact 14987300342](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797/artifacts/14987300342) was downloaded and inspected.
+- Added a dedicated trail-scroll assertion: the QA scrolls the actual `.ui-team-tab-content` panel to its end and verifies the final locked-trail unlock hint remains above the fixed SAVE & EQUIP action. The captured bottom state places the final hint bottom at y=751.5 and the save action top at y=784 in the 844px viewport.
+- Screenshots inspected: `portrait-menu.png`, `desktop-menu.png`, `narrow-menu-360.png`, `my-team-portrait.png`, `my-team-uniform-portrait.png`, `my-team-trails-portrait.png`, `my-team-trails-bottom-portrait.png`, `my-squad-attributes-portrait.png`, `my-squad-style-gear-portrait.png`, `overworld-portrait.png`, `match-fumble-pile.png`, and `match-defense-simulation.png`.
+- Independent review findings remain addressed. **Stage Two owner approval remains pending.** Do not begin Stage Three until explicit approval. No golden snapshots or provenance changed.
 
