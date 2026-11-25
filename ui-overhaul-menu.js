@@ -59,7 +59,7 @@
 
   ['mTeam','mGoals'].forEach(id=>moveControl(id,actions,'',true));
   byId('mTeam').dataset.uiTile='team';decorateAction(byId('mTeam'),icon('<path d="M8 4h8l2 3 3 1-2 12H5L3 8l3-1 2-3Z"/><path d="M9 4c0 2 1 3 3 3s3-1 3-3"/><path d="M8 12h8"/>'),'MY TEAM','Build your lineup');
-  const squadControl=byId('mSquad');if(squadControl){squadControl.hidden=true;squadControl.setAttribute('aria-hidden','true');}
+  const squadControl=byId('mSquad');if(squadControl){squadControl.hidden=false;squadControl.removeAttribute('aria-hidden');squadControl.removeAttribute('style');actions.appendChild(squadControl);decorateAction(squadControl,icon('<path d="M4 7h16v13H4z"/><path d="M8 7V5a4 4 0 0 1 8 0v2M8 12h8M8 16h5"/>'),'MY SQUAD','Manage starters and upgrades');squadControl.dataset.uiTile='squad';}
   byId('mGoals').dataset.uiTile='goals';decorateAction(byId('mGoals'),icon('<path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4M12 12v5m-4 3h8m-7-3h6"/>'),'GOALS & STATS','Challenges and records');
   const upgradeButton=document.createElement('button');upgradeButton.type='button';upgradeButton.className='ui-menu-icon-card';upgradeButton.setAttribute('aria-label','Open upgrades');
   upgradeButton.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon('<path d="M12 3 20 6v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-3Z"/><path d="M12 7v8m-4-4h8"/>')+'</span><span class="ui-menu-action-copy"><strong>UPGRADES</strong><small>Improve your starters</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>';
