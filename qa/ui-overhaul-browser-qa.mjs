@@ -192,6 +192,9 @@ try{
  check('MY SQUAD returns to the menu',await page.locator('#menu').isVisible());
  const menuCardBorders=await page.locator('#uiMenuHome .ui-menu-grid .ui-menu-icon-card').evaluateAll(items=>items.map(el=>getComputedStyle(el).borderTopColor));
  check('Menu uses a gold combined MY SQUAD / UPGRADES tile and cyan frames for the other three actions',menuCardBorders.length===4&&menuCardBorders[0]==='rgba(245, 184, 65, 0.88)'&&menuCardBorders.slice(1).every(x=>x==='rgba(77, 225, 242, 0.82)'),menuCardBorders);
+ const playbookTileLabel=await page.locator('.ui-menu-playbook .ui-menu-action-copy small').textContent();
+ const availablePlayCount=await page.evaluate(()=>window.SG.PLAYS.length);
+ check('Menu Playbook tile reports the currently available play count',playbookTileLabel.trim()===availablePlayCount+' available plays',{playbookTileLabel,availablePlayCount});
  await page.locator('.ui-menu-playbook').click();
  check('Playbook overlay opens',await page.locator('.ui-menu-playbook-overlay').isVisible());
  const playCount=await page.locator('.ui-menu-play-card').count();
@@ -355,6 +358,8 @@ try{
  check('Credits show the full source attribution in all three reference cards',creditDetails.length===3&&creditDetails.every(d=>d.open)&&creditDetails[0].text.includes('Kay Lousberg')&&creditDetails[1].text.includes('glitchart')&&creditDetails[2].text.includes('Thimras')&&creditDetails[2].text.includes('Kevin MacLeod'),creditDetails);
  const creditParagraphs=await page.locator('#uiMenuCredits .ui-menu-credit-details p').evaluateAll(ps=>ps.map(p=>({maxHeight:getComputedStyle(p).maxHeight,overflow:getComputedStyle(p).overflow,scrollHeight:p.scrollHeight,clientHeight:p.clientHeight})));
  check('Credits attribution paragraphs are fully expanded without internal clipping',creditParagraphs.length===3&&creditParagraphs.every(p=>p.maxHeight==='none'&&p.overflow==='visible'&&p.scrollHeight<=p.clientHeight+1),creditParagraphs);
+ const publicBuildHint=await page.locator('#mBuild').evaluate(el=>getComputedStyle(el,'::after').content);
+ check('Public Credits footer does not expose the private developer gesture',publicBuildHint==='none',publicBuildHint);
 
  check('Build footer retained',await page.locator('#mBuild').count()===1&&await page.locator('#mBuild').isVisible());
  await page.waitForFunction(()=>document.querySelector('.ui-menu-dev #mSnd')&&document.querySelector('.ui-menu-dev #mKKF'),null,{timeout:5000});
@@ -473,8 +478,8 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   check('In-match CALL PLAY action visible',await page.locator('#callBtn').isVisible());
   check('In-match selected play has gold treatment',await page.locator('#cards .card.sel').count()===1);
   check('Playbook hides duplicate down-and-distance header',await page.locator('#shDD').evaluate(el=>getComputedStyle(el).display)==='none');
-  const playbookCardGeometry=await page.locator('#cards>.cardWrap').evaluateAll(items=>items.map(w=>{const card=w.querySelector('.card'),title=card.querySelector('b span').getBoundingClientRect(),fav=w.querySelector('.fav').getBoundingClientRect(),canvas=card.querySelector('canvas').getBoundingClientRect();return{title:{left:title.left,right:title.right},fav:{left:fav.left,right:fav.right},canvas:{width:canvas.width,height:canvas.height}}}));
-  check('Playbook titles clear the separate favourite control and route diagrams have readable height',playbookCardGeometry.length===6&&playbookCardGeometry.every(x=>x.title.right<=x.fav.left+1&&x.canvas.height>=64),playbookCardGeometry);
+  const playbookCardGeometry=await page.locator('#cards>.cardWrap').evaluateAll(items=>items.map(w=>{const card=w.querySelector('.card'),span=card.querySelector('b span'),title=span.getBoundingClientRect(),fav=w.querySelector('.fav').getBoundingClientRect(),canvas=card.querySelector('canvas').getBoundingClientRect();return{title:{left:title.left,right:title.right,scrollWidth:span.scrollWidth,clientWidth:span.clientWidth,text:span.textContent.trim()},fav:{left:fav.left,right:fav.right},canvas:{width:canvas.width,height:canvas.height}}}));
+  check('Playbook titles fit on one line clear of the favourite control and route diagrams retain readable height',playbookCardGeometry.length===6&&playbookCardGeometry.every(x=>x.title.right<=x.fav.left+1&&x.title.scrollWidth<=x.title.clientWidth+1&&x.canvas.height>=64),playbookCardGeometry);
   check('In-match FLIP is a gold-outline secondary action',await page.locator('#flipBtn').isVisible()&&await page.locator('#flipBtn').evaluate(el=>getComputedStyle(el).color)==='rgb(245, 184, 65)'&&await page.locator('#flipBtn').evaluate(el=>getComputedStyle(el).backgroundColor)==='rgb(19, 22, 32)');
   const flipStateBefore=await page.locator('#flipBtn').evaluate(el=>({active:el.classList.contains('on'),border:getComputedStyle(el).borderTopColor}));
   await page.locator('#flipBtn').click();
@@ -672,8 +677,8 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
    
    const drivePillFit=await page.locator('#tkTop').evaluate(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el),title=el.querySelector('#tkTitle'),status=el.querySelector('#tkSt');return{left:r.left,right:r.right,width:r.width,height:r.height,viewport:innerWidth,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,transform:s.transform,maxWidth:s.maxWidth,title:title?.textContent.trim()||'',status:status?.textContent.trim()||'',titleScroll:title?.scrollWidth||0,titleClient:title?.clientWidth||0,statusScroll:status?.scrollWidth||0,statusClient:status?.clientWidth||0,text:el.innerText.trim()}});
    check('Defense drive pill is centered and keeps the full down-and-distance and yard-line context inside the viewport',drivePillFit.left>=12&&drivePillFit.right<=drivePillFit.viewport-12&&Math.abs((drivePillFit.left+drivePillFit.right)/2-drivePillFit.viewport/2)<2&&drivePillFit.scrollWidth<=drivePillFit.clientWidth+1&&drivePillFit.titleScroll<=drivePillFit.titleClient+1&&drivePillFit.statusScroll<=drivePillFit.statusClient+1&&/BALL ON/i.test(drivePillFit.text),drivePillFit);
-   const scoreboardContext=await page.locator('#bDown').evaluate(el=>({visibility:getComputedStyle(el).visibility,display:getComputedStyle(el).display}));
-   check('Defensive-drive presentation suppresses the stale offensive down-and-distance scoreboard',scoreboardContext.visibility==='hidden'||scoreboardContext.display==='none',scoreboardContext);
+   const scoreboardContext=await page.locator('#bDown').evaluate(el=>({visibility:getComputedStyle(el).visibility,display:getComputedStyle(el).display,width:el.getBoundingClientRect().width}));
+   check('Defensive-drive presentation removes the stale down-and-distance slot from the scoreboard',scoreboardContext.display==='none'&&scoreboardContext.width===0,scoreboardContext);
 const driveTransition=await page.evaluate(()=>{const banner=document.querySelector('#banner'),pill=document.querySelector('#tkTop'),title=document.querySelector('#tkTitle'),bs=getComputedStyle(banner),ps=getComputedStyle(pill);return{bannerText:banner?.textContent.trim()||'',bannerOpacity:bs.opacity,bannerVisibility:bs.visibility,title:title?.textContent.trim()||'',pillAnimation:ps.animationName,pillDelay:ps.animationDelay}});
    check('Defense simulation clears the prior field banner before revealing THEIR DRIVE',/BALANCED/i.test(driveTransition.title)&&driveTransition.bannerOpacity==='0'&&driveTransition.bannerVisibility==='hidden'&&driveTransition.pillAnimation==='ui-drive-pill-arrive',driveTransition);
 
