@@ -6,10 +6,10 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest Stage Three code/QA commit tested: `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`; Run #331 passed 230/230 browser assertions and its actual Goals & Stats screenshots were visually inspected. Latest branch HEAD is documentation-only commit `92d1ff32cc950b01c273146dd01e007b5e500213`.
+- Latest Stage Three code/QA commit tested: `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`; Run #331 passed 230/230 browser assertions and its actual Goals & Stats screenshots were visually inspected. Latest branch HEAD at this checkpoint is `486209e89913900429268e7476676f757ea88bc1`; this is the Stage Four QA-harness correction commit. The Stage Three code/QA SHA remains `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`.
 - Stage One: owner-approved.
 - Stage Two: MY TEAM and MY SQUAD are implemented, independently reviewed, corrected and owner-approved (owner decision recorded in the project conversation). Run #322 passed 224/224; uniform and trail screenshots were visually inspected.
-- Stage Three: GOALS & STATS is implemented, automated browser-tested and internally visually inspected on the exact code/QA commit above. **Owner review/approval is pending.** Do not begin Stage Four until explicit owner approval.
+- Stage Three: GOALS & STATS is implemented, automated browser-tested and internally visually inspected on the exact code/QA commit above. **Owner-approved on 2026-11-25.** Stage Four is authorized and in progress.
 
 ## 1. Read this first in a new chat
 
