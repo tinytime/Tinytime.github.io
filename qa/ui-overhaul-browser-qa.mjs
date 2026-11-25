@@ -200,6 +200,18 @@ try{
  const playbookTileLabel=await page.locator('.ui-menu-playbook .ui-menu-action-copy small').textContent();
  const availablePlayCount=await page.evaluate(()=>window.SG.PLAYS.length);
  check('Menu Playbook tile reports the currently available play count',playbookTileLabel.trim()===availablePlayCount+' available plays',{playbookTileLabel,availablePlayCount});
+ const refreshedPlaybookCount=await page.evaluate(async()=>{
+  const plays=window.SG?.PLAYS,menu=document.querySelector('#menu'),small=document.querySelector('.ui-menu-playbook .ui-menu-action-copy small');
+  if(!Array.isArray(plays)||!menu||!small)return{ok:false,reason:'missing live catalogue/menu tile'};
+  const original=plays.length;
+  plays.length=original+1;menu.hidden=true;menu.hidden=false;
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  const refreshed=small.textContent.trim();
+  plays.length=original;menu.hidden=true;menu.hidden=false;
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  return{original,refreshed,restored:small.textContent.trim()};
+ });
+ check('Menu Playbook count refreshes from the live unlocked catalogue when the menu reopens',refreshedPlaybookCount.refreshed===(refreshedPlaybookCount.original+1)+' available plays'&&refreshedPlaybookCount.restored===refreshedPlaybookCount.original+' available plays',refreshedPlaybookCount);
  await page.locator('.ui-menu-playbook').click();
  check('Playbook overlay opens',await page.locator('.ui-menu-playbook-overlay').isVisible());
  const playCount=await page.locator('.ui-menu-play-card').count();
