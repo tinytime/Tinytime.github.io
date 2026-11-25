@@ -478,7 +478,7 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   const favClickTarget=await clickFavoriteAtVerifiedCenter();
   const favToggled=await favLocator.evaluate(el=>({on:el.classList.contains('on'),text:el.textContent.trim()}));
   const selectedAfter=await page.locator('#cards .card.sel').evaluate(el=>el.dataset.i??el.getAttribute('data-i')??el.querySelector('b')?.textContent.trim());
-  check('Playbook favorite star toggles independently of selecting the play',favBefore.on!==favToggled.on&&favBefore.text!==favToggled.text&&selectedBefore===selectedAfter,{before:favBefore,after:favToggled,selectedBefore,selectedAfter,clickTarget:favClickTarget});
+  check('Playbook favorite star toggles independently of selecting the play',favBefore.on!==favToggled.on&&favBefore.text!==favToggled.text&&selectedAfterSelect===selectedAfter,{before:favBefore,after:favToggled,selectedBefore,selectedAfterSelect,selectedAfter,clickTarget:favClickTarget});
   await clickFavoriteAtVerifiedCenter();
   const favRestored=await favLocator.evaluate(el=>({on:el.classList.contains('on'),text:el.textContent.trim()}));
   check('Playbook favorite test restores the original state',favRestored.on===favBefore.on&&favRestored.text===favBefore.text,{before:favBefore,restored:favRestored});
