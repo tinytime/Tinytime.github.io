@@ -2778,3 +2778,56 @@ body #menu .ui-menu-build-trigger::after{
 #squad:has(#sqTabs .chip:nth-child(3).on) #sqBody strong{
   color:#F5B841!important;
 }
+
+/* Hard correction: the live Team Stats panel is nested under #goalsP; use that real root. */
+#goalsP .ui-goals-stat-card{
+  border:1px solid rgba(77,225,242,.34)!important;
+  box-shadow:none!important;
+  outline:0!important;
+}
+#goalsP .ui-goals-stat-card::before,
+#goalsP .ui-goals-stat-card::after{
+  box-shadow:none!important;
+}
+#squad #sqBody input{
+  min-height:40px!important;
+  border:1px solid rgba(77,225,242,.55)!important;
+  border-radius:9px!important;
+  background:#1C2130!important;
+  color:#F5F7FA!important;
+  box-shadow:none!important;
+}
+#squad #sqBody .numrow button,
+#squad #sqBody .numrow .btn{
+  min-width:38px!important;
+  min-height:36px!important;
+  border:1px solid rgba(77,225,242,.62)!important;
+  border-radius:8px!important;
+  background:#1C2130!important;
+  color:#4DE1F2!important;
+  box-shadow:none!important;
+}
+#squad #sqTabs .chip.on{
+  background:rgba(77,225,242,.10)!important;
+  border:1px solid #4DE1F2!important;
+  color:#4DE1F2!important;
+}
+#squad #sqBody .career,
+#squad #sqBody [class*="career"],
+#squad #sqBody [id*="career"]{
+  color:#DCE5F2!important;
+}
+#squad #sqBody .career h1,
+#squad #sqBody .career h2,
+#squad #sqBody .career h3,
+#squad #sqBody [class*="career"] h1,
+#squad #sqBody [class*="career"] h2,
+#squad #sqBody [class*="career"] h3{
+  color:#4DE1F2!important;
+}
+#squad #sqBody .career b,
+#squad #sqBody .career strong,
+#squad #sqBody [class*="career"] b,
+#squad #sqBody [class*="career"] strong{
+  color:#F5B841!important;
+}
