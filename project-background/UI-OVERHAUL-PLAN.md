@@ -7,9 +7,9 @@
 - Working branch: `UI-Overhaul`
 - Baseline: current `main` at the time this branch was created
 - UI handoff source: `Circuit Football — UI Overhaul Handoff Spec.docx` (14 pages; supplied in the project conversation)
-- Implementation status: Stage One and Stage Two are owner-approved. Stage Three GOALS & STATS is implemented, browser-tested and internally visually inspected; owner approval is pending.
+- Implementation status: Stage One, Stage Two and Stage Three GOALS & STATS are owner-approved. Stage Four Pre-Game Matchup & Playbook (landscape) is in progress.
 - Latest Stage Three code/QA-tested commit: `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`; [Run #331](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877) passed **230/230**; artifact `14990919745` was retrieved and Goals & Stats screenshots were visually inspected.
-- Stage Two independent-review findings and optional polish are complete; Run #322 passed 224/224. Do not begin Stage Four until Stage Three is explicitly approved.
+- Stage Three owner approval was explicitly given on 2026-11-25. Stage Four is authorized; see the Implementation Summary for the focused scope and baseline evidence.
 
 ## Source-of-truth rules
 
@@ -356,3 +356,8 @@ Run #315 tested `8aff7da49a4a5bafc255f3fc073783803469377c` and passed 222/222. T
 ## Latest verified checkpoint — Stage Three GOALS & STATS (2026-11-25)
 
 Stage Three has been implemented on UI-Overhaul and is internally verified. Exact tested/current HEAD: da5a017b5d3914fd0e90bb8cba68bec93dfec37d. GitHub Actions [Run #331](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877) passed 230/230 browser checks; evidence artifact [14990919745](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877/artifacts/14990919745) was retrieved. The Challenges, Achievements, Team Stats, and 360px Team Stats screenshots were visually inspected. Stage Three includes the accessible X close control, trophy progress, three tabs, challenge cards, achievement counters/progress, four career stat cards, aligned REC/YDS Receiving metrics, fixed CLOSE footer, and responsive header/tab layout. The achievement observer regression test passes. Stage Three is awaiting owner review and explicit approval; do not begin Stage Four until approval. See the Implementation Summary for detailed evidence. No gameplay/save/progression behavior, main, or golden snapshots/provenance were changed.
+
+
+## Stage Three approval and Stage Four authorization (2026-11-25)
+
+The owner approved Stage Three GOALS & STATS and authorized Stage Four. Stage Four targets handoff section 5, Pre-Game Matchup & Playbook (landscape). The current `#mu` matchup overlay and `#sheet` in-match play sheet are implemented and covered by the consolidated QA suite; work begins with targeted end-to-end coverage and visual gap verification. Do not modify gameplay/save/progression behavior or golden snapshots.
