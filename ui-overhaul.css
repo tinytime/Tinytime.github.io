@@ -2649,3 +2649,8 @@ body.ach-toast-active #app #dcall{
  #goalsP .ui-goals-tab{font-size:11px!important;min-height:36px}
  #goalsP .ui-goals-trail-pill{font-size:10px!important}
 }
+
+/* Credits content must reflow instead of truncating attribution paragraphs. */
+#menu .ui-menu-credit-details p{max-height:none!important;overflow:visible!important;white-space:normal;overflow-wrap:anywhere}
+#menu #uiMenuCredits{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+#menu .ui-menu-build-trigger{font-size:10px;letter-spacing:.08em}
