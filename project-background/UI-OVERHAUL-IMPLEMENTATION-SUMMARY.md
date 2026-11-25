@@ -6,8 +6,8 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest branch code commit (2026-11-25): `02fbc1d9761812fbd49e0815574f1bf82c1e40a3` on `UI-Overhaul`; Run #297 passed 216/216 browser assertions against this exact commit. Artifact `14983701764` was downloaded and the defense-simulation and STYLE & GEAR screenshots were inspected.
-- Latest successful code-tested commit: `02fbc1d9761812fbd49e0815574f1bf82c1e40a3`, Run #297, 216/216 browser assertions. Run #295 also passed 216/216 against the MY TEAM / MY SQUAD root-selector correction.
+- Latest successful Stage Two correction commit tested: `3be8785d5a250d65430f7c50571d5d0d428a9d36` on `UI-Overhaul`; Run #313 passed 221/221 browser assertions. Artifact `14985344956` was downloaded and portrait, desktop, narrow-menu, MY TEAM, MY SQUAD, Fumble and defense-simulation screenshots were inspected.
+- Prior Stage Two baseline Run #297 passed 216/216 against `02fbc1d9761812fbd49e0815574f1bf82c1e40a3`; Run #313 adds the independent-review correction coverage.
 - Stage One: owner-approved. Run #291 verifies the Round 5 Fumble geometry/palette assertions; its actual screenshot was inspected and the meter/countdown are aligned in the usable left field lane with clear separation from the A control.
 - Stage Two: MY TEAM and MY SQUAD are implemented. The root-selector issue was corrected, the new parent STYLE & GEAR evidence is captured, and Run #297 confirms the defense-simulation banner correction. Stage Two still needs full review-package reconciliation, Claude independent review, and owner approval.
 - Owner approval of Stage Two: **not yet given**. Independent Claude review: pending.
@@ -20,22 +20,16 @@ When the owner says “review the implementation summary,” do the following:
 2. Read `project-background/UI-OVERHAUL-PLAN.md` and `ui-overhaul/README.md`.
 3. Read the 14-page Gemini handoff attached to the project conversation if available. It is the design authority; this summary is the implementation/status authority. If it is not available in the new conversation, do not pretend to have inspected the embedded mockups—use the linked specification details below and ask the owner to reattach it only if visual reference inspection is essential.
 4. Verify the current `UI-Overhaul` branch HEAD, latest commits, current `index.html`, `ui-overhaul.css`, `ui-overhaul-menu.js`, QA harness, workflow, and latest UI-Overhaul Actions runs. This file is a restart map, not a substitute for live repository verification.
-5. Continue from **Section 8 — Immediate next actions**. Do not start another handoff screen before the current menu QA is green and the owner has reviewed the menu direction.
+5. Continue from **Section 8 — Immediate next actions**. Stage One is approved; Stage Two corrections have passed QA and are awaiting owner approval. Do not begin Stage Three until the owner approves Stage Two.
 6. Keep all changes on `UI-Overhaul`. Do not modify `main`, NPC workstream files, or golden snapshots.
 
 ## 2. Overall implementation status
 
-The workstream has completed the initial shared styling foundation and the first functional UI surface: the Overworld HUD treatment plus the Overworld MENU / SETTINGS / CREDITS shell.
+Stage One (Overworld HUD, menu/settings/credits, playbook and match-flow surfaces) is owner-approved. Stage Two (MY TEAM and MY SQUAD) is implemented and its independent-review correction round is complete.
 
-The implementation is **not** the full UI overhaul. The other handoff screens remain to be built:
+The latest Stage Two code commit, `3be8785d5a250d65430f7c50571d5d0d428a9d36`, passed Run #313 with **221/221 assertions**, zero failures, zero page exceptions, zero console errors and zero same-origin failures. The artifact was retrieved and the corrected menu, MY TEAM and MY SQUAD screenshots were visually inspected.
 
-- MY TEAM and MY SQUAD
-- GOALS & STATS
-- Pre-game matchup and playbook
-- Pre-snap and live-match HUD, including fumble
-- Defense selection, defense simulation, achievement toast, and post-game
-
-Do not report the overhaul as complete. Do not describe the current UI as visually approved. Automated browser QA was introduced, but its first run failed and the subsequent corrective commits have not yet been browser-validated.
+The remaining handoff areas after Stage Two are GOALS & STATS, pre-game matchup/playbook integration, and any remaining in-match/defense/post-game work not already covered by the approved Stage One scope. Do not report the full UI overhaul as complete. Stage Two owner approval is still pending; do not begin Stage Three before it is granted.
 
 ## 3. Design contract from the Gemini handoff
 
@@ -155,17 +149,21 @@ The branch subsequently advanced through commits that adjust tab visibility, ope
 - Independent review: not performed.
 - Owner approval: pending.
 
-## 8. Immediate next actions (continue in this order)
+## 8. Immediate next actions
 
-1. **Re-verify current branch HEAD and Actions.** Fetch `UI-Overhaul` ref, recent commits and recent UI-Overhaul workflow runs. Do not assume `e66cb4b` is still HEAD.
-2. **Fix the QA workflow artifact naming.** Use a plain stable artifact name such as `ui-overhaul-browser-qa`; do not escape or concatenate a backslash into the name.
-3. **Inspect and correct the Settings tab visibility failure.** Review the current tab markup, CSS selectors and initialization sequence. The test must click the actual visible tab; do not weaken the test to pass an invisible tab. Remove the redundant second click on `#owMenu` if still present after the first successful open.
-4. **Check the reset confirmation and five-tap developer drawer** introduced/adjusted after the first run. QA the modal's cancel path and keyboard/accessibility behavior; do not execute the destructive confirm action or erase progress.
-5. **Rerun the dedicated workflow on the latest HEAD.** Inspect the actual job logs and uploaded artifact. Confirm the workflow tested the exact latest commit.
-6. **Inspect all generated screenshots** at desktop and mobile portrait/landscape, including the menu, Settings, Credits/developer drawer, and return-to-town state. Check clipping, overlap, text truncation, scrolling, sticky footer, hit targets and safe areas. Do not say visually inspected until the images themselves are reviewed.
-7. **Update this file, `ui-overhaul/README.md`, and `project-background/UI-OVERHAUL-PLAN.md`** with exact commit, run, results, screenshots inspected, and remaining issues.
-8. Once the menu stage passes QA and the owner has reviewed its direction, continue to **MY TEAM & MY SQUAD** (handoff section 3, pages 5–6). Map each requirement to existing DOM/state first, then implement incrementally.
+1. **Owner Stage Two review / approval.** The independent review findings supplied on 2026-11-25 have been implemented and verified. Present the updated package and Run #313 evidence for the owner's final review. Do not mark Stage Two approved until the owner explicitly approves it.
+2. **Preserve the tested baseline.** Run #313 tested exact code/QA commit `3be8785d5a250d65430f7c50571d5d0d428a9d36`; documentation-only commits may advance branch HEAD. Recheck live HEAD and Actions before any further implementation.
+3. **After Stage Two owner approval only**, begin Stage Three (GOALS & STATS) using Section 4 of the handoff. Map its existing DOM/state and acceptance criteria before changing code.
+4. Keep all changes on `UI-Overhaul`. Do not modify `main`, NPC workstream files, gameplay/save/progression behavior, or golden snapshots without explicit authorization.
 
+### Stage Two correction round completed
+
+- MY TEAM: added header BACK control and live UPG status badge; stacked PICK LOGO at full width above the emblem.
+- MY SQUAD: cost labels now include the `P` unit (for example `+2 · 3P`); VISOR and ARM SLEEVES are displayed inline directly below JERSEY NUMBER, eliminating the nested BACK TO STYLE step.
+- Menu: consolidated navigation into a gold MY SQUAD tile (subtitle “Starters & upgrades”), MY TEAM, PLAYBOOK and GOALS & STATS in a 2×2 grid. DATA & SUPPORT and BACK TO TOWN fit in portrait.
+- Browser QA: [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570), 221/221 passed, zero page/console/same-origin errors. Artifact [14985344956](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570/artifacts/14985344956).
+- Actual screenshots inspected: `portrait-menu.png`, `desktop-menu.png`, `narrow-menu-360.png`, `my-team-portrait.png`, `my-squad-attributes-portrait.png`, `my-squad-style-gear-portrait.png`, plus Stage One regression captures `overworld-portrait.png`, `match-fumble-pile.png` and `match-defense-simulation.png`.
+- No golden snapshots or provenance changed.
 ## 9. Required status language
 
 Always distinguish:
