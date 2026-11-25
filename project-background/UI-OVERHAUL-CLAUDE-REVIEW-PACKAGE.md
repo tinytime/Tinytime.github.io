@@ -75,7 +75,7 @@ Independently inspect the source at the exact baseline and download/examine Run 
 **Repository:** [tinytime/Tinytime.github.io](https://github.com/tinytime/Tinytime.github.io)  
 **Working branch:** `UI-Overhaul`  
 **Exact application/QA commit:** [`abc60524d6f3bf491fbb87e5bd22967b720a6004`](https://github.com/tinytime/Tinytime.github.io/commit/abc60524d6f3bf491fbb87e5bd22967b720a6004)  
-**Current branch HEAD:** `8cc46644508e0e8424b6884d4c364ac591dcdd80` (documentation-only updates after the tested application commit)  
+**Current branch:** `UI-Overhaul`; subsequent commits after the tested application commit are documentation-only.  
 **Latest QA:** [Run #487](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191) — **300/300 passed**  
 **Latest evidence:** [artifact 15071354604 — 50 screenshots, report.json and summary.md](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191)  
 **Prior broad QA:** [Run #482](https://github.com/tinytime/Tinytime.github.io/actions/runs/45717453551) — **297/297 passed**, artifact 15069948829.
