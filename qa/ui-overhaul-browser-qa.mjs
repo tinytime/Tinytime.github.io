@@ -93,6 +93,14 @@ try{
  const teamControls=await page.evaluate(()=>({preview:!!document.querySelector('#tPrev')&&getComputedStyle(document.querySelector('#tPrev')).display!=='none',identity:!!document.querySelector('#team .ui-team-identity'),name:!!document.querySelector('#tName'),logo:!!document.querySelector('#tLogoBtn'),jersey:!!document.querySelector('#tJersey'),pants:!!document.querySelector('#tPants'),uniformSlots:document.querySelectorAll('#tSlots .slot').length,palette:document.querySelectorAll('#tPal button').length,trails:document.querySelectorAll('#trRow .chip').length,saveLabel:document.querySelector('#tBack')?.textContent.trim()||''}));
  check('MY TEAM retains live 2.5D preview, identity, logo, uniform and palette controls',teamControls.preview&&teamControls.identity&&teamControls.name&&teamControls.logo&&teamControls.jersey&&teamControls.pants&&teamControls.uniformSlots>0&&teamControls.palette>0&&teamControls.trails>0,teamControls);
  check('MY TEAM primary action is presented as SAVE & EQUIP',teamControls.saveLabel==='SAVE & EQUIP',teamControls.saveLabel);
+ const teamTabs=await page.locator('#team .ui-team-tabs [role="tab"]').allTextContents();
+ check('MY TEAM uses the three distinct handoff tabs',teamTabs.map(x=>x.trim()).join('|')==='IDENTITY|UNIFORM|TRAILS',teamTabs);
+ check('MY TEAM opens on the IDENTITY tab with paired name and logo controls',await page.locator('#team [data-team-tab="identity"]').getAttribute('aria-selected')==='true'&&await page.locator('#team .ui-team-identity').isVisible());
+ await page.locator('#team [data-team-tab="uniform"]').click();
+ check('MY TEAM UNIFORM tab exposes colour slots and palette controls',await page.locator('#uiTeamUniform #tSlots').isVisible()&&await page.locator('#uiTeamUniform #tPal').isVisible());
+ await page.locator('#team [data-team-tab="trails"]').click();
+ check('MY TEAM TRAILS tab contains the crew challenge trail picker',await page.locator('#uiTeamTrails #trRow').isVisible()&&await page.locator('#uiTeamTrails .chip').count()>0);
+ await page.locator('#team [data-team-tab="identity"]').click();
  const teamFit=await page.locator('#team').evaluate(el=>({scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,identity:el.querySelector('.ui-team-identity')?.getBoundingClientRect().toJSON(),save:el.querySelector('#tBack')?.getBoundingClientRect().toJSON()}));
  check('MY TEAM identity and fixed SAVE & EQUIP action fit the portrait viewport',teamFit.scrollWidth<=teamFit.clientWidth+1&&teamFit.identity.width<=teamFit.clientWidth&&teamFit.save.left>=0&&teamFit.save.right<=390,teamFit);
  await page.screenshot({path:path.join(out,'my-team-portrait.png'),fullPage:true});
