@@ -344,3 +344,17 @@ The implementation summary and Stage Two review package are the source of truth 
 - Added browser assertions for intentionally hidden style selectors, the explanatory note, two-column grid and unique crew-specific labels. Screenshots `my-team-uniform-portrait.png`, `my-team-trails-portrait.png` and `my-team-trails-bottom-portrait.png` were opened and visually inspected. The complete trail grid fits the 390×844 portrait capture with SAVE & EQUIP pinned below.
 - Stage Two remains **awaiting explicit owner approval**. These optional polish changes do not approve Stage Two or authorize Stage Three. No golden snapshots or provenance changed.
 
+
+
+## Stage Four owner polish batch 2 — Run #397 (2026-11-25)
+
+- Current checkpoint: Stages One–Three are owner-approved. Stage Four remains in progress and awaits owner review/approval. The pre-game matchup redesign is deferred until the owner authorizes it after this polish review.
+- Application and QA commit tested: `f26e48986376c03ab07cb286c176660c8ff8eb65`.
+- [Run #397](https://github.com/tinytime/Tinytime.github.io/actions/runs/45641399159) passed **259/259 checks**, with zero failures, page exceptions, console errors or same-origin HTTP failures. Artifact: `15035343585`.
+- The Playbook favorite-star QA assertion now compares selection immediately before and after the favorite click, following the deliberate selection-change test. Favorite state toggles independently and is restored after the check.
+- Verified six plays in a three-column/two-row page, readable route diagrams, category filtering, pagination, FLIP persistence, and all six route diagrams remaining visible after FLIP. The duplicate scoreboard star meter is hidden while the per-player Playbook meter remains.
+- Fumble checks passed for centered contest bar, clear A mash-button spacing, centered countdown below the bar, and FUMBLE label centered immediately above the bar. Defense drive pill is centered and fully readable below the HUD.
+- Post-game Style Points are absent, including practice-win mode. Achievement copy is “Perform 25 trucks”.
+- Actual artifact screenshots visually inspected: `match-playbook-overlay.png`, `match-playbook-after-flip.png`, `match-fumble-pile.png`, `match-defense-simulation.png`, `match-post-game.png`, and `goals-stats-achievements.png`. No new blocking visual regression was identified in these inspected captures.
+- No golden snapshots or snapshot provenance changed. This is internal QA/visual inspection only; it is not independent Claude review or owner approval.
+- Documentation checkpoint commits: README and implementation summary updated after the tested code SHA. Verify live branch HEAD before further changes.
