@@ -3081,3 +3081,47 @@ body #menu .ui-menu-build-trigger::after{
 #goalsP .ui-goals-tab{font-size:11px!important}
 #goalsP .ui-goals-trail-pill{font-size:11px!important}
 #goalsP .ui-goals-state{font-size:10px!important}
+
+
+/* Owner feedback — enlarge the fumble instructions and clarify the Playbook footer hierarchy. */
+#app #pile #pileSub{
+  font-size:16px!important;
+  line-height:1.3!important;
+  letter-spacing:.07em!important;
+  padding:9px 16px!important;
+}
+#app #pile .ui-pile-heading{
+  font-size:20px!important;
+  line-height:1.05!important;
+  letter-spacing:.12em!important;
+}
+#app #sheet{position:relative}
+#app #sheet #gbBtn{
+  position:absolute!important;
+  left:12px!important;
+  bottom:12px!important;
+  width:104px!important;
+  min-width:104px!important;
+  max-width:104px!important;
+  min-height:42px!important;
+  margin:0!important;
+  z-index:4!important;
+}
+#app #sheet #blurb{
+  position:absolute!important;
+  left:128px!important;
+  right:190px!important;
+  bottom:12px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:0!important;
+  max-height:none!important;
+  margin:0!important;
+  text-align:center!important;
+  text-wrap:balance;
+}
+@media(max-width:520px) and (orientation:portrait){
+  #app #sheet #gbBtn{left:8px!important;bottom:8px!important;width:86px!important;min-width:86px!important;max-width:86px!important}
+  #app #sheet #blurb{left:102px!important;right:8px!important;bottom:8px!important}
+}
