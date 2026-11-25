@@ -19,7 +19,7 @@ When the owner says “review the implementation summary,” do the following:
 2. Read `project-background/UI-OVERHAUL-PLAN.md` and `ui-overhaul/README.md`.
 3. Read the 14-page Gemini handoff attached to the project conversation if available. It is the design authority; this summary is the implementation/status authority. If it is not available in the new conversation, do not pretend to have inspected the embedded mockups—use the linked specification details below and ask the owner to reattach it only if visual reference inspection is essential.
 4. Verify the current `UI-Overhaul` branch HEAD, latest commits, current `index.html`, `ui-overhaul.css`, `ui-overhaul-menu.js`, QA harness, workflow, and latest UI-Overhaul Actions runs. This file is a restart map, not a substitute for live repository verification.
-5. Continue from **Section 8 — Immediate next actions**. Stage One and Stage Two are owner-approved. Stage Three has passed internal browser QA and screenshot inspection; present it for owner review and wait for explicit approval before Stage Four.
+5. Continue from **Section 8 — Immediate next actions**. Stage One and Stage Two are owner-approved. Stage Three is owner-approved. Stage Four (Pre-Game Matchup & Playbook integration) is authorized; follow the scope and audit steps recorded below.
 6. Keep all changes on `UI-Overhaul`. Do not modify `main`, NPC workstream files, or golden snapshots.
 
 ## 2. Overall implementation status
@@ -1404,3 +1404,22 @@ The owner explicitly approved Stage Three GOALS & STATS and authorized Stage Fou
 - Existing implementation is present in `index.html` (matchup overlay `#mu`, play sheet `#sheet`, category rail `#pbTabs`, cards `#cards`, controls `#flipBtn` / `#callBtn`) and is already partially covered by the consolidated browser suite. Stage Four will focus on end-to-end acceptance completeness and any verified visual/interaction gaps, not wholesale replacement.
 - Baseline artifact [14990919745](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877/artifacts/14990919745) contains `match-pre-game.png`, `match-playbook-overlay.png`, `match-playbook-portrait.png`, and `desktop-playbook.png`. These were opened for the Stage Four kickoff audit. The matchup composition and landscape play-sheet hierarchy are present; targeted category-count and real CTA-flow coverage is being added before deciding whether code changes are warranted.
 - Stage Four status: **in progress**. No Stage Four completion, independent review, or owner approval is claimed.
+
+
+## Stage Three owner approval — 2026-11-25
+
+The owner explicitly approved Stage Three (GOALS & STATS) and authorized proceeding to Stage Four. Approval applies to the implementation tested at `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`, verified by [Run #331](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877) with 230/230 browser assertions and actual screenshot inspection. Documentation-only commits followed; current branch baseline before Stage Four is `4efd6c9786c08537d5d022f56efc31cb6f3e9ef7`.
+
+## Stage Four — Pre-Game Matchup & Playbook integration (authorized; in progress)
+
+- **Scope:** handoff Section 5, landscape pre-game matchup and playbook, with emphasis on the end-to-end transition from the real matchup intro into play selection and the pre-snap handoff. This is a targeted integration/fidelity pass, not a wholesale rebuild of previously completed Stage One surfaces.
+- **Existing baseline found:** QA already exercises a real crew match, matchup badges/atmosphere/TAP TO PLAY, the in-match playbook sheet, selected-play state, FLIP, CALL PLAY, pre-snap HIKE, and a standalone menu Playbook. Preserve this working behavior.
+- **Stage Four audit focus:** verify handoff-required matchup labels and win-condition/loading-bar hierarchy, both team badge/OVR groupings, landscape clipping/spacing at supported widths, Playbook category/favorite affordances and selected-play/diagram readability, and the complete matchup → playbook → pre-snap transition. Identify gaps from the live rendered UI before changing code.
+- **Guardrails:** keep changes on `UI-Overhaul`; preserve match state, play selection, play orientation and gameplay rules; do not touch `main`, civilian-vector files, or golden snapshots. Do not mark Stage Four complete until the exact tested commit passes browser QA and its screenshots are inspected; then prepare the owner review package.
+
+### Immediate Stage Four actions
+
+1. Map current matchup/playbook DOM, state and handlers against Section 5 of the handoff.
+2. Add targeted assertions for any acceptance criteria not already covered.
+3. Run the real landscape match flow, inspect fresh matchup and playbook screenshots, and correct only confirmed gaps.
+4. Retest, inspect artifacts, and document the evidence before owner review.
