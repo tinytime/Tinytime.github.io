@@ -1631,3 +1631,8 @@ Implementation and QA history:
 - Inspected actual artifact screenshots `title-settings-portrait.png` and `portrait-settings.png`. The title Settings screenshot shows a standalone SETTINGS heading and only Audio, Gameplay & Display and Danger Zone main settings; no Hale Harbor, goal, in-game tabs, gameplay cards, EXPLORE or BACK TO TOWN. The in-game Settings screenshot still retains its game header, tabs, UPG badge and BACK TO TOWN navigation.
 - **Status:** defect correction implemented, automated browser QA passing and screenshots internally visually inspected. This is not independent Claude review or owner approval. No golden snapshots were changed.
 - Live preview for this tested branch: https://raw.githack.com/tinytime/Tinytime.github.io/UI-Overhaul/index.html
+
+
+### Owner approval — 2026-11-25
+
+The owner explicitly approved the title-screen Settings correction after reviewing the Run #430 evidence and live preview. This exact output is owner-approved. The approval applies to this focused Settings correction; it does not imply approval or completion of the broader UI Overhaul or Stage Four. No golden snapshots were changed.
