@@ -432,7 +432,7 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   const originalPlaybookTab=await page.locator('#pbTabs .pbTab.on').getAttribute('data-t');
   await page.locator('#pbTabs .pbTab[data-t="ALL"]').click();
   await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
-  const favLocator=page.locator('#cards .card').first().locator('.fav');
+  const favLocator=page.locator('#cards .cardWrap').first().locator(':scope > .fav');
   const clickFavoriteAtVerifiedCenter=async()=>{
     await favLocator.scrollIntoViewIfNeeded();
     const target=await favLocator.evaluate(el=>{
