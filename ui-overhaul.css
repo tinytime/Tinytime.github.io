@@ -2618,3 +2618,7 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 body.ach-toast-active #app #dcall{
   display:none!important;
 }
+
+
+/* D1 visual refinement — keep the mash instruction above the FUMBLE heading. */
+#app #pile #pileSub{top:calc(46vh - 68px)!important}
