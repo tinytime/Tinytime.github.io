@@ -429,6 +429,8 @@ const matchupLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=>({n
   check('In-match CALL PLAY uses the cyan CTA treatment',callStyle.backgroundColor==='rgb(77, 225, 242)'&&callStyle.color==='rgb(8, 19, 27)',callStyle);
   const playbookCategories=await page.locator('#pbTabs .pbTab').evaluateAll(es=>es.map(el=>({name:el.dataset.t,label:el.querySelector('b')?.textContent.trim(),count:el.querySelector('small')?.textContent.trim(),disabled:el.disabled,active:el.classList.contains('on')})));
   check('In-match Playbook exposes FAV, ALL, RUN, PASS and TRICK categories with live counts',playbookCategories.map(x=>x.name).join('|')==='FAV|ALL|RUN|PASS|TRICK'&&playbookCategories.every(x=>x.label===x.name&&x.count&&(!x.disabled||x.name!=='FAV'))&&playbookCategories.filter(x=>x.active).length===1,playbookCategories);
+  const originalPlaybookTab=await page.locator('#pbTabs .pbTab.on').getAttribute('data-t');
+  await page.locator('#pbTabs .pbTab[data-t="ALL"]').click();
   const favBefore=await page.locator('#cards .card').first().locator('.fav').evaluate(el=>({on:el.classList.contains('on'),text:el.textContent.trim()}));
   await page.locator('#cards .card').first().locator('.fav').click();
   const favToggled=await page.locator('#cards .card').first().locator('.fav').evaluate(el=>({on:el.classList.contains('on'),text:el.textContent.trim()}));
@@ -436,6 +438,7 @@ const matchupLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=>({n
   await page.locator('#cards .card').first().locator('.fav').click();
   const favRestored=await page.locator('#cards .card').first().locator('.fav').evaluate(el=>({on:el.classList.contains('on'),text:el.textContent.trim()}));
   check('Playbook favorite test restores the original state',favRestored.on===favBefore.on&&favRestored.text===favBefore.text,{before:favBefore,restored:favRestored});
+  if(originalPlaybookTab&&originalPlaybookTab!=='ALL')await page.locator('#pbTabs .pbTab[data-t="'+originalPlaybookTab+'"]').click();
   await page.locator('#flipBtn').click();
   check('In-match FLIP toggles selected play orientation',await page.locator('#flipBtn').evaluate(el=>el.classList.contains('on')));
   const sheetTop=await page.locator('#sheet').evaluate(el=>el.getBoundingClientRect().top);check('In-match Playbook sheet clears scoreboard lower edge',sheetTop>=66,sheetTop);
