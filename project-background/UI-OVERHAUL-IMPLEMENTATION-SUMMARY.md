@@ -1526,3 +1526,23 @@ QA coverage was updated for the new post-game visibility, exact fumble center, r
 - Inspected fresh Run #365 screenshots for fumble pile, playbook overlay, pre-game matchup, post-game (regular and practice-win), Team Stats, Challenges, and MY TEAM. The timer is visibly centered beneath the fumble meter; the playbook has no stray gold oval or duplicate down/distance; receiving values and units have the intended hierarchy; challenge copy and logo palette are correct. No new visual defects were identified in these reviewed captures.
 - No golden snapshots were changed. Run #365 tests the CSS implementation commit; the later documentation-only commits are not part of that tested SHA.
 - **Status:** the seven cross-stage corrections are implemented, automated-QA passing, and visually inspected. They are not separately owner-approved. Stage Four remains in progress and awaits the owner's review/approval before any next stage.
+
+
+## Owner polish batch 2 — 2026-11-25 (implementation/QA pending)
+
+The owner requested a focused polish pass before returning to the pre-game matchup redesign. The matchup redesign is explicitly deferred until this batch is complete and reviewed.
+
+Requested scope:
+- Move the FUMBLE label down so it sits immediately above the contest bar.
+- Rework the in-match Playbook to show three cards per row and two rows per page (six plays per page), enlarge route diagrams, move FLIP into the bottom action row beside CALL PLAY, and update category/page text, icons and the per-player star meter to the current navy/gold/cyan palette.
+- Remove the duplicate star-play meter from the scoreboard while preserving the per-player Playbook meter.
+- Change the truck achievement wording to “Perform 25 trucks”.
+
+Implementation commits on `UI-Overhaul`:
+- `ae23a1ba451701f53f37c2157c018e9aaf5f7022` — first CSS polish pass.
+- `fdb2180a0cfbb08c66948c8195b02481d9093f4c` — in-match Playbook pagination/actions and copy/presentation hooks.
+- `d38c318a7e6e507c8e58712bf3e1c87c92a158fd` — stabilize pagination visibility state.
+- `5efb2d3784601d49f79a646051c91e87d08e4451` — prevent pagination observer loops.
+- `59518fcde5772da455f7e58a5448d55deb2c2d00`, `4713a591652e7146ee19cac2b77acd2a96cb5c5d`, `1e3c1c62e2f6548445291d8f5ff79f84f634d56f` — add browser assertions for pagination, bottom action row, fumble label, achievement copy and scoreboard star-meter visibility.
+
+Important: this is an implementation checkpoint only. The browser workflow for the latest combined commit must pass, and its screenshots must be inspected before reporting these items as complete. In particular, confirm the FUMBLE label geometry, all six-card pages and diagram legibility, bottom-row touch targets, current Playbook palette, correct scoreboard-only star-meter removal, and achievement copy. No golden snapshots or gameplay/progression rules were changed. Pre-game matchup redesign remains deferred.
