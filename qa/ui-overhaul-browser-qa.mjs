@@ -585,6 +585,8 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
    await page.waitForTimeout(250);
    const receiverCue=await page.evaluate(()=>{const off=window.SG?.F?.off||{};const roles=['WR1','WR2','TE','RB'];return{open:roles.filter(k=>off[k]?.hi),covered:roles.filter(k=>off[k]&&!off[k].hi),mode:window.SG?.F?.mode,clockOn:window.SG?.G?.clockOn}});
    check('Live Play highlights open receiver(s) and leaves covered receivers muted',receiverCue.open.length>=1&&receiverCue.covered.length>=1&&receiverCue.mode==='live'&&receiverCue.clockOn===false,receiverCue);
+   const defenseThrowControl=await page.locator('#thr button:last-child').evaluate(el=>({text:el.textContent.trim(),background:getComputedStyle(el).backgroundColor,border:getComputedStyle(el).borderTopColor,color:getComputedStyle(el).color}));
+   check('Live D defense control uses the green/navy treatment instead of legacy pink',defenseThrowControl.background==='rgb(19, 22, 32)'&&defenseThrowControl.border==='rgb(52, 211, 153)'&&defenseThrowControl.color==='rgb(52, 211, 153)',defenseThrowControl);
   }
   await page.screenshot({path:path.join(out,'match-live-play.png'),fullPage:true});
   if(qaHooks){
