@@ -306,3 +306,10 @@ The owner reported the Fumble contest pill/bar is not centered and the text/butt
 The latest CSS centers the contest bar at viewport 50%, preserves its 65vw width and clearance from the A mash button, and applies Stage One navy `#131620`, cyan `#4DE1F2`, gold `#F5B841`, and white to the contest panel, labels, track/fill, timer and button. QA now checks geometry and computed colors.
 
 CSS commit `ac23e1aa282c3c2197294738fae0b338de352f68`; QA commit/tested HEAD `01e96cdc2f2398d42d23b81981bd4999062520b4`. Browser QA pending. No golden snapshots changed; Stage Two remains on hold.
+
+
+## Round 5 — Run #260 follow-up checkpoint
+
+Run #260 (`45514343698`) tested `01e96cdc2f2398d42d23b81981bd4999062520b4` and failed three Fumble assertions: the 65vw viewport-centered bar overlapped the right-side A mash button by 32.25px; the seconds pill was horizontally offset from the bar by about 80px; and the gradient check inspected the computed background shorthand rather than its image. The actual panel/track/labels/button computed navy/cyan/gold, and the timer rendered as a 2.3s navy pill 6px beneath the bar. No page exceptions, console errors or same-origin failures occurred. Artifact `14977317527` was uploaded.
+
+The current branch includes a follow-up that centers the 55vw meter in the usable left field lane (40vw viewport center) with at least 8px clearance from the A mash control, and aligns the timer to the same center. QA commit `d8730820367ce5914051180a1200bfbbf8f1ca8e` now inspects the fill's computed backgroundImage, verifies both cyan and gold gradient stops, and checks the timer's actual .98 navy surface plus gold text/border. Fresh Actions verification and visual screenshot inspection are pending. Stage Two remains on hold; golden snapshots are untouched.
