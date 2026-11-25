@@ -306,3 +306,20 @@ Run #291 passed 212/212 automated assertions on code commit `381363ff1caae36c080
 - Artifact [14983701764](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193/artifacts/14983701764) was retrieved. The defense-simulation screenshot confirms the duplicate/stale field banner no longer overlays the possession pill. The dedicated MY SQUAD STYLE & GEAR parent-panel screenshot confirms the name field, skin swatches, jersey-number controls and gear/trails entry action.
 - The artifact also contains the broad Stage One and match-flow regression screenshots, including Fumble; the Fumble meter and A control remain distinctly separated.
 - Stage Two is still awaiting independent Claude review and owner approval. See `project-background/UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md` and the implementation summary for full evidence and remaining gates.
+
+
+## Latest Stage Two reviewer-correction checkpoint — Run #313 (2026-11-25)
+
+Independent Stage Two review findings have been implemented on `UI-Overhaul`:
+
+- MY TEAM now has a header BACK control, live UPG status badge, and a full-width stacked PICK LOGO action. SAVE & EQUIP remains available and bottom-pinned.
+- MY SQUAD upgrade costs show the `P` point unit. VISOR and ARM SLEEVES are inline beneath JERSEY NUMBER in STYLE & GEAR; the nested BACK TO STYLE step is removed.
+- The menu is a compact 2×2 grid: gold MY SQUAD (subtitle “Starters & upgrades”), MY TEAM, PLAYBOOK, GOALS & STATS. DATA & SUPPORT and BACK TO TOWN fit at 390px and 360px portrait widths.
+
+Verification:
+- Exact tested commit: `3be8785d5a250d65430f7c50571d5d0d428a9d36`.
+- [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570): **221/221 passed**, zero page/console/same-origin errors.
+- Artifact [14985344956](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570/artifacts/14985344956) retrieved; updated MY TEAM, MY SQUAD, portrait/desktop/narrow menu, Fumble and defense-simulation screenshots visually inspected.
+- Stage One remains owner-approved. Stage Two implementation and independent-review corrections are complete and browser-tested; **owner final approval is pending**. Do not begin Stage Three until approval.
+
+The implementation summary and Stage Two review package are the source of truth for detailed criteria and evidence. No golden snapshots or snapshot provenance were changed.
