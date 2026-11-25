@@ -472,7 +472,7 @@
    }else{
     window.__uiPreGameUnlockObserver?.disconnect();
     window.__uiPreGameUnlockObserver=null;
-    document.querySelectorAll('[data-ui-pre-game-hidden="1"]').forEach(el=>{el.hidden=false;delete el.dataset.uiPreGameHidden});
+    document.querySelectorAll('[data-ui-pre-game-hidden="1"]').forEach(el=>{el.hidden=false;el.style.removeProperty('display');delete el.dataset.uiPreGameHidden});
    }
    const close=menu?.querySelector('.ui-menu-close');
    if(close)close.setAttribute('aria-label',active?'Back to title':'Back to town');
