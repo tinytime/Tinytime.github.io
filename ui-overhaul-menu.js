@@ -312,7 +312,7 @@
       value.setAttribute('aria-label',(number.textContent.trim()||'0')+' receptions');
      }
      const yards=receiving.querySelector('.ui-goals-stat-sub');
-     const yardMatch=yards&&yards.textContent.match(/([\\d,]+)\\s*(?:YARDS?|YDS?)/i);
+     const yardMatch=yards&&yards.textContent.match(/([\d,]+)\s*(?:YARDS?|YDS?)/i);
      if(yardMatch){const next=yardMatch[1]+' YDS';if(yards.textContent.trim()!==next)yards.textContent=next}
     }
     const skill=stats&&[...stats.querySelectorAll('.ui-goals-stat-card')].find(card=>card.querySelector('.ui-goals-stat-label')?.textContent.trim()==='SKILL MOVES');
