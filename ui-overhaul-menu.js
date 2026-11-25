@@ -107,7 +107,7 @@
     const current=document.getElementById('sqBody');if(!current)return;
     current.querySelectorAll('.ustat button').forEach(button=>{
      const label=button.textContent.trim();
-     if(/^\\+2\\s*[·•]\\s*\\d+$/.test(label))button.textContent=label+'P';
+     if(/^\+2\s*[·•]\s*\d+$/.test(label))button.textContent=label+'P';
     });
     const edit=[...current.querySelectorAll('button')].find(button=>button.textContent.trim()==='EDIT GEAR & TRAILS');
     if(!edit)return;
