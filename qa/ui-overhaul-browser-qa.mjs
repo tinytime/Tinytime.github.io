@@ -94,7 +94,7 @@ try{
  check('MY TEAM retains live 2.5D preview, identity, logo, uniform and palette controls',teamControls.preview&&teamControls.identity&&teamControls.name&&teamControls.logo&&teamControls.jersey&&teamControls.pants&&teamControls.uniformSlots>0&&teamControls.palette>0&&teamControls.trails>0,teamControls);
  check('MY TEAM primary action is presented as SAVE & EQUIP',teamControls.saveLabel.includes('SAVE & EQUIP'),teamControls.saveLabel);
  const teamFit=await page.locator('#team').evaluate(el=>({scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,identity:el.querySelector('.ui-team-identity')?.getBoundingClientRect().toJSON(),save:el.querySelector('#tBack')?.getBoundingClientRect().toJSON()}));
- check('MY TEAM identity and fixed SAVE & EQUIP action fit the portrait viewport',teamFit.scrollWidth<=teamFit.clientWidth+1&&teamFit.identity.width<=teamFit.clientWidth&&teamFit.save.left>=0&&teamFit.save.right<=innerWidth,teamFit);
+ check('MY TEAM identity and fixed SAVE & EQUIP action fit the portrait viewport',teamFit.scrollWidth<=teamFit.clientWidth+1&&teamFit.identity.width<=teamFit.clientWidth&&teamFit.save.left>=0&&teamFit.save.right<=390,teamFit);
  await page.screenshot({path:path.join(out,'my-team-portrait.png'),fullPage:true});
  await page.locator('#tBack').click();
  check('SAVE & EQUIP returns to the menu without replacing the team editor state',await page.locator('#menu').isVisible());
