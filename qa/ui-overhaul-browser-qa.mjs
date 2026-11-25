@@ -35,7 +35,10 @@ try{
  await page.screenshot({path:path.join(out,'title-screen-portrait.png'),fullPage:true});
  await page.locator('#uiTitleSettings').click();
  await page.waitForFunction(()=>!document.querySelector('#menu')?.hidden&&document.querySelector('#menu [data-tab="settings"]')?.getAttribute('aria-selected')==='true',null,{timeout:10000});
- check('Title SETTINGS opens the existing UI-Overhaul Settings tab',await page.locator('#uiMenuSettings').isVisible());
+ check('Title SETTINGS opens the standalone pre-game settings page',await page.locator('#uiMenuSettings').isVisible()&&await page.locator('#menu').evaluate(el=>el.classList.contains('ui-title-settings-mode')));
+ check('Pre-game settings hides all town/progression header information',await page.locator('.ui-menu-goal').isHidden()&&await page.locator('.ui-menu-brand').isHidden()&&await page.locator('.ui-menu-upg').isHidden()&&await page.locator('#owTop').isHidden()&&await page.locator('#owMenu').isHidden()&&await page.locator('#owA').isHidden());
+ check('Pre-game settings hides game menu tabs and gameplay destinations',await page.locator('.ui-menu-tabs').isHidden()&&await page.locator('.ui-menu-foot').isHidden()&&await page.locator('#uiMenuHome').isHidden()&&await page.locator('#uiMenuCredits').isHidden());
+ check('Pre-game settings exposes only main settings controls',await page.locator('#uiMenuSettings #mMus').isVisible()&&await page.locator('#uiMenuSettings #mSfx').isVisible()&&await page.locator('#uiMenuSettings #mVol').isVisible()&&await page.locator('#uiMenuSettings #mHap').isVisible()&&await page.locator('#uiMenuSettings #mCam').isVisible()&&await page.locator('#uiMenuSettings #mLT').isVisible()&&await page.locator('#uiMenuSettings #mRS').isVisible()&&await page.locator('#uiMenuSettings #mReset').isVisible());
  await page.screenshot({path:path.join(out,'title-settings-portrait.png'),fullPage:true});
  await page.locator('#menu .ui-menu-close').click();
  await page.waitForFunction(()=>!document.querySelector('#uiTitleScreen')?.hidden&&document.querySelector('#menu')?.hidden,null,{timeout:10000});
