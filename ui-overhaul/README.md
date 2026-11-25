@@ -276,3 +276,8 @@ See [the implementation summary](../project-background/UI-OVERHAUL-IMPLEMENTATIO
 Run #260 failed three Fumble assertions on `01e96cdc2f2398d42d23b81981bd4999062520b4`: the viewport-centered bar overlapped the A mash button, the timer was offset from the bar, and the fill-gradient assertion inspected the wrong computed CSS property. The workflow uploaded artifact `14977317527`; no page/console/HTTP errors were reported.
 
 The branch now positions the meter in the usable left field lane (40vw center, 55vw width) to clear the right-side A mash control and aligns the timer to it. The QA harness now checks the actual cyan-to-gold backgroundImage gradient and the timer's real navy/gold colors. QA commit `d8730820367ce5914051180a1200bfbbf8f1ca8e`; fresh browser verification and screenshot inspection remain pending. Stage Two is still held; no golden snapshots were changed.
+
+
+## Stage Two — MY TEAM & MY SQUAD started (2026-11-24)
+
+The owner approved Stage One and authorized Stage Two. Initial implementation now restyles the existing MY TEAM and MY SQUAD screens without replacing their underlying save, renderer or progression systems. MY SQUAD is exposed in the menu; its tabs are ATTRIBUTES / STYLE & GEAR / CAREER, with gear in a nested editor; PTS and CAP are separate badges. The team screen presents its existing editor as SAVE & EQUIP. Browser QA now exercises both portrait screens and captures dedicated screenshots. The exact Stage Two Actions result and screenshot inspection are pending. See the implementation summary for the commit chain and acceptance criteria.
