@@ -270,6 +270,12 @@
 #menu .ui-menu-grid #mTeam,#menu .ui-menu-grid #mSquad,#menu .ui-menu-grid [data-ui-tile="squad"],
 #menu .ui-menu-grid [data-ui-tile="playbook"],#menu .ui-menu-grid #mGoals{border-color:rgba(77,225,242,.82)!important}
 #menu .ui-menu-grid #mSquad{grid-column:auto!important}
+/* Explicit visual order is independent of source-node insertion order. */
+#menu .ui-menu-grid [data-ui-tile="upgrades"]{grid-column:1!important;grid-row:1!important}
+#menu .ui-menu-grid #mTeam{grid-column:2!important;grid-row:1!important}
+#menu .ui-menu-grid #mSquad{grid-column:1!important;grid-row:2!important}
+#menu .ui-menu-grid [data-ui-tile="playbook"]{grid-column:2!important;grid-row:2!important}
+#menu .ui-menu-grid #mGoals{grid-column:1 / -1!important;grid-row:3!important}
 #menu .ui-menu-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#111a29;border:1px solid rgba(255,255,255,.12);color:var(--ui-cyan)}
 #menu .ui-menu-icon svg{width:25px;height:25px;display:block}
 #menu .ui-menu-action-copy{display:flex;flex-direction:column;gap:5px;min-width:0}
