@@ -3,7 +3,7 @@
 **Review target:** MY TEAM and MY SQUAD  
 **Design authority:** owner-supplied *Circuit Football — UI Overhaul Handoff Spec*, Section 3, pages 5–6  
 **Implementation branch:** `UI-Overhaul`  
-**Run #291 baseline code commit:** `381363ff1caae36c080b7a9f3cf73af6f4a77046`  
+**Latest verified code commit:** `02fbc1d9761812fbd49e0815574f1bf82c1e40a3`  
 **CSS root-selector correction:** `71e1a20af05483d45ea832d0193e68d9f557b1fc`  
 **Run #295 verified correction:** `2cd3b457eca4b36481298a3d6dfab79e95fa0573`  
 **Browser QA:** [Run #295](https://github.com/tinytime/Tinytime.github.io/actions/runs/45526079186) — successful, 216/216 assertions  
@@ -21,7 +21,7 @@ Review only the Stage Two MY TEAM and MY SQUAD changes. Do not expand scope into
 - `qa/ui-overhaul-browser-qa.mjs` — browser assertions for menu, MY TEAM tabs and locked-trail hints, MY SQUAD and broader regression coverage.
 - `project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md` — implementation handoff and current verification state.
 
-## Required visual evidence in Artifact 14981780185
+## Required visual evidence in the latest Artifact 14983701764
 
 Inspect these first at 390×844 portrait:
 
@@ -75,7 +75,7 @@ Please compare the actual screenshots to the handoff mockups, not just the autom
 
 Run #295 succeeded on commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573`: 216/216 assertions, zero page exceptions, console errors, or same-origin HTTP failures. Artifact 14982981067 was downloaded and the refreshed MY TEAM, MY SQUAD attributes, and gear-subview screenshots were visually inspected. The Stage Two palette now renders; MY TEAM SAVE & EQUIP is pinned to y=784–834 in the 844px portrait viewport; PTS/CAP badges are separate and approximately 60×38px; the roster strip is pinned without overflow.
 
-The previous gear screenshot captured the gear subview, not the parent STYLE & GEAR panel. A further QA commit `0689410f424ba8947ae3554d891002b7cefc2fd4` adds assertions for NAME, SKIN TONE, JERSEY NUMBER, skin swatches and jersey-number controls, and captures `my-squad-style-gear-portrait.png`. Run #296 is in progress; do not use that screenshot until the artifact is available.
+The earlier gear screenshot captured the gear subview, not the parent STYLE & GEAR panel. Run #297 now captures and asserts the parent panel in `my-squad-style-gear-portrait.png`; the actual screenshot was inspected. It shows NAME, seven SKIN TONE swatches, JERSEY NUMBER controls, EDIT GEAR & TRAILS, the player preview, and the pinned starter roster.
 
 ## Internal screenshot inspection and corrective follow-up
 
@@ -87,7 +87,7 @@ Two visual defects were identified:
 
 Root cause: Stage Two CSS selectors incorrectly assumed the team and squad screens were descendants of `#app`; the HTML places both screens as siblings of `#app`. The selector correction is committed in `71e1a20af05483d45ea832d0193e68d9f557b1fc` (116 selectors corrected). QA commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573` adds explicit computed-style, tab-size, bottom-pinning, and metric-presentation assertions.
 
-The corrected output has **not yet been browser-tested or visually inspected**. Run #291 and artifact 14981780185 remain pre-correction evidence only. The new push-triggered Actions run ID/result/artifact has not been retrievable through the connected GitHub status/run lookup in this session; no pass is claimed.
+Run #295 and artifact 14982981067 verify the MY TEAM / MY SQUAD selector correction (216/216). Run #297 and artifact 14983701764 verify the expanded STYLE & GEAR controls and the defense-simulation banner correction (216/216). The latest screenshots have been retrieved and visually inspected. Run #291 remains historical pre-correction evidence only.
 
 ## Current limitations and approval gate
 
@@ -98,3 +98,13 @@ Stage Two remains **in progress** until:
 4. The project owner explicitly approves the Stage Two package.
 
 No golden snapshots or snapshot provenance were changed.
+
+
+## Latest verification — Run #297
+
+- Exact tested commit: `02fbc1d9761812fbd49e0815574f1bf82c1e40a3`.
+- [Run #297](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193): **216/216 passed**, zero failures; artifact [14983701764](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193/artifacts/14983701764).
+- Defense simulation: Run #296 revealed that the old field banner remained visible because its CSS ancestor selector targeted the wrong DOM root. Commit `02fbc1d` moves the suppression scope to `body`. The Run #297 `match-defense-simulation.png` screenshot confirms the old banner is absent and the “THEIR DRIVE · BALANCED” possession pill is unobstructed.
+- STYLE & GEAR: `my-squad-style-gear-portrait.png` is now the correct parent panel screenshot, not merely the nested gear subview. It visually shows the name editor, skin swatches, jersey-number controls, gear/trails entry action, player preview, and pinned starter roster with no horizontal overflow.
+- Run #297's artifact contains the Stage One regression screenshots as well as the broader Stage Two and match-flow screens. The fumble screenshot was rechecked and retains the approved meter/A-control separation.
+- **Approval gate remains open:** this package is ready for final internal reconciliation and independent Claude review, not owner approval yet. Claude review and explicit owner approval remain pending. No golden snapshots or provenance were changed.
