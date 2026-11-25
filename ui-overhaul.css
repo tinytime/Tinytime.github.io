@@ -2446,3 +2446,34 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
   top:calc(46% + 48px)!important;bottom:auto!important;
   transform:translateX(-50%)!important;
 }
+
+
+/* Owner polish batch 2 — fumble label, compact readable playbook pages and unified action row. */
+#app #pile #pileBar{margin-top:0!important}
+#app #pile .ui-pile-heading{position:relative!important;display:block!important;left:50%!important;top:auto!important;right:auto!important;bottom:auto!important;transform:translateX(-50%)!important;width:max-content!important;margin:0 auto 7px!important;color:#F5B841!important;font:900 14px/1 var(--ui-heading,system-ui)!important;letter-spacing:.14em!important;text-align:center!important}
+#app #sheet #pbGrid{min-height:0!important}
+#app #sheet #cards{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-template-rows:repeat(2,minmax(0,1fr))!important;grid-auto-rows:minmax(0,1fr)!important;gap:8px!important;min-height:0!important;overflow:hidden!important}
+#app #sheet #cards>.cardWrap{min-width:0!important;min-height:0!important;height:100%!important}
+#app #sheet #cards>.cardWrap>.card{min-height:0!important;height:100%!important;display:flex!important;flex-direction:column!important}
+#app #sheet #cards>.cardWrap>.card canvas{width:100%!important;flex:1 1 auto!important;min-height:72px!important;max-height:clamp(84px,16vh,150px)!important;object-fit:contain!important}
+#app #sheet #cards>.cardWrap>.card b{font-size:clamp(12px,1.2vw,16px)!important;color:#F5F7FA!important;background:#131620!important}
+#app #sheet #pbTabs .pbTab{background:#1C2130!important;color:#D7DDE8!important;border-color:rgba(77,225,242,.35)!important}
+#app #sheet #pbTabs .pbTab.on{background:rgba(77,225,242,.12)!important;color:#4DE1F2!important;border:2px solid #4DE1F2!important;box-shadow:none!important}
+#app #sheet .card.sel{border-color:#F5B841!important;background:linear-gradient(145deg,rgba(245,184,65,.15),#1C2130)!important}
+#app #sheet .card.sel b{color:#FFE3A0!important}
+#app #sheet .card canvas{background:#0D1420!important}
+#app #sheet .ui-playbook-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex:none;padding-top:8px;border-top:1px solid rgba(77,225,242,.2)}
+#app #sheet .ui-playbook-page{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;color:#B9C4D6;font:800 11px/1 var(--ui-mono,monospace);letter-spacing:.08em}
+#app #sheet .ui-playbook-page button{min-width:34px;min-height:34px;border:1px solid rgba(77,225,242,.45);border-radius:8px;background:#1C2130;color:#4DE1F2;font:900 18px/1 var(--ui-heading,system-ui)}
+#app #sheet .ui-playbook-page button:disabled{opacity:.3}
+#app #sheet .ui-playbook-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex:none}
+#app #sheet .ui-playbook-actions #flipBtn{margin:0!important;min-height:42px;padding:0 16px!important;border:1px solid rgba(77,225,242,.65)!important;background:#1C2130!important;color:#4DE1F2!important}
+#app #sheet .ui-playbook-actions #flipBtn.on{background:#4DE1F2!important;color:#101722!important}
+#app #sheet .ui-playbook-actions #callBtn{min-height:42px!important;margin:0!important}
+#app #hud .ui-scoreboard-star-play-hidden{display:none!important}
+@media(orientation:landscape){
+ #app #sheet{display:flex;flex-direction:column;gap:8px}
+ #app #sheet #pbMain{flex:1;min-height:0}
+ #app #sheet #pbGrid{min-height:0;overflow:hidden}
+ #app #sheet #cards{height:100%;grid-template-rows:repeat(2,minmax(0,1fr))!important}
+}
