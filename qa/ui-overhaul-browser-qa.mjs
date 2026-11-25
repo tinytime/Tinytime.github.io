@@ -127,7 +127,9 @@ try{
  check('MY SQUAD has no horizontal overflow and keeps the starter roster strip pinned at the bottom',squadFit.scrollWidth<=squadFit.clientWidth+1&&squadFit.stripHeight>=54&&squadFit.stripBottom<=squadFit.screenBottom+1,squadFit);
  await page.screenshot({path:path.join(out,'my-squad-attributes-portrait.png'),fullPage:true});
  await page.locator('#sqTabs button').nth(1).click();
- check('STYLE & GEAR exposes appearance editing and the gear entry action',await page.locator('#sqBody input[type="text"]').count()===1&&await page.locator('#sqBody button').filter({hasText:'EDIT GEAR & TRAILS'}).count()===1);
+ const styleControls=await page.locator('#sqBody').evaluate(el=>({labels:[...el.querySelectorAll('.lbl')].map(x=>x.textContent.trim()),nameInputs:el.querySelectorAll('input[type="text"]').length,skinSwatches:el.querySelectorAll('.skinrow button').length,numberButtons:el.querySelectorAll('.numrow button').length,gearButtons:[...el.querySelectorAll('button')].filter(x=>x.textContent.trim()==='EDIT GEAR & TRAILS').length}));
+ check('STYLE & GEAR exposes Name, Skin Tone, Jersey Number and the gear entry action',styleControls.labels.includes('NAME')&&styleControls.labels.includes('SKIN TONE')&&styleControls.labels.includes('JERSEY NUMBER')&&styleControls.nameInputs===1&&styleControls.skinSwatches>0&&styleControls.numberButtons===2&&styleControls.gearButtons===1,styleControls);
+ await page.screenshot({path:path.join(out,'my-squad-style-gear-portrait.png'),fullPage:true});
  await page.locator('#sqBody button').filter({hasText:'EDIT GEAR & TRAILS'}).click();
  check('Squad gear editor opens without leaving MY SQUAD',await page.locator('#squad').isVisible()&&await page.locator('#sqBody button').filter({hasText:'BACK TO STYLE'}).count()===1);
  await page.screenshot({path:path.join(out,'my-squad-gear-portrait.png'),fullPage:true});
