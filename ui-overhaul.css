@@ -2264,7 +2264,7 @@ body.land #bHurdle,body.land #bHurdle.dive{
 #app #team>h2{flex:none;margin:0!important;font-size:23px!important;letter-spacing:.08em}
 #app #team>#tPrev{flex:none;height:clamp(150px,24vh,205px)!important;margin:0!important;border:1px solid rgba(77,225,242,.5)!important;border-radius:14px!important;background:radial-gradient(ellipse at 50% 18%,rgba(77,225,242,.16),transparent 58%),linear-gradient(180deg,#202a3b,#131620 84%)!important}
 #app #team .ui-team-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;flex:none}
-#app #team .ui-team-tab{min-width:0;min-height:40px;padding:0 5px;border:1px solid rgba(77,225,242,.3);border-radius:10px;background:#1C2130;color:#AAB2C2;font:900 12px/1 inherit;letter-spacing:.1em}
+#app #team .ui-team-tab{min-width:0;min-height:40px;padding:0 5px;border:1px solid rgba(77,225,242,.3);border-radius:10px;background:#1C2130;color:#AAB2C2;font-family:inherit;font-size:12px;font-weight:900;line-height:1;letter-spacing:.1em}
 #app #team .ui-team-tab[aria-selected="true"]{border-color:#F5B841;background:rgba(245,184,65,.12);color:#F5B841}
 #app #team .ui-team-tab-content{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:1px 0 66px}
 #app #team .ui-team-tab-panel[hidden]{display:none!important}
