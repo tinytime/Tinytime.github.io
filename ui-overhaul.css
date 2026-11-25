@@ -2686,3 +2686,17 @@ body.ach-toast-active #app #dcall{
   max-height:68px!important;
   flex:0 0 68px!important;
 }
+
+
+/* Owner polish: Goals & Stats tabs use a single cyan active outline, with no nested rail or gold ring. */
+#goalsP .ui-goals-tabs{
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+#goalsP .ui-goals-tab[aria-selected="true"]{
+  border:1px solid #4DE1F2!important;
+  background:rgba(77,225,242,.09)!important;
+  color:#4DE1F2!important;
+  box-shadow:none!important;
+}
