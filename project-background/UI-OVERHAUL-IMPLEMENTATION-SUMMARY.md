@@ -6,9 +6,9 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest live branch HEAD (2026-11-25): `bab0e23c9c37cffebb1730c654cdd8336501d3b3` on `UI-Overhaul`.
-- Stage One: owner-approved. Round 5 Fumble follow-up has been implemented and browser geometry/palette checks have progressed beyond the original Node-side harness error; current Stage Two browser QA is still running and not yet green.
-- Stage Two: MY TEAM and MY SQUAD implementation in progress. MY TEAM's required IDENTITY / UNIFORM / TRAILS tabs are now implemented in the presentation layer; the exact current HEAD still needs Actions verification and screenshot inspection.
+- Latest live branch HEAD (2026-11-25): `381363ff1caae36c080b7a9f3cf73af6f4a77046` on `UI-Overhaul`.
+- Stage One: owner-approved. Round 5 Fumble follow-up is browser-QA verified on the latest successful full-suite run; the Fumble geometry and palette assertions pass.
+- Stage Two: MY TEAM and MY SQUAD implementation in progress. MY TEAM's required IDENTITY / UNIFORM / TRAILS tabs are implemented. Run #291 passes all 212 browser assertions on the current code commit; screenshot visual inspection is still pending.
 - Owner approval of Stage Two: **not yet given**. Independent Claude review: pending.
 
 ## 1. Read this first in a new chat
@@ -1311,3 +1311,17 @@ Commits:
 - `bab0e23c9c37cffebb1730c654cdd8336501d3b3` — valid tab typography declaration.
 
 **Verification:** Run #284 was launched for the earlier QA commit `6b717a4d1e48a3a3257a8614065c189183338d22`; the later CSS typography commit `bab0e23c9c37cffebb1730c654cdd8336501d3b3` is the current HEAD and requires its own fresh Actions result. Do not infer a pass from Run #284 or mark Stage Two visually approved. Next: verify the latest run, fix any actual failures, inspect MY TEAM / MY SQUAD portrait artifacts at 390×844, and update this handoff with the exact passing commit/run/artifact. No golden snapshots or provenance were modified.
+
+
+## Latest Stage Two checkpoint — Run #291 (2026-11-25)
+
+- **Current branch HEAD:** `381363ff1caae36c080b7a9f3cf73af6f4a77046`.
+- **Actions:** [Run #291](https://github.com/tinytime/Tinytime.github.io/actions/runs/45522385402) completed successfully against that exact SHA.
+- **Automated QA:** 212/212 assertions passed; zero failed assertions, zero uncaught page exceptions, zero console errors and zero same-origin HTTP failures.
+- **Fumble:** browser geometry, usable-lane centering, A-button clearance, gradient palette and countdown pill checks all pass.
+- **Menu:** semantic gold UPGRADES frame, cyan frames on the four other tiles, SAVE & EQUIP actual text, and visual tile order assertions pass.
+- **MY TEAM:** 2.5D preview, paired identity controls, real SAVE & EQUIP label, IDENTITY / UNIFORM / TRAILS tabs, tab interactions, run-trail picker and all eight locked-trail hints pass. The fixed action and identity content fit the 390×844 viewport.
+- **MY SQUAD:** separate PTS/CAP badges, three required tabs, gear subview/return, no horizontal overflow and pinned starter strip checks pass.
+- **Artifact:** [14981780185](https://github.com/tinytime/Tinytime.github.io/actions/runs/45522385402/artifacts/14981780185), 8,836,872 bytes; includes the full screenshot set, including `my-team-portrait.png`, `my-squad-attributes-portrait.png` and `my-squad-gear-portrait.png`.
+- **Visual inspection:** not yet completed in this pass. The artifact exists, but automated assertions do not replace reviewing the actual screenshots. Do not claim visual approval.
+- **Gate:** Stage Two remains in progress and awaits screenshot inspection, independent review as required, and owner approval. No golden snapshots or provenance were changed.
