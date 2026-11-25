@@ -3030,3 +3030,36 @@ body #menu .ui-menu-build-trigger::after{
 #goalsP .ui-goals-tab[aria-selected="true"]{
   border-color:rgb(77,225,242)!important;
 }
+
+/* D4 layout correction: let the Playbook diagram grid consume the available
+   width beside the category rail. The previous intrinsic sizing left the
+   six-card grid at roughly 326px inside a full-width landscape sheet. */
+@media (orientation:landscape) {
+  #app #sheet #pbMain{
+    display:flex!important;
+    width:100%!important;
+    min-width:0!important;
+    align-items:stretch!important;
+  }
+  #app #sheet #pbTabs{
+    flex:0 0 104px!important;
+    width:104px!important;
+    min-width:104px!important;
+  }
+  #app #sheet #pbGrid{
+    flex:1 1 0%!important;
+    width:0!important;
+    min-width:0!important;
+    max-width:none!important;
+  }
+  #app #sheet #cards{
+    width:100%!important;
+    min-width:0!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+  #app #sheet #cards>.cardWrap,
+  #app #sheet #cards>.cardWrap>.card{
+    min-width:0!important;
+    width:100%!important;
+  }
+}
