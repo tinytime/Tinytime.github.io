@@ -997,7 +997,7 @@ function stickWorld(){return camMode()==='side'?{x:-input.sy,y:input.sx}:{x:inpu
 let G_oppUniPending=null,sayTok=0,bannerExtra='',sayCur=null;
 addEventListener('pointerdown',e=>{const c=sayCur,b=$('#banner');if(!c||c.tok!==sayTok||!b||!b.classList.contains('show')||performance.now()-c.t<250)return;if(e.target&&e.target.closest&&e.target.closest('#exit'))return;sayCur=null;sayTok++;b.classList.remove('show');if(c.cb)c.cb()},true);   // a tap skips the banner
 function say(t,sub,ms,cb){const tok=++sayTok;sayCur={tok,cb,t:performance.now()};const b=$('#banner');b.classList.toggle('small',document.body.classList.contains('fxon'));b.innerHTML='<b>'+t+'</b>'+(sub?'<small>'+sub+'</small>':'')+(bannerExtra?'<small class="x">'+bannerExtra+'</small>':'');bannerExtra='';b.classList.add('show');
-  setTimeout(()=>{if(tok!==sayTok)return;b.classList.remove('show');if(cb)cb()},ms/Math.max(1,SPEED))}
+  setTimeout(()=>{if(tok!==sayTok)return;b.classList.remove('show');if(cb)cb();flushDeferredDefCall()},ms/Math.max(1,SPEED))}
 function fxShow(t,col,glow){const e=$('#fx'),e2=$('#fx2');   // v3.09: the callout still showing moves up and fades (at most 2 on screen)
   if(FXQ<=0&&e2&&e.classList.contains('show')&&e.textContent&&performance.now()-(fxText.t||0)<1000){e2.textContent=e.textContent;e2.style.color=e.style.color;e2.style.setProperty('--fxs',e.style.getPropertyValue('--fxs')||'30px');e2.classList.toggle('meh',e.classList.contains('meh'));e2.classList.remove('up');void e2.offsetWidth;e2.classList.add('up')}
   fxText.t=performance.now();e.textContent=t;e.style.color=col||'#fff';e.style.setProperty('--fxg',glow||(col&&col!=='#fff'&&col!=='#ffffff'?col:'rgba(255,255,255,.35)'));
@@ -2312,8 +2312,11 @@ function simDrive(fp,call){
   }
   if(!res){res=yd>=62?'fg':'stop';L.push({t:res==='fg'?'FIELD GOAL IS GOOD':'DRIVE STALLS',c:res==='fg'?'bad':'good'})}
   return{L,res,turn,zone,D,plays,snaps,m}}
+let deferredDefCallFp=null;
+function flushDeferredDefCall(){if(deferredDefCallFp===null||!$('#tick').hidden||document.body.classList.contains('ach-toast-active')||$('#banner').classList.contains('show'))return false;const fp=deferredDefCallFp;deferredDefCallFp=null;showDefCall(fp);return true}
 function showDefCall(fp){
-  sayTok++;sayCur=null;const possessionBanner=$('#banner');possessionBanner.classList.remove('show');possessionBanner.innerHTML='';
+  if(!$('#tick').hidden||document.body.classList.contains('ach-toast-active')||$('#banner').classList.contains('show')){deferredDefCallFp=fp;show('#dcall',false);return false}
+  deferredDefCallFp=null;sayTok++;sayCur=null;const possessionBanner=$('#banner');possessionBanner.classList.remove('show');possessionBanner.innerHTML='';
   const S=dcSide(),m=S.O-S.D,pc=x=>Math.round(x*100)+'%';
   $('#dcTop').textContent='THEY GET THE BALL · '+ydTxt(fp);
   $('#dcRate').innerHTML='THEIR OFFENSE <b>'+S.O+'</b>'+(S.boost?' <small>('+S.T+' + '+S.boost+' captain push)</small>':'')+' · YOUR DEFENSE <b>'+S.D+'</b>'+(S.gaff?' <small>('+S.d+' + 4 gaff)</small>':'');   // v3.01: the numbers the drive really uses
@@ -2609,7 +2612,7 @@ function achCheck(live){const g=goalsSave(),t=csTeam(),got=[];for(const a of ACH
 const achQ=[];let achTimer=0;function achToast(a){achQ.push(a);if(achQ.length===1)achNext()}
 function achNext(){const a=achQ[0];if(!a)return;let e=document.getElementById('achT');if(!e){e=document.createElement('div');e.id='achT';e.style.cssText='position:fixed;left:50%;top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);transform:translateX(-50%);z-index:100002;box-sizing:border-box;width:max-content;max-width:min(82vw,440px);padding:7px 16px;border-radius:10px;background:rgba(24,18,6,.94);border:2px solid #ffd23a;color:#ffd23a;font:800 14px "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.08em;text-align:center;pointer-events:none;transition:opacity .3s;box-shadow:0 0 18px rgba(255,210,58,.4)';document.body.appendChild(e)}
   document.body.classList.add('ach-toast-active');e.innerHTML='';const b=document.createElement('b');b.textContent='★ ACHIEVEMENT · '+a.n;const s=document.createElement('div');s.style.cssText='font-size:11px;color:#fff3b0;font-weight:600';s.textContent=a.d;e.append(b,s);e.style.opacity=1;
-  clearTimeout(achTimer);achTimer=setTimeout(()=>{e.style.opacity=0;achTimer=setTimeout(()=>{achTimer=0;achQ.shift();if(achQ.length)achNext();else document.body.classList.remove('ach-toast-active')},350)},2600)}
+  clearTimeout(achTimer);achTimer=setTimeout(()=>{e.style.opacity=0;achTimer=setTimeout(()=>{achTimer=0;achQ.shift();if(achQ.length)achNext();else{document.body.classList.remove('ach-toast-active');flushDeferredDefCall()}},350)},2600)}
 function achClear(){clearTimeout(achTimer);achTimer=0;achQ.length=0;document.body.classList.remove('ach-toast-active');const e=document.getElementById('achT');if(e)e.remove()}
 /* the trail colour drawn behind your runner (null = jersey colour) */
 function trailCol(p){if(!p||p.team!=='O'||!SAVE.trail)return null;const t=TRAILS[SAVE.trail];return t&&goalsSave().trails.includes(SAVE.trail)?t.c:null}
@@ -11214,9 +11217,9 @@ if((location.hostname==='127.0.0.1'||location.hostname==='localhost')&&new URLSe
     },
     startFumble:()=>{if(!F||!G)return false;F.mode='live';G.mode='live';const c=F.carrier||F.passer||(F.off&&F.off.QB);if(!c)return false;startPile(c,F.def&&F.def[0]);return !!F.pile},
     loseFumble:()=>{if(!F||!F.pile)return false;pileEnd(false);return true},
-    defense:()=>{if(!G||!G.crew)return false;G.mode='dead';G.pendFp=35;showDefCall(35);return !$('#dcall').hidden},
+    defense:()=>{if(!G||!G.crew)return false;G.mode='dead';G.pendFp=35;showDefCall(35);return !$('#dcall').hidden||deferredDefCallFp===35},
     achievement:()=>{if(!ACH||!ACH.length)return false;achToast(ACH[0]);return true},
-    postGame:()=>{clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);endGame(false);return true},
+    postGame:()=>{clearTimeout(tickT);deferredDefCallFp=null;SIMV.on=false;show('#tick',false);show('#dcall',false);endGame(false);return true},
     postGamePracticeWin:async()=>{if(!G||!G.crew)return false;clearTimeout(tickT);SIMV.on=false;show('#tick',false);show('#dcall',false);G.crew.practice=true;G.style=37;G.you=14;G.opp=0;if(F){F.res={type:'td',spot:100};Object.values(F.off||{}).filter(p=>p&&typeof p==='object'&&'x' in p).forEach(p=>{p.celeb=60;p.celebV=0;p.vx=0;p.vy=0;p.fall=false;p.fallK=0;p.lyT=0;p.wasLy=false;p.stun=0;})}show('#hud',true);window.__CF2D_CELEB_SPRITE_RENDERED=0;window.__CF3D_LAST_DRAW=null;const before=window.CF3D?.info?.frames||0;await new Promise(resolve=>{let frames=0;const step=()=>{window.__CF3D_DRAW_ENTITIES();if(++frames>=45)resolve();else requestAnimationFrame(step)};requestAnimationFrame(step)});window.SG.__uiqa.practiceRenderFrameDelta=(window.CF3D?.info?.frames||0)-before;endGame(true);return !$('#end').hidden},
     runnerControls:()=>{if(!F||!G||!F.off||!F.off.QB||!F.off.RB)return false;const q=F.off.QB,rb=F.off.RB;F.mode='live';G.mode='live';F.passer=q;F.carrier=rb;F.ballAir=false;F.lock=false;G.clockOn=false;rb.x=q.x;rb.y=50;rb.hi=false;return true},
     diveControls:()=>{if(!F||!F.carrier)return false;F.carrier.y=96;return true}
