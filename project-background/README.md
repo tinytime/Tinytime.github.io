@@ -7,7 +7,7 @@
 - Run #482 previously passed 297/297 checks on `ac2168937ce96a9f197cecf29cae62956818d602`; its inspected screenshots confirmed the D6 post-game layout (without restoring the removed rewards card), D9 Goals & Stats styling, D4 Playbook layout, MY SQUAD Style & Gear/Career palette, credits views, and D12 loss fixture. D8 catalogue counts reconcile to RUN 3 / PASS 12 / TRICK 4, with four intentionally grouped trick plays.
 - Key implementation commits: ticker styling `3e0ff82410722473618373968e1e2b4def656814`; ticker/rotation QA `75d669d30a8eceff53443168cc22bc74e0c49c80`; full-drive QA wait `a61d97d0a8d3bee9335dafc4182a488e6e67f1b5`; queued-defense priority fix `abc60524d6f3bf491fbb87e5bd22967b720a6004`.
 - No golden snapshots were changed. This is internally implemented, browser-tested, and visually inspected; **Claude independent review and owner approval are still pending**.
-- Next step: prepare the consolidated Claude review package using the exact tested commit, Run #487 report, and selected screenshots. See the [implementation plan](UI-OVERHAUL-INDEPENDENT-REVIEW-IMPLEMENTATION-PLAN.md) and [implementation summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for detail.
+- The consolidated [Claude independent review package](UI-OVERHAUL-CLAUDE-REVIEW-PACKAGE.md) is now prepared with the exact code baseline, Run #487 artifact, D1–D12 criteria, and required reviewer response. Claude review and owner approval remain pending. See the [implementation plan](UI-OVERHAUL-INDEPENDENT-REVIEW-IMPLEMENTATION-PLAN.md) and [implementation summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md).
 
 ---
 
