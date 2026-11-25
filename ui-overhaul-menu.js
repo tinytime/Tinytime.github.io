@@ -96,12 +96,13 @@
      chip.before(option);option.appendChild(chip);
      if(chip.classList.contains('locked')){
       const trailName=chip.textContent.replace(/^🔒\s*/,'').trim();
-      const challenge=typeof CHAL!=='undefined'?CHAL.find(item=>typeof TRAILS!=='undefined'&&TRAILS[item.tr]?.n===trailName):null;
-      const crew=challenge&&typeof crewName==='function'?crewName(challenge.crew):'CREW CHALLENGE';
+      // Crew/challenge data is private to the game's main-script closure; keep this display map local.
+      const trailCrewNames={VIOLET:'Glitch Cats',AMBER:'Scrap Kings',TEAL:'Skyline Drifters',GLITCH:'Netrunners',RUST:'Bait Dogs',STEEL:'Longshoremen',SPARK:'Gantry Gang',GOLD:'Closers'};
+      const crew=trailCrewNames[trailName]||'Crew challenge';
       const hint=document.createElement('small');hint.className='ui-team-trail-hint';hint.textContent=crew.toUpperCase();
       hint.setAttribute('aria-label','Unlock by completing the '+crew+' crew challenge');
       option.appendChild(hint);
-      const reason=challenge?challenge.n+' vs '+crew:'Complete the matching crew challenge';
+      const reason='Complete the '+crew+' challenge';
       chip.title=reason;chip.setAttribute('aria-label',trailName+' trail locked. '+reason);
       chip.onclick=()=>{chip.title=reason};
      }
