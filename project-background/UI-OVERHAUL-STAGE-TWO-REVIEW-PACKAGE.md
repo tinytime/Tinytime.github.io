@@ -5,10 +5,10 @@
 **Implementation branch:** `UI-Overhaul`  
 **Latest verified code commit:** `02fbc1d9761812fbd49e0815574f1bf82c1e40a3`  
 **CSS root-selector correction:** `71e1a20af05483d45ea832d0193e68d9f557b1fc`  
-**Run #295 verified correction:** `2cd3b457eca4b36481298a3d6dfab79e95fa0573`  
-**Browser QA:** [Run #295](https://github.com/tinytime/Tinytime.github.io/actions/runs/45526079186) — successful, 216/216 assertions  
-**Evidence artifact:** [Artifact 14982981067](https://github.com/tinytime/Tinytime.github.io/actions/runs/45526079186/artifacts/14982981067)  
-**Additional STYLE & GEAR QA:** `0689410f424ba8947ae3554d891002b7cefc2fd4` — Run #296 in progress
+**Run #297 verified correction:** `02fbc1d9761812fbd49e0815574f1bf82c1e40a3`  
+**Browser QA:** [Run #297](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193) — successful, 216/216 assertions  
+**Evidence artifact:** [Artifact 14983701764](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193/artifacts/14983701764)  
+**STYLE & GEAR and defense-simulation QA:** Run #297 passed; the parent-panel and defense-simulation screenshots were inspected.
 
 ## Scope
 
