@@ -2901,3 +2901,37 @@ body #menu .ui-menu-build-trigger::after{
   overflow:visible!important;
   text-overflow:clip!important;
 }
+
+
+/* D4 measured-header correction: the favourite is an absolutely positioned sibling,
+   so reserve only its actual 21px footprint. Do not shrink the title itself or
+   subtract a second star allowance from the nested label. */
+#app #sheet #cards>.cardWrap>.card b{
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  flex:0 0 auto!important;
+  padding:0 23px 0 1px!important;
+  font-size:10px!important;
+  line-height:18px!important;
+  letter-spacing:-.02em!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+#app #sheet #cards>.cardWrap>.card b span{
+  display:inline!important;
+  box-sizing:content-box!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  padding:0!important;
+  font-size:10px!important;
+  line-height:18px!important;
+  letter-spacing:-.02em!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
