@@ -394,7 +394,10 @@
    let page=0,visible=[];
    const refresh=()=>{
     const all=[...cards.querySelectorAll(':scope > .cardWrap')].filter(w=>!w.dataset.uiPaginationControl);
-    const active=all.filter(w=>w.style.display!=='none'&&w.hidden!==true);
+    // Remove our previous page mask before reading category visibility. Category filtering
+    // is applied by the game's stylesheet/classes, while pagination is our own data attribute.
+    all.forEach(w=>{if(w.hasAttribute('data-ui-page-hidden'))w.removeAttribute('data-ui-page-hidden')});
+    const active=all.filter(w=>!w.hidden&&getComputedStyle(w).display!=='none'&&getComputedStyle(w).visibility!=='hidden');
     visible=active;const pages=Math.max(1,Math.ceil(active.length/6));page=Math.min(page,pages-1);
     all.forEach(w=>{const i=active.indexOf(w),hide=i<0||i<page*6||i>=page*6+6;if(w.dataset.uiPageHidden!==String(hide?'1':'0'))w.dataset.uiPageHidden=hide?'1':'0'});
     label.textContent=(page+1)+' / '+pages+' · '+active.length+' PLAYS';prev.disabled=page===0;next.disabled=page>=pages-1;
@@ -416,7 +419,9 @@
   const panel=document.getElementById('goalsP');
   if(panel){
    const rewrite=()=>{const root=panel.querySelector('#ui-goals-panel-achievements');if(!root)return;
-    root.querySelectorAll('.ui-goals-card-desc').forEach(desc=>{const next=desc.textContent.replace(/win\s+25\s+trucks/ig,'Perform 25 trucks');if(next!==desc.textContent)desc.textContent=next});
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+    nodes.forEach(node=>{const next=node.nodeValue.replace(/win\s+25\s+trucks/ig,'Perform 25 trucks');if(next!==node.nodeValue)node.nodeValue=next});
    };
    rewrite();if(window.MutationObserver&&!panel.dataset.uiTruckCopyObserver){panel.dataset.uiTruckCopyObserver='1';new MutationObserver(rewrite).observe(panel,{subtree:true,childList:true,characterData:true})}
   }
