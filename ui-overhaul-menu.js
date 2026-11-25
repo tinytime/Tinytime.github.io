@@ -439,7 +439,7 @@
     if(active&&!heading){heading=document.createElement('h1');heading.className='ui-title-settings-heading';heading.textContent='SETTINGS';head.appendChild(heading)}
     if(heading)heading.hidden=!active;
    }
-   ['owTop','owMenu','owA'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=active});
+   ['owTop','owMenu','owA','owObj'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=active});
    const close=menu?.querySelector('.ui-menu-close');
    if(close)close.setAttribute('aria-label',active?'Back to title':'Back to town');
   };
