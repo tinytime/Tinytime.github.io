@@ -235,3 +235,11 @@ The owner identified that title-screen SETTINGS could still display the overworl
 
 
 Owner approval recorded 2026-11-25: the focused title-screen Settings correction from Run #430 is approved after review of its screenshots and live preview. This approval is limited to that correction and does not approve the broader UI Overhaul or Stage Four. Details are recorded in [the implementation summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md).
+
+
+## Playbook landscape grid expansion — implementation committed; Run #475 executing (2026-11-25)
+
+- Run [#474](https://github.com/tinytime/Tinytime.github.io/actions/runs/45714287271) tested `067262f884f802822b122e6822517af785226b98` and did not pass. Its captured Playbook screenshot showed the six-card grid occupying only about 326px of the 844px-wide landscape sheet; the route diagrams were approximately 91px wide and titles remained clipped. The QA readiness wait also timed out because it requires each route canvas to reach at least 100px wide.
+- The root cause was intrinsic sizing of the Playbook grid region beside the category rail. Added a landscape layout rule making `#pbTabs` a fixed 104px rail and `#pbGrid` a flexing, zero-basis region that consumes the remaining width. The six-card grid and card wrappers are explicitly width-constrained to that expanded region. Existing title/favourite treatment is retained; the widened card geometry should give the title label enough room without shrinking the favourite hit target.
+- CSS commit: [92fdb1521693578f78401eaddf64c06d2b014c7a](https://github.com/tinytime/Tinytime.github.io/commit/92fdb1521693578f78401eaddf64c06d2b014c7a).
+- Fresh browser QA [Run #475](https://github.com/tinytime/Tinytime.github.io/actions/runs/45715223232) is running against that exact commit. Do not mark D4 resolved until the run completes, the report is checked, and the landscape/portrait Playbook screenshots are inspected. No gameplay logic or golden snapshots were changed.
