@@ -419,6 +419,8 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   await page.locator('#mu .tap').click();
   await page.waitForFunction(()=>{const e=document.querySelector('#sheet');return e&&!e.hidden},null,{timeout:10000});
   check('In-match playbook overlay opens',await page.locator('#sheet').isVisible());
+  const scoreboardStarState=await page.locator('#hud').evaluate(el=>({labels:[...el.querySelectorAll('*')].filter(n=>n.children.length===0&&/STAR\\s*PLAY|STAR\\s*PLAYER/i.test((n.textContent||'').trim())).map(n=>n.textContent.trim()),hidden:el.querySelectorAll('.ui-scoreboard-star-play-hidden').length}));
+  check('Duplicate star-play meter is removed from the scoreboard',scoreboardStarState.labels.length===0&&scoreboardStarState.hidden>0,scoreboardStarState);
   check('In-match CALL PLAY action visible',await page.locator('#callBtn').isVisible());
   check('In-match selected play has gold treatment',await page.locator('#cards .card.sel').count()===1);
   check('Playbook hides duplicate down-and-distance header',await page.locator('#shDD').evaluate(el=>getComputedStyle(el).display)==='none');
