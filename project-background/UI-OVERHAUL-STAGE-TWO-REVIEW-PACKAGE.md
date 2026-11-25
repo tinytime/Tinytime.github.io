@@ -53,19 +53,14 @@ Also inspect `portrait-menu.png` and `desktop-menu.png` for menu tile order and 
 
 ## Automated QA evidence
 
-Run #295 tested the CSS-corrected code/QA commit above and completed successfully:
+[Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570) tested exact commit `3be8785d5a250d65430f7c50571d5d0d428a9d36` and passed **221/221 assertions** with zero failures, zero uncaught page exceptions, zero console errors and zero same-origin HTTP failures. Evidence artifact: [14985344956](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570/artifacts/14985344956).
 
-- 212 assertions passed; zero failed assertions.
-- Zero uncaught page exceptions.
-- Zero console errors.
-- Zero same-origin HTTP failures.
-- Menu visually orders UPGRADES, MY TEAM, MY SQUAD, PLAYBOOK and GOALS & STATS.
-- UPGRADES uses a gold frame; the other four menu tiles use cyan frames.
-- MY TEAM's IDENTITY / UNIFORM / TRAILS tabs and their interactions pass.
-- All eight locked trails display a crew-challenge unlock hint.
-- MY TEAM identity content and SAVE & EQUIP fit the 390×844 viewport.
-- MY SQUAD's PTS/CAP badges, three tabs, gear subview/return, pinned roster strip and horizontal fit checks pass.
-- Fumble geometry and Stage One palette checks pass.
+Coverage includes:
+- Four-tile 2×2 menu order, gold MY SQUAD / cyan secondary frames, and portrait vertical fit at 390px and 360px.
+- MY TEAM Back/Cancel, live UPG badge, full-width single-line PICK LOGO action, IDENTITY / UNIFORM / TRAILS tabs, save action fit and locked-trail hints.
+- MY SQUAD PTS/CAP badges, ATTRIBUTES / STYLE & GEAR / CAREER tabs, `P` cost suffix, inline VISOR / ARM SLEEVES, appearance-toggle persistence, pinned roster strip and no horizontal overflow.
+- Stage One and match-flow regressions, including Fumble meter/A-control separation and defense-simulation banner suppression.
+
 
 ## Independent review findings and correction round — 2026-11-25
 
@@ -103,14 +98,13 @@ Run #295 and artifact 14982981067 verify the MY TEAM / MY SQUAD selector correct
 
 ## Current limitations and approval gate
 
-Stage Two remains **in progress** until:
-1. The fresh browser run tests the correction commit and all new style/pinning assertions pass.
-2. ChatGPT inspects the refreshed MY TEAM / MY SQUAD screenshots and Stage One regression captures, correcting any valid defects.
-3. Claude completes independent review and valid findings are addressed.
-4. The project owner explicitly approves the Stage Two package.
+All independent Stage Two findings supplied on 2026-11-25 have been addressed and verified in Run #313. The corrected screenshots and broader Stage One regression captures have been retrieved and visually inspected. **The only remaining Stage Two gate is explicit owner approval.**
+
+1. The owner reviews the updated Stage Two package and evidence.
+2. The owner explicitly approves Stage Two.
+3. Only then may Stage Three begin.
 
 No golden snapshots or snapshot provenance were changed.
-
 
 ## Latest verification — Run #297
 
