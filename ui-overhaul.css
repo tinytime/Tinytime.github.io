@@ -3125,3 +3125,5 @@ body #menu .ui-menu-build-trigger::after{
   #app #sheet #gbBtn{left:8px!important;bottom:8px!important;width:86px!important;min-width:86px!important;max-width:86px!important}
   #app #sheet #blurb{left:102px!important;right:8px!important;bottom:8px!important}
 }
+
+/* QA trigger: owner-requested fumble and Playbook layout assertions are included in the current branch head. */
