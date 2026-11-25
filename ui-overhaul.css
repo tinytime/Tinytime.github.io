@@ -2490,3 +2490,19 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #app #sheet #gbBtn .sr em{color:#F5B841!important}
 #app #sheet #gbBtn .sr.rd b,#app #sheet #gbBtn .sr.rd em{color:#4DE1F2!important}
 #app #sheet #gbBtn.ready{border-color:#F5B841!important}
+
+
+/* Final viewport anchoring: the app shell is narrower than the landscape viewport. */
+#app #pile .ui-pile-heading{
+  position:fixed!important;left:50vw!important;transform:translateX(-50%)!important;
+}
+
+/* Keep the drive pill centered through its arrival animation, relative to the viewport. */
+#app #tkTop{
+  position:fixed!important;left:50%!important;right:auto!important;
+  transform:translate(-50%,0)!important;
+}
+@keyframes ui-drive-pill-arrive{
+  from{opacity:0;transform:translate(-50%,-7px)}
+  to{opacity:1;transform:translate(-50%,0)}
+}
