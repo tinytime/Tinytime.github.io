@@ -99,39 +99,39 @@
   };
   const teamTile=byId('mTeam');if(teamTile)teamTile.addEventListener('click',()=>requestAnimationFrame(()=>{initTeamHeader();initTeamTabs()}));
   const installSquadPresentation=()=>{
-   const original=window.renderSquad;if(typeof original!=='function'||original.__uiSquadPresentation)return;
-   let flattening=false;
-   const inlineGear=()=>{
-    if(flattening)return;
-    const body=document.getElementById('sqBody');if(!body)return;
-    const edit=[...body.querySelectorAll('button')].find(button=>button.textContent.trim()==='EDIT GEAR & TRAILS');
-    if(edit){
-     flattening=true;
-     edit.click();
-     const gearBody=document.getElementById('sqBody');
-     const back=[...gearBody.querySelectorAll('button')].find(button=>button.textContent.trim()==='BACK TO STYLE');
-     if(back){
-      const gearNodes=[...gearBody.children].filter(node=>node!==back);
-      back.click();
-      const styleBody=document.getElementById('sqBody');
-      const oldEdit=[...styleBody.querySelectorAll('button')].find(button=>button.textContent.trim()==='EDIT GEAR & TRAILS');
-      if(oldEdit)oldEdit.remove();
-      const group=document.createElement('section');group.className='ui-squad-inline-gear';group.setAttribute('aria-label','Visor and arm sleeve customization');
-      gearNodes.forEach(node=>group.appendChild(node));
-      const numberRow=styleBody.querySelector('.numrow');
-      if(numberRow)numberRow.after(group);else styleBody.appendChild(group);
-     }
-     flattening=false;
-    }
-    const current=document.getElementById('sqBody');
-    if(current)current.querySelectorAll('.ustat button').forEach(button=>{
+   const body=document.getElementById('sqBody');if(!body||body.dataset.uiSquadPresentation==='1')return;
+   body.dataset.uiSquadPresentation='1';
+   let processing=false,queued=false;
+   const process=()=>{
+    queued=false;if(processing)return;
+    const current=document.getElementById('sqBody');if(!current)return;
+    current.querySelectorAll('.ustat button').forEach(button=>{
      const label=button.textContent.trim();
-     if(/^\+2\s*[·•]\s*\d+$/.test(label))button.textContent=label+'P';
+     if(/^\\+2\\s*[·•]\\s*\\d+$/.test(label))button.textContent=label+'P';
     });
+    const edit=[...current.querySelectorAll('button')].find(button=>button.textContent.trim()==='EDIT GEAR & TRAILS');
+    if(!edit)return;
+    processing=true;
+    edit.click();
+    const gearBody=document.getElementById('sqBody');
+    const back=[...gearBody.querySelectorAll('button')].find(button=>button.textContent.trim()==='BACK TO STYLE');
+    if(back){
+     const gearNodes=[...gearBody.children].filter(node=>node!==back);
+     back.click();
+     const styleBody=document.getElementById('sqBody');
+     const oldEdit=[...styleBody.querySelectorAll('button')].find(button=>button.textContent.trim()==='EDIT GEAR & TRAILS');
+     if(oldEdit)oldEdit.remove();
+     const group=document.createElement('section');group.className='ui-squad-inline-gear';group.setAttribute('aria-label','Visor and arm sleeve customization');
+     gearNodes.forEach(node=>group.appendChild(node));
+     const numberRow=styleBody.querySelector('.numrow');
+     if(numberRow)numberRow.after(group);else styleBody.appendChild(group);
+    }
+    processing=false;
    };
-   const wrapped=function(...args){const result=original.apply(this,args);if(!flattening)requestAnimationFrame(inlineGear);return result};
-   wrapped.__uiSquadPresentation=true;window.renderSquad=wrapped;
-   requestAnimationFrame(inlineGear);
+   const schedule=()=>{if(queued||processing)return;queued=true;requestAnimationFrame(process)};
+   if(window.MutationObserver)new MutationObserver(schedule).observe(body,{childList:true,subtree:true,characterData:true});
+   document.addEventListener('click',event=>{if(event.target.closest('#sqTabs,#mSquad'))schedule()},true);
+   schedule();
   };
   installSquadPresentation();
 
