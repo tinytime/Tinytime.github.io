@@ -568,7 +568,6 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
     <h2 id="endH">TOUGH LOSS</h2>
     <div id="endScore" style="text-align:center;font-family:var(--disp);font-size:20px;line-height:1.1;color:#ff7a5a;margin:0 0 6px;text-shadow:0 3px 0 #000"></div>
     <div class="note" id="endNote"></div>
-    <div id="endStyle" style="text-align:center;font-family:var(--disp);font-size:18px;color:#ffd23a;margin:2px 0 6px;text-shadow:0 2px 0 #000"></div>
     <div class="btnrow"><button class="btn pri" id="eAgain">REMATCH</button><button class="btn" id="eMenu">MENU</button></div>
   </div>
 </div>
@@ -1778,7 +1777,7 @@ function releaseDef(d){const b=d.eng;if(b){b.eng=null}d.eng=null}
 function chargeGB(n,label,x,y){if(label&&x!==undefined)popup(label,x,y,'#ffd23a')}
 function S2c(gn){const S=F.snap2||{};return S.togo>=8&&gn>=S.togo&&gn>=12}   // a first down that took a long gain
 function stylePts(n,label){const e=$('#fxPts');if(!e||!n||!SHOW_PTS)return;e.textContent=(label?label+'  ':'')+'+'+(n*100).toLocaleString('en-US');e.classList.remove('show');void e.offsetWidth;e.classList.add('show')}   // v3.16W2: style points shown x100 under the callout
-function endStyleShow(){const e=$('#endStyle');if(e){const pts=G&&Number.isFinite(G.style)?Math.max(0,G.style):0;e.textContent='STYLE POINTS  '+(pts*100).toLocaleString('en-US')}}
+function endStyleShow(){}
 function addStyle(pts,label,x,y,col){G.style+=pts;stylePts(pts);spFeed(label==='DIVING CATCH!'?6/SPK:pts);popup(label,x,y,col)}
 function knock(d,t){if(d.eng)releaseDef(d);d.fallV=0;d.stun=t;d.fall=true;d.knock=true;d.vx=d.vy=0}
 
@@ -2560,7 +2559,7 @@ const CHAL=[
  {crew:'cats',n:'SHUTOUT',d:'Win without giving up a touchdown',ok:m=>m.tdA===0,tr:'violet'},
  {crew:'kings',n:'GROUND GAME',d:'Run for 120+ yards in the match',ok:m=>m.rush>=120,tr:'amber'},
  {crew:'rollers',n:'BLOWOUT',d:'Win by 14 or more',ok:m=>m.you-m.opp>=14,tr:'teal'},
- {crew:'captain',n:'ANKLE TAKER',d:'Perform 3 ankle breaks in the match',ok:m=>m.ankle>=3,tr:'glitch'},
+ {crew:'captain',n:'ANKLE TAKER',d:'Perform 3 ankle breakers in the match',ok:m=>m.ankle>=3,tr:'glitch'},
  {crew:'baitdogs',n:'TRUCK STOP',d:'Perform 3 trucks in the match',ok:m=>m.truck>=3,tr:'rust'},
  {crew:'longshore',n:'CLEAN HANDS',d:'Win without a fumble or interception',ok:m=>m.to===0,tr:'steel'},
  {crew:'gantry',n:'BIG PLAY',d:'Gain 50+ yards on one play',ok:m=>m.long>=50,tr:'spark'},
@@ -10692,7 +10691,7 @@ function showMatchup(crew,done){const d=muEl(),th=TOWN_THEMES[crew.town]||TOWN_F
   requestAnimationFrame(()=>{muFit(pn[0].querySelector('.nm'));muFit(pn[1].querySelector('.nm'));});
   clearInterval(MU.tm);MU.tm=setInterval(()=>{const el=performance.now()-MU.t0,pr=muCoreProgress();d.querySelector('.bar i').style.width=Math.round(100*Math.min(1,Math.min(1,el/2000)*.4+.6*(pr.n?pr.r/pr.n:1)))+'%';
     if(!MU.ready&&el>=2000&&pr.ok){MU.ready=true}else if(!MU.ready&&el>=8000){MU.ready=true;MU.capped=true;ART.introCap=(ART.introCap||0)+1;try{console.log('matchup intro: 8 s cap reached with',pr.r+'/'+pr.n,'core sets baked')}catch(e){}}
-    if(MU.ready){clearInterval(MU.tm);ART.introMs=Math.round(el);tmark('introReady',Math.round(el)+'ms'+(MU.capped?' CAPPED':''));ART.introLast={ms:Math.round(el),capped:MU.capped,r:pr.r,n:pr.n};const t=d.querySelector('.tap');t.textContent='TAP TO PLAY';t.classList.add('go');/* Await explicit player confirmation; do not auto-dismiss the matchup. */d.querySelector('.bar i').style.width='100%'}},100)}
+    if(MU.ready){clearInterval(MU.tm);ART.introMs=Math.round(el);tmark('introReady',Math.round(el)+'ms'+(MU.capped?' CAPPED':''));ART.introLast={ms:Math.round(el),capped:MU.capped,r:pr.r,n:pr.n};const t=d.querySelector('.tap');t.textContent='TAP TO PLAY';t.classList.add('go');{clearTimeout(MU.auto);const cr=MU.crew,big=!!(cr&&cr.captain&&!(SAVE.beaten||[]).includes(cr.id));MU.auto=setTimeout(()=>{if(MU.on&&MU.ready)muClose()},big?2000:1200)}   /* v3.13 C: carries on by itself (2 s the first time you face a captain); a tap still goes at once */d.querySelector('.bar i').style.width='100%'}},100)}
 function muClose(){clearInterval(MU.tm);clearTimeout(MU.auto);MU.on=false;MU.el.classList.remove('on');const f=MU.done;MU.done=null;if(f)f()}
 
 /* ============ v3.16QQ1 TOWN ART TEST: pixel-art pack in one Vapor City block (the plaza in front of the Arena). Look only. ============
