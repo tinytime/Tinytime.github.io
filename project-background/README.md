@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-24):** Round 4 passed Run #258 (191/191). Round 5 Fumble contest correction is now implemented; CSS commit `ac23e1aa282c3c2197294738fae0b338de352f68`, QA commit/tested HEAD `01e96cdc2f2398d42d23b81981bd4999062520b4`, fresh browser QA pending. The Fumble meter is centered and its panel, track, fill, labels, countdown and A mash button now use the Stage One navy/cyan/gold palette. MY TEAM and MY SQUAD remain Section 3 / Stage Two, excluded until Stage One owner approval. QA pass count is not visual approval.
+**Live checkpoint (2026-11-25):** Stage One is owner-approved; Stage Two (MY TEAM and MY SQUAD) is active. Latest UI-Overhaul code HEAD: `bab0e23c9c37cffebb1730c654cdd8336501d3b3`. Run #278 diagnosed and cleared the Fumble harness's Node-side viewport reference, then exposed three menu QA mismatches. Those menu issues have been corrected. MY TEAM now has the required IDENTITY / UNIFORM / TRAILS tabs, with existing save-backed controls retained. Fresh browser QA for the exact current HEAD and portrait artifact inspection are pending; Stage Two is not yet passed or approved.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
