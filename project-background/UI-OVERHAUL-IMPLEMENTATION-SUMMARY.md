@@ -1204,3 +1204,25 @@ Run #252 tested `95396692ebed114cebbf9fd21da8748ef888163a`: **185/186 checks pas
 - QA commit / current tested HEAD: `01e96cdc2f2398d42d23b81981bd4999062520b4`. Fresh browser QA run pending.
 
 **Status:** implementation committed; automated verification pending. This is a targeted correction to Stage One Fumble gameplay UI. No golden snapshots or provenance changed. Stage Two remains on hold.
+
+
+## Round 5 — Run #260 failure analysis and follow-up QA correction (2026-11-24)
+
+**Run #260:** [GitHub Actions run 45514343698](https://github.com/tinytime/Tinytime.github.io/actions/runs/45514343698) tested `01e96cdc2f2398d42d23b81981bd4999062520b4` and completed with a failed browser-qa job. Workflow setup and Playwright/Chromium installation passed; the harness executed and uploaded a 42-file / 8.57 MB artifact (`14977317527`). There were no page exceptions, console errors, or same-origin HTTP failures.
+
+Three Fumble assertions failed:
+1. The viewport-centered 65vw bar was centered at x=422 in an 844px viewport, but its right edge overlapped the A mash button by 32.25px.
+2. The palette assertion reported the fill's computed background shorthand as transparent; the panel, track, labels and A mash button computed navy/cyan/gold as intended. The assertion was not inspecting backgroundImage, so it did not reliably verify the actual gradient.
+3. The timer was 2.3s, navy, 24px high and 6px below the bar, but its center was x=341.81 versus the bar center x=422. The timer's actual navy alpha was .98, while the assertion expected .96.
+
+### Follow-up already present on the live branch
+
+The current branch stylesheet has a later Round 5 follow-up that centers the contest meter within the usable left field lane (40vw center), reduces it to 55vw with a viewport/button-safe max width, and aligns the timer to the same 40vw center. The QA geometry check was correspondingly updated to require 50–58vw width, at least 8px button clearance, and alignment to the usable-lane center. This is intentionally not viewport-center alignment because the A mash control occupies the right-side lane.
+
+### QA precision correction committed
+
+After Run #260's report was inspected, the QA harness was strengthened to read backgroundImage as well as computed background color, assert both cyan #4DE1F2 and gold #F5B841 gradient stops explicitly, and check the timer's actual .98 navy surface, gold text and gold border as well as its alignment directly beneath the bar.
+
+QA assertion commit: `d8730820367ce5914051180a1200bfbbf8f1ca8e`.
+
+**Verification status:** Run #260 is a confirmed failure on its exact tested commit; it does not validate the later usable-lane CSS/QA state. The updated harness and branch state require a fresh browser Actions run. Do not claim the Fumble correction is verified until that run passes and its match-fumble-pile.png is visually inspected. No golden snapshots/provenance were changed. Stage Two remains on hold; Stage One owner approval remains pending.
