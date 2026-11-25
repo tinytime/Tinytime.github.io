@@ -2622,3 +2622,30 @@ body.ach-toast-active #app #dcall{
 
 /* D1 visual refinement — keep the mash instruction above the FUMBLE heading. */
 #app #pile #pileSub{top:calc(46vh - 68px)!important}
+
+
+/* CONSOLIDATED REVIEW POLISH — D3/D4/D5/D6/D7/D9/D12 */
+#app #sheet #flipBtn{background:#131620!important;border:1px solid rgba(245,184,65,.72)!important;color:#f5b841!important;box-shadow:none!important}
+#app #sheet #flipBtn.on{background:rgba(245,184,65,.14)!important;border:2px solid #f5b841!important;color:#ffe3a0!important;box-shadow:inset 0 0 0 1px rgba(245,184,65,.2),0 0 12px rgba(245,184,65,.12)!important}
+#app #sheet #flipBtn:focus-visible{outline:2px solid #4de1f2;outline-offset:3px}
+#app #sheet .cardWrap{min-width:0}
+#app #sheet .card{padding:4px 4px 6px}
+#app #sheet .card b{max-width:calc(100% - 17px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#app #sheet .card canvas{width:min(100%,96px);height:68px;object-fit:contain}
+#app #sheet .card .fav{right:4px;top:4px;font-size:12px}
+#app:has(#dcall:not([hidden])) #bDown,#app:has(#tick:not([hidden])) #bDown{visibility:hidden}
+#end #endScore{position:relative;z-index:2}
+#end:before{top:clamp(176px,23vh,205px)!important;height:clamp(190px,28vh,250px)!important}
+#goalsP .ui-goals-card{box-shadow:none!important;border-width:1px!important}
+#goalsP .ui-goals-trail-pill{font-size:10px!important;padding:6px 9px}
+#goalsP .ui-goals-state{font-size:9px}
+#goalsP .ui-goals-achievement-count{font-size:10px}
+#tkPlay{border:1px solid rgba(77,225,242,.5)!important;background:rgba(19,22,32,.97)!important}
+#rotMsg{background:radial-gradient(120% 90% at 50% 15%,rgba(77,225,242,.12),transparent 60%),linear-gradient(180deg,#131620,#0c111b)!important;color:#f5f7fa!important}
+#rotMsg button{border:1px solid #f5b841!important;border-radius:999px!important;background:#131620!important;color:#f5b841!important}
+#mu .bot .tap{background:#131620!important;border-color:#f5b841!important;color:#f5b841!important;box-shadow:0 4px 0 #76551d!important}
+#thr button[data-k="D"],#thr button[data-role="RB"],#thr button:last-child{background:#131620!important;border-color:#34d399!important;color:#34d399!important}
+@media(max-width:430px){
+ #goalsP .ui-goals-tab{font-size:11px!important;min-height:36px}
+ #goalsP .ui-goals-trail-pill{font-size:10px!important}
+}
