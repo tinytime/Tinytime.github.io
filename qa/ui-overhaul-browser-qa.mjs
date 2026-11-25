@@ -419,6 +419,8 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   await page.locator('#mu .tap').click();
   await page.waitForFunction(()=>{const e=document.querySelector('#sheet');return e&&!e.hidden},null,{timeout:10000});
   check('In-match playbook overlay opens',await page.locator('#sheet').isVisible());
+  // Freeze the live play clock while the browser harness performs extended visual/interaction assertions.
+  await page.evaluate(()=>{if(window.SG?.G)window.SG.G.clockOn=false});
   const scoreboardStarState=await page.evaluate(()=>({scoreboardDisplay:getComputedStyle(document.querySelector('#gb')).display,scoreboardHidden:document.querySelector('#gb').hidden,playerMeterVisible:!!(document.querySelector('#gbBtn')?.offsetWidth||document.querySelector('#gbBtn')?.offsetHeight),playerRows:document.querySelectorAll('#gbBtn .sr').length,playerFill:document.querySelector('#gbBtn .sr u i')?getComputedStyle(document.querySelector('#gbBtn .sr u i')).backgroundImage:null}));
   check('Duplicate scoreboard star meter is hidden while the Playbook player meter remains',scoreboardStarState.scoreboardDisplay==='none'&&scoreboardStarState.playerMeterVisible&&scoreboardStarState.playerRows>0&&scoreboardStarState.playerFill.includes('77, 225, 242'),scoreboardStarState);
   check('In-match CALL PLAY action visible',await page.locator('#callBtn').isVisible());
