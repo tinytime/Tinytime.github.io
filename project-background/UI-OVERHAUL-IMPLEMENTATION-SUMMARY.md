@@ -6,10 +6,10 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest code status: Run #121 passed at `d0d7225f41a647bd8aeb23ea44208d554bb25025`; newer owner commit `baad03690b434997eba3a45eca30829dbb76a8d2` failed Run #122 HIKE readiness timing gate (23,089 ms > 15,000 ms).
-- Latest verified baseline `main` SHA recorded by the workstream: `36830922fa5b99922ce583bcf3888cb297bad03c`
-- Owner approval: **not yet given**
-- Independent visual review: **Claude Round 2 returned 9.2/10 overall** on the changed Stage One surfaces; final owner approval is still pending.
+- Latest live branch HEAD (2026-11-25): `bab0e23c9c37cffebb1730c654cdd8336501d3b3` on `UI-Overhaul`.
+- Stage One: owner-approved. Round 5 Fumble follow-up has been implemented and browser geometry/palette checks have progressed beyond the original Node-side harness error; current Stage Two browser QA is still running and not yet green.
+- Stage Two: MY TEAM and MY SQUAD implementation in progress. MY TEAM's required IDENTITY / UNIFORM / TRAILS tabs are now implemented in the presentation layer; the exact current HEAD still needs Actions verification and screenshot inspection.
+- Owner approval of Stage Two: **not yet given**. Independent Claude review: pending.
 
 ## 1. Read this first in a new chat
 
@@ -1272,3 +1272,42 @@ The latest Stage Two QA source is committed, but its Actions result is not yet v
 ### Stage Two browser QA — Run #275 queued/in progress
 
 The latest Stage Two code/QA commit is `a217742d20b36e626d9b43a327df1fcebe786606`. GitHub Actions [Run #275](https://github.com/tinytime/Tinytime.github.io/actions/runs/45517810094), run ID `45517810094`, checks out that exact SHA. At the last poll, job `browser-qa` was in progress: checkout and Node setup succeeded; Playwright/Chromium installation was running; browser assertions had not started and no artifact was uploaded yet. Earlier push-triggered runs were cancelled by the branch concurrency guard as newer Stage Two commits arrived; Run #275 is the first run against the consolidated Stage Two QA commit. Await its final result before assessing implementation.
+
+
+## Stage Two continuation — MY TEAM tabs and menu QA corrections (2026-11-25)
+
+**Current live HEAD:** `bab0e23c9c37cffebb1730c654cdd8336501d3b3` on `UI-Overhaul`.
+
+### Run #278 diagnosis
+- [Run #278](https://github.com/tinytime/Tinytime.github.io/actions/runs/45520949059) tested `2cc7966a3785c8227cd0eaeb4a29a980b0f5b0d8`.
+- The earlier Node-side `innerWidth` reference in the Fumble assertion was corrected by reading the captured browser viewport from `pileGeometry.viewport`.
+- The run then completed the browser suite and produced artifact [14980032182](https://github.com/tinytime/Tinytime.github.io/actions/runs/45520949059/artifacts/14980032182), but failed three menu assertions: tile DOM order, SAVE & EQUIP pseudo-label, and cyan border assignment. The Fumble and other screen checks passed; this was not a green run.
+
+### Menu corrections
+- Reordered the actual menu grid DOM to the expected sequence: UPGRADES, MY TEAM, MY SQUAD, PLAYBOOK, GOALS & STATS.
+- Replaced brittle `:nth-of-type` border styling with semantic tile selectors: UPGRADES gold; all four other actions cyan.
+- Changed the MY TEAM primary action to actual visible/accessibility text `SAVE & EQUIP`, preserving its existing click handler.
+- QA now checks the real button text and all four cyan action borders rather than generated pseudo-content.
+
+Commits:
+- `f9d285514591a05856b318824b02c48cabb1407c` — menu order and SAVE & EQUIP text.
+- `04b7f46c77b292f890d4d2a2fdc7bb3bab9df67e` — semantic tile borders and visible save label.
+- `c5236169944472ea36bdf71393d9f8d5d03b03cc` — QA alignment for actual label and four cyan tiles.
+
+### MY TEAM three-tab implementation
+The Gemini handoff requires three distinct MY TEAM tabs: **IDENTITY / UNIFORM / TRAILS**. The prior first pass had paired identity controls and a run-trail row but did not separate these into the required tab structure.
+
+- Added accessible IDENTITY / UNIFORM / TRAILS tab controls while keeping the 2.5D player preview and SAVE & EQUIP action persistent.
+- IDENTITY contains the existing paired team-name and logo picker.
+- UNIFORM contains the existing colour-slot and palette controls; saved jersey/pants choices remain preserved.
+- TRAILS contains the live run-trail challenge picker. Locked trails receive an explanatory unlock hint.
+- Existing save-backed controls and handlers remain authoritative; no gameplay or persistence logic was replaced.
+- Responsive styles keep the content region scrollable and the save action fixed at the bottom.
+
+Commits:
+- `ca7c742453c9d491738217ce7d5a702692bcd3a1` — tab behavior and existing-node grouping.
+- `2ff187a14360556dafa0b97f80ed2f01778e1b96` — three-tab styling.
+- `6b717a4d1e48a3a3257a8614065c189183338d22` — explicit tab interaction assertions.
+- `bab0e23c9c37cffebb1730c654cdd8336501d3b3` — valid tab typography declaration.
+
+**Verification:** Run #284 was launched for the earlier QA commit `6b717a4d1e48a3a3257a8614065c189183338d22`; the later CSS typography commit `bab0e23c9c37cffebb1730c654cdd8336501d3b3` is the current HEAD and requires its own fresh Actions result. Do not infer a pass from Run #284 or mark Stage Two visually approved. Next: verify the latest run, fix any actual failures, inspect MY TEAM / MY SQUAD portrait artifacts at 390×844, and update this handoff with the exact passing commit/run/artifact. No golden snapshots or provenance were modified.
