@@ -2518,7 +2518,7 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 /* Title-screen entry gate — responsive portrait composition. */
 .ui-title-screen{position:fixed;inset:0;z-index:100000;overflow:hidden;background:#050914;isolation:isolate;display:flex;align-items:center;justify-content:center}
 .ui-title-screen[hidden]{display:none!important}
-.ui-title-art-frame{position:absolute;width:min(100vw,56.25vh);height:min(177.7778vw,100vh);left:50%;top:50%;transform:translate(-50%,-50%)}
+.ui-title-art-frame{position:absolute;width:56.25vh;height:100vh;left:50%;top:50%;transform:translate(-50%,-50%)}
 .ui-title-screen .title-scene{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:fill}
 .ui-title-hit{position:absolute;z-index:3;display:block;padding:0;margin:0;border:0;background:transparent;cursor:pointer;appearance:none;-webkit-tap-highlight-color:transparent}
 .ui-title-hit:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:48px}
