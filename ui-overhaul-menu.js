@@ -81,7 +81,32 @@
    const jerseyLabel=takeLabel('JERSEY STYLE'),pantsLabel=takeLabel('PANTS STYLE'),colorsLabel=takeLabel('COLORS (TAP A SLOT, THEN A COLOR)');
    ['tJersey','tPants','tSlots','tPal'].forEach(id=>{const el=document.getElementById(id);if(el)panels.uniform.appendChild(el)});
    [jerseyLabel,pantsLabel,colorsLabel].forEach(el=>{if(el)panels.uniform.insertBefore(el,panels.uniform.querySelector('#'+(el===jerseyLabel?'tJersey':el===pantsLabel?'tPants':'tSlots'))||null)});
-   const placeTrail=()=>{const row=document.getElementById('trRow');if(row&&row.parentElement!==panels.trails){panels.trails.appendChild(row);row.querySelectorAll('.chip.locked').forEach(chip=>{if(chip.nextElementSibling?.classList?.contains('ui-team-trail-hint'))return;const hint=document.createElement('small');hint.className='ui-team-trail-hint';hint.textContent='Clear the matching crew challenge to unlock this trail.';chip.after(hint)})}};
+   // Jersey/pants cut choices are intentionally non-interactive in the current player-art renderer.
+   // Preserve the saved values, but do not leave orphaned headings or expose dead controls.
+   ['tJersey','tPants'].forEach(id=>{const control=document.getElementById(id),label=control?.previousElementSibling;if(control)control.hidden=true;if(label?.classList?.contains('lbl'))label.hidden=true});
+   const fixedStyleNote=document.createElement('small');fixedStyleNote.className='ui-team-fixed-style-note';fixedStyleNote.textContent='JERSEY & PANTS CUTS ARE NOT CURRENTLY CUSTOMIZABLE.';panels.uniform.insertBefore(fixedStyleNote,panels.uniform.querySelector('#tSlots'));
+   const placeTrail=()=>{
+    const row=document.getElementById('trRow');if(!row)return;
+    if(row.parentElement!==panels.trails)panels.trails.appendChild(row);
+    const chips=row.querySelector('.chips');if(!chips)return;
+    [...chips.children].forEach(chip=>{
+     if(chip.classList.contains('ui-team-trail-option'))return;
+     if(!chip.classList.contains('chip'))return;
+     const option=document.createElement('div');option.className='ui-team-trail-option';
+     chip.before(option);option.appendChild(chip);
+     if(chip.classList.contains('locked')){
+      const trailName=chip.textContent.replace(/^🔒\\s*/,'').trim();
+      const challenge=typeof CHAL!=='undefined'?CHAL.find(item=>typeof TRAILS!=='undefined'&&TRAILS[item.tr]?.n===trailName):null;
+      const crew=challenge&&typeof crewName==='function'?crewName(challenge.crew):'CREW CHALLENGE';
+      const hint=document.createElement('small');hint.className='ui-team-trail-hint';hint.textContent=crew.toUpperCase();
+      hint.setAttribute('aria-label','Unlock by completing the '+crew+' crew challenge');
+      option.appendChild(hint);
+      const reason=challenge?challenge.n+' vs '+crew:'Complete the matching crew challenge';
+      chip.title=reason;chip.setAttribute('aria-label',trailName+' trail locked. '+reason);
+      chip.onclick=()=>{chip.title=reason};
+     }
+    });
+   };
    placeTrail();
    if(window.MutationObserver){const observer=new MutationObserver(placeTrail);observer.observe(team,{childList:true,subtree:true})}
    activate('identity');
