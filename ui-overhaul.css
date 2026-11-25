@@ -2433,3 +2433,8 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #team .ui-team-identity .lprev{background:#1c2130!important;border:1px solid rgba(77,225,242,.32)!important;border-radius:10px!important}
 #team .ui-team-identity .lprev .lbig{background:#131620!important;border:1px solid rgba(77,225,242,.45)!important;border-radius:8px!important;color:#f5f7fa!important}
 #team .ui-team-identity .lprev #tLogoBtn{background:#1c2130!important;border:1px solid rgba(77,225,242,.55)!important;color:#4de1f2!important}
+
+/* Final fumble prompt refinement: the A is plain text, not a boxed keycap. */
+#pileSub b{display:inline!important;min-width:0!important;height:auto!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#4DE1F2!important;font:inherit!important;vertical-align:baseline!important}
+/* Keep the YDS unit subordinate even when the receiving-yard number is promoted. */
+#goalsP .ui-goals-stat-card.is-receiving .ui-goals-stat-sub .ui-goals-yards-unit{color:#F5B841!important;font:900 10px/1 var(--ui-mono,monospace)!important;letter-spacing:.06em!important}
