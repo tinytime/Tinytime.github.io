@@ -440,26 +440,34 @@
     if(heading)heading.hidden=!active;
    }
    ['owTop','owMenu','owA','owObj'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=active});
-   // The overworld's next-unlock callout is rendered outside the menu shell.
-   // Suppress that progression-only card while pre-game settings are open.
-   document.querySelectorAll('[id*="unlock" i],[class*="unlock" i]').forEach(el=>{if(active){el.dataset.uiPreGameHidden='1';el.hidden=true}else if(el.dataset.uiPreGameHidden==='1'){el.hidden=false;delete el.dataset.uiPreGameHidden}});
+   // The overworld next-unlock card sits immediately above the menu. Its
+   // dashed frame is decorative and may be drawn by a pseudo-element, so use
+   // the card's rendered geometry relative to the Settings heading instead
+   // of depending on computed border styles or an "unlock" class name.
    const hideNextUnlock=()=>{
+    const heading=menu?.querySelector('.ui-title-settings-heading');
+    if(!heading)return;
+    const headingTop=heading.getBoundingClientRect().top;
+    const minWidth=Math.min(280,window.innerWidth*.72);
     const candidates=[...document.querySelectorAll('body *')]
      .filter(el=>/\bNEXT UNLOCK\b/i.test((el.textContent||'').trim()))
      .sort((a,b)=>(a.textContent||'').trim().length-(b.textContent||'').trim().length);
     for(const label of candidates){
      let node=label;
-     for(let depth=0;node&&node!==document.body&&depth<9;depth++,node=node.parentElement){
+     for(let depth=0;node&&node!==document.body&&depth<10;depth++,node=node.parentElement){
       if(node===menu||menu?.contains(node))continue;
-      const style=getComputedStyle(node);
       const rect=node.getBoundingClientRect();
-      const hasCalloutFrame=style.borderStyle.split(' ').some(v=>v==='dashed'||v==='dotted')&&rect.width>180&&rect.height>30;
-      if(hasCalloutFrame){
+      const isProgressionCard=rect.width>=minWidth&&rect.height>=38&&rect.height<=180&&rect.bottom<=headingTop+2&&rect.bottom>0;
+      if(!isProgressionCard)continue;
+      if(node.dataset.uiPreGameHidden!=='1'){
        node.dataset.uiPreGameHidden='1';
-       node.hidden=true;
-       node.style.setProperty('display','none','important');
-       break;
+       node.dataset.uiPreGameWasHidden=String(node.hidden);
+       node.dataset.uiPreGameDisplay=node.style.getPropertyValue('display');
+       node.dataset.uiPreGameDisplayPriority=node.style.getPropertyPriority('display');
       }
+      node.hidden=true;
+      node.style.setProperty('display','none','important');
+      break;
      }
     }
    };
@@ -472,7 +480,12 @@
    }else{
     window.__uiPreGameUnlockObserver?.disconnect();
     window.__uiPreGameUnlockObserver=null;
-    document.querySelectorAll('[data-ui-pre-game-hidden="1"]').forEach(el=>{el.hidden=false;el.style.removeProperty('display');delete el.dataset.uiPreGameHidden});
+    document.querySelectorAll('[data-ui-pre-game-hidden="1"]').forEach(el=>{
+     el.hidden=el.dataset.uiPreGameWasHidden==='true';
+     const display=el.dataset.uiPreGameDisplay||'',priority=el.dataset.uiPreGameDisplayPriority||'';
+     if(display)el.style.setProperty('display',display,priority);else el.style.removeProperty('display');
+     delete el.dataset.uiPreGameHidden;delete el.dataset.uiPreGameWasHidden;delete el.dataset.uiPreGameDisplay;delete el.dataset.uiPreGameDisplayPriority;
+    });
    }
    const close=menu?.querySelector('.ui-menu-close');
    if(close)close.setAttribute('aria-label',active?'Back to title':'Back to town');
