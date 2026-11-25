@@ -1,3 +1,23 @@
+## Title screen entry gate — 2026-11-25
+
+The owner requested that the Circuit Football RPG title screen be moved from the separate NPC baseline branch into `UI-Overhaul`. It is now integrated into the UI Overhaul app without merging the NPC workstream.
+
+- `ui-overhaul-menu.js` creates a startup title gate with the CIRCUIT FOOTBALL RPG branding and **BEAT THE CIRCUIT** / **SETTINGS** actions.
+- **BEAT THE CIRCUIT** dismisses the gate and calls the existing `window.SG.owShow()` overworld entry path.
+- **SETTINGS** opens the existing UI Overhaul MENU → SETTINGS tab; the menu close/Back action returns to the title screen.
+- The title scene is the existing inline SVG interpretation from the source implementation, not the supplied final raster artwork. Treat the scene as provisional pending owner visual approval; do not describe it as the final artwork.
+- CSS is isolated under `.ui-title-screen` / `.ui-title-*` selectors. No gameplay, save/progression, existing Settings controls, NPC renderer, or golden snapshots were intentionally changed.
+- Browser QA was extended to cover initial title visibility, Settings navigation/return, and starting the game. Run #400 is testing exact commit `e60b67940b06c58e37ac94d740bf0dffab29b553`; result and screenshots are pending.
+
+Implementation commits:
+- Menu/title gate: `d60eba91f4d2587105ec6bc763acd1e13e51e414`
+- Title CSS: `9666a76fcf1087d29ea4882290efd023fe62c5df`
+- Browser QA: `e60b67940b06c58e37ac94d740bf0dffab29b553`
+
+Do not treat this feature as QA-passing or visually approved until Run #400 completes and its actual title/settings screenshots are inspected.
+
+---
+
 **Live checkpoint (2026-11-25):** Stages One–Three are owner-approved. The second Stage Four polish batch passed Run #397 (259/259) on `f26e48986376c03ab07cb286c176660c8ff8eb65`; screenshots for the Playbook, post-FLIP, fumble, defense and achievements were visually inspected. The Playbook favorite QA baseline correction is included in that tested commit. Stage Four remains in progress and awaits the owner's review/approval. The pre-game matchup redesign remains explicitly deferred. See [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for exact evidence and the next gate.
 
 ## Circuit Football RPG — UI Overhaul
