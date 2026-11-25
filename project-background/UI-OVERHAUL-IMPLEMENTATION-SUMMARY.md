@@ -1392,3 +1392,15 @@ Next: retrieve the push-triggered browser run for commit `2cd3b457eca4b36481298a
 ### Stage Three next action
 
 Present the Run #331 evidence and GOALS & STATS screens for owner review. Await explicit owner approval or feedback. If feedback arrives, change only affected Stage Three items, rerun browser QA, inspect refreshed screenshots, and update this summary. Do not advance to Stage Four before approval.
+
+
+## Owner approval — Stage Three (2026-11-25)
+
+The owner explicitly approved Stage Three GOALS & STATS and authorized Stage Four. Stage Three remains evidenced by exact code/QA commit `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`, [Run #331](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877) (230/230 checks), and artifact [14990919745](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877/artifacts/14990919745), whose screenshots were visually inspected. Stage Three is now owner-approved.
+
+## Stage Four kickoff — Pre-Game Matchup & Playbook (landscape)
+
+- Scope follows handoff section 5: matchup screen with town/crew pills, atmospheric split backdrop, solid matte team badge cards, OVR pills, FIRST TO target and loading progress; then the landscape in-match play sheet with category rail, readable route diagrams, gold selected-play frame and FLIP, cyan CALL PLAY.
+- Existing implementation is present in `index.html` (matchup overlay `#mu`, play sheet `#sheet`, category rail `#pbTabs`, cards `#cards`, controls `#flipBtn` / `#callBtn`) and is already partially covered by the consolidated browser suite. Stage Four will focus on end-to-end acceptance completeness and any verified visual/interaction gaps, not wholesale replacement.
+- Baseline artifact [14990919745](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877/artifacts/14990919745) contains `match-pre-game.png`, `match-playbook-overlay.png`, `match-playbook-portrait.png`, and `desktop-playbook.png`. These were opened for the Stage Four kickoff audit. The matchup composition and landscape play-sheet hierarchy are present; targeted category-count and real CTA-flow coverage is being added before deciding whether code changes are warranted.
+- Stage Four status: **in progress**. No Stage Four completion, independent review, or owner approval is claimed.
