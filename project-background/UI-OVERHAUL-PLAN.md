@@ -7,10 +7,9 @@
 - Working branch: `UI-Overhaul`
 - Baseline: current `main` at the time this branch was created
 - UI handoff source: `Circuit Football — UI Overhaul Handoff Spec.docx` (14 pages; supplied in the project conversation)
-- Implementation status: Stage One art-direction correction is implemented across Overworld, menu, settings, credits/developer drawer, playbook and match screens. Latest verified implementation commit: `d980f2e533de7d5bdfe55c7df98a593da7af8aee`.
-- Browser QA: [Run #114](https://github.com/tinytime/Tinytime.github.io/actions/runs/45438679781), **110/110 passed**, with 28 screenshots retrieved and inspected.
-- Internal visual assessment: approximately 7.2/10; the requested 6.5+/10 Stage One target is provisionally met. This is not independent approval.
-- Independent Claude review: pending. Owner approval: pending. Do not begin Stage Two until the owner approves the direction.
+- Implementation status: Stage One is owner-approved. Stage Two MY TEAM / MY SQUAD and the independent-review correction round are implemented.
+- Latest successful Stage Two code-tested commit: `3be8785d5a250d65430f7c50571d5d0d428a9d36`; [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570) passed **221/221** with zero page/console/same-origin errors; artifact `14985344956` was visually inspected.
+- Independent Stage Two review findings (MY TEAM 8/10, MY SQUAD 8.5/10, menu 7.5/10) have been addressed. Stage Two owner approval is pending. Do not begin Stage Three before explicit approval.
 
 ## Source-of-truth rules
 
@@ -330,3 +329,8 @@ The MY TEAM name input and logo picker are now paired in one responsive identity
 
 
 Stage Two browser QA Run #275 (`45517810094`) is the first consolidated run against exact code/QA SHA `a217742d20b36e626d9b43a327df1fcebe786606`. At the latest poll, checkout and Node setup passed, while Playwright/Chromium installation was in progress; browser checks and artifact upload had not started. Review the run before treating Stage Two as tested.
+
+
+## Stage Two independent-review correction checkpoint — 2026-11-25
+
+Run #313 tested exact commit `3be8785d5a250d65430f7c50571d5d0d428a9d36` and passed 221/221 browser assertions. The independent review's Back/UPG header, PICK LOGO sizing, upgrade point-cost suffix, inline VISOR/ARM SLEEVES, and four-tile menu findings are addressed. Actual MY TEAM, MY SQUAD, portrait/desktop/narrow menu and Stage One regression screenshots were retrieved and visually inspected. Stage Two owner approval remains pending; Stage Three is gated on that approval. No golden snapshots or provenance changed.
