@@ -151,7 +151,7 @@ The branch subsequently advanced through commits that adjust tab visibility, ope
 
 ## 8. Immediate next actions
 
-1. **Owner Stage Two review / approval.** The independent review findings supplied on 2026-11-25 have been implemented and verified. Present the updated package and Run #313 evidence for the owner's final review. Do not mark Stage Two approved until the owner explicitly approves it.
+1. **Owner Stage Two review / approval.** The independent review findings supplied on 2026-11-25 have been implemented and verified. Present the updated package and Run #315 evidence for the owner's final review. Do not mark Stage Two approved until the owner explicitly approves it.
 2. **Preserve the tested baseline.** Run #315 tested exact code/QA commit `8aff7da49a4a5bafc255f3fc073783803469377c`; documentation-only commits may advance branch HEAD. Recheck live HEAD and Actions before any further implementation.
 3. **After Stage Two owner approval only**, begin Stage Three (GOALS & STATS) using Section 4 of the handoff. Map its existing DOM/state and acceptance criteria before changing code.
 4. Keep all changes on `UI-Overhaul`. Do not modify `main`, NPC workstream files, gameplay/save/progression behavior, or golden snapshots without explicit authorization.
