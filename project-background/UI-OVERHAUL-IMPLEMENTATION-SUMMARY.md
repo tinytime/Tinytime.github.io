@@ -6,7 +6,8 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest live branch HEAD (2026-11-25): `381363ff1caae36c080b7a9f3cf73af6f4a77046` on `UI-Overhaul`.
+- Latest live branch HEAD (2026-11-25): `d5821c679550172afa9b56d2bda5f20ad9616a96` on `UI-Overhaul` (review-package documentation only after the tested code commit).
+- Latest successful code-tested commit: `381363ff1caae36c080b7a9f3cf73af6f4a77046`, Run #291, 212/212 browser assertions.
 - Stage One: owner-approved. Round 5 Fumble follow-up is browser-QA verified on the latest successful full-suite run; the Fumble geometry and palette assertions pass.
 - Stage Two: MY TEAM and MY SQUAD implementation in progress. MY TEAM's required IDENTITY / UNIFORM / TRAILS tabs are implemented. Run #291 passes all 212 browser assertions on the current code commit; screenshot visual inspection is still pending.
 - Owner approval of Stage Two: **not yet given**. Independent Claude review: pending.
@@ -1323,5 +1324,5 @@ Commits:
 - **MY TEAM:** 2.5D preview, paired identity controls, real SAVE & EQUIP label, IDENTITY / UNIFORM / TRAILS tabs, tab interactions, run-trail picker and all eight locked-trail hints pass. The fixed action and identity content fit the 390×844 viewport.
 - **MY SQUAD:** separate PTS/CAP badges, three required tabs, gear subview/return, no horizontal overflow and pinned starter strip checks pass.
 - **Artifact:** [14981780185](https://github.com/tinytime/Tinytime.github.io/actions/runs/45522385402/artifacts/14981780185), 8,836,872 bytes; includes the full screenshot set, including `my-team-portrait.png`, `my-squad-attributes-portrait.png` and `my-squad-gear-portrait.png`.
-- **Visual inspection:** not yet completed in this pass. The artifact exists, but automated assertions do not replace reviewing the actual screenshots. Do not claim visual approval.
+- **Visual inspection:** not yet completed in this pass. The artifact exists, but automated assertions do not replace reviewing the actual screenshots. The Stage Two independent review package is [UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md](UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md). Do not claim visual approval.
 - **Gate:** Stage Two remains in progress and awaits screenshot inspection, independent review as required, and owner approval. No golden snapshots or provenance were changed.
