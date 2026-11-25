@@ -1476,3 +1476,18 @@ The owner explicitly approved Stage Three (GOALS & STATS) and authorized proceed
 - Corrected the stale browser-QA expected counts and assertion label in commit `6612565415fdeddb5774d689e7cb8575b447b2d8`. This is a QA-only change; no gameplay rules, match state, save/progression behavior, or golden snapshots were changed.
 - The prior renderer fix (`drawCard(c.querySelector('canvas'), ...)`) and `updateSel()` query fix are both present in the tested code. The real favorite button is now a topmost pointer target after scrolling and its state toggles/restores successfully.
 - **Next action:** run the browser QA workflow against exact current branch HEAD `6612565415fdeddb5774d689e7cb8575b447b2d8`; inspect its result and fresh screenshots. Stage Four remains **in progress and not owner-approved** until the exact latest commit passes and the full matchup → Playbook → pre-snap flow is verified.
+
+
+## Cross-stage owner feedback corrections — 2026-11-25
+
+The owner supplied a consolidated seven-item review spanning the approved Stage One–Three surfaces and Stage Four in-progress match UI. Targeted corrections were prepared on `UI-Overhaul`:
+
+- Removed the post-game Style Points display (the backing element remains hidden so existing game logic can continue updating it without affecting gameplay).
+- Recentered the fumble meter on the viewport, replaced the legacy mash-button styling with the matte navy/gold/cyan palette, and restyled the mash prompt to avoid an opaque blue block.
+- Removed duplicate down-and-distance from the Playbook header, simplified the favorite affordance to eliminate pill-like chrome, and changed FLIP to the current cyan/navy palette.
+- Changed the pre-game matchup from automatic dismissal after the ready prompt to explicit player confirmation. The prior 1.2-second auto-dismiss could close the screen before the player could reliably act; QA now waits and confirms the explicit tap transition.
+- Promoted receiving yards to the same large white number hierarchy as receptions, retaining a small gold YDS unit.
+- Changed move-based challenge copy to action wording: “Perform 3 trucks in the match” and “Perform 3 ankle breaks in the match.”
+- Updated the MY TEAM logo picker and preview square to the matte navy/cyan palette.
+
+QA coverage was updated for the new post-game visibility, exact fumble center, receiving number formatting, explicit matchup persistence/confirmation, Playbook header/FLIP, challenge wording and logo palette. This is an implementation checkpoint only: fresh browser QA and screenshot inspection are required before the owner should reconsider approval status. Golden snapshots and `main` were not changed.

@@ -2387,3 +2387,26 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #app #sheet #cards>.cardWrap>.card b{padding-right:34px!important}
 #app #sheet #cards>.cardWrap>.fav{position:absolute;top:10px;right:10px;z-index:20;display:grid;place-items:center;width:28px;height:28px;min-height:28px;margin:0;padding:0!important;border:0!important;border-radius:6px!important;background:#171e2d!important;color:var(--ui-muted)!important;font:700 16px/1 var(--ui,"Arial Narrow",sans-serif)!important;box-shadow:none!important;cursor:pointer;pointer-events:auto!important;touch-action:manipulation}
 #app #sheet #cards>.cardWrap>.fav.on{color:var(--ui-gold)!important}
+
+/* Owner feedback: remove non-functional Style Points from post-game. */
+#end #endStyle{display:none!important}
+/* Fumble contest: center the meter and replace legacy arcade controls with matte navy/gold/cyan. */
+#pileBar{left:50%!important;right:auto!important;width:min(65%,560px)!important;transform:translateX(-50%)!important;box-sizing:border-box}
+#pileSub{display:inline-block;left:50%;right:auto;width:max-content;max-width:calc(100% - 32px);transform:translateX(-50%);padding:7px 13px;border:1px solid rgba(77,225,242,.28);border-radius:10px;background:rgba(19,22,32,.72);color:#DCE5F2;text-shadow:none;font:800 12px/1.2 var(--ui-heading,system-ui);letter-spacing:.1em}
+#pileSub b{color:#4DE1F2;font-size:14px}
+#pileBtn{right:4%!important;background:#131620!important;color:#4DE1F2!important;border:2px solid #F5B841!important;box-shadow:0 5px 0 #8a6a00!important}
+#pileBtn.dn{box-shadow:0 1px 0 #8a6a00!important}#pileT{color:#F5F7FA;text-shadow:none}
+/* Playbook cleanup: scoreboard owns down/distance; remove duplicate header and pill-like favorite chrome. */
+#app #sheet .pbTop{justify-content:flex-end;padding:0 2px 5px;border-bottom:0}
+#app #sheet #shDD,#app #sheet #shHint{display:none!important}
+#app #sheet #flipBtn{background:#131620!important;border:1px solid rgba(77,225,242,.7)!important;color:#4DE1F2!important;border-radius:9px!important}
+#app #sheet #flipBtn.on{background:#4DE1F2!important;border-color:#4DE1F2!important;color:#131620!important}
+#app #sheet #cards>.cardWrap>.fav{width:24px!important;height:24px!important;min-height:24px!important;top:7px!important;right:7px!important;border:0!important;border-radius:5px!important;background:transparent!important;box-shadow:none!important;outline:0!important}
+/* Receiving yards number matches the large white receptions number; YDS remains a small gold unit. */
+#goalsP .ui-goals-stat-card.is-receiving .ui-goals-stat-sub{grid-column:2;display:flex;align-items:baseline;justify-content:center;gap:5px;align-self:center;margin:0;color:#F5F7FA;font:inherit}
+#goalsP .ui-goals-yards-number{color:#F5F7FA;font:900 27px/1 var(--ui-display,"Barlow Condensed",Impact,sans-serif);font-variant-numeric:tabular-nums}
+#goalsP .ui-goals-yards-unit{color:#F5B841;font:900 10px/1 var(--ui-mono,monospace);letter-spacing:.06em}
+/* MY TEAM logo picker and preview use the current matte navy/cyan palette. */
+#team .lprev{background:#131620!important;border-color:rgba(77,225,242,.38)!important}
+#team .lprev .lbig{min-width:44px;min-height:40px;padding:3px;background:#1C2130;border:1px solid rgba(77,225,242,.42);border-radius:9px;color:#F5F7FA}
+#team .lprev #tLogoBtn{background:#1C2130!important;border:1px solid rgba(77,225,242,.65)!important;color:#4DE1F2!important}

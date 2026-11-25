@@ -314,7 +314,7 @@
      }
      const yards=receiving.querySelector('.ui-goals-stat-sub');
      const yardMatch=yards&&yards.textContent.match(/([\d,]+)\s*(?:YARDS?|YDS?)/i);
-     if(yardMatch){const next=yardMatch[1]+' YDS';if(yards.textContent.trim()!==next)yards.textContent=next}
+     if(yardMatch){const next=yardMatch[1]+' YDS';if(!yards.querySelector('.ui-goals-yards-number')){const number=document.createElement('span');number.className='ui-goals-yards-number';number.textContent=yardMatch[1];const unit=document.createElement('span');unit.className='ui-goals-yards-unit';unit.textContent='YDS';yards.replaceChildren(number,unit)}else{const number=yards.querySelector('.ui-goals-yards-number');if(number.textContent!==yardMatch[1])number.textContent=yardMatch[1]}}
     }
     const skill=stats&&[...stats.querySelectorAll('.ui-goals-stat-card')].find(card=>card.querySelector('.ui-goals-stat-label')?.textContent.trim()==='SKILL MOVES');
     if(skill&&!skill.querySelector('.ui-goals-skill-grid')){
