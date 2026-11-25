@@ -1,3 +1,13 @@
+## Review polish checkpoint — Run #456 passed; Goals tab refinement underway (2026-11-25)
+
+- Run [#456](https://github.com/tinytime/Tinytime.github.io/actions/runs/45703042276) tested exact commit `ce4641fe39fb5700786ff40cda0aacc0b43e08f1` and passed **286/286 checks**, zero failures, zero page exceptions, zero console errors and zero same-origin HTTP failures. Artifact: [15064785874](https://github.com/tinytime/Tinytime.github.io/actions/runs/45703042276/artifacts/15064785874).
+- Retrieved and inspected the actual browser evidence. Verified the fumble prompt is centered and fully in bounds; defense selection waits until the ticker/toast clear; FLIP visibly changes to its gold on-state; Playbook titles clear the favorite controls and route canvases are 68px; the live receiver test now checks open markers only; the defensive HUD is contextualized; post-game score/frame spacing is clear; credits and developer drawer captures are distinct (100315 vs 103153 bytes) and the developer drawer is visible; credits attribution text is expanded; the loss fixture shows a coherent 0–7 result; and the pre-game prompt uses navy/gold styling. The three Goals & Stats captures were also inspected and showed the selected tab still using a yellow outline inside an outer rail.
+- Owner added a further correction: all three Goals & Stats tabs must use a single cyan outline and no yellow outline. Implemented in `ui-overhaul.css` and added QA coverage that selects CHALLENGES, ACHIEVEMENTS and TEAM STATS in turn, asserting one cyan active border, no shadow and no second outer rail.
+- CSS commit: `6999eaa56d35552eacc62adac53f838b7e975a2b`; QA commit / current branch HEAD: `5dafced3c082d9c1547b5af94cc67763f56e09ae`. Fresh browser QA Run [#457](https://github.com/tinytime/Tinytime.github.io/actions/runs/45703996605) is queued/running against the QA commit; do not mark the new tab correction tested until that run and its screenshots are inspected.
+- Run #456 did not modify golden snapshots. Its pass is internal QA evidence, not independent Claude review or final owner approval of the consolidated polish.
+
+---
+
 ## Pre-game Settings separation — Run #427 passed (2026-11-25)
 
 The owner clarified that Settings opened from the title screen must be a true pre-game page: only global/main settings, with no in-game navigation tabs, team/squad/playbook/goals destinations, town/progression header, or NEXT UNLOCK banner. Back must return to the title. The in-game Settings page must retain its normal game header, tabs, and BACK TO TOWN navigation.
