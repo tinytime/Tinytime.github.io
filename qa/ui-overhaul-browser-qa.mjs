@@ -83,7 +83,8 @@ try{
  const townCtaStyle=await page.locator('#mTown').evaluate(el=>({backgroundImage:getComputedStyle(el).backgroundImage,color:getComputedStyle(el).color}));
  check('BACK TO TOWN uses the crimson/pink exit treatment',townCtaStyle.backgroundImage.includes('239, 71, 111')&&townCtaStyle.color==='rgb(255, 255, 255)',townCtaStyle);
  const menuTileGeometry=await page.locator('#uiMenuHome .ui-menu-grid .ui-menu-icon-card').evaluateAll(items=>items.map(el=>{const r=el.getBoundingClientRect(),copy=el.querySelector('.ui-menu-action-copy'),c=copy?.getBoundingClientRect();return{label:copy?.querySelector('strong')?.textContent||'',x:r.x,y:r.y,width:r.width,height:r.height,textFits:!!c&&c.right<=r.right+1&&c.left>=r.left-1}}));
- check('Menu uses the four Stage One actions plus the new MY SQUAD tile in order',menuTileGeometry.length===5&&menuTileGeometry.map(x=>x.label).join('|')==='UPGRADES|MY TEAM|MY SQUAD|PLAYBOOK|GOALS & STATS'&&Math.abs(menuTileGeometry[0].y-menuTileGeometry[1].y)<3&&menuTileGeometry[2].y>menuTileGeometry[0].y&&Math.abs(menuTileGeometry[2].y-menuTileGeometry[3].y)<3,menuTileGeometry);
+ const visualMenuTileGeometry=[...menuTileGeometry].sort((a,b)=>a.y-b.y||a.x-b.x);
+ check('Menu visually orders UPGRADES, MY TEAM, MY SQUAD, PLAYBOOK and GOALS & STATS',visualMenuTileGeometry.length===5&&visualMenuTileGeometry.map(x=>x.label).join('|')==='UPGRADES|MY TEAM|MY SQUAD|PLAYBOOK|GOALS & STATS'&&Math.abs(visualMenuTileGeometry[0].y-visualMenuTileGeometry[1].y)<3&&visualMenuTileGeometry[2].y>visualMenuTileGeometry[0].y&&Math.abs(visualMenuTileGeometry[2].y-visualMenuTileGeometry[3].y)<3,visualMenuTileGeometry);
  check('Menu card labels do not clip',menuTileGeometry.every(x=>x.textFits),menuTileGeometry);
 
  await page.setViewportSize({width:390,height:844});
