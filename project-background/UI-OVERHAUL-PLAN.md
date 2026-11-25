@@ -313,3 +313,12 @@ CSS commit `ac23e1aa282c3c2197294738fae0b338de352f68`; QA commit/tested HEAD `01
 Run #260 (`45514343698`) tested `01e96cdc2f2398d42d23b81981bd4999062520b4` and failed three Fumble assertions: the 65vw viewport-centered bar overlapped the right-side A mash button by 32.25px; the seconds pill was horizontally offset from the bar by about 80px; and the gradient check inspected the computed background shorthand rather than its image. The actual panel/track/labels/button computed navy/cyan/gold, and the timer rendered as a 2.3s navy pill 6px beneath the bar. No page exceptions, console errors or same-origin failures occurred. Artifact `14977317527` was uploaded.
 
 The current branch includes a follow-up that centers the 55vw meter in the usable left field lane (40vw viewport center) with at least 8px clearance from the A mash control, and aligns the timer to the same center. QA commit `d8730820367ce5914051180a1200bfbbf8f1ca8e` now inspects the fill's computed backgroundImage, verifies both cyan and gold gradient stops, and checks the timer's actual .98 navy surface plus gold text/border. Fresh Actions verification and visual screenshot inspection are pending. Stage Two remains on hold; golden snapshots are untouched.
+
+
+## 2026-11-24 — Stage One approved; Stage Two begins
+
+The owner explicitly approved Stage One and authorized Stage Two. Stage Two is limited to handoff Section 3 / pages 5–6: MY TEAM and MY SQUAD. Preserve existing game systems and save-backed state; do not replace the 2.5D preview renderer, team identity/uniform customization, roster management, stat progression, gear, trail unlocks or career data with static mockups.
+
+Initial implementation is committed: MY SQUAD is now exposed as a menu tile; both screens use the shared navy/gold/cyan visual system; team editor retains identity/logo/uniform/palette controls and presents SAVE & EQUIP; squad navigation is consolidated into ATTRIBUTES / STYLE & GEAR / CAREER with an EDIT GEAR & TRAILS subview and BACK TO STYLE; PTS and CAP are distinct badges; responsive portrait rules and dedicated browser assertions/screenshots are added. See `project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md` for exact commit SHAs.
+
+**QA status:** the new Stage Two browser suite is committed but its fresh Actions run and screenshot inspection are pending. Stage One Run #260's Fumble follow-up is still separately pending retest; its failed result (189/192) is not being reclassified as a pass. No golden snapshots changed.
