@@ -95,7 +95,7 @@ try{
  check('MY TEAM screen opens from its menu tile',await page.locator('#team').isVisible());
  const teamHeader=await page.locator('#team .ui-team-head').evaluate(el=>({visible:!!el&&getComputedStyle(el).display!=='none',back:el.querySelector('.ui-team-back')?.textContent.trim(),badge:el.querySelector('.ui-team-upg')?.textContent.trim(),badgeRole:el.querySelector('.ui-team-upg')?.getAttribute('role')}));
  const challengeCopy=await page.locator('body').evaluate(()=>[...document.scripts].map(s=>s.textContent).join('\\n'));
- check('Move-based challenge descriptions use Perform wording',challengeCopy.includes('Perform 3 trucks in the match')&&challengeCopy.includes('Perform 3 ankle breaks in the match'));
+ check('Move-based challenge descriptions use Perform wording',challengeCopy.includes('Perform 3 trucks in the match')&&challengeCopy.includes('Perform 3 ankle breakers in the match'));
  const expectedTeamUpg=await page.locator('#owObj').textContent().then(raw=>'UPG '+((raw.match(/UPG\s+(\d+)/i)||[])[1]||'0'));
  check('MY TEAM has a visible Back/Cancel control and live UPG status badge',teamHeader.visible&&teamHeader.back.includes('BACK')&&teamHeader.badge===expectedTeamUpg&&teamHeader.badgeRole==='status',{...teamHeader,expectedTeamUpg});
  const logoAction=await page.locator('#team .ui-team-identity #tLogoBtn').evaluate(el=>({width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height,whiteSpace:getComputedStyle(el).whiteSpace,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth}));
@@ -589,7 +589,7 @@ await page.screenshot({path:path.join(out,'match-defense-simulation.png'),fullPa
   }else await page.evaluate(()=>window.SG.endGame(false));
   await page.waitForFunction(()=>{const e=document.querySelector('#end');return e&&!e.hidden},null,{timeout:10000});
   check('Post-game result screen visible',await page.locator('#end').isVisible());
-  check('Post-game STYLE POINTS display is removed',!(await page.locator('#endStyle').isVisible()));
+  check('Post-game STYLE POINTS display is removed',await page.locator('#endStyle').count()===0);
   check('Post-game shows the match-mode pill',await page.locator('#end .ui-end-mode').isVisible()&&(await page.locator('#end .ui-end-mode').textContent()).includes('CREW GAME'));
   const endStyles=await page.evaluate(()=>({surface:getComputedStyle(document.querySelector('#end')).backgroundColor,rematch:getComputedStyle(document.querySelector('#eAgain')).backgroundColor,rematchText:getComputedStyle(document.querySelector('#eAgain')).color,menu:getComputedStyle(document.querySelector('#eMenu')).backgroundColor}));
   check('Post-game uses matte navy surface, gold rematch and cyan-edged menu action',endStyles.surface==='rgb(19, 22, 32)'&&endStyles.rematch==='rgb(245, 184, 65)'&&endStyles.rematchText==='rgb(19, 22, 32)'&&endStyles.menu==='rgb(28, 33, 48)',endStyles);

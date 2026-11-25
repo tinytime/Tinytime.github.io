@@ -1482,12 +1482,12 @@ The owner explicitly approved Stage Three (GOALS & STATS) and authorized proceed
 
 The owner supplied a consolidated seven-item review spanning the approved Stage One–Three surfaces and Stage Four in-progress match UI. Targeted corrections were prepared on `UI-Overhaul`:
 
-- Removed the post-game Style Points display (the backing element remains hidden so existing game logic can continue updating it without affecting gameplay).
+- Removed the post-game Style Points element and made its legacy result-display helper a no-op; in-game style scoring and star-meter behavior remain intact.
 - Recentered the fumble meter on the viewport, replaced the legacy mash-button styling with the matte navy/gold/cyan palette, and restyled the mash prompt to avoid an opaque blue block.
 - Removed duplicate down-and-distance from the Playbook header, simplified the favorite affordance to eliminate pill-like chrome, and changed FLIP to the current cyan/navy palette.
 - Changed the pre-game matchup from automatic dismissal after the ready prompt to explicit player confirmation. The prior 1.2-second auto-dismiss could close the screen before the player could reliably act; QA now waits and confirms the explicit tap transition.
 - Promoted receiving yards to the same large white number hierarchy as receptions, retaining a small gold YDS unit.
-- Changed move-based challenge copy to action wording: “Perform 3 trucks in the match” and “Perform 3 ankle breaks in the match.”
+- Changed move-based challenge copy to action wording: “Perform 3 trucks in the match” and “Perform 3 ankle breakers in the match.”
 - Updated the MY TEAM logo picker and preview square to the matte navy/cyan palette.
 
 QA coverage was updated for the new post-game visibility, exact fumble center, receiving number formatting, explicit matchup persistence/confirmation, Playbook header/FLIP, challenge wording and logo palette. This is an implementation checkpoint only: fresh browser QA and screenshot inspection are required before the owner should reconsider approval status. Golden snapshots and `main` were not changed.
