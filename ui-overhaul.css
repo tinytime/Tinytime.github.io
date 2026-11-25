@@ -2341,5 +2341,5 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #team #trRow .ui-team-trail-option{display:flex;min-width:0;flex-direction:column;align-items:stretch;gap:4px;padding:6px;border:1px solid rgba(77,225,242,.14);border-radius:10px;background:rgba(19,22,32,.55)}
 #team #trRow .ui-team-trail-option:first-child{grid-column:1/-1}
 #team #trRow .ui-team-trail-option .chip{width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere}
-#team #trRow .ui-team-trail-hint{display:block;min-height:12px;margin:0;padding:1px 3px;color:#AAB2C2;font-size:9px;font-weight:800;letter-spacing:.08em;line-height:1.2;text-align:center}
+#team #trRow .ui-team-trail-hint{display:block;flex:0 0 auto;min-height:12px;margin:0;padding:1px 3px;color:#AAB2C2;font-size:9px;font-weight:800;letter-spacing:.08em;line-height:1.2;text-align:center}
 @media(min-width:520px){#team #trRow .chips{grid-template-columns:repeat(3,minmax(0,1fr))}}
