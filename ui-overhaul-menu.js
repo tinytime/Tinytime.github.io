@@ -444,7 +444,7 @@
    // Suppress that progression-only card while pre-game settings are open.
    document.querySelectorAll('[id*="unlock" i],[class*="unlock" i]').forEach(el=>{if(active){el.dataset.uiPreGameHidden='1';el.hidden=true}else if(el.dataset.uiPreGameHidden==='1'){el.hidden=false;delete el.dataset.uiPreGameHidden}});
    const hideNextUnlock=()=>{
-    const candidates=[...document.querySelectorAll('body *')].filter(el=>el.children.length===0&&/^NEXT UNLOCK\\b/i.test((el.textContent||'').trim()));
+    const candidates=[...document.querySelectorAll('body *')].filter(el=>el.children.length===0&&/^NEXT UNLOCK\b/i.test((el.textContent||'').trim()));
     candidates.forEach(el=>{
      const card=el.closest('[class*="progress" i],[class*="next" i],[class*="objective" i]')||el.parentElement?.parentElement||el.parentElement;
      if(card&&card!==menu&&!menu.contains(card)){card.dataset.uiPreGameHidden='1';card.hidden=true}
