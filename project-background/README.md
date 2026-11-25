@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-25):** Stage One, Stage Two and Stage Three are owner-approved. Stage Three GOALS & STATS passed Run #331 (230/230 browser assertions) and its actual screenshots were inspected. The owner has authorized **Stage Four — Pre-Game Matchup & Playbook integration**. Stage Four is auditing and strengthening the existing matchup → playbook → pre-snap flow without replacing working gameplay behavior. Latest Stage Four QA commit: `2d8192692cc1c08b70d6a98419da93e551b413b4`; Run #333 is queued/pending at this checkpoint. See the [Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for the live status and exact next actions.
+**Live checkpoint (2026-11-25):** Stage One, Stage Two and Stage Three are owner-approved. Stage Four — Pre-Game Matchup & Playbook integration — is authorized and in progress. Run #343 failed only at the favorite-button Playwright locator click; its actual matchup and Playbook screenshots were inspected and the UI presentation is clean. QA now scrolls the favorite into view, verifies its center is the topmost hit target, and uses a real browser mouse click before asserting favorite toggle, unchanged selected play and state restoration. This QA correction is commit `d697196db1d6a4addb111377a10c0fad5534096c`; Run #344 (`45551278842`) is running against that exact SHA. See the [Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for the current evidence and next actions.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
