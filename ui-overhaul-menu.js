@@ -67,7 +67,7 @@
   actions.prepend(upgradeButton);
   upgradeButton.dataset.uiTile='upgrades';
   const playbookButton=document.createElement('button');playbookButton.type='button';playbookButton.className='ui-menu-playbook ui-menu-icon-card';playbookButton.dataset.uiTile='playbook';playbookButton.setAttribute('aria-label','Open playbook');playbookButton.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon('<path d="M4 18V6m0 12h16M7 15l4-4 3 2 5-7"/><path d="m16 6 3 0 0 3"/>')+'</span><span class="ui-menu-action-copy"><strong>PLAYBOOK</strong><small>'+(window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS.length:0)+' plays · Pick your call</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>';actions.insertBefore(playbookButton,byId('mGoals'));
-  actions.append(upgradeButton,byId('mTeam'),squadControl,playbookButton,byId('mGoals'));
+  actions.append(upgradeButton,byId('mTeam'),squadControl,playbookButton,byId('mGoals'));\n  const orderedTiles=[upgradeButton,byId('mTeam'),squadControl,playbookButton,byId('mGoals')];orderedTiles.forEach(tile=>{if(tile)actions.appendChild(tile)});\n  if(squadControl){squadControl.classList.add('ui-menu-icon-card');squadControl.dataset.uiTile='squad';}
   const teamSave=byId('tBack');if(teamSave)teamSave.textContent='SAVE & EQUIP';
   const initTeamTabs=()=>{
    const team=document.getElementById('team'),preview=document.getElementById('tPrev');
