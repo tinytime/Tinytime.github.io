@@ -1,3 +1,48 @@
+## Current verified implementation — Run #487 (2026-11-25)
+
+### Exact source and test result
+- Branch: `UI-Overhaul`
+- Tested source commit: `abc60524d6f3bf491fbb87e5bd22967b720a6004`
+- Actions: [Run #487](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191) — **success**
+- Browser QA: **300 passed / 0 failed**; zero uncaught page errors, zero console errors, zero same-origin request failures.
+- Artifact: [ui-overhaul-browser-qa, artifact 15071354604](https://github.com/tinytime/Tinytime.github.io/actions/runs/45720095191); report contains 50 screenshots.
+- No golden snapshots were modified.
+
+### Changes included in the verified commit
+1. **D12 ticker readability** — CSS commit `3e0ff82410722473618373968e1e2b4def656814` makes `#tkPlay` fully opaque, white-on-navy (`rgb(245, 247, 250)` on `rgb(19, 22, 32)`), with no filter or text shadow. The existing TAP TO SKIP hint remains present.
+2. **Rotation prompt QA** — commit `75d669d30a8eceff53443168cc22bc74e0c49c80` adds live viewport assertions. Run #487 confirms the portrait prompt fits the full 390×844 viewport and disappears after returning to 844×390 landscape.
+3. **Deferred defense priority** — Run #484 exposed that queued achievement toasts could keep the defense-selection panel deferred. Runtime commit `abc60524d6f3bf491fbb87e5bd22967b720a6004` prioritizes a waiting defense panel once the active toast ends, then allows remaining achievement toasts to resume after the defense interaction begins.
+4. **Full-sequence QA timing** — parent commit `a61d97d0a8d3bee9335dafc4182a488e6e67f1b5` extends the defense-return wait from 12 to 25 seconds while preserving the same assertions for ticker cleanup, toast cleanup, and panel visibility.
+
+### Run #487 targeted assertions
+- Completed simulated snap appears in the play-by-play ticker.
+- Ticker has exact expected opacity, foreground/background colors, no filter, and bounded dimensions.
+- Portrait orientation displays the rotate prompt fully within the viewport.
+- Returning to landscape hides the prompt.
+- Achievement toast is visible, bottom-centered, non-blocking, and separated from the play-by-play ticker.
+- Defense selection remains hidden while the ticker or achievement toast is active.
+- Deferred defense selection reappears only after the ticker is hidden and the toast is inactive.
+- All targeted checks passed.
+
+### Visual inspection
+Inspected Run #487 screenshots:
+- `match-defense-simulation.png` — readable high-contrast ticker and visible TAP TO SKIP.
+- `match-achievement-toast.png` — achievement toast is visually distinct, bottom-centered, and clear of the ticker.
+- `match-rotate-device-portrait.png` — centered rotation prompt fits the portrait screen.
+- `match-defense-selection.png` — defense-selection panel remains a distinct, legible choice surface.
+
+Run #482 (commit `ac2168937ce96a9f197cecf29cae62956818d602`) separately passed 297/297 checks and its broader screenshot set was inspected: D6 post-game layout without the removed rewards card; D9 Goals & Stats styling and medals; D4 3×2 Playbook layout and route diagrams; MY SQUAD Style & Gear and Career palette; public/developer credits; and the D12 0–7 loss fixture. D8 playbook counts reconcile to RUN 3 / PASS 12 / TRICK 4 (19 total), with four intentionally grouped trick plays.
+
+### Status
+- Implementation: complete for this corrective batch.
+- Automated QA: passed on exact source commit.
+- Visual inspection: targeted Run #487 screenshots and broader Run #482 screenshots inspected.
+- Independent Claude review: pending.
+- Owner approval: pending.
+- Next step: prepare the consolidated Claude review package against exact commit `abc60524d6f3bf491fbb87e5bd22967b720a6004`. Do not label the overall UI overhaul approved until Claude review and owner approval are complete.
+
+---
+
 ## Playbook / FLIP corrective pass — implementation committed; Run #468 still executing (2026-11-25)
 
 - Run [#467](https://github.com/tinytime/Tinytime.github.io/actions/runs/45705390851) completed against commit 24f86d2e6f4628d093eb478f1cf4e1732cb48022: 292/294 checks passed. The two remaining failures were the D4 Playbook title-width assertion and D3 FLIP default gold-outline assertion. The run had zero page exceptions, console errors and same-origin HTTP failures.
