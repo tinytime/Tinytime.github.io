@@ -279,6 +279,13 @@
   const enhanceGoals=()=>{
    const panel=document.getElementById('goalsP');if(!panel||panel.dataset.uiMockupEnhance==='1')return;
    panel.dataset.uiMockupEnhance='1';
+   const header=panel.querySelector('.ui-goals-header');
+   if(header&&!header.querySelector('.ui-goals-header-close')){
+    const close=document.createElement('button');close.type='button';close.className='ui-goals-header-close';
+    close.setAttribute('aria-label','Close Goals & Stats');close.textContent='×';
+    close.addEventListener('click',()=>panel.querySelector('.ui-goals-close')?.click());
+    header.insertBefore(close,header.firstChild);
+   }
    const trophy=panel.querySelector('.ui-goals-trophy');
    let count=trophy&&trophy.querySelector('.ui-goals-trophy-count');
    if(trophy&&!count){count=document.createElement('span');count.className='ui-goals-trophy-count';trophy.appendChild(count)}
@@ -292,6 +299,22 @@
      if(max===1){const next=card.classList.contains('is-earned')?'1 / 1':'0 / 1';if(badge.textContent.trim()!==next)badge.textContent=next}
     });
     const stats=panel.querySelector('#ui-goals-panel-stats');
+    const receiving=stats&&[...stats.querySelectorAll('.ui-goals-stat-card')].find(card=>card.querySelector('.ui-goals-stat-label')?.textContent.trim()==='RECEIVING');
+    if(receiving){
+     receiving.classList.add('is-receiving');
+     const value=receiving.querySelector('.ui-goals-stat-value');
+     if(value){
+      let number=value.querySelector('.ui-goals-stat-number');
+      if(!number){
+       const raw=value.textContent.trim();number=document.createElement('span');number.className='ui-goals-stat-number';number.textContent=raw;
+       const unit=document.createElement('span');unit.className='ui-goals-stat-unit';unit.textContent='REC';value.replaceChildren(number,unit);
+      }
+      value.setAttribute('aria-label',(number.textContent.trim()||'0')+' receptions');
+     }
+     const yards=receiving.querySelector('.ui-goals-stat-sub');
+     const yardMatch=yards&&yards.textContent.match(/([\\d,]+)\\s*(?:YARDS?|YDS?)/i);
+     if(yardMatch){const next=yardMatch[1]+' YDS';if(yards.textContent.trim()!==next)yards.textContent=next}
+    }
     const skill=stats&&[...stats.querySelectorAll('.ui-goals-stat-card')].find(card=>card.querySelector('.ui-goals-stat-label')?.textContent.trim()==='SKILL MOVES');
     if(skill&&!skill.querySelector('.ui-goals-skill-grid')){
      const detail=skill.querySelector('.ui-goals-stat-sub')?.textContent||skill.textContent||'';
