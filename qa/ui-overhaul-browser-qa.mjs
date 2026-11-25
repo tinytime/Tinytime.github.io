@@ -90,9 +90,9 @@ try{
  check('Stage Two MY SQUAD tile is exposed alongside MY TEAM',menuTileGeometry.some(x=>x.label==='MY TEAM')&&menuTileGeometry.some(x=>x.label==='MY SQUAD'));
  await page.locator('#mTeam').click();
  check('MY TEAM screen opens from its menu tile',await page.locator('#team').isVisible());
- const teamControls=await page.evaluate(()=>({preview:!!document.querySelector('#tPrev')&&getComputedStyle(document.querySelector('#tPrev')).display!=='none',identity:!!document.querySelector('#team .ui-team-identity'),name:!!document.querySelector('#tName'),logo:!!document.querySelector('#tLogoBtn'),jersey:!!document.querySelector('#tJersey'),pants:!!document.querySelector('#tPants'),uniformSlots:document.querySelectorAll('#tSlots .slot').length,palette:document.querySelectorAll('#tPal button').length,trails:document.querySelectorAll('#trRow .chip').length,saveLabel:getComputedStyle(document.querySelector('#tBack'),'::after').content}));
+ const teamControls=await page.evaluate(()=>({preview:!!document.querySelector('#tPrev')&&getComputedStyle(document.querySelector('#tPrev')).display!=='none',identity:!!document.querySelector('#team .ui-team-identity'),name:!!document.querySelector('#tName'),logo:!!document.querySelector('#tLogoBtn'),jersey:!!document.querySelector('#tJersey'),pants:!!document.querySelector('#tPants'),uniformSlots:document.querySelectorAll('#tSlots .slot').length,palette:document.querySelectorAll('#tPal button').length,trails:document.querySelectorAll('#trRow .chip').length,saveLabel:document.querySelector('#tBack')?.textContent.trim()||''}));
  check('MY TEAM retains live 2.5D preview, identity, logo, uniform and palette controls',teamControls.preview&&teamControls.identity&&teamControls.name&&teamControls.logo&&teamControls.jersey&&teamControls.pants&&teamControls.uniformSlots>0&&teamControls.palette>0&&teamControls.trails>0,teamControls);
- check('MY TEAM primary action is presented as SAVE & EQUIP',teamControls.saveLabel.includes('SAVE & EQUIP'),teamControls.saveLabel);
+ check('MY TEAM primary action is presented as SAVE & EQUIP',teamControls.saveLabel==='SAVE & EQUIP',teamControls.saveLabel);
  const teamFit=await page.locator('#team').evaluate(el=>({scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,identity:el.querySelector('.ui-team-identity')?.getBoundingClientRect().toJSON(),save:el.querySelector('#tBack')?.getBoundingClientRect().toJSON()}));
  check('MY TEAM identity and fixed SAVE & EQUIP action fit the portrait viewport',teamFit.scrollWidth<=teamFit.clientWidth+1&&teamFit.identity.width<=teamFit.clientWidth&&teamFit.save.left>=0&&teamFit.save.right<=390,teamFit);
  await page.screenshot({path:path.join(out,'my-team-portrait.png'),fullPage:true});
@@ -119,7 +119,7 @@ try{
  await page.locator('#sBack').click();
  check('MY SQUAD returns to the menu',await page.locator('#menu').isVisible());
  const menuCardBorders=await page.locator('#uiMenuHome .ui-menu-grid .ui-menu-icon-card').evaluateAll(items=>items.map(el=>getComputedStyle(el).borderTopColor));
- check('Menu uses a gold UPGRADES tile and cyan frames for the other three actions',menuCardBorders[0]==='rgba(245, 184, 65, 0.88)'&&menuCardBorders.slice(1).every(x=>x==='rgba(77, 225, 242, 0.82)'),menuCardBorders);
+ check('Menu uses a gold UPGRADES tile and cyan frames for the other four actions',menuCardBorders[0]==='rgba(245, 184, 65, 0.88)'&&menuCardBorders.slice(1).every(x=>x==='rgba(77, 225, 242, 0.82)'),menuCardBorders);
  await page.locator('.ui-menu-playbook').click();
  check('Playbook overlay opens',await page.locator('.ui-menu-playbook-overlay').isVisible());
  const playCount=await page.locator('.ui-menu-play-card').count();
