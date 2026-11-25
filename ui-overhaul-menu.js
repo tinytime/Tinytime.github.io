@@ -433,6 +433,12 @@
   const menu=document.getElementById('menu');
   const setPreGameSettingsMode=active=>{
    menu?.classList.toggle('ui-title-settings-mode',active);
+   const head=menu?.querySelector('.ui-menu-head');
+   if(head){
+    let heading=head.querySelector('.ui-title-settings-heading');
+    if(active&&!heading){heading=document.createElement('h1');heading.className='ui-title-settings-heading';heading.textContent='SETTINGS';head.appendChild(heading)}
+    if(heading)heading.hidden=!active;
+   }
    ['owTop','owMenu','owA'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=active});
    const close=menu?.querySelector('.ui-menu-close');
    if(close)close.setAttribute('aria-label',active?'Back to title':'Back to town');
