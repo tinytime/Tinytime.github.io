@@ -331,3 +331,15 @@ Minimum targeted evidence:
 - [ ] Final owner approval recorded.
 
 **Current state:** this is the approved scope and execution plan. Implementation, fresh QA, visual inspection, Claude re-review and final owner approval remain outstanding.
+
+
+## Browser QA checkpoint — Run #493 passed (2026-11-25)
+
+- Branch: `UI-Overhaul`; exact tested code/QA commit: `7c124d0ac33dae62255626f7a7fc666d833cb3b2`.
+- Workflow [Run #493](https://github.com/tinytime/Tinytime.github.io/actions/runs/45724268883) completed successfully. All 303 browser assertions passed; zero failed assertions, zero uncaught page exceptions, zero console errors and zero same-origin request failures.
+- The sole Run #492 failure is resolved: the defense play-by-play ticker now renders at 47.86px high (required minimum 36px), fully opaque, with white `rgb(245, 247, 250)` text on navy `rgb(19, 22, 32)`; no filter or text shadow. Its full text remains visible and the card remains bounded.
+- Rechecked the previous corrective targets: Goals & Stats Team Stats, Playbook explanation alignment, fumble prompt/event heading, defense ticker contrast/height, and the queued defense-selection/drive-ticker/achievement-toast sequence all pass. The queue assertion confirms the defense panel stays hidden while ticker/toast are active and returns after they clear.
+- Inspected actual Run #493 screenshots: `match-defense-simulation.png`, `goals-stats-team-stats.png`, and `match-fumble-pile.png`. The ticker is visibly legible and fits its card; Team Stats cards use cyan/neutral framing without legacy yellow inset rings; the fumble instruction and heading are fully visible above the contest bar.
+- Evidence artifact: [Run #493 artifact 15074495383](https://github.com/tinytime/Tinytime.github.io/actions/runs/45724268883/artifacts/15074495383), containing 56 files including 50+ screenshots and the machine-readable report.
+- No golden snapshots were changed. This is internal automated QA and screenshot inspection only; consolidated independent Claude review and final owner approval remain outstanding. Do not mark the overall UI overhaul complete or approved.
+- Next gate: prepare/update the consolidated Claude review package against the exact tested commit and Run #493 evidence; preserve the existing scope and owner-approval gates.
