@@ -1257,3 +1257,13 @@ The work is limited to **MY TEAM and MY SQUAD**. Existing save-backed editors, 2
 - Stage Two QA coverage: `178021e568be9a0c0d5a8072cb47c9dbff6399ba` and portrait viewport correction `8b978a48267059f5c9e54adeb20705dffa592899`.
 
 **Verification status:** implementation changes and QA assertions are committed. The fresh browser run for this Stage Two branch state has not yet been retrieved or confirmed. No Stage Two screenshot has been visually inspected in this pass. Do not claim automated or visual approval until the exact pushed HEAD has a passing Actions run and its `my-team-portrait.png`, `my-squad-attributes-portrait.png`, and `my-squad-gear-portrait.png` are inspected. No golden snapshots were modified. Stage Two remains in progress and requires owner review after internal QA.
+
+
+### Stage Two follow-up — paired team identity and QA alignment
+
+- MY TEAM now groups the live team-name input and logo picker in one responsive identity card. Existing logo picker, team-name input events and save persistence are retained.
+- MY SQUAD now presents separate PTS / CAP metric badges; Team Defense remains secondary metadata.
+- Stage Two browser assertions were expanded to verify the paired identity card, portrait viewport, team canvas, uniform controls, SAVE & EQUIP presentation, MY SQUAD menu tile, three-tab navigation, nested gear editor and return path.
+- Follow-up commits: paired identity markup `ebec6dc0b78e938e9c64d1d00c41a8897a506865`; identity card CSS `09644d3c2a7e2085b501425ec470558ef70101eb`; QA identity assertion `a2ed087defb74e2dbef8544f3cd6f21c92b045f1`.
+
+The latest Stage Two QA source is committed, but its Actions result is not yet verified. The QA sequence captures `my-team-portrait.png`, `my-squad-attributes-portrait.png`, and `my-squad-gear-portrait.png`. The first browser run must be inspected for functional regressions, 390×844 clipping, fixed roster strip behavior, and actual screenshot fidelity. No golden snapshots changed.
