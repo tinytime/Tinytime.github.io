@@ -1528,9 +1528,9 @@ QA coverage was updated for the new post-game visibility, exact fumble center, r
 - **Status:** the seven cross-stage corrections are implemented, automated-QA passing, and visually inspected. They are not separately owner-approved. Stage Four remains in progress and awaits the owner's review/approval before any next stage.
 
 
-## Owner polish batch 2 — 2026-11-25 (implementation/QA pending)
+## Owner polish batch 2 — Run #397 passed; internal visual inspection complete (2026-11-25)
 
-The owner requested a focused polish pass before returning to the pre-game matchup redesign. The matchup redesign is explicitly deferred until this batch is complete and reviewed.
+The owner requested a focused polish pass before returning to the pre-game matchup redesign. The matchup redesign remains explicitly deferred until this batch is reviewed and approved.
 
 Requested scope:
 - Move the FUMBLE label down so it sits immediately above the contest bar.
@@ -1538,11 +1538,17 @@ Requested scope:
 - Remove the duplicate star-play meter from the scoreboard while preserving the per-player Playbook meter.
 - Change the truck achievement wording to “Perform 25 trucks”.
 
-Implementation commits on `UI-Overhaul`:
-- `ae23a1ba451701f53f37c2157c018e9aaf5f7022` — first CSS polish pass.
-- `fdb2180a0cfbb08c66948c8195b02481d9093f4c` — in-match Playbook pagination/actions and copy/presentation hooks.
-- `d38c318a7e6e507c8e58712bf3e1c87c92a158fd` — stabilize pagination visibility state.
-- `5efb2d3784601d49f79a646051c91e87d08e4451` — prevent pagination observer loops.
-- `59518fcde5772da455f7e58a5448d55deb2c2d00`, `4713a591652e7146ee19cac2b77acd2a96cb5c5d`, `1e3c1c62e2f6548445291d8f5ff79f84f634d56f` — add browser assertions for pagination, bottom action row, fumble label, achievement copy and scoreboard star-meter visibility.
+Implementation and QA history:
+- Implementation commits include `ae23a1ba451701f53f37c2157c018e9aaf5f7022`, `fdb2180a0cfbb08c66948c8195b02481d9093f4c`, `d38c318a7e6e507c8e58712bf3e1c87c92a158fd`, `5efb2d3784601d49f79a646051c91e87d08e4451`, `59518fcde5772da455f7e58a5448d55deb2c2d00`, `4713a591652e7146ee19cac2b77acd2a96cb5c5d`, and `1e3c1c62e2f6548445291d8f5ff79f84f634d56f`.
+- Runs #385–#396 were used to resolve genuine Playbook state/visibility issues and QA-harness defects. These included preserving the overlay across FLIP, pausing the play clock during extended QA, resetting category pagination/selection, and fixing a Node/browser scope error in portrait diagnostics.
+- Run #396 exposed one incorrect favorite-test baseline: the QA test compared against the selection from before a deliberate selection-change test. The favorite button itself toggled correctly and stopped event propagation.
+- QA-only correction committed as `f26e48986376c03ab07cb286c176660c8ff8eb65` (“Fix Playbook favorite selection baseline in browser QA”). It updates only `qa/ui-overhaul-browser-qa.mjs`; no app behavior changed in that commit.
+- **Run #397** ([workflow 45641399159](https://github.com/tinytime/Tinytime.github.io/actions/runs/45641399159)) tested exact SHA `f26e48986376c03ab07cb286c176660c8ff8eb65` and passed **259/259 checks, 0 failures**, with 0 page exceptions, 0 console errors, and 0 same-origin HTTP failures. Evidence artifact: `15035343585`.
+- Verified favorite toggling is independent of play selection and that the test restores the original favorite state. Six-card/three-column/two-row pagination, category filters, page navigation, FLIP persistence, and six visible route diagrams after FLIP all passed.
+- Fumble assertions passed: contest bar centered in the usable lane, clear of the A mash button, navy/gold/cyan palette, countdown centered directly below the bar, and FUMBLE label centered immediately above it.
+- Defense drive pill assertions passed: lowered below the HUD, centered, with full down/distance and yard-line context visible.
+- Duplicate scoreboard star meter is hidden while the per-player meter remains visible. Post-game Style Points remain absent, including practice-win mode. The achievement wording is “Perform 25 trucks”.
+- ChatGPT visually inspected actual Run #397 screenshots: `match-playbook-overlay.png`, `match-playbook-after-flip.png`, `match-fumble-pile.png`, `match-defense-simulation.png`, `match-post-game.png`, and `goals-stats-achievements.png`. The Playbook grid and diagrams remain legible after FLIP; fumble bar/heading alignment and palette match the requested treatment; defense pill is readable; post-game omits Style Points; achievement wording is correct. No new blocking visual regression was identified in these inspected captures.
+- No golden snapshots were changed. Run #397 tests the application plus QA correction commit above. Documentation updates are subsequent and do not alter the tested code.
 
-Important: this is an implementation checkpoint only. The browser workflow for the latest combined commit must pass, and its screenshots must be inspected before reporting these items as complete. In particular, confirm the FUMBLE label geometry, all six-card pages and diagram legibility, bottom-row touch targets, current Playbook palette, correct scoreboard-only star-meter removal, and achievement copy. No golden snapshots or gameplay/progression rules were changed. Pre-game matchup redesign remains deferred.
+**Status:** the second owner polish batch is implemented, browser-QA passing, and internally visually inspected. It is **not owner-approved** and has not received the independent Claude review. Stage Four remains in progress. Prepare the complete owner review package next; do not start the deferred pre-game matchup redesign until the owner explicitly authorizes it.
