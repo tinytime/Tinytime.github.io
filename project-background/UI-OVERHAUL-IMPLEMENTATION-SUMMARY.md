@@ -1500,3 +1500,12 @@ QA coverage was updated for the new post-game visibility, exact fumble center, r
 - Corrected the practice-win QA to assert that `#endStyle` is absent and that the explanatory practice note and squad score frame remain. Removed the obsolete layout assertion that dereferenced the deleted reward node.
 - QA-only correction committed as `9bc3bb14935b22ba7b2df14bc693673fbe3677a0` (“Align practice-win QA with removed Style Points UI”). It does not change game code, gameplay, save/progression or golden snapshots.
 - **Next action:** retrieve the new workflow run triggered by the QA correction; verify its exact tested SHA and all assertions. Inspect fresh screenshots for post-game (ordinary and practice win), fumble, Playbook, pre-game, Team Stats and MY TEAM logo. Do not mark the cross-stage pass complete until that visual inspection is done. Stage Four remains in progress and not owner-approved.
+
+## Cross-stage feedback validation correction — Run #364 (2026-11-25)
+
+- Run #364 ([workflow 45556761354](https://github.com/tinytime/Tinytime.github.io/actions/runs/45556761354)) tested exact SHA `9bc3bb14935b22ba7b2df14bc693673fbe3677a0` and failed one assertion: the fumble countdown seconds pill was not horizontally centered under the contest meter. The captured geometry showed the timer center at x=337.6px while the meter center was x=422px in an 844px viewport.
+- Root cause: earlier responsive CSS positioned the timer with hard-coded `left:40.5vw` / `36vw` values, while later rules centered the meter at 50vw. The timer therefore drifted away from the bar center.
+- Corrected by adding a final responsive-independent rule that anchors `#pileT` at `left:50%` with `translateX(-50%)`, retaining its existing vertical placement and gold-edged navy styling. Commit: `fa7ca59b35654747a942ffd18aa2fb7b88fd6a60`.
+- All other reported checks in Run #364 passed, including the removed post-game Style Points display, practice-win layout, challenge copy, palette checks, and no page/console/network errors.
+- The run uploaded artifact `14995804055`; its screenshots still require visual inspection after the alignment correction is validated by a new run.
+- **Next action:** verify the latest branch SHA and inspect the next browser-QA run and fresh screenshots. Do not treat this cross-stage pass as complete until the exact current commit passes and visual inspection is complete. Stage Four remains in progress and not owner-approved.
