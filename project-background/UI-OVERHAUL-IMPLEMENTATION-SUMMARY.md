@@ -6,10 +6,10 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest live branch HEAD (2026-11-25): `d5821c679550172afa9b56d2bda5f20ad9616a96` on `UI-Overhaul` (review-package documentation only after the tested code commit).
-- Latest successful code-tested commit: `381363ff1caae36c080b7a9f3cf73af6f4a77046`, Run #291, 212/212 browser assertions.
-- Stage One: owner-approved. Round 5 Fumble follow-up is browser-QA verified on the latest successful full-suite run; the Fumble geometry and palette assertions pass.
-- Stage Two: MY TEAM and MY SQUAD implementation in progress. MY TEAM's required IDENTITY / UNIFORM / TRAILS tabs are implemented. Run #291 passes all 212 browser assertions on the current code commit; screenshot visual inspection is still pending.
+- Latest live branch HEAD (2026-11-25): `2cd3b457eca4b36481298a3d6dfab79e95fa0573` on `UI-Overhaul`.
+- Latest successful code-tested commit: `381363ff1caae36c080b7a9f3cf73af6f4a77046`, Run #291, 212/212 browser assertions. This is the pre-correction Stage Two baseline, not validation of the follow-up CSS fix.
+- Stage One: owner-approved. Run #291 verifies the Round 5 Fumble geometry/palette assertions; its actual screenshot was inspected and the meter/countdown are aligned in the usable left field lane with clear separation from the A control.
+- Stage Two: MY TEAM and MY SQUAD are implemented, but Run #291 screenshot inspection found their intended styling was not taking effect. The root selector bug was corrected in CSS commit `71e1a20af05483d45ea832d0193e68d9f557b1fc`; three targeted style/pinning assertions were added in QA commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573`. Fresh Actions verification and post-fix screenshots are pending.
 - Owner approval of Stage Two: **not yet given**. Independent Claude review: pending.
 
 ## 1. Read this first in a new chat
@@ -1326,3 +1326,24 @@ Commits:
 - **Artifact:** [14981780185](https://github.com/tinytime/Tinytime.github.io/actions/runs/45522385402/artifacts/14981780185), 8,836,872 bytes; includes the full screenshot set, including `my-team-portrait.png`, `my-squad-attributes-portrait.png` and `my-squad-gear-portrait.png`.
 - **Visual inspection:** not yet completed in this pass. The artifact exists, but automated assertions do not replace reviewing the actual screenshots. The Stage Two independent review package is [UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md](UI-OVERHAUL-STAGE-TWO-REVIEW-PACKAGE.md). Do not claim visual approval.
 - **Gate:** Stage Two remains in progress and awaits screenshot inspection, independent review as required, and owner approval. No golden snapshots or provenance were changed.
+
+
+## Stage Two screenshot review and CSS root-scope correction — 2026-11-25
+
+Run #291 artifact [14981780185](https://github.com/tinytime/Tinytime.github.io/actions/runs/45522385402/artifacts/14981780185) was downloaded and the actual MY TEAM, MY SQUAD attributes, MY SQUAD gear, menu, and Fumble screenshots were inspected at their captured viewport sizes.
+
+### Internal visual findings
+- The MY TEAM and MY SQUAD screens retained the legacy brown/orange appearance despite the Stage Two navy/cyan/gold design implementation. MY TEAM's tab rail was visually undersized, and SAVE & EQUIP appeared at y=534 in the 844px portrait capture rather than being pinned to the bottom safe area.
+- MY SQUAD's PTS/CAP presentation was compressed into a single visually crowded header string; the metric badge styling was not being applied.
+- These were not detected by Run #291 because its Stage Two checks validated element presence, navigation, and viewport fit, but did not assert the relevant computed styles or actual fixed-action position.
+
+### Root cause and correction
+The original Stage Two CSS used selectors prefixed with `#app` (for example, `#app #team` and `#app #squad`). Inspection of the actual HTML structure confirmed that `#team` and `#squad` are siblings of `#app`, not descendants. Therefore those selectors never matched the live screens.
+
+- CSS correction: commit [`71e1a20af05483d45ea832d0193e68d9f557b1fc`](https://github.com/tinytime/Tinytime.github.io/commit/71e1a20af05483d45ea832d0193e68d9f557b1fc) removes the incorrect `#app` ancestor from all 116 Stage Two selectors. No markup, gameplay, save, progression, renderer, or golden snapshot changes were made.
+- QA hardening: commit [`2cd3b457eca4b36481298a3d6dfab79e95fa0573`](https://github.com/tinytime/Tinytime.github.io/commit/2cd3b457eca4b36481298a3d6dfab79e95fa0573) adds checks for the MY TEAM navy/cyan/gold treatment, tab sizing, bottom-pinned SAVE & EQUIP position, and MY SQUAD navy/cyan/gold screen/model/metric styling.
+
+### Verification state and next action
+The workflow is configured to run on pushes to `UI-Overhaul` when the CSS or QA harness changes. The connected GitHub status and commit-workflow lookup returned no run/status record for the new push-triggered commit; the available workflow-run lookup is limited to PR-triggered runs. Therefore the new correction is **implemented but not yet browser-tested** in this session. Do not infer a pass or use Run #291 screenshots as post-fix evidence.
+
+Next: retrieve the push-triggered browser run for commit `2cd3b457eca4b36481298a3d6dfab79e95fa0573`, confirm all assertions pass, and inspect the refreshed MY TEAM / MY SQUAD screenshots plus Stage One regression screenshots before preparing the Stage Two package for independent review. Stage Two remains in progress; owner approval and independent review remain pending. No golden snapshots or provenance were changed.
