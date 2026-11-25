@@ -129,7 +129,7 @@ Run #484 failed at the queued-defense restoration wait. This was not a console/r
 
 ## Full screenshot set — Run #487
 
-Review the following 50 images from artifact 15071354604. Use the artifact's exact filenames. The first 44 are the primary UI/interaction review set; the final six startup captures are diagnostic context for startup/initialization and should be reviewed for regressions, not scored as standalone screens.
+Review the following 50 images from artifact 15071354604. Use the artifact's exact filenames. The first 47 are the primary UI/interaction review set; the final three startup captures are diagnostic context for startup/initialization and should be reviewed for regressions, not scored as standalone screens.
 
 ### Title, menu, settings, credits, Overworld
 1. `title-screen-portrait.png` — title screen.
