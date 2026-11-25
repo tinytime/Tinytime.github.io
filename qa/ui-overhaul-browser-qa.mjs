@@ -671,11 +671,13 @@ await page.screenshot({path:path.join(out,'match-defense-simulation.png'),fullPa
    await page.waitForFunction(()=>{const panel=document.querySelector('#dcall'),tick=document.querySelector('#tick');return panel&&!panel.hidden&&getComputedStyle(panel).display!=='none'&&getComputedStyle(panel).visibility!=='hidden'&&!document.body.classList.contains('ach-toast-active')&&(!tick||tick.hidden)},null,{timeout:12000});
    const resumedDefense=await page.evaluate(()=>{const panel=document.querySelector('#dcall'),tick=document.querySelector('#tick'),toast=document.querySelector('#achT'),r=panel.getBoundingClientRect();return{panelVisible:!panel.hidden&&getComputedStyle(panel).display!=='none'&&getComputedStyle(panel).visibility!=='hidden',panelLeft:r.left,panelRight:r.right,viewport:innerWidth,tickerHidden:!tick||tick.hidden,toastInactive:!document.body.classList.contains('ach-toast-active')&&(!toast||getComputedStyle(toast).opacity==='0')}});
    check('Queued defense selection reappears only after ticker and achievement toast clear',resumedDefense.panelVisible&&resumedDefense.tickerHidden&&resumedDefense.toastInactive&&resumedDefense.panelLeft>=0&&resumedDefense.panelRight<=resumedDefense.viewport,resumedDefense);
-   await page.evaluate(()=>window.SG.__uiqa.postGame());
+   await page.evaluate(()=>{window.SG.G.you=0;window.SG.G.opp=7;return window.SG.__uiqa.postGame()});
    check('Achievement toast clears before the post-game result',await page.locator('#achT').count()===0);
   }else await page.evaluate(()=>window.SG.endGame(false));
   await page.waitForFunction(()=>{const e=document.querySelector('#end');return e&&!e.hidden},null,{timeout:10000});
   check('Post-game result screen visible',await page.locator('#end').isVisible());
+  const postResultScore=(await page.locator('#end #endScore').innerText()).replace(/\\s+/g,' ').trim();
+  check('Deterministic loss fixture has a real non-tied score',/0\\s*[–-]\\s*7|7\\s*[–-]\\s*0/.test(postResultScore)&&!/0\\s*[–-]\\s*0/.test(postResultScore),postResultScore);
   check('Post-game STYLE POINTS display is removed',await page.locator('#endStyle').count()===0);
   check('Post-game shows the match-mode pill',await page.locator('#end .ui-end-mode').isVisible()&&(await page.locator('#end .ui-end-mode').textContent()).includes('CREW GAME'));
   const endStyles=await page.evaluate(()=>({surface:getComputedStyle(document.querySelector('#end')).backgroundColor,rematch:getComputedStyle(document.querySelector('#eAgain')).backgroundColor,rematchText:getComputedStyle(document.querySelector('#eAgain')).color,menu:getComputedStyle(document.querySelector('#eMenu')).backgroundColor}));
