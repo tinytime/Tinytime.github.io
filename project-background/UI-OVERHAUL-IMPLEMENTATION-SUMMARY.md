@@ -1423,3 +1423,14 @@ The owner explicitly approved Stage Three (GOALS & STATS) and authorized proceed
 2. Add targeted assertions for any acceptance criteria not already covered.
 3. Run the real landscape match flow, inspect fresh matchup and playbook screenshots, and correct only confirmed gaps.
 4. Retest, inspect artifacts, and document the evidence before owner review.
+
+
+## Stage Four live QA continuation — 2026-11-25
+
+- Reconciled the live branch after Run #343. Current Stage Four code/QA checkpoint: `d697196db1d6a4addb111377a10c0fad5534096c` (QA-only correction; no gameplay or CSS changes).
+- Run #343 (`45550546264`) tested `cba2cb006352132f8c23c585579e2fef50a1f830` and failed at `qa/ui-overhaul-browser-qa.mjs:439` because Playwright's automatic locator click reported the card/header containers intercepting the favorite control. The run reported no page errors, console errors, or same-origin request failures.
+- Retrieved artifact `14993825718`. Inspected `match-pre-game.png` and `match-playbook-overlay.png`: matchup labels, team badge/OVR groupings, loading bar and TAP TO PLAY are visible; the landscape play sheet shows FAV/ALL/RUN/PASS/TRICK, route diagrams, selected-play frame, FLIP and CALL PLAY. No visual defect was identified in those screenshots.
+- Corrected the favorite interaction QA to scroll the control into view, verify its center is the topmost pointer target after scrolling, and issue a real browser mouse click at that verified coordinate. The test still asserts the favorite toggles, the selected play remains unchanged, and the original favorite state is restored. No force-click, DOM event dispatch, or skipped interaction assertion is used.
+- Run #344 (`45551278842`) is executing against exact commit `d697196db1d6a4addb111377a10c0fad5534096c`. Browser/Chromium installation passed; the browser QA step was still in progress at this documentation update. Artifact and final assertion count are pending.
+- Stage Four remains **in progress and not owner-approved**. After Run #344 completes: verify its tested SHA and all assertions; retrieve and inspect the new artifact/screenshots; if the favorite interaction passes, verify the full matchup → playbook → pre-snap flow and inspect the refreshed images before preparing the Stage Four owner-review package. If it fails, use the new diagnostics and correct the actual interaction or test geometry without weakening the behavior check.
+- Preserve gameplay/save/progression behavior, `main`, NPC files, and all golden snapshots/provenance.
