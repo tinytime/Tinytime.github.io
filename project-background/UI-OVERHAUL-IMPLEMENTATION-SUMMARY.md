@@ -1453,3 +1453,16 @@ The owner explicitly approved Stage Three (GOALS & STATS) and authorized proceed
 - Implementation commits: `35e7270bb66ebd8b73a4e755bcfb1a88f1dc80cc` (DOM refactor), `7e03ecf3a6787130f7106862825608c8b5c46437` (favorite overlay styling), `655f4fc595c8b928b32c8d14f01bef4f6bd048cb` (QA locator update).
 - Run #347 (`45551937896`) started on the CSS commit before the QA locator update and is not the final validation. A subsequent run must test the combined current branch head. Latest docs update may trigger Run #348; verify its exact tested SHA before accepting results.
 - Stage Four remains in progress and is not owner-approved. Do not change gameplay rules, save/progression behavior, golden snapshots, or unrelated UI.
+
+
+## Wrapped Playbook favorite QA reconciliation — 2026-11-25
+
+- The concurrent Stage Four refactor was reconciled from the live branch: the favorite button is now a sibling of the clickable `.card` inside `.cardWrap`, outside the card's clipped hit surface. The play selection handler remains on the card; the favorite handler stops propagation and toggles its independent state.
+- Run #350 (`45552197143`) tested `5054db3088607324e24d669ecccab8a224db6a0e` and failed at QA line 426 because the diagnostic attempted `getComputedStyle(el.closest('.card'))` after the favorite had moved outside the card. It did not reach the favorite interaction assertion; do not treat this as a failure of the wrapper refactor.
+- Combined correction commit: `e6a951c6ff07b587cc8f76f1862c2315df1aed33`. It:
+  - updates hit-test diagnostics to resolve the card through the closest `.cardWrap` and query its child card/header;
+  - keeps the real scroll, center-point hit test, mouse click, toggle, selected-play independence, and state-restoration checks;
+  - updates grid sizing to target `.cardWrap` and its child card;
+  - changes favorite text to actual `★` / `☆` characters rather than escaped backslash-u text.
+- Run #351 (`45552534531`) is executing against exact commit `e6a951c6ff07b587cc8f76f1862c2315df1aed33`. Chromium installation passed; browser QA remains in progress at this checkpoint. Verify tested SHA, full assertion count, artifact and screenshots before making further changes.
+- Stage Four remains in progress and is not owner-approved. Continue to preserve gameplay/save/progression behavior and all golden snapshots.
