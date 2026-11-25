@@ -2,7 +2,7 @@
 
 ## Circuit Football RPG — UI Overhaul
 
-**Live checkpoint (2026-11-25):** Stages One, Two and Three are owner-approved. Stage Three GOALS & STATS passed Run #331 (230/230 assertions) on code/QA commit `da5a017b5d3914fd0e90bb8cba68bec93dfec37d`; artifact `14990919745` was retrieved and screenshots were visually inspected. Stage Four (Pre-Game Matchup & Playbook, landscape) is authorized and in progress. See the [Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for the current source-of-truth checkpoint.
+**Live checkpoint (2026-11-25):** Stage One, Stage Two and Stage Three are owner-approved. Stage Three GOALS & STATS passed Run #331 (230/230 browser assertions) and its actual screenshots were inspected. The owner has authorized **Stage Four — Pre-Game Matchup & Playbook integration**. Stage Four is auditing and strengthening the existing matchup → playbook → pre-snap flow without replacing working gameplay behavior. Latest Stage Four QA commit: `2d8192692cc1c08b70d6a98419da93e551b413b4`; Run #333 is queued/pending at this checkpoint. See the [Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for the live status and exact next actions.
 
 **Workflow safeguard:** workflow-level concurrency for `UI-Overhaul` browser QA cancels an older in-progress run when a newer push arrives.
 
