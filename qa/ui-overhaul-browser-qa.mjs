@@ -470,8 +470,8 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   const alternateIndex=await alternateCard.getAttribute('data-i');
   await alternateCard.click();
   await page.waitForFunction((previous)=>{const g=window.SG?.G,sheet=document.querySelector('#sheet');return !!g&&g.mode==='playcall'&&String(g.sel)!==String(previous)&&sheet&&!sheet.hidden},selectedBefore,{timeout:5000});
-  const selectedAfter=await page.locator('#cards .card.sel').evaluate(el=>el.dataset.i??el.getAttribute('data-i')??el.querySelector('b')?.textContent.trim());
-  check('Selecting a different play updates selection without executing or closing the Playbook',selectedAfter===alternateIndex&&await page.locator('#sheet').isVisible()&&await page.evaluate(()=>window.SG?.G?.mode==='playcall'),{selectedBefore,selectedAfter,alternateIndex});
+  const selectedAfterSelect=await page.locator('#cards .card.sel').evaluate(el=>el.dataset.i??el.getAttribute('data-i')??el.querySelector('b')?.textContent.trim());
+  check('Selecting a different play updates selection without executing or closing the Playbook',selectedAfterSelect===alternateIndex&&await page.locator('#sheet').isVisible()&&await page.evaluate(()=>window.SG?.G?.mode==='playcall'),{selectedBefore,selectedAfterSelect,alternateIndex});
   const favBefore=await favLocator.evaluate(el=>({on:el.classList.contains('on'),text:el.textContent.trim()}));
   const favClickTarget=await clickFavoriteAtVerifiedCenter();
   const favToggled=await favLocator.evaluate(el=>({on:el.classList.contains('on'),text:el.textContent.trim()}));
