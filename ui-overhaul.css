@@ -2371,3 +2371,9 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #app #sheet #cards .card{position:relative}
 #app #sheet #cards .card b{position:relative;padding-right:30px!important}
 #app #sheet #cards .card b a.fav{position:absolute;top:0;right:0;z-index:20;display:flex!important;align-items:center;justify-content:center;width:28px;height:100%;min-height:24px;padding:0!important;pointer-events:auto;touch-action:manipulation}
+
+/* Stage Four: favorite is a dedicated sibling control, not nested in the card title or click surface. */
+#app #sheet #cards .card{position:relative}
+#app #sheet #cards .card b{padding-right:28px!important}
+#app #sheet #cards .card>.fav{position:absolute;top:3px;right:4px;z-index:30;display:grid!important;place-items:center;width:26px;height:24px;min-height:24px;margin:0;padding:0!important;border:0!important;border-radius:5px;background:transparent!important;color:var(--ui-muted);font:700 16px/1 var(--ui,"Arial Narrow",sans-serif);box-shadow:none!important;cursor:pointer;pointer-events:auto;touch-action:manipulation}
+#app #sheet #cards .card>.fav.on{color:var(--ui-gold)}
