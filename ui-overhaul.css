@@ -2471,6 +2471,7 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #app #sheet .ui-playbook-actions #flipBtn.on{background:#4DE1F2!important;color:#101722!important}
 #app #sheet .ui-playbook-actions #callBtn{min-height:42px!important;margin:0!important}
 #app #hud .ui-scoreboard-star-play-hidden{display:none!important}
+#app #sheet #cards>.cardWrap[data-ui-page-hidden="1"]{display:none!important}
 @media(orientation:landscape){
  #app #sheet{display:flex;flex-direction:column;gap:8px}
  #app #sheet #pbMain{flex:1;min-height:0}
