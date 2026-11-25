@@ -1620,3 +1620,14 @@ Implementation and QA history:
 - QA artifact: `ui-overhaul-browser-qa` (run #409, artifact ID `15054061311`).
 - Code commit: `58bfb842bd7479a9cd5bf4b7c6e4fc904419ae10`.
 - Remaining approval: owner visual approval of the integrated title artwork and its crop/framing on the target devices. Automated QA and screenshot inspection do not substitute for owner approval.
+
+
+## Title-screen Settings defect correction — Run #430 (2026-11-25)
+
+- Owner reported that selecting SETTINGS from the title screen still showed the in-game overworld menu (Hale Harbor/CLEARED/UPG, current goal, MENU/SETTINGS/CREDITS tabs, gameplay destination cards, EXPLORE and BACK TO TOWN). The prior Run #427 pass did not prevent this observed failure; treat the owner's live screenshot as authoritative evidence of the defect.
+- Corrected the title-settings transition in `ui-overhaul-menu.js`: resolve the live menu after the overworld opens, select the Settings tab on the next animation frame, then apply pre-game mode. If the menu or Settings tab is unavailable, return to the title rather than leave the user in the overworld menu.
+- Strengthened `qa/ui-overhaul-browser-qa.mjs` to wait for the active pre-game mode and assert that visible page text excludes town/progression labels, EXPLORE and BACK TO TOWN.
+- Browser QA **Run #430**: [workflow](https://github.com/tinytime/Tinytime.github.io/actions/runs/45696589378), tested exact commit `bb889480702d423dd241ff779d6fcd43de46cca1`, artifact `15060049703`. **268/268 checks passed; 0 failures; 0 page errors; 0 console errors; 0 same-origin HTTP failures.** All workflow steps succeeded.
+- Inspected actual artifact screenshots `title-settings-portrait.png` and `portrait-settings.png`. The title Settings screenshot shows a standalone SETTINGS heading and only Audio, Gameplay & Display and Danger Zone main settings; no Hale Harbor, goal, in-game tabs, gameplay cards, EXPLORE or BACK TO TOWN. The in-game Settings screenshot still retains its game header, tabs, UPG badge and BACK TO TOWN navigation.
+- **Status:** defect correction implemented, automated browser QA passing and screenshots internally visually inspected. This is not independent Claude review or owner approval. No golden snapshots were changed.
+- Live preview for this tested branch: https://raw.githack.com/tinytime/Tinytime.github.io/UI-Overhaul/index.html
