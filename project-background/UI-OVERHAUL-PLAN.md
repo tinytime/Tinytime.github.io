@@ -351,3 +351,8 @@ Run #315 tested `8aff7da49a4a5bafc255f3fc073783803469377c` and passed 222/222. T
 - Added browser assertions for intentionally hidden style selectors, the explanatory note, two-column grid and unique crew-specific labels. Screenshots `my-team-uniform-portrait.png`, `my-team-trails-portrait.png` and `my-team-trails-bottom-portrait.png` were opened and visually inspected. The complete trail grid fits the 390×844 portrait capture with SAVE & EQUIP pinned below.
 - Stage Two remains **awaiting explicit owner approval**. These optional polish changes do not approve Stage Two or authorize Stage Three. No golden snapshots or provenance changed.
 
+
+
+## Latest verified checkpoint — Stage Three GOALS & STATS (2026-11-25)
+
+Stage Three has been implemented on UI-Overhaul and is internally verified. Exact tested/current HEAD: da5a017b5d3914fd0e90bb8cba68bec93dfec37d. GitHub Actions [Run #331](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877) passed 230/230 browser checks; evidence artifact [14990919745](https://github.com/tinytime/Tinytime.github.io/actions/runs/45546328877/artifacts/14990919745) was retrieved. The Challenges, Achievements, Team Stats, and 360px Team Stats screenshots were visually inspected. Stage Three includes the accessible X close control, trophy progress, three tabs, challenge cards, achievement counters/progress, four career stat cards, aligned REC/YDS Receiving metrics, fixed CLOSE footer, and responsive header/tab layout. The achievement observer regression test passes. Stage Three is awaiting owner review and explicit approval; do not begin Stage Four until approval. See the Implementation Summary for detailed evidence. No gameplay/save/progression behavior, main, or golden snapshots/provenance were changed.
