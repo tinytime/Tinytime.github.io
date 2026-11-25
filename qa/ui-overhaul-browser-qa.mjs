@@ -29,6 +29,20 @@ try{
  // Inspect startup, explicitly enter the overworld when the game exposes its existing owShow helper,
  // then use the real visible HUD button exactly once. Never force-click a hidden control.
  const menu=page.locator('#menu');
+ const titleScreen=page.locator('#uiTitleScreen');
+ check('Title screen is the initial blocking entry screen',await titleScreen.isVisible()&&await page.locator('#uiTitleStart').isVisible()&&await page.locator('#uiTitleSettings').isVisible());
+ await page.screenshot({path:path.join(out,'title-screen-portrait.png'),fullPage:true});
+ await page.locator('#uiTitleSettings').click();
+ await page.waitForFunction(()=>!document.querySelector('#menu')?.hidden&&document.querySelector('#menu [data-tab="settings"]')?.getAttribute('aria-selected')==='true',null,{timeout:10000});
+ check('Title SETTINGS opens the existing UI-Overhaul Settings tab',await page.locator('#uiMenuSettings').isVisible());
+ await page.screenshot({path:path.join(out,'title-settings-portrait.png'),fullPage:true});
+ await page.locator('#menu .ui-menu-close').click();
+ await page.waitForFunction(()=>!document.querySelector('#uiTitleScreen')?.hidden&&document.querySelector('#menu')?.hidden,null,{timeout:10000});
+ check('Settings Back returns to the title screen',await titleScreen.isVisible());
+ await page.locator('#uiTitleStart').click();
+ await page.waitForFunction(()=>document.querySelector('#uiTitleScreen')?.hidden===true,null,{timeout:10000});
+ check('BEAT THE CIRCUIT dismisses the title gate and enters the game',await titleScreen.isHidden());
+
  const openOverworldMenu=page.locator('#owMenu');
  const describeStartup=()=>page.evaluate(()=>{
   const inspect=el=>{if(!el)return null;const s=getComputedStyle(el),r=el.getBoundingClientRect();const ancestors=[];for(let p=el;p&&ancestors.length<6;p=p.parentElement){const ps=getComputedStyle(p),pr=p.getBoundingClientRect();ancestors.push({tag:p.tagName,id:p.id||null,className:typeof p.className==='string'?p.className:'',hidden:p.hidden,display:ps.display,visibility:ps.visibility,opacity:ps.opacity,rect:{x:Math.round(pr.x),y:Math.round(pr.y),width:Math.round(pr.width),height:Math.round(pr.height)}})}return{tag:el.tagName,id:el.id||null,className:typeof el.className==='string'?el.className:'',text:(el.innerText||el.textContent||'').trim().slice(0,100),hidden:el.hidden,display:s.display,visibility:s.visibility,opacity:s.opacity,rect:{x:Math.round(r.x),y:Math.round(r.y),width:Math.round(r.width),height:Math.round(r.height)},ancestors}};
