@@ -430,8 +430,9 @@
    '<button id="uiTitleSettings" class="ui-title-hit ui-title-hit-settings" type="button" aria-label="Settings"></button></div>';
   document.body.appendChild(title);
   let returnToTitle=false;
-  const menu=document.getElementById('menu');
+  const getMenu=()=>document.getElementById('menu');
   const setPreGameSettingsMode=active=>{
+   const menu=getMenu();
    menu?.classList.toggle('ui-title-settings-mode',active);
    const head=menu?.querySelector('.ui-menu-head');
    if(head){
@@ -440,8 +441,6 @@
     if(heading)heading.hidden=!active;
    }
    ['owTop','owMenu','owA','owObj'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=active});
-   // The progression banner is #mNext inside #menu, so target that
-   // known element directly rather than excluding descendants of the menu.
    const hideNextUnlock=()=>{
     const card=document.getElementById('mNext');
     if(!card)return;
@@ -475,19 +474,28 @@
   };
   const showTitle=()=>{
    setPreGameSettingsMode(false);
+   const menu=getMenu();
    if(menu){menu.querySelector('[data-tab="menu"]')?.click();menu.hidden=true}
    title.hidden=false;returnToTitle=false;
   };
   const openTitleSettings=()=>{
-   returnToTitle=true;title.hidden=true;
+   returnToTitle=true;
+   title.hidden=true;
    if(typeof window.SG?.owShow==='function')window.SG.owShow();
    const menuButton=document.getElementById('owMenu');
    if(menuButton){menuButton.hidden=false;menuButton.click()}
-   if(menu&&menu.hidden)menu.hidden=false;
-   const settingsTab=menu?.querySelector('[data-tab="settings"]');
-   if(settingsTab)settingsTab.click();
-   else {showTitle();return}
-   setPreGameSettingsMode(true);
+   // The overworld/menu boot path can complete after the title button event.
+   // Resolve the menu and select Settings on the next paint, not against a stale
+   // or not-yet-visible menu reference.
+   requestAnimationFrame(()=>{
+    const menu=getMenu();
+    if(!menu){showTitle();return}
+    menu.hidden=false;
+    const settingsTab=menu.querySelector('[data-tab="settings"]');
+    if(!settingsTab){showTitle();return}
+    settingsTab.click();
+    setPreGameSettingsMode(true);
+   });
   };
   title.querySelector('#uiTitleStart').addEventListener('click',()=>{
    setPreGameSettingsMode(false);
