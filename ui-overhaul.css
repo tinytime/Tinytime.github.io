@@ -2085,3 +2085,154 @@ body.land #bHurdle,body.land #bHurdle.dive{
 @media(max-width:700px){#pileBar{left:34vw!important;width:55vw!important;max-width:calc(100vw - 120px)!important}}
 #app #pileT:not(:empty){left:40vw!important;right:auto!important;top:calc(46% + 48px)!important;bottom:auto!important;transform:translateX(-50%)!important}
 @media(max-width:700px){#app #pileT:not(:empty){left:34vw!important}}
+
+
+/* ================= Stage Two: MY TEAM + MY SQUAD =================
+   Presentation-only skin over the existing save-backed editors and 2.5D preview.
+   Keep original DOM IDs, handlers, progression gates and persistence untouched. */
+#app #team:not([hidden]),#app #squad:not([hidden]){
+  background:linear-gradient(180deg,#131620 0%,#101722 100%)!important;
+  color:#F5F7FA!important;
+}
+#app #team:not([hidden]){
+  display:flex!important;flex-direction:column;gap:7px;
+  padding:calc(env(safe-area-inset-top,0px) + 12px) 14px calc(env(safe-area-inset-bottom,0px) + 76px)!important;
+  overflow-y:auto!important;overscroll-behavior:contain;
+}
+#app #team h2,#app #squad h2{
+  margin:0!important;color:#F5F7FA!important;font-size:24px!important;
+  letter-spacing:.08em!important;text-align:left!important;
+}
+#app #team h2:after{
+  content:"  /  IDENTITY & UNIFORM";color:#4DE1F2;font:700 11px var(--ui);letter-spacing:.14em;
+}
+#app #team .prev{
+  height:clamp(190px,29vh,270px)!important;flex:none;margin:0!important;
+  border:1px solid rgba(77,225,242,.48)!important;border-radius:14px!important;
+  background:radial-gradient(ellipse at 50% 22%,rgba(77,225,242,.16),transparent 58%),linear-gradient(180deg,#202a3b,#131620 78%)!important;
+  box-shadow:inset 0 0 0 1px rgba(245,247,250,.035),0 10px 26px rgba(0,0,0,.25);
+}
+#app #team .lbl,#app #squad .lbl{
+  color:#9BA8BC!important;font-size:11px!important;font-weight:800!important;
+  letter-spacing:.16em!important;margin:5px 0 2px!important;
+}
+#app #team .tin,#app #team input[type=text]{
+  width:100%;height:44px!important;border:1px solid rgba(77,225,242,.5)!important;
+  border-radius:10px!important;background:#1C2130!important;color:#F5F7FA!important;
+  padding:0 12px!important;font-size:17px!important;font-weight:800!important;
+}
+#app #team .lprev{
+  display:flex;align-items:center;gap:10px;padding:8px 10px;
+  border:1px solid rgba(245,184,65,.5);border-radius:12px;background:#1C2130;
+}
+#app #team .lprev .lbig{
+  margin-left:auto;min-width:52px;min-height:44px;display:grid;place-items:center;
+}
+#app #team .lprev #tLogoBtn{
+  min-height:40px;background:#131620!important;border:1px solid #F5B841!important;
+  color:#F5B841!important;border-radius:9px!important;
+}
+#app #team .chips{gap:7px}
+#app #team .chip,#app #squad .chip{
+  min-height:34px;background:#1C2130!important;border:1px solid rgba(77,225,242,.28)!important;
+  color:#DCE5F2!important;border-radius:9px!important;font-size:12px!important;font-weight:800!important;
+}
+#app #team .chip.on,#app #squad .chip.on{
+  background:rgba(245,184,65,.12)!important;border:1px solid #F5B841!important;color:#F5B841!important;
+}
+#app #team .slot,#app #squad .slot{
+  min-height:40px;background:#1C2130!important;border:1px solid rgba(77,225,242,.24)!important;
+  color:#F5F7FA!important;border-radius:9px!important;
+}
+#app #team .slot.on,#app #squad .slot.on{border-color:#F5B841!important}
+#app #team .pal button,#app #team .pal .chip{border-radius:8px!important}
+#app #team .btnrow{
+  position:fixed!important;left:14px!important;right:14px!important;
+  bottom:calc(env(safe-area-inset-bottom,0px) + 10px)!important;margin:0!important;z-index:30;
+}
+#app #team #tBack{
+  width:100%!important;height:50px!important;border-radius:12px!important;
+  background:#4DE1F2!important;color:#101722!important;border:1px solid #4DE1F2!important;
+  font-size:0!important;font-weight:900!important;letter-spacing:.12em;
+  box-shadow:0 8px 22px rgba(77,225,242,.18);
+}
+#app #team #tBack:after{content:"SAVE & EQUIP";font-size:15px}
+#app #squad:not([hidden]){
+  display:flex!important;flex-direction:column;gap:8px;
+  padding:calc(env(safe-area-inset-top,0px) + 10px) 12px calc(env(safe-area-inset-bottom,0px) + 8px)!important;
+  overflow:hidden!important;
+}
+#app #sqTop{gap:8px!important;min-height:40px}
+#app #sqTop h2{font-size:21px!important;white-space:nowrap}
+#app #sqPts{
+  display:flex;justify-content:flex-end;align-items:center;gap:5px;white-space:normal!important;
+  overflow:visible!important;text-overflow:clip!important;color:#9BA8BC!important;font-size:10px!important;
+  letter-spacing:.08em;line-height:1.1;
+}
+#app #sqPts b{
+  display:inline-block;padding:5px 7px;border:1px solid rgba(245,184,65,.7);
+  border-radius:8px;background:rgba(245,184,65,.1);color:#F5B841!important;font-size:13px;
+}
+#app #sqTop .btn{
+  height:36px!important;background:#1C2130!important;border:1px solid rgba(77,225,242,.55)!important;
+  color:#4DE1F2!important;border-radius:9px!important;
+}
+#app #sqMain{gap:10px!important}
+#app #sqModel{
+  flex:0 0 42%!important;border:1px solid rgba(77,225,242,.52)!important;border-radius:14px!important;
+  background:radial-gradient(ellipse at 50% 18%,rgba(77,225,242,.17),transparent 56%),linear-gradient(180deg,#202a3b,#131620 84%)!important;
+  overflow:hidden;
+}
+#app #sqInfo{gap:3px}
+#app #sqHead{
+  min-height:52px;padding:6px 8px;background:#1C2130;border:1px solid rgba(77,225,242,.22);
+  border-radius:10px;margin:0!important;
+}
+#app #sqHead .pos{color:#4DE1F2!important;font-size:14px!important}
+#app #sqHead .nm{font-size:17px!important;color:#F5F7FA}
+#app #sqHead .nm small{color:#9BA8BC!important;font-size:10px!important}
+#app #sqHead .ov{color:#F5B841!important;font-size:24px!important}
+#app #sqHead .ov small{color:#9BA8BC!important;font-size:9px!important}
+#app #sqHead button{
+  background:#131620!important;border:1px solid #4DE1F2!important;color:#4DE1F2!important;border-radius:8px!important;
+}
+#app #sqTabs{gap:5px!important;margin:0 0 2px!important}
+#app #sqTabs .chip{height:34px!important;min-width:0;padding:0 5px!important;font-size:10px!important;letter-spacing:.04em}
+#app #sqBody{padding:2px 1px 6px}
+#app #sqBody .ustat{
+  display:flex;gap:6px!important;background:#1C2130!important;border:1px solid rgba(77,225,242,.2)!important;
+  border-radius:9px!important;padding:5px 6px!important;margin-bottom:5px!important;
+}
+#app #sqBody .ustat .ul{width:104px!important;flex:0 0 104px;font-size:10px!important;color:#DCE5F2}
+#app #sqBody .ustat .ub{height:9px!important;background:#0D1420!important}
+#app #sqBody .ustat .ub b{background:linear-gradient(90deg,#4DE1F2,#F5B841)!important}
+#app #sqBody .ustat .ub u{background:#F5F7FA!important}
+#app #sqBody .ustat .uv{width:22px!important;color:#F5F7FA;font-size:14px!important}
+#app #sqBody .ustat button{
+  min-width:52px!important;height:28px!important;background:#131620!important;
+  border:1px solid #F5B841!important;color:#F5B841!important;border-radius:7px!important;font-size:10px!important;
+}
+#app #sqBody .ustat button:disabled{border-color:#596273!important;color:#8792A4!important}
+#app #sqStrip{
+  flex:none!important;min-height:66px;padding:6px 2px max(2px,env(safe-area-inset-bottom,0px)*.2)!important;
+  border-top:1px solid rgba(77,225,242,.28);background:rgba(19,22,32,.98);
+}
+#app .sqc{
+  flex:0 0 78px!important;height:54px!important;background:#1C2130!important;
+  border:1px solid rgba(77,225,242,.26)!important;border-radius:9px!important;
+}
+#app .sqc.on{background:rgba(245,184,65,.12)!important;border:1px solid #F5B841!important}
+#app .sqc .p{color:#4DE1F2!important;font-size:10px!important}
+#app .sqc .o{color:#F5B841!important;font-size:14px!important}
+#app .sqc .n{color:#F5F7FA!important;font-size:11px!important}
+#app .sqc .t{color:#9BA8BC!important;font-size:9px!important}
+#app .sqc.bn{opacity:.82;border-style:dashed!important}
+@media(orientation:portrait){
+  #app #sqMain{flex-direction:column!important}
+  #app #sqModel{flex:0 0 34%!important;min-height:0}
+  #app #sqInfo{flex:1;min-height:0}
+}
+@media(max-height:720px) and (orientation:portrait){
+  #app #sqModel{flex-basis:29%!important}
+  #app #team .prev{height:clamp(150px,24vh,205px)!important}
+}
