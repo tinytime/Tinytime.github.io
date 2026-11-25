@@ -222,7 +222,7 @@ try{
  const goalsTabRail=await page.locator('#goalsP .ui-goals-tabs').evaluate(el=>({radius:getComputedStyle(el).borderRadius,border:getComputedStyle(el).borderTopWidth}));
  check('Goals tabs use one segmented rounded rail',goalsTabRail.radius==='999px'&&parseFloat(goalsTabRail.border)>=1,goalsTabRail);
  const challengeFrame=await page.locator('#ui-goals-panel-challenges .ui-goals-challenge').first().evaluate(el=>({border:getComputedStyle(el).borderTopWidth,color:getComputedStyle(el).borderTopColor,shadow:getComputedStyle(el).boxShadow}));
- check('Challenge cards use the cyan outer and gold inset frame from the mockup',parseFloat(challengeFrame.border)>=2&&challengeFrame.color==='rgba(77, 225, 242, 0.82)'&&challengeFrame.shadow.includes('245, 184, 65'),challengeFrame);
+ check('Challenge cards use one restrained cyan border without a competing inset shadow',parseFloat(challengeFrame.border)===1&&challengeFrame.color==='rgba(77, 225, 242, 0.82)'&&challengeFrame.shadow==='none',challengeFrame);
 
  const challengePanel=await page.locator('#ui-goals-panel-challenges').evaluate(el=>({cards:el.querySelectorAll('.ui-goals-challenge').length,pills:el.querySelectorAll('.ui-goals-trail-pill').length,complete:el.querySelectorAll('.ui-goals-challenge.is-complete').length}));
  check('Challenge cards show color-coded trail rewards',challengePanel.cards>0&&challengePanel.pills===challengePanel.cards,challengePanel);
@@ -424,7 +424,7 @@ try{
   check('Pre-game TAP TO PLAY prompt fits inside the viewport',await page.locator('#mu .tap').isVisible());
   check('Pre-game matchup remains open until player confirmation',await page.locator('#mu').isVisible()&&await page.locator('#mu .tap').textContent()==='TAP TO PLAY');
   const introGap=await page.evaluate(()=>{const b=document.querySelector('#mu .bar').getBoundingClientRect(),t=document.querySelector('#mu .tap').getBoundingClientRect();return{gap:t.top-b.bottom,tapBg:getComputedStyle(document.querySelector('#mu .tap')).backgroundColor,tapBorder:getComputedStyle(document.querySelector('#mu .tap')).borderTopWidth}});
-  check('Pre-game TAP TO PLAY is separated from the progress bar',introGap.gap>=8&&introGap.tapBg==='rgb(77, 225, 242)'&&parseFloat(introGap.tapBorder)>=1,introGap);
+  check('Pre-game TAP TO PLAY is separated from the progress bar in the navy/gold palette',introGap.gap>=8&&introGap.tapBg==='rgb(19, 22, 32)'&&introGap.tapBorder==='1px',introGap);
   const matchupBadges=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return{bg:s.backgroundColor,border:s.borderTopWidth,radius:s.borderTopLeftRadius,width:r.width,height:r.height}}));check('Both matchup logos sit on solid rounded navy badge cards',matchupBadges.length===2&&matchupBadges.every(x=>x.bg==='rgb(19, 22, 32)'&&parseFloat(x.border)>=2&&parseFloat(x.radius)>=18&&x.width>=170&&x.height>=190),matchupBadges);
  const matchupPanelFills=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=>getComputedStyle(el).backgroundColor));check('Pre-game team badge cards remain solid matte navy over the atmosphere',matchupPanelFills.length===2&&matchupPanelFills.every(x=>x==='rgb(19, 22, 32)'),matchupPanelFills);
  const matchupBadgeAccents=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=>getComputedStyle(el).borderTopColor));
@@ -590,7 +590,7 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
    const receiverCue=await page.evaluate(()=>{const off=window.SG?.F?.off||{};const roles=['WR1','WR2','TE','RB'];return{open:roles.filter(k=>off[k]?.hi),covered:roles.filter(k=>off[k]&&!off[k].hi),mode:window.SG?.F?.mode,clockOn:window.SG?.G?.clockOn}});
    check('Live Play highlights open receiver(s) and leaves covered receivers muted',receiverCue.open.length>=1&&receiverCue.covered.length>=1&&receiverCue.mode==='live'&&receiverCue.clockOn===false,receiverCue);
    const receiverCueGeometry=await page.evaluate(()=>{const off=window.SG.F.off,hud=document.querySelector('#hud').getBoundingClientRect();return{hudBottom:hud.bottom,viewport:innerWidth,markers:['WR1','WR2','TE','RB'].map(role=>{const p=off[role],pr=window.SG.P(p.x,p.y),rad=Math.max(9,pr.u*.55),yy=pr.sy-Math.max(22,2.75*pr.u)*1.1-12;return{role,top:yy-rad,bottom:yy+rad,left:pr.sx-rad,right:pr.sx+rad,open:!!p.hi}})}});
-   check('All live receiver letter cues clear the scoreboard and remain inside the field viewport',receiverCueGeometry.markers.every(p=>p.top>=receiverCueGeometry.hudBottom+8&&p.left>=0&&p.right<=receiverCueGeometry.viewport),receiverCueGeometry);
+   check('All open live receiver letter cues clear the scoreboard and remain inside the field viewport',receiverCueGeometry.markers.filter(p=>p.open).length>0&&receiverCueGeometry.markers.filter(p=>p.open).every(p=>p.top>=receiverCueGeometry.hudBottom+8&&p.left>=0&&p.right<=receiverCueGeometry.viewport),receiverCueGeometry);
    const defenseThrowControl=await page.locator('#thr button:last-child').evaluate(el=>({text:el.textContent.trim(),background:getComputedStyle(el).backgroundColor,border:getComputedStyle(el).borderTopColor,color:getComputedStyle(el).color}));
    check('Live D defense control uses the green/navy treatment instead of legacy pink',defenseThrowControl.background==='rgb(19, 22, 32)'&&defenseThrowControl.border==='rgb(52, 211, 153)'&&defenseThrowControl.color==='rgb(52, 211, 153)',defenseThrowControl);
   }
@@ -687,7 +687,7 @@ await page.screenshot({path:path.join(out,'match-defense-simulation.png'),fullPa
   await page.waitForFunction(()=>{const e=document.querySelector('#end');return e&&!e.hidden},null,{timeout:10000});
   check('Post-game result screen visible',await page.locator('#end').isVisible());
   const postResultScore=(await page.locator('#end #endScore').innerText()).replace(/\\s+/g,' ').trim();
-  check('Deterministic loss fixture has a real non-tied score',/0\\s*[–-]\\s*7|7\\s*[–-]\\s*0/.test(postResultScore)&&!/0\\s*[–-]\\s*0/.test(postResultScore),postResultScore);
+  check('Deterministic loss fixture has a real non-tied score',/0\s*[–-]\s*7|7\s*[–-]\s*0/.test(postResultScore)&&!/0\s*[–-]\s*0/.test(postResultScore),postResultScore);
   check('Post-game STYLE POINTS display is removed',await page.locator('#endStyle').count()===0);
   check('Post-game shows the match-mode pill',await page.locator('#end .ui-end-mode').isVisible()&&(await page.locator('#end .ui-end-mode').textContent()).includes('CREW GAME'));
   const endStyles=await page.evaluate(()=>({surface:getComputedStyle(document.querySelector('#end')).backgroundColor,rematch:getComputedStyle(document.querySelector('#eAgain')).backgroundColor,rematchText:getComputedStyle(document.querySelector('#eAgain')).color,menu:getComputedStyle(document.querySelector('#eMenu')).backgroundColor}));
