@@ -2516,15 +2516,14 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 
 
 /* Title-screen entry gate — responsive portrait composition. */
-.ui-title-screen{position:fixed;inset:0;z-index:100000;overflow:hidden;background:#050914;isolation:isolate}
+.ui-title-screen{position:fixed;inset:0;z-index:100000;overflow:hidden;background:#050914;isolation:isolate;display:flex;align-items:center;justify-content:center}
 .ui-title-screen[hidden]{display:none!important}
-.ui-title-screen .title-scene{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center}
+.ui-title-art-frame{position:absolute;width:min(100vw,56.25vh);height:min(177.7778vw,100vh);left:50%;top:50%;transform:translate(-50%,-50%)}
+.ui-title-screen .title-scene{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:fill}
 .ui-title-hit{position:absolute;z-index:3;display:block;padding:0;margin:0;border:0;background:transparent;cursor:pointer;appearance:none;-webkit-tap-highlight-color:transparent}
 .ui-title-hit:focus-visible{outline:3px solid #fff;outline-offset:4px;border-radius:48px}
 .ui-title-hit-start{left:19%;top:80.2%;width:63%;height:8.1%;border-radius:999px}
 .ui-title-hit-settings{left:31%;top:89.4%;width:38%;height:4.4%;border-radius:12px}
-.ui-title-art-fallback{position:absolute;left:-10000px}
-@media (min-aspect-ratio:1/1){
  .ui-title-screen .title-scene{width:min(100vw,56.25vh);left:50%;transform:translateX(-50%)}
  .ui-title-hit-start{left:calc(50% - min(100vw,56.25vh)*.31);width:min(100vw,56.25vh)*.63}
  .ui-title-hit-settings{left:calc(50% - min(100vw,56.25vh)*.19);width:min(100vw,56.25vh)*.38}
