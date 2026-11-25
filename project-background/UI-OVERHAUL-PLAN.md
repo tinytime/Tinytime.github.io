@@ -8,7 +8,7 @@
 - Baseline: current `main` at the time this branch was created
 - UI handoff source: `Circuit Football — UI Overhaul Handoff Spec.docx` (14 pages; supplied in the project conversation)
 - Implementation status: Stage One is owner-approved. Stage Two MY TEAM / MY SQUAD and the independent-review correction round are implemented.
-- Latest successful Stage Two code/QA-tested commit: `8aff7da49a4a5bafc255f3fc073783803469377c`; [Run #315](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797) passed **222/222** with zero page/console/same-origin errors; artifact `14987300342` was visually inspected.
+- Latest successful Stage Two code/QA-tested commit: `3fe58d3778fbee7b310b400dc9d1b9548264ba59`; [Run #322](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337) passed **224/224** with zero page/console/same-origin errors; artifact `14986404860` was visually inspected.
 - Independent Stage Two review findings (MY TEAM 8/10, MY SQUAD 8.5/10, menu 7.5/10) have been addressed. Stage Two owner approval is pending. Do not begin Stage Three before explicit approval.
 
 ## Source-of-truth rules
@@ -339,3 +339,15 @@ Run #313 tested exact commit `3be8785d5a250d65430f7c50571d5d0d428a9d36` and pass
 ## Run #315 — MY TEAM trail scroll-end QA (2026-11-25)
 
 Run #315 tested `8aff7da49a4a5bafc255f3fc073783803469377c` and passed 222/222. The MY TEAM TRAILS browser check now scrolls the actual `.ui-team-tab-content` container to the bottom and verifies the final locked-trail hint clears the fixed SAVE & EQUIP action. The bottom screenshot was retrieved and visually inspected. Stage Two independent-review corrections remain implemented; owner approval is pending. Stage Three is gated on approval. No golden snapshots or provenance changed.
+
+
+## Optional Stage Two polish — Run #322 (2026-11-25)
+
+- Exact tested commit: `3fe58d3778fbee7b310b400dc9d1b9548264ba59`.
+- [Run #322](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337) passed **224/224 assertions**, with zero failed assertions, page exceptions, console errors or same-origin HTTP failures.
+- Evidence [Artifact 14986404860](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337/artifacts/14986404860) was downloaded and visually inspected.
+- **MY TEAM > UNIFORM:** repository source confirms jersey/pants cut choices are intentionally non-functional in the current player-art renderer; saved values are preserved but have no rendered effect. Removed the orphaned JERSEY STYLE / PANTS STYLE headings and kept the controls hidden, replacing the empty space with the note: “JERSEY & PANTS CUTS ARE NOT CURRENTLY CUSTOMIZABLE.” Color slots and palette remain visible and functional.
+- **MY TEAM > TRAILS:** replaced the repeated generic unlock sentence with crew-specific labels for all eight locked trails (Glitch Cats, Scrap Kings, Skyline Drifters, Netrunners, Bait Dogs, Longshoremen, Gantry Gang and Closers). Locked trails use a two-column portrait grid; wider layouts switch to three columns. TEAM COLOUR remains a full-width first option.
+- Added browser assertions for intentionally hidden style selectors, the explanatory note, two-column grid and unique crew-specific labels. Screenshots `my-team-uniform-portrait.png`, `my-team-trails-portrait.png` and `my-team-trails-bottom-portrait.png` were opened and visually inspected. The complete trail grid fits the 390×844 portrait capture with SAVE & EQUIP pinned below.
+- Stage Two remains **awaiting explicit owner approval**. These optional polish changes do not approve Stage Two or authorize Stage Three. No golden snapshots or provenance changed.
+

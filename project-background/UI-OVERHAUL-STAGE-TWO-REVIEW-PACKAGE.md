@@ -3,12 +3,12 @@
 **Review target:** MY TEAM and MY SQUAD  
 **Design authority:** owner-supplied *Circuit Football — UI Overhaul Handoff Spec*, Section 3, pages 5–6  
 **Implementation branch:** `UI-Overhaul`  
-**Latest successful correction commit:** `8aff7da49a4a5bafc255f3fc073783803469377c`  
+**Latest successful correction commit:** `3fe58d3778fbee7b310b400dc9d1b9548264ba59`  
 **CSS root-selector correction:** `71e1a20af05483d45ea832d0193e68d9f557b1fc`  
-**Latest verification:** [Run #315](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797), 222/222 assertions, exact tested commit `8aff7da49a4a5bafc255f3fc073783803469377c`  
+**Latest verification:** [Run #322](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337), 224/224 assertions, exact tested commit `3fe58d3778fbee7b310b400dc9d1b9548264ba59`  
 **Historical baseline QA:** [Run #297](https://github.com/tinytime/Tinytime.github.io/actions/runs/45527525193) — successful, 216/216 assertions  
-**Latest evidence artifact:** [Artifact 14987300342](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797/artifacts/14987300342)  
-**Latest STYLE & GEAR and defense-simulation QA:** Run #315 passed; the parent-panel, trail-scroll-end and defense-simulation screenshots were inspected.
+**Latest evidence artifact:** [Artifact 14986404860](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337/artifacts/14986404860)  
+**Latest optional polish QA:** Run #322 passed; MY TEAM UNIFORM and the crew-specific TRAILS grid screenshots were inspected.
 
 ## Scope
 
@@ -136,4 +136,16 @@ No golden snapshots or snapshot provenance were changed.
 - Added a dedicated trail-scroll assertion: the QA scrolls the actual `.ui-team-tab-content` panel to its end and verifies the final locked-trail unlock hint remains above the fixed SAVE & EQUIP action. The captured bottom state places the final hint bottom at y=751.5 and the save action top at y=784 in the 844px viewport.
 - Screenshots inspected: `portrait-menu.png`, `desktop-menu.png`, `narrow-menu-360.png`, `my-team-portrait.png`, `my-team-uniform-portrait.png`, `my-team-trails-portrait.png`, `my-team-trails-bottom-portrait.png`, `my-squad-attributes-portrait.png`, `my-squad-style-gear-portrait.png`, `overworld-portrait.png`, `match-fumble-pile.png`, and `match-defense-simulation.png`.
 - Independent review findings remain addressed. **Stage Two owner approval remains pending.** Do not begin Stage Three until explicit approval. No golden snapshots or provenance changed.
+
+
+
+## Optional Stage Two polish — Run #322 (2026-11-25)
+
+- Exact tested commit: `3fe58d3778fbee7b310b400dc9d1b9548264ba59`.
+- [Run #322](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337) passed **224/224 assertions**, with zero failed assertions, page exceptions, console errors or same-origin HTTP failures.
+- Evidence [Artifact 14986404860](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337/artifacts/14986404860) was downloaded and visually inspected.
+- **MY TEAM > UNIFORM:** repository source confirms jersey/pants cut choices are intentionally non-functional in the current player-art renderer; saved values are preserved but have no rendered effect. Removed the orphaned JERSEY STYLE / PANTS STYLE headings and kept the controls hidden, replacing the empty space with the note: “JERSEY & PANTS CUTS ARE NOT CURRENTLY CUSTOMIZABLE.” Color slots and palette remain visible and functional.
+- **MY TEAM > TRAILS:** replaced the repeated generic unlock sentence with crew-specific labels for all eight locked trails (Glitch Cats, Scrap Kings, Skyline Drifters, Netrunners, Bait Dogs, Longshoremen, Gantry Gang and Closers). Locked trails use a two-column portrait grid; wider layouts switch to three columns. TEAM COLOUR remains a full-width first option.
+- Added browser assertions for intentionally hidden style selectors, the explanatory note, two-column grid and unique crew-specific labels. Screenshots `my-team-uniform-portrait.png`, `my-team-trails-portrait.png` and `my-team-trails-bottom-portrait.png` were opened and visually inspected. The complete trail grid fits the 390×844 portrait capture with SAVE & EQUIP pinned below.
+- Stage Two remains **awaiting explicit owner approval**. These optional polish changes do not approve Stage Two or authorize Stage Three. No golden snapshots or provenance changed.
 

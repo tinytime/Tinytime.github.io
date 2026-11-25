@@ -6,10 +6,10 @@
 - Working branch: `UI-Overhaul`
 - Game entry point: `index.html`
 - Design authority: owner-supplied **Circuit Football — UI Overhaul Handoff Spec** (14-page Gemini handoff, reattached by the owner on 2026-11-24)
-- Latest successful Stage Two code/QA commit tested: `8aff7da49a4a5bafc255f3fc073783803469377c` on `UI-Overhaul`; Run #315 passed 222/222 browser assertions. Artifact `14987300342` was downloaded and portrait, desktop, narrow-menu, MY TEAM identity/uniform/trails including the scrolled trail-list end, MY SQUAD, Fumble and defense-simulation screenshots were inspected.
+- Latest successful Stage Two code/QA commit tested: `3fe58d3778fbee7b310b400dc9d1b9548264ba59` on `UI-Overhaul`; Run #322 passed 224/224 browser assertions. Artifact `14986404860` was downloaded; the corrected MY TEAM uniform and crew-specific trail grid screenshots were visually inspected.
 - Prior Stage Two correction Run #313 passed 221/221 against `3be8785d5a250d65430f7c50571d5d0d428a9d36`; Run #315 adds the scrolled trail-list visibility assertion.
 - Stage One: owner-approved. Run #291 verifies the Round 5 Fumble geometry/palette assertions; its actual screenshot was inspected and the meter/countdown are aligned in the usable left field lane with clear separation from the A control.
-- Stage Two: MY TEAM and MY SQUAD are implemented; independent-review findings have been addressed. Run #315 passes 222/222 on the exact code/QA commit, and the updated menu, MY TEAM, MY SQUAD and Stage One regression screenshots have been visually inspected.
+- Stage Two: MY TEAM and MY SQUAD are implemented; independent-review findings and optional polish have been addressed. Run #322 passes 224/224 on the exact code/QA commit. Uniform and trail screenshots were visually inspected. Stage Two owner approval remains pending.
 - Owner approval of Stage Two: **pending**. Independent review feedback: received and addressed. Do not begin Stage Three until the owner approves Stage Two.
 
 ## 1. Read this first in a new chat
@@ -151,8 +151,8 @@ The branch subsequently advanced through commits that adjust tab visibility, ope
 
 ## 8. Immediate next actions
 
-1. **Owner Stage Two review / approval.** The independent review findings supplied on 2026-11-25 have been implemented and verified. Present the updated package and Run #315 evidence for the owner's final review. Do not mark Stage Two approved until the owner explicitly approves it.
-2. **Preserve the tested baseline.** Run #315 tested exact code/QA commit `8aff7da49a4a5bafc255f3fc073783803469377c`; documentation-only commits may advance branch HEAD. Recheck live HEAD and Actions before any further implementation.
+1. **Owner Stage Two review / approval.** The independent review findings supplied on 2026-11-25 have been implemented and verified. Present the updated package and Run #322 evidence for the owner's final review. The optional uniform/trail polish is complete; do not begin Stage Three until explicit approval. Do not mark Stage Two approved until the owner explicitly approves it.
+2. **Preserve the tested baseline.** Run #322 tested exact code/QA commit `3fe58d3778fbee7b310b400dc9d1b9548264ba59`; documentation-only commits may advance branch HEAD. Recheck live HEAD and Actions before any further implementation.
 3. **After Stage Two owner approval only**, begin Stage Three (GOALS & STATS) using Section 4 of the handoff. Map its existing DOM/state and acceptance criteria before changing code.
 4. Keep all changes on `UI-Overhaul`. Do not modify `main`, NPC workstream files, gameplay/save/progression behavior, or golden snapshots without explicit authorization.
 
@@ -164,6 +164,17 @@ The branch subsequently advanced through commits that adjust tab visibility, ope
 - Browser QA: [Run #315](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797), 222/222 passed, zero page/console/same-origin errors. Artifact [14987300342](https://github.com/tinytime/Tinytime.github.io/actions/runs/45534558797/artifacts/14987300342).
 - Actual screenshots inspected: `portrait-menu.png`, `desktop-menu.png`, `narrow-menu-360.png`, `my-team-portrait.png`, `my-team-uniform-portrait.png`, `my-team-trails-portrait.png`, `my-team-trails-bottom-portrait.png`, `my-squad-attributes-portrait.png`, `my-squad-style-gear-portrait.png`, plus Stage One regression captures `overworld-portrait.png`, `match-fumble-pile.png` and `match-defense-simulation.png`.
 - No golden snapshots or provenance changed.
+## Optional Stage Two polish — Run #322 (2026-11-25)
+
+- Exact tested commit: `3fe58d3778fbee7b310b400dc9d1b9548264ba59`.
+- [Run #322](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337) passed **224/224 assertions**, with zero failed assertions, page exceptions, console errors or same-origin HTTP failures.
+- Evidence [Artifact 14986404860](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337/artifacts/14986404860) was downloaded and visually inspected.
+- **MY TEAM > UNIFORM:** repository source confirms jersey/pants cut choices are intentionally non-functional in the current player-art renderer; saved values are preserved but have no rendered effect. Removed the orphaned JERSEY STYLE / PANTS STYLE headings and kept the controls hidden, replacing the empty space with the note: “JERSEY & PANTS CUTS ARE NOT CURRENTLY CUSTOMIZABLE.” Color slots and palette remain visible and functional.
+- **MY TEAM > TRAILS:** replaced the repeated generic unlock sentence with crew-specific labels for all eight locked trails (Glitch Cats, Scrap Kings, Skyline Drifters, Netrunners, Bait Dogs, Longshoremen, Gantry Gang and Closers). Locked trails use a two-column portrait grid; wider layouts switch to three columns. TEAM COLOUR remains a full-width first option.
+- Added browser assertions for intentionally hidden style selectors, the explanatory note, two-column grid and unique crew-specific labels. Screenshots `my-team-uniform-portrait.png`, `my-team-trails-portrait.png` and `my-team-trails-bottom-portrait.png` were opened and visually inspected. The complete trail grid fits the 390×844 portrait capture with SAVE & EQUIP pinned below.
+- Stage Two remains **awaiting explicit owner approval**. These optional polish changes do not approve Stage Two or authorize Stage Three. No golden snapshots or provenance changed.
+
+
 ## 9. Required status language
 
 Always distinguish:

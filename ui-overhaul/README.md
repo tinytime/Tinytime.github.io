@@ -332,3 +332,15 @@ The implementation summary and Stage Two review package are the source of truth 
 - The additional MY TEAM TRAILS check now scrolls the actual tab-content panel to its end and confirms the last locked-trail hint clears the fixed SAVE & EQUIP button. The bottom screenshot was visually inspected.
 - The MY TEAM identity/uniform/trails, MY SQUAD attributes/STYLE & GEAR, portrait/desktop/360px menu and Stage One regression screenshots remain visually inspected.
 - Stage Two is awaiting explicit owner approval; Stage Three remains gated. No golden snapshots or provenance changed.
+
+
+## Optional Stage Two polish — Run #322 (2026-11-25)
+
+- Exact tested commit: `3fe58d3778fbee7b310b400dc9d1b9548264ba59`.
+- [Run #322](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337) passed **224/224 assertions**, with zero failed assertions, page exceptions, console errors or same-origin HTTP failures.
+- Evidence [Artifact 14986404860](https://github.com/tinytime/Tinytime.github.io/actions/runs/45536484337/artifacts/14986404860) was downloaded and visually inspected.
+- **MY TEAM > UNIFORM:** repository source confirms jersey/pants cut choices are intentionally non-functional in the current player-art renderer; saved values are preserved but have no rendered effect. Removed the orphaned JERSEY STYLE / PANTS STYLE headings and kept the controls hidden, replacing the empty space with the note: “JERSEY & PANTS CUTS ARE NOT CURRENTLY CUSTOMIZABLE.” Color slots and palette remain visible and functional.
+- **MY TEAM > TRAILS:** replaced the repeated generic unlock sentence with crew-specific labels for all eight locked trails (Glitch Cats, Scrap Kings, Skyline Drifters, Netrunners, Bait Dogs, Longshoremen, Gantry Gang and Closers). Locked trails use a two-column portrait grid; wider layouts switch to three columns. TEAM COLOUR remains a full-width first option.
+- Added browser assertions for intentionally hidden style selectors, the explanatory note, two-column grid and unique crew-specific labels. Screenshots `my-team-uniform-portrait.png`, `my-team-trails-portrait.png` and `my-team-trails-bottom-portrait.png` were opened and visually inspected. The complete trail grid fits the 390×844 portrait capture with SAVE & EQUIP pinned below.
+- Stage Two remains **awaiting explicit owner approval**. These optional polish changes do not approve Stage Two or authorize Stage Three. No golden snapshots or provenance changed.
+
