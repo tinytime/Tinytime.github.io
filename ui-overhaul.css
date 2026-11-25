@@ -2594,3 +2594,7 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
  display:none!important;
 }
 #owTop[hidden],#owMenu[hidden],#owA[hidden]{display:none!important}
+
+
+/* Pre-game Settings must suppress progression callouts even when component CSS overrides the native [hidden] display rule. */
+[data-ui-pre-game-hidden="1"]{display:none!important}
