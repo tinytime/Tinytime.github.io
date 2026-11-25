@@ -1181,6 +1181,9 @@ function palette(box,cur,fn,ok){box.innerHTML='';PAL.forEach(c=>{const lk=ok&&!o
 function slotButtons(box,defs,obj,sel,fn){box.innerHTML='';defs.forEach(([k,n])=>{const b=document.createElement('button');b.className='slot'+(k===sel?' on':'');b.innerHTML='<i style="background:'+obj[k]+'"></i>'+n;b.onclick=()=>fn(k);box.appendChild(b)})}
 function renderTeam(){
   const u=SAVE.uni;
+  // Keep team identity controls paired as one save-backed editor group.
+  let identity=$('#team .ui-team-identity');
+  if(!identity){const labels=[...document.querySelectorAll('#team > .lbl')],nameLabel=labels.find(e=>e.textContent.trim()==='TEAM NAME'),logoLabel=labels.find(e=>e.textContent.trim()==='TEAM LOGO'),nameInput=$('#tName'),logoRow=$('#tLogoBtn')?.closest('.lprev');if(nameLabel&&logoLabel&&nameInput&&logoRow){identity=document.createElement('section');identity.className='ui-team-identity';nameLabel.before(identity);nameLabel.dataset.uiRole='team-name-label';logoLabel.dataset.uiRole='team-logo-label';identity.append(nameLabel,nameInput,logoLabel,logoRow)}}
   $('#tName').value=SAVE.teamName;
   chips($('#tJersey'),JERSEY_NAMES,u.j,i=>{u.j=i;persist();renderTeam()},unlJ);
   chips($('#tPants'),PANTS_NAMES,u.p,i=>{u.p=i;persist();renderTeam()},unlP);
