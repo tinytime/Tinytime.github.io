@@ -1434,3 +1434,12 @@ The owner explicitly approved Stage Three (GOALS & STATS) and authorized proceed
 - Run #344 (`45551278842`) is executing against exact commit `d697196db1d6a4addb111377a10c0fad5534096c`. Browser/Chromium installation passed; the browser QA step was still in progress at this documentation update. Artifact and final assertion count are pending.
 - Stage Four remains **in progress and not owner-approved**. After Run #344 completes: verify its tested SHA and all assertions; retrieve and inspect the new artifact/screenshots; if the favorite interaction passes, verify the full matchup → playbook → pre-snap flow and inspect the refreshed images before preparing the Stage Four owner-review package. If it fails, use the new diagnostics and correct the actual interaction or test geometry without weakening the behavior check.
 - Preserve gameplay/save/progression behavior, `main`, NPC files, and all golden snapshots/provenance.
+
+
+## Run #344 result and Run #345 diagnostics — 2026-11-25
+
+- Run #344 (`45551278842`) completed **FAILED** against `d697196db1d6a4addb111377a10c0fad5534096c`. It confirmed that the favorite center is not the topmost pointer target after `scrollIntoViewIfNeeded()`: the measured favorite rectangle was `x=266.19, y=113, 28×24`, while `document.elementFromPoint(280.19,125)` returned the enclosing `.card`. The test stopped before sending the mouse click. This is an actual post-scroll hit-target defect; no bypass is acceptable.
+- Run #344 artifact: `14994580319`. Its `match-pre-game.png` and `match-playbook-overlay.png` retain the clean visual presentation seen in Run #343. Runtime snap diagnostics show no missing assets; page errors, console errors and same-origin failures are all empty.
+- QA diagnostics were expanded in commit `9c7fb0ec44d51168ab4229c9a9875b601e9bf384`: after scrolling, the harness now records element connection/current-node identity, the full hit-test stack, card/header/cards/sheet rectangles, relevant computed stacking/overflow/pointer styles, page scroll position, and a screenshot `favorite-hit-test-after-scroll.png` if the target is covered.
+- Run #345 (`45551752624`) is in progress against exact commit `9c7fb0ec44d51168ab4229c9a9875b601e9bf384`. Browser/Chromium installation passed; the full browser QA step is still running. Retrieve its log/artifact before choosing the actual CSS/DOM correction.
+- Stage Four remains in progress and is not owner-approved. Preserve the real favorite toggle and selected-play independence checks, existing gameplay behavior, and golden snapshots.
