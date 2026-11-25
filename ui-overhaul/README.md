@@ -287,3 +287,13 @@ Stage Two follow-up: MY TEAM's name/logo are paired in a responsive identity car
 
 
 Stage Two QA Run #275 is in progress against `a217742d20b36e626d9b43a327df1fcebe786606`; Playwright/Chromium installation is underway. No browser result or artifact is available yet. [Monitor Run #275](https://github.com/tinytime/Tinytime.github.io/actions/runs/45517810094).
+
+
+## Stage Two visual QA follow-up — 2026-11-25
+
+Run #291 passed 212/212 automated assertions on code commit `381363ff1caae36c080b7a9f3cf73af6f4a77046`, but internal inspection of artifact [14981780185](https://github.com/tinytime/Tinytime.github.io/actions/runs/45522385402/artifacts/14981780185) found that the MY TEAM and MY SQUAD CSS was not reaching the live screens. The screens are siblings of `#app`, while the Stage Two selectors incorrectly required them to be descendants. The screenshots therefore retained legacy colors, MY TEAM's tabs were undersized, SAVE & EQUIP was not bottom-pinned, and PTS/CAP appeared compressed.
+
+- CSS root-selector correction: `71e1a20af05483d45ea832d0193e68d9f557b1fc` (116 Stage Two selectors corrected).
+- QA hardening: `2cd3b457eca4b36481298a3d6dfab79e95fa0573` (adds computed-style and fixed-action assertions).
+- Run #291 remains pre-correction evidence. The post-fix push-triggered workflow result and refreshed screenshots are not yet retrievable through the connected Actions lookup; no pass is claimed.
+- Stage Two remains in progress. Do not send the package for independent review or request owner approval until the fresh run passes and the corrected screenshots are inspected. No golden snapshots or provenance were changed.
