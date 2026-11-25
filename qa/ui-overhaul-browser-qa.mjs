@@ -221,6 +221,8 @@ try{
  await firstAchievement.evaluate(el=>el.classList.remove('is-earned'));
  await page.waitForFunction(()=>document.querySelector('#goalsP .ui-goals-trophy-count')?.textContent==='0/13',null,{timeout:5000});
 
+ const truckAchievementCopy=await page.locator('#ui-goals-panel-achievements').evaluate(el=>el.innerText);
+ check('Truck achievement uses “Perform 25 trucks” action wording',/Perform 25 trucks/i.test(truckAchievementCopy)&&!/Win 25 trucks/i.test(truckAchievementCopy),truckAchievementCopy.match(/.{0,35}(?:Perform|Win) 25 trucks.{0,35}/i)?.[0]||truckAchievementCopy.slice(0,600));
  await page.screenshot({path:path.join(out,'goals-stats-achievements.png')});
  const achievementBottom=await page.locator('#goalsP').evaluate(el=>{const content=el.querySelector('.ui-goals-content');content.scrollTop=content.scrollHeight;const last=el.querySelector('#ui-goals-panel-achievements .ui-goals-achievement:last-child').getBoundingClientRect(),close=el.querySelector('.ui-goals-close').getBoundingClientRect();return{gap:close.top-last.bottom,scrollTop:content.scrollTop,contentBottom:content.getBoundingClientRect().bottom,closeTop:close.top}});
  check('Pinned CLOSE footer clears the final achievement card after scrolling',achievementBottom.gap>=8,achievementBottom);
@@ -436,6 +438,16 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   const originalPlaybookTab=await page.locator('#pbTabs .pbTab.on').getAttribute('data-t');
   await page.locator('#pbTabs .pbTab[data-t="ALL"]').click();
   await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
+  const playbookPageState=await page.evaluate(()=>{const cards=document.querySelector('#cards'),wraps=[...cards.querySelectorAll(':scope > .cardWrap')],footer=document.querySelector('#sheet .ui-playbook-footer'),pager=footer?.querySelector('.ui-playbook-page'),actions=footer?.querySelector('.ui-playbook-actions');return{visible:wraps.filter(w=>getComputedStyle(w).display!=='none').length,total:wraps.length,columns:getComputedStyle(cards).gridTemplateColumns.split(' ').length,rows:getComputedStyle(cards).gridTemplateRows.split(' ').length,flipInActions:!!actions?.contains(document.querySelector('#flipBtn')),callInActions:!!actions?.contains(document.querySelector('#callBtn')),label:pager?.querySelector('span')?.textContent||'',nextDisabled:pager?.querySelector('button:last-child')?.disabled}});
+  check('In-match Playbook presents a maximum of six plays in a three-column, two-row page',playbookPageState.visible<=6&&playbookPageState.visible>0&&playbookPageState.columns===3&&playbookPageState.rows===2,playbookPageState);
+  check('FLIP sits in the bottom action row beside CALL PLAY',playbookPageState.flipInActions&&playbookPageState.callInActions,playbookPageState);
+  check('Playbook page indicator and next-page control are available when more than six plays exist',playbookPageState.total>6&&/^1 \/ \d+ · \d+ PLAYS$/.test(playbookPageState.label)&&!playbookPageState.nextDisabled,playbookPageState);
+  await page.locator('#sheet .ui-playbook-page button:last-child').click();
+  const secondPage=await page.locator('#cards>.cardWrap').evaluateAll(es=>({visible:es.filter(e=>getComputedStyle(e).display!=='none').length,hidden:es.filter(e=>e.dataset.uiPageHidden==='1').length,label:document.querySelector('.ui-playbook-page span')?.textContent||''}));
+  check('Playbook next page reveals the next six plays without changing category',secondPage.visible<=6&&secondPage.visible>0&&/^2 \/ /.test(secondPage.label),secondPage);
+  await page.locator('#sheet .ui-playbook-page button:first-child').click();
+  const playbookPaletteNew=await page.locator('#pbTabs .pbTab.on').evaluate(el=>({background:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color,border:getComputedStyle(el).borderTopColor}));
+  check('Playbook active category uses current cyan/navy palette',playbookPaletteNew.background==='rgba(77, 225, 242, 0.12)'&&playbookPaletteNew.color==='rgb(77, 225, 242)'&&playbookPaletteNew.border==='rgb(77, 225, 242)',playbookPaletteNew);
   const favLocator=page.locator('#cards .cardWrap').first().locator(':scope > .fav');
   const clickFavoriteAtVerifiedCenter=async()=>{
     await favLocator.scrollIntoViewIfNeeded();
@@ -540,6 +552,8 @@ await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage
    await page.waitForFunction(()=>/^[0-9]+[.][0-9]s$/.test((document.querySelector('#pileT')?.textContent||'').trim()),null,{timeout:5000});
    const pileTimer=await page.locator('#pileT').evaluate(el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect(),bar=document.querySelector('#pileBar').getBoundingClientRect();return{text:el.textContent.trim(),background:s.backgroundColor,color:s.color,border:s.borderTopWidth,borderColor:s.borderTopColor,radius:s.borderTopLeftRadius,height:r.height,display:s.display,top:r.top,bottom:r.bottom,barBottom:bar.bottom,centerX:r.left+r.width/2,barCenterX:bar.left+bar.width/2}});
    check('Fumble countdown uses the gold-edged navy seconds pill directly beneath and centered on the contest bar',/^[0-9]+[.][0-9]s$/.test(pileTimer.text)&&pileTimer.background==='rgba(19, 22, 32, 0.98)'&&pileTimer.color==='rgb(245, 184, 65)'&&pileTimer.borderColor==='rgba(245, 184, 65, 0.82)'&&parseFloat(pileTimer.border)>=1&&pileTimer.radius==='999px'&&pileTimer.height>=22&&pileTimer.top>=pileTimer.barBottom+6&&pileTimer.top<=pileTimer.barBottom+36&&Math.abs(pileTimer.centerX-pileTimer.barCenterX)<=4,pileTimer);
+   const fumbleHeading=await page.locator('#pile .ui-pile-heading').evaluate(el=>{const r=el.getBoundingClientRect(),bar=document.querySelector('#pileBar').getBoundingClientRect();return{text:el.textContent.trim(),center:r.left+r.width/2,barCenter:bar.left+bar.width/2,gap:bar.top-r.bottom}});
+   check('FUMBLE label sits centered immediately above the contest bar',fumbleHeading.text==='FUMBLE'&&Math.abs(fumbleHeading.center-fumbleHeading.barCenter)<=3&&fumbleHeading.gap>=2&&fumbleHeading.gap<=16,fumbleHeading);
    await page.screenshot({path:path.join(out,'match-fumble-pile.png'),fullPage:true});
    await page.evaluate(()=>{const pile=document.querySelector('#pile');if(pile)pile.hidden=true});
    const defenseReady=await page.evaluate(()=>window.SG.__uiqa.defense());
