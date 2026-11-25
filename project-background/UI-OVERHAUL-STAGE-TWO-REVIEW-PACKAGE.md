@@ -119,17 +119,12 @@ No golden snapshots or snapshot provenance were changed.
 - **Approval gate remains open:** this package is ready for final internal reconciliation and independent Claude review, not owner approval yet. Claude review and explicit owner approval remain pending. No golden snapshots or provenance were changed.
 
 
-## Latest verification — Run #313 (2026-11-25)
+## Historical verification — Run #313 (2026-11-25)
 
 - Exact tested commit: `3be8785d5a250d65430f7c50571d5d0d428a9d36`.
-- [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570): **222/222 passed**, zero failures, zero page exceptions, zero console errors and zero same-origin failures.
-- Evidence [Artifact 14985344956](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570/artifacts/14985344956) was downloaded and inspected.
-- Screenshots inspected: `portrait-menu.png`, `desktop-menu.png`, `narrow-menu-360.png`, `my-team-portrait.png`, `my-squad-attributes-portrait.png`, `my-squad-style-gear-portrait.png`, `overworld-portrait.png`, `match-fumble-pile.png`, and `match-defense-simulation.png`.
-- MY TEAM header and logo layout are clear; UPG reads the live count; SAVE & EQUIP remains bottom-pinned.
-- MY SQUAD cost units are legible; VISOR and ARM SLEEVES are directly below JERSEY NUMBER in the parent STYLE & GEAR view; the roster strip remains pinned.
-- The menu uses four tiles in two rows. At 360px portrait, DATA & SUPPORT and BACK TO TOWN remain visible without clipping.
-- The Fumble meter remains separated from the A control; defense simulation retains the corrected possession pill without the stale field banner.
-- Independent review findings have been addressed. **Stage Two owner approval remains pending.** Do not begin Stage Three until explicit approval. No golden snapshots or provenance were changed.
+- [Run #313](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570): **221/221 passed**, zero failures, zero page exceptions, zero console errors and zero same-origin failures.
+- Evidence [Artifact 14985344956](https://github.com/tinytime/Tinytime.github.io/actions/runs/45533380570/artifacts/14985344956) was downloaded and inspected. Run #315 is the latest verification and adds the trail-scroll-end check.
+- The MY TEAM header and logo layout, MY SQUAD inline gear and upgrade cost labels, compact menu, and Stage One regression states were verified again in Run #315.
 
 
 
