@@ -2438,3 +2438,11 @@ body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!imp
 #pileSub b{display:inline!important;min-width:0!important;height:auto!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#4DE1F2!important;font:inherit!important;vertical-align:baseline!important}
 /* Keep the YDS unit subordinate even when the receiving-yard number is promoted. */
 #goalsP .ui-goals-stat-card.is-receiving .ui-goals-stat-sub .ui-goals-yards-unit{color:#F5B841!important;font:900 10px/1 var(--ui-mono,monospace)!important;letter-spacing:.06em!important}
+
+/* Fumble countdown alignment: share the contest bar's true viewport center.
+   Keep the timer centered beneath the bar at every responsive breakpoint. */
+#app #pileT:not(:empty){
+  left:50%!important;right:auto!important;
+  top:calc(46% + 48px)!important;bottom:auto!important;
+  transform:translateX(-50%)!important;
+}
