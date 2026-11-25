@@ -219,8 +219,15 @@ try{
  check('GOALS & STATS starts on CHALLENGES',await page.locator('#ui-goals-tab-challenges').getAttribute('aria-selected')==='true'&&await page.locator('#ui-goals-panel-challenges').isVisible());
  const trophyBadge=await page.locator('#goalsP .ui-goals-trophy').evaluate(el=>({count:el.querySelector('.ui-goals-trophy-count')?.textContent||'',width:el.getBoundingClientRect().width}));
  check('Goals header includes the live trophy progress badge',trophyBadge.count==='0/13'&&trophyBadge.width>=50,trophyBadge);
- const goalsTabRail=await page.locator('#goalsP .ui-goals-tabs').evaluate(el=>({radius:getComputedStyle(el).borderRadius,border:getComputedStyle(el).borderTopWidth}));
- check('Goals tabs use one segmented rounded rail',goalsTabRail.radius==='999px'&&parseFloat(goalsTabRail.border)>=1,goalsTabRail);
+ const goalsTabRail=await page.locator('#goalsP .ui-goals-tabs').evaluate(el=>({border:getComputedStyle(el).borderTopWidth,padding:getComputedStyle(el).padding}));
+ check('Goals tabs avoid a second outer rail outline',parseFloat(goalsTabRail.border)===0&&parseFloat(goalsTabRail.padding)===0,goalsTabRail);
+ for(const [id,label] of [['challenges','CHALLENGES'],['achievements','ACHIEVEMENTS'],['stats','TEAM STATS']]){
+   const tab=page.locator('#ui-goals-tab-'+id);
+   await tab.click();
+   const style=await tab.evaluate(el=>({selected:el.getAttribute('aria-selected'),border:getComputedStyle(el).borderTopWidth,borderColor:getComputedStyle(el).borderTopColor,color:getComputedStyle(el).color,shadow:getComputedStyle(el).boxShadow}));
+   check(label+' tab uses one cyan outline without a yellow ring',style.selected==='true'&&parseFloat(style.border)===1&&style.borderColor==='rgb(77, 225, 242)'&&style.color==='rgb(77, 225, 242)'&&style.shadow==='none',style);
+ }
+ await page.locator('#ui-goals-tab-challenges').click();
  const challengeFrame=await page.locator('#ui-goals-panel-challenges .ui-goals-challenge').first().evaluate(el=>({border:getComputedStyle(el).borderTopWidth,color:getComputedStyle(el).borderTopColor,shadow:getComputedStyle(el).boxShadow}));
  check('Challenge cards use one restrained cyan border without a competing inset shadow',parseFloat(challengeFrame.border)===1&&challengeFrame.color==='rgba(77, 225, 242, 0.82)'&&challengeFrame.shadow==='none',challengeFrame);
 
