@@ -1,6 +1,4 @@
-# Project background index
-
-**Live checkpoint (2026-11-25):** Stage One, Stage Two and Stage Three are owner-approved; Stage Four remains in progress. The seven prior cross-stage corrections passed Run #365 (249/249). The owner has now requested a second focused polish batch: fumble label placement, a six-play paginated in-match Playbook with FLIP beside CALL PLAY and updated palette, removal of the duplicate scoreboard star meter, and “Perform 25 trucks” achievement wording. These changes are implemented on `UI-Overhaul`; fresh browser QA and screenshot inspection are pending. The pre-game matchup redesign is explicitly deferred until this polish batch is complete and reviewed. See [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for commits and evidence.
+**Live checkpoint (2026-11-25):** Stages One–Three are owner-approved. The second Stage Four polish batch passed Run #397 (259/259) on `f26e48986376c03ab07cb286c176660c8ff8eb65`; screenshots for the Playbook, post-FLIP, fumble, defense and achievements were visually inspected. The Playbook favorite QA baseline correction is included in that tested commit. Stage Four remains in progress and awaits the owner's review/approval. The pre-game matchup redesign remains explicitly deferred. See [UI Overhaul Implementation Summary](UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) for exact evidence and the next gate.
 
 ## Circuit Football RPG — UI Overhaul
 
