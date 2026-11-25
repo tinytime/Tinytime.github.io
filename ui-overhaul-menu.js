@@ -92,7 +92,7 @@
    const header=document.createElement('header');header.className='ui-team-head';
    const back=document.createElement('button');back.type='button';back.className='ui-team-back';back.textContent='← BACK';back.setAttribute('aria-label','Back to menu without using SAVE & EQUIP');
    const badge=document.createElement('span');badge.className='ui-team-upg';badge.setAttribute('role','status');
-   const sync=()=>{const source=byId('owObj'),raw=source&&source.textContent||'',match=raw.match(/UPG\\s+(\\d+)/i);badge.textContent='UPG '+(match?match[1]:'0')};
+   const sync=()=>{const source=byId('owObj'),raw=source&&source.textContent||'',match=raw.match(/UPG\s+(\d+)/i);badge.textContent='UPG '+(match?match[1]:'0')};
    back.addEventListener('click',()=>byId('tBack')?.click());
    header.append(back,heading,badge);team.insertBefore(header,team.firstChild);sync();
    if(window.MutationObserver){const source=byId('owObj');if(source)new MutationObserver(sync).observe(source,{childList:true,subtree:true,characterData:true})}
