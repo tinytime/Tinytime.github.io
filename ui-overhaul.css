@@ -2641,6 +2641,8 @@ body.ach-toast-active #app #dcall{
 #goalsP .ui-goals-state{font-size:9px}
 #goalsP .ui-goals-achievement-count{font-size:10px}
 #tkPlay{border:1px solid rgba(77,225,242,.5)!important;background:rgba(19,22,32,.97)!important}
+/* D12: keep the simulated-snap ticker fully opaque and high-contrast over the field art. */
+#tkPlay{opacity:1!important;color:#f5f7fa!important;background:#131620!important;text-shadow:none!important;filter:none!important}
 #rotMsg{background:radial-gradient(120% 90% at 50% 15%,rgba(77,225,242,.12),transparent 60%),linear-gradient(180deg,#131620,#0c111b)!important;color:#f5f7fa!important}
 #rotMsg button{border:1px solid #f5b841!important;border-radius:999px!important;background:#131620!important;color:#f5b841!important}
 #mu .bot .tap{background:#131620!important;border-color:#f5b841!important;color:#f5b841!important;box-shadow:0 4px 0 #76551d!important}
