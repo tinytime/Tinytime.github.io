@@ -269,3 +269,10 @@ The implementation summary remains the source of truth for current status and ap
 - Claude independent review and owner approval remain pending. Do not start Stage Two before approval.
 
 See [the implementation summary](../project-background/UI-OVERHAUL-IMPLEMENTATION-SUMMARY.md) and [Claude review package](../project-background/UI-OVERHAUL-CLAUDE-REVIEW-PACKAGE.md) for the complete evidence and next step.
+
+
+### Round 5 — Fumble QA follow-up (2026-11-24)
+
+Run #260 failed three Fumble assertions on `01e96cdc2f2398d42d23b81981bd4999062520b4`: the viewport-centered bar overlapped the A mash button, the timer was offset from the bar, and the fill-gradient assertion inspected the wrong computed CSS property. The workflow uploaded artifact `14977317527`; no page/console/HTTP errors were reported.
+
+The branch now positions the meter in the usable left field lane (40vw center, 55vw width) to clear the right-side A mash control and aligns the timer to it. The QA harness now checks the actual cyan-to-gold backgroundImage gradient and the timer's real navy/gold colors. QA commit `d8730820367ce5914051180a1200bfbbf8f1ca8e`; fresh browser verification and screenshot inspection remain pending. Stage Two is still held; no golden snapshots were changed.
