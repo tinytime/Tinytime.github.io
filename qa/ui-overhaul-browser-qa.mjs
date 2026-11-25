@@ -482,10 +482,10 @@ const matchupTeamLabels=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=
   const sheetTop=await page.locator('#sheet').evaluate(el=>el.getBoundingClientRect().top);check('In-match Playbook sheet clears scoreboard lower edge',sheetTop>=66,sheetTop);
   const playbookLayout=await page.locator('#cards').evaluate(el=>({columns:getComputedStyle(el).gridTemplateColumns.split(' ').length,cards:[...el.querySelectorAll('.card')].map(card=>{const title=card.querySelector('b');return{text:title?.innerText.trim()||'',fontSize:title?getComputedStyle(title).fontSize:null,scroll:title?.scrollWidth||0,client:title?.clientWidth||0,width:title?.getBoundingClientRect().width||0}})}));
   check('In-match Playbook uses exactly three cards per row, six per page, and every title fits',playbookLayout.columns===3&&playbookLayout.cards.length===6&&playbookLayout.cards.every(card=>card.scroll<=card.client+1&&card.width>0),playbookLayout);
-  const diagramStyle=await page.locator('#cards .card canvas').first().evaluate(el=>({filter:getComputedStyle(el).filter,background:getComputedStyle(el).backgroundColor,card:getComputedStyle(el.closest('.card')).backgroundColor}));
-  check('In-match route diagrams use neutral monochrome art and no brown/gold card fill',diagramStyle.filter.includes('grayscale(1)')&&diagramStyle.background==='rgb(13, 20, 32)'&&diagramStyle.card==='rgb(28, 33, 48)',diagramStyle);
-  const diagramSize=await page.locator('#cards .card canvas').first().evaluate(el=>{const r=el.getBoundingClientRect();return{width:r.width,height:r.height}});
-  check('Six-play layout gives each route diagram enough space to read',diagramSize.width>=100&&diagramSize.height>=60,diagramSize);
+  const diagramStyle=await page.locator('#cards .card canvas').first().evaluate(el=>({filter:getComputedStyle(el).filter,background:getComputedStyle(el).backgroundColor,card:getComputedStyle(el.closest('.card')).backgroundColor,cardImage:getComputedStyle(el.closest('.card')).backgroundImage}));
+  check('In-match route diagrams use neutral monochrome art and no brown/gold card fill',diagramStyle.filter.includes('grayscale(1)')&&diagramStyle.background==='rgb(13, 20, 32)'&&diagramStyle.card==='rgb(28, 33, 48)'&&diagramStyle.cardImage==='none',diagramStyle);
+  const diagramSize=await page.locator('#cards .card canvas').first().evaluate(el=>{const r=el.getBoundingClientRect();return{width:r.width,height:r.height,display:getComputedStyle(el).display}});
+  check('Six-play layout gives each route diagram enough space to read',diagramSize.width>=100&&diagramSize.height>=60&&diagramSize.display==='block',diagramSize);
 
 await page.screenshot({path:path.join(out,'match-playbook-overlay.png'),fullPage:true});
   check('FIRST TO remains visible in the in-game playbook overlay',await page.locator('#tgtTag').isVisible());
