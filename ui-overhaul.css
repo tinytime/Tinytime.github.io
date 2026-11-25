@@ -2865,3 +2865,39 @@ body #menu .ui-menu-build-trigger::after{
   color:#FFE3A0!important;
   box-shadow:inset 0 0 0 1px rgba(245,184,65,.2),0 0 12px rgba(245,184,65,.12)!important;
 }
+
+
+/* Run #469 D4 fix: make the title header occupy the full card width.
+   The previous flex header shrink-wrapped its text, leaving the long play names
+   clipped even though the favourite control was positioned independently. */
+#app #sheet #cards>.cardWrap>.card b{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  flex:0 0 auto!important;
+  padding:0 27px 0 1px!important;
+  font-size:9px!important;
+  line-height:1.15!important;
+  letter-spacing:-.035em!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:clip!important;
+}
+#app #sheet #cards>.cardWrap>.card b span{
+  display:block!important;
+  box-sizing:border-box!important;
+  flex:1 1 auto!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  font-size:9px!important;
+  line-height:1.15!important;
+  letter-spacing:-.035em!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
