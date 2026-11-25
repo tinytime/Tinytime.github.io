@@ -1583,3 +1583,17 @@ Implementation and QA history:
 - No golden snapshots were changed. Run #397 tests the application plus QA correction commit above. Documentation updates are subsequent and do not alter the tested code.
 
 **Status:** the second owner polish batch is implemented, browser-QA passing, and internally visually inspected. It is **not owner-approved** and has not received the independent Claude review. Stage Four remains in progress. Prepare the complete owner review package next; do not start the deferred pre-game matchup redesign until the owner explicitly authorizes it.
+
+
+## Owner-supplied title artwork integration — QA run 409
+
+- Replaced the provisional inline SVG title composition with the owner-supplied artwork already present in `Assets/Firefly - Review nfl field markings and make sure numbers are only along the sides and lines go.png`.
+- Removed the duplicate text branding from the title overlay. The image itself supplies the complete title composition, including the two visible actions and version label.
+- Added separate transparent, keyboard-focusable button hit areas over BEAT THE CIRCUIT and SETTINGS. The existing title-start and settings navigation behavior remains intact.
+- The portrait artwork is displayed in a centered 9:16 frame; the hit areas are positioned relative to that same frame.
+- Browser QA run **#409** passed on commit `58bfb842bd7479a9cd5bf4b7c6e4fc904419ae10`: **263/263 assertions passed**, zero failed assertions, no uncaught page exceptions, and no same-origin HTTP errors.
+- The run explicitly verified that the title is the initial blocking screen, SETTINGS opens the existing UI-Overhaul Settings tab, Back returns to the title, and BEAT THE CIRCUIT dismisses the title gate and enters the game.
+- Retrieved and visually inspected `title-screen-portrait.png` and `title-settings-portrait.png` from the run artifact. The original artwork is visible in the title capture, and the Settings page opens correctly.
+- QA artifact: `ui-overhaul-browser-qa` (run #409, artifact ID `15054061311`).
+- Code commit: `58bfb842bd7479a9cd5bf4b7c6e4fc904419ae10`.
+- Remaining approval: owner visual approval of the integrated title artwork and its crop/framing on the target devices. Automated QA and screenshot inspection do not substitute for owner approval.
