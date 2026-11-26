@@ -3176,3 +3176,57 @@ body #menu .ui-menu-build-trigger::after{
 
 /* Keep the defensive play-by-play surface at its tested minimum height. */
 #tkPlay{min-height:36px!important;box-sizing:border-box}
+
+
+/* Pre-game hierarchy reset: finish the team identity cards first; keep KayKit
+   previews as a quieter field-side layer. The arena, route art, team tints and
+   diagonal divider are intentionally untouched. */
+@media (orientation:landscape){
+  body #mu:not([hidden]) .mid{padding-bottom:100px!important}
+  body #mu:not([hidden]) .pn{
+    width:min(100%,230px)!important;
+    height:clamp(170px,29vh,188px)!important;
+    min-height:170px!important;
+    max-height:188px!important;
+    padding:5px 8px 8px!important;
+    gap:3px!important;
+    border-radius:20px!important;
+  }
+  body #mu:not([hidden]) .pn .lg{
+    width:clamp(116px,19vh,132px)!important;
+    height:clamp(116px,19vh,132px)!important;
+    max-width:100%!important;
+    max-height:none!important;
+    margin:0 auto 2px!important;
+    padding:0!important;
+  }
+  body #mu:not([hidden]) .pn .lg svg{
+    width:112%!important;height:112%!important;max-width:none!important;max-height:none!important;
+  }
+  body #mu:not([hidden]) .pn .nm{
+    font-size:clamp(17px,2.8vh,21px)!important;
+    line-height:1.05!important;
+    margin-top:auto!important;
+  }
+  body #mu:not([hidden]) .pn .ov{
+    font-size:12px!important;
+    padding:4px 10px!important;
+  }
+  /* The player stages retain their original order and animations, but render
+     as supporting field-side artwork rather than competing with team identity. */
+  body #mu:not([hidden]) .mu-player-slot{
+    transform:translateY(22px) scale(.68)!important;
+    transform-origin:center top!important;
+  }
+}
+@media (max-height:430px) and (orientation:landscape){
+  body #mu:not([hidden]) .mid{padding-top:7px!important;padding-bottom:100px!important}
+  body #mu:not([hidden]) .pn{
+    width:min(100%,230px)!important;
+    height:170px!important;min-height:170px!important;max-height:170px!important;
+  }
+  body #mu:not([hidden]) .pn .lg{width:116px!important;height:116px!important}
+  body #mu:not([hidden]) .mu-player-slot{
+    transform:translateY(18px) scale(.88)!important;
+  }
+}
