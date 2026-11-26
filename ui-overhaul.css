@@ -4489,6 +4489,51 @@ body #steal.screen {
   background-image: none !important;
 }
 
+
+/* Ensure #end (losses & wins) + #fourth .row>button.go match the exact palette & font rules */
+body #end.screen {
+  background: #131620 !important;
+  background-image: none !important;
+}
+body #end.screen #endH {
+  font-family: "Barlow", system-ui, sans-serif !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  text-shadow: none !important;
+}
+body #end.screen #endScore {
+  font-family: "Barlow", system-ui, sans-serif !important;
+  font-weight: 900 !important;
+  color: #F5F7FA !important;
+  text-shadow: none !important;
+}
+body #end.screen #endNote {
+  font-family: "Barlow Condensed", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  color: #9BA8BC !important;
+}
+body #steal.screen #stTitle,
+body #steal.screen #stScore {
+  font-family: "Barlow", system-ui, sans-serif !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+}
+body #app #fourth .row > button {
+  background: #1C2130 !important;
+  border: 1.5px solid rgba(77, 225, 242, 0.55) !important;
+  border-radius: 10px !important;
+  color: #F5F7FA !important;
+  font-family: "Barlow Condensed", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+}
+body #app #fourth .row > button.go {
+  background: #4DE1F2 !important;
+  border-color: #4DE1F2 !important;
+  color: #131620 !important;
+  font-family: "Barlow", system-ui, sans-serif !important;
+  font-weight: 900 !important;
+}
+
 /* ==========================================================================
    Pre-Game Matchup Screen (#mu) & On-Screen Playbook Footer Fixes
    ========================================================================== */
