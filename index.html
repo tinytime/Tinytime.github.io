@@ -5547,7 +5547,7 @@ const P3D=(()=>{
           tr.push(new T.VectorKeyframeTrack(nm+(p==='t'?'.position':'.scale'),tm,v))}}
       out[c.name]=new T.AnimationClip(c.name,Math.max(c.dur,1/h.fps),tr)}
     return KCL[key]=out}
-  const KK_MATCH={body:'mannequin_medium',packs:[['medium_general',['Idle_A','Idle_B']],['medium_movementbasic',['Running_A','Running_B','Walking_A']]]};   // the clips the match uses today (Build 2 adds more)
+  const KK_MATCH={body:'mannequin_medium',packs:[['medium_general',['Idle_A','Idle_B']],['medium_movementbasic',['Running_A','Running_B','Walking_A']],['medium_simulation',['Cheering','Push_Ups']]]};   // pre-game previews use real KayKit cheer and push-up clips
   function kkLoad(){
     const D=kkBodyData(KK_MATCH.body),H0=D.h,nv=D.nv,nb=D.nb,pos=D.pos,nor=D.nor,ji=D.ji,jw=D.jw,sl=D.sl,ibm=D.ibm;if(!sl||!D.face)throw new Error('match body has no colour slots');
     const skI=new Uint16Array(nv*4),skW=new Float32Array(nv*4),slot=new Float32Array(nv),uvN=new Float32Array(nv*2),num=new Float32Array(nv*3);
@@ -10696,7 +10696,7 @@ function showMatchup(crew,done){const d=muEl(),th=TOWN_THEMES[crew.town]||TOWN_F
   clearInterval(MU.tm);MU.tm=setInterval(()=>{const el=performance.now()-MU.t0,pr=muCoreProgress();d.querySelector('.bar i').style.width=Math.round(100*Math.min(1,Math.min(1,el/2000)*.4+.6*(pr.n?pr.r/pr.n:1)))+'%';
     if(!MU.ready&&el>=2000&&pr.ok){MU.ready=true}else if(!MU.ready&&el>=8000){MU.ready=true;MU.capped=true;ART.introCap=(ART.introCap||0)+1;try{console.log('matchup intro: 8 s cap reached with',pr.r+'/'+pr.n,'core sets baked')}catch(e){}}
     if(MU.ready){clearInterval(MU.tm);ART.introMs=Math.round(el);tmark('introReady',Math.round(el)+'ms'+(MU.capped?' CAPPED':''));ART.introLast={ms:Math.round(el),capped:MU.capped,r:pr.r,n:pr.n};const t=d.querySelector('.tap');t.textContent='TAP TO PLAY';t.classList.add('go');clearTimeout(MU.auto);MU.auto=0;   /* Keep the matchup on screen until the player explicitly taps TAP TO PLAY. */d.querySelector('.bar i').style.width='100%'}},100)}
-function muClose(){clearInterval(MU.tm);clearTimeout(MU.auto);MU.on=false;MU.el.classList.remove('on');const f=MU.done;MU.done=null;if(f)f()}
+function muClose(){clearInterval(MU.tm);clearTimeout(MU.auto);if(MU.playerFrame)cancelAnimationFrame(MU.playerFrame);MU.playerFrame=0;MU.on=false;MU.el.classList.remove('on');const f=MU.done;MU.done=null;if(f)f()}
 
 /* ============ v3.16QQ1 TOWN ART TEST: pixel-art pack in one Vapor City block (the plaza in front of the Arena). Look only. ============
    Art: craftpix.net packs (townspeople, street animals, billboards, truck constructor, graffiti constructor), cut into one small atlas.
@@ -11247,12 +11247,17 @@ function muArenaPaint(cv,town){
  
 }
 function muPickThree(list){const src=(list||[]).filter(Boolean),positions=['QB','RB','WR'];return positions.map((pos,i)=>src.find(p=>p.pos===pos||p.pos===('WR'+(i===2?'2':'1')))||src[i]||src[0]).filter(Boolean).slice(0,3)}
-function muDrawPlayer(canvas,player,uni,pose,index){
- if(!canvas||!player)return;const dpr=Math.min(window.devicePixelRatio||1,2),w=canvas.clientWidth||76,h=canvas.clientHeight||116;if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr)}
- const g=canvas.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,w,h);const t=performance.now()/1000+index*.7,look=lookOf(player),push=pose==='pushup',S=Math.min((h-6)/(push?22:18.5),(w-10)/(push?24:17)),y=push?h-4*S-2:h-2.5*S-2;
- try{renderPerson(g,{art:false,x:w/2,y,S,view:'f',flip:1,speed:0,phi:pose==='idle'?Math.sin(t*2)*.12:0,cx:0,sa:0,uni,look,gear:null,num:player.jn!==undefined?player.jn:(player.num!==undefined?player.num:[7,22,12][index]),star:false,t,hasBall:false,preview:false,lying:push,stance:pose==='idle',bothArmsDir:pose==='celebrate'?{x:0,y:-1}:null})}catch(e){try{console.warn('matchup player render',e)}catch(_){}}
+function muDrawPlayer(canvas,player,uni,pose,index,now){
+ if(!canvas||!player)return false;const renderer=window.CF3D;if(!renderer||typeof renderer.kkShowcase!=='function')return false;
+ const dpr=Math.min(window.devicePixelRatio||1,2),w=Math.max(2,canvas.clientWidth||76),h=Math.max(2,canvas.clientHeight||116),pw=Math.round(w*dpr),ph=Math.round(h*dpr);
+ if(canvas.width!==pw||canvas.height!==ph){canvas.width=pw;canvas.height=ph}
+ const clip=pose==='celebrate'?'Cheering':pose==='pushup'?'Push_Ups':'Idle_A',duration=renderer.kkClipDur(clip)||1;
+ const num=player.jn!==undefined?player.jn:(player.num!==undefined?player.num:[7,22,12][index]);
+ const fig={d:player,uni,num,yaw:0,x:.5,clip,t:((now||performance.now())/1000+index*.41)%duration,tilt:.08,zoom:1.08};
+ const ok=renderer.kkShowcase(canvas,[fig],false);
+ canvas.dataset.modelRenderer='threejs-kaykit-skinned';canvas.dataset.modelReady=ok?'true':'false';canvas.dataset.modelClip=clip;return ok;
 }
-function muBuildPlayers(side,list,uni){const wrap=side.querySelector('.players');wrap.innerHTML='';['celebrate','pushup','idle'].forEach((pose,i)=>{const p=muPickThree(list)[i];if(!p)return;const slot=document.createElement('div');slot.className='mu-player-slot pose-'+pose;slot.dataset.pose=pose;const cv=document.createElement('canvas');cv.className='mu-player';cv.setAttribute('aria-label',pose+' player');slot.appendChild(cv);const num=document.createElement('span');num.className='mu-number';num.textContent='#'+(p.jn!==undefined?p.jn:(p.num!==undefined?p.num:[7,22,12][i]));slot.appendChild(num);wrap.appendChild(slot);muDrawPlayer(cv,p,uni,pose,i)})}
+function muBuildPlayers(side,list,uni){const wrap=side.querySelector('.players');wrap.innerHTML='';const poses=['celebrate','pushup','idle'],players=muPickThree(list);poses.forEach((pose,i)=>{const p=players[i];if(!p)return;const slot=document.createElement('div');slot.className='mu-player-slot pose-'+pose;slot.dataset.pose=pose;const cv=document.createElement('canvas');cv.className='mu-player';cv.setAttribute('aria-label',pose+' 3D player');cv.dataset.modelRenderer='threejs-kaykit-skinned';slot.appendChild(cv);wrap.appendChild(slot)})}
 muEl=function(){
  if(MU.el)return MU.el;const st=document.createElement('style');
  st.textContent=String.raw`
@@ -11318,6 +11323,41 @@ muEl=function(){
  #mu:not([hidden]) .tap{min-height:30px;padding:5px 24px;font-size:15px}
 }
 
+/* Landscape reflow: keep the matchup labels in the lower corners and reserve a
+   clean central footer lane. Team cards are narrower with almost no side inset. */
+@media(orientation:landscape){
+ #mu:not([hidden]) .top{position:absolute!important;inset:auto 0 max(10px,env(safe-area-inset-bottom)) 0!important;z-index:6!important;display:flex!important;justify-content:space-between!important;align-items:center!important;min-height:0!important;padding:0 clamp(10px,2vw,28px)!important;gap:10px!important;pointer-events:none}
+ #mu:not([hidden]) .top .town,#mu:not([hidden]) .top .tag{max-width:25vw!important;min-width:0!important;padding:5px clamp(9px,1.5vw,18px)!important;font-size:clamp(12px,1.7vw,20px)!important;line-height:1.1!important;pointer-events:none}
+ #mu:not([hidden]) .mid{flex:1!important;min-height:0!important;grid-template-columns:minmax(0,1fr) clamp(44px,5vw,68px) minmax(0,1fr)!important;align-items:stretch!important;padding:clamp(10px,3vh,24px) clamp(14px,3.5vw,48px) 104px!important;gap:clamp(4px,1vw,12px)!important}
+ #mu:not([hidden]) .side{min-width:0!important;min-height:0!important;gap:clamp(4px,1vh,9px)!important}
+ #mu:not([hidden]) .pn{width:min(100%,184px)!important;height:clamp(126px,27vh,184px)!important;min-height:0!important;max-height:184px!important;padding:7px 3px!important;gap:4px!important;border-radius:22px!important;overflow:hidden!important}
+ #mu:not([hidden]) .pn .lg{width:clamp(68px,12vh,98px)!important;height:clamp(68px,12vh,98px)!important;flex:none!important}
+ #mu:not([hidden]) .pn .nm{max-width:100%!important;font-size:clamp(16px,2.6vh,26px)!important;line-height:1!important}
+ #mu:not([hidden]) .pn .ov{font-size:clamp(11px,1.6vh,15px)!important;padding:4px 10px!important}
+ #mu:not([hidden]) .vs{align-self:center!important;margin:0!important;width:clamp(44px,6vh,62px)!important;height:clamp(44px,6vh,62px)!important;font-size:clamp(20px,3.2vh,30px)!important}
+ #mu:not([hidden]) .players{flex:1!important;min-height:0!important;display:flex!important;align-items:flex-end!important;justify-content:space-evenly!important;gap:clamp(2px,.5vw,8px)!important;padding:0 0 2px!important;overflow:visible!important}
+ #mu:not([hidden]) .mu-player-slot{flex:1 1 0!important;min-width:0!important;max-width:clamp(68px,10vw,142px)!important;height:100%!important;min-height:0!important;display:flex!important;align-items:flex-end!important;justify-content:center!important;overflow:visible!important}
+ #mu:not([hidden]) .mu-player{display:block!important;width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important;filter:drop-shadow(0 5px 4px rgba(0,0,0,.48))!important;animation:none!important;transform:none!important}
+ #mu:not([hidden]) .pose-pushup .mu-player,#mu:not([hidden]) .pose-celebrate .mu-player{animation:none!important;transform:none!important}
+ #mu:not([hidden]) .mu-number{display:none!important}
+ #mu:not([hidden]) .bot{position:absolute!important;left:50%!important;bottom:max(10px,env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;width:min(44vw,430px)!important;max-width:430px!important;padding:0!important;gap:5px!important;z-index:5!important}
+ #mu:not([hidden]) .first{font-size:clamp(12px,1.6vw,18px)!important;padding:4px 15px!important;white-space:nowrap!important}
+ #mu:not([hidden]) .bar{height:clamp(8px,1.5vh,12px)!important;width:100%!important}
+ #mu:not([hidden]) .bot .tap{min-height:clamp(30px,5vh,42px)!important;padding:6px clamp(20px,3vw,38px)!important;font-size:clamp(14px,1.8vw,20px)!important}
+}
+@media(max-height:430px) and (orientation:landscape){
+ #mu:not([hidden]) .mid{padding-top:7px!important;padding-bottom:82px!important}
+ #mu:not([hidden]) .pn{height:clamp(116px,30vh,140px)!important;width:min(100%,176px)!important;padding:5px 2px!important}
+ #mu:not([hidden]) .pn .lg{width:clamp(58px,12vh,70px)!important;height:clamp(58px,12vh,70px)!important}
+ #mu:not([hidden]) .pn .nm{font-size:clamp(15px,3.3vh,19px)!important}
+ #mu:not([hidden]) .players{padding-bottom:0!important}
+ #mu:not([hidden]) .bot{bottom:6px!important;gap:3px!important}
+ #mu:not([hidden]) .first{font-size:12px!important;padding:2px 12px!important}
+ #mu:not([hidden]) .bar{height:8px!important}
+ #mu:not([hidden]) .bot .tap{min-height:28px!important;padding:4px 20px!important;font-size:14px!important}
+ #mu:not([hidden]) .top .town,#mu:not([hidden]) .top .tag{font-size:11px!important;padding:3px 9px!important}
+}
+
 `;
  document.head.appendChild(st);const d=document.createElement('div');d.id='mu';
  d.innerHTML='<canvas class="mu-arena" aria-hidden="true"></canvas><div class="split"><i class="hl"></i><i class="hr"></i><i class="sl"></i></div><div class="top"><span class="town"></span><span class="tag"></span></div><div class="mid"><div class="side home-side"><div class="pn my"><div class="lg"></div><div class="nr"><div class="nm"></div></div><div class="ov"></div></div><div class="players"></div></div><div class="vs">VS</div><div class="side away-side"><div class="pn op"><div class="lg"></div><div class="nr"><div class="nm"></div></div><div class="ov"></div></div><div class="players"></div></div></div><div class="bot"><div class="first"></div><div class="bar"><i></i></div><button class="tap" type="button">LOADING</button></div>';
@@ -11330,9 +11370,9 @@ showMatchup=function(crew,done){
  muArenaPaint(d.querySelector('.mu-arena'),crew.town);muBuildPlayers(d.querySelector('.home-side'),[SAVE.starters.QB,SAVE.starters.RB,SAVE.starters.WR1,SAVE.starters.WR2,SAVE.starters.TE],SAVE.uni);muBuildPlayers(d.querySelector('.away-side'),op,G.oppUni||crew.uni);
  d.querySelector('.first').textContent='FIRST TO '+crew.target+' WINS';d.querySelector('.bar i').style.width='0%';const tp=d.querySelector('.tap');tp.textContent='LOADING';tp.classList.remove('go');MU.on=true;MU.ready=false;MU.t0=performance.now();MU.capped=false;d.classList.add('on');requestAnimationFrame(()=>{muFit(home.querySelector('.nm'));muFit(away.querySelector('.nm'))});
  clearInterval(MU.tm);MU.tm=setInterval(()=>{const el=performance.now()-MU.t0,pr=muCoreProgress();d.querySelector('.bar i').style.width=Math.round(100*Math.min(1,Math.min(1,el/2000)*.4+.6*(pr.n?pr.r/pr.n:1)))+'%';if(!MU.ready&&el>=2000&&pr.ok)MU.ready=true;else if(!MU.ready&&el>=8000){MU.ready=true;MU.capped=true;ART.introCap=(ART.introCap||0)+1;try{console.log('matchup intro: 8 s cap reached with',pr.r+'/'+pr.n+' core sets baked')}catch(e){}}if(MU.ready){clearInterval(MU.tm);ART.introMs=Math.round(el);tmark('introReady',Math.round(el)+'ms'+(MU.capped?' CAPPED':''));ART.introLast={ms:Math.round(el),capped:MU.capped,r:pr.r,n:pr.n};tp.textContent='TAP TO PLAY';tp.classList.add('go');d.querySelector('.bar i').style.width='100%'}},100);
- if(MU.playerFrame)cancelAnimationFrame(MU.playerFrame);const animate=()=>{if(!MU.on)return;d.querySelectorAll('.mu-player').forEach((cv,i)=>{const homeSide=!!cv.closest('.home-side'),arr=homeSide?[SAVE.starters.QB,SAVE.starters.RB,SAVE.starters.WR1,SAVE.starters.WR2,SAVE.starters.TE]:G.crew.roster||[],p=muPickThree(arr)[i];muDrawPlayer(cv,p,homeSide?SAVE.uni:(G.oppUni||G.crew.uni),cv.parentElement.dataset.pose,i)});MU.playerFrame=requestAnimationFrame(animate)};MU.playerFrame=requestAnimationFrame(animate);
+ if(MU.playerFrame)cancelAnimationFrame(MU.playerFrame);MU.last3D=0;const animate=now=>{if(!MU.on)return;if(now-MU.last3D>=1000/12){d.querySelectorAll('.mu-player').forEach(cv=>{const homeSide=!!cv.closest('.home-side'),arr=homeSide?[SAVE.starters.QB,SAVE.starters.RB,SAVE.starters.WR1,SAVE.starters.WR2,SAVE.starters.TE]:G.crew.roster||[],slots=[...cv.parentElement.parentElement.querySelectorAll('.mu-player-slot')],idx=slots.indexOf(cv.parentElement),p=muPickThree(arr)[idx];muDrawPlayer(cv,p,homeSide?SAVE.uni:(G.oppUni||G.crew.uni),cv.parentElement.dataset.pose,idx,now)});MU.last3D=now}MU.playerFrame=requestAnimationFrame(animate)};MU.playerFrame=requestAnimationFrame(animate);
 };
-window.SG.__pregameQA=()=>({town:MU.crew&&MU.crew.town,players:MU.el?MU.el.querySelectorAll('.mu-player').length:0,backgrounds:MU.el?MU.el.querySelectorAll('.mu-arena').length:0});
+window.SG.__pregameQA=()=>({town:MU.crew&&MU.crew.town,players:MU.el?MU.el.querySelectorAll('.mu-player').length:0,backgrounds:MU.el?MU.el.querySelectorAll('.mu-arena').length:0,renderers:MU.el?[...MU.el.querySelectorAll('.mu-player')].map(cv=>cv.dataset.modelRenderer||''),modelReady:MU.el?[...MU.el.querySelectorAll('.mu-player')].filter(cv=>cv.dataset.modelReady==='true').length:0,clips:window.CF3D?.kk?.clips||[],modelStatus:window.KKLIB?.line?.()||'unavailable'});
 /* ===== end pre-game matchup ===== */
 
 })();
