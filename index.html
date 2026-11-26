@@ -11299,155 +11299,74 @@ function muBuildPlayers(side,list,uni){const wrap=side.querySelector('.players')
 muEl=function(){
  if(MU.el)return MU.el;const st=document.createElement('style');
  st.textContent=String.raw`
-#mu{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;color:#fff;font-family:"Barlow Condensed",system-ui,sans-serif;overflow:hidden;user-select:none;-webkit-user-select:none;background:#131620}
-#mu.on{display:flex}#mu .mu-arena{position:absolute;inset:0;width:100%;height:100%;z-index:0}
-#mu .split{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(118deg,transparent 49.55%,#F5B841 49.8%,#F5B841 50.2%,transparent 50.45%)}
-#mu .split i{position:absolute;inset:0}#mu .hl{clip-path:polygon(0 0,56% 0,44% 100%,0 100%);background:linear-gradient(135deg,var(--homeTint),rgba(19,22,32,.42))}
-#mu .hr{clip-path:polygon(56% 0,100% 0,100% 100%,44% 100%);background:linear-gradient(225deg,var(--awayTint),rgba(19,22,32,.42))}
-#mu .sl,#mu .bgfx{display:none}
-#mu .top{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:clamp(10px,3vh,22px) clamp(14px,4vw,38px) 0;font-size:clamp(13px,2vw,22px);font-weight:900;letter-spacing:.08em;line-height:1.15;min-height:42px;gap:16px}
-#mu .top .town,#mu .top .tag{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46%;color:#fff;text-shadow:none;border:2px solid var(--a);border-radius:999px;padding:5px 22px;background:#131620;box-shadow:none;text-align:center}
-#mu .top .tag{border-color:var(--b)}
-#mu .mid{position:relative;z-index:2;flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 62px minmax(0,1fr);align-items:stretch;padding:clamp(8px,2vh,18px) clamp(8px,3vw,28px) 0;gap:4px}
-#mu .side{min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:clamp(5px,1.2vh,12px)}
-#mu .pn{width:min(100%,205px);height:clamp(164px,39vh,218px);flex:none;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:9px 10px;background:#131620;border:3px solid var(--tc);border-radius:27px;box-shadow:0 8px 20px rgba(0,0,0,.28)}
-#mu .pn.my{--tc:#F5B841}#mu .pn.op{--tc:#4DE1F2}
-#mu .lg{position:static;width:clamp(64px,12vh,104px);height:clamp(64px,12vh,104px);display:flex;align-items:center;justify-content:center;opacity:1;filter:none;pointer-events:none}
-#mu .lg svg{width:100%;height:100%;display:block}#mu .nr{display:flex;align-items:center;justify-content:center;max-width:100%;width:100%;position:relative;z-index:1}
-#mu .nm{font-size:clamp(17px,2.7vh,30px);font-weight:900;letter-spacing:.02em;text-align:center;line-height:.98;text-shadow:none;color:#fff;max-width:100%;word-break:normal;padding:0;overflow-wrap:anywhere}
-#mu .ov{font-size:clamp(12px,1.8vh,17px);font-weight:900;line-height:1.1;color:#131620;letter-spacing:.06em;background:var(--tc);border-radius:999px;padding:5px 13px;white-space:nowrap}
-#mu .ov b{display:inline;background:none;color:#131620;border-radius:0;padding:0;margin-left:5px}
-#mu .vs{align-self:flex-start;margin-top:clamp(65px,15vh,110px);width:62px;height:62px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(23px,4vh,34px);font-weight:900;font-style:italic;background:#131620;color:#F5B841;border:3px solid #F5B841;box-shadow:0 4px 18px rgba(0,0,0,.4);text-shadow:none}
-#mu .players{width:100%;flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:space-evenly;gap:1px;padding:0 0 2px}
-#mu .mu-player-slot{position:relative;flex:1;min-width:0;max-width:112px;height:100%;min-height:76px;display:flex;align-items:flex-end;justify-content:center}
-#mu .mu-player{width:100%;height:100%;max-height:170px;object-fit:contain;filter:drop-shadow(0 5px 4px rgba(0,0,0,.45))}
-#mu .mu-number{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);font-size:clamp(10px,1.5vh,15px);font-weight:900;color:#fff;text-shadow:0 2px 4px #000}
-#mu .pose-pushup .mu-player{transform-origin:50% 88%;animation:mupushup 1.15s ease-in-out infinite}
-@keyframes mupushup{0%,100%{transform:translateY(2px) scaleY(.88)}50%{transform:translateY(-5px) scaleY(1)}}
-#mu .pose-celebrate .mu-player{animation:muvictory 1.8s ease-in-out infinite}@keyframes muvictory{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-#mu .bot{position:relative;z-index:3;flex:none;padding:0 clamp(14px,4vw,34px) max(10px,env(safe-area-inset-bottom));text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px}
-#mu .first{font-size:clamp(14px,2.3vh,20px);font-weight:900;letter-spacing:.08em;line-height:1.15;color:#fff;background:#131620;border:2px solid rgba(245,184,65,.85);border-radius:999px;padding:4px 18px}
-#mu .bar{height:clamp(9px,1.8vh,15px);width:min(100%,430px);border-radius:999px;background:rgba(19,22,32,.9);border:2px solid rgba(255,255,255,.35);margin:0;overflow:hidden}
+#mu{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;justify-content:space-between;color:#fff;font-family:"Barlow Condensed",system-ui,sans-serif;overflow:hidden;user-select:none;-webkit-user-select:none;background:#131620;isolation:isolate}
+#mu.on{display:flex}
+#mu .mu-arena{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#mu .split{position:absolute;inset:0;z-index:1;pointer-events:none;background:none}
+#mu .split i{position:absolute;inset:0;display:block}
+#mu .hl{clip-path:polygon(0 0,58% 0,42% 100%,0 100%);background:linear-gradient(135deg,var(--homeTint,rgba(245,184,65,.45)) 0%,rgba(19,22,32,.75) 100%)}
+#mu .hr{clip-path:polygon(58% 0,100% 0,100% 100%,42% 100%);background:linear-gradient(225deg,var(--awayTint,rgba(77,225,242,.45)) 0%,rgba(19,22,32,.75) 100%)}
+#mu .sl{display:block;clip-path:polygon(57.7% 0,58.3% 0,42.3% 100%,41.7% 100%);background:linear-gradient(180deg,rgba(245,184,65,.85) 0%,#fff4cc 50%,rgba(245,184,65,.9) 100%);filter:drop-shadow(0 0 8px rgba(245,184,65,.85));opacity:.95}
+#mu .bgfx{display:none}
+#mu .top{position:relative;z-index:4;flex:none;display:flex;justify-content:space-between;align-items:center;padding:max(10px,env(safe-area-inset-top)) clamp(14px,4vw,36px) 0;min-height:36px;gap:12px;pointer-events:none}
+#mu .top .town,#mu .top .tag{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44%;color:#F5F7FA;text-shadow:none;border-radius:999px;padding:5px clamp(14px,2.2vw,24px);background:rgba(19,22,32,.92);box-shadow:0 4px 14px rgba(0,0,0,.35);text-align:center;font-size:clamp(12px,1.8vw,18px);font-weight:900;letter-spacing:.08em;line-height:1.15}
+#mu .top .town{border:2px solid #F5B841}
+#mu .top .tag{border:2px solid #4DE1F2}
+#mu .mid{position:relative;z-index:3;flex:1 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:stretch;padding:clamp(6px,1.5vh,14px) clamp(10px,3vw,32px) clamp(4px,1vh,10px);gap:clamp(6px,1.5vw,16px)}
+#mu .side{position:relative;min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:clamp(6px,1.2vh,12px)}
+#mu .pn{position:relative;z-index:3;flex:none;width:min(100%,clamp(164px,21vw,236px));height:auto;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(4px,.9vh,8px);padding:clamp(8px,1.5vh,14px) clamp(10px,1.5vw,16px);background:#131620;border:2.5px solid var(--tc);border-radius:20px;box-shadow:0 10px 24px rgba(0,0,0,.42);overflow:visible}
+#mu .pn.my{--tc:#F5B841}
+#mu .pn.op{--tc:#4DE1F2}
+#mu .lg{position:static;flex:none;width:clamp(58px,12vh,104px);height:clamp(58px,12vh,104px);display:flex;align-items:center;justify-content:center;opacity:1;filter:none;pointer-events:none}
+#mu .lg svg{width:100%;height:100%;display:block}
+#mu .nr{display:flex;align-items:center;justify-content:center;max-width:100%;width:100%;position:relative;z-index:1}
+#mu .nm{font-size:clamp(16px,2.8vh,26px);font-weight:900;letter-spacing:.02em;text-align:center;line-height:1.02;text-shadow:none;color:#F5F7FA;max-width:100%;word-break:normal;padding:0;overflow-wrap:anywhere}
+#mu .ov{display:inline-flex;align-items:center;justify-content:center;gap:5px;margin:2px 0 0;padding:4px 14px;background:#131620;border:1.5px solid var(--tc);border-radius:999px;color:#F5F7FA;font-size:clamp(11px,1.7vh,15px);font-weight:900;line-height:1.1;letter-spacing:.08em;white-space:nowrap}
+#mu .ov b{display:inline;background:transparent;color:var(--tc);border-radius:0;padding:0;margin:0}
+#mu .vs{align-self:center;margin:0;width:clamp(48px,7vh,66px);height:clamp(48px,7vh,66px);flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(20px,3.4vh,30px);font-weight:900;font-style:italic;background:#131620;color:#F5B841;border:2.5px solid #F5B841;box-shadow:0 0 18px rgba(245,184,65,.35),0 6px 18px rgba(0,0,0,.5);text-shadow:none}
+#mu .players{position:relative;z-index:2;width:100%;flex:1 1 0;min-height:0;display:flex;align-items:flex-end;justify-content:space-evenly;gap:clamp(2px,.8vw,10px);padding:0 clamp(2px,1vw,12px);overflow:visible}
+#mu .mu-team-source{position:absolute;inset:0;width:100%;height:100%;visibility:hidden;pointer-events:none}
+#mu .mu-player-slot{position:relative;flex:1 1 0;min-width:0;max-width:clamp(78px,11vw,148px);height:100%;min-height:72px;display:flex;align-items:flex-end;justify-content:center;overflow:visible}
+#mu .mu-player-slot.player-large{flex:1.1 1 0;max-width:clamp(90px,13vw,165px)}
+#mu .mu-player{display:block;width:100%;height:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 6px 6px rgba(0,0,0,.52))}
+#mu .mu-number{display:none}
+#mu .bot{position:relative;z-index:5;flex:none;width:100%;padding:2px 16px max(10px,env(safe-area-inset-bottom));text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(5px,1vh,8px)}
+#mu .first{display:inline-flex;align-items:center;justify-content:center;padding:4px 18px;background:#131620;border:1.5px solid rgba(245,184,65,.78);border-radius:999px;color:#F5F7FA;font-size:clamp(12px,1.9vh,16px);font-weight:900;letter-spacing:.1em;line-height:1.15;white-space:nowrap}
+#mu .bar{width:min(76vw,440px);height:clamp(9px,1.7vh,13px);border-radius:999px;background:rgba(19,22,32,.92);border:1.5px solid rgba(255,255,255,.35);margin:0;overflow:hidden}
 #mu .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#4DE1F2,#F5B841);transition:width .15s;border-radius:inherit}
-#mu .tap{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:6px 28px;font-size:clamp(15px,2.4vh,21px);font-weight:900;letter-spacing:.08em;line-height:1;color:#131620;background:#4DE1F2;border:0;border-radius:999px;text-shadow:none;cursor:pointer}
-#mu .tap.go{animation:none;box-shadow:0 0 0 2px rgba(77,225,242,.25)}
-@media(max-width:560px) and (orientation:portrait){#mu .top{padding-top:max(10px,env(safe-area-inset-top));font-size:13px}#mu .mid{grid-template-columns:minmax(0,1fr) 42px minmax(0,1fr);padding:8px 6px 0}#mu .pn{height:clamp(132px,22vh,178px);width:min(100%,170px);border-radius:21px;padding:7px 6px;gap:4px}#mu .lg{width:clamp(48px,8vh,68px);height:clamp(48px,8vh,68px)}#mu .nm{font-size:clamp(15px,2.2vh,20px)}#mu .ov{font-size:12px;padding:4px 9px}#mu .vs{width:42px;height:42px;font-size:20px;margin-top:52px}#mu .players{gap:0}#mu .mu-player-slot{min-height:72px}#mu .mu-player{max-height:130px}#mu .bot{gap:5px;padding-bottom:max(10px,env(safe-area-inset-bottom))}}
-@media(max-height:430px) and (orientation:landscape){#mu .top{padding-top:5px;min-height:28px}#mu .mid{padding-top:4px}#mu .pn{height:clamp(132px,39vh,172px);width:min(100%,190px);padding:5px 8px;gap:3px}#mu .lg{width:clamp(48px,10vh,70px);height:clamp(48px,10vh,70px)}#mu .nm{font-size:clamp(16px,3.2vh,22px)}#mu .ov{font-size:12px;padding:3px 9px}#mu .vs{width:48px;height:48px;margin-top:46px;font-size:22px}#mu .players{padding-bottom:0}#mu .mu-player{max-height:120px}#mu .bot{gap:3px;padding-bottom:5px}#mu .first{font-size:14px;padding:2px 14px}#mu .tap{min-height:29px;padding:4px 22px;font-size:15px}}
-
-#mu:not([hidden]) .split{background:linear-gradient(118deg,transparent 49.55%,#F5B841 49.8%,#F5B841 50.2%,transparent 50.45%)!important}
-#mu:not([hidden]) .split>i{display:block!important}
-#mu:not([hidden]) .hl{clip-path:polygon(0 0,56% 0,44% 100%,0 100%)!important;background:linear-gradient(135deg,var(--homeTint),rgba(19,22,32,.42))!important}
-#mu:not([hidden]) .hr{clip-path:polygon(56% 0,100% 0,100% 100%,44% 100%)!important;background:linear-gradient(225deg,var(--awayTint),rgba(19,22,32,.42))!important}
-#mu:not([hidden]) .pn{width:min(100%,205px)!important;height:clamp(154px,37vh,218px)!important;min-height:140px!important;max-height:218px!important;padding:9px 10px!important;gap:5px!important;overflow:visible!important}
-#mu:not([hidden]) .pn .lg{position:static!important;left:auto!important;top:auto!important;transform:none!important;width:clamp(64px,12vh,104px)!important;height:clamp(64px,12vh,104px)!important;max-width:100%!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
-#mu:not([hidden]) .pn .nm{position:static!important;margin:0!important;max-width:100%!important;color:#fff!important;font-size:clamp(17px,2.7vh,30px)!important;line-height:.98!important;text-align:center!important}
-#mu:not([hidden]) .pn .ov{position:static!important;left:auto!important;right:auto!important;bottom:auto!important;top:auto!important;transform:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;margin:0!important;padding:5px 13px!important;border:0!important;border-radius:999px!important;background:var(--tc)!important;color:#131620!important;font-size:clamp(12px,1.8vh,17px)!important;line-height:1.1!important;white-space:nowrap!important}
-#mu:not([hidden]) .pn .ov b{display:inline!important;padding:0!important;margin-left:5px!important;border:0!important;border-radius:0!important;background:transparent!important;color:#131620!important}
-#mu:not([hidden]) .bot .tap{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:34px!important;margin:0!important;padding:6px 28px!important;border:0!important;border-radius:999px!important;background:#4DE1F2!important;color:#131620!important;font-size:clamp(15px,2.4vh,21px)!important;line-height:1!important;letter-spacing:.08em!important;box-shadow:none!important;text-shadow:none!important}
-
-/* Landscape matchup hierarchy: compact team cards release enough vertical space
-   for the six full-size player renders instead of shrinking them into thumbnails. */
+#mu .tap{display:inline-flex;align-items:center;justify-content:center;min-height:clamp(32px,5vh,42px);padding:6px clamp(26px,4vw,40px);font-size:clamp(14px,2.2vh,20px);font-weight:900;letter-spacing:.1em;line-height:1;color:#131620;background:#4DE1F2;border:0;border-radius:999px;box-shadow:0 3px 0 #147f98;text-shadow:none;cursor:pointer}
+#mu .tap.go{animation:none;box-shadow:0 3px 0 #147f98,0 0 0 2px rgba(77,225,242,.25)}
 @media(max-height:430px) and (orientation:landscape){
- #mu:not([hidden]) .pn{height:clamp(160px,41vh,168px)!important;min-height:160px!important;max-height:168px!important;padding:7px 9px!important;gap:4px!important}
- #mu:not([hidden]) .pn .lg{width:clamp(64px,17vh,72px)!important;height:clamp(64px,17vh,72px)!important}
- #mu:not([hidden]) .pn .nm{font-size:clamp(18px,4.2vh,21px)!important;line-height:1.02!important}
- #mu:not([hidden]) .pn .ov{font-size:13px!important;padding:4px 11px!important}
- #mu:not([hidden]) .players{gap:2px;padding-bottom:0}
- #mu:not([hidden]) .mu-player-slot{max-width:145px;min-height:96px}
- #mu:not([hidden]) .mu-player{max-height:185px}
- #mu:not([hidden]) .bot{gap:4px;padding-bottom:max(6px,env(safe-area-inset-bottom))}
- #mu:not([hidden]) .first{font-size:13px;padding:3px 14px}
- #mu:not([hidden]) .bar{height:10px;width:min(100%,390px)}
- #mu:not([hidden]) .tap{min-height:30px;padding:5px 24px;font-size:15px}
+  #mu .top{padding-top:6px;min-height:28px}
+  #mu .top .town,#mu .top .tag{font-size:11px;padding:3px 12px}
+  #mu .mid{padding:4px clamp(10px,3vw,24px) 2px}
+  #mu .side{gap:4px}
+  #mu .pn{width:min(100%,168px);padding:5px 8px;gap:2px;border-radius:16px}
+  #mu .pn .lg{width:clamp(44px,11vh,58px);height:clamp(44px,11vh,58px)}
+  #mu .pn .nm{font-size:clamp(14px,3.2vh,18px)}
+  #mu .pn .ov{font-size:11px;padding:2px 10px}
+  #mu .vs{width:44px;height:44px;font-size:18px}
+  #mu .mu-player-slot{min-height:64px}
+  #mu .bot{gap:3px;padding-bottom:6px}
+  #mu .first{font-size:11px;padding:2px 12px}
+  #mu .bar{height:8px}
+  #mu .bot .tap{min-height:28px;padding:4px 22px;font-size:13px}
 }
-
-/* Landscape reflow: keep the matchup labels in the lower corners and reserve a
-   clean central footer lane. Team cards are narrower with almost no side inset. */
-@media(orientation:landscape){
- #mu:not([hidden]) .top{position:absolute!important;inset:auto 0 max(10px,env(safe-area-inset-bottom)) 0!important;z-index:6!important;display:flex!important;justify-content:space-between!important;align-items:center!important;min-height:0!important;padding:0 clamp(10px,2vw,28px)!important;gap:10px!important;pointer-events:none}
- #mu:not([hidden]) .top .town,#mu:not([hidden]) .top .tag{max-width:25vw!important;min-width:0!important;padding:5px clamp(9px,1.5vw,18px)!important;font-size:clamp(12px,1.7vw,20px)!important;line-height:1.1!important;pointer-events:none}
- #mu:not([hidden]) .mid{flex:1!important;min-height:0!important;grid-template-columns:minmax(0,1fr) clamp(44px,5vw,68px) minmax(0,1fr)!important;align-items:stretch!important;padding:clamp(10px,3vh,24px) clamp(14px,3.5vw,48px) 122px!important;gap:clamp(4px,1vw,12px)!important}
- #mu:not([hidden]) .side{min-width:0!important;min-height:0!important;gap:clamp(4px,1vh,9px)!important}
- #mu:not([hidden]) .pn{width:min(100%,190px)!important;height:clamp(180px,36vh,220px)!important;min-height:180px!important;max-height:220px!important;padding:7px 2px!important;gap:4px!important;border-radius:22px!important;overflow:hidden!important}
- #mu:not([hidden]) .pn .lg{width:clamp(80px,14vh,116px)!important;height:clamp(80px,14vh,116px)!important;flex:none!important}
- #mu:not([hidden]) .pn .nm{max-width:100%!important;font-size:clamp(18px,3.5vh,24px)!important;line-height:1!important}
- #mu:not([hidden]) .pn .ov{font-size:clamp(13px,1.9vh,17px)!important;padding:4px 11px!important}
- #mu:not([hidden]) .vs{align-self:center!important;margin:0!important;width:clamp(44px,6vh,62px)!important;height:clamp(44px,6vh,62px)!important;font-size:clamp(20px,3.2vh,30px)!important}
- #mu:not([hidden]) .players{position:relative!important;flex:1!important;min-height:0!important;display:flex!important;align-items:flex-end!important;justify-content:space-evenly!important;gap:clamp(2px,.5vw,8px)!important;padding:0 0 2px!important;overflow:visible!important}
- #mu:not([hidden]) .mu-team-source{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;visibility:hidden!important;pointer-events:none!important}
- #mu:not([hidden]) .mu-player-slot{flex:1 1 0!important;min-width:0!important;max-width:clamp(68px,10vw,142px)!important;height:100%!important;min-height:0!important;display:flex!important;align-items:flex-end!important;justify-content:center!important;overflow:visible!important}
- #mu:not([hidden]) .mu-player{display:block!important;width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important;filter:drop-shadow(0 5px 4px rgba(0,0,0,.48))!important;animation:none!important;transform:none!important}
- #mu:not([hidden]) .pose-pushup .mu-player,#mu:not([hidden]) .pose-celebrate .mu-player{animation:none!important;transform:none!important}
- #mu:not([hidden]) .mu-number{display:none!important}
- #mu:not([hidden]) .bot{position:absolute!important;left:50%!important;bottom:max(10px,env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;width:min(44vw,430px)!important;max-width:430px!important;padding:0!important;gap:5px!important;z-index:5!important}
- #mu:not([hidden]) .first{font-size:clamp(12px,1.6vw,18px)!important;padding:4px 15px!important;white-space:nowrap!important}
- #mu:not([hidden]) .bar{height:clamp(8px,1.5vh,12px)!important;width:100%!important}
- #mu:not([hidden]) .bot .tap{min-height:clamp(30px,5vh,42px)!important;padding:6px clamp(20px,3vw,38px)!important;font-size:clamp(14px,1.8vw,20px)!important}
+@media(max-width:560px) and (orientation:portrait){
+  #mu .mid{grid-template-columns:minmax(0,1fr) 42px minmax(0,1fr);padding:8px 8px 4px;gap:4px}
+  #mu .pn{width:min(100%,160px);padding:8px;border-radius:18px}
+  #mu .pn .lg{width:clamp(48px,8vh,68px);height:clamp(48px,8vh,68px)}
+  #mu .pn .nm{font-size:clamp(14px,2.2vh,18px)}
+  #mu .pn .ov{font-size:11px;padding:3px 10px}
+  #mu .vs{width:42px;height:42px;font-size:18px}
 }
-@media(max-height:430px) and (orientation:landscape){
- #mu:not([hidden]) .mid{padding-top:7px!important;padding-bottom:106px!important}
- #mu:not([hidden]) .pn{height:clamp(180px,36vh,190px)!important;min-height:180px!important;max-height:190px!important;width:min(100%,190px)!important;padding:5px 2px!important}
- #mu:not([hidden]) .pn .lg{width:clamp(76px,14vh,84px)!important;height:clamp(76px,14vh,84px)!important}
- #mu:not([hidden]) .pn .nm{font-size:clamp(15px,3.3vh,19px)!important}
- #mu:not([hidden]) .players{padding-bottom:0!important}
- #mu:not([hidden]) .bot{bottom:6px!important;gap:3px!important}
- #mu:not([hidden]) .first{font-size:12px!important;padding:2px 12px!important}
- #mu:not([hidden]) .bar{height:8px!important}
- #mu:not([hidden]) .bot .tap{min-height:28px!important;padding:4px 20px!important;font-size:14px!important}
- #mu:not([hidden]) .top .town,#mu:not([hidden]) .top .tag{font-size:11px!important;padding:3px 9px!important}
-}
-
-/* Owner landscape correction: free the upper edge, give the models a real stage,
-   and keep town/mode pills in the lower outside corners. */
-@media(orientation:landscape){
- #mu.on .top{position:absolute!important;top:auto!important;right:0!important;bottom:max(8px,env(safe-area-inset-bottom))!important;left:0!important;inset-block-start:auto!important;inset-block-end:max(8px,env(safe-area-inset-bottom))!important;z-index:8!important;display:flex!important;justify-content:space-between!important;align-items:flex-end!important;padding:0 max(12px,env(safe-area-inset-left)) 0 max(12px,env(safe-area-inset-right))!important;pointer-events:none!important}
- #mu.on .top .town,#mu.on .top .tag{max-width:25vw!important;padding:4px 12px!important;font-size:clamp(11px,1.5vw,16px)!important}
- #mu.on .mid{padding:7px clamp(12px,3vw,34px) 100px!important;grid-template-columns:minmax(0,1fr) clamp(42px,5vw,62px) minmax(0,1fr)!important}
- #mu.on .side{gap:3px!important}
- #mu.on .pn{width:min(100%,176px)!important;height:clamp(104px,29vh,132px)!important;min-height:104px!important;max-height:132px!important;padding:5px 1px!important;gap:2px!important;border-width:2px!important;border-radius:18px!important;overflow:visible!important}
- #mu.on .pn .lg{width:clamp(60px,13vh,76px)!important;height:clamp(60px,13vh,76px)!important;flex:none!important;margin:0!important;padding:0!important}
- #mu.on .pn .lg svg{width:116%!important;height:116%!important;max-width:none!important;max-height:none!important}
- #mu.on .pn .nm{font-size:clamp(15px,2.5vh,21px)!important;line-height:1!important}
- #mu.on .pn .ov{font-size:12px!important;padding:3px 9px!important}
- #mu.on .players{min-height:0!important;flex:1 1 auto!important;align-items:flex-end!important;overflow:visible!important;padding:0 0 2px!important}
- #mu.on .mu-player-slot{height:100%!important;min-height:104px!important;max-width:clamp(82px,11vw,150px)!important;overflow:visible!important}
- #mu.on .mu-player{width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important;image-rendering:auto!important}
- #mu.on .bot{bottom:5px!important;width:min(42vw,400px)!important;gap:3px!important}
- #mu.on .first{font-size:12px!important;padding:3px 12px!important}
- #mu.on .bar{height:8px!important}
- #mu.on .bot .tap{min-height:29px!important;padding:4px 20px!important;font-size:14px!important}
-}
-@media(max-height:430px) and (orientation:landscape){
- #mu.on .mid{padding-top:4px!important;padding-bottom:100px!important}
- #mu.on .pn{height:clamp(100px,28vh,120px)!important;min-height:100px!important}
- #mu.on .pn .lg{width:clamp(56px,12vh,66px)!important;height:clamp(56px,12vh,66px)!important}
- #mu.on .mu-player-slot{min-height:96px!important}
- #mu.on .top{bottom:6px!important}
- #mu.on .bot{bottom:4px!important}
-}
-
-/* Owner size hierarchy: the centre running back is the large figure; QB and WR remain medium. */
-#mu.on .mu-player-slot.player-large{flex:1.12 1 0!important;max-width:clamp(112px,15vw,168px)!important}
-#mu.on .mu-player-slot.player-medium{flex:.94 1 0!important;max-width:clamp(82px,11vw,128px)!important}
-
-/* Matchup landscape QA correction: reserve a real footer lane at both target
-   landscape sizes while preserving the full-height 3D player stages. */
-@media(orientation:landscape){
- #mu.on .mid{padding-bottom:126px!important}
- #mu.on .pn{border-radius:20px!important}
-}
-@media(max-height:430px) and (orientation:landscape){
- #mu.on .mid{padding-bottom:140px!important}
-}
-
-
 `;
  document.head.appendChild(st);const d=document.createElement('div');d.id='mu';
  d.innerHTML='<canvas class="mu-arena" aria-hidden="true"></canvas><div class="split"><i class="hl"></i><i class="hr"></i><i class="sl"></i></div><div class="top"><span class="town"></span><span class="tag"></span></div><div class="mid"><div class="side home-side"><div class="pn my"><div class="lg"></div><div class="nr"><div class="nm"></div></div><div class="ov"></div></div><div class="players"></div></div><div class="vs">VS</div><div class="side away-side"><div class="pn op"><div class="lg"></div><div class="nr"><div class="nm"></div></div><div class="ov"></div></div><div class="players"></div></div></div><div class="bot"><div class="first"></div><div class="bar"><i></i></div><button class="tap" type="button">LOADING</button></div>';
  document.body.appendChild(d);MU.el=d;const tapIt=e=>{if(!MU.on||!MU.ready)return;if(e&&e.type==='keydown'&&!/^(Enter| |Spacebar)$/.test(e.key))return;e&&e.preventDefault&&e.preventDefault();muClose()};d.addEventListener('pointerdown',tapIt);window.addEventListener('keydown',e=>{if(MU.on&&MU.ready)tapIt(e);else if(MU.on)e.stopPropagation()},true);return d;
 };
 showMatchup=function(crew,done){
- const d=muEl(),kind=matchKind(crew);MU.done=done;MU.crew=crew;d.style.setProperty('--a','#F5B841');d.style.setProperty('--b','#4DE1F2');d.style.setProperty('--c1',SAVE.uni.jc);d.style.setProperty('--c2',(G.oppUni||crew.uni).jc);d.style.setProperty('--homeTint',muRGBA(SAVE.uni.jc,.28));d.style.setProperty('--awayTint',muRGBA((G.oppUni||crew.uni).jc,.28));d.classList.toggle('myst',!!kind.mystery);
+ const d=muEl(),kind=matchKind(crew);MU.done=done;MU.crew=crew;d.style.setProperty('--a','#F5B841');d.style.setProperty('--b','#4DE1F2');d.style.setProperty('--c1',SAVE.uni.jc);d.style.setProperty('--c2',(G.oppUni||crew.uni).jc);d.style.setProperty('--homeTint',muRGBA(SAVE.uni.jc,.45));d.style.setProperty('--awayTint',muRGBA((G.oppUni||crew.uni).jc,.45));d.classList.toggle('myst',!!kind.mystery);
  d.querySelector('.town').textContent=String(crew.town||'').toUpperCase();d.querySelector('.tag').textContent=kind.tag;const my=Object.values(SAVE.starters||{}),op=crew.roster||[],home=d.querySelector('.pn.my'),away=d.querySelector('.pn.op');
  home.querySelector('.lg').innerHTML=myLogoHTML('100%');away.querySelector('.lg').innerHTML=logoSVG(crewLogo(crew),(G.oppUni||crew.uni).jc,crew.town,{bg:1});home.querySelector('.nm').textContent=(SAVE.teamName||'Your Team').toUpperCase();home.querySelector('.ov').innerHTML='OVR<b>'+muAvg(my)+'</b>';away.querySelector('.nm').textContent=kind.mystery?'? ? ?':String(crew.name).toUpperCase();away.querySelector('.ov').innerHTML='OVR<b>'+(kind.mystery?'??':muAvg(op))+'</b>';
  muArenaPaint(d.querySelector('.mu-arena'),crew.town);muBuildPlayers(d.querySelector('.home-side'),[SAVE.starters.QB,SAVE.starters.RB,SAVE.starters.WR1,SAVE.starters.WR2,SAVE.starters.TE],SAVE.uni);muBuildPlayers(d.querySelector('.away-side'),op,G.oppUni||crew.uni);
