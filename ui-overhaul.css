@@ -3668,14 +3668,20 @@ body #achT {
 }
 
 /* MY TEAM: Separate TEAM NAME & TEAM LOGO Cards (side-by-side) */
-#team .ui-team-identity {
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) !important;
+body #team .ui-team-identity {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
   gap: 10px !important;
+  width: 100% !important;
   padding: 0 !important;
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
+}
+body #team .ui-team-identity .ui-team-box {
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 #team .ui-team-identity .ui-team-box {
   display: flex !important;
@@ -4019,6 +4025,52 @@ h1, h2, h3,
   font-family: "Barlow", system-ui, sans-serif !important;
   font-weight: 900 !important;
   text-transform: uppercase !important;
+}
+
+/* ==========================================================================
+   Section 5: Playbook (Landscape) — Handoff Spec
+   ========================================================================== */
+#app #sheet #pbTabs .pbTab {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  min-height: 36px !important;
+  padding: 6px 8px !important;
+  background: #1C2130 !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 10px !important;
+  color: #D7DDE8 !important;
+  font-size: 12px !important;
+  white-space: nowrap !important;
+}
+#app #sheet #pbTabs .pbTab.on {
+  background: rgba(245, 184, 65, 0.14) !important;
+  border: 2px solid #F5B841 !important;
+  color: #F5B841 !important;
+}
+#app #sheet .card.sel {
+  border: 2px solid #F5B841 !important;
+  background: linear-gradient(145deg, rgba(245, 184, 65, 0.16), #1C2130) !important;
+}
+#app #sheet .ui-playbook-actions #flipBtn {
+  background: #131620 !important;
+  border: 2px solid #F5B841 !important;
+  border-radius: 10px !important;
+  color: #F5B841 !important;
+}
+#app #sheet .ui-playbook-actions #flipBtn.on {
+  background: #F5B841 !important;
+  border-color: #F5B841 !important;
+  color: #131620 !important;
+}
+#app #sheet .ui-playbook-actions #callBtn {
+  background: #4DE1F2 !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  color: #131620 !important;
+  box-shadow: 0 3px 0 #147f98 !important;
 }
 
 /* ==========================================================================
