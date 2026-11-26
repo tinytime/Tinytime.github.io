@@ -3150,3 +3150,44 @@ body #menu .ui-menu-build-trigger::after{
   #app #sheet #gbBtn{left:8px!important;width:92px!important;min-width:92px!important;max-width:92px!important}
   #app #sheet #blurb{left:108px!important;right:calc(100% - 292px)!important}
 }
+
+
+/* Pre-game landscape fit correction after Run 510 measured overlap.
+   Reserve a deeper footer lane so all six 3D stages clear FIRST TO at both
+   compact and wide landscape sizes. Keep the team cards tight around the marks. */
+@media (orientation:landscape){
+  body #mu:not([hidden]) .mid{
+    padding-bottom:164px!important;
+  }
+  body #mu:not([hidden]) .pn{
+    height:clamp(118px,25vh,166px)!important;
+    min-height:0!important;
+    max-height:166px!important;
+    padding:4px 0!important;
+    border-radius:18px!important;
+  }
+  body #mu:not([hidden]) .pn .lg{
+    width:clamp(68px,11vh,88px)!important;
+    height:clamp(68px,11vh,88px)!important;
+    max-width:92%!important;
+    margin:0 auto 4px!important;
+  }
+  body #mu:not([hidden]) .pn .lg svg{
+    width:112%!important;
+    height:112%!important;
+    max-width:none!important;
+    max-height:none!important;
+  }
+}
+@media(max-height:430px) and (orientation:landscape){
+  body #mu:not([hidden]) .mid{padding-top:7px!important;padding-bottom:142px!important}
+  body #mu:not([hidden]) .pn{
+    height:clamp(108px,28vh,128px)!important;
+    max-height:128px!important;
+    padding:3px 0!important;
+  }
+  body #mu:not([hidden]) .pn .lg{
+    width:clamp(58px,11vh,68px)!important;
+    height:clamp(58px,11vh,68px)!important;
+  }
+}
