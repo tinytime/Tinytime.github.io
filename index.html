@@ -6719,68 +6719,64 @@ const HBB=[   // building table
 HBB.forEach(b=>b.room='hb_'+b.id);
 HBB.forEach(b=>Object.assign(b,HB_LAYOUT[b.id]));   // v3.20T: new places and door facing
 // outdoor props: [x,y,kind,solid]
-const HBP=[   // v3.20T outdoor props for the circular harbor (CF_81 3.9 key placements + flower boxes and yard clutter)
+const HBP=[   // Hale Harbor outdoor props: working harbor clusters, quay lighting, market, boatyard & story props
+ // North quay & Basin causeway focal frame
  {x:18,y:9,t:'lamp',s:1},
  {x:30,y:9,t:'lamp',s:1},
+ {x:24,y:8,t:'tugdecal',s:0,m:["HALE 14. Painted on the quay. Fresh coat.", "Someone keeps it up."]},
+ {x:25,y:8,t:'tugdecal',s:0,m:["HALE 14. Painted on the quay. Fresh coat.", "Someone keeps it up."]},
+ // North residential & civic row (B04 Gillnet Loft, B08 Apothecary, B13 Harbormaster, B02 Boarding House)
+ {x:9,y:6,t:'bench',s:1},
+ {x:15,y:7,t:'planter',c:'#8E6BD9',s:1},
+ {x:20,y:4,t:'bench',s:1},
+ {x:35,y:7,t:'planter',c:'#E8B23D',s:1},
+ {x:36,y:9,t:'bench',s:1},
+ // NE drydock & boatyard (story props intact)
+ {x:44,y:3,t:'cradletalk',w:3,s:0,m:["An empty cradle. Keel blocks.", "Chalked on one: 14."]},
+ {x:48,y:2,t:'namescrap',s:1,m:["A strip of old name board.", "Every letter gouged out."]},
+ {x:47,y:5,t:'skifftrolley',w:2,s:1},
+ {x:48,y:9,t:'cart',s:1},
+ // West Gut & Fish Market (B03 Clubhouse, B10 Fish Market, B12 The Bilge)
+ {x:4,y:11,t:'dryboat',w:2,c:'#2F8A9A',s:1},
+ {x:6,y:16,t:'bench',s:1},
+ {x:8,y:22,t:'fishbox',s:1},
+ {x:10,y:23,t:'lamp',s:1},
+ {x:8,y:28,t:'crates',s:1},
+ {x:3,y:29,t:'netroll',s:1},
+ {x:5,y:31,t:'netrack',w:2,s:1},
+ // East Cannery Row & Cargo Yard (B09 Ship's Store, B05 Longshore, B06 Cannery)
+ {x:42,y:14,t:'crates',s:1},
+ {x:48,y:23,t:'crates',s:1},
+ {x:47,y:25,t:'barrel',c:'#8A6A3A',s:1},
+ {x:42,y:26,t:'netroll',s:1},
+ {x:41,y:29,t:'truck',s:1},
  {x:44,y:28,t:'container',w:2,c:'#C2492F',s:1},
  {x:44,y:29,t:'container',w:2,c:'#2F8A9A',s:1},
  {x:47,y:30,t:'container',w:2,c:'#E8B23D',s:1},
- {x:47,y:31,t:'container',w:2,c:'#4A6FA5',s:1},
- {x:47,y:13,t:'container',w:2,c:'#C2492F',s:1},
- {x:47,y:12,t:'container',w:2,c:'#2F8A9A',s:1},
- {x:47,y:19,t:'container',w:2,c:'#4C9A5E',s:1},
- {x:47,y:20,t:'container',w:2,c:'#C2492F',s:1},
- {x:48,y:23,t:'crates',s:1},
- {x:47,y:25,t:'barrel',c:'#8A6A3A',s:1},
- {x:4,y:11,t:'dryboat',w:2,c:'#2F8A9A',s:1},
- {x:42,y:26,t:'netroll',s:1},
- {x:3,y:29,t:'netroll',s:1},
- {x:8,y:28,t:'crates',s:1},
- {x:46,y:36,t:'crates',s:1},
- {x:46,y:34,t:'barrel',c:'#B8643A',s:1},
- {x:35,y:34,t:'fishbox',s:1},
- {x:8,y:22,t:'fishbox',s:1},
- {x:33,y:44,t:'netrack',w:2,s:1},
- {x:9,y:43,t:'pots',s:1},
- {x:46,y:45,t:'pots',s:1},
- {x:7,y:44,t:'bench',s:1},
- {x:47,y:44,t:'bench',s:1},
- {x:36,y:9,t:'bench',s:1},
- {x:41,y:29,t:'truck',s:1},
  {x:45,y:32,t:'forklift',s:1},
- {x:48,y:9,t:'cart',s:1},
+ {x:46,y:34,t:'barrel',c:'#B8643A',s:1},
+ {x:46,y:36,t:'crates',s:1},
+ {x:35,y:34,t:'fishbox',s:1},
+ {x:45,y:38,t:'bench',s:1},
+ // SW Harbor Market & Chandlery (B14 Rope & Tar — organic 4-stall market, barrel & rope outside Chandlery)
  {x:8,y:37,t:'stall',w:2,c:'#2F8A9A',s:1},
  {x:11,y:37,t:'stall',w:2,c:'#C2492F',s:1},
  {x:14,y:37,t:'stall',w:2,c:'#E8B23D',s:1},
  {x:11,y:40,t:'stall',w:2,c:'#4C9A5E',s:1},
- {x:14,y:40,t:'stall',w:2,c:'#8E6BD9',s:1},
- {x:17,y:42,t:'crates',s:1},
  {x:17,y:37,t:'barrel',c:'#E8743A',s:1},
  {x:9,y:41,t:'fishbox',s:1},
+ {x:17,y:42,t:'crates',s:1},
+ {x:3,y:43,t:'barrel',c:'#8A6A3A',s:1},
+ {x:5,y:43,t:'rope',s:0},
+ {x:9,y:43,t:'pots',s:1},
+ {x:7,y:44,t:'bench',s:1},
  {x:15,y:44,t:'bench',s:1},
- {x:9,y:6,t:'bench',s:1},
- {x:20,y:4,t:'bench',s:1},
- {x:6,y:16,t:'bench',s:1},
- {x:45,y:38,t:'bench',s:1},
- {x:5,y:31,t:'netrack',w:2,s:1},
- {x:44,y:3,t:'cradletalk',w:3,s:0,m:["An empty cradle. Keel blocks.", "Chalked on one: 14."]},
- {x:48,y:2,t:'namescrap',s:1,m:["A strip of old name board.", "Every letter gouged out."]},
- {x:47,y:5,t:'skifftrolley',w:2,s:1},
- {x:3,y:8,t:'planter',c:'#D9437A',s:1},
- {x:5,y:8,t:'planter',c:'#E8B23D',s:1},
- {x:15,y:7,t:'planter',c:'#8E6BD9',s:1},
- {x:23,y:7,t:'planter',c:'#E8743A',s:1},
- {x:25,y:7,t:'planter',c:'#D9437A',s:1},
- {x:32,y:7,t:'planter',c:'#E8B23D',s:1},
- {x:34,y:7,t:'planter',c:'#8E6BD9',s:1},
- {x:42,y:14,t:'planter',c:'#E8743A',s:1},
- {x:44,y:14,t:'planter',c:'#D9437A',s:1},
- {x:36,y:43,t:'planter',c:'#E8B23D',s:1},
- {x:38,y:43,t:'planter',c:'#8E6BD9',s:1},
- {x:3,y:43,t:'planter',c:'#E8743A',s:1},
- {x:5,y:43,t:'planter',c:'#D9437A',s:1},
- {x:24,y:8,t:'tugdecal',s:0,m:["HALE 14. Painted on the quay. Fresh coat.", "Someone keeps it up."]},
- {x:25,y:8,t:'tugdecal',s:0,m:["HALE 14. Painted on the quay. Fresh coat.", "Someone keeps it up."]}];
+ // SE Union Hall & Ferry Quay (B15 Union Hall, ferry boarding dock)
+ {x:33,y:44,t:'netrack',w:2,s:1},
+ {x:39,y:43,t:'planter',c:'#E8B23D',s:1},
+ {x:39,y:44,t:'lamp',s:1},
+ {x:46,y:45,t:'pots',s:1},
+ {x:47,y:44,t:'bench',s:1}];
 const HB_ZONES=[   // [id,x0,y0,x1,y1,ambient hex]  Z5 Quay/Breakwater, Z1 The Gut, Z3 Old Town, Z4 Cannery Row, Z2 Drydock (later entries win)
  [5,0,36,49,51,'#2F4A55'],[1,0,10,11,35,'#3A4040'],[3,0,0,38,9,'#315E63'],[4,36,8,49,44,'#7A3E2F'],[2,17,8,32,26,'#2F3E46']];
 const HB_POOLS=[   // outdoor light pools [x,y,r(tiles),hex,alpha]  (CF_81 3.9; at most 4 on any screen)
@@ -6956,7 +6952,7 @@ const R2B=[
  {id:'B04',kind:'shop',x:17,y:2,w:6,h:4,doors:[[19,5]],sign:'LIFEBOAT',sub:'STATION',col:'#2F6F6A',col2:'#B5643C',look:'brick',room:'r2_B04'}];
 /* outdoor props (same art kinds as the harbor where they exist; wreck, saltpile, booth, laundry, gatepost, sign and rake are new and drawn in r2_render.js) */
 const R2P=[
- {x:6,y:12,t:'rope',s:0},{x:8,y:11,t:'lamp',s:1},{x:15,y:11,t:'lamp',s:1},{x:6,y:14,t:'bollard',s:1},
+ {x:6,y:12,t:'rope',s:0},{x:8,y:11,t:'lamp',s:1},{x:6,y:14,t:'bollard',s:1},
  {x:7,y:8,t:'barrel',c:'#B5643C',s:1},{x:13,y:11,t:'bench',s:1},{x:13,y:7,t:'laundry',w:3,s:0},{x:7,y:7,t:'pots',s:1},
  {x:14,y:4,t:'dryboat',w:2,c:'#B5643C',s:1},{x:16,y:6,t:'pots',s:1},{x:21,y:6,t:'netroll',s:1},{x:25,y:3,t:'buoy',s:0},
  {x:25,y:9,t:'crates',s:1},{x:34,y:7,t:'container',w:2,c:'#B5643C',s:1},{x:36,y:7,t:'saltpile',s:1},{x:37,y:10,t:'saltpile',s:1},{x:33,y:10,t:'cart',s:1},
@@ -6964,7 +6960,7 @@ const R2P=[
  {x:17,y:22,t:'wreck',w:6,h:2,s:1,m:["The MARY KELLY. Ran aground in '09.","Nobody hauled her off.","The gulls own her now."]},
  {x:7,y:16,t:'barrel',c:'#4A6FA5',s:1},{x:14,y:21,t:'bench',s:1},{x:10,y:21,t:'lamp',s:1},{x:16,y:20,t:'fishbox',s:1},
  {x:35,y:11,t:'booth',s:1,m:['TOLL. Paint says 1931.','Nobody has paid in years.']},{x:36,y:14,t:'sign',s:1,m:['CAUSEWAY  -  CINDERHOLD 9 MI.','FLOODS AT HIGH WATER.']},
- {x:39,y:11,t:'gatepost',s:1},{x:39,y:14,t:'gatepost',s:1},{x:34,y:14,t:'lamp',s:1}];
+ {x:37,y:11,t:'gatepost',s:1},{x:37,y:14,t:'gatepost',s:1},{x:34,y:14,t:'lamp',s:1}];
 const R2_POOLS=[];   // daylight: no light pools outdoors (Bible 13: baked daylight)
 /* ---- outdoor people. f = first, w = after the Flats test, c = after Mud Kelly. Lines <= 37 chars, <= 3 lines. ---- */
 const R2_OUT_NPCS=[
@@ -8553,11 +8549,15 @@ function owBakeRoute(c,m){
 }
 /* ---- THE SPILLWAY: NPCs, props and art (phase 2) ---- */
 const SPPROPS=[
+ {x:2,y:3,t:'sp_crate',s:1,m:['Gatehouse logbooks and rain tarps stacked under a tin lid.']},
+ {x:9,y:10,t:'sp_bench',s:1},
  {x:20,y:14,t:'sp_tire',s:1,act:'tire'},
- {x:34,y:12,t:'sp_vend',s:1,m:['A vending machine hums. SOLD OUT in three languages.']},
- {x:33,y:13,t:'sp_bench',s:1},
+ {x:34,y:11,t:'sp_vend',s:1,m:['A vending machine hums. SOLD OUT in three languages.']},
+ {x:32,y:12,t:'sp_bench',s:1},
  {x:40,y:12,t:'sp_door',s:1,m:['A steel maintenance door. No handle.','A sticker: MUNICIPAL — NO ENTRY.','The paint has been scraped off one corner. Somebody tried.']},
+ {x:48,y:14,t:'sp_crate',s:1,m:['Weathered freight crates staged near the floodway ramp.']},
  {x:53,y:17,t:'sp_crate',s:1,m:['A wooden crate. Stenciled Q-7, then QM over the top.','No other marking. No manifest.','Nothing about it says who sent it.']},
+ {x:45,y:6,t:'sp_bench',s:1},
  {x:48,y:5,t:'sp_jersey',s:1,m:['A jersey hung on a nail. HALE 14.','Salt-stiff. Left out for the rain.',"A note, sun-faded: 'Bring it home, Tug.'"]},
  {x:47,y:5,t:'sp_case',s:1,m:['A glass case, bolted to the wall.','Inside: a game ball, a muddy cleat, and a photo of a kid in a #14 jersey.',"'MARLOW HALE - HALE HARBOR'S FINEST'"]},
  {x:54,y:16,t:'sp_truck',s:1,w:3,h:2}
