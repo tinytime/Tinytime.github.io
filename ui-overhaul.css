@@ -2527,7 +2527,6 @@ body:has(#tick:not([hidden])) #banner{opacity:0!important;visibility:hidden!impo
  .ui-title-screen .title-scene{width:min(100vw,56.25vh);left:50%;transform:translateX(-50%)}
  .ui-title-hit-start{left:calc(50% - min(100vw,56.25vh)*.31);width:min(100vw,56.25vh)*.63}
  .ui-title-hit-settings{left:calc(50% - min(100vw,56.25vh)*.19);width:min(100vw,56.25vh)*.38}
-}
 
 
 /* Pre-game settings: a clean, standalone settings surface behind the title gate.

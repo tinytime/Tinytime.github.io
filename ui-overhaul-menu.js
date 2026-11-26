@@ -528,6 +528,9 @@
    el.addEventListener('pointerup',off);
    el.addEventListener('pointercancel',off);
    el.addEventListener('pointerleave',off);
+   el.addEventListener('touchstart',on,{passive:true});
+   el.addEventListener('touchend',off,{passive:true});
+   el.addEventListener('touchcancel',off,{passive:true});
   };
   const startBtn=title.querySelector('#uiTitleStart');
   const setBtn=title.querySelector('#uiTitleSettings');
