@@ -2050,7 +2050,7 @@ body.land #bHurdle,body.land #bHurdle.dive{
 @media(orientation:landscape) and (max-width:1000px){#app #sheet #cards{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
 @media(max-width:620px){#app #sheet #cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}#app #sheet .card b{font-size:11px!important}}
 
-body:has(#tkTitle:not(:empty)) #banner{opacity:0!important;visibility:hidden!important;display:none!important;transition:opacity .16s ease,visibility 0s linear .16s!important}
+body:has(#tick:not([hidden])) #banner{opacity:0!important;visibility:hidden!important;display:none!important;transition:opacity .16s ease,visibility 0s linear .16s!important}
 #app:has(#tkTitle:not(:empty)) #tkTop{animation:ui-drive-pill-arrive .18s ease-out .17s both}
 @keyframes ui-drive-pill-arrive{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:translateY(0)}}
 
@@ -4308,6 +4308,94 @@ body #app #ctl #bTurbo .ui-turbo-txt {
   background: rgba(19, 22, 32, 0.96) !important;
   border: 1.5px solid rgba(77, 225, 242, 0.45) !important;
   border-radius: 12px !important;
+}
+
+/* ==========================================================================
+   Polish Fixes: #steal Post-Game Palette, #dcall Fit, Scrollable Playbook
+   ========================================================================== */
+/* Post-Game Crew Win (#steal) — new matte #131620 palette */
+#steal {
+  background: #131620 !important;
+  background-image: none !important;
+}
+#steal #stTitle {
+  color: #F5B841 !important;
+  text-shadow: none !important;
+}
+#steal #stScore {
+  color: #F5F7FA !important;
+  text-shadow: none !important;
+}
+#steal #stNote {
+  color: #9BA8BC !important;
+}
+#steal #stList > div {
+  background: #1C2130 !important;
+  border-radius: 14px !important;
+}
+#steal #stList button {
+  background: #1C2130 !important;
+  border: 1.5px solid #F5B841 !important;
+  border-radius: 12px !important;
+  color: #F5B841 !important;
+}
+#steal #stDone {
+  background: #4DE1F2 !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  color: #131620 !important;
+  box-shadow: 0 3px 0 #147f98 !important;
+}
+
+/* Defense Selection (#dcall) — compact fit with horizontal stat rows */
+#app #dcall {
+  top: calc(env(safe-area-inset-top, 0px) + 68px) !important;
+  max-height: calc(100vh - 76px) !important;
+  overflow-y: auto !important;
+  padding: 8px 10px !important;
+}
+#app #dcall h3 {
+  font-size: 14px !important;
+  margin: 0 0 2px !important;
+}
+#app #dcall p {
+  font-size: 11px !important;
+  margin: 0 0 6px !important;
+}
+#app #dcall .row > button {
+  padding: 7px 8px !important;
+}
+#app #dcall .row > button small {
+  font-size: 9px !important;
+  line-height: 1.15 !important;
+  margin-bottom: 4px !important;
+}
+#app #dcall .row > button .dco {
+  gap: 3px !important;
+  margin-top: 4px !important;
+}
+#app #dcall .row > button .dco-row {
+  flex-direction: row !important;
+  min-height: 20px !important;
+  padding: 2px 7px !important;
+}
+
+/* Scrollable Playbook (no pages) */
+#app #sheet #pbNav {
+  display: none !important;
+}
+#app #sheet #pbGrid {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  padding-right: 2px !important;
+}
+#app #sheet #cards {
+  height: auto !important;
+  grid-template-rows: none !important;
+  grid-auto-rows: minmax(112px, auto) !important;
+  overflow: visible !important;
+  padding-bottom: 4px !important;
 }
 
 /* ==========================================================================

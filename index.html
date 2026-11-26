@@ -1475,10 +1475,10 @@ function buildCards(redraw){
   const pages=Math.max(1,Math.ceil(L.length/f.n));
   if(!redraw&&L.includes(G.sel))PB.pg=Math.floor(L.indexOf(G.sel)/f.n);   // reopen on the page with the play you last picked
   PB.pg=clamp(PB.pg,0,pages-1);
-  nav.hidden=pages<2;$('#pbPg').textContent='PAGE '+(PB.pg+1)+' / '+pages;$('#pbPrev').disabled=PB.pg<=0;$('#pbNext').disabled=PB.pg>=pages-1;
-  box.style.gridTemplateColumns='repeat('+f.cols+',minmax(0,1fr))';box.style.gridTemplateRows='repeat('+f.rows+',minmax(0,1fr))';
+  nav.hidden=true;
+  box.style.gridTemplateColumns='repeat('+f.cols+',minmax(0,1fr))';box.style.gridTemplateRows='none';
   box.innerHTML='';box.dataset.built=1;
-  for(const i of L.slice(PB.pg*f.n,PB.pg*f.n+f.n)){const pl=PLAYS[i],wrap=document.createElement('div'),c=document.createElement('div'),fav=document.createElement('button');wrap.className='cardWrap';c.className='card';c.dataset.i=i;
+  for(const i of L){const pl=PLAYS[i],wrap=document.createElement('div'),c=document.createElement('div'),fav=document.createElement('button');wrap.className='cardWrap';c.className='card';c.dataset.i=i;
     const fv=favs().includes(pl.id);c.innerHTML='<b><span>'+pl.name+'</span></b><canvas width="168" height="124"></canvas>';
     fav.type='button';fav.className='fav'+(fv?' on':'');fav.setAttribute('aria-label','favourite');fav.setAttribute('aria-pressed',fv?'true':'false');fav.textContent=fv?'★':'☆';
     fav.onclick=e=>{e.preventDefault();e.stopPropagation();favToggle(pl.id);buildCards(true)};
