@@ -364,3 +364,22 @@ The owner explicitly authorized implementing the attached reference before handi
 - No golden snapshots were changed. This is internal browser QA plus direct screenshot inspection; it is not Claude independent review or final owner approval.
 
 **Next gate:** include this pre-game redesign and Run #503 artifact in the consolidated Claude review. Ask Claude to assess both reference fidelity and responsive behavior, including whether the compact card/player scale hierarchy remains clear on additional supported viewport sizes. Keep overall UI Overhaul approval pending.
+
+
+## Pre-game landscape layout + real 3D players — Run #523 passed (2026-11-26)
+
+The owner’s follow-up landscape corrections are implemented and internally verified. Exact tested application commit: `4c00e5b387ec0199cda285445bbe283af178f912` on `UI-Overhaul`.
+
+- The town/location and match-type pills now sit in the lower-left and lower-right corners, leaving the upper corners clear for the team cards and player models. The FIRST TO pill, progress bar and TAP TO PLAY remain centered in their own bottom lane.
+- The six old 2D player previews have been replaced with actual animated Three.js/KayKit skinned player rigs. Both teams use one shared 3D render pass each, with six visible player canvases receiving the rendered models. The verified clips are `Cheering`, `Push_Ups` and `Idle_A`; each team has one player in each pose and uses its current team uniform/jersey data.
+- Team cards are compact `#131620` surfaces with gold/cyan borders, a 190px landscape width and tight 1px horizontal padding. Logo marks are enlarged to use the card area more effectively; names and OVR pills remain contained.
+- Footer spacing and player-stage sizing were tuned for both compact and wide landscape. QA confirms all card, model-stage and footer rectangles are inside the viewport; cards clear the player stages; players clear the footer; and corner pills do not collide with the centered controls.
+
+**Browser QA:** [Run #523](https://github.com/tinytime/Tinytime.github.io/actions/runs/45733097704) passed **307/307 assertions** on the exact tested commit. Zero page exceptions, console errors or same-origin request failures. The new assertions verify all six renderers identify as `threejs-kaykit-skinned`, all six models report ready, the three required animation clips are loaded, and every canvas contains visible model pixels.
+
+**Viewport evidence inspected:**
+- `match-pre-game.png` — 844×390 compact landscape. Team cards measured 190×150px, 1px horizontal padding; all six 3D players, footer controls and bottom-corner pills fit without overlap.
+- `match-pre-game-wide-landscape.png` — 1536×611 wide landscape. Team cards measured 190×152.75px; all six player stages clear the footer and all elements remain within bounds.
+- Artifact: [Run #523 artifact 15077298779](https://github.com/tinytime/Tinytime.github.io/actions/runs/45733097704/artifacts/15077298779), containing 57 files including the two matchup screenshots and machine-readable QA report.
+
+No golden snapshots were changed. This is internal automated QA plus direct screenshot inspection. The pre-game layout is ready for inclusion in Claude’s independent review; overall UI Overhaul approval remains pending Claude review and final owner approval.
