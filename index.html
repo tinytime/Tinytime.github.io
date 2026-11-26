@@ -5251,7 +5251,7 @@ function camUpdate(rdt){
         const dist=Math.min(f.x,FW-f.x),wg=clamp((10-dist)/3,0,1),Lx=.385*W/(WU*U0F*z),Lm=(LAND?.36:.35)*W/(WU*U0F*z);   // within about 8 yards of a sideline, pan to it so it sits 8-15% from the screen edge
         tx=tx*(1-wg)+(f.x<CX?Lx:FW-Lx)*wg;tx=clamp(tx,Lm,FW-Lm);
         const fs=runHero()&&F.carrier?[F.carrier]:fitSet(),v0=fitView(z,fs,[0]),v=fitView(z,fs);fitLast=v0;tx=v.lo<=v.hi?clamp(tx,v.lo,v.hi):(v0.lo<=v0.hi?clamp(tx,v0.lo,v0.hi):(v0.lo+v0.hi)/2);if(window.__dbg)window.__fitv=[+v.lo.toFixed(1),+v.hi.toFixed(1),v.vert,+tx.toFixed(1),+cam.x.toFixed(1)];   // and never let the carrier or the 4 nearest players slip past the 8% margin
-        tz=dynZoom(Math.min(rdt,.05));if(runHero()&&F.carrier&&!(F.cine>0)){const c=F.carrier,s=Math.hypot(c.vx||0,c.vy||0);tz*=1-RUNCAM.widen*clamp((s-RUNCAM.wFrom)/2.5,0,1)}}if(G&&G.drill){ty=f.y-14.5;tz=.72}}   // v3.13 B9: the view opens up a little at top speed (the TURBO press gets its kick from the B2 punch)   // v3.09: TURBO push-in
+        tz=dynZoom(Math.min(rdt,.05));if(runHero()&&F.carrier&&!(F.cine>0)){const c=F.carrier,s=Math.hypot(c.vx||0,c.vy||0);tz*=1-RUNCAM.widen*clamp((s-RUNCAM.wFrom)/2.5,0,1)}}if(G&&G.drill){ty=f.y-5.5;tz=.88}}   // v3.13 B9: the view opens up a little at top speed (the TURBO press gets its kick from the B2 punch)   // v3.09: TURBO push-in
   }
   if(SIMV.on){simStep(rdt);ty=Math.min(SIMV.cl,SIMV.cf)-5.5;tx=CX;tz=1}
   if(F&&F.cine>0&&!SIMV.on){F.cine-=rdt;const f=F.carrier;if(f&&!side){const pr=1-F.cine/SP_CINE;ty=f.y-CAMCFGL.back*.55;tx=f.x+(.5-pr)*6;tz=1.55}}
@@ -5259,7 +5259,7 @@ function camUpdate(rdt){
   const passOn=passPlay&&((G.mode==='live'&&F.mode==='live'&&(F.ballAir||(F.passer&&F.carrier===F.passer)))||G.mode==='dead');
   if(passOn)ty=passClampTy(ty);
   {const pt=(passOn&&!F.ballAir&&F.passer&&F.carrier===F.passer&&F.mode==='live')?1:0;CAMP+=(pt-CAMP)*(1-Math.exp(-(pt?3:5)*rdt));if(Math.abs(pt-CAMP)<.002)CAMP=pt}   // v3.16KK1: ease into the pocket camera after the snap, out when the ball is thrown
-  {const bt=(LAND&&G&&G.mode==='playcall')?1:0;CAMB+=(bt-CAMB)*(1-Math.exp(-4.2*rdt));if(Math.abs(bt-CAMB)<.002)CAMB=bt}
+  {const bt=(LAND&&G&&(G.mode==='playcall'||G.drill))?1:0;CAMB+=(bt-CAMB)*(1-Math.exp(-4.2*rdt));if(Math.abs(bt-CAMB)<.002)CAMB=bt}
   {const c=F&&F.carrier,rt=(!(G&&G.drill)&&F&&F.mode==='live'&&!F.ballAir&&c&&!(F.passer===c)&&runHero()&&!SIMV.on)?1:0;CAMR+=(rt-CAMR)*(1-Math.exp(-(rt?7:3)*rdt));   /* v3.10: in within about 0.4 s */if(Math.abs(rt-CAMR)<.002)CAMR=rt;   // v3.09: ease into / out of the low runner camera
    const lt=(rt&&c&&!bmLite())?-clamp((c.vx||0)/7,-1,1)*RUNCAM.lean:0;camLean+=(lt-camLean)*(1-Math.exp(-5*rdt))}
   const k=1-Math.exp(-6*rdt);if(window.__camlog){const f0=F&&(F.carrier||F.passer);window.__camlog.push([performance.now(),rdt,tx,cam.x,f0?f0.x:0,f0?(f0.vx||0):0,cam.zoom,tz])}cam.y+=(ty-cam.y)*k;cam.x+=(tx-cam.x)*k;
@@ -13143,14 +13143,16 @@ function fdStepCrush3D(dr,dt){
           ragdoll(p,(p.x-car.x)/(d||1)*7,(p.y-car.y)/(d||1)*7,6,1.4);dust(p.x,p.y,8,1);
           SND.fx(car.arm>0?'stiffHit':'ankle');popup(lbl+pts,car.x,car.y+1.6,'#58ffb0');
         }else{
-          // CRUSHED -> LIVE FUMBLE!
-          const ang=Math.atan2(car.y-p.y,car.x-p.x)+(Math.random()-.5)*.9;
-          ragdoll(car,Math.cos(ang)*6,Math.sin(ang)*6,7,1.45);dust(car.x,car.y,12,1.2);
-          dr._loose=true;F.carrier=you;dr.streak=1;
-          dr.ball.vx=Math.cos(ang)*14;dr.ball.vy=Math.sin(ang)*14;dr.ball.z=1.4;dr.ball.vz=5.5;
-          SND.fx('hit');
-          if(p._drillYou){if(p.tackleDive)p.tackleDive.hit=true;p._dScore+=125;popup('CRUSHED! FUMBLE +125',car.x,car.y+1.8,'#E8A33D')}
-          else if(car._drillYou){popup('FUMBLE!',car.x,car.y+1.8,'#ff3b5c')}
+          // TACKLED -> TACKLER IMMEDIATELY GETS THE BALL, EVERYONE ELSE FREEZES FOR 2.0s!
+          const ang=Math.atan2(car.y-p.y,car.x-p.x);
+          ragdoll(car,Math.cos(ang)*5,Math.sin(ang)*5,6,2.0);dust(car.x,car.y,12,1.2);
+          for(const o of dr.players){if(o!==p){o.stun=Math.max(o.stun||0,2.0);o.vx=0;o.vy=0;o.tackleDive=null}}
+          dr._loose=false;F.carrier=p;dr.ball.x=p.x;dr.ball.y=p.y;dr.ball.z=1.1;dr.streak=1;
+          if(p.tackleDive){p.tackleDive.hit=true;p.tackleDive=null}
+          SND.fx(p._drillYou?'ok2':'hit');
+          if(p._drillYou){p._dScore+=125;popup('TACKLED! YOUR BALL +125',p.x,p.y+1.8,'#E8A33D')}
+          else if(car._drillYou){popup('STRIPPED! FROZEN 2s',car.x,car.y+1.8,'#ff3b5c')}
+          else{popup(p._dName+' TOOK IT!',p.x,p.y+1.8,'#9FC6D8')}
           break;
         }
       }
