@@ -360,3 +360,12 @@ The implementation summary and Stage Two review package are the source of truth 
 - Actual artifact screenshots visually inspected: `match-playbook-overlay.png`, `match-playbook-after-flip.png`, `match-fumble-pile.png`, `match-defense-simulation.png`, `match-post-game.png`, and `goals-stats-achievements.png`. No new blocking visual regression was identified in these inspected captures.
 - No golden snapshots or snapshot provenance changed. This is internal QA/visual inspection only; it is not independent Claude review or owner approval.
 - Documentation checkpoint commits: README and implementation summary updated after the tested code SHA. Verify live branch HEAD before further changes.
+
+
+## Owner follow-up — location-specific matchup field and player scale hierarchy (2026-11-26)
+
+- Replaced the single generic pre-game field illustration with town-aware field environments for Vapor City, Hale Harbor, Gull's Reach and The Spillway, plus a route-field fallback. The active opponent/route town selects the field scene; the football field remains the foreground.
+- Reduced the home/away colour washes to restrained 0.28-alpha gradients so the environment remains visible.
+- Added a deliberate per-team player hierarchy: the centre running back is the large figure; quarterback and receiver are medium figures. The renderer scales the actual KayKit rigs as well as their display slots.
+- Added resize redraw handling and browser assertions for scene selection, tint strength, two-medium/one-large distribution, and per-model scale.
+- Implementation is committed on UI-Overhaul; fresh browser QA and screenshot inspection are pending. No gameplay, team data, uniforms, model assets, or golden snapshots were changed.

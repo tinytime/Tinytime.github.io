@@ -1818,3 +1818,12 @@ The owner’s follow-up landscape corrections are implemented and internally ver
 - Artifact: [Run #523 artifact 15077298779](https://github.com/tinytime/Tinytime.github.io/actions/runs/45733097704/artifacts/15077298779), containing 57 files including the two matchup screenshots and machine-readable QA report.
 
 No golden snapshots were changed. This is internal automated QA plus direct screenshot inspection. The pre-game layout is ready for inclusion in Claude’s independent review; overall UI Overhaul approval remains pending Claude review and final owner approval.
+
+
+## Owner follow-up — location-specific matchup field and player scale hierarchy (2026-11-26)
+
+- Replaced the single generic pre-game field illustration with town-aware field environments for Vapor City, Hale Harbor, Gull's Reach and The Spillway, plus a route-field fallback. The active opponent/route town selects the field scene; the football field remains the foreground.
+- Reduced the home/away colour washes to restrained 0.28-alpha gradients so the environment remains visible.
+- Added a deliberate per-team player hierarchy: the centre running back is the large figure; quarterback and receiver are medium figures. The renderer scales the actual KayKit rigs as well as their display slots.
+- Added resize redraw handling and browser assertions for scene selection, tint strength, two-medium/one-large distribution, and per-model scale.
+- Implementation is committed on UI-Overhaul; fresh browser QA and screenshot inspection are pending. No gameplay, team data, uniforms, model assets, or golden snapshots were changed.
