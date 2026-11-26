@@ -4381,7 +4381,7 @@ body #app #ctl #bTurbo .ui-turbo-txt {
 }
 
 /* Scrollable Playbook (bounded #sheet height so #pbGrid always scrolls) */
-body #app #sheet {
+body #app #sheet:not([hidden]) {
   position: fixed !important;
   top: calc(env(safe-area-inset-top, 0px) + 64px) !important;
   bottom: 0 !important;
@@ -4391,15 +4391,15 @@ body #app #sheet {
   flex-direction: column !important;
   overflow: hidden !important;
 }
-body #app #sheet #pbNav {
+body #app #sheet:not([hidden]) #pbNav {
   display: none !important;
 }
-body #app #sheet #pbMain {
+body #app #sheet:not([hidden]) #pbMain {
   flex: 1 1 0 !important;
   min-height: 0 !important;
   overflow: hidden !important;
 }
-body #app #sheet #pbGrid {
+body #app #sheet:not([hidden]) #pbGrid {
   flex: 1 1 0 !important;
   height: 100% !important;
   min-height: 0 !important;
@@ -4409,7 +4409,7 @@ body #app #sheet #pbGrid {
   touch-action: pan-y !important;
   padding-right: 2px !important;
 }
-body #app #sheet #cards {
+body #app #sheet:not([hidden]) #cards {
   height: auto !important;
   min-height: 0 !important;
   grid-template-rows: none !important;
@@ -4418,9 +4418,9 @@ body #app #sheet #cards {
   touch-action: pan-y !important;
   padding-bottom: 10px !important;
 }
-body #app #sheet #cards .cardWrap,
-body #app #sheet #cards .card,
-body #app #sheet #cards canvas {
+body #app #sheet:not([hidden]) #cards .cardWrap,
+body #app #sheet:not([hidden]) #cards .card,
+body #app #sheet:not([hidden]) #cards canvas {
   height: auto !important;
   touch-action: pan-y !important;
 }
