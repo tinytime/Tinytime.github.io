@@ -12821,22 +12821,23 @@ function startFieldDrill(id){
   SND.fx('bong');OW.busy=true;owSave();owHide();
   if(typeof owRelease==='function')owRelease();
   SND.setMode('game');SPR.clear();
-  const crew=(id==='t2_crush'&&typeof HB_CREWS!=='undefined')?HB_CREWS[3]:CREWS[0];
+  const crew=(id==='t2_crush'&&typeof HB_CREWS!=='undefined')?Object.assign({},HB_CREWS[3],{town2:true}):CREWS[0];
   G_oppUniPending=awayUni(crew);
   G={crew,oppUni:G_oppUniPending,you:0,opp:0,target:99,los:65,down:1,togo:25,ltg:90,style:0,sp:{m:{},ready:null,left:0,cool:0},spArmed:false,dv:{plays:0,yds:0},pn:0,t0:performance.now(),sel:0,flip:false,mode:'live',call:'bal',clock:0,clockOn:false,showPlay:false,drill:null};
   PLAY={id:'drill_'+id,kind:'run',hand:0,name:cfg.name};
-  screens(null);show('#hud',false);show('#setbar',false);show('#controls',true);
+  screens(null);show('#hud',false);show('#sheet',false);show('#setbar',false);show('#ctl',true);show('#turboWrap',true);show('#turboLbl',true);
   fdEnsureExitBtn();
 
   if(id==='t1_rush')fdInitRush3D();
   else fdInitCrush3D();
+  try{const t=$('#thr');if(t)t.style.visibility='hidden'}catch(e){}
   artWarm();
 }
 
 function fdEndDrill(aborted){
   const dr=G&&G.drill;
   const b=document.getElementById('fdExitBtn');if(b)b.hidden=true;
-  show('#controls',false);
+  show('#ctl',false);show('#turboWrap',false);show('#turboLbl',false);
   const id=dr?dr.id:null,score=dr?Math.round(dr.score):0;
   if(G)G.drill=null;
   F=null;G=null;OW.busy=false;
