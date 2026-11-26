@@ -1,15 +1,8 @@
-import { chromium } from 'playwright';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { createServer } from 'node:http';
-
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const out=path.join(root,'ui-overhaul-qa-output');
-fs.mkdirSync(out,{recursive:true});
-const checks=[],failures=[],pageErrors=[],consoleErrors=[],sameOriginFailures=[];
-const check=(name,pass,detail=null)=>{checks.push({name,pass:!!pass,detail});if(!pass)failures.push(name)};
-const server=createServer((req,res)=>{
+  check('Oversized team logos stay within their own half; team name and OVR share one lower identity pill on a common baseline, clear of FIRST TO',matchupLogoLayout.length===2&&matchupLogoLayout.every((x,i)=>x.logo.width>=x.card.width*.85&&x.logo.height>=x.card.height*.65&&(i===0?x.logo.right<=matchupViewport.width*.5+1:x.logo.left>=matchupViewport.width*.5-1)&&Math.abs(x.name.top-x.ovr.top)<=4&&x.name.left>=x.pill.left&&x.ovr.right<=x.pill.right&&x.name.bottom<=x.pill.bottom&&x.ovr.bottom<=x.pill.bottom&&x.first.bottom<=x.pill.top-2),matchupLogoLayout);
+  await page.setViewportSize({width:1536,height:611});await page.waitForTimeout(120);
+  const wideIdentity=await page.locator('#mu .pn').evaluateAll(es=>es.map(el=>{const c=el.getBoundingClientRect(),n=el.querySelector('.nm').getBoundingClientRect(),o=el.querySelector('.ov').getBoundingClientRect(),f=document.querySelector('#mu .first').getBoundingClientRect(),p=getComputedStyle(el,'::after'),pw=parseFloat(p.width),ph=parseFloat(p.height),pl=c.left+(c.width-pw)/2,pb=c.bottom-parseFloat(p.bottom);return{card:{left:c.left,right:c.right,width:c.width},name:{left:n.left,right:n.right,top:n.top,bottom:n.bottom},ovr:{left:o.left,right:o.right,top:o.top,bottom:o.bottom},first:{bottom:f.bottom},pill:{left:pl,right:pl+pw,top:pb-ph,bottom:pb}}}));
+  check('Wide-landscape identity pills expand with each half and keep name/OVR aligned inside clear of FIRST TO',wideIdentity.length===2&&wideIdentity.every(x=>Math.abs(x.name.top-x.ovr.top)<=4&&x.name.left>=x.pill.left&&x.ovr.right<=x.pill.right&&x.name.bottom<=x.pill.bottom&&x.ovr.bottom<=x.pill.bottom&&x.first.bottom<=x.pill.top-2),wideIdentity);
+  await page.setViewportSize({width:844,height:390});await page.waitForTimeout(120);req,res)=>{
  let pathname;try{pathname=decodeURIComponent(new URL(req.url,'http://127.0.0.1').pathname)}catch{res.writeHead(400).end('Bad request');return}
  const target=path.resolve(root,'.'+pathname);
  if(target!==root&&!target.startsWith(root+path.sep)){res.writeHead(403).end('Forbidden');return}
