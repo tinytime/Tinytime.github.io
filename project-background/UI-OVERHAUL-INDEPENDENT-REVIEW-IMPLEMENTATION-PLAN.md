@@ -406,3 +406,13 @@ No golden snapshots were changed. This is internal automated QA plus direct scre
 - The per-team player lineup is two medium KayKit rigs and one larger centre running back; the large rig uses the standing Idle_A clip, while the other two use distinct celebratory and push-up clips. All six models report ready.
 - Team-colour overlays use 0.28 alpha. The compact 844×390 and wide 1536×611 screenshots were inspected; cards, player stages, footer controls and corner pills remain within the tested viewport.
 - Include these location and scale changes in Claude's independent review. Keep overall UI Overhaul approval pending Claude review and explicit owner approval.
+
+
+## Pre-game content-first hierarchy correction — Run #534 (2026-11-26)
+
+- Owner direction: build the matchup layout around team identity/content first; add player models as supporting artwork afterward. Do not alter the field or team-colour gradient effect.
+- Layout implementation commit: `9a4823f4dce0fd0609bb06bf55898d92cbd5f4a7`; QA script repair: `8fb566e3f3fab8d59549f355ded11e7cfa8cc870`; final run-trigger commit and exact tested branch head: `9f5bde93029332e7a26a71202a9dbcb66afffc2f`.
+- Browser QA [Run #534](https://github.com/tinytime/Tinytime.github.io/actions/runs/45740521797) passed 313/313 checks. Zero page exceptions, console errors, same-origin failures or assertion failures. Artifact ID: 15080981547.
+- Compact 844×390 cards measure 230×170px. Cards end at y=177; all six supporting player stages begin at y=198. The 1536×611 wide layout also passes all-inside/no-overlap checks. All six player canvases render ready KayKit skinned rigs; lineup remains two medium and one larger centre player per side.
+- Screenshot inspection confirms team identity cards and logos lead the composition, players are subordinate, and existing location-specific field art, 0.28-alpha team gradients and gold centre divider are retained. Footer target, progress bar, TAP TO PLAY and bottom-corner town/mode pills remain visible.
+- No golden snapshots were changed. This is internal QA plus direct screenshot inspection; Claude independent review and explicit owner approval remain required before treating the overall UI Overhaul as approved.
