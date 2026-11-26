@@ -3480,6 +3480,94 @@ body #achT {
 }
 
 /* ==========================================================================
+   Section 2: Overworld Menu (MENU, SETTINGS, CREDITS) — Handoff Spec
+   ========================================================================== */
+#menu .ui-menu-grid .ui-menu-icon-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 6px !important;
+  min-height: 108px !important;
+  padding: 12px 10px !important;
+  background: #131620 !important;
+  border-radius: 16px !important;
+}
+#menu .ui-menu-grid .ui-menu-icon-card .ui-menu-card-arrow {
+  display: none !important;
+}
+#menu .ui-menu-grid .ui-menu-action-copy {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 2px !important;
+}
+#menu .ui-menu-support {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+}
+#menu .ui-menu-support > .ui-menu-card-title {
+  grid-column: 1 / -1 !important;
+  text-align: center !important;
+  margin-bottom: 2px !important;
+}
+#menu .ui-menu-support #mSave,
+#menu .ui-menu-support #mFb {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 8px 6px !important;
+  min-height: 52px !important;
+  background: #1C2130 !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 10px !important;
+}
+#menu .ui-menu-support .ui-menu-icon,
+#menu .ui-menu-support .ui-menu-card-arrow,
+#menu .ui-menu-support .ui-menu-action-copy small {
+  display: none !important;
+}
+#menu .ui-menu-support #mSaveSt {
+  grid-column: 1 / -1 !important;
+  text-align: center !important;
+  font-size: 11px !important;
+  color: #9BA8BC !important;
+}
+#menu .ui-menu-setting .ui-menu-toggle-pill {
+  min-width: 58px !important;
+  min-height: 28px !important;
+  border-radius: 999px !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+}
+#menu .ui-menu-setting .ui-menu-toggle-pill[aria-pressed="true"] {
+  background: #4DE1F2 !important;
+  border-color: #4DE1F2 !important;
+  color: #131620 !important;
+}
+#menu .ui-resolution-group button[aria-pressed="true"] {
+  background: #F5B841 !important;
+  border-color: #F5B841 !important;
+  color: #131620 !important;
+}
+#menu .ui-menu-build-trigger {
+  background: #131620 !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 10px !important;
+  color: #9BA8BC !important;
+  font-size: 11px !important;
+  padding: 8px 12px !important;
+}
+#menu .ui-menu-build-trigger::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* ==========================================================================
    Pre-Game Matchup Screen (#mu) & On-Screen Playbook Footer Fixes
    ========================================================================== */
 

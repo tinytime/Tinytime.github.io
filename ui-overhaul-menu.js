@@ -34,7 +34,7 @@
   const devTitle=document.createElement('div');devTitle.className='ui-menu-dev-title';devTitle.textContent='DEVELOPER / TEST DRAWER';dev.appendChild(devTitle);
   const artAction=build&&build.onclick;if(build)build.onclick=null;
   let taps=0,tapTimer;
-  if(build){build.textContent='BUILD INFO';build.classList.add('ui-menu-build-trigger');build.setAttribute('role','button');build.setAttribute('tabindex','0');build.setAttribute('aria-label','Build information');build.setAttribute('aria-expanded','false');
+  if(build){build.textContent=buildDetailsInitial||'Build v3.40T · 22 Models · 45 Sounds';build.classList.add('ui-menu-build-trigger');build.setAttribute('role','button');build.setAttribute('tabindex','0');build.setAttribute('aria-label','Build information');build.setAttribute('aria-expanded','false');
    build.addEventListener('click',()=>{taps++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{taps=0},1800);if(taps>=5){dev.hidden=!dev.hidden;taps=0;build.setAttribute('aria-expanded',String(!dev.hidden))}});
    build.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();build.click()}});
   }
@@ -59,7 +59,7 @@
 
   ['mTeam','mGoals'].forEach(id=>moveControl(id,actions,'',true));
   byId('mTeam').dataset.uiTile='team';decorateAction(byId('mTeam'),icon('<path d="M8 4h8l2 3 3 1-2 12H5L3 8l3-1 2-3Z"/><path d="M9 4c0 2 1 3 3 3s3-1 3-3"/><path d="M8 12h8"/>'),'MY TEAM','Build your lineup');
-  const squadControl=byId('mSquad');if(squadControl){squadControl.hidden=false;squadControl.removeAttribute('aria-hidden');squadControl.removeAttribute('style');actions.appendChild(squadControl);decorateAction(squadControl,icon('<path d="M4 7h16v13H4z"/><path d="M8 7V5a4 4 0 0 1 8 0v2M8 12h8M8 16h5"/>'),'MY SQUAD','Starters & upgrades');squadControl.dataset.uiTile='squad';}
+  const squadControl=byId('mSquad');if(squadControl){squadControl.hidden=false;squadControl.removeAttribute('aria-hidden');squadControl.removeAttribute('style');actions.appendChild(squadControl);decorateAction(squadControl,icon('<path d="M4 7h16v13H4z"/><path d="M8 7V5a4 4 0 0 1 8 0v2M8 12h8M8 16h5"/>'),'UPGRADES','Starters & upgrades');squadControl.dataset.uiTile='squad';}
   byId('mGoals').dataset.uiTile='goals';decorateAction(byId('mGoals'),icon('<path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4M12 12v5m-4 3h8m-7-3h6"/>'),'GOALS & STATS','Challenges and records');
   const playbookButton=document.createElement('button');playbookButton.type='button';playbookButton.className='ui-menu-playbook ui-menu-icon-card';playbookButton.dataset.uiTile='playbook';playbookButton.setAttribute('aria-label','Open playbook');playbookButton.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon('<path d="M4 18V6m0 12h16M7 15l4-4 3 2 5-7"/><path d="m16 6 3 0 0 3"/>')+'</span><span class="ui-menu-action-copy"><strong>PLAYBOOK</strong><small>'+(window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS.length:0)+' available plays</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>';
   actions.append(squadControl,byId('mTeam'),playbookButton,byId('mGoals'));
@@ -67,7 +67,7 @@
   // live array whenever the overworld menu is opened after a match unlock.
   const updatePlaybookTileCount=()=>{
    const small=playbookButton.querySelector('.ui-menu-action-copy small');
-   if(small)small.textContent=(window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS.length:0)+' available plays';
+   if(small)small.textContent=(window.SG&&Array.isArray(window.SG.PLAYS)?window.SG.PLAYS.length:0)+'/19 Unlocked';
   };
   const overworldMenuButton=document.getElementById('owMenu');
   if(overworldMenuButton)overworldMenuButton.addEventListener('click',()=>requestAnimationFrame(updatePlaybookTileCount),{capture:true});
@@ -199,14 +199,14 @@
   playbookOverlay.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();closePlaybook()}});
   ['mFb','mSave'].forEach(id=>moveControl(id,support,'',true));
   const saveStatus=byId('mSaveSt');if(saveStatus)support.appendChild(saveStatus);
+  decorateAction(byId('mSave'),icon('<path d="M5 3h12l4 4v14H3V3h2Z"/><path d="M7 3v6h10V3M7 21v-8h10v8"/>'),'SAVE CODE (BACKUP)','Back up your progress');
   decorateAction(byId('mFb'),icon('<path d="M4 5h16v11H8l-4 4V5Z"/><path d="M8 9h8M8 12h5"/>'),'SEND FEEDBACK','Share a bug or idea');
-  decorateAction(byId('mSave'),icon('<path d="M5 3h12l4 4v14H3V3h2Z"/><path d="M7 3v6h10V3M7 21v-8h10v8"/>'),'SAVE CODE','Back up your progress');
-  support.append(byId('mFb'),byId('mSave'));if(saveStatus)support.appendChild(saveStatus);
+  support.append(byId('mSave'),byId('mFb'));if(saveStatus)support.appendChild(saveStatus);
   if(crewList)home.appendChild(crewList);
   const audio=card(settings,'AUDIO');
   moveControl('mMus',audio,'MUSIC',false);moveControl('mSfx',audio,'EFFECTS',false);
   const compactValue=(id,prefix,label)=>{const el=byId(id);if(!el)return;el.classList.add('ui-menu-toggle-pill');const sync=()=>{const raw=el.textContent.trim(),clean=raw.replace(new RegExp('^'+prefix+'\\s*:\\s*','i'),'');if(clean!==raw)el.textContent=clean;el.setAttribute('aria-label',label+': '+clean);if(/^(ON|OFF)$/i.test(clean))el.setAttribute('aria-pressed',String(clean.toUpperCase()==='ON'))};sync();if(window.MutationObserver)new MutationObserver(sync).observe(el,{childList:true,subtree:true,characterData:true})};
-  compactValue('mMus','MUSIC','Music');compactValue('mSfx','EFFECTS','Effects');compactValue('mHap','HAPTICS','Haptics');compactValue('mCam','CAMERA','Runner camera');compactValue('mLT','LITE EFFECTS','Lite effects');
+  compactValue('mMus','MUSIC','Music');compactValue('mSfx','EFFECTS','Effects');compactValue('mHap','HAPTICS','Haptics');compactValue('mCam','(?:RUNNER\\s*)?CAMERA','Runner camera');compactValue('mLT','LITE EFFECTS','Lite effects');
   const vol=byId('mVol');
   if(vol){const old=vol.closest('.btnrow'),row=document.createElement('div');row.className='ui-menu-setting';const label=document.createElement('label');label.className='ui-menu-setting-label';label.innerHTML='<span class="ui-setting-icon" aria-hidden="true">♪</span><span>VOLUME</span>';label.htmlFor='mVol';row.append(label,vol);audio.appendChild(row);if(old&&!old.querySelector('button,input,select'))old.remove()}
   const gameplay=card(settings,'GAMEPLAY & DISPLAY');
@@ -224,10 +224,10 @@
    ['MUSIC & SFX','Original soundtrack, sound effects and gameplay audio.',(()=>{const a=creditText.indexOf('Sound credits:'),b=creditText.indexOf('The Spillway:');return a>=0?creditText.slice(a,b>a?b:undefined):'Music and sound-effect credits.'})()],
    ['TOWN AMBIENCE','Environmental loops and the sounds of Vapor City.',(()=>{const a=creditText.indexOf('The Spillway:');return a>=0?creditText.slice(a):'Town ambience credits.'})()]
   ];
-  parts.forEach(([title,summary,body])=>{const group=document.createElement('section');group.className='ui-menu-credit-group';const h=document.createElement('h3');h.textContent=title;const short=document.createElement('p');short.className='ui-menu-credit-summary';short.textContent=summary;const details=document.createElement('details');details.className='ui-menu-credit-details';details.open=true;const toggle=document.createElement('summary');toggle.textContent='VIEW FULL ATTRIBUTION';const p=document.createElement('p');p.textContent=body;details.append(toggle,p);group.append(h,short,details);credits.appendChild(group)});
+  parts.forEach(([title,summary,body])=>{const group=document.createElement('section');group.className='ui-menu-credit-group';const h=document.createElement('h3');h.textContent=title;const p=document.createElement('p');p.textContent=body;group.append(h,p);credits.appendChild(group)});
   if(creditSource)creditSource.remove();
   const testControls=byId('m3D')&&byId('m3D').closest('.btnrow');if(testControls){const testCard=card(dev,'TEST TOOLS');testCard.appendChild(testControls)}
-  if(artAction){const artCard=card(dev,'PLAYER ART');const artToggle=document.createElement('button');artToggle.type='button';artToggle.className='btn';artToggle.textContent='TOGGLE PLAYER ART';artToggle.addEventListener('click',()=>{artAction.call(build);if(build){buildDetailsText.textContent=build.textContent.trim();build.textContent='BUILD INFO'}});artCard.appendChild(artToggle)}
+  if(artAction){const artCard=card(dev,'PLAYER ART');const artToggle=document.createElement('button');artToggle.type='button';artToggle.className='btn';artToggle.textContent='TOGGLE PLAYER ART';artToggle.addEventListener('click',()=>{artAction.call(build);if(build){buildDetailsText.textContent=build.textContent.trim();build.textContent=buildDetailsInitial||'Build v3.40T · 22 Models · 45 Sounds'}});artCard.appendChild(artToggle)}
   moveControl('mRO',dev,'FPS COUNTER',false);moveControl('mPL',dev,'PERFORMANCE LOG',false);moveControl('mPR',dev,'PERFORMANCE REPORT',false);
   moveAssetStatus();
   credits.append(build,dev);
