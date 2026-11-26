@@ -3514,15 +3514,21 @@ body #menu .ui-menu-build-trigger::after{
 }
 
 
-/* Matchup lockup correction: keep the OVR text on the team-name baseline and
-   let the shared pill grow with wide landscape halves instead of capping it. */
+/* Matchup lockup correction: align both identity labels optically and
+   keep FIRST TO clear of the pill at compact and wide landscape aspect ratios. */
 @media (orientation:landscape){
   body #mu.on .pn::after{
     width:78%!important;
     max-width:none!important;
   }
+  body #mu.on .pn .nm,
   body #mu.on .pn .ov{
-    bottom:clamp(18px,2vh,24px)!important;
     line-height:20px!important;
+  }
+  body #mu.on .pn .ov{
+    transform:translateY(-clamp(8px,2vh,12px))!important;
+  }
+  body #mu.on .first{
+    transform:translateY(-clamp(20px,9vh,56px))!important;
   }
 }
