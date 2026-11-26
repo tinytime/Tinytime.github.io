@@ -3311,3 +3311,119 @@ body #menu .ui-menu-build-trigger::after{
   body #mu.on .bar{height:9px!important}
   body #mu.on .bot .tap{min-height:36px!important;padding:6px 28px!important;font-size:17px!important}
 }
+
+/* Owner-approved new matchup composition: oversized side-confined team marks,
+   a single lower identity pill per side, and larger player groups in the centre
+   of each half. The arena, town scene, team tints and gold centre split stay intact. */
+@media (orientation:landscape){
+  body #mu.on{isolation:isolate}
+  body #mu.on .mid{padding:0!important}
+  body #mu.on .pn{
+    position:absolute!important;
+    top:8%!important;
+    bottom:13%!important;
+    width:50%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    box-sizing:border-box!important;
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:flex-end!important;
+    justify-content:center!important;
+    gap:clamp(8px,1.5vw,20px)!important;
+    padding:0 10px clamp(10px,2vh,18px)!important;
+    overflow:hidden!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    z-index:2!important;
+    pointer-events:none!important;
+  }
+  body #mu.on .pn.my{left:0!important;right:auto!important}
+  body #mu.on .pn.op{left:50%!important;right:auto!important}
+  body #mu.on .pn::after{
+    content:"";
+    position:absolute;
+    z-index:1;
+    left:50%;
+    bottom:clamp(8px,1.5vh,14px);
+    transform:translateX(-50%);
+    width:min(78%,390px);
+    height:clamp(38px,7vh,54px);
+    border:2px solid rgba(245,184,65,.9);
+    border-radius:999px;
+    background:rgba(19,22,32,.94);
+    box-shadow:0 5px 18px rgba(0,0,0,.4),inset 0 0 0 1px rgba(245,247,250,.06);
+    pointer-events:none;
+  }
+  body #mu.on .pn.op::after{border-color:rgba(77,225,242,.95)}
+  body #mu.on .pn .lg{
+    position:absolute!important;
+    z-index:0!important;
+    inset:2% 1% 18%!important;
+    width:98%!important;
+    height:80%!important;
+    max-width:none!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:0!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    opacity:.24!important;
+    overflow:hidden!important;
+    pointer-events:none!important;
+  }
+  body #mu.on .pn .lg svg{
+    width:100%!important;
+    height:100%!important;
+    max-width:none!important;
+    max-height:none!important;
+    filter:drop-shadow(0 6px 12px rgba(0,0,0,.45));
+  }
+  body #mu.on .pn .nm,
+  body #mu.on .pn .ov{
+    position:relative!important;
+    z-index:2!important;
+    align-self:flex-end!important;
+    margin:0 0 clamp(12px,2vh,20px)!important;
+    white-space:nowrap!important;
+    text-overflow:ellipsis!important;
+    overflow:hidden!important;
+  }
+  body #mu.on .pn .nm{
+    max-width:54%!important;
+    color:#F5F7FA!important;
+    font-size:clamp(20px,3.2vh,28px)!important;
+    line-height:1!important;
+    text-shadow:0 2px 5px #000!important;
+  }
+  body #mu.on .pn .ov{
+    flex:none!important;
+    padding:5px 12px!important;
+    border:1px solid rgba(245,184,65,.72)!important;
+    border-radius:999px!important;
+    background:#1C2130!important;
+    color:#F5B841!important;
+    font-size:clamp(12px,1.8vh,15px)!important;
+    line-height:1!important;
+  }
+  body #mu.on .pn.op .ov{border-color:rgba(77,225,242,.8)!important;color:#4DE1F2!important}
+  body #mu.on .mu-player-slot{
+    transform:translateY(-3vh) scale(1.08)!important;
+    transform-origin:center center!important;
+    z-index:3!important;
+  }
+}
+@media(max-height:430px) and (orientation:landscape){
+  body #mu.on .pn{top:5%!important;bottom:11%!important;padding-bottom:8px!important}
+  body #mu.on .pn .lg{inset:0 1% 20%!important;height:78%!important}
+  body #mu.on .pn .nm,body #mu.on .pn .ov{margin-bottom:10px!important}
+  body #mu.on .mu-player-slot{transform:translateY(-2vh) scale(.94)!important}
+}
