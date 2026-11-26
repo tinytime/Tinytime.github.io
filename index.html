@@ -9862,7 +9862,7 @@ function owRelease(){try{if(typeof M!=='undefined'&&M){if(M.baked){owZap(M.baked
 function owPlace(map,x,y,d,ret){M=owMap(map);owFree();owBake(M);OW.x=OW.px=x;OW.y=OW.py=y;OW.d=d||'d';OW.mv=false;OW.ret=ret||OW.ret||null;OW.fade=1;OW.la=0;OW.lt=0;owSave();owHud()}
 function owShow(){SPR.clear();
   SND.setMode('ow');screens('#world');OWON=true;show('#hud',false);
-  if(!SAVE.ow)SAVE.ow={map:'street',x:15,y:23,d:'d'};
+  if(!SAVE.ow)SAVE.ow={map:'street',x:15,y:15,d:'u'};
   hbMigrate();   // v3.20bT: one-time move of an older Hale Harbor position onto the current map
   if(window.CF_TEST&&SAVE.testR2!==1){   // TEST ONLY: put the save exactly where a normal player stands after Town 2: at the ferry dock
     SAVE.testR2=1;SAVE.testT2=1;const fs=freshSave();
@@ -9887,7 +9887,7 @@ function owShow(){SPR.clear();
     SAVE.ow={map:'harbor',x:42,y:47,d:'d',gates:1};SAVE.hbMapV=HB_MAPV;persist()}
   if(window.CF_TEST){SAVE.storyV=2;SAVE.story=SAVE.story||{card:1};SAVE.ow=SAVE.ow||{};SAVE.ow.gates=1}
   if(window.CF_TEST&&(!SAVE.tRef||(SAVE.ow&&SAVE.ow.map==='hb_B02'))){SAVE.tRef=1;SAVE.ow={map:'street',x:15,y:14,d:'u',gates:1,ret:null};SAVE.hbMapV=HB_MAPV;persist()}
-  if(window.CF_TEST&&SAVE.tDgt!==3){SAVE.tDgt=3;SAVE.beaten=['cats','kings','rollers'];SAVE.dg={arena:{v:2,ball:true,solved:{concourse:true,cage:true,gauntlet:true},cards:0,got:{},used:{},lights:'pink',pass:false,tunnel:false,map:true,visited:{dg1:1,dgc:1,dgg:1,dgt:1},bossAccess:false,cleared:false,shortcut:false,loot:false}};if(typeof DG!=='undefined'&&DG){DG.st={};DG.slow=0;DG.taunt={}}SAVE.ow={map:'dgt',x:5,y:9,d:'u',gates:0,ret:null};persist()}   // TEST ONLY: drop straight into the unsolved Court room (dgt) with Dante's ball & pink lights
+  if(window.CF_TEST&&SAVE.tPlaza!==1){SAVE.tPlaza=1;SAVE.ow={map:'street',x:15,y:15,d:'u',gates:1,ret:null};SAVE.hbMapV=HB_MAPV;persist()}   // TEST ONLY: start in Vapor City Plaza
 
   owResize();
   const o=SAVE.ow,mp=(OWI[o.map]||HBI[o.map]||o.map==='street'||o.map==='spillway'||o.map==='harbor'||o.map==='island')?o.map:'street';
