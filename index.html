@@ -9581,7 +9581,7 @@ function owStep(dt){
   if(OW.busy)return;
   let want=owDirIn;
   if(!want){if(owKeys.arrowup||owKeys.w)want='u';else if(owKeys.arrowdown||owKeys.s)want='d';else if(owKeys.arrowleft||owKeys.a)want='l';else if(owKeys.arrowright||owKeys.d)want='r'}
-  if(OW.mv){OW.pr+=dt/.27;OW.ph+=dt*2.4;if(OW.pr>=1){OW.pr=1;OW.px=OW.nx;OW.py=OW.ny;SND.step(M.room);owArrive();if(!OW.mv&&want&&!OW.busy)owTryMove(want)}else{OW.px=OW.x+(OW.nx-OW.x)*OW.pr;OW.py=OW.y+(OW.ny-OW.y)*OW.pr}}
+  if(OW.mv){const _sd=(typeof DG!=='undefined'&&DG&&DG.slow>0)?.68:.27;OW.pr+=dt/_sd;OW.ph+=dt*(.27/_sd)*2.4;if(OW.pr>=1){OW.pr=1;OW.px=OW.nx;OW.py=OW.ny;SND.step(M.room);owArrive();if(!OW.mv&&want&&!OW.busy)owTryMove(want)}else{OW.px=OW.x+(OW.nx-OW.x)*OW.pr;OW.py=OW.y+(OW.ny-OW.y)*OW.pr}}
   else if(want)owTryMove(want);
 }
 addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(!OWON)return;owKeys[k]=true;if(k===' '||k==='enter'||k==='e'){owInteract();e.preventDefault()}});
@@ -10999,7 +10999,7 @@ function dgDroneHit(st){if(st.green<=0){SND.fx('blip');dgPing(st.dx,2,'#9aa4b8')
 DGR.dgt={home:[5,9,'u'],key:'court',cm:[3,3],tt:[1,4],gate:[6,6],start:[3,8],dock:[9,2],
   rail:[[1,6],[2,6],[3,6],[4,6],[5,6],[5,2],[5,3],[5,4],[5,5]],glass:[[7,6],[8,6]],
   isTrack(x,y){return x===9&&y>=3&&y<=9},
-  init(){const a=dgS();return a.solved.court?{hb:[3,3],carry:false,ride:false,gate:0,u:[],done:true,t0:DG.t}:{hb:[3,8],carry:false,ride:false,gate:0,u:[],done:false,t0:DG.t}},
+  init(){const a=dgS();return a.solved.court?{hb:[3,3],carry:false,ride:false,gate:0,u:[],done:true,t0:DG.t,ch:{on:false,x:8,y:8,d:'l',ph:0,cd:0,stun:0}}:{hb:[3,8],carry:false,ride:false,gate:0,u:[],done:false,t0:DG.t,ch:{on:false,x:8,y:8,d:'l',ph:0,cd:0,stun:0}}},
   doors(){return [{tile:[5,10],to:'dgg',at:[5,2,'d'],open:()=>true},{tile:[6,10],to:'dgg',at:[6,2,'d'],open:()=>true}]},
   // the receiver sled runs up and down column 9: bottom (y 9) to the top dock (y 3), pausing at each end
   sledY(st){const t=((DG.t-st.t0)%9.2+9.2)%9.2;return t<4?9-6*(t/4):t<4.6?3:t<8.6?3+6*((t-4.6)/4):9},
@@ -11010,14 +11010,14 @@ DGR.dgt={home:[5,9,'u'],key:'court',cm:[3,3],tt:[1,4],gate:[6,6],start:[3,8],doc
     if(dgHas(this.rail,x,y))return {k:'rail'};
     if(dgHas(this.glass,x,y))return {k:'tall',glass:1};
     if(!st.carry&&st.hb&&st.hb[0]===x&&st.hb[1]===y)return {k:'hb'};return null},
-  bump(x,y,st){if(st.hb&&!st.carry&&st.hb[0]===x&&st.hb[1]===y){if(st.done){SND.fx('blip');return true}st.u.push(dgSnapT(st));st.carry=true;st.hb=null;SND.fx('pluck');return true}return false},
+  bump(x,y,st){if(st.hb&&!st.carry&&st.hb[0]===x&&st.hb[1]===y){if(st.done){SND.fx('blip');return true}st.u.push(dgSnapT(st));st.carry=true;st.hb=null;SND.fx('pluck');if(st.ch&&!st.ch.on){st.ch.on=true;st.ch.stun=.35;SND.fx('err');owToast('BRICK HAYES: NOT ON MY COURT!')}return true}return false},
   enter(){dgTaunt('dgt','MO: Lights stay on in here.')}};
 function dgSnapT(st){return {hb:st.hb?st.hb.slice():null,carry:st.carry,ride:st.ride,ex:OW.x,ey:OW.y,ed:OW.d}}
 function dgFreeNear(st,list){for(const [x,y] of list)if(!dgEli(x,y)&&!owNpcAt(x,y))return [x,y];return list[0]}
 function dgHeavyLand(st,x,y){const R=DGR.dgt;st.carry=false;
   if(R.isTrack(x,y)){if(Math.abs(R.sledY(st)-y)<.6){st.ride=true;st.hb=null;SND.fx('ok');dgPing(x,y,DGC.green);return}
     st.hb=dgFreeNear(st,[R.start,[2,8],[4,8]]);dgBuzz();dgPing(x,y,DGC.red);return}   // missed the sled: the ball goes back to the start
-  st.hb=[x,y];if(x===R.cm[0]&&y===R.cm[1]&&!st.done){st.done=true;st.gate=0;const a=dgS();a.solved.court=true;a.pass=true;persist();setTimeout(()=>{SND.fx('ok2');owToast("GOT  MO'S PASS")},350)}else SND.fx('drop')}
+  st.hb=[x,y];if(x===R.cm[0]&&y===R.cm[1]&&!st.done){st.done=true;st.gate=0;if(st.ch)st.ch.on=false;DG.slow=0;const a=dgS();a.solved.court=true;a.pass=true;persist();setTimeout(()=>{SND.fx('ok2');owToast("GOT  MO'S PASS")},350)}else SND.fx('drop')}
 function dgHeavyThrow(){const st=DG.st.dgt,R=DGR.dgt;if(!st||!st.carry||DG.hfly)return;const [dx,dy]=DG_DIRS[OW.d];let land=null;
   for(let i=1;i<=3;i++){const x=OW.x+dx*i,y=OW.y+dy*i;if(x<1||y<2||x>10||y>9)break;
     if(R.isTrack(x,y)){land=[x,y];break}
@@ -11027,6 +11027,55 @@ function dgHeavyThrow(){const st=DG.st.dgt,R=DGR.dgt;if(!st||!st.carry||DG.hfly)
 function dgHeavyPut(){const st=DG.st.dgt,R=DGR.dgt;if(!st||!st.carry)return false;const [dx,dy]=DG_DIRS[OW.d],x=OW.x+dx,y=OW.y+dy;
   if(x<1||y<2||x>10||y>9||M.solid[y*M.w+x]||R.cls(x,y,{...st,carry:false})||owNpcAt(x,y)){dgBuzz();return true}st.u.push(dgSnapT(st));dgHeavyLand(st,x,y);return true}
 function dgSledStep(st){if(!st.ride)return;const R=DGR.dgt;if(R.sledY(st)<=3.02){st.ride=false;st.hb=dgFreeNear(st,[R.dock,[10,2]]);SND.fx('drop')}}
+function dgChaserWalkable(st,x,y){
+  if(x<1||x>10||y<2||y>9)return false;
+  const R=DGR.dgt;
+  if(R.isTrack(x,y)||dgHas(R.rail,x,y)||dgHas(R.glass,x,y))return false;
+  if(x===4&&y===3&&dgLightUp('pink'))return false;
+  if(x===R.gate[0]&&y===R.gate[1]&&!st.done&&st.gate<=0)return false;
+  return true;
+}
+function dgChaserStep(st,dt){
+  if(DG.slow>0)DG.slow=Math.max(0,DG.slow-dt);
+  const ch=st.ch;if(!ch||!ch.on||st.done)return;
+  if(ch.cd>0)ch.cd=Math.max(0,ch.cd-dt);
+  if(ch.stun>0){ch.stun=Math.max(0,ch.stun-dt);return}
+  // Check tackle contact with Eli
+  const dxE=OW.px-ch.x,dyE=OW.py-ch.y,distE=Math.hypot(dxE,dyE);
+  if(distE<.58&&ch.cd<=0){
+    DG.slow=2.0;ch.cd=3.2;ch.stun=.65;DG.flash=.45;
+    SND.fx('err');try{SND.fx('hit')}catch(e){}
+    dgPing(OW.px,OW.py,DGC.red);owToast('TACKLED! SLOWED 2s');return;
+  }
+  // BFS next tile toward Eli respecting rails, glass, sled track, and timed gate
+  const sx=Math.round(ch.x),sy=Math.round(ch.y),gx=Math.round(OW.px),gy=Math.round(OW.py);
+  let tx=OW.px,ty=OW.py;
+  if(sx!==gx||sy!==gy){
+    const q=[[sx,sy]],par=new Map(),k0=sx+','+sy;par.set(k0,null);
+    let best=null,bd=1e9,found=false;
+    while(q.length){
+      const [cx,cy]=q.shift(),d=Math.hypot(cx-gx,cy-gy);
+      if(d<bd){bd=d;best=[cx,cy]}
+      if(cx===gx&&cy===gy){found=true;break}
+      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+        const nx=cx+dx,ny=cy+dy,kk=nx+','+ny;
+        if(par.has(kk)||!dgChaserWalkable(st,nx,ny))continue;
+        par.set(kk,[cx,cy]);q.push([nx,ny]);
+      }
+    }
+    let cur=found?[gx,gy]:best;
+    if(cur&&(cur[0]!==sx||cur[1]!==sy)){
+      while(cur){const p=par.get(cur[0]+','+cur[1]);if(!p||(p[0]===sx&&p[1]===sy))break;cur=p}
+      if(cur){tx=cur[0];ty=cur[1]}
+    }
+  }
+  const vx=tx-ch.x,vy=ty-ch.y,len=Math.hypot(vx,vy);
+  if(len>.02){
+    const sp=2.35,step=Math.min(len,sp*dt);
+    ch.x+=vx/len*step;ch.y+=vy/len*step;ch.ph+=dt*3.2;
+    ch.d=Math.abs(vx)>=Math.abs(vy)?(vx>0?'r':'l'):(vy>0?'d':'u');
+  }
+}
 DGR.dgv={home:[1,5,'r'],key:'vault',
   rail:[[2,3],[3,3],[4,3],[5,3],[6,3],[7,3],[8,3],[9,4],[9,5],[9,6],[9,7]],
   init(){return {n:0,t0:DG.t,open:!!dgS().solved.vault}},
@@ -11065,7 +11114,7 @@ function dgBump(x,y){if(typeof DGR==='undefined'||!DGR||!M)return false;
   const c=R.cls(x,y,st);if(c){if(c.k==='tgt'){if(c.o.ballOnly){SND.fx('blip');return true}c.o.hit();return true}if(c.lights||c.bar||c.gate||c.glass){SND.fx('err');return true}return true}
   return false}
 function dgEnterArena(b){if(typeof DGR==='undefined'||!DGR)return false;if(b.id!=='arena'||dgDone())return false;dgGo('dg1',[6,7,'u']);return true}
-function dgGo(to,at){DG.fly=null;DG.hfly=null;
+function dgGo(to,at){DG.fly=null;DG.hfly=null;DG.slow=0;
   if(to==='street'){SND.fx('close');OW.ret=null;owPlace('street',15,10,'d',null);owHud();return}
   if(to==='arena'){SND.fx('open');owPlace('arena',1,7,'r',OW.ret);dgReachedMo();return}
   const R=DGR[to];DG.st[to]=R.init();DG.inv=0;SND.fx('open');owPlace(to,at[0],at[1],at[2],OW.ret);dgVisit(to);if(R.enter)R.enter();owHud()}
@@ -11078,7 +11127,7 @@ function dgArrive(){if(typeof DGR==='undefined'||!DGR||!M)return false;
   return false}
 function dgOnShow(){if(typeof DGR==='undefined'||!DGR)return;try{dgS()}catch(e){}if(!M||!DGR[M.id])return;if(!DG.st[M.id]){const R=DGR[M.id];DG.st[M.id]=R.init();OW.x=OW.px=R.home[0];OW.y=OW.py=R.home[1];OW.d=R.home[2];OW.mv=false}}
 function dgRoomUnsolved(){const R=M&&DGR[M.id];if(!R||!R.key||R.key==='concourse')return false;return !dgS().solved[R.key]}
-function dgReset(){const R=DGR[M.id];if(!R||!dgRoomUnsolved())return;DG.st[M.id]=R.init();DG.fly=null;DG.hfly=null;DG.inv=0;
+function dgReset(){const R=DGR[M.id];if(!R||!dgRoomUnsolved())return;DG.st[M.id]=R.init();DG.fly=null;DG.hfly=null;DG.inv=0;DG.slow=0;
   OW.mv=false;OW.x=OW.px=R.home[0];OW.y=OW.py=R.home[1];OW.d=R.home[2];owClearIn();owSave();SND.fx('back');DG.flash=.35}
 function dgAskReset(){if(!dgRoomUnsolved()||OW.busy)return;owAsk('RESET ROOM','Put this room back to how it started?',[['RESET',()=>dgReset()],['CANCEL']])}
 function dgUndo(){const st=DG.st.dgt;if(M.id!=='dgt'||!st||st.done||!st.u.length||OW.busy||OW.mv||DG.hfly)return;const s=st.u.pop();st.hb=s.hb;st.carry=s.carry;st.ride=!!s.ride;OW.x=OW.px=s.ex;OW.y=OW.py=s.ey;OW.d=s.ed;owClearIn();SND.fx('back')}
@@ -11155,7 +11204,7 @@ function dgAnim(og,OT,tm){if(typeof DGR==='undefined'||!DGR)return;
   dgUISync();if(!M)return;
   if(M.id==='arena'){dgDrawArena(og,OT,tm);return}
   const R=DGR[M.id];if(!R)return;const st=dgSt(),a=dgS();
-  if(live){dgFlyStep(dt);dgHflyStep(dt);dgHazStep(dt);if(M.id==='dgt'){if(st.gate>0)st.gate-=dt;dgSledStep(st)}}
+  if(live){dgFlyStep(dt);dgHflyStep(dt);dgHazStep(dt);if(M.id==='dgt'){if(st.gate>0)st.gate-=dt;dgSledStep(st);dgChaserStep(st,dt)}}
   // doors
   for(const d of R.doors(st)){const [x,y]=d.tile;if(x===5||x===6){if(y===1&&x===5)dgDrawDoor(og,OT,R.doors(st).find(q=>q.tile[0]===6&&q.tile[1]===1)?d.open(st):d.open(st),tm,d.lock,d.drop);continue}
     if(x===0||x===M.w-1)dgDrawSideDoor(og,OT,x,y,d.open(st)&&!d.oneway,d.lock,d.oneway)}
@@ -11269,7 +11318,25 @@ function dgDrawCourt(og,OT,st,tm){const R=DGR.dgt,[cx,cy]=R.cm;og.strokeStyle='r
     if(st.ride)dgDrawHeavy(og,OT,9,sy-.25,1)}
   const [gx,gy]=R.gate;if(!st.done&&st.gate>0){og.fillStyle='rgba(88,255,176,.25)';og.fillRect(gx*OT,gy*OT,OT,OT);og.fillStyle=DGC.green;og.fillRect(gx*OT,gy*OT+OT-4,OT*(st.gate/3),4)}
   else if(st.done){og.fillStyle='rgba(88,255,176,.14)';og.fillRect(gx*OT,gy*OT,OT,OT)}
-  if(st.done){og.fillStyle=DGC.pink;og.font='bold '+Math.round(OT*.24)+'px sans-serif';og.textAlign='center';og.fillText('PASS',cx*OT+OT/2,cy*OT-OT*.25);og.textAlign='left'}}
+  if(st.done){og.fillStyle=DGC.pink;og.font='bold '+Math.round(OT*.24)+'px sans-serif';og.textAlign='center';og.fillText('PASS',cx*OT+OT/2,cy*OT-OT*.25);og.textAlign='left'}
+  // Netrunners crew member chaser (Brick Hayes) + active pursuit ring
+  if(st.ch&&!st.done){
+    const ch=st.ch,cap=CREWS.find(c=>c.id==='captain'),uni=cap?cap.uni:{jc:'#d6362f',jt:'#14110f',jn:'#ffc23d',pc:'#14110f',ps:'#ffc23d',hc:'#5a0f0c',hs:'#ffc23d',mask:'#ffc23d',sock:'#14110f',shoe:'#ffc23d'};
+    if(!ch._look)ch._look=lookOf({name:'Brick Hayes',pos:'RB'});
+    if(ch.on){
+      const rx=ch.x*OT+OT/2,ry=ch.y*OT+OT*.88;
+      og.save();og.strokeStyle=DGC.red;og.lineWidth=2.5;og.globalAlpha=.55+.3*Math.sin(tm*8);og.shadowColor=DGC.red;og.shadowBlur=10;
+      og.beginPath();og.ellipse(rx,ry,OT*.44,OT*.16,0,0,7);og.stroke();og.restore();
+    }
+    owFig(ch.x,ch.y,ch.d,ch.on&&ch.stun<=0,uni,ch._look,22,ch.ph);
+  }
+  // 2-second tackle slowdown bar over Eli
+  if(DG.slow>0){
+    const ex=OW.px*OT+OT/2,ey=OW.py*OT;
+    og.save();og.strokeStyle='#ff7a1a';og.lineWidth=2.5;og.globalAlpha=.75;og.beginPath();og.ellipse(ex,ey+OT*.88,OT*.46,OT*.18,0,0,7);og.stroke();
+    og.fillStyle='rgba(10,8,24,.82)';og.fillRect(ex-OT*.45,ey-OT*.52,OT*.9,6);
+    og.fillStyle='#ff3b5c';og.fillRect(ex-OT*.45,ey-OT*.52,OT*.9*(DG.slow/2),6);og.restore();
+  }}
 function dgDrawVault(og,OT,st,tm){const X=3*OT,Y=6*OT;og.fillStyle='#3a3020';og.fillRect(X+3,Y+OT*.25,OT-6,OT*.62);og.strokeStyle=st.open?DGC.green:DGC.gold;og.lineWidth=2;og.strokeRect(X+3,Y+OT*.25,OT-6,OT*.62);
   if(st.open&&!(dgS().map)){og.fillStyle='rgba(255,210,60,'+(.5+.4*Math.sin(tm*4))+')';og.beginPath();og.moveTo(X+OT/2,Y+OT*.2);og.lineTo(X+OT/2-6,Y);og.lineTo(X+OT/2+6,Y);og.fill()}}
 function dgDrawArena(og,OT,tm){const a=dgS();
