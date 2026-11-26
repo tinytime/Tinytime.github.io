@@ -1660,7 +1660,7 @@ function updFacing(dt){
     else if(p.lunge>0&&F.carrier)t=Math.atan2(F.carrier.y-p.y,F.carrier.x-p.x);
     else if(s>.7)t=Math.atan2(p.vy,p.vx);
     else if(p===F.off.QB&&F.passer===p)t=Math.PI/2;
-    if(p.team==='O'&&!(p===F.carrier&&p.role!=='QB')&&Math.sin(t)<.05)t=Math.atan2(Math.abs(Math.sin(t))+.35,Math.cos(t));   // backpedal or retreat: keep facing upfield
+    if(!(typeof G!=='undefined'&&G&&G.drill)&&p.team==='O'&&!(p===F.carrier&&p.role!=='QB')&&Math.sin(t)<.05)t=Math.atan2(Math.abs(Math.sin(t))+.35,Math.cos(t));   // backpedal or retreat: keep facing upfield
     p.fa+=clamp(angDiff(p.fa,t),-13*dt,13*dt);
   }
 }
@@ -2828,7 +2828,7 @@ let rotSkip=false;
 function syncLand(){
   const inMatch=!OWON&&!$('#hud').hidden,wide=innerWidth>innerHeight,want=(inMatch||!$('#squad').hidden)&&wide;
   if(want!==LAND){LAND=want;document.body.classList.toggle('land',want);resize()}
-  const need=inMatch&&!wide&&!window.__noRot;if(need!==syncLand.n){syncLand.n=need;$('#rotMsg').hidden=!need}
+  const need=(inMatch||!!(typeof G!=='undefined'&&G&&G.drill))&&!wide&&!window.__noRot;if(need!==syncLand.n){syncLand.n=need;$('#rotMsg').hidden=!need}
 }
 let RESI=0;const RES=[{n:'HIGH',d:2},{n:'MEDIUM',d:1.5},{n:'LOW',d:1},{n:'SHARP',d:2.5}];try{const v=+localStorage.getItem('sg_res');if(v>=0&&v<RES.length)RESI=v}catch(e){}
 function resize(){const r=$('#app').getBoundingClientRect();W=r.width;H=r.height;try{ART.hp=CAMCFGL.artHp}catch(e){}   // sprites grow a little in a short window (Claude's viewer) so they stay about 53 px tall
@@ -5251,7 +5251,7 @@ function camUpdate(rdt){
         const dist=Math.min(f.x,FW-f.x),wg=clamp((10-dist)/3,0,1),Lx=.385*W/(WU*U0F*z),Lm=(LAND?.36:.35)*W/(WU*U0F*z);   // within about 8 yards of a sideline, pan to it so it sits 8-15% from the screen edge
         tx=tx*(1-wg)+(f.x<CX?Lx:FW-Lx)*wg;tx=clamp(tx,Lm,FW-Lm);
         const fs=runHero()&&F.carrier?[F.carrier]:fitSet(),v0=fitView(z,fs,[0]),v=fitView(z,fs);fitLast=v0;tx=v.lo<=v.hi?clamp(tx,v.lo,v.hi):(v0.lo<=v0.hi?clamp(tx,v0.lo,v0.hi):(v0.lo+v0.hi)/2);if(window.__dbg)window.__fitv=[+v.lo.toFixed(1),+v.hi.toFixed(1),v.vert,+tx.toFixed(1),+cam.x.toFixed(1)];   // and never let the carrier or the 4 nearest players slip past the 8% margin
-        tz=dynZoom(Math.min(rdt,.05));if(runHero()&&F.carrier&&!(F.cine>0)){const c=F.carrier,s=Math.hypot(c.vx||0,c.vy||0);tz*=1-RUNCAM.widen*clamp((s-RUNCAM.wFrom)/2.5,0,1)}}}   // v3.13 B9: the view opens up a little at top speed (the TURBO press gets its kick from the B2 punch)   // v3.09: TURBO push-in
+        tz=dynZoom(Math.min(rdt,.05));if(runHero()&&F.carrier&&!(F.cine>0)){const c=F.carrier,s=Math.hypot(c.vx||0,c.vy||0);tz*=1-RUNCAM.widen*clamp((s-RUNCAM.wFrom)/2.5,0,1)}}if(G&&G.drill){ty=f.y-14.5;tz=.72}}   // v3.13 B9: the view opens up a little at top speed (the TURBO press gets its kick from the B2 punch)   // v3.09: TURBO push-in
   }
   if(SIMV.on){simStep(rdt);ty=Math.min(SIMV.cl,SIMV.cf)-5.5;tx=CX;tz=1}
   if(F&&F.cine>0&&!SIMV.on){F.cine-=rdt;const f=F.carrier;if(f&&!side){const pr=1-F.cine/SP_CINE;ty=f.y-CAMCFGL.back*.55;tx=f.x+(.5-pr)*6;tz=1.55}}
@@ -5260,7 +5260,7 @@ function camUpdate(rdt){
   if(passOn)ty=passClampTy(ty);
   {const pt=(passOn&&!F.ballAir&&F.passer&&F.carrier===F.passer&&F.mode==='live')?1:0;CAMP+=(pt-CAMP)*(1-Math.exp(-(pt?3:5)*rdt));if(Math.abs(pt-CAMP)<.002)CAMP=pt}   // v3.16KK1: ease into the pocket camera after the snap, out when the ball is thrown
   {const bt=(LAND&&G&&G.mode==='playcall')?1:0;CAMB+=(bt-CAMB)*(1-Math.exp(-4.2*rdt));if(Math.abs(bt-CAMB)<.002)CAMB=bt}
-  {const c=F&&F.carrier,rt=(F&&F.mode==='live'&&!F.ballAir&&c&&!(F.passer===c)&&runHero()&&!SIMV.on)?1:0;CAMR+=(rt-CAMR)*(1-Math.exp(-(rt?7:3)*rdt));   /* v3.10: in within about 0.4 s */if(Math.abs(rt-CAMR)<.002)CAMR=rt;   // v3.09: ease into / out of the low runner camera
+  {const c=F&&F.carrier,rt=(!(G&&G.drill)&&F&&F.mode==='live'&&!F.ballAir&&c&&!(F.passer===c)&&runHero()&&!SIMV.on)?1:0;CAMR+=(rt-CAMR)*(1-Math.exp(-(rt?7:3)*rdt));   /* v3.10: in within about 0.4 s */if(Math.abs(rt-CAMR)<.002)CAMR=rt;   // v3.09: ease into / out of the low runner camera
    const lt=(rt&&c&&!bmLite())?-clamp((c.vx||0)/7,-1,1)*RUNCAM.lean:0;camLean+=(lt-camLean)*(1-Math.exp(-5*rdt))}
   const k=1-Math.exp(-6*rdt);if(window.__camlog){const f0=F&&(F.carrier||F.passer);window.__camlog.push([performance.now(),rdt,tx,cam.x,f0?f0.x:0,f0?(f0.vx||0):0,cam.zoom,tz])}cam.y+=(ty-cam.y)*k;cam.x+=(tx-cam.x)*k;
   if(passOn){const w=passNeed();if(cam.y<w)cam.y=w}   // hard floor: the view never lags behind a deep receiver or the ball
@@ -12815,6 +12815,39 @@ function fdEnsureExitBtn(){
   }
   b.hidden=false;return b;
 }
+function fdSyncBtns(){
+  const dr=G&&G.drill,rot=$('#rotMsg')&&!$('#rotMsg').hidden;
+  let sb=document.getElementById('fdStartBtn');
+  if(!sb){
+    sb=document.createElement('button');sb.id='fdStartBtn';sb.textContent='START';
+    sb.style.cssText='position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:86;padding:18px 46px;border-radius:14px;border:3px solid #ffd23a;background:rgba(10,18,28,.94);color:#ffd23a;font-family:var(--disp);font-size:32px;letter-spacing:.08em;box-shadow:0 0 28px rgba(255,210,58,.45);cursor:pointer';
+    sb.onclick=()=>{if(G&&G.drill&&!G.drill.started){G.drill.started=true;SND.fx('bong');fdSyncBtns()}};
+    document.body.appendChild(sb);
+  }
+  sb.hidden=!(dr&&!dr.started&&!dr.over&&!rot);
+
+  let tb=document.getElementById('fdTackleBtn');
+  if(!tb){
+    tb=document.createElement('button');tb.id='fdTackleBtn';tb.textContent='TACKLE';
+    tb.style.cssText='position:fixed;right:20px;bottom:calc(env(safe-area-inset-bottom,0px) + 124px);z-index:86;width:82px;height:82px;border-radius:50%;border:3px solid #ff3b5c;background:rgba(42,10,16,.92);color:#fff;font-family:var(--disp);font-size:17px;letter-spacing:.04em;box-shadow:0 0 18px rgba(255,59,92,.55);cursor:pointer';
+    tb.addEventListener('pointerdown',e=>{e.stopPropagation();e.preventDefault();fdDoTackleDive()});
+    document.body.appendChild(tb);
+  }
+  const showTackle=!!(dr&&dr.id==='t2_crush'&&dr.started&&!dr.over&&!rot&&(dr._loose||F.carrier!==dr.players[0]));
+  tb.hidden=!showTackle;
+}
+function fdDoTackleDive(){
+  const dr=G&&G.drill;if(!dr||dr.id!=='t2_crush'||!dr.started||dr.over)return;
+  const you=dr.players[0];if(!you||you.fall||you.stun>0||you.tackleDive||(you.cdT||0)>0)return;
+  if(!dr._loose&&F.carrier===you)return;
+  const tgt=(!dr._loose&&F.carrier)?F.carrier:dr.ball;
+  let dx=tgt.x-you.x,dy=tgt.y-you.y,d=Math.hypot(dx,dy);
+  if(d<.2){dx=Math.cos(you.fa||0);dy=Math.sin(you.fa||0);d=1}
+  const sp=16.8;
+  you.tackleDive={t:0,T:.34,vx:(dx/d)*sp,vy:(dy/d)*sp,hit:false};
+  you.cdT=.75;you.fa=Math.atan2(dy,dx);
+  SND.fx('juke');dust(you.x,you.y,8,.9);
+}
 
 function startFieldDrill(id){
   const cfg=FIELD_DRILLS[id];if(!cfg||cfg.reserved)return;
@@ -12831,12 +12864,14 @@ function startFieldDrill(id){
   if(id==='t1_rush')fdInitRush3D();
   else fdInitCrush3D();
   try{const t=$('#thr');if(t)t.style.visibility='hidden'}catch(e){}
+  if(typeof syncLand==='function')syncLand();
+  fdSyncBtns();
   artWarm();
 }
 
 function fdEndDrill(aborted){
   const dr=G&&G.drill;
-  const b=document.getElementById('fdExitBtn');if(b)b.hidden=true;
+  for(const bid of ['fdExitBtn','fdStartBtn','fdTackleBtn']){const el=document.getElementById(bid);if(el)el.hidden=true;}
   show('#ctl',false);show('#turboWrap',false);show('#turboLbl',false);
   const id=dr?dr.id:null,score=dr?Math.round(dr.score):0;
   if(G)G.drill=null;
@@ -12857,7 +12892,12 @@ addEventListener('pointerdown',e=>{
   }
 },true);
 addEventListener('keydown',e=>{
-  if(!OWON&&G&&G.drill&&(e.key||'').toLowerCase()==='escape')fdEndDrill(true);
+  if(!OWON&&G&&G.drill){
+    const k=(e.key||'').toLowerCase();
+    if(k==='escape')fdEndDrill(true);
+    else if(!G.drill.started&&(k===' '||k==='enter')){G.drill.started=true;SND.fx('bong');fdSyncBtns()}
+    else if(G.drill.started&&G.drill.id==='t2_crush'&&(k===' '||k==='k'))fdDoTackleDive();
+  }
 });
 
 /* =====================================================================
@@ -12865,7 +12905,7 @@ addEventListener('keydown',e=>{
    Field coords: x in [4, 56] (CX=30), y from 65 -> 100 (End Zone!)
    ===================================================================== */
 function fdInitRush3D(){
-  G.drill={id:'t1_rush',time:60,score:0,rep:1,mult:1,tds:0,broken:0,over:false,overAt:0,pause:0,gates:[],dummies:[]};
+  G.drill={id:'t1_rush',started:false,time:60,score:0,rep:1,mult:1,tds:0,broken:0,over:false,overAt:0,pause:0,gates:[],dummies:[]};
   fdSpawnRushRep3D();
 }
 function fdSpawnRushRep3D(){
@@ -12911,7 +12951,7 @@ function fdSpawnRushRep3D(){
    Field coords: x in [6, 54], y in [36, 76] (walled concrete harbor field)
    ===================================================================== */
 function fdInitCrush3D(){
-  G.drill={id:'t2_crush',time:75,score:0,over:false,overAt:0,streak:1,hot:{x:CX,y:56,r:6.2,t:20},ball:{x:CX,y:56,vx:0,vy:0,z:0,vz:0},players:[]};
+  G.drill={id:'t2_crush',started:false,time:75,score:0,over:false,overAt:0,streak:1,hot:{x:CX,y:56,r:6.2,t:20},ball:{x:CX,y:56,vx:0,vy:0,z:0,vz:0},players:[]};
   F={cn:{},mode:'live',los:56,t:0,fx:1,off:{},offList:[],def:[],all:[],ball:null,ballAir:false,carrier:null,passer:null,turbo:100,tired:false,handed:true,lock:false,lat:false,latDone:false,latT:0,aim:null,gb:false,breaks:0,maxBreaks:9,stars:new Set()};
   parts.length=0;
   // Eli (3D KayKit RB — player controlled)
@@ -12931,13 +12971,16 @@ function fdInitCrush3D(){
     F.def.push(p);F.all.push(p);
   }
   G.drill.players=[you,...F.def];
-  // Point camera at Eli initially even before pickup
-  F.carrier=you;G.drill._loose=true;
+  // Player starts WITH the ball!
+  F.carrier=you;G.drill._loose=false;G.drill.ball.x=you.x;G.drill.ball.y=you.y;
 }
 
 /* ---- 3D Drill Physics Step (called directly from main RAF loop!) ---- */
 function fdStep3D(rdt){
-  const dr=G.drill;if(!dr||dr.over)return;
+  const dr=G.drill;if(!dr)return;
+  fdSyncBtns();
+  const rot=$('#rotMsg')&&!$('#rotMsg').hidden;
+  if(!dr.started||dr.over||rot)return;
   const dt=Math.min(.04,rdt*timeScale);
   F.t+=dt;
   dr.time-=dt;
@@ -12951,7 +12994,7 @@ function fdStepRush3D(dr,dt){
   const c=F.carrier;if(!c)return;
   // Tick player cooldowns & real moveCarrier (gives real 3D Juke, Spin, Stiff-Arm, Hurdle, Turbo!)
   for(const p of F.all){
-    if(p.cdJ>0)p.cdJ-=dt;if(p.cdS>0)p.cdS-=dt;if(p.cdH>0)p.cdH-=dt;
+    if(p.cdJ>0)p.cdJ-=dt;if(p.cdS>0)p.cdS-=dt;if(p.cdH>0)p.cdH-=dt;if(p.cdT>0)p.cdT-=dt;
     if(p.inv>0)p.inv-=dt;if(p.slow>0)p.slow-=dt;if(p.stun>0)p.stun-=dt;
     if(p.arm>0)p.arm-=dt;if(p.spinT>0){p.spinT-=dt;p.spin=p.spinT}
     if(p.fall){p.x+=p.sv.x*dt;p.y+=p.sv.y*dt;p.sv.x*=.92;p.sv.y*=.92;if(p.stun<=0){p.fall=false;p.knock=false}}
@@ -13022,7 +13065,7 @@ function fdStepCrush3D(dr,dt){
   if(dr.hot.t<=0){dr.hot.t=20;dr.hot.x=14+Math.random()*32;dr.hot.y=42+Math.random()*26;SND.fx('q');popup('2x HOTSPOT SHIFTED!',dr.hot.x,dr.hot.y+1.5,'#E8A33D')}
   // Cooldowns & ragdoll recovery
   for(const p of dr.players){
-    if(p.cdJ>0)p.cdJ-=dt;if(p.cdS>0)p.cdS-=dt;if(p.cdH>0)p.cdH-=dt;
+    if(p.cdJ>0)p.cdJ-=dt;if(p.cdS>0)p.cdS-=dt;if(p.cdH>0)p.cdH-=dt;if(p.cdT>0)p.cdT-=dt;
     if(p.inv>0)p.inv-=dt;if(p.slow>0)p.slow-=dt;if(p.stun>0)p.stun-=dt;
     if(p.arm>0)p.arm-=dt;if(p.spinT>0){p.spinT-=dt;p.spin=p.spinT}
     if(p.fall){p.x+=p.sv.x*dt;p.y+=p.sv.y*dt;p.sv.x*=.9;p.sv.y*=.9;if(p.stun<=0){p.fall=false;p.knock=false}}
@@ -13030,7 +13073,12 @@ function fdStepCrush3D(dr,dt){
   // Move Eli with real match stick + Juke/Spin/Stiff-Arm
   const prevDash=!!you.dash;
   if(!you.fall&&you.stun<=0){
-    if(you.dash){
+    if(you.tackleDive){
+      const td=you.tackleDive;td.t+=dt;you.vx=td.vx;you.vy=td.vy;
+      you.x=clamp(you.x+td.vx*dt,6,FW-6);you.y=clamp(you.y+td.vy*dt,36,76);
+      you.ph+=dt*3.2;you.fallV=1;
+      if(td.t>=td.T){you.tackleDive=null;if(!td.hit){you.stun=.32;you.vx*=.2;you.vy*=.2}}
+    }else if(you.dash){
       you.dash.t-=dt;you.x+=you.dash.vx*dt;you.y+=you.dash.vy*dt;you.ph+=dt*2.4;
       if(you.dash.t<=0)you.dash=null;
     }else{
@@ -13085,7 +13133,8 @@ function fdStepCrush3D(dr,dt){
     for(const p of dr.players){
       if(p===car||p.fall||p.stun>0)continue;
       const d=Math.hypot(p.x-car.x,p.y-car.y);
-      if(d<1.6){
+      const hitR=(p._drillYou&&p.tackleDive)?2.35:1.6;
+      if(d<hitR){
         const evading=car._drillYou&&!!(car.dash||car.inv>0||car.spinT>0||car.arm>0);
         if(evading){
           dr.streak=Math.min(4,dr.streak+1);
@@ -13100,7 +13149,7 @@ function fdStepCrush3D(dr,dt){
           dr._loose=true;F.carrier=you;dr.streak=1;
           dr.ball.vx=Math.cos(ang)*14;dr.ball.vy=Math.sin(ang)*14;dr.ball.z=1.4;dr.ball.vz=5.5;
           SND.fx('hit');
-          if(p._drillYou){p._dScore+=125;popup('CRUSHED! FUMBLE +125',car.x,car.y+1.8,'#E8A33D')}
+          if(p._drillYou){if(p.tackleDive)p.tackleDive.hit=true;p._dScore+=125;popup('CRUSHED! FUMBLE +125',car.x,car.y+1.8,'#E8A33D')}
           else if(car._drillYou){popup('FUMBLE!',car.x,car.y+1.8,'#ff3b5c')}
           break;
         }
