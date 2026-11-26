@@ -8394,6 +8394,7 @@ function hbBump(x,y){if(M.harbor&&hbIsGate(x,y)&&!hbGateOpen()){SND.fx('err');ow
 function hbDoorAt(x,y){for(const b of HBB)for(const d of b.doors)if(d[0]===x&&d[1]===y)return b;return null}
 function hbEnter(b){
   SND.fx('open');
+  if(b.kind==='arena'&&typeof bdEnterBasin==='function'&&bdEnterBasin(b)){owHud();return}
   if(b.kind==='arena'&&!HB_CREW_IDS.every(i=>SAVE.beaten.includes(i))){hbArena(b);return}   // v2.84: shut until the three crews fall; then you walk in and Bram is inside
   {const fv=HB_FV[b.face||'d'];OW.ret={x:OW.x+fv[0],y:OW.y+fv[1],d:b.face||'d'}}const d=HBI[b.room];
   owPlace(b.room,Math.floor(d.w/2),d.h-2,'u',OW.ret);owHud();owToast(b.sign);
@@ -8930,7 +8931,7 @@ function owMap(id){
   else if(id==='spillway'){m={id,w:SPW,h:SPH,props:SPPROPS,npcs:SPNPCS,gates:[],room:false,route:true}}
   else if(id==='harbor'){m={id,w:HBW,h:HBH,props:HB_PROPS,npcs:HB_NPCS,gates:[],room:false,harbor:true}}
   else if(id==='island'){m={id,w:R2W,h:R2H,props:R2_PROPS,npcs:R2_NPCS,gates:[],room:false,island:true}}
-  else if(HBI[id]){const d=HBI[id];m={id,w:d.w,h:d.h,props:d.props,npcs:d.npcs,gates:[],room:true,def:d,hb:true,r2:!!d.r2,ex:[Math.floor(d.w/2)-1,Math.floor(d.w/2)]}}
+  else if(HBI[id]){const d=HBI[id];m={id,w:d.w,h:d.h,props:d.props,npcs:d.npcs,gates:[],room:true,def:d,hb:true,r2:!!d.r2,ex:d.ex||[Math.floor(d.w/2)-1,Math.floor(d.w/2)]}}
   else{const d=OWI[id];m={id,w:d.w,h:d.h,props:d.props,npcs:d.npcs,gates:[],room:true,def:d,ex:d.ex||[Math.floor(d.w/2)-1,Math.floor(d.w/2)]}}
   m.solid=new Uint8Array(m.w*m.h);if(m.route)m.solid.set(SPG.S);if(m.harbor)m.solid.set(hbSolidGrid());if(m.island)m.solid.set(r2SolidGrid());
   const S=(x,y)=>{if(x>=0&&y>=0&&x<m.w&&y<m.h)m.solid[y*m.w+x]=1};
@@ -11934,6 +11935,794 @@ setTimeout(()=>{if(!window.CF_TEST)return;const back=document.getElementById('mP
 setInterval(()=>{const bl=document.getElementById('mBuild');if(!bl||!window.KKLIB)return;let e=document.getElementById('mKKF');if(!e){e=document.createElement('div');e.id='mKKF';e.className='note';e.style.cssText='margin-top:4px;font-size:12px;opacity:.75';bl.after(e)}const t=KKLIB.line();if(e.textContent!==t)e.textContent=t},700);   // v3.28T model files status
 window.CFDG={DG,DGR,DG_ROOMS,dgS,dgThrow,dgUndo,dgReset,dgTestSetup,dgTestRestore,dgGo,dgDone,dgCrews,dgBlock,dgShowMap,mv:d=>owTryMove(d),act:()=>owInteract(),bl:(x,y)=>owBlocked(x,y),enter:id=>owEnter(OWB.find(b=>b.id===id)),persist:()=>persist(),hud:()=>$('#owObj').textContent,msg:()=>$('#owMsg').hidden?null:$('#owTxt').textContent,next:()=>owNext(),btns:()=>[...$('#owBtns').children].map(b=>b.textContent),click:t=>{const b=[...$('#owBtns').children].find(q=>q.textContent===t);if(b)b.click()}};   // test hook
 /* ================= end v3.17B ARENA DUNGEON ================= */
+/* ================= v3.30 BASIN DUNGEON (TOWN 2 — DRY DOCK 14) =================
+   11 interconnected rooms across 2 floors (F2 Upper Gantry Deck: bd1-bd5; F1 Lower Dry Dock Floor: bd6-bd11)
+   leading into HBI.hb_B01 (Captain Bram "The Wall" Kessler / Closers).
+   Macro mechanic: Sluice Water Level (FLOODED / DRAINED).
+   Signature Town 2 Item: Tug's Mooring Line (G / HOOK) — 6-tile orthogonal grapple (zip bollards, pull crates, stun Otto).
+   Save: SAVE.dg.basin (v:1). Never mutates SAVE.beaten. Unsolved room state lives in memory only (BD.st). */
+
+var BDK={v:1,hook:false,water:'flooded',craneDropped:false,keys:0,got:null,used:null,solved:null,visited:null,stairsOpen:false,map:false,pass:false,bossAccess:false,cleared:false,shortcut:false,loot:false};
+function bdS(){
+  if(!SAVE.dg||typeof SAVE.dg!=='object')SAVE.dg={};
+  let b=SAVE.dg.basin;if(!b||typeof b!=='object')b=SAVE.dg.basin={};
+  for(const k in BDK)if(b[k]===undefined)b[k]=(k==='solved'||k==='got'||k==='used'||k==='visited')?{}:BDK[k];
+  for(const k of ['solved','got','used','visited'])if(!b[k]||typeof b[k]!=='object')b[k]={};
+  if(b.water!=='flooded'&&b.water!=='drained')b.water='flooded';
+  b.v=1;return b;
+}
+function bdCrews(){return ['baitdogs','longshore','gantry'].every(id=>(SAVE.beaten||[]).includes(id))}
+function bdDone(){return (SAVE.beaten||[]).includes('closers')||bdS().cleared===true}
+var BD={st:{},hookAnim:null,zip:null,gateSeen:false,taunt:{}};
+var BDC={concrete:'#6A6F72',slate:'#3A4A55',rust:'#A9542F',water:'#5B93AD',waterHi:'#9FC6D8',brass:'#E8A33D',green:'#58FFB0',red:'#FF3B5C',chalk:'#EEF2F5'};
+var BD_HOOK_MAX=6,BD_HOOK_SP=18;
+
+/* ---- Room Shells (registered into HBI so Hale Harbor audio & industrial styling apply) ---- */
+var BD_ROOMS={
+  bd1:{hb:1,bd:1,fl:'concrete',floor:'#596066',wall:'#2E3B46',wl:'panel',acc:'#E8A33D',acc2:'#9FC6D8',w:12,h:9,title:'CAISSON GATEHOUSE',
+    ex:[5,6],dgDoors:[[5,1],[6,1],[11,4]],
+    props:[{x:1,y:2,k:'bench',s:1},{x:10,y:2,k:'icebin',s:1},{x:1,y:6,k:'flagbin',s:1},{x:10,y:6,k:'bench',s:1}],
+    npcs:[{id:'bd_watch',civ:'guard',x:8,y:4,d:'d',name:'DOCK WATCHMAN',t:["Dry Dock 14. Bram locked the caisson after he towed Tug's boat inside.","Flood lifts the hull. Drain bares the floor.","Bram hid the master key where Tug built his name."]}]},
+  bd2:{hb:1,bd:1,fl:'concrete',floor:'#4E575E',wall:'#2B3842',wl:'panel',acc:'#E8A33D',acc2:'#9FC6D8',w:14,h:11,title:'GANTRY OVERLOOK (F2)',
+    ex:[6,7],dgDoors:[[6,1],[7,1],[0,5],[13,5],[13,3],[1,9]],
+    props:[{x:1,y:2,k:'icebin',s:1},{x:12,y:9,k:'flagbin',s:1}],npcs:[]},
+  bd3:{hb:1,bd:1,fl:'concrete',floor:'#545C62',wall:'#2E3B46',wl:'panel',acc:'#E8A33D',acc2:'#9FC6D8',w:13,h:9,title:'SIGNAL BRIDGE (F2)',
+    ex:[],dgDoors:[[12,4],[1,7]],
+    props:[{x:11,y:2,k:'bench',s:1},{x:1,y:2,k:'flagbin',s:1}],npcs:[]},
+  bd4:{hb:1,bd:1,fl:'concrete',floor:'#50585E',wall:'#313D48',wl:'panel',acc:'#E8A33D',acc2:'#A9542F',w:11,h:10,title:'CRANE CAB (F2)',
+    ex:[],dgDoors:[[0,5]],
+    props:[{x:9,y:8,k:'icebin',s:1}],npcs:[]},
+  bd5:{hb:1,bd:1,fl:'plank',floor:'#6E5742',wall:'#2F4248',wl:'panel',acc:'#E8A33D',acc2:'#9FC6D8',w:14,h:10,title:'RIGGING LOFT (F2)',
+    ex:[],dgDoors:[[0,5],[0,8]],
+    props:[{x:12,y:2,k:'flagbin',s:1},{x:12,y:8,k:'icebin',s:1}],npcs:[]},
+  bd6:{hb:1,bd:1,fl:'concrete',floor:'#4B545B',wall:'#293845',wl:'panel',acc:'#9FC6D8',acc2:'#E8A33D',w:12,h:10,title:'SLUICE VALVE (F1)',
+    ex:[],dgDoors:[[10,2],[11,5]],
+    props:[{x:10,y:8,k:'icebin',s:1}],npcs:[]},
+  bd7:{hb:1,bd:1,fl:'concrete',floor:'#586066',wall:'#2C3944',wl:'panel',acc:'#9FC6D8',acc2:'#E8A33D',w:14,h:12,title:'DRY DOCK FLOOR (F1)',
+    ex:[],dgDoors:[[0,5],[13,5],[2,10],[7,11],[10,11]],
+    props:[{x:1,y:2,k:'flagbin',s:1},{x:12,y:2,k:'icebin',s:1}],npcs:[]},
+  bd8:{hb:1,bd:1,fl:'concrete',floor:'#48525A',wall:'#283642',wl:'panel',acc:'#9FC6D8',acc2:'#A9542F',w:13,h:11,title:'BILGE & HULL (F1)',
+    ex:[],dgDoors:[[6,1]],
+    props:[{x:11,y:2,k:'icebin',s:1}],npcs:[]},
+  bd9:{hb:1,bd:1,fl:'concrete',floor:'#52585E',wall:'#3B3236',wl:'panel',acc:'#A9542F',acc2:'#E8A33D',w:14,h:11,title:'THE PENALTY BOX (F1)',
+    ex:[],dgDoors:[[0,5],[6,10],[7,10]],
+    props:[],npcs:[]},
+  bd10:{hb:1,bd:1,fl:'concrete',floor:'#5A5B56',wall:'#353D44',wl:'panel',acc:'#E8A33D',acc2:'#9FC6D8',w:12,h:9,title:"REF'S VAULT (F1)",
+    ex:[],dgDoors:[[6,1]],
+    props:[{x:1,y:2,k:'cash',s:1,m:['Banded cash envelopes. Every ref in the harbor is on this ledger.']},{x:10,y:2,k:'flagbin',s:1,m:['Fresh yellow flags. Weighted at the corners.']}],npcs:[]},
+  bd11:{hb:1,bd:1,fl:'concrete',floor:'#4C545C',wall:'#2A3640',wl:'panel',acc:'#E8A33D',acc2:'#A9542F',w:14,h:12,title:'CAISSON CHAMBER (F1)',
+    ex:[],dgDoors:[[6,1],[7,1],[13,3]],
+    props:[{x:1,y:2,k:'flagbin',s:1}],npcs:[]}
+};
+
+(function(){
+  for(const k in BD_ROOMS){HBI[k]=BD_ROOMS[k];if(OWMAPS[k])delete OWMAPS[k]}
+})();
+
+/* ---- Basin Helpers ---- */
+function bdInRoom(id){return !!(id&&BDR[id])}
+function bdVisit(id){const b=bdS();if(!b.visited[id]){b.visited[id]=1;persist()}}
+function bdTaunt(id,t){if(BD.taunt[id])return;BD.taunt[id]=1;setTimeout(()=>{if(M&&M.id===id)owToast(t)},700)}
+function bdGiveKey(id){const b=bdS();if(b.got[id])return;b.got[id]=1;b.keys=(b.keys||0)+1;persist();SND.fx('ok2');owToast('GOT  BRASS KEY')}
+function bdToggleWater(){
+  const b=bdS();b.water=b.water==='flooded'?'drained':'flooded';b.stairsOpen=true;persist();
+  SND.fx('open');DG.shake=.35;DG.lightFx=.5;
+  owToast(b.water==='drained'?'BASIN DRAINED · F1 OPEN':'BASIN FLOODED · HULL FLOATING');
+}
+function bdGetHook(){
+  const b=bdS();if(b.hook)return;b.hook=true;persist();SND.fx('ok2');
+  owSay('',['Heavy braided hemp. A forged brass deck hook.','Tied to a faded 2014 pennant: TUG.'],()=>owSay('ELI',['This can cross the dock — and pull cargo.'],()=>owSay('',["★ GOT: TUG'S MOORING LINE (Press G / HOOK)"],()=>owToast('GOT  MOORING LINE'))));
+}
+
+/* ---- Basin Room Controllers (BDR) ---- */
+var BDR={};
+
+// bd1: Caisson Gatehouse (F2)
+BDR.bd1={home:[6,7,'u'],floor:'F2',
+  init(){return {}},
+  doors(){const b=bdS();return [
+    {tile:[5,1],to:'bd2',at:[6,9,'u'],open:bdCrews},{tile:[6,1],to:'bd2',at:[7,9,'u'],open:bdCrews},
+    {tile:[11,4],to:'hb_B01',at:[1,5,'r'],open:()=>!!b.shortcut,shortcut:1},
+    {tile:[5,8],to:'harbor',open:()=>true},{tile:[6,8],to:'harbor',open:()=>true}]},
+  cls(x,y){if(y===2&&(x===5||x===6)&&!bdCrews())return {k:'tall',gate:1};return null},
+  bump(x,y){
+    const P=[[2,'baitdogs','BAIT DOGS'],[3,'longshore','LONGSHOREMEN'],[4,'gantry','GANTRY GANG']];
+    if(y===1){const p=P.find(q=>q[0]===x);if(p){owSay(p[2],[(SAVE.beaten||[]).includes(p[1])?'BEATEN.':'NOT BEATEN YET.']);return true}}
+    if(y===2&&(x===5||x===6)&&!bdCrews()){SND.fx('err');owSay('CAISSON GATE',['Locked. Beat the Bait Dogs, Longshoremen, and Gantry Gang first.']);return true}
+    if(x===11&&y===4&&!bdS().shortcut){SND.fx('err');owSay('DOCKSIDE SHORTCUT',['Locked from the inside. Reach Bram Kessler to unbolt it.']);return true}
+    return false},
+  enter(){if(bdCrews()&&!BD.gateSeen){BD.gateSeen=true;SND.fx('open')}}};
+
+// bd2: Gantry Overlook — Upper Hub (F2)
+BDR.bd2={home:[6,9,'u'],floor:'F2',key:'hub2',
+  well(x,y){return x>=4&&x<=9&&y>=4&&y<=7},
+  gap(x,y){return x===11&&(y===2||y===3)},
+  init(){return {}},
+  doors(){const b=bdS();return [
+    {tile:[6,1],to:'hb_B01',at:[7,8,'u'],open:()=>!!b.bossAccess,lock:'pass'},
+    {tile:[7,1],to:'hb_B01',at:[7,8,'u'],open:()=>!!b.bossAccess,lock:'pass'},
+    {tile:[0,5],to:'bd3',at:[11,4,'l'],open:()=>true},
+    {tile:[13,5],to:'bd5',at:[1,5,'r'],open:()=>!!b.used.rig,lock:'key',use:'rig'},
+    {tile:[13,3],to:'bd4',at:[1,5,'r'],open:()=>true},
+    {tile:[1,9],to:'bd7',at:[2,9,'u'],open:()=>!!b.stairsOpen,stairs:1},
+    {tile:[6,10],to:'bd1',at:[6,2,'d'],open:()=>true},{tile:[7,10],to:'bd1',at:[6,2,'d'],open:()=>true}]},
+  cls(x,y){
+    if(this.well(x,y))return {k:'well'};
+    if(this.gap(x,y))return {k:'pit'};
+    if((x===10&&y===3)||(x===12&&y===3))return {k:'bollard'};
+    if(x===1&&y===9&&!bdS().stairsOpen)return {k:'tall',bar:1};
+    return null},
+  bump(x,y){
+    if(this.well(x,y)){owSay('DRY DOCK WELL',[bdS().water==='flooded'?'Dark harbor water fills Dry Dock 14 below. Tug\'s wooden hull floats near the rim.':'Dry Dock 14 is drained. Concrete slipways and keel blocks lie exposed below.']);return true}
+    if(x===1&&y===9&&!bdS().stairsOpen){SND.fx('err');owSay('LOWER STAIRWELL',['Flooded at the bottom. Find the Sluice Valve to drain the Basin first.']);return true}
+    if(this.gap(x,y)){owSay('BROKEN CATWALK',['A 2-tile drop over steel girders. A brass bollard gleams on the far side.']);return true}
+    return false},
+  enter(){bdTaunt('bd2','BRAM: Look down, Voss. That hull is mine now.')}};
+
+// bd3: Signal Bridge (F2) — Double-Bank + Timed Semaphores -> Brass Key #1 + Stairs to bd6
+BDR.bd3={home:[11,4,'l'],floor:'F2',key:'bridge',
+  pads:[[7,2,'/'],[7,5,'/'],[5,6,'\\'],[5,3,'\\']],
+  init(){return {t1:0,t2:0,open:!!bdS().solved.bridge}},
+  doors(st){return [
+    {tile:[12,4],to:'bd2',at:[1,5,'r'],open:()=>true},
+    {tile:[1,7],to:'bd6',at:[10,3,'d'],open:()=>st.open,stairs:1}]},
+  cls(x,y,st){
+    const p=this.pads.find(q=>q[0]===x&&q[1]===y);if(p)return {k:'pad',t:p[2]};
+    if(x===4&&y===5)return {k:'tgt',o:{kind:'timed',ballOnly:1,id:1,hit:()=>{st.t1=5.0;SND.fx('ok');if(st.t2>0&&!st.open){st.open=true;bdS().solved.bridge=true;persist();SND.fx('ok2');owToast('DRAWBRIDGE LOWERED')}}}};
+    if(x===4&&y===3)return {k:'tgt',o:{kind:'timed',ballOnly:1,id:2,hit:()=>{st.t2=5.0;SND.fx('ok');if(st.t1>0&&!st.open){st.open=true;bdS().solved.bridge=true;persist();SND.fx('ok2');owToast('DRAWBRIDGE LOWERED')}}}};
+    if(x>=5&&x<=7&&y>=2&&y<=7){if(st.open&&y===4)return null;return {k:'water'}}
+    return null},
+  pickup(x,y){if(x===2&&y===4&&bdS().solved.bridge&&!bdS().got.k1){bdGiveKey('k1');return true}return false},
+  step(st,dt){if(st.t1>0)st.t1=Math.max(0,st.t1-dt);if(st.t2>0)st.t2=Math.max(0,st.t2-dt)}};
+
+// bd6: Sluice Valve Room (F1) — Moving Buoy Targets -> Primary Sluice Wheel (Flooded/Drained)
+BDR.bd6={home:[10,3,'d'],floor:'F1',key:'sluice',
+  init(){return {h1:!!bdS().solved.sluice,h2:!!bdS().solved.sluice,t0:DG.t}},
+  doors(){return [
+    {tile:[10,2],to:'bd3',at:[2,7,'r'],open:()=>true,stairs:1},
+    {tile:[11,5],to:'bd7',at:[1,5,'r'],open:()=>bdS().water==='drained'}]},
+  cls(x,y,st){
+    if(x>=1&&x<=6&&y>=3&&y<=8)return bdS().water==='flooded'?{k:'water'}:null;
+    if(x===7&&y>=3&&y<=8)return {k:'rail'};
+    if(x===8&&y===3)return {k:'valve',unlocked:!!(st.h1&&st.h2)};
+    return null},
+  movers(st){
+    if(st.h1&&st.h2)return [];
+    const T=4/1.5,u=((DG.t-st.t0)%(2*T))/T,y1=u<=1?3+u*4:3+(2-u)*4,y2=u<=1?7-u*4:7-(2-u)*4;
+    const out=[];
+    if(!st.h1)out.push({x:5,y:y1,o:{kind:'moving',hit:()=>{st.h1=true;SND.fx('ok');if(st.h1&&st.h2){bdS().solved.sluice=true;persist();SND.fx('ok2');owToast('SLUICE WHEEL UNLOCKED')}}}})
+    if(!st.h2)out.push({x:3,y:y2,o:{kind:'moving',hit:()=>{st.h2=true;SND.fx('ok');if(st.h1&&st.h2){bdS().solved.sluice=true;persist();SND.fx('ok2');owToast('SLUICE WHEEL UNLOCKED')}}}})
+    return out},
+  bump(x,y,st){
+    if(x===8&&y===3){
+      if(!(st.h1&&st.h2)){SND.fx('err');owSay('SLUICE WHEEL',['Jammed by two buoy locks out in the channel. Hit both buoys with Dante\'s Ball.']);return true}
+      bdToggleWater();return true}
+    if(x===11&&y===5&&bdS().water==='flooded'){SND.fx('err');owSay('SLUICE TUNNEL',['Submerged. Turn the Sluice Wheel to drain Dry Dock 14 first.']);return true}
+    return false}};
+
+// bd5: Rigging Loft (F2) — Acquire Tug's Mooring Line + Hook-Zip Escape
+BDR.bd5={home:[1,5,'r'],floor:'F2',key:'rig',
+  nets:[[6,2],[6,3],[6,4],[6,5],[6,6],[3,4],[4,4],[3,5]],
+  init(){return {open:!!bdS().hook,shutter:!!bdS().solved.rig,crate:[2,8]}},
+  doors(st){return [
+    {tile:[0,5],to:'bd2',at:[12,5,'l'],open:()=>true},
+    {tile:[0,8],to:'bd2',at:[12,8,'l'],open:()=>st.shutter}]},
+  cls(x,y,st){
+    if(x===10&&y===3)return {k:'tgt',o:{kind:'press',ballOnly:1,hit:()=>{if(!st.open){st.open=true;SND.fx('ok2');owToast('RIGGING LOCKER OPEN')}else SND.fx('blip')}}};
+    if(x===3&&y===2)return {k:'obj',o:'locker'};
+    if(dgHas(this.nets,x,y))return {k:'rail'};
+    if(x>=5&&x<=8&&(y===7||y===8))return {k:'pit'};
+    if((x===4&&y===8)||(x===9&&y===8))return {k:'bollard'};
+    if(st.crate&&st.crate[0]===x&&st.crate[1]===y)return {k:'crate',track:[[2,8],[3,8],[4,7]]};
+    if(x===1&&y===8&&!st.shutter)return {k:'tall',bar:1};
+    return null},
+  onPull(st,nx,ny){if(nx===3&&ny===8){st.shutter=true;bdS().solved.rig=true;persist();SND.fx('ok2');owToast('RETURN CHUTE OPEN')}},
+  bump(x,y,st){
+    if(x===3&&y===2){if(!st.open){owSay('RIGGING LOCKER',['Locked. Tag reads: TUG — 2014. Hit the release switch across the cargo net.']);return true}
+      if(!bdS().hook){bdGetHook();return true}owSay('RIGGING LOCKER',['Empty now.']);return true}
+    return false}};
+
+// bd7: Dry Dock Floor — Lower Hub (F1)
+BDR.bd7={home:[2,9,'u'],floor:'F1',key:'hub1',
+  hull(x,y){return x>=4&&x<=8&&y>=4&&y<=6},
+  basin(x,y){return x>=3&&x<=11&&y>=3&&y<=8},
+  trench(x,y){return y===9&&x>=5&&x<=9},
+  init(){return {}},
+  doors(){const b=bdS(),dry=b.water==='drained';return [
+    {tile:[0,5],to:'bd6',at:[10,5,'l'],open:()=>dry},
+    {tile:[2,10],to:'bd2',at:[2,9,'r'],open:()=>true,stairs:1},
+    {tile:[13,5],to:'bd9',at:[1,5,'r'],open:()=>dry&&!!b.used.pen,lock:'key',use:'pen'},
+    {tile:[7,11],to:'bd10',at:[6,2,'d'],open:()=>true},
+    {tile:[10,11],to:'bd8',at:[6,2,'d'],open:()=>dry}]},
+  cls(x,y){
+    const dry=bdS().water==='drained';
+    if(this.trench(x,y))return {k:'pit'};
+    if((x===7&&y===8)||(x===7&&y===10))return {k:'bollard'};
+    if(x===11&&y===4)return {k:'bollard'};
+    if(!dry&&this.basin(x,y)){
+      // When flooded, Tug's hull floats up as a walkable bridge from west rim (x=3,y=5) to x=8,y=5!
+      if(this.hull(x,y)||(x===3&&y===5))return null;
+      return {k:'water'};
+    }
+    if(dry&&this.hull(x,y))return {k:'hull'};
+    if(dry&&x===11&&y===3)return {k:'rail'}; // High pier unreachable on foot when drained; hook across when flooded!
+    return null},
+  pickup(x,y){if(x===11&&y===2&&!bdS().got.k2){bdGiveKey('k2');return true}return false},
+  bump(x,y){
+    if(this.hull(x,y)&&bdS().water==='drained'){owSay("TUG'S HULL",['Resting on concrete keel blocks. If the basin floods, this deck would float right up to the upper pier.']);return true}
+    if(x===13&&y===5&&bdS().water==='flooded'){SND.fx('err');owSay('PENALTY BOX DOOR',['Submerged. Drain the Basin first.']);return true}
+    return false}};
+
+// bd4: Crane Cab (F2) — Pull Mobile Pad Crate + Bank Shot -> Crane Drop + Brass Key #3
+BDR.bd4={home:[1,5,'r'],floor:'F2',key:'crane',
+  init(){return {crate:bdS().craneDropped?[7,4]:[7,7],u:[],done:!!bdS().craneDropped}},
+  doors(){return [{tile:[0,5],to:'bd2',at:[12,3,'l'],open:()=>true}]},
+  cls(x,y,st){
+    if(st.crate&&st.crate[0]===x&&st.crate[1]===y)return {k:'padcrate',t:'\\',track:[[7,3],[7,4],[7,5],[7,6],[7,7]]};
+    if(x>=2&&x<=9&&y===6)return {k:'rail'};
+    if(x===7&&y===8)return {k:'tgt',o:{kind:'bank',ballOnly:1,hit:()=>{if(!st.done){st.done=true;bdS().craneDropped=true;bdS().solved.crane=true;persist();SND.fx('ok2');DG.shake=.35;owToast('CRANE CONTAINER DROPPED · KEY UNLOCKED')}}}};
+    if(x===2&&y===2)return {k:'obj',o:'chest'};
+    return null},
+  bump(x,y,st){
+    if(x===2&&y===2){
+      if(!st.done){owSay('CRANE LOCKBOX',['Locked until the overhead gantry drops its counterweight.']);return true}
+      if(!bdS().got.k3){bdGiveKey('k3');return true}
+      owSay('CRANE LOCKBOX',['Empty now.']);return true}
+    return false}};
+
+// bd8: Bilge & Hull (F1) — Local Aux Valve + Pull Mobile Pad while Drained -> Flood -> Bank into Buoy
+BDR.bd8={home:[6,2,'d'],floor:'F1',key:'bilge',
+  init(){return {crate:bdS().solved.bilge?[8,5]:[8,8],u:[],done:!!bdS().solved.bilge}},
+  doors(){return [{tile:[6,1],to:'bd7',at:[10,10,'u'],open:()=>true}]},
+  cls(x,y,st){
+    const dry=bdS().water==='drained';
+    if(x===2&&y===3)return {k:'valve',unlocked:true};
+    if(st.crate&&st.crate[0]===x&&st.crate[1]===y)return {k:'padcrate',t:'/',track:[[8,4],[8,5],[8,6],[8,7],[8,8]]};
+    if(x===4&&y===5){
+      if(!dry)return {k:'tgt',o:{kind:'bank',ballOnly:1,hit:()=>{if(!st.done){st.done=true;bdS().solved.bilge=true;persist();SND.fx('ok2');owToast('BILGE SEAL RELEASED')}}}};
+      return {k:'sunken'};
+    }
+    if(!dry&&x>=3&&x<=10&&y>=4&&y<=9)return {k:'water'};
+    if(x===3&&y>=4&&y<=9)return {k:'rail'};
+    return null},
+  bump(x,y){
+    if(x===2&&y===3){bdToggleWater();return true}
+    if(x===4&&y===5&&bdS().water==='drained'){owSay('SUNKEN BUOY',['Sitting at the bottom of the bilge. Flood the water to float it into throw range.']);return true}
+    return false}};
+
+// bd9: The Penalty Box (F1) — Mini-Boss: "Ironclad" Otto + Flag Turrets (Hook Stun + Ball Relay)
+BDR.bd9={home:[1,5,'r'],floor:'F1',key:'penbox',
+  safe:[[2,8],[3,8],[10,3],[11,3]],
+  init(){return {on:!bdS().solved.penbox,hp:3,ohp:3,flags:[],warn:[],next:1.4,seq:19,ox:7,oy:5,od:'l',stun:0,ot:0}},
+  doors(st){const b=bdS();return [
+    {tile:[0,5],to:'bd7',at:[12,5,'l'],open:()=>true},
+    {tile:[6,10],to:'bd11',at:[6,2,'d'],open:()=>!st.on&&!!b.used.caisson,lock:'key',use:'caisson'},
+    {tile:[7,10],to:'bd11',at:[7,2,'d'],open:()=>!st.on&&!!b.used.caisson,lock:'key',use:'caisson'}]},
+  isSafe(x,y){return dgHas(this.safe,x,y)},
+  cls(x,y,st){
+    if(y===9&&(x===6||x===7)&&st.on)return {k:'tall',bar:1};
+    if(x===7&&y===2)return {k:'tgt',o:{kind:'relay',ballOnly:1,hit:()=>bdOttoRelay(st)}};
+    return null},
+  hz(st){if(!st.on)return [];const out=st.flags.map(f=>({k:'flag',x:f.x,y:f.y}));out.push({k:'otto',x:st.ox,y:st.oy});return out},
+  movers(st){if(!st.on)return [];return [{x:st.ox,y:st.oy,o:{kind:'otto',hit:()=>{SND.fx('blip');dgPing(st.ox,st.oy,'#9aa4b8');owToast('SHIELDED! USE MOORING LINE (G)')}}}]},
+  step(st,dt){
+    if(!st.on)return;
+    if(st.stun>0){st.stun=Math.max(0,st.stun-dt)}
+    else{
+      st.ot+=dt;
+      const sp=1.7+(3-st.ohp)*.35;
+      st.ox=7+4.2*Math.sin(st.ot*sp);
+      st.oy=5+1.8*Math.cos(st.ot*sp*.7);
+    }
+    st.next-=dt;
+    if(st.next<=0){
+      st.next=Math.max(.55,1.05-(3-st.ohp)*.16);
+      const v=dgRnd(st)<.5,dir=dgRnd(st)<.5?1:-1,lane=v?2+Math.floor(dgRnd(st)*10):3+Math.floor(dgRnd(st)*6);
+      st.warn.push({v,dir,lane,t:.75});
+    }
+    for(const w of st.warn){w.t-=dt;if(w.t<=0){const sp=2.4;st.flags.push(w.v?{x:w.lane,y:w.dir>0?1.8:9.2,vx:0,vy:w.dir*sp}:{x:w.dir>0?1.2:12.4,y:w.lane,vx:w.dir*sp,vy:0})}}
+    st.warn=st.warn.filter(w=>w.t>0);
+    for(const f of st.flags){f.x+=f.vx*dt;f.y+=f.vy*dt}
+    st.flags=st.flags.filter(f=>f.x>.5&&f.x<13.2&&f.y>1.4&&f.y<9.6);
+  },
+  enter(){if(!bdS().solved.penbox)bdTaunt('bd9','OTTO: Flag on the play! Pull my sled if you can!')}};
+
+function bdOttoRelay(st){
+  if(!st.on)return;
+  if(st.stun<=0){SND.fx('blip');dgPing(7,2,'#9aa4b8');owToast('STUN OTTO WITH MOORING LINE (G) FIRST');return}
+  st.stun=0;st.ohp--;SND.fx('ok');dgPing(7,2,BDC.green);
+  if(st.ohp<=0){st.on=false;st.flags=[];st.warn=[];bdS().solved.penbox=true;persist();SND.fx('ok2');owToast('OTTO CLEARED · SOUTH HATCH UNLOCKED')}
+}
+
+// bd10: Ref's Secret Vault (Optional, F1) — 4-Target Flag Code + Crate Yank + Bank Shot -> Map & +2 Upgrade Points
+BDR.bd10={home:[6,2,'d'],floor:'F1',key:'vault2',
+  init(){return {n:0,crate:[8,4],open:!!bdS().solved.vault2}},
+  doors(){return [{tile:[6,1],to:'bd7',at:[7,10,'u'],open:()=>true}]},
+  tg(st,id){return {kind:'order',ballOnly:1,id,col:['','#FF3B5C','#3B7BFF','#E8A33D','#58FFB0'][id],hit:()=>bdOrder(st,id)}},
+  cls(x,y,st){
+    if(x===2&&y===4)return {k:'pad',t:'/'};
+    if(x>=1&&x<=4&&y===6)return {k:'rail'};
+    if(st.crate&&st.crate[0]===x&&st.crate[1]===y)return {k:'crate',track:[[8,4],[8,5],[8,6]]};
+    if(!st.open&&x===3&&y===3)return {k:'tgt',o:this.tg(st,1)};
+    if(!st.open&&x===9&&y===4)return {k:'tgt',o:this.tg(st,2)};
+    if(!st.open&&x===9&&y===7)return {k:'tgt',o:this.tg(st,3)};
+    if(!st.open&&x===2&&y===7)return {k:'tgt',o:this.tg(st,4)};
+    if(x===6&&y===7)return {k:'obj',o:'chest'};
+    return null},
+  bump(x,y,st){
+    if(x===6&&y===7){
+      const b=bdS();
+      if(!st.open){owSay('REF LOCKBOX',['Locked. Hit the four flag targets in order: Red, Blue, Gold, Green.']);return true}
+      if(b.map){owSay('REF LOCKBOX',['Empty now.']);return true}
+      const lines=[];if(!b.loot){b.loot=true;SAVE.upPts=(SAVE.upPts||0)+2;lines.push('★ +2 UPGRADE POINTS')}
+      b.map=true;persist();owHud();lines.push('★ GOT: BASIN DUNGEON MAP (in MENU)');
+      owSay('',['Harbor blueprints, ref envelopes, and a dry-dock schematic.'].concat(lines),()=>owToast('GOT  BASIN MAP'));return true}
+    return false}};
+function bdOrder(st,id){if(st.open)return;if(id===st.n+1){st.n=id;SND.fx('ok');if(st.n===4){st.open=true;bdS().solved.vault2=true;persist();SND.fx('ok2');owToast('VAULT UNLOCKED')}}else{st.n=0;dgBuzz()}}
+
+// bd11: The Caisson Chamber (F1) — Climactic Finale -> Boss Key: Caisson Pass + Hoist to bd2
+BDR.bd11={home:[6,2,'d'],floor:'F1',key:'caisson',
+  cm:[11,3],tt:[12,8],gate:[9,4],start:[2,9],dock:[10,5],
+  isTrack(x,y){return y===7&&x>=3&&x<=10},
+  init(){const s=!!bdS().solved.caisson;return {hb:s?[11,3]:[2,9],carry:false,ride:false,gate:0,crate:[4,5],u:[],done:s,t0:DG.t,ref:{x:5,y:5,dir:1,cd:0}}},
+  doors(st){return [
+    {tile:[6,1],to:'bd9',at:[6,9,'u'],open:()=>true},{tile:[7,1],to:'bd9',at:[7,9,'u'],open:()=>true},
+    {tile:[13,3],to:'bd2',at:[10,2,'l'],open:()=>st.done,hoist:1}]},
+  sledX(st){const t=((DG.t-st.t0)%8+8)%8;return t<3.5?3+7*(t/3.5):t<4?10:t<7.5?10-7*((t-4)/3.5):3},
+  cls(x,y,st){
+    if(x===this.tt[0]&&y===this.tt[1])return {k:'tgt',o:{kind:'timed',ballOnly:1,hit:()=>{st.gate=4.5;SND.fx('ok')}}};
+    if(x===this.gate[0]&&y===this.gate[1]&&!st.done&&(st.gate<=0||st.carry))return {k:'tall',bar:1};
+    if(this.isTrack(x,y))return {k:'track'};
+    if(y===6&&x>=3&&x<=10)return {k:'pit'};
+    if((x===2&&y===6)||(x===11&&y===6))return {k:'bollard'};
+    if(x===9&&(y===2||y===3||y===5))return {k:'rail'};
+    if(st.crate&&st.crate[0]===x&&st.crate[1]===y)return {k:'crate',track:[[4,4],[4,5],[4,6],[4,7],[4,8]]};
+    if(!st.carry&&st.hb&&st.hb[0]===x&&st.hb[1]===y)return {k:'hb'};
+    return null},
+  bump(x,y,st){
+    if(st.hb&&!st.carry&&st.hb[0]===x&&st.hb[1]===y){
+      if(st.done){SND.fx('blip');return true}
+      st.u.push({hb:st.hb.slice(),carry:st.carry,ride:st.ride,crate:st.crate?st.crate.slice():null,ex:OW.x,ey:OW.y,ed:OW.d});
+      st.carry=true;st.hb=null;SND.fx('pluck');return true}
+    return false},
+  step(st,dt){
+    if(st.gate>0)st.gate=Math.max(0,st.gate-dt);
+    if(st.ride&&this.sledX(st)>=9.95){st.ride=false;st.hb=[10,5];SND.fx('drop')}
+    if(st.done)return;
+    const r=st.ref;if(r.cd>0)r.cd=Math.max(0,r.cd-dt);
+    r.y+=r.dir*1.4*dt;if(r.y>=9){r.y=9;r.dir=-1}if(r.y<=3){r.y=3;r.dir=1}
+    // Sightline check (3 tiles horizontally on same row, blocked if Flag-Crate cover is between Eli and Ref)
+    if(r.cd<=0&&Math.abs(OW.py-r.y)<.55&&Math.abs(OW.px-r.x)<=3.2){
+      const blocked=st.crate&&Math.abs(st.crate[1]-r.y)<.6&&((OW.px<st.crate[0]&&st.crate[0]<r.x)||(r.x<st.crate[0]&&st.crate[0]<OW.px));
+      if(!blocked){DG.slow=2.0;r.cd=3.5;DG.flash=.4;SND.fx('err');owToast('FLAG! WHISTLE SLOWDOWN 2s')}
+    }
+  },
+  enter(){bdTaunt('bd11','BRAM: Pull all the lines you want. The Caisson stays shut.')}};
+
+function bdHeavyLand(st,x,y){
+  const R=BDR.bd11;st.carry=false;
+  if(R.isTrack(x,y)){
+    if(Math.abs(R.sledX(st)-x)<.8){st.ride=true;st.hb=null;SND.fx('ok');dgPing(x,y,BDC.green);return}
+    st.hb=R.start.slice();dgBuzz();dgPing(x,y,BDC.red);return;
+  }
+  st.hb=[x,y];
+  if(x===R.cm[0]&&y===R.cm[1]&&!st.done){
+    st.done=true;st.gate=0;DG.slow=0;
+    const b=bdS();b.solved.caisson=true;b.pass=true;persist();
+    setTimeout(()=>{SND.fx('ok2');owToast('GOT  CAISSON PASS · HOIST OPEN')},300);
+  }else SND.fx('drop');
+}
+
+/* ---- Entry, Navigation, and Boss Shortcut ---- */
+function bdEnterBasin(b){
+  if(b.id!=='B01'||bdDone())return false;
+  bdGo('bd1',[6,7,'u']);return true;
+}
+function bdReachedBram(){
+  const b=bdS();bdVisit('hb_B01');
+  if(!b.cleared){b.cleared=true;b.shortcut=true;persist();setTimeout(()=>owToast('SHORTCUT OPEN · GATEHOUSE'),400)}
+}
+function bdGo(to,at){
+  DG.fly=null;DG.hfly=null;DG.slow=0;BD.hookAnim=null;BD.zip=null;
+  if(to==='harbor'){SND.fx('close');OW.ret=null;owPlace('harbor',24,19,'u',null);owHud();return}
+  if(to==='hb_B01'){SND.fx('open');owPlace('hb_B01',at?at[0]:7,at?at[1]:8,at?at[2]:'u',{x:24,y:19,d:'u',map:'harbor'});bdReachedBram();owHud();return}
+  const R=BDR[to];BD.st[to]=R.init();DG.inv=0;SND.fx('open');owPlace(to,at[0],at[1],at[2],{x:24,y:19,d:'u',map:'harbor'});bdVisit(to);if(R.enter)R.enter();owHud();
+}
+function bdSt(){const R=BDR[M.id];return BD.st[M.id]||(BD.st[M.id]=R.init())}
+
+/* ---- Mooring Line (G / HOOK) ---- */
+function bdCanHook(){return !!(M&&BDR[M.id]&&M.id!=='bd1'&&bdS().hook)}
+function bdHook(){
+  if(!bdCanHook()||OW.busy||OW.mv||DG.fly||DG.hfly||BD.hookAnim||BD.zip)return;
+  const R=BDR[M.id],st=bdSt(),[dx,dy]=DG_DIRS[OW.d];
+  SND.fx('pluck');
+  // Raycast up to BD_HOOK_MAX tiles orthogonally
+  let hit=null;
+  for(let i=1;i<=BD_HOOK_MAX;i++){
+    const x=OW.x+dx*i,y=OW.y+dy*i;
+    if(x<0||y<0||x>=M.w||y>=M.h||M.solid[y*M.w+x])break;
+    // Check Otto mini-boss in bd9
+    if(M.id==='bd9'&&st.on&&Math.hypot(st.ox-x,st.oy-y)<.95){
+      hit={kind:'otto',x:st.ox,y:st.oy};break;
+    }
+    const c=R.cls(x,y,st);
+    if(!c)continue;
+    if(c.k==='bollard'){hit={kind:'bollard',x,y,land:[x-dx,y-dy]};break}
+    if(c.k==='crate'||c.k==='padcrate'){hit={kind:'crate',x,y,c};break}
+    if(c.k==='rail'||c.k==='water'||c.k==='pit'||c.k==='well'||c.k==='track')continue;
+    break;
+  }
+  const endX=hit?hit.x:OW.x+dx*Math.min(BD_HOOK_MAX,3),endY=hit?hit.y:OW.y+dy*Math.min(BD_HOOK_MAX,3);
+  BD.hookAnim={x0:OW.x,y0:OW.y,x1:endX,y1:endY,t:0,hit,dx,dy};
+}
+
+function bdHookStep(dt){
+  const h=BD.hookAnim;
+  if(h){
+    h.t+=dt*4.5;
+    if(h.t>=1){
+      BD.hookAnim=null;
+      const R=BDR[M.id],st=bdSt();
+      if(!h.hit){SND.fx('drop');return}
+      if(h.hit.kind==='otto'){
+        st.stun=2.8;SND.fx('ok2');dgPing(st.ox,st.oy,BDC.green);owToast('OTTO STUNNED! THROW AT NORTH RELAY!');return;
+      }
+      if(h.hit.kind==='bollard'){
+        const [lx,ly]=h.hit.land;
+        if(lx>=1&&ly>=2&&lx<M.w-1&&ly<M.h-1&&!M.solid[ly*M.w+lx]){
+          BD.zip={x0:OW.px,y0:OW.py,x1:lx,y1:ly,t:0};SND.fx('ok');dgPing(h.hit.x,h.hit.y,BDC.brass);
+        }else SND.fx('err');
+        return;
+      }
+      if(h.hit.kind==='crate'){
+        const nx=h.hit.x-h.dx,ny=h.hit.y-h.dy;
+        const okTrack=!h.hit.c.track||dgHas(h.hit.c.track,nx,ny);
+        if(okTrack&&!(nx===OW.x&&ny===OW.y)&&!M.solid[ny*M.w+nx]){
+          if(st.u)st.u.push({crate:st.crate.slice(),hb:st.hb?st.hb.slice():null,carry:!!st.carry,ride:!!st.ride,ex:OW.x,ey:OW.y,ed:OW.d});
+          st.crate=[nx,ny];SND.fx('ok');dgPing(nx,ny,BDC.brass);
+          if(R.onPull)R.onPull(st,nx,ny);
+        }else SND.fx('err');
+        return;
+      }
+    }
+  }
+  const z=BD.zip;
+  if(z){
+    z.t+=dt*5.5;
+    if(z.t>=1){OW.x=OW.px=z.x1;OW.y=OW.py=z.y1;OW.mv=false;BD.zip=null;owSave();dgArrive()}
+    else{OW.px=z.x0+(z.x1-z.x0)*z.t;OW.py=z.y0+(z.y1-z.y0)*z.t}
+  }
+}
+
+/* ---- Hook into Town 1 DG Engine Cleanly (Zero Regression) ---- */
+var _dgBlock=dgBlock;
+dgBlock=function(x,y){
+  if(M&&BDR[M.id]){
+    const R=BDR[M.id],st=bdSt();
+    const d=dgDoorAt(R,st,x,y);if(d)return !d.open(st)||(M.id==='bd11'&&!!st.carry);
+    if(R.cls(x,y,st))return true;return false;
+  }
+  return _dgBlock(x,y);
+};
+
+var _dgBump=dgBump;
+dgBump=function(x,y){
+  if(M&&BDR[M.id]){
+    const R=BDR[M.id],st=bdSt();
+    if(R.bump&&R.bump(x,y,st))return true;
+    const d=dgDoorAt(R,st,x,y);
+    if(d&&!d.open(st)){
+      const b=bdS();
+      if(d.lock==='key'){if(b.keys>0){b.keys--;b.used[d.use]=true;persist();SND.fx('open');return true}SND.fx('err');owSay('BRASS LOCK',['Locked. Needs a Brass Key.']);return true}
+      if(d.lock==='pass'){if(b.pass){b.bossAccess=true;persist();SND.fx('open');owToast('CAISSON GATE OPEN');return true}SND.fx('err');owSay('BOSS GATE',['Sealed tight. Needs the CAISSON PASS.']);return true}
+      SND.fx('err');return true;
+    }
+    const c=R.cls(x,y,st);
+    if(c){if(c.k==='tgt'){if(c.o.ballOnly){SND.fx('blip');return true}c.o.hit();return true}SND.fx('err');return true}
+    return false;
+  }
+  return _dgBump(x,y);
+};
+
+var _dgArrive=dgArrive;
+dgArrive=function(){
+  if(M&&BDR[M.id]){
+    const R=BDR[M.id],st=bdSt();
+    const d=dgDoorAt(R,st,OW.x,OW.y);
+    if(d&&d.to){owClearIn();if(d.stairs||d.hoist)SND.fx('drop');bdGo(d.to,d.at||[OW.x,OW.y,OW.d]);return true}
+    if(R.pickup&&R.pickup(OW.x,OW.y))return true;
+    return false;
+  }
+  return _dgArrive();
+};
+
+var _dgOnShow=dgOnShow;
+dgOnShow=function(){
+  _dgOnShow();
+  try{bdS()}catch(e){}
+  if(M&&BDR[M.id]&&!BD.st[M.id]){const R=BDR[M.id];BD.st[M.id]=R.init();OW.x=OW.px=R.home[0];OW.y=OW.py=R.home[1];OW.d=R.home[2];OW.mv=false}
+};
+
+var _dgCanThrow=dgCanThrow;
+dgCanThrow=function(){
+  if(M&&BDR[M.id])return M.id!=='bd1'&&(!!dgS().ball||(M.id==='bd11'&&BD.st.bd11&&BD.st.bd11.carry));
+  return _dgCanThrow();
+};
+
+var _dgRoomUnsolved=dgRoomUnsolved;
+dgRoomUnsolved=function(){
+  if(M&&BDR[M.id]){const R=BDR[M.id];if(!R.key||R.key==='hub1'||R.key==='hub2')return false;return !bdS().solved[R.key]}
+  return _dgRoomUnsolved();
+};
+
+var _dgReset=dgReset;
+dgReset=function(){
+  if(M&&BDR[M.id]){
+    const R=BDR[M.id];if(!dgRoomUnsolved())return;
+    BD.st[M.id]=R.init();DG.fly=null;DG.hfly=null;BD.hookAnim=null;BD.zip=null;DG.inv=0;DG.slow=0;
+    OW.mv=false;OW.x=OW.px=R.home[0];OW.y=OW.py=R.home[1];OW.d=R.home[2];owClearIn();owSave();SND.fx('back');DG.flash=.35;return;
+  }
+  _dgReset();
+};
+
+var _dgUndo=dgUndo;
+dgUndo=function(){
+  if(M&&BDR[M.id]){
+    const st=BD.st[M.id];if(!st||st.done||!st.u||!st.u.length||OW.busy||OW.mv||DG.hfly||BD.hookAnim)return;
+    const s=st.u.pop();
+    if(s.crate)st.crate=s.crate;if('hb' in s)st.hb=s.hb;if('carry' in s)st.carry=s.carry;if('ride' in s)st.ride=!!s.ride;
+    OW.x=OW.px=s.ex;OW.y=OW.py=s.ey;OW.d=s.ed;owClearIn();SND.fx('back');return;
+  }
+  _dgUndo();
+};
+
+var _dgThrow=dgThrow;
+dgThrow=function(){
+  if(M&&BDR[M.id]){
+    if(!dgCanThrow()||OW.busy||OW.mv||DG.fly||DG.hfly||BD.hookAnim||BD.zip)return;
+    if(M.id==='bd11'&&BD.st.bd11&&BD.st.bd11.carry){
+      const st=BD.st.bd11,R=BDR.bd11,[dx,dy]=DG_DIRS[OW.d];let land=null;
+      for(let i=1;i<=3;i++){const x=OW.x+dx*i,y=OW.y+dy*i;if(x<1||y<2||x>=M.w-1||y>=M.h-1)break;
+        if(R.isTrack(x,y)){land=[x,y];break}
+        if(x===R.gate[0]&&y===R.gate[1])break;
+        const c=R.cls(x,y,{...st,carry:false});if(M.solid[y*M.w+x]||(c&&c.k!=='rail'&&c.k!=='pit'))break;if(!(c&&(c.k==='rail'||c.k==='pit')))land=[x,y]}
+      if(!land){dgBuzz();return}
+      st.u.push({hb:null,carry:true,ride:false,crate:st.crate?st.crate.slice():null,ex:OW.x,ey:OW.y,ed:OW.d});
+      DG.hfly={x0:OW.x,y0:OW.y,x1:land[0],y1:land[1],t:0,bd:1};st.carry=false;SND.fx('pluck');return;
+    }
+    const [dx,dy]=DG_DIRS[OW.d];DG.fly={tx:OW.x,ty:OW.y,dx,dy,f:0,n:0,back:0,bx:0,by:0,bd:1};SND.fx('pluck');return;
+  }
+  _dgThrow();
+};
+
+var _owInteractBD=owInteract;
+owInteract=function(){
+  if(!OW.busy&&M&&M.id==='bd11'&&BD.st.bd11&&BD.st.bd11.carry){
+    const st=BD.st.bd11,R=BDR.bd11,[dx,dy]=DG_DIRS[OW.d],x=OW.x+dx,y=OW.y+dy;
+    if(x<1||y<2||x>=M.w-1||y>=M.h-1||M.solid[y*M.w+x]||R.cls(x,y,{...st,carry:false})){dgBuzz();return}
+    st.u.push({hb:null,carry:true,ride:false,crate:st.crate?st.crate.slice():null,ex:OW.x,ey:OW.y,ed:OW.d});
+    bdHeavyLand(st,x,y);return;
+  }
+  return _owInteractBD.apply(this,arguments);
+};
+
+/* ---- HUD Button (#dgHook) & G Keybind ---- */
+var _dgUI=dgUI;
+dgUI=function(){
+  const w=_dgUI();if(!w)return null;
+  if(!document.getElementById('dgHook')){
+    const st=document.createElement('style');
+    st.textContent='#dgHook{right:176px;bottom:calc(env(safe-area-inset-bottom,0px) + 44px);width:64px;height:64px;border-radius:50%;border:3px solid #9FC6D8;font-size:13px;box-shadow:0 0 12px rgba(159,198,216,.45)}';
+    document.head.appendChild(st);
+    const b=document.createElement('button');b.id='dgHook';b.textContent='HOOK';b.hidden=true;
+    b.addEventListener('pointerdown',e=>{e.stopPropagation();e.preventDefault();if(OW.busy)return;bdHook()});
+    w.appendChild(b);
+  }
+  return w;
+};
+var _dgUISync=dgUISync;
+dgUISync=function(){
+  _dgUISync();
+  const inBd=!!(OWON&&M&&BDR[M.id]);
+  const bHook=document.getElementById('dgHook');
+  if(bHook){const show=inBd&&bdCanHook();if(bHook.hidden===show)bHook.hidden=!show}
+  if(!inBd)return;
+  const b=bdS(),st=BD.st[M.id];
+  const vis={dgThrow:dgCanThrow(),dgReset:dgRoomUnsolved(),dgUndo:dgRoomUnsolved()&&st&&st.u&&st.u.length>0};
+  for(const id in vis){const el=document.getElementById(id);if(el&&el.hidden===vis[id])el.hidden=!vis[id]}
+  if(M.id!=='bd1'){
+    const o=document.getElementById('owObj'),t='KEYS '+(b.keys||0)+(b.pass&&!b.bossAccess?'  ·  CAISSON PASS':'')+'  ·  '+b.water.toUpperCase();
+    if(o&&o.textContent!==t)o.textContent=t;
+  }
+};
+addEventListener('keydown',e=>{if(!OWON)return;if((e.key||'').toLowerCase()==='g')bdHook()});
+
+/* ---- Two-Floor Basin Dungeon Map ---- */
+var BD_MAPPOS={
+  bd1:[2,2.2],bd2:[2,1.2],bd3:[1,1.2],bd5:[3,1.2],bd4:[3,.3],hb_B01:[2,.3],
+  bd6:[1,3.4],bd7:[2,3.4],bd9:[3,3.4],bd10:[1.4,4.3],bd8:[2.4,4.3],bd11:[3.3,4.3]
+};
+var BD_NAMES={bd1:'GATE',bd2:'GANTRY',bd3:'BRIDGE',bd4:'CRANE',bd5:'RIGGING',hb_B01:'BRAM',bd6:'SLUICE',bd7:'FLOOR',bd8:'BILGE',bd9:'PENALTY',bd10:'VAULT',bd11:'CAISSON'};
+var _dgShowMap=dgShowMap;
+dgShowMap=function(){
+  if(!(M&&(BDR[M.id]||M.id==='hb_B01'||M.harbor)))return _dgShowMap();
+  const b=bdS();let box=document.getElementById('dgMapBox');if(box)box.remove();dgUI();
+  box=document.createElement('div');box.id='dgMapBox';
+  box.innerHTML='<div style="font-size:20px;letter-spacing:.1em;margin-bottom:6px">THE BASIN · DRY DOCK 14</div><canvas width=680 height=600></canvas><div id=dgMapInfo style="margin-top:8px;font-size:13px"></div><button>CLOSE</button>';
+  document.body.appendChild(box);box.querySelector('button').onclick=()=>box.remove();
+  const g=box.querySelector('canvas').getContext('2d'),P=id=>[30+BD_MAPPOS[id][0]*155,20+BD_MAPPOS[id][1]*104];
+  g.fillStyle='#9FC6D8';g.font='bold 14px sans-serif';g.fillText('F2 · UPPER GANTRY',18,22);g.fillText('F1 · LOWER DRY DOCK',18,350);
+  g.strokeStyle='rgba(159,198,216,.3)';g.setLineDash([6,5]);g.beginPath();g.moveTo(16,326);g.lineTo(664,326);g.stroke();g.setLineDash([]);
+  const links=[['bd1','bd2',null],['bd2','bd3',null],['bd2','bd5','KEY'],['bd2','bd4','HOOK'],['bd2','hb_B01','PASS'],['bd3','bd6','STAIR'],['bd2','bd7','STAIR'],['bd6','bd7',null],['bd7','bd9','KEY'],['bd7','bd10','HOOK'],['bd7','bd8',null],['bd9','bd11','KEY']];
+  g.lineWidth=4;
+  for(const [p,q,l] of links){
+    if(!(b.visited[p]||b.map)||!(b.visited[q]||b.map))continue;
+    const [x1,y1]=P(p),[x2,y2]=P(q);
+    g.strokeStyle=l==='KEY'||l==='PASS'?BDC.brass:l==='HOOK'?BDC.waterHi:'#5A6B78';
+    g.beginPath();g.moveTo(x1+46,y1+28);g.lineTo(x2+46,y2+28);g.stroke();
+  }
+  for(const id in BD_MAPPOS){
+    const seen=b.visited[id]||id==='bd1';if(!seen&&!b.map)continue;
+    const [x,y]=P(id);
+    g.fillStyle=seen?'#22303C':'#121A22';g.fillRect(x,y,92,56);
+    g.strokeStyle=M&&M.id===id?BDC.green:seen?BDC.waterHi:'#3A4A55';g.lineWidth=M&&M.id===id?5:2.5;g.strokeRect(x,y,92,56);
+    g.fillStyle=seen?'#F2F5F7':'#6A7A86';g.font='bold 13px sans-serif';g.textAlign='center';g.fillText(BD_NAMES[id],x+46,y+33);
+  }
+  g.textAlign='left';
+  box.querySelector('#dgMapInfo').textContent='KEYS '+(b.keys||0)+(b.hook?'  ·  MOORING LINE':'')+(b.pass?'  ·  CAISSON PASS':'')+'  ·  WATER: '+b.water.toUpperCase();
+};
+
+/* ---- Basin Physics, Ball Override & Rendering ---- */
+function bdFlyStep(dt){
+  const f=DG.fly;if(!f||!f.bd)return;
+  if(f.back){f.back+=dt;if(f.back>=.22)DG.fly=null;return}
+  const R=BDR[M.id],st=bdSt();let rem=dt*DG_BALL_SP;
+  while(rem>0&&!f.back){
+    const step=Math.min(rem,1-f.f);f.f+=step;rem-=step;
+    const px=f.tx+f.dx*f.f,py=f.ty+f.dy*f.f;
+    for(const m of (R.movers?R.movers(st):[]))if(Math.abs(m.x-px)<.6&&Math.abs(m.y-py)<.6){m.o.hit();dgPing(m.x,m.y);dgFlyEnd(f);break}
+    if(f.back)break;
+    if(f.f>=1){
+      const x=f.tx+f.dx,y=f.ty+f.dy;f.n++;
+      if(x<0||y<0||x>=M.w||y>=M.h||M.solid[y*M.w+x]||dgDoorAt(R,st,x,y)||owNpcAt(x,y)){f.f=.35;dgFlyEnd(f);SND.fx('drop');break}
+      const c=R.cls(x,y,st);
+      if(c&&c.k==='tgt'){f.tx=x;f.ty=y;f.f=0;c.o.hit();dgPing(x,y);dgFlyEnd(f);break}
+      if(c&&(c.k==='pad'||c.k==='padcrate')){f.tx=x;f.ty=y;f.f=0;const [a,b]=[f.dx,f.dy];if(c.t==='/'){f.dx=-b;f.dy=-a}else{f.dx=b;f.dy=a}SND.fx('tick')}
+      else if(c&&!['rail','water','pit','well','track','sunken'].includes(c.k)){f.f=.35;dgFlyEnd(f);SND.fx('drop');break}
+      else{f.tx=x;f.ty=y;f.f=0}
+      if(f.n>=DG_BALL_MAX){dgFlyEnd(f);break}
+    }
+  }
+}
+
+var _dgAnim=dgAnim;
+dgAnim=function(og,OT,tm){
+  if(!(M&&BDR[M.id])){_dgAnim(og,OT,tm);return}
+  const now=performance.now(),dt=Math.min(.05,DG.last?(now-DG.last)/1000:0);DG.last=now;
+  const live=OWON&&!OW.busy;if(live)DG.t+=dt;if(DG.flash>0)DG.flash-=dt;if(DG.shake>0)DG.shake-=dt;if(DG.lightFx>0)DG.lightFx-=dt;if(DG.slow>0)DG.slow=Math.max(0,DG.slow-dt);
+  dgUISync();
+  const R=BDR[M.id],st=bdSt(),b=bdS();
+  if(live){
+    bdFlyStep(dt);
+    if(DG.hfly&&DG.hfly.bd){DG.hfly.t+=dt/.4;if(DG.hfly.t>=1){const h=DG.hfly;DG.hfly=null;bdHeavyLand(BD.st.bd11,h.x1,h.y1)}}
+    bdHookStep(dt);
+    if(R.step)R.step(st,dt);
+    if(M.id==='bd9'&&st.on){
+      if(DG.inv>0)DG.inv-=dt;
+      else if(!R.isSafe(Math.round(OW.px),Math.round(OW.py))){
+        for(const h of R.hz(st))if(Math.abs(h.x-OW.px)<.55&&Math.abs(h.y-OW.py)<.55){
+          st.hp--;DG.flash=.4;SND.fx('err');try{SND.fx('hit')}catch(e){}
+          if(st.hp<=0){BD.st.bd9=R.init();OW.mv=false;OW.x=OW.px=R.home[0];OW.y=OW.py=R.home[1];OW.d='r';owClearIn();owSave();DG.inv=1.5;break}
+          DG.inv=1.2;break;
+        }
+      }
+    }
+  }
+  // Draw doors
+  for(const d of R.doors(st)){
+    const [x,y]=d.tile;
+    if(y===1&&(x===5||x===6)){dgDrawDoor(og,OT,d.open(st),tm,d.lock,false);continue}
+    if(d.stairs||d.hoist){
+      og.fillStyle=d.open(st)?'rgba(159,198,216,.25)':'rgba(40,50,60,.6)';og.fillRect(x*OT+2,y*OT+2,OT-4,OT-4);
+      og.strokeStyle=d.open(st)?BDC.brass:BDC.red;og.lineWidth=2;og.strokeRect(x*OT+2,y*OT+2,OT-4,OT-4);
+      for(let i=0;i<3;i++){og.fillStyle=BDC.brass;og.fillRect(x*OT+6,y*OT+6+i*(OT*.24),OT-12,3)}
+    }else if(x===0||x===M.w-1){dgDrawSideDoor(og,OT,x,y,d.open(st),d.lock==='key'?'card':d.lock,false)}
+  }
+  // Draw tiles
+  for(let y=2;y<M.h-1;y++)for(let x=1;x<M.w-1;x++){
+    const c=R.cls(x,y,st);if(!c)continue;
+    const X=x*OT,Y=y*OT;
+    if(c.k==='water'){og.fillStyle=BDC.water;og.fillRect(X,Y,OT,OT);og.fillStyle='rgba(255,255,255,.16)';og.fillRect(X+4,Y+OT*.35+Math.sin(tm*2+x)*2,OT-8,3)}
+    else if(c.k==='well'){og.fillStyle=b.water==='flooded'?'#2B5870':'#2D343A';og.fillRect(X,Y,OT,OT);if(x>=5&&x<=8&&y>=5&&y<=6){og.fillStyle='#6E4A2E';og.fillRect(X+2,Y+3,OT-4,OT-6)}}
+    else if(c.k==='pit'){og.fillStyle='#0B1015';og.fillRect(X,Y,OT,OT);og.strokeStyle='#3A4A55';og.lineWidth=1.5;og.strokeRect(X+2,Y+2,OT-4,OT-4)}
+    else if(c.k==='rail')dgDrawRail(og,OT,x,y);
+    else if(c.k==='pad')dgDrawPad(og,OT,x,y,c.t);
+    else if(c.k==='bollard'){og.fillStyle='#2B353D';og.fillRect(X+4,Y+4,OT-8,OT-8);og.fillStyle=BDC.brass;og.beginPath();og.arc(X+OT/2,Y+OT/2,OT*.26,0,7);og.fill();og.strokeStyle='#F6C46D';og.lineWidth=2;og.stroke()}
+    else if(c.k==='crate'||c.k==='padcrate'){og.fillStyle='#7D5636';og.fillRect(X+3,Y+3,OT-6,OT-6);og.strokeStyle=BDC.brass;og.lineWidth=2;og.strokeRect(X+3,Y+3,OT-6,OT-6);
+      if(c.k==='padcrate'){og.strokeStyle='#F6C46D';og.lineWidth=4;og.beginPath();if(c.t==='/'){og.moveTo(X+7,Y+OT-7);og.lineTo(X+OT-7,Y+7)}else{og.moveTo(X+7,Y+7);og.lineTo(X+OT-7,Y+OT-7)}og.stroke()}}
+    else if(c.k==='valve'){og.fillStyle='#25333E';og.fillRect(X+3,Y+3,OT-6,OT-6);og.strokeStyle=c.unlocked?BDC.waterHi:BDC.rust;og.lineWidth=3;og.beginPath();og.arc(X+OT/2,Y+OT/2,OT*.3,0,7);og.stroke();og.beginPath();og.moveTo(X+OT*.2,Y+OT/2);og.lineTo(X+OT*.8,Y+OT/2);og.moveTo(X+OT/2,Y+OT*.2);og.lineTo(X+OT/2,Y+OT*.8);og.stroke()}
+    else if(c.k==='hull'){og.fillStyle='#6E4A2E';og.fillRect(X+1,Y+1,OT-2,OT-2);og.strokeStyle='#A9542F';og.lineWidth=2;og.strokeRect(X+2,Y+2,OT-4,OT-4)}
+    else if(c.k==='sunken'){og.fillStyle='rgba(159,198,216,.22)';og.beginPath();og.arc(X+OT/2,Y+OT/2,OT*.24,0,7);og.fill()}
+    else if(c.k==='tgt')dgDrawTarget(og,OT,x,y,c.o,st,tm);
+    else if(c.k==='hb')dgDrawHeavy(og,OT,x,y,0);
+    else if(c.k==='track'){og.fillStyle='#1C2630';og.fillRect(X,Y+4,OT,OT-8);og.fillStyle='#9FC6D8';og.fillRect(X,Y+7,OT,2);og.fillRect(X,Y+OT-9,OT,2)}
+    else if(c.k==='obj'){og.fillStyle='#3A3020';og.fillRect(X+3,Y+OT*.2,OT-6,OT*.68);og.strokeStyle=BDC.brass;og.lineWidth=2;og.strokeRect(X+3,Y+OT*.2,OT-6,OT*.68)}
+    else if(c.bar||c.gate)dgDrawBar(og,OT,x,y,{up:true,col:BDC.brass,pat:'stripe'},tm);
+  }
+  // Room-specific overlays
+  if(M.id==='bd3'&&b.solved.bridge&&!b.got.k1)dgDrawCard(og,OT,2,4,tm);
+  if(M.id==='bd7'&&!b.got.k2)dgDrawCard(og,OT,11,2,tm);
+  if(M.id==='bd9'){
+    for(const [sx,sy] of R.safe){og.fillStyle='rgba(88,255,176,.18)';og.fillRect(sx*OT+2,sy*OT+2,OT-4,OT-4);og.strokeStyle=BDC.green;og.lineWidth=2;og.strokeRect(sx*OT+3,sy*OT+3,OT-6,OT-6)}
+    if(st.on){
+      for(const w of st.warn){og.fillStyle='rgba(232,163,61,.28)';if(w.v)og.fillRect(w.lane*OT+OT*.38,2*OT,OT*.24,OT*8);else og.fillRect(OT,w.lane*OT+OT*.38,OT*12,OT*.24)}
+      for(const f of st.flags){og.fillStyle=BDC.brass;og.fillRect(f.x*OT+OT*.25,f.y*OT+OT*.25,OT*.5,OT*.5)}
+      const ox=st.ox*OT+OT/2,oy=st.oy*OT+OT/2;
+      og.fillStyle=st.stun>0?BDC.green:BDC.rust;og.beginPath();og.arc(ox,oy,OT*.42,0,7);og.fill();og.strokeStyle=BDC.brass;og.lineWidth=3;og.stroke();
+      for(let i=0;i<3;i++){og.fillStyle=i<st.ohp?BDC.brass:'rgba(255,255,255,.2)';og.fillRect(ox-OT*.35+i*OT*.26,oy-OT*.62,OT*.2,4)}
+      for(let i=0;i<3;i++){og.fillStyle=i<st.hp?BDC.red:'rgba(255,255,255,.18)';og.beginPath();og.arc(OW.px*OT+OT/2+(i-1)*OT*.28,OW.py*OT-OT*.55,OT*.1,0,7);og.fill()}
+    }
+  }
+  if(M.id==='bd11'){
+    const sx=R.sledX(st);og.fillStyle=BDC.rust;og.fillRect(sx*OT+3,7*OT+4,OT-6,OT-8);
+    if(st.ride)dgDrawHeavy(og,OT,sx,6.8,1);
+    if(st.carry)dgDrawHeavy(og,OT,OW.px,OW.py-.75,1);
+    og.strokeStyle=st.done?BDC.green:BDC.brass;og.lineWidth=3;og.beginPath();og.arc(11*OT+OT/2,3*OT+OT/2,OT*.4,0,7);og.stroke();
+    if(!st.done){const r=st.ref;og.fillStyle='#111';og.beginPath();og.arc(r.x*OT+OT/2,r.y*OT+OT/2,OT*.35,0,7);og.fill();og.strokeStyle='#fff';og.lineWidth=2;og.stroke()}
+  }
+  if(R.movers)for(const m of R.movers(st))if(m.o.kind!=='otto')dgDrawTarget(og,OT,m.x,m.y,m.o,st,tm,true);
+  if(DG.fly)dgDrawBall(og,OT,DG.fly);
+  if(DG.hfly){const h=DG.hfly,x=h.x0+(h.x1-h.x0)*h.t,y=h.y0+(h.y1-h.y0)*h.t-Math.sin(h.t*Math.PI)*.9;dgDrawHeavy(og,OT,x,y,1)}
+  if(BD.hookAnim){
+    const h=BD.hookAnim,cx=h.x0+(h.x1-h.x0)*Math.min(1,h.t),cy=h.y0+(h.y1-h.y0)*Math.min(1,h.t);
+    og.strokeStyle='#D9B472';og.lineWidth=3;og.beginPath();og.moveTo(h.x0*OT+OT/2,h.y0*OT+OT/2);og.lineTo(cx*OT+OT/2,cy*OT+OT/2);og.stroke();
+    og.fillStyle=BDC.brass;og.beginPath();og.arc(cx*OT+OT/2,cy*OT+OT/2,OT*.16,0,7);og.fill();
+  }
+  if(DG.pings){for(const p of DG.pings){p.t-=dt;og.strokeStyle=p.c;og.globalAlpha=Math.max(0,p.t*2);og.lineWidth=3;og.beginPath();og.arc(p.x*OT+OT/2,p.y*OT+OT/2,OT*(.3+(.5-p.t)*1.2),0,7);og.stroke();og.globalAlpha=1}DG.pings=DG.pings.filter(p=>p.t>0)}
+  if(DG.flash>0){og.fillStyle='rgba(255,59,92,'+(DG.flash*.45)+')';og.fillRect(OW.px*OT-OT*.2,OW.py*OT-OT*.6,OT*1.4,OT*1.6)}
+};
+
+/* ---- TEST: BASIN DUNGEON Dev Button & QA Harness (window.CFBD) ---- */
+var BD_STASH='street_gridiron_v1_test_basin_stash';
+function bdTestSetup(){
+  try{
+    if(!svGet(BD_STASH))svSet(BD_STASH,JSON.stringify(SAVE));
+    SAVE.beaten=['cats','kings','rollers','captain','baitdogs','longshore','gantry'];
+    if(!SAVE.dg)SAVE.dg={};SAVE.dg.arena=Object.assign(dgS(),{ball:true,cleared:true});
+    SAVE.dg.basin={};bdS();BD.st={};BD.gateSeen=false;BD.taunt={};
+    SAVE.ow={map:'harbor',x:24,y:19,d:'d',gates:1,ret:null};persist();owShow();
+  }catch(e){console.error(e)}
+}
+function bdTestRestore(){
+  try{const raw=svGet(BD_STASH);if(!raw)return false;SAVE=JSON.parse(raw);BD.st={};try{localStorage.removeItem(BD_STASH)}catch(e){}persist();return true}catch(e){console.error(e);return false}
+}
+setTimeout(()=>{
+  if(!window.CF_TEST)return;const back=document.getElementById('mPXback');if(!back||document.getElementById('mBD'))return;
+  const c=document.createElement('button');c.className='btn';c.id='mBD';c.textContent='TEST: BASIN DUNGEON';c.onclick=()=>bdTestSetup();
+  back.parentNode.insertBefore(c,back);
+  const old=back.onclick;back.onclick=e=>{bdTestRestore();if(old)old(e)};
+},55);
+window.CFBD={BD,BDR,BD_ROOMS,bdS,bdHook,bdToggleWater,bdGo,bdDone,bdCrews,bdTestSetup,bdTestRestore,bdReachedBram};
+
+/* ---- Auto-place player at Hale Harbor Basin Dungeon entrance (B01 door: 24,20) ---- */
+(function(){
+  try{
+    if(SAVE&&SAVE.bdStartV!==1){
+      SAVE.bdStartV=1;
+      SAVE.hbMapV=typeof HB_MAPV!=='undefined'?HB_MAPV:(SAVE.hbMapV||1);
+      SAVE.beaten=Array.from(new Set((SAVE.beaten||[]).concat(['cats','kings','rollers','captain','baitdogs','longshore','gantry'])));
+      if(!SAVE.dg)SAVE.dg={};
+      SAVE.dg.arena=Object.assign(dgS(),{ball:true,cleared:true});
+      bdS();
+      SAVE.ow={map:'harbor',x:24,y:19,d:'d',gates:1,ret:null};
+      persist();
+      owShow();
+      setTimeout(()=>owToast('THE BASIN · STEP DOWN TO ENTER'),500);
+    }
+  }catch(e){console.error('bdStartV error',e)}
+})();
+/* ================= end v3.30 BASIN DUNGEON ================= */
+
 
 window.SG={eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;const miss=[];for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))miss.push(pal.key.slice(0,12)+'|'+vk);let am=0;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))am++;return {mode:G.mode,on:R.on,inited:R.inited,need:R.need.length,n0:R.need.n0,miss:miss.slice(0,8),nmiss:miss.length,artMissing:am,artReady:artReady(),carryReady:carryReady(),snapReady:ART.snapReady||null,jobs:R.jobs.length,q:R.q.length,busy:R.busy.size,fail:R.fail}},WSEG,CLUSTERS,camfix:o=>{window.__camFix=o},enterPlaycall:()=>enterPlaycall(),cam:()=>cam,LogoRenderer,LOGOS,LOGO_ORDER,registerLogo,logoId,logoSVG,LOGO_GLYPH,muState:()=>MU,lf:()=>ART.lf||[],SIDER:SIDER,RIGF,RIG,runInit,artDraw:(g,o)=>artDraw(g,o),uniFor:p=>uniFor(p),lookOf:d=>lookOf(d),playerPx:(...a)=>playerPx(...a),ART,artNumber:(...a)=>artNumber(...a),say:(a,b,c,d)=>say(a,b,c,d),setX:v=>{bannerExtra=v},popup:(a,b,c,d)=>popup(a,b,c,d),WALLY:()=>WALLY,sideVis:()=>sideVis,setPS:v=>{PSCALE=v;SPR.clear()},owLeave,owHide,P:(x,y)=>P(x,y),SND,OW,owShow,M:()=>M,owPlace,owTalk,owGot,owSay,renderPerson,lookOf,callPlay,endGame,get G(){return G},get F(){return F},get PLAY(){return PLAY},input,SAVE:()=>SAVE,startMatch,CREWS,PLAYS,throwTo,doJuke,doStiff,doStyle,startPlay,setSpeed:v=>{SPEED=v},resetSave:()=>{SAVE=freshSave();persist()},renderTeam,openGear,renderSquad,screens,renderMenu};
 if((location.hostname==='127.0.0.1'||location.hostname==='localhost')&&new URLSearchParams(location.search).get('uiqa')==='1'){
