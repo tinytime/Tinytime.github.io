@@ -9329,7 +9329,7 @@ function owShow(){SPR.clear();
     SAVE.ow={map:'harbor',x:42,y:47,d:'d',gates:1};SAVE.hbMapV=HB_MAPV;persist()}
   if(window.CF_TEST){SAVE.storyV=2;SAVE.story=SAVE.story||{card:1};SAVE.ow=SAVE.ow||{};SAVE.ow.gates=1}
   if(window.CF_TEST&&(!SAVE.tRef||(SAVE.ow&&SAVE.ow.map==='hb_B02'))){SAVE.tRef=1;SAVE.ow={map:'street',x:15,y:14,d:'u',gates:1,ret:null};SAVE.hbMapV=HB_MAPV;persist()}
-  if(window.CF_TEST&&SAVE.tDgt!==1){SAVE.tDgt=1;SAVE.beaten=['cats','kings','rollers'];SAVE.dg={cleared:false,shortcut:false,tunnel:false,bossAccess:false,ball:true,pass:false,map:true,lights:'cyan',cards:0,got:{},used:{},solved:{concourse:true,cage:true,gauntlet:true},vis:{dg1:1,dgc:1,dgg:1,dgt:1}};if(typeof DG!=='undefined'&&DG){DG.st={};DG.slow=0;DG.taunt={}}SAVE.ow={map:'dgt',x:5,y:9,d:'u',gates:0,ret:null};persist()}   // TEST ONLY: drop straight into the unsolved Court room (dgt) with Dante's ball to test the Brick Hayes chaser
+  if(window.CF_TEST&&SAVE.tDgt!==2){SAVE.tDgt=2;SAVE.beaten=['cats','kings','rollers'];SAVE.dg={arena:{v:2,ball:true,solved:{concourse:true,cage:true,gauntlet:true},cards:0,got:{},used:{},lights:'pink',pass:false,tunnel:false,map:true,visited:{dg1:1,dgc:1,dgg:1,dgt:1},bossAccess:false,cleared:false,shortcut:false,loot:false}};if(typeof DG!=='undefined'&&DG){DG.st={};DG.slow=0;DG.taunt={}}SAVE.ow={map:'dgt',x:5,y:9,d:'u',gates:0,ret:null};persist()}   // TEST ONLY: drop straight into the unsolved Court room (dgt) with Dante's ball & pink lights
 
   owResize();
   const o=SAVE.ow,mp=(OWI[o.map]||HBI[o.map]||o.map==='street'||o.map==='spillway'||o.map==='harbor'||o.map==='island')?o.map:'street';
@@ -11041,39 +11041,44 @@ function dgChaserStep(st,dt){
   const ch=st.ch;if(!ch||!ch.on||st.done)return;
   if(ch.cd>0)ch.cd=Math.max(0,ch.cd-dt);
   if(ch.stun>0){ch.stun=Math.max(0,ch.stun-dt);return}
-  // Check tackle contact with Eli
+  // Check tackle contact with Eli (strict 3.0s cooldown before he can tackle again)
   const dxE=OW.px-ch.x,dyE=OW.py-ch.y,distE=Math.hypot(dxE,dyE);
-  if(distE<.58&&ch.cd<=0){
-    DG.slow=2.0;ch.cd=3.2;ch.stun=.65;DG.flash=.45;
+  if(distE<.55&&ch.cd<=0){
+    DG.slow=2.0;ch.cd=3.0;ch.stun=1.15;ch.rt=0;DG.flash=.45;
     SND.fx('err');try{SND.fx('hit')}catch(e){}
     dgPing(OW.px,OW.py,DGC.red);owToast('TACKLED! SLOWED 2s');return;
   }
-  // BFS next tile toward Eli respecting rails, glass, sled track, and timed gate
-  const sx=Math.round(ch.x),sy=Math.round(ch.y),gx=Math.round(OW.px),gy=Math.round(OW.py);
-  let tx=OW.px,ty=OW.py;
-  if(sx!==gx||sy!==gy){
-    const q=[[sx,sy]],par=new Map(),k0=sx+','+sy;par.set(k0,null);
-    let best=null,bd=1e9,found=false;
-    while(q.length){
-      const [cx,cy]=q.shift(),d=Math.hypot(cx-gx,cy-gy);
-      if(d<bd){bd=d;best=[cx,cy]}
-      if(cx===gx&&cy===gy){found=true;break}
-      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
-        const nx=cx+dx,ny=cy+dy,kk=nx+','+ny;
-        if(par.has(kk)||!dgChaserWalkable(st,nx,ny))continue;
-        par.set(kk,[cx,cy]);q.push([nx,ny]);
+  // Delayed reaction: only re-acquire Eli's tile every 0.45s so cuts & jukes shake him
+  ch.rt=(ch.rt||0)-dt;
+  if(ch.rt<=0||ch.tx===undefined){
+    ch.rt=.45;
+    const sx=Math.round(ch.x),sy=Math.round(ch.y),gx=Math.round(OW.px),gy=Math.round(OW.py);
+    let tx=gx,ty=gy;
+    if(sx!==gx||sy!==gy){
+      const q=[[sx,sy]],par=new Map(),k0=sx+','+sy;par.set(k0,null);
+      let best=null,bd=1e9,found=false;
+      while(q.length){
+        const [cx,cy]=q.shift(),d=Math.hypot(cx-gx,cy-gy);
+        if(d<bd){bd=d;best=[cx,cy]}
+        if(cx===gx&&cy===gy){found=true;break}
+        for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+          const nx=cx+dx,ny=cy+dy,kk=nx+','+ny;
+          if(par.has(kk)||!dgChaserWalkable(st,nx,ny))continue;
+          par.set(kk,[cx,cy]);q.push([nx,ny]);
+        }
+      }
+      let cur=found?[gx,gy]:best;
+      if(cur&&(cur[0]!==sx||cur[1]!==sy)){
+        while(cur){const p=par.get(cur[0]+','+cur[1]);if(!p||(p[0]===sx&&p[1]===sy))break;cur=p}
+        if(cur){tx=cur[0];ty=cur[1]}
       }
     }
-    let cur=found?[gx,gy]:best;
-    if(cur&&(cur[0]!==sx||cur[1]!==sy)){
-      while(cur){const p=par.get(cur[0]+','+cur[1]);if(!p||(p[0]===sx&&p[1]===sy))break;cur=p}
-      if(cur){tx=cur[0];ty=cur[1]}
-    }
+    ch.tx=tx;ch.ty=ty;
   }
-  const vx=tx-ch.x,vy=ty-ch.y,len=Math.hypot(vx,vy);
-  if(len>.02){
-    const sp=2.35,step=Math.min(len,sp*dt);
-    ch.x+=vx/len*step;ch.y+=vy/len*step;ch.ph+=dt*3.2;
+  const vx=ch.tx-ch.x,vy=ch.ty-ch.y,len=Math.hypot(vx,vy);
+  if(len>.03){
+    const sp=1.75,step=Math.min(len,sp*dt);
+    ch.x+=vx/len*step;ch.y+=vy/len*step;ch.ph+=dt*2.4;
     ch.d=Math.abs(vx)>=Math.abs(vy)?(vx>0?'r':'l'):(vy>0?'d':'u');
   }
 }
@@ -11326,7 +11331,7 @@ function dgDrawCourt(og,OT,st,tm){const R=DGR.dgt,[cx,cy]=R.cm;og.strokeStyle='r
     if(!ch._look)ch._look=lookOf({name:'Brick Hayes',pos:'RB'});
     if(ch.on){
       const rx=ch.x*OT+OT/2,ry=ch.y*OT+OT*.88;
-      og.save();og.strokeStyle=DGC.red;og.lineWidth=2.5;og.globalAlpha=.55+.3*Math.sin(tm*8);og.shadowColor=DGC.red;og.shadowBlur=10;
+      const rCol=ch.cd>0?'#8892a8':DGC.red;og.save();og.strokeStyle=rCol;og.lineWidth=2.5;og.globalAlpha=ch.cd>0?.35:(.55+.3*Math.sin(tm*8));og.shadowColor=rCol;og.shadowBlur=ch.cd>0?0:10;
       og.beginPath();og.ellipse(rx,ry,OT*.44,OT*.16,0,0,7);og.stroke();og.restore();
     }
     owFig(ch.x,ch.y,ch.d,ch.on&&ch.stun<=0,uni,ch._look,22,ch.ph);
