@@ -6547,7 +6547,8 @@ const OWN=[
  {id:'granny',civ:'granny',x:20,y:22,d:'d',name:'GRANNY VOLT',t:["I've watched football on this street since before the neon.",'Back then, the rain was just rain.']},
  {id:'busker',civ:'busker',x:7,y:19,d:'r',name:'STREET BUSKER',t:['A one-man synth band. The puddles keep the beat.']},
  {id:'gateS',civ:'guard',x:13,y:38,d:'r',name:'GATE GUARD',gate:'S'},
- {id:'gateE',civ:'guard',x:30,y:22,d:'u',name:'GATE GUARD',gate:'E'}
+ {id:'gateE',civ:'guard',x:30,y:22,d:'u',name:'GATE GUARD',gate:'E'},
+ {id:'vc_vance',civ:'coach',x:18,y:16,d:'d',name:'COACH VANCE',act:'drill',drill:'t1_rush',t:['Circuit Drillmaster Vance.','Every town I run an on-field drill. Vapor City is RUSHING ATTACK.','Read the blocks, hit the neon gates, break tackles into the end zone.']}
 ];
 const OWGATES=[[14,38],[15,38],[16,38],[17,38],[30,19],[30,20],[30,21]];   // gates sit right in front of the road exits (south exit row 39, east exit column 31)
 
@@ -6997,6 +6998,7 @@ const HB_OUT_NPCS=[
  {id:'hb_runner',civ:'runner',x:11,y:11,d:'r',name:'DOCK RUNNER',patrol:1,loop:[[11,11],[12,11],[13,11],[14,11],[15,11],[16,11],[17,11],[18,11],[19,11],[20,11],[21,11],[22,11],[23,11],[24,11],[25,11],[26,11],[25,11],[24,11],[23,11],[22,11],[21,11],[20,11],[19,11],[18,11],[17,11],[16,11],[15,11],[14,11],[13,11],[12,11]],f:['Tug ran this row. Every morning.','Hard to keep up.']}];
 // v3.20T: outdoor people move to their new tiles (same ids, same lines; CF_81 3.7)
 {const P={'hb_docker': [3, 20, 'r'], 'hb_oldsalt': [11, 20, 'l'], 'hb_fishwife': [7, 28, 'l'], 'hb_yardman': [46, 8, 'l'], 'hb_mender': [9, 36, 'd'], 'hb_shopper': [13, 39, 'u'], 'hb_cook': [12, 36, 'd'], 'hb_fisher': [22, 9, 'd'], 'hb_messenger': [27, 9, 'l'], 'hb_sketch': [39, 21, 'l'], 'hb_painter': [40, 25, 'r'], 'hb_loader': [46, 30, 'l'], 'hb_welder': [34, 32, 'd'], 'hb_deckhand': [41, 45, 'd'], 'hb_gulllady': [10, 45, 'd'], 'hb_lkid': [20, 44, 'd'], 'hb_crabkid': [29, 46, 'l']},L={'hb_walker': [32, 40, 45], 'hb_kidrun': [37, 43, 8], 'hb_runner': [2, 37, 1]};
+ HB_OUT_NPCS.push({id:'hb_vance',civ:'coach',x:26,y:19,d:'l',name:'COACH VANCE',act:'drill',drill:'t2_crush',f:['Circuit Drillmaster Vance.','Hale Harbor is CRUSH THE CARRIER — 4-way keep-away on the dockyard field.','Style on them, force fumbles, and hold the 2x Hotspot.']});
  for(const n of HB_OUT_NPCS){const p=P[n.id];if(p){n.x=p[0];n.y=p[1];n.d=p[2]}const l=L[n.id];if(l){const a=[];for(let x=l[0];x<=l[1];x++)a.push([x,l[2]]);for(let x=l[1]-1;x>l[0];x--)a.push([x,l[2]]);n.loop=a;n.x=l[0];n.y=l[2];n.d='r'}}}
 
 
@@ -8351,7 +8353,7 @@ function hbTalk(n){
   if(!(SAVE.met||[]).includes(n.id)){SAVE.met=(SAVE.met||[]).concat(n.id);persist();owHud()}
   const cap=hbCap();
   if(n.id==='hb_yardman'&&hbYardOpen()){owSay(n.name,n.f,()=>owSay(n.name,['Tug built boats in this yard.','Bram towed the big one to the Basin.','Scraped her name off that night.']));return}   // v3.26T yard open (CF_81 3.13, D10)
-  if(n.id==='riptide_yard'){hbRaceTalk(n);return}
+  if(n.id==='riptide_yard'){if(window.SHELVED_MINIS){owSay(n.name,["I moved the rowing rig over to Salt Arcade.","Beat my 33.0 on Marv's board."]);return}hbRaceTalk(n);return}
   if(n.id==='hb_riptide'){owSay(n.name,T.riptideTruthFired?["Tug taught me to run.","Then he was gone."]:["I watched you win clean.","That's why I'm here."],hbCap()?()=>owAsk(n.name,'Round the island again?',[['RACE',()=>hbRace(n)],['NOT NOW']]):undefined);return}
   if(n.id==='hb_kell'&&T.tugClues.includes('q7_manifest')&&!T.kellAsked&&n.m){T.kellAsked=true;persist();owSay(n.name,n.m);return}
   if(n.pw){
@@ -8360,6 +8362,7 @@ function hbTalk(n){
   let L=hbLines(n).slice();
   if(L===n.f||L.join()===(n.f||[]).join()){if(n.extra&&L.length<3)L=L.concat(n.extra)}
   if(!L.length)L=['...'];
+  if(n.act==='drill'&&typeof fdTalk==='function'){fdTalk(n);return}
   const after=n.crew?()=>hbChallenge(n):n.act==='arcade'?()=>hbArcadeAsk(n):n.act==='swap'?()=>owSwap(n):n.act==='tip'?()=>hbTip(n):null;
   owSay(n.name,L,after);
 }
@@ -8713,7 +8716,7 @@ const r2Obj=()=>{const S=r2S();return S.bossBeaten?'CAUSEWAY OPEN':'DREDGERS '+(
 
 /* ---- NET DRAG (route challenge, the Hale Mary tire's equivalent). 20 seconds, 60 pulls hauls the net. +4 upgrade points, once. ---- */
 const ND={time:20,need:60};
-function r2NetAsk(n){const S=r2S();
+function r2NetAsk(n){if(window.SHELVED_MINIS){owSay(n.name,['Tide is too rough to haul nets today.']);return}const S=r2S();
   owAsk(n.name,'NET DRAG: tap fast to haul the net in. '+ND.need+' pulls in '+ND.time+' seconds.'+(S.challengeDone?'  Best: '+S.netBest+'.':'  Haul it in for +4 upgrade points.'),[['HAUL',()=>r2Net(n)],['NOT NOW']])}
 function r2Net(n){
   OW.busy=true;
@@ -10084,6 +10087,7 @@ function owTalk(n){
   if(n.act==='card'&&SAVE.story&&SAVE.story.card===0){owCard();return}
   if(n.act==='stats'){owSay(n.name,n.t,()=>owStats(n));return}
   if(n.act==='mini'){owSay(n.name,n.t,()=>owArcade(n));return}
+  if(n.act==='drill'&&typeof fdTalk==='function'){fdTalk(n);return}
   if(n.act==='swap'){owSay(n.name,n.t,()=>owSwap(n));return}
   if(n.pw){if(!owGive(n.pw,[n.name].concat(n.pwl)))owSay(n.name,n.t2||['Good luck out there.']);return}
   owSay(n.name,n.t);
@@ -10097,7 +10101,7 @@ function owBump(x,y){
       const bx=x+(x-OW.x),by=y+(y-OW.y),bn=owNpcAt(bx,by);
       if(bn){const dx=OW.x-bn.x,dy=OW.y-bn.y;bn.d=Math.abs(dx)>Math.abs(dy)?(dx>0?'r':'l'):(dy>0?'d':'u');owTalk(bn);return}}}
   const p=owPropAt(x,y);
-  if(p){if(p.act&&(M.hb||M.harbor||M.island)&&(r2Act(p)||hbAct(p)))return;if(p.act==='tire'){SAVE.route=SAVE.route||{};owAsk('TIRE',SAVE.route.tire?'Again? No points in it.':'A tire on a chain. A throwing mark on the ground. Make 5 out of 8. Practice?',[['THROW',()=>owTire()],['CANCEL']]);return}
+  if(p){if(p.act&&(M.hb||M.harbor||M.island)&&(r2Act(p)||hbAct(p)))return;if(p.act==='tire'){if(window.SHELVED_MINIS){owSay('HANGING TIRE',['A weathered tire swinging over the channel.']);return}SAVE.route=SAVE.route||{};owAsk('TIRE',SAVE.route.tire?'Again? No points in it.':'A tire on a chain. A throwing mark on the ground. Make 5 out of 8. Practice?',[['THROW',()=>owTire()],['CANCEL']]);return}
     if(p.act==='squad'){owAsk('LOCKER','Your squad and upgrades. Points: '+(SAVE.upPts||0),[['SQUAD',()=>{owClub=true;owHide();renderSquad();screens('#squad')}],['UPGRADE',()=>{owClub=true;owHide();openUpg(()=>{owClub=false;owShow()})}],['CLOSE']]);return}
     if(p.act==='team'){owAsk('MIRROR','Change your look?',[['MY TEAM',()=>{owClub=true;owHide();renderTeam();screens('#team')}],['CLOSE']]);return}
     owSay('',p.m);return}
@@ -11045,7 +11049,7 @@ function owFrame(dt){
   if(M&&!M.baked)owBake(M);   // v2.95: drawn again if it was let go during a match
   zdBeat();spToast();owStep(dt);SND.zone(M,OW.px,OW.py);
   {const te=$('#owTown');if(te){if(OW.rtM!==M.id){OW.rtM=M.id;OW.rt=0}OW.rt=(OW.rt||0)+dt;te.style.opacity=M.route?String(clamp(1-(OW.rt-3)/1.2,0,1)):'';}}
-  const SW=owW,SH=owH;if(M.route){const px=OW.px,tz0=px<11?1:px<19?1-.5*(px-11)/8:px<27?.5:px<36?.5+.3*(px-27)/9:.8,tz=Math.max(tz0,SH/(M.h*OWT),SW/(M.w*OWT));OW.z=(OW.z||1)+(tz-(OW.z||1))*Math.min(1,dt*2.2)}else{const cover=Math.max(1,SW/(M.w*OWT),SH/(M.h*OWT));OW.z=(OW.z||1)+(cover-(OW.z||1))*Math.min(1,dt*2.2)}const z=OW.z||1,W=SW/z,H=SH/z,OT=OWT,rk=M.route?Math.min(Math.max(clamp((52-OW.px)/12,0,1),.4),OW.px>=44?clamp((OW.py-10.5)/3,0,1):1):1;og.setTransform(owDpr*z,0,0,owDpr*z,0,0);og.imageSmoothingEnabled=true;
+  const SW=owW,SH=owH;if(M.route){const px=OW.px,tz0=px<11?1:px<19?1-.5*(px-11)/8:px<27?.5:px<36?.5+.3*(px-27)/9:.8,tz=Math.max(tz0,SH/(M.h*OWT),SW/(M.w*OWT));OW.z=(OW.z||1)+(tz-(OW.z||1))*Math.min(1,dt*2.2)}else if(M.room){const fit=Math.min(SW/(M.w*OWT),SH/(M.h*OWT))*.92,tz=clamp(fit,.72,1.15);OW.z=(OW.z||tz)+(tz-(OW.z||tz))*Math.min(1,dt*6)}else{const cover=Math.max(1,SW/(M.w*OWT),SH/(M.h*OWT));OW.z=(OW.z||1)+(cover-(OW.z||1))*Math.min(1,dt*2.2)}const z=OW.z||1,W=SW/z,H=SH/z,OT=OWT,rk=M.route?Math.min(Math.max(clamp((52-OW.px)/12,0,1),.4),OW.px>=44?clamp((OW.py-10.5)/3,0,1):1):1;og.setTransform(owDpr*z,0,0,owDpr*z,0,0);og.imageSmoothingEnabled=true;
   const mw=M.w*OT,mh=M.h*OT,k=OT/BP;
   let cx=OW.px*OT+OT/2-W/2,cy=OW.py*OT+OT/2-H*(M.route?.46+clamp((14-OW.py)/3,0,1)*(.2*clamp((OW.px-40)/4,0,1)-.32*clamp((OW.px-54)/5,0,1)):.46);
   const fitX=mw<=W,fitY=mh<=H;
@@ -11952,7 +11956,7 @@ function bdS(){
   b.v=1;return b;
 }
 function bdCrews(){return ['baitdogs','longshore','gantry'].every(id=>(SAVE.beaten||[]).includes(id))}
-function bdDone(){return (SAVE.beaten||[]).includes('closers')||bdS().cleared===true}
+function bdDone(){return bdS().cleared===true}
 var BD={st:{},hookAnim:null,zip:null,gateSeen:false,taunt:{}};
 var BDC={concrete:'#6A6F72',slate:'#3A4A55',rust:'#A9542F',water:'#5B93AD',waterHi:'#9FC6D8',brass:'#E8A33D',green:'#58FFB0',red:'#FF3B5C',chalk:'#EEF2F5'};
 var BD_HOOK_MAX=6,BD_HOOK_SP=18;
@@ -12031,7 +12035,7 @@ BDR.bd1={home:[6,7,'u'],floor:'F2',
     if(y===2&&(x===5||x===6)&&!bdCrews()){SND.fx('err');owSay('CAISSON GATE',['Locked. Beat the Bait Dogs, Longshoremen, and Gantry Gang first.']);return true}
     if(x===11&&y===4&&!bdS().shortcut){SND.fx('err');owSay('DOCKSIDE SHORTCUT',['Locked from the inside. Reach Bram Kessler to unbolt it.']);return true}
     return false},
-  enter(){if(bdCrews()&&!BD.gateSeen){BD.gateSeen=true;SND.fx('open')}}};
+  enter(){if(bdCrews()&&!BD.gateSeen){BD.gateSeen=true;SND.fx('open')}owToast('THE BASIN DUNGEON · FLOOR 2')}};
 
 // bd2: Gantry Overlook — Upper Hub (F2)
 BDR.bd2={home:[6,9,'u'],floor:'F2',key:'hub2',
@@ -12707,21 +12711,500 @@ window.CFBD={BD,BDR,BD_ROOMS,bdS,bdHook,bdToggleWater,bdGo,bdDone,bdCrews,bdTest
 /* ---- Auto-place player at Hale Harbor Basin Dungeon entrance (B01 door: 24,20) ---- */
 (function(){
   try{
-    if(SAVE&&SAVE.bdStartV!==1){
-      SAVE.bdStartV=1;
+    if(SAVE&&SAVE.bdStartV!==2){
+      SAVE.bdStartV=2;
+      SAVE.tRef=1;SAVE.tPlaza=1;
       SAVE.hbMapV=typeof HB_MAPV!=='undefined'?HB_MAPV:(SAVE.hbMapV||1);
       SAVE.beaten=Array.from(new Set((SAVE.beaten||[]).concat(['cats','kings','rollers','captain','baitdogs','longshore','gantry'])));
       if(!SAVE.dg)SAVE.dg={};
       SAVE.dg.arena=Object.assign(dgS(),{ball:true,cleared:true});
-      bdS();
+      SAVE.dg.basin={};bdS();BD.st={};
       SAVE.ow={map:'harbor',x:24,y:19,d:'d',gates:1,ret:null};
       persist();
       owShow();
-      setTimeout(()=>owToast('THE BASIN · STEP DOWN TO ENTER'),500);
+      setTimeout(()=>owToast('THE BASIN · PRESS DOWN TO ENTER DUNGEON'),500);
     }
   }catch(e){console.error('bdStartV error',e)}
 })();
 /* ================= end v3.30 BASIN DUNGEON ================= */
+/* ================= v3.31 FIELD DRILLS & ARCADE CONSOLIDATION =================
+   - SHELVED_MINIS = true: shelves Crane Drop, Hanging-Tire Throw, and Net Drag cleanly without breaking saves.
+   - Town 1 Arcade (Pixel Palace): Catch Rush (unchanged).
+   - Town 2 Arcade (Salt Arcade, Marv): hosts Riptide's Boat Race (awards arcWon #2 outfit on beating 33.0s).
+   - Recurring Field-Drill Host: COACH VANCE in Vapor City (18,16) and Hale Harbor (26,19).
+   - Town 1 Field Drill: RUSHING ATTACK (Madden Mini-Camp inspired 60s RB gauntlet on Vapor City turf).
+   - Town 2 Field Drill: CRUSH THE CARRIER (NFL Street 2 inspired 75s 4-way keep-away brawl on Hale Harbor turf).
+   - Town 3 Field Drill: PRECISION PASSING (reserved in FIELD_DRILLS registry for Cinderhold). */
+
+window.SHELVED_MINIS = true;
+
+/* ---- Town 2 Salt Arcade -> Riptide Boat Race Swap ---- */
+var _origHbArcadeAsk = hbArcadeAsk;
+hbArcadeAsk = function(n){
+  if(!window.SHELVED_MINIS)return _origHbArcadeAsk(n);
+  const T=hbS(),won=(SAVE.arcWon||[]).includes(2);
+  owAsk(n.name,'Play RIPTIDE BOAT RACE? Alternate left/right taps to row round the island in under 33.0s.'+(won?'':'  Win for Trawl Knit jersey + Dock Cuff pants.')+(T.raceBest?'  Best: '+T.raceBest.toFixed(2)+'s':''),[['RACE',()=>hbRaceArcade(n)],['NOT NOW']]);
+};
+function hbRaceArcade(n){
+  const prevWon=!!hbS().raceWon;
+  hbRace(n);
+  // Watch for race completion to also grant Town 2 arcade outfit (arcWon #2)
+  const iv=setInterval(()=>{
+    const el=document.getElementById('race');
+    if(!el||el.style.display==='none'){
+      clearInterval(iv);
+      const T=hbS();
+      if(T.raceBest&&T.raceBest<33.0&&!(SAVE.arcWon||[]).includes(2)){
+        SAVE.arcWon=(SAVE.arcWon||[]).concat(2);persist();
+        setTimeout(()=>owSay(n.name,['Beat 33.0s clean!','★ PRIZE: Trawl Knit jersey + Dock Cuff pants','Wear them at the Clubhouse mirror.']),350);
+      }
+    }
+  },400);
+}
+
+/* ---- Field Drills Save Schema & Registry ---- */
+function fdS(){
+  if(!SAVE.drills||typeof SAVE.drills!=='object')SAVE.drills={};
+  for(const id of ['t1_rush','t2_crush','t3_pass']){
+    if(!SAVE.drills[id])SAVE.drills[id]={best:0,medal:0};
+  }
+  return SAVE.drills;
+}
+var FIELD_DRILLS={
+  t1_rush:{
+    id:'t1_rush',town:'Vapor City',name:'RUSHING ATTACK',
+    blurb:'60s on-field RB gauntlet. Hit neon bonus gates, weave past tackle dummies, break tackles with Juke/Spin/Stiff-Arm, and punch in TDs.',
+    medals:[1400,2600,4000],time:60
+  },
+  t2_crush:{
+    id:'t2_crush',town:'Hale Harbor',name:'CRUSH THE CARRIER',
+    blurb:'75s 4-way keep-away brawl. Hold the ball for +15/sec, chain Jukes/Spins/Stiff-Arms/Wall-Jukes, crush carriers for fumbles, and own the 2x Hotspot.',
+    medals:[1500,2800,4200],time:75
+  },
+  t3_pass:{
+    id:'t3_pass',town:'Cinderhold',name:'PRECISION PASSING',
+    blurb:'Reserved for Town 3: Madden 2004 Mini-Camp ring-route passing drill.',
+    medals:[1200,2400,3800],time:60,reserved:true
+  }
+};
+function fdMedalName(m){return ['NONE','BRONZE','SILVER','GOLD'][m||0]}
+function fdAward(id,score){
+  const cfg=FIELD_DRILLS[id],st=fdS()[id];
+  const prevBest=st.best||0,prevMedal=st.medal||0;
+  if(score>prevBest)st.best=score;
+  let newMedal=prevMedal;
+  for(let i=0;i<3;i++)if(score>=cfg.medals[i])newMedal=Math.max(newMedal,i+1);
+  const gained=Math.max(0,newMedal-prevMedal);
+  if(gained>0){st.medal=newMedal;SAVE.upPts=(SAVE.upPts||0)+gained}
+  persist();
+  return {best:st.best,medal:st.medal,gained,newRecord:score>prevBest};
+}
+function fdTalk(n){
+  const id=n.drill||'t1_rush',cfg=FIELD_DRILLS[id],st=fdS()[id];
+  const medTxt='Best: '+(st.best||0)+'  ·  Medal: '+fdMedalName(st.medal)+' (B:'+cfg.medals[0]+' / S:'+cfg.medals[1]+' / G:'+cfg.medals[2]+')';
+  owAsk('COACH VANCE · '+cfg.name,cfg.blurb+'\n'+medTxt,[['START DRILL',()=>startFieldDrill(id,n)],['NOT NOW']]);
+}
+
+/* ---- Shared Field-Drill Canvas Harness ---- */
+var FD_ACTIVE=null;
+function startFieldDrill(id,npc){
+  const cfg=FIELD_DRILLS[id];if(!cfg||cfg.reserved)return;
+  OW.busy=true;
+  let el=document.getElementById('fieldDrill');
+  if(!el){
+    el=document.createElement('div');el.id='fieldDrill';
+    el.style.cssText='position:fixed;inset:0;z-index:75;background:#08111a;touch-action:none;user-select:none';
+    el.innerHTML='<canvas style="width:100%;height:100%;display:block;touch-action:none"></canvas>';
+    document.body.appendChild(el);
+  }
+  el.hidden=false;el.style.display='block';
+  const cv=el.firstChild,c=cv.getContext('2d');
+  const resizeFD=()=>{cv.width=Math.max(480,window.innerWidth);cv.height=Math.max(320,window.innerHeight)};
+  resizeFD();
+
+  // Unified input state (WASD/Arrows + Space/J/K/L/Shift + touch drag left / swipe right)
+  const keys={},inp={dx:0,dy:0,turbo:false,action:null};
+  const onKD=e=>{
+    const k=(e.key||'').toLowerCase();keys[k]=true;
+    if(k==='j'||k==='q')inp.action='jukeL';
+    else if(k==='e')inp.action='jukeR';
+    else if(k==='k'||k===' ')inp.action='stiff';
+    else if(k==='l')inp.action='spin';
+    else if(k==='escape'){close(true)}
+  };
+  const onKU=e=>{keys[(e.key||'').toLowerCase()]=false};
+  let dragId=null,drag0=null,swId=null,sw0=null;
+  const onPD=e=>{
+    e.preventDefault();
+    if(st.over){if(performance.now()-st.overAt>600)close(false);return}
+    if(e.clientX<cv.width*.52){dragId=e.pointerId;drag0={x:e.clientX,y:e.clientY}}
+    else{swId=e.pointerId;sw0={x:e.clientX,y:e.clientY,t:performance.now()}}
+  };
+  const onPM=e=>{
+    if(e.pointerId===dragId&&drag0){
+      const dx=e.clientX-drag0.x,dy=e.clientY-drag0.y,d=Math.hypot(dx,dy);
+      if(d>8){inp.dx=dx/Math.max(d,36);inp.dy=dy/Math.max(d,36)}else{inp.dx=inp.dy=0}
+    }
+  };
+  const onPU=e=>{
+    if(e.pointerId===dragId){dragId=null;drag0=null;inp.dx=inp.dy=0}
+    if(e.pointerId===swId&&sw0){
+      const dx=e.clientX-sw0.x,dy=e.clientY-sw0.y;
+      if(Math.hypot(dx,dy)<18){inp.action='stiff'}
+      else if(Math.abs(dx)>Math.abs(dy)){inp.action=dx>0?'jukeR':'jukeL'}
+      else{inp.action=dy<0?'stiff':'spin'}
+      swId=null;sw0=null;
+    }
+  };
+  addEventListener('keydown',onKD);addEventListener('keyup',onKU);addEventListener('resize',resizeFD);
+  cv.addEventListener('pointerdown',onPD);cv.addEventListener('pointermove',onPM);cv.addEventListener('pointerup',onPU);cv.addEventListener('pointercancel',onPU);
+
+  // Build drill state
+  const st=(id==='t1_rush')?fdInitRush():fdInitCrush();
+  FD_ACTIVE={id,st,close};
+
+  let gone=false,last=performance.now(),raf=0;
+  function close(aborted){
+    if(gone)return;gone=true;cancelAnimationFrame(raf);
+    removeEventListener('keydown',onKD);removeEventListener('keyup',onKU);removeEventListener('resize',resizeFD);
+    cv.removeEventListener('pointerdown',onPD);cv.removeEventListener('pointermove',onPM);cv.removeEventListener('pointerup',onPU);cv.removeEventListener('pointercancel',onPU);
+    el.style.display='none';OW.busy=false;FD_ACTIVE=null;owHud();
+    if(!aborted){
+      const res=fdAward(id,Math.round(st.score));
+      const lines=['Final Score: '+Math.round(st.score)+'  (Best: '+res.best+')','Medal: '+fdMedalName(res.medal)];
+      if(res.gained>0)lines.push('★ +'+res.gained+' UPGRADE POINT'+(res.gained>1?'S':''));
+      owSay('COACH VANCE',lines,res.gained>0?()=>owToast('+'+res.gained+' UPGRADE PTS'):null);
+    }
+  }
+
+  function pollDir(){
+    let kx=(keys['d']||keys['arrowright']?1:0)-(keys['a']||keys['arrowleft']?1:0);
+    let ky=(keys['s']||keys['arrowdown']?1:0)-(keys['w']||keys['arrowup']?1:0);
+    const len=Math.hypot(kx,ky);if(len>1){kx/=len;ky/=len}
+    const dx=len>0?kx:inp.dx,dy=len>0?ky:inp.dy;
+    const turbo=!!(keys['shift']);
+    const act=inp.action;inp.action=null;
+    return {dx,dy,turbo,act};
+  }
+
+  function loop(now){
+    if(gone)return;
+    const dt=Math.min(.05,(now-last)/1000);last=now;
+    const ctrl=pollDir();
+    if(!st.over){
+      st.time-=dt;
+      if(st.time<=0){st.time=0;st.over=true;st.overAt=now;SND.fx('ok2')}
+      else if(id==='t1_rush')fdStepRush(st,dt,ctrl);
+      else fdStepCrush(st,dt,ctrl);
+    }
+    if(id==='t1_rush')fdDrawRush(c,cv.width,cv.height,st);
+    else fdDrawCrush(c,cv.width,cv.height,st);
+    raf=requestAnimationFrame(loop);
+  }
+  raf=requestAnimationFrame(loop);
+}
+
+/* =====================================================================
+   TOWN 1 DRILL: RUSHING ATTACK (Vapor City Neon Turf — 60s RB Gauntlet)
+   Field coords: x in [-16, 16] yards, y in [0, 32] yards (0 = End Zone!)
+   ===================================================================== */
+function fdInitRush(){
+  const st={time:60,score:0,rep:1,mult:1,tds:0,broken:0,over:false,overAt:0,pause:0,popups:[],p:null,blk:null,defs:[],gates:[],dummies:[]};
+  fdSpawnRushRep(st);return st;
+}
+function fdSpawnRushRep(st){
+  st.p={x:0,y:28,vx:0,vy:0,stam:100,juke:0,spin:0,stiff:0,cd:0,lastY:28};
+  st.blk={x:0,y:23,eng:null};
+  st.gates=[];st.dummies=[];st.defs=[];
+  const nDef=Math.min(4,2+Math.floor((st.rep-1)/2));
+  // 2 Cyan Bonus Gates (+100) + 1 narrow Gold Multiplier Gate (+250)
+  const gx1=(st.rep%2?-6:6),gx2=(st.rep%2?5:-5),gx3=(st.rep%3===0?0:(st.rep%2?-8:8));
+  st.gates.push({x:gx1,y:20,w:4.2,gold:false,hit:false});
+  st.gates.push({x:gx2,y:12,w:4.2,gold:false,hit:false});
+  st.gates.push({x:gx3,y:6,w:3.2,gold:true,hit:false});
+  // 3 Tackle Dummies forcing crisp lateral cuts
+  st.dummies.push({x:-gx1*.45,y:17,r:1.25},{x:gx2*.3,y:14,r:1.25},{x:-gx3*.4,y:9,r:1.25});
+  // Live pursuing defenders
+  for(let i=0;i<nDef;i++){
+    const sx=(i-(nDef-1)/2)*7.5,sy=8+((i*5)%11);
+    st.defs.push({x:sx,y:sy,vx:0,vy:0,stun:0,spd:7.2+Math.min(2.2,st.rep*.28)});
+  }
+}
+function fdPop(st,txt,x,y,col){st.popups.push({txt,x,y,col:col||'#ffd23a',t:1.1})}
+
+function fdStepRush(st,dt,ctrl){
+  for(const pop of st.popups)pop.t-=dt;st.popups=st.popups.filter(p=>p.t>0);
+  if(st.pause>0){st.pause-=dt;if(st.pause<=0)fdSpawnRushRep(st);return}
+  const p=st.p;
+  if(p.juke>0)p.juke-=dt;if(p.spin>0)p.spin-=dt;if(p.stiff>0)p.stiff-=dt;if(p.cd>0)p.cd-=dt;
+  // Trigger stick-skill moves
+  if(ctrl.act&&p.cd<=0&&p.stam>=15){
+    p.stam=Math.max(0,p.stam-18);p.cd=.45;
+    if(ctrl.act==='jukeL'||ctrl.act==='jukeR'){p.juke=.28;p.vx=(ctrl.act==='jukeR'?1:-1)*15;SND.fx('juke')}
+    else if(ctrl.act==='stiff'){p.stiff=.38;SND.fx('stiff')}
+    else if(ctrl.act==='spin'){p.spin=.38;SND.fx('juke')}
+  }
+  const boost=ctrl.turbo&&p.stam>5?1.26:1;
+  if(ctrl.turbo)p.stam=Math.max(0,p.stam-24*dt);else p.stam=Math.min(100,p.stam+18*dt);
+  const sp=10.5*boost;
+  if(p.juke<=0){p.vx=ctrl.dx*sp;p.vy=(ctrl.dy!==0?ctrl.dy:-.72)*sp}
+  p.x=clamp(p.x+p.vx*dt,-14.5,14.5);p.y=clamp(p.y+p.vy*dt,-1,30);
+  // Yardage score
+  if(p.y<p.lastY){st.score+=(p.lastY-p.y)*5;p.lastY=p.y}
+  // Bonus gates
+  for(const g of st.gates){
+    if(!g.hit&&Math.abs(p.y-g.y)<1.1&&Math.abs(p.x-g.x)<g.w/2+.7){
+      g.hit=true;const pts=(g.gold?250:100)*st.mult;st.score+=pts;
+      if(g.gold)st.mult=Math.min(4,st.mult+1);
+      SND.fx('ok');fdPop(st,(g.gold?'GOLD GATE +':'GATE +')+pts,g.x,g.y,g.gold?'#ffd23a':'#27e0ff');
+    }
+  }
+  // Tackle dummies (push back / slow if you run straight into one without spinning)
+  for(const dm of st.dummies){
+    const d=Math.hypot(p.x-dm.x,p.y-dm.y);
+    if(d<dm.r+.65&&p.spin<=0){
+      const nx=(p.x-dm.x)/(d||1),ny=(p.y-dm.y)/(d||1);
+      p.x=dm.x+nx*(dm.r+.75);p.y=dm.y+ny*(dm.r+.75);SND.fx('drop');
+    }
+  }
+  // Lead blocker engages nearest unstunned defender
+  const blk=st.blk;
+  let target=null,bd=1e9;
+  for(const def of st.defs){if(def.stun>0)continue;const d=Math.hypot(def.x-blk.x,def.y-blk.y);if(d<bd){bd=d;target=def}}
+  if(target){
+    const dx=target.x-blk.x,dy=target.y-blk.y,d=Math.hypot(dx,dy)||1;
+    blk.x+=dx/d*7.5*dt;blk.y+=dy/d*7.5*dt;
+    if(d<1.3){target.stun=.9;SND.fx('hit')}
+  }
+  // Defenders pursue & tackle check
+  for(const def of st.defs){
+    if(def.stun>0){def.stun-=dt;continue}
+    const dx=p.x-def.x,dy=p.y-def.y,d=Math.hypot(dx,dy)||1;
+    def.x+=dx/d*def.spd*dt;def.y+=dy/d*def.spd*dt;
+    if(d<1.35){
+      if(p.juke>0||p.spin>0||p.stiff>0){
+        def.stun=1.4;st.broken++;st.mult=Math.min(4,st.mult+1);
+        const pts=(p.stiff>0?125:100)*st.mult;st.score+=pts;
+        const lbl=p.stiff>0?'TRUCKED! +':p.spin>0?'SPUN HIM! +':'ANKLE BREAKER! +';
+        SND.fx(p.stiff>0?'stiffHit':'ankle');fdPop(st,lbl+pts,p.x,p.y,'#ff2fa8');
+      }else{
+        SND.fx('hit');fdPop(st,'TACKLED!',p.x,p.y,'#ff3b5c');
+        st.mult=1;st.rep++;st.pause=.7;return;
+      }
+    }
+  }
+  // End Zone TD!
+  if(p.y<=1.0){
+    const pts=400*st.mult;st.score+=pts;st.tds++;st.rep++;
+    SND.fx('ok2');fdPop(st,'TOUCHDOWN! +'+pts,p.x,2,'#58ffb0');st.pause=.85;
+  }
+}
+
+function fdDrawRush(c,W,H,st){
+  // Vapor City neon night stadium field
+  c.fillStyle='#081320';c.fillRect(0,0,W,H);
+  const fw=Math.min(W*.86,H*1.08),fh=H*.84,fx=(W-fw)/2,fy=H*.11;
+  const sx=x=>fx+((x+16)/32)*fw,sy=y=>fy+(y/32)*fh;
+  // Turf + End Zone
+  c.fillStyle='#0c2630';c.fillRect(fx,fy,fw,fh);
+  c.fillStyle='rgba(39,224,255,.16)';c.fillRect(fx,fy,fw,fh*(2.2/32));
+  c.strokeStyle='#27e0ff';c.lineWidth=3;c.strokeRect(fx,fy,fw,fh);
+  for(let y=5;y<=25;y+=5){c.strokeStyle='rgba(255,255,255,.16)';c.lineWidth=1.5;c.beginPath();c.moveTo(fx,sy(y));c.lineTo(fx+fw,sy(y));c.stroke()}
+  c.fillStyle='rgba(39,224,255,.45)';c.font='800 22px "Barlow Condensed",sans-serif';c.textAlign='center';c.fillText('VAPOR CITY END ZONE',fx+fw/2,sy(1.4));
+  // Gates
+  for(const g of st.gates){
+    const gx=sx(g.x),gy=sy(g.y),gw=(g.w/32)*fw;
+    c.strokeStyle=g.hit?'#58ffb0':g.gold?'#ffd23a':'#27e0ff';c.lineWidth=4;
+    c.strokeRect(gx-gw/2,gy-8,gw,16);
+    if(!g.hit){c.fillStyle=g.gold?'rgba(255,210,58,.18)':'rgba(39,224,255,.15)';c.fillRect(gx-gw/2,gy-8,gw,16)}
+  }
+  // Dummies
+  for(const dm of st.dummies){
+    c.fillStyle='#a84a2a';c.beginPath();c.arc(sx(dm.x),sy(dm.y),13,0,7);c.fill();
+    c.strokeStyle='#ffd23a';c.lineWidth=2;c.stroke();
+  }
+  // Blocker
+  c.fillStyle='#58ffb0';c.beginPath();c.arc(sx(st.blk.x),sy(st.blk.y),12,0,7);c.fill();
+  // Defenders
+  for(const def of st.defs){
+    c.fillStyle=def.stun>0?'#5a6575':'#ff3b5c';c.beginPath();c.arc(sx(def.x),sy(def.y),13,0,7);c.fill();
+    c.strokeStyle='#fff';c.lineWidth=2;c.stroke();
+  }
+  // Eli (Player)
+  const p=st.p;
+  c.fillStyle=(p.juke>0||p.spin>0||p.stiff>0)?'#ffd23a':'#27e0ff';
+  c.beginPath();c.arc(sx(p.x),sy(p.y),14,0,7);c.fill();c.strokeStyle='#fff';c.lineWidth=3;c.stroke();
+  // Popups
+  for(const pop of st.popups){c.fillStyle=pop.col;c.font='800 18px "Barlow Condensed",sans-serif';c.fillText(pop.txt,sx(pop.x),sy(pop.y)-18-(1.1-pop.t)*26)}
+  // HUD
+  c.fillStyle='#fff';c.font='800 24px "Barlow Condensed",sans-serif';c.textAlign='left';
+  c.fillText('RUSHING ATTACK · SCORE '+Math.round(st.score)+'   ×'+st.mult+'   TDs '+st.tds,18,34);
+  c.textAlign='right';c.fillStyle=st.time<10?'#ff3b5c':'#ffd23a';
+  c.fillText(Math.ceil(st.time)+'s',W-18,34);
+  c.textAlign='center';c.fillStyle='rgba(255,255,255,.65)';c.font='600 13px sans-serif';
+  c.fillText('WASD/Drag: Run · Swipe / J / K / L / Space: Juke / Stiff-Arm / Spin · Shift: Turbo · ESC: Exit',W/2,H-14);
+  if(st.over){
+    c.fillStyle='rgba(5,10,18,.82)';c.fillRect(0,H*.34,W,H*.32);
+    c.fillStyle='#ffd23a';c.font='800 42px "Barlow Condensed",sans-serif';c.fillText('DRILL COMPLETE · '+Math.round(st.score)+' PTS',W/2,H*.48);
+    c.fillStyle='#fff';c.font='600 18px sans-serif';c.fillText('Tap or click anywhere to return to Coach Vance',W/2,H*.57);
+  }
+}
+
+/* =====================================================================
+   TOWN 2 DRILL: CRUSH THE CARRIER (Hale Harbor Concrete Field — 75s 4-Way)
+   Field coords: x in [-16, 16], y in [-12, 12] (walled concrete court)
+   ===================================================================== */
+function fdInitCrush(){
+  const players=[
+    {id:'eli',name:'ELI',you:true,x:-8,y:0,vx:0,vy:0,score:0,stam:100,juke:0,spin:0,stiff:0,cd:0,stun:0,col:'#E8A33D'},
+    {id:'otto',name:'OTTO',you:false,x:8,y:-6,vx:0,vy:0,score:0,stam:100,juke:0,spin:0,stiff:0,cd:0,stun:0,col:'#A9542F'},
+    {id:'deke',name:'DEKE',you:false,x:8,y:6,vx:0,vy:0,score:0,stam:100,juke:0,spin:0,stiff:0,cd:0,stun:0,col:'#9FC6D8'},
+    {id:'quinn',name:'QUINN',you:false,x:0,y:-8,vx:0,vy:0,score:0,stam:100,juke:0,spin:0,stiff:0,cd:0,stun:0,col:'#6E8350'}
+  ];
+  return {time:75,score:0,over:false,overAt:0,players,carrier:null,ball:{x:0,y:0,vx:0,vy:0},hot:{x:0,y:0,r:4.2,t:20},popups:[],streak:1};
+}
+
+function fdStepCrush(st,dt,ctrl){
+  for(const pop of st.popups)pop.t-=dt;st.popups=st.popups.filter(p=>p.t>0);
+  // Rotate 2x Hotspot every 20s
+  st.hot.t-=dt;
+  if(st.hot.t<=0){st.hot.t=20;st.hot.x=(Math.random()-.5)*18;st.hot.y=(Math.random()-.5)*12;SND.fx('q');fdPop(st,'2x HOTSPOT SHIFTED!',st.hot.x,st.hot.y,'#E8A33D')}
+  const you=st.players[0];
+  // Player controls
+  for(const p of st.players){if(p.juke>0)p.juke-=dt;if(p.spin>0)p.spin-=dt;if(p.stiff>0)p.stiff-=dt;if(p.cd>0)p.cd-=dt;if(p.stun>0)p.stun-=dt}
+  if(you.stun<=0){
+    if(ctrl.act&&you.cd<=0&&you.stam>=15){
+      you.stam=Math.max(0,you.stam-18);you.cd=.5;
+      if(ctrl.act==='jukeL'||ctrl.act==='jukeR'){
+        you.juke=.3;you.vx=(ctrl.act==='jukeR'?1:-1)*15;SND.fx('juke');
+        // Wall-juke bonus when carrying near concrete sideline wall!
+        if(st.carrier===you&&Math.abs(you.x)>12.8){const pts=140*st.streak;you.score+=pts;fdPop(st,'WALL JUKE! +'+pts,you.x,you.y,'#9FC6D8')}
+      }else if(ctrl.act==='stiff'){you.stiff=.38;SND.fx('stiff')}
+      else if(ctrl.act==='spin'){you.spin=.38;SND.fx('juke')}
+    }
+    const boost=ctrl.turbo&&you.stam>5?1.25:1;
+    if(ctrl.turbo)you.stam=Math.max(0,you.stam-22*dt);else you.stam=Math.min(100,you.stam+16*dt);
+    const sp=(st.carrier===you?9.6:10.8)*boost;
+    if(you.juke<=0){you.vx=ctrl.dx*sp;you.vy=ctrl.dy*sp}
+    you.x=clamp(you.x+you.vx*dt,-14.8,14.8);you.y=clamp(you.y+you.vy*dt,-10.8,10.8);
+  }
+  // AI movement
+  for(const ai of st.players){
+    if(ai.you||ai.stun>0)continue;
+    let tx=st.ball.x,ty=st.ball.y;
+    if(st.carrier===ai){
+      // Evade nearest pursuer while gravitating toward 2x Hotspot
+      let near=null,nd=1e9;
+      for(const o of st.players){if(o===ai||o.stun>0)continue;const d=Math.hypot(o.x-ai.x,o.y-ai.y);if(d<nd){nd=d;near=o}}
+      if(near&&nd<7){tx=ai.x+(ai.x-near.x)*2;ty=ai.y+(ai.y-near.y)*2}else{tx=st.hot.x;ty=st.hot.y}
+    }else if(st.carrier){tx=st.carrier.x;ty=st.carrier.y}
+    const dx=tx-ai.x,dy=ty-ai.y,d=Math.hypot(dx,dy)||1,sp=st.carrier===ai?8.2:8.9;
+    ai.x=clamp(ai.x+dx/d*sp*dt,-14.8,14.8);ai.y=clamp(ai.y+dy/d*sp*dt,-10.8,10.8);
+  }
+  // Loose fumble ball physics & pickup
+  if(!st.carrier){
+    st.ball.x=clamp(st.ball.x+st.ball.vx*dt,-14.5,14.5);st.ball.y=clamp(st.ball.y+st.ball.vy*dt,-10.5,10.5);
+    st.ball.vx*=Math.pow(.18,dt);st.ball.vy*=Math.pow(.18,dt);
+    for(const p of st.players){
+      if(p.stun>0)continue;
+      if(Math.hypot(p.x-st.ball.x,p.y-st.ball.y)<1.4){
+        st.carrier=p;SND.fx('pluck');
+        if(p.you){fdPop(st,'SCOOPED!',p.x,p.y,'#E8A33D');st.streak=1}
+        break;
+      }
+    }
+  }else{
+    const car=st.carrier;st.ball.x=car.x;st.ball.y=car.y;
+    const inHot=Math.hypot(car.x-st.hot.x,car.y-st.hot.y)<=st.hot.r;
+    car.score+=(inHot?30:15)*dt;
+    // Tackle / Fumble collisions
+    for(const p of st.players){
+      if(p===car||p.stun>0)continue;
+      const d=Math.hypot(p.x-car.x,p.y-car.y);
+      if(d<1.45){
+        if(car.you&&(car.juke>0||car.spin>0||car.stiff>0)){
+          p.stun=1.3;st.streak=Math.min(4,st.streak+1);
+          const pts=(car.stiff>0?110:90)*st.streak;car.score+=pts;
+          const lbl=car.stiff>0?'TRUCKED! +':car.spin>0?'SPUN HIM! +':'ANKLE BREAKER! +';
+          SND.fx(car.stiff>0?'stiffHit':'ankle');fdPop(st,lbl+pts,car.x,car.y,'#58ffb0');
+        }else{
+          // CRUSHED! Instant live fumble!
+          car.stun=1.35;st.carrier=null;st.streak=1;
+          const ang=Math.atan2(car.y-p.y,car.x-p.x)+(Math.random()-.5)*.9;
+          st.ball.vx=Math.cos(ang)*14;st.ball.vy=Math.sin(ang)*14;
+          SND.fx('hit');
+          if(p.you){const pts=125;p.score+=pts;fdPop(st,'CRUSHED! FUMBLE +'+pts,car.x,car.y,'#E8A33D')}
+          else if(car.you){fdPop(st,'FUMBLE!',car.x,car.y,'#ff3b5c')}
+          break;
+        }
+      }
+    }
+  }
+  st.score=you.score;
+}
+
+function fdDrawCrush(c,W,H,st){
+  // Hale Harbor cold concrete walled dockyard field
+  c.fillStyle='#141C22';c.fillRect(0,0,W,H);
+  const fw=Math.min(W*.86,H*1.32),fh=H*.78,fx=(W-fw)/2,fy=H*.14;
+  const sx=x=>fx+((x+16)/32)*fw,sy=y=>fy+((y+12)/24)*fh;
+  c.fillStyle='#4B545A';c.fillRect(fx,fy,fw,fh);
+  c.strokeStyle='#A9542F';c.lineWidth=6;c.strokeRect(fx,fy,fw,fh);
+  for(let x=-10;x<=10;x+=5){c.strokeStyle='rgba(255,255,255,.15)';c.lineWidth=1.5;c.beginPath();c.moveTo(sx(x),fy);c.lineTo(sx(x),fy+fh);c.stroke()}
+  // 2x Hotspot Zone
+  const hr=(st.hot.r/32)*fw;
+  c.fillStyle='rgba(232,163,61,.22)';c.beginPath();c.arc(sx(st.hot.x),sy(st.hot.y),hr,0,7);c.fill();
+  c.strokeStyle='#E8A33D';c.lineWidth=3;c.setLineDash([6,5]);c.stroke();c.setLineDash([]);
+  c.fillStyle='#F6C46D';c.font='800 16px "Barlow Condensed",sans-serif';c.textAlign='center';c.fillText('2x HOTSPOT',sx(st.hot.x),sy(st.hot.y)+5);
+  // Players
+  for(const p of st.players){
+    const px=sx(p.x),py=sy(p.y);
+    if(st.carrier===p){c.strokeStyle='#58ffb0';c.lineWidth=4;c.beginPath();c.arc(px,py,20,0,7);c.stroke()}
+    c.fillStyle=p.stun>0?'#3A4A55':p.col;c.beginPath();c.arc(px,py,14,0,7);c.fill();
+    c.strokeStyle=p.you?'#fff':'#141C22';c.lineWidth=2.5;c.stroke();
+    c.fillStyle='#fff';c.font='700 11px sans-serif';c.fillText(p.name,px,py-18);
+  }
+  // Loose Ball
+  if(!st.carrier){
+    c.fillStyle='#8a4a22';c.beginPath();c.ellipse(sx(st.ball.x),sy(st.ball.y),10,6,0,0,7);c.fill();
+    c.strokeStyle='#fff';c.lineWidth=2;c.stroke();
+  }
+  // Popups
+  for(const pop of st.popups){c.fillStyle=pop.col;c.font='800 19px "Barlow Condensed",sans-serif';c.fillText(pop.txt,sx(pop.x),sy(pop.y)-22-(1.1-pop.t)*24)}
+  // 4-Way Scoreboard HUD
+  c.textAlign='left';c.font='800 20px "Barlow Condensed",sans-serif';
+  let xHud=18;
+  for(const p of st.players){
+    c.fillStyle=p.you?'#F6C46D':'#CBD6DE';
+    const txt=p.name+': '+Math.round(p.score);c.fillText(txt,xHud,32);xHud+=125;
+  }
+  c.textAlign='right';c.fillStyle=st.time<12?'#ff3b5c':'#E8A33D';c.font='800 24px "Barlow Condensed",sans-serif';
+  c.fillText(Math.ceil(st.time)+'s',W-18,32);
+  c.textAlign='center';c.fillStyle='rgba(255,255,255,.7)';c.font='600 13px sans-serif';
+  c.fillText('WASD/Drag: Move · Swipe / J / K / L / Space: Juke / Stiff-Arm / Big Hit · Shift: Turbo · ESC: Exit',W/2,H-14);
+  if(st.over){
+    const sorted=[...st.players].sort((a,b)=>b.score-a.score);
+    const rank=sorted.findIndex(p=>p.you)+1;
+    c.fillStyle='rgba(10,16,22,.84)';c.fillRect(0,H*.32,W,H*.36);
+    c.fillStyle='#E8A33D';c.font='800 40px "Barlow Condensed",sans-serif';c.fillText('FINISH #'+rank+' · '+Math.round(st.score)+' STYLE PTS',W/2,H*.47);
+    c.fillStyle='#fff';c.font='600 18px sans-serif';c.fillText('Tap or click anywhere to return to Coach Vance',W/2,H*.56);
+  }
+}
+
+/* ---- Dev Quick-Launch Buttons & QA Hook ---- */
+setTimeout(()=>{
+  if(!window.CF_TEST)return;
+  const back=document.getElementById('mPXback');if(!back)return;
+  for(const [id,lbl,drill] of [['mFD1','TEST: RUSHING ATTACK','t1_rush'],['mFD2','TEST: CRUSH CARRIER','t2_crush']]){
+    if(document.getElementById(id))continue;
+    const b=document.createElement('button');b.className='btn';b.id=id;b.textContent=lbl;
+    b.onclick=()=>{owShow();startFieldDrill(drill)};
+    back.parentNode.insertBefore(b,back);
+  }
+},65);
+window.CFDRILL={FIELD_DRILLS,fdS,fdAward,fdTalk,startFieldDrill,fdInitRush,fdStepRush,fdInitCrush,fdStepCrush};
+/* ================= end v3.31 FIELD DRILLS ================= */
+
 
 
 window.SG={eg:w=>endGame(w),f4:()=>showFourth(),snapDbg:()=>{const R=ART.run;const miss=[];for(const [pal,vk] of R.need.slice(0,R.need.n0||0))if(!R.ready.has(pal.key+'|'+vk))miss.push(pal.key.slice(0,12)+'|'+vk);let am=0;for(const pal of artPals())for(const v of'fb')if(!artMaster(pal,v))am++;return {mode:G.mode,on:R.on,inited:R.inited,need:R.need.length,n0:R.need.n0,miss:miss.slice(0,8),nmiss:miss.length,artMissing:am,artReady:artReady(),carryReady:carryReady(),snapReady:ART.snapReady||null,jobs:R.jobs.length,q:R.q.length,busy:R.busy.size,fail:R.fail}},WSEG,CLUSTERS,camfix:o=>{window.__camFix=o},enterPlaycall:()=>enterPlaycall(),cam:()=>cam,LogoRenderer,LOGOS,LOGO_ORDER,registerLogo,logoId,logoSVG,LOGO_GLYPH,muState:()=>MU,lf:()=>ART.lf||[],SIDER:SIDER,RIGF,RIG,runInit,artDraw:(g,o)=>artDraw(g,o),uniFor:p=>uniFor(p),lookOf:d=>lookOf(d),playerPx:(...a)=>playerPx(...a),ART,artNumber:(...a)=>artNumber(...a),say:(a,b,c,d)=>say(a,b,c,d),setX:v=>{bannerExtra=v},popup:(a,b,c,d)=>popup(a,b,c,d),WALLY:()=>WALLY,sideVis:()=>sideVis,setPS:v=>{PSCALE=v;SPR.clear()},owLeave,owHide,P:(x,y)=>P(x,y),SND,OW,owShow,M:()=>M,owPlace,owTalk,owGot,owSay,renderPerson,lookOf,callPlay,endGame,get G(){return G},get F(){return F},get PLAY(){return PLAY},input,SAVE:()=>SAVE,startMatch,CREWS,PLAYS,throwTo,doJuke,doStiff,doStyle,startPlay,setSpeed:v=>{SPEED=v},resetSave:()=>{SAVE=freshSave();persist()},renderTeam,openGear,renderSquad,screens,renderMenu};
