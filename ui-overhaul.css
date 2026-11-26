@@ -3601,9 +3601,22 @@ body #achT {
   color: #9BA8BC !important;
 }
 
+#menu .ui-menu-upg small,
+#team .ui-team-head .ui-team-upg small,
+#squad #sqTop #sqPts .ui-squad-metric small {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
 #menu .ui-menu-upg b,
 #team .ui-team-head .ui-team-upg b,
 #squad #sqTop #sqPts .ui-squad-metric b {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
   font-size: 15px !important;
   font-weight: 900 !important;
   color: #F5B841 !important;
