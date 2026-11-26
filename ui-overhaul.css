@@ -3427,3 +3427,22 @@ body #menu .ui-menu-build-trigger::after{
   body #mu.on .pn .nm,body #mu.on .pn .ov{margin-bottom:10px!important}
   body #mu.on .mu-player-slot{transform:translateY(-2vh) scale(.94)!important}
 }
+
+
+/* Final matchup hierarchy correction: keep KayKit stages compact and centered,
+   behind the side identity panels so the logos and single identity pills stay legible. */
+@media (orientation:landscape){
+  body #mu.on .mu-player-slot{
+    transform:translateY(0) scale(.56)!important;
+    transform-origin:center center!important;
+    z-index:1!important;
+  }
+  body #mu.on .pn{z-index:2!important}
+}
+@media(max-height:430px) and (orientation:landscape){
+  body #mu.on .mu-player-slot{
+    transform:translateY(0) scale(.56)!important;
+    transform-origin:center center!important;
+    z-index:1!important;
+  }
+}
