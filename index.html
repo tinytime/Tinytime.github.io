@@ -379,7 +379,7 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
   <div id="rotMsg" hidden><div class="ph">&#128241;</div><div style="font-size:24px">TURN YOUR PHONE SIDEWAYS</div><div style="font-size:14px;opacity:.7;font-family:var(--body,sans-serif)">The football game plays in landscape.<br>(Rotation lock on? Turn it off in Control Center.)</div></div>
   <div id="hud" hidden>
     <div id="bug">
-      <div id="bDown"><b id="dd">1st &amp; 10</b><span id="sp">OWN 25</span></div>
+      <div id="bDown"><b id="dd">1st &amp; 25</b><span id="sp">OWN 25</span></div>
       <div class="bteam" id="tY"><div class="brow"><i class="tab"></i><span class="slg" id="yLg"></span><span class="bn" id="yName">YOU</span><b class="bs" id="nY">0</b></div><div class="gbar" id="gb"><i id="gbFill"></i><span id="gbTxt">GAME BREAKER</span></div></div>
       <div class="bteam" id="tO"><div class="brow"><i class="tab"></i><span class="slg" id="oLg"></span><span class="bn" id="oName">CREW</span><b class="bs" id="nO">0</b></div></div>
       <div id="bClock"><div id="clockReadout"><b id="clk">25</b><span id="tgt">PLAY<br>CLOCK</span></div><div id="tgtTag">FIRST TO 21 WINS</div></div>
@@ -419,7 +419,7 @@ h2{font-family:var(--disp);font-weight:400;font-size:26px;margin:4px 0 4px;color
   <div id="flash"></div>
 
   <div id="sheet" hidden>
-    <div class="pbTop"><b id="shDD">1ST &amp; 10</b><span id="shHint">Pick a group, then a play. Tap it twice to call it.</span><button id="flipBtn">FLIP</button></div>
+    <div class="pbTop"><b id="shDD">1ST &amp; 25</b><span id="shHint">Pick a group, then a play. Tap it twice to call it.</span><button id="flipBtn">FLIP</button></div>
     <div id="pbMain"><div id="pbTabs"></div><div id="pbGrid"><div id="cards"></div><div id="pbNav" hidden><button id="pbPrev">&#8249;</button><span id="pbPg"></span><button id="pbNext">&#8250;</button></div></div></div><div id="cardHint" hidden></div>
     <div class="pbRow"><div id="blurb"></div><button id="gbBtn">\u2605 STAR PLAY</button><button id="repBtn" hidden>&#9654; REPLAY</button><button id="sameBtn" hidden>SAME PLAY</button><button id="callBtn">CALL PLAY</button></div>
   </div>
@@ -849,7 +849,7 @@ const CREWS=[
  {id:'captain',name:'Netrunners',short:'NETS',town:'Vapor City',ez:'NETRUNNERS',boss:'Mainframe Mo',level:4,target:28,captain:true,col:'#d6362f',
   uni:{j:1,jc:'#d6362f',jt:'#14110f',jn:'#ffc23d',p:2,pc:'#14110f',ps:'#ffc23d',sock:'#14110f',shoe:'#ffc23d',h:2,hc:'#5a0f0c',hs:'#ffc23d',mask:'#ffc23d'},
   scout:'Blitzes on 3rd down. Stacks the box on 4th and short. Opens in deep coverage.',
-  mix:(down,togo)=>{if(down===3)return Math.random()<.7?'blitz':'bal';if(down===4||togo<=3)return Math.random()<.7?'stack':'bal';return pick(['deep','deep','bal','stack'])},
+  mix:(down,togo)=>{if(down===3)return Math.random()<.7?'blitz':'bal';if(down===4||togo<=7)return Math.random()<.7?'stack':'bal';return pick(['deep','deep','bal','stack'])},
   roster:[mk('Mainframe Mo Calloway','QB',70,60,50,30,48,80),mk('Brick Hayes','RB',76,84,56,30,52,30),mk('"Zero Day" Darnell Reyes','WR',94,56,88,30,50,30,'hailmary',true),mk('Cedric Vaughn','WR',82,52,78,30,48,30),mk('Tommy "Tree" Okonkwo','TE',66,78,72,76,60,30),mk('Anvil Barrett','OL',50,86,38,86,75,20),mk('Bruno Castellano','OL',48,84,36,82,72,20)]}
 ];
 CREWS.forEach((c,i)=>{c.uni=Object.assign({jo:'#14110f',po:'#14110f'},c.uni);c.T=[66,69,72,75][i];c.roster.forEach(p=>rescale(p,c.T))});   // worst crew is 73, the final city is 91
@@ -1318,7 +1318,8 @@ function awayUni(crew){const me=SAVE.uni,u=crew.uni,TURF='#1A2E40',ci=Math.max(0
 function startMatch(crew){startPlay._w=0;startPlay._t=0;if(typeof owRelease==='function')owRelease();G_oppUniPending=awayUni(crew);ART.t0=0;ART.loadMs=0;ART.wdone='';ART.snapReady=null;SND.setMode('game');SPR.clear();for(const k in PW)delete PW[k];if(SAVE.pwSel&&(SAVE.pw||[]).includes(SAVE.pwSel))PW[SAVE.pwSel]=1;
   if(!TEST_STARS)for(const k of ['QB','RB','WR1','WR2']){const q=SAVE.starters[k];if(q&&q.star&&!q.special&&/Voss|Wallace|Morales|Ortiz/.test(q.name))q.star=false}   // undo the old test stars
   if(TEST_STARS)for(const k of ['QB','RB','WR1','WR2'])if(SAVE.starters[k])SAVE.starters[k].star=true;   // TEST ONLY: remove when done testing Star Play
-  G={crew,oppUni:G_oppUniPending,you:0,opp:0,target:crew.target,los:25,down:1,togo:10,ltg:35,style:0,sp:{m:{},ready:null,left:0,cool:0},spArmed:false,dv:{plays:0,yds:0},pn:0,t0:performance.now(),sel:0,flip:false,mode:'playcall',call:'bal',clock:25,clockOn:false,showPlay:false};
+  const FIRST_DOWN=25;
+  G={crew,oppUni:G_oppUniPending,you:0,opp:0,target:crew.target,los:25,down:1,togo:FIRST_DOWN,ltg:25+FIRST_DOWN,style:0,sp:{m:{},ready:null,left:0,cool:0},spArmed:false,dv:{plays:0,yds:0},pn:0,t0:performance.now(),sel:0,flip:false,mode:'playcall',call:'bal',clock:25,clockOn:false,showPlay:false};
   screens(null);show('#hud',true);$('#oName').textContent=crew.short;$('#yName').textContent=(SAVE.teamName||'YOU').toUpperCase();setScoreLogo();setOppLogo(crew);scoreFit();$('#tgtTag').textContent='FIRST TO '+crew.target+' WINS';$('#tY').style.setProperty('--tc',SAVE.uni.jc);$('#tO').style.setProperty('--tc',G_oppUniPending.jc);show('#setbar',false);
   gdStart(crew);goalsStart(crew);   // v3.15   // v3.00: guided first game (prompts only)
   F=null;setupField();G.mode='intro';
@@ -1333,9 +1334,9 @@ function pickCall(){
     rec.forEach((id,i)=>{const w=1+i*ADAPT_RECENCY;tot+=w;{const pk=PLAYS.find(q=>q.id===id)||{};if(pk.kind==='run')run+=w;else if(pk.kind==='pass'){pass+=w;if(pk.deepish)deep+=w}}});
     const rs=run/tot,ps=pass/tot,k=Math.min(1,rec.length/ADAPT_WARM);
     if(rs>=ADAPT_AT){if(Math.random()<Math.min(ADAPT_MAX,(rs-.5)*ADAPT_GAIN)*k){call=Math.random()<.75?'stack':'blitz';G.adapted=true}}
-    else if(ps>=ADAPT_AT){if(Math.random()<Math.min(ADAPT_MAX,(ps-.5)*ADAPT_GAIN)*k){call=(G.down>=3&&G.togo>=7)?pick(['blitz','deep']):(deep/pass>.5)?pick(['deep','deep','bal']):pick(['bal','bal','deep','stack']);G.adapted=true}}   // v3.16V1: no blitz answer to quick passes except 3rd and long
+    else if(ps>=ADAPT_AT){if(Math.random()<Math.min(ADAPT_MAX,(ps-.5)*ADAPT_GAIN)*k){call=(G.down>=3&&G.togo>=17)?pick(['blitz','deep']):(deep/pass>.5)?pick(['deep','deep','bal']):pick(['bal','bal','deep','stack']);G.adapted=true}}   // v3.16V1: no blitz answer to quick passes except 3rd and long
   }
-  if(G.los>=95&&Math.random()<GOAL_P){call='goal';G.adapted=false}else if(G.down===3&&G.togo>=4&&G.togo<=7&&!G.adapted&&Math.random()<SPY_P)call='spy';   // v3.16FF2
+  if(G.los>=95&&Math.random()<GOAL_P){call='goal';G.adapted=false}else if(G.down===3&&G.togo>=10&&G.togo<=17&&!G.adapted&&Math.random()<SPY_P)call='spy';   // v3.16FF2
   if(call!=='goal'&&call!=='spy'&&!G.adapted&&h.length>=2&&h[h.length-1]===h[h.length-2]&&Math.random()<SAME_P){const pk=PLAYS.find(q=>q.id===h[h.length-1])||{};call=pk.kind==='run'?'stack':pk.deepish?'deep':'bal';G.adapted=true;G.repeat=true}   // v3.16EE3: same play twice
   return call}
 /* Ratings are squeezed toward the middle during a play: a 10-point edge should be an advantage you can feel, not a different game. (The menus still show the real ratings.) */
@@ -1426,7 +1427,7 @@ function activateStar(c){
   fxText('\u2605 STAR PLAY! \u2605','#ffd23a');flashT=.5}
 $('#gbBtn').onclick=()=>{if(G.sp.ready){G.spArmed=!G.spArmed;SND.fx('gbArm');updateGBBtn()}};
 $('#flipBtn').onclick=()=>{G.flip=!G.flip;beep(500,.05);setupField(true);F.mode='pre';G.mode='playcall';show('#sheet',true);show('#setbar',false);buildCards(true);$('#flipBtn').classList.toggle('on',G.flip)};
-function ddText(){const d=Math.max(1,Math.min(G.togo,100-G.los));return ORD[clamp(G.down,1,4)]+' & '+(100-G.los<=10&&G.togo>=100-G.los?'Goal':Math.ceil(d))}
+function ddText(){const d=Math.max(1,Math.min(G.togo,100-G.los));return ORD[clamp(G.down,1,4)]+' & '+(100-G.los<=25&&G.togo>=100-G.los?'Goal':Math.ceil(d))}
 function showFourth(){
   show('#sheet',false);show('#fourth',true);
   const dist=Math.ceil(Math.min(G.togo,100-G.los));
@@ -1775,7 +1776,7 @@ function doStyle(){
 function spend(n){if(F.gb)return true;if(F.turbo<n){F.tired=true;popup('TIRED',F.carrier.x,F.carrier.y+1.5,'#e5484d');bmSay('TIRED');$('#turboWrap').classList.add('tired');setTimeout(()=>$('#turboWrap').classList.remove('tired'),400);return false}F.turbo-=n;F.lastSpend=n;return true}
 function releaseDef(d){const b=d.eng;if(b){b.eng=null}d.eng=null}
 function chargeGB(n,label,x,y){if(label&&x!==undefined)popup(label,x,y,'#ffd23a')}
-function S2c(gn){const S=F.snap2||{};return S.togo>=8&&gn>=S.togo&&gn>=12}   // a first down that took a long gain
+function S2c(gn){const S=F.snap2||{};return S.togo>=18&&gn>=S.togo&&gn>=25}   // a first down that took a long gain
 function stylePts(n,label){const e=$('#fxPts');if(!e||!n||!SHOW_PTS)return;e.textContent=(label?label+'  ':'')+'+'+(n*100).toLocaleString('en-US');e.classList.remove('show');void e.offsetWidth;e.classList.add('show')}   // v3.16W2: style points shown x100 under the callout
 function endStyleShow(){}
 function addStyle(pts,label,x,y,col){G.style+=pts;stylePts(pts);spFeed(label==='DIVING CATCH!'?6/SPK:pts);popup(label,x,y,col)}
@@ -2250,7 +2251,7 @@ function finishPlay(r){
   if(r.type==='fumble'){turnover(r.spot);return}
   const spot=clamp(Math.round(r.spot),1,99);
   let note;
-  if(spot>=G.ltg){G.los=spot;G.down=1;G.togo=Math.min(10,100-spot);G.ltg=Math.min(100,spot+10);note='FIRST DOWN';SND.fx('first');fxText('FIRST DOWN','#ffd23a')}
+  if(spot>=G.ltg){G.los=spot;G.down=1;G.togo=Math.min(25,100-spot);G.ltg=Math.min(100,spot+25);note='FIRST DOWN';SND.fx('first');fxText('FIRST DOWN','#ffd23a')}
   else{G.los=spot;G.down++;G.togo=Math.ceil(G.ltg-spot);if(G.down>4){turnover(spot,true);return}note=ORD[G.down].toUpperCase()+' DOWN'}
   say(note,ddText()+' \u00b7 '+spotTxt(G.los),600,enterPlaycall);
 }
@@ -2283,12 +2284,12 @@ function simDrive(fp,call){
   const D=SLOTS.map(k=>{const q=SAVE.starters[k];return{q,tk:0,w:defOvr(q)+((q.star||q.special)?30:0)}});
   const pickD=()=>{let tot=0;for(const d of D)tot+=d.w;let x=Math.random()*tot;for(const d of D){x-=d.w;if(x<=0)return d}return D[0]};
   const ln=q=>String(q.name||'').replace(/^.*\s/,'').toUpperCase(),ord=n=>['','1st','2nd','3rd','4th'][n]||'4th';
-  const L=[{t:'THEY START AT '+ydTxt(fp),c:'',s:{yd:fp,down:1,togo:10}}];let yd=fp,down=1,togo=10,zone=null,zLeft=0,res=null,turn=null,snaps=0,plays=0,wallSaid=false;
+  let yd=fp,down=1,togo=Math.min(25,100-fp),zone=null,zLeft=0,res=null,turn=null,snaps=0,plays=0,wallSaid=false;const L=[{t:'THEY START AT '+ydTxt(fp),c:'',s:{yd:fp,down:1,togo}}];
   while(!res&&snaps<14){
     if(down===4){
       const fgOk=yd>=62,pFG=clamp(.9-(100-yd+17-25)*.014,.35,.95);
-      if(fgOk&&(togo>2||Math.random()<.3)){const good=Math.random()<pFG;L.push({t:'4th & '+Math.ceil(togo)+' · FIELD GOAL '+(good?'IS GOOD':'MISSES'),c:good?'bad':'good'});res=good?'fg':'stop';break}
-      if(!(togo<=2&&Math.random()<.5)){L.push({t:'4th & '+Math.ceil(togo)+' \u00b7 PUNT',c:'good'});res='stop';break}
+      if(fgOk&&(togo>5||Math.random()<.3)){const good=Math.random()<pFG;L.push({t:'4th & '+Math.ceil(togo)+' · FIELD GOAL '+(good?'IS GOOD':'MISSES'),c:good?'bad':'good'});res=good?'fg':'stop';break}
+      if(!(togo<=5&&Math.random()<.5)){L.push({t:'4th & '+Math.ceil(togo)+' \u00b7 PUNT',c:'good'});res='stop';break}
       L.push({t:'4th & '+Math.ceil(togo)+' · THEY GO FOR IT',c:''})}
     snaps++;
     if(zone&&zLeft>0){zLeft--;if(Math.random()<ZONE_TO){const q=zone.q,rcv=q.pos==='WR'||q.pos==='QB';turn={d:zone,kind:rcv?'int':'fum'};L.push({t:ord(down)+' & '+Math.ceil(togo)+' · ★ '+ln(q)+(rcv?' PICKS IT OFF!':' FORCES A FUMBLE!'),c:'zone'});res='turnover';break}}
@@ -2299,13 +2300,13 @@ function simDrive(fp,call){
     let gain,txt;plays++;
     if(r<pT){const d=pickD();turn={d,kind:pass?'int':'fum'};L.push({t:hd+(pass?'INTERCEPTED by ':'FUMBLE, recovered by ')+ln(d.q),c:'zone'});d.tk++;res='turnover';break}
     else if(r<pT+pS){gain=Math.round(rnd(-3,1));const d=pickD();d.tk++;txt=pass?(gain<=-2?'SACKED by '+ln(d.q)+' for '+Math.abs(gain):gain===0?'Incomplete':'Stopped by '+ln(d.q)+' after '+gain):(gain<0?ln(d.q)+' drops him for '+Math.abs(gain):'Stuffed by '+ln(d.q)+' for '+gain);if(pass&&gain>-2)gain=0}
-    else if(r<pT+pS+pB){gain=Math.round(rnd(13,32));const d=pickD();d.tk++;txt='BIG PLAY, '+gain+' yards · run down by '+ln(d.q)}
-    else{gain=Math.round(clamp(rnd(2,9)+m*K.mk,1,13));const a=pickD();a.tk++;if(Math.random()<.2){const b=pickD();if(b!==a)b.tk++}txt=(pass?'Complete, ':'Run, ')+gain+' yards · '+ln(a.q)+' makes the stop'}
+    else if(r<pT+pS+pB){gain=Math.round(rnd(20,40));const d=pickD();d.tk++;txt='BIG PLAY, '+gain+' yards · run down by '+ln(d.q)}
+    else{gain=Math.round(clamp(rnd(5,14)+m*K.mk,1,20));const a=pickD();a.tk++;if(Math.random()<.2){const b=pickD();if(b!==a)b.tk++}txt=(pass?'Complete, ':'Run, ')+gain+' yards · '+ln(a.q)+' makes the stop'}
     if(call==='prev'&&yd+gain>=100&&Math.random()<cm.rz)gain=Math.max(1,98-yd);
     gain=Math.min(gain,100-yd);yd+=gain;togo-=gain;
-    L.push({t:hd+txt,c:gain>=12?'bad':gain<=0?'good':''});
+    L.push({t:hd+txt,c:gain>=20?'bad':gain<=0?'good':''});
     if(yd>=100){L[L.length-1].s={yd:100,down:1,togo:0};L.push({t:'TOUCHDOWN',c:'bad',s:{yd:100,down:1,togo:0}});res='td';break}
-    if(togo<=0){down=1;togo=10}else down++;
+    if(togo<=0){down=1;togo=Math.min(25,100-yd)}else down++;
     L[L.length-1].s={yd,down,togo};
     if(!zone){const z=D.find(d=>d.tk>=ZONE_N);if(z){zone=z;zLeft=ZONE_PLAYS;L.push({t:'★ '+ln(z.q)+' IS IN THE ZONE ('+z.tk+' tackles)',c:'zone'})}}
     if(down>4){L.push({t:'TURNOVER ON DOWNS',c:'good'});res='stop'}
@@ -2345,13 +2346,13 @@ function runOppDrive(fp,call){
   G.opp+=pts;if(G.ms&&S.res==='td')G.ms.tdA++;   // v3.15: for the SHUTOUT challenge
   const fin=()=>say(t,s,1200,()=>{   // v3.13 C: 1.2 s (tap skips)
     if(G.opp>=G.target){endGame(false);return}
-    cont();G.down=1;G.togo=10;G.ltg=G.los+10;enterPlaycall()});
+    cont();G.down=1;G.togo=Math.min(25,100-G.los);G.ltg=Math.min(100,G.los+25);enterPlaycall()});
   playTicker(S.L,fin,call)}
 let tickT=null;
 /* SUPER SIM: their drive plays out on the real field. SIMV holds the blue line of scrimmage and the yellow first-down line (in your field coordinates), the ball marker sits on the line, and the camera frames both. */
 const SIMV={on:false,cl:50,cf:40,tl:50,tf:40,show:true};
-function simSet(s,snap){if(!s)return;SIMV.tl=100-s.yd;SIMV.tf=(s.yd+s.togo>=100||s.yd>=100)?-99:100-(s.yd+s.togo);if(snap){SIMV.cl=SIMV.tl;SIMV.cf=SIMV.tf>-50?SIMV.tf:SIMV.tl-10;cam.y=Math.min(SIMV.cl,SIMV.cf)-5.5;cam.x=CX;cam.zoom=1;cam.zv=0}}
-function simStep(rdt){const k=1-Math.exp(-5*rdt);SIMV.cl+=(SIMV.tl-SIMV.cl)*k;const tf=SIMV.tf>-50?SIMV.tf:SIMV.tl-10;SIMV.cf+=(tf-SIMV.cf)*k}
+function simSet(s,snap){if(!s)return;SIMV.tl=100-s.yd;SIMV.tf=(s.yd+s.togo>=100||s.yd>=100)?-99:100-(s.yd+s.togo);if(snap){SIMV.cl=SIMV.tl;SIMV.cf=SIMV.tf>-50?SIMV.tf:SIMV.tl-25;cam.y=Math.min(SIMV.cl,SIMV.cf)-5.5;cam.x=CX;cam.zoom=1;cam.zv=0}}
+function simStep(rdt){const k=1-Math.exp(-5*rdt);SIMV.cl+=(SIMV.tl-SIMV.cl)*k;const tf=SIMV.tf>-50?SIMV.tf:SIMV.tl-25;SIMV.cf+=(tf-SIMV.cf)*k}
 function drawSimMarker(){
   const y=SIMV.cl,pr=P(CX,y),u=pr.u;if(pr.sy<-60||pr.sy>H+60)return;
   ctx.save();ctx.globalAlpha=.5;ctx.strokeStyle='#2f6bff';ctx.lineWidth=Math.max(2,u*.18);ctx.beginPath();ctx.ellipse(pr.sx,pr.sy,u*2.2,u*.8,0,0,7);ctx.stroke();ctx.restore();   // glow ring on the line of scrimmage
@@ -2362,10 +2363,10 @@ function drawSimMarker(){
 }
 function playTicker(L,done,call){
   const P=$('#tkPlay');show('#tick',true);clearTimeout(tickT);
-  SIMV.on=true;simSet(L[0].s||{yd:25,down:1,togo:10},true);
+  SIMV.on=true;simSet(L[0].s||{yd:25,down:1,togo:25},true);
   $('#tkTitle').textContent='THEIR DRIVE'+(call?' \u00b7 '+({blitz:'BLITZ',bal:'BALANCED',prev:'PREVENT'}[call]||''):'');
-  let i=0,fin=false,cur=L[0].s||{yd:25,down:1,togo:10};
-  const setS=s=>{if(!s)return;cur=s;simSet(s);$('#tkSt').textContent=s.yd>=100?'IN THE END ZONE':ORD[Math.min(4,s.down)]+' & '+Math.ceil(s.togo)+' \u00b7 BALL ON '+ydTxt(s.yd)};
+  let i=0,fin=false,cur=L[0].s||{yd:25,down:1,togo:25};
+  const setS=s=>{if(!s)return;cur=s;simSet(s);$('#tkSt').textContent=s.yd>=100?'IN THE END ZONE':ORD[Math.min(4,s.down)]+' & '+(100-s.yd<=25&&s.togo>=100-s.yd?'Goal':Math.ceil(s.togo))+' \u00b7 BALL ON '+ydTxt(s.yd)};
   setS(cur);
   const show1=x=>{P.className=x.c||'';P.classList.remove('pop');void P.offsetWidth;if(x.c!=='zone')P.classList.add('pop');P.textContent=x.t;setS(x.s)};
   const end=()=>{if(fin)return;fin=true;clearTimeout(tickT);setTimeout(()=>{show('#tick',false);SIMV.on=false;done()},650)};
@@ -5598,7 +5599,7 @@ const P3D=(()=>{
     star:{n:'Ranged_Magic_Raise',T:.6,a:.1,b:.6},turbo:'Running_B',bigHit:{n:'Hit_B',T:.15},whiff:'Hit_B',truck:'Melee_Block_Attack',dizzy:'Skeletons_Idle',
     deep:18,contest:.35,pile:{c:'Melee_Blocking',d:'Melee_Block_Attack'},
     celeb:['Cheering','Jump_Full_Short','Skeletons_Taunt'],mates:['Cheering','Waving','Jump_Full_Short'],sack:'Skeletons_Taunt_Longer',pick:'Cheering',
-    stance:{line:'Crouching',def:'Melee_Unarmed_Idle'},huddle:{on:1,jog:4.6,delay:.55,ring:1.7,back:7,wait:.35,maxT:1.4,setX:2.5,crouch:'Crouching'},walks:['Walking_A','Walking_B','Walking_C'],
+    stance:{line:'Crouching',lineT:0,def:'Melee_Unarmed_Idle'},huddle:{on:1,jog:4.6,delay:.55,ring:1.7,back:7,wait:.35,maxT:1.4,setX:2.5,crouch:'Crouching'},walks:['Walking_A','Walking_B','Walking_C'],
     end:{win:['Cheering','Jump_Full_Short','Waving'],loss:['Sit_Floor_Idle','Idle_B','Sit_Floor_Idle']},prev:['Idle_B','Cheering','Push_Ups'],fps:15};
   let KQ=null,KV3=null;   // made with the first rig (three.js loads after this module)
   const KUP=new Set(['spine','chest','head','upperarm_l','lowerarm_l','wrist_l','hand_l','upperarm_r','lowerarm_r','wrist_r','hand_r']);
@@ -5703,9 +5704,9 @@ const P3D=(()=>{
   function kkPresent(p,r,spd,pr,now){   // after the whistle and before the snap: celebrations, huddle, stances (looks only)
     const C=KACFG,s=now/1000,res=F&&F.res,loop=(n,o)=>((s+(o||0))%KA.ev[n].dur+KA.ev[n].dur)%KA.ev[n].dur;let d=KD.get(F);if(!d){d={t:s};KD.set(F,d)}const e=s-d.t;
     if(typeof REP!=='undefined'&&REP.act)return null;
-    if(pr&&pr.hv&&pr.hv.wait&&kkHas(C.huddle.crouch))return{n:C.huddle.crouch,t:loop(C.huddle.crouch,r.ph),set:KALL,fin:.2};   // in the huddle
+    if(pr&&pr.hv&&pr.hv.wait&&kkHas(C.huddle.crouch))return{n:C.huddle.crouch,t:(C.stance.lineT||0)*KA.ev[C.huddle.crouch].dur,set:KALL,fin:.2};   // in the huddle
     if(F.mode==='pre'){if(pr&&pr.hv)return null;const ln=/^OL|^TE$/.test(p.role||'')||p.pos==='DL',df=p.team==='D'&&!ln,n=ln?C.stance.line:df?C.stance.def:'';   // stances at the line
-      return n&&kkHas(n)&&spd<.3?{n,t:loop(n,r.ph),set:KALL,fin:.25}:null}
+      return n&&kkHas(n)&&spd<.3?{n,t:ln?(C.stance.lineT||0)*KA.ev[n].dur:loop(n,r.ph),set:KALL,fin:.25}:null}
     if(!res)return null;
     if(p.celeb>0){const n=C.celeb[(p.celebV|0)%3];if(kkHas(n))return{n,t:loop(n),set:KALL,fin:.1}}   // the scorer
     if(res.type==='td'&&p.team==='O'&&!p.fall){const dl=.3+(r.i%4)*.15,n=C.mates[r.i%3];if(e>dl&&kkHas(n))return{n,t:loop(n,-dl),set:KALL,fin:.15}}   // teammates join in
@@ -7720,7 +7721,7 @@ const HB_CREWS=[
   uni:HB_UNI({j:2,jc:'#9FC6D8',jt:'#F2EFE6',jn:'#3A4450',p:1,pc:'#3A4450',ps:'#F2EFE6',sock:'#3A4450',shoe:'#14110f',h:0,hc:'#9FC6D8',hs:'#F2EFE6',mask:'#3A4450'}),
   scout:'Blitzes on 3rd down. Stacks the box on 4th and short. The refs lean their way.',tag:'The light stays on.',
   pre:["You throw into the dark. I've heard.","Heard you're not your brother."],win:'Tug was the best. I kept his name.',lose:'Walk out with something. That\'s the harbor way.',
-  mix:(down,togo)=>{if(down===3)return Math.random()<.7?'blitz':'bal';if(down===4||togo<=3)return Math.random()<.7?'stack':'bal';return pick(['deep','deep','bal','stack'])},
+  mix:(down,togo)=>{if(down===3)return Math.random()<.7?'blitz':'bal';if(down===4||togo<=7)return Math.random()<.7?'stack':'bal';return pick(['deep','deep','bal','stack'])},
   roster:hbRoster([['Bram "The Wall" Kessler','QB',81],['"Riptide" Sterling','RB',79,1],['"Lark" Sorren','WR',78],['Ines Varela','WR',78],['Odele Pike','TE',78],['"Cope" Halloran','OL',79],['"Bell" Coates','OL',80]])}
 ];
 HB_CREWS.forEach(c=>{c.uni.jo=c.uni.jo||'#14110f';c.uni.po=c.uni.po||'#14110f'});
@@ -8021,7 +8022,7 @@ const R2_CREWS=[
  {id:'dredgers',name:'Dredgers',short:'DREDGERS',town:"Gull's Reach",ez:'DREDGERS',boss:'"Mud" Kelly',level:2,target:14,pickup:true,r2:true,r2boss:true,capSim:5,col:'#A55132',logo:'r2rake',T:79,
   uni:R2_UNI,scout:'Clean and heavy. Stacks the box on short yardage. Never quits on a play.',tag:'Salt and grit.',
   pre:['Harbor money stays in the harbor.','We play clean.'],win:'You earned it. No flags here.',lose:'Go on. Tell them who beat you.',
-  mix:(down,togo)=>{if(down===3&&togo>=6)return Math.random()<.5?'deep':'bal';if(togo<=3)return Math.random()<.6?'stack':'bal';return pick(['bal','bal','stack','blitz','deep'])},
+  mix:(down,togo)=>{if(down===3&&togo>=15)return Math.random()<.5?'deep':'bal';if(togo<=7)return Math.random()<.6?'stack':'bal';return pick(['bal','bal','stack','blitz','deep'])},
   roster:hbRoster([['"Mud" Kelly','QB',79],['Huck','RB',78],['Sal','WR',76],['Iris','WR',77],['Pete','TE',78],['Brack','OL',77],['Cole','OL',79]])}];
 R2_CREWS.forEach(c=>{c.uni.jo=c.uni.jo||'#14110f';c.uni.po=c.uni.po||'#14110f';c.alt={jc:'#3A464E',jt:'#A55132',jn:'#E8E2D0',hc:'#A55132',hs:'#E8E2D0',sock:'#3A464E'}});   // away kit: slate with terracotta, used when terracotta clashes with your jersey
 
