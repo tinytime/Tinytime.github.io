@@ -3337,6 +3337,7 @@ body #mu.on .side {
 }
 
 body #mu.on .pn {
+  margin-top: clamp(24px, 10vh, 72px) !important;
   box-sizing: border-box !important;
   position: relative !important;
   inset: auto !important;
@@ -3456,7 +3457,7 @@ body #mu.on .pn .ov b {
 body #mu.on .vs {
   align-self: center !important;
   margin: 0 !important;
-  transform: translateY(-6vh) !important;
+  transform: translateY(-1vh) !important;
   width: clamp(48px, 7vh, 66px) !important;
   height: clamp(48px, 7vh, 66px) !important;
   flex: none !important;
@@ -3619,6 +3620,7 @@ body #mu.on .bot .tap {
     gap: 3px !important;
   }
   body #mu.on .pn {
+    margin-top: clamp(14px, 7vh, 36px) !important;
     width: min(100%, 154px) !important;
     height: clamp(124px, 36vh, 152px) !important;
     padding: 5px 8px !important;
@@ -3640,7 +3642,7 @@ body #mu.on .bot .tap {
     width: 44px !important;
     height: 44px !important;
     font-size: 18px !important;
-    transform: translateY(-4vh) !important;
+    transform: translateY(-1vh) !important;
   }
   body #mu.on .players {
     padding-bottom: 16px !important;
@@ -3706,7 +3708,7 @@ body #mu.on .bot .tap {
     width: 42px !important;
     height: 42px !important;
     font-size: 18px !important;
-    transform: translateY(-4vh) !important;
+    transform: translateY(-1vh) !important;
   }
   body #mu.on .bot {
     width: min(88vw, 360px) !important;
