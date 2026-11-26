@@ -6497,15 +6497,36 @@ const OWB=[
 const HUTM=["A tiny bait shack with a glowing \u91e3 sign.",'The door is padlocked. A note: "GONE FISHING. (Out back. Always.)"'];
 const OWWATER={x0:1,x1:11,y0:21,y1:22,dock:[[4,21],[5,21],[6,21]],bridge:[[9,21],[10,21],[9,22],[10,22]]};
 const OWP=[
- {x:10,y:16,t:'dump',s:1},{x:20,y:16,t:'dump',s:1},{x:21,y:14,t:'crate',s:1},
- {x:12,y:18,t:'vend',s:1,m:['A vending machine. "SYNTH-COLA, 3 CREDITS." Your pockets are empty.']},{x:19,y:18,t:'vend',s:1,m:['A vending machine. Every slot says SOLD OUT in flickering kanji.']},
- {x:14,y:12,t:'lamp',s:1},{x:17,y:12,t:'lamp',s:1},{x:14,y:23,t:'lamp',s:1},{x:17,y:23,t:'lamp',s:1},{x:14,y:31,t:'lamp',s:1},{x:17,y:31,t:'lamp',s:1},
- {x:12,y:22,t:'vent',s:0},{x:19,y:22,t:'vent',s:0},{x:7,y:32,t:'vent',s:0},{x:24,y:32,t:'vent',s:0},{x:10,y:10,t:'vent',s:0},{x:21,y:10,t:'vent',s:0},
- {x:10,y:13,t:'stall',s:1,m:['A street-food stall squeezed into a gap. The cook has four arms. Two are cybernetic.','"Noodles. Rain-proof. Do not ask what is in the broth."']},{x:21,y:17,t:'repair',s:1,m:['A gray-market tech repair stall. Cracked visors, dead implants, a sign: "WE FIX WHAT THE WARRANTY WON\'T."']},{x:9,y:33,t:'stall',s:1,m:['A tiny stall under a hissing steam pipe. The menu is in four languages.','"Skewers, 2 credits. Fresh. Probably."']},{x:22,y:33,t:'repair',s:1,m:['A repair stall piled with chrome limbs and flickering screens.','"Black-market parts? We just call them second-hand."']},{x:11,y:12,t:'hoload',s:1,m:['A hologram ad projector. A smiling idol sells a drink that does not exist.']},{x:20,y:13,t:'hoload',s:1,m:['A hologram ad projector. The ad glitches: "BUY. SMILE. BUY."']},{x:18,y:10,t:'barrier',s:1},{x:12,y:33,t:'barrier',s:1},{x:19,y:33,t:'barrier',s:1},
- {x:20,y:19,t:'cone',s:0},{x:9,y:19,t:'cone',s:0},{x:26,y:21,t:'cone',s:0},{x:6,y:31,t:'cone',s:0},{x:3,y:18,t:'cone',s:0},
- {x:18,y:38,t:'sign',s:1,m:['ROUTE 1  >>  HALE HARBOR','Gate closed. Only Netrunners-cleared runners pass.']},{x:30,y:18,t:'sign',s:1,m:['FREIGHT LINE  >>  SERVICE SUSPENDED','Closed to people. Authorized crates only.']},
- {x:14,y:26,t:'car',o:'v',col:'#27e0ff',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:14,y:27,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']}, {x:17,y:27,t:'car',o:'v',col:'#ff2fa8',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:17,y:28,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']}, {x:4,y:33,t:'car',o:'h',col:'#ffb02e',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:5,y:33,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']}, {x:26,y:32,t:'car',o:'h',col:'#27e0ff',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:27,y:32,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},
- {x:1,y:19,t:'hut',s:1,m:HUTM},{x:2,y:19,t:'none',s:1,m:HUTM},{x:1,y:18,t:'none',s:1,m:HUTM},{x:2,y:18,t:'none',s:1,m:HUTM},{x:2,y:22,t:'kayak',s:1,m:['A little kayak tied to the dock. It has seen better rain.']},{x:10,y:14,t:'none',s:1},{x:10,y:15,t:'none',s:1,m:['A lean-to bolted onto the Glitch Cats wall. Somebody sleeps in here when it rains. It always rains.']},{x:12,y:13,t:'stall',s:1,m:['A skewer stall. Everything is on a stick. Nobody explains what the sticks are.']},{x:1,y:23,t:'fence22',s:1,m:['A chain-link fence. A faded 22 is sprayed across it in paint nobody has touched in two years.','Dante. Number 22. The first Deuce.']},{x:10,y:32,t:'pole',s:1},{x:21,y:32,t:'pole',s:1}
+ // North district: Arena Plaza, Holo Bar (west nightlife), Data Den (east tech)
+ {x:14,y:12,t:'lamp',s:1},{x:17,y:12,t:'lamp',s:1},
+ {x:20,y:10,t:'barrier',s:1},{x:10,y:10,t:'vent',s:0},
+ {x:6,y:9,t:'hoload',s:1,m:['A hologram ad projector. A smiling idol sells a drink that does not exist.']},{x:1,y:9,t:'bench',s:1},
+ {x:25,y:9,t:'hoload',s:1,m:['A hologram ad projector. The ad glitches: "BUY. SMILE. BUY."']},{x:30,y:9,t:'vent',s:0},
+ // Mid-north: Glitch Cats east alley & Scrap Kings west service wall (boulevard & patrol loop clear)
+ {x:10,y:13,t:'stall',s:1,m:['A street-food stall squeezed into a gap. The cook has four arms. Two are cybernetic.','"Noodles. Rain-proof. Do not ask what is in the broth."']},
+ {x:10,y:14,t:'none',s:1},{x:10,y:15,t:'none',s:1,m:['A lean-to bolted onto the Glitch Cats wall. Somebody sleeps in here when it rains. It always rains.']},
+ {x:10,y:16,t:'dump',s:1},
+ {x:21,y:14,t:'crate',s:1},{x:21,y:16,t:'dump',s:1},
+ {x:21,y:17,t:'repair',s:1,m:['A gray-market tech repair stall. Cracked visors, dead implants, a sign: "WE FIX WHAT THE WARRANTY WON\'T."']},
+ // Canal, bait shack, memorial & east freight approach
+ {x:1,y:19,t:'hut',s:1,m:HUTM},{x:2,y:19,t:'none',s:1,m:HUTM},{x:1,y:18,t:'none',s:1,m:HUTM},{x:2,y:18,t:'none',s:1,m:HUTM},
+ {x:2,y:22,t:'kayak',s:1,m:['A little kayak tied to the dock. It has seen better rain.']},
+ {x:3,y:19,t:'bench',s:1},
+ {x:1,y:23,t:'fence22',s:1,m:['A chain-link fence. A faded 22 is sprayed across it in paint nobody has touched in two years.','Dante. Number 22. The first Deuce.']},
+ {x:12,y:22,t:'vent',s:0},{x:14,y:23,t:'lamp',s:1},{x:17,y:23,t:'lamp',s:1},
+ {x:30,y:18,t:'sign',s:1,m:['FREIGHT LINE  >>  SERVICE SUSPENDED','Closed to people. Authorized crates only.']},{x:29,y:19,t:'crate',s:1},
+ // Mid-south: Home & Noodle Vendor, Pharma 24H, Clubhouse (open boulevard & clear Drifters entrance)
+ {x:13,y:29,t:'stall',s:1,m:['A steamy noodle stall under a hissing pipe. The menu is in four languages.','"Skewers and broth, 2 credits. Fresh. Probably."']},
+ {x:17,y:26,t:'car',o:'v',col:'#ff2fa8',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:17,y:27,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},
+ {x:21,y:29,t:'vend',s:1,m:['A vending machine. "SYNTH-COLA, 3 CREDITS." Your pockets are empty.']},
+ {x:27,y:30,t:'bench',s:1},{x:29,y:30,t:'lamp',s:1},
+ // South district: curbside parking, Pixel Palace arcade corner, Pawn & Trade service/repair, South Gate checkpoint
+ {x:2,y:33,t:'car',o:'h',col:'#ffb02e',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:3,y:33,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},
+ {x:26,y:31,t:'car',o:'h',col:'#27e0ff',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:27,y:31,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},
+ {x:10,y:34,t:'pole',s:1},{x:10,y:36,t:'vend',s:1,m:['A vending machine. Every slot says SOLD OUT in flickering kanji.']},{x:8,y:38,t:'bench',s:1},
+ {x:21,y:34,t:'lamp',s:1},{x:21,y:36,t:'repair',s:1,m:['A repair stall piled with chrome limbs and flickering screens.','"Black-market parts? We just call them second-hand."']},
+ {x:28,y:34,t:'crate',s:1},{x:29,y:34,t:'dump',s:1},
+ {x:12,y:38,t:'cone',s:0},{x:18,y:38,t:'sign',s:1,m:['ROUTE 1  >>  HALE HARBOR','Gate closed. Only Netrunners-cleared runners pass.']},{x:19,y:38,t:'barrier',s:1}
 ];
 const OWN=[
  {id:'fanA',civ:'fan',x:18,y:10,d:'u',name:'FAN',t:['Doors open any minute. Row 4 is mine.']},
