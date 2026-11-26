@@ -3481,3 +3481,34 @@ body #menu .ui-menu-build-trigger::after{
   body #mu.on .pn .nm{bottom:18px!important}
   body #mu.on .pn .ov{bottom:16px!important}
 }
+
+
+/* Matchup final visual balance: keep KayKit figures as supporting lower-half
+   field action, align the identity lockup on one baseline, and clear FIRST TO
+   from the team identity pills. */
+@media (orientation:landscape){
+  body #mu.on .mu-player-slot{
+    transform:translateY(4vh) scale(.48)!important;
+    transform-origin:center center!important;
+    z-index:1!important;
+  }
+  body #mu.on .pn .nm,
+  body #mu.on .pn .ov{
+    bottom:clamp(18px,2vh,24px)!important;
+    line-height:20px!important;
+  }
+  body #mu.on .pn .ov{
+    font-size:14px!important;
+  }
+  body #mu.on .first{
+    transform:translateY(-clamp(20px,5vh,32px))!important;
+  }
+}
+@media(max-height:430px) and (orientation:landscape){
+  body #mu.on .mu-player-slot{
+    transform:translateY(4vh) scale(.48)!important;
+  }
+  body #mu.on .first{
+    transform:translateY(-20px)!important;
+  }
+}
