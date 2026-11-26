@@ -3446,3 +3446,38 @@ body #menu .ui-menu-build-trigger::after{
     z-index:1!important;
   }
 }
+
+
+/* Matchup identity lockup: team name and OVR sit together inside one shared
+   lower pill; remove the separate OVR-chip treatment. */
+@media (orientation:landscape){
+  body #mu.on .pn .nm{
+    position:absolute!important;
+    left:calc(11% + 18px)!important;
+    bottom:clamp(18px,2vh,24px)!important;
+    align-self:auto!important;
+    max-width:52%!important;
+    margin:0!important;
+    text-align:left!important;
+    text-shadow:none!important;
+  }
+  body #mu.on .pn .ov{
+    position:absolute!important;
+    right:calc(11% + 18px)!important;
+    bottom:clamp(16px,2vh,22px)!important;
+    align-self:auto!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    color:#F5B841!important;
+    text-shadow:none!important;
+  }
+  body #mu.on .pn.op .ov{color:#4DE1F2!important}
+}
+@media(max-height:430px) and (orientation:landscape){
+  body #mu.on .pn .nm{bottom:18px!important}
+  body #mu.on .pn .ov{bottom:16px!important}
+}
