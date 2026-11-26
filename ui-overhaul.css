@@ -4073,6 +4073,90 @@ h1, h2, h3,
   box-shadow: 0 3px 0 #147f98 !important;
 }
 
+
+/* Playbook v2: no CALL PLAY / SAME PLAY, centered #pbNav above separator,
+   FLIP aligned under #pbTabs, and #gbBtn star meters aligned with #cards */
+#app #sheet #callBtn,
+#app #sheet #sameBtn,
+#app #sheet .pbRow {
+  display: none !important;
+}
+#app #sheet #pbNav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin: 2px 0 4px !important;
+  padding-left: 114px !important;
+  box-sizing: border-box !important;
+}
+#app #sheet #pbNav[hidden] {
+  display: none !important;
+}
+#app #sheet .ui-playbook-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  width: 100% !important;
+  padding: 8px 0 0 !important;
+  padding-left: 0 !important;
+  border-top: 1px solid rgba(77, 225, 242, 0.22) !important;
+  box-sizing: border-box !important;
+}
+#app #sheet .ui-playbook-footer #flipBtn {
+  flex: 0 0 104px !important;
+  width: 104px !important;
+  min-width: 104px !important;
+  max-width: 104px !important;
+  min-height: 42px !important;
+  margin: 0 !important;
+  background: #131620 !important;
+  border: 2px solid #F5B841 !important;
+  border-radius: 10px !important;
+  color: #F5B841 !important;
+}
+#app #sheet .ui-playbook-footer #flipBtn.on {
+  background: #F5B841 !important;
+  color: #131620 !important;
+}
+#app #sheet .ui-playbook-footer #gbBtn {
+  position: static !important;
+  inset: auto !important;
+  flex: 1 1 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  min-height: 42px !important;
+  margin: 0 !important;
+  padding: 5px 10px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  box-sizing: border-box !important;
+}
+#app #sheet .ui-playbook-footer #gbBtn .sr {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+#app #sheet .ui-playbook-footer #gbBtn .sr b {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  font-size: clamp(9px, 1.1vw, 12px) !important;
+}
+#app #sheet .ui-playbook-footer #gbBtn .sr u {
+  flex: 1 1 0 !important;
+  min-width: 16px !important;
+}
+
 /* ==========================================================================
    Pre-Game Matchup Screen (#mu) & On-Screen Playbook Footer Fixes
    ========================================================================== */

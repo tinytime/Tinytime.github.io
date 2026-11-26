@@ -412,13 +412,11 @@
   }
 
   const sheet=document.getElementById('sheet'),nav=document.getElementById('pbNav');
-  const flip=document.getElementById('flipBtn'),call=document.getElementById('callBtn');
-  if(sheet&&nav&&flip&&call&&!sheet.querySelector('.ui-playbook-footer')){
+  const flip=document.getElementById('flipBtn'),gb=document.getElementById('gbBtn');
+  if(sheet&&nav&&flip&&!sheet.querySelector('.ui-playbook-footer')){
    const footer=document.createElement('div');footer.className='ui-playbook-footer';
-   const actions=document.createElement('div');actions.className='ui-playbook-actions';
-   actions.append(flip,call);
-   footer.append(nav,actions);
-   sheet.appendChild(footer);
+   if(gb)footer.append(flip,gb);else footer.append(flip);
+   sheet.append(nav,footer);
   }
 
   const rewriteTruckAchievement=()=>{
