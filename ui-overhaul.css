@@ -4094,7 +4094,16 @@ h1, h2, h3,
 #app #sheet #pbNav[hidden] {
   display: none !important;
 }
+#app #sheet #pbMain {
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+#app #sheet #pbTabs {
+  max-height: 100% !important;
+  overflow-y: auto !important;
+}
 #app #sheet .ui-playbook-footer {
+  position: relative !important;
   display: flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
@@ -4102,8 +4111,18 @@ h1, h2, h3,
   width: 100% !important;
   padding: 8px 0 0 !important;
   padding-left: 0 !important;
-  border-top: 1px solid rgba(77, 225, 242, 0.22) !important;
+  border-top: 0 !important;
   box-sizing: border-box !important;
+}
+#app #sheet .ui-playbook-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 114px;
+  right: 0;
+  height: 1px;
+  background: rgba(77, 225, 242, 0.22);
+  pointer-events: none;
 }
 #app #sheet .ui-playbook-footer #flipBtn {
   flex: 0 0 104px !important;
@@ -4155,6 +4174,81 @@ h1, h2, h3,
 #app #sheet .ui-playbook-footer #gbBtn .sr u {
   flex: 1 1 0 !important;
   min-width: 16px !important;
+}
+
+/* ==========================================================================
+   Section 6: Pre-Snap, In-Match HUD & Fumble (Landscape) — Handoff Spec
+   ========================================================================== */
+/* Unified Scoreboard VS badge + slim STAR PLAY bar */
+#app #hud #bug #tO .brow::before {
+  content: "VS";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  margin-right: 4px;
+  border-radius: 6px;
+  background: #1C2130;
+  border: 1px solid rgba(245, 184, 65, 0.55);
+  color: #F5B841;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+#app #hud #gb {
+  height: 9px !important;
+  background: #0D1420 !important;
+  border: 1px solid rgba(77, 225, 242, 0.4) !important;
+}
+
+/* Segmented radial stamina ring around TURBO */
+#app #hud #turboWrap,
+#app #hud #turboLbl {
+  display: none !important;
+}
+#app #ctl #bTurbo {
+  position: relative !important;
+  background: radial-gradient(circle, #4DE1F2 0%, #26b7cc 100%) !important;
+  color: #131620 !important;
+  border: 0 !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45) !important;
+}
+#app #ctl #bTurbo::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #4DE1F2 0% var(--stamina, 100%),
+    rgba(19, 22, 32, 0.78) var(--stamina, 100%) 100%
+  );
+  -webkit-mask:
+    repeating-conic-gradient(#000 0deg 8deg, transparent 8deg 12deg),
+    radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  pointer-events: none;
+}
+#app #ctl #bTurbo.tired::before {
+  background: conic-gradient(
+    #EF4444 0% var(--stamina, 100%),
+    rgba(19, 22, 32, 0.78) var(--stamina, 100%) 100%
+  );
+}
+
+/* Fumble: upper-center 65% bar + crimson DEFENSE track + cyan RUNNER fill */
+#app #pile #pileBar {
+  top: 40% !important;
+  width: min(65vw, 520px) !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+}
+#app #pile #pileTrack {
+  background: #EF4444 !important;
+}
+#app #pile #pileFill {
+  background: #4DE1F2 !important;
 }
 
 /* ==========================================================================

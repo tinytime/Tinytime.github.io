@@ -5275,7 +5275,7 @@ function updateHud(){
   const live=F&&F.gb&&F.mode==='live';
   {const sp=G.sp,st=starsOnO(),q=st.length?st.map(x=>sp.m[x.name]||0).sort((a,b)=>b-a)[0]:0,rdy=!!sp.ready;$('#gbFill').style.width=(rdy?100:q)+'%';$('#gb').classList.toggle('full',rdy&&!live);$('#gb').classList.toggle('live',!!live)}
   setT('#gbTxt',live?'\u2605 STAR PLAY ACTIVE':(G.sp.ready?'\u2605 STAR PLAY READY \u00b7 '+G.sp.left+' LEFT':(starsOnO().length?'\u2605 STAR PLAY '+Math.round(Math.max(0,...starsOnO().map(x=>G.sp.m[x.name]||0)))+'%':'NO STAR PLAYER')));
-  $('#turboFill').style.height=(F?F.turbo:100)+'%';$('#turboWrap').classList.toggle('tired',!!(F&&F.tired));
+  const _tb=F?F.turbo:100;$('#turboFill').style.height=_tb+'%';$('#turboWrap').classList.toggle('tired',!!(F&&F.tired));const _bt=$('#bTurbo');if(_bt){_bt.style.setProperty('--stamina',_tb+'%');_bt.classList.toggle('tired',!!(F&&F.tired))}
   {const b=$('#bTurbo'),st=((F?F.turbo:100)/100).toFixed(3);if(b._st!==st){b._st=st;b.style.setProperty('--st',st)}b.classList.toggle('tired',!!(F&&F.tired));   // v3.13 B7: stamina ring on TURBO
    const cc=F&&F.mode==='live'&&F.carrier;cdSweep('#bJuke',cc?cc.cdJ||0:0);cdSweep('#bSpin',cc?cc.cdS||0:0);cdSweep('#bStiff',cc?cc.arm||0:0);{const hb=$('#bHurdle'),m=hdMode();hb.classList.toggle('show',!!m);hb.classList.toggle('dive',m==='dive');const tx=m==='dive'?'DIVE':'HURDLE';if(hb.textContent!==tx){hb.textContent=tx;hb.setAttribute('aria-label',tx)}cdSweep('#bHurdle',cc?cc.cdH||0:0)}}   // v3.13 B6: cooldown sweeps
   $('#bStyle').classList.toggle('on',!!(F&&F.carrier&&F.carrier.styleOn));
