@@ -4380,37 +4380,113 @@ body #app #ctl #bTurbo .ui-turbo-txt {
   padding: 2px 7px !important;
 }
 
-/* Scrollable Playbook (no pages, full vertical touch scroll) */
-#app #sheet #pbNav {
+/* Scrollable Playbook (bounded #sheet height so #pbGrid always scrolls) */
+body #app #sheet {
+  position: fixed !important;
+  top: calc(env(safe-area-inset-top, 0px) + 64px) !important;
+  bottom: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+body #app #sheet #pbNav {
   display: none !important;
 }
-#app #sheet #pbMain {
+body #app #sheet #pbMain {
   flex: 1 1 0 !important;
   min-height: 0 !important;
   overflow: hidden !important;
 }
-#app #sheet #pbGrid {
+body #app #sheet #pbGrid {
+  flex: 1 1 0 !important;
   height: 100% !important;
   min-height: 0 !important;
-  overflow-y: auto !important;
+  overflow-y: scroll !important;
   overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch !important;
   touch-action: pan-y !important;
   padding-right: 2px !important;
 }
-#app #sheet #cards {
+body #app #sheet #cards {
   height: auto !important;
   min-height: 0 !important;
   grid-template-rows: none !important;
   grid-auto-rows: minmax(112px, auto) !important;
   overflow: visible !important;
   touch-action: pan-y !important;
-  padding-bottom: 8px !important;
+  padding-bottom: 10px !important;
 }
-#app #sheet #cards .cardWrap,
-#app #sheet #cards .card,
-#app #sheet #cards canvas {
+body #app #sheet #cards .cardWrap,
+body #app #sheet #cards .card,
+body #app #sheet #cards canvas {
+  height: auto !important;
   touch-action: pan-y !important;
+}
+
+/* Error Catcher Screen (#cgBar) — Barlow 900 + matte #131620 palette */
+body #cgBar {
+  background: rgba(19, 22, 32, 0.96) !important;
+  border: 2px solid #F5B841 !important;
+  border-radius: 16px !important;
+  color: #F5F7FA !important;
+  font-family: "Barlow Condensed", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55) !important;
+}
+body #cgBar b {
+  font-family: "Barlow", system-ui, sans-serif !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  color: #F5B841 !important;
+}
+body #cgBar button {
+  background: #1C2130 !important;
+  border: 1.5px solid rgba(77, 225, 242, 0.65) !important;
+  border-radius: 10px !important;
+  color: #4DE1F2 !important;
+  font-family: "Barlow Condensed", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* 4th Down Choice Popup (#fourth) — Barlow 900 + matte #131620 palette */
+body #app #fourth {
+  background: rgba(19, 22, 32, 0.96) !important;
+  border: 2px solid #F5B841 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55) !important;
+}
+body #app #fourth h3 {
+  font-family: "Barlow", system-ui, sans-serif !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  color: #F5B841 !important;
+}
+body #app #fourth p {
+  font-family: "Barlow Condensed", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  color: #D7DDE8 !important;
+}
+body #app #fourth button {
+  background: #1C2130 !important;
+  border: 1.5px solid rgba(77, 225, 242, 0.55) !important;
+  border-radius: 10px !important;
+  color: #F5F7FA !important;
+  font-family: "Barlow Condensed", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+}
+body #app #fourth button.go {
+  background: #4DE1F2 !important;
+  border-color: #4DE1F2 !important;
+  color: #131620 !important;
+  font-weight: 900 !important;
+}
+
+/* Post-Game Win Screen (#steal.screen) — override .screen warm gradient */
+body #steal.screen {
+  background: #131620 !important;
+  background-image: none !important;
 }
 
 /* ==========================================================================
