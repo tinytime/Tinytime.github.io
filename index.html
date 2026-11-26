@@ -6719,7 +6719,7 @@ const HBB=[   // building table
 HBB.forEach(b=>b.room='hb_'+b.id);
 HBB.forEach(b=>Object.assign(b,HB_LAYOUT[b.id]));   // v3.20T: new places and door facing
 // outdoor props: [x,y,kind,solid]
-const HBP=[   // Hale Harbor outdoor props: working harbor clusters, quay lighting, market, boatyard & story props
+const HBP=[   // Hale Harbor outdoor props: intentional working-harbor clusters, clear negative space & story props
  // North quay & Basin causeway focal frame
  {x:18,y:9,t:'lamp',s:1},
  {x:30,y:9,t:'lamp',s:1},
@@ -6736,29 +6736,26 @@ const HBP=[   // Hale Harbor outdoor props: working harbor clusters, quay lighti
  {x:48,y:2,t:'namescrap',s:1,m:["A strip of old name board.", "Every letter gouged out."]},
  {x:47,y:5,t:'skifftrolley',w:2,s:1},
  {x:48,y:9,t:'cart',s:1},
- // West Gut & Fish Market (B03 Clubhouse, B10 Fish Market, B12 The Bilge)
+ // West Gut, Quay & Fish Market (fishbox moved beside yellow NPC hb_oldsalt at 11,20; quay walkway clear)
  {x:4,y:11,t:'dryboat',w:2,c:'#2F8A9A',s:1},
  {x:6,y:16,t:'bench',s:1},
- {x:8,y:22,t:'fishbox',s:1},
- {x:10,y:23,t:'lamp',s:1},
+ {x:11,y:21,t:'fishbox',s:1},
+ {x:9,y:23,t:'lamp',s:1},
  {x:8,y:28,t:'crates',s:1},
  {x:3,y:29,t:'netroll',s:1},
  {x:5,y:31,t:'netrack',w:2,s:1},
- // East Cannery Row & Cargo Yard (B09 Ship's Store, B05 Longshore, B06 Cannery)
+ // East Longshore Hall & Cannery Row (clear open yard between halls; tight wall-anchored service & single east cargo bay by hb_loader)
  {x:42,y:14,t:'crates',s:1},
- {x:48,y:23,t:'crates',s:1},
- {x:47,y:25,t:'barrel',c:'#8A6A3A',s:1},
- {x:42,y:26,t:'netroll',s:1},
- {x:41,y:29,t:'truck',s:1},
- {x:44,y:28,t:'container',w:2,c:'#C2492F',s:1},
- {x:44,y:29,t:'container',w:2,c:'#2F8A9A',s:1},
- {x:47,y:30,t:'container',w:2,c:'#E8B23D',s:1},
- {x:45,y:32,t:'forklift',s:1},
- {x:46,y:34,t:'barrel',c:'#B8643A',s:1},
- {x:46,y:36,t:'crates',s:1},
+ {x:46,y:22,t:'crates',s:1},
+ {x:46,y:23,t:'barrel',c:'#8A6A3A',s:1},
+ {x:47,y:28,t:'container',w:2,c:'#C2492F',s:1},
+ {x:47,y:29,t:'container',w:2,c:'#2F8A9A',s:1},
+ {x:47,y:31,t:'crates',s:1},
+ {x:46,y:32,t:'forklift',s:1},
+ {x:45,y:34,t:'barrel',c:'#B8643A',s:1},
  {x:35,y:34,t:'fishbox',s:1},
  {x:45,y:38,t:'bench',s:1},
- // SW Harbor Market & Chandlery (B14 Rope & Tar — organic 4-stall market, barrel & rope outside Chandlery)
+ // SW Harbor Market & Chandlery (B14 Rope & Tar)
  {x:8,y:37,t:'stall',w:2,c:'#2F8A9A',s:1},
  {x:11,y:37,t:'stall',w:2,c:'#C2492F',s:1},
  {x:14,y:37,t:'stall',w:2,c:'#E8B23D',s:1},
@@ -6771,7 +6768,7 @@ const HBP=[   // Hale Harbor outdoor props: working harbor clusters, quay lighti
  {x:9,y:43,t:'pots',s:1},
  {x:7,y:44,t:'bench',s:1},
  {x:15,y:44,t:'bench',s:1},
- // SE Union Hall & Ferry Quay (B15 Union Hall, ferry boarding dock)
+ // SE Union Hall & Ferry Quay
  {x:33,y:44,t:'netrack',w:2,s:1},
  {x:39,y:43,t:'planter',c:'#E8B23D',s:1},
  {x:39,y:44,t:'lamp',s:1},
