@@ -6744,8 +6744,14 @@ const HBP=[   // Hale Harbor outdoor props: intentional working-harbor clusters,
  {x:8,y:28,t:'crates',s:1},
  {x:3,y:29,t:'netroll',s:1},
  {x:5,y:31,t:'netrack',w:2,s:1},
- // East Longshore Hall & Cannery Row (clear open yard between halls; tight wall-anchored service & single east cargo bay by hb_loader)
+ // Ship's Store Outfitting & Harbor Anchor Square (between Ship's Store and Longshore Hall)
  {x:42,y:14,t:'crates',s:1},
+ {x:45,y:14,t:'barrel',c:'#8A6A3A',s:1},
+ {x:46,y:14,t:'rope',s:0},
+ {x:40,y:16,t:'lamp',s:1},
+ {x:42,y:16,t:'anchor',w:2,h:2,s:1,m:["A cast-iron anchor from the old packet steamer.", "Brass plaque: HALE HARBOR — EST. 1867."]},
+ {x:44,y:16,t:'bench',s:1},
+ // East Longshore Hall & Cannery Row (clear yard between halls; tight wall-anchored service & single east cargo bay by hb_loader)
  {x:46,y:22,t:'crates',s:1},
  {x:46,y:23,t:'barrel',c:'#8A6A3A',s:1},
  {x:47,y:28,t:'container',w:2,c:'#C2492F',s:1},
@@ -6754,7 +6760,11 @@ const HBP=[   // Hale Harbor outdoor props: intentional working-harbor clusters,
  {x:46,y:32,t:'forklift',s:1},
  {x:45,y:34,t:'barrel',c:'#B8643A',s:1},
  {x:35,y:34,t:'fishbox',s:1},
+ // SE Harbor Park — Kids Playground (swings, slide, sandbox + overlooking bench)
  {x:45,y:38,t:'bench',s:1},
+ {x:43,y:39,t:'swings',w:2,s:1,m:["A pair of weathered harbor swings.", "The chains creak in the salt breeze."]},
+ {x:45,y:41,t:'slide',w:2,s:1,m:["A galvanized slide overlooking the harbor.", "Polished bright by a hundred raincoats."]},
+ {x:47,y:42,t:'sandbox',w:2,s:1,m:["A wooden sandbox filled with harbor beach sand.", "Someone built a crooked seawall out of wet sand."]},
  // SW Harbor Market & Chandlery (B14 Rope & Tar)
  {x:8,y:37,t:'stall',w:2,c:'#2F8A9A',s:1},
  {x:11,y:37,t:'stall',w:2,c:'#C2492F',s:1},
@@ -7989,6 +7999,59 @@ function hbBakeProp2(g,p,R){
      g.fillStyle=c;g.beginPath();g.moveTo(X+B*.05,Y+B*.5);g.quadraticCurveTo(cx,Y+B*1.0,X+w-B*.05,Y+B*.5);g.quadraticCurveTo(cx,Y+B*.1,X+B*.05,Y+B*.5);g.closePath();g.fill();g.strokeStyle=ol;g.lineWidth=3;g.stroke();
      g.fillStyle='#f4ecd6';g.beginPath();g.moveTo(X+B*.12,Y+B*.5);g.quadraticCurveTo(cx,Y+B*.4,X+w-B*.12,Y+B*.5);g.quadraticCurveTo(cx,Y+B*.56,X+B*.12,Y+B*.5);g.fill();
      g.strokeStyle='rgba(0,0,0,.4)';g.lineWidth=2;g.beginPath();g.moveTo(X+B*.2,Y+B*.52);g.quadraticCurveTo(cx,Y+B*.78,X+w-B*.2,Y+B*.52);g.stroke();break}
+   case'swings':{ // wooden A-frame harbor swing set (2x1)
+     g.fillStyle='rgba(110,88,58,.42)';g.beginPath();g.ellipse(cx,Y+B*.82,w*.44,B*.16,0,0,7);g.fill();
+     g.fillStyle='rgba(0,0,0,.28)';g.fillRect(X+B*.16,Y+B*.78,w-B*.32,B*.08);
+     g.strokeStyle=ol;g.lineWidth=7;g.lineCap='round';
+     g.beginPath();g.moveTo(X+B*.18,Y+B*.84);g.lineTo(X+B*.28,Y+B*.16);g.lineTo(X+B*.38,Y+B*.84);
+     g.moveTo(X+w-B*.38,Y+B*.84);g.lineTo(X+w-B*.28,Y+B*.16);g.lineTo(X+w-B*.18,Y+B*.84);g.stroke();
+     g.strokeStyle='#7a5736';g.lineWidth=4;g.stroke();
+     g.strokeStyle=ol;g.lineWidth=7;g.beginPath();g.moveTo(X+B*.22,Y+B*.18);g.lineTo(X+w-B*.22,Y+B*.18);g.stroke();
+     g.strokeStyle='#8ca2af';g.lineWidth=3.5;g.stroke();g.lineCap='butt';
+     for(const [ox,sc] of [[.62,'#C2492F'],[1.38,'#E8B23D']]){
+       const sx=X+B*ox;
+       g.strokeStyle='rgba(20,24,28,.75)';g.lineWidth=2;g.beginPath();g.moveTo(sx-B*.12,Y+B*.2);g.lineTo(sx-B*.11,Y+B*.64);g.moveTo(sx+B*.12,Y+B*.2);g.lineTo(sx+B*.11,Y+B*.64);g.stroke();
+       g.fillStyle='rgba(0,0,0,.3)';g.fillRect(sx-B*.13,Y+B*.76,B*.26,B*.06);
+       g.fillStyle=sc;g.fillRect(sx-B*.15,Y+B*.62,B*.3,B*.1);g.strokeStyle=ol;g.lineWidth=2;g.strokeRect(sx-B*.15,Y+B*.62,B*.3,B*.1)}
+     break}
+   case'slide':{ // timber ladder + steel harbor slide (2x1)
+     g.fillStyle='rgba(205,184,140,.5)';g.beginPath();g.ellipse(X+w-B*.35,Y+B*.78,B*.36,B*.16,0,0,7);g.fill();
+     g.fillStyle='rgba(0,0,0,.32)';g.beginPath();g.ellipse(cx,Y+B*.86,w*.42,B*.1,0,0,7);g.fill();
+     g.fillStyle='#6e4d30';g.fillRect(X+B*.18,Y+B*.24,B*.46,B*.62);g.strokeStyle=ol;g.lineWidth=3;g.strokeRect(X+B*.18,Y+B*.24,B*.46,B*.62);
+     g.fillStyle='#966e46';g.fillRect(X+B*.16,Y+B*.2,B*.5,B*.14);g.strokeRect(X+B*.16,Y+B*.2,B*.5,B*.14);
+     g.strokeStyle='#3a2414';g.lineWidth=2.5;for(let i=0;i<3;i++){g.beginPath();g.moveTo(X+B*.22,Y+B*(.42+i*.14));g.lineTo(X+B*.58,Y+B*(.42+i*.14));g.stroke()}
+     g.fillStyle='#3d8898';g.beginPath();g.moveTo(X+B*.64,Y+B*.24);g.lineTo(X+w-B*.14,Y+B*.74);g.lineTo(X+w-B*.28,Y+B*.84);g.lineTo(X+B*.56,Y+B*.38);g.closePath();g.fill();
+     g.strokeStyle=ol;g.lineWidth=3;g.stroke();
+     g.strokeStyle='rgba(255,255,255,.45)';g.lineWidth=2;g.beginPath();g.moveTo(X+B*.63,Y+B*.3);g.lineTo(X+w-B*.22,Y+B*.76);g.stroke();break}
+   case'sandbox':{ // framed beach-sand box with red bucket & yellow shovel (2x1)
+     g.fillStyle='rgba(0,0,0,.32)';g.fillRect(X+B*.1,Y+B*.24,w-B*.16,B*.68);
+     g.fillStyle='#7a5736';g.fillRect(X+B*.08,Y+B*.18,w-B*.16,B*.68);g.strokeStyle=ol;g.lineWidth=3;g.strokeRect(X+B*.08,Y+B*.18,w-B*.16,B*.68);
+     g.fillStyle='#d8c296';g.fillRect(X+B*.18,Y+B*.28,w-B*.36,B*.48);
+     g.fillStyle='rgba(175,148,100,.45)';g.beginPath();g.ellipse(cx-B*.15,Y+B*.54,B*.34,B*.15,0,0,7);g.fill();
+     for(let i=0;i<10;i++){g.fillStyle=i%2?'rgba(255,248,225,.5)':'rgba(140,115,75,.35)';g.fillRect(X+B*(.24+R()*1.45),Y+B*(.32+R()*.38),3,2)}
+     g.fillStyle='#C2492F';g.fillRect(X+B*.42,Y+B*.42,B*.18,B*.18);g.strokeStyle=ol;g.lineWidth=2;g.strokeRect(X+B*.42,Y+B*.42,B*.18,B*.18);
+     g.strokeStyle='#E8B23D';g.lineWidth=3;g.beginPath();g.moveTo(X+B*1.25,Y+B*.42);g.lineTo(X+B*1.46,Y+B*.62);g.stroke();
+     g.fillStyle='#E8B23D';g.fillRect(X+B*1.42,Y+B*.58,B*.12,B*.1);break}
+   case'anchor':{ // cast-iron harbor anchor & chain on a stone plinth (2x2)
+     const hh=(p.h||2)*B,my=Y+hh/2;
+     g.fillStyle='rgba(0,0,0,.38)';g.fillRect(X+B*.14,Y+B*.22,w-B*.22,hh-B*.26);
+     g.fillStyle='#5c666e';g.fillRect(X+B*.12,Y+B*.14,w-B*.24,hh-B*.28);g.strokeStyle=ol;g.lineWidth=3;g.strokeRect(X+B*.12,Y+B*.14,w-B*.24,hh-B*.28);
+     g.fillStyle='#78848c';g.fillRect(X+B*.2,Y+B*.22,w-B*.4,hh-B*.44);g.strokeStyle='rgba(255,255,255,.22)';g.lineWidth=2;g.strokeRect(X+B*.2,Y+B*.22,w-B*.4,hh-B*.44);
+     for(const [bx,by] of [[.22,.24],[1.78,.24],[.22,1.72],[1.78,1.72]]){g.fillStyle='#252e34';g.beginPath();g.arc(X+B*bx,Y+B*by,B*.06,0,7);g.fill()}
+     g.strokeStyle='#7c4a2e';g.lineWidth=5;g.beginPath();g.ellipse(cx-B*.34,my+B*.34,B*.26,B*.18,.2,0,7);g.stroke();
+     g.strokeStyle='#a86a42';g.lineWidth=2;g.setLineDash([4,4]);g.beginPath();g.ellipse(cx-B*.34,my+B*.34,B*.26,B*.18,.2,0,7);g.stroke();g.setLineDash([]);
+     g.save();g.translate(cx,my-B*.02);g.rotate(-.55);
+     g.strokeStyle=ol;g.lineWidth=11;g.lineCap='round';
+     g.beginPath();g.moveTo(0,-B*.46);g.lineTo(0,B*.42);g.moveTo(-B*.32,-B*.26);g.lineTo(B*.32,-B*.26);g.stroke();
+     g.beginPath();g.arc(0,B*.08,B*.44,.32,Math.PI-.32);g.stroke();
+     g.strokeStyle='#2a353e';g.lineWidth=7;
+     g.beginPath();g.moveTo(0,-B*.46);g.lineTo(0,B*.42);g.moveTo(-B*.32,-B*.26);g.lineTo(B*.32,-B*.26);g.stroke();
+     g.beginPath();g.arc(0,B*.08,B*.44,.32,Math.PI-.32);g.stroke();
+     g.strokeStyle='#5a6e7d';g.lineWidth=2;g.beginPath();g.moveTo(-2,-B*.44);g.lineTo(-2,B*.38);g.stroke();
+     g.strokeStyle='#2a353e';g.lineWidth=4;g.beginPath();g.arc(0,-B*.56,B*.11,0,7);g.stroke();
+     g.fillStyle='#2a353e';for(const sgn of [-1,1]){g.beginPath();g.moveTo(sgn*B*.42,B*.18);g.lineTo(sgn*B*.52,B*.04);g.lineTo(sgn*B*.32,B*.12);g.closePath();g.fill()}
+     g.restore();g.lineCap='butt';
+     g.fillStyle='#d8a648';g.fillRect(cx-B*.28,Y+hh-B*.26,B*.56,B*.11);g.strokeStyle=ol;g.lineWidth=1.5;g.strokeRect(cx-B*.28,Y+hh-B*.26,B*.56,B*.11);break}
   }
   g.restore()}
 
