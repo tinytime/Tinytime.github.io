@@ -396,3 +396,13 @@ The owner’s follow-up landscape corrections are implemented and internally ver
 - Artifact: [Run #523 artifact 15077298779](https://github.com/tinytime/Tinytime.github.io/actions/runs/45733097704/artifacts/15077298779), containing 57 files including the two matchup screenshots and machine-readable QA report.
 
 No golden snapshots were changed. This is internal automated QA plus direct screenshot inspection. The pre-game layout is ready for inclusion in Claude’s independent review; overall UI Overhaul approval remains pending Claude review and final owner approval.
+
+
+## Location-specific matchup follow-up — Run #528 (2026-11-26)
+
+- Application and QA commit: bad86fcbfb7872babd11769b292b0d94ab807fb8 on UI-Overhaul.
+- Browser QA [Run #528](https://github.com/tinytime/Tinytime.github.io/actions/runs/45739383237) passed 312/312 checks with no page, console, or same-origin errors. Artifact ID: 15079524332.
+- Added four separate field-environment evidence renders to the artifact: Vapor City skyline, Hale Harbor docks, Gull's Reach lighthouse/coast, and The Spillway concrete channel. All four were visually inspected and are distinct while retaining the football field as the foreground.
+- The per-team player lineup is two medium KayKit rigs and one larger centre running back; the large rig uses the standing Idle_A clip, while the other two use distinct celebratory and push-up clips. All six models report ready.
+- Team-colour overlays use 0.28 alpha. The compact 844×390 and wide 1536×611 screenshots were inspected; cards, player stages, footer controls and corner pills remain within the tested viewport.
+- Include these location and scale changes in Claude's independent review. Keep overall UI Overhaul approval pending Claude review and explicit owner approval.

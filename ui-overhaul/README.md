@@ -368,4 +368,7 @@ The implementation summary and Stage Two review package are the source of truth 
 - Reduced the home/away colour washes to restrained 0.28-alpha gradients so the environment remains visible.
 - Added a deliberate per-team player hierarchy: the centre running back is the large figure; quarterback and receiver are medium figures. The renderer scales the actual KayKit rigs as well as their display slots.
 - Added resize redraw handling and browser assertions for scene selection, tint strength, two-medium/one-large distribution, and per-model scale.
-- Implementation is committed on UI-Overhaul; fresh browser QA and screenshot inspection are pending. No gameplay, team data, uniforms, model assets, or golden snapshots were changed.
+- Browser QA Run #527 passed 311/311 checks on commit 1e0f872993de3d0d342a200b9a25b6cb5e0e7e44.
+- Browser QA Run #528 passed 312/312 checks on commit bad86fcbfb7872babd11769b292b0d94ab807fb8; no failed checks, page exceptions, console errors, or same-origin request failures. Artifact 15079524332 contains the full evidence bundle and four separate rendered field samples.
+- Visually inspected the 844×390 and 1536×611 matchup captures plus the Vapor City, Hale Harbor, Gull's Reach and The Spillway field renders. Team cards, six player stages and footer stay within the tested viewports; the centre running back is the larger standing figure, flanked by two medium teammates; the town environment remains visible beneath subtle team-colour washes.
+- Implementation and QA are on UI-Overhaul only. No gameplay rules, team data, uniform assets, KayKit model assets, or golden snapshots were changed. Internal QA and visual inspection are complete; independent Claude review and final owner approval remain outstanding.
