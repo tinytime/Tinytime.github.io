@@ -86,7 +86,18 @@
    const activate=(key,focus=false)=>{for(const [name,panel] of Object.entries(panels)){const active=name===key;panel.hidden=!active;const button=tabs.querySelector('[data-team-tab="'+name+'"]');button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1}if(focus)tabs.querySelector('[aria-selected="true"]')?.focus()};
    [['identity','IDENTITY'],['uniform','UNIFORM'],['trails','TRAILS']].forEach(([key,label])=>{const button=document.createElement('button');button.type='button';button.className='ui-team-tab';button.dataset.teamTab=key;button.setAttribute('role','tab');button.textContent=label;button.addEventListener('click',()=>activate(key));button.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;event.preventDefault();const keys=['identity','uniform','trails'],next=keys[(keys.indexOf(key)+(event.key==='ArrowRight'?1:2))%3];activate(next,true)});tabs.appendChild(button)});
    preview.after(tabs);tabs.after(content);
-   const identity=team.querySelector('.ui-team-identity');if(identity)panels.identity.appendChild(identity);
+   const identity=team.querySelector('.ui-team-identity');
+   if(identity){
+    if(!identity.querySelector('.ui-team-box')){
+     const nl=identity.querySelector('[data-ui-role="team-name-label"]'),ni=identity.querySelector('#tName'),ll=identity.querySelector('[data-ui-role="team-logo-label"]'),lp=identity.querySelector('.lprev');
+     if(nl&&ni&&ll&&lp){
+      const b1=document.createElement('div');b1.className='ui-team-box';b1.append(nl,ni);
+      const b2=document.createElement('div');b2.className='ui-team-box';b2.append(ll,lp);
+      identity.replaceChildren(b1,b2);
+     }
+    }
+    panels.identity.appendChild(identity);
+   }
    const directLabels=[...team.children].filter(el=>el.classList?.contains('lbl'));
    const takeLabel=text=>directLabels.find(el=>el.textContent.trim()===text);
    const jerseyLabel=takeLabel('JERSEY STYLE'),pantsLabel=takeLabel('PANTS STYLE'),colorsLabel=takeLabel('COLORS (TAP A SLOT, THEN A COLOR)');
@@ -127,9 +138,9 @@
    const team=document.getElementById('team');if(!team||team.querySelector('.ui-team-head'))return;
    const heading=team.querySelector(':scope > h2');if(!heading)return;
    const header=document.createElement('header');header.className='ui-team-head';
-   const back=document.createElement('button');back.type='button';back.className='ui-team-back';back.textContent='← BACK';back.setAttribute('aria-label','Back to menu without using SAVE & EQUIP');
+   const back=document.createElement('button');back.type='button';back.className='ui-team-back';back.textContent='←';back.setAttribute('aria-label','Back to menu without using SAVE & EQUIP');
    const badge=document.createElement('span');badge.className='ui-team-upg';badge.setAttribute('role','status');
-   const sync=()=>{const source=byId('owObj'),raw=source&&source.textContent||'',match=raw.match(/UPG\s+(\d+)/i);badge.textContent='UPG '+(match?match[1]:'0')};
+   const sync=()=>{const source=byId('owObj'),raw=source&&source.textContent||'',match=raw.match(/UPG\s+(\d+)/i);badge.innerHTML='<small>UPG</small><b>'+(match?match[1]:'0')+'</b>'};
    back.addEventListener('click',()=>byId('tBack')?.click());
    header.append(back,heading,badge);team.insertBefore(header,team.firstChild);sync();
    if(window.MutationObserver){const source=byId('owObj');if(source)new MutationObserver(sync).observe(source,{childList:true,subtree:true,characterData:true})}
