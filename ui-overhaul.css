@@ -3230,3 +3230,5 @@ body #menu .ui-menu-build-trigger::after{
     transform:translateY(18px) scale(.88)!important;
   }
 }
+
+/* Browser QA syntax repair trigger; no visual change. */
