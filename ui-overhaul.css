@@ -4209,10 +4209,10 @@ h1, h2, h3,
 body #app #ctl #bTurbo {
   position: absolute !important;
   z-index: 2 !important;
-  overflow: visible !important;
-  background: radial-gradient(circle, #4DE1F2 0%, #26b7cc 100%) !important;
-  color: #131620 !important;
-  border: 2px solid #131620 !important;
+  overflow: hidden !important;
+  background: #131620 !important;
+  color: #F5F7FA !important;
+  border: 2.5px solid #4DE1F2 !important;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45) !important;
 }
 body #app #ctl #bTurbo::before,
@@ -4220,38 +4220,94 @@ body #app #ctl #bTurbo::after {
   content: none !important;
   display: none !important;
 }
-body #app #ctl #bTurbo .ui-turbo-ring {
+body #app #ctl #bTurbo .ui-turbo-fill {
   position: absolute !important;
-  inset: -11px !important;
-  width: calc(100% + 22px) !important;
-  height: calc(100% + 22px) !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 100%;
+  background: linear-gradient(180deg, #4DE1F2 0%, #1ea6be 100%) !important;
+  transition: height 0.06s linear !important;
   pointer-events: none !important;
-  overflow: visible !important;
+  z-index: 0 !important;
 }
-body #app #ctl #bTurbo .ui-turbo-ring path {
-  fill: none !important;
-  stroke: #4DE1F2 !important;
-  stroke-width: 5.5 !important;
-  stroke-linecap: round !important;
-  transition: opacity 0.08s linear !important;
+body #app #ctl #bTurbo.tired {
+  border-color: #EF4444 !important;
 }
-body #app #ctl #bTurbo.tired .ui-turbo-ring path {
-  stroke: #EF4444 !important;
+body #app #ctl #bTurbo.tired .ui-turbo-fill {
+  background: linear-gradient(180deg, #EF4444 0%, #b91c1c 100%) !important;
+}
+body #app #ctl #bTurbo .ui-turbo-txt {
+  position: relative !important;
+  z-index: 1 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75) !important;
 }
 
 /* Fumble: upper-center 65% bar + crimson DEFENSE track + cyan RUNNER fill */
+#app #pile #pileTitle {
+  top: 24% !important;
+}
+#app #pile #pileSub {
+  top: 36% !important;
+  z-index: 4 !important;
+}
 #app #pile #pileBar {
-  top: 40% !important;
+  top: 50% !important;
   width: min(65vw, 520px) !important;
   left: 50% !important;
   right: auto !important;
   transform: translateX(-50%) !important;
+}
+#app #pile #pileT:not(:empty) {
+  top: calc(50% + 36px) !important;
 }
 #app #pile #pileTrack {
   background: #EF4444 !important;
 }
 #app #pile #pileFill {
   background: #4DE1F2 !important;
+}
+
+/* ==========================================================================
+   Section 7: Defense Selection, Sim, Achievement Toast & Post-Game
+   ========================================================================== */
+#app #dcall .row > button {
+  background: #131620 !important;
+  border-radius: 14px !important;
+  padding: 10px 8px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+#app #dcall .row > button .dco {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  margin-top: 8px !important;
+}
+#app #dcall .row > button .dco-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 3px 7px !important;
+  border-radius: 6px !important;
+  background: #1C2130 !important;
+}
+#app #dcall .row > button .dco-label {
+  color: #9BA8BC !important;
+  font-size: 9px !important;
+  letter-spacing: 0.08em !important;
+}
+#app #dcall .row > button .dco-value {
+  color: #F5F7FA !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+}
+#app #tick #tkPlay {
+  bottom: max(16px, env(safe-area-inset-bottom, 0px)) !important;
+  background: rgba(19, 22, 32, 0.96) !important;
+  border: 1.5px solid rgba(77, 225, 242, 0.45) !important;
+  border-radius: 12px !important;
 }
 
 /* ==========================================================================
