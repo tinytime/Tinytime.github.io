@@ -11358,6 +11358,35 @@ muEl=function(){
  #mu:not([hidden]) .top .town,#mu:not([hidden]) .top .tag{font-size:11px!important;padding:3px 9px!important}
 }
 
+/* Owner landscape correction: free the upper edge, give the models a real stage,
+   and keep town/mode pills in the lower outside corners. */
+@media(orientation:landscape){
+ #mu.on .top{position:absolute!important;top:auto!important;right:0!important;bottom:max(8px,env(safe-area-inset-bottom))!important;left:0!important;inset-block-start:auto!important;inset-block-end:max(8px,env(safe-area-inset-bottom))!important;z-index:8!important;display:flex!important;justify-content:space-between!important;align-items:flex-end!important;padding:0 max(12px,env(safe-area-inset-left)) 0 max(12px,env(safe-area-inset-right))!important;pointer-events:none!important}
+ #mu.on .top .town,#mu.on .top .tag{max-width:25vw!important;padding:4px 12px!important;font-size:clamp(11px,1.5vw,16px)!important}
+ #mu.on .mid{padding:7px clamp(12px,3vw,34px) 78px!important;grid-template-columns:minmax(0,1fr) clamp(42px,5vw,62px) minmax(0,1fr)!important}
+ #mu.on .side{gap:3px!important}
+ #mu.on .pn{width:min(100%,176px)!important;height:clamp(104px,29vh,132px)!important;min-height:104px!important;max-height:132px!important;padding:5px 1px!important;gap:2px!important;border-width:2px!important;border-radius:18px!important;overflow:visible!important}
+ #mu.on .pn .lg{width:clamp(60px,13vh,76px)!important;height:clamp(60px,13vh,76px)!important;flex:none!important;margin:0!important;padding:0!important}
+ #mu.on .pn .lg svg{width:116%!important;height:116%!important;max-width:none!important;max-height:none!important}
+ #mu.on .pn .nm{font-size:clamp(15px,2.5vh,21px)!important;line-height:1!important}
+ #mu.on .pn .ov{font-size:12px!important;padding:3px 9px!important}
+ #mu.on .players{min-height:0!important;flex:1 1 auto!important;align-items:flex-end!important;overflow:visible!important;padding:0 0 2px!important}
+ #mu.on .mu-player-slot{height:100%!important;min-height:104px!important;max-width:clamp(82px,11vw,150px)!important;overflow:visible!important}
+ #mu.on .mu-player{width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important;image-rendering:auto!important}
+ #mu.on .bot{bottom:5px!important;width:min(42vw,400px)!important;gap:3px!important}
+ #mu.on .first{font-size:12px!important;padding:3px 12px!important}
+ #mu.on .bar{height:8px!important}
+ #mu.on .bot .tap{min-height:29px!important;padding:4px 20px!important;font-size:14px!important}
+}
+@media(max-height:430px) and (orientation:landscape){
+ #mu.on .mid{padding-top:4px!important;padding-bottom:70px!important}
+ #mu.on .pn{height:clamp(100px,28vh,120px)!important;min-height:100px!important}
+ #mu.on .pn .lg{width:clamp(56px,12vh,66px)!important;height:clamp(56px,12vh,66px)!important}
+ #mu.on .mu-player-slot{min-height:96px!important}
+ #mu.on .top{bottom:6px!important}
+ #mu.on .bot{bottom:4px!important}
+}
+
 `;
  document.head.appendChild(st);const d=document.createElement('div');d.id='mu';
  d.innerHTML='<canvas class="mu-arena" aria-hidden="true"></canvas><div class="split"><i class="hl"></i><i class="hr"></i><i class="sl"></i></div><div class="top"><span class="town"></span><span class="tag"></span></div><div class="mid"><div class="side home-side"><div class="pn my"><div class="lg"></div><div class="nr"><div class="nm"></div></div><div class="ov"></div></div><div class="players"></div></div><div class="vs">VS</div><div class="side away-side"><div class="pn op"><div class="lg"></div><div class="nr"><div class="nm"></div></div><div class="ov"></div></div><div class="players"></div></div></div><div class="bot"><div class="first"></div><div class="bar"><i></i></div><button class="tap" type="button">LOADING</button></div>';
