@@ -4206,33 +4206,37 @@ h1, h2, h3,
 #app #hud #turboLbl {
   display: none !important;
 }
-#app #ctl #bTurbo {
+body #app #ctl #bTurbo {
   position: absolute !important;
   z-index: 2 !important;
   overflow: visible !important;
   background: radial-gradient(circle, #4DE1F2 0%, #26b7cc 100%) !important;
   color: #131620 !important;
-  border: 3px solid #131620 !important;
+  border: 2px solid #131620 !important;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45) !important;
 }
-#app #ctl #bTurbo::before {
-  content: "";
-  position: absolute;
-  inset: -9px;
-  z-index: -1;
-  border-radius: 50%;
-  background: conic-gradient(
-    #4DE1F2 0% var(--stamina, 100%),
-    rgba(19, 22, 32, 0.88) var(--stamina, 100%) 100%
-  );
-  border: 2px solid rgba(19, 22, 32, 0.92);
-  pointer-events: none;
+body #app #ctl #bTurbo::before,
+body #app #ctl #bTurbo::after {
+  content: none !important;
+  display: none !important;
 }
-#app #ctl #bTurbo.tired::before {
-  background: conic-gradient(
-    #EF4444 0% var(--stamina, 100%),
-    rgba(19, 22, 32, 0.88) var(--stamina, 100%) 100%
-  );
+body #app #ctl #bTurbo .ui-turbo-ring {
+  position: absolute !important;
+  inset: -11px !important;
+  width: calc(100% + 22px) !important;
+  height: calc(100% + 22px) !important;
+  pointer-events: none !important;
+  overflow: visible !important;
+}
+body #app #ctl #bTurbo .ui-turbo-ring path {
+  fill: none !important;
+  stroke: #4DE1F2 !important;
+  stroke-width: 5.5 !important;
+  stroke-linecap: round !important;
+  transition: opacity 0.08s linear !important;
+}
+body #app #ctl #bTurbo.tired .ui-turbo-ring path {
+  stroke: #EF4444 !important;
 }
 
 /* Fumble: upper-center 65% bar + crimson DEFENSE track + cyan RUNNER fill */
