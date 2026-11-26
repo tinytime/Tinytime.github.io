@@ -3173,3 +3173,6 @@ body #menu .ui-menu-build-trigger::after{
   body #mu:not([hidden]) .pn{height:150px!important;max-height:150px!important;width:min(100%,190px)!important}
   body #mu:not([hidden]) .pn .lg{width:100px!important;height:100px!important}
 }
+
+/* Keep the defensive play-by-play surface at its tested minimum height. */
+#tkPlay{min-height:36px!important;box-sizing:border-box}
