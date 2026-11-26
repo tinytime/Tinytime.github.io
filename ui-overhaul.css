@@ -3155,7 +3155,7 @@ body #menu .ui-menu-build-trigger::after{
 /* Pre-game landscape fit correction: compact the footer lane, give team marks
    real prominence, and keep every 3D player stage clear of FIRST TO. */
 @media (orientation:landscape){
-  body #mu:not([hidden]) .mid{padding-bottom:122px!important}
+  body #mu:not([hidden]) .mid{padding-bottom:140px!important}
   body #mu:not([hidden]) .pn{
     height:clamp(180px,36vh,220px)!important;
     min-height:180px!important;
@@ -3179,7 +3179,7 @@ body #menu .ui-menu-build-trigger::after{
   body #mu:not([hidden]) .pn .ov{font-size:clamp(13px,1.9vh,17px)!important}
 }
 @media(max-height:430px) and (orientation:landscape){
-  body #mu:not([hidden]) .mid{padding-top:7px!important;padding-bottom:106px!important}
+  body #mu:not([hidden]) .mid{padding-top:7px!important;padding-bottom:114px!important}
   body #mu:not([hidden]) .pn{
     height:clamp(180px,36vh,190px)!important;
     min-height:180px!important;
