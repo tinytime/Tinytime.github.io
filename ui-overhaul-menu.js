@@ -501,7 +501,7 @@
    if(menu){menu.querySelector('[data-tab="menu"]')?.click();menu.hidden=true}
    title.hidden=false;returnToTitle=false;
   };
-  const openTitleSettings=()=>{
+  const openTitleSettings=()=>{setPreGameSettingsMode(true);
    returnToTitle=true;
    title.hidden=true;
    if(typeof window.SG?.owShow==='function')window.SG.owShow();
@@ -520,12 +520,24 @@
     setPreGameSettingsMode(true);
    });
   };
-  title.querySelector('#uiTitleStart').addEventListener('click',()=>{
+  const bindPress=(el)=>{
+   if(!el)return;
+   const on=()=>el.classList.add('is-pressed');
+   const off=()=>el.classList.remove('is-pressed');
+   el.addEventListener('pointerdown',on);
+   el.addEventListener('pointerup',off);
+   el.addEventListener('pointercancel',off);
+   el.addEventListener('pointerleave',off);
+  };
+  const startBtn=title.querySelector('#uiTitleStart');
+  const setBtn=title.querySelector('#uiTitleSettings');
+  bindPress(startBtn);bindPress(setBtn);
+  startBtn.addEventListener('click',()=>{
    setPreGameSettingsMode(false);
    title.hidden=true;
    if(typeof window.SG?.owShow==='function')window.SG.owShow();
   });
-  title.querySelector('#uiTitleSettings').addEventListener('click',openTitleSettings);
+  setBtn.addEventListener('click',openTitleSettings);
   document.addEventListener('click',event=>{
    if(!returnToTitle)return;
    const target=event.target instanceof Element?event.target:null;
