@@ -4083,6 +4083,7 @@ function renderBody(g,o){
     else if(mk==='power'){blockPose({x:flip,y:-1},1.6)}
     else if(mk==='spin'){for(const A of [A1,A2])setArm(A,{x:A.sh.x+(A===A1?-2.6:2.6)*S,y:A.sh.y+.4*S})}
   }
+  if(o.bothArmsDir){for(const A of [A1,A2])setArm(A,{x:A.sh.x+o.bothArmsDir.x*3.6*S,y:A.sh.y+o.bothArmsDir.y*3.6*S-.3*S},{x:A.sh.x+o.bothArmsDir.x*1.8*S,y:A.sh.y+o.bothArmsDir.y*1.8*S})}
   if(o.armDir){const A=bside>0?A1:A2;setArm(A,{x:A.sh.x+o.armDir.x*3.6*S,y:A.sh.y+o.armDir.y*3.6*S-.3*S},{x:A.sh.x+o.armDir.x*1.8*S,y:A.sh.y+o.armDir.y*1.8*S})}
   if(o.hasBall){
     if(o.styleOn&&!o.armDir){
@@ -11240,16 +11241,16 @@ function muArenaPaint(cv,town){
  for(const side of [0,1]){const x=side?w*.91:w*.09,y=h*.13;g.save();g.globalAlpha=.85;const beam=g.createRadialGradient(x,y,2,x,y,h*.58);beam.addColorStop(0,muRGBA(side?tc2:tc,.32));beam.addColorStop(1,'rgba(10,12,20,0)');g.fillStyle=beam;g.beginPath();g.moveTo(x-12,y);g.lineTo(side?w*.42:w*.58,h*.78);g.lineTo(side?w*1.08:-w*.08,h*.78);g.closePath();g.fill();g.fillStyle='#dce8ef';for(let j=0;j<5;j++){g.beginPath();g.arc(x+(j-2)*7,y,2.1,0,7);g.fill()}g.restore()}
  const turf=g.createLinearGradient(0,horizon,0,h);turf.addColorStop(0,'#263f3a');turf.addColorStop(1,'#101e20');g.fillStyle=turf;g.fillRect(0,horizon,w,h-horizon);
  g.save();g.globalAlpha=.16;for(let y=horizon;y<h;y+=Math.max(12,h*.035)){g.fillStyle=Math.round(y)%2?'#a8c6ad':'#061313';g.fillRect(0,y,w,Math.max(2,h*.008))}g.restore();
- g.strokeStyle='rgba(231,239,232,.45)';g.lineWidth=Math.max(1,w*.0015);for(let i=0;i<=10;i++){const y=horizon+(h-horizon)*i/10;g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();for(let j=0;j<28;j++){const x=w*j/27;g.beginPath();g.moveTo(x,y-3);g.lineTo(x,y+3);g.stroke()}}
+ g.strokeStyle='rgba(231,239,232,.30)';g.lineWidth=Math.max(1,w*.0015);for(let i=0;i<=6;i++){const y=horizon+(h-horizon)*i/6;g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();for(let j=0;j<14;j++){const x=w*j/13;g.beginPath();g.moveTo(x,y-3);g.lineTo(x,y+3);g.stroke()}}
  g.strokeStyle='rgba(245,248,240,.48)';g.lineWidth=2;g.strokeRect(w*.055,horizon+8,w*.89,h-horizon-16);
- g.save();g.globalAlpha=.28;g.strokeStyle='#b5c5c7';g.lineWidth=1;for(let x=0;x<w;x+=13){g.beginPath();g.moveTo(x,h*.29);g.lineTo(x,h*.48);g.stroke()}for(let y=h*.30;y<h*.48;y+=13){g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke()}g.restore();
- g.fillStyle='rgba(19,22,32,.55)';g.fillRect(w*.34,h*.06,w*.32,h*.075);g.strokeStyle=muRGBA(tc,.65);g.lineWidth=2;g.strokeRect(w*.34,h*.06,w*.32,h*.075);g.fillStyle='#f4f5f7';g.font='800 '+Math.max(10,Math.min(18,w*.018))+'px sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText(String(town||'ARENA').toUpperCase(),w*.5,h*.097);
+ g.save();g.globalAlpha=.13;g.strokeStyle='#b5c5c7';g.lineWidth=1;for(let x=0;x<w;x+=13){g.beginPath();g.moveTo(x,h*.29);g.lineTo(x,h*.48);g.stroke()}for(let y=h*.30;y<h*.48;y+=13){g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke()}g.restore();
+ 
 }
 function muPickThree(list){const src=(list||[]).filter(Boolean),positions=['QB','RB','WR'];return positions.map((pos,i)=>src.find(p=>p.pos===pos||p.pos===('WR'+(i===2?'2':'1')))||src[i]||src[0]).filter(Boolean).slice(0,3)}
 function muDrawPlayer(canvas,player,uni,pose,index){
  if(!canvas||!player)return;const dpr=Math.min(window.devicePixelRatio||1,2),w=canvas.clientWidth||76,h=canvas.clientHeight||116;if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr)}
- const g=canvas.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,w,h);const t=performance.now()/1000+index*.7,look=lookOf(player);
- try{renderPerson(g,{art:pose!=='pushup',x:w/2,y:h-5,S:Math.min((h-10)/18.5,(w-10)/17),view:'f',flip:1,speed:0,phi:pose==='idle'?Math.sin(t*2)*.12:0,cx:0,sa:0,uni,look,gear:null,num:player.jn!==undefined?player.jn:(player.num!==undefined?player.num:[7,22,12][index]),star:false,t,hasBall:false,preview:pose!=='pushup',celeb:pose==='celebrate'?1.2:0,lying:pose==='pushup',stance:pose==='idle'})}catch(e){try{console.warn('matchup player render',e)}catch(_){}}
+ const g=canvas.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,w,h);const t=performance.now()/1000+index*.7,look=lookOf(player),push=pose==='pushup',S=Math.min((h-6)/(push?22:18.5),(w-10)/(push?24:17)),y=push?h-4*S-2:h-2.5*S-2;
+ try{renderPerson(g,{art:false,x:w/2,y,S,view:'f',flip:1,speed:0,phi:pose==='idle'?Math.sin(t*2)*.12:0,cx:0,sa:0,uni,look,gear:null,num:player.jn!==undefined?player.jn:(player.num!==undefined?player.num:[7,22,12][index]),star:false,t,hasBall:false,preview:false,lying:push,stance:pose==='idle',bothArmsDir:pose==='celebrate'?{x:0,y:-1}:null})}catch(e){try{console.warn('matchup player render',e)}catch(_){}}
 }
 function muBuildPlayers(side,list,uni){const wrap=side.querySelector('.players');wrap.innerHTML='';['celebrate','pushup','idle'].forEach((pose,i)=>{const p=muPickThree(list)[i];if(!p)return;const slot=document.createElement('div');slot.className='mu-player-slot pose-'+pose;slot.dataset.pose=pose;const cv=document.createElement('canvas');cv.className='mu-player';cv.setAttribute('aria-label',pose+' player');slot.appendChild(cv);const num=document.createElement('span');num.className='mu-number';num.textContent='#'+(p.jn!==undefined?p.jn:(p.num!==undefined?p.num:[7,22,12][i]));slot.appendChild(num);wrap.appendChild(slot);muDrawPlayer(cv,p,uni,pose,i)})}
 muEl=function(){
@@ -11266,9 +11267,9 @@ muEl=function(){
 #mu .top .tag{border-color:var(--b)}
 #mu .mid{position:relative;z-index:2;flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 62px minmax(0,1fr);align-items:stretch;padding:clamp(8px,2vh,18px) clamp(8px,3vw,28px) 0;gap:4px}
 #mu .side{min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:clamp(5px,1.2vh,12px)}
-#mu .pn{width:min(100%,205px);height:clamp(154px,37vh,218px);flex:none;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:9px 10px;background:#131620;border:3px solid var(--tc);border-radius:27px;box-shadow:0 8px 20px rgba(0,0,0,.28)}
+#mu .pn{width:min(100%,205px);height:clamp(164px,39vh,218px);flex:none;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:9px 10px;background:#131620;border:3px solid var(--tc);border-radius:27px;box-shadow:0 8px 20px rgba(0,0,0,.28)}
 #mu .pn.my{--tc:#F5B841}#mu .pn.op{--tc:#4DE1F2}
-#mu .lg{position:static;width:clamp(55px,11vh,104px);height:clamp(55px,11vh,104px);display:flex;align-items:center;justify-content:center;opacity:1;filter:none;pointer-events:none}
+#mu .lg{position:static;width:clamp(64px,12vh,104px);height:clamp(64px,12vh,104px);display:flex;align-items:center;justify-content:center;opacity:1;filter:none;pointer-events:none}
 #mu .lg svg{width:100%;height:100%;display:block}#mu .nr{display:flex;align-items:center;justify-content:center;max-width:100%;width:100%;position:relative;z-index:1}
 #mu .nm{font-size:clamp(17px,2.7vh,30px);font-weight:900;letter-spacing:.02em;text-align:center;line-height:.98;text-shadow:none;color:#fff;max-width:100%;word-break:normal;padding:0;overflow-wrap:anywhere}
 #mu .ov{font-size:clamp(12px,1.8vh,17px);font-weight:900;line-height:1.1;color:#131620;letter-spacing:.06em;background:var(--tc);border-radius:999px;padding:5px 13px;white-space:nowrap}
@@ -11295,7 +11296,7 @@ muEl=function(){
 #mu:not([hidden]) .hl{clip-path:polygon(0 0,56% 0,44% 100%,0 100%)!important;background:linear-gradient(135deg,var(--homeTint),rgba(19,22,32,.75))!important}
 #mu:not([hidden]) .hr{clip-path:polygon(56% 0,100% 0,100% 100%,44% 100%)!important;background:linear-gradient(225deg,var(--awayTint),rgba(19,22,32,.75))!important}
 #mu:not([hidden]) .pn{width:min(100%,205px)!important;height:clamp(154px,37vh,218px)!important;min-height:140px!important;max-height:218px!important;padding:9px 10px!important;gap:5px!important;overflow:visible!important}
-#mu:not([hidden]) .pn .lg{position:static!important;left:auto!important;top:auto!important;transform:none!important;width:clamp(55px,11vh,104px)!important;height:clamp(55px,11vh,104px)!important;max-width:100%!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+#mu:not([hidden]) .pn .lg{position:static!important;left:auto!important;top:auto!important;transform:none!important;width:clamp(64px,12vh,104px)!important;height:clamp(64px,12vh,104px)!important;max-width:100%!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
 #mu:not([hidden]) .pn .nm{position:static!important;margin:0!important;max-width:100%!important;color:#fff!important;font-size:clamp(17px,2.7vh,30px)!important;line-height:.98!important;text-align:center!important}
 #mu:not([hidden]) .pn .ov{position:static!important;left:auto!important;right:auto!important;bottom:auto!important;top:auto!important;transform:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;margin:0!important;padding:5px 13px!important;border:0!important;border-radius:999px!important;background:var(--tc)!important;color:#131620!important;font-size:clamp(12px,1.8vh,17px)!important;line-height:1.1!important;white-space:nowrap!important}
 #mu:not([hidden]) .pn .ov b{display:inline!important;padding:0!important;margin-left:5px!important;border:0!important;border-radius:0!important;background:transparent!important;color:#131620!important}
