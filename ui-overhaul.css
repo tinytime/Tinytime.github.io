@@ -3232,3 +3232,5 @@ body #menu .ui-menu-build-trigger::after{
 }
 
 /* Browser QA syntax repair trigger; no visual change. */
+
+/* Browser QA trigger after remaining newline repair. */
