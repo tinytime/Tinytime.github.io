@@ -5180,8 +5180,10 @@ function draw(rdt){frameNo++;const pt=k=>{if(PL.on){const n=performance.now();PL
   bmShakeApply(rdt);bmPunchApply(rdt);   // v3.13 B1/B2: trauma shake + camera punch (game/14d)
   if(Math.abs(camLean)>.0005){const a=Math.abs(camLean),s=Math.cos(a)+Math.max(W/H,H/W)*Math.sin(a);ctx.translate(W/2,H/2);ctx.rotate(camLean);ctx.scale(s,s);ctx.translate(-W/2,-H/2)}   // v3.09: the camera leans a little into a cut (scaled so the corners stay covered)
   drawField();pt('field');
+  if(G&&G.drill&&typeof fdDrawField3D==='function')fdDrawField3D();
   if(F&&!window.__noplayers){drawLane();drawRoutes();drawEntities()}pt('players');
   drawAtmos();pt('rain+glow');
+  if(G&&G.drill&&typeof fdDrawHud3D==='function')fdDrawHud3D();
   drawPopups(rdt);bmSpeedLines();bmImpactDraw(rdt);   // v3.09; v3.13 impact bursts + impact frame
   const vg=ctx.createRadialGradient(W/2,H*.5,H*.3,W/2,H*.5,H*.8);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.35)');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);pt('popups+vignette');
   ctx.restore();
@@ -6376,7 +6378,7 @@ function loop0(now){
   if(!OWON&&F&&F.pile)pileTick(rdt);
   if(!OWON&&G&&G.guide)gdTick();   // v3.00: guided first game prompts
   if(hitStop>0)hitStop-=rdt;bmStep(rdt);if(!OWON)flStep(rdt*timeScale*(hitStop>0?.03:1));   // v3.07: hit-stop + launch arcs / ghost trail (game/14d)
-  if(REP.act)repStep(rdt);else if(!OWON&&F&&F.mode==='live'&&!F.pile){let rem=rdt*timeScale*SPEED*LIVE_SPEED*(hitStop>0?.03:1);while(rem>0&&F.mode==='live'&&!F.pile){const s=Math.min(rem,1/60);stepLive(s);rem-=s}}
+  if(REP.act)repStep(rdt);else if(!OWON&&G&&G.drill&&typeof fdStep3D==='function'){fdStep3D(rdt)}else if(!OWON&&F&&F.mode==='live'&&!F.pile){let rem=rdt*timeScale*SPEED*LIVE_SPEED*(hitStop>0?.03:1);while(rem>0&&F.mode==='live'&&!F.pile){const s=Math.min(rem,1/60);stepLive(s);rem-=s}}
   if(!REP.act&&!OWON&&F&&G&&(G.mode==='live'||G.mode==='dead'))repRec();
   updParts(rdt*timeScale);
   if(OWON)owFrame(rdt);else{if(PL.on)PL.mark=performance.now();camUpdate(rdt);if(PL.on)PL.add('camera',performance.now()-PL.mark);draw(rdt)}if(now-hudAt>90){hudAt=now;updateHud()}   // the scoreboard and meters only need ~10 refreshes a second
@@ -12727,14 +12729,15 @@ window.CFBD={BD,BDR,BD_ROOMS,bdS,bdHook,bdToggleWater,bdGo,bdDone,bdCrews,bdTest
   }catch(e){console.error('bdStartV error',e)}
 })();
 /* ================= end v3.30 BASIN DUNGEON ================= */
-/* ================= v3.31 FIELD DRILLS & ARCADE CONSOLIDATION =================
-   - SHELVED_MINIS = true: shelves Crane Drop, Hanging-Tire Throw, and Net Drag cleanly without breaking saves.
-   - Town 1 Arcade (Pixel Palace): Catch Rush (unchanged).
-   - Town 2 Arcade (Salt Arcade, Marv): hosts Riptide's Boat Race (awards arcWon #2 outfit on beating 33.0s).
+/* ================= v3.31 FIELD DRILLS (REAL 3D KAYKIT MODELS ON REAL TOWN FIELDS) =================
+   - Runs directly inside the live 3D match engine (drawField(), P3D.draw() KayKit skinned models, real town stadiums,
+     real Runner Camera, real stickWorld() / doJuke() / doSpin() / doStiff() / ragdoll() / popups).
+   - SHELVED_MINIS = true: shelves Crane Drop, Hanging-Tire Throw, and Net Drag cleanly.
+   - Town 1 Arcade (Pixel Palace): Catch Rush. Town 2 Arcade (Salt Arcade): Riptide's Boat Race.
    - Recurring Field-Drill Host: COACH VANCE in Vapor City (18,16) and Hale Harbor (26,19).
-   - Town 1 Field Drill: RUSHING ATTACK (Madden Mini-Camp inspired 60s RB gauntlet on Vapor City turf).
-   - Town 2 Field Drill: CRUSH THE CARRIER (NFL Street 2 inspired 75s 4-way keep-away brawl on Hale Harbor turf).
-   - Town 3 Field Drill: PRECISION PASSING (reserved in FIELD_DRILLS registry for Cinderhold). */
+   - Town 1 Field Drill: RUSHING ATTACK (Vapor City neon stadium, 3D KayKit RB/OL/DEF, neon gates & tackle dummies).
+   - Town 2 Field Drill: CRUSH THE CARRIER (Hale Harbor concrete field, 4-way 3D KayKit keep-away brawl & fumbles).
+   - Town 3 Field Drill: PRECISION PASSING (reserved in FIELD_DRILLS for Cinderhold). */
 
 window.SHELVED_MINIS = true;
 
@@ -12746,9 +12749,7 @@ hbArcadeAsk = function(n){
   owAsk(n.name,'Play RIPTIDE BOAT RACE? Alternate left/right taps to row round the island in under 33.0s.'+(won?'':'  Win for Trawl Knit jersey + Dock Cuff pants.')+(T.raceBest?'  Best: '+T.raceBest.toFixed(2)+'s':''),[['RACE',()=>hbRaceArcade(n)],['NOT NOW']]);
 };
 function hbRaceArcade(n){
-  const prevWon=!!hbS().raceWon;
   hbRace(n);
-  // Watch for race completion to also grant Town 2 arcade outfit (arcWon #2)
   const iv=setInterval(()=>{
     const el=document.getElementById('race');
     if(!el||el.style.display==='none'){
@@ -12765,20 +12766,18 @@ function hbRaceArcade(n){
 /* ---- Field Drills Save Schema & Registry ---- */
 function fdS(){
   if(!SAVE.drills||typeof SAVE.drills!=='object')SAVE.drills={};
-  for(const id of ['t1_rush','t2_crush','t3_pass']){
-    if(!SAVE.drills[id])SAVE.drills[id]={best:0,medal:0};
-  }
+  for(const id of ['t1_rush','t2_crush','t3_pass'])if(!SAVE.drills[id])SAVE.drills[id]={best:0,medal:0};
   return SAVE.drills;
 }
 var FIELD_DRILLS={
   t1_rush:{
     id:'t1_rush',town:'Vapor City',name:'RUSHING ATTACK',
-    blurb:'60s on-field RB gauntlet. Hit neon bonus gates, weave past tackle dummies, break tackles with Juke/Spin/Stiff-Arm, and punch in TDs.',
+    blurb:'60s on-field RB gauntlet on Vapor City turf. Hit neon bonus gates, cut past tackle dummies, break tackles with Juke/Spin/Stiff-Arm, and score TDs.',
     medals:[1400,2600,4000],time:60
   },
   t2_crush:{
     id:'t2_crush',town:'Hale Harbor',name:'CRUSH THE CARRIER',
-    blurb:'75s 4-way keep-away brawl. Hold the ball for +15/sec, chain Jukes/Spins/Stiff-Arms/Wall-Jukes, crush carriers for fumbles, and own the 2x Hotspot.',
+    blurb:'75s 4-way keep-away brawl on Hale Harbor turf. Hold the ball (+15/sec), chain Jukes/Spins/Stiff-Arms/Wall-Jukes, crush carriers for fumbles, and hold the 2x Hotspot.',
     medals:[1500,2800,4200],time:75
   },
   t3_pass:{
@@ -12802,393 +12801,375 @@ function fdAward(id,score){
 function fdTalk(n){
   const id=n.drill||'t1_rush',cfg=FIELD_DRILLS[id],st=fdS()[id];
   const medTxt='Best: '+(st.best||0)+'  ·  Medal: '+fdMedalName(st.medal)+' (B:'+cfg.medals[0]+' / S:'+cfg.medals[1]+' / G:'+cfg.medals[2]+')';
-  owAsk('COACH VANCE · '+cfg.name,cfg.blurb+'\n'+medTxt,[['START DRILL',()=>startFieldDrill(id,n)],['NOT NOW']]);
+  owAsk('COACH VANCE · '+cfg.name,cfg.blurb+'\n'+medTxt,[['START DRILL',()=>startFieldDrill(id)],['NOT NOW']]);
 }
 
-/* ---- Shared Field-Drill Canvas Harness ---- */
-var FD_ACTIVE=null;
-function startFieldDrill(id,npc){
+/* ---- Launch Drill Directly Inside the Real 3D Match Engine ---- */
+function fdEnsureExitBtn(){
+  let b=document.getElementById('fdExitBtn');
+  if(!b){
+    b=document.createElement('button');b.id='fdExitBtn';b.textContent='EXIT DRILL';
+    b.style.cssText='position:fixed;left:12px;top:calc(env(safe-area-inset-top,0px) + 12px);z-index:85;padding:8px 14px;border-radius:8px;border:2px solid #ffd23a;background:rgba(10,16,24,.88);color:#fff;font-family:var(--disp);font-size:14px;cursor:pointer';
+    b.onclick=()=>fdEndDrill(true);
+    document.body.appendChild(b);
+  }
+  b.hidden=false;return b;
+}
+
+function startFieldDrill(id){
   const cfg=FIELD_DRILLS[id];if(!cfg||cfg.reserved)return;
-  OW.busy=true;
-  let el=document.getElementById('fieldDrill');
-  if(!el){
-    el=document.createElement('div');el.id='fieldDrill';
-    el.style.cssText='position:fixed;inset:0;z-index:75;background:#08111a;touch-action:none;user-select:none';
-    el.innerHTML='<canvas style="width:100%;height:100%;display:block;touch-action:none"></canvas>';
-    document.body.appendChild(el);
+  SND.fx('bong');OW.busy=true;owSave();owHide();
+  if(typeof owRelease==='function')owRelease();
+  SND.setMode('game');SPR.clear();
+  const crew=(id==='t2_crush'&&typeof HB_CREWS!=='undefined')?HB_CREWS[3]:CREWS[0];
+  G_oppUniPending=awayUni(crew);
+  G={crew,oppUni:G_oppUniPending,you:0,opp:0,target:99,los:65,down:1,togo:25,ltg:90,style:0,sp:{m:{},ready:null,left:0,cool:0},spArmed:false,dv:{plays:0,yds:0},pn:0,t0:performance.now(),sel:0,flip:false,mode:'live',call:'bal',clock:0,clockOn:false,showPlay:false,drill:null};
+  PLAY={id:'drill_'+id,kind:'run',hand:0,name:cfg.name};
+  screens(null);show('#hud',false);show('#setbar',false);show('#controls',true);
+  fdEnsureExitBtn();
+
+  if(id==='t1_rush')fdInitRush3D();
+  else fdInitCrush3D();
+  artWarm();
+}
+
+function fdEndDrill(aborted){
+  const dr=G&&G.drill;
+  const b=document.getElementById('fdExitBtn');if(b)b.hidden=true;
+  show('#controls',false);
+  const id=dr?dr.id:null,score=dr?Math.round(dr.score):0;
+  if(G)G.drill=null;
+  F=null;G=null;OW.busy=false;
+  owShow();
+  if(!aborted&&id){
+    const res=fdAward(id,score);
+    const lines=['Final Score: '+score+'  (Best: '+res.best+')','Medal: '+fdMedalName(res.medal)];
+    if(res.gained>0)lines.push('★ +'+res.gained+' UPGRADE POINT'+(res.gained>1?'S':''));
+    setTimeout(()=>owSay('COACH VANCE',lines,res.gained>0?()=>owToast('+'+res.gained+' UPGRADE PTS'):null),250);
   }
-  el.hidden=false;el.style.display='block';
-  const cv=el.firstChild,c=cv.getContext('2d');
-  const resizeFD=()=>{cv.width=Math.max(480,window.innerWidth);cv.height=Math.max(320,window.innerHeight)};
-  resizeFD();
+}
 
-  // Unified input state (WASD/Arrows + Space/J/K/L/Shift + touch drag left / swipe right)
-  const keys={},inp={dx:0,dy:0,turbo:false,action:null};
-  const onKD=e=>{
-    const k=(e.key||'').toLowerCase();keys[k]=true;
-    if(k==='j'||k==='q')inp.action='jukeL';
-    else if(k==='e')inp.action='jukeR';
-    else if(k==='k'||k===' ')inp.action='stiff';
-    else if(k==='l')inp.action='spin';
-    else if(k==='escape'){close(true)}
-  };
-  const onKU=e=>{keys[(e.key||'').toLowerCase()]=false};
-  let dragId=null,drag0=null,swId=null,sw0=null;
-  const onPD=e=>{
-    e.preventDefault();
-    if(st.over){if(performance.now()-st.overAt>600)close(false);return}
-    if(e.clientX<cv.width*.52){dragId=e.pointerId;drag0={x:e.clientX,y:e.clientY}}
-    else{swId=e.pointerId;sw0={x:e.clientX,y:e.clientY,t:performance.now()}}
-  };
-  const onPM=e=>{
-    if(e.pointerId===dragId&&drag0){
-      const dx=e.clientX-drag0.x,dy=e.clientY-drag0.y,d=Math.hypot(dx,dy);
-      if(d>8){inp.dx=dx/Math.max(d,36);inp.dy=dy/Math.max(d,36)}else{inp.dx=inp.dy=0}
-    }
-  };
-  const onPU=e=>{
-    if(e.pointerId===dragId){dragId=null;drag0=null;inp.dx=inp.dy=0}
-    if(e.pointerId===swId&&sw0){
-      const dx=e.clientX-sw0.x,dy=e.clientY-sw0.y;
-      if(Math.hypot(dx,dy)<18){inp.action='stiff'}
-      else if(Math.abs(dx)>Math.abs(dy)){inp.action=dx>0?'jukeR':'jukeL'}
-      else{inp.action=dy<0?'stiff':'spin'}
-      swId=null;sw0=null;
-    }
-  };
-  addEventListener('keydown',onKD);addEventListener('keyup',onKU);addEventListener('resize',resizeFD);
-  cv.addEventListener('pointerdown',onPD);cv.addEventListener('pointermove',onPM);cv.addEventListener('pointerup',onPU);cv.addEventListener('pointercancel',onPU);
-
-  // Build drill state
-  const st=(id==='t1_rush')?fdInitRush():fdInitCrush();
-  FD_ACTIVE={id,st,close};
-
-  let gone=false,last=performance.now(),raf=0;
-  function close(aborted){
-    if(gone)return;gone=true;cancelAnimationFrame(raf);
-    removeEventListener('keydown',onKD);removeEventListener('keyup',onKU);removeEventListener('resize',resizeFD);
-    cv.removeEventListener('pointerdown',onPD);cv.removeEventListener('pointermove',onPM);cv.removeEventListener('pointerup',onPU);cv.removeEventListener('pointercancel',onPU);
-    el.style.display='none';OW.busy=false;FD_ACTIVE=null;owHud();
-    if(!aborted){
-      const res=fdAward(id,Math.round(st.score));
-      const lines=['Final Score: '+Math.round(st.score)+'  (Best: '+res.best+')','Medal: '+fdMedalName(res.medal)];
-      if(res.gained>0)lines.push('★ +'+res.gained+' UPGRADE POINT'+(res.gained>1?'S':''));
-      owSay('COACH VANCE',lines,res.gained>0?()=>owToast('+'+res.gained+' UPGRADE PTS'):null);
-    }
+/* Tap/click on match canvas when drill is over to return to Coach Vance */
+addEventListener('pointerdown',e=>{
+  if(!OWON&&G&&G.drill&&G.drill.over&&performance.now()-G.drill.overAt>600){
+    e.stopPropagation();fdEndDrill(false);
   }
+},true);
+addEventListener('keydown',e=>{
+  if(!OWON&&G&&G.drill&&(e.key||'').toLowerCase()==='escape')fdEndDrill(true);
+});
 
-  function pollDir(){
-    let kx=(keys['d']||keys['arrowright']?1:0)-(keys['a']||keys['arrowleft']?1:0);
-    let ky=(keys['s']||keys['arrowdown']?1:0)-(keys['w']||keys['arrowup']?1:0);
-    const len=Math.hypot(kx,ky);if(len>1){kx/=len;ky/=len}
-    const dx=len>0?kx:inp.dx,dy=len>0?ky:inp.dy;
-    const turbo=!!(keys['shift']);
-    const act=inp.action;inp.action=null;
-    return {dx,dy,turbo,act};
+/* =====================================================================
+   TOWN 1 (3D): RUSHING ATTACK — Real Vapor City Stadium + 3D KayKit Models
+   Field coords: x in [4, 56] (CX=30), y from 65 -> 100 (End Zone!)
+   ===================================================================== */
+function fdInitRush3D(){
+  G.drill={id:'t1_rush',time:60,score:0,rep:1,mult:1,tds:0,broken:0,over:false,overAt:0,pause:0,gates:[],dummies:[]};
+  fdSpawnRushRep3D();
+}
+function fdSpawnRushRep3D(){
+  const dr=G.drill;
+  F={cn:{},mode:'live',los:65,t:0,fx:1,off:{},offList:[],def:[],all:[],ball:null,ballAir:false,carrier:null,passer:null,turbo:100,tired:false,handed:true,lock:false,lat:false,latDone:false,latT:0,aim:null,gb:false,breaks:0,maxBreaks:9,stars:new Set()};
+  parts.length=0;
+  // Eli (3D KayKit RB)
+  const rb=mkP('O','RB',SAVE.starters.RB||{name:'Eli Voss',pos:'RB',spd:84,pow:78,hnd:80},CX,65);
+  rb.num=SAVE.starters.RB&&SAVE.starters.RB.jn!==undefined?SAVE.starters.RB.jn:22;
+  rb.fa=Math.PI/2;rb._lastY=65;
+  F.off.RB=rb;F.offList.push(rb);F.all.push(rb);F.carrier=rb;
+  // Lead Blocker (3D KayKit Big-Body OL)
+  const ol=mkP('O','OL1',SAVE.starters.OL1||{name:'Lead Block',pos:'OL',spd:74,pow:84,blk:84},CX,70);
+  ol.num=74;ol.fa=Math.PI/2;
+  F.off.OL1=ol;F.offList.push(ol);F.all.push(ol);
+  // Bonus Gates (2 Cyan +100, 1 narrow Gold +250)
+  const sgn=(dr.rep%2?1:-1);
+  dr.gates=[
+    {x:CX+sgn*9,y:76,w:6.2,gold:false,hit:false},
+    {x:CX-sgn*8,y:85,w:6.2,gold:false,hit:false},
+    {x:CX+(dr.rep%3===0?0:sgn*11),y:93,w:4.8,gold:true,hit:false}
+  ];
+  // Padded Tackle Dummies on the turf
+  dr.dummies=[
+    {x:CX-sgn*4,y:73,r:1.5},
+    {x:CX+sgn*3,y:82,r:1.5},
+    {x:CX-sgn*5,y:90,r:1.5}
+  ];
+  // Escalating 3D KayKit Defenders (2 -> 4)
+  const nDef=Math.min(4,2+Math.floor((dr.rep-1)/2));
+  for(let i=0;i<nDef;i++){
+    const role=i===0?'LB':'DB';
+    const d0=mkDef(role,G.crew,'bal',i===0);
+    const sx=CX+(i-(nDef-1)/2)*11,sy=78+((i*6)%16);
+    const def=mkP('D',role,d0,sx,sy);
+    def.id='d'+i;def.num=54+i*7;def.fa=-Math.PI/2;
+    F.def.push(def);F.all.push(def);
   }
-
-  function loop(now){
-    if(gone)return;
-    const dt=Math.min(.05,(now-last)/1000);last=now;
-    const ctrl=pollDir();
-    if(!st.over){
-      st.time-=dt;
-      if(st.time<=0){st.time=0;st.over=true;st.overAt=now;SND.fx('ok2')}
-      else if(id==='t1_rush')fdStepRush(st,dt,ctrl);
-      else fdStepCrush(st,dt,ctrl);
-    }
-    if(id==='t1_rush')fdDrawRush(c,cv.width,cv.height,st);
-    else fdDrawCrush(c,cv.width,cv.height,st);
-    raf=requestAnimationFrame(loop);
-  }
-  raf=requestAnimationFrame(loop);
 }
 
 /* =====================================================================
-   TOWN 1 DRILL: RUSHING ATTACK (Vapor City Neon Turf — 60s RB Gauntlet)
-   Field coords: x in [-16, 16] yards, y in [0, 32] yards (0 = End Zone!)
+   TOWN 2 (3D): CRUSH THE CARRIER — Real Hale Harbor Stadium + 4x 3D KayKit
+   Field coords: x in [6, 54], y in [36, 76] (walled concrete harbor field)
    ===================================================================== */
-function fdInitRush(){
-  const st={time:60,score:0,rep:1,mult:1,tds:0,broken:0,over:false,overAt:0,pause:0,popups:[],p:null,blk:null,defs:[],gates:[],dummies:[]};
-  fdSpawnRushRep(st);return st;
-}
-function fdSpawnRushRep(st){
-  st.p={x:0,y:28,vx:0,vy:0,stam:100,juke:0,spin:0,stiff:0,cd:0,lastY:28};
-  st.blk={x:0,y:23,eng:null};
-  st.gates=[];st.dummies=[];st.defs=[];
-  const nDef=Math.min(4,2+Math.floor((st.rep-1)/2));
-  // 2 Cyan Bonus Gates (+100) + 1 narrow Gold Multiplier Gate (+250)
-  const gx1=(st.rep%2?-6:6),gx2=(st.rep%2?5:-5),gx3=(st.rep%3===0?0:(st.rep%2?-8:8));
-  st.gates.push({x:gx1,y:20,w:4.2,gold:false,hit:false});
-  st.gates.push({x:gx2,y:12,w:4.2,gold:false,hit:false});
-  st.gates.push({x:gx3,y:6,w:3.2,gold:true,hit:false});
-  // 3 Tackle Dummies forcing crisp lateral cuts
-  st.dummies.push({x:-gx1*.45,y:17,r:1.25},{x:gx2*.3,y:14,r:1.25},{x:-gx3*.4,y:9,r:1.25});
-  // Live pursuing defenders
-  for(let i=0;i<nDef;i++){
-    const sx=(i-(nDef-1)/2)*7.5,sy=8+((i*5)%11);
-    st.defs.push({x:sx,y:sy,vx:0,vy:0,stun:0,spd:7.2+Math.min(2.2,st.rep*.28)});
+function fdInitCrush3D(){
+  G.drill={id:'t2_crush',time:75,score:0,over:false,overAt:0,streak:1,hot:{x:CX,y:56,r:6.2,t:20},ball:{x:CX,y:56,vx:0,vy:0,z:0,vz:0},players:[]};
+  F={cn:{},mode:'live',los:56,t:0,fx:1,off:{},offList:[],def:[],all:[],ball:null,ballAir:false,carrier:null,passer:null,turbo:100,tired:false,handed:true,lock:false,lat:false,latDone:false,latT:0,aim:null,gb:false,breaks:0,maxBreaks:9,stars:new Set()};
+  parts.length=0;
+  // Eli (3D KayKit RB — player controlled)
+  const you=mkP('O','RB',SAVE.starters.RB||{name:'Eli Voss',pos:'RB',spd:85,pow:80,hnd:82},CX-10,56);
+  you.num=22;you.fa=0;you._drillYou=true;you._dName='ELI';you._dScore=0;
+  F.off.RB=you;F.offList.push(you);F.all.push(you);F.carrier=null;
+  // 3 Real 3D KayKit Hale Harbor Bruisers (Otto Big-Body DL, Deke LB, Quinn DB)
+  const rivals=[
+    {role:'DL',name:'OTTO',num:99,x:CX+10,y:62},
+    {role:'LB',name:'DEKE',num:55,x:CX+10,y:50},
+    {role:'DB',name:'QUINN',num:24,x:CX,y:66}
+  ];
+  for(const rv of rivals){
+    const d0=mkDef(rv.role,G.crew,'bal',rv.role==='DL');
+    const p=mkP('D',rv.role,d0,rv.x,rv.y);
+    p.num=rv.num;p.fa=Math.PI;p._drillYou=false;p._dName=rv.name;p._dScore=0;
+    F.def.push(p);F.all.push(p);
   }
+  G.drill.players=[you,...F.def];
+  // Point camera at Eli initially even before pickup
+  F.carrier=you;G.drill._loose=true;
 }
-function fdPop(st,txt,x,y,col){st.popups.push({txt,x,y,col:col||'#ffd23a',t:1.1})}
 
-function fdStepRush(st,dt,ctrl){
-  for(const pop of st.popups)pop.t-=dt;st.popups=st.popups.filter(p=>p.t>0);
-  if(st.pause>0){st.pause-=dt;if(st.pause<=0)fdSpawnRushRep(st);return}
-  const p=st.p;
-  if(p.juke>0)p.juke-=dt;if(p.spin>0)p.spin-=dt;if(p.stiff>0)p.stiff-=dt;if(p.cd>0)p.cd-=dt;
-  // Trigger stick-skill moves
-  if(ctrl.act&&p.cd<=0&&p.stam>=15){
-    p.stam=Math.max(0,p.stam-18);p.cd=.45;
-    if(ctrl.act==='jukeL'||ctrl.act==='jukeR'){p.juke=.28;p.vx=(ctrl.act==='jukeR'?1:-1)*15;SND.fx('juke')}
-    else if(ctrl.act==='stiff'){p.stiff=.38;SND.fx('stiff')}
-    else if(ctrl.act==='spin'){p.spin=.38;SND.fx('juke')}
+/* ---- 3D Drill Physics Step (called directly from main RAF loop!) ---- */
+function fdStep3D(rdt){
+  const dr=G.drill;if(!dr||dr.over)return;
+  const dt=Math.min(.04,rdt*timeScale);
+  F.t+=dt;
+  dr.time-=dt;
+  if(dr.time<=0){dr.time=0;dr.over=true;dr.overAt=performance.now();SND.fx('ok2');return}
+  if(dr.id==='t1_rush')fdStepRush3D(dr,dt);
+  else fdStepCrush3D(dr,dt);
+}
+
+function fdStepRush3D(dr,dt){
+  if(dr.pause>0){dr.pause-=dt;if(dr.pause<=0)fdSpawnRushRep3D();return}
+  const c=F.carrier;if(!c)return;
+  // Tick player cooldowns & real moveCarrier (gives real 3D Juke, Spin, Stiff-Arm, Hurdle, Turbo!)
+  for(const p of F.all){
+    if(p.cdJ>0)p.cdJ-=dt;if(p.cdS>0)p.cdS-=dt;if(p.cdH>0)p.cdH-=dt;
+    if(p.inv>0)p.inv-=dt;if(p.slow>0)p.slow-=dt;if(p.stun>0)p.stun-=dt;
+    if(p.arm>0)p.arm-=dt;if(p.spinT>0){p.spinT-=dt;p.spin=p.spinT}
+    if(p.fall){p.x+=p.sv.x*dt;p.y+=p.sv.y*dt;p.sv.x*=.92;p.sv.y*=.92;if(p.stun<=0){p.fall=false;p.knock=false}}
   }
-  const boost=ctrl.turbo&&p.stam>5?1.26:1;
-  if(ctrl.turbo)p.stam=Math.max(0,p.stam-24*dt);else p.stam=Math.min(100,p.stam+18*dt);
-  const sp=10.5*boost;
-  if(p.juke<=0){p.vx=ctrl.dx*sp;p.vy=(ctrl.dy!==0?ctrl.dy:-.72)*sp}
-  p.x=clamp(p.x+p.vx*dt,-14.5,14.5);p.y=clamp(p.y+p.vy*dt,-1,30);
+  moveCarrier(dt);
+  c.x=clamp(c.x,3,FW-3);c.y=clamp(c.y,60,101);
   // Yardage score
-  if(p.y<p.lastY){st.score+=(p.lastY-p.y)*5;p.lastY=p.y}
+  if(c.y>c._lastY){dr.score+=(c.y-c._lastY)*6;c._lastY=c.y}
   // Bonus gates
-  for(const g of st.gates){
-    if(!g.hit&&Math.abs(p.y-g.y)<1.1&&Math.abs(p.x-g.x)<g.w/2+.7){
-      g.hit=true;const pts=(g.gold?250:100)*st.mult;st.score+=pts;
-      if(g.gold)st.mult=Math.min(4,st.mult+1);
-      SND.fx('ok');fdPop(st,(g.gold?'GOLD GATE +':'GATE +')+pts,g.x,g.y,g.gold?'#ffd23a':'#27e0ff');
+  for(const g of dr.gates){
+    if(!g.hit&&Math.abs(c.y-g.y)<1.4&&Math.abs(c.x-g.x)<g.w/2+.8){
+      g.hit=true;const pts=(g.gold?250:100)*dr.mult;dr.score+=pts;
+      if(g.gold)dr.mult=Math.min(4,dr.mult+1);
+      SND.fx('ok');popup((g.gold?'GOLD GATE +':'GATE +')+pts,g.x,g.y+1.2,g.gold?'#ffd23a':'#27e0ff');
     }
   }
-  // Tackle dummies (push back / slow if you run straight into one without spinning)
-  for(const dm of st.dummies){
-    const d=Math.hypot(p.x-dm.x,p.y-dm.y);
-    if(d<dm.r+.65&&p.spin<=0){
-      const nx=(p.x-dm.x)/(d||1),ny=(p.y-dm.y)/(d||1);
-      p.x=dm.x+nx*(dm.r+.75);p.y=dm.y+ny*(dm.r+.75);SND.fx('drop');
+  // Tackle dummies (push back unless hurdling or spinning)
+  for(const dm of dr.dummies){
+    const d=Math.hypot(c.x-dm.x,c.y-dm.y);
+    if(d<dm.r+.7&&!c.air&&!(c.spinT>0)){
+      const nx=(c.x-dm.x)/(d||1),ny=(c.y-dm.y)/(d||1);
+      c.x=dm.x+nx*(dm.r+.8);c.y=dm.y+ny*(dm.r+.8);SND.fx('drop');
     }
   }
-  // Lead blocker engages nearest unstunned defender
-  const blk=st.blk;
-  let target=null,bd=1e9;
-  for(const def of st.defs){if(def.stun>0)continue;const d=Math.hypot(def.x-blk.x,def.y-blk.y);if(d<bd){bd=d;target=def}}
-  if(target){
-    const dx=target.x-blk.x,dy=target.y-blk.y,d=Math.hypot(dx,dy)||1;
-    blk.x+=dx/d*7.5*dt;blk.y+=dy/d*7.5*dt;
-    if(d<1.3){target.stun=.9;SND.fx('hit')}
+  // Lead Blocker seeks nearest active defender
+  const ol=F.off.OL1;
+  if(ol&&!ol.fall){
+    let best=null,bd=1e9;
+    for(const d of F.def){if(d.stun>0||d.fall)continue;const dd=Math.hypot(d.x-ol.x,d.y-ol.y);if(dd<bd){bd=dd;best=d}}
+    if(best){
+      const dx=best.x-ol.x,dy=best.y-ol.y,len=Math.hypot(dx,dy)||1;
+      ol.vx=dx/len*6.4;ol.vy=dy/len*6.4;ol.x+=ol.vx*dt;ol.y+=ol.vy*dt;ol.ph+=dt*2.4;
+      if(len<1.5){best.stun=1.1;best.vx=best.vy=0;dust(best.x,best.y,6,.8);SND.fx('hit')}
+    }
   }
-  // Defenders pursue & tackle check
-  for(const def of st.defs){
-    if(def.stun>0){def.stun-=dt;continue}
-    const dx=p.x-def.x,dy=p.y-def.y,d=Math.hypot(dx,dy)||1;
-    def.x+=dx/d*def.spd*dt;def.y+=dy/d*def.spd*dt;
-    if(d<1.35){
-      if(p.juke>0||p.spin>0||p.stiff>0){
-        def.stun=1.4;st.broken++;st.mult=Math.min(4,st.mult+1);
-        const pts=(p.stiff>0?125:100)*st.mult;st.score+=pts;
-        const lbl=p.stiff>0?'TRUCKED! +':p.spin>0?'SPUN HIM! +':'ANKLE BREAKER! +';
-        SND.fx(p.stiff>0?'stiffHit':'ankle');fdPop(st,lbl+pts,p.x,p.y,'#ff2fa8');
+  // Defenders pursue & tackle / get juked-spun-trucked
+  for(const d of F.def){
+    if(d.fall||d.stun>0)continue;
+    const dx=c.x-d.x,dy=c.y-d.y,len=Math.hypot(dx,dy)||1,sp=6.6+Math.min(2.2,dr.rep*.25);
+    d.vx=dx/len*sp;d.vy=dy/len*sp;d.x+=d.vx*dt;d.y+=d.vy*dt;d.ph+=dt*2.6;
+    if(len<1.45){
+      const evading=!!(c.dash||c.inv>0||c.spinT>0||c.arm>0||c.air);
+      if(evading){
+        dr.broken++;dr.mult=Math.min(4,dr.mult+1);
+        const pts=(c.arm>0?125:100)*dr.mult;dr.score+=pts;
+        const lbl=c.arm>0?'TRUCKED! +':c.spinT>0?'SPUN HIM! +':'ANKLE BREAKER! +';
+        ragdoll(d,-dx/len*7,-dy/len*7,6,1.5);dust(d.x,d.y,8,1);
+        SND.fx(c.arm>0?'stiffHit':'ankle');popup(lbl+pts,c.x,c.y+1.5,'#ff2fa8');
       }else{
-        SND.fx('hit');fdPop(st,'TACKLED!',p.x,p.y,'#ff3b5c');
-        st.mult=1;st.rep++;st.pause=.7;return;
+        ragdoll(c,dx/len*3,dy/len*3,3,.8);dust(c.x,c.y,10,1.1);
+        SND.fx('hit');popup('TACKLED!',c.x,c.y+1.5,'#ff3b5c');
+        dr.mult=1;dr.rep++;dr.pause=.8;return;
       }
     }
   }
+  updFacing(dt);
   // End Zone TD!
-  if(p.y<=1.0){
-    const pts=400*st.mult;st.score+=pts;st.tds++;st.rep++;
-    SND.fx('ok2');fdPop(st,'TOUCHDOWN! +'+pts,p.x,2,'#58ffb0');st.pause=.85;
+  if(c.y>=100){
+    const pts=400*dr.mult;dr.score+=pts;dr.tds++;dr.rep++;
+    SND.fx('ok2');popup('TOUCHDOWN! +'+pts,c.x,99,'#58ffb0');dr.pause=.9;
   }
 }
 
-function fdDrawRush(c,W,H,st){
-  // Vapor City neon night stadium field
-  c.fillStyle='#081320';c.fillRect(0,0,W,H);
-  const fw=Math.min(W*.86,H*1.08),fh=H*.84,fx=(W-fw)/2,fy=H*.11;
-  const sx=x=>fx+((x+16)/32)*fw,sy=y=>fy+(y/32)*fh;
-  // Turf + End Zone
-  c.fillStyle='#0c2630';c.fillRect(fx,fy,fw,fh);
-  c.fillStyle='rgba(39,224,255,.16)';c.fillRect(fx,fy,fw,fh*(2.2/32));
-  c.strokeStyle='#27e0ff';c.lineWidth=3;c.strokeRect(fx,fy,fw,fh);
-  for(let y=5;y<=25;y+=5){c.strokeStyle='rgba(255,255,255,.16)';c.lineWidth=1.5;c.beginPath();c.moveTo(fx,sy(y));c.lineTo(fx+fw,sy(y));c.stroke()}
-  c.fillStyle='rgba(39,224,255,.45)';c.font='800 22px "Barlow Condensed",sans-serif';c.textAlign='center';c.fillText('VAPOR CITY END ZONE',fx+fw/2,sy(1.4));
-  // Gates
-  for(const g of st.gates){
-    const gx=sx(g.x),gy=sy(g.y),gw=(g.w/32)*fw;
-    c.strokeStyle=g.hit?'#58ffb0':g.gold?'#ffd23a':'#27e0ff';c.lineWidth=4;
-    c.strokeRect(gx-gw/2,gy-8,gw,16);
-    if(!g.hit){c.fillStyle=g.gold?'rgba(255,210,58,.18)':'rgba(39,224,255,.15)';c.fillRect(gx-gw/2,gy-8,gw,16)}
-  }
-  // Dummies
-  for(const dm of st.dummies){
-    c.fillStyle='#a84a2a';c.beginPath();c.arc(sx(dm.x),sy(dm.y),13,0,7);c.fill();
-    c.strokeStyle='#ffd23a';c.lineWidth=2;c.stroke();
-  }
-  // Blocker
-  c.fillStyle='#58ffb0';c.beginPath();c.arc(sx(st.blk.x),sy(st.blk.y),12,0,7);c.fill();
-  // Defenders
-  for(const def of st.defs){
-    c.fillStyle=def.stun>0?'#5a6575':'#ff3b5c';c.beginPath();c.arc(sx(def.x),sy(def.y),13,0,7);c.fill();
-    c.strokeStyle='#fff';c.lineWidth=2;c.stroke();
-  }
-  // Eli (Player)
-  const p=st.p;
-  c.fillStyle=(p.juke>0||p.spin>0||p.stiff>0)?'#ffd23a':'#27e0ff';
-  c.beginPath();c.arc(sx(p.x),sy(p.y),14,0,7);c.fill();c.strokeStyle='#fff';c.lineWidth=3;c.stroke();
-  // Popups
-  for(const pop of st.popups){c.fillStyle=pop.col;c.font='800 18px "Barlow Condensed",sans-serif';c.fillText(pop.txt,sx(pop.x),sy(pop.y)-18-(1.1-pop.t)*26)}
-  // HUD
-  c.fillStyle='#fff';c.font='800 24px "Barlow Condensed",sans-serif';c.textAlign='left';
-  c.fillText('RUSHING ATTACK · SCORE '+Math.round(st.score)+'   ×'+st.mult+'   TDs '+st.tds,18,34);
-  c.textAlign='right';c.fillStyle=st.time<10?'#ff3b5c':'#ffd23a';
-  c.fillText(Math.ceil(st.time)+'s',W-18,34);
-  c.textAlign='center';c.fillStyle='rgba(255,255,255,.65)';c.font='600 13px sans-serif';
-  c.fillText('WASD/Drag: Run · Swipe / J / K / L / Space: Juke / Stiff-Arm / Spin · Shift: Turbo · ESC: Exit',W/2,H-14);
-  if(st.over){
-    c.fillStyle='rgba(5,10,18,.82)';c.fillRect(0,H*.34,W,H*.32);
-    c.fillStyle='#ffd23a';c.font='800 42px "Barlow Condensed",sans-serif';c.fillText('DRILL COMPLETE · '+Math.round(st.score)+' PTS',W/2,H*.48);
-    c.fillStyle='#fff';c.font='600 18px sans-serif';c.fillText('Tap or click anywhere to return to Coach Vance',W/2,H*.57);
-  }
-}
-
-/* =====================================================================
-   TOWN 2 DRILL: CRUSH THE CARRIER (Hale Harbor Concrete Field — 75s 4-Way)
-   Field coords: x in [-16, 16], y in [-12, 12] (walled concrete court)
-   ===================================================================== */
-function fdInitCrush(){
-  const players=[
-    {id:'eli',name:'ELI',you:true,x:-8,y:0,vx:0,vy:0,score:0,stam:100,juke:0,spin:0,stiff:0,cd:0,stun:0,col:'#E8A33D'},
-    {id:'otto',name:'OTTO',you:false,x:8,y:-6,vx:0,vy:0,score:0,stam:100,juke:0,spin:0,stiff:0,cd:0,stun:0,col:'#A9542F'},
-    {id:'deke',name:'DEKE',you:false,x:8,y:6,vx:0,vy:0,score:0,stam:100,juke:0,spin:0,stiff:0,cd:0,stun:0,col:'#9FC6D8'},
-    {id:'quinn',name:'QUINN',you:false,x:0,y:-8,vx:0,vy:0,score:0,stam:100,juke:0,spin:0,stiff:0,cd:0,stun:0,col:'#6E8350'}
-  ];
-  return {time:75,score:0,over:false,overAt:0,players,carrier:null,ball:{x:0,y:0,vx:0,vy:0},hot:{x:0,y:0,r:4.2,t:20},popups:[],streak:1};
-}
-
-function fdStepCrush(st,dt,ctrl){
-  for(const pop of st.popups)pop.t-=dt;st.popups=st.popups.filter(p=>p.t>0);
+function fdStepCrush3D(dr,dt){
+  const you=dr.players[0];
   // Rotate 2x Hotspot every 20s
-  st.hot.t-=dt;
-  if(st.hot.t<=0){st.hot.t=20;st.hot.x=(Math.random()-.5)*18;st.hot.y=(Math.random()-.5)*12;SND.fx('q');fdPop(st,'2x HOTSPOT SHIFTED!',st.hot.x,st.hot.y,'#E8A33D')}
-  const you=st.players[0];
-  // Player controls
-  for(const p of st.players){if(p.juke>0)p.juke-=dt;if(p.spin>0)p.spin-=dt;if(p.stiff>0)p.stiff-=dt;if(p.cd>0)p.cd-=dt;if(p.stun>0)p.stun-=dt}
-  if(you.stun<=0){
-    if(ctrl.act&&you.cd<=0&&you.stam>=15){
-      you.stam=Math.max(0,you.stam-18);you.cd=.5;
-      if(ctrl.act==='jukeL'||ctrl.act==='jukeR'){
-        you.juke=.3;you.vx=(ctrl.act==='jukeR'?1:-1)*15;SND.fx('juke');
-        // Wall-juke bonus when carrying near concrete sideline wall!
-        if(st.carrier===you&&Math.abs(you.x)>12.8){const pts=140*st.streak;you.score+=pts;fdPop(st,'WALL JUKE! +'+pts,you.x,you.y,'#9FC6D8')}
-      }else if(ctrl.act==='stiff'){you.stiff=.38;SND.fx('stiff')}
-      else if(ctrl.act==='spin'){you.spin=.38;SND.fx('juke')}
-    }
-    const boost=ctrl.turbo&&you.stam>5?1.25:1;
-    if(ctrl.turbo)you.stam=Math.max(0,you.stam-22*dt);else you.stam=Math.min(100,you.stam+16*dt);
-    const sp=(st.carrier===you?9.6:10.8)*boost;
-    if(you.juke<=0){you.vx=ctrl.dx*sp;you.vy=ctrl.dy*sp}
-    you.x=clamp(you.x+you.vx*dt,-14.8,14.8);you.y=clamp(you.y+you.vy*dt,-10.8,10.8);
+  dr.hot.t-=dt;
+  if(dr.hot.t<=0){dr.hot.t=20;dr.hot.x=14+Math.random()*32;dr.hot.y=42+Math.random()*26;SND.fx('q');popup('2x HOTSPOT SHIFTED!',dr.hot.x,dr.hot.y+1.5,'#E8A33D')}
+  // Cooldowns & ragdoll recovery
+  for(const p of dr.players){
+    if(p.cdJ>0)p.cdJ-=dt;if(p.cdS>0)p.cdS-=dt;if(p.cdH>0)p.cdH-=dt;
+    if(p.inv>0)p.inv-=dt;if(p.slow>0)p.slow-=dt;if(p.stun>0)p.stun-=dt;
+    if(p.arm>0)p.arm-=dt;if(p.spinT>0){p.spinT-=dt;p.spin=p.spinT}
+    if(p.fall){p.x+=p.sv.x*dt;p.y+=p.sv.y*dt;p.sv.x*=.9;p.sv.y*=.9;if(p.stun<=0){p.fall=false;p.knock=false}}
   }
-  // AI movement
-  for(const ai of st.players){
-    if(ai.you||ai.stun>0)continue;
-    let tx=st.ball.x,ty=st.ball.y;
-    if(st.carrier===ai){
-      // Evade nearest pursuer while gravitating toward 2x Hotspot
+  // Move Eli with real match stick + Juke/Spin/Stiff-Arm
+  const prevDash=!!you.dash;
+  if(!you.fall&&you.stun<=0){
+    const savedCar=F.carrier;F.carrier=you;moveCarrier(dt);F.carrier=savedCar;
+    you.x=clamp(you.x,6,FW-6);you.y=clamp(you.y,36,76);
+    // Wall-juke bonus when Eli jukes near concrete sideline wall while holding ball!
+    if(!prevDash&&you.dash&&!dr._loose&&F.carrier===you&&(you.x<10||you.x>FW-10)){
+      const pts=140*dr.streak;you._dScore+=pts;popup('WALL JUKE! +'+pts,you.x,you.y+1.6,'#9FC6D8');
+    }
+  }
+  // AI movement for the 3 Hale Harbor bruisers
+  const liveCar=dr._loose?null:F.carrier;
+  for(const ai of dr.players){
+    if(ai._drillYou||ai.fall||ai.stun>0)continue;
+    let tx=dr.ball.x,ty=dr.ball.y;
+    if(liveCar===ai){
       let near=null,nd=1e9;
-      for(const o of st.players){if(o===ai||o.stun>0)continue;const d=Math.hypot(o.x-ai.x,o.y-ai.y);if(d<nd){nd=d;near=o}}
-      if(near&&nd<7){tx=ai.x+(ai.x-near.x)*2;ty=ai.y+(ai.y-near.y)*2}else{tx=st.hot.x;ty=st.hot.y}
-    }else if(st.carrier){tx=st.carrier.x;ty=st.carrier.y}
-    const dx=tx-ai.x,dy=ty-ai.y,d=Math.hypot(dx,dy)||1,sp=st.carrier===ai?8.2:8.9;
-    ai.x=clamp(ai.x+dx/d*sp*dt,-14.8,14.8);ai.y=clamp(ai.y+dy/d*sp*dt,-10.8,10.8);
+      for(const o of dr.players){if(o===ai||o.fall||o.stun>0)continue;const d=Math.hypot(o.x-ai.x,o.y-ai.y);if(d<nd){nd=d;near=o}}
+      if(near&&nd<9){tx=ai.x+(ai.x-near.x)*2;ty=ai.y+(ai.y-near.y)*2}else{tx=dr.hot.x;ty=dr.hot.y}
+    }else if(liveCar){tx=liveCar.x;ty=liveCar.y}
+    const dx=tx-ai.x,dy=ty-ai.y,len=Math.hypot(dx,dy)||1,sp=liveCar===ai?6.8:7.5;
+    ai.vx=dx/len*sp;ai.vy=dy/len*sp;ai.x=clamp(ai.x+ai.vx*dt,6,FW-6);ai.y=clamp(ai.y+ai.vy*dt,36,76);ai.ph+=dt*2.5;
   }
   // Loose fumble ball physics & pickup
-  if(!st.carrier){
-    st.ball.x=clamp(st.ball.x+st.ball.vx*dt,-14.5,14.5);st.ball.y=clamp(st.ball.y+st.ball.vy*dt,-10.5,10.5);
-    st.ball.vx*=Math.pow(.18,dt);st.ball.vy*=Math.pow(.18,dt);
-    for(const p of st.players){
-      if(p.stun>0)continue;
-      if(Math.hypot(p.x-st.ball.x,p.y-st.ball.y)<1.4){
-        st.carrier=p;SND.fx('pluck');
-        if(p.you){fdPop(st,'SCOOPED!',p.x,p.y,'#E8A33D');st.streak=1}
+  if(dr._loose){
+    dr.ball.x=clamp(dr.ball.x+dr.ball.vx*dt,7,FW-7);dr.ball.y=clamp(dr.ball.y+dr.ball.vy*dt,37,75);
+    dr.ball.vx*=Math.pow(.22,dt);dr.ball.vy*=Math.pow(.22,dt);
+    dr.ball.z=Math.max(0,dr.ball.z+dr.ball.vz*dt);dr.ball.vz-=18*dt;if(dr.ball.z<=0&&dr.ball.vz<0)dr.ball.vz*=-.45;
+    F.carrier=you; // keep camera on Eli while chasing loose ball
+    for(const p of dr.players){
+      if(p.fall||p.stun>0)continue;
+      if(Math.hypot(p.x-dr.ball.x,p.y-dr.ball.y)<1.7){
+        dr._loose=false;F.carrier=p;SND.fx('pluck');
+        if(p._drillYou){popup('SCOOPED!',p.x,p.y+1.5,'#E8A33D');dr.streak=1}
         break;
       }
     }
   }else{
-    const car=st.carrier;st.ball.x=car.x;st.ball.y=car.y;
-    const inHot=Math.hypot(car.x-st.hot.x,car.y-st.hot.y)<=st.hot.r;
-    car.score+=(inHot?30:15)*dt;
-    // Tackle / Fumble collisions
-    for(const p of st.players){
-      if(p===car||p.stun>0)continue;
+    const car=F.carrier;dr.ball.x=car.x;dr.ball.y=car.y;dr.ball.z=1.1;
+    const inHot=Math.hypot(car.x-dr.hot.x,car.y-dr.hot.y)<=dr.hot.r;
+    car._dScore+=(inHot?30:15)*dt;
+    // Tackle & Instant Fumble check
+    for(const p of dr.players){
+      if(p===car||p.fall||p.stun>0)continue;
       const d=Math.hypot(p.x-car.x,p.y-car.y);
-      if(d<1.45){
-        if(car.you&&(car.juke>0||car.spin>0||car.stiff>0)){
-          p.stun=1.3;st.streak=Math.min(4,st.streak+1);
-          const pts=(car.stiff>0?110:90)*st.streak;car.score+=pts;
-          const lbl=car.stiff>0?'TRUCKED! +':car.spin>0?'SPUN HIM! +':'ANKLE BREAKER! +';
-          SND.fx(car.stiff>0?'stiffHit':'ankle');fdPop(st,lbl+pts,car.x,car.y,'#58ffb0');
+      if(d<1.6){
+        const evading=car._drillYou&&!!(car.dash||car.inv>0||car.spinT>0||car.arm>0);
+        if(evading){
+          dr.streak=Math.min(4,dr.streak+1);
+          const pts=(car.arm>0?110:90)*dr.streak;car._dScore+=pts;
+          const lbl=car.arm>0?'TRUCKED! +':car.spinT>0?'SPUN HIM! +':'ANKLE BREAKER! +';
+          ragdoll(p,(p.x-car.x)/(d||1)*7,(p.y-car.y)/(d||1)*7,6,1.4);dust(p.x,p.y,8,1);
+          SND.fx(car.arm>0?'stiffHit':'ankle');popup(lbl+pts,car.x,car.y+1.6,'#58ffb0');
         }else{
-          // CRUSHED! Instant live fumble!
-          car.stun=1.35;st.carrier=null;st.streak=1;
+          // CRUSHED -> LIVE FUMBLE!
           const ang=Math.atan2(car.y-p.y,car.x-p.x)+(Math.random()-.5)*.9;
-          st.ball.vx=Math.cos(ang)*14;st.ball.vy=Math.sin(ang)*14;
+          ragdoll(car,Math.cos(ang)*6,Math.sin(ang)*6,7,1.45);dust(car.x,car.y,12,1.2);
+          dr._loose=true;F.carrier=you;dr.streak=1;
+          dr.ball.vx=Math.cos(ang)*14;dr.ball.vy=Math.sin(ang)*14;dr.ball.z=1.4;dr.ball.vz=5.5;
           SND.fx('hit');
-          if(p.you){const pts=125;p.score+=pts;fdPop(st,'CRUSHED! FUMBLE +'+pts,car.x,car.y,'#E8A33D')}
-          else if(car.you){fdPop(st,'FUMBLE!',car.x,car.y,'#ff3b5c')}
+          if(p._drillYou){p._dScore+=125;popup('CRUSHED! FUMBLE +125',car.x,car.y+1.8,'#E8A33D')}
+          else if(car._drillYou){popup('FUMBLE!',car.x,car.y+1.8,'#ff3b5c')}
           break;
         }
       }
     }
   }
-  st.score=you.score;
+  updFacing(dt);
+  dr.score=you._dScore;
 }
 
-function fdDrawCrush(c,W,H,st){
-  // Hale Harbor cold concrete walled dockyard field
-  c.fillStyle='#141C22';c.fillRect(0,0,W,H);
-  const fw=Math.min(W*.86,H*1.32),fh=H*.78,fx=(W-fw)/2,fy=H*.14;
-  const sx=x=>fx+((x+16)/32)*fw,sy=y=>fy+((y+12)/24)*fh;
-  c.fillStyle='#4B545A';c.fillRect(fx,fy,fw,fh);
-  c.strokeStyle='#A9542F';c.lineWidth=6;c.strokeRect(fx,fy,fw,fh);
-  for(let x=-10;x<=10;x+=5){c.strokeStyle='rgba(255,255,255,.15)';c.lineWidth=1.5;c.beginPath();c.moveTo(sx(x),fy);c.lineTo(sx(x),fy+fh);c.stroke()}
-  // 2x Hotspot Zone
-  const hr=(st.hot.r/32)*fw;
-  c.fillStyle='rgba(232,163,61,.22)';c.beginPath();c.arc(sx(st.hot.x),sy(st.hot.y),hr,0,7);c.fill();
-  c.strokeStyle='#E8A33D';c.lineWidth=3;c.setLineDash([6,5]);c.stroke();c.setLineDash([]);
-  c.fillStyle='#F6C46D';c.font='800 16px "Barlow Condensed",sans-serif';c.textAlign='center';c.fillText('2x HOTSPOT',sx(st.hot.x),sy(st.hot.y)+5);
-  // Players
-  for(const p of st.players){
-    const px=sx(p.x),py=sy(p.y);
-    if(st.carrier===p){c.strokeStyle='#58ffb0';c.lineWidth=4;c.beginPath();c.arc(px,py,20,0,7);c.stroke()}
-    c.fillStyle=p.stun>0?'#3A4A55':p.col;c.beginPath();c.arc(px,py,14,0,7);c.fill();
-    c.strokeStyle=p.you?'#fff':'#141C22';c.lineWidth=2.5;c.stroke();
-    c.fillStyle='#fff';c.font='700 11px sans-serif';c.fillText(p.name,px,py-18);
+/* ---- 3D-Perspective Field Props (Gates, Dummies, Hotspot, Loose Ball) ---- */
+function fdDrawField3D(){
+  const dr=G&&G.drill;if(!dr)return;
+  if(dr.id==='t1_rush'){
+    // Glowing neon Bonus Gates projected onto the real Vapor City 3D turf
+    for(const g of dr.gates){
+      const pL=P(g.x-g.w/2,g.y),pR=P(g.x+g.w/2,g.y),gh=Math.max(18,pL.u*2.8);
+      const col=g.hit?'#58ffb0':g.gold?'#ffd23a':'#27e0ff';
+      ctx.save();
+      ctx.strokeStyle=col;ctx.lineWidth=Math.max(3,pL.u*.22);ctx.shadowColor=col;ctx.shadowBlur=12;
+      ctx.beginPath();ctx.moveTo(pL.sx,pL.sy);ctx.lineTo(pL.sx,pL.sy-gh);ctx.lineTo(pR.sx,pR.sy-gh);ctx.lineTo(pR.sx,pR.sy);ctx.stroke();
+      if(!g.hit){
+        ctx.fillStyle=g.gold?'rgba(255,210,58,.18)':'rgba(39,224,255,.14)';
+        ctx.beginPath();ctx.moveTo(pL.sx,pL.sy);ctx.lineTo(pL.sx,pL.sy-gh);ctx.lineTo(pR.sx,pR.sy-gh);ctx.lineTo(pR.sx,pR.sy);ctx.fill();
+      }
+      ctx.restore();
+    }
+    // Padded Tackle Dummies standing on the turf
+    for(const dm of dr.dummies){
+      const pr=P(dm.x,dm.y),rw=Math.max(7,pr.u*.85),rh=Math.max(18,pr.u*2.4);
+      ctx.save();
+      ctx.fillStyle='rgba(0,0,0,.35)';ctx.beginPath();ctx.ellipse(pr.sx,pr.sy,rw*1.1,rw*.42,0,0,7);ctx.fill();
+      ctx.fillStyle='#9b3d20';ctx.fillRect(pr.sx-rw*.6,pr.sy-rh,rw*1.2,rh);
+      ctx.strokeStyle='#ffd23a';ctx.lineWidth=2;ctx.strokeRect(pr.sx-rw*.6,pr.sy-rh,rw*1.2,rh);
+      ctx.restore();
+    }
+  }else if(dr.id==='t2_crush'){
+    // 2x Hotspot Zone projected onto the real Hale Harbor concrete turf
+    const pr=P(dr.hot.x,dr.hot.y),rx=pr.u*dr.hot.r,ry=rx*.44;
+    ctx.save();
+    ctx.fillStyle='rgba(232,163,61,.22)';ctx.beginPath();ctx.ellipse(pr.sx,pr.sy,rx,ry,0,0,7);ctx.fill();
+    ctx.strokeStyle='#E8A33D';ctx.lineWidth=3;ctx.setLineDash([8,6]);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#F6C46D';ctx.font='800 '+Math.max(13,Math.round(pr.u*.9))+'px "Barlow Condensed",sans-serif';ctx.textAlign='center';
+    ctx.fillText('2x HOTSPOT',pr.sx,pr.sy+4);
+    ctx.restore();
+    // Glowing carrier ring under whoever holds the ball
+    if(!dr._loose&&F.carrier){
+      const pc=P(F.carrier.x,F.carrier.y);
+      ctx.save();ctx.strokeStyle='#58ffb0';ctx.lineWidth=3.5;ctx.beginPath();ctx.ellipse(pc.sx,pc.sy,pc.u*1.3,pc.u*.52,0,0,7);ctx.stroke();ctx.restore();
+    }
+    // Loose bouncing fumble football
+    if(dr._loose){
+      const pb=P(dr.ball.x,dr.ball.y);
+      ctx.save();
+      ctx.fillStyle='rgba(0,0,0,.4)';ctx.beginPath();ctx.ellipse(pb.sx,pb.sy,Math.max(5,pb.u*.5),Math.max(2,pb.u*.2),0,0,7);ctx.fill();
+      ballShape(ctx,pb.sx,pb.sy-dr.ball.z*pb.u*.7,Math.max(5,pb.u*.42),performance.now()/80);
+      ctx.restore();
+    }
   }
-  // Loose Ball
-  if(!st.carrier){
-    c.fillStyle='#8a4a22';c.beginPath();c.ellipse(sx(st.ball.x),sy(st.ball.y),10,6,0,0,7);c.fill();
-    c.strokeStyle='#fff';c.lineWidth=2;c.stroke();
+}
+
+/* ---- Crisp Drill HUD Overlay on Top of Real 3D Match Canvas ---- */
+function fdDrawHud3D(){
+  const dr=G&&G.drill;if(!dr)return;
+  ctx.save();
+  ctx.fillStyle='rgba(8,14,22,.78)';ctx.fillRect(W/2-230,8,460,44);
+  ctx.strokeStyle=dr.id==='t1_rush'?'#27e0ff':'#E8A33D';ctx.lineWidth=2;ctx.strokeRect(W/2-230,8,460,44);
+  ctx.font='800 22px "Barlow Condensed",sans-serif';ctx.textAlign='center';ctx.fillStyle='#fff';
+  if(dr.id==='t1_rush'){
+    ctx.fillText('RUSHING ATTACK · '+Math.round(dr.score)+' PTS · ×'+dr.mult+' · TDs '+dr.tds+' · '+Math.ceil(dr.time)+'s',W/2,37);
+  }else{
+    const sb=dr.players.map(p=>p._dName+' '+Math.round(p._dScore)).join('  |  ');
+    ctx.font='800 18px "Barlow Condensed",sans-serif';
+    ctx.fillText(sb+'  ·  '+Math.ceil(dr.time)+'s',W/2,36);
   }
-  // Popups
-  for(const pop of st.popups){c.fillStyle=pop.col;c.font='800 19px "Barlow Condensed",sans-serif';c.fillText(pop.txt,sx(pop.x),sy(pop.y)-22-(1.1-pop.t)*24)}
-  // 4-Way Scoreboard HUD
-  c.textAlign='left';c.font='800 20px "Barlow Condensed",sans-serif';
-  let xHud=18;
-  for(const p of st.players){
-    c.fillStyle=p.you?'#F6C46D':'#CBD6DE';
-    const txt=p.name+': '+Math.round(p.score);c.fillText(txt,xHud,32);xHud+=125;
+  if(dr.over){
+    ctx.fillStyle='rgba(6,12,18,.84)';ctx.fillRect(0,H*.34,W,H*.32);
+    ctx.fillStyle='#ffd23a';ctx.font='800 42px "Barlow Condensed",sans-serif';
+    ctx.fillText('DRILL COMPLETE · '+Math.round(dr.score)+' PTS',W/2,H*.48);
+    ctx.fillStyle='#fff';ctx.font='600 18px sans-serif';
+    ctx.fillText('Tap or click anywhere to return to Coach Vance',W/2,H*.57);
   }
-  c.textAlign='right';c.fillStyle=st.time<12?'#ff3b5c':'#E8A33D';c.font='800 24px "Barlow Condensed",sans-serif';
-  c.fillText(Math.ceil(st.time)+'s',W-18,32);
-  c.textAlign='center';c.fillStyle='rgba(255,255,255,.7)';c.font='600 13px sans-serif';
-  c.fillText('WASD/Drag: Move · Swipe / J / K / L / Space: Juke / Stiff-Arm / Big Hit · Shift: Turbo · ESC: Exit',W/2,H-14);
-  if(st.over){
-    const sorted=[...st.players].sort((a,b)=>b.score-a.score);
-    const rank=sorted.findIndex(p=>p.you)+1;
-    c.fillStyle='rgba(10,16,22,.84)';c.fillRect(0,H*.32,W,H*.36);
-    c.fillStyle='#E8A33D';c.font='800 40px "Barlow Condensed",sans-serif';c.fillText('FINISH #'+rank+' · '+Math.round(st.score)+' STYLE PTS',W/2,H*.47);
-    c.fillStyle='#fff';c.font='600 18px sans-serif';c.fillText('Tap or click anywhere to return to Coach Vance',W/2,H*.56);
-  }
+  ctx.restore();
 }
 
 /* ---- Dev Quick-Launch Buttons & QA Hook ---- */
@@ -13198,11 +13179,11 @@ setTimeout(()=>{
   for(const [id,lbl,drill] of [['mFD1','TEST: RUSHING ATTACK','t1_rush'],['mFD2','TEST: CRUSH CARRIER','t2_crush']]){
     if(document.getElementById(id))continue;
     const b=document.createElement('button');b.className='btn';b.id=id;b.textContent=lbl;
-    b.onclick=()=>{owShow();startFieldDrill(drill)};
+    b.onclick=()=>startFieldDrill(drill);
     back.parentNode.insertBefore(b,back);
   }
 },65);
-window.CFDRILL={FIELD_DRILLS,fdS,fdAward,fdTalk,startFieldDrill,fdInitRush,fdStepRush,fdInitCrush,fdStepCrush};
+window.CFDRILL={FIELD_DRILLS,fdS,fdAward,fdTalk,startFieldDrill,fdEndDrill,fdInitRush3D,fdInitCrush3D,fdStep3D,fdDrawField3D,fdDrawHud3D};
 /* ================= end v3.31 FIELD DRILLS ================= */
 
 
