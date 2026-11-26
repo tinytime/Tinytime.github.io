@@ -6122,7 +6122,7 @@ const P3D=(()=>{
   function balls(r){const b=r.i*3;let k=0;for(const nm of ['ballR','ballL','ball2']){const o=r.P[nm];ballIM.setMatrixAt(b+k,o.visible&&r.mesh.visible?o.matrixWorld:Z);k++}}
   function feet(r){const v=FOOT.set(0,-.5,0);r.P.shoeR.localToWorld(v);const yR=v.y;FOOT.set(0,-.5,0);r.P.shoeL.localToWorld(FOOT);return Math.min(yR,FOOT.y)}
   function draw(list){
-    if(!S.want||S.lost||!F||$('#hud').hidden||!init())return false;
+    if(!S.want||S.lost||!F||($('#hud').hidden&&!(G&&G.drill))||!init())return false;
     const t0=performance.now();
     try{
       sync();if(!Z){Z=new T.Matrix4().makeScale(0,0,0);FOOT=new T.Vector3()}
@@ -12990,7 +12990,7 @@ function fdStepRush3D(dr,dt){
   // Defenders pursue & tackle / get juked-spun-trucked
   for(const d of F.def){
     if(d.fall||d.stun>0)continue;
-    const dx=c.x-d.x,dy=c.y-d.y,len=Math.hypot(dx,dy)||1,sp=6.6+Math.min(2.2,dr.rep*.25);
+    const dx=c.x-d.x,dy=c.y-d.y,len=Math.hypot(dx,dy)||1,cSp=Math.max(7.2,Math.hypot(c.vx||0,c.vy||0)),sp=cSp*1.1;
     d.vx=dx/len*sp;d.vy=dy/len*sp;d.x+=d.vx*dt;d.y+=d.vy*dt;d.ph+=dt*2.6;
     if(len<1.45){
       const evading=!!(c.dash||c.inv>0||c.spinT>0||c.arm>0||c.air);
@@ -13030,7 +13030,8 @@ function fdStepCrush3D(dr,dt){
   // Move Eli with real match stick + Juke/Spin/Stiff-Arm
   const prevDash=!!you.dash;
   if(!you.fall&&you.stun<=0){
-    const savedCar=F.carrier;F.carrier=you;moveCarrier(dt);F.carrier=savedCar;
+    const px0=you.x,py0=you.y,savedCar=F.carrier;F.carrier=you;moveCarrier(dt);F.carrier=savedCar;
+    if(dr._loose||savedCar!==you){you.x+= (you.x-px0)*0.1;you.y+=(you.y-py0)*0.1;you.vx*=1.1;you.vy*=1.1}
     you.x=clamp(you.x,6,FW-6);you.y=clamp(you.y,36,76);
     // Wall-juke bonus when Eli jukes near concrete sideline wall while holding ball!
     if(!prevDash&&you.dash&&!dr._loose&&F.carrier===you&&(you.x<10||you.x>FW-10)){
@@ -13047,7 +13048,7 @@ function fdStepCrush3D(dr,dt){
       for(const o of dr.players){if(o===ai||o.fall||o.stun>0)continue;const d=Math.hypot(o.x-ai.x,o.y-ai.y);if(d<nd){nd=d;near=o}}
       if(near&&nd<9){tx=ai.x+(ai.x-near.x)*2;ty=ai.y+(ai.y-near.y)*2}else{tx=dr.hot.x;ty=dr.hot.y}
     }else if(liveCar){tx=liveCar.x;ty=liveCar.y}
-    const dx=tx-ai.x,dy=ty-ai.y,len=Math.hypot(dx,dy)||1,sp=liveCar===ai?6.8:7.5;
+    const dx=tx-ai.x,dy=ty-ai.y,len=Math.hypot(dx,dy)||1,carSp=7.4,sp=liveCar===ai?carSp:carSp*1.1;
     ai.vx=dx/len*sp;ai.vy=dy/len*sp;ai.x=clamp(ai.x+ai.vx*dt,6,FW-6);ai.y=clamp(ai.y+ai.vy*dt,36,76);ai.ph+=dt*2.5;
   }
   // Loose fumble ball physics & pickup
