@@ -3152,42 +3152,42 @@ body #menu .ui-menu-build-trigger::after{
 }
 
 
-/* Pre-game landscape fit correction after Run 510 measured overlap.
-   Reserve a deeper footer lane so all six 3D stages clear FIRST TO at both
-   compact and wide landscape sizes. Keep the team cards tight around the marks. */
+/* Pre-game landscape fit correction: compact the footer lane, give team marks
+   real prominence, and keep every 3D player stage clear of FIRST TO. */
 @media (orientation:landscape){
-  body #mu:not([hidden]) .mid{
-    padding-bottom:164px!important;
-  }
+  body #mu:not([hidden]) .mid{padding-bottom:122px!important}
   body #mu:not([hidden]) .pn{
-    height:clamp(118px,25vh,166px)!important;
-    min-height:0!important;
-    max-height:166px!important;
-    padding:4px 0!important;
-    border-radius:18px!important;
+    height:clamp(180px,36vh,220px)!important;
+    min-height:180px!important;
+    max-height:220px!important;
+    padding:7px 2px!important;
+    border-radius:22px!important;
   }
   body #mu:not([hidden]) .pn .lg{
-    width:clamp(68px,11vh,88px)!important;
-    height:clamp(68px,11vh,88px)!important;
-    max-width:92%!important;
-    margin:0 auto 4px!important;
+    width:clamp(80px,14vh,116px)!important;
+    height:clamp(80px,14vh,116px)!important;
+    max-width:100%!important;
+    margin:0 auto!important;
   }
   body #mu:not([hidden]) .pn .lg svg{
-    width:112%!important;
-    height:112%!important;
+    width:110%!important;
+    height:110%!important;
     max-width:none!important;
     max-height:none!important;
   }
+  body #mu:not([hidden]) .pn .nm{font-size:clamp(18px,3.5vh,24px)!important}
+  body #mu:not([hidden]) .pn .ov{font-size:clamp(13px,1.9vh,17px)!important}
 }
 @media(max-height:430px) and (orientation:landscape){
-  body #mu:not([hidden]) .mid{padding-top:7px!important;padding-bottom:142px!important}
+  body #mu:not([hidden]) .mid{padding-top:7px!important;padding-bottom:106px!important}
   body #mu:not([hidden]) .pn{
-    height:clamp(108px,28vh,128px)!important;
-    max-height:128px!important;
-    padding:3px 0!important;
+    height:clamp(180px,36vh,190px)!important;
+    min-height:180px!important;
+    max-height:190px!important;
+    padding:5px 2px!important;
   }
   body #mu:not([hidden]) .pn .lg{
-    width:clamp(58px,11vh,68px)!important;
-    height:clamp(58px,11vh,68px)!important;
+    width:clamp(76px,14vh,84px)!important;
+    height:clamp(76px,14vh,84px)!important;
   }
 }
