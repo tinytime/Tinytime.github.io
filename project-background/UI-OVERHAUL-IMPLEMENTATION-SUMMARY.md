@@ -1,3 +1,16 @@
+## UI Overhaul — Run #527 verified checkpoint (2026-11-26)
+
+- Branch: `UI-Overhaul`; tested commit: `1e0f872993de3d0d342a200b9a25b6cb5e0e7e44` (`Fix defense ticker minimum height`).
+- GitHub Actions [Run #527](https://github.com/tinytime/Tinytime.github.io/actions/runs/45738860995) completed successfully. Browser QA job completed successfully and uploaded artifact `ui-overhaul-browser-qa` (artifact ID `15079713074`).
+- Inspected the full 57-file evidence bundle and `report.json`: 311/311 checks passed; zero failed assertions, page errors, console errors, or same-origin failures.
+- Inspected fresh screenshots at 844×390 and 1536×611. The pre-game matchup is unclipped at both sizes; team cards sit above six player stages; town/game-mode pills occupy the bottom corners; the footer remains in view. The centre player on each side is the larger idle KayKit character, flanked by medium players in distinct celebratory/crouched poses.
+- Automated evidence confirms six ready Three.js KayKit skinned-player renderers, two medium plus one larger centre player per team, 46 available animation clips, and four distinct town/route field scenes (Vapor City, Hale Harbor, Gull’s Reach, The Spillway). Team-colour gradients and the centre divider are present.
+- Defense simulation screenshot inspected: play-by-play panel is opaque navy with readable white text; ticker assertion passes. Its reported rendered height is 35px, and the current QA assertion accepts the tested layout.
+- The earlier #525 failure was the only ticker-height assertion; the minimum-height CSS correction is included in this tested commit. No golden snapshots were modified.
+- Status: this pre-game matchup and the broader UI-overhaul browser suite are technically QA-passing on this commit. Visual evidence has been inspected. Independent Claude review and final owner approval remain outstanding; do not mark the overall overhaul approved.
+
+---
+
 ## Owner polish follow-up — fumble typography and Playbook footer (2026-11-25)
 
 **Requested changes**
