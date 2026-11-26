@@ -108,8 +108,8 @@
      if(chip.classList.contains('locked')){
       const trailName=chip.textContent.replace(/^🔒\s*/,'').trim();
       // Crew/challenge data is private to the game's main-script closure; keep this display map local.
-      const trailCrewNames={VIOLET:'Glitch Cats',AMBER:'Scrap Kings',TEAL:'Skyline Drifters',GLITCH:'Netrunners',RUST:'Bait Dogs',STEEL:'Longshoremen',SPARK:'Gantry Gang',GOLD:'Closers'};
-      const crew=trailCrewNames[trailName]||'Crew challenge';
+      const trailTownNames={VIOLET:'Vapor City',AMBER:'Vapor City',TEAL:'Vapor City',GLITCH:'Vapor City',RUST:'Hale Harbor',STEEL:'Hale Harbor',SPARK:'Hale Harbor',GOLD:'Hale Harbor'};
+      const crew=trailTownNames[trailName]||'Vapor City';
       const hint=document.createElement('small');hint.className='ui-team-trail-hint';hint.textContent=crew.toUpperCase();
       hint.setAttribute('aria-label','Unlock by completing the '+crew+' crew challenge');
       option.appendChild(hint);

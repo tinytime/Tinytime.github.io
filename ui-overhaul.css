@@ -3568,6 +3568,58 @@ body #achT {
 }
 
 /* ==========================================================================
+   Section 3: MY TEAM & MY SQUAD (Portrait) — Handoff Spec
+   ========================================================================== */
+#team .ui-team-tab[aria-selected="true"] {
+  background: rgba(245, 184, 65, 0.14) !important;
+  border-color: #F5B841 !important;
+  color: #F5B841 !important;
+}
+#team #tBack {
+  position: sticky !important;
+  bottom: max(8px, env(safe-area-inset-bottom, 0px)) !important;
+  z-index: 4 !important;
+  background: #1C2130 !important;
+  border: 1.5px solid rgba(77, 225, 242, 0.7) !important;
+  border-radius: 12px !important;
+  color: #F5F7FA !important;
+}
+#squad #sqPts {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  flex: none !important;
+}
+#squad #sqPts .ui-squad-metric {
+  background: #131620 !important;
+  border-radius: 10px !important;
+  padding: 4px 8px !important;
+  white-space: nowrap !important;
+}
+#squad #sqPts .ui-squad-metric:first-child {
+  border: 1.5px solid #F5B841 !important;
+}
+#squad #sqPts .ui-squad-metric:nth-child(2) {
+  border: 1.5px solid #4DE1F2 !important;
+}
+#squad #sqPts .ui-squad-metric:nth-child(2) b {
+  color: #4DE1F2 !important;
+}
+#sqBody .ustat button:not(:disabled) {
+  background: #F5B841 !important;
+  border-color: #F5B841 !important;
+  color: #131620 !important;
+  font-weight: 900 !important;
+  border-radius: 999px !important;
+}
+#squad #sqStrip {
+  flex: none !important;
+  position: sticky !important;
+  bottom: max(6px, env(safe-area-inset-bottom, 0px)) !important;
+  z-index: 3 !important;
+}
+
+/* ==========================================================================
    Pre-Game Matchup Screen (#mu) & On-Screen Playbook Footer Fixes
    ========================================================================== */
 
