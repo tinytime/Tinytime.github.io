@@ -3154,6 +3154,144 @@ body #menu .ui-menu-build-trigger::after{
 
 
 /* ==========================================================================
+   Circuit Football — UI Overhaul Spec Alignment (Overworld, HUD, Def, End)
+   ========================================================================== */
+
+/* 1. Overworld HUD: matte #131620 translucent pills below safe-area-inset-top */
+#world #owTop,
+#world #owMenu {
+  background: rgba(19, 22, 32, 0.85) !important;
+  backdrop-filter: blur(6px) !important;
+  border: 1.5px solid rgba(245, 184, 65, 0.65) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+#world #owMenu {
+  border-color: rgba(77, 225, 242, 0.65) !important;
+  color: #F5F7FA !important;
+}
+
+/* 2. Unified Scoreboard (#hud #bug): keep 1st & 10 and FIRST TO X visible across all states + STAR PLAY bar */
+#app:has(#sheet:not([hidden])) #hud #bug #bDown,
+#app:has(#dcall:not([hidden])) #hud #bug #bDown,
+#app:has(#tick:not([hidden])) #hud #bug #bDown,
+#app:has(#sheet:not([hidden])) #hud #bug #tgtTag,
+#app:has(#dcall:not([hidden])) #hud #bug #tgtTag,
+#app:has(#tick:not([hidden])) #hud #bug #tgtTag {
+  visibility: visible !important;
+  display: flex !important;
+  opacity: 1 !important;
+}
+#app #hud #gb {
+  display: flex !important;
+  align-items: center !important;
+  height: 10px !important;
+  margin-top: 2px !important;
+  background: #0D1420 !important;
+  border: 1px solid rgba(77, 225, 242, 0.4) !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+}
+#app #hud #gb #gbFill {
+  background: linear-gradient(90deg, #4DE1F2, #F5B841) !important;
+}
+
+/* 3. Pre-Snap (#setbar), Live Play (#bHurdle, #bTurbo), & Fumble (#pile) */
+#app #setbar button.sb {
+  background: #131620 !important;
+  border: 2px solid #F5B841 !important;
+  border-radius: 12px !important;
+  color: #F5F7FA !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
+}
+#app #setbar #hike {
+  background: #4DE1F2 !important;
+  color: #131620 !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 0 #147f98, 0 8px 18px rgba(77, 225, 242, 0.2) !important;
+}
+#app #ctl #bHurdle {
+  background: #131620 !important;
+  border: 2px solid #F5B841 !important;
+  color: #F5F7FA !important;
+}
+#app #pile #pileBar {
+  width: min(65vw, 520px) !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+}
+
+/* 4. Defense Selection (#dcall): strictly below scoreboard + semantic borders */
+#app #dcall {
+  top: calc(env(safe-area-inset-top, 0px) + 74px) !important;
+  bottom: auto !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: rgba(19, 22, 32, 0.96) !important;
+  border: 1.5px solid rgba(77, 225, 242, 0.45) !important;
+  border-radius: 16px !important;
+}
+#app #dcall .row > button[data-c="blitz"] {
+  border: 2px solid #EF4444 !important;
+}
+#app #dcall .row > button[data-c="bal"] {
+  border: 2px solid rgba(148, 163, 184, 0.55) !important;
+}
+#app #dcall .row > button[data-c="prev"] {
+  border: 2px solid #34D399 !important;
+}
+
+/* 5. Defense Sim (#tick): dock below scoreboard, hide offense controls, bottom-right skip pill */
+#app:has(#tick:not([hidden])) #ctl,
+#app:has(#dcall:not([hidden])) #ctl {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+#app #tick #tkTop {
+  top: calc(env(safe-area-inset-top, 0px) + 72px) !important;
+  background: rgba(19, 22, 32, 0.95) !important;
+  border: 1.5px solid rgba(77, 225, 242, 0.7) !important;
+  border-radius: 999px !important;
+}
+#app #tick #tkHint {
+  left: auto !important;
+  right: max(14px, env(safe-area-inset-right, 0px)) !important;
+  bottom: max(14px, env(safe-area-inset-bottom, 0px)) !important;
+  transform: none !important;
+  padding: 8px 16px !important;
+  background: #131620 !important;
+  border: 1.5px solid #4DE1F2 !important;
+  border-radius: 999px !important;
+  color: #4DE1F2 !important;
+  font-size: 11px !important;
+}
+
+/* 6. Post-Game Results (#end): restore STYLE POINTS card + REMATCH / MENU buttons */
+#end #endStyle:not(:empty) {
+  display: block !important;
+  width: min(82%, 340px) !important;
+  margin: 0 auto 8px !important;
+  padding: 12px !important;
+  background: #131620 !important;
+  border: 2px solid #F5B841 !important;
+  border-radius: 16px !important;
+  color: #F5B841 !important;
+  text-align: center !important;
+}
+#end .btnrow #eAgain {
+  background: #F5B841 !important;
+  border: 2px solid #F5B841 !important;
+  color: #131620 !important;
+}
+#end .btnrow #eMenu {
+  background: #1C2130 !important;
+  border: 2px solid rgba(77, 225, 242, 0.65) !important;
+  color: #4DE1F2 !important;
+}
+
+/* ==========================================================================
    Pre-Game Matchup Screen (#mu) & On-Screen Playbook Footer Fixes
    ========================================================================== */
 
