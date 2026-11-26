@@ -4601,6 +4601,9 @@ body #menu.ui-title-settings-mode #crewList {
 
 body #uiTitleScreen .ui-title-hit-start::after {
   content: "BEAT THE CIRCUIT";
+  display: block !important;
+  position: relative !important;
+  z-index: 2 !important;
   color: #131620 !important;
   font-family: "Barlow", system-ui, sans-serif !important;
   font-weight: 900 !important;
@@ -4610,6 +4613,9 @@ body #uiTitleScreen .ui-title-hit-start::after {
 }
 body #uiTitleScreen .ui-title-hit-settings::after {
   content: "SETTINGS";
+  display: block !important;
+  position: relative !important;
+  z-index: 2 !important;
   color: #F5F7FA !important;
   font-family: "Barlow", system-ui, sans-serif !important;
   font-weight: 900 !important;
