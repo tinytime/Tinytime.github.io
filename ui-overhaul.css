@@ -3304,7 +3304,7 @@ body #menu .ui-menu-build-trigger::after{
   }
   body #mu.on .pn .lg{width:132px!important;height:132px!important}
   body #mu.on .mu-player-slot{
-    transform:translateY(18px) scale(.34)!important;
+    transform:translateY(0) scale(.34)!important;
     transform-origin:center bottom!important;
   }
   body #mu.on .first{font-size:14px!important;padding:4px 16px!important}
