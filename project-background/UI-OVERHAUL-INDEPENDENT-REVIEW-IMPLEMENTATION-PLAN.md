@@ -343,3 +343,24 @@ Minimum targeted evidence:
 - Evidence artifact: [Run #493 artifact 15074495383](https://github.com/tinytime/Tinytime.github.io/actions/runs/45724268883/artifacts/15074495383), containing 56 files including 50+ screenshots and the machine-readable report.
 - No golden snapshots were changed. This is internal automated QA and screenshot inspection only; consolidated independent Claude review and final owner approval remain outstanding. Do not mark the overall UI overhaul complete or approved.
 - Next gate: prepare/update the consolidated Claude review package against the exact tested commit and Run #493 evidence; preserve the existing scope and owner-approval gates.
+
+
+## Pre-game matchup screen — owner-requested redesign, Run #503 passed (2026-11-26)
+
+The owner explicitly authorized implementing the attached reference before handing the consolidated UI work to Claude. This supersedes the earlier planning note that the pre-game matchup redesign was deferred. Scope implemented on `UI-Overhaul`:
+
+- One shared full-screen town arena field render behind both teams; no separate per-team backgrounds. Team-primary jersey colors tint opposite diagonal halves using CSS clipped overlays, with the gold diagonal divider and centered navy VS badge retained.
+- Compact matte `#131620` team cards with gold home/cyan away borders, team marks, names and OVR pills; the cards are sized to leave a distinct player row beneath them.
+- Six 2.5D player renders total, three per team, using each side's current uniform and celebrate/pushup/idle poses.
+- FIRST TO target pill, gradient loading bar, and solid `#4DE1F2` TAP TO PLAY button with `#131620` text remain centered at the bottom. Existing match readiness and tap-to-enter behavior remain intact.
+
+**Iteration and QA history:**
+- Run #499 passed 304/304 on `35f2f8ed039206dc91aa4bc25f5678ebe20a5b4b`; initial visual inspection identified that the player artwork could be larger in landscape.
+- Run #501 on `11eb7c3ec2362db4a176d0fd7ac74f861399ab81` found one team-card height assertion failure (124.8px against a 140px threshold). The card/logo/name and player hierarchy were enlarged rather than weakening the assertion.
+- Final Run [#503](https://github.com/tinytime/Tinytime.github.io/actions/runs/45728666540) passed **304/304 checks** on exact tested application commit `fb44284e067df9a6f42b3a77136ea692102d2baf`. Zero failed checks, zero page exceptions, zero console errors and zero same-origin request failures.
+- Evidence artifact: [Run #503 artifact 15074973445](https://github.com/tinytime/Tinytime.github.io/actions/runs/45728666540/artifacts/15074973445), with 50 screenshots and `report.json` / `summary.md`.
+- Inspected actual `match-pre-game.png` at 844×390. It shows one shared arena, both diagonal team-color tints, the gold split and VS badge, compact navy team cards with OVR pills above the players, six visible players in the three requested poses, and the bottom target/progress/action hierarchy. The automated canvas-ink report confirms all six render: celebrate 58×80 and 46×65px; pushup 60×39 and 42×26px; idle 57×78 and 46×63px. The differing bounds reflect the pose silhouettes; all six contain visible player artwork.
+- Matchup assertions specifically pass for single shared arena count, both diagonal overlays, centered divider, card background/borders/radius/height, six player renders and pose distribution, correct team names/OVRs, actual crew target, completed loading bar above TAP TO PLAY, solid cyan button/dark text, and confirmation gate remaining open until player confirmation.
+- No golden snapshots were changed. This is internal browser QA plus direct screenshot inspection; it is not Claude independent review or final owner approval.
+
+**Next gate:** include this pre-game redesign and Run #503 artifact in the consolidated Claude review. Ask Claude to assess both reference fidelity and responsive behavior, including whether the compact card/player scale hierarchy remains clear on additional supported viewport sizes. Keep overall UI Overhaul approval pending.
