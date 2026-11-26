@@ -115,7 +115,7 @@ The owner requested that the Circuit Football RPG title screen be moved from the
 - CSS is isolated under `.ui-title-screen` / `.ui-title-*` selectors. Existing gameplay, save/progression, Settings controls, NPC renderer, and golden snapshots were not intentionally changed.
 
 **Visual status**
-- The port uses the same inline SVG title-scene interpretation as the source implementation. It is **not the supplied final raster artwork**. The title composition and mobile/desktop layout were visually inspected, but this illustration remains provisional and is not owner-approved as final art.
+- The live title screen loads the repository's supplied raster artwork from `Assets/Firefly - Review nfl field markings and make sure numbers are only along the sides and lines go.png` (the asset is present on `UI-Overhaul` and is referenced directly by `ui-overhaul-menu.js`). The earlier inline-SVG/provisional-art note is obsolete. The title composition and mobile/desktop layout were visually inspected in the title-flow QA evidence; final owner art approval remains a separate decision.
 
 **Browser QA**
 - Run #403 ([workflow 45676582496](https://github.com/tinytime/Tinytime.github.io/actions/runs/45676582496)) tested code commit `2e89b89bce15810f50ea56eb0e5235d6574f8559`: **263/263 checks passed**, 0 failures, 0 page errors, 0 console errors, 0 same-origin HTTP failures.
