@@ -2925,7 +2925,7 @@ const CAMPC=window.CAMPC={horizon:-.55,focus:.60,depth:80,acrossK:24,ty:-4};   /
 let CAMB=0,PCS=1,CAMR=0,CAMP=0;const PASSCFG=window.PASSCFG={on:true,horizon:.15,focus:.9,depth:16.6,acrossK:18};   // v3.16KK1 TUNE (F7): the pocket camera while the QB holds the ball on a pass play (landscape): a lower angle behind him (horizon .12 to .15, QB a little lower on screen: focus .861 to .9) and a little wider (16.6 to 18 yd across per screen height)
    // v3.09: CAMR 0..1 = how far the camera has moved to the low runner camera (RUNCFG), eased like CAMB
 const RUNCFG=window.RUNCFG={horizon:.4,focus:.97,depth:18};   // v3.09 TUNE: the landscape runner camera (blended in once the carrier is 3+ yd past the line)   // CAMB: 0 = play camera, 1 = play-call camera (eased); PCS: players shrink with the zoom-out
-function applyCam(){const C=LAND?CAMCFGL:CAMCFG,b=LAND?CAMB:0,r=LAND?CAMR*(1-b):0,pp=LAND&&PASSCFG.on?CAMP*(1-b)*(1-r):0,mx=(a,c,rr,ps)=>{let v=a+(rr-a)*r;if(ps!==undefined)v+=(ps-v)*pp;return v+(c-v)*b};let dp=mx(C.depth,CAMPC.depth,RUNCFG.depth,PASSCFG.depth);D2=dp;U0F=C.xscale;HORF=mx(C.horizon,CAMPC.horizon,RUNCFG.horizon,PASSCFG.horizon);FOCF=mx(C.focus,CAMPC.focus,RUNCFG.focus,PASSCFG.focus);MY=(FOCF-HORF)/D2;const AC=LAND&&C.acrossK?mx(C.acrossK,CAMPC.acrossK,C.acrossK,PASSCFG.acrossK)*W/H:CAMCFGL.across;WU=LAND?W/(AC*U0F*(D2/(5+D2))):W;
+function applyCam(){if(typeof G!=='undefined'&&G&&G.drill){D2=220;U0F=.047;HORF=-4.2;FOCF=.55;MY=.024;WU=W/(44*U0F);PCS=.78;return}const C=LAND?CAMCFGL:CAMCFG,b=LAND?CAMB:0,r=LAND?CAMR*(1-b):0,pp=LAND&&PASSCFG.on?CAMP*(1-b)*(1-r):0,mx=(a,c,rr,ps)=>{let v=a+(rr-a)*r;if(ps!==undefined)v+=(ps-v)*pp;return v+(c-v)*b};let dp=mx(C.depth,CAMPC.depth,RUNCFG.depth,PASSCFG.depth);D2=dp;U0F=C.xscale;HORF=mx(C.horizon,CAMPC.horizon,RUNCFG.horizon,PASSCFG.horizon);FOCF=mx(C.focus,CAMPC.focus,RUNCFG.focus,PASSCFG.focus);MY=(FOCF-HORF)/D2;const AC=LAND&&C.acrossK?mx(C.acrossK,CAMPC.acrossK,C.acrossK,PASSCFG.acrossK)*W/H:CAMCFGL.across;WU=LAND?W/(AC*U0F*(D2/(5+D2))):W;
   if(LAND&&C.acrossK){const AC0=C.acrossK*W/H;PCS=WU/(W/(AC0*U0F*(C.depth/(5+C.depth))))}else PCS=1}   // landscape: a yard is always the same share of a player's width, whatever the window shape
 applyCam();   // ONE true perspective on a flat ground plane (D2 = how far away the vanishing distance is); HORF = the row where the visible field ends under the skyline   // one camera for the whole play: horizon 25% down, the camera's focus row 66% down, about 9 player widths across at the line
 const horY=()=>H*(FOCF-(FOCF-HORF)*cam.zoom),horY0=()=>H*HORF;   // the true horizon row: where the flat ground vanishes
@@ -5251,7 +5251,7 @@ function camUpdate(rdt){
         const dist=Math.min(f.x,FW-f.x),wg=clamp((10-dist)/3,0,1),Lx=.385*W/(WU*U0F*z),Lm=(LAND?.36:.35)*W/(WU*U0F*z);   // within about 8 yards of a sideline, pan to it so it sits 8-15% from the screen edge
         tx=tx*(1-wg)+(f.x<CX?Lx:FW-Lx)*wg;tx=clamp(tx,Lm,FW-Lm);
         const fs=runHero()&&F.carrier?[F.carrier]:fitSet(),v0=fitView(z,fs,[0]),v=fitView(z,fs);fitLast=v0;tx=v.lo<=v.hi?clamp(tx,v.lo,v.hi):(v0.lo<=v0.hi?clamp(tx,v0.lo,v0.hi):(v0.lo+v0.hi)/2);if(window.__dbg)window.__fitv=[+v.lo.toFixed(1),+v.hi.toFixed(1),v.vert,+tx.toFixed(1),+cam.x.toFixed(1)];   // and never let the carrier or the 4 nearest players slip past the 8% margin
-        tz=dynZoom(Math.min(rdt,.05));if(runHero()&&F.carrier&&!(F.cine>0)){const c=F.carrier,s=Math.hypot(c.vx||0,c.vy||0);tz*=1-RUNCAM.widen*clamp((s-RUNCAM.wFrom)/2.5,0,1)}}if(G&&G.drill){ty=f.y-5.5;tz=.88}}   // v3.13 B9: the view opens up a little at top speed (the TURBO press gets its kick from the B2 punch)   // v3.09: TURBO push-in
+        tz=dynZoom(Math.min(rdt,.05));if(runHero()&&F.carrier&&!(F.cine>0)){const c=F.carrier,s=Math.hypot(c.vx||0,c.vy||0);tz*=1-RUNCAM.widen*clamp((s-RUNCAM.wFrom)/2.5,0,1)}}if(G&&G.drill){ty=f.y;tx=clamp(f.x,18,FW-18);tz=1}}   // v3.13 B9: the view opens up a little at top speed (the TURBO press gets its kick from the B2 punch)   // v3.09: TURBO push-in
   }
   if(SIMV.on){simStep(rdt);ty=Math.min(SIMV.cl,SIMV.cf)-5.5;tx=CX;tz=1}
   if(F&&F.cine>0&&!SIMV.on){F.cine-=rdt;const f=F.carrier;if(f&&!side){const pr=1-F.cine/SP_CINE;ty=f.y-CAMCFGL.back*.55;tx=f.x+(.5-pr)*6;tz=1.55}}
@@ -12861,6 +12861,7 @@ function startFieldDrill(id){
   screens(null);show('#hud',false);show('#sheet',false);show('#setbar',false);show('#ctl',true);show('#turboWrap',true);show('#turboLbl',true);
   fdEnsureExitBtn();
 
+  if(window.P3DCFG){window.P3DCFG._baseTilt=window.P3DCFG._baseTilt||window.P3DCFG.tilt;window.P3DCFG.tilt=1.02}
   if(id==='t1_rush')fdInitRush3D();
   else fdInitCrush3D();
   try{const t=$('#thr');if(t)t.style.visibility='hidden'}catch(e){}
@@ -12874,6 +12875,7 @@ function fdEndDrill(aborted){
   for(const bid of ['fdExitBtn','fdStartBtn','fdTackleBtn']){const el=document.getElementById(bid);if(el)el.hidden=true;}
   show('#ctl',false);show('#turboWrap',false);show('#turboLbl',false);
   const id=dr?dr.id:null,score=dr?Math.round(dr.score):0;
+  if(window.P3DCFG&&window.P3DCFG._baseTilt)window.P3DCFG.tilt=window.P3DCFG._baseTilt;
   if(G)G.drill=null;
   F=null;G=null;OW.busy=false;
   owShow();
