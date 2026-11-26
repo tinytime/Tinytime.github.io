@@ -3738,9 +3738,12 @@ body #achT {
 #team .ui-team-identity .lprev #tLogoBtn {
   flex: 1 1 auto !important;
   min-width: 0 !important;
-  height: 36px !important;
-  min-height: 36px !important;
-  padding: 0 4px !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  padding: 4px 4px 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   background: transparent !important;
   border: 0 !important;
   color: #F5B841 !important;
@@ -3963,6 +3966,59 @@ body #achT {
   font-weight: 800 !important;
   color: #9BA8BC !important;
   letter-spacing: 0.08em !important;
+}
+
+/* ==========================================================================
+   Global Font Hierarchy: Barlow 900 Uppercase (Headers/Titles/Big Numbers)
+   + Barlow Condensed 700 (Everything Else)
+   ========================================================================== */
+:root {
+  --ui-display: "Barlow", system-ui, sans-serif;
+  --ui-heading: "Barlow Condensed", system-ui, sans-serif;
+  --ui: "Barlow Condensed", system-ui, sans-serif;
+  --ui-mono: "Barlow Condensed", system-ui, sans-serif;
+}
+
+body,
+button,
+input,
+select,
+textarea,
+#menu,
+#team,
+#squad,
+#goalsP,
+#world,
+#app,
+#end,
+#mu {
+  font-family: "Barlow Condensed", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+}
+
+h1, h2, h3,
+.ui-menu-title,
+.ui-goals-title,
+.ui-menu-icon-card strong,
+.ui-menu-upg b,
+.ui-team-head .ui-team-upg b,
+.ui-squad-metric b,
+.ui-goals-stat-value,
+.ui-goals-stat-pair b,
+.ui-goals-stat-trio b,
+#sqHead .ov,
+#sqHead .nm,
+#hud #bug .bs,
+#hud #bug #clk,
+#mu .nm,
+#mu .vs,
+#end #endH,
+#end #endScore b,
+#banner b,
+#owTown {
+  font-family: "Barlow", system-ui, sans-serif !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
 }
 
 /* ==========================================================================

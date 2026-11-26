@@ -16,7 +16,7 @@
   const build=byId('mBuild'),buildDetailsInitial=build&&build.textContent.trim(),crewList=byId('crewList');
   const head=document.createElement('header');head.className='ui-menu-head';
   head.innerHTML='<button type="button" class="ui-menu-close" aria-label="Back to town">×</button><div class="ui-menu-brand"><div class="ui-menu-mark" aria-hidden="true">CF</div><div><div class="ui-menu-title">CIRCUIT FOOTBALL</div><div class="ui-menu-town"></div></div></div><button type="button" class="ui-menu-upg">UPG</button>';
-  const updateHeader=()=>{const liveTown=byId('owTown');head.querySelector('.ui-menu-town').textContent=liveTown&&liveTown.textContent.trim()||town;const upg=byId('mUpg');const value=upg&&upg.textContent.match(/\(([^)]+)\)/);head.querySelector('.ui-menu-upg').innerHTML='<small>UPG</small><b>'+(value?value[1]:'0')+'</b>'};
+  const updateHeader=()=>{const liveTown=byId('owTown');head.querySelector('.ui-menu-town').textContent=liveTown&&liveTown.textContent.trim()||town;const upg=byId('mUpg');const value=upg&&upg.textContent.match(/\(([^)]+)\)/);head.querySelector('.ui-menu-upg').innerHTML='<small>PTS</small><b>'+(value?value[1]:'0')+'</b>'};
   updateHeader();
   const upgControl=byId('mUpg');if(upgControl){const old=upgControl.closest('.btnrow');upgControl.hidden=true;upgControl.setAttribute('aria-hidden','true');menu.appendChild(upgControl);if(old&&!old.querySelector('button,input,select'))old.remove()}
   const goal=document.createElement('section');goal.className='ui-menu-goal';
@@ -140,7 +140,7 @@
    const header=document.createElement('header');header.className='ui-team-head';
    const back=document.createElement('button');back.type='button';back.className='ui-team-back';back.textContent='←';back.setAttribute('aria-label','Back to menu without using SAVE & EQUIP');
    const badge=document.createElement('span');badge.className='ui-team-upg';badge.setAttribute('role','status');
-   const sync=()=>{const source=byId('owObj'),raw=source&&source.textContent||'',match=raw.match(/UPG\s+(\d+)/i);badge.innerHTML='<small>UPG</small><b>'+(match?match[1]:'0')+'</b>'};
+   const sync=()=>{const source=byId('owObj'),raw=source&&source.textContent||'',match=raw.match(/UPG\s+(\d+)/i);badge.innerHTML='<small>PTS</small><b>'+(match?match[1]:'0')+'</b>'};
    back.addEventListener('click',()=>byId('tBack')?.click());
    header.append(back,heading,badge);team.insertBefore(header,team.firstChild);sync();
    if(window.MutationObserver){const source=byId('owObj');if(source)new MutationObserver(sync).observe(source,{childList:true,subtree:true,characterData:true})}
@@ -268,7 +268,7 @@
    owObj.classList.add('ui-visually-hidden');
    const syncOverworld=()=>{
     const raw=owObj.textContent.trim(),match=raw.match(/UPG\s+(\d+)/i),clean=raw.replace(/\s*[·|]\s*UPG\s+\d+/i,'').trim();
-    status.textContent=clean||'VAPOR CITY';status.classList.toggle('is-cleared',/^CLEARED/i.test(clean));upg.textContent='UPG '+(match?match[1]:'0');
+    status.textContent=clean||'VAPOR CITY';status.classList.toggle('is-cleared',/^CLEARED/i.test(clean));upg.textContent='PTS '+(match?match[1]:'0');
     const api=window.SG,map=api&&typeof api.M==='function'?api.M():null;
     const town=owTown.textContent.trim()||(map&&(map.harbor||map.hb?'HALE HARBOR':map.island||map.r2?"GULL'S REACH":map.route?'THE SPILLWAY':'VAPOR CITY'))||'VAPOR CITY';
     if(owTown.textContent.trim()!==town)if(owTown.textContent!==town)owTown.textContent=town;
