@@ -1843,3 +1843,17 @@ No golden snapshots were changed. This is internal automated QA plus direct scre
 - Browser QA Run #528 passed 312/312 checks on commit bad86fcbfb7872babd11769b292b0d94ab807fb8; no failed checks, page exceptions, console errors, or same-origin request failures. Artifact 15079524332 contains the full evidence bundle and four separate rendered field samples.
 - Visually inspected the 844×390 and 1536×611 matchup captures plus the Vapor City, Hale Harbor, Gull's Reach and The Spillway field renders. Team cards, six player stages and footer stay within the tested viewports; the centre running back is the larger standing figure, flanked by two medium teammates; the town environment remains visible beneath subtle team-colour washes.
 - Implementation and QA are on UI-Overhaul only. No gameplay rules, team data, uniform assets, KayKit model assets, or golden snapshots were changed. Internal QA and visual inspection are complete; independent Claude review and final owner approval remain outstanding.
+
+
+## Pre-game matchup hierarchy correction — Run #534 passed (2026-11-26)
+
+Owner direction: the player models are an addition, not the focal point; restore the team matchup content first and place models afterward without changing the field or gradient effect.
+
+- CSS/layout commit: `9a4823f4dce0fd0609bb06bf55898d92cbd5f4a7` — team cards expanded to 230px wide and 170px tall at compact landscape, with stronger logo/name/OVR prominence; player stages moved below the cards and reduced in scale.
+- Browser QA repair commit: `8fb566e3f3fab8d59549f355ded11e7cfa8cc870`. A no-op CSS trigger commit followed so the corrected test ran: `9f5bde93029332e7a26a71202a9dbcb66afffc2f`.
+- Browser QA [Run #534](https://github.com/tinytime/Tinytime.github.io/actions/runs/45740521797) passed **313/313 assertions** on exact tested commit `9f5bde93029332e7a26a71202a9dbcb66afffc2f`; branch head matches. Zero page exceptions, console errors or same-origin failures.
+- The hierarchy assertion measured both compact cards at 230×170px, with cards ending at y=177 and player stages beginning at y=198. All six player stages fit below the cards and above the footer. The 844×390 and 1536×611 checks report all cards, models and footer controls inside the viewport without overlap.
+- All six models report the `threejs-kaykit-skinned` renderer and ready state. Per team the distribution remains two medium and one large. The QA report verifies the existing town arena, home/away 0.28-alpha gradients and gold divider remain in place.
+- Directly inspected `match-pre-game.png` (844×390) and `match-pre-game-wide-landscape.png` (1536×611). The team cards/logos now lead the composition; the models read as supporting art; field and gradients are preserved; bottom corner pills and centered controls fit. Artifact [15080981547](https://github.com/tinytime/Tinytime.github.io/actions/runs/45740521797) contains the screenshots and report.
+
+No golden snapshots, gameplay rules, team data, uniform assets or KayKit model assets were changed. Internal QA and visual inspection are complete; independent Claude review and final owner approval remain outstanding.
