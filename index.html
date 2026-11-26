@@ -6553,67 +6553,250 @@ const OWGATES=[[14,38],[15,38],[16,38],[17,38],[30,19],[30,20],[30,21]];   // ga
 
 /* ---------- interiors: small rooms with people in them ---------- */
 const rowP=(t,x0,x1,y,o)=>{const a=[];for(let x=x0;x<=x1;x++)a.push(Object.assign({x,y,t,s:1},o||{}));return a};
+const INTERIOR_ARCHETYPES={
+ residential:{label:'Residential',zones:'warm-rug',entryFrame:true},
+ shop:{label:'Shop / Service',zones:'counter-split',entryFrame:true},
+ tavern:{label:'Bar / Tavern',zones:'lounge-split',entryFrame:false},
+ arcade:{label:'Arcade',zones:'aisle-runner',entryFrame:false},
+ workplace:{label:'Workplace / Civic',zones:'work-zones',entryFrame:true},
+ clubhouse:{label:'Clubhouse',zones:'locker-zones',entryFrame:false},
+ crew_hq:{label:'Crew HQ',zones:'stage-flank',entryFrame:false}
+};
 const OWI={
  home:{w:10,h:8,fl:'wood',floor:'#1f1626',wall:'#2e1a38',acc:'#ffd23a',acc2:'#ff2fa8',title:'HOME',kan:'\u5bb6',
-  props:[{x:1,y:4,t:'fridge',s:1,m:['A small fridge. Half a carton of milk and a lot of hot sauce.']},{x:3,y:5,t:'stool',s:1},{x:9,y:2,t:'case',s:1,m:['A shelf of old trophies, dusty. The 22 jersey is folded on the bottom.']},{x:9,y:6,t:'crate',s:1,m:['A box of shoes and spare laces by the door. Two pairs are a size too small.']},{x:1,y:2,t:'bed',s:1,w:2},{x:3,y:1,t:'window',s:0,w:2},{x:5,y:2,t:'photo',s:1,m:['A photo of two boys in oversized jerseys. One wears 22. The small one wears 7.','Dante never took his eyes off the camera. Eli always looked at him.']},{x:6,y:1,t:'jerseyframe',s:0},{x:7,y:2,t:'desk',s:1,w:2,m:['A cheap terminal. The last message is an unpaid power bill. QUIET HOURS: 12 AM to 5 AM.']},{x:1,y:5,t:'counter',s:1,m:['A hot plate and a dented kettle. Dinner is instant noodles again.']},{x:1,y:6,t:'counter',s:1,m:['Empty. The block has not been the same since the lights went.']},{x:7,y:5,t:'table',s:1},{x:8,y:5,t:'table',s:1},{x:8,y:3,t:'ball',s:1,m:['Your ball. The laces are worn smooth on one side.']},{x:3,y:3,t:'rug',s:0,w:3,h:2},{x:8,y:6,t:'plant',s:1}],
+  arch:{type:'residential',variant:'apt',
+   zones:[
+    {x:1,y:2,w:3,h:2,kind:'rug',col:'rgba(110,60,140,.28)',border:'rgba(255,210,58,.45)'},
+    {x:1,y:4,w:2,h:3,kind:'tile',col:'rgba(42,32,54,.68)',border:'rgba(255,255,255,.12)'},
+    {x:3,y:4,w:3,h:2,kind:'rug',col:'rgba(107,34,80,.78)',border:'#ffd23a',trim:'rgba(255,47,168,.75)'},
+    {x:4,y:6,w:2,h:1,kind:'mat',col:'rgba(255,210,58,.24)',border:'#ffd23a'}
+   ],
+   wallDeco:[{x:7,y:1,kind:'door',col:'#3b2548'}]},
+  props:[
+   {x:1,y:2,t:'bed',s:1,w:2},
+   {x:3,y:2,t:'photo',s:1,m:['A photo of two boys in oversized jerseys. One wears 22. The small one wears 7.','Dante never took his eyes off the camera. Eli always looked at him.']},
+   {x:2,y:1,t:'window',s:0,w:2},
+   {x:5,y:1,t:'jerseyframe',s:0},
+   {x:6,y:2,t:'desk',s:1,w:2,m:['A cheap terminal. The last message is an unpaid power bill. QUIET HOURS: 12 AM to 5 AM.']},
+   {x:8,y:2,t:'case',s:1,m:['A shelf of old trophies, dusty. The 22 jersey is folded on the bottom.']},
+   {x:7,y:3,t:'ball',s:1,m:['Your ball. The laces are worn smooth on one side.']},
+   {x:1,y:4,t:'fridge',s:1,m:['A small fridge. Half a carton of milk and a lot of hot sauce.']},
+   {x:1,y:5,t:'counter',s:1,m:['A hot plate and a dented kettle. Dinner is instant noodles again.']},
+   {x:1,y:6,t:'counter',s:1,m:['Empty. The block has not been the same since the lights went.']},
+   {x:6,y:5,t:'table',s:1},
+   {x:7,y:5,t:'stool',s:1},
+   {x:3,y:6,t:'plant',s:1},
+   {x:7,y:6,t:'plant',s:1},
+   {x:8,y:6,t:'crate',s:1,m:['A box of shoes and spare laces by the door. Two pairs are a size too small.']}
+  ],
   npcs:[
-   {id:'cat',x:5,y:5,d:'l',sprite:'cat',act:'card',name:'STRAY CAT',t:['Meow.','(She sleeps on Dante\'s old jacket. She has opinions about your form.)']}]},
+   {id:'cat',x:5,y:4,d:'l',sprite:'cat',act:'card',name:'STRAY CAT',t:['Meow.','(She sleeps on Dante\'s old jacket. She has opinions about your form.)']}
+  ]},
  pharma:{w:11,h:9,fl:'clinic',floor:'#122a33',wall:'#0e3340',acc:'#27e0ff',acc2:'#58ffb0',title:'PHARMA 24H',kan:'\u85ac',
-  props:[...rowP('counter',2,8,4).filter(p=>p.x!==5),{x:1,y:2,t:'fridge',s:1},{x:2,y:2,t:'fridge',s:1},{x:8,y:2,t:'fridge',s:1},{x:9,y:2,t:'fridge',s:1},
-   {x:2,y:6,t:'shelf',s:1},{x:2,y:7,t:'shelf',s:1},{x:4,y:6,t:'shelf',s:1},{x:4,y:7,t:'shelf',s:1},{x:8,y:6,t:'chair',s:1},{x:8,y:7,t:'chair',s:1},{x:9,y:5,t:'scale',s:1,m:['A bathroom scale. It says: "NOPE."']},
-   {x:4,y:1,t:'xsign',s:0,w:3}],
-  npcs:[{id:'pharmacist',civ:'clinic',x:5,y:3,d:'d',name:'PHARMACIST',pw:'legs',pwl:['Welcome to Pharma 24H. We stock everything except sunshine.','You are Dante Voss\'s brother. I sell a rub for tired legs. I do not sell what he took. I knew something was moving through this city. I did not know whose vial was whose. I should have done more.','You look winded. Runners come in here all day.',"This is my Iron Legs rub. It goes on your skin and washes off. Nothing goes inside you. On the house."],t2:['Drink water. Stretch. Then run.']},
-   {id:'patient1',civ:'fan',x:3,y:5,d:'d',name:'PATIENT',t:['Sprained my ankle on a rooftop route. Worth it.']},
-   {id:'patient2',civ:'runner',x:7,y:6,d:'l',name:'WAITING RUNNER',t:['They say the drifters never get tired. I say they never sleep.']}]},
+  arch:{type:'shop',variant:'clinic',
+   zones:[
+    {x:1,y:2,w:9,h:2,kind:'tile',col:'rgba(14,54,68,.55)',border:'rgba(39,224,255,.35)'},
+    {x:4,y:5,w:2,h:3,kind:'runner',col:'rgba(88,255,176,.20)',border:'rgba(88,255,176,.55)'},
+    {x:7,y:5,w:3,h:3,kind:'rug',col:'rgba(20,76,88,.48)',border:'rgba(39,224,255,.4)'},
+    {x:4,y:7,w:2,h:1,kind:'mat',col:'rgba(88,255,176,.26)',border:'#58ffb0'}
+   ],
+   wallDeco:[{x:3,y:1,kind:'door',col:'#123e4d'}]},
+  props:[
+   ...rowP('counter',2,8,4),
+   {x:1,y:2,t:'fridge',s:1},{x:2,y:2,t:'fridge',s:1},{x:6,y:2,t:'term',s:1},{x:8,y:2,t:'fridge',s:1},{x:9,y:2,t:'fridge',s:1},
+   {x:1,y:6,t:'shelf',s:1},{x:1,y:7,t:'shelf',s:1},{x:3,y:6,t:'shelf',s:1},{x:3,y:7,t:'shelf',s:1},
+   {x:8,y:6,t:'chair',s:1},{x:8,y:7,t:'chair',s:1},{x:9,y:5,t:'scale',s:1,m:['A bathroom scale. It says: "NOPE."']},
+   {x:7,y:7,t:'plant',s:1},
+   {x:4,y:1,t:'xsign',s:0,w:3}
+  ],
+  npcs:[
+   {id:'pharmacist',civ:'clinic',x:5,y:3,d:'d',name:'PHARMACIST',pw:'legs',pwl:['Welcome to Pharma 24H. We stock everything except sunshine.','You are Dante Voss\'s brother. I sell a rub for tired legs. I do not sell what he took. I knew something was moving through this city. I did not know whose vial was whose. I should have done more.','You look winded. Runners come in here all day.',"This is my Iron Legs rub. It goes on your skin and washes off. Nothing goes inside you. On the house."],t2:['Drink water. Stretch. Then run.']},
+   {id:'patient1',civ:'fan',x:2,y:6,d:'l',name:'PATIENT',t:['Sprained my ankle on a rooftop route. Worth it.']},
+   {id:'patient2',civ:'runner',x:7,y:6,d:'r',name:'WAITING RUNNER',t:['They say the drifters never get tired. I say they never sleep.']}
+  ]},
  bar:{w:12,h:9,fl:'boards',floor:'#140e2c',wall:'#26104a',acc:'#9b5cff',acc2:'#ff2fa8',title:'HOLO BAR',kan:'\u9152',
-  props:[...rowP('bottles',1,10,2).filter(p=>p.x!==5),...rowP('counter',2,9,3).filter(p=>p.x!==5),{x:3,y:4,t:'stool',s:1},{x:7,y:4,t:'stool',s:1},{x:9,y:4,t:'stool',s:1},
-   {x:1,y:5,t:'jukebox',s:1,m:['The jukebox plays a synth version of the school fight song.']},{x:10,y:5,t:'dj',s:1,m:['A DJ deck. The record spins by itself.']},{x:10,y:6,t:'dj',s:1,m:['A DJ deck. The record spins by itself.']},
-   {x:2,y:7,t:'table',s:1},{x:9,y:7,t:'table',s:1},{x:4,y:5,t:'dancefloor',s:0,w:5,h:3}],
-  npcs:[{id:'bartender',civ:'vendor',x:5,y:2,d:'d',name:'BARTENDER',t:['Welcome to the Holo Bar. Everything on the menu glows.']},
-   {id:'regular1',civ:'fan',x:3,y:5,d:'u',name:'REGULAR',t:['I have sat at this stool since the Netrunners were underdogs.']},
+  arch:{type:'tavern',variant:'neon-lounge',
+   zones:[
+    {x:2,y:2,w:7,h:1,kind:'tile',col:'rgba(48,18,76,.65)',border:'rgba(255,47,168,.35)'},
+    {x:1,y:6,w:3,h:2,kind:'rug',col:'rgba(88,24,78,.42)',border:'rgba(255,47,168,.45)'},
+    {x:8,y:6,w:3,h:2,kind:'rug',col:'rgba(42,24,84,.42)',border:'rgba(155,92,255,.45)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'rgba(155,92,255,.25)',border:'#9b5cff'}
+   ],
+   wallDeco:[{x:10,y:1,kind:'door',col:'#33165c'}]},
+  props:[
+   ...rowP('bottles',2,8,2).filter(p=>p.x!==5),
+   ...rowP('counter',2,8,3),
+   {x:3,y:4,t:'stool',s:1},{x:4,y:4,t:'stool',s:1},{x:7,y:4,t:'stool',s:1},{x:8,y:4,t:'stool',s:1},
+   {x:1,y:4,t:'jukebox',s:1,m:['The jukebox plays a synth version of the school fight song.']},
+   {x:10,y:4,t:'dj',s:1,m:['A DJ deck. The record spins by itself.']},
+   {x:10,y:5,t:'dj',s:1,m:['A DJ deck. The record spins by itself.']},
+   {x:1,y:6,t:'booth',s:1},{x:2,y:6,t:'table',s:1},
+   {x:9,y:7,t:'table',s:1},{x:10,y:7,t:'stool',s:1},
+   {x:4,y:5,t:'dancefloor',s:0,w:4,h:3}
+  ],
+  npcs:[
+   {id:'bartender',civ:'vendor',x:5,y:2,d:'d',name:'BARTENDER',t:['Welcome to the Holo Bar. Everything on the menu glows.']},
+   {id:'regular1',civ:'fan',x:4,y:5,d:'u',name:'REGULAR',t:['I have sat at this stool since the Netrunners were underdogs.']},
    {id:'regular2',civ:'dancer',x:6,y:6,d:'d',name:'HOLOGRAM DANCER',t:['I only exist after 9 PM. The rain makes me glitch.']},
-   {id:'regular3',civ:'coach',x:3,y:7,d:'r',name:'OLD COACH',tf:()=>owGateOpen()?['The gate hums, I hear. Five towns, Deuce.','The grid eats tired boys. Keep your people close.']:['Elbow still drops. You hold the ball like a champion, kid. Quit fumbling it.','Your brother threw into the dark and trusted it to land. You throw like someone is keeping score.','I coached you and Dante from the little leagues, Deuce. I still pay for Mouse\'s boots. Do not argue with me.','(He presses a peppermint into your hand, the way he did when you were small.)','Beat the Netrunners. The gate opens. After that, the Circuit finds you.']}]},
+   {id:'regular3',civ:'coach',x:2,y:7,d:'u',name:'OLD COACH',tf:()=>owGateOpen()?['The gate hums, I hear. Five towns, Deuce.','The grid eats tired boys. Keep your people close.']:['Elbow still drops. You hold the ball like a champion, kid. Quit fumbling it.','Your brother threw into the dark and trusted it to land. You throw like someone is keeping score.','I coached you and Dante from the little leagues, Deuce. I still pay for Mouse\'s boots. Do not argue with me.','(He presses a peppermint into your hand, the way he did when you were small.)','Beat the Netrunners. The gate opens. After that, the Circuit finds you.']}
+  ]},
  den:{w:12,h:9,fl:'circuit',floor:'#0b1a18',wall:'#0c2a24',acc:'#58ffb0',acc2:'#27e0ff',title:'DATA DEN',kan:'\u96fb',
-  props:[{x:3,y:2,t:'term',s:1},{x:7,y:2,t:'term',s:1},{x:9,y:2,t:'term',s:1},{x:1,y:3,t:'rack',s:1},{x:1,y:4,t:'rack',s:1},{x:1,y:5,t:'rack',s:1},{x:10,y:3,t:'rack',s:1},{x:10,y:4,t:'rack',s:1},{x:10,y:5,t:'rack',s:1},
-   {x:5,y:5,t:'holo',s:1,w:2},{x:6,y:5,t:'none',s:1},{x:8,y:6,t:'case',s:1},{x:2,y:7,t:'crate',s:1},{x:3,y:7,t:'term',s:1},{x:2,y:1,t:'monwall',s:0,w:8},{x:3,y:3,t:'cables',s:0,w:6,h:5}],
-  npcs:[{id:'hacker',civ:'hacker',x:5,y:3,d:'d',name:'HACKER',act:'stats',t:["You walked in off the street? Bold. I respect bold.",'Fun fact from the grid: the same shipping code, Q-7, is on lockers in three different crews.','Somebody supplies this whole street. I just have not found out who.']},
-   {id:'scriptkid',civ:'kid',x:4,y:4,d:'u',name:'SCRIPT KID',t:["I'm training an AI to predict the Netrunners' next play. It says: run."]},
-   {id:'techgirl',civ:'tech',x:9,y:6,d:'l',name:'TECH VENDOR',t:['Buying data chips? Sorry, we only trade in secrets.']}]},
+  arch:{type:'workplace',variant:'cyber-lab',
+   zones:[
+    {x:1,y:2,w:1,h:4,kind:'tile',col:'rgba(10,40,36,.75)',border:'rgba(88,255,176,.35)'},
+    {x:10,y:2,w:1,h:4,kind:'tile',col:'rgba(10,40,36,.75)',border:'rgba(39,224,255,.35)'},
+    {x:4,y:4,w:4,h:3,kind:'bay',col:'rgba(18,62,56,.45)',border:'rgba(88,255,176,.65)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'rgba(88,255,176,.22)',border:'#58ffb0'}
+   ]},
+  props:[
+   {x:3,y:2,t:'term',s:1},{x:4,y:2,t:'term',s:1},{x:7,y:2,t:'term',s:1},{x:8,y:2,t:'term',s:1},
+   {x:1,y:2,t:'rack',s:1},{x:1,y:3,t:'rack',s:1},{x:1,y:4,t:'rack',s:1},{x:1,y:5,t:'rack',s:1},
+   {x:10,y:2,t:'rack',s:1},{x:10,y:3,t:'rack',s:1},{x:10,y:4,t:'rack',s:1},{x:10,y:5,t:'rack',s:1},
+   {x:5,y:5,t:'holo',s:1,w:2},{x:6,y:5,t:'none',s:1},
+   {x:1,y:7,t:'crate',s:1},{x:2,y:7,t:'term',s:1},
+   {x:8,y:7,t:'term',s:1},{x:9,y:7,t:'case',s:1},
+   {x:2,y:1,t:'monwall',s:0,w:8},{x:3,y:3,t:'cables',s:0,w:6,h:4}
+  ],
+  npcs:[
+   {id:'hacker',civ:'hacker',x:5,y:3,d:'d',name:'HACKER',act:'stats',t:["You walked in off the street? Bold. I respect bold.",'Fun fact from the grid: the same shipping code, Q-7, is on lockers in three different crews.','Somebody supplies this whole street. I just have not found out who.']},
+   {id:'scriptkid',civ:'kid',x:3,y:3,d:'u',name:'SCRIPT KID',t:["I'm training an AI to predict the Netrunners' next play. It says: run."]},
+   {id:'techgirl',civ:'tech',x:9,y:6,d:'d',name:'TECH VENDOR',t:['Buying data chips? Sorry, we only trade in secrets.']}
+  ]},
  arcade:{w:12,h:9,fl:'carpet',floor:'#1c0f24',wall:'#2e1034',acc:'#ffd23a',acc2:'#ff2fa8',title:'PIXEL PALACE',kan:'\u8ced',
-  props:[...rowP('cab',2,4,2),...rowP('cab',7,9,2),{x:2,y:5,t:'cab',s:1},{x:3,y:5,t:'cab',s:1},{x:8,y:5,t:'cab',s:1},{x:9,y:5,t:'cab',s:1},{x:1,y:3,t:'pinball',s:1},{x:1,y:4,t:'pinball',s:1},{x:10,y:2,t:'shelf',s:1},{x:10,y:3,t:'shelf',s:1},
-   {x:1,y:7,t:'claw',s:1},{x:2,y:7,t:'claw',s:1},{x:8,y:6,t:'counter',s:1},{x:9,y:6,t:'counter',s:1},{x:3,y:1,t:'ticket',s:0,w:6}],
-  npcs:[{id:'owner',civ:'vendor',x:10,y:6,d:'l',name:'ARCADE OWNER',act:'mini',t:['Welcome to Pixel Palace. Every machine is rigged, but fairly.']},
+  arch:{type:'arcade',variant:'neon-arcade',
+   zones:[
+    {x:5,y:2,w:2,h:6,kind:'runner',col:'rgba(255,47,168,.16)',border:'rgba(255,210,58,.45)'},
+    {x:8,y:5,w:3,h:3,kind:'tile',col:'rgba(48,16,58,.58)',border:'rgba(255,210,58,.55)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'rgba(255,210,58,.24)',border:'#ffd23a'}
+   ]},
+  props:[
+   ...rowP('cab',2,4,2),...rowP('cab',7,9,2),
+   {x:3,y:5,t:'cab',s:1},{x:4,y:5,t:'cab',s:1},
+   {x:1,y:3,t:'pinball',s:1},{x:1,y:4,t:'pinball',s:1},
+   {x:1,y:6,t:'claw',s:1},{x:1,y:7,t:'claw',s:1},
+   {x:8,y:5,t:'counter',s:1},{x:9,y:5,t:'counter',s:1},{x:8,y:6,t:'counter',s:1},
+   {x:10,y:5,t:'shelf',s:1},{x:10,y:6,t:'shelf',s:1},
+   {x:3,y:1,t:'ticket',s:0,w:6}
+  ],
+  npcs:[
+   {id:'owner',civ:'vendor',x:9,y:6,d:'l',name:'ARCADE OWNER',act:'mini',t:['Welcome to Pixel Palace. Every machine is rigged, but fairly.']},
    {id:'gamer1',civ:'fan',x:3,y:3,d:'u',name:'HIGH SCORER',t:['Level 99, boss fight. Do NOT talk to me.']},
-   {id:'gamer2',civ:'mouse',x:8,y:3,d:'u',name:'RETRO KID',t:['Football is just a hard arcade game with a real ball.']}]},
+   {id:'gamer2',civ:'mouse',x:8,y:3,d:'u',name:'RETRO KID',t:['Football is just a hard arcade game with a real ball.']}
+  ]},
  pawn:{w:11,h:9,fl:'concrete',floor:'#241608',wall:'#38200c',acc:'#ff7a1a',acc2:'#9b5cff',title:'PAWN & TRADE',kan:'\u91d1',
-  props:[...rowP('cage',2,8,4).filter(p=>p.x!==5),{x:8,y:2,t:'safe',s:1,m:['A vault door. Combination: a very long number.']},{x:9,y:2,t:'safe',s:1,m:['A vault door. Combination: a very long number.']},{x:1,y:3,t:'crate',s:1},{x:1,y:4,t:'crate',s:1},{x:9,y:4,t:'term',s:1,m:['A tray of cracked phones and a console with no cables. Everything is tagged in marker.']},{x:9,y:6,t:'case',s:1,m:['Old electronics, two cameras, and a pair of mirrored glasses. NOT FOR SALE.']},{x:9,y:7,t:'crate',s:1,m:['Stacked boxes of someone\'s whole life. The tags say UNCLAIMED.']},{x:1,y:5,t:'case',s:1},
-   {x:2,y:6,t:'case',s:1,m:['Four jerseys: 9, 14, 31, 5. Each tag has a name scratched out.','The 14 is faded at the shoulders. Salt stains. Somebody wore it in the harbor.']},{x:3,y:6,t:'case',s:1,m:['A jersey folded with care: number 22. The tag says HOLD. NOT FOR SALE.']},{x:7,y:7,t:'case',s:1},{x:1,y:7,t:'crate',s:1},{x:2,y:1,t:'hang',s:0},{x:4,y:1,t:'hang',s:0},{x:6,y:1,t:'hang',s:0}],
-  npcs:[{id:'broker',civ:'broker',x:5,y:3,d:'d',name:'BROKER',act:'swap',t:['Buy, sell, trade. Mostly trade. Nothing is what it seems.']},
-   {id:'shopper1',civ:'fan',x:4,y:7,d:'u',name:'SHOPPER',t:['Somebody pawned a pair of championship cleats. I want them.']},
-   {id:'shopper2',civ:'busker',x:8,y:5,d:'l',name:'COLLECTOR',t:['Old league jerseys. Rain-faded. Priceless.','Retired numbers, mostly. Kids the Circuit used up. That 22 behind the glass, nobody touches.']}]},
+  arch:{type:'shop',variant:'pawn-vault',
+   zones:[
+    {x:1,y:2,w:9,h:2,kind:'tile',col:'rgba(46,28,12,.68)',border:'rgba(255,122,26,.4)'},
+    {x:4,y:5,w:2,h:3,kind:'runner',col:'rgba(255,122,26,.18)',border:'rgba(255,122,26,.45)'},
+    {x:1,y:5,w:3,h:3,kind:'rug',col:'rgba(70,38,16,.42)',border:'rgba(155,92,255,.4)'},
+    {x:4,y:7,w:2,h:1,kind:'mat',col:'rgba(255,122,26,.24)',border:'#ff7a1a'}
+   ]},
+  props:[
+   ...rowP('cage',2,8,4),
+   {x:1,y:2,t:'safe',s:1,m:['A vault door. Combination: a very long number.']},
+   {x:2,y:2,t:'safe',s:1,m:['A vault door. Combination: a very long number.']},
+   {x:8,y:2,t:'term',s:1,m:['A tray of cracked phones and a console with no cables. Everything is tagged in marker.']},
+   {x:9,y:2,t:'crate',s:1},
+   {x:3,y:6,t:'case',s:1},
+   {x:1,y:6,t:'case',s:1,m:['Four jerseys: 9, 14, 31, 5. Each tag has a name scratched out.','The 14 is faded at the shoulders. Salt stains. Somebody wore it in the harbor.']},
+   {x:2,y:6,t:'case',s:1,m:['A jersey folded with care: number 22. The tag says HOLD. NOT FOR SALE.']},
+   {x:1,y:7,t:'crate',s:1},
+   {x:9,y:6,t:'case',s:1,m:['Old electronics, two cameras, and a pair of mirrored glasses. NOT FOR SALE.']},
+   {x:8,y:6,t:'case',s:1},
+   {x:8,y:7,t:'crate',s:1,m:['Stacked boxes of someone\'s whole life. The tags say UNCLAIMED.']},
+   {x:2,y:1,t:'hang',s:0},{x:5,y:1,t:'hang',s:0},{x:8,y:1,t:'hang',s:0}
+  ],
+  npcs:[
+   {id:'broker',civ:'broker',x:5,y:3,d:'d',name:'BROKER',act:'swap',t:['Buy, sell, trade. Mostly trade. Nothing is what it seems.']},
+   {id:'shopper1',civ:'fan',x:2,y:7,d:'u',name:'SHOPPER',t:['Somebody pawned a pair of championship cleats. I want them.']},
+   {id:'shopper2',civ:'busker',x:7,y:6,d:'r',name:'COLLECTOR',t:['Old league jerseys. Rain-faded. Priceless.','Retired numbers, mostly. Kids the Circuit used up. That 22 behind the glass, nobody touches.']}
+  ]},
  club:{w:12,h:9,fl:'rubber',floor:'#0f1a2a',wall:'#132038',acc:'#27e0ff',acc2:'#9b5cff',title:'CLUBHOUSE',kan:'\u8857',
-  props:[{x:1,y:7,t:'barrel',s:1,m:['A water cooler. The cups are labeled in marker.']},{x:10,y:7,t:'crate',s:1,m:['Gear bags. One has a very worn glove sticking out.']},{x:10,y:3,t:'crate',s:1,m:['A city notice is taped to the crate: ALL LOCKERS MUST BE CLEARED BEFORE DEMOLITION. NEXT OF KIN SUMMONED. LOCKER 22 LISTED.']},...rowP('locker',1,10,2).map(p=>p.x===3?Object.assign(p,{act:'squad',m:null}):p.x===8?Object.assign(p,{t:'mirror',act:'team'}):p),{x:3,y:5,t:'bench',s:1},{x:4,y:5,t:'bench',s:1},{x:1,y:5,t:'case',s:1},{x:1,y:6,t:'case',s:1},{x:10,y:5,t:'weights',s:1},{x:10,y:6,t:'weights',s:1},{x:5,y:1,t:'board',s:0,w:3},{x:7,y:7,t:'bench',s:1},{x:8,y:7,t:'bench',s:1},{x:2,y:1,t:'jerseyframe',s:0},{x:9,y:1,t:'jerseyframe',s:0},{x:1,y:4,t:'fridge',s:1},{x:9,y:3,t:'table',s:1},{x:9,y:4,t:'stool',s:1},{x:4,y:7,t:'tvstand',s:1}],
-  npcs:[{id:'manager',civ:'coach',x:5,y:3,d:'d',name:'EQUIPMENT MANAGER',t:['Your locker is the glowing one on the left. Check your squad there.','The mirror on the right is for your look. Jersey, pants, colors.','New jersey and pants styles are prizes in the city. Try the arcade.']},
-   {id:'mate1',x:2,y:6,d:'r',name:'TEAMMATE',t:['You can run the same play all day. Defenders adapt, though.']},
-   {id:'mate2',civ:'kid',x:9,y:6,d:'l',name:'WATER BOY',t:['Hydrate. Stretch. Do not trust the rain puddles.']}]},
+  arch:{type:'clubhouse',variant:'urban-locker',
+   zones:[
+    {x:1,y:5,w:3,h:3,kind:'rug',col:'rgba(24,42,72,.52)',border:'rgba(39,224,255,.4)'},
+    {x:9,y:4,w:2,h:3,kind:'bay',col:'rgba(34,26,64,.5)',border:'rgba(155,92,255,.45)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'rgba(39,224,255,.22)',border:'#27e0ff'}
+   ]},
+  props:[
+   ...rowP('locker',1,10,2).map(p=>p.x===3?Object.assign(p,{act:'squad',m:null}):p.x===8?Object.assign(p,{t:'mirror',act:'team'}):p),
+   {x:3,y:4,t:'bench',s:1},{x:4,y:4,t:'bench',s:1},{x:7,y:4,t:'bench',s:1},{x:8,y:4,t:'bench',s:1},
+   {x:1,y:4,t:'fridge',s:1},{x:1,y:5,t:'case',s:1},{x:1,y:6,t:'case',s:1},
+   {x:1,y:7,t:'barrel',s:1,m:['A water cooler. The cups are labeled in marker.']},
+   {x:3,y:7,t:'tvstand',s:1},
+   {x:10,y:4,t:'weights',s:1},{x:10,y:5,t:'weights',s:1},
+   {x:10,y:6,t:'crate',s:1,m:['A city notice is taped to the crate: ALL LOCKERS MUST BE CLEARED BEFORE DEMOLITION. NEXT OF KIN SUMMONED. LOCKER 22 LISTED.']},
+   {x:10,y:7,t:'crate',s:1,m:['Gear bags. One has a very worn glove sticking out.']},
+   {x:8,y:7,t:'table',s:1},{x:7,y:7,t:'stool',s:1},
+   {x:2,y:1,t:'jerseyframe',s:0},{x:5,y:1,t:'board',s:0,w:3},{x:9,y:1,t:'jerseyframe',s:0}
+  ],
+  npcs:[
+   {id:'manager',civ:'coach',x:5,y:3,d:'d',name:'EQUIPMENT MANAGER',t:['Your locker is the glowing one on the left. Check your squad there.','The mirror on the right is for your look. Jersey, pants, colors.','New jersey and pants styles are prizes in the city. Try the arcade.']},
+   {id:'mate1',x:4,y:6,d:'l',name:'TEAMMATE',t:['You can run the same play all day. Defenders adapt, though.']},
+   {id:'mate2',civ:'kid',x:9,y:5,d:'l',name:'WATER BOY',t:['Hydrate. Stretch. Do not trust the rain puddles.']}
+  ]},
  crew1:{w:12,h:9,fl:'glitch',floor:'#1a1030',wall:'#2a1450',acc:'#9b5cff',acc2:'#ff2fa8',title:'GLITCH CATS',kan:'\u732b',
-  props:[{x:1,y:3,t:'catstatue',s:1},{x:10,y:3,t:'catstatue',s:1},{x:2,y:6,t:'couch',s:1},{x:3,y:6,t:'couch',s:1},{x:8,y:6,t:'couch',s:1},{x:9,y:6,t:'couch',s:1},{x:4,y:1,t:'tv',s:0,w:4},{x:1,y:2,t:'speaker',s:1},{x:10,y:2,t:'speaker',s:1}],
-  npcs:[{id:'pete',x:5,y:3,d:'d',name:'PIXEL PETE',crew:'cats',t:['Glitch Cats run this alley.','There is one locker in the back nobody opens. Cheaper not to ask who pays for it.']},
+  arch:{type:'crew_hq',variant:'neon-lounge-hq',
+   zones:[
+    {x:4,y:2,w:4,h:3,kind:'stage',col:'rgba(155,92,255,.22)',border:'#ff2fa8'},
+    {x:1,y:5,w:3,h:3,kind:'rug',col:'rgba(74,26,114,.42)',border:'rgba(155,92,255,.45)'},
+    {x:8,y:5,w:3,h:3,kind:'rug',col:'rgba(74,26,114,.42)',border:'rgba(255,47,168,.45)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'rgba(155,92,255,.24)',border:'#9b5cff'}
+   ]},
+  props:[
+   {x:1,y:2,t:'speaker',s:1},{x:2,y:2,t:'catstatue',s:1},{x:9,y:2,t:'catstatue',s:1},{x:10,y:2,t:'speaker',s:1},
+   {x:1,y:6,t:'couch',s:1},{x:2,y:6,t:'couch',s:1},{x:3,y:7,t:'table',s:1},
+   {x:9,y:6,t:'couch',s:1},{x:10,y:6,t:'couch',s:1},{x:8,y:7,t:'table',s:1},
+   {x:4,y:1,t:'tv',s:0,w:4}
+  ],
+  npcs:[
+   {id:'pete',x:5,y:3,d:'d',name:'PIXEL PETE',crew:'cats',t:['Glitch Cats run this alley.','There is one locker in the back nobody opens. Cheaper not to ask who pays for it.']},
    {id:'cat1',x:2,y:5,d:'d',name:'GLITCH CAT',t:['Pete never misses a read. Unless it rains.']},
    {id:'cat2',x:9,y:5,d:'d',name:'GLITCH CAT',t:['Our offense is perfectly balanced. Also, mostly random.']},
    {id:'gcat1',x:3,y:4,d:'r',sprite:'cat',name:'GLITCH KITTEN',pal:{b:'#7a3cff',k:'#4b1fa8',h:'#9b5cff',t:'#6a2fe0',e:'#27e0ff',n:'#ff2fa8'},t:['Mrrp. (Her tail flickers. For a second there are two of her.)']},
    {id:'gcat2',x:8,y:4,d:'l',sprite:'cat',name:'GLITCH KITTEN',pal:{b:'#ff2fa8',k:'#a0126a',h:'#ff6cc8',t:'#e0208f',e:'#58ffb0',n:'#27e0ff'},t:['Prrr. (Static crackles when you pet her.)']},
-   {id:'gcat3',x:10,y:5,d:'l',sprite:'cat',name:'GLITCH KITTEN',pal:{b:'#27e0ff',k:'#0e8aa8',h:'#7af0ff',t:'#1fb8d8',e:'#ff2fa8',n:'#9b5cff'},t:['Mew. (She phases through the couch. Then back. Rude.)']}]},
+   {id:'gcat3',x:10,y:5,d:'l',sprite:'cat',name:'GLITCH KITTEN',pal:{b:'#27e0ff',k:'#0e8aa8',h:'#7af0ff',t:'#1fb8d8',e:'#ff2fa8',n:'#9b5cff'},t:['Mew. (She phases through the couch. Then back. Rude.)']}
+  ]},
  crew2:{w:12,h:9,fl:'plate',floor:'#2a1e0c',wall:'#40260c',acc:'#f2b632',acc2:'#ff7a1a',title:'SCRAP KINGS',kan:'\u62f3',
-  props:[{x:1,y:6,t:'tires',s:1},{x:1,y:7,t:'tires',s:1},{x:3,y:7,t:'barrel',s:1},{x:7,y:7,t:'barrel',s:1},{x:10,y:6,t:'weights',s:1},{x:1,y:3,t:'tires',s:1},{x:1,y:4,t:'tires',s:1},{x:10,y:3,t:'tires',s:1},{x:10,y:4,t:'tires',s:1},{x:3,y:2,t:'barrel',s:1},{x:8,y:2,t:'barrel',s:1},{x:5,y:2,t:'throne',s:1,w:2},{x:6,y:2,t:'none',s:1},{x:2,y:6,t:'weights',s:1},{x:3,y:6,t:'weights',s:1},{x:9,y:7,t:'crate',s:1},{x:10,y:7,t:'crate',s:1},{x:2,y:1,t:'chains',s:0,w:8}],
-  npcs:[{id:'rusty',x:5,y:4,d:'u',name:'RUSTY OKOYE',crew:'kings',t:['Scrap Kings take on anybody who can win the first round.','Blue-cap bottles keep turning up in the gym. We stack them out back. Nobody drinks them.']},
-   {id:'king1',x:2,y:5,d:'d',name:'SCRAP KING',t:['We stack the box. It is a whole philosophy.']},
-   {id:'king2',x:9,y:5,d:'d',name:'SCRAP KING',t:['Try throwing on us. Go on.']}]},
+  arch:{type:'crew_hq',variant:'iron-gym-hq',
+   zones:[
+    {x:4,y:2,w:4,h:4,kind:'bay',col:'rgba(242,182,50,.14)',border:'#f2b632'},
+    {x:1,y:3,w:2,h:4,kind:'tile',col:'rgba(40,24,10,.55)',border:'rgba(255,122,26,.4)'},
+    {x:9,y:3,w:2,h:4,kind:'tile',col:'rgba(40,24,10,.55)',border:'rgba(255,122,26,.4)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'rgba(242,182,50,.22)',border:'#f2b632'}
+   ]},
+  props:[
+   {x:3,y:2,t:'barrel',s:1},{x:5,y:2,t:'throne',s:1,w:2},{x:6,y:2,t:'none',s:1},{x:8,y:2,t:'barrel',s:1},
+   {x:1,y:3,t:'tires',s:1},{x:1,y:4,t:'tires',s:1},{x:1,y:6,t:'weights',s:1},{x:2,y:6,t:'weights',s:1},{x:1,y:7,t:'barrel',s:1},
+   {x:10,y:3,t:'tires',s:1},{x:10,y:4,t:'tires',s:1},{x:10,y:6,t:'weights',s:1},{x:9,y:6,t:'weights',s:1},{x:10,y:7,t:'crate',s:1},{x:8,y:7,t:'barrel',s:1},
+   {x:2,y:1,t:'chains',s:0,w:8}
+  ],
+  npcs:[
+   {id:'rusty',x:5,y:4,d:'d',name:'RUSTY OKOYE',crew:'kings',t:['Scrap Kings take on anybody who can win the first round.','Blue-cap bottles keep turning up in the gym. We stack them out back. Nobody drinks them.']},
+   {id:'king1',x:3,y:5,d:'r',name:'SCRAP KING',t:['We stack the box. It is a whole philosophy.']},
+   {id:'king2',x:8,y:5,d:'l',name:'SCRAP KING',t:['Try throwing on us. Go on.']}
+  ]},
  crew3:{w:12,h:9,fl:'seam',floor:'#0e2a2a',wall:'#0a3a3a',acc:'#2fe0a8',acc2:'#27e0ff',title:'SKYLINE DRIFTERS',kan:'\u9f8d',
-  props:[{x:1,y:4,t:'tires',s:1},{x:10,y:4,t:'barrel',s:1,m:['A rooftop rain barrel. Somebody drew a smiley face on it.']},{x:2,y:7,t:'crate',s:1},{x:9,y:7,t:'crate',s:1},{x:1,y:3,t:'planter',s:1},{x:10,y:3,t:'planter',s:1},{x:1,y:7,t:'planter',s:1},{x:10,y:7,t:'planter',s:1},{x:2,y:6,t:'lounge',s:1},{x:3,y:6,t:'lounge',s:1},{x:8,y:6,t:'lounge',s:1},{x:9,y:6,t:'lounge',s:1},{x:5,y:5,t:'maptable',s:1,w:2},{x:6,y:5,t:'none',s:1},{x:1,y:1,t:'skyline',s:0,w:10},{x:2,y:2,t:'stringlights',s:0,w:8},{x:1,y:5,t:'rack',s:1},{x:10,y:5,t:'rack',s:1},{x:2,y:3,t:'term',s:1},{x:9,y:3,t:'term',s:1},{x:4,y:7,t:'table',s:1},{x:7,y:7,t:'table',s:1},{x:3,y:5,t:'holo',s:1},{x:8,y:5,t:'holo',s:1}],
-  npcs:[{id:'lou',x:5,y:3,d:'d',name:'SLICK LOU',crew:'rollers',t:['Skyline Drifters play from the rooftops.','Found a crate up here stamped Q-7. We put it back. Roof rule: you do not look.']},
-   {id:'drift1',x:3,y:4,d:'d',name:'DRIFTER',t:['We sit back deep, then come with the blitz on third down.']},
-   {id:'drift2',x:8,y:4,d:'d',name:'DRIFTER',t:['Think the view is good from here? Wait till you see it from the roof.']}]},
+  arch:{type:'crew_hq',variant:'rooftop-loft-hq',
+   zones:[
+    {x:4,y:3,w:4,h:4,kind:'bay',col:'rgba(47,224,168,.14)',border:'rgba(39,224,255,.55)'},
+    {x:1,y:5,w:2,h:3,kind:'rug',col:'rgba(14,68,68,.5)',border:'rgba(47,224,168,.45)'},
+    {x:9,y:5,w:2,h:3,kind:'rug',col:'rgba(14,68,68,.5)',border:'rgba(47,224,168,.45)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'rgba(47,224,168,.24)',border:'#2fe0a8'}
+   ]},
+  props:[
+   {x:1,y:2,t:'planter',s:1},{x:2,y:2,t:'term',s:1},{x:9,y:2,t:'term',s:1},{x:10,y:2,t:'planter',s:1},
+   {x:1,y:4,t:'rack',s:1},{x:10,y:4,t:'rack',s:1},
+   {x:5,y:5,t:'maptable',s:1,w:2},{x:6,y:5,t:'none',s:1},
+   {x:1,y:6,t:'lounge',s:1},{x:2,y:6,t:'lounge',s:1},{x:9,y:6,t:'lounge',s:1},{x:10,y:6,t:'lounge',s:1},
+   {x:1,y:7,t:'planter',s:1},{x:3,y:7,t:'crate',s:1},{x:8,y:7,t:'barrel',s:1,m:['A rooftop rain barrel. Somebody drew a smiley face on it.']},{x:10,y:7,t:'planter',s:1},
+   {x:1,y:1,t:'skyline',s:0,w:10},{x:2,y:2,t:'stringlights',s:0,w:8}
+  ],
+  npcs:[
+   {id:'lou',x:5,y:3,d:'d',name:'SLICK LOU',crew:'rollers',t:['Skyline Drifters play from the rooftops.','Found a crate up here stamped Q-7. We put it back. Roof rule: you do not look.']},
+   {id:'drift1',x:3,y:4,d:'r',name:'DRIFTER',t:['We sit back deep, then come with the blitz on third down.']},
+   {id:'drift2',x:8,y:4,d:'l',name:'DRIFTER',t:['Think the view is good from here? Wait till you see it from the roof.']}
+  ]},
  arena:{w:14,h:10,fl:'court',floor:'#10301c',wall:'#1d1546',acc:'#ff2fa8',acc2:'#27e0ff',title:'NETRUNNERS ARENA',kan:'\u62f3',
   props:[{x:1,y:2,t:'case',s:1},{x:2,y:2,t:'case',s:1},{x:11,y:2,t:'case',s:1},{x:12,y:2,t:'case',s:1},{x:4,y:5,t:'turnstile',s:1},{x:9,y:5,t:'turnstile',s:1},{x:3,y:8,t:'banner',s:0},{x:10,y:8,t:'banner',s:0},{x:4,y:1,t:'bigscreen',s:0,w:6},{x:5,y:2,t:'tunnel',s:0,w:4,h:1}],
   npcs:[{id:'mo',x:6,y:3,d:'d',name:'MAINFRAME MO',crew:'captain',t:['Mainframe Mo. I run this arena.','You got a card from the Circuit. Everybody who is any good does, eventually.','Voss. You have Dante\'s eyes. (He looks at the floor.) I do not talk about that night.','My receiver, Zero Day, is the best on the grid. Beat us and he walks out of here with you.']},
@@ -6822,82 +7005,320 @@ const HB_OUT_NPCS=[
    clutter: [x,y,kind] floor decals;  pools: [x,y,radiusTiles,hex,alpha];  npcs use f (first), w (after a crew), c (after the captain) */
 const HBI={
  hb_B02:{hb:1,w:10,h:8,fl:'plank',floor:'#6E5238',wall:'#4A3A30',wl:'wain',acc:'#E6DCC8',acc2:'#A9542F',title:"CADOGAN'S  -  ROOM 3",
-  props:[{x:2,y:2,k:'bunk',w:2,s:1,act:'bed',m:['Rest. Save.']},{x:4,y:5,k:'box',s:1},{x:8,y:1,k:'basin',wall:1},{x:7,y:1,k:'window',wall:1,m:['The light blinks. Slow. Steady.']},{x:6,y:4,k:'chair',s:1},
-   {x:8,y:6,k:'dummy',s:1,act:'testref',m:['Test yourself.']}],
-  clutter:[[3,6,'boots'],[1,6,'bag'],[5,3,'mug'],[7,5,'paper']],
-  pools:[[5,2,2,'#E8A33D',.28],[7,1,1.5,'#9FC4D4',.24]],
-  npcs:[{id:'hb_cadogan',civ:'granny',x:4,y:6,d:'u',name:'MRS. CADOGAN',f:["Rent's Friday. Don't be shy about the stairs.",'Man before you was a ballplayer too.','Left in a hurry.'],w:["Rent's still Friday."],c:["You're still here. That's something.",'Most of \'em leave.']}]},
+  arch:{type:'residential',variant:'boarding',
+   zones:[
+    {x:3,y:4,w:3,h:2,kind:'rug',col:'#6E3B2B',border:'#E6DCC8',trim:'#C88A52'},
+    {x:7,y:2,w:2,h:1,kind:'tile',col:'rgba(160,185,190,.35)',border:'rgba(40,55,60,.45)'},
+    {x:7,y:5,w:2,h:2,kind:'bay',col:'rgba(40,30,22,.32)',border:'rgba(230,220,200,.35)'},
+    {x:4,y:6,w:2,h:1,kind:'mat',col:'#7D4E2D',border:'#E6DCC8'}
+   ],
+   wallDeco:[{x:1,y:1,kind:'frame',col:'#8A4F3C'}]},
+  props:[
+   {x:1,y:2,k:'bunk',w:2,s:1,act:'bed',m:['Rest. Save.']},
+   {x:3,y:2,k:'box',s:1},
+   {x:8,y:2,k:'shelf',s:1},
+   {x:1,y:4,k:'table',s:1},
+   {x:2,y:4,k:'chair',s:1},
+   {x:1,y:6,k:'plant',s:1},
+   {x:8,y:5,k:'dummy',s:1,act:'testref',m:['Test yourself.']},
+   {x:4,y:1,k:'window',w:2,wall:1,m:['The light blinks. Slow. Steady.']},
+   {x:7,y:1,k:'basin',wall:1}
+  ],
+  clutter:[[3,6,'boots'],[2,6,'bag'],[4,4,'mug'],[7,3,'paper']],
+  pools:[[5,2,2.2,'#E8A33D',.26],[5,1,1.8,'#9FC4D4',.22]],
+  npcs:[{id:'hb_cadogan',civ:'granny',x:6,y:4,d:'l',name:'MRS. CADOGAN',f:["Rent's Friday. Don't be shy about the stairs.",'Man before you was a ballplayer too.','Left in a hurry.'],w:["Rent's still Friday."],c:["You're still here. That's something.",'Most of \'em leave.']}]},
  hb_B03:{hb:1,w:12,h:9,fl:'plank',floor:'#8A6A4A',wall:'#3E5F62',wl:'panel',acc:'#E8A33D',acc2:'#4E7C7A',title:'THE BOAT SHED  -  MEMBERS ONLY',
-  props:[{x:9,y:1,k:'oars',wall:1},{x:2,y:1,k:'photo',wall:1,m:["Hale Harbor. The '14 crew."]},{x:10,y:1,k:'board',wall:1},
-   {x:4,y:2,k:'locker',w:2,s:1,act:'squad'},{x:6,y:2,k:'mirror',w:2,s:1,act:'team'},   // side by side, centre back wall: the two things you use here
-   {x:2,y:4,k:'trophy',s:1,m:["Hale Harbor, '14. One trophy. One name."]},{x:9,y:5,k:'bench',s:1},{x:10,y:3,k:'note',s:1,m:['Coach Pell called. Said he\'s proud.','- Manager.']}],
-  clutter:[[8,7,'bag'],[6,6,'tape'],[4,7,'bottle'],[10,6,'towel']],
-  pools:[[6,2,3,'#E8A33D',.30],[2,5,1.8,'#4E7C7A',.24]],
-  npcs:[{id:'hb_skeeter',civ:'coach',x:8,y:4,d:'d',name:'SKEETER MOSS',f:['Manager said you were coming.',"Didn't say you'd be small.","Locker's yours. Don't break the mirror."],w:['Three down. One light to go.',"Tug cleared all three. Clean."],c:['You did it.','Now the hard part.','Being it.']},
-   {id:'hb_zd',civ:'runner',x:10,y:6,d:'l',name:'ZERO DAY',f:['Kid by the light was staring at my cleats.','Nobody here looks at you like an away team.']},
-   {id:'hb_riptide',civ:'courier',x:10,y:7,d:'l',name:'"RIPTIDE" STERLING',when:'afterCaptain',f:[]}]},
+  arch:{type:'clubhouse',variant:'harbor-shed',
+   zones:[
+    {x:5,y:4,w:2,h:4,kind:'runner',col:'rgba(62,95,98,.38)',border:'rgba(232,163,61,.5)'},
+    {x:8,y:5,w:3,h:3,kind:'rug',col:'#365255',border:'#E8A33D',trim:'#A9542F'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#E8A33D'}
+   ]},
+  props:[
+   {x:2,y:1,k:'photo',wall:1,m:["Hale Harbor. The '14 crew."]},
+   {x:8,y:1,k:'oars',wall:1},
+   {x:10,y:1,k:'board',wall:1},
+   {x:4,y:2,k:'locker',w:2,s:1,act:'squad'},
+   {x:6,y:2,k:'mirror',w:2,s:1,act:'team'},
+   {x:1,y:3,k:'trophy',s:1,m:["Hale Harbor, '14. One trophy. One name."]},
+   {x:1,y:5,k:'bench',s:1},{x:1,y:6,k:'bench',s:1},
+   {x:10,y:3,k:'note',s:1,m:['Coach Pell called. Said he\'s proud.','- Manager.']},
+   {x:9,y:5,k:'bench',s:1},{x:10,y:5,k:'table',s:1}
+  ],
+  clutter:[[3,7,'bag'],[7,6,'tape'],[4,7,'bottle'],[8,7,'towel']],
+  pools:[[6,2,3,'#E8A33D',.30],[2,4,1.8,'#4E7C7A',.22]],
+  npcs:[
+   {id:'hb_skeeter',civ:'coach',x:8,y:4,d:'d',name:'SKEETER MOSS',f:['Manager said you were coming.',"Didn't say you'd be small.","Locker's yours. Don't break the mirror."],w:['Three down. One light to go.',"Tug cleared all three. Clean."],c:['You did it.','Now the hard part.','Being it.']},
+   {id:'hb_zd',civ:'runner',x:9,y:6,d:'l',name:'ZERO DAY',f:['Kid by the light was staring at my cleats.','Nobody here looks at you like an away team.']},
+   {id:'hb_riptide',civ:'courier',x:9,y:7,d:'l',name:'"RIPTIDE" STERLING',when:'afterCaptain',f:[]}
+  ]},
  hb_B04:{hb:1,w:12,h:9,fl:'plank',floor:'#6A6A62',wall:'#34505A',wl:'board',acc:'#A9542F',acc2:'#9FC4D4',title:'GILLNET LOFT  -  CREW FLOOR',
-  props:[{x:2,y:1,k:'nets',w:2,wall:1},{x:10,y:1,k:'icebox',wall:1,m:['Locked. Cold comes through the seams.']},{x:7,y:4,k:'table',s:1},{x:3,y:6,k:'bin',s:1},{x:9,y:1,k:'scale',wall:1,m:['Reads zero. Reads zero since the strike.']}],
-  clutter:[[4,7,'crate'],[8,6,'sign'],[6,5,'ice'],[2,7,'boots']],pools:[[4,3,2.5,'#E8A33D',.28],[10,2,2,'#9FC4D4',.26]],
-  npcs:[{id:'hb_rita',crew:'baitdogs',x:6,y:4,d:'d',name:'RITA "ROPES" CALLOWAY',f:["You're the Spillway kid.","This floor's ours. Always has been.","Want the ice? Come take it."],w:["Cold room's yours. Don't leave the door open.",'Tug worked this floor once.','Never cut a corner. Drove me nuts.'],c:['Whole harbor\'s yours now.',"Tug would've liked how you did it.","Bram won't."]},
+  arch:{type:'crew_hq',variant:'cold-loft',
+   zones:[
+    {x:1,y:2,w:10,h:3,kind:'tile',col:'rgba(76,108,116,.32)',border:'rgba(159,196,212,.4)'},
+    {x:5,y:6,w:2,h:2,kind:'runner',col:'rgba(52,80,90,.36)',border:'rgba(169,84,47,.5)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#A9542F'}
+   ]},
+  props:[
+   {x:2,y:1,k:'nets',w:2,wall:1},
+   {x:7,y:1,k:'scale',wall:1,m:['Reads zero. Reads zero since the strike.']},
+   {x:9,y:1,k:'icebox',wall:1,m:['Locked. Cold comes through the seams.']},
+   {x:1,y:3,k:'table',w:2,s:1},{x:1,y:5,k:'bin',s:1},{x:1,y:6,k:'bin',s:1},
+   {x:9,y:3,k:'crates',w:2,s:1},{x:9,y:5,k:'table',s:1},{x:9,y:6,k:'bench',s:1}
+  ],
+  clutter:[[3,7,'crate'],[8,7,'sign'],[6,3,'ice'],[2,7,'boots']],
+  pools:[[5,3,2.5,'#E8A33D',.26],[9,2,2,'#9FC4D4',.26]],
+  npcs:[
+   {id:'hb_rita',crew:'baitdogs',x:5,y:4,d:'d',name:'RITA "ROPES" CALLOWAY',f:["You're the Spillway kid.","This floor's ours. Always has been.","Want the ice? Come take it."],w:["Cold room's yours. Don't leave the door open.",'Tug worked this floor once.','Never cut a corner. Drove me nuts.'],c:['Whole harbor\'s yours now.',"Tug would've liked how you did it.","Bram won't."]},
    {id:'hb_pete',civ:'fan',x:3,y:5,d:'r',name:'PETE "TEN-TON" OKAFOR',f:['Mind the wet. It\'s always wet.',"Boss is in a mood. She's always in a mood."],w:['You hit like a forklift.',"That's a compliment."],c:['Tell the light I said hey. It won\'t answer.']},
-   {id:'hb_dockhand',civ:'vendor',x:9,y:7,d:'u',name:'DOCK HAND',f:["Don't slip. I just mopped.","I always just mopped."],c:["Town hasn't been this loud since the strike."]}]},
+   {id:'hb_dockhand',civ:'vendor',x:8,y:6,d:'l',name:'DOCK HAND',f:["Don't slip. I just mopped.","I always just mopped."],c:["Town hasn't been this loud since the strike."]}
+  ]},
  hb_B05:{hb:1,w:12,h:9,fl:'herring',floor:'#5A5046',wall:'#4A3E2C',wl:'brick',acc:'#A9542F',acc2:'#E6DCC8',title:'LONGSHORE HALL  -  LOCAL 14',
-  props:[{x:6,y:3,k:'hull',w:3,h:2,s:1,m:["Name's painted over. Twice."]},{x:2,y:1,k:'hooks',wall:1,m:['Every hook has a shadow. One\'s missing.']},{x:9,y:6,k:'blocks',s:1},{x:10,y:1,k:'paint',wall:1},{x:2,y:6,k:'bench',s:1}],
-  clutter:[[5,7,'dust'],[3,7,'tool'],[8,7,'rag'],[9,5,'pail']],pools:[[6,2,3,'#E8A33D',.28],[2,4,1.8,'#4E7C7A',.24]],
-  npcs:[{id:'hb_deke',crew:'longshore',x:6,y:6,d:'d',name:'DEKE MARROW',f:["You're small.","Tug was small too.","Won clean. Dumb way to win."],w:['Huh.',"Didn't see that.",'Nobody sees that.'],c:["Bram's the wall. I'm just the dock.",'You beat the wall. Remember that.']},
-   {id:'hb_splinter',civ:'fan',x:3,y:4,d:'r',name:'"SPLINTER" JIM DOYLE',f:['Careful. Everything here bites.','Even the wood.'],w:["Deke doesn't say 'huh' to just anyone."],c:["Deke didn't say nothin'.","That's his way of saying it."]}]},
+  arch:{type:'crew_hq',variant:'boatwright-hall',
+   zones:[
+    {x:4,y:2,w:5,h:4,kind:'bay',col:'rgba(42,32,24,.35)',border:'rgba(230,220,200,.4)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#E6DCC8'}
+   ]},
+  props:[
+   {x:2,y:1,k:'hooks',wall:1,m:['Every hook has a shadow. One\'s missing.']},
+   {x:9,y:1,k:'paint',wall:1},
+   {x:5,y:3,k:'hull',w:3,h:2,s:1,m:["Name's painted over. Twice."]},
+   {x:1,y:2,k:'tools',s:1},{x:1,y:3,k:'bench',s:1},{x:1,y:6,k:'bench',s:1},
+   {x:10,y:3,k:'blocks',s:1},{x:10,y:5,k:'blocks',s:1},{x:10,y:6,k:'crates',s:1}
+  ],
+  clutter:[[5,6,'dust'],[3,6,'tool'],[8,6,'rag'],[9,4,'pail']],
+  pools:[[6,3,3,'#E8A33D',.26],[2,4,1.8,'#4E7C7A',.22]],
+  npcs:[
+   {id:'hb_deke',crew:'longshore',x:6,y:5,d:'d',name:'DEKE MARROW',f:["You're small.","Tug was small too.","Won clean. Dumb way to win."],w:['Huh.',"Didn't see that.",'Nobody sees that.'],c:["Bram's the wall. I'm just the dock.",'You beat the wall. Remember that.']},
+   {id:'hb_splinter',civ:'fan',x:2,y:4,d:'r',name:'"SPLINTER" JIM DOYLE',f:['Careful. Everything here bites.','Even the wood.'],w:["Deke doesn't say 'huh' to just anyone."],c:["Deke didn't say nothin'.","That's his way of saying it."]}
+  ]},
  hb_B06:{hb:1,w:12,h:9,fl:'steel',floor:'#6A6F72',wall:'#4F3228',wl:'panel',acc:'#7A3E2F',acc2:'#CFC3A5',title:'CANNERY CLUB  -  WE PACK HEAVY',
-  props:[{x:2,y:1,k:'line',w:4,wall:1,m:['Runs on a timer. Nobody knows where.']},{x:9,y:2,k:'crates',w:2,h:2,s:1},{x:6,y:3,k:'hook',s:1,m:['Turns. Nothing attached.']},{x:1,y:5,k:'tools',s:1},{x:8,y:6,k:'bench',s:1}],
-  clutter:[[4,7,'can'],[6,7,'glove'],[5,5,'paper'],[9,6,'pail']],pools:[[6,2,3,'#E8A33D',.28],[10,3,1.8,'#9FC4D4',.24]],
-  npcs:[{id:'hb_marla',crew:'gantry',x:6,y:5,d:'d',name:'MARLA "GANTRY" QUINN',f:["You're the Spillway kid.","Good. Saves me a walk.","Let's see if you survive the crane."],w:['Hm.',"You've got hands. Hands don't lie.","Bram's next."],c:['Bram fell.','Huh.','Somebody finally did.']},
-   {id:'hb_wick',civ:'fan',x:3,y:5,d:'r',name:'"WICK" FERRER',f:['Boss hits like a crane. Obviously.','Watch the second half. She gets meaner.'],c:["You're the first who made it look easy."]}]},
+  arch:{type:'crew_hq',variant:'cannery-floor',
+   zones:[
+    {x:1,y:2,w:6,h:2,kind:'tile',col:'rgba(58,64,68,.55)',border:'rgba(207,195,165,.35)'},
+    {x:8,y:2,w:3,h:3,kind:'bay',col:'rgba(122,62,47,.25)',border:'rgba(232,163,61,.45)'},
+    {x:4,y:4,w:4,h:3,kind:'bay',col:'rgba(36,42,46,.32)',border:'rgba(207,195,165,.45)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#CFC3A5'}
+   ]},
+  props:[
+   {x:2,y:1,k:'line',w:4,wall:1,m:['Runs on a timer. Nobody knows where.']},
+   {x:9,y:2,k:'crates',w:2,h:2,s:1},
+   {x:6,y:3,k:'hook',s:1,m:['Turns. Nothing attached.']},
+   {x:1,y:4,k:'tools',s:1},{x:1,y:6,k:'bench',s:1},
+   {x:9,y:6,k:'bench',s:1},{x:10,y:7,k:'crates',s:1}
+  ],
+  clutter:[[3,7,'can'],[7,7,'glove'],[4,4,'paper'],[8,6,'pail']],
+  pools:[[6,3,3,'#E8A33D',.26],[9,3,1.8,'#9FC4D4',.22]],
+  npcs:[
+   {id:'hb_marla',crew:'gantry',x:6,y:5,d:'d',name:'MARLA "GANTRY" QUINN',f:["You're the Spillway kid.","Good. Saves me a walk.","Let's see if you survive the crane."],w:['Hm.',"You've got hands. Hands don't lie.","Bram's next."],c:['Bram fell.','Huh.','Somebody finally did.']},
+   {id:'hb_wick',civ:'fan',x:3,y:5,d:'r',name:'"WICK" FERRER',f:['Boss hits like a crane. Obviously.','Watch the second half. She gets meaner.'],c:["You're the first who made it look easy."]}
+  ]},
  hb_B07:{hb:1,w:11,h:9,fl:'check',floor:'#2E3242',wall:'#3C2E3E',wl:'board',acc:'#E8A33D',acc2:'#9FC4D4',title:'SALT ARCADE  -  PIER 3',
-  props:[{x:1,y:2,k:'cab',s:1},{x:3,y:2,k:'cab',s:1},{x:5,y:2,k:'cab',s:1},{x:7,y:2,k:'cab',s:1},{x:9,y:3,k:'crane',s:1,w:1,m:['The crane cabinet. The claw is the real game.']},{x:10,y:2,k:'change',s:1},
-   {x:2,y:6,k:'counter',w:3,s:1,m:['Rubber eels. Toy boats. A whistle.']},{x:8,y:1,k:'flyer',wall:1,m:['CELLAR FIELD  -  INVITE ONLY.']}],
-  clutter:[[5,7,'token'],[7,7,'ticket'],[10,7,'broom'],[8,6,'stool']],pools:[[4,2,2.5,'#E8A33D',.30],[9,4,1.8,'#9FC4D4',.22]],
-  npcs:[{id:'hb_marv',civ:'vendor',x:8,y:5,d:'l',name:'MARV',act:'arcade',f:['One token. One shot.','Beat the score, you get the gear.','Nobody beats the score.'],c:["You're the first to beat the light AND the machine.","That's a weird trophy."]},
-   {id:'hb_pip',civ:'kid',x:6,y:6,d:'u',name:'PIP',f:["Tug's score. Nobody's touched it.",'My cousin plays in the Cellar Field. It\'s secret. You ever been?',"Bring it home. Like Tug."]}]},
+  arch:{type:'arcade',variant:'pier-arcade',
+   zones:[
+    {x:1,y:3,w:8,h:1,kind:'runner',col:'rgba(232,163,61,.18)',border:'rgba(232,163,61,.45)'},
+    {x:1,y:5,w:3,h:3,kind:'tile',col:'rgba(42,32,50,.6)',border:'rgba(159,196,212,.45)'},
+    {x:4,y:7,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#E8A33D'}
+   ]},
+  props:[
+   {x:1,y:2,k:'cab',s:1},{x:2,y:2,k:'cab',s:1},{x:4,y:2,k:'cab',s:1},{x:5,y:2,k:'cab',s:1},
+   {x:9,y:2,k:'crane',s:1,w:1,m:['The crane cabinet. The claw is the real game.']},
+   {x:9,y:3,k:'change',s:1},
+   {x:2,y:5,k:'counter',w:2,s:1,m:['Rubber eels. Toy boats. A whistle.']},
+   {x:1,y:6,k:'shelf',s:1},
+   {x:8,y:6,k:'bench',s:1},
+   {x:8,y:1,k:'flyer',wall:1,m:['CELLAR FIELD  -  INVITE ONLY.']}
+  ],
+  clutter:[[3,3,'token'],[6,3,'ticket'],[9,7,'broom'],[8,5,'stool']],
+  pools:[[3,2,2.5,'#E8A33D',.28],[9,3,1.8,'#9FC4D4',.22]],
+  npcs:[
+   {id:'hb_marv',civ:'vendor',x:2,y:6,d:'u',name:'MARV',act:'arcade',f:['One token. One shot.','Beat the score, you get the gear.','Nobody beats the score.'],c:["You're the first to beat the light AND the machine.","That's a weird trophy."]},
+   {id:'hb_pip',civ:'kid',x:5,y:3,d:'u',name:'PIP',f:["Tug's score. Nobody's touched it.",'My cousin plays in the Cellar Field. It\'s secret. You ever been?',"Bring it home. Like Tug."]}
+  ]},
  hb_B08:{hb:1,w:10,h:8,fl:'check',floor:'#A8AAA0',wall:'#4F6F5C',wl:'tile',acc:'#E8D8B0',acc2:'#A9542F',title:'APOTHECARY  -  COLD REMEDIES',
-  props:[{x:1,y:2,k:'shelf',w:4,s:1,m:['Tinctures. Ointments. Nothing stronger.']},{x:4,y:4,k:'counter',w:3,s:1},{x:8,y:1,k:'scale',wall:1},{x:8,y:2,k:'mortar',s:1},{x:7,y:5,k:'stool',s:1},{x:5,y:5,k:'ledger',s:1,m:['Orders. Names. A page torn out.']}],
-  clutter:[[3,6,'bottle'],[8,6,'rag'],[2,6,'coat']],pools:[[4,2,2.5,'#E8A33D',.28],[8,4,1.8,'#D9C7A3',.22]],
+  arch:{type:'shop',variant:'apothecary',
+   zones:[
+    {x:1,y:2,w:8,h:2,kind:'tile',col:'rgba(79,111,92,.28)',border:'rgba(79,111,92,.55)'},
+    {x:4,y:5,w:2,h:2,kind:'runner',col:'rgba(169,84,47,.16)',border:'rgba(169,84,47,.4)'},
+    {x:7,y:5,w:2,h:2,kind:'rug',col:'#557260',border:'#E8D8B0'},
+    {x:4,y:6,w:2,h:1,kind:'mat',col:'#4F6F5C',border:'#E8D8B0'}
+   ],
+   wallDeco:[{x:2,y:1,w:2,kind:'window'}]},
+  props:[
+   {x:1,y:2,k:'shelf',w:4,s:1,m:['Tinctures. Ointments. Nothing stronger.']},
+   {x:7,y:2,k:'mortar',s:1},{x:8,y:2,k:'shelf',s:1},
+   {x:2,y:4,k:'counter',w:4,s:1},
+   {x:6,y:4,k:'ledger',s:1,m:['Orders. Names. A page torn out.']},
+   {x:8,y:5,k:'bench',s:1},{x:7,y:5,k:'stool',s:1},
+   {x:1,y:6,k:'plant',s:1},{x:2,y:6,k:'box',s:1},
+   {x:7,y:1,k:'scale',wall:1}
+  ],
+  clutter:[[3,5,'bottle'],[7,3,'rag'],[3,6,'coat']],
+  pools:[[4,3,2.5,'#E8A33D',.26],[8,4,1.8,'#D9C7A3',.20]],
   npcs:[{id:'hb_ivy',civ:'clinic',x:4,y:3,d:'d',name:'IVY',f:['You look like you need something. Everyone does.',"Take this or don't. It's your lungs."],w:['Still standing. Good. That\'s the whole trick.'],c:["The harbor's cold. People forget that."],extra:['Closers buy ice here. A lot of ice.']}]},
  hb_B09:{hb:1,w:10,h:8,fl:'plank',floor:'#5A4632',wall:'#5A5040',wl:'board',acc:'#A9542F',acc2:'#4E7C7A',title:"SHIP'S STORE  -  SALVAGE & SWAP",
-  props:[{x:2,y:2,k:'pile',w:2,h:2,s:1},{x:7,y:1,k:'helmet',wall:1,m:['Glass is fogged. Someone was in there a long time.']},{x:9,y:2,k:'prop',s:1},{x:4,y:5,k:'cage',w:3,s:1,m:['Trade what you got. Once.']}],
-  clutter:[[5,6,'chain'],[7,6,'bucket'],[8,5,'tag'],[3,7,'oil']],pools:[[5,2,2.5,'#E8A33D',.28],[8,4,1.5,'#4E7C7A',.22]],
+  arch:{type:'shop',variant:'salvage-cage',
+   zones:[
+    {x:1,y:2,w:8,h:2,kind:'tile',col:'rgba(42,36,28,.45)',border:'rgba(169,84,47,.45)'},
+    {x:4,y:5,w:2,h:2,kind:'runner',col:'rgba(78,124,122,.22)',border:'rgba(169,84,47,.45)'},
+    {x:4,y:6,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#A9542F'}
+   ],
+   wallDeco:[{x:2,y:1,kind:'window'}]},
+  props:[
+   {x:1,y:2,k:'pile',w:2,h:2,s:1},
+   {x:7,y:2,k:'shelf',s:1},{x:8,y:2,k:'prop',s:1},
+   {x:3,y:4,k:'cage',w:4,s:1,m:['Trade what you got. Once.']},
+   {x:1,y:6,k:'crates',s:1},
+   {x:8,y:5,k:'table',s:1},{x:8,y:6,k:'box',s:1},
+   {x:6,y:1,k:'helmet',wall:1,m:['Glass is fogged. Someone was in there a long time.']}
+  ],
+  clutter:[[2,5,'chain'],[7,6,'bucket'],[3,5,'tag'],[2,6,'oil']],
+  pools:[[5,3,2.5,'#E8A33D',.26],[8,4,1.5,'#4E7C7A',.22]],
   npcs:[{id:'hb_sable',civ:'broker',x:5,y:3,d:'d',name:'SABLE',act:'swap',f:['You got power-ups. I got a cage.','One swap. Then the cage closes.',"That's the rule."],w:['Tug pawned his ring here.',"Bought cleats for the kids' league.",'Never got it back. Still here.'],c:["You're the only one who ever used the cage and won.","Or didn't. I don't keep records."]}]},
  hb_B10:{hb:1,w:11,h:8,fl:'tile',floor:'#7C9298',wall:'#3F6A6C',wl:'tile',acc:'#DCE6E3',acc2:'#A9542F',title:'FISH MARKET  -  BACK ROOM',
-  props:[{x:1,y:2,k:'icebin',w:4,s:1,m:['Cold enough to hurt.']},{x:1,y:2,k:'fishtray',w:4},{x:6,y:4,k:'table',w:2,s:1},{x:6,y:4,k:'fishtray',w:2},{x:9,y:1,k:'scale',wall:1,m:['Reads zero. Reads zero since the strike.']},{x:2,y:6,k:'crates',w:1,s:1}],
-  clutter:[[5,6,'scrap'],[7,6,'scoop'],[8,3,'knife'],[3,7,'boots']],pools:[[4,2,2.5,'#9FC4D4',.28],[8,5,1.8,'#E8A33D',.22]],
-  npcs:[{id:'hb_cormac',civ:'vendor',x:5,y:4,d:'d',name:'CORMAC',f:['You want fish? I got fish.',"Tug's mom works here.",'She won\'t talk about him.'],w:['Fish are cold. Customers are colder.'],c:["You're the one.","She watched you, you know."]}]},
+  arch:{type:'shop',variant:'fish-market',
+   zones:[
+    {x:1,y:2,w:9,h:2,kind:'tile',col:'rgba(48,88,92,.35)',border:'rgba(220,230,227,.45)'},
+    {x:4,y:5,w:2,h:2,kind:'runner',col:'rgba(63,106,108,.28)',border:'rgba(220,230,227,.4)'},
+    {x:4,y:6,w:2,h:1,kind:'mat',col:'#3F6A6C',border:'#DCE6E3'}
+   ],
+   wallDeco:[{x:2,y:1,w:2,kind:'window'}]},
+  props:[
+   {x:1,y:2,k:'crates',s:1},{x:2,y:2,k:'crates',s:1},{x:8,y:2,k:'icebin',w:2,s:1,m:['Cold enough to hurt.']},
+   {x:1,y:4,k:'icebin',w:4,s:1,m:['Cold enough to hurt.']},{x:1,y:4,k:'fishtray',w:4},
+   {x:7,y:4,k:'table',w:2,s:1},{x:7,y:4,k:'fishtray',w:2},
+   {x:1,y:6,k:'crates',w:1,s:1},{x:9,y:6,k:'crates',w:1,s:1},
+   {x:7,y:1,k:'scale',wall:1,m:['Reads zero. Reads zero since the strike.']}
+  ],
+  clutter:[[3,5,'scrap'],[6,3,'scoop'],[8,3,'knife'],[2,6,'boots']],
+  pools:[[4,3,2.5,'#9FC4D4',.26],[8,4,1.8,'#E8A33D',.20]],
+  npcs:[{id:'hb_cormac',civ:'vendor',x:4,y:3,d:'d',name:'CORMAC',f:['You want fish? I got fish.',"Tug's mom works here.",'She won\'t talk about him.'],w:['Fish are cold. Customers are colder.'],c:["You're the one.","She watched you, you know."]}]},
  hb_B11:{hb:1,w:8,h:7,fl:'plank',floor:'#6A5A3C',wall:'#4A5C40',wl:'board',acc:'#A9542F',acc2:'#E6DCC8',title:'BAIT & TACKLE  -  LIVE EELS',
-  props:[{x:1,y:2,k:'tank',w:2,s:1,m:["Eels. They don't look happy."]},{x:6,y:1,k:'rods',wall:1,m:['For sale. Not for you.']},{x:4,y:4,k:'counter',s:1},{x:2,y:5,k:'stool',s:1}],
-  clutter:[[5,5,'bucket'],[6,4,'paper'],[4,5,'knife']],pools:[[4,2,2,'#E8A33D',.28],[2,4,1.5,'#4E7C7A',.22]],
-  npcs:[{id:'hb_finn',civ:'coach',x:5,y:3,d:'d',name:'FINN',act:'tip',f:["Fish don't lie. People do.","You want bait or a story?","Bait's cheaper."],extra:['Never caught anything. Said he liked the quiet.']}]},
+  arch:{type:'shop',variant:'tackle-shack',
+   zones:[
+    {x:1,y:2,w:6,h:2,kind:'tile',col:'rgba(56,74,48,.35)',border:'rgba(230,220,200,.35)'},
+    {x:3,y:5,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#E6DCC8'}
+   ],
+   wallDeco:[{x:2,y:1,kind:'window'}]},
+  props:[
+   {x:1,y:2,k:'tank',w:2,s:1,m:["Eels. They don't look happy."]},
+   {x:6,y:2,k:'shelf',s:1},
+   {x:3,y:4,k:'counter',w:3,s:1},
+   {x:6,y:4,k:'stool',s:1},{x:6,y:5,k:'crates',s:1},
+   {x:5,y:1,k:'rods',wall:1,m:['For sale. Not for you.']}
+  ],
+  clutter:[[1,4,'bucket'],[5,3,'paper'],[3,3,'knife']],
+  pools:[[4,3,2,'#E8A33D',.26],[2,3,1.5,'#4E7C7A',.22]],
+  npcs:[{id:'hb_finn',civ:'coach',x:4,y:3,d:'d',name:'FINN',act:'tip',f:["Fish don't lie. People do.","You want bait or a story?","Bait's cheaper."],extra:['Never caught anything. Said he liked the quiet.']}]},
  hb_B12:{hb:1,w:12,h:9,fl:'plank',floor:'#4A3A2A',wall:'#4A2C30',wl:'brick',acc:'#E8A33D',acc2:'#A9542F',title:'THE BILGE',
-  props:[{x:2,y:3,k:'bar',w:6,s:1},{x:2,y:2,k:'taps',w:2,wall:1},{x:7,y:5,k:'table',s:1},{x:9,y:7,k:'table',s:1},{x:10,y:1,k:'darts',wall:1},{x:5,y:1,k:'photo',wall:1,m:['#14. "Brinewick\'s Closer." Photo\'s from before.','A back to the camera, mid-throw. Face not visible.']},{x:1,y:1,k:'bell',wall:1,m:["Rings when the door opens. Never when it closes."]}],
-  clutter:[[6,3,'glass'],[4,7,'peanuts'],[11,7,'mop']],pools:[[4,3,2.5,'#E8A33D',.28],[9,5,1.8,'#9FC4D4',.24],[6,7,1.5,'#A9542F',.2]],
-  npcs:[{id:'hb_duke',civ:'vendor',x:4,y:2,d:'d',name:'DUKE',f:["Tug's stool. Nobody sits in it.","Bram's crew wanted it. We said no.","Real fans walk out to the nail."],c:['You beat the wall.',"Town'll talk about that a year.","Tug's stool's still empty."]},
-   {id:'hb_marty',civ:'coach',x:8,y:6,d:'r',name:'MARTY',f:['He promised the kid.','He never broke a promise.','So ask who did.'],c:['Maybe you\'re the one who comes back.','Somebody has to be.']},
-   {id:'hb_denny',civ:'fan',x:10,y:6,d:'l',name:'DENNY',f:["I heard he's up north. Working.","I heard he's sick.","I heard he's dead. Pick one."],c:['Three versions. Still three.','Ask the light. It knows.']},
-   {id:'hb_tommy',civ:'kid',x:10,y:5,d:'u',name:'WEE TOMMY',f:["My brother says Tug's coming Friday.",'He said that last Friday too.'],c:['Are you Tug?',"You're not Tug.",'Okay.']}]},
+  arch:{type:'tavern',variant:'harbor-pub',
+   partitions:[{x:7,y:2,w:1,h:2}],
+   zones:[
+    {x:1,y:4,w:6,h:1,kind:'runner',col:'rgba(169,84,47,.20)',border:'rgba(232,163,61,.35)'},
+    {x:8,y:4,w:3,h:4,kind:'rug',col:'#5A2E2A',border:'#E8A33D',trim:'#A9542F'},
+    {x:1,y:6,w:3,h:2,kind:'rug',col:'#4E3228',border:'rgba(232,163,61,.45)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#E8A33D'}
+   ]},
+  props:[
+   {x:2,y:3,k:'bar',w:5,s:1},
+   {x:2,y:4,k:'stool',s:1},{x:3,y:4,k:'stool',s:1},{x:5,y:4,k:'stool',s:1},
+   {x:1,y:7,k:'bench',s:1},{x:2,y:7,k:'table',s:1},
+   {x:9,y:5,k:'table',s:1},{x:8,y:7,k:'table',s:1},
+   {x:1,y:1,k:'bell',wall:1,m:["Rings when the door opens. Never when it closes."]},
+   {x:5,y:1,k:'taps',w:2,wall:1},
+   {x:3,y:1,k:'photo',wall:1,m:['#14. "Brinewick\'s Closer." Photo\'s from before.','A back to the camera, mid-throw. Face not visible.']},
+   {x:9,y:1,k:'darts',wall:1}
+  ],
+  clutter:[[6,4,'glass'],[3,6,'peanuts'],[10,7,'mop']],
+  pools:[[4,3,2.5,'#E8A33D',.26],[9,5,1.8,'#9FC4D4',.22],[2,7,1.5,'#A9542F',.2]],
+  npcs:[
+   {id:'hb_duke',civ:'vendor',x:4,y:2,d:'d',name:'DUKE',f:["Tug's stool. Nobody sits in it.","Bram's crew wanted it. We said no.","Real fans walk out to the nail."],c:['You beat the wall.',"Town'll talk about that a year.","Tug's stool's still empty."]},
+   {id:'hb_marty',civ:'coach',x:7,y:7,d:'r',name:'MARTY',f:['He promised the kid.','He never broke a promise.','So ask who did.'],c:['Maybe you\'re the one who comes back.','Somebody has to be.']},
+   {id:'hb_denny',civ:'fan',x:10,y:5,d:'l',name:'DENNY',f:["I heard he's up north. Working.","I heard he's sick.","I heard he's dead. Pick one."],c:['Three versions. Still three.','Ask the light. It knows.']},
+   {id:'hb_tommy',civ:'kid',x:9,y:4,d:'d',name:'WEE TOMMY',f:["My brother says Tug's coming Friday.",'He said that last Friday too.'],c:['Are you Tug?',"You're not Tug.",'Okay.']}
+  ]},
  hb_B13:{hb:1,w:11,h:8,fl:'check',floor:'#B0A27C',wall:'#2F4258',wl:'wain',acc:'#E8A33D',acc2:'#9FC4D4',title:'PORT OF HALE HARBOR',
-  props:[{x:3,y:3,k:'table',w:3,s:1},{x:9,y:1,k:'radio',wall:1},{x:1,y:2,k:'shelf',w:1,h:2,s:1},{x:7,y:1,k:'clock',wall:1},{x:8,y:4,k:'board',s:1,act:'board'},{x:4,y:5,k:'ledger',s:1,m:['Entries. Weather. One page torn.']},{x:4,y:1,k:'clip',wall:1,act:'manifest'}],
-  clutter:[[5,2,'mug'],[6,3,'pencil'],[10,6,'coat']],pools:[[5,2,2.5,'#E8A33D',.28],[9,3,1.8,'#9FC4D4',.22]],
-  npcs:[{id:'hb_kell',civ:'coach',x:6,y:5,d:'d',name:'OLD MAN KELL',f:["You're the one came in through the Spillway.","We log everyone.","Even the ones who don't want it."],m:["That? Above my pay grade.","Ask the ice man. If he's still alive."],w:['Three crews. Logged.',"Tug's still in the book, you know.",'Never checked out.'],c:["Log's closed. For now."],extra:['A boat took him. No log entry.']}]},
- hb_B14:{hb:1,w:11,h:9,fl:'plank',floor:'#7A5A3E',wall:'#4E3E5A',wl:'board',acc:'#A9542F',acc2:'#E8A33D',title:'PENROSE  -  SHIP\'S STORE',
-  props:[{x:1,y:2,k:'ropes',w:1,h:2,s:1},{x:9,y:2,k:'tar',s:1},{x:5,y:1,k:'lanterns',wall:1},{x:2,y:5,k:'bins',s:1},{x:8,y:1,k:'wheel',wall:1,m:['Turns. Nothing attached.']},{x:7,y:5,k:'ledger',s:1,m:['Orders. Names. A page torn out.']}],
-  clutter:[[6,7,'twine'],[4,7,'can'],[10,7,'boots']],pools:[[5,3,2.5,'#E8A33D',.28],[2,2,1.8,'#4E7C7A',.22]],
-  npcs:[{id:'hb_penrose',civ:'coach',x:5,y:4,d:'d',name:'OLD PENROSE',f:["Hands like that, you'll drop the ball.","Rope's cheap. Tar's cheaper.","Don't thank me. Buy something."],w:['Tug bought my rope every spring.','Paid full price. Never haggled.','Bram haggles.'],c:['You beat the wall.',"Light don't care. But I do."]}]},
+  arch:{type:'workplace',variant:'port-office',
+   zones:[
+    {x:2,y:2,w:6,h:2,kind:'rug',col:'#364C64',border:'#E8A33D',trim:'#9FC4D4'},
+    {x:4,y:5,w:2,h:2,kind:'runner',col:'rgba(47,66,88,.25)',border:'rgba(232,163,61,.5)'},
+    {x:8,y:3,w:2,h:3,kind:'tile',col:'rgba(47,66,88,.22)',border:'rgba(159,196,212,.45)'},
+    {x:4,y:6,w:2,h:1,kind:'mat',col:'#2F4258',border:'#E8A33D'}
+   ],
+   wallDeco:[{x:2,y:1,kind:'window'}]},
+  props:[
+   {x:1,y:2,k:'shelf',w:1,h:2,s:1},{x:1,y:5,k:'shelf',s:1},
+   {x:3,y:4,k:'table',w:3,s:1},{x:6,y:4,k:'ledger',s:1,m:['Entries. Weather. One page torn.']},
+   {x:9,y:4,k:'board',s:1,act:'board'},
+   {x:8,y:6,k:'chair',s:1},{x:1,y:6,k:'plant',s:1},
+   {x:4,y:1,k:'clip',wall:1,act:'manifest'},
+   {x:7,y:1,k:'clock',wall:1},
+   {x:9,y:1,k:'radio',wall:1}
+  ],
+  clutter:[[3,3,'mug'],[5,3,'pencil'],[9,6,'coat']],
+  pools:[[5,3,2.5,'#E8A33D',.26],[9,3,1.8,'#9FC4D4',.20]],
+  npcs:[{id:'hb_kell',civ:'coach',x:4,y:3,d:'d',name:'OLD MAN KELL',f:["You're the one came in through the Spillway.","We log everyone.","Even the ones who don't want it."],m:["That? Above my pay grade.","Ask the ice man. If he's still alive."],w:['Three crews. Logged.',"Tug's still in the book, you know.",'Never checked out.'],c:["Log's closed. For now."],extra:['A boat took him. No log entry.']}]},
+ hb_B14:{hb:1,w:11,h:9,fl:'plank',floor:'#7A5A3E',wall:'#4E3E5A',wl:'board',acc:'#A9542F',acc2:'#E8A33D',title:"PENROSE  -  SHIP'S STORE",
+  arch:{type:'shop',variant:'chandlery',
+   zones:[
+    {x:1,y:2,w:9,h:2,kind:'tile',col:'rgba(56,42,64,.35)',border:'rgba(232,163,61,.4)'},
+    {x:4,y:5,w:2,h:3,kind:'runner',col:'rgba(169,84,47,.18)',border:'rgba(232,163,61,.45)'},
+    {x:4,y:7,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#E8A33D'}
+   ]},
+  props:[
+   {x:1,y:2,k:'ropes',w:1,h:2,s:1},{x:3,y:2,k:'shelf',w:3,s:1},{x:9,y:2,k:'tar',s:1},
+   {x:3,y:4,k:'counter',w:4,s:1},{x:7,y:4,k:'ledger',s:1,m:['Orders. Names. A page torn out.']},
+   {x:1,y:6,k:'bins',s:1},{x:2,y:6,k:'bins',s:1},
+   {x:9,y:6,k:'tar',s:1},{x:9,y:7,k:'crates',s:1},
+   {x:4,y:1,k:'lanterns',w:2,wall:1},
+   {x:8,y:1,k:'wheel',wall:1,m:['Turns. Nothing attached.']}
+  ],
+  clutter:[[3,6,'twine'],[8,6,'can'],[2,7,'boots']],
+  pools:[[5,3,2.5,'#E8A33D',.26],[2,3,1.8,'#4E7C7A',.20]],
+  npcs:[{id:'hb_penrose',civ:'coach',x:5,y:3,d:'d',name:'OLD PENROSE',f:["Hands like that, you'll drop the ball.","Rope's cheap. Tar's cheaper.","Don't thank me. Buy something."],w:['Tug bought my rope every spring.','Paid full price. Never haggled.','Bram haggles.'],c:['You beat the wall.',"Light don't care. But I do."]}]},
  hb_B15:{hb:1,w:12,h:9,fl:'herring',floor:'#7A7A6A',wall:'#34506E',wl:'panel',acc:'#E6DCC8',acc2:'#A9542F',title:'UNION HALL  -  LOCAL 14',
-  props:[{x:5,y:4,k:'table',w:4,s:1},{x:1,y:2,k:'books',w:4,s:1},{x:6,y:1,k:'notice',wall:1,m:['Strike notice. Old. Still up.']},{x:9,y:2,k:'piano',s:1,m:['Out of tune. Plays anyway.']},{x:11,y:6,k:'radiator',s:1}],
-  clutter:[[4,6,'paper'],[6,5,'chess'],[10,7,'coat'],[7,6,'mug']],pools:[[5,2,2.5,'#D9C7A3',.26],[9,5,2,'#E8A33D',.22]],
-  npcs:[{id:'hb_dutch',civ:'coach',x:4,y:3,d:'d',name:'DUTCH',pw:'anchor',f:[],pwl:["Line's only as strong as the dumbest foot on it.","Plant like a bollard. Take the hit. Give nothing."],t2:['Still standing. Good.']},
-   {id:'hb_agnes',civ:'granny',x:7,y:6,d:'l',name:'SISTER AGNES',f:['Tug was a good boy. Stayed one.',"Someone's wearing his name now.",'He wears it badly.'],c:['Play fair. That\'s all I ask.']}]},
- hb_B16:{hb:1,w:10,h:9,fl:'concrete',floor:'#7A7A74',wall:'#CFC6AE',wl:'brick',acc:'#A9542F',acc2:'#E8A33D',title:'HALE POINT LIGHT  -  KEEPER\'S ROOM',
-  props:[{x:5,y:1,k:'lamp',w:2,wall:1,m:['Gears turn. Light sweeps. It never stops.']},{x:8,y:2,k:'hatch',s:1,m:["Up. Locked. Keeper's business."]},{x:2,y:3,k:'desk',s:1},{x:3,y:6,k:'cot',s:1},{x:3,y:3,k:'ledger',s:1,m:['Weather. Ships. One entry in a different hand.']}],
-  clutter:[[6,6,'can'],[9,6,'coat'],[4,3,'mug'],[7,4,'radio']],pools:[[5,2,3,'#E8A33D',.3],[5,1,2,'#9FC4D4',.22]],
-  npcs:[{id:'hb_gus',civ:'coach',x:5,y:5,d:'d',name:'GUS VALE',pw:'beacon',f:["You're the Voss kid.","Tug stood right there. Same spot.","Said light's honest. Play like it."],pwl:['Fog lies. Light doesn\'t.','Throw where the light is. Not where you hope.'],t2:["The light's still on. So are you."],w:["Bram's up at the drydock.","Always is. Waiting."],c:["Bram never beat Tug straight.","You did. Don't let it go to your head."],extra:["Tug never said goodbye. Not once."]}]}
+  arch:{type:'workplace',variant:'union-hall',
+   zones:[
+    {x:3,y:4,w:6,h:3,kind:'rug',col:'#3B4E62',border:'#E6DCC8',trim:'#A9542F'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'#34506E',border:'#E6DCC8'}
+   ],
+   wallDeco:[{x:2,y:1,w:2,kind:'window'},{x:9,y:1,kind:'window'}]},
+  props:[
+   {x:1,y:2,k:'books',w:4,s:1},
+   {x:9,y:2,k:'piano',w:2,s:1,m:['Out of tune. Plays anyway.']},
+   {x:9,y:3,k:'stool',s:1},
+   {x:4,y:5,k:'table',w:4,s:1},
+   {x:4,y:4,k:'chair',s:1},{x:7,y:4,k:'chair',s:1},{x:3,y:5,k:'chair',s:1},{x:8,y:5,k:'chair',s:1},
+   {x:1,y:6,k:'bench',s:1},
+   {x:10,y:5,k:'radiator',s:1},
+   {x:6,y:1,k:'notice',wall:1,m:['Strike notice. Old. Still up.']}
+  ],
+  clutter:[[5,4,'paper'],[6,4,'chess'],[10,7,'coat'],[2,5,'mug']],
+  pools:[[5,3,2.5,'#D9C7A3',.24],[9,4,2,'#E8A33D',.20]],
+  npcs:[
+   {id:'hb_dutch',civ:'coach',x:5,y:3,d:'d',name:'DUTCH',pw:'anchor',f:[],pwl:["Line's only as strong as the dumbest foot on it.","Plant like a bollard. Take the hit. Give nothing."],t2:['Still standing. Good.']},
+   {id:'hb_agnes',civ:'granny',x:8,y:6,d:'l',name:'SISTER AGNES',f:['Tug was a good boy. Stayed one.',"Someone's wearing his name now.",'He wears it badly.'],c:['Play fair. That\'s all I ask.']}
+  ]},
+ hb_B16:{hb:1,w:10,h:9,fl:'concrete',floor:'#7A7A74',wall:'#CFC6AE',wl:'brick',acc:'#A9542F',acc2:'#E8A33D',title:"HALE POINT LIGHT  -  KEEPER'S ROOM",
+  arch:{type:'residential',variant:'lighthouse',
+   partitions:[{x:6,y:2,w:1,h:2}],
+   zones:[
+    {x:7,y:2,w:2,h:3,kind:'bay',col:'rgba(42,50,56,.38)',border:'rgba(232,163,61,.5)'},
+    {x:2,y:4,w:4,h:2,kind:'rug',col:'#6E4332',border:'#E8A33D',trim:'#CFC6AE'},
+    {x:4,y:7,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#E8A33D'}
+   ],
+   wallDeco:[{x:1,y:1,kind:'window'},{x:7,y:1,kind:'clock'}]},
+  props:[
+   {x:1,y:2,k:'desk',s:1},{x:2,y:2,k:'ledger',s:1,m:['Weather. Ships. One entry in a different hand.']},{x:1,y:3,k:'chair',s:1},
+   {x:8,y:2,k:'hatch',s:1,m:["Up. Locked. Keeper's business."]},
+   {x:8,y:4,k:'tools',s:1},
+   {x:1,y:5,k:'cot',s:1},{x:1,y:6,k:'box',s:1},
+   {x:8,y:6,k:'radiator',s:1},
+   {x:3,y:1,k:'lamp',w:2,wall:1,m:['Gears turn. Light sweeps. It never stops.']}
+  ],
+  clutter:[[2,3,'mug'],[7,5,'radio'],[7,6,'can'],[3,7,'coat']],
+  pools:[[4,3,3,'#E8A33D',.28],[4,1,2,'#9FC4D4',.20]],
+  npcs:[{id:'hb_gus',civ:'coach',x:4,y:5,d:'d',name:'GUS VALE',pw:'beacon',f:["You're the Voss kid.","Tug stood right there. Same spot.","Said light's honest. Play like it."],pwl:['Fog lies. Light doesn\'t.','Throw where the light is. Not where you hope.'],t2:["The light's still on. So are you."],w:["Bram's up at the drydock.","Always is. Waiting."],c:["Bram never beat Tug straight.","You did. Don't let it go to your head."],extra:["Tug never said goodbye. Not once."]}]}
 };
 // v2.84: the Basin is a room you walk into once the three crews are down; Bram waits inside (before that, the doors stay shut)
 // v2.85: it is Bram's room now, and it shows: Tug's 14 with Bram's name taped over it, cash for the refs, a crate of flags, two bought refs
@@ -6994,28 +7415,92 @@ Object.assign(HBI,{
    {id:'r2_zdf',civ:'runner',x:3,y:6,d:'r',sit:1,name:'ZERO DAY',f:['This boat smells like wet dog.']},
    {id:'r2_ripf',civ:'courier',x:8,y:7,d:'l',name:'"RIPTIDE" STERLING',f:['Harbor ends here.','So does the easy money.']}]},
  r2_B01:{hb:1,r2:1,w:8,h:7,fl:'concrete',floor:'#7A7A74',wall:'#3A464E',wl:'board',acc:'#9E8D7A',acc2:'#B5643C',title:'TIDE SHED',
-  props:[{x:1,y:2,k:'cot',s:1,act:'bed',m:['Rest. Save.']},{x:5,y:1,k:'notice',wall:1,m:['TIDE TABLE. Low water at four.','Causeway floods at high water.']},{x:6,y:3,k:'radiator',s:1},{x:3,y:1,k:'clock',wall:1}],
-  clutter:[[3,5,'mug'],[5,5,'boots'],[2,4,'coat']],pools:[[4,2,2,'#E8A33D',.22]],
+  arch:{type:'residential',variant:'tide-shed',
+   zones:[
+    {x:2,y:3,w:3,h:2,kind:'rug',col:'#5D4334',border:'#E8E2D0'},
+    {x:3,y:5,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#9E8D7A'}
+   ],
+   wallDeco:[{x:6,y:1,kind:'window'}]},
+  props:[
+   {x:1,y:2,k:'cot',s:1,act:'bed',m:['Rest. Save.']},
+   {x:1,y:4,k:'table',s:1},
+   {x:6,y:2,k:'radiator',s:1},
+   {x:6,y:4,k:'shelf',s:1},
+   {x:2,y:1,k:'clock',wall:1},
+   {x:4,y:1,k:'notice',wall:1,m:['TIDE TABLE. Low water at four.','Causeway floods at high water.']}
+  ],
+  clutter:[[2,5,'boots'],[5,5,'coat'],[2,4,'mug']],
+  pools:[[4,3,2,'#E8A33D',.22]],
   npcs:[{id:'r2_sela',civ:'granny',x:4,y:3,d:'d',name:'OLD SELA',f:['Tide Shed. Rest if you need.','The Dredgers run the flats.'],w:["Mud's next. He plays it straight."],c:["Causeway's yours now.","Cinderhold's past the smoke."]}]},
  r2_B02:{hb:1,r2:1,w:12,h:9,fl:'concrete',floor:'#9C9384',wall:'#8B5A3C',wl:'board',acc:'#E8E2D0',acc2:'#A55132',title:'SALT WORKS  -  DREDGERS',
-  props:[{x:2,y:2,k:'pile',w:2,h:2,s:1,m:['Salt bags. Fifty pounds each.','Stacked by hand.']},{x:9,y:1,k:'tools',wall:1,m:['Rakes. Shovels. All clean.']},{x:6,y:1,k:'notice',wall:1,m:['NO FLAGS FOR SALE.','- M.K.']},
-   {x:9,y:3,k:'scale',s:1,m:['Reads true.','Somebody checks it every day.']},{x:2,y:6,k:'bench',s:1}],
-  clutter:[[5,7,'dust'],[7,6,'pail'],[4,4,'dust'],[10,6,'boots']],pools:[[6,2,2.5,'#E8E2D0',.2]],
-  npcs:[{id:'r2_mud',crew:'dredgers',x:6,y:4,d:'d',name:'"MUD" KELLY',f:['You beat Bram. Heard.','We don\'t buy flags here.','We play.'],w:["Second string couldn't hold you.",'Now me. First to 14.'],c:['You earned it. No flags here.','Causeway\'s open. Go.']},
-   {id:'r2_stack',civ:'fan',x:3,y:5,d:'r',name:'BAG STACKER',f:['Bags weigh fifty.','Mud carries two.']},
-   {id:'r2_ref',civ:'ref',x:9,y:6,d:'l',name:'THE FLATS REF',f:['I call what I see.',"Out here that's enough."],c:['Clean game. Write that down.']}]},
+  arch:{type:'crew_hq',variant:'salt-works',
+   zones:[
+    {x:1,y:2,w:4,h:3,kind:'bay',col:'rgba(232,226,208,.18)',border:'rgba(165,81,50,.45)'},
+    {x:8,y:2,w:3,h:3,kind:'tile',col:'rgba(90,74,60,.25)',border:'rgba(232,226,208,.45)'},
+    {x:4,y:4,w:4,h:3,kind:'bay',col:'rgba(74,58,44,.2)',border:'rgba(232,226,208,.4)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#E8E2D0'}
+   ]},
+  props:[
+   {x:1,y:2,k:'pile',w:2,h:2,s:1,m:['Salt bags. Fifty pounds each.','Stacked by hand.']},
+   {x:1,y:5,k:'crates',s:1},
+   {x:9,y:3,k:'scale',s:1,m:['Reads true.','Somebody checks it every day.']},
+   {x:10,y:3,k:'table',s:1},
+   {x:1,y:7,k:'bench',s:1},{x:9,y:7,k:'bench',s:1},
+   {x:5,y:1,k:'notice',w:2,wall:1,m:['NO FLAGS FOR SALE.','- M.K.']},
+   {x:9,y:1,k:'tools',wall:1,m:['Rakes. Shovels. All clean.']}
+  ],
+  clutter:[[4,6,'dust'],[7,6,'pail'],[3,4,'dust'],[10,6,'boots']],
+  pools:[[6,3,2.5,'#E8E2D0',.20]],
+  npcs:[
+   {id:'r2_mud',crew:'dredgers',x:6,y:4,d:'d',name:'"MUD" KELLY',f:['You beat Bram. Heard.','We don\'t buy flags here.','We play.'],w:["Second string couldn't hold you.",'Now me. First to 14.'],c:['You earned it. No flags here.','Causeway\'s open. Go.']},
+   {id:'r2_stack',civ:'fan',x:3,y:4,d:'r',name:'BAG STACKER',f:['Bags weigh fifty.','Mud carries two.']},
+   {id:'r2_ref',civ:'ref',x:8,y:5,d:'l',name:'THE FLATS REF',f:['I call what I see.',"Out here that's enough."],c:['Clean game. Write that down.']}
+  ]},
  r2_B03:{hb:1,r2:1,w:12,h:9,fl:'plank',floor:'#6B4A35',wall:'#4A3020',wl:'wain',acc:'#E8A33D',acc2:'#B5643C',title:'THE ANCHORAGE',
-  props:[{x:2,y:3,k:'bar',w:5,s:1},{x:2,y:2,k:'taps',w:2,wall:1},{x:8,y:5,k:'table',s:1},{x:5,y:6,k:'table',s:1},{x:10,y:1,k:'darts',wall:1},
-   {x:7,y:1,k:'photo',wall:1,m:['The Dredgers. Every season.','Same faces. No trophies.']},{x:10,y:4,k:'crates',s:1,act:'crate'}],
-  clutter:[[4,5,'glass'],[9,7,'peanuts'],[3,7,'mop']],pools:[[4,3,2.5,'#E8A33D',.26],[9,5,1.8,'#9FC4D4',.2]],
-  npcs:[{id:'r2_keep',civ:'vendor',x:4,y:2,d:'d',name:'BARKEEP',f:['Chowder or stew.','Same pot.']},
-   {id:'r2_saltwife',civ:'fan',x:6,y:5,d:'r',name:'SALT WIFE',f:["We don't buy flags here.",'You play dirty, you leave.']},
-   {id:'r2_courier',civ:'courier',x:10,y:5,d:'l',name:'THE COURIER',f:['I just move the boxes.'],c:["Route's clear.","I'm moving on."]},
-   {id:'r2_oldsalt',civ:'fisher',x:8,y:6,d:'u',sit:1,name:'FOUNDRY MAN',f:["Cinderhold's doctor works late.",'Foundry kids cough all winter.']}]},
+  arch:{type:'tavern',variant:'island-inn',
+   partitions:[{x:8,y:2,w:1,h:2}],
+   zones:[
+    {x:1,y:4,w:6,h:1,kind:'runner',col:'rgba(181,100,60,.20)',border:'rgba(232,163,61,.35)'},
+    {x:2,y:5,w:3,h:3,kind:'rug',col:'#5B3624',border:'#E8A33D'},
+    {x:9,y:2,w:2,h:4,kind:'tile',col:'rgba(60,54,48,.48)',border:'rgba(181,100,60,.45)'},
+    {x:5,y:7,w:2,h:1,kind:'mat',col:'#4A3B2A',border:'#E8A33D'}
+   ]},
+  props:[
+   {x:1,y:3,k:'bar',w:6,s:1},
+   {x:2,y:4,k:'stool',s:1},{x:5,y:4,k:'stool',s:1},
+   {x:2,y:6,k:'table',s:1},{x:8,y:6,k:'table',s:1},
+   {x:10,y:2,k:'box',s:1},
+   {x:10,y:3,k:'crates',s:1,act:'crate'},
+   {x:2,y:1,k:'taps',w:2,wall:1},
+   {x:5,y:1,k:'photo',wall:1,m:['The Dredgers. Every season.','Same faces. No trophies.']},
+   {x:7,y:1,k:'darts',wall:1}
+  ],
+  clutter:[[3,5,'glass'],[7,7,'peanuts'],[1,7,'mop']],
+  pools:[[4,3,2.5,'#E8A33D',.24],[9,5,1.8,'#9FC4D4',.18]],
+  npcs:[
+   {id:'r2_keep',civ:'vendor',x:4,y:2,d:'d',name:'BARKEEP',f:['Chowder or stew.','Same pot.']},
+   {id:'r2_saltwife',civ:'fan',x:3,y:6,d:'l',name:'SALT WIFE',f:["We don't buy flags here.",'You play dirty, you leave.']},
+   {id:'r2_courier',civ:'courier',x:9,y:3,d:'r',name:'THE COURIER',f:['I just move the boxes.'],c:["Route's clear.","I'm moving on."]},
+   {id:'r2_oldsalt',civ:'fisher',x:9,y:6,d:'l',sit:1,name:'FOUNDRY MAN',f:["Cinderhold's doctor works late.",'Foundry kids cough all winter.']}
+  ]},
  r2_B04:{hb:1,r2:1,w:10,h:8,fl:'concrete',floor:'#6E7477',wall:'#2F6F6A',wl:'panel',acc:'#E8E2D0',acc2:'#B5643C',title:'LIFEBOAT STATION',
-  props:[{x:3,y:3,k:'hull',w:3,h:2,s:1,m:['The lifeboat. Oars inside.','Ready to go. Always.']},{x:1,y:1,k:'oars',wall:1},{x:7,y:1,k:'board',wall:1,m:['RESCUES: 211.','Nobody paid for one.']},{x:8,y:3,k:'radio',s:1},{x:8,y:6,k:'tools',s:1,m:['Boathooks. Flares. A spare oar.']}],
-  clutter:[[2,6,'boots'],[6,6,'pail'],[5,6,'coat']],pools:[[5,2,2.5,'#9FC4D4',.22]],
-  npcs:[{id:'r2_ida',civ:'slicker',x:6,y:5,d:'d',name:'IDA MARR',pw:'gaff',f:[],pwl:["Tide's coming. You'll need grip.","Take this. Don't fall."],t2:['Hook holds. So should you.']}]}
+  arch:{type:'workplace',variant:'rescue-station',
+   zones:[
+    {x:2,y:2,w:5,h:4,kind:'bay',col:'rgba(47,111,106,.26)',border:'#E8E2D0',trim:'#B5643C'},
+    {x:4,y:6,w:2,h:1,kind:'mat',col:'#2F6F6A',border:'#E8E2D0'}
+   ],
+   wallDeco:[{x:8,y:1,kind:'window'}]},
+  props:[
+   {x:3,y:3,k:'hull',w:3,h:2,s:1,m:['The lifeboat. Oars inside.','Ready to go. Always.']},
+   {x:8,y:2,k:'desk',s:1},{x:8,y:3,k:'radio',s:1},
+   {x:8,y:6,k:'tools',s:1,m:['Boathooks. Flares. A spare oar.']},
+   {x:1,y:5,k:'box',s:1},{x:1,y:6,k:'bench',s:1},
+   {x:2,y:1,k:'oars',wall:1},
+   {x:5,y:1,k:'board',w:2,wall:1,m:['RESCUES: 211.','Nobody paid for one.']}
+  ],
+  clutter:[[2,6,'boots'],[6,6,'pail'],[7,5,'coat']],
+  pools:[[5,3,2.5,'#9FC4D4',.22]],
+  npcs:[{id:'r2_ida',civ:'slicker',x:7,y:4,d:'l',name:'IDA MARR',pw:'gaff',f:[],pwl:["Tide's coming. You'll need grip.","Take this. Don't fall."],t2:['Hook holds. So should you.']}]}
 });
 
 /* ---------------------------------------------------------------- layout normalizer: keeps every prop and person on a valid, reachable tile */
@@ -7023,18 +7508,19 @@ window.__hbAdj=[];
 function hbNormalize(){
   const adj=window.__hbAdj;
   for(const id in HBI){const d=HBI[id],w=d.w,h=d.h,ex=[Math.floor(w/2)-1,Math.floor(w/2)],sp=[ex[1],h-2];
-    const sol=new Uint8Array(w*h),fl=(x,y)=>x>=1&&x<=w-2&&y>=2&&y<=h-2,lane=(x,y)=>y>=h-2&&(x===ex[0]||x===ex[1]);
-    const mark=(p)=>{for(let yy=0;yy<(p.h||1);yy++)for(let xx=0;xx<(p.w||1);xx++){const X=p.x+xx,Y=p.y+yy;if(X>=0&&Y>=0&&X<w&&Y<h)sol[Y*w+X]=1}};
+    const sol=new Uint8Array(w*h),ctr=new Uint8Array(w*h),fl=(x,y)=>x>=1&&x<=w-2&&y>=2&&y<=h-2,lane=(x,y)=>y>=h-2&&(x===ex[0]||x===ex[1]);
+    const mark=(p,isC)=>{for(let yy=0;yy<(p.h||1);yy++)for(let xx=0;xx<(p.w||1);xx++){const X=p.x+xx,Y=p.y+yy;if(X>=0&&Y>=0&&X<w&&Y<h){sol[Y*w+X]=1;if(isC)ctr[Y*w+X]=1}}};
+    if(d.arch&&d.arch.partitions)for(const pt of d.arch.partitions)mark(pt,false);
     const free=(x,y,sx,sy)=>{for(let yy=0;yy<sy;yy++)for(let xx=0;xx<sx;xx++){const X=x+xx,Y=y+yy;if(!fl(X,Y)||sol[Y*w+X]||lane(X,Y))return false}return true};
     const near=(p,sx,sy)=>{if(free(p.x,p.y,sx,sy))return [p.x,p.y];for(let r=1;r<8;r++)for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){if(Math.max(Math.abs(dx),Math.abs(dy))!==r)continue;if(free(p.x+dx,p.y+dy,sx,sy))return [p.x+dx,p.y+dy]}return null};
     for(const p of d.props){if(p.k==='fishtray'){p.s=0;continue}if(p.wall){p.y=1;if(p.s===undefined)p.s=0;continue}if(p.s===undefined)p.s=1;
-      const q=near(p,p.w||1,p.h||1);if(!q){adj.push([id,'prop DROPPED',p.k,p.x,p.y]);p.s=0;p.drop=1;continue}if(q[0]!==p.x||q[1]!==p.y){adj.push([id,'prop',p.k,p.x+','+p.y,'->',q[0]+','+q[1]]);p.x=q[0];p.y=q[1]}if(p.s)mark(p)}
+      const q=near(p,p.w||1,p.h||1);if(!q){adj.push([id,'prop DROPPED',p.k,p.x,p.y]);p.s=0;p.drop=1;continue}if(q[0]!==p.x||q[1]!==p.y){adj.push([id,'prop',p.k,p.x+','+p.y,'->',q[0]+','+q[1]]);p.x=q[0];p.y=q[1]}if(p.s)mark(p,p.k==='counter'||p.k==='bar'||p.k==='cage'||p.k==='table'||p.k==='desk'||p.k==='icebin')}
     const reach=()=>{const seen=new Uint8Array(w*h),q=[sp];seen[sp[1]*w+sp[0]]=1;let c=0;while(q.length){const [x,y]=q.shift();for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(X<0||Y<0||X>=w||Y>=h||seen[Y*w+X])continue;if(sol[Y*w+X]||!fl(X,Y)&&!(Y===h-1&&ex.includes(X)))continue;seen[Y*w+X]=1;q.push([X,Y])}}return seen};
     for(const n of d.npcs){n.hb=1;if(n.when){const k=n.when;Object.defineProperty(n,'off',{get(){return !hbWhen(k)},configurable:true})}
       let q=near(n,1,1);if(!q){adj.push([id,'npc DROPPED',n.id]);n.x=sp[0];n.y=1;n.drop=1;continue}
       sol[q[1]*w+q[0]]=1;
       // everyone and every interactive prop must stay reachable from the door
-      const rs=reach(),adjOk=([x,y])=>[[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>{const X=x+dx,Y=y+dy;return X>=0&&Y>=0&&X<w&&Y<h&&rs[Y*w+X]});
+      const rs=reach(),adjOk=([x,y])=>[[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>{const X=x+dx,Y=y+dy;if(X>=0&&Y>=0&&X<w&&Y<h&&rs[Y*w+X])return true;if(X>=0&&Y>=0&&X<w&&Y<h&&ctr[Y*w+X]){const X2=X+dx,Y2=Y+dy;if(X2>=0&&Y2>=0&&X2<w&&Y2<h&&rs[Y2*w+X2])return true}return false});
       if(!adjOk(q)){sol[q[1]*w+q[0]]=0;let ok=false;for(let r=1;r<8&&!ok;r++)for(let dy=-r;dy<=r&&!ok;dy++)for(let dx=-r;dx<=r&&!ok;dx++){if(Math.max(Math.abs(dx),Math.abs(dy))!==r)continue;const X=n.x+dx,Y=n.y+dy;if(!free(X,Y,1,1))continue;sol[Y*w+X]=1;const r2=reach();if([[1,0],[-1,0],[0,1],[0,-1]].some(([ax,ay])=>{const A=X+ax,Bq=Y+ay;return A>=0&&Bq>=0&&A<w&&Bq<h&&r2[Bq*w+A]})){q=[X,Y];ok=true}else sol[Y*w+X]=0}if(!ok){adj.push([id,'npc UNREACHABLE',n.id]);sol[q[1]*w+q[0]]=1}}
       if(q[0]!==n.x||q[1]!==n.y){adj.push([id,'npc',n.id,n.x+','+n.y,'->',q[0]+','+q[1]]);n.x=q[0];n.y=q[1]}}
     d.title=d.title||'';
@@ -7627,13 +8113,81 @@ function owBakeHarborRoom(c,m){
   {const t=d.title,bw=Math.min(W-B*3,t.length*B*.3+B*.8),bx=W/2-bw/2,by=B*.2;g.fillStyle='#211a14';g.fillRect(bx,by,bw,B*.62);g.strokeStyle=d.acc;g.lineWidth=3;g.strokeRect(bx+3,by+3,bw-6,B*.62-6);g.fillStyle='#efe6d0';g.textAlign='center';g.textBaseline='middle';const fs=Math.min(B*.34,(bw-B*.5)/(t.length*.6));g.font='700 '+Math.round(fs)+'px "Bowlby One",Impact,sans-serif';g.fillText(t,W/2,by+B*.33)}
   // exit mat
   for(const x of m.ex){const X=x*B,Y=(m.h-1)*B;g.fillStyle='#4a3b2a';g.fillRect(X,Y,B,B);g.strokeStyle='rgba(0,0,0,.4)';g.lineWidth=2;for(let i=0;i<5;i++){g.beginPath();g.moveTo(X,Y+i*B/5);g.lineTo(X+B,Y+i*B/5);g.stroke()}g.fillStyle='rgba(232,163,61,.14)';g.fillRect(X,Y,B,B*.6)}
-  // floor clutter (decals), then props, then light
+  // architectural floor zones (rugs, runners, bays, welcome mats) & wall deco
+  if(d.arch){hbArchZones(g,d,B);hbArchWallDeco(g,d,B)}
+  // floor clutter (decals), then props, then interior partitions, then light
   for(const [cx2,cy2,k] of (d.clutter||[]))hbClutter(g,cx2,cy2,k,d);
   for(const p of m.props)if(!p.drop)hbRoomProp(g,p,d,R);
+  if(d.arch&&d.arch.partitions)hbArchPartitions(g,d,B);
   g.save();g.globalCompositeOperation='lighter';
   for(const [px,py,r,col,al] of (d.pools||[])){const rr=r*B*1.25,X=(px+.5)*B,Y=(py+.5)*B,gr=g.createRadialGradient(X,Y,0,X,Y,rr),rgb=hbRGB(col).join(',');gr.addColorStop(0,'rgba('+rgb+','+al+')');gr.addColorStop(.6,'rgba('+rgb+','+al*.4+')');gr.addColorStop(1,'rgba('+rgb+',0)');g.fillStyle=gr;g.fillRect(X-rr,Y-rr,rr*2,rr*2)}
   g.restore();
   const vg=g.createRadialGradient(W/2,H/2,Math.min(W,H)*.3,W/2,H/2,Math.max(W,H)*.72);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.36)');g.fillStyle=vg;g.fillRect(0,0,W,H);
+}
+function hbArchZones(g,d,B){
+  for(const z of (d.arch.zones||[])){
+    const X=z.x*B,Y=z.y*B,W=(z.w||1)*B,H=(z.h||1)*B;g.save();
+    if(z.kind==='rug'){
+      g.fillStyle='rgba(0,0,0,.22)';g.fillRect(X+6,Y+8,W-8,H-8);
+      g.fillStyle=z.col||'#5a3528';g.fillRect(X+4,Y+4,W-8,H-8);
+      g.strokeStyle=z.border||d.acc;g.lineWidth=3;g.strokeRect(X+9,Y+9,W-18,H-18);
+      if(z.trim){g.strokeStyle=z.trim;g.lineWidth=1.5;g.strokeRect(X+15,Y+15,W-30,H-30)}
+      g.fillStyle='rgba(255,245,220,.14)';for(let yy=Y+18;yy<Y+H-18;yy+=14)for(let xx=X+18;xx<X+W-18;xx+=14)g.fillRect(xx,yy,3,3);
+    }else if(z.kind==='runner'){
+      g.fillStyle=z.col||'rgba(232,163,61,.18)';g.fillRect(X+6,Y+4,W-12,H-8);
+      g.strokeStyle=z.border||d.acc;g.lineWidth=2;g.strokeRect(X+10,Y+8,W-20,H-16);
+    }else if(z.kind==='mat'){
+      g.fillStyle=z.col||'#5a3b28';g.fillRect(X+8,Y+B*.35,W-16,H-B*.42);
+      g.strokeStyle=z.border||d.acc;g.lineWidth=2.5;g.strokeRect(X+11,Y+B*.38,W-22,H-B*.48);
+    }else if(z.kind==='tile'){
+      g.fillStyle=z.col||'rgba(40,60,70,.35)';g.fillRect(X+2,Y+2,W-4,H-4);
+      g.strokeStyle='rgba(0,0,0,.18)';g.lineWidth=1;
+      for(let xx=X+B*.5;xx<X+W;xx+=B*.5){g.beginPath();g.moveTo(xx,Y+2);g.lineTo(xx,Y+H-2);g.stroke()}
+      for(let yy=Y+B*.5;yy<Y+H;yy+=B*.5){g.beginPath();g.moveTo(X+2,yy);g.lineTo(X+W-2,yy);g.stroke()}
+      if(z.border){g.strokeStyle=z.border;g.lineWidth=2;g.strokeRect(X+3,Y+3,W-6,H-6)}
+    }else if(z.kind==='bay'||z.kind==='stage'){
+      g.fillStyle=z.col||'rgba(40,48,54,.3)';g.fillRect(X+4,Y+4,W-8,H-8);
+      g.strokeStyle=z.border||d.acc;g.lineWidth=2.5;g.setLineDash([10,6]);g.strokeRect(X+7,Y+7,W-14,H-14);g.setLineDash([]);
+      if(z.trim){g.fillStyle=z.trim;g.fillRect(X+8,Y+H-10,W-16,4)}
+    }
+    g.restore();
+  }
+}
+function hbArchWallDeco(g,d,B){
+  for(const w of (d.arch.wallDeco||[])){
+    const X=w.x*B,Y=w.y*B,W=(w.w||1)*B,by=Y+B*.18,bh=B*.8;g.save();
+    if(w.kind==='window'){
+      g.fillStyle='#0e1519';g.fillRect(X+B*.1,by-B*.05,W-B*.2,bh);
+      g.fillStyle='rgba(159,196,212,.58)';g.fillRect(X+B*.16,by,W-B*.32,bh-B*.1);
+      g.strokeStyle='#211a14';g.lineWidth=4;g.strokeRect(X+B*.1,by-B*.05,W-B*.2,bh);
+      g.beginPath();g.moveTo(X+W/2,by);g.lineTo(X+W/2,by+bh-B*.1);g.moveTo(X+B*.16,by+(bh-B*.1)/2);g.lineTo(X+W-B*.16,by+(bh-B*.1)/2);g.stroke();
+    }else if(w.kind==='door'){
+      g.fillStyle='#211a14';g.fillRect(X+B*.15,by-B*.06,B*.7,bh+B*.14);
+      g.fillStyle=w.col||'#5a4030';g.fillRect(X+B*.21,by,B*.58,bh+B*.04);
+      g.fillStyle='#E8C53A';g.beginPath();g.arc(X+B*.68,by+bh*.55,3.5,0,7);g.fill();
+    }else if(w.kind==='frame'){
+      g.fillStyle='#211a14';g.fillRect(X+B*.18,by+B*.04,B*.64,bh*.72);
+      g.fillStyle=w.col||d.acc2;g.fillRect(X+B*.24,by+B*.1,B*.52,bh*.58);
+      g.fillStyle='#E8E2D0';g.fillRect(X+B*.3,by+B*.22,B*.4,bh*.24);
+    }else if(w.kind==='clock'){
+      const cx=X+W/2;g.fillStyle='#211a14';g.beginPath();g.arc(cx,by+bh*.45,B*.28,0,7);g.fill();
+      g.fillStyle='#e8e2d0';g.beginPath();g.arc(cx,by+bh*.45,B*.22,0,7);g.fill();
+      g.strokeStyle='#211a14';g.lineWidth=2.5;g.beginPath();g.moveTo(cx,by+bh*.45);g.lineTo(cx+B*.1,by+bh*.32);g.stroke();
+    }
+    g.restore();
+  }
+}
+function hbArchPartitions(g,d,B){
+  for(const pt of (d.arch.partitions||[])){
+    const X=pt.x*B,Y=pt.y*B,W=(pt.w||1)*B,H=(pt.h||1)*B;g.save();
+    g.fillStyle='rgba(0,0,0,.38)';g.fillRect(X+6,Y+H-4,W,12);
+    g.fillStyle=d.wall;g.fillRect(X,Y,W,H);
+    g.fillStyle=hbMix(d.wall,'#ffffff',.18);g.fillRect(X,Y,W,B*.22);
+    g.fillStyle='rgba(0,0,0,.28)';g.fillRect(X,Y+H-B*.28,W,B*.28);
+    g.fillStyle=d.acc2;g.fillRect(X,Y+H-B*.32,W,4);
+    g.strokeStyle='#14110f';g.lineWidth=3;g.strokeRect(X+1.5,Y+1.5,W-3,H-3);
+    g.restore();
+  }
 }
 function hbClutter(g,tx,ty,k,d){const B=BP,X=tx*B,Y=ty*B,cx=X+B/2,cy=Y+B/2;g.save();g.fillStyle='rgba(0,0,0,.28)';g.beginPath();g.ellipse(cx,cy+B*.18,B*.2,B*.07,0,0,7);g.fill();
   const col={boots:'#2a1e16',bag:'#4a5a4a',mug:'#e6dcc8',paper:'#e8e2d0',tape:'#cfc3a5',bottle:'#3e6a5a',towel:'#c9d6d8',crate:'#6b4f33',sign:'#e8c53a',ice:'#cfe6ee',dust:'#c9b37e',tool:'#8a8f91',rag:'#a9a28f',pail:'#4a5a63',can:'#9aa4a8',glove:'#d9a437',token:'#e8c53a',ticket:'#e0a458',broom:'#a98a5a',stool:'#6b4f33',scrap:'#a9c4cc',scoop:'#cfd6d8',knife:'#bfc7ca',peanuts:'#c9a26b',glass:'#9fc4d4',mop:'#cfc3a5',coat:'#4a3f35',pencil:'#e8c53a',twine:'#bfa76a',chess:'#e6dcc8',radio:'#3a444a',chain:'#8a8f91',bucket:'#4a5a63',tag:'#e8e2d0',oil:'#14181b'}[k]||'#8a8f91';
@@ -7683,6 +8237,7 @@ function hbRoomProp(g,p,d,R){
     g.restore();return}
   // floor props
   if(k==='bunk'||k==='bed'||k==='cot'){sh();box('#2a1f18',X+B*.05,Y+B*.12,W-B*.1,H-B*.2);g.fillStyle=a2;g.fillRect(X+B*.14,Y+B*.22,W-B*.28,H-B*.46);g.fillStyle=a;g.fillRect(X+B*.14,Y+B*.2,B*.34,H-B*.4);if(k==='bunk'){g.strokeStyle='#2a1f18';g.lineWidth=4;g.beginPath();g.moveTo(X+B*.1,Y);g.lineTo(X+B*.1,Y+H);g.moveTo(X+W-B*.1,Y);g.lineTo(X+W-B*.1,Y+H);g.stroke()}}
+  else if(k==='plant'){sh(B*.3);box('#5a3d2b',cx-B*.2,Y+B*.56,B*.4,B*.32);g.fillStyle='#3f7a4c';for(let i=0;i<5;i++){g.beginPath();g.ellipse(cx+(i-2)*B*.11,Y+B*.38-Math.abs(i-2)*B*.04,B*.11,B*.24,(i-2)*.35,0,7);g.fill();g.strokeStyle='#1d3a24';g.lineWidth=1.5;g.stroke()}}
   else if(k==='chair'||k==='stool'){sh(B*.26);g.fillStyle='#211a14';g.fillRect(cx-3,cy,6,B*.34);g.fillStyle='#8a6a4a';g.beginPath();g.ellipse(cx,cy-2,B*.26,B*.14,0,0,7);g.fill();g.strokeStyle='#211a14';g.lineWidth=2;g.stroke()}
   else if(k==='table'||k==='counter'||k==='bar'||k==='bench'||k==='desk'||k==='cage'||k==='blocks'||k==='ledger'||k==='piano'||k==='radiator'||k==='mortar'||k==='dummy'||k==='trophy'||k==='mirror'||k==='note'){
     sh(W*.46);
@@ -8391,12 +8946,13 @@ function owMap(id){
     for(let x=0;x<m.w;x++){S(x,0);S(x,1);if(!m.ex.includes(x))S(x,m.h-1)}
     for(let y=0;y<m.h;y++){S(0,y);S(m.w-1,y)}
   }
+  if(m.def&&m.def.arch&&m.def.arch.partitions)for(const pt of m.def.arch.partitions)for(let yy=0;yy<(pt.h||1);yy++)for(let xx=0;xx<(pt.w||1);xx++)S(pt.x+xx,pt.y+yy);
   for(const p of m.props)if(p.s)for(let yy=0;yy<(p.h||1);yy++)for(let xx=0;xx<(p.w||1);xx++)S(p.x+xx,p.y+yy);
   if(m.def&&m.def.dgDoors)for(const q of m.def.dgDoors)m.solid[q[1]*m.w+q[0]]=0;OWMAPS[id]=m;return m;
 }
 let M=owMap('street');
 const owNpcAt=(x,y)=>M.npcs.find(n=>n.x===x&&n.y===y&&!n.off);
-const owPropAt=(x,y)=>M.props.find(p=>((M.hb||M.harbor||M.island)?(x>=p.x&&x<p.x+(p.w||1)&&y>=p.y&&y<p.y+(p.h||1)):(p.x===x&&p.y===y))&&(p.m||p.act));
+const owPropAt=(x,y)=>M.props.find(p=>((M.room||M.hb||M.harbor||M.island)?(x>=p.x&&x<p.x+(p.w||1)&&y>=p.y&&y<p.y+(p.h||1)):(p.x===x&&p.y===y))&&(p.m||p.act));
 const g0east=x=>x>=28;
 const owGateOpen=()=>SAVE.beaten.includes('captain');
 const owBlocked=(x,y)=>{if(x<0||y<0||x>=M.w||y>=M.h)return true;if(M.solid[y*M.w+x])return true;if(dgBlock(x,y))return true;if(M.harbor&&hbIsGate(x,y)&&!hbGateOpen())return true;if(M.harbor&&hbIsYard(x,y)&&!hbYardOpen())return true;if(M.island&&r2IsGate(x,y)&&!r2GateOpen())return true;if(owNpcAt(x,y))return true;if(M.gates.some(g=>g[0]===x&&g[1]===y&&(g[0]>=28||!owGateOpen())))return true;return false};
@@ -9082,7 +9638,9 @@ function owBakeRoom(c,m){
   // exit mat
   for(const x of m.ex){const X=x*BP,Y=(m.h-1)*BP;g.fillStyle='#04030a';g.fillRect(X,Y,BP,BP);g.fillStyle='#e8c53a';for(let i=0;i<4;i++){g.beginPath();g.moveTo(X+i*16,Y+BP*.7);g.lineTo(X+i*16+8,Y+BP*.7);g.lineTo(X+i*16+2,Y+BP);g.lineTo(X+i*16-6,Y+BP);g.fill()}g.fillStyle='rgba(39,224,255,.18)';g.fillRect(X,Y,BP,BP*.6)}
   LG.push({x:(m.ex[0]+1)*BP,y:(m.h-.6)*BP,r:BP*2.4,col:'#27e0ff',a:.25,f:4});
+  if(d.arch){hbArchZones(g,d,BP);hbArchWallDeco(g,d,BP)}
   for(const p of m.props)owBakeRP(g,p,m,R,d);
+  if(d.arch&&d.arch.partitions)hbArchPartitions(g,d,BP);
   owRoomMood(g,m,d,R,W,H);
 }
 
@@ -9107,8 +9665,8 @@ function owRoomMood(g,m,d,R,W,H){
   const pool=(x,y,rx,ry,c,al)=>{g.save();g.translate(x,y);g.scale(1,ry/rx);const gr=g.createRadialGradient(0,0,0,0,0,rx);gr.addColorStop(0,'rgba('+c+','+al+')');gr.addColorStop(.6,'rgba('+c+','+al*.4+')');gr.addColorStop(1,'rgba('+c+',0)');g.fillStyle=gr;g.fillRect(-rx,-rx,rx*2,rx*2);g.restore()};
   pool(W*.28,H*.52,B*3.2,B*2.2,a1,.30);pool(W*.74,H*.45,B*3,B*2,a2,.26);pool(W*.5,H*.86,B*3.6,B*1.2,a1,.16);
   g.restore();
-  // 3. cables across the back wall and a few posters
-  g.strokeStyle='rgba(2,4,8,.9)';g.lineWidth=3;for(let i=0;i<3;i++){const x0=B+R()*W*.3,x1=W-B-R()*W*.3,y=B*(.35+i*.28);g.beginPath();g.moveTo(x0,y);g.quadraticCurveTo((x0+x1)/2,y+B*(.35+R()*.3),x1,y+B*.05);g.stroke()}
+  // 3. cables across the back wall and a few posters (kept subtle on arch-designed rooms)
+  if(!d.arch){g.strokeStyle='rgba(2,4,8,.9)';g.lineWidth=3;for(let i=0;i<3;i++){const x0=B+R()*W*.3,x1=W-B-R()*W*.3,y=B*(.35+i*.28);g.beginPath();g.moveTo(x0,y);g.quadraticCurveTo((x0+x1)/2,y+B*(.35+R()*.3),x1,y+B*.05);g.stroke()}}
   const poster=(x,y,w,h,c)=>{g.fillStyle='#07101a';g.fillRect(x-2,y-2,w+4,h+4);g.fillStyle='rgba('+c+',.55)';g.fillRect(x,y,w,h);g.fillStyle='rgba(0,0,0,.35)';for(let k=4;k<h;k+=7)g.fillRect(x,y+k,w,2);g.fillStyle='rgba(255,255,255,.55)';g.fillRect(x+4,y+4,w*.5,3)};
   const ps=[[B*1.15,B*1.2],[W-B*2,B*1.2]];for(const [x,y] of ps)poster(x,y+B*.22,B*.5,B*.5,R()<.5?a1:a2);
   // 4. identity per room
@@ -9119,10 +9677,10 @@ function owRoomMood(g,m,d,R,W,H){
     glowRect(B*1.2,B*1.95,B*1.6,3,'255,210,58');glowRect(W-B*2.8,B*1.95,B*1.6,3,'255,210,58')}   // trophy shelves
   if(id==='crew3'){for(let i=0;i<22;i++){g.fillStyle='rgba(255,255,255,'+(.15+R()*.5)+')';g.fillRect(B*1.3+R()*(W-B*2.6),B*1.1+R()*B*.7,2,2)}   // stars through the skyline window
     for(let i=0;i<9;i++){const bx=B*1.4+i*(W-B*2.8)/9,bh=B*(.15+R()*.45);g.fillStyle='rgba(8,18,26,.9)';g.fillRect(bx,B*1.9-bh,B*.28,bh)}}
-  if(id==='home'){g.save();g.globalCompositeOperation='lighter';g.fillStyle='rgba(255,190,120,.13)';g.beginPath();g.moveTo(B*3.4,B*2);g.lineTo(B*4.8,B*2);g.lineTo(B*6.6,B*5.2);g.lineTo(B*4,B*5.2);g.fill();g.restore();glowRect(B*3.5,B*1.1,B*1.2,B*.7,'255,200,140')}   // window light shaft
+  if(id==='home'){g.save();g.globalCompositeOperation='lighter';g.fillStyle='rgba(255,190,120,.12)';g.beginPath();g.moveTo(B*2.2,B*2);g.lineTo(B*3.8,B*2);g.lineTo(B*5.0,B*4.8);g.lineTo(B*2.8,B*4.8);g.fill();g.restore()}   // window light shaft
   if(id==='pharma'){for(let i=0;i<14;i++){g.fillStyle=['#58ffb0','#27e0ff','#ff9be8'][i%3];g.globalAlpha=.8;g.fillRect(B*1.6+i*(W-B*3.2)/14,B*1.55+(i%2)*B*.2,B*.1,B*.22)}g.globalAlpha=1}   // vial shelves
-  // 5. floor clutter
-  for(let i=0;i<14;i++){const x=B*1.3+R()*(W-B*2.6),y=B*2.4+R()*(H-B*4),t=R();if(t<.4){g.fillStyle='rgba(200,210,230,.3)';g.fillRect(x,y,5,3)}else if(t<.7){g.fillStyle='rgba(0,0,0,.5)';g.beginPath();g.ellipse(x,y,9,4,0,0,7);g.fill()}else{g.strokeStyle='rgba(2,4,8,.8)';g.lineWidth=2;g.beginPath();g.moveTo(x,y);g.quadraticCurveTo(x+14,y+6,x+30,y);g.stroke()}}
+  // 5. floor clutter (omitted on arch-designed rooms to keep floors crisp & readable)
+  if(!d.arch)for(let i=0;i<14;i++){const x=B*1.3+R()*(W-B*2.6),y=B*2.4+R()*(H-B*4),t=R();if(t<.4){g.fillStyle='rgba(200,210,230,.3)';g.fillRect(x,y,5,3)}else if(t<.7){g.fillStyle='rgba(0,0,0,.5)';g.beginPath();g.ellipse(x,y,9,4,0,0,7);g.fill()}else{g.strokeStyle='rgba(2,4,8,.8)';g.lineWidth=2;g.beginPath();g.moveTo(x,y);g.quadraticCurveTo(x+14,y+6,x+30,y);g.stroke()}}
   // 6. vignette
   const vg=g.createRadialGradient(W/2,H/2,Math.min(W,H)*.25,W/2,H/2,Math.max(W,H)*.7);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.5)');g.fillStyle=vg;g.fillRect(0,0,W,H);
 }
@@ -9138,8 +9696,8 @@ function owFloor(g,m,d,R){
   if(f==='wood'){            // home: warm long planks and a rug
     fill('#4a2f22');
     for(let y=y0,r=0;y<y1;y+=16,r++){let x=x0-R()*70;while(x<x1){const len=BP*(1.4+R()*2.2),v=R();g.fillStyle=v<.3?'#5d3b29':v<.6?'#53341f':v<.85?'#62402e':'#4b2e1e';g.fillRect(x,y,len-1,15);g.fillStyle='rgba(0,0,0,.32)';g.fillRect(x,y+15,len,1);g.fillRect(x+len-1,y,1,16);g.fillStyle='rgba(255,210,150,.07)';g.fillRect(x+R()*len*.6,y+4+R()*6,len*.3,1);x+=len}}
-    g.fillStyle='#6b2250';g.fillRect(3*BP,4*BP,4*BP,3*BP);g.strokeStyle='#ffd23a';g.lineWidth=3;g.strokeRect(3*BP+6,4*BP+6,4*BP-12,3*BP-12);g.strokeStyle='rgba(255,47,168,.7)';g.lineWidth=2;g.strokeRect(3*BP+14,4*BP+14,4*BP-28,3*BP-28);
-    for(let i=0;i<14;i++)line('rgba(255,210,150,.25)',1,3*BP+10+i*17,4*BP+8,3*BP+10+i*17,4*BP+12)}
+    if(!d.arch){g.fillStyle='#6b2250';g.fillRect(3*BP,4*BP,4*BP,3*BP);g.strokeStyle='#ffd23a';g.lineWidth=3;g.strokeRect(3*BP+6,4*BP+6,4*BP-12,3*BP-12);g.strokeStyle='rgba(255,47,168,.7)';g.lineWidth=2;g.strokeRect(3*BP+14,4*BP+14,4*BP-28,3*BP-28);
+    for(let i=0;i<14;i++)line('rgba(255,210,150,.25)',1,3*BP+10+i*17,4*BP+8,3*BP+10+i*17,4*BP+12)}}
   else if(f==='clinic'){     // pharma: pale clinic tile with a green guide path
     fill('#3b6470');
     for(let x=x0;x<x1;x+=BP)line('rgba(10,30,40,.55)',2,x,y0,x,y1);for(let y=y0;y<y1;y+=BP)line('rgba(10,30,40,.55)',2,x0,y,x1,y);
@@ -9533,6 +10091,10 @@ function owBump(x,y){
   if(hbBump(x,y)||r2Bump(x,y))return;
   if(dgBump(x,y))return;
   const n=owNpcAt(x,y);if(n){const dx=OW.x-n.x,dy=OW.y-n.y;n.d=Math.abs(dx)>Math.abs(dy)?(dx>0?'r':'l'):(dy>0?'d':'u');owTalk(n);return}
+  if(M.room){const cp=owPropOver(x,y);const ck=cp&&(cp.k||cp.t);
+    if(cp&&!cp.act&&(ck==='counter'||ck==='bar'||ck==='cage'||ck==='table'||ck==='desk'||ck==='icebin')){
+      const bx=x+(x-OW.x),by=y+(y-OW.y),bn=owNpcAt(bx,by);
+      if(bn){const dx=OW.x-bn.x,dy=OW.y-bn.y;bn.d=Math.abs(dx)>Math.abs(dy)?(dx>0?'r':'l'):(dy>0?'d':'u');owTalk(bn);return}}}
   const p=owPropAt(x,y);
   if(p){if(p.act&&(M.hb||M.harbor||M.island)&&(r2Act(p)||hbAct(p)))return;if(p.act==='tire'){SAVE.route=SAVE.route||{};owAsk('TIRE',SAVE.route.tire?'Again? No points in it.':'A tire on a chain. A throwing mark on the ground. Make 5 out of 8. Practice?',[['THROW',()=>owTire()],['CANCEL']]);return}
     if(p.act==='squad'){owAsk('LOCKER','Your squad and upgrades. Points: '+(SAVE.upPts||0),[['SQUAD',()=>{owClub=true;owHide();renderSquad();screens('#squad')}],['UPGRADE',()=>{owClub=true;owHide();openUpg(()=>{owClub=false;owShow()})}],['CLOSE']]);return}
