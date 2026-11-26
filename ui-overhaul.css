@@ -3839,6 +3839,133 @@ body #achT {
 }
 
 /* ==========================================================================
+   Section 4: GOALS & STATS (Portrait) — Handoff Spec
+   ========================================================================== */
+#goalsP .ui-goals-header {
+  display: grid !important;
+  grid-template-columns: 46px minmax(0, 1fr) 46px !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+#goalsP .ui-goals-x {
+  grid-column: 1 !important;
+  width: 38px !important;
+  height: 38px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #1C2130 !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 10px !important;
+  color: #F5F7FA !important;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  cursor: pointer;
+}
+#goalsP .ui-goals-title-wrap {
+  grid-column: 2 !important;
+  text-align: center !important;
+}
+#goalsP .ui-goals-trophy {
+  grid-column: 3 !important;
+  justify-self: end !important;
+  display: inline-flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 46px !important;
+  height: 50px !important;
+  padding: 4px 4px 8px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 54' preserveAspectRatio='none'%3E%3Cpath d='M6 2 H42 Q46 2 46 6 V37 L24 51 L2 37 V6 Q2 2 6 2 Z' fill='%23131620' stroke='%23F5B841' stroke-width='2.5'/%3E%3C/svg%3E") !important;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+  line-height: 1 !important;
+  gap: 1px !important;
+}
+#goalsP .ui-goals-trophy small {
+  font-size: 10px !important;
+  line-height: 1 !important;
+}
+#goalsP .ui-goals-trophy b {
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  color: #F5B841 !important;
+}
+#goalsP .ui-goals-eyebrow {
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.14em !important;
+  color: #9BA8BC !important;
+  margin-bottom: 8px !important;
+}
+#goalsP .ui-goals-stat-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+}
+#goalsP .ui-goals-stat-card {
+  background: #131620 !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 14px !important;
+  padding: 12px 10px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+#goalsP .ui-goals-stat-card.ui-goals-stat-wide {
+  grid-column: 1 / -1 !important;
+}
+#goalsP .ui-goals-stat-pill {
+  display: inline-block !important;
+  padding: 3px 14px !important;
+  border: 1px solid rgba(245, 184, 65, 0.7) !important;
+  border-radius: 999px !important;
+  background: #1C2130 !important;
+  color: #F5B841 !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+}
+#goalsP .ui-goals-stat-pair {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 24px !important;
+  font-size: 20px !important;
+  color: #F5F7FA !important;
+}
+#goalsP .ui-goals-stat-pair small {
+  font-size: 12px !important;
+  color: #9BA8BC !important;
+}
+#goalsP .ui-goals-stat-trio {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  gap: 8px !important;
+}
+#goalsP .ui-goals-stat-trio > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 2px !important;
+}
+#goalsP .ui-goals-stat-trio b {
+  font-size: 20px !important;
+  color: #F5F7FA !important;
+}
+#goalsP .ui-goals-stat-trio small {
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  color: #9BA8BC !important;
+  letter-spacing: 0.08em !important;
+}
+
+/* ==========================================================================
    Pre-Game Matchup Screen (#mu) & On-Screen Playbook Footer Fixes
    ========================================================================== */
 

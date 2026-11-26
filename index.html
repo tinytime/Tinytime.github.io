@@ -2653,11 +2653,12 @@ function goalsPanel(){
  const P=make('div','ui-goals-panel');P.id='goalsP';P.setAttribute('role','dialog');P.setAttribute('aria-modal','true');P.setAttribute('aria-labelledby','uiGoalsTitle');
  const inner=make('div','ui-goals-inner');
  const header=make('header','ui-goals-header');
- const trophy=make('div','ui-goals-trophy','🏆');
+ const topClose=make('button','ui-goals-x','×');topClose.type='button';topClose.setAttribute('aria-label','Close Goals and Stats');
  const titleWrap=make('div','ui-goals-title-wrap');
  const title=make('h1','ui-goals-title','GOALS & STATS');title.id='uiGoalsTitle';
- const subtitle=make('p','ui-goals-subtitle','CHALLENGES  /  ACHIEVEMENTS  /  TEAM CAREER');
- titleWrap.append(title,subtitle);header.append(trophy,titleWrap);inner.appendChild(header);
+ titleWrap.append(title);
+ const trophy=make('div','ui-goals-trophy');trophy.innerHTML='<small>🏆</small><b>'+earned.length+'/'+ACH.length+'</b>';
+ header.append(topClose,titleWrap,trophy);inner.appendChild(header);
  const tabBar=make('div','ui-goals-tabs');tabBar.setAttribute('role','tablist');tabBar.setAttribute('aria-label','Goals and stats sections');
  const content=make('div','ui-goals-content');
  const panels={},buttons={};
@@ -2707,7 +2708,7 @@ function goalsPanel(){
   const card=make('article','ui-goals-card ui-goals-achievement'+(isEarned?' is-earned':''));
   const head=make('div','ui-goals-card-head'),identity=make('div','ui-goals-achievement-identity');
   identity.append(make('span','ui-goals-medal',isEarned?'★':'✦'),make('span','ui-goals-card-title',achievement.n));
-  const count=make('span','ui-goals-achievement-count',max>1?fmt(value)+' / '+fmt(max):(isEarned?'EARNED':'LOCKED'));
+  const count=make('span','ui-goals-achievement-count',fmt(value)+' / '+fmt(max));
   head.append(identity,count);card.append(head,make('p','ui-goals-card-desc',achievement.d));
   if(max>1){
    const track=make('div','ui-goals-progress');track.setAttribute('role','progressbar');track.setAttribute('aria-valuemin','0');
@@ -2717,25 +2718,26 @@ function goalsPanel(){
   achievements.appendChild(card);
  }
  const stats=panels.stats;
- stats.appendChild(make('p','ui-goals-intro','Team-wide career totals across your completed matches.'));
+ stats.appendChild(make('div','ui-goals-eyebrow','TEAM CAREER'));
  const statGrid=make('div','ui-goals-stat-grid');
- const statCard=(label,value,detail)=>{
-  const card=make('article','ui-goals-stat-card');
-  card.append(make('span','ui-goals-stat-label',label),make('strong','ui-goals-stat-value',fmt(value)),make('span','ui-goals-stat-sub',detail));
-  statGrid.appendChild(card);
- };
- statCard('RUSHING YARDS',team.ry,fmt(team.rt)+' TOUCHDOWNS');
- statCard('PASSING YARDS',team.py,fmt(team.pt)+' TOUCHDOWNS');
- statCard('RECEIVING',team.rc,fmt(team.cy)+' YARDS');
- statCard('SKILL MOVES',team.an,'ANKLES · '+fmt(team.tr)+' TRUCKS · '+fmt(team.sp)+' SPINS');
- stats.append(statGrid,make('p','ui-goals-note','Individual player lines live in MY SQUAD  ›  CAREER.'));
+ const passCard=make('article','ui-goals-stat-card');
+ passCard.innerHTML='<span class="ui-goals-stat-label">PASSING</span><strong class="ui-goals-stat-value">'+fmt(team.py)+' YDS</strong><span class="ui-goals-stat-pill">'+fmt(team.pt)+' TD</span>';
+ const rushCard=make('article','ui-goals-stat-card');
+ rushCard.innerHTML='<span class="ui-goals-stat-label">RUSHING</span><strong class="ui-goals-stat-value">'+fmt(team.ry)+' YDS</strong><span class="ui-goals-stat-pill">'+fmt(team.rt)+' TD</span>';
+ const recCard=make('article','ui-goals-stat-card ui-goals-stat-wide');
+ recCard.innerHTML='<span class="ui-goals-stat-label">RECEIVING</span><div class="ui-goals-stat-pair"><b>'+fmt(team.rc)+' <small>REC</small></b><b>'+fmt(team.cy)+' <small>YDS</small></b></div>';
+ const moveCard=make('article','ui-goals-stat-card ui-goals-stat-wide');
+ moveCard.innerHTML='<span class="ui-goals-stat-label">SKILL MOVES</span><div class="ui-goals-stat-trio"><div><b>'+fmt(team.an)+'</b><small>ANKLES</small></div><div><b>'+fmt(team.tr)+'</b><small>TRUCKS</small></div><div><b>'+fmt(team.sp)+'</b><small>SPINS</small></div></div>';
+ statGrid.append(passCard,rushCard,recCard,moveCard);
+ const note=make('p','ui-goals-note');note.innerHTML='For individual player stats, visit <span style="color:#F5B841">MY SQUAD &gt; CAREER</span>.';
+ stats.append(statGrid,note);
  const close=make('button','ui-goals-close','CLOSE');close.type='button';
  const onKey=event=>{if(event.key==='Escape'){event.preventDefault();closePanel()}};
  const closePanel=()=>{
   document.removeEventListener('keydown',onKey);P.remove();
   const trigger=document.getElementById('mGoals');if(trigger)trigger.focus();
  };
- close.addEventListener('click',closePanel);
+ close.addEventListener('click',closePanel);topClose.addEventListener('click',closePanel);
  inner.append(tabBar,content,close);P.appendChild(inner);document.body.appendChild(P);
  document.addEventListener('keydown',onKey);activate('challenges');buttons.challenges.focus();
 }
