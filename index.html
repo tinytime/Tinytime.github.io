@@ -1730,7 +1730,7 @@ function doJuke(dirX){
 const SPIN=window.SPIN={cost:20,t:.4,cd:.9,slow:.85,base:.40,spd:250,rb:.05,min:.15,max:.70};
 function spinOdds(c,d){return clamp(SPIN.base+(c.d.spd-d.d.tkl)/SPIN.spd+(c.role==='RB'?SPIN.rb:0)+(F.gb?.2:0),SPIN.min,SPIN.max)}
 function doSpin(){
-  const c=F&&F.carrier;if(!c||F.mode!=='live'||F.ballAir||F.lock||c.dash||c.arm>0||c.spinT>0||(c.cdS||0)>0)return;
+  const c=(G&&G.drill&&G.drill.id==='t2_crush'&&G.drill.players)?G.drill.players[0]:(F&&F.carrier);if(!c||F.mode!=='live'||F.ballAir||F.lock||c.dash||c.arm>0||c.spinT>0||(c.cdS||0)>0)return;
   if(!spend(SPIN.cost))return;
   cn('spin');c.styleOn=false;c.spinT=SPIN.t;c.spin=SPIN.t;c.cdS=SPIN.cd;c.spinHit=new Set();c.jk=(c.jk||0)+1;SND.fx('juke');
   dust(c.x,c.y,6,.7);if(!bmLite()){sparks(c.x,c.y,10,'#ff4fd8');sparks(c.x,c.y,8,'#7ff6ff');ring(c.x,c.y,1,'#ff4fd8')}
@@ -5245,7 +5245,7 @@ function camUpdate(rdt){
   if(F){
     if(G.mode==='set'){ty=side?F.los-3:F.los-7.5;tx=CX;tz=1}
     else if(F.mode==='pre'||G.mode==='playcall'){ty=side?F.los+1.5:(G.mode==='playcall'?F.los+CAMPC.ty:F.los-7.5);tx=CX;tz=1;zoomIn=false}
-    else{const f=F.ballAir&&F.ball?F.ball.cur:(F.carrier||F.passer||{x:CX,y:F.los}),rk=(RUNCAM.on&&!F.ballAir&&runZ()>1)?clamp((cam.zoom-1)/(runZ()-1),0,1):0;ty=side?f.y+(F.ballAir?3:2):f.y-CAMCFGL.back*(1-(1-RUNCAM.back)*rk)-(F.ballAir?1:0)+(F.ballAir?0:clamp((f.vy||0)*CAMCFG.lookY,-.5,2.5)*(1-.8*CAMR));   // v3.09: little look-ahead in the runner camera, so the runner stays low and steady
+    else{const f=(G&&G.drill&&G.drill.id==='t2_crush'&&G.drill.players&&G.drill.players[0])?G.drill.players[0]:(F.ballAir&&F.ball?F.ball.cur:(F.carrier||F.passer||{x:CX,y:F.los})),rk=(RUNCAM.on&&!F.ballAir&&runZ()>1)?clamp((cam.zoom-1)/(runZ()-1),0,1):0;ty=side?f.y+(F.ballAir?3:2):f.y-CAMCFGL.back*(1-(1-RUNCAM.back)*rk)-(F.ballAir?1:0)+(F.ballAir?0:clamp((f.vy||0)*CAMCFG.lookY,-.5,2.5)*(1-.8*CAMR));   // v3.09: little look-ahead in the runner camera, so the runner stays low and steady
       if(side)tx=CX;else{
         const z=cam.zoom,dz=.05*W/(WU*U0F*z),fxl=f.x+(F.carrier&&!F.ballAir?clamp((f.vx||0)*CAMCFG.look,-4,4):0),off=fxl-cam.x;tx=fxl-clamp(off,-dz,dz);   // the camera leads: it aims a half second ahead of the carrier   // sideways pan with a soft dead zone of 10% of the screen width
         const dist=Math.min(f.x,FW-f.x),wg=clamp((10-dist)/3,0,1),Lx=.385*W/(WU*U0F*z),Lm=(LAND?.36:.35)*W/(WU*U0F*z);   // within about 8 yards of a sideline, pan to it so it sits 8-15% from the screen edge
@@ -12990,7 +12990,7 @@ function fdStepRush3D(dr,dt){
   // Defenders pursue & tackle / get juked-spun-trucked
   for(const d of F.def){
     if(d.fall||d.stun>0)continue;
-    const dx=c.x-d.x,dy=c.y-d.y,len=Math.hypot(dx,dy)||1,cSp=Math.max(7.2,Math.hypot(c.vx||0,c.vy||0)),sp=cSp*1.1;
+    const dx=c.x-d.x,dy=c.y-d.y,len=Math.hypot(dx,dy)||1,cSp=clamp(Math.hypot(c.vx||0,c.vy||0),7.2,8.4),sp=cSp*1.1;
     d.vx=dx/len*sp;d.vy=dy/len*sp;d.x+=d.vx*dt;d.y+=d.vy*dt;d.ph+=dt*2.6;
     if(len<1.45){
       const evading=!!(c.dash||c.inv>0||c.spinT>0||c.arm>0||c.air);
@@ -13030,10 +13030,22 @@ function fdStepCrush3D(dr,dt){
   // Move Eli with real match stick + Juke/Spin/Stiff-Arm
   const prevDash=!!you.dash;
   if(!you.fall&&you.stun<=0){
-    const px0=you.x,py0=you.y,savedCar=F.carrier;F.carrier=you;moveCarrier(dt);F.carrier=savedCar;
-    if(dr._loose||savedCar!==you){you.x+= (you.x-px0)*0.1;you.y+=(you.y-py0)*0.1;you.vx*=1.1;you.vy*=1.1}
+    if(you.dash){
+      you.dash.t-=dt;you.x+=you.dash.vx*dt;you.y+=you.dash.vy*dt;you.ph+=dt*2.4;
+      if(you.dash.t<=0)you.dash=null;
+    }else{
+      const sv=stickWorld(),mag=Math.min(1,Math.hypot(sv.x,sv.y));
+      const hasBall=!dr._loose&&F.carrier===you;
+      const turboOn=!!(input&&input.turbo&&F.turbo>4);
+      if(turboOn)F.turbo=Math.max(0,F.turbo-28*dt);else F.turbo=Math.min(100,F.turbo+20*dt);
+      const baseSp=hasBall?7.4:7.4*1.1,sp=baseSp*(turboOn?1.18:1)*(you.spinT>0?.82:1);
+      const tvx=mag>.05?(sv.x/Math.max(mag,.001))*mag*sp:0,tvy=mag>.05?(sv.y/Math.max(mag,.001))*mag*sp:0;
+      const k=Math.min(1,dt*14);
+      you.vx+=(tvx-you.vx)*k;you.vy+=(tvy-you.vy)*k;
+      you.x+=you.vx*dt;you.y+=you.vy*dt;
+      you.ph+=Math.hypot(you.vx,you.vy)*dt*.32;you.spr=turboOn&&mag>.3;
+    }
     you.x=clamp(you.x,6,FW-6);you.y=clamp(you.y,36,76);
-    // Wall-juke bonus when Eli jukes near concrete sideline wall while holding ball!
     if(!prevDash&&you.dash&&!dr._loose&&F.carrier===you&&(you.x<10||you.x>FW-10)){
       const pts=140*dr.streak;you._dScore+=pts;popup('WALL JUKE! +'+pts,you.x,you.y+1.6,'#9FC6D8');
     }
