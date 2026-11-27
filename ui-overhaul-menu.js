@@ -44,7 +44,7 @@
   const buildDetailsText=document.createElement('p');buildDetailsText.className='ui-menu-build-details';buildDetailsText.textContent=buildDetailsInitial||'Build metadata will appear here.';buildDetailsCard.appendChild(buildDetailsText);
   const moveAssetStatus=()=>['mSnd','mKKF'].forEach(id=>{const el=document.getElementById(id);if(el&&el.parentNode!==assetStatusCard)assetStatusCard.appendChild(el)});
   moveAssetStatus();
-  if(window.MutationObserver){const assetObserver=new MutationObserver(moveAssetStatus);assetObserver.observe(menu,{childList:true,subtree:true})}
+  if(window.onUI){window.onUI('ui:sync',moveAssetStatus);window.onUI('hud:update',moveAssetStatus)}
   const decorateAction=(el,icon,title,sub)=>{if(!el)return;el.classList.add('ui-menu-icon-card');el.innerHTML='<span class="ui-menu-icon" aria-hidden="true">'+icon+'</span><span class="ui-menu-action-copy"><strong>'+title+'</strong><small>'+sub+'</small></span><span class="ui-menu-card-arrow" aria-hidden="true">↗</span>'};
   const icon=(paths)=>'<svg viewBox="0 0 24 24" focusable="false" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+paths+'</svg>';
   const actions=card(home,'','ui-menu-actions ui-menu-grid');
@@ -71,9 +71,7 @@
   };
   const overworldMenuButton=document.getElementById('owMenu');
   if(overworldMenuButton)overworldMenuButton.addEventListener('click',()=>requestAnimationFrame(updatePlaybookTileCount),{capture:true});
-  if(window.MutationObserver){
-   new MutationObserver(()=>{if(!menu.hidden)updatePlaybookTileCount()}).observe(menu,{attributes:true,attributeFilter:['hidden']});
-  }
+  if(window.onUI)window.onUI('ui:sync',()=>{if(!menu.hidden)updatePlaybookTileCount()});
   if(squadControl){squadControl.classList.add('ui-menu-icon-card');squadControl.dataset.uiTile='squad';}
   const teamSave=byId('tBack');if(teamSave)teamSave.textContent='SAVE & EQUIP';
   const initTeamTabs=()=>{
@@ -131,7 +129,7 @@
     });
    };
    placeTrail();
-   if(window.MutationObserver){const observer=new MutationObserver(placeTrail);observer.observe(team,{childList:true,subtree:true})}
+   if(window.onUI)window.onUI('ui:sync',placeTrail)
    activate('identity');
   };
   const initTeamHeader=()=>{
@@ -143,7 +141,7 @@
    const sync=()=>{const source=byId('owObj'),raw=source&&source.textContent||'',match=raw.match(/UPG\s+(\d+)/i);badge.innerHTML='<small>PTS</small><b>'+(match?match[1]:'0')+'</b>'};
    back.addEventListener('click',()=>byId('tBack')?.click());
    header.append(back,heading,badge);team.insertBefore(header,team.firstChild);sync();
-   if(window.MutationObserver){const source=byId('owObj');if(source)new MutationObserver(sync).observe(source,{childList:true,subtree:true,characterData:true})}
+   if(window.onUI){window.onUI('hud:update',sync);window.onUI('ui:sync',sync)}
   };
   const teamTile=byId('mTeam');if(teamTile)teamTile.addEventListener('click',()=>requestAnimationFrame(()=>{initTeamHeader();initTeamTabs()}));
   const installSquadPresentation=()=>{
@@ -177,7 +175,7 @@
     processing=false;
    };
    const schedule=()=>{if(queued||processing)return;queued=true;requestAnimationFrame(process)};
-   if(window.MutationObserver)new MutationObserver(schedule).observe(body,{childList:true,subtree:true,characterData:true});
+   if(window.onUI)window.onUI('ui:sync',schedule);
    document.addEventListener('click',event=>{if(event.target.closest('#sqTabs,#mSquad'))schedule()},true);
    schedule();
   };
@@ -200,8 +198,6 @@
    if(!shown.some(p=>(p.id||p.name)===selectedPlayId))selectedPlayId=shown[0]&&(shown[0].id||shown[0].name)||null;selectPlay(selectedPlayId);
    playbookOverlay.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===filter)));
 
-   if(!shown.length){const empty=document.createElement('p');empty.className='ui-menu-play-empty';empty.textContent='No plays in this category yet.';playList.appendChild(empty)}
-   playbookOverlay.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===filter)));
   };
   playbookOverlay.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>renderPlaybook(b.dataset.filter)));
   const closePlaybook=()=>{playbookOverlay.hidden=true;playbookButton.focus()};
@@ -216,14 +212,14 @@
   if(crewList)home.appendChild(crewList);
   const audio=card(settings,'AUDIO');
   moveControl('mMus',audio,'MUSIC',false);moveControl('mSfx',audio,'EFFECTS',false);
-  const compactValue=(id,prefix,label)=>{const el=byId(id);if(!el)return;el.classList.add('ui-menu-toggle-pill');const sync=()=>{const raw=el.textContent.trim(),clean=raw.replace(new RegExp('^'+prefix+'\\s*:\\s*','i'),'');if(clean!==raw)el.textContent=clean;el.setAttribute('aria-label',label+': '+clean);if(/^(ON|OFF)$/i.test(clean))el.setAttribute('aria-pressed',String(clean.toUpperCase()==='ON'))};sync();if(window.MutationObserver)new MutationObserver(sync).observe(el,{childList:true,subtree:true,characterData:true})};
+  const compactValue=(id,prefix,label)=>{const el=byId(id);if(!el)return;el.classList.add('ui-menu-toggle-pill');const sync=()=>{const raw=el.textContent.trim(),clean=raw.replace(new RegExp('^'+prefix+'\\s*:\\s*','i'),'');if(clean!==raw)el.textContent=clean;el.setAttribute('aria-label',label+': '+clean);if(/^(ON|OFF)$/i.test(clean))el.setAttribute('aria-pressed',String(clean.toUpperCase()==='ON'))};sync();el.addEventListener('click',()=>requestAnimationFrame(sync));if(window.onUI)window.onUI('ui:sync',sync)};
   compactValue('mMus','MUSIC','Music');compactValue('mSfx','EFFECTS','Effects');compactValue('mHap','HAPTICS','Haptics');compactValue('mCam','(?:RUNNER\\s*)?CAMERA','Runner camera');compactValue('mLT','LITE EFFECTS','Lite effects');
   const vol=byId('mVol');
   if(vol){const old=vol.closest('.btnrow'),row=document.createElement('div');row.className='ui-menu-setting';const label=document.createElement('label');label.className='ui-menu-setting-label';label.innerHTML='<span class="ui-setting-icon" aria-hidden="true">♪</span><span>VOLUME</span>';label.htmlFor='mVol';row.append(label,vol);audio.appendChild(row);if(old&&!old.querySelector('button,input,select'))old.remove()}
   const gameplay=card(settings,'GAMEPLAY & DISPLAY');
   moveControl('mHap',gameplay,'HAPTICS',false);moveControl('mCam',gameplay,'RUNNER CAMERA',false);moveControl('mLT',gameplay,'LITE EFFECTS',false);
   moveControl('mRS',gameplay,'RESOLUTION',false);
-  const installResolution=()=>{const resolutionButton=byId('mRS');if(!resolutionButton||resolutionButton.dataset.uiSegmented==='1')return;let resolutionRow=resolutionButton.closest('.ui-menu-setting');if(!resolutionRow){resolutionRow=document.createElement('div');resolutionRow.className='ui-menu-setting';const label=document.createElement('span');label.className='ui-menu-setting-label';label.textContent='RESOLUTION';resolutionRow.append(label,resolutionButton);gameplay.appendChild(resolutionRow)}resolutionButton.dataset.uiSegmented='1';resolutionButton.classList.add('ui-resolution-native');resolutionButton.setAttribute('aria-hidden','true');resolutionButton.tabIndex=-1;const group=document.createElement('div');group.className='ui-resolution-group';group.setAttribute('role','group');group.setAttribute('aria-label','Resolution');const options=[['LOW','LOW'],['MED','MEDIUM'],['HIGH','HIGH']];const syncResolution=()=>{const raw=(resolutionButton.textContent.match(/RESOLUTION:\s*(.+)/i)||[])[1]||'HIGH',current=raw.trim().toUpperCase()==='SHARP'?'HIGH':raw.trim().toUpperCase();group.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===current)))};options.forEach(([label,value])=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.value=value;b.addEventListener('click',()=>{for(let i=0;i<4;i++){const current=(resolutionButton.textContent.match(/RESOLUTION:\s*(.+)/i)||[])[1]||'';if(current.trim().toUpperCase()===value)break;resolutionButton.click()}syncResolution()});group.appendChild(b)});resolutionRow.appendChild(group);syncResolution();if(window.MutationObserver)new MutationObserver(syncResolution).observe(resolutionButton,{childList:true,subtree:true,characterData:true})};installResolution();if(window.MutationObserver)new MutationObserver(installResolution).observe(menu,{childList:true,subtree:true});
+  const installResolution=()=>{const resolutionButton=byId('mRS');if(!resolutionButton||resolutionButton.dataset.uiSegmented==='1')return;let resolutionRow=resolutionButton.closest('.ui-menu-setting');if(!resolutionRow){resolutionRow=document.createElement('div');resolutionRow.className='ui-menu-setting';const label=document.createElement('span');label.className='ui-menu-setting-label';label.textContent='RESOLUTION';resolutionRow.append(label,resolutionButton);gameplay.appendChild(resolutionRow)}resolutionButton.dataset.uiSegmented='1';resolutionButton.classList.add('ui-resolution-native');resolutionButton.setAttribute('aria-hidden','true');resolutionButton.tabIndex=-1;const group=document.createElement('div');group.className='ui-resolution-group';group.setAttribute('role','group');group.setAttribute('aria-label','Resolution');const options=[['LOW','LOW'],['MED','MEDIUM'],['HIGH','HIGH']];const syncResolution=()=>{const raw=(resolutionButton.textContent.match(/RESOLUTION:\s*(.+)/i)||[])[1]||'HIGH',current=raw.trim().toUpperCase()==='SHARP'?'HIGH':raw.trim().toUpperCase();group.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===current)))};options.forEach(([label,value])=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.value=value;b.addEventListener('click',()=>{for(let i=0;i<4;i++){const current=(resolutionButton.textContent.match(/RESOLUTION:\s*(.+)/i)||[])[1]||'';if(current.trim().toUpperCase()===value)break;resolutionButton.click()}syncResolution()});group.appendChild(b)});resolutionRow.appendChild(group);syncResolution();if(window.onUI)window.onUI('ui:sync',syncResolution)};installResolution();if(window.onUI)window.onUI('ui:sync',installResolution);
   const danger=card(settings,'DANGER ZONE','ui-menu-danger');moveControl('mReset',danger,'RESET PROGRESS',false);
   const resetButton=byId('mReset');
   const resetDialog=document.createElement('div');resetDialog.className='ui-menu-modal-backdrop';resetDialog.hidden=true;resetDialog.innerHTML='<section class="ui-menu-confirm" role="dialog" aria-modal="true" aria-labelledby="uiResetTitle" aria-describedby="uiResetText"><div class="ui-menu-eyebrow">DANGER ZONE</div><h2 id="uiResetTitle">RESET PROGRESS?</h2><p id="uiResetText">This permanently resets your team, upgrades, and town progress on this device. This cannot be undone.</p><div class="ui-menu-confirm-actions"><button type="button" class="ui-menu-cancel">CANCEL</button><button type="button" class="ui-menu-confirm-reset">RESET PROGRESS</button></div></section>';
@@ -254,7 +250,7 @@
   menu.classList.add('ui-menu-ready');
   const upg=head.querySelector('.ui-menu-upg');if(upgControl)upg.addEventListener('click',()=>upgControl.click());
   const close=head.querySelector('.ui-menu-close'),townControl=byId('mTown');if(close&&townControl)close.addEventListener('click',()=>townControl.click());
-  if(window.MutationObserver){const source=byId('owObj'),liveTown=byId('owTown');if(source)new MutationObserver(updateGoal).observe(source,{childList:true,subtree:true,characterData:true});if(liveTown)new MutationObserver(updateHeader).observe(liveTown,{childList:true,subtree:true,characterData:true});if(upgControl)new MutationObserver(updateHeader).observe(upgControl,{childList:true,subtree:true,characterData:true,attributes:true})}
+  if(window.onUI){window.onUI('hud:update',()=>{updateGoal();updateHeader()});window.onUI('ui:sync',()=>{updateGoal();updateHeader()})}
   // Recompose the live Overworld HUD without replacing the game's canvas, state or handlers.
   const owTop=byId('owTop'),owTown=byId('owTown'),owObj=byId('owObj'),owA=byId('owA');
   if(owTop&&owTown&&owObj&&!owTop.querySelector('.ui-ow-pill')){
@@ -275,7 +271,7 @@
     goalCopy.textContent=map&&map.route?'Follow the Spillway to Hale Harbor.':map&&(map.harbor||map.hb)?'Take on the harbor crews and keep the Circuit moving.':map&&(map.island||map.r2)?"Explore Gull's Reach and complete its challenges.":'Beat the three street crews, then take on the Netrunners.';
    };
    syncOverworld();
-   if(window.MutationObserver){new MutationObserver(syncOverworld).observe(owTown,{childList:true,subtree:true,characterData:true});new MutationObserver(syncOverworld).observe(owObj,{childList:true,subtree:true,characterData:true})}
+   if(window.onUI){window.onUI('hud:update',syncOverworld);window.onUI('ui:sync',syncOverworld)}
   }
   if(owA&&!owA.querySelector('.ui-ow-a-letter')){
    owA.innerHTML='<span class="ui-ow-a-letter">A</span><small class="ui-ow-a-label">EXPLORE</small>';
@@ -295,7 +291,7 @@
     const node=owA.querySelector('.ui-ow-a-label');if(node&&node.textContent!==label)node.textContent=label;
     owA.setAttribute('aria-label','A button: '+label);
    };
-   updateActionLabel();window.setInterval(updateActionLabel,250);
+   updateActionLabel();if(window.onUI)window.onUI('hud:update',()=>{if(document.getElementById('owTop')&&!document.getElementById('owTop').hidden)updateActionLabel()});window.addEventListener('keyup',updateActionLabel,{passive:true});window.addEventListener('pointerup',updateActionLabel,{passive:true});
 
   }
   const enhanceGoals=()=>{
@@ -359,7 +355,7 @@
     }
    };
    update();
-   if(window.MutationObserver)new MutationObserver(update).observe(panel,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class','hidden']});
+   if(window.onUI)window.onUI('ui:sync',update);
    panel.addEventListener('click',event=>{if(event.target.closest('#ui-goals-tab-stats'))requestAnimationFrame(update)});
   };
   const enhanceEnd=()=>{
@@ -389,10 +385,7 @@
   };
 
   enhanceGoals();enhanceEnd();reinforcePracticeWinCelebration();
-  if(window.MutationObserver){
-   const pageObserver=new MutationObserver(()=>{enhanceGoals();enhanceEnd();reinforcePracticeWinCelebration()});
-   pageObserver.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden']});
-  }
+  if(window.onUI)window.onUI('ui:sync',()=>{enhanceGoals();enhanceEnd();reinforcePracticeWinCelebration()});
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
@@ -431,10 +424,7 @@
    });
   };
   rewriteTruckAchievement();
-  if(window.MutationObserver&&!document.body.dataset.uiTruckCopyObserver){
-   document.body.dataset.uiTruckCopyObserver='1';
-   new MutationObserver(rewriteTruckAchievement).observe(document.body,{subtree:true,childList:true});
-  }
+  /* Truck copy fixed directly in index.html — no document.body TreeWalker observer needed */
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootPolish,{once:true});else bootPolish();
 })();
@@ -448,9 +438,10 @@
   const title=document.createElement('section');
   title.id='uiTitleScreen';title.className='ui-title-screen';title.setAttribute('role','region');
   title.setAttribute('aria-label','Circuit Football RPG title screen');
-  title.innerHTML='<div class="ui-title-art-frame"><img class="title-scene" src="Assets/Firefly - Review nfl field markings and make sure numbers are only along the sides and lines go.png" alt="Circuit Football RPG title artwork">'+
-   '<button id="uiTitleStart" class="ui-title-hit ui-title-hit-start" type="button" aria-label="Beat the Circuit"></button>'+
-   '<button id="uiTitleSettings" class="ui-title-hit ui-title-hit-settings" type="button" aria-label="Settings"></button></div>';
+  title.innerHTML='<div class="ui-title-art-frame"><img class="title-scene" src="Assets/title-screen.webp" alt="Circuit Football RPG title artwork">'+
+   '<div class="ui-title-logo-lockup"><h1>CIRCUIT FOOTBALL</h1><p>STREET FOOTBALL RPG</p></div>'+
+   '<div class="ui-title-cta-stack"><button id="uiTitleStart" class="ui-title-hit ui-title-hit-start" type="button">BEAT THE CIRCUIT</button>'+
+   '<button id="uiTitleSettings" class="ui-title-hit ui-title-hit-settings" type="button">SETTINGS</button></div></div>';
   document.body.appendChild(title);
   let returnToTitle=false;
   const getMenu=()=>document.getElementById('menu');
@@ -478,13 +469,12 @@
    };
    if(active){
     hideNextUnlock();
-    if(!window.__uiPreGameUnlockObserver){
-     window.__uiPreGameUnlockObserver=new MutationObserver(hideNextUnlock);
-     window.__uiPreGameUnlockObserver.observe(document.body,{childList:true,subtree:true,characterData:true});
+    if(!window.__uiPreGameUnlockUnsub&&window.onUI){
+     window.__uiPreGameUnlockUnsub=window.onUI('ui:sync',hideNextUnlock);
     }
    }else{
-    window.__uiPreGameUnlockObserver?.disconnect();
-    window.__uiPreGameUnlockObserver=null;
+    if(typeof window.__uiPreGameUnlockUnsub==='function')window.__uiPreGameUnlockUnsub();
+    window.__uiPreGameUnlockUnsub=null;
     document.querySelectorAll('[data-ui-pre-game-hidden="1"]').forEach(el=>{
      el.hidden=el.dataset.uiPreGameWasHidden==='true';
      const display=el.dataset.uiPreGameDisplay||'',priority=el.dataset.uiPreGameDisplayPriority||'';

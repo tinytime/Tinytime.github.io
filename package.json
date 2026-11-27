@@ -1,0 +1,17 @@
+{
+  "name": "circuit-football",
+  "version": "3.4.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/build-core.mjs && node scripts/copy-dist.mjs",
+    "preview": "vite preview",
+    "qa": "node qa/ui-overhaul-browser-qa.mjs",
+    "release-check": "node qa/release-gate.mjs",
+    "build:core": "node scripts/build-core.mjs"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
