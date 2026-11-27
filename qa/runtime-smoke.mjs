@@ -89,6 +89,7 @@ for (const k of ['busker', 'dancer', 'hacker', 'mouse', 'tech', 'usher']) {
   }
   if (typeof ctxObj.SG?.owShow !== 'function') throw new Error('window.SG.owShow must exist after boot');
   for (let i = 0; i < Math.min(3, rafs.length); i++) rafs[i](Date.now() + i * 16);
+  if (typeof ctxObj.SG.startMatch === 'function' && ctxObj.SG.CREWS && ctxObj.SG.CREWS[0]) { ctxObj.SG.startMatch(ctxObj.SG.CREWS[0]); for (let i = 0; i < Math.min(2, rafs.length); i++) rafs[i](Date.now() + 64 + i * 16); }
 }
 
 console.log('RUNTIME SMOKE PASSED (v3.16 MAIN save migration, SND.dbg.mem math, CIV4_ALIAS coverage)');

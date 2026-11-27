@@ -816,7 +816,6 @@ function setupField(keepCall){
   F={cn:{},mode:'pre',los:G.los,t:0,fx,off:{},offList:[],def:[],all:[],ball:null,ballAir:false,carrier:null,passer:null,turbo:100,tired:false,handed:false,lock:false,lat:false,latDone:false,latT:0,aim:null,gb:false,breaks:0,maxBreaks:3,stars:new Set()};
   for(const s of SLOTS){const f=FORM[s];const p=mkP('O',s,SAVE.starters[s],CX+fx*f[0],G.los+f[1]);p.num=SAVE.starters[s].jn!==undefined?SAVE.starters[s].jn:NUM[s];p.sx0=p.x;p.sy0=p.y;F.off[s]=p;F.offList.push(p);F.all.push(p);if(p.d.special)F.stars.add(p.d.special)}
   F.carrier=F.off.QB;F.passer=F.off.QB;
-  if(pl.kind==='pass'&&(SAVE.passTip||0)<3&&!G.drill){SAVE.passTip=(SAVE.passTip||0)+1;persist();const _tc=(navigator.maxTouchPoints>0);gdTip('pass',_tc?'PASSING: TAP WR = LOB (HIGH ARC) · HOLD WR = BULLET (FAST LINE)':'PASSING: TAP 1-4 = LOB (HIGH ARC) · HOLD 1-4 = BULLET (FAST)',4800)}
   const pk2=SHELL2&&G.call!=='goal',df=(pk2?DEF_FORM2:DEF_FORM)[G.call],as=(pk2?DEF_ASSIGN2:DEF_ASSIGN)[G.call],names=!pk2?['dl1','dl2','dl3','lb1','s1','db1','db2']:G.call==='deep'?['dl1','dl2','lb1','s1','s2','db1','db2']:['dl1','dl2','lb1','lb2','s1','db1','db2'];
   const spots=[...df.dl.map(p=>['DL',p]),...df.lb.map(p=>['LB',p]),...df.s.map(p=>['DB',p]),...df.db.map(p=>['DB',p])];
   spots.forEach(([role,pos],i)=>{
@@ -1047,6 +1046,7 @@ function startPlay(){
   }
   if(pl.kind==='run')for(const k of['WR1','WR2']){const w=F.off[k];if(w.wTx!==undefined){w.x=w.wTx;w.y=w.wTy}w.vx=0;w.vy=0}   // run plays: receivers get a running start toward the linebackers (they stack in tight)
   F.carrier=F.off.QB;F.passer=F.off.QB;
+  if(pl.kind==='pass'&&(SAVE.passTip||0)<3&&!G.drill){SAVE.passTip=(SAVE.passTip||0)+1;persist();const _tc=(navigator.maxTouchPoints>0);gdTip('pass',_tc?'PASSING: TAP WR = LOB (HIGH ARC) · HOLD WR = BULLET (FAST LINE)':'PASSING: TAP 1-4 = LOB (HIGH ARC) · HOLD 1-4 = BULLET (FAST)',4800)}
   if(!run){   // pass protection: line up each blocker with a rusher before the snap
     const bl=SLOTS.map(k=>F.off[k]).filter(o=>o.mode==='hold'&&o.role!=='QB').sort((a,b)=>a.x-b.x),ru=F.def.filter(d=>d.rush).sort((a,b)=>a.x-b.x);
     bl.forEach((b,i)=>{b.tgt=ru.length?ru[Math.round(i*(ru.length-1)/Math.max(1,bl.length-1))]:null})}
@@ -9544,7 +9544,8 @@ function owFree(){const big=['street','spillway','harbor','island'];if(big.inclu
 function owRelease(){try{if(typeof M!=='undefined'&&M){if(M.baked){owZap(M.baked);M.baked=null}if(M.fg&&M.fg.c){M.fg.c.width=M.fg.c.height=0;M.fg=null}}}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}}
 function owPlace(map,x,y,d,ret){M=owMap(map);owFree();owBake(M);OW.x=OW.px=x;OW.y=OW.py=y;OW.d=d||'d';OW.mv=false;OW.ret=ret||OW.ret||null;OW.fade=1;OW.la=0;OW.lt=0;owSave();owHud()}
 function owShow(){SPR.clear();
-  if(SAVE&&(SAVE.testR2===1||SAVE.tPlaza===1)&&!SAVE.v341Fresh){SAVE=freshSave();SAVE.v341Fresh=1;persist()}
+  {const _bl=$('#owBlack');if(_bl){_bl.hidden=true;_bl.style.opacity=0}}
+  if(SAVE&&((SAVE.testR2===1||SAVE.tPlaza===1)||((SAVE.ow&&(SAVE.ow.map==='harbor'||SAVE.ow.map==='island'))&&!(SAVE.beaten||[]).includes('captain')))&&!SAVE.v341Fresh){SAVE=freshSave();SAVE.v341Fresh=1;persist()}
   SND.setMode('ow');screens('#world');OWON=true;show('#hud',false);
   if(!SAVE.ow)SAVE.ow={map:'street',x:15,y:15,d:'u'};
   hbMigrate();   // v3.20bT: one-time move of an older Hale Harbor position onto the current map

@@ -1222,7 +1222,8 @@ function owFree(){const big=['street','spillway','harbor','island'];if(big.inclu
 function owRelease(){try{if(typeof M!=='undefined'&&M){if(M.baked){owZap(M.baked);M.baked=null}if(M.fg&&M.fg.c){M.fg.c.width=M.fg.c.height=0;M.fg=null}}}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}}
 function owPlace(map,x,y,d,ret){M=owMap(map);owFree();owBake(M);OW.x=OW.px=x;OW.y=OW.py=y;OW.d=d||'d';OW.mv=false;OW.ret=ret||OW.ret||null;OW.fade=1;OW.la=0;OW.lt=0;owSave();owHud()}
 function owShow(){SPR.clear();
-  if(SAVE&&(SAVE.testR2===1||SAVE.tPlaza===1)&&!SAVE.v341Fresh){SAVE=freshSave();SAVE.v341Fresh=1;persist()}
+  {const _bl=$('#owBlack');if(_bl){_bl.hidden=true;_bl.style.opacity=0}}
+  if(SAVE&&((SAVE.testR2===1||SAVE.tPlaza===1)||((SAVE.ow&&(SAVE.ow.map==='harbor'||SAVE.ow.map==='island'))&&!(SAVE.beaten||[]).includes('captain')))&&!SAVE.v341Fresh){SAVE=freshSave();SAVE.v341Fresh=1;persist()}
   SND.setMode('ow');screens('#world');OWON=true;show('#hud',false);
   if(!SAVE.ow)SAVE.ow={map:'street',x:15,y:15,d:'u'};
   hbMigrate();   // v3.20bT: one-time move of an older Hale Harbor position onto the current map
