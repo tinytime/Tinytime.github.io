@@ -505,7 +505,7 @@ function ch3Roster(team,i){if(team==='street'){try{const k=['QB','RB','WR1','WR2
 const CH3MAP={
  // captains (crew bosses): trophy throne + football
  hb_rita:['baitdogs',0,1],hb_deke:['longshore',0,1],hb_marla:['gantry',0,1],hb_bram:['closers',0,1],r2_mud:['dredgers',0,1],
- mo:['captain',0,1],pete:['cats',0,1],rusty:['kings',0,1],lou:['rollers',0,1],mack:['rats1',0,1],rat2:['rats2',0,1],
+ mo:['captain',0,1],pete:['cats',0,1],rusty:['kings',0,1],lou:['rollers',0,1],mack:['rats1',0,0],rat2:['rats2',0,0],
  // crew members standing in rooms
  hb_pete:['baitdogs','Pete "Ten-Ton" Okafor','OL'],hb_splinter:['longshore','"Splinter" Jim Doyle','TE'],hb_wick:['gantry',3],
  cat1:['cats',1],cat2:['cats',2],king1:['kings',1],king2:['kings',4],drift1:['rollers',2],drift2:['rollers',5],mate1:['street',1],
@@ -1120,11 +1120,11 @@ function showMatchup(crew,done){const d=muEl(),th=TOWN_THEMES[crew.town]||TOWN_F
   d.classList.toggle('myst',!!kind.mystery);d.querySelector('.town').textContent=String(crew.town||'').toUpperCase();d.querySelector('.tag').textContent=kind.tag;
   const my=Object.values(SAVE.starters||{}),op=crew.roster||[],pn=d.querySelectorAll('.pn');
   const _muOppPort=(()=>{const b=String(crew.boss||crew.name||'');if(/\brita\b/i.test(b))return'Assets/portraits/rita_hyped.webp';if(/\bbram\b/i.test(b))return'Assets/portraits/bram_hyped.webp';if(/\bmo\b/i.test(b)||crew.id==='captain')return'Assets/portraits/mo_hyped.webp';return null})();
-  pn[0].querySelector('.lg').innerHTML=(!kind.mystery&&_muOppPort)?'<img class="mu-port" src="Assets/portraits/eli.webp" alt="Eli">':myLogoHTML('100%');
-  pn[1].querySelector('.lg').innerHTML=(!kind.mystery&&_muOppPort)?'<img class="mu-port mu-port-opp" src="'+_muOppPort+'" alt="'+String(crew.boss||crew.name||'').replace(/"/g,'')+'">':logoSVG(crewLogo(crew),(G.oppUni||crew.uni).jc,crew.town,{bg:1});
+  pn[0].querySelector('.lg').innerHTML=_muOppPort?'<img class="mu-port" src="Assets/portraits/eli.webp" alt="Eli">':myLogoHTML('100%');
+  pn[1].querySelector('.lg').innerHTML=_muOppPort?'<img class="mu-port mu-port-opp" src="'+_muOppPort+'" alt="'+String(crew.boss||crew.name||'').replace(/"/g,'')+'">':logoSVG(crewLogo(crew),(G.oppUni||crew.uni).jc,crew.town,{bg:1});
   {const _cs=(typeof CREW_STYLE!=='undefined'&&CREW_STYLE[crew.id])||null;const _map={press:'PRESS COVERAGE',disguise:'DISGUISED SHELLS',edgeHeat:'EDGE HEAT',bait:'ROUTE BAITERS',bite:'RUN BLITZERS',strong:'HEAVY STRONG BOX',nochase:'CONTAIN ZONE',clamp:'CLAMP COVERAGE'};
    let sc=d.querySelector('.mu-scout');if(!sc){sc=document.createElement('div');sc.className='mu-scout';const ft=d.querySelector('.first');if(ft&&ft.parentNode)ft.after(sc)}
-   const tags=_cs?Object.keys(_cs).map(k=>_map[k]).filter(Boolean):[];sc.textContent=(!kind.mystery&&tags.length)?'SCOUTING: '+tags.join(' · '):'';sc.hidden=!sc.textContent}
+   const tags=_cs?Object.keys(_cs).map(k=>_map[k]).filter(Boolean):[];sc.textContent=tags.length?'SCOUTING: '+tags.join(' · '):'';sc.hidden=!sc.textContent}
   pn[0].querySelector('.nm').textContent=(SAVE.teamName||'Your Team').toUpperCase();pn[0].querySelector('.ov').innerHTML='OVR<b>'+muAvg(my)+'</b>';
   pn[1].querySelector('.nm').textContent=kind.mystery?'? ? ?':String(crew.name).toUpperCase();pn[1].querySelector('.ov').innerHTML='OVR<b>'+(kind.mystery?'??':muAvg(op))+'</b>';
   d.querySelector('.first').textContent='FIRST TO '+crew.target+' WINS';d.querySelector('.bar i').style.width='0%';const tp=d.querySelector('.tap');tp.textContent='LOADING';tp.classList.remove('go');

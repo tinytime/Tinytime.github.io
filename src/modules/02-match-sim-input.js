@@ -59,6 +59,7 @@ function setupField(keepCall){
   F={cn:{},mode:'pre',los:G.los,t:0,fx,off:{},offList:[],def:[],all:[],ball:null,ballAir:false,carrier:null,passer:null,turbo:100,tired:false,handed:false,lock:false,lat:false,latDone:false,latT:0,aim:null,gb:false,breaks:0,maxBreaks:3,stars:new Set()};
   for(const s of SLOTS){const f=FORM[s];const p=mkP('O',s,SAVE.starters[s],CX+fx*f[0],G.los+f[1]);p.num=SAVE.starters[s].jn!==undefined?SAVE.starters[s].jn:NUM[s];p.sx0=p.x;p.sy0=p.y;F.off[s]=p;F.offList.push(p);F.all.push(p);if(p.d.special)F.stars.add(p.d.special)}
   F.carrier=F.off.QB;F.passer=F.off.QB;
+  if(pl.kind==='pass'&&(SAVE.passTip||0)<3&&!G.drill){SAVE.passTip=(SAVE.passTip||0)+1;persist();const _tc=(navigator.maxTouchPoints>0);gdTip('pass',_tc?'PASSING: TAP WR = LOB (HIGH ARC) · HOLD WR = BULLET (FAST LINE)':'PASSING: TAP 1-4 = LOB (HIGH ARC) · HOLD 1-4 = BULLET (FAST)',4800)}
   const pk2=SHELL2&&G.call!=='goal',df=(pk2?DEF_FORM2:DEF_FORM)[G.call],as=(pk2?DEF_ASSIGN2:DEF_ASSIGN)[G.call],names=!pk2?['dl1','dl2','dl3','lb1','s1','db1','db2']:G.call==='deep'?['dl1','dl2','lb1','s1','s2','db1','db2']:['dl1','dl2','lb1','lb2','s1','db1','db2'];
   const spots=[...df.dl.map(p=>['DL',p]),...df.lb.map(p=>['LB',p]),...df.s.map(p=>['DB',p]),...df.db.map(p=>['DB',p])];
   spots.forEach(([role,pos],i)=>{
@@ -85,13 +86,12 @@ function repCopy(o,seen){const r={};for(const k in o){const v=o[k];if(v===null||
   else if(F&&F.all&&F.all.includes(v))r[k]=v;else if(!Array.isArray(v)&&seen<1&&Object.getPrototypeOf(v)===Object.prototype)r[k]=repCopy(v,seen+1)}return r}
 function repRec(){if(!REPLAY.on||!F||!F.all)return;if(REP.F!==F){REP.F=F;REP.fr=[];REP.big=false;REP.endT=undefined}
   if(F.mode!=='live'&&(F.t-(REP.endT||0))>REPLAY.tail)return;if(F.mode!=='live'&&REP.endT===undefined)return;
-  REP.k^=1;if(REP.k)return;   // every other frame is plenty
   const fp={};for(const k in F){const v=F[k];if(k==='mode'||k==='pile')continue;if(v===null||typeof v!=='object'){if(typeof v!=='function')fp[k]=v}else if(F.all.includes(v))fp[k]=v}
-  REP.fr.push({F:fp,ball:F.ball?repCopy(F.ball,0):null,p:F.all.map(p=>repCopy(p,0))});if(REP.fr.length>REPLAY.len*30)REP.fr.shift()}
+  REP.fr.push({F:fp,ball:F.ball?repCopy(F.ball,0):null,p:F.all.map(p=>repCopy(p,0))});if(REP.fr.length>REPLAY.len*60)REP.fr.shift()}
 function repApply(fr){for(const k in fr.F)F[k]=fr.F[k];if(fr.ball&&F.ball)Object.assign(F.ball,repCopy(fr.ball,0));F.all.forEach((p,i)=>{const s=fr.p[i];if(s)Object.assign(p,repCopy(s,0))})}
 function repStart(){if(!REP.big||!REP.F||REP.fr.length<20||REP.act||!G||G.mode!=='playcall')return;
   REP.act={F,mode:G.mode,clockOn:G.clockOn,i:0,now:REP.fr[REP.fr.length-1]};G.clockOn=false;show('#sheet',false);F=REP.F;F.mode='dead';G.mode='replay';show('#repTag',true);beep(600,.05);repApply(REP.fr[0])}
-function repStep(rdt){const a=REP.act;if(!a)return;a.i+=rdt*30*REPLAY.speed;const n=REP.fr.length;if(a.i>=n-1){repStop();return}const idx=Math.floor(a.i);repApply(REP.fr[idx]);F.t=(F.t||0)+rdt*REPLAY.speed;F.mode='live'}
+function repStep(rdt){const a=REP.act;if(!a)return;a.i+=rdt*60*REPLAY.speed;const n=REP.fr.length;if(a.i>=n-1){repStop();return}const idx=Math.floor(a.i),frac=a.i-idx,f0=REP.fr[idx],f1=REP.fr[Math.min(n-1,idx+1)];repApply(f0);if(f1&&f1.p){F.all.forEach((p,k)=>{const a0=f0.p[k],a1=f1.p[k];if(a0&&a1){p.x=a0.x+(a1.x-a0.x)*frac;p.y=a0.y+(a1.y-a0.y)*frac;if(typeof a0.ph==='number'&&typeof a1.ph==='number')p.ph=a0.ph+(a1.ph-a0.ph)*frac}})}F.t=(F.t||0)+rdt*REPLAY.speed;F.mode='live'}
 function repStop(){const a=REP.act;if(!a)return;repApply(a.now);REP.act=null;F=a.F;if(F)F.mode='dead';G.mode=a.mode||'playcall';G.clockOn=a.clockOn;show('#repTag',false);const hud=$('#hud');if(hud){hud.classList.remove('ui-end-render-only');hud.removeAttribute('aria-hidden');hud.inert=false}if(a.retScreen){show('#hud',false);screens(a.retScreen);if(typeof syncLand==='function')syncLand()}else{show('#sheet',true)}bmHide&&bmHide()}
 function repStartPOTG(retScreen){if(!POTG.fr||POTG.fr.length<20||!POTG.F||REP.act||!G)return;
   REP.F=POTG.F;REP.fr=POTG.fr;REP.big=true;
@@ -304,7 +304,7 @@ function startPlay(){
 function buildThrow(){
   const t=$('#thr');t.innerHTML='';
   BTN.forEach(([r,l])=>{const b=document.createElement('button');b.style.borderColor=ROLECOL[r];b.style.color=ROLECOL[r];b.innerHTML=l+'<small>'+(r==='WR1'||r==='WR2'?'WR':r)+'</small>';
-    b.addEventListener('pointerdown',e=>{e.preventDefault();throwTo(r)});t.appendChild(b)});
+    b.addEventListener('pointerdown',e=>{e.preventDefault();startTouchThrow(r)});b.addEventListener('pointerup',e=>{e.preventDefault();endTouchThrow(false)});b.addEventListener('pointercancel',()=>endTouchThrow(true));t.appendChild(b)});
 }
 
 /* ============================ effects ============================ */
@@ -905,6 +905,11 @@ function tackle(c,d){haptic('medium');
   const fum=!F.gb&&Math.random()<fp;
   if(fum)startPile(c,d);else endPlay('tackle',{by:d});
 }
+let _tt=null;
+function startTouchThrow(role){endTouchThrow(true);_tt={role,tm:setTimeout(()=>{const x=_tt;_tt=null;if(x)throwTo(x.role,false,true)},190)}}
+function endTouchThrow(cancel){if(!_tt)return;const x=_tt;_tt=null;clearTimeout(x.tm);if(!cancel)throwTo(x.role,false,false)}
+addEventListener('pointerup',()=>endTouchThrow(false),{passive:true});
+addEventListener('pointercancel',()=>endTouchThrow(true),{passive:true});
 function throwTo(role,fromBuf,forceBullet){
   if(!F||F.mode!=='live')return;
   const q=F.carrier;if(!q||q.role!=='QB'||F.ballAir||F.passer!==q)return;
@@ -1441,9 +1446,9 @@ function csLines(c,pos){const L=[];const r1=(a,b)=>b?(a/b).toFixed(1):'0.0';
   L.push(['MOVES',c.an+' ANKLES · '+c.tr+' TRUCKS · '+c.sp+' SPINS · '+c.bt+' BROKEN TACKLES']);
   if(c.fl)L.push(['FUMBLES LOST',String(c.fl)]);return L}
 function csRender(box,p){const c=(SAVE.cs||{})[csKey(p)];
-  box.appendChild(gEl('div','font-size:12px;letter-spacing:.12em;color:var(--dim);margin:2px 0 6px','CAREER · '+(c?c.g:0)+' MATCHES'));
-  if(!c){box.appendChild(gEl('div','font-size:14px;color:#e5dccb','No plays yet. Get him the ball.'));return}
-  for(const [h,v] of csLines(c,p.pos)){const r=gEl('div','display:flex;gap:8px;align-items:baseline;padding:5px 8px;margin-bottom:4px;border:2px solid var(--line);border-radius:8px;background:var(--panel)');r.append(gEl('b','width:92px;flex:none;font-size:12px;letter-spacing:.1em;color:var(--gold)',h),gEl('span','font-size:14px;font-weight:700',v));box.appendChild(r)}}
+  box.appendChild(gEl('div','font-family:"Barlow Condensed",sans-serif;font-size:12px;font-weight:800;letter-spacing:.14em;color:#38c6d9;margin:2px 0 8px','CAREER · '+(c?c.g:0)+' MATCHES'));
+  if(!c){box.appendChild(gEl('div','font-family:"Barlow Condensed",sans-serif;font-size:15px;color:#b9c4d6;padding:10px;border:1.5px solid rgba(56,198,217,.3);border-radius:10px;background:#131b2e','No plays yet. Get him the ball.'));return}
+  for(const [h,v] of csLines(c,p.pos)){const r=gEl('div','display:flex;gap:10px;align-items:baseline;padding:8px 10px;margin-bottom:6px;border:1.5px solid rgba(56,198,217,.35);border-radius:10px;background:#131b2e;font-family:"Barlow Condensed",sans-serif');r.append(gEl('b','width:96px;flex:none;font-size:12px;font-weight:800;letter-spacing:.1em;color:#ffd23a',h),gEl('span','font-size:15px;font-weight:700;color:#f5f7fa',v));box.appendChild(r)}}
 /* MY TEAM: the run trail picker */
 function goalsTeamRow(){const host=document.getElementById('tLogoPrev');if(!host)return;const lp=host.closest('.lprev');let w=document.getElementById('trRow');if(w)w.remove();
   w=gEl('div');w.id='trRow';w.appendChild(gEl('div','','')).className='lbl';w.firstChild.textContent='RUN TRAIL (CREW CHALLENGES)';
@@ -1581,7 +1586,7 @@ addEventListener('pointerdown',e=>{
   for(const [role] of BTN){const p=F.off[role];if(!p||p.stun>0)continue;const pr=P(p.x+(p.vx||0)*.08,p.y+(p.vy||0)*.08),cy=pr.sy-Math.max(22,2.75*pr.u)*.55,my=pr.sy-Math.max(22,2.75*pr.u)*1.1-12;
     const d=Math.min(Math.hypot(tx-pr.sx,ty-cy),Math.hypot(tx-pr.sx,ty-my),Math.hypot(tx-pr.sx,ty-pr.sy)),lim=Math.max(46,pr.u*1.5);
     if(d<lim&&d<bd){bd=d;best=role}}
-  if(best){e.preventDefault();e.stopPropagation();throwTo(best)}
+  if(best){e.preventDefault();e.stopPropagation();startTouchThrow(best)}
 },true);
 jz.addEventListener('pointerdown',e=>{e.preventDefault();joyId=e.pointerId;try{jz.setPointerCapture(e.pointerId)}catch(_){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",_)}
   const r=$('#app').getBoundingClientRect();jb={x:e.clientX,y:e.clientY};const b=$('#joyBase');b.hidden=false;b.style.left=(e.clientX-r.left)+'px';b.style.top=(e.clientY-r.top)+'px';$('#joyHint').style.opacity=0;setStick(e)});

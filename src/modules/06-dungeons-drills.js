@@ -196,7 +196,7 @@ function dgChaserStep(st,dt){
         while(cur){const p=par.get(cur[0]+','+cur[1]);if(!p||(p[0]===sx&&p[1]===sy))break;cur=p}
         if(cur&&dgChaserWalkable(st,cur[0],cur[1])){
           const nd=cur[0]>sx?'r':cur[0]<sx?'l':cur[1]>sy?'d':'u';
-          if(ch.d&&nd!==ch.d){ch.d=nd;ch.stun=.18;return}   // brief human cut-back delay on turns
+          if(ch.d&&nd!==ch.d){ch.d=nd;ch.stun=.10;return}   // brief human cut-back delay on turns
           ch.tx=cur[0];ch.ty=cur[1];ch.d=nd;
         }
       }
@@ -204,7 +204,7 @@ function dgChaserStep(st,dt){
   }
   const vx=ch.tx-ch.x,vy=ch.ty-ch.y,len=Math.hypot(vx,vy);
   if(len>.01){
-    const sp=2.05,step=Math.min(len,sp*dt);
+    const sp=2.55,step=Math.min(len,sp*dt);
     const nx=ch.x+vx/len*step,ny=ch.y+vy/len*step;
     if(dgChaserWalkable(st,Math.round(nx),Math.round(ny))){ch.x=nx;ch.y=ny;ch.ph+=dt*2.8}
     else{ch.tx=rx;ch.ty=ry}
@@ -1585,7 +1585,7 @@ function fdStepRush3D(dr,dt){
   // Defenders pursue & tackle / get juked-spun-trucked
   for(const d of F.def){
     if(d.fall||d.stun>0)continue;
-    const dx=c.x-d.x,dy=c.y-d.y,len=Math.hypot(dx,dy)||1,cSp=clamp(Math.hypot(c.vx||0,c.vy||0),7.2,8.4),sp=cSp*1.1;
+    const dx=c.x-d.x,dy=c.y-d.y,len=Math.hypot(dx,dy)||1,sp=defSpeed(d);
     d.vx=dx/len*sp;d.vy=dy/len*sp;d.x+=d.vx*dt;d.y+=d.vy*dt;d.ph+=dt*2.6;
     if(len<1.45){
       const evading=!!(c.dash||c.inv>0||c.spinT>0||c.arm>0||c.air);
@@ -1598,7 +1598,7 @@ function fdStepRush3D(dr,dt){
       }else{
         ragdoll(c,dx/len*3,dy/len*3,3,.8);dust(c.x,c.y,10,1.1);
         SND.fx('hit');popup('TACKLED!',c.x,c.y+1.5,'#ff3b5c');
-        dr.mult=1;dr.rep++;dr.pause=.8;return;
+        dr.mult=1;dr.rep++;dr.pause=1.0;return;
       }
     }
   }
@@ -1606,7 +1606,7 @@ function fdStepRush3D(dr,dt){
   // End Zone TD!
   if(c.y>=100){
     const pts=400*dr.mult;dr.score+=pts;dr.tds++;dr.rep++;
-    SND.fx('ok2');popup('TOUCHDOWN! +'+pts,c.x,99,'#58ffb0');dr.pause=.9;
+    SND.fx('ok2');popup('TOUCHDOWN! +'+pts,c.x,99,'#58ffb0');dr.pause=1.0;
   }
 }
 

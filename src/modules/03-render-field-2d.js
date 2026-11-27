@@ -107,7 +107,7 @@ const CAMPC=window.CAMPC={horizon:-.55,focus:.60,depth:80,acrossK:24,ty:-4};   /
 let CAMB=0,PCS=1,CAMR=0,CAMP=0;const PASSCFG=window.PASSCFG={on:true,horizon:.15,focus:.9,depth:16.6,acrossK:18};   // v3.16KK1 TUNE (F7): the pocket camera while the QB holds the ball on a pass play (landscape): a lower angle behind him (horizon .12 to .15, QB a little lower on screen: focus .861 to .9) and a little wider (16.6 to 18 yd across per screen height)
    // v3.09: CAMR 0..1 = how far the camera has moved to the low runner camera (RUNCFG), eased like CAMB
 const RUNCFG=window.RUNCFG={horizon:.4,focus:.97,depth:18};   // v3.09 TUNE: the landscape runner camera (blended in once the carrier is 3+ yd past the line)   // CAMB: 0 = play camera, 1 = play-call camera (eased); PCS: players shrink with the zoom-out
-function applyCam(){if(typeof G!=='undefined'&&G&&G.drill){D2=220;U0F=.047;HORF=-4.2;FOCF=.55;MY=.024;WU=W/(44*U0F);PCS=.78;return}const C=LAND?CAMCFGL:CAMCFG,b=LAND?CAMB:0,r=LAND?CAMR*(1-b):0,pp=LAND&&PASSCFG.on?CAMP*(1-b)*(1-r):0,mx=(a,c,rr,ps)=>{let v=a+(rr-a)*r;if(ps!==undefined)v+=(ps-v)*pp;return v+(c-v)*b};let dp=mx(C.depth,CAMPC.depth,RUNCFG.depth,PASSCFG.depth);D2=dp;U0F=C.xscale;HORF=mx(C.horizon,CAMPC.horizon,RUNCFG.horizon,PASSCFG.horizon);FOCF=mx(C.focus,CAMPC.focus,RUNCFG.focus,PASSCFG.focus);MY=(FOCF-HORF)/D2;const AC=LAND&&C.acrossK?mx(C.acrossK,CAMPC.acrossK,C.acrossK,PASSCFG.acrossK)*W/H:CAMCFGL.across;WU=LAND?W/(AC*U0F*(D2/(5+D2))):W;
+function applyCam(){if(typeof G!=='undefined'&&G&&G.drill&&G.drill.id==='t2_crush'){D2=220;U0F=.047;HORF=-4.2;FOCF=.55;MY=.024;WU=W/(44*U0F);PCS=.78;return}const C=LAND?CAMCFGL:CAMCFG,b=LAND?CAMB:0,r=LAND?CAMR*(1-b):0,pp=LAND&&PASSCFG.on?CAMP*(1-b)*(1-r):0,mx=(a,c,rr,ps)=>{let v=a+(rr-a)*r;if(ps!==undefined)v+=(ps-v)*pp;return v+(c-v)*b};let dp=mx(C.depth,CAMPC.depth,RUNCFG.depth,PASSCFG.depth);D2=dp;U0F=C.xscale;HORF=mx(C.horizon,CAMPC.horizon,RUNCFG.horizon,PASSCFG.horizon);FOCF=mx(C.focus,CAMPC.focus,RUNCFG.focus,PASSCFG.focus);MY=(FOCF-HORF)/D2;const AC=LAND&&C.acrossK?mx(C.acrossK,CAMPC.acrossK,C.acrossK,PASSCFG.acrossK)*W/H:CAMCFGL.across;WU=LAND?W/(AC*U0F*(D2/(5+D2))):W;
   if(LAND&&C.acrossK){const AC0=C.acrossK*W/H;PCS=WU/(W/(AC0*U0F*(C.depth/(5+C.depth))))}else PCS=1}   // landscape: a yard is always the same share of a player's width, whatever the window shape
 applyCam();   // ONE true perspective on a flat ground plane (D2 = how far away the vanishing distance is); HORF = the row where the visible field ends under the skyline   // one camera for the whole play: horizon 25% down, the camera's focus row 66% down, about 9 player widths across at the line
 const horY=()=>H*(FOCF-(FOCF-HORF)*cam.zoom),horY0=()=>H*HORF;   // the true horizon row: where the flat ground vanishes
@@ -965,7 +965,7 @@ const RAIN=(()=>{const r=mulberry(5),a=[];for(let i=0;i<70;i++)a.push([r(),r(),.
 function drawAtmos(){
   if(window.__norain)return;
   if(RT3()){const t=performance.now()/1000;ctx.strokeStyle='rgba(232,226,208,.16)';ctx.lineWidth=1.2;ctx.beginPath();for(const d of RAIN.slice(0,26)){const x=((d[0]*W+t*160*d[2])%(W+80))-40,y=d[1]*H,l=18+d[2]*26;ctx.moveTo(x,y);ctx.lineTo(x+l,y-l*.06)}ctx.stroke();return}
-  if(RT2()){if(!bmLite()){const t=performance.now()/1000;ctx.save();ctx.strokeStyle='rgba(220,235,248,.22)';ctx.lineWidth=1.5;for(let i=0;i<3;i++){const gx=((t*24+i*W*.37)%(W+80))-40,gy=H*(.09+i*.035)+Math.sin(t*2+i)*6,fl=Math.sin(t*6+i*2)*3;ctx.beginPath();ctx.moveTo(gx-8,gy+fl);ctx.quadraticCurveTo(gx-3,gy-3,gx,gy);ctx.quadraticCurveTo(gx+3,gy-3,gx+8,gy+fl);ctx.stroke()}const _mpH=!!(G&&Math.max(G.you||0,G.opp||0)>=(G.target||15)-7);ctx.fillStyle=_mpH?'rgba(190,220,242,.15)':'rgba(190,215,235,.07)';ctx.fillRect(0,H*.14+Math.sin(t*.4)*8,W,H*(_mpH?.16:.11));ctx.restore()}return}
+  if(RT2()){if(!bmLite()){const t=performance.now()/1000;ctx.save();ctx.strokeStyle='rgba(220,235,248,.22)';ctx.lineWidth=1.5;for(let i=0;i<3;i++){const gx=((t*24+i*W*.37)%(W+80))-40,gy=H*(.09+i*.035)+Math.sin(t*2+i)*6,fl=Math.sin(t*6+i*2)*3;ctx.beginPath();ctx.moveTo(gx-8,gy+fl);ctx.quadraticCurveTo(gx-3,gy-3,gx,gy);ctx.quadraticCurveTo(gx+3,gy-3,gx+8,gy+fl);ctx.stroke()}const _mpH=!!(G&&Math.max(G.you||0,G.opp||0)>=(G.target||15)-7);ctx.fillStyle=_mpH?'rgba(195,228,248,.26)':'rgba(190,215,235,.07)';ctx.fillRect(0,H*.12+Math.sin(t*.4)*8,W,H*(_mpH?.24:.11));if(_mpH){ctx.fillStyle='rgba(210,235,252,.14)';ctx.fillRect(0,H*.28+Math.cos(t*.55)*10,W,H*.18)}ctx.restore()}return}
   const t=performance.now()/1000,sp=camMode()==='side'?0:1;
   // wet street: the magenta glow of the signs reflected in the far end of the field
   if(sp&&!RT()){const hy=horY();if(!drawAtmos._wg||drawAtmos._wh!==H||drawAtmos._hy!==hy){drawAtmos._wh=H;drawAtmos._hy=hy;const gr=ctx.createLinearGradient(0,hy-H*.06,0,hy+H*.2);gr.addColorStop(0,'rgba(255,47,168,0)');gr.addColorStop(.23,'rgba(255,47,168,.20)');gr.addColorStop(1,'rgba(255,47,168,0)');drawAtmos._wg=gr}ctx.save();ctx.fillStyle=drawAtmos._wg;ctx.fillRect(0,hy-H*.06,W,H*.26);if(F&&F.los>=75){ctx.globalCompositeOperation='lighter';ctx.globalAlpha=.45;ctx.fillRect(0,hy-H*.06,W,H*.26)}ctx.restore()}
@@ -974,10 +974,10 @@ function drawAtmos(){
     if(!RT()){ctx.save();for(let i=0;i<5;i++){const sx=i%2?W*.06+i*6:W*.94-i*6,sy=H*.68-((t*28+i*53)%(H*.36)),al=.12*Math.sin(((t*28+i*53)%(H*.36))/(H*.36)*Math.PI);ctx.fillStyle='rgba(255,210,165,'+al.toFixed(3)+')';ctx.beginPath();ctx.arc(sx+Math.sin(t*1.5+i)*8,sy,10+i*2.5,0,TAU);ctx.fill()}ctx.restore()}
     else{ctx.save();ctx.fillStyle='rgba(255,194,102,.22)';for(let i=0;i<14;i++){const mx=((i*97+t*18*(.6+(i%3)*.3))%W),my=((i*53+Math.sin(t+i)*18+H*.2)%(H*.65));ctx.fillRect(mx,my,2,2)}ctx.restore()}
   }
-  // rain (escalates to neon downpour on match point)
+  // rain (escalates to dramatic neon downpour on match point)
   const _mpR=!!(G&&Math.max(G.you||0,G.opp||0)>=(G.target||15)-7);
-  ctx.strokeStyle=_mpR?'rgba(159,246,255,.34)':'rgba(180,215,255,.22)';ctx.lineWidth=_mpR?1.35:1;ctx.beginPath();
-  for(const d of RAIN){const _sp=_mpR?590:420,x=((d[0]*W+t*(_mpR?95:60)*d[2])%(W+40))-20,y=((d[1]*H+t*_sp*d[2])%(H+40))-20,l=(_mpR?14:10)+d[2]*(_mpR?18:14);ctx.moveTo(x,y);ctx.lineTo(x-l*.22,y+l)}
+  ctx.strokeStyle=_mpR?'rgba(168,248,255,.54)':'rgba(180,215,255,.22)';ctx.lineWidth=_mpR?1.8:1;ctx.beginPath();
+  for(const d of RAIN){const _sp=_mpR?760:420,x=((d[0]*W+t*(_mpR?135:60)*d[2])%(W+40))-20,y=((d[1]*H+t*_sp*d[2])%(H+40))-20,l=(_mpR?20:10)+d[2]*(_mpR?24:14);ctx.moveTo(x,y);ctx.lineTo(x-l*.25,y+l);if(_mpR){const x2=((x+W*.5)%(W+40))-20,y2=((y+H*.37)%(H+40))-20;ctx.moveTo(x2,y2);ctx.lineTo(x2-l*.25,y2+l)}}
   ctx.stroke();
 }
 function drawHolos(){
@@ -2342,6 +2342,22 @@ function drawEntities(){
     let ang=ang0;if(ART.on){   // the nose follows the real climb: up on the rise, level at the top, down on the descent (never more than 28 degrees off the ground track)
       const pv=bl._pw;if(pv&&bl.t>pv.t+.001){const dt=bl.t-pv.t,vx=(b.x-pv.x)/dt,vy=(b.y-pv.y)/dt,vh=(b.h-pv.h)/dt,q=P(b.x+vx*.05,b.y+vy*.05),qy=q.sy-(b.h+vh*.05)*q.u*.9-q.u*1.4,raw=Math.atan2(qy-bsy,q.sx-pr.sx);let d=raw-ang0;d=Math.atan2(Math.sin(d),Math.cos(d));bl._pa=(bl._pa||0)*.6+Math.max(-.49,Math.min(.49,d))*.4}
       bl._pw={x:b.x,y:b.y,h:b.h,t:bl.t};ang=ang0+(bl._pa||0)}
+    if(bl.bullet){
+      const _bt=bl._trl||(bl._trl=[]);_bt.push({x:b.x,y:b.y,h:b.h});if(_bt.length>14)_bt.shift();
+      if(_bt.length>=2){
+        const _bc=(typeof trailCol==='function'&&F.off&&trailCol(F.off.QB))||(SAVE&&SAVE.uni&&SAVE.uni.jc)||'#38c6d9';
+        ctx.save();ctx.globalCompositeOperation='lighter';ctx.lineCap='round';ctx.lineJoin='round';
+        for(let i=1;i<_bt.length;i++){
+          const p0=P(_bt[i-1].x,_bt[i-1].y),p1=P(_bt[i].x,_bt[i].y),k=i/_bt.length;
+          const y0=p0.sy-_bt[i-1].h*p0.u*.9-p0.u*1.4,y1=p1.sy-_bt[i].h*p1.u*.9-p1.u*1.4;
+          ctx.strokeStyle=_bc;ctx.globalAlpha=k*.72;ctx.lineWidth=Math.max(2,p1.u*.36*k);
+          ctx.beginPath();ctx.moveTo(p0.sx,y0);ctx.lineTo(p1.sx,y1);ctx.stroke();
+          ctx.strokeStyle='#ffffff';ctx.globalAlpha=k*.55;ctx.lineWidth=Math.max(1,p1.u*.14*k);
+          ctx.beginPath();ctx.moveTo(p0.sx,y0);ctx.lineTo(p1.sx,y1);ctx.stroke();
+        }
+        ctx.restore();
+      }
+    }
     if(ART.on){const ph=playerPx(pr),ln=Math.max(8,ph*(TK.s||BSZ_)/.066*.30);if(window.__dbg)(window.__bl=window.__bl||[]).push([+bl.t.toFixed(2),+ln.toFixed(1),+ph.toFixed(1),+((ang-ang0)*57.3).toFixed(0),+(ang*57.3).toFixed(0),+(bl.t*9.4%6.283).toFixed(2)]);let fx=pr.sx,fy=bsy;{const hd=ART.hand;if(hd&&performance.now()-hd.k<900&&bl.t<.14){if(!bl._o)bl._o=[hd.sx-pr.sx,hd.sy-bsy];const kk=Math.max(0,1-Math.pow(bl.t/.14,1.5));fx+=bl._o[0]*kk;fy+=bl._o[1]*kk}}ballFly(ctx,fx,fy,ln,ang,bl.t*9.4)}
     else ballSpiral(ctx,pr.sx,bsy,S*1.5,ang,bl.t*34,Math.abs(Math.cos(ang))>.55)}
   if(F.snap){const k=F.snap.t/F.snap.T,Q=F.off.QB,x=F.snap.from.x+(Q.x-F.snap.from.x)*k,y=F.snap.from.y+(Q.y-F.snap.from.y)*k,pr=P(x,y);ballShape(ctx,pr.sx,pr.sy-pr.u*(.7+Math.sin(Math.PI*k)*.7),Math.max(3,pr.u*.3),k*18)}
@@ -2493,8 +2509,8 @@ function camUpdate(rdt){
   const passOn=passPlay&&((G.mode==='live'&&F.mode==='live'&&(F.ballAir||(F.passer&&F.carrier===F.passer)))||G.mode==='dead');
   if(passOn)ty=passClampTy(ty);
   {const pt=(passOn&&!F.ballAir&&F.passer&&F.carrier===F.passer&&F.mode==='live')?1:0;CAMP+=(pt-CAMP)*(1-Math.exp(-(pt?3:5)*rdt));if(Math.abs(pt-CAMP)<.002)CAMP=pt}   // v3.16KK1: ease into the pocket camera after the snap, out when the ball is thrown
-  {const bt=(LAND&&G&&(G.mode==='playcall'||G.drill))?1:0;CAMB+=(bt-CAMB)*(1-Math.exp(-4.2*rdt));if(Math.abs(bt-CAMB)<.002)CAMB=bt}
-  {const c=F&&F.carrier,rt=(!(G&&G.drill)&&F&&F.mode==='live'&&!F.ballAir&&c&&!(F.passer===c)&&runHero()&&!SIMV.on)?1:0;CAMR+=(rt-CAMR)*(1-Math.exp(-(rt?7:3)*rdt));   /* v3.10: in within about 0.4 s */if(Math.abs(rt-CAMR)<.002)CAMR=rt;   // v3.09: ease into / out of the low runner camera
+  {const bt=(LAND&&G&&(G.mode==='playcall'||(G.drill&&G.drill.id==='t2_crush')))?1:0;CAMB+=(bt-CAMB)*(1-Math.exp(-4.2*rdt));if(Math.abs(bt-CAMB)<.002)CAMB=bt}
+  {const c=F&&F.carrier,rt=(!(G&&G.drill&&G.drill.id==='t2_crush')&&F&&F.mode==='live'&&!F.ballAir&&c&&!(F.passer===c)&&runHero()&&!SIMV.on)?1:0;CAMR+=(rt-CAMR)*(1-Math.exp(-(rt?7:3)*rdt));   /* v3.10: in within about 0.4 s */if(Math.abs(rt-CAMR)<.002)CAMR=rt;   // v3.09: ease into / out of the low runner camera
    const lt=(rt&&c&&!bmLite())?-clamp((c.vx||0)/7,-1,1)*RUNCAM.lean:0;camLean+=(lt-camLean)*(1-Math.exp(-5*rdt))}
   const k=1-Math.exp(-6*rdt);if(window.__camlog){const f0=F&&(F.carrier||F.passer);window.__camlog.push([performance.now(),rdt,tx,cam.x,f0?f0.x:0,f0?(f0.vx||0):0,cam.zoom,tz])}cam.y+=(ty-cam.y)*k;cam.x+=(tx-cam.x)*k;
   if(passOn){const w=passNeed();if(cam.y<w)cam.y=w}   // hard floor: the view never lags behind a deep receiver or the ball

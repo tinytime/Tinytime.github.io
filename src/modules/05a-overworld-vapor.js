@@ -40,9 +40,9 @@ const OWP=[
  {x:12,y:22,t:'vent',s:0},{x:14,y:23,t:'lamp',s:1},{x:17,y:23,t:'lamp',s:1},
  {x:30,y:18,t:'sign',s:1,m:['FREIGHT LINE  >>  SERVICE SUSPENDED','Closed to people. Authorized crates only.']},{x:29,y:19,t:'crate',s:1},
  // Mid-south: Home & Pharma boulevard, Noodle Vendor seating, Clubhouse (open 2-3 tile traversal everywhere)
- {x:16,y:25,t:'vent',s:0},{x:14,y:26,t:'bench',s:1},
+ {x:16,y:25,t:'vent',s:0},{x:14,y:25,t:'bench',s:1,vert:1},
  {x:13,y:29,t:'stall',s:1,m:['A steamy noodle stall under a hissing pipe. The menu is in four languages.','"Skewers and broth, 2 credits. Fresh. Probably."']},
- {x:13,y:30,t:'bench',s:1},{x:17,y:29,t:'pole',s:1},
+ {x:14,y:27,t:'bench',s:1,vert:1},{x:17,y:29,t:'pole',s:1},
  {x:17,y:26,t:'car',o:'v',col:'#ff2fa8',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:17,y:27,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},
  {x:21,y:29,t:'vend',s:1,m:['A vending machine. "SYNTH-COLA, 3 CREDITS." Your pockets are empty.']},
  {x:27,y:30,t:'bench',s:1},{x:29,y:30,t:'lamp',s:1},
