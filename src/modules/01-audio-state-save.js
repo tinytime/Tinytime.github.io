@@ -483,7 +483,7 @@ function show(id,on){
     $('#tgtTag').style.display=overlayActive?'none':'';
   }
 }
-function screens(which){['#menu','#squad','#team','#gear','#steal','#end','#world','#upg'].forEach(s=>show(s,s===which))}
+function screens(which){['#menu','#squad','#team','#gear','#steal','#end','#world','#upg'].forEach(s=>show(s,s===which));try{window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn('scroll',e)}if(typeof syncLand==='function')syncLand()}
 const teamShort=()=>(SAVE.teamName||'YOU').toUpperCase().slice(0,8);
 
 /* ============================ upgrades ============================ */

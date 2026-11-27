@@ -80,9 +80,9 @@
    const tabs=document.createElement('div');tabs.className='ui-team-tabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Team customization sections');
    const content=document.createElement('div');content.className='ui-team-tab-content';
    const makePanel=(id,label)=>{const panel=document.createElement('section');panel.className='ui-team-tab-panel';panel.id=id;panel.setAttribute('role','tabpanel');panel.setAttribute('aria-label',label);content.appendChild(panel);return panel};
-   const panels={identity:makePanel('uiTeamIdentity','Identity'),uniform:makePanel('uiTeamUniform','Uniform'),trails:makePanel('uiTeamTrails','Trails')};
-   const activate=(key,focus=false)=>{for(const [name,panel] of Object.entries(panels)){const active=name===key;panel.hidden=!active;const button=tabs.querySelector('[data-team-tab="'+name+'"]');button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1}if(focus)tabs.querySelector('[aria-selected="true"]')?.focus()};
-   [['identity','IDENTITY'],['uniform','UNIFORM'],['trails','TRAILS']].forEach(([key,label])=>{const button=document.createElement('button');button.type='button';button.className='ui-team-tab';button.dataset.teamTab=key;button.setAttribute('role','tab');button.textContent=label;button.addEventListener('click',()=>activate(key));button.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;event.preventDefault();const keys=['identity','uniform','trails'],next=keys[(keys.indexOf(key)+(event.key==='ArrowRight'?1:2))%3];activate(next,true)});tabs.appendChild(button)});
+   const panels={identity:makePanel('uiTeamIdentity','Identity'),uniform:makePanel('uiTeamUniform','Uniform')};
+   const activate=(key,focus=false)=>{for(const [name,panel] of Object.entries(panels)){const active=name===key;panel.hidden=!active;const button=tabs.querySelector('[data-team-tab="'+name+'"]');if(button){button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1}}if(focus)tabs.querySelector('[aria-selected="true"]')?.focus()};
+   [['identity','IDENTITY'],['uniform','UNIFORM']].forEach(([key,label])=>{const button=document.createElement('button');button.type='button';button.className='ui-team-tab';button.dataset.teamTab=key;button.setAttribute('role','tab');button.textContent=label;button.addEventListener('click',()=>activate(key));button.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;event.preventDefault();const keys=['identity','uniform'],next=keys[(keys.indexOf(key)+1)%2];activate(next,true)});tabs.appendChild(button)});
    preview.after(tabs);tabs.after(content);
    const identity=team.querySelector('.ui-team-identity');
    if(identity){
@@ -107,7 +107,7 @@
    const fixedStyleNote=document.createElement('small');fixedStyleNote.className='ui-team-fixed-style-note';fixedStyleNote.textContent='JERSEY & PANTS CUTS ARE NOT CURRENTLY CUSTOMIZABLE.';panels.uniform.insertBefore(fixedStyleNote,panels.uniform.querySelector('#tSlots'));
    const placeTrail=()=>{
     const row=document.getElementById('trRow');if(!row)return;
-    if(row.parentElement!==panels.trails)panels.trails.appendChild(row);
+    if(row.parentElement!==panels.identity)panels.identity.appendChild(row);
     const chips=row.querySelector('.chips');if(!chips)return;
     [...chips.children].forEach(chip=>{
      if(chip.classList.contains('ui-team-trail-option'))return;

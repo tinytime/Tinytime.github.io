@@ -15,7 +15,7 @@ function syncLand(){
 let RESI=0;const RES=[{n:'HIGH',d:2},{n:'MEDIUM',d:1.5},{n:'LOW',d:1},{n:'SHARP',d:2.5}];try{const v=+localStorage.getItem('sg_res');if(v>=0&&v<RES.length)RESI=v}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}
 function resize(){const r=$('#app').getBoundingClientRect();W=r.width;H=r.height;try{ART.hp=CAMCFGL.artHp}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}   // sprites grow a little in a short window (Claude's viewer) so they stay about 53 px tall
   const dpr=Math.min(window.devicePixelRatio||1,window.__perfLvl>=2?1.5:(RES[RESI].d>2&&!window.__perfLvl?2.5:2),RES[RESI].d);cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);ctx.imageSmoothingEnabled=false;rebuildVignette()}
-addEventListener('resize',()=>{syncLand();resize();if(OWON)owResize()});
+const _settleVP=()=>{try{window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn('vp',e)}syncLand();resize();if(OWON)owResize()};addEventListener('resize',()=>{_settleVP();clearTimeout(resize._st);resize._st=setTimeout(_settleVP,260)});addEventListener('orientationchange',()=>{_settleVP();setTimeout(_settleVP,150);setTimeout(_settleVP,380)});
 const D=17;
 const WFAR=118,NFAR=-18;   // the real ends of the stadium: end zone to y=110, a concrete apron to 118 (the far wall), and the same behind the near end zone
 function refPass(fn){fn()}   // no separate view any more: the stadium is projected exactly like the field (same pan, same zoom)
@@ -2391,7 +2391,7 @@ function drawPopups(dt){
 let _vignetteGrad=null;
 function rebuildVignette(){_vignetteGrad=ctx.createRadialGradient(W*.5,H*.5,H*.3,W*.5,H*.5,H*.8);_vignetteGrad.addColorStop(0,'rgba(0,0,0,0)');_vignetteGrad.addColorStop(1,'rgba(0,0,0,.35)')}
 let frameNo=0;
-function draw(rdt){frameNo++;const pt=k=>{if(PL.on){const n=performance.now();PL.add(k,n-PL.mark);PL.mark=n}};if(PL.on)PL.mark=performance.now();
+function draw(rdt){frameNo++;if((frameNo&7)===0&&typeof cv!=='undefined'&&cv){const _cr=cv.getBoundingClientRect();if(_cr.width>50&&_cr.height>50&&(Math.abs(_cr.width-W)>2||Math.abs(_cr.height-H)>2))resize()}const pt=k=>{if(PL.on){const n=performance.now();PL.add(k,n-PL.mark);PL.mark=n}};if(PL.on)PL.mark=performance.now();
   ctx.save();
   bmShakeApply(rdt);bmPunchApply(rdt);   // v3.13 B1/B2: trauma shake + camera punch (game/14d)
   if(Math.abs(camLean)>.0005){const a=Math.abs(camLean),s=Math.cos(a)+Math.max(W/H,H/W)*Math.sin(a);ctx.translate(W/2,H/2);ctx.rotate(camLean);ctx.scale(s,s);ctx.translate(-W/2,-H/2)}   // v3.09: the camera leans a little into a cut (scaled so the corners stay covered)

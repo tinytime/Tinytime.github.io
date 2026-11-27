@@ -5424,4 +5424,43 @@ body.land #app #sheet,
   object-position: center center;
 }
 
+
+/* === iPhone Playthrough Batch 2 Fixes === */
+/* Keep post-game & menu screens cleanly above canvas/overlays and scrollable on iOS Safari */
+#steal.screen:not([hidden]),
+#end.screen:not([hidden]),
+#squad.screen:not([hidden]),
+#team.screen:not([hidden]),
+#upg.screen:not([hidden]) {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 70 !important;
+  width: 100% !important;
+  max-width: 480px !important;
+  height: 100% !important;
+  margin: 0 auto !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  pointer-events: auto !important;
+}
+#steal.screen button,
+#end.screen button,
+#squad.screen button,
+#team.screen button,
+#upg.screen button {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto !important;
+}
+
+
+/* Keep Pause (#exit) clear of FIRST TO XX WINS pill in landscape scoreboard */
+body.land #hud #exit {
+  right: max(10px, env(safe-area-inset-right, 0px)) !important;
+  top: calc(env(safe-area-inset-top, 0px) + 10px) !important;
+}
+body.land #hud #bug {
+  padding-right: 54px;
+}
+
 }

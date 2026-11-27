@@ -1133,7 +1133,7 @@ function showMatchup(crew,done){const d=muEl(),th=TOWN_THEMES[crew.town]||TOWN_F
   clearInterval(MU.tm);MU.tm=setInterval(()=>{const el=performance.now()-MU.t0,pr=muCoreProgress();d.querySelector('.bar i').style.width=Math.round(100*Math.min(1,Math.min(1,el/2000)*.4+.6*(pr.n?pr.r/pr.n:1)))+'%';
     if(!MU.ready&&el>=2000&&pr.ok){MU.ready=true}else if(!MU.ready&&el>=8000){MU.ready=true;MU.capped=true;ART.introCap=(ART.introCap||0)+1;try{console.log('matchup intro: 8 s cap reached with',pr.r+'/'+pr.n,'core sets baked')}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}}
     if(MU.ready){clearInterval(MU.tm);ART.introMs=Math.round(el);tmark('introReady',Math.round(el)+'ms'+(MU.capped?' CAPPED':''));ART.introLast={ms:Math.round(el),capped:MU.capped,r:pr.r,n:pr.n};const t=d.querySelector('.tap');t.textContent='TAP TO PLAY';t.classList.add('go');clearTimeout(MU.auto);MU.auto=0;   /* Keep the matchup on screen until the player explicitly taps TAP TO PLAY. */d.querySelector('.bar i').style.width='100%'}},100)}
-function muClose(){clearInterval(MU.tm);clearTimeout(MU.auto);if(MU.playerFrame)cancelAnimationFrame(MU.playerFrame);MU.playerFrame=0;MU.on=false;MU.el.classList.remove('on');const f=MU.done;MU.done=null;if(f)f()}
+function muClose(){clearInterval(MU.tm);clearTimeout(MU.auto);if(MU.playerFrame)cancelAnimationFrame(MU.playerFrame);MU.playerFrame=0;MU.on=false;MU.el.classList.remove('on');if(typeof syncLand==='function')syncLand();if(typeof resize==='function'){resize();setTimeout(resize,120)}const f=MU.done;MU.done=null;if(f)f()}
 
 /* ============ Vapor City native wildlife: code-drawn mice & crows matching owCat vector style ============ */
 const VC_CRIT={lt:0,ents:null};
