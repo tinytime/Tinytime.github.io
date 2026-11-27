@@ -52,7 +52,7 @@ const SND=(()=>{
     n.gain.setValueAtTime(.0001,t);n.gain.exponentialRampToValueAtTime(Math.max(.0002,g),t+.01);n.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(n);n.connect(bus||sfxB);o.start(t);o.stop(t+d+.03)}
   let activeVoices=0,duckUntil=0,duckTarget=1;const MAX_VOICES=18;
   function duckMusic(lv,hold){if(!ac||!musB)return;const n=T();duckTarget=Math.min(duckTarget,lv==null?.32:lv);duckUntil=Math.max(duckUntil,n+(hold||.55));musB.gain.setTargetAtTime(cfg().mus?.85*dk*duckTarget:0,n,.03)}
-  let paSrc=null;function playPA(k,cap,delay){if(cap&&window.A11Y)window.A11Y.caption(cap);if(!ac||!cfg().sfx||!vis)return;const b=B[k];if(!b)return;try{if(paSrc){paSrc.onended=null;paSrc.stop();paSrc=null}}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn('pa',e)}duckMusic(.24,1.15);const s=ac.createBufferSource(),g=ac.createGain();s.buffer=b;s.playbackRate.value=1;g.gain.value=1.05;s.connect(g);g.connect(sfxB);paSrc=s;s.onended=()=>{if(paSrc===s)paSrc=null};if(k==='pa_sack'&&B._cGroan)_playBuf(B._cGroan,.45,0);s.start(T()+(delay||0))}
+  let paSrc=null,paMoveT=0;function playPA(k,cap,delay,soft){if(soft&&performance.now()-paMoveT<1350)return;if(soft)paMoveT=performance.now();if(cap&&window.A11Y)window.A11Y.caption(cap);if(!ac||!cfg().sfx||!vis)return;const b=B[k];if(!b)return;try{if(paSrc){paSrc.onended=null;paSrc.stop();paSrc=null}}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn('pa',e)}duckMusic(.24,1.15);const s=ac.createBufferSource(),g=ac.createGain();s.buffer=b;s.playbackRate.value=1;g.gain.value=1.05;s.connect(g);g.connect(sfxB);paSrc=s;s.onended=()=>{if(paSrc===s)paSrc=null};if(k==='pa_sack'&&B._cGroan)_playBuf(B._cGroan,.45,0);s.start(T()+(delay||0))}
   function _fieldPan(){try{if(!OWON&&F&&F.carrier&&typeof cam!=='undefined')return clamp((F.carrier.x-cam.x)/14,-.72,.72)}catch(_){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",_)}return 0}
   function _playBuf(buf,vol,pan){if(!ac||!buf||activeVoices>=MAX_VOICES)return;activeVoices++;const s=ac.createBufferSource(),g=ac.createGain();s.buffer=buf;s.playbackRate.value=.94+Math.random()*.12;g.gain.value=Math.min(1.1,vol==null?.75:vol);if(pan&&ac.createStereoPanner){const p=ac.createStereoPanner();p.pan.value=clamp(pan,-.75,.75);s.connect(g);g.connect(p);p.connect(sfxB)}else{s.connect(g);g.connect(sfxB)}s.onended=()=>{activeVoices=Math.max(0,activeVoices-1)};s.start(T())}
   function play(name,rate,vol,when,pan){
@@ -79,7 +79,7 @@ const SND=(()=>{
     style(){tn(520,1040,.12,'triangle',.12);play('pluck',1.2,.5)},
     stiffHit(){if(B.x_stiff){play('x_stiff',1,.9);tn(120,45,.18,'sine',.35)}else FX.hit()},
     hit(){const pan=_fieldPan();play('p'+(1+((Math.random()*5)|0)),.88+Math.random()*.16,1.02,undefined,pan);if(B._fHit&&ac){_playBuf(B._fHit[(FX._hi=(FX._hi||0)+1)&3],.75,pan)}else{tn(115,36,.22,'sine',.48);nz(.035,'bandpass',2600,1400,1.4,.28,.002)}},
-    bigHit(){duckMusic(.28,.6);const t=T();play('p'+(1+((Math.random()*5)|0)),.64,1.12,undefined,_fieldPan());play('p'+(1+((Math.random()*5)|0)),.8,.8,t+.05);tn(70,28,.5,'sine',.7);nz(.55,'lowpass',2200,200,.7,.4,.01);B.x_app?play('x_app',1.15,.3,t+.1):cheer(.55,1.1)},
+    bigHit(){duckMusic(.28,.6);const t=T();play('p'+(1+((Math.random()*5)|0)),.64,1.12,undefined,_fieldPan());play('p'+(1+((Math.random()*5)|0)),.8,.8,t+.05);tn(70,28,.5,'sine',.7);nz(.55,'lowpass',2200,200,.7,.4,.01);B.x_app?play('x_app',1.15,.3,t+.1):cheer(.55,1.1);playPA('pa_bighit','BIG HIT!',.05,1)},
     whistle(){if(B.x_whistle)play('x_whistle',1,.55);else{tn(2800,2860,.38,'triangle',.07);tn(2840,2780,.38,'square',.02)}},
     td(){duckMusic(.25,.95);const t=T();[523,659,784,1047,1319].forEach((f,i)=>tn(f,f,.2,'square',.08,sfxB,t+i*.09));tn(220,220,1,'sawtooth',.07,sfxB,t+.2);B.x_cheer?play('x_cheer',1,.9,t+.15):cheer(1.1,2.8);play('ok2',.8,.6,t+.1);if(B._cRoar)_playBuf(B._cRoar,.52,0);playPA('pa_td','TOUCHDOWN!',.12)},
     first(){const t=T();tn(660,660,.1,'square',.07);tn(990,990,.2,'square',.07,sfxB,t+.1);B.x_app?play('x_app',1,.35,t+.1):cheer(.45,1);playPA('pa_first','FIRST DOWN!',.04)},
@@ -548,7 +548,7 @@ function renderSquad(){
     const step=dir=>{let n=sqNum(p);for(let i=0;i<100;i++){n=(n+dir+100)%100;if(!used.has(n))break}p.jn=n;persist();renderSquad()};
     const m=document.createElement('button');m.textContent='\u2212';m.onclick=()=>step(-1);const pl=document.createElement('button');pl.textContent='+';pl.onclick=()=>step(1);const nb=document.createElement('b');nb.textContent='#'+sqNum(p);
     nr.append(m,nb,pl);box.appendChild(nr);
-    const gearEdit=document.createElement('button');gearEdit.className='chip';gearEdit.style.cssText='width:100%;margin-top:10px;border-color:#F5B841;color:#F5B841';gearEdit.textContent='EDIT GEAR & TRAILS';gearEdit.onclick=()=>{sqTab='gear';renderSquad()};box.appendChild(gearEdit);
+    /* Legacy Visor & Arm Sleeves gear tab retired */
   }else if(sqTab==='career'){csRender(box,p)   // v3.15
   }else{
     const styleBack=document.createElement('button');styleBack.className='chip';styleBack.style.cssText='width:100%;margin:2px 0 8px;border-color:#4DE1F2;color:#4DE1F2';styleBack.textContent='BACK TO STYLE';styleBack.onclick=()=>{sqTab='look';renderSquad()};box.appendChild(styleBack);
@@ -612,7 +612,7 @@ const BUILD='TEST BUILD ROUTE 2 START (v3.41T VAPOR TOWNSFOLK TYPES)';window.CF_
    'Doing: '+$('#fbDo').value,'Went wrong: '+$('#fbBad').value,'Fun/great: '+$('#fbGood').value,'Fun rating: '+(rate||'-')+'/5'].join('\n');
   const ok=()=>{$('#fbMsg').textContent='Copied! Now paste it into a message to the developer.'},fail=()=>{const t=document.createElement('textarea');t.value=txt;t.style.cssText='position:fixed;left:0;top:0;opacity:0';document.body.appendChild(t);t.focus();t.select();let g=false;try{g=document.execCommand('copy')}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}t.remove();if(g)ok();else{$('#fbMsg').style.color='#ffd23a';$('#fbMsg').textContent='Could not copy. Please screenshot this screen instead.'}};
   try{navigator.clipboard.writeText(txt).then(ok,fail)}catch(e){fail()}}}
-$('#mReset').onclick=e=>{const n=Date.now();if(n-resetArm<2500){svSet(SV_PREV,JSON.stringify(SAVE));SAVE=freshSave();persist();renderMenu();e.target.textContent='RESET PROGRESS'}else{resetArm=n;e.target.textContent='TAP AGAIN TO WIPE'}};
+$('#mReset').onclick=e=>{const n=Date.now();if(n-resetArm<2500){svSet(SV_PREV,JSON.stringify(SAVE));try{localStorage.removeItem(SV_KEY)}catch(err){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn('reset',err)}SAVE=freshSave();persist();renderMenu();e.target.textContent='RESET PROGRESS';if(typeof owShow==='function')owShow()}else{resetArm=n;e.target.textContent='TAP AGAIN TO WIPE'}};
 
 /* ============================ team + gear editors ============================ */
 let teamSlot='jc',gearSlot='sc',gearPlayer=null;
@@ -848,12 +848,13 @@ function repRec(){if(!REPLAY.on||!F||!F.all)return;if(REP.F!==F){REP.F=F;REP.fr=
 function repApply(fr){for(const k in fr.F)F[k]=fr.F[k];if(fr.ball&&F.ball)Object.assign(F.ball,repCopy(fr.ball,0));F.all.forEach((p,i)=>{const s=fr.p[i];if(s)Object.assign(p,repCopy(s,0))})}
 function repStart(){if(!REP.big||!REP.F||REP.fr.length<20||REP.act||!G||G.mode!=='playcall')return;
   REP.act={F,mode:G.mode,clockOn:G.clockOn,i:0,now:REP.fr[REP.fr.length-1]};G.clockOn=false;show('#sheet',false);F=REP.F;F.mode='dead';G.mode='replay';show('#repTag',true);beep(600,.05);repApply(REP.fr[0])}
-function repStep(rdt){const a=REP.act;if(!a)return;a.i+=rdt*30*REPLAY.speed;const n=REP.fr.length;if(a.i>=n-1){repStop();return}repApply(REP.fr[Math.floor(a.i)])}
-function repStop(){const a=REP.act;if(!a)return;repApply(a.now);REP.act=null;F=a.F;G.mode=a.mode||'playcall';G.clockOn=a.clockOn;show('#repTag',false);if(a.retScreen){show('#hud',false);screens(a.retScreen)}else{show('#sheet',true)}bmHide&&bmHide()}
+function repStep(rdt){const a=REP.act;if(!a)return;a.i+=rdt*30*REPLAY.speed;const n=REP.fr.length;if(a.i>=n-1){repStop();return}const idx=Math.floor(a.i);repApply(REP.fr[idx]);F.t=(F.t||0)+rdt*REPLAY.speed;F.mode='live'}
+function repStop(){const a=REP.act;if(!a)return;repApply(a.now);REP.act=null;F=a.F;if(F)F.mode='dead';G.mode=a.mode||'playcall';G.clockOn=a.clockOn;show('#repTag',false);const hud=$('#hud');if(hud){hud.classList.remove('ui-end-render-only');hud.removeAttribute('aria-hidden');hud.inert=false}if(a.retScreen){show('#hud',false);screens(a.retScreen);if(typeof syncLand==='function')syncLand()}else{show('#sheet',true)}bmHide&&bmHide()}
 function repStartPOTG(retScreen){if(!POTG.fr||POTG.fr.length<20||!POTG.F||REP.act||!G)return;
   REP.F=POTG.F;REP.fr=POTG.fr;REP.big=true;
   REP.act={F,mode:G.mode,clockOn:false,retScreen,i:0,now:POTG.fr[POTG.fr.length-1]};
-  screens(null);show('#hud',true);F=POTG.F;F.mode='dead';G.mode='replay';show('#repTag',true);beep(680,.06);repApply(POTG.fr[0])}
+  const hud=$('#hud');if(hud){hud.classList.remove('ui-end-render-only');hud.removeAttribute('aria-hidden');hud.inert=false}
+  screens(null);show('#hud',true);F=POTG.F;F.mode='live';G.mode='replay';show('#repTag',true);if(typeof syncLand==='function')syncLand();beep(680,.06);repApply(POTG.fr[0])}
 function boxScoreHTML(){
   const ps=PLOG.slice(G&&typeof G.plog0==='number'?G.plog0:0);
   let pYds=0,rYds=0,comp=0,att=0,lng=0;
@@ -866,6 +867,7 @@ function boxScoreHTML(){
   return items.map(([k,v])=>'<div class="ui-bs-cell"><span>'+k+'</span><b>'+v+'</b></div>').join('');
 }
 function syncEndExtras(screenId){
+  if(typeof syncLand==='function')syncLand();
   const box=$(screenId==='#steal'?'#stBox':'#endBox'),btn=$(screenId==='#steal'?'#stPOTG':'#endPOTG');
   if(box){box.innerHTML=boxScoreHTML();box.hidden=false}
   if(btn){const ok=!!(REPLAY.on&&POTG.fr&&POTG.fr.length>=20);btn.hidden=!ok;if(ok){btn.textContent='▶ PLAY OF THE GAME ('+POTG.label+')';btn.onclick=e=>{e.stopPropagation();repStartPOTG(screenId)}}}
@@ -908,7 +910,7 @@ function updateGBBtn(){
 function activateStar(c){
   XLOG.star.push({k:'use',kind:'run',nm:lastNm(c.d.name),p:(G.pn||0)+1});F.spKind='run';
   F.gb=true;F.breaks=0;F.maxBreaks=c.d.special==='bulldozer'?3:1;F.spWait=false;F.spUsed=true;G.sp.ready=null;G.spArmed=false;
-  fxText('\u2605 STAR PLAY! \u2605','#ffd23a');flashT=.5}
+  fxText('\u2605 STAR PLAY! \u2605','#ffd23a');flashT=.5;if(SND.pa)SND.pa('pa_star','STAR PLAY!')}
 $('#gbBtn').onclick=()=>{if(G.sp.ready){G.spArmed=!G.spArmed;SND.fx('gbArm');updateGBBtn()}};
 $('#flipBtn').onclick=()=>{G.flip=!G.flip;beep(500,.05);setupField(true);F.mode='pre';G.mode='playcall';show('#sheet',true);show('#setbar',false);buildCards(true);$('#flipBtn').classList.toggle('on',G.flip)};
 function ddText(){const d=Math.max(1,Math.min(G.togo,100-G.los));return ORD[clamp(G.down,1,4)]+' & '+(100-G.los<=25&&G.togo>=100-G.los?'Goal':Math.ceil(d))}
@@ -925,8 +927,8 @@ $('#fourth').addEventListener('click',e=>{
   if(a==='go'){showSheet();return}
   if(a==='fg'){const d=100-G.los+17;const ok=Math.random()<clamp(1.5-d*.02,.15,.95);
     G.mode='dead';
-    if(ok){G.dvRes='fg';say('FIELD GOAL IS GOOD!','+3',1400,()=>{G.you+=3;afterScore(false)});beep(660,.2)}
-    else{G.dvRes='fg miss';say('NO GOOD!','Clanked off the pole',1500,()=>turnover(G.los))}
+    if(ok){G.dvRes='fg';if(SND.pa)SND.pa('pa_fg_good',"IT'S GOOD!",.18);say('FIELD GOAL IS GOOD!','+3',1400,()=>{G.you+=3;afterScore(false)});beep(660,.2)}
+    else{G.dvRes='fg miss';if(SND.pa)SND.pa('pa_fg_no','NO GOOD!',.18);say('NO GOOD!','Clanked off the pole',1500,()=>turnover(G.los))}
     try{window.CF3D&&CF3D.kkKick&&CF3D.kkKick(ok,ok?1400:1500)}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}}   // v3.29T: look only
   if(a==='punt'){G.dvRes='punt';G.mode='dead';const net=Math.round(rnd(30,44));let s=G.los+net;say('PUNT','Booms it '+net+' yards',1300,()=>{oppDrive(s>=100?20:100-s)});try{window.CF3D&&CF3D.kkKick&&CF3D.kkKick(true,1300,'punt')}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}}
 });
@@ -1268,7 +1270,7 @@ function doJuke(dirX,fromBuf){
       }
     }
   }
-  if(n){F.cn.ankle=(F.cn.ankle||0)+n;comboLink('juke',c);if(n>=2)popup('ANKLES GONE!',c.x,c.y+2.5,'#ff4fd8');/* v3.15 career count */c.slipJ=c.jk;addStyle(9*n,'ANKLE BREAKER!',c.x,c.y+1.5,'#b58cff');bmHide();shakeT=.18;setSlow(.55,.18);SND.fx('ankle');bmCall('ANKLE BREAKER!',MVC.juke);bmMove(c)}   // v3.07: screen-wide callout
+  if(n){F.cn.ankle=(F.cn.ankle||0)+n;comboLink('juke',c);if(SND.pa)SND.pa('pa_juke','WHAT A JUKE!',0,1);if(n>=2)popup('ANKLES GONE!',c.x,c.y+2.5,'#ff4fd8');/* v3.15 career count */c.slipJ=c.jk;addStyle(9*n,'ANKLE BREAKER!',c.x,c.y+1.5,'#b58cff');bmHide();shakeT=.18;setSlow(.55,.18);SND.fx('ankle');bmCall('ANKLE BREAKER!',MVC.juke);bmMove(c)}   // v3.07: screen-wide callout
   else{popup(tried?'TOO SLOW':'TOO EARLY',c.x,c.y+1.5,'#b58cff');bmSay(tried?'TOO SLOW':'TOO EARLY');whiff(c)}   // v2.96 (wording by the user): a juke nobody bites on = TOO SLOW; nobody close = TOO EARLY
 }
 /* v3.09 SPIN (swipe DOWN on the right side; user asked for it 2026-11-12). Costs 20 stamina, 0.9 s cooldown, the runner spins for 0.4 s and
@@ -1312,7 +1314,7 @@ function doHurdle(fromBuf){
   c.air={t:0,T:HURDLE.T,h:HURDLE.h};c.hurdle=true;SND.fx('juke');
   if(!d){popup('TOO EARLY',c.x,c.y+1.5,'#ffd23a');bmSay('TOO EARLY');whiff(c);return}
   const p=clamp(HURDLE.base+(c.d.spd-d.d.tkl)/HURDLE.spd+(F.gb?.25:0)+timingBonus(bd,.9,1.65),HURDLE.min,.92);
-  if(Math.random()<p){c.inv=HURDLE.T;d.stun=.6;d.tk=1;d.vx=d.vy=0;addStyle(10,'HURDLED!',c.x,c.y+1.5,'#ffd23a');comboLink('hurdle',c);bmCall('HURDLED!','#ffd23a');bmMove&&bmMove(c);dust(d.x,d.y,8,1);cn('hurdleWin')}
+  if(Math.random()<p){c.inv=HURDLE.T;d.stun=.6;d.tk=1;d.vx=d.vy=0;addStyle(10,'HURDLED!',c.x,c.y+1.5,'#ffd23a');comboLink('hurdle',c);if(SND.pa)SND.pa('pa_hurdle','OVER THE TOP!',0,1);bmCall('HURDLED!','#ffd23a');bmMove&&bmMove(c);dust(d.x,d.y,8,1);cn('hurdleWin')}
   else{c.air=null;c.hurdle=false;popup('CLIPPED',c.x,c.y+1.5,'#ffd23a');tackle(c,d)}
 }
 function whiff(c){if(c&&c===F.carrier&&MOVE_REFUND>0&&F.lastSpend){F.turbo+=F.lastSpend*MOVE_REFUND;F.lastSpend=0}if(!POSES||!c)return;c.whiffTo=F.t+.35;dust(c.x,c.y,4,.6)}   // v3.16BB2: a failed move looks like one
@@ -1610,14 +1612,14 @@ function contacts(dt){
           const side=Math.sign(dx*-Math.sin(c.h)+dy*Math.cos(c.h))||1;
           const nx=-Math.sin(c.h)*side,ny=Math.cos(c.h)*side;
           ragdoll(d,nx*8+Math.cos(c.h)*2,ny*8+Math.sin(c.h)*2,side*-10,1.6);
-          cn('truckWin');/* v3.15 career count */c.slow=.12;c.shoveTo=F.t+.35;addStyle(14,'TRUCKED!',d.x,d.y+1,'#ff5a36');comboLink('truck',c);bmHide();setSlow(.45,.22);shakeT=.25;bmLaunch(d);bmBigHit();bmCall('TRUCKED!',MVC.stiff);bmMove(c);   /* v3.07: launch arc, flash + hit-stop, callout */dust(d.x,d.y,12,1.3);sparks(d.x,d.y,6,'#ffd23a');ring(d.x,d.y,1.3);SND.fx('stiffHit');
+          cn('truckWin');/* v3.15 career count */c.slow=.12;c.shoveTo=F.t+.35;addStyle(14,'TRUCKED!',d.x,d.y+1,'#ff5a36');comboLink('truck',c);if(SND.pa)SND.pa('pa_truck','TRUCKED HIM!',0,1);bmHide();setSlow(.45,.22);shakeT=.25;bmLaunch(d);bmBigHit();bmCall('TRUCKED!',MVC.stiff);bmMove(c);   /* v3.07: launch arc, flash + hit-stop, callout */dust(d.x,d.y,12,1.3);sparks(d.x,d.y,6,'#ffd23a');ring(d.x,d.y,1.3);SND.fx('stiffHit');
         }else{popup('HIT THE GYM',c.x,c.y+1,'#aaa');bannerExtra='HIT THE GYM';tackle(c,d);return}   // v2.96: the reason goes on the result banner (the popup is cleared when the play ends)
       }
     }
   }
   if(c.inv>0){if(c.jk&&c.slipJ!==c.jk&&F.def.some(d=>!d.eng&&d.stun<=0&&dist(d,c)<1.2)){c.slipJ=c.jk;popup('SLIPPED HIM',c.x,c.y+1.5,'#b58cff')}return}   // v2.96: the juke made a tackler miss
   if(c.spinT>0&&c.spinHit){for(const d of F.def){if(d.eng||d.stun>0||d.fall||c.spinHit.has(d)||dist(d,c)>=1.2)continue;c.spinHit.add(d);   // v3.09 SPIN: one roll per defender who reaches him
-      if(Math.random()<spinOdds(c,d)){d.stun=.7;d.tk=1;d.dizzy=true;d.vx=d.vy=0;addStyle(9,'SPUN HIM!',c.x,c.y+1.5,MVC.spin);comboLink('spin',c);dust(d.x,d.y,8,1);if(!bmLite())sparks(d.x,d.y,8,'#7ff6ff');SND.fx('whiff');bmCall('SPIN!',MVC.spin,'#7ff6ff');bmMove(c);cn('spinWin')}}}
+      if(Math.random()<spinOdds(c,d)){d.stun=.7;d.tk=1;d.dizzy=true;d.vx=d.vy=0;addStyle(9,'SPUN HIM!',c.x,c.y+1.5,MVC.spin);comboLink('spin',c);if(SND.pa)SND.pa('pa_spin','SPIN MOVE!',0,1);dust(d.x,d.y,8,1);if(!bmLite())sparks(d.x,d.y,8,'#7ff6ff');SND.fx('whiff');bmCall('SPIN!',MVC.spin,'#7ff6ff');bmMove(c);cn('spinWin')}}}
   const near=F.def.filter(d=>!d.eng&&d.stun<=0&&dist(d,c)<1.2&&!(c.armHit&&c.armHit.has(d)));
   if(!near.length)return;
   const d=near[0];
@@ -1633,7 +1635,7 @@ function contacts(dt){
   if(d.tk>0)return;
   const p=tackleOdds(c,d);
   if(Math.random()<p)tackle(c,d);
-  else{const _dx=d.x-c.x,_dy=d.y-c.y,_dm=Math.hypot(_dx,_dy)||1;d.sv={x:(_dx/_dm)*5.2+(c.vx||0)*.25,y:(_dy/_dm)*5.2+(c.vy||0)*.25};d.stun=.55;d.tk=.9;c.slow=.22;cn('brk');addStyle(5,'BROKEN TACKLE!',c.x,c.y+1,'#7be07b');bmSay('BROKEN TACKLE!','#7be07b');dust(d.x,d.y,7,.9);SND.fx('whiff')}
+  else{const _dx=d.x-c.x,_dy=d.y-c.y,_dm=Math.hypot(_dx,_dy)||1;d.sv={x:(_dx/_dm)*5.2+(c.vx||0)*.25,y:(_dy/_dm)*5.2+(c.vy||0)*.25};d.stun=.55;d.tk=.9;c.slow=.22;cn('brk');addStyle(5,'BROKEN TACKLE!',c.x,c.y+1,'#7be07b');bmSay('BROKEN TACKLE!','#7be07b');if(SND.pa)SND.pa('pa_break','BROKEN TACKLE!',0,1);dust(d.x,d.y,7,.9);SND.fx('whiff')}
 }
 /* One defender against the ball carrier: ratings, then the angle of the hit and how fast the two are moving. */
 function tackleOdds(c,d){
@@ -1712,7 +1714,7 @@ function resolveCatch(){
   else if(!scr&&!b.bullet){if(b.len>=18||tg.x<4||tg.x>FW-4)pc=Math.min(.97,pc+.08)}
   if(!scr&&_csC.bait&&Math.abs(tg.x-CX)<6&&dd<2.2)pc=Math.max(.32,pc-.06);
   
-  if(Math.random()<pc){catchBall(r);if(dd<1.5)addStyle(12,'DIVING CATCH!',r.x,r.y+1.5,'#4dd0e1');else popup('CATCH',r.x,r.y+1.5,'#fff');SND.fx('catch');tdCatch(r,tg)}
+  if(Math.random()<pc){catchBall(r);if(dd<1.5){addStyle(12,'DIVING CATCH!',r.x,r.y+1.5,'#4dd0e1');if(SND.pa)SND.pa('pa_catch','WHAT A CATCH!',0,1)}else{popup('CATCH',r.x,r.y+1.5,'#fff');if(b.len>=22&&SND.pa)SND.pa('pa_catch','WHAT A CATCH!',0,1)}SND.fx('catch');tdCatch(r,tg)}
   else if(!scr&&dd<1.7&&Math.random()<clamp(.10+(dcov-r.d.hnd)/280,.03,.22))endPlay('int',{x:tg.x,y:tg.y});
   else endPlay('inc',{why:_tipped?'TIPPED IN LANE':(dd<1.7?'BROKEN UP':'DROPPED')});
 }
@@ -1780,7 +1782,7 @@ function endPlay(type,ex){
 
   if(type==='tackle'&&c.role==='QB'&&F.passer===c&&spot<F.los-.4&&SND.pa)SND.pa('pa_sack','SACKED!');
   if(type==='int'||type==='fumble')haptic('warning');   // v3.16EE1
-  {const gn=Math.round(spot-F.los);if((type==='tackle'||type==='oob'||type==='td')&&!F.spUsed){let nm=null,pt=0;if(type==='td'&&gn>=40){nm='HOUSE CALL!';pt=25}else if(gn>=30){nm='HIGHLIGHT REEL!';pt=20}else if(type!=='td'&&S2c(gn)){nm='MOVIN\' THE STICKS!';pt=6}if(nm){G.style+=pt;if(type==='td')bannerExtra=nm;else{bannerExtra='';bmCall(nm,'#ffd23a');stylePts(pt)}}}}   // v3.16W2: named big plays
+  {const gn=Math.round(spot-F.los);if((type==='tackle'||type==='oob'||type==='td')&&!F.spUsed){let nm=null,pt=0;if(type==='td'&&gn>=40){nm='HOUSE CALL!';pt=25;if(SND.pa)SND.pa('pa_house','HOUSE CALL!',.12)}else if(gn>=30){nm='HIGHLIGHT REEL!';pt=20}else if(type!=='td'&&S2c(gn)){nm='MOVIN\' THE STICKS!';pt=6}if(nm){G.style+=pt;if(type==='td')bannerExtra=nm;else{bannerExtra='';bmCall(nm,'#ffd23a');stylePts(pt)}}}}   // v3.16W2: named big plays
   if(window.SG&&window.SG.onEnd)window.SG.onEnd(type,spot-F.los,PLAY.id,G.call);
   try{csPlay(c,type,Math.round(spot-F.los))}catch(e){try{console.error(e)}catch(_){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",_)}}   // v3.15 career stats + goals (no dice)
   popups.length=0;
@@ -1824,6 +1826,7 @@ function afterScore(td){spNewDrive();G.dvRes=G.dvRes||'td';
 }
 function turnover(spot,downs){spNewDrive();G.dvRes=G.dvRes||(downs?'downs':'turnover');
   G.mode='dead';
+  if(downs&&SND.pa)SND.pa('pa_downs','TURNOVER ON DOWNS!');
   say(downs?'TURNOVER ON DOWNS':'THEY GET THE BALL','',1200,()=>oppDrive(clamp(100-spot,1,99)));
 }
 /* DEFENSE: one rating, "DEFENSE", built from the offense stats (speed = coverage, strength = tackling, blocking = DL moves), so upgrading the offense lifts the defense too. */
@@ -1943,7 +1946,7 @@ function endGame(win){achClear();endStyleShow();
   XLOG.games.push({res:win?'WIN':'LOSS',score:G.you+'-'+G.opp,plays:G.pn||0,secs:Math.round((performance.now()-(G.t0||performance.now()))/1000)});glog('=== GAME OVER: '+(win?'WIN':'LOSS')+' '+G.you+'-'+G.opp+' vs '+(G.crew&&G.crew.name)+' ===');
   SND.fx(win?'win':'lose');
   {const s=stt();s.games++;if(win)s.wins++;if(G.guide){SAVE.tutDone=1;G.guide=false;gdHide()}persist()}   // v3.00: the guided first game happens once
-  G.mode='end';const c=G.crew;const hud=$('#hud');if(hud&&c&&!c.pickup&&!c.r2){hud.hidden=false;hud.classList.add('ui-end-render-only');hud.setAttribute('aria-hidden','true');hud.inert=true}else show('#hud',false);show('#sheet',false);show('#fourth',false);show('#ctl',false);show('#setbar',false);
+  G.mode='end';const c=G.crew;const hud=$('#hud');if(hud){hud.classList.remove('ui-end-render-only');hud.removeAttribute('aria-hidden');hud.inert=false}show('#hud',false);show('#sheet',false);show('#fourth',false);show('#ctl',false);show('#setbar',false);
   if(c&&c.r2){r2End(win,c);return}
   if(c&&c.pickup){   // route encounter: never touches SAVE.beaten, SAVE.rm, team stats or the crew counter
     SAVE.route=SAVE.route||{};
@@ -2410,9 +2413,15 @@ function kbStick(dt){
 /* Landscape for the football game only: when a match is on and the phone is held sideways, the app fills the whole screen width and the camera switches to its landscape settings. Held upright it asks you to turn the phone (with a way to keep playing upright). */
 let rotSkip=false;
 function syncLand(){
-  const inMatch=!OWON&&!$('#hud').hidden,wide=innerWidth>innerHeight,want=(inMatch||!$('#squad').hidden)&&wide;
+  const hud=$('#hud'),inMatch=!OWON&&hud&&!hud.hidden&&typeof G!=='undefined'&&G&&G.mode!=='end';
+  const inDrill=!!(typeof G!=='undefined'&&G&&G.drill);
+  const wide=innerWidth>innerHeight,want=(inMatch||inDrill)&&wide;
   if(want!==LAND){LAND=want;document.body.classList.toggle('land',want);resize()}
-  const need=(inMatch||!!(typeof G!=='undefined'&&G&&G.drill))&&!wide&&!window.__noRot;if(need!==syncLand.n){syncLand.n=need;$('#rotMsg').hidden=!need}
+  const needLand=(inMatch||inDrill)&&!wide&&!window.__noRot;
+  if(needLand!==syncLand.n){syncLand.n=needLand;const rm=$('#rotMsg');if(rm)rm.hidden=!needLand}
+  const isPhone=Math.min(innerWidth,innerHeight)<600&&(navigator.maxTouchPoints>0||(window.matchMedia&&matchMedia('(pointer: coarse)').matches));
+  const needPort=isPhone&&!inMatch&&!inDrill&&wide&&!window.__noRot;
+  if(needPort!==syncLand.p){syncLand.p=needPort;const rp=$('#rotPortMsg');if(rp)rp.hidden=!needPort}
 }
 let RESI=0;const RES=[{n:'HIGH',d:2},{n:'MEDIUM',d:1.5},{n:'LOW',d:1},{n:'SHARP',d:2.5}];try{const v=+localStorage.getItem('sg_res');if(v>=0&&v<RES.length)RESI=v}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}
 function resize(){const r=$('#app').getBoundingClientRect();W=r.width;H=r.height;try{ART.hp=CAMCFGL.artHp}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}   // sprites grow a little in a short window (Claude's viewer) so they stay about 53 px tall
@@ -4527,12 +4536,12 @@ const BAKE_BUDGET=2.5,BAKE_BUDGET_MENU=8,BAKE_BUDGET_SNAP=20,BAKE_COOLDOWN=700,B
 function bakeOK(){if(window.__fb)return true;if(OWON||document.hidden)return false;if(startPlay._w>0)return true;const now=performance.now(),gm=G?G.mode:'';if(ART._gm!==gm){ART._gm=gm;ART._gmT=now}
   const h=document.getElementById('hud');if(h&&!h.hidden&&G){if(G.mode==='intro')return true;if(G.mode!=='playcall'&&G.mode!=='set')return false;return now-ART._gmT>BAKE_COOLDOWN}return now-(ART._gmT||0)>BAKE_COOLDOWN}
 function bkMenu(){const hh=document.getElementById('hud');return !hh||hh.hidden||(G&&(G.mode==='playcall'||G.mode==='intro'||G.mode==='set'))||startPlay._w>0}   // nothing is moving on these screens: baking never waits for a slow frame there
-let _bakeScheduled=false;function kickBakePump(){if(_bakeScheduled||CG.bakeOff)return;_bakeScheduled=true;requestAnimationFrame(bakePump)}function bakePump(){_bakeScheduled=false;try{if(!CG.bakeOff)bakeBody()}catch(e){cgCatch(e,'sprite baking')}if(!CG.bakeOff&&ART&&ART.run&&(ART.run.jobs.length||ART.run.q.length))kickBakePump()}   // v2.90: a baking error no longer stops baking for good
+let _bakeScheduled=false;function kickBakePump(){if(_bakeScheduled||(typeof CG!=='undefined'&&CG.bakeOff))return;_bakeScheduled=true;requestAnimationFrame(bakePump)}function bakePump(){_bakeScheduled=false;try{if(typeof CG==='undefined'||!CG.bakeOff)bakeBody()}catch(e){if(typeof cgCatch==='function')cgCatch(e,'sprite baking')}if((typeof CG==='undefined'||!CG.bakeOff)&&ART&&ART.run&&(ART.run.jobs.length||ART.run.q.length))kickBakePump()}   // v2.90: a baking error no longer stops baking for good
 function bakeBody(){const R=ART.run,now=performance.now(),dt=now-(R._pl||now);R._pl=now;
   if((R.jobs.length||R.q.length)&&bakeOK()){if(dt<BAKE_SLOWFRAME||bkMenu()||(R._sk=(R._sk||0)+1)>12){R._sk=0;const t0=performance.now(),hh=document.getElementById('hud'),menu=!hh||hh.hidden||(G&&(G.mode==='playcall'||G.mode==='intro'||G.mode==='set'))||startPlay._w>0,bud=window.__fb?30:menu?(startPlay._w>0?BAKE_BUDGET_SNAP:BAKE_BUDGET_MENU):BAKE_BUDGET;let heavy=0;   // skip while frames are already slow; otherwise about 3 ms of baking per frame
     do{const j0=R.jobs[0];if(heavy&&!window.__fb&&!menu&&(R.jobs.length?j0.h:true))break;const j=R.jobs.shift(),tt=performance.now();if(j){if(j.h)heavy=1;try{j()}catch(e){R.fail++}(ART.jt=ART.jt||[]).push([j.n||'job',performance.now()-tt])}else if(R.q.length){heavy=1;const a=R.q.shift();R.qs.delete(a[3]);try{runBake(a[0],a[1],a[2])}catch(e){R.fail++}(ART.jt=ART.jt||[]).push(['start',performance.now()-tt])}}while((R.jobs.length||R.q.length)&&performance.now()-t0<bud)}}
   CG.bakeOk()}
-kickBakePump();
+requestAnimationFrame(kickBakePump);
 function runNeeded(){const runs=[],sr0=[],runs0=[],carry0=[],carry=[],thr=[],lz=[],sty=[],runsS=[],sty0=[],seen=new Set();if(!F||!F.all)return[];
   const add=(arr,pal,vk)=>{const k=pal.key+'|'+vk;if(seen.has(k))return;seen.add(k);arr.push([pal,vk])};
   for(const p of F.all){const pos=(p.d&&p.d.pos)||p.pos;if(pos==='OL'||pos==='DL'){const pl=artPal(uniFor(p),lookOf(p.d).skin,lookOf(p.d));add(runs,pl,'lrun');add(runs,pl,'lsR');add(runs,pl,'lfr');continue}const L=lookOf(p.d),pal=artPal(uniFor(p),L.skin,L);const cr=p.team==='O'&&(pos==='QB'||pos==='RB');add(cr?runs0:runsS,pal,'run');if(cr)add(sr0,pal,'sR');else add(runsS,pal,'sR');add(runs,pal,'fr');add(lz,pal,'frt');if(cr){add(carry0,pal,'sC');for(const v of['cL','cR','cFL','cFR','cFLo','cFRo'])add(carry,pal,v);for(const v of['cLn','cRn','sCn','yF0','yF1','yF2','yB0','yB1','yB2','yS0','yS1','yS2'])add(sty0,pal,v);for(const v of['sCt','cLt','cRt','cFLt','cFRt','cFLto','cFRto'])add(lz,pal,v)};if(p.team==='O'&&pos==='QB')for(const v of['hB','hS','tBM','tBL','tBR','tS'])add(thr,pal,v)}
@@ -6171,7 +6180,7 @@ const OWP=[
  {x:18,y:32,t:'vent',s:0},
  {x:2,y:33,t:'car',o:'h',col:'#ffb02e',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:3,y:33,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},
  {x:26,y:31,t:'car',o:'h',col:'#27e0ff',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:27,y:31,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},
- {x:10,y:34,t:'pole',s:1},{x:10,y:36,t:'vend',s:1,m:['A vending machine. Every slot says SOLD OUT in flickering kanji.']},{x:8,y:38,t:'bench',s:1},
+ {x:10,y:34,t:'pole',s:1},{x:10,y:36,t:'vend',s:1,m:['A vending machine. Every slot says SOLD OUT in flickering kanji.']},
  {x:21,y:34,t:'lamp',s:1},{x:21,y:36,t:'repair',s:1,m:['A repair stall piled with chrome limbs and flickering screens.','"Black-market parts? We just call them second-hand."']},
  {x:28,y:34,t:'crate',s:1},{x:29,y:34,t:'dump',s:1},
  {x:12,y:38,t:'cone',s:0},{x:18,y:38,t:'sign',s:1,m:['ROUTE 1  >>  HALE HARBOR','Gate closed. Only Netrunners-cleared runners pass.']},{x:19,y:38,t:'barrier',s:1}
@@ -9517,30 +9526,6 @@ function owShow(){SPR.clear();
   SND.setMode('ow');screens('#world');OWON=true;show('#hud',false);
   if(!SAVE.ow)SAVE.ow={map:'street',x:15,y:15,d:'u'};
   hbMigrate();   // v3.20bT: one-time move of an older Hale Harbor position onto the current map
-  if(window.CF_TEST&&SAVE.testR2!==1){   // TEST ONLY: put the save exactly where a normal player stands after Town 2: at the ferry dock
-    SAVE.testR2=1;SAVE.testT2=1;const fs=freshSave();
-    SAVE.starters=fs.starters;SAVE.bench=[];SAVE.stolen=[];SAVE.upPts=0;SAVE.t2=null;SAVE.r2=null;SAVE.swapped=[];
-    SAVE.beaten=['cats','kings','rollers','captain'];SAVE.rm={};SAVE.storyV=2;SAVE.story={card:1};SAVE.bag=1;
-    const ST=['spd','pow','hnd','blk','tkl','cov','thr','acc'];
-    const boost=cap=>{for(const q of [...Object.values(SAVE.starters),...(SAVE.bench||[])]){const isQ=q.pos==='QB';if(isQ&&q.acc===undefined)q.acc=Math.round(q.thr*.9);for(const k of ST){if((k==='thr'||k==='acc')&&!isQ)continue;if(q[k]!==undefined&&q[k]<cap)q[k]=Math.min(cap,q[k]+1)}}};
-    const spend=(pts,cap)=>{for(let guard=0;guard<120;guard++){let best=null,bo=999;for(const sl of SLOTS){const p=SAVE.starters[sl];if(p.star||p.special)continue;const w=POS_W[p.pos],ks=Object.keys(w).filter(k=>['spd','pow','hnd','blk','thr'].includes(k)).sort((a,b)=>w[b]-w[a]),kk=ks[0],c=upCost(p[kk]);if(p[kk]>=cap||c>pts)continue;const o=ovr(p);if(o<bo){bo=o;best=[p,kk,c]}}if(!best)break;best[0][best[1]]=Math.min(cap,best[0][best[1]]+2);pts-=best[2]}return pts};
-    const join=star=>{const slots=SLOTS.filter(k=>posOf(k)===star.pos);let weak=slots[0];for(const k of slots)if(ovr(SAVE.starters[k])<ovr(SAVE.starters[weak]))weak=k;const out=SAVE.starters[weak];acquire(star,weak);if(out)SAVE.bench.push(out)};
-    // Town 1: four first wins (+1 every stat each), Zero Day joins, points spent; the Spillway tests and tire
-    for(let w=0;w<4;w++)boost(UP_CAPS[0]);
-    join(CREWS.find(c=>c.captain).roster.find(p=>p.star));
-    SAVE.route={rats1:1,rats2:1,tire:1,span:1,zdBond:1,zdCatch:1,zdSeen:1};
-    let pts=spend(7+7+7+10+3+3+2,UP_CAPS[0]);
-    // Town 2: Bait Dogs, Longshoremen, Gantry Gang, Closers (+1 every stat each, cap 90; +5 +5 +6 +8 points), Riptide joins
-    for(let w=0;w<4;w++)boost(UP_CAPS[1]);
-    join(HB_CREWS[3].roster.find(p=>p.star));
-    pts=spend(pts+5+5+6+8,UP_CAPS[1]);
-    SAVE.beaten=SAVE.beaten.concat(['baitdogs','longshore','gantry','closers']);
-    SAVE.upPts=pts;SAVE.pw=['gloves','legs','anchor','beacon'];SAVE.pwSel=null;SAVE.arcWon=[1,2];SAVE.met=SAVE.met||[];
-    SAVE.t2={entered:true,homeVisited:true,starJoined:true,testRefSeen:true,fromY:24,harbormaster:{route1Best:null,bestScore:12,games:4,captains:1},arcadeHighScore:12};
-    SAVE.ow={map:'harbor',x:42,y:47,d:'d',gates:1};SAVE.hbMapV=HB_MAPV;persist()}
-  if(window.CF_TEST){SAVE.storyV=2;SAVE.story=SAVE.story||{card:1};SAVE.ow=SAVE.ow||{};SAVE.ow.gates=1}
-  if(window.CF_TEST&&(!SAVE.tRef||(SAVE.ow&&SAVE.ow.map==='hb_B02'))){SAVE.tRef=1;SAVE.ow={map:'street',x:15,y:14,d:'u',gates:1,ret:null};SAVE.hbMapV=HB_MAPV;persist()}
-  if(window.CF_TEST&&SAVE.tPlaza!==1){SAVE.tPlaza=1;SAVE.ow={map:'street',x:15,y:15,d:'u',gates:1,ret:null};SAVE.hbMapV=HB_MAPV;persist()}   // TEST ONLY: start in Vapor City Plaza
 
   owResize();
   const o=SAVE.ow,mp=(OWI[o.map]||HBI[o.map]||o.map==='street'||o.map==='spillway'||o.map==='harbor'||o.map==='island')?o.map:'street';

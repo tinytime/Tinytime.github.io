@@ -2,9 +2,15 @@
 /* Landscape for the football game only: when a match is on and the phone is held sideways, the app fills the whole screen width and the camera switches to its landscape settings. Held upright it asks you to turn the phone (with a way to keep playing upright). */
 let rotSkip=false;
 function syncLand(){
-  const inMatch=!OWON&&!$('#hud').hidden,wide=innerWidth>innerHeight,want=(inMatch||!$('#squad').hidden)&&wide;
+  const hud=$('#hud'),inMatch=!OWON&&hud&&!hud.hidden&&typeof G!=='undefined'&&G&&G.mode!=='end';
+  const inDrill=!!(typeof G!=='undefined'&&G&&G.drill);
+  const wide=innerWidth>innerHeight,want=(inMatch||inDrill)&&wide;
   if(want!==LAND){LAND=want;document.body.classList.toggle('land',want);resize()}
-  const need=(inMatch||!!(typeof G!=='undefined'&&G&&G.drill))&&!wide&&!window.__noRot;if(need!==syncLand.n){syncLand.n=need;$('#rotMsg').hidden=!need}
+  const needLand=(inMatch||inDrill)&&!wide&&!window.__noRot;
+  if(needLand!==syncLand.n){syncLand.n=needLand;const rm=$('#rotMsg');if(rm)rm.hidden=!needLand}
+  const isPhone=Math.min(innerWidth,innerHeight)<600&&(navigator.maxTouchPoints>0||(window.matchMedia&&matchMedia('(pointer: coarse)').matches));
+  const needPort=isPhone&&!inMatch&&!inDrill&&wide&&!window.__noRot;
+  if(needPort!==syncLand.p){syncLand.p=needPort;const rp=$('#rotPortMsg');if(rp)rp.hidden=!needPort}
 }
 let RESI=0;const RES=[{n:'HIGH',d:2},{n:'MEDIUM',d:1.5},{n:'LOW',d:1},{n:'SHARP',d:2.5}];try{const v=+localStorage.getItem('sg_res');if(v>=0&&v<RES.length)RESI=v}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}
 function resize(){const r=$('#app').getBoundingClientRect();W=r.width;H=r.height;try{ART.hp=CAMCFGL.artHp}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}   // sprites grow a little in a short window (Claude's viewer) so they stay about 53 px tall
@@ -2119,12 +2125,12 @@ const BAKE_BUDGET=2.5,BAKE_BUDGET_MENU=8,BAKE_BUDGET_SNAP=20,BAKE_COOLDOWN=700,B
 function bakeOK(){if(window.__fb)return true;if(OWON||document.hidden)return false;if(startPlay._w>0)return true;const now=performance.now(),gm=G?G.mode:'';if(ART._gm!==gm){ART._gm=gm;ART._gmT=now}
   const h=document.getElementById('hud');if(h&&!h.hidden&&G){if(G.mode==='intro')return true;if(G.mode!=='playcall'&&G.mode!=='set')return false;return now-ART._gmT>BAKE_COOLDOWN}return now-(ART._gmT||0)>BAKE_COOLDOWN}
 function bkMenu(){const hh=document.getElementById('hud');return !hh||hh.hidden||(G&&(G.mode==='playcall'||G.mode==='intro'||G.mode==='set'))||startPlay._w>0}   // nothing is moving on these screens: baking never waits for a slow frame there
-let _bakeScheduled=false;function kickBakePump(){if(_bakeScheduled||CG.bakeOff)return;_bakeScheduled=true;requestAnimationFrame(bakePump)}function bakePump(){_bakeScheduled=false;try{if(!CG.bakeOff)bakeBody()}catch(e){cgCatch(e,'sprite baking')}if(!CG.bakeOff&&ART&&ART.run&&(ART.run.jobs.length||ART.run.q.length))kickBakePump()}   // v2.90: a baking error no longer stops baking for good
+let _bakeScheduled=false;function kickBakePump(){if(_bakeScheduled||(typeof CG!=='undefined'&&CG.bakeOff))return;_bakeScheduled=true;requestAnimationFrame(bakePump)}function bakePump(){_bakeScheduled=false;try{if(typeof CG==='undefined'||!CG.bakeOff)bakeBody()}catch(e){if(typeof cgCatch==='function')cgCatch(e,'sprite baking')}if((typeof CG==='undefined'||!CG.bakeOff)&&ART&&ART.run&&(ART.run.jobs.length||ART.run.q.length))kickBakePump()}   // v2.90: a baking error no longer stops baking for good
 function bakeBody(){const R=ART.run,now=performance.now(),dt=now-(R._pl||now);R._pl=now;
   if((R.jobs.length||R.q.length)&&bakeOK()){if(dt<BAKE_SLOWFRAME||bkMenu()||(R._sk=(R._sk||0)+1)>12){R._sk=0;const t0=performance.now(),hh=document.getElementById('hud'),menu=!hh||hh.hidden||(G&&(G.mode==='playcall'||G.mode==='intro'||G.mode==='set'))||startPlay._w>0,bud=window.__fb?30:menu?(startPlay._w>0?BAKE_BUDGET_SNAP:BAKE_BUDGET_MENU):BAKE_BUDGET;let heavy=0;   // skip while frames are already slow; otherwise about 3 ms of baking per frame
     do{const j0=R.jobs[0];if(heavy&&!window.__fb&&!menu&&(R.jobs.length?j0.h:true))break;const j=R.jobs.shift(),tt=performance.now();if(j){if(j.h)heavy=1;try{j()}catch(e){R.fail++}(ART.jt=ART.jt||[]).push([j.n||'job',performance.now()-tt])}else if(R.q.length){heavy=1;const a=R.q.shift();R.qs.delete(a[3]);try{runBake(a[0],a[1],a[2])}catch(e){R.fail++}(ART.jt=ART.jt||[]).push(['start',performance.now()-tt])}}while((R.jobs.length||R.q.length)&&performance.now()-t0<bud)}}
   CG.bakeOk()}
-kickBakePump();
+requestAnimationFrame(kickBakePump);
 function runNeeded(){const runs=[],sr0=[],runs0=[],carry0=[],carry=[],thr=[],lz=[],sty=[],runsS=[],sty0=[],seen=new Set();if(!F||!F.all)return[];
   const add=(arr,pal,vk)=>{const k=pal.key+'|'+vk;if(seen.has(k))return;seen.add(k);arr.push([pal,vk])};
   for(const p of F.all){const pos=(p.d&&p.d.pos)||p.pos;if(pos==='OL'||pos==='DL'){const pl=artPal(uniFor(p),lookOf(p.d).skin,lookOf(p.d));add(runs,pl,'lrun');add(runs,pl,'lsR');add(runs,pl,'lfr');continue}const L=lookOf(p.d),pal=artPal(uniFor(p),L.skin,L);const cr=p.team==='O'&&(pos==='QB'||pos==='RB');add(cr?runs0:runsS,pal,'run');if(cr)add(sr0,pal,'sR');else add(runsS,pal,'sR');add(runs,pal,'fr');add(lz,pal,'frt');if(cr){add(carry0,pal,'sC');for(const v of['cL','cR','cFL','cFR','cFLo','cFRo'])add(carry,pal,v);for(const v of['cLn','cRn','sCn','yF0','yF1','yF2','yB0','yB1','yB2','yS0','yS1','yS2'])add(sty0,pal,v);for(const v of['sCt','cLt','cRt','cFLt','cFRt','cFLto','cFRto'])add(lz,pal,v)};if(p.team==='O'&&pos==='QB')for(const v of['hB','hS','tBM','tBL','tBR','tS'])add(thr,pal,v)}

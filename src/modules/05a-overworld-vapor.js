@@ -51,7 +51,7 @@ const OWP=[
  {x:18,y:32,t:'vent',s:0},
  {x:2,y:33,t:'car',o:'h',col:'#ffb02e',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:3,y:33,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},
  {x:26,y:31,t:'car',o:'h',col:'#27e0ff',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},{x:27,y:31,t:'none',s:1,m:['A parked hover-car, cold engine. The windows are fogged from the inside.']},
- {x:10,y:34,t:'pole',s:1},{x:10,y:36,t:'vend',s:1,m:['A vending machine. Every slot says SOLD OUT in flickering kanji.']},{x:8,y:38,t:'bench',s:1},
+ {x:10,y:34,t:'pole',s:1},{x:10,y:36,t:'vend',s:1,m:['A vending machine. Every slot says SOLD OUT in flickering kanji.']},
  {x:21,y:34,t:'lamp',s:1},{x:21,y:36,t:'repair',s:1,m:['A repair stall piled with chrome limbs and flickering screens.','"Black-market parts? We just call them second-hand."']},
  {x:28,y:34,t:'crate',s:1},{x:29,y:34,t:'dump',s:1},
  {x:12,y:38,t:'cone',s:0},{x:18,y:38,t:'sign',s:1,m:['ROUTE 1  >>  HALE HARBOR','Gate closed. Only Netrunners-cleared runners pass.']},{x:19,y:38,t:'barrier',s:1}

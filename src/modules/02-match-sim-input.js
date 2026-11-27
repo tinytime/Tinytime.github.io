@@ -91,12 +91,13 @@ function repRec(){if(!REPLAY.on||!F||!F.all)return;if(REP.F!==F){REP.F=F;REP.fr=
 function repApply(fr){for(const k in fr.F)F[k]=fr.F[k];if(fr.ball&&F.ball)Object.assign(F.ball,repCopy(fr.ball,0));F.all.forEach((p,i)=>{const s=fr.p[i];if(s)Object.assign(p,repCopy(s,0))})}
 function repStart(){if(!REP.big||!REP.F||REP.fr.length<20||REP.act||!G||G.mode!=='playcall')return;
   REP.act={F,mode:G.mode,clockOn:G.clockOn,i:0,now:REP.fr[REP.fr.length-1]};G.clockOn=false;show('#sheet',false);F=REP.F;F.mode='dead';G.mode='replay';show('#repTag',true);beep(600,.05);repApply(REP.fr[0])}
-function repStep(rdt){const a=REP.act;if(!a)return;a.i+=rdt*30*REPLAY.speed;const n=REP.fr.length;if(a.i>=n-1){repStop();return}repApply(REP.fr[Math.floor(a.i)])}
-function repStop(){const a=REP.act;if(!a)return;repApply(a.now);REP.act=null;F=a.F;G.mode=a.mode||'playcall';G.clockOn=a.clockOn;show('#repTag',false);if(a.retScreen){show('#hud',false);screens(a.retScreen)}else{show('#sheet',true)}bmHide&&bmHide()}
+function repStep(rdt){const a=REP.act;if(!a)return;a.i+=rdt*30*REPLAY.speed;const n=REP.fr.length;if(a.i>=n-1){repStop();return}const idx=Math.floor(a.i);repApply(REP.fr[idx]);F.t=(F.t||0)+rdt*REPLAY.speed;F.mode='live'}
+function repStop(){const a=REP.act;if(!a)return;repApply(a.now);REP.act=null;F=a.F;if(F)F.mode='dead';G.mode=a.mode||'playcall';G.clockOn=a.clockOn;show('#repTag',false);const hud=$('#hud');if(hud){hud.classList.remove('ui-end-render-only');hud.removeAttribute('aria-hidden');hud.inert=false}if(a.retScreen){show('#hud',false);screens(a.retScreen);if(typeof syncLand==='function')syncLand()}else{show('#sheet',true)}bmHide&&bmHide()}
 function repStartPOTG(retScreen){if(!POTG.fr||POTG.fr.length<20||!POTG.F||REP.act||!G)return;
   REP.F=POTG.F;REP.fr=POTG.fr;REP.big=true;
   REP.act={F,mode:G.mode,clockOn:false,retScreen,i:0,now:POTG.fr[POTG.fr.length-1]};
-  screens(null);show('#hud',true);F=POTG.F;F.mode='dead';G.mode='replay';show('#repTag',true);beep(680,.06);repApply(POTG.fr[0])}
+  const hud=$('#hud');if(hud){hud.classList.remove('ui-end-render-only');hud.removeAttribute('aria-hidden');hud.inert=false}
+  screens(null);show('#hud',true);F=POTG.F;F.mode='live';G.mode='replay';show('#repTag',true);if(typeof syncLand==='function')syncLand();beep(680,.06);repApply(POTG.fr[0])}
 function boxScoreHTML(){
   const ps=PLOG.slice(G&&typeof G.plog0==='number'?G.plog0:0);
   let pYds=0,rYds=0,comp=0,att=0,lng=0;
@@ -109,6 +110,7 @@ function boxScoreHTML(){
   return items.map(([k,v])=>'<div class="ui-bs-cell"><span>'+k+'</span><b>'+v+'</b></div>').join('');
 }
 function syncEndExtras(screenId){
+  if(typeof syncLand==='function')syncLand();
   const box=$(screenId==='#steal'?'#stBox':'#endBox'),btn=$(screenId==='#steal'?'#stPOTG':'#endPOTG');
   if(box){box.innerHTML=boxScoreHTML();box.hidden=false}
   if(btn){const ok=!!(REPLAY.on&&POTG.fr&&POTG.fr.length>=20);btn.hidden=!ok;if(ok){btn.textContent='▶ PLAY OF THE GAME ('+POTG.label+')';btn.onclick=e=>{e.stopPropagation();repStartPOTG(screenId)}}}
@@ -151,7 +153,7 @@ function updateGBBtn(){
 function activateStar(c){
   XLOG.star.push({k:'use',kind:'run',nm:lastNm(c.d.name),p:(G.pn||0)+1});F.spKind='run';
   F.gb=true;F.breaks=0;F.maxBreaks=c.d.special==='bulldozer'?3:1;F.spWait=false;F.spUsed=true;G.sp.ready=null;G.spArmed=false;
-  fxText('\u2605 STAR PLAY! \u2605','#ffd23a');flashT=.5}
+  fxText('\u2605 STAR PLAY! \u2605','#ffd23a');flashT=.5;if(SND.pa)SND.pa('pa_star','STAR PLAY!')}
 $('#gbBtn').onclick=()=>{if(G.sp.ready){G.spArmed=!G.spArmed;SND.fx('gbArm');updateGBBtn()}};
 $('#flipBtn').onclick=()=>{G.flip=!G.flip;beep(500,.05);setupField(true);F.mode='pre';G.mode='playcall';show('#sheet',true);show('#setbar',false);buildCards(true);$('#flipBtn').classList.toggle('on',G.flip)};
 function ddText(){const d=Math.max(1,Math.min(G.togo,100-G.los));return ORD[clamp(G.down,1,4)]+' & '+(100-G.los<=25&&G.togo>=100-G.los?'Goal':Math.ceil(d))}
@@ -168,8 +170,8 @@ $('#fourth').addEventListener('click',e=>{
   if(a==='go'){showSheet();return}
   if(a==='fg'){const d=100-G.los+17;const ok=Math.random()<clamp(1.5-d*.02,.15,.95);
     G.mode='dead';
-    if(ok){G.dvRes='fg';say('FIELD GOAL IS GOOD!','+3',1400,()=>{G.you+=3;afterScore(false)});beep(660,.2)}
-    else{G.dvRes='fg miss';say('NO GOOD!','Clanked off the pole',1500,()=>turnover(G.los))}
+    if(ok){G.dvRes='fg';if(SND.pa)SND.pa('pa_fg_good',"IT'S GOOD!",.18);say('FIELD GOAL IS GOOD!','+3',1400,()=>{G.you+=3;afterScore(false)});beep(660,.2)}
+    else{G.dvRes='fg miss';if(SND.pa)SND.pa('pa_fg_no','NO GOOD!',.18);say('NO GOOD!','Clanked off the pole',1500,()=>turnover(G.los))}
     try{window.CF3D&&CF3D.kkKick&&CF3D.kkKick(ok,ok?1400:1500)}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}}   // v3.29T: look only
   if(a==='punt'){G.dvRes='punt';G.mode='dead';const net=Math.round(rnd(30,44));let s=G.los+net;say('PUNT','Booms it '+net+' yards',1300,()=>{oppDrive(s>=100?20:100-s)});try{window.CF3D&&CF3D.kkKick&&CF3D.kkKick(true,1300,'punt')}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}}
 });
@@ -511,7 +513,7 @@ function doJuke(dirX,fromBuf){
       }
     }
   }
-  if(n){F.cn.ankle=(F.cn.ankle||0)+n;comboLink('juke',c);if(n>=2)popup('ANKLES GONE!',c.x,c.y+2.5,'#ff4fd8');/* v3.15 career count */c.slipJ=c.jk;addStyle(9*n,'ANKLE BREAKER!',c.x,c.y+1.5,'#b58cff');bmHide();shakeT=.18;setSlow(.55,.18);SND.fx('ankle');bmCall('ANKLE BREAKER!',MVC.juke);bmMove(c)}   // v3.07: screen-wide callout
+  if(n){F.cn.ankle=(F.cn.ankle||0)+n;comboLink('juke',c);if(SND.pa)SND.pa('pa_juke','WHAT A JUKE!',0,1);if(n>=2)popup('ANKLES GONE!',c.x,c.y+2.5,'#ff4fd8');/* v3.15 career count */c.slipJ=c.jk;addStyle(9*n,'ANKLE BREAKER!',c.x,c.y+1.5,'#b58cff');bmHide();shakeT=.18;setSlow(.55,.18);SND.fx('ankle');bmCall('ANKLE BREAKER!',MVC.juke);bmMove(c)}   // v3.07: screen-wide callout
   else{popup(tried?'TOO SLOW':'TOO EARLY',c.x,c.y+1.5,'#b58cff');bmSay(tried?'TOO SLOW':'TOO EARLY');whiff(c)}   // v2.96 (wording by the user): a juke nobody bites on = TOO SLOW; nobody close = TOO EARLY
 }
 /* v3.09 SPIN (swipe DOWN on the right side; user asked for it 2026-11-12). Costs 20 stamina, 0.9 s cooldown, the runner spins for 0.4 s and
@@ -555,7 +557,7 @@ function doHurdle(fromBuf){
   c.air={t:0,T:HURDLE.T,h:HURDLE.h};c.hurdle=true;SND.fx('juke');
   if(!d){popup('TOO EARLY',c.x,c.y+1.5,'#ffd23a');bmSay('TOO EARLY');whiff(c);return}
   const p=clamp(HURDLE.base+(c.d.spd-d.d.tkl)/HURDLE.spd+(F.gb?.25:0)+timingBonus(bd,.9,1.65),HURDLE.min,.92);
-  if(Math.random()<p){c.inv=HURDLE.T;d.stun=.6;d.tk=1;d.vx=d.vy=0;addStyle(10,'HURDLED!',c.x,c.y+1.5,'#ffd23a');comboLink('hurdle',c);bmCall('HURDLED!','#ffd23a');bmMove&&bmMove(c);dust(d.x,d.y,8,1);cn('hurdleWin')}
+  if(Math.random()<p){c.inv=HURDLE.T;d.stun=.6;d.tk=1;d.vx=d.vy=0;addStyle(10,'HURDLED!',c.x,c.y+1.5,'#ffd23a');comboLink('hurdle',c);if(SND.pa)SND.pa('pa_hurdle','OVER THE TOP!',0,1);bmCall('HURDLED!','#ffd23a');bmMove&&bmMove(c);dust(d.x,d.y,8,1);cn('hurdleWin')}
   else{c.air=null;c.hurdle=false;popup('CLIPPED',c.x,c.y+1.5,'#ffd23a');tackle(c,d)}
 }
 function whiff(c){if(c&&c===F.carrier&&MOVE_REFUND>0&&F.lastSpend){F.turbo+=F.lastSpend*MOVE_REFUND;F.lastSpend=0}if(!POSES||!c)return;c.whiffTo=F.t+.35;dust(c.x,c.y,4,.6)}   // v3.16BB2: a failed move looks like one
@@ -853,14 +855,14 @@ function contacts(dt){
           const side=Math.sign(dx*-Math.sin(c.h)+dy*Math.cos(c.h))||1;
           const nx=-Math.sin(c.h)*side,ny=Math.cos(c.h)*side;
           ragdoll(d,nx*8+Math.cos(c.h)*2,ny*8+Math.sin(c.h)*2,side*-10,1.6);
-          cn('truckWin');/* v3.15 career count */c.slow=.12;c.shoveTo=F.t+.35;addStyle(14,'TRUCKED!',d.x,d.y+1,'#ff5a36');comboLink('truck',c);bmHide();setSlow(.45,.22);shakeT=.25;bmLaunch(d);bmBigHit();bmCall('TRUCKED!',MVC.stiff);bmMove(c);   /* v3.07: launch arc, flash + hit-stop, callout */dust(d.x,d.y,12,1.3);sparks(d.x,d.y,6,'#ffd23a');ring(d.x,d.y,1.3);SND.fx('stiffHit');
+          cn('truckWin');/* v3.15 career count */c.slow=.12;c.shoveTo=F.t+.35;addStyle(14,'TRUCKED!',d.x,d.y+1,'#ff5a36');comboLink('truck',c);if(SND.pa)SND.pa('pa_truck','TRUCKED HIM!',0,1);bmHide();setSlow(.45,.22);shakeT=.25;bmLaunch(d);bmBigHit();bmCall('TRUCKED!',MVC.stiff);bmMove(c);   /* v3.07: launch arc, flash + hit-stop, callout */dust(d.x,d.y,12,1.3);sparks(d.x,d.y,6,'#ffd23a');ring(d.x,d.y,1.3);SND.fx('stiffHit');
         }else{popup('HIT THE GYM',c.x,c.y+1,'#aaa');bannerExtra='HIT THE GYM';tackle(c,d);return}   // v2.96: the reason goes on the result banner (the popup is cleared when the play ends)
       }
     }
   }
   if(c.inv>0){if(c.jk&&c.slipJ!==c.jk&&F.def.some(d=>!d.eng&&d.stun<=0&&dist(d,c)<1.2)){c.slipJ=c.jk;popup('SLIPPED HIM',c.x,c.y+1.5,'#b58cff')}return}   // v2.96: the juke made a tackler miss
   if(c.spinT>0&&c.spinHit){for(const d of F.def){if(d.eng||d.stun>0||d.fall||c.spinHit.has(d)||dist(d,c)>=1.2)continue;c.spinHit.add(d);   // v3.09 SPIN: one roll per defender who reaches him
-      if(Math.random()<spinOdds(c,d)){d.stun=.7;d.tk=1;d.dizzy=true;d.vx=d.vy=0;addStyle(9,'SPUN HIM!',c.x,c.y+1.5,MVC.spin);comboLink('spin',c);dust(d.x,d.y,8,1);if(!bmLite())sparks(d.x,d.y,8,'#7ff6ff');SND.fx('whiff');bmCall('SPIN!',MVC.spin,'#7ff6ff');bmMove(c);cn('spinWin')}}}
+      if(Math.random()<spinOdds(c,d)){d.stun=.7;d.tk=1;d.dizzy=true;d.vx=d.vy=0;addStyle(9,'SPUN HIM!',c.x,c.y+1.5,MVC.spin);comboLink('spin',c);if(SND.pa)SND.pa('pa_spin','SPIN MOVE!',0,1);dust(d.x,d.y,8,1);if(!bmLite())sparks(d.x,d.y,8,'#7ff6ff');SND.fx('whiff');bmCall('SPIN!',MVC.spin,'#7ff6ff');bmMove(c);cn('spinWin')}}}
   const near=F.def.filter(d=>!d.eng&&d.stun<=0&&dist(d,c)<1.2&&!(c.armHit&&c.armHit.has(d)));
   if(!near.length)return;
   const d=near[0];
@@ -876,7 +878,7 @@ function contacts(dt){
   if(d.tk>0)return;
   const p=tackleOdds(c,d);
   if(Math.random()<p)tackle(c,d);
-  else{const _dx=d.x-c.x,_dy=d.y-c.y,_dm=Math.hypot(_dx,_dy)||1;d.sv={x:(_dx/_dm)*5.2+(c.vx||0)*.25,y:(_dy/_dm)*5.2+(c.vy||0)*.25};d.stun=.55;d.tk=.9;c.slow=.22;cn('brk');addStyle(5,'BROKEN TACKLE!',c.x,c.y+1,'#7be07b');bmSay('BROKEN TACKLE!','#7be07b');dust(d.x,d.y,7,.9);SND.fx('whiff')}
+  else{const _dx=d.x-c.x,_dy=d.y-c.y,_dm=Math.hypot(_dx,_dy)||1;d.sv={x:(_dx/_dm)*5.2+(c.vx||0)*.25,y:(_dy/_dm)*5.2+(c.vy||0)*.25};d.stun=.55;d.tk=.9;c.slow=.22;cn('brk');addStyle(5,'BROKEN TACKLE!',c.x,c.y+1,'#7be07b');bmSay('BROKEN TACKLE!','#7be07b');if(SND.pa)SND.pa('pa_break','BROKEN TACKLE!',0,1);dust(d.x,d.y,7,.9);SND.fx('whiff')}
 }
 /* One defender against the ball carrier: ratings, then the angle of the hit and how fast the two are moving. */
 function tackleOdds(c,d){
@@ -955,7 +957,7 @@ function resolveCatch(){
   else if(!scr&&!b.bullet){if(b.len>=18||tg.x<4||tg.x>FW-4)pc=Math.min(.97,pc+.08)}
   if(!scr&&_csC.bait&&Math.abs(tg.x-CX)<6&&dd<2.2)pc=Math.max(.32,pc-.06);
   
-  if(Math.random()<pc){catchBall(r);if(dd<1.5)addStyle(12,'DIVING CATCH!',r.x,r.y+1.5,'#4dd0e1');else popup('CATCH',r.x,r.y+1.5,'#fff');SND.fx('catch');tdCatch(r,tg)}
+  if(Math.random()<pc){catchBall(r);if(dd<1.5){addStyle(12,'DIVING CATCH!',r.x,r.y+1.5,'#4dd0e1');if(SND.pa)SND.pa('pa_catch','WHAT A CATCH!',0,1)}else{popup('CATCH',r.x,r.y+1.5,'#fff');if(b.len>=22&&SND.pa)SND.pa('pa_catch','WHAT A CATCH!',0,1)}SND.fx('catch');tdCatch(r,tg)}
   else if(!scr&&dd<1.7&&Math.random()<clamp(.10+(dcov-r.d.hnd)/280,.03,.22))endPlay('int',{x:tg.x,y:tg.y});
   else endPlay('inc',{why:_tipped?'TIPPED IN LANE':(dd<1.7?'BROKEN UP':'DROPPED')});
 }
@@ -1023,7 +1025,7 @@ function endPlay(type,ex){
 
   if(type==='tackle'&&c.role==='QB'&&F.passer===c&&spot<F.los-.4&&SND.pa)SND.pa('pa_sack','SACKED!');
   if(type==='int'||type==='fumble')haptic('warning');   // v3.16EE1
-  {const gn=Math.round(spot-F.los);if((type==='tackle'||type==='oob'||type==='td')&&!F.spUsed){let nm=null,pt=0;if(type==='td'&&gn>=40){nm='HOUSE CALL!';pt=25}else if(gn>=30){nm='HIGHLIGHT REEL!';pt=20}else if(type!=='td'&&S2c(gn)){nm='MOVIN\' THE STICKS!';pt=6}if(nm){G.style+=pt;if(type==='td')bannerExtra=nm;else{bannerExtra='';bmCall(nm,'#ffd23a');stylePts(pt)}}}}   // v3.16W2: named big plays
+  {const gn=Math.round(spot-F.los);if((type==='tackle'||type==='oob'||type==='td')&&!F.spUsed){let nm=null,pt=0;if(type==='td'&&gn>=40){nm='HOUSE CALL!';pt=25;if(SND.pa)SND.pa('pa_house','HOUSE CALL!',.12)}else if(gn>=30){nm='HIGHLIGHT REEL!';pt=20}else if(type!=='td'&&S2c(gn)){nm='MOVIN\' THE STICKS!';pt=6}if(nm){G.style+=pt;if(type==='td')bannerExtra=nm;else{bannerExtra='';bmCall(nm,'#ffd23a');stylePts(pt)}}}}   // v3.16W2: named big plays
   if(window.SG&&window.SG.onEnd)window.SG.onEnd(type,spot-F.los,PLAY.id,G.call);
   try{csPlay(c,type,Math.round(spot-F.los))}catch(e){try{console.error(e)}catch(_){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",_)}}   // v3.15 career stats + goals (no dice)
   popups.length=0;
@@ -1067,6 +1069,7 @@ function afterScore(td){spNewDrive();G.dvRes=G.dvRes||'td';
 }
 function turnover(spot,downs){spNewDrive();G.dvRes=G.dvRes||(downs?'downs':'turnover');
   G.mode='dead';
+  if(downs&&SND.pa)SND.pa('pa_downs','TURNOVER ON DOWNS!');
   say(downs?'TURNOVER ON DOWNS':'THEY GET THE BALL','',1200,()=>oppDrive(clamp(100-spot,1,99)));
 }
 /* DEFENSE: one rating, "DEFENSE", built from the offense stats (speed = coverage, strength = tackling, blocking = DL moves), so upgrading the offense lifts the defense too. */
@@ -1186,7 +1189,7 @@ function endGame(win){achClear();endStyleShow();
   XLOG.games.push({res:win?'WIN':'LOSS',score:G.you+'-'+G.opp,plays:G.pn||0,secs:Math.round((performance.now()-(G.t0||performance.now()))/1000)});glog('=== GAME OVER: '+(win?'WIN':'LOSS')+' '+G.you+'-'+G.opp+' vs '+(G.crew&&G.crew.name)+' ===');
   SND.fx(win?'win':'lose');
   {const s=stt();s.games++;if(win)s.wins++;if(G.guide){SAVE.tutDone=1;G.guide=false;gdHide()}persist()}   // v3.00: the guided first game happens once
-  G.mode='end';const c=G.crew;const hud=$('#hud');if(hud&&c&&!c.pickup&&!c.r2){hud.hidden=false;hud.classList.add('ui-end-render-only');hud.setAttribute('aria-hidden','true');hud.inert=true}else show('#hud',false);show('#sheet',false);show('#fourth',false);show('#ctl',false);show('#setbar',false);
+  G.mode='end';const c=G.crew;const hud=$('#hud');if(hud){hud.classList.remove('ui-end-render-only');hud.removeAttribute('aria-hidden');hud.inert=false}show('#hud',false);show('#sheet',false);show('#fourth',false);show('#ctl',false);show('#setbar',false);
   if(c&&c.r2){r2End(win,c);return}
   if(c&&c.pickup){   // route encounter: never touches SAVE.beaten, SAVE.rm, team stats or the crew counter
     SAVE.route=SAVE.route||{};

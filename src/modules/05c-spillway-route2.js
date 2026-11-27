@@ -1225,30 +1225,6 @@ function owShow(){SPR.clear();
   SND.setMode('ow');screens('#world');OWON=true;show('#hud',false);
   if(!SAVE.ow)SAVE.ow={map:'street',x:15,y:15,d:'u'};
   hbMigrate();   // v3.20bT: one-time move of an older Hale Harbor position onto the current map
-  if(window.CF_TEST&&SAVE.testR2!==1){   // TEST ONLY: put the save exactly where a normal player stands after Town 2: at the ferry dock
-    SAVE.testR2=1;SAVE.testT2=1;const fs=freshSave();
-    SAVE.starters=fs.starters;SAVE.bench=[];SAVE.stolen=[];SAVE.upPts=0;SAVE.t2=null;SAVE.r2=null;SAVE.swapped=[];
-    SAVE.beaten=['cats','kings','rollers','captain'];SAVE.rm={};SAVE.storyV=2;SAVE.story={card:1};SAVE.bag=1;
-    const ST=['spd','pow','hnd','blk','tkl','cov','thr','acc'];
-    const boost=cap=>{for(const q of [...Object.values(SAVE.starters),...(SAVE.bench||[])]){const isQ=q.pos==='QB';if(isQ&&q.acc===undefined)q.acc=Math.round(q.thr*.9);for(const k of ST){if((k==='thr'||k==='acc')&&!isQ)continue;if(q[k]!==undefined&&q[k]<cap)q[k]=Math.min(cap,q[k]+1)}}};
-    const spend=(pts,cap)=>{for(let guard=0;guard<120;guard++){let best=null,bo=999;for(const sl of SLOTS){const p=SAVE.starters[sl];if(p.star||p.special)continue;const w=POS_W[p.pos],ks=Object.keys(w).filter(k=>['spd','pow','hnd','blk','thr'].includes(k)).sort((a,b)=>w[b]-w[a]),kk=ks[0],c=upCost(p[kk]);if(p[kk]>=cap||c>pts)continue;const o=ovr(p);if(o<bo){bo=o;best=[p,kk,c]}}if(!best)break;best[0][best[1]]=Math.min(cap,best[0][best[1]]+2);pts-=best[2]}return pts};
-    const join=star=>{const slots=SLOTS.filter(k=>posOf(k)===star.pos);let weak=slots[0];for(const k of slots)if(ovr(SAVE.starters[k])<ovr(SAVE.starters[weak]))weak=k;const out=SAVE.starters[weak];acquire(star,weak);if(out)SAVE.bench.push(out)};
-    // Town 1: four first wins (+1 every stat each), Zero Day joins, points spent; the Spillway tests and tire
-    for(let w=0;w<4;w++)boost(UP_CAPS[0]);
-    join(CREWS.find(c=>c.captain).roster.find(p=>p.star));
-    SAVE.route={rats1:1,rats2:1,tire:1,span:1,zdBond:1,zdCatch:1,zdSeen:1};
-    let pts=spend(7+7+7+10+3+3+2,UP_CAPS[0]);
-    // Town 2: Bait Dogs, Longshoremen, Gantry Gang, Closers (+1 every stat each, cap 90; +5 +5 +6 +8 points), Riptide joins
-    for(let w=0;w<4;w++)boost(UP_CAPS[1]);
-    join(HB_CREWS[3].roster.find(p=>p.star));
-    pts=spend(pts+5+5+6+8,UP_CAPS[1]);
-    SAVE.beaten=SAVE.beaten.concat(['baitdogs','longshore','gantry','closers']);
-    SAVE.upPts=pts;SAVE.pw=['gloves','legs','anchor','beacon'];SAVE.pwSel=null;SAVE.arcWon=[1,2];SAVE.met=SAVE.met||[];
-    SAVE.t2={entered:true,homeVisited:true,starJoined:true,testRefSeen:true,fromY:24,harbormaster:{route1Best:null,bestScore:12,games:4,captains:1},arcadeHighScore:12};
-    SAVE.ow={map:'harbor',x:42,y:47,d:'d',gates:1};SAVE.hbMapV=HB_MAPV;persist()}
-  if(window.CF_TEST){SAVE.storyV=2;SAVE.story=SAVE.story||{card:1};SAVE.ow=SAVE.ow||{};SAVE.ow.gates=1}
-  if(window.CF_TEST&&(!SAVE.tRef||(SAVE.ow&&SAVE.ow.map==='hb_B02'))){SAVE.tRef=1;SAVE.ow={map:'street',x:15,y:14,d:'u',gates:1,ret:null};SAVE.hbMapV=HB_MAPV;persist()}
-  if(window.CF_TEST&&SAVE.tPlaza!==1){SAVE.tPlaza=1;SAVE.ow={map:'street',x:15,y:15,d:'u',gates:1,ret:null};SAVE.hbMapV=HB_MAPV;persist()}   // TEST ONLY: start in Vapor City Plaza
 
   owResize();
   const o=SAVE.ow,mp=(OWI[o.map]||HBI[o.map]||o.map==='street'||o.map==='spillway'||o.map==='harbor'||o.map==='island')?o.map:'street';

@@ -130,6 +130,7 @@
    };
    placeTrail();
    if(window.onUI)window.onUI('ui:sync',placeTrail)
+   const saveRow=byId('tBack')?.closest('.btnrow');if(saveRow)team.appendChild(saveRow);
    activate('identity');
   };
   const initTeamHeader=()=>{
@@ -144,6 +145,7 @@
    if(window.onUI){window.onUI('hud:update',sync);window.onUI('ui:sync',sync)}
   };
   const teamTile=byId('mTeam');if(teamTile)teamTile.addEventListener('click',()=>requestAnimationFrame(()=>{initTeamHeader();initTeamTabs()}));
+  if(window.onUI)window.onUI('ui:sync',()=>{const tm=byId('team');if(tm&&!tm.hidden){initTeamHeader();initTeamTabs()}});
   const installSquadPresentation=()=>{
    const body=document.getElementById('sqBody');if(!body||body.dataset.uiSquadPresentation==='1')return;
    body.dataset.uiSquadPresentation='1';
@@ -155,24 +157,7 @@
      const label=button.textContent.trim();
      if(/^\+2\s*[·•]\s*\d+$/.test(label))button.textContent=label+'P';
     });
-    const edit=[...current.querySelectorAll('button')].find(button=>button.textContent.trim()==='EDIT GEAR & TRAILS');
-    if(!edit)return;
-    processing=true;
-    edit.click();
-    const gearBody=document.getElementById('sqBody');
-    const back=[...gearBody.querySelectorAll('button')].find(button=>button.textContent.trim()==='BACK TO STYLE');
-    if(back){
-     const gearNodes=[...gearBody.children].filter(node=>node!==back);
-     back.click();
-     const styleBody=document.getElementById('sqBody');
-     const oldEdit=[...styleBody.querySelectorAll('button')].find(button=>button.textContent.trim()==='EDIT GEAR & TRAILS');
-     if(oldEdit)oldEdit.remove();
-     const group=document.createElement('section');group.className='ui-squad-inline-gear';group.setAttribute('aria-label','Visor and arm sleeve customization');
-     gearNodes.forEach(node=>group.appendChild(node));
-     const numberRow=styleBody.querySelector('.numrow');
-     if(numberRow)numberRow.after(group);else styleBody.appendChild(group);
-    }
-    processing=false;
+    current.querySelectorAll('.ui-squad-inline-gear').forEach(el=>el.remove());
    };
    const schedule=()=>{if(queued||processing)return;queued=true;requestAnimationFrame(process)};
    if(window.onUI)window.onUI('ui:sync',schedule);

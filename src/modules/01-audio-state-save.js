@@ -48,7 +48,7 @@ const SND=(()=>{
     n.gain.setValueAtTime(.0001,t);n.gain.exponentialRampToValueAtTime(Math.max(.0002,g),t+.01);n.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(n);n.connect(bus||sfxB);o.start(t);o.stop(t+d+.03)}
   let activeVoices=0,duckUntil=0,duckTarget=1;const MAX_VOICES=18;
   function duckMusic(lv,hold){if(!ac||!musB)return;const n=T();duckTarget=Math.min(duckTarget,lv==null?.32:lv);duckUntil=Math.max(duckUntil,n+(hold||.55));musB.gain.setTargetAtTime(cfg().mus?.85*dk*duckTarget:0,n,.03)}
-  let paSrc=null;function playPA(k,cap,delay){if(cap&&window.A11Y)window.A11Y.caption(cap);if(!ac||!cfg().sfx||!vis)return;const b=B[k];if(!b)return;try{if(paSrc){paSrc.onended=null;paSrc.stop();paSrc=null}}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn('pa',e)}duckMusic(.24,1.15);const s=ac.createBufferSource(),g=ac.createGain();s.buffer=b;s.playbackRate.value=1;g.gain.value=1.05;s.connect(g);g.connect(sfxB);paSrc=s;s.onended=()=>{if(paSrc===s)paSrc=null};if(k==='pa_sack'&&B._cGroan)_playBuf(B._cGroan,.45,0);s.start(T()+(delay||0))}
+  let paSrc=null,paMoveT=0;function playPA(k,cap,delay,soft){if(soft&&performance.now()-paMoveT<1350)return;if(soft)paMoveT=performance.now();if(cap&&window.A11Y)window.A11Y.caption(cap);if(!ac||!cfg().sfx||!vis)return;const b=B[k];if(!b)return;try{if(paSrc){paSrc.onended=null;paSrc.stop();paSrc=null}}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn('pa',e)}duckMusic(.24,1.15);const s=ac.createBufferSource(),g=ac.createGain();s.buffer=b;s.playbackRate.value=1;g.gain.value=1.05;s.connect(g);g.connect(sfxB);paSrc=s;s.onended=()=>{if(paSrc===s)paSrc=null};if(k==='pa_sack'&&B._cGroan)_playBuf(B._cGroan,.45,0);s.start(T()+(delay||0))}
   function _fieldPan(){try{if(!OWON&&F&&F.carrier&&typeof cam!=='undefined')return clamp((F.carrier.x-cam.x)/14,-.72,.72)}catch(_){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",_)}return 0}
   function _playBuf(buf,vol,pan){if(!ac||!buf||activeVoices>=MAX_VOICES)return;activeVoices++;const s=ac.createBufferSource(),g=ac.createGain();s.buffer=buf;s.playbackRate.value=.94+Math.random()*.12;g.gain.value=Math.min(1.1,vol==null?.75:vol);if(pan&&ac.createStereoPanner){const p=ac.createStereoPanner();p.pan.value=clamp(pan,-.75,.75);s.connect(g);g.connect(p);p.connect(sfxB)}else{s.connect(g);g.connect(sfxB)}s.onended=()=>{activeVoices=Math.max(0,activeVoices-1)};s.start(T())}
   function play(name,rate,vol,when,pan){
@@ -75,7 +75,7 @@ const SND=(()=>{
     style(){tn(520,1040,.12,'triangle',.12);play('pluck',1.2,.5)},
     stiffHit(){if(B.x_stiff){play('x_stiff',1,.9);tn(120,45,.18,'sine',.35)}else FX.hit()},
     hit(){const pan=_fieldPan();play('p'+(1+((Math.random()*5)|0)),.88+Math.random()*.16,1.02,undefined,pan);if(B._fHit&&ac){_playBuf(B._fHit[(FX._hi=(FX._hi||0)+1)&3],.75,pan)}else{tn(115,36,.22,'sine',.48);nz(.035,'bandpass',2600,1400,1.4,.28,.002)}},
-    bigHit(){duckMusic(.28,.6);const t=T();play('p'+(1+((Math.random()*5)|0)),.64,1.12,undefined,_fieldPan());play('p'+(1+((Math.random()*5)|0)),.8,.8,t+.05);tn(70,28,.5,'sine',.7);nz(.55,'lowpass',2200,200,.7,.4,.01);B.x_app?play('x_app',1.15,.3,t+.1):cheer(.55,1.1)},
+    bigHit(){duckMusic(.28,.6);const t=T();play('p'+(1+((Math.random()*5)|0)),.64,1.12,undefined,_fieldPan());play('p'+(1+((Math.random()*5)|0)),.8,.8,t+.05);tn(70,28,.5,'sine',.7);nz(.55,'lowpass',2200,200,.7,.4,.01);B.x_app?play('x_app',1.15,.3,t+.1):cheer(.55,1.1);playPA('pa_bighit','BIG HIT!',.05,1)},
     whistle(){if(B.x_whistle)play('x_whistle',1,.55);else{tn(2800,2860,.38,'triangle',.07);tn(2840,2780,.38,'square',.02)}},
     td(){duckMusic(.25,.95);const t=T();[523,659,784,1047,1319].forEach((f,i)=>tn(f,f,.2,'square',.08,sfxB,t+i*.09));tn(220,220,1,'sawtooth',.07,sfxB,t+.2);B.x_cheer?play('x_cheer',1,.9,t+.15):cheer(1.1,2.8);play('ok2',.8,.6,t+.1);if(B._cRoar)_playBuf(B._cRoar,.52,0);playPA('pa_td','TOUCHDOWN!',.12)},
     first(){const t=T();tn(660,660,.1,'square',.07);tn(990,990,.2,'square',.07,sfxB,t+.1);B.x_app?play('x_app',1,.35,t+.1):cheer(.45,1);playPA('pa_first','FIRST DOWN!',.04)},
@@ -544,7 +544,7 @@ function renderSquad(){
     const step=dir=>{let n=sqNum(p);for(let i=0;i<100;i++){n=(n+dir+100)%100;if(!used.has(n))break}p.jn=n;persist();renderSquad()};
     const m=document.createElement('button');m.textContent='\u2212';m.onclick=()=>step(-1);const pl=document.createElement('button');pl.textContent='+';pl.onclick=()=>step(1);const nb=document.createElement('b');nb.textContent='#'+sqNum(p);
     nr.append(m,nb,pl);box.appendChild(nr);
-    const gearEdit=document.createElement('button');gearEdit.className='chip';gearEdit.style.cssText='width:100%;margin-top:10px;border-color:#F5B841;color:#F5B841';gearEdit.textContent='EDIT GEAR & TRAILS';gearEdit.onclick=()=>{sqTab='gear';renderSquad()};box.appendChild(gearEdit);
+    /* Legacy Visor & Arm Sleeves gear tab retired */
   }else if(sqTab==='career'){csRender(box,p)   // v3.15
   }else{
     const styleBack=document.createElement('button');styleBack.className='chip';styleBack.style.cssText='width:100%;margin:2px 0 8px;border-color:#4DE1F2;color:#4DE1F2';styleBack.textContent='BACK TO STYLE';styleBack.onclick=()=>{sqTab='look';renderSquad()};box.appendChild(styleBack);
@@ -608,7 +608,7 @@ const BUILD='TEST BUILD ROUTE 2 START (v3.41T VAPOR TOWNSFOLK TYPES)';window.CF_
    'Doing: '+$('#fbDo').value,'Went wrong: '+$('#fbBad').value,'Fun/great: '+$('#fbGood').value,'Fun rating: '+(rate||'-')+'/5'].join('\n');
   const ok=()=>{$('#fbMsg').textContent='Copied! Now paste it into a message to the developer.'},fail=()=>{const t=document.createElement('textarea');t.value=txt;t.style.cssText='position:fixed;left:0;top:0;opacity:0';document.body.appendChild(t);t.focus();t.select();let g=false;try{g=document.execCommand('copy')}catch(e){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn("core",e)}t.remove();if(g)ok();else{$('#fbMsg').style.color='#ffd23a';$('#fbMsg').textContent='Could not copy. Please screenshot this screen instead.'}};
   try{navigator.clipboard.writeText(txt).then(ok,fail)}catch(e){fail()}}}
-$('#mReset').onclick=e=>{const n=Date.now();if(n-resetArm<2500){svSet(SV_PREV,JSON.stringify(SAVE));SAVE=freshSave();persist();renderMenu();e.target.textContent='RESET PROGRESS'}else{resetArm=n;e.target.textContent='TAP AGAIN TO WIPE'}};
+$('#mReset').onclick=e=>{const n=Date.now();if(n-resetArm<2500){svSet(SV_PREV,JSON.stringify(SAVE));try{localStorage.removeItem(SV_KEY)}catch(err){if(window.__cfDebug&&window.CFRuntime)window.CFRuntime.warn('reset',err)}SAVE=freshSave();persist();renderMenu();e.target.textContent='RESET PROGRESS';if(typeof owShow==='function')owShow()}else{resetArm=n;e.target.textContent='TAP AGAIN TO WIPE'}};
 
 /* ============================ team + gear editors ============================ */
 let teamSlot='jc',gearSlot='sc',gearPlayer=null;

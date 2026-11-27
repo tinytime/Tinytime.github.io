@@ -86,7 +86,7 @@ for (const p of ['eli','zeroday','riptide','rita','bram','mo','rita_hyped','bram
 
 
 // 9. Verify 10 stadium PA announcer clips exist
-for (const k of ['pa_td','pa_first','pa_fire','pa_rz','pa_4th','pa_sack','pa_int','pa_fumble','pa_mp','pa_over']) {
+for (const k of ['pa_td','pa_first','pa_fire','pa_rz','pa_4th','pa_sack','pa_int','pa_fumble','pa_mp','pa_over','pa_juke','pa_spin','pa_truck','pa_hurdle','pa_catch','pa_break','pa_bighit','pa_house','pa_downs','pa_fg_good','pa_fg_no','pa_star']) {
   if (!fs.existsSync(path.join(root, `audio/pa/${k}.mp3`))) fail(`Missing PA audio clip: audio/pa/${k}.mp3`);
 }
 
